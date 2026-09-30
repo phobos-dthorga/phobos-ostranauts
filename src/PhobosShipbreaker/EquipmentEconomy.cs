@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Data;
+using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
 
+/// <summary>Applies the economy data pack (<c>framework/economy.json</c>, Shipbreaker 0.48.0): authored prices,
+/// work-progress targets, repair bills and mass-balanced salvage for every machine and section, the coolant conduit,
+/// merchant offers and world finds. The S4, S5, Y3 and Y4 follow their small entry through the Framework ladder.</summary>
 internal static class EquipmentEconomy
 {
     internal sealed class Spec
@@ -15,66 +20,84 @@ internal static class EquipmentEconomy
         internal string Prefix;
         internal int Price, Install, Uninstall, Repair, Dismantle, RestoreMinutes;
         internal int[] RepairBill, Salvage, BrokenSalvage;
-        /// <summary>Whether a loose unit can turn up in engineering salvage; the larger silos are too big to.</summary>
+        /// <summary>Whether a loose unit can turn up in engineering salvage; the larger silos and bins are too big to.</summary>
         internal bool Loot;
-        internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle,
-            int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, bool loot = true)
-        { Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair;
+        internal string? InternalBin;
+        internal EquipmentEconomyEntry Entry;
+        internal Spec(string prefix, EquipmentEconomyEntry entry, int price, int install, int uninstall, int repair, int dismantle,
+            int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, bool loot, string? internalBin)
+        { Prefix = prefix; Entry = entry; Price = price; Install = install; Uninstall = uninstall; Repair = repair;
           Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage;
-          RestoreMinutes = restoreMinutes; Loot = loot; }
+          RestoreMinutes = restoreMinutes; Loot = loot; InternalBin = internalBin; }
     }
-    // Native work-progress targets, not wall-clock seconds. Bills below are steel,
-    // aluminium, mechanical parts, electronic parts, retained trash.
+    // Native work-progress targets, not wall-clock seconds. Bills are steel, aluminium, mechanical parts,
+    // electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items.
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
-    internal static readonly Spec[] Machines = new[] {
-        new Spec(FurnaceRules.Prefix, price: 24000, install: 2400, uninstall: 1800, repair: 4800, dismantle: 1800, new[]{4,4,8,6}, new[]{140,50,24,12,32}, new[]{120,40,12,4,72}, restoreMinutes: 80),
-        new Spec(FurnaceRules.Radiator, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
-        new Spec(FurnaceRules.ThermalPort, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
-        new Spec(IndustrialRules.Prefix, price: 5200, install: 1000, uninstall: 800, repair: 2400, dismantle: 500, new[]{1,1,2,4}, new[]{16,8,8,4,10}, new[]{12,6,4,0,20}, restoreMinutes: 30),
-        new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}, restoreMinutes: 60),
-        new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}, restoreMinutes: 30),
-        new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}, restoreMinutes: 10),
-        new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}, restoreMinutes: 75),
-        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15),
-        new Spec(SiloRules.Prefix, price: 4800, install: 1200, uninstall: 900, repair: 2400, dismantle: 800, new[]{2,2,4,0}, new[]{170,40,20,4,18}, new[]{40,10,4,0,188}, restoreMinutes: 30),
-        new Spec(ThawRules.Prefix, price: 3200, install: 800, uninstall: 600, repair: 2000, dismantle: 500, new[]{2,2,4,2}, new[]{70,24,20,8,12}, new[]{30,8,4,0,80}, restoreMinutes: 25),
-        new Spec(BinRules.Prefix, price: (int)BinRules.Price, install: 800, uninstall: 600, repair: 1500, dismantle: 400, new[]{1,1,2,0}, new[]{40,8,8,0,8}, new[]{12,3,2,0,44}, restoreMinutes: 15)
-    }.Concat(SiloRules.Sizes.Skip(1).Select(SiloSpec)).Concat(BinRules.Sizes.Skip(1).Select(BinSpec)).ToArray();
-    /// <summary>The Y3 and Y4 on the Y2's pattern, as the silo ladder does: work and repair grow with the footprint,
-    /// and salvage keeps the Y2's lid fittings and fills the rest of the housing in the Y2's proportions.</summary>
-    internal static Spec BinSpec(BinSize size)
+    private static readonly double[] UnitKg = { 1, 1, .5, .5, 1 };
+    private static Spec[]? machines; private static EquipmentSale[]? sales; private static EconomyPack? builtFrom;
+    /// <summary>Every machine family and size in application order: the small entries, then the S4 and S5, then the Y3 and Y4.</summary>
+    internal static IReadOnlyList<Spec> Machines => machines != null && ReferenceEquals(builtFrom, ShipbreakerEconomy.Pack) ? machines : Build().Machines;
+    /// <summary>Every saleable machine size and section, for offers, regional stock and world finds.</summary>
+    internal static IReadOnlyList<EquipmentSale> Sales => sales != null && ReferenceEquals(builtFrom, ShipbreakerEconomy.Pack) ? sales : Build().Sales;
+    internal static double MachinerySalvageChance => ShipbreakerEconomy.Pack.worldLoot.First(l => l.items == null).chance;
+    internal static double AluminiumIngotSalvageChance => IngotSalvageChance(FurnaceRecipes.AluminiumIngot);
+    internal static double SteelIngotSalvageChance => IngotSalvageChance(FurnaceRecipes.SteelIngot);
+    private static double IngotSalvageChance(string ingot) => ShipbreakerEconomy.Pack.worldLoot.Where(l => l.items != null && l.items.ContainsKey(ingot)).Sum(l => l.items![ingot]);
+
+    private static (Spec[] Machines, EquipmentSale[] Sales) Build()
     {
-        int step = size.Footprint - BinRules.Footprint;
-        int[] Split(double fittingsKg, int[] fittings, double steelShare, double aluminiumShare)
+        var pack = builtFrom = ShipbreakerEconomy.Pack;
+        var list = new List<Spec>(); var saleList = new List<EquipmentSale>();
+        foreach (var machine in ShipbreakerEconomy.Machines)
         {
-            double rest = size.DryKg - fittingsKg;
-            int steel = (int)Math.Round(rest * steelShare), aluminium = (int)Math.Round(rest * aluminiumShare);
-            return new[] { steel, aluminium }.Concat(fittings).Concat(new[] { (int)Math.Round(rest - steel - aluminium) }).ToArray();
+            var entry = pack.equipment[machine.Prefix];
+            list.Add(FromEntry(machine.Prefix, entry)); saleList.Add(EquipmentSale.Of(machine.Prefix, entry));
         }
-        return new Spec(size.Prefix, price: (int)size.Price, install: 800 + 300 * step, uninstall: 600 + 200 * step, repair: 1500 + 500 * step, dismantle: 400 + 150 * step,
-            new[] { 1 + step, 1 + step, 2 + 2 * step, 0 }, Split(4, new[] { 8, 0 }, 40.0 / 56, 8.0 / 56), Split(1, new[] { 2, 0 }, 12.0 / 59, 3.0 / 59),
-            restoreMinutes: 15 + 5 * step, loot: false);
+        var silo = pack.equipment[SiloRules.Prefix];
+        foreach (var size in SiloRules.Sizes.Skip(1))
+        {
+            list.Add(LadderSpec(size.Prefix, size.Footprint - SiloRules.Footprint, size.DryKg, SiloRules.DryKg, size.Price, silo, 400, 300, 600, 200, 10));
+            saleList.Add(EquipmentSale.Size(size.Prefix, silo));
+        }
+        var bin = pack.equipment[BinRules.Prefix];
+        foreach (var size in BinRules.Sizes.Skip(1))
+        {
+            list.Add(LadderSpec(size.Prefix, size.Footprint - BinRules.Footprint, size.DryKg, BinRules.DryKg, size.Price, bin, 300, 200, 500, 150, 5));
+            saleList.Add(EquipmentSale.Size(size.Prefix, bin));
+        }
+        foreach (var section in ShipbreakerEconomy.Sections) saleList.Add(EquipmentSale.Of(section.Id, pack.equipment[section.Id]));
+        machines = list.ToArray(); sales = saleList.ToArray();
+        return (machines, sales);
     }
-    /// <summary>The S4 and S5 on the S3's pattern: work and repair grow with the footprint, and salvage keeps the S3's
-    /// fittings and fills the rest of the dry mass with steel, aluminium and retained trash in the S3's proportions.</summary>
-    internal static Spec SiloSpec(SiloSize size)
+    private static int[] Bill(Dictionary<string, int> bill, int columns) => Materials.Take(columns).Select(id => bill.TryGetValue(id, out int count) ? count : 0).ToArray();
+    private static Spec FromEntry(string prefix, EquipmentEconomyEntry e) => new(prefix, e, (int)e.price, e.work.install, e.work.uninstall, e.work.repair, e.work.dismantle,
+        Bill(e.repairBill, Triggers.Length), Bill(e.salvage, Materials.Length), Bill(e.brokenSalvage, Materials.Length), e.restoreMinutes, e.loot, e.internalBin);
+    /// <summary>A larger size on its small entry's pattern: work and repair grow with the footprint step, and salvage
+    /// keeps the small size's fittings and fills the rest of the housing with steel, aluminium and retained trash in
+    /// the small size's proportions. The step increments are the family's own.</summary>
+    internal static Spec LadderSpec(string prefix, int step, double dryKg, double smallDryKg, double price, EquipmentEconomyEntry small,
+        int installStep, int uninstallStep, int repairStep, int dismantleStep, int restoreStep)
     {
-        int step = size.Footprint - SiloRules.Footprint;
-        int[] Split(double fittingsKg, int[] fittings, double steelShare, double aluminiumShare)
+        int[] Split(int[] smallBill)
         {
-            double rest = size.DryKg - fittingsKg;
-            int steel = (int)Math.Round(rest * steelShare), aluminium = (int)Math.Round(rest * aluminiumShare);
-            return new[] { steel, aluminium }.Concat(fittings).Concat(new[] { (int)Math.Round(rest - steel - aluminium) }).ToArray();
+            var fittings = smallBill.Select((count, i) => i is 0 or 1 or 4 ? 0 : count).ToArray();
+            double fittingsKg = fittings.Select((count, i) => count * UnitKg[i]).Sum(), smallRest = smallDryKg - fittingsKg, rest = dryKg - fittingsKg;
+            int steel = (int)Math.Round(rest * smallBill[0] / smallRest), aluminium = (int)Math.Round(rest * smallBill[1] / smallRest);
+            fittings[0] = steel; fittings[1] = aluminium; fittings[4] = (int)Math.Round(rest - steel - aluminium);
+            return fittings;
         }
-        return new Spec(size.Prefix, price: (int)size.Price, install: 1200 + 400 * step, uninstall: 900 + 300 * step, repair: 2400 + 600 * step, dismantle: 800 + 200 * step,
-            new[] { 2 + step, 2 + step, 4 + 2 * step, 0 }, Split(12, new[] { 20, 4 }, 170.0 / 228, 40.0 / 228), Split(2, new[] { 4, 0 }, 40.0 / 238, 10.0 / 238),
-            restoreMinutes: 30 + 10 * step, loot: false);
+        var repair = Bill(small.repairBill, Triggers.Length);
+        repair = new[] { repair[0] + step, repair[1] + step, repair[2] + 2 * step, repair[3] };
+        return new Spec(prefix, small, (int)price, small.work.install + installStep * step, small.work.uninstall + uninstallStep * step, small.work.repair + repairStep * step,
+            small.work.dismantle + dismantleStep * step, repair, Split(Bill(small.salvage, Materials.Length)), Split(Bill(small.brokenSalvage, Materials.Length)),
+            small.restoreMinutes + restoreStep * step, loot: false, small.internalBin);
     }
 
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)
     {
+        var pack = ShipbreakerEconomy.Pack;
         foreach (var spec in Machines)
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
@@ -97,58 +120,33 @@ internal static class EquipmentEconomy
                 MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
             }
             else Restore(d, id, spec);
-            MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage),
-                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : spec.Prefix == FurnaceRules.Prefix ? FurnaceRules.Feed : spec.Prefix == ThawRules.Prefix ? ThawRules.InputBin : null);
+            MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage), emptyInternalBin: spec.InternalBin);
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";
             co.strDesc += Text.Get(BinRules.IsFamily(spec.Prefix) ? "EquipmentEconomy.empty_the_bin_before_dismantling" : "EquipmentEconomy.empty_the_machine_and_feed_before_dismantling");
             EquipmentSaveUpgrade.Register(d, id, id);
         }
-        var section = d.Objects[ProcessRules.AssemblySection];
-        MaintenanceDefinitions.SetStat(section, "StatBasePrice", 4800);
-        section.aStartingConds = section.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
-        MaintenanceDefinitions.Dismantle(d, section.strName, 400, Products(new[]{46,20,8,2,9}));
+        foreach (var section in ShipbreakerEconomy.Sections)
+        {
+            var entry = pack.equipment[section.Id]; var co = d.Objects[section.Id];
+            MaintenanceDefinitions.SetStat(co, "StatBasePrice", entry.price);
+            var marks = new List<string> { "IsCategoryIndustrialProducts=1x1" };
+            if (entry.salvageValueHigh) marks.Add("IsSalvageValueHigh=1x1");
+            co.aStartingConds = co.aStartingConds.Concat(marks).ToArray();
+            MaintenanceDefinitions.Dismantle(d, section.Id, entry.work.dismantle, Products(Bill(entry.salvage, Materials.Length)));
+            EquipmentSaveUpgrade.Register(d, section.Id, section.Id);
+        }
         MaintenanceDefinitions.SetStat(d.Objects[ProcessRules.Residue], "StatBasePrice", .01);
-        EquipmentSaveUpgrade.Register(d, section.strName, section.strName);
         EquipmentSaveUpgrade.Register(d, ProcessRules.Residue, ProcessRules.Residue);
         foreach (string reject in FeedFamilies.RejectKg.Keys)
         {
             MaintenanceDefinitions.SetStat(d.Objects[reject], "StatBasePrice", .01);
             EquipmentSaveUpgrade.Register(d, reject, reject);
         }
-        var reclaimSection = d.Objects[ReclaimerRules.Section];
-        reclaimSection.aStartingConds = reclaimSection.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
-        MaintenanceDefinitions.SetStat(reclaimSection, "StatBasePrice", 6000);
-        MaintenanceDefinitions.Dismantle(d, ReclaimerRules.Section, 500, Products(new[]{52,21,10,4,10}));
-        EquipmentSaveUpgrade.Register(d, ReclaimerRules.Section, ReclaimerRules.Section);
-        var furnaceSection = d.Objects[FurnaceRules.Section];
-        furnaceSection.aStartingConds = furnaceSection.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
-        MaintenanceDefinitions.Dismantle(d, FurnaceRules.Section, 600, Products(new[]{44,20,12,4,8}));
-        EquipmentSaveUpgrade.Register(d, FurnaceRules.Section, FurnaceRules.Section);
-        AddStock(d);
-        var machinery = Machines.Where(m => m.Loot).SelectMany(m => new[] { m.Prefix + "Loose", m.Prefix + "LooseDmg" }).ToArray();
-        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerMachinerySalvage",
-            machinery.ToDictionary(id => id, _ => MachinerySalvageChance / machinery.Length));
-        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerServiceSalvage",
-            new Dictionary<string, double> { [FurnaceCooling.Conduit + "Loose"] = .10, [FurnaceService.CoolantStock] = .10 });
-        // The game's own engineering loot already carries loose metal (ItmRandomPartsScrap);
-        // one ingot at most per roll, never a merchant lot.
-        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerIngotSalvage",
-            new Dictionary<string, double> { [FurnaceRecipes.AluminiumIngot] = AluminiumIngotSalvageChance, [FurnaceRecipes.SteelIngot] = SteelIngotSalvageChance });
-        // The native engineering spawn already supplies loose ship equipment.
-        // One cumulative choice adds at most one section, never dismantling yields.
-        const double SectionSalvageChance = .05;
-        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosEngineeringSectionSalvage",
-            new Dictionary<string, double> {
-                [ProcessRules.AssemblySection] = SectionSalvageChance,
-                [ReclaimerRules.Section] = SectionSalvageChance,
-                [FurnaceRules.Section] = SectionSalvageChance
-            });
+        EconomyStock.AddOffers(d, pack, Sales);
+        EconomyStock.AddWorldLoot(d, pack, Sales);
     }
-
-    internal const double MachinerySalvageChance = .4;
-    internal const double AluminiumIngotSalvageChance = .06, SteelIngotSalvageChance = .04;
 
     private static void Restore(NativeDefinitions d, string id, Spec spec)
     {
@@ -169,40 +167,10 @@ internal static class EquipmentEconomy
             aLoots = Array.Empty<string>() };
         job.strAllowLootCTsThem = effect;
     }
-
-    private static void AddStock(NativeDefinitions d)
+    /// <summary>The repair inputs of a supply entry, as native trigger requirements in bill-material order.</summary>
+    internal static string[] RepairInputs(SupplyEconomyEntry supply)
     {
-        // OKLG scrap supplies already sells broken high-end hardware; the fixer
-        // carries rare usable equipment. San Diego's Halvorson is an industrial trader.
-        foreach (var spec in Machines)
-        {
-            double small = spec.Prefix == IntakeRules.Chute || spec.Prefix == CollectorRules.Prefix ? 1.5 : 1;
-            Offer("ItmOKLGSupplyKioskInv", "Scrap", spec.Prefix + "LooseDmg", .20 * small, StockCondition.Broken);
-            Offer("ItmOKLGFixer", "Fixer", spec.Prefix + "Loose", .10 * small, StockCondition.Worn);
-            Offer("ItmTraderSanDiegoHalvorsonInv", "Industrial", spec.Prefix + "Loose", .40 * small, StockCondition.Pristine);
-            Offer("ItmVORBScrapKioskInv", "VenusScrap", spec.Prefix + "LooseDmg", .15 * small, StockCondition.Broken);
-        }
-        Offer("ItmOKLGSupplyKioskInv", "Section", ProcessRules.AssemblySection, .30, StockCondition.Refurbished);
-        Offer("ItmTraderSanDiegoHalvorsonInv", "Section", ProcessRules.AssemblySection, .50, StockCondition.Refurbished);
-        // Modest repaired stock at K-Leg offers a usable path without requiring a
-        // journey to a specific system. Separate chances can produce both offers.
-        Offer("ItmOKLGFixer", "Refurb", Content.Loose, .10, StockCondition.Refurbished);
-
-        Offer("ItmOKLGSupplyKioskInv", "ReclaimSection", ReclaimerRules.Section, .20, StockCondition.Refurbished);
-        Offer("ItmTraderSanDiegoHalvorsonInv", "ReclaimSection", ReclaimerRules.Section, .40, StockCondition.Refurbished);
-        Offer("ItmOKLGFixer", "ReclaimRefurb", ReclaimerRules.Prefix + "Loose", .10, StockCondition.Refurbished);
-        // Ingots are Manufacturing raw stock: ordinary supplies at every general market and the industrial trader.
-        foreach (string ingot in FurnaceRecipes.Ingots)
-        {
-            Offer("ItmOKLGSupplyKioskInv", "Ingot", ingot, .30, StockCondition.Pristine);
-            Offer("ItmOKLGFixer", "Ingot", ingot, .20, StockCondition.Pristine);
-            Offer("ItmTraderSanDiegoHalvorsonInv", "Ingot", ingot, .50, StockCondition.Pristine);
-            Offer("ItmVORBScrapKioskInv", "Ingot", ingot, .20, StockCondition.Pristine);
-        }
-        Offer("ItmOKLGSupplyKioskInv", "FurnaceSection", FurnaceRules.Section, .15, StockCondition.Refurbished);
-        Offer("ItmTraderSanDiegoHalvorsonInv", "FurnaceSection", FurnaceRules.Section, .30, StockCondition.Refurbished);
-
-        void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, StockQuantities.Chance(item, chance), condition, StockQuantities.For(item));
+        var bill = Bill(supply.repairBill, Triggers.Length);
+        return bill.Select((count, i) => Triggers[i] + "=1x" + count).Where((s, i) => bill[i] > 0).ToArray();
     }
 }

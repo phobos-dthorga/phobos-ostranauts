@@ -85,9 +85,15 @@ keeps the recipe revision it started with.
 | Phobos Manufacturing 0.13.0 | `vessels` | The six gas store families: capacity, empty weight, leak rate when damaged |
 | Phobos Shipbreaker 0.47.0 | `vessels` | The S3 water silo's capacity and weight; the Y2 bin's weight and cells per tile |
 | Phobos Agriculture 0.23.0 | `vessels` | The R3 reservoir's capacity and weight |
+| Phobos Shipbreaker 0.48.0 | `economy` | Every Rivetline machine and section: price, work, repair bill, salvage; the coolant conduit; offers, regions, lots, world finds |
+| Phobos Agriculture 0.24.0 | `economy` | Every Verdemorrow machine: price, repair and dismantle work, bills, salvage; the irrigation pipe; offers, regions, lots, loot |
+| Phobos Auto Nav 0.30.0 | `economy` | The three navigation boards: price, repair, dismantle, offers, regions, the lot of sixteen, derelict salvage |
 
 Larger sizes (S4, S5, R4, R5, Y3, Y4 and the medium and large gas stores) follow
 from the small entry: one tile wider per step, more capacity and less weight per
-kilogram, so you edit the small size and the rest follow. More packs (economy for
-the other mods, equipment shapes, loot) follow as the tables move over; this page
-lists them as they land.
+kilogram, so you edit the small size and the rest follow. Assembly sections and
+navigation boards are entries too: a section has a price, dismantle work and salvage;
+a board has a price, a broken price, repair and dismantle work. Every entry names
+the `lot` it ships in and the `floor` its offers never fall below, from the pack's
+own `lots` and `chanceFloors` tables. More packs (equipment shapes, loot) follow as
+the tables move over; this page lists them as they land.

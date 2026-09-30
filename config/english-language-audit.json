@@ -48367,6 +48367,97 @@
       ],
       "before": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files.",
       "after": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "EquipmentContent.salvage_entry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/EconomyData.cs:28"
+      ],
+      "before": "The economy file needs exactly one worldLoot rule with tables for the derelict salvage.",
+      "after": "The economy file needs exactly one worldLoot rule with tables for the derelict salvage."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.forms",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:206"
+      ],
+      "before": "{0}: forms must be machine, item or single, not {1}.",
+      "after": "{0}: forms must be machine, item or single, not {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.offer_scale",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:211"
+      ],
+      "before": "{0}: offerScale must be above 0 and at most {1}.",
+      "after": "{0}: offerScale must be above 0 and at most {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_lot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:326"
+      ],
+      "before": "{0}: lot {1} is not in the lots table.",
+      "after": "{0}: lot {1} is not in the lots table."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_floor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:327"
+      ],
+      "before": "{0}: floor {1} is not in the chanceFloors table.",
+      "after": "{0}: floor {1} is not in the chanceFloors table."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.loot_items",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:308"
+      ],
+      "before": "{0}: loot items need at least one entry and their chances add up to 1 at most.",
+      "after": "{0}: loot items need at least one entry and their chances add up to 1 at most."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomyStock.unknown_item",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyStock.cs:159"
+      ],
+      "before": "{0} names {1}, which is not an item this mod registers.",
+      "after": "{0} names {1}, which is not an item this mod registers."
     }
   ],
   "documents": [
@@ -48374,8 +48465,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cd54f8db472e6bd299c99df6f913e4d69f622424b9930b1f6042c17d987dad5b",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "c416d1d7899b947932254b74a1b8768db6154a937e11c92a3c8a8cd6f9b32dc6",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "SUPPORT.md",
@@ -48402,8 +48493,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a1b8348ab4490ab442a891a7de1504126fc23df7c5a9864949e6881ad08693a1",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
+      "sha256": "0fdec55bac4a84217431e3c52ecc50bc6ff0a1afd1a0154820831cc4603a7e9b",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -48485,8 +48576,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "140f78fcc819b7fffd2cdc528c9dfb328280fdda48996851cde9d10417c6d40a",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "057f7a472e1bf8d3906d46d504beddd4f4bfa312dd3bf98048fd3eab2a34c058",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -48534,8 +48625,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "04c342ce58467cb957c87fa06c8fb97c9e40ec2b4d4ac61977f07528b4ce9e13",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "5f8d059d6e7730e5d43085762e0c6a3f69b65932a31b5c171ca07815f0cb7a98",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/crew-automation.md",
@@ -48562,8 +48653,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e74e3d7ae42c22b414a9f3c03993dd93730c773db40ef360f08bb719d2605ae9",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
+      "sha256": "721a6c9920fa9a455984e9b05e49209d9f303034388b224a17638500de8f53d7",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -48583,8 +48674,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "8a06f1cc50d951b6463d391fdc063758f06b8998ebcd459264fc973ded817ad9",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "d3cd1b7a93124826d773914a833c51fbabe68d665d59d8c39ed3adbd08e33775",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -48835,8 +48926,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aa420de7e6b1e53c1f244baa17c525c81fcf0d922ec8aead42a929c9a3e6d280",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "2e12501faff1c0b979d4f23683f6c7b674c9a4ce3c9dd45cf90eb5997989a5ed",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -49269,8 +49360,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b4082cd0db991743f7226cf6eeb169f4f10d9ecdb6b7ccaaf4ca299566200364",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
+      "sha256": "9fa425e931daf0bf7b2af82d0570a79e77bc1b8f7fe227eaefa6ac7549304abb",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -49325,15 +49416,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "08bce03994f74c3bc6c6c3f46e364702a1cf81a8ec4601ed78d4fcb679f59693",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "7cf13617fd0b613cc2babc43364e88a9694eb01a22d829eea32bc495af9eeb83",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c167e5e1ac5b607e2c3f33ed4aba3055357380a454f804b70ee329485222f289",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "4fc50c74552167e835e6a74fd579bcccb0417f635c01b168b473198e2e871b46",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/item-references.md",
@@ -49346,8 +49437,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "bd53a7507fd8a2b4af59da7521b0dc19db655fba550a677fcef2473aa3317748",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
+      "sha256": "7144d5623f9365a17a79047f6be58c4cc46f193fb26372119d0bf9fe5c6feead",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -49374,8 +49465,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "014f1f8ecb210943c6364e107d10c53d570d436ffadbdb8da7a24ff04cfb5b84",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "de8031a661d9b011caae592b05445e80e39b4fc446852e4aa72a2d316b3fa3a7",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/residue-collector.md",
@@ -49423,8 +49514,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d05466162c16c34204d2b9ffa7a2a30ced073ab53ad3f47a38a73c6fd9d3f012",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
+      "sha256": "6c650e2e2ec333b864e7c73e52e4ef1866d8aeeede865eb66db30c647c4883bb",
+      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -49451,36 +49542,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1c38ceb6cffce57ed69f7fb5b0b8ce4335e6d655cf1d11e98ded081c85267ad0",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "dcda35ae74bd141842a6a25c44157392bc8df8dadc45f141d804ab5667683c4a",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2bf96e829f437cd93b07597a4d12797de1a68b376a5824c7c2b439867101a56a",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0975978e892e0abbb942db7808bab24d08d3be9101fbe118cd789d1764558529",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a075851932ad69a60a1f0ee722dd87c9dbd1afade0031f10cad2f7afa737983c",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "ee5c387f235c1dc7454392a0e9d1719663caccc7936db5331c6cadb2b10c0c5f",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5b128eb2f23b531156fde40c6e2675b8c5bbaefe00ffd7f439ab4da0034f1acc",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "38117fca0f489b8b5fa8bdf419b5b7e21134bdefef4c8a0b054dad83d7a420b6",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6d060c4295c1b268874de1fd50e5b7797f02a8b6497534be49677c36345a9706",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "a25a0da681af635f31cac8eace33279fec9b7f08290eabbfd850fdfd2752571a",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -49535,15 +49626,15 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "9a59244e8f4486239ad23969e96d06402d6513fd46ffbc34fe0da05a56fa82eb",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "33ffbfd270dfa14467ba1e9880662ec7830b7c21ab74f904101a568eb3641af7",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "00de1f37dafcb5f81b3ad51a0f4e46779b55c0828647f1781cc09e000d2a43c2",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "7744747b30cfed2444942f19a3a3cdb90b4aa85fdcd6979bb8f7f2ae1c4fe1e6",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     }
   ],
   "surfaces": [
@@ -49567,8 +49658,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3109c1cf05dd58554a69821d9d646afe79786b7135d3e2c9c6d2ff7440dbbcb6",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "298fdd5905a08ae899dfe221d925ec2615fd80a1f2c573dc2b6069a77c521000",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -49588,8 +49679,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "59f27ca2ed449addede320ac9dfb08d09e0c6506da73e6503b78290de2ce75fd",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a216b8d5dba17aba71e1a064dce6f316354404502f23d1752de28df808f6a568",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -49599,14 +49690,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "978a76fd7ee804787b61b5fb3e2f7d16d229838d5dc8581d14bd90c84836dd1f",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "3885fee001b349cf5d1ff45b18f6af9fa16ef2809964312d27e6eb2d69672ed5",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d363cfb9d9417c801e871b0b4405c44f43a989876ec56bd581673c42e38d3d33",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "5dc6d743543babeecdab37d326ce4fe1cb667142ade813d9a9aca6180248bcc8",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -49623,8 +49714,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0614fbd737afcca93923fb97576e367e3e77441198444d1bd14af45207a156e8",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "fa16f6eaf681cf65612c763f158222b80ac2a059b00cff5301558f57f5336b11",
+      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

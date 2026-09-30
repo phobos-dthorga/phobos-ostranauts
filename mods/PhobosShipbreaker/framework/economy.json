@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "schema": "economy",
+  "notes": "Phobos Shipbreaker economy (Shipbreaker 0.48.0): Rivetline machinery prices, work-progress targets, repair bills, mass-balanced salvage (steel, aluminium, mechanical and electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items), assembly sections, the coolant conduit, merchant offers, regional factors, lots and world finds. Balance record: docs/equipment-economy.md. Salvage must weigh what the machine weighs; larger silo and bin sizes follow their small entry through the Framework ladder.",
+  "equipment": {
+    "PhobosFurnace": {
+      "notes": "Rivetline F6 Electric Furnace, 6 x 6, 240 kg.",
+      "price": 24000,
+      "work": {
+        "install": 2400,
+        "uninstall": 1800,
+        "repair": 4800,
+        "dismantle": 1800
+      },
+      "repairBill": {
+        "ItmScrapSteel": 4,
+        "ItmScrapAluminum": 4,
+        "ItmPartsMechSmall01": 8,
+        "ItmPartsElecSmall01": 6
+      },
+      "salvage": {
+        "ItmScrapSteel": 140,
+        "ItmScrapAluminum": 50,
+        "ItmPartsMechSmall01": 24,
+        "ItmPartsElecSmall01": 12,
+        "ItmScrapTrash": 32
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 120,
+        "ItmScrapAluminum": 40,
+        "ItmPartsMechSmall01": 12,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 72
+      },
+      "restoreMinutes": 80,
+      "salvageValueHigh": false,
+      "internalBin": "PhobosFurnaceInputBin"
+    },
+    "PhobosFurnaceRadiator": {
+      "notes": "F6-R exterior radiator, 100 kg.",
+      "price": 7200,
+      "work": {
+        "install": 1200,
+        "uninstall": 900,
+        "repair": 3000,
+        "dismantle": 800
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 4,
+        "ItmPartsMechSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 28,
+        "ItmScrapAluminum": 50,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 18
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 20,
+        "ItmScrapAluminum": 38,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 40
+      },
+      "restoreMinutes": 20,
+      "salvageValueHigh": false
+    },
+    "PhobosFurnaceThermalPort": {
+      "notes": "F6-P underside cooling head, 100 kg.",
+      "price": 7200,
+      "work": {
+        "install": 1200,
+        "uninstall": 900,
+        "repair": 3000,
+        "dismantle": 800
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 4,
+        "ItmPartsMechSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 28,
+        "ItmScrapAluminum": 50,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 18
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 20,
+        "ItmScrapAluminum": 38,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 40
+      },
+      "restoreMinutes": 20,
+      "salvageValueHigh": false
+    },
+    "PhobosIndustrialConsole": {
+      "notes": "Asterel C1 Industrial Control Console, 3 x 3, 40 kg.",
+      "price": 5200,
+      "work": {
+        "install": 1000,
+        "uninstall": 800,
+        "repair": 2400,
+        "dismantle": 500
+      },
+      "repairBill": {
+        "ItmScrapSteel": 1,
+        "ItmScrapAluminum": 1,
+        "ItmPartsMechSmall01": 2,
+        "ItmPartsElecSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 16,
+        "ItmScrapAluminum": 8,
+        "ItmPartsMechSmall01": 8,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 10
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 12,
+        "ItmScrapAluminum": 6,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 20
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    },
+    "PhobosShipbreaker": {
+      "notes": "Rivetline D4 Dismantling Fixture, 4 x 4, 160 kg.",
+      "price": 12000,
+      "work": {
+        "install": 1500,
+        "uninstall": 1000,
+        "repair": 3600,
+        "dismantle": 1000
+      },
+      "repairBill": {
+        "ItmScrapSteel": 4,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 4,
+        "ItmPartsElecSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 92,
+        "ItmScrapAluminum": 40,
+        "ItmPartsMechSmall01": 16,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 18
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 80,
+        "ItmScrapAluminum": 32,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 44
+      },
+      "restoreMinutes": 60,
+      "salvageValueHigh": false,
+      "internalBin": "PhobosShipbreakerInputBin"
+    },
+    "PhobosExteriorGrabber": {
+      "notes": "Rivetline G4 Exterior Grabber, 4 x 3, 80 kg.",
+      "price": 6400,
+      "work": {
+        "install": 1000,
+        "uninstall": 800,
+        "repair": 2400,
+        "dismantle": 650
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 1,
+        "ItmPartsMechSmall01": 4,
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 42,
+        "ItmScrapAluminum": 16,
+        "ItmPartsMechSmall01": 12,
+        "ItmPartsElecSmall01": 2,
+        "ItmScrapTrash": 15
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 34,
+        "ItmScrapAluminum": 12,
+        "ItmPartsMechSmall01": 6,
+        "ItmScrapTrash": 31
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    },
+    "PhobosHullChute": {
+      "notes": "Rivetline H4 Sealed Hull Chute, 4 x 1, 40 kg; a small part, offered half again as often.",
+      "price": 1800,
+      "work": {
+        "install": 500,
+        "uninstall": 500,
+        "repair": 1500,
+        "dismantle": 300
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 1,
+        "ItmPartsMechSmall01": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 20,
+        "ItmScrapAluminum": 8,
+        "ItmPartsMechSmall01": 8,
+        "ItmPartsElecSmall01": 2,
+        "ItmScrapTrash": 7
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 16,
+        "ItmScrapAluminum": 6,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 16
+      },
+      "restoreMinutes": 10,
+      "salvageValueHigh": false,
+      "offerScale": 1.5
+    },
+    "PhobosScrapReclaimer": {
+      "notes": "Rivetline R4 Scrap Reclaimer, 4 x 4, 180 kg.",
+      "price": 14800,
+      "work": {
+        "install": 1800,
+        "uninstall": 1200,
+        "repair": 4200,
+        "dismantle": 1200
+      },
+      "repairBill": {
+        "ItmScrapSteel": 4,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 6,
+        "ItmPartsElecSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 104,
+        "ItmScrapAluminum": 42,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 8,
+        "ItmScrapTrash": 20
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 92,
+        "ItmScrapAluminum": 34,
+        "ItmPartsMechSmall01": 10,
+        "ItmPartsElecSmall01": 2,
+        "ItmScrapTrash": 48
+      },
+      "restoreMinutes": 75,
+      "salvageValueHigh": false,
+      "internalBin": "PhobosScrapReclaimerInputBin"
+    },
+    "PhobosResidueCollector": {
+      "notes": "Rivetline C2 Residue Collector, 2 x 1, 20 kg; a small part, offered half again as often.",
+      "price": 2400,
+      "work": {
+        "install": 600,
+        "uninstall": 500,
+        "repair": 1800,
+        "dismantle": 350
+      },
+      "repairBill": {
+        "ItmScrapAluminum": 1,
+        "ItmPartsMechSmall01": 2,
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 10,
+        "ItmScrapAluminum": 3,
+        "ItmPartsMechSmall01": 4,
+        "ItmPartsElecSmall01": 2,
+        "ItmScrapTrash": 4
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 8,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 2,
+        "ItmScrapTrash": 9
+      },
+      "restoreMinutes": 15,
+      "salvageValueHigh": false,
+      "offerScale": 1.5
+    },
+    "PhobosProcessSilo": {
+      "notes": "Rivetline S3 Process Water Silo, 3 x 3, 240 kg dry; the S4 and S5 follow through the ladder.",
+      "price": 4800,
+      "work": {
+        "install": 1200,
+        "uninstall": 900,
+        "repair": 2400,
+        "dismantle": 800
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 170,
+        "ItmScrapAluminum": 40,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 18
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 40,
+        "ItmScrapAluminum": 10,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 188
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    },
+    "PhobosIceThaw": {
+      "notes": "Rivetline T2 Ice Thaw Unit, 2 x 2, 120 kg.",
+      "price": 3200,
+      "work": {
+        "install": 800,
+        "uninstall": 600,
+        "repair": 2000,
+        "dismantle": 500
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 4,
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 70,
+        "ItmScrapAluminum": 24,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 8,
+        "ItmScrapTrash": 12
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 30,
+        "ItmScrapAluminum": 8,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 80
+      },
+      "restoreMinutes": 25,
+      "salvageValueHigh": false,
+      "internalBin": "PhobosIceThawInputBin"
+    },
+    "PhobosMaterialBin": {
+      "notes": "Rivetline Y2 Material Bin, 2 x 2, 60 kg; the Y3 and Y4 follow through the ladder.",
+      "price": 2400,
+      "work": {
+        "install": 800,
+        "uninstall": 600,
+        "repair": 1500,
+        "dismantle": 400
+      },
+      "repairBill": {
+        "ItmScrapSteel": 1,
+        "ItmScrapAluminum": 1,
+        "ItmPartsMechSmall01": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 40,
+        "ItmScrapAluminum": 8,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 8
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 12,
+        "ItmScrapAluminum": 3,
+        "ItmPartsMechSmall01": 2,
+        "ItmScrapTrash": 44
+      },
+      "restoreMinutes": 15,
+      "salvageValueHigh": false
+    },
+    "PhobosShipbreakerSection": {
+      "notes": "D4 assembly section, 80 kg; two build the fixture at a construction site.",
+      "kind": "section",
+      "forms": "single",
+      "price": 4800,
+      "work": {
+        "dismantle": 400
+      },
+      "salvage": {
+        "ItmScrapSteel": 46,
+        "ItmScrapAluminum": 20,
+        "ItmPartsMechSmall01": 8,
+        "ItmPartsElecSmall01": 2,
+        "ItmScrapTrash": 9
+      },
+      "loot": false,
+      "offers": false,
+      "regionalChance": 0.3
+    },
+    "PhobosScrapReclaimerSection": {
+      "notes": "R4 assembly section, 90 kg; two build the reclaimer.",
+      "kind": "section",
+      "forms": "single",
+      "price": 6000,
+      "work": {
+        "dismantle": 500
+      },
+      "salvage": {
+        "ItmScrapSteel": 52,
+        "ItmScrapAluminum": 21,
+        "ItmPartsMechSmall01": 10,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 10
+      },
+      "loot": false,
+      "offers": false,
+      "regionalChance": 0.3
+    },
+    "PhobosFurnaceSection": {
+      "notes": "F6 assembly section, 80 kg; three build the furnace.",
+      "kind": "section",
+      "forms": "single",
+      "price": 6500,
+      "work": {
+        "dismantle": 600
+      },
+      "salvage": {
+        "ItmScrapSteel": 44,
+        "ItmScrapAluminum": 20,
+        "ItmPartsMechSmall01": 12,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 8
+      },
+      "loot": false,
+      "offers": false,
+      "regionalChance": 0.3
+    }
+  },
+  "supplies": {
+    "PhobosFurnaceCoolantConduit": {
+      "notes": "F6-C coolant conduit: ordinary pipe supply in lots of 128 at the supplies floor; also offered in every region and by the expanded merchants.",
+      "price": 3,
+      "repairWork": 50,
+      "dismantleWork": 20,
+      "repairBill": {
+        "ItmScrapAluminum": 1
+      },
+      "remainder": "PhobosFurnaceCoolantConduitWaste",
+      "merchants": [
+        "ItmOKLGSupplyKioskInv",
+        "ItmOKLGFixer",
+        "ItmTraderSanDiegoHalvorsonInv"
+      ],
+      "chance": 1,
+      "expanded": true,
+      "regionalChance": 0.65
+    }
+  },
+  "offerTemplates": [
+    {
+      "notes": "K-Leg supply kiosk sells broken machines.",
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "tag": "Scrap",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.2
+    },
+    {
+      "notes": "K-Leg fixer sells worn machines.",
+      "merchant": "ItmOKLGFixer",
+      "tag": "Fixer",
+      "form": "Loose",
+      "condition": "Worn",
+      "chance": 0.1
+    },
+    {
+      "notes": "San Diego Halvorson sells new machines.",
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "tag": "Industrial",
+      "form": "Loose",
+      "condition": "Pristine",
+      "chance": 0.4
+    },
+    {
+      "notes": "Venus scrap kiosk sells broken machines.",
+      "merchant": "ItmVORBScrapKioskInv",
+      "tag": "VenusScrap",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.15
+    }
+  ],
+  "offers": {
+    "PhobosStock_Section_ItmOKLGSupplyKioskInv_PhobosShipbreakerSection": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosShipbreakerSection",
+      "condition": "Refurbished",
+      "chance": 0.3
+    },
+    "PhobosStock_Section_ItmTraderSanDiegoHalvorsonInv_PhobosShipbreakerSection": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosShipbreakerSection",
+      "condition": "Refurbished",
+      "chance": 0.5
+    },
+    "PhobosStock_Refurb_ItmOKLGFixer_PhobosShipbreakerLoose": {
+      "notes": "Modest repaired D4 stock at K-Leg: a usable path without a journey to a specific system.",
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosShipbreakerLoose",
+      "condition": "Refurbished",
+      "chance": 0.1
+    },
+    "PhobosStock_ReclaimSection_ItmOKLGSupplyKioskInv_PhobosScrapReclaimerSection": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosScrapReclaimerSection",
+      "condition": "Refurbished",
+      "chance": 0.2
+    },
+    "PhobosStock_ReclaimSection_ItmTraderSanDiegoHalvorsonInv_PhobosScrapReclaimerSection": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosScrapReclaimerSection",
+      "condition": "Refurbished",
+      "chance": 0.4
+    },
+    "PhobosStock_ReclaimRefurb_ItmOKLGFixer_PhobosScrapReclaimerLoose": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosScrapReclaimerLoose",
+      "condition": "Refurbished",
+      "chance": 0.1
+    },
+    "PhobosStock_FurnaceSection_ItmOKLGSupplyKioskInv_PhobosFurnaceSection": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosFurnaceSection",
+      "condition": "Refurbished",
+      "chance": 0.15
+    },
+    "PhobosStock_FurnaceSection_ItmTraderSanDiegoHalvorsonInv_PhobosFurnaceSection": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosFurnaceSection",
+      "condition": "Refurbished",
+      "chance": 0.3
+    },
+    "PhobosCoolantStock_ItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosRivetlineCoolantCharge",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosCoolantStock_ItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosRivetlineCoolantCharge",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosCoolantStock_ItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosRivetlineCoolantCharge",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosStock_Ingot_ItmOKLGSupplyKioskInv_PhobosAluminiumIngot": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosAluminiumIngot",
+      "condition": "Pristine",
+      "chance": 0.3
+    },
+    "PhobosStock_Ingot_ItmOKLGFixer_PhobosAluminiumIngot": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosAluminiumIngot",
+      "condition": "Pristine",
+      "chance": 0.2
+    },
+    "PhobosStock_Ingot_ItmTraderSanDiegoHalvorsonInv_PhobosAluminiumIngot": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosAluminiumIngot",
+      "condition": "Pristine",
+      "chance": 0.5
+    },
+    "PhobosStock_Ingot_ItmVORBScrapKioskInv_PhobosAluminiumIngot": {
+      "merchant": "ItmVORBScrapKioskInv",
+      "item": "PhobosAluminiumIngot",
+      "condition": "Pristine",
+      "chance": 0.2
+    },
+    "PhobosStock_Ingot_ItmOKLGSupplyKioskInv_PhobosSteelIngot": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosSteelIngot",
+      "condition": "Pristine",
+      "chance": 0.3
+    },
+    "PhobosStock_Ingot_ItmOKLGFixer_PhobosSteelIngot": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosSteelIngot",
+      "condition": "Pristine",
+      "chance": 0.2
+    },
+    "PhobosStock_Ingot_ItmTraderSanDiegoHalvorsonInv_PhobosSteelIngot": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosSteelIngot",
+      "condition": "Pristine",
+      "chance": 0.5
+    },
+    "PhobosStock_Ingot_ItmVORBScrapKioskInv_PhobosSteelIngot": {
+      "merchant": "ItmVORBScrapKioskInv",
+      "item": "PhobosSteelIngot",
+      "condition": "Pristine",
+      "chance": 0.2
+    }
+  },
+  "regions": {
+    "BCER": 1,
+    "BCRS": 1.25,
+    "EJDR": 0.75,
+    "HQCH": 0.75,
+    "JATL": 0.75,
+    "JFTS": 1,
+    "MHNG": 0.5,
+    "MSUZ": 1,
+    "MTRS": 1.5,
+    "MVOL": 1.5,
+    "OFLT": 0.5,
+    "SVIR": 1.25,
+    "VCBR": 1,
+    "VENC": 0.75,
+    "VNCA": 1.25
+  },
+  "regional": {
+    "notes": "Every region offers the machines at the base chance times its factor (small parts half again as often), sections at 0.3, the conduit at 0.65, coolant charges and ingots as listed; OFLT sells refurbished machinery. The four expanded merchants carry everything at the floor chance.",
+    "baseChance": 0.2,
+    "refurbished": [
+      "OFLT"
+    ],
+    "expandedMerchants": [
+      "ItmOKLGSupplyKioskInv",
+      "ItmOKLGFixer",
+      "ItmTraderSanDiegoHalvorsonInv",
+      "ItmVORBScrapKioskInv"
+    ],
+    "items": {
+      "PhobosRivetlineCoolantCharge": {
+        "notes": "Packaged working fluid: an industrial consumable in lots of 64, never potable water.",
+        "chance": 0.65,
+        "lot": "coolant"
+      },
+      "PhobosAluminiumIngot": {
+        "notes": "Manufacturing raw stock: ordinary supplies at every general market, lots of 32.",
+        "chance": 0.5,
+        "lot": "ingots"
+      },
+      "PhobosSteelIngot": {
+        "chance": 0.5,
+        "lot": "ingots"
+      }
+    }
+  },
+  "lots": {
+    "equipment": 8,
+    "section": 24,
+    "supplies": 128,
+    "coolant": 64,
+    "ingots": 32
+  },
+  "chanceFloors": {
+    "equipment": 0.85,
+    "supplies": 0.95
+  },
+  "worldLoot": [
+    {
+      "notes": "One engineering roll in 2.5 yields a loose Rivetline machine, half of them broken, spread evenly over the small sizes.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosShipbreakerMachinerySalvage",
+      "chance": 0.4,
+      "brokenShare": 0.5
+    },
+    {
+      "notes": "Service items: a loose conduit or a coolant charge.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosShipbreakerServiceSalvage",
+      "items": {
+        "PhobosFurnaceCoolantConduitLoose": 0.1,
+        "PhobosRivetlineCoolantCharge": 0.1
+      }
+    },
+    {
+      "notes": "One ingot at most per roll, never a merchant lot; the game's engineering loot already carries loose metal.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosShipbreakerIngotSalvage",
+      "items": {
+        "PhobosAluminiumIngot": 0.06,
+        "PhobosSteelIngot": 0.04
+      }
+    },
+    {
+      "notes": "At most one assembly section per roll, never dismantling yields.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosEngineeringSectionSalvage",
+      "items": {
+        "PhobosShipbreakerSection": 0.05,
+        "PhobosScrapReclaimerSection": 0.05,
+        "PhobosFurnaceSection": 0.05
+      }
+    }
+  ]
+}

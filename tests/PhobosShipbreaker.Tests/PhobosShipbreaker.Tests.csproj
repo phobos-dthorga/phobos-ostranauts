@@ -17,5 +17,6 @@
     <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/frozen-process-recipes.json" LogicalName="PhobosShipbreaker.frozen-process-recipes.json" />
     <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/materials.json" LogicalName="PhobosShipbreaker.materials.json" />
     <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/vessels.json" LogicalName="PhobosShipbreaker.vessels.json" />
+    <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/economy.json" LogicalName="PhobosShipbreaker.economy.json" />
   </ItemGroup>
 </Project>

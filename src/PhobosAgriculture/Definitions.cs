@@ -12,6 +12,7 @@ namespace PhobosAgriculture;
 internal static class Definitions
 {
     internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
+    internal const double RackKg = 80, CookerKg = 12;
     internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal const double IrrigationKg = 5, IrrigationPrice = 50;
@@ -33,7 +34,7 @@ internal static class Definitions
     /// <summary>Everything merchants sell: the machine families plus the R4 and R5 reservoirs, which are too big for salvage loot.</summary>
     internal static readonly string[] SaleFamilies = MachineFamilies.Concat(BulkDefinitions.Sizes.Skip(1).Select(s => s.Prefix)).ToArray();
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
-    internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? 12 : 80;
+    internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? CookerKg : RackKg;
     internal static void Load()
     {
         Ready = false;
@@ -45,6 +46,7 @@ internal static class Definitions
     {
         var d = new NativeDefinitions();
         AgricultureVessels.Load();
+        AgricultureEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("controls"); controls.strDesc = controls.strTooltip = Text.Get("controls"); controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[Controls] = controls;
@@ -65,8 +67,8 @@ internal static class Definitions
             work.fDuration = action == "recover-crop" || action == "formulate-nutrients" ? 1d / 60 : action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
             d.Interactions[work.strName] = work;
         }
-        ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, 80, EquipmentEconomy.RackPrice, "phobos/agriculture/Rack", Controls, .02);
-        ApplianceDefinitions.Add(d, Cooker, Text.Get("cooker"), Text.Get("cooker_desc"), 2, 12, EquipmentEconomy.CookerPrice, "phobos/agriculture/Cooker", Controls, .02);
+        ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, RackKg, AgricultureEconomy.Price(Rack), "phobos/agriculture/Rack", Controls, .02);
+        ApplianceDefinitions.Add(d, Cooker, Text.Get("cooker"), Text.Get("cooker_desc"), 2, CookerKg, AgricultureEconomy.Price(Cooker), "phobos/agriculture/Cooker", Controls, .02);
         // The ordinary solid-inventory trigger rejects native liquid rations. The
         // rack's contained supply cassette explicitly accepts water as well.
         d.Triggers[Rack + "Supplies"] = new CondTrigger { strName = Rack + "Supplies", fChance = 1, fCount = 1, bAND = false,
@@ -106,16 +108,6 @@ internal static class Definitions
         foreach (string id in new[] { Residue, Drainage })
             d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryTrash=1x1" }).ToArray();
         EquipmentEconomy.Apply(d);
-        foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
-        foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
-            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, StockQuantities.Chance(item, item == Nutrient || item == Irrigation ? 1 : .65), StockCondition.Pristine, StockQuantities.For(item));
-        // Every machine has the same second-hand routes: used at the K-Leg fixer, refurbished and broken at Venus scrap.
-        foreach (string prefix in SaleFamilies)
-        {
-            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .3), StockCondition.Worn, StockQuantities.For(prefix + "Loose"));
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .2), StockCondition.Refurbished, StockQuantities.For(prefix + "Loose"));
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", StockQuantities.Chance(prefix + "LooseDmg", .25), StockCondition.Broken, StockQuantities.For(prefix + "LooseDmg"));
-        }
         LootContent.Add(d, lootEnabled, lootMultiplier);
         RegionalEconomy.Apply(d);
         foreach (var art in new[] { (Rack, "Rack"), (Cooker, "Cooker"), (IrrigationDefinitions.Supply, "WaterSupply"), (WorkupDefinitions.Bench, "Workup") })
@@ -127,6 +119,18 @@ internal static class Definitions
         MaintenanceInformation.Register(d, "PhobosAgricultureMaintenanceInformation", co =>
             ContentsEligibilityPatch.RemovalReason(co) ?? Text.Get("Maintenance.ready"));
         return d;
+    }
+    /// <summary>A native definition's starting mass, as the game writes it (StatMass=1xN), for the economy pack's salvage check.</summary>
+    internal static double? NativeMass(string id)
+    {
+        if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(id, out var co)) return null;
+        foreach (string cond in co.aStartingConds ?? Array.Empty<string>())
+        {
+            if (!cond.StartsWith("StatMass=", StringComparison.Ordinal)) continue;
+            string amount = cond.Substring(cond.IndexOf('x') + 1);
+            return double.TryParse(amount, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double kg) ? kg : null;
+        }
+        return null;
     }
     internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)
     {

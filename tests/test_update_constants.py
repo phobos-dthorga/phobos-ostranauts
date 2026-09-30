@@ -37,9 +37,13 @@ class UpdateTests(unittest.TestCase):
             for target in entry["targets"]:
                 path = self.root / target["path"]
                 data = path.read_bytes().decode("utf-8-sig")
-                for match in reversed(list(updater.re.finditer(target["pattern"], data, updater.re.MULTILINE))):
-                    start, end = match.span("value")
+                if "pointer" in target:
+                    start, end = updater.json_value_span(data, target["pointer"])
                     data = data[:start] + value + data[end:]
+                else:
+                    for match in reversed(list(updater.re.finditer(target["pattern"], data, updater.re.MULTILINE))):
+                        start, end = match.span("value")
+                        data = data[:start] + value + data[end:]
                 path.write_bytes(data.encode("utf-8"))
             entry["value"] = value
         (self.root / updater.CATALOG).write_text(json.dumps(catalog), encoding="utf-8")

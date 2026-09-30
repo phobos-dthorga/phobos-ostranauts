@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.47.0
+[b]Version:[/b] 0.48.0
 [b]Publication status:[/b] Not published - development candidate
 
 Make the wreck pay for the next repair. Rivetline machinery brings wall processing, scrap recovery, metal casting and process water aboard, so a salvage run leaves you with stock, not just a hold full of panels.
@@ -10,7 +10,7 @@ Make the wreck pay for the next repair. Rivetline machinery brings wall processi
 [*][b]R4 Scrap Reclaimer:[/b] recovers steel and aluminium from identified panel residue. Rejects stay aboard and never yield more.
 [*][b]F6 Electric Furnace:[/b] casts aluminium housings, aluminium ingots or steel ingots with electricity and one cooling assembly: direct cooling, or F6-C pipes to an exterior radiator. Hot metal stays sealed until safe release. Repeat batches can draw charges from a paired R4.
 [*][b]C2 Residue Collector[/b] and storage unloading move residue and products over structural floor. A full store leaves cargo in the tray.
-[*]Recipes, materials and silo and bin ratings are files in the framework folder; override them in BepInEx/config/PhobosShipbreaker.
+[*]Prices, work, bills, offers, recipes, materials and vessel ratings are files in the framework folder; override them in BepInEx/config/PhobosShipbreaker.
 [*][b]S3, S4 and S5 Process Water Silos[/b] (1,000, 1,960 and 3,330 kg) and [b]T2 Ice Thaw Unit[/b]: thaw water ice into the silo, fill it at a station, or draw from Valtora's Ship's Water above a crew reserve. The game's ice asteroids now appear in new games, and methane ice yields water plus methane for a Manufacturing store.
 [*][b]Y2, Y3 and Y4 Material Bins[/b] (INSTALL > FURN): sealed stores for ore, regolith, gangue, ice and mined chunks that crew orders fetch from and fill.
 [*][b]G4 reclamation:[/b] with Auto Nav, capture an owned, empty, depressurized target and cut its ordinary walls. Recover valuables and crew first.
@@ -28,7 +28,7 @@ Full names begin Phobos' Rivetline, for example Phobos' Rivetline F6 Electric Fu
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.51.0 or newer and Phobos Auto Nav 0.19.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.52.0 or newer and Phobos Auto Nav 0.19.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [*]Optional: Phobos Agriculture, Phobos Manufacturing, Valtora's Ship's Water 0.16.1, Crafting Framework and Salvage Workshop.
 [/list]
@@ -44,7 +44,7 @@ Full names begin Phobos' Rivetline, for example Phobos' Rivetline F6 Electric Fu
 
 [h2]Saves and limits[/h2]
 Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
-Processing needs power, output space and cooling; vacuum is not free cooling. Furnace heating and exterior work pause on interruption and wait for Resume. Repeat runs and storage unloading pause on reload; crew loading orders carry on. Capture alone does not permit cutting. Older unclassified residue has no R4 recipe. Since 0.41.0 furnace records settle every two real seconds and before every save, and coolant conduit changes are noticed within two seconds. Automated checks pass; in-game evaluation of recent features is ongoing.
+Processing needs power, output space and cooling; vacuum is not free cooling. Furnace heating and exterior work pause on interruption and wait for Resume. Repeat runs and storage unloading pause on reload; crew loading orders carry on. Capture alone does not permit cutting. Older unclassified residue has no R4 recipe. Furnace records settle every two seconds and before every save; coolant conduit changes are noticed within two seconds. Automated checks pass; in-game evaluation of recent features is ongoing.
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; compact equipment, yields and operating limits remain gameplay choices.

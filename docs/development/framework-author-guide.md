@@ -120,6 +120,24 @@ chances within (0, 1] and lots within 1..256. Manufacturing 0.11.0 is the first
 consumer; identities and dry masses stay in its rules and the pack is checked
 against them. Consumers require **0.49.0**.
 
+Framework 0.52.0 generalised the schema for the other mods and moved the shared
+stock logic into `Data.EconomyStock`: equipment entries carry `kind` (`equipment`
+or `section`, an assembly part sold whole with only a price, dismantle work and
+salvage), `forms` (`machine`, `item` for an id and its `Dmg` twin, `single`),
+`offerScale`, `regionalChance`, `salvageRemainder` (the owner adds a remainder
+carrying the rest of the mass, so salvage may weigh less, never more) and named
+`lot`/`floor`; supplies carry `expanded`, `regionalChance` and `regionalCondition`;
+`regional.items` lists loose commodities offered in every region; `lots` and
+`chanceFloors` are free-named tables every entry must point into; a world-loot entry
+may name `items` explicitly or several `tables`. `EconomyStock.Classify` resolves an
+item to its lot and floor (exact regional items and single/item forms first, then
+the longest supply or machine prefix); `AddOffers`, `ApplyRegional` and
+`AddWorldLoot` apply the pack against the owner's `EquipmentSale` list (every size
+of a ladder against its small entry, larger sizes never loot), and `RepairInputs`
+turns a bill into the game's requirement triggers. Owners keep only their ladder
+increments, remainder naming and category flags. Consumers: Manufacturing 0.14.0,
+Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 require **0.52.0**.
+
 ### Process recipes and materials (0.50.0)
 
 `Data.RecipePack` (`process-recipes`) holds fixed recipes keyed by id: machine,

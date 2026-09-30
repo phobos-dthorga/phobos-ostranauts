@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Construction;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 using PhobosAutoNav.Core;
@@ -40,7 +41,7 @@ internal static class EquipmentContent
         catch (Exception ex) { Status = Text.Get("EquipmentContent.economy_registration_failed", ex.Message); throw; }
     }
 
-    internal static NativeDefinitions Prepare(bool salvageEnabled = true, double salvageChance = EquipmentRules.SalvageChance)
+    internal static NativeDefinitions Prepare(bool salvageEnabled = true, double? salvageChance = null)
     {
         var d = new NativeDefinitions();
         foreach (int model in new[] { 1, 2, 3 })
@@ -57,9 +58,10 @@ internal static class EquipmentContent
                 co.strNameFriendly = co.strNameShort = Text.Get("Overlay." + module + ".name");
                 co.strDesc = Text.Get("Overlay." + module + ".description");
                 co.aInteractions = new[] { "DropItem", "PickupItem" };
-                MaintenanceDefinitions.SetStat(co, "StatBasePrice", pursuit ? (damaged ? EquipmentRules.PursuitBrokenPrice : EquipmentRules.PursuitPrice) : (damaged ? EquipmentRules.BrokenPrice : EquipmentRules.FunctionalPrice));
+                var entry = AutoNavEconomy.Entry(moduleType);
+                MaintenanceDefinitions.SetStat(co, "StatBasePrice", damaged ? entry.BrokenPriceOrDefault : entry.price);
                 MaintenanceDefinitions.SetStat(co, "StatMass", EquipmentRules.ModuleMassKg);
-                MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", EquipmentRules.RepairProgress);
+                MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", entry.work.repair);
                 co.aUpdateCommands = damaged ? new[] { "Destructable,StatDamage,ACTDefaultDestroy,StatDamageMax,1.0" } :
                     new[] { "Destructable,StatDamage," + prefix + "Damage,StatDamageMax,1.0" };
                 d.Objects.Add(id, co);
@@ -69,13 +71,13 @@ internal static class EquipmentContent
                     var repair = MaintenanceDefinitions.Work(id + "Repair", id, "ACTRepairTEMP", "TIsRepairableNotContained", "CTRL");
                     repair.strJobType = "repair"; repair.strAllowLootCTsThem = "CONDRepairProgressx5";
                     repair.strProgressStat = "StatRepairProgress";
-                    repair.aInputs = new[] { EquipmentRules.ElectronicsTrigger + "=1x" + EquipmentRules.RepairElectronicsCount };
+                    repair.aInputs = EconomyStock.RepairInputs(entry.repairBill);
                     repair.aLootCOs = new[] { moduleType };
                     d.Installables.Add(repair.strName, repair);
                     MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
                 }
                 else MaintenanceDefinitions.Restore(d, id, "CTRL");
-                MaintenanceDefinitions.Dismantle(d, id, EquipmentRules.DismantleProgress, new[] { Residue }, "CTRL");
+                MaintenanceDefinitions.Dismantle(d, id, entry.work.dismantle, new[] { Residue }, "CTRL");
                 EquipmentSaveUpgrade.Register(d, module, id, legacyRepair: EquipmentRules.LegacyRepairProgress);
                 MaintenanceDefinitions.LegacyFinish(module, "MSNavModMoboDismantle", "MS" + id + "Dismantle");
                 if (damaged) MaintenanceDefinitions.LegacyFinish(module, "MSNavModMoboRepair", "MS" + id + "Repair");
@@ -88,25 +90,12 @@ internal static class EquipmentContent
         MaintenanceDefinitions.Remainder(d, Residue, Text.Get("EquipmentContent.auto_nav_board_residue_kg"), EquipmentRules.ModuleMassKg);
         MaintenanceDefinitions.Remainder(d, Offcut, Text.Get("EquipmentContent.auto_nav_assembly_offcuts_kg"), EquipmentRules.AssemblyOffcutKg);
         d.Objects[Residue].nStackLimit = d.Objects[Offcut].nStackLimit = RemnantStackLimit;
-        Offer("ItmOKLGFixer", "Used", NavigationService.ModuleId, EquipmentRules.FixerWornChance, StockCondition.Worn);
-        Offer("ItmOKLGSupplyKioskInv", "Broken", NavigationService.DamagedId, EquipmentRules.KLegBrokenChance, StockCondition.Broken);
-        Offer("ItmTraderSanDiegoPolarisInv", "New", NavigationService.ModuleId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
-        Offer("ItmVORBScrapKioskInv", "Refurb", NavigationService.ModuleId, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
-        Offer("ItmTraderSanDiegoPolarisInv", "PursuitNew", NavigationService.PursuitId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
-        Offer("ItmTraderSanDiegoPolarisInv", "FireControlNew", NavigationService.FireControlId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
-        // N2 and N3 share the N1's second-hand routes: used at the fixer, broken at K-Leg supplies, refurbished at Venus scrap.
-        foreach (var (tag, module, damaged) in new[] { ("Pursuit", NavigationService.PursuitId, NavigationService.PursuitDamagedId),
-            ("FireControl", NavigationService.FireControlId, NavigationService.FireControlDamagedId) })
+        EconomyStock.AddOffers(d, AutoNavEconomy.Pack, AutoNavEconomy.Sales);
+        foreach (string table in AutoNavEconomy.SalvageTables)
         {
-            Offer("ItmOKLGFixer", tag + "Used", module, EquipmentRules.FixerWornChance, StockCondition.Worn);
-            Offer("ItmOKLGSupplyKioskInv", tag + "Broken", damaged, EquipmentRules.KLegBrokenChance, StockCondition.Broken);
-            Offer("ItmVORBScrapKioskInv", tag + "Refurb", module, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
-        }
-        foreach (string table in EquipmentRules.SalvageTables)
-        {
-            double chance = salvageEnabled ? salvageChance : 0;
-            double intact = table.EndsWith("Dmg", StringComparison.Ordinal) ? 0 : chance * (1 - EquipmentRules.DamagedSalvageShare);
-            AdditiveLoot.SetItemChoice(d, table, "PhobosAutoNavSalvage_" + table, new Dictionary<string, double>
+            double chance = salvageEnabled ? salvageChance ?? AutoNavEconomy.SalvageChance : 0;
+            double intact = table.EndsWith("Dmg", StringComparison.Ordinal) ? 0 : chance * (1 - AutoNavEconomy.DamagedSalvageShare);
+            AdditiveLoot.SetItemChoice(d, table, AutoNavEconomy.Salvage.branch + "_" + table, new Dictionary<string, double>
             {
                 [NavigationService.ModuleId] = intact / 3,
                 [NavigationService.PursuitId] = intact / 3,
@@ -119,8 +108,5 @@ internal static class EquipmentContent
         RegionalEconomy.Apply(d);
         ItemHandling.Apply(d);
         return d;
-
-        void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosAutoNavStock_" + tag, item, StockQuantities.Chance(item, chance), condition, StockQuantities.Boards);
     }
 }

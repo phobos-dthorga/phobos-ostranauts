@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.24.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The Verdemorrow equipment economy now lives in framework/economy.json, read through Phobos Framework with player override files in BepInEx/config/PhobosAgriculture/economy: the rack, cooker, W2, B2 and R3 prices, repair and dismantle work, repair bills and salvage (what the salvage leaves of the housing still returns as a housing remainder), the irrigation pipe, every merchant offer, the regional factors, the lots and the fridge, crate and engineering finds. Shipped figures are unchanged; the R4 and R5 follow the R3 entry. Food, seed and nutrient item prices stay in code for now.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Saved data and stocked shops are unchanged. Offline checks are not gameplay validation.
+
 ## [0.23.0] - 2026-09-30 - Draft
 
 ### Changed

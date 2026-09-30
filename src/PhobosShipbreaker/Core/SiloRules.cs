@@ -16,7 +16,7 @@ public sealed class SiloSize
     /// <summary>Scaled from the S3's ratings in the vessels data pack (Shipbreaker 0.47.0) through the Framework ladder.</summary>
     public double CapacityKg => BulkVesselSizes.Scale(SiloRules.CapacityKg, BulkVesselSizes.CapacityFactor(SiloRules.Footprint, Size));
     public double DryKg => BulkVesselSizes.Scale(SiloRules.DryKg, BulkVesselSizes.DryFactor(SiloRules.Footprint, Size));
-    public double Price { get; }
+    public double Price => BulkVesselSizes.Scale(SiloRules.Price, BulkVesselSizes.PriceFactor(SiloRules.Footprint, Size));
     public string Record { get; }
     public string Journal { get; }
     public string Guard { get; }
@@ -26,7 +26,6 @@ public sealed class SiloSize
     internal SiloSize(VesselSize size)
     {
         Size = size; Prefix = BulkVesselSizes.Prefix(SiloRules.Prefix, size); Footprint = BulkVesselSizes.Footprint(SiloRules.Footprint, size);
-        Price = BulkVesselSizes.Scale(SiloRules.Price, BulkVesselSizes.PriceFactor(SiloRules.Footprint, size));
         Record = BulkVesselSizes.Name(SiloRules.Record, size); Journal = BulkVesselSizes.Name(SiloRules.Journal, size); Guard = BulkVesselSizes.Name(SiloRules.Guard, size);
     }
     public bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
@@ -45,7 +44,8 @@ public static class SiloRules
     // Authored: a 3 x 3 sealed vessel of 1,000 kg water (one cubic metre) in a 240 kg housing (framework/vessels.json).
     public static double CapacityKg => ShipbreakerVessels.Entry(Prefix).capacityKg ?? 0;
     public static double DryKg => ShipbreakerVessels.Entry(Prefix).dryKg;
-    public const double Price = 4800;
+    /// <summary>The S3 price, from the economy data pack; larger sizes scale through the ladder.</summary>
+    public static double Price => ShipbreakerEconomy.Price(Prefix);
     public const double WaterPricePerKg = 10, PurchaseStepKg = 10;
     public const int PurchaseSteps = 100;
     /// <summary>Drinking water Ship's Water keeps for the crew when a silo draws from its tanks (a setting).</summary>

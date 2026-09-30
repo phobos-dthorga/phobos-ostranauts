@@ -89,7 +89,6 @@ internal static partial class FurnaceService
             Content.ApplyStockArtwork(co,item,id==CoolantStock?"StockCoolantCharge":"StockRetainedCoolant");
             d.Items[id]=item;d.Objects[id]=co;
         }
-        foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})MarketStock.Add(d,merchant,"PhobosCoolantStock_"+merchant,CoolantStock, StockQuantities.Chance(CoolantStock, 1),StockCondition.Pristine, StockQuantities.Coolant);
     }
 }
 

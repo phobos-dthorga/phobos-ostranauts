@@ -18,14 +18,13 @@ public sealed class BinSize
     public int Grid => Footprint * BinRules.CellsPerTileSide;
     /// <summary>Scaled from the Y2's housing in the vessels data pack (Shipbreaker 0.47.0) through the Framework ladder.</summary>
     public double DryKg => BulkVesselSizes.Scale(BinRules.DryKg, BulkVesselSizes.DryFactor(BinRules.Footprint, Size));
-    public double Price { get; }
+    public double Price => BulkVesselSizes.Scale(BinRules.Price, BulkVesselSizes.PriceFactor(BinRules.Footprint, Size));
     /// <summary>The translation key of this size's name (its own Rivetline model in the naming map).</summary>
     public string NameKey => "Bin.name" + (Size == VesselSize.Small ? "" : "_" + Size.ToString().ToLowerInvariant());
     public string Art => Prefix;
     internal BinSize(VesselSize size)
     {
         Size = size; Prefix = BulkVesselSizes.Prefix(BinRules.Prefix, size); Footprint = BulkVesselSizes.Footprint(BinRules.Footprint, size);
-        Price = BulkVesselSizes.Scale(BinRules.Price, BulkVesselSizes.PriceFactor(BinRules.Footprint, size));
     }
     public bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
 }
@@ -44,7 +43,8 @@ public static class BinRules
     // Authored: a 2 x 2 sealed bin, four cells per tile, in a 60 kg housing, about half the game's Storage Bay per cell (framework/vessels.json).
     public static int CellsPerTileSide => ShipbreakerVessels.Entry(Prefix).cellsPerTileSide ?? 1;
     public static double DryKg => ShipbreakerVessels.Entry(Prefix).dryKg;
-    public const double Price = 2400;
+    /// <summary>The Y2 price, from the economy data pack; larger sizes scale through the ladder.</summary>
+    public static double Price => ShipbreakerEconomy.Price(Prefix);
     /// <summary>Any size of the bin family.</summary>
     public static bool IsFamily(string? id) => BulkVesselSizes.InLadder(id, Prefix);
     /// <summary>The Y2, Y3 and Y4, smallest first.</summary>

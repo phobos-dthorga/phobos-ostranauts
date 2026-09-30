@@ -270,8 +270,8 @@ validator split (decision 3). Steps land as one commit set each, on `main`:
 | --- | --- | --- | --- |
 | 1 | `DataPacks` loader, `economy` schema, pointer targets, Python validator, golden export; Manufacturing economy | Framework 0.49.0, Manufacturing 0.11.0 | 5c0ab38 |
 | 2 | `process-recipes` and `materials` with the revision freeze; Manufacturing charges and materials; Shipbreaker furnace, thaw, reclaimer and packets | Framework 0.50.0, Manufacturing 0.12.0, Shipbreaker 0.46.0 | 1d39d7a |
-| 3 | `vessels`: gas store families, S3 silo, Y2 bin, R3 reservoir; ladder kept in code | Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0 | this change |
-| 4 | `economy` for Shipbreaker, Agriculture and Auto Nav | | pending |
+| 3 | `vessels`: gas store families, S3 silo, Y2 bin, R3 reservoir; ladder kept in code | Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0 | 8a29426 |
+| 4 | `economy` for Shipbreaker, Agriculture and Auto Nav; schema generalised (sections, item forms, offer scale, named lots, regional items, explicit loot items, remainder salvage); shared `EconomyStock` replaces four `StockQuantities`/regional copies; 24 catalogue regex targets retired | Framework 0.52.0, Manufacturing 0.14.0, Shipbreaker 0.48.0, Agriculture 0.24.0, Auto Nav 0.30.0 | this change |
 | 5 | `equipment` per family as touched | | pending |
 | 6 | Tooling closure | | pending |
 | 7 | Feedstock programme round three in the packs | | pending |
@@ -280,6 +280,11 @@ Step 3 differs from the table in section 5.2 in two places: the ladder parameter
 stay in `BulkVesselSizes` (saved medium and large vessels are checked against
 them), and prices stay in the economy pack rather than being repeated in vessels.
 The W2 supply is not a vessels entry because its 20 kg is `CropState.ReservoirKg`.
+
+Step 4 kept the four regional tables per mod (they differ) rather than collapsing
+them, and left Agriculture's food, seed and nutrient item prices in code: those are
+a `materials` pack for Agriculture, listed for step 6 rather than mixed into the
+economy schema. Ladder increments (silo, bin, reservoir, gas store) stay in code.
 
 ## Sources
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.47.0</Version>
+    <Version>0.48.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -31,4 +31,5 @@
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/frozen-process-recipes.json" LogicalName="PhobosShipbreaker.frozen-process-recipes.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/materials.json" LogicalName="PhobosShipbreaker.materials.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/vessels.json" LogicalName="PhobosShipbreaker.vessels.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/economy.json" LogicalName="PhobosShipbreaker.economy.json" /></ItemGroup>
 </Project>

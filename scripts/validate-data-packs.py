@@ -16,7 +16,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS = {'BCER', 'BCRS', 'EJDR', 'HQCH', 'JATL', 'JFTS', 'JPTN', 'MHNG', 'MLAB', 'MSUZ', 'MTRS', 'MVOL', 'OFLT', 'OKLG', 'SVIR', 'VCBR', 'VENC', 'VNCA', 'VORB'}
 CONDITIONS = {'Pristine', 'Refurbished', 'Worn', 'Broken'}
-KINDS = {'equipment', 'supplies'}
+KINDS = {'equipment', 'supplies', 'section'}
+FORMS = {'machine', 'item', 'single'}
 MAX_QUANTITY = 256
 
 
@@ -54,37 +55,71 @@ def bill(obj, where, allow_empty=False):
         number(count, f'{where}/{item}', 0, 10000, integer=True)
 
 
-def work(obj, where):
+def work(obj, where, repair_optional=False):
     fields(obj, {'install', 'uninstall', 'repair', 'dismantle'}, where)
-    for k in ('install', 'uninstall', 'repair', 'dismantle'):
-        number(obj.get(k, 0), f'{where}/{k}', 0, None, integer=True, exclusive_low=True)
+    # Zero install or uninstall keeps the definition's own value; dismantle is always set, repair unless a section.
+    for k in ('install', 'uninstall'):
+        number(obj.get(k, 0), f'{where}/{k}', 0, None, integer=True)
+    number(obj.get('repair', 0), f'{where}/repair', 0, None, integer=True, exclusive_low=not repair_optional)
+    number(obj.get('dismantle'), f'{where}/dismantle', 0, None, integer=True, exclusive_low=True)
 
 
 def economy(pack, where):
     fields(pack, {'schemaVersion', 'schema', 'notes', 'equipment', 'supplies', 'offerTemplates', 'offers', 'regions', 'regional', 'lots', 'chanceFloors', 'worldLoot'}, where)
+    lots = pack.get('lots', {})
+    floors = pack.get('chanceFloors', {})
+    for name, lot in lots.items():
+        if not name:
+            raise Problem(f'{where}/lots: lot names cannot be empty')
+        number(lot, f'{where}/lots/{name}', 1, MAX_QUANTITY, integer=True)
+    for name, floor in floors.items():
+        if not name:
+            raise Problem(f'{where}/chanceFloors: floor names cannot be empty')
+        number(floor, f'{where}/chanceFloors/{name}', 0, 1)
+
+    def lot_and_floor(lot, floor, w):
+        if lot not in lots:
+            raise Problem(f'{w}: lot {lot!r} is not in the lots table')
+        if floor not in floors:
+            raise Problem(f'{w}: floor {floor!r} is not in the chanceFloors table')
+
     equipment = pack.get('equipment', {})
     if not isinstance(equipment, dict) or not equipment:
         raise Problem(f'{where}/equipment: needs at least one family')
     for key, e in equipment.items():
         w = f'{where}/equipment/{key}'
-        fields(e, {'notes', 'kind', 'price', 'brokenPrice', 'work', 'repairBill', 'salvage', 'brokenSalvage', 'restoreMinutes', 'internalBin', 'loot', 'salvageValueHigh', 'offers'}, w)
-        if e.get('kind', 'equipment') not in KINDS:
-            raise Problem(f'{w}/kind: not equipment or supplies')
+        fields(e, {'notes', 'kind', 'forms', 'price', 'brokenPrice', 'work', 'repairBill', 'salvage', 'brokenSalvage', 'restoreMinutes', 'internalBin', 'loot',
+                   'salvageValueHigh', 'offers', 'offerScale', 'regionalChance', 'salvageRemainder', 'lot', 'floor'}, w)
+        kind = e.get('kind', 'equipment')
+        if kind not in ('equipment', 'section'):
+            raise Problem(f'{w}/kind: not equipment or section')
+        forms = e.get('forms', 'machine')
+        if forms not in FORMS:
+            raise Problem(f'{w}/forms: {sorted(FORMS)}')
+        section = kind == 'section'
         price = number(e.get('price'), f'{w}/price', 0, None, exclusive_low=True)
         if 'brokenPrice' in e:
             broken = number(e['brokenPrice'], f'{w}/brokenPrice', 0, None, exclusive_low=True)
             if broken >= price:
                 raise Problem(f'{w}/brokenPrice: must be below price')
-        work(e.get('work', {}), f'{w}/work')
-        number(e.get('restoreMinutes'), f'{w}/restoreMinutes', 0, None, integer=True, exclusive_low=True)
-        for name in ('repairBill', 'salvage', 'brokenSalvage'):
-            bill(e.get(name, {}), f'{w}/{name}')
-        for flag in ('loot', 'salvageValueHigh', 'offers'):
+        work(e.get('work', {}), f'{w}/work', repair_optional=section)
+        number(e.get('restoreMinutes', 0), f'{w}/restoreMinutes', 0, None, integer=True)
+        remainder = e.get('salvageRemainder', False)
+        bill(e.get('repairBill', {}), f'{w}/repairBill', allow_empty=section)
+        bill(e.get('salvage', {}), f'{w}/salvage', allow_empty=remainder)
+        bill(e.get('brokenSalvage', {}), f'{w}/brokenSalvage', allow_empty=remainder or forms == 'single')
+        number(e.get('offerScale', 1), f'{w}/offerScale', 0, 4, exclusive_low=True)
+        if 'regionalChance' in e:
+            number(e['regionalChance'], f'{w}/regionalChance', 0, 1)
+        for flag in ('loot', 'salvageValueHigh', 'offers', 'salvageRemainder'):
             if flag in e and not isinstance(e[flag], bool):
                 raise Problem(f'{w}/{flag}: expected true or false')
+        lot_and_floor(e.get('lot', kind), e.get('floor', 'equipment'), w)
     for key, s in pack.get('supplies', {}).items():
         w = f'{where}/supplies/{key}'
-        fields(s, {'notes', 'kind', 'price', 'repairWork', 'dismantleWork', 'repairBill', 'remainder', 'merchants', 'chance'}, w)
+        fields(s, {'notes', 'kind', 'price', 'repairWork', 'dismantleWork', 'repairBill', 'remainder', 'merchants', 'chance', 'lot', 'floor', 'expanded', 'regionalChance', 'regionalCondition'}, w)
+        if s.get('kind', 'supplies') != 'supplies':
+            raise Problem(f'{w}/kind: supplies')
         number(s.get('price'), f'{w}/price', 0, None, exclusive_low=True)
         number(s.get('repairWork'), f'{w}/repairWork', 0, None, integer=True, exclusive_low=True)
         number(s.get('dismantleWork'), f'{w}/dismantleWork', 0, None, integer=True, exclusive_low=True)
@@ -93,6 +128,12 @@ def economy(pack, where):
         merchants = s.get('merchants', [])
         if not isinstance(merchants, list) or not merchants or not all(isinstance(m, str) and m for m in merchants):
             raise Problem(f'{w}/merchants: needs at least one merchant id')
+        if 'regionalChance' in s:
+            number(s['regionalChance'], f'{w}/regionalChance', 0, 1)
+        condition = s.get('regionalCondition', 'regional')
+        if condition != 'regional' and condition not in CONDITIONS:
+            raise Problem(f'{w}/regionalCondition: regional or {sorted(CONDITIONS)}')
+        lot_and_floor(s.get('lot', 'supplies'), s.get('floor', 'supplies'), w)
     for i, o in enumerate(pack.get('offerTemplates', [])):
         w = f'{where}/offerTemplates/{i}'
         fields(o, {'notes', 'merchant', 'tag', 'form', 'condition', 'chance'}, w)
@@ -109,7 +150,7 @@ def economy(pack, where):
         w = f'{where}/offers/{key}'
         if not key.startswith('Phobos'):
             raise Problem(f'{w}: offer ids start with Phobos')
-        fields(o, {'notes', 'merchant', 'item', 'condition', 'chance', 'quantity'}, w)
+        fields(o, {'notes', 'merchant', 'item', 'condition', 'chance', 'quantity', 'lot', 'floor'}, w)
         if not o.get('merchant') or not o.get('item'):
             raise Problem(f'{w}: merchant and item are needed')
         if o.get('condition', 'Pristine') not in CONDITIONS:
@@ -117,35 +158,48 @@ def economy(pack, where):
         number(o.get('chance'), f'{w}/chance', 0, 1, exclusive_low=True)
         if 'quantity' in o:
             number(o['quantity'], f'{w}/quantity', 1, MAX_QUANTITY, integer=True)
+        if 'lot' in o or 'floor' in o:
+            lot_and_floor(o.get('lot', 'equipment'), o.get('floor', 'equipment'), w)
     for code, factor in pack.get('regions', {}).items():
         if code not in REGIONS:
             raise Problem(f'{where}/regions/{code}: unknown region')
         number(factor, f'{where}/regions/{code}', 0, 4)
     regional = pack.get('regional')
     if regional is not None:
-        fields(regional, {'notes', 'baseChance', 'refurbished', 'expandedMerchants'}, f'{where}/regional')
+        fields(regional, {'notes', 'baseChance', 'refurbished', 'expandedMerchants', 'items'}, f'{where}/regional')
         number(regional.get('baseChance'), f'{where}/regional/baseChance', 0, 1, exclusive_low=True)
         for code in regional.get('refurbished', []):
             if code not in REGIONS:
                 raise Problem(f'{where}/regional/refurbished: unknown region {code}')
-    for kind, lot in pack.get('lots', {}).items():
-        if kind not in KINDS:
-            raise Problem(f'{where}/lots/{kind}: unknown kind')
-        number(lot, f'{where}/lots/{kind}', 1, MAX_QUANTITY, integer=True)
-    for kind, floor in pack.get('chanceFloors', {}).items():
-        if kind not in KINDS:
-            raise Problem(f'{where}/chanceFloors/{kind}: unknown kind')
-        number(floor, f'{where}/chanceFloors/{kind}', 0, 1)
+        for item, r in regional.get('items', {}).items():
+            w = f'{where}/regional/items/{item}'
+            if not item:
+                raise Problem(f'{w}: item id needed')
+            fields(r, {'notes', 'chance', 'condition', 'lot', 'floor', 'expanded'}, w)
+            number(r.get('chance'), f'{w}/chance', 0, 1, exclusive_low=True)
+            if r.get('condition', 'Pristine') not in CONDITIONS:
+                raise Problem(f'{w}/condition: {sorted(CONDITIONS)}')
+            lot_and_floor(r.get('lot', 'supplies'), r.get('floor', 'supplies'), w)
     for i, loot in enumerate(pack.get('worldLoot', [])):
         w = f'{where}/worldLoot/{i}'
-        fields(loot, {'notes', 'table', 'branch', 'chance', 'brokenShare'}, w)
-        if not loot.get('table'):
+        fields(loot, {'notes', 'table', 'tables', 'branch', 'chance', 'brokenShare', 'items'}, w)
+        tables = loot.get('tables') or [loot.get('table', '')]
+        if not all(isinstance(x, str) and x for x in tables):
             raise Problem(f'{w}/table: needed')
         if not str(loot.get('branch', '')).startswith('Phobos'):
             raise Problem(f'{w}/branch: starts with Phobos')
-        number(loot.get('chance'), f'{w}/chance', 0, 1, exclusive_low=True)
-        number(loot.get('brokenShare'), f'{w}/brokenShare', 0, 1)
-
+        if 'items' in loot:
+            items = loot['items']
+            if not isinstance(items, dict) or not items:
+                raise Problem(f'{w}/items: needs at least one item')
+            total = 0
+            for item, chance in items.items():
+                total += number(chance, f'{w}/items/{item}', 0, 1, exclusive_low=True)
+            if total > 1 + 1e-9:
+                raise Problem(f'{w}/items: chances add up to more than 1')
+        else:
+            number(loot.get('chance'), f'{w}/chance', 0, 1, exclusive_low=True)
+        number(loot.get('brokenShare', 0), f'{w}/brokenShare', 0, 1)
 
 SPECIES = {'CH4', 'CO', 'CO2', 'H2SO4', 'N2', 'NH3', 'O2', 'Smoke'}
 MASS_TOLERANCE = 1e-6

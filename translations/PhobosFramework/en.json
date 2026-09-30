@@ -440,5 +440,11 @@
   "VesselSchema.capacity": "{0}: capacityKg must be above 0 and at most {1}.",
   "VesselSchema.vessel_fields": "{0}: cellsPerTileSide belongs to bins only.",
   "VesselSchema.dry": "{0}: dryKg must be above 0 and at most {1}.",
-  "VesselSchema.leak": "{0}: leakKgPerHour must be 0 to {1}."
+  "VesselSchema.leak": "{0}: leakKgPerHour must be 0 to {1}.",
+  "EconomySchema.forms": "{0}: forms must be machine, item or single, not {1}.",
+  "EconomySchema.offer_scale": "{0}: offerScale must be above 0 and at most {1}.",
+  "EconomySchema.unknown_lot": "{0}: lot {1} is not in the lots table.",
+  "EconomySchema.unknown_floor": "{0}: floor {1} is not in the chanceFloors table.",
+  "EconomySchema.loot_items": "{0}: loot items need at least one entry and their chances add up to 1 at most.",
+  "EconomyStock.unknown_item": "{0} names {1}, which is not an item this mod registers."
 }

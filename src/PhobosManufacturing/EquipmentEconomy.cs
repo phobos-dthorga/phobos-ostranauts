@@ -50,10 +50,12 @@ internal static class EquipmentEconomy
     internal const string HighSalvageMark = "IsSalvageValueHigh";
     /// <summary>Loose propellant line stacks like the other mods' pipes.</summary>
     internal const int LineStack = 10;
-    private static Spec[]? machines; private static EconomyPack? builtFrom;
+    private static Spec[]? machines; private static EquipmentSale[]? sales; private static EconomyPack? builtFrom;
     /// <summary>Every family and size in application order: the machines, then every gas store size. Rebuilt when the
     /// pack is reloaded (a new game load, a second offline preparation).</summary>
     internal static IReadOnlyList<Spec> Machines => machines != null && ReferenceEquals(builtFrom, Economy.Pack) ? machines : machines = Build();
+    /// <summary>Every saleable machine and store size, for offers, regional stock and world finds.</summary>
+    internal static IReadOnlyList<EquipmentSale> Sales { get { _ = Machines; return sales!; } }
     /// <summary>Chance per engineering-loot roll of one Manufacturing machine, from the pack's world-loot entry.</summary>
     internal static double MachinerySalvageChance => Economy.Pack.worldLoot.Count > 0 ? Economy.Pack.worldLoot[0].chance : 0;
     internal static double BrokenSalvageShare => Economy.Pack.worldLoot.Count > 0 ? Economy.Pack.worldLoot[0].brokenShare : 0;
@@ -61,9 +63,14 @@ internal static class EquipmentEconomy
     private static Spec[] Build()
     {
         var pack = builtFrom = Economy.Pack;
-        var list = new List<Spec>();
-        foreach (var machine in Economy.Machines) list.Add(FromEntry(machine.Prefix, pack.equipment[machine.Prefix]));
-        foreach (var store in GasStores.All) list.Add(StoreSpec(store, pack.equipment[store.Family.SmallPrefix]));
+        var list = new List<Spec>(); var saleList = new List<EquipmentSale>();
+        foreach (var machine in Economy.Machines) { var entry = pack.equipment[machine.Prefix]; list.Add(FromEntry(machine.Prefix, entry)); saleList.Add(EquipmentSale.Of(machine.Prefix, entry)); }
+        foreach (var store in GasStores.All)
+        {
+            var small = pack.equipment[store.Family.SmallPrefix];
+            list.Add(StoreSpec(store, small)); saleList.Add(store.Size == VesselSize.Small ? EquipmentSale.Of(store.Prefix, small) : EquipmentSale.Size(store.Prefix, small));
+        }
+        sales = saleList.ToArray();
         return list.ToArray();
     }
     private static int[] Bill(Dictionary<string, int> bill, string[] columns) => columns.Select(id => bill.TryGetValue(id, out int count) ? count : 0).ToArray();
@@ -122,21 +129,13 @@ internal static class EquipmentEconomy
             mount.strCTThemMultCondTools = "IsToolMortorq";
             EquipmentSaveUpgrade.Register(d, id, id);
         }
-        AddStock(d);
         AddSupplies(d);
-        foreach (var loot in Economy.Pack.worldLoot)
-            AdditiveLoot.SetItemChoice(d, loot.table, loot.branch, SalvageChances(loot));
+        EconomyStock.AddOffers(d, Economy.Pack, Sales);
+        EconomyStock.AddWorldLoot(d, Economy.Pack, Sales);
     }
     /// <summary>Late-game plant is a rare find: one engineering roll in twenty yields a machine, three times in four
     /// a broken one, split evenly across the families that may be found.</summary>
-    internal static Dictionary<string, double> SalvageChances() => Economy.Pack.worldLoot.Count > 0 ? SalvageChances(Economy.Pack.worldLoot[0]) : new Dictionary<string, double>(StringComparer.Ordinal);
-    private static Dictionary<string, double> SalvageChances(WorldLootEntry loot)
-    {
-        var found = Machines.Where(m => m.Loot).ToArray();
-        return found.SelectMany(m => new[] { (m.Prefix + "LooseDmg", loot.chance * loot.brokenShare / found.Length),
-                                             (m.Prefix + "Loose", loot.chance * (1 - loot.brokenShare) / found.Length) })
-            .ToDictionary(p => p.Item1, p => p.Item2, StringComparer.Ordinal);
-    }
+    internal static Dictionary<string, double> SalvageChances() => Economy.Pack.worldLoot.Count > 0 ? EconomyStock.LootChances(Economy.Pack.worldLoot[0], Sales) : new Dictionary<string, double>(StringComparer.Ordinal);
     /// <summary>Restore removes wear at an equipment-specific rate; the native Restore job already exists.</summary>
     internal static void SetRestoreRate(NativeDefinitions d, string id, string effect, int minutes)
     {
@@ -171,60 +170,24 @@ internal static class EquipmentEconomy
                 MaintenanceDefinitions.Dismantle(d, id, supply.dismantleWork, new[] { waste });
                 EquipmentSaveUpgrade.Register(d, id, id);
             }
-            foreach (string merchant in supply.merchants)
-                MarketStock.Add(d, merchant, "PhobosStock_Line_" + merchant, prefix + "Loose", StockQuantities.Chance(prefix + "Loose", supply.chance), StockCondition.Pristine, StockQuantities.For(prefix + "Loose"));
         }
-    }
-    private static void AddStock(NativeDefinitions d)
-    {
-        foreach (var spec in Machines)
-        {
-            if (!spec.Offers) continue;
-            foreach (var template in Economy.Pack.offerTemplates)
-                Offer(template.merchant, template.tag, spec.Prefix + template.form, template.chance, (StockCondition)Enum.Parse(typeof(StockCondition), template.condition));
-        }
-        foreach (var pair in Economy.Pack.offers)
-        {
-            var offer = pair.Value;
-            MarketStock.Add(d, offer.merchant, pair.Key, offer.item, StockQuantities.Chance(offer.item, offer.chance), (StockCondition)Enum.Parse(typeof(StockCondition), offer.condition),
-                offer.quantity ?? StockQuantities.For(offer.item));
-        }
-        void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, StockQuantities.Chance(item, chance), condition, StockQuantities.For(item));
     }
 }
 
 /// <summary>Wholesale lots per successful offer and the shared availability floor, as the sibling mods use.</summary>
 internal static class StockQuantities
 {
-    internal static double EquipmentChance => Floor("equipment", 0.85);
-    internal static double SupplyChance => Floor("supplies", 0.95);
-    internal static int Machines => Lot("equipment", 8);
-    internal static int Pipes => Lot("supplies", 128);
-    private static double Floor(string kind, double fallback) => Economy.Pack.chanceFloors.TryGetValue(kind, out double v) ? v : fallback;
-    private static int Lot(string kind, int fallback) => Economy.Pack.lots.TryGetValue(kind, out int v) ? v : fallback;
-    private static bool Supply(string item) => Economy.SupplyKeys.Any(prefix => item.StartsWith(prefix, StringComparison.Ordinal));
-    internal static double Chance(string item, double original) => Math.Min(1, Math.Max(Supply(item) ? SupplyChance : EquipmentChance, original));
-    internal static int For(string item) => Supply(item) ? Pipes : Machines;
+    internal static double EquipmentChance => Economy.Pack.Floor(EconomySchema.Equipment, EconomyStock.DefaultFloor);
+    internal static double SupplyChance => Economy.Pack.Floor(EconomySchema.Supplies, EconomyStock.DefaultFloor);
+    internal static int Machines => Economy.Pack.Lot(EconomySchema.Equipment, EconomyStock.DefaultLot);
+    internal static int Pipes => Economy.Pack.Lot(EconomySchema.Supplies, EconomyStock.DefaultLot);
+    internal static double Chance(string item, double original) => EconomyStock.Chance(Economy.Pack, item, original);
+    internal static int For(string item) => EconomyStock.Quantity(Economy.Pack, item);
 }
 
 /// <summary>Regional availability across the vanilla solar system, from the pack's region factors.</summary>
 internal static class RegionalEconomy
 {
     internal static (string Region, double Factor)[] Profiles => Economy.Pack.regions.Select(p => (p.Key, p.Value)).ToArray();
-    internal static void Apply(NativeDefinitions d)
-    {
-        var regional = Economy.Pack.regional;
-        if (regional == null) return;
-        foreach (string merchant in regional.expandedMerchants)
-        foreach (var machine in EquipmentEconomy.Machines)
-            MarketStock.AddMissing(d, merchant, "PhobosExpanded_Manufacturing_" + merchant + "_" + machine.Prefix + "Loose", machine.Prefix + "Loose",
-                StockQuantities.Chance(machine.Prefix + "Loose", 0), StockCondition.Pristine, StockQuantities.For(machine.Prefix + "Loose"));
-        foreach (var profile in Profiles)
-        {
-            var condition = regional.refurbished.Contains(profile.Region) ? StockCondition.Refurbished : StockCondition.Pristine;
-            foreach (var machine in EquipmentEconomy.Machines)
-                RegionalMarkets.Add(d, profile.Region, machine.Prefix + "Loose", StockQuantities.Chance(machine.Prefix + "Loose", regional.baseChance * profile.Factor), condition, StockQuantities.For(machine.Prefix + "Loose"));
-        }
-    }
+    internal static void Apply(NativeDefinitions d) => EconomyStock.ApplyRegional(d, Economy.Pack, "Manufacturing", EquipmentEconomy.Sales);
 }

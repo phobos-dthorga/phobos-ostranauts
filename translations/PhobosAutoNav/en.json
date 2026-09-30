@@ -572,5 +572,6 @@
   "Docking.aligning": "In position; waiting for the docking console's own alignment check to admit the clamp.",
   "Departure.releasing": "Clamps releasing through the docking console's own sequence.",
   "Plugin.physics_held": "The game's ship update failed this step. Auto Nav held its thrust for the step and carries on.",
-  "Plugin.physics_repeated": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles."
+  "Plugin.physics_repeated": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles.",
+  "EquipmentContent.salvage_entry": "The economy file needs exactly one worldLoot rule with tables for the derelict salvage."
 }

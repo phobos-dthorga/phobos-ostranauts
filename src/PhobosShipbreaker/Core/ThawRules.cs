@@ -17,7 +17,7 @@ public static class ThawRules
     public const string OutPort = "PhobosShipbreaker.ThawOut", VesselPort = "PhobosShipbreaker.VesselIn";
     public const int Footprint = 2, FeedCapacity = 2, TrayCells = 2;
     // Native masses (items_mining.json): water ice 24.7 kg, ice gangue 2.0 kg. The water yield is the remainder.
-    public const double IceKg = 24.7, GangueKg = 2.0, WaterKg = IceKg - GangueKg, MachineKg = 120, Price = 3200;
+    public const double IceKg = 24.7, GangueKg = 2.0, WaterKg = IceKg - GangueKg, MachineKg = 120;
     // Authored operation: 6 kW for 40 minutes a block. The thermal need below is 3.60 kWh; the rest covers the
     // drive, controls and the share that warms the room.
     public const double WorkingKW = 6, IdleKW = 0.1, RoomHeatFraction = 0.15;

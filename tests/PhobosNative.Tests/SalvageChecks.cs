@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Phobos.Ostranauts.Framework.Registration;
+using PhobosAutoNav;
 using PhobosAutoNav.Core;
 
 internal static class SalvageChecks
@@ -19,7 +20,7 @@ internal static class SalvageChecks
         check(ReferenceEquals(original, DataHandler.dictLoot[parent]) && original.aCOs.SequenceEqual(originalItems),
             "Preparing loot additions leaves live definitions untouched until publication");
         definitions.Publish();
-        foreach (string table in EquipmentRules.SalvageTables)
+        foreach (string table in AutoNavEconomy.SalvageTables)
         {
             string ownBranch = "PhobosAutoNavSalvage_" + table;
             check(DataHandler.dictLoot[table].aLoots.Count(s => s == ownBranch + "=1x1") == 1,
@@ -27,7 +28,7 @@ internal static class SalvageChecks
             var choice = definitions.Loot[ownBranch];
             var units = ParsedChoice(choice);
             check(units.All(unit => unit.fMin == 1 && unit.fMax == 1) &&
-                Math.Abs(units.Sum(unit => unit.fChance) - EquipmentRules.SalvageChance) < 1e-7,
+                Math.Abs(units.Sum(unit => unit.fChance) - AutoNavEconomy.SalvageChance) < 1e-7,
                 "Actual native parser sees a bounded single choice with the authored total chance");
             check(units.All(unit => new[] { "PhobosNavModAutoNav", "PhobosNavModAutoNavDmg", "PhobosNavModPursuit", "PhobosNavModPursuitDmg", "PhobosNavModFireControl", "PhobosNavModFireControlDmg" }.Contains(unit.strName)),
                 "Native loot targets saved module identities");
@@ -43,7 +44,7 @@ internal static class SalvageChecks
             check(!DataHandler.dictLoot[table].aLoots.Any(s => s.StartsWith("PhobosAutoNavSalvage_", StringComparison.Ordinal)),
                 "Random parent pools never receive a second nested bonus roll");
         PhobosAutoNav.EquipmentContent.Prepare(false).Publish();
-        check(EquipmentRules.SalvageTables.All(table => !DataHandler.dictLoot[table].aLoots.Any(s =>
+        check(AutoNavEconomy.SalvageTables.All(table => !DataHandler.dictLoot[table].aLoots.Any(s =>
             s.StartsWith("PhobosAutoNavSalvage_", StringComparison.Ordinal))), "Disabling salvage removes only its own future-roll branches");
         check(DataHandler.dictLoot[parent].aCOs.SequenceEqual(originalItems) &&
             DataHandler.dictLoot[parent].aLoots.Contains("ForeignNavSalvage=0.5x1"), "Disabling retains native and foreign loot");

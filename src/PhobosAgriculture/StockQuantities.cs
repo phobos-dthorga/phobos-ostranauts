@@ -1,23 +1,17 @@
-using System;
+using Phobos.Ostranauts.Framework.Data;
 
 namespace PhobosAgriculture;
 
-// Authored wholesale quantities per successful merchant offer, including regional stock.
+/// <summary>Wholesale lots per successful merchant offer and the availability floors, from the economy data pack's
+/// lots and chanceFloors tables through the shared Framework resolver.</summary>
 internal static class StockQuantities
 {
-    internal const double EquipmentChance = .85, SupplyChance = .95;
-    internal static double Chance(string item, double original) => Math.Min(1, Math.Max(
-        item.StartsWith(IrrigationDefinitions.Pipe, StringComparison.Ordinal) ||
-        !(item.EndsWith("Loose", StringComparison.Ordinal) || item.EndsWith("LooseDmg", StringComparison.Ordinal))
-            ? SupplyChance : EquipmentChance, original));
+    internal static double EquipmentChance => AgricultureEconomy.Pack.Floor(EconomySchema.Equipment, EconomyStock.DefaultFloor);
+    internal static double SupplyChance => AgricultureEconomy.Pack.Floor(EconomySchema.Supplies, EconomyStock.DefaultFloor);
+    internal static double Chance(string item, double original) => EconomyStock.Chance(AgricultureEconomy.Pack, item, original);
 
-    internal const int Machines = 8, Pipes = 128, Supplies = 64;
-    internal static int For(string item)
-    {
-        if(item.StartsWith(BulkDefinitions.Tank,StringComparison.Ordinal))return BulkDefinitions.TankStock;
-        if(item==BulkDefinitions.Nutrients)return BulkDefinitions.NutrientStock;
-        if (item.StartsWith(IrrigationDefinitions.Pipe, StringComparison.Ordinal)) return Pipes;
-        if (item.EndsWith("Loose", StringComparison.Ordinal) || item.EndsWith("LooseDmg", StringComparison.Ordinal)) return Machines;
-        return Supplies;
-    }
+    internal static int Machines => AgricultureEconomy.Pack.Lot(EconomySchema.Equipment, EconomyStock.DefaultLot);
+    internal static int Pipes => AgricultureEconomy.Pack.Lot("pipes", EconomyStock.DefaultLot);
+    internal static int Supplies => AgricultureEconomy.Pack.Lot(EconomySchema.Supplies, EconomyStock.DefaultLot);
+    internal static int For(string item) => EconomyStock.Quantity(AgricultureEconomy.Pack, item);
 }

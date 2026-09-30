@@ -28,6 +28,8 @@ public static class ProcessRules
     public const int Footprint = 4;
     public const int OutputSize = 8;
     public const double MachineKg = 160;
+    /// <summary>The D4 definition prefix (Content.Prefix), named here for the economy pack.</summary>
+    public const string Prefix = "PhobosShipbreaker";
     public const string AssemblySection = "PhobosShipbreakerSection";
     public const string AssemblySectionCondition = "PhobosShipbreakerIsSection";
     public const double AssemblySectionKg = MachineKg / 2;

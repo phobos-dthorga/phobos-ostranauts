@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.23.0",
+      "version": "0.24.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -4896,6 +4896,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -4942,13 +4949,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmFlotillaScrapKioskInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
@@ -5078,59 +5078,52 @@
         },
         {
           "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowGroundworkW2Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowGroundworkB2Loose",
-          "condition": "Pristine",
+          "item": "PhobosVerdemorrowFirstlight4Loose",
+          "condition": "Worn",
           "chance": 0.85,
           "count": 8
         },
         {
           "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowGroundworkMakeup",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 64
+          "item": "PhobosVerdemorrowHearth2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
+          "condition": "Worn",
+          "chance": 0.85,
           "count": 4
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
+          "condition": "Worn",
+          "chance": 0.85,
           "count": 4
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
+          "condition": "Worn",
+          "chance": 0.85,
           "count": 4
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
         },
         {
           "table": "ItmOKLGFixer",
@@ -5183,52 +5176,59 @@
         },
         {
           "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowFirstlight4Loose",
-          "condition": "Worn",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosVerdemorrowHearth2Loose",
-          "condition": "Worn",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkW2Loose",
-          "condition": "Worn",
-          "chance": 0.85,
+          "condition": "Pristine",
+          "chance": 1.0,
           "count": 8
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkB2Loose",
-          "condition": "Worn",
+          "condition": "Pristine",
           "chance": 0.85,
           "count": 8
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3Loose",
-          "condition": "Worn",
-          "chance": 0.85,
+          "condition": "Pristine",
+          "chance": 1.0,
           "count": 4
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-          "condition": "Worn",
-          "chance": 0.85,
+          "condition": "Pristine",
+          "chance": 1.0,
           "count": 4
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-          "condition": "Worn",
-          "chance": 0.85,
+          "condition": "Pristine",
+          "chance": 1.0,
           "count": 4
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmOKLGFixer",
@@ -5267,62 +5267,6 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkW2Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkB2Loose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkMakeup",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 64
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkR3Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -5369,6 +5313,62 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -5484,6 +5484,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5533,13 +5540,6 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
-        },
-        {
-          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5610,6 +5610,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5659,13 +5666,6 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
-        },
-        {
-          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5736,6 +5736,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5785,13 +5792,6 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
-        },
-        {
-          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5862,6 +5862,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5908,13 +5915,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskHQCHInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
@@ -5988,6 +5988,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6034,13 +6041,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskJATLInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskJATLInv",
@@ -6114,6 +6114,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6160,13 +6167,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskJFTSInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
@@ -6240,6 +6240,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6286,13 +6293,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskMHNGInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
@@ -6366,6 +6366,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6412,13 +6419,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskMSUZInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
@@ -6492,6 +6492,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.9750000000000001,
@@ -6538,13 +6545,6 @@
           "condition": "Pristine",
           "chance": 0.9750000000000001,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskMTRSInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.9750000000000001,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
@@ -6618,6 +6618,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6664,13 +6671,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskMVOLInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
@@ -6744,6 +6744,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6790,13 +6797,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskSVIRInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
@@ -6870,6 +6870,13 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6916,13 +6923,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskVCBRInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
@@ -6996,6 +6996,13 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7042,13 +7049,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskVENCInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskVENCInv",
@@ -7122,6 +7122,13 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7168,13 +7175,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmSupplyKioskVNCAInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
@@ -7206,62 +7206,6 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkW2Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkB2Loose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkMakeup",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 64
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkR3Loose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 4
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -7308,6 +7252,62 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
@@ -7339,22 +7339,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowFirstlight4LooseDmg",
-          "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowHearth2Loose",
           "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowHearth2LooseDmg",
-          "condition": "Broken",
           "chance": 0.85,
           "count": 8
         },
@@ -7367,22 +7353,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowGroundworkW2LooseDmg",
-          "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkB2Loose",
           "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowGroundworkB2LooseDmg",
-          "condition": "Broken",
           "chance": 0.85,
           "count": 8
         },
@@ -7395,22 +7367,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowGroundworkR3LooseDmg",
-          "condition": "Broken",
-          "chance": 0.85,
-          "count": 4
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 4
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowGroundworkR3MediumLooseDmg",
-          "condition": "Broken",
           "chance": 0.85,
           "count": 4
         },
@@ -7423,10 +7381,59 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowFirstlight4LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowHearth2LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkW2LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkB2LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -7476,13 +7483,6 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVerdemorrowWaterConduitLoose",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 128
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -7792,7 +7792,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.29.0",
+      "version": "0.30.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9536,7 +9536,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.51.0",
+      "version": "0.52.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9578,7 +9578,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.13.0",
+      "version": "0.14.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -27369,22 +27369,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosVolatilesRefineryLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosChemicalProcessorLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27397,22 +27383,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosSabatierReactorLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosAmmoniaCrackerLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27425,22 +27397,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosPropellantManifoldLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosCanisterFillerLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27453,22 +27411,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosCabinAirRegulatorLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosHydrogenStoreLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27481,22 +27425,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosHydrogenStoreMediumLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLargeLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosHydrogenStoreLargeLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27509,22 +27439,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosMethaneStoreLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosMethaneStoreMediumLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosMethaneStoreMediumLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27537,22 +27453,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosMethaneStoreLargeLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosOxygenStoreLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27565,22 +27467,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosOxygenStoreMediumLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosOxygenStoreLargeLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosOxygenStoreLargeLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27593,22 +27481,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosNitrogenStoreLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosNitrogenStoreMediumLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosNitrogenStoreMediumLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27621,22 +27495,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosNitrogenStoreLargeLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosCarbonDioxideStoreLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27649,22 +27509,8 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosCarbonDioxideStoreMediumLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosCarbonDioxideStoreLargeLooseDmg",
           "condition": "Broken",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosCarbonDioxideStoreLargeLoose",
-          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27677,13 +27523,6 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosAmmoniaStoreLoose",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAmmoniaStoreMediumLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -27691,15 +27530,176 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosAmmoniaStoreMediumLoose",
+          "item": "PhobosAmmoniaStoreLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVolatilesRefineryLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
         {
           "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosAmmoniaStoreLargeLooseDmg",
-          "condition": "Broken",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCanisterFillerLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosHydrogenStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosHydrogenStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMethaneStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMethaneStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosOxygenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosOxygenStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosOxygenStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosNitrogenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosNitrogenStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosNitrogenStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonDioxideStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonDioxideStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
         },
@@ -27738,7 +27738,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.47.0",
+      "version": "0.48.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -37764,20 +37764,6 @@
         },
         {
           "table": "ItmOKLGFixer",
-          "item": "PhobosRivetlineCoolantCharge",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 64
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosFurnaceCoolantConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
-        },
-        {
-          "table": "ItmOKLGFixer",
           "item": "PhobosFurnaceLoose",
           "condition": "Worn",
           "chance": 0.85,
@@ -37904,6 +37890,13 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosRivetlineCoolantCharge",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosAluminiumIngot",
           "condition": "Pristine",
           "chance": 0.95,
@@ -37915,6 +37908,13 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 32
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmOKLGFixer",
@@ -37936,20 +37936,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 24
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosRivetlineCoolantCharge",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 64
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosFurnaceCoolantConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -38079,20 +38065,6 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosAluminiumIngot",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 32
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosSteelIngot",
-          "condition": "Pristine",
-          "chance": 0.95,
-          "count": 32
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosFurnaceSection",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -38100,6 +38072,34 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosRivetlineCoolantCharge",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAluminiumIngot",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 32
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosSteelIngot",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 32
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosFurnaceLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -40463,6 +40463,139 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 32
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosFurnaceLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosFurnaceRadiatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosFurnaceThermalPortLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosIndustrialConsoleLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosShipbreakerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosExteriorGrabberLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosHullChuteLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosScrapReclaimerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosResidueCollectorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosProcessSiloLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosShipbreakerSection",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 24
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosScrapReclaimerSection",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 24
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosFurnaceSection",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 24
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
@@ -40473,139 +40606,6 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceCoolantConduitLoose",
-          "condition": "Pristine",
-          "chance": 1.0,
-          "count": 128
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceRadiatorLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceThermalPortLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosIndustrialConsoleLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosShipbreakerLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosExteriorGrabberLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosHullChuteLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosScrapReclaimerLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosResidueCollectorLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosProcessSiloLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosIceThawLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosMaterialBinLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosProcessSiloMediumLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosProcessSiloLargeLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosMaterialBinMediumLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosMaterialBinLargeLoose",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosAluminiumIngot",
           "condition": "Pristine",
           "chance": 0.95,
@@ -40620,10 +40620,10 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -41887,18 +41887,20 @@
     }
   ],
   "sourceHashes": {
+    "mods/PhobosAgriculture/framework/economy.json": "6a1419e2795534063f58a9c2aadc1df6778a0c7cae3dd53792f1d9f024bc97cc",
     "mods/PhobosAgriculture/framework/equipment-names.json": "53bbc29557319786fd5a7c96855f611f8418db27a82511a9ba7846e7d743535c",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "4907799fed3439eb092471976e446bee8d90ec81dcdc5927901ef51b1b30b01a",
-    "mods/PhobosAgriculture/mod_info.json": "3109c1cf05dd58554a69821d9d646afe79786b7135d3e2c9c6d2ff7440dbbcb6",
+    "mods/PhobosAgriculture/mod_info.json": "298fdd5905a08ae899dfe221d925ec2615fd80a1f2c573dc2b6069a77c521000",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
+    "mods/PhobosAutoNav/framework/economy.json": "40cd8ff16e514e65e5f2708fafff76c379e754005e39cd5f75e2c49468727e29",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "59f27ca2ed449addede320ac9dfb08d09e0c6506da73e6503b78290de2ce75fd",
+    "mods/PhobosAutoNav/mod_info.json": "a216b8d5dba17aba71e1a064dce6f316354404502f23d1752de28df808f6a568",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "978a76fd7ee804787b61b5fb3e2f7d16d229838d5dc8581d14bd90c84836dd1f",
+    "mods/PhobosFramework/mod_info.json": "3885fee001b349cf5d1ff45b18f6af9fa16ef2809964312d27e6eb2d69672ed5",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "3d7cd9a787533ebed24a2ff3e20c5ae0c275f91aac69ef7879754d51678c3ee7",
@@ -41907,17 +41909,18 @@
     "mods/PhobosManufacturing/framework/materials.json": "475ee6edec46428acae9b4bb0850db4dea93cb233ab005bce20385905cedee56",
     "mods/PhobosManufacturing/framework/process-recipes.json": "583d1032de03512f194a88bf8398c639f1e0050e24f0679ce2739ffa99543379",
     "mods/PhobosManufacturing/framework/vessels.json": "450b9baf5eab6ca0c1ef22758df13f67d8bc954ed249d73b987ead598ac3f19a",
-    "mods/PhobosManufacturing/mod_info.json": "d363cfb9d9417c801e871b0b4405c44f43a989876ec56bd581673c42e38d3d33",
+    "mods/PhobosManufacturing/mod_info.json": "5dc6d743543babeecdab37d326ce4fe1cb667142ade813d9a9aca6180248bcc8",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
+    "mods/PhobosShipbreaker/framework/economy.json": "e6dace6323dc89c0c83820e9fedec7ebbcce62a195e12cb7d754caa1a0bfb7ff",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "0c39d0a6efac904a2a4cc273ff1060ebbc20da33d5fd6d26c1ac32b95fe77184",
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
     "mods/PhobosShipbreaker/framework/vessels.json": "c656a1807b649dcf25d03030c73be49b3de4f7d524c61ccf1848476cd05d097e",
-    "mods/PhobosShipbreaker/mod_info.json": "0614fbd737afcca93923fb97576e367e3e77441198444d1bd14af45207a156e8",
+    "mods/PhobosShipbreaker/mod_info.json": "fa16f6eaf681cf65612c763f158222b80ac2a059b00cff5301558f57f5336b11",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -41926,7 +41929,7 @@
     "mods/PhobosWarDeclared/schematics/safe.json": "4ee6980986fb18728540f9ddcc71ae58847c5e1cb1236b61b1c84661d0fc6aee",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
-    "src/PhobosAgriculture/BulkDefinitions.cs": "8b80760b323686198b5a1e25d6694e0cfc108b7db13c181ec4b2d40e8a5e93ee",
+    "src/PhobosAgriculture/BulkDefinitions.cs": "38642f7e057e815ab2acefe22c0237bbb1a8fe868bcd7cf937c1216d27c406aa",
     "src/PhobosAgriculture/BulkHooks.cs": "15c1f4687cf8a3df2173b04a95f6774d1882f8635f7a7e69ec2555c328941815",
     "src/PhobosAgriculture/BulkService.cs": "410ecd1fe7831ee006873416f58df221ecb84bfcc5dd8acbbcc6ce3cd3ec0710",
     "src/PhobosAgriculture/BulkTrading.cs": "292d33bae085db41ba8ad7cb8b1139efc10d84c37666ab0e5d7858233816adfa",
@@ -41940,28 +41943,29 @@
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "156a1c054cc55084a3e175e550d68fb19d723b402b6cef5c7d1b222198304a80",
-    "src/PhobosAgriculture/Definitions.cs": "cd61610e25215f395328fd7204f86cfbabb3b6f303903357754605167fe41232",
-    "src/PhobosAgriculture/EquipmentEconomy.cs": "8273cee6d1b4ff1633f690eb6cfbffc2810ed972f4f1f4b83944382dae96c340",
-    "src/PhobosAgriculture/IrrigationDefinitions.cs": "d0adbe0a8424804d7fc6caea394fd5e0b5f45c7c03196c0cc0e23d96ec65110c",
+    "src/PhobosAgriculture/Definitions.cs": "9a436c64e88fb95e0e28d0cd8e8ea9863ff4282e69c5c10d90e0ab1e72082fcf",
+    "src/PhobosAgriculture/EconomyData.cs": "b649779a4c29236918b9b6b3c57d846b48190843bf64b0244548799aa0f2673c",
+    "src/PhobosAgriculture/EquipmentEconomy.cs": "d7b0d57393c5752da349299ffe0a4d4a26ca9875835969cd77baa0c9d25caacd",
+    "src/PhobosAgriculture/IrrigationDefinitions.cs": "ebbd9ef4dfb44bd90ef268be6208bc19889295903becc1f53c5e244db175fc5b",
     "src/PhobosAgriculture/IrrigationService.cs": "56af8c537c349e5d9a9555138489a77b06eaccfcea3ab68f45941be3c631b67a",
     "src/PhobosAgriculture/LineService.cs": "89d1d8455d77a0a7246474301b9810f54e040fb0e8139d065c3b556c57987cfa",
-    "src/PhobosAgriculture/LootContent.cs": "c3f3d2c04021754cff8b876c8bf39d42ed9c3b0a6fe491c6ec4ac171ad7d822a",
+    "src/PhobosAgriculture/LootContent.cs": "b68ca3f0583cf0658691553ae3330d89125e7fb0e356052f10438b68f9aa6a56",
     "src/PhobosAgriculture/MaterialOperations.cs": "7715c52d021c0fd5af50f072dbfe5c6bbde6e51e42f840308bd02c6147f8ef91",
     "src/PhobosAgriculture/Panel.cs": "bbc54e2982e9653bf1bcf8ac908cfa6cd643d3e0c196635f9e280ce164afb85c",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "7408cbb89db52810d644414552f0114ce5f56ec8c32e0cf4be2ce671d1030d21",
-    "src/PhobosAgriculture/Plugin.cs": "1e92e704383f83de108815dcaafd9b18800e7320096ba707fbf58492e2cd994f",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "5c6bcf3e91cde563aaf6447571a854865fa686e3de32f51bbaafbfda8ab8cd67",
+    "src/PhobosAgriculture/Plugin.cs": "342e386fa715a4bb6a9754ff5346a41b14089f5331486c24d477109885ea13ac",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
-    "src/PhobosAgriculture/RegionalEconomy.cs": "802259df0ea743e6642395326596236b14fe4723b8c4b3f581f460fbf74a8fef",
+    "src/PhobosAgriculture/RegionalEconomy.cs": "2c32a97294d876f67b8c686533ada4c266c8280144843b7cedfc759a39792cdd",
     "src/PhobosAgriculture/Service.cs": "295cc9c02840a773c2f87598265f4258def313b764845ce5343fd9381c774fcd",
     "src/PhobosAgriculture/SolutionService.cs": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
     "src/PhobosAgriculture/StackLimits.cs": "821b2e3427b23676c50e3959b1953023c99711d326b29396d2f3c645db4196ae",
-    "src/PhobosAgriculture/StockQuantities.cs": "dd672c60367f5436ea5c08140523f0918529a3c15b3240722185aa2fe1f72b03",
+    "src/PhobosAgriculture/StockQuantities.cs": "e131d42cb4c79dbe7270c42bbd250df501657e5812c599364cf843c56bf9772c",
     "src/PhobosAgriculture/Text.cs": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
     "src/PhobosAgriculture/VesselData.cs": "2befcb67e6e5af7fcaeb0c60c4736e735bd6c6602d45eefdfb5dff5d3ffb7c50",
-    "src/PhobosAgriculture/WorkupDefinitions.cs": "c634c6a5c5d3872907d82b932abeedea8b1d2a8507b70bdb83ef7c33b836a4d8",
+    "src/PhobosAgriculture/WorkupDefinitions.cs": "c51da1fa0f122cc9dbd223b582256912150957d4b3f8e8aa7523124ac714c441",
     "src/PhobosAgriculture/WorkupService.cs": "4deb1ea07282cc14d66e8843d55fdeea95b345b5c462023e4b9b2337458785c8",
     "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "70a7a25a2b9047253fc90f92a38093841b5258e510c1364942c582bbf995c67a",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "d0009485d1bd2a44510a692333e1c975ccfede09cb2d737bf45db76cbeee2a48",
@@ -41975,7 +41979,7 @@
     "src/PhobosAutoNav/Core/ContactReading.cs": "4a27fdf5cce6de9eec6c3290ea60c7b76360f0ded6ebf902a8f56c009f51cc49",
     "src/PhobosAutoNav/Core/DepartureRules.cs": "22fcf6c6973b3e38738eaa540a8822e237fa4dde44acf4be5e98ce418c2e2eba",
     "src/PhobosAutoNav/Core/DockingRules.cs": "6f738c55cfb04147ff086b5b8eaa0588752edcbe817224e9028fd95ede5351c6",
-    "src/PhobosAutoNav/Core/EquipmentRules.cs": "ad28fefb24c80ec5cfea0141ea20136ee38ed1e500a90d054aaccee4ec66e7e7",
+    "src/PhobosAutoNav/Core/EquipmentRules.cs": "54cd2282bb100d982ee7946c93e6fb1ffd55a4ee48ebf84f779fc6520cd07948",
     "src/PhobosAutoNav/Core/FireRules.cs": "7489d272af070e12aa8b5eeb40b6f407575e5481030d3e791b785e6d11f4b037",
     "src/PhobosAutoNav/Core/FlightPreferences.cs": "a3cd54c6e71a7a658ccf5ba810dd5d0ade340b66c796519ead8b108c1387a829",
     "src/PhobosAutoNav/Core/FlightSnapshot.cs": "1c2e2bd86a117edc97ee37a8925507fef959b7f8e1c78ecf5ae8de4046341290",
@@ -41989,7 +41993,8 @@
     "src/PhobosAutoNav/Core/TorchRules.cs": "931f5c31659c3ced40c3132e822a387b04e5508cd824924cad3c8fe14c892da8",
     "src/PhobosAutoNav/CrewProvider.cs": "916e080293e9cc07f450b7447b60482d248600d2fa5c8753df5328870fd27e24",
     "src/PhobosAutoNav/DockingAdapter.cs": "0025ce1e120b8a8ee36e096be2ce43c5c949aef91c75a45d8ab1c5b34aac3765",
-    "src/PhobosAutoNav/EquipmentContent.cs": "a066d7662c9a1c47d3d5e7ead8948a0cb54b82492fba2edb6f6e932f0e70f77c",
+    "src/PhobosAutoNav/EconomyData.cs": "17b2e1a747cbe3d93fae2494b714a7852f039cd4d297047b91c1a8844b14f694",
+    "src/PhobosAutoNav/EquipmentContent.cs": "af34de3ac1104e2d85e64905071ea9a2752dfa4fac805ae4bd2fff1a5b45061a",
     "src/PhobosAutoNav/FireControlController.cs": "ad7c66ac0460ad05e3c6b868b7649812e1b12f0dd6eb93c8e0b36bd5ecb44adf",
     "src/PhobosAutoNav/HubLayout.cs": "f662c428a1477185375bcfd6572a940f632dd22a22896faa7f9294601c85b628",
     "src/PhobosAutoNav/IndustrialNavigation.cs": "7f82ea6aa518bd89bf08443999100ea073b6326135be25f15892fa6dc4ca5bd5",
@@ -42019,11 +42024,11 @@
     "src/PhobosAutoNav/NavigationWeaponGroups.cs": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "f376199224f4058d229bc0bbeb6ff4fcfc477e4e305ca341357d496805e9edda",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "52ad6aaca96b30d766a25006b75b33fcca8382680f2ed2bf4bd38cea5c53f6a6",
-    "src/PhobosAutoNav/Plugin.cs": "443214047556be0532caf053ce0eb93ee4b874579ae36dc3e2739fa0f82f3d61",
-    "src/PhobosAutoNav/RegionalEconomy.cs": "77ad3ffee98fedbc03a6ec7efe9cbbdb8b0fe55e483065d0cf9f5c8384540422",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "1e0eb79f2493880174cba633c570e6989e583a3de734475b6ae6de1b04f62762",
+    "src/PhobosAutoNav/Plugin.cs": "15f680ad12959603f563322824207a8c42dd6536585cfde02cdd0abb883f44af",
+    "src/PhobosAutoNav/RegionalEconomy.cs": "d784bb73c5c81a2f32fa88b00475dabd8e46ca49bf9fd1aa98062b98008d2272",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
-    "src/PhobosAutoNav/StockQuantities.cs": "18ee9844fbb571f55fae48f9228b1eb31fdcdf57c275f7c8f0923dc2ab8869c4",
+    "src/PhobosAutoNav/StockQuantities.cs": "07d1a17b28f1a26bfa7bd427b28983658a686bd3c7df949f224bcc43df24aa37",
     "src/PhobosAutoNav/Text.cs": "6e7a22770d59134bdfc83f49bfec573f59e6036829676087435dcdb612cc1879",
     "src/PhobosAutoNav/TorchDriveController.cs": "7e0ffb9002d4b62a61788d992b98a3eb9d6b97ea2e99843c8067c012e7925394",
     "src/PhobosAutoNav/TorchObstacleGuard.cs": "2dad177747574cea8ded34df3f0f8bbe3d6c7233c34c0cad480170924bd5607c",
@@ -42080,7 +42085,8 @@
     "src/PhobosFramework/Crew/WorkRules.cs": "e79e0df16e8f0d41d39ca0b1093b149d0585f2a83ae695bbc739c392b546e4ae",
     "src/PhobosFramework/Data/DataPack.cs": "7d5c92c79801c6b2ef58b81cbe295d4506997c414038dd703f36df75c9882a06",
     "src/PhobosFramework/Data/DataPacks.cs": "7c94254c9699c46ac7e020691a6c8aac5bde0bd70e2b4002d3c6dbc693e91754",
-    "src/PhobosFramework/Data/EconomyPack.cs": "4884bf93e09dcb3dc338dc0b59d1fd9fbd19ac19d10ab5ac41793fdad969e80b",
+    "src/PhobosFramework/Data/EconomyPack.cs": "a95f418a7d5511c584a96c0c9506b1044b93e908254176e5965794424cf94e22",
+    "src/PhobosFramework/Data/EconomyStock.cs": "c13e4e8dd3b9d80477e4367c0851bece14f2f5cf655c175e10d82f997cbace16",
     "src/PhobosFramework/Data/MaterialPack.cs": "a7f7cff6b06ef3922764b35ef3caa01b0570931f4ac9ed2a596cac273f59fa61",
     "src/PhobosFramework/Data/RecipePack.cs": "1deda44e3d0478db032f8977e37dbbd5e71848f14d23a3c044689ecce46a1316",
     "src/PhobosFramework/Data/VesselPack.cs": "a3c0d7ca76ed4e9560e4ee5d4083a51ef6f18384e0d899cbc05809c4d7563ac1",
@@ -42136,8 +42142,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "0d9070f96595eb0bb13511d3802c3b59f7879e9531053c8c973a4112e4957cda",
-    "src/PhobosFramework/Plugin.cs": "9552f4c2cc02f49d36fbf9d09cb142442ccac3320416a4e72c9f16836a5abad9",
+    "src/PhobosFramework/PhobosFramework.csproj": "53778cd043cc7499706f6fcb233c116a69506397e2e09af0e1a855862e0d2d0c",
+    "src/PhobosFramework/Plugin.cs": "8586d47f52c7be870f69b088580ecb67d46015ffca656e7aa12c91478b55b207",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -42196,7 +42202,7 @@
     "src/PhobosManufacturing/Core/Vessels.cs": "1ff2d3efc5572d5f78c4b227e8c93130558bdc5598ce27f2ca2505a941f7876d",
     "src/PhobosManufacturing/CrackerService.cs": "092a97400da31b5847c36bd371044ac674407e507901d49c83bbdd0f7d8c2f6b",
     "src/PhobosManufacturing/Definitions.cs": "e0b70551c99d63fdd114616e2169d10903c12fc102e10561069638711ed42de6",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "3acebf40786a027adec7c93ddd714de9108d86686f16dd9af7ccd2d6274485bf",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "03dfda3f15e36bd6e734820cc24e807741f3680d61698fe54ffd580af75b970e",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "81f0311f97e18a0056bbd825f945845fa56cbb71e5c0f0866a8dfb37e2c32824",
     "src/PhobosManufacturing/GasLine.cs": "62d56a9f66fe6734ef29ef02d338fbdd9b8f32e7a44cc6f08d6e4f5414a16f73",
@@ -42204,8 +42210,8 @@
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "4677ab389e2c6727f0411b0135877dfbf32676b0c41050822a057192e1288800",
-    "src/PhobosManufacturing/Plugin.cs": "28ca36ba95c9d87c065f13db7f6bcf3ca67a965c554b8f794b1fdf9af45f9e8d",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "bdb1d3f2a067dd35a5bfcb8de53bb6f45e252e2a9080f86f83f4a8c5bd9fd1be",
+    "src/PhobosManufacturing/Plugin.cs": "a897a55163b4df16f6f4e441c0ed875be0ea4b5b2a1987c9e8900addbbd3f3bd",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
     "src/PhobosManufacturing/Provider.cs": "021cda84ab580e4fe50c28d4dbda32e0346b7f0f62c39f2b764e38f3d4b200c5",
     "src/PhobosManufacturing/RefineryService.cs": "11f5678e364886e06e43b3ee289efa10a1f639d767c588263c1151cf17c5bb21",
@@ -42227,18 +42233,19 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "2fac357db0fd152d628aae43c762d217a5f5ea8e57348695ded717cf7f96ff3a",
     "src/PhobosShipbreaker/CollectorService.cs": "2a0be265a17171d491a988d93dc760c8dc5fa7087d940316046ca9f69f590daa",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "306f8c83e6d4f7d6ec8f66f7472075dbc47827d5bd76545cff926c4b4ddcc764",
+    "src/PhobosShipbreaker/Content.cs": "4a10b52cfc062af1070a65a18a37a9878cc601487c29ee052665dfacb340cc35",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
-    "src/PhobosShipbreaker/CoolantService.cs": "e6ea2fab703c5530a8206f19439593364a85ec41153c6d87dc0b53746d1bb0ca",
+    "src/PhobosShipbreaker/CoolantService.cs": "3712b3a821ec605a7546077eafca2a6cbf1b00c8c67063ffafe9025d4586e516",
     "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
-    "src/PhobosShipbreaker/Core/BinRules.cs": "ed8ba0ed2249dc9b09e641f2487d8312314d0ab3d51f3c4af7c19837897c16fd",
+    "src/PhobosShipbreaker/Core/BinRules.cs": "d9cb23dbd93cf6ab0c8a59e341500dcbb6ac30fd360980b5e44ec1cb1e732f03",
     "src/PhobosShipbreaker/Core/CaptureRules.cs": "0166d2bda0007870d3b6775fcd413d5253834c07c39e4ea59995a4c00fd1fea4",
     "src/PhobosShipbreaker/Core/CollectorCommand.cs": "1af59059c2bd2c032a750712e12833f83e28573034000756b3c345d93bd99dc5",
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "7198a3c9840b75612a339a5aeab39853ec30ce671a379eba0d08134c8e54bee7",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "63134f328819607a944f03d0261b560a0657a757a82979d67ac7f159e5decf98",
+    "src/PhobosShipbreaker/Core/EconomyData.cs": "87a16bd5380a5a9eb6e4af705917fd388c158f9350895a9e862349fd0fdccec2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
@@ -42252,22 +42259,22 @@
     "src/PhobosShipbreaker/Core/IntakeRules.cs": "7ce3352b9bf1066ae8e62960e29f00c9f901de7b41f7391e78ab93b74918201c",
     "src/PhobosShipbreaker/Core/ProcessData.cs": "75f12994f9abdb43910c4639f90dd93058f01fbd661e1f28b95e5cf819c7f4d9",
     "src/PhobosShipbreaker/Core/ProcessRecipes.cs": "15db0da16bbc75e32c72516d06ba3e7d2255a0773c1a5e5d8920bc59bfe760b9",
-    "src/PhobosShipbreaker/Core/ProcessRules.cs": "93c4fcb490a30dc760dd0ab5c9f672561cdac9956a8162f48ec5c577a5bcbd2c",
+    "src/PhobosShipbreaker/Core/ProcessRules.cs": "0fb31ce89329dc1b622459e22b8a3e435304f091838c18f572f1d5054a342857",
     "src/PhobosShipbreaker/Core/ReclaimerRules.cs": "bd4c2176242a320e54ee7a37403f81d4bc3a9ce6e53adcc841f829be0e5a357b",
     "src/PhobosShipbreaker/Core/ReclamationRules.cs": "af67f6bed2bfc0a97e7ffaa9bc00d4a11d589b0c8319d39914471252573b3b32",
     "src/PhobosShipbreaker/Core/RoutingCommand.cs": "5da9f80e3bbe039c2f3dc63f01d7013a72b56f9283af0c979b5198bdc9812afd",
     "src/PhobosShipbreaker/Core/RoutingRules.cs": "c916440921dc1401896998a2d486ba4b3d2d1225f3c07f208e4bf775cc0bc88d",
-    "src/PhobosShipbreaker/Core/SiloRules.cs": "07fc7295fe6a8e0a1688874fc2ef0795aeb69c43e2a43a2df134706c6f83a88c",
+    "src/PhobosShipbreaker/Core/SiloRules.cs": "fa7d5d8a77dfd1736750b971331102b27116e43460ee16e092af4322535e7023",
     "src/PhobosShipbreaker/Core/StorageRules.cs": "b1c70ebe17c7aedecb2aed74cd4e21626da5a66808e9931c12fa9d1b042e698c",
-    "src/PhobosShipbreaker/Core/ThawRules.cs": "9ce7ecc74face2f2d6f93d39967276f5e19f6cc0bc6b355120c7c0f21ae98a56",
+    "src/PhobosShipbreaker/Core/ThawRules.cs": "67e861c76328c12f3b44f771adae87793f86c87fe9520f05339b7179b10dcef9",
     "src/PhobosShipbreaker/Core/VesselData.cs": "e1fd866ddee8e9be354d0283210880a6da1bc2be2769dfa746b461a80bf81c61",
     "src/PhobosShipbreaker/CrewProvider.cs": "8a47595e558c49609b3f7c7057797ab78c5264d9a122dc224e9706ab4067b332",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "59eeae5e615070d3f9e25054d7fc70362ff3b8842cbaf576565c1ae372e376ab",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "8dc1836f3d40171f1a6ea9b969d680e4a73e2f3054d8bc5013cd2c424d80e63c",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
-    "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "4169a23c2b52c193c28e234020f2200126cfff185754abfb2e9395a979cd516a",
+    "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "e77f7ad4501863fce38905bb51a8b7cca204bc81540743a88d7f2f80c081a745",
     "src/PhobosShipbreaker/FurnaceConnectionView.cs": "a98d84d60b09ee1f6dd4171e11522e02dcc05e31f69592d906433df617728bca",
     "src/PhobosShipbreaker/FurnaceCoolantRoute.cs": "37cb0f914e8035e81697922f02a8f5a82b45d877b3f10cab45f53d464222eb9b",
     "src/PhobosShipbreaker/FurnaceDefinitions.cs": "97258b204659c05eab6b6204d68f73b459af09a08d5eb102a1d1b469352a0cf1",
@@ -42289,9 +42296,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "89c27031d3426be275cb76d8c7e2fbe75c01ad5186c4a50b23ca2e218a90764d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "1df9fb8458ddadc5133df9ce5910b104d9571a80e909cf07de6ea26b4d4c548d",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "7fa0cd415e000ee7e1da50ec4c7dd480f6266d7b969b83f975c23aa8363a2dc3",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "dd00114fa9656a6fc0d77ebd632d1189b4aa1c0f46c9c5c3d32a84f03eef0ad9",
+    "src/PhobosShipbreaker/Plugin.cs": "2bed2b460b46d50d11ccaeac4b0529854a04a44a70e183aa03987b2637fa2de0",
     "src/PhobosShipbreaker/PowerKinds.cs": "1fd8de318e12433eb363fa069c4e21b6457ebf6e859f20039531a98f7b278629",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -42301,12 +42308,12 @@
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "438d1c8a621efd7c6d00391eba81285e83ee6b87f9b3c207b16990f04d71ffa1",
     "src/PhobosShipbreaker/ReclamationPower.cs": "39c03c78a1d5c91d739e7a9c85aabe7c4e1dc167ce3fe39bf73d22fb730c7ca0",
     "src/PhobosShipbreaker/ReclamationService.cs": "63a9e8492c036f5615c50037131dc7ed703790207b4618f63b81ae0edef7956c",
-    "src/PhobosShipbreaker/RegionalEconomy.cs": "66654fb1ca42c53ee8248739eb148992ea87466210e16db815304be9c0cfa19e",
+    "src/PhobosShipbreaker/RegionalEconomy.cs": "1226f2488499e87291cc8178daa34d6999a5efc94800af15344285825bb08eaf",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "1e9fa1facd79a585987f93d60aa4f0e59a616cc99cd5e845fc0f4abc37794b99",
     "src/PhobosShipbreaker/SiloDefinitions.cs": "ac0b45f2c9caeca06373dfd33215ceeeaca91b57da632f346c4abb120e6849e4",
     "src/PhobosShipbreaker/SiloService.cs": "cc74e9c142c6c4d56e85d6976a36e31b4be873206212259f0ece00c30912ba8a",
-    "src/PhobosShipbreaker/StockQuantities.cs": "ae221fad93df673c174760e282ae106e6d5c460044268d7a6222a3a92902fe52",
+    "src/PhobosShipbreaker/StockQuantities.cs": "737284b15c7b91066ab6071df2ce8021fa38e50f217560f787e26bf3f3080726",
     "src/PhobosShipbreaker/StorageService.cs": "c045693a0142664905f568569b739713e2aba5117fa09a9e73d436f8c2461535",
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
@@ -42324,12 +42331,12 @@
     "src/PhobosWarDeclared/Schematics.cs": "2c0897817f3e0fed289199720683c52805d7a13864ac951e6acffdd27dd8859c",
     "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
-    "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "04da4c56b10a281828951965d9ee26639babae37738781c379ea4df828d17f45",
+    "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "da6d159eeb9656168e9082e38c4e83ba1ed57ae5ac60ce655345c06f9d6cc030",
     "tests/PhobosNative.Tests/Program.cs": "f1e63af0c592d90da54fba7d652b325e4d81ca768e5de3c25128b03bb5f5f5ae",
     "translations/PhobosAgriculture/en.json": "588f6cb1048d76b2e3bb300899833c6111e298219352f0d9a88dc73c988e45ca",
-    "translations/PhobosAutoNav/en.json": "e3904f4dad6e8aa05fbac7932eaaa298a652b82253678b47df55a234711ba377",
-    "translations/PhobosFramework/en.json": "33e5c70589565af0358644cdc9683d683d7f803446162931e29fa8899d4b6377",
+    "translations/PhobosAutoNav/en.json": "bf6f99c73e3899ec48482799d29ce35146bc86bb786135a1bfc419096999b0e9",
+    "translations/PhobosFramework/en.json": "8df6d2e31ab0468811abf2cf2658f1830fed0e9602408bbbca58aa1574a9bb16",
     "translations/PhobosManufacturing/en.json": "b3982153bd6dbcb072463a92ecb6887d84f2bf93a897a9101e6c37ae8ad3a8bc",
     "translations/PhobosShipbreaker/en.json": "873a8c93a2ee9152051028246ffe17939a31695233fc1c2d2dddab7aefb5a5f1",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"

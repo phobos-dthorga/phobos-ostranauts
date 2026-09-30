@@ -4,7 +4,8 @@
 A data-pack migration is correct when every prepared definition, job, offer and
 source is unchanged. Source hashes and the audited assembly hash are ignored,
 because moving a value between a C# file and a JSON file changes them by design;
-mod version strings are ignored too unless --strict is given.
+mod version strings are ignored too unless --strict is given. Merchant sources
+are compared as a set, since their registration order is not a gameplay fact.
 
 Usage: compare-item-export.py BEFORE AFTER [--format json]
 Exit code 0 when equal, 1 when different (differences are listed), 2 on error.
@@ -21,6 +22,12 @@ def strip(data, strict=False):
     if not strict and isinstance(data.get('mods'), list):
         # A migration always bumps versions; the definitions are what must match.
         data['mods'] = [{k: v for k, v in mod.items() if k != 'version'} for mod in data['mods']]
+    if isinstance(data.get('mods'), list):
+        # Merchant sources are a set: the order offers are registered in is not a
+        # gameplay fact, so a migration that applies them in another order still matches.
+        for mod in data['mods']:
+            if isinstance(mod.get('sources'), list):
+                mod['sources'] = sorted(mod['sources'], key=lambda s: json.dumps(s, sort_keys=True))
     return data
 
 

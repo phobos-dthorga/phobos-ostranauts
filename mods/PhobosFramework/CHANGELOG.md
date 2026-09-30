@@ -20,6 +20,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.52.0] - 2026-09-30 - Draft
+
+### Added
+
+- The economy data-pack schema now covers assembly sections (sold whole: price, dismantle work, salvage), items with a plain damaged twin (navigation boards), per-family offer scale and regional chance, salvage with a retained remainder (it may weigh less than the machine, never more), free-named lot and floor tables every entry points into, loose commodities offered in every region, and world finds listed item by item or across several tables. One shared stock resolver classifies any item to its lot and floor and applies offers, regional stock and world finds for every Phobos mod, so the four mods no longer keep their own copies.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself; Manufacturing 0.14.0, Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 read the new fields. Offline checks are not gameplay validation.
+
 ## [0.51.0] - 2026-09-30 - Draft
 
 ### Added

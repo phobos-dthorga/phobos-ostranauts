@@ -28,7 +28,7 @@ internal sealed class TankSize
             return spec;
         }
     }
-    internal double Price { get; }
+    internal double Price => BulkVesselSizes.Scale(AgricultureEconomy.Price(BulkDefinitions.Tank), BulkVesselSizes.PriceFactor(3, Size));
     internal double CapacityKg => Spec.CapacityKg;
     internal double DryKg => Spec.DryKg;
     internal string NameKey => "bulk_tank" + (Size == VesselSize.Small ? "" : "_" + Size.ToString().ToLowerInvariant());
@@ -36,7 +36,6 @@ internal sealed class TankSize
     internal TankSize(VesselSize size)
     {
         Size = size; Prefix = BulkVesselSizes.Prefix(BulkDefinitions.Tank, size); Footprint = BulkVesselSizes.Footprint(3, size);
-        Price = BulkVesselSizes.Scale(BulkDefinitions.Price, BulkVesselSizes.PriceFactor(3, size));
     }
 }
 internal static class BulkDefinitions
@@ -47,8 +46,7 @@ internal static class BulkDefinitions
     /// <summary>The R3's ratings, from the vessels data pack (framework/vessels.json); larger sizes scale through the ladder.</summary>
     internal static double CapacityKg=>AgricultureVessels.Entry(Tank).capacityKg??0;
     internal static double DryKg=>AgricultureVessels.Entry(Tank).dryKg;
-    internal const double Price=450,NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
-    internal const int TankStock=4,NutrientStock=8;
+    internal const double NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
     /// <summary>The R3 as a Framework bulk vessel (Agriculture 0.18.0). Record, journal and guard names are the
     /// ones every saved R3 already carries, so an existing save reads unchanged; a Shipbreaker T2 may deliver into it.</summary>
     /// <summary>The R3, R4 and R5, smallest first.</summary>
@@ -88,19 +86,9 @@ internal static class BulkDefinitions
                     string image="phobos/agriculture/Reservoir"+(form.Contains("Loose")?"Loose":"")+(form.EndsWith("Dmg")?"Damaged":"");
                     co.strPortraitImg=image;d.Items[co.strItemDef].strImg=image;d.Items[co.strItemDef].strImgNorm=image+"Normal";
                 }
-                if(form.EndsWith("Dmg"))
-                { d.Installables[co.strName+"Repair"].aInputs=new[]{"TIsPartsMechSmall=1x"+(1+step),"TIsPartsElecSmall=1x1","TIsScrapAluminum=1x"+(1+step)};MaintenanceDefinitions.SetStat(co,"StatRepairProgressMax",1800+600*step); }
-                string waste=p+(form.EndsWith("Dmg")?"Broken":"")+"HousingWaste";int scraps=(form.EndsWith("Dmg")?1:4)*(1+step);
-                if(!d.Objects.ContainsKey(waste))MaintenanceDefinitions.Remainder(d,waste,Text.Get("housing_waste"),size.DryKg-scraps);
-                MaintenanceDefinitions.Dismantle(d,co.strName,600+200*step,Enumerable.Repeat("ItmScrapSteel",scraps).Concat(new[]{waste}).ToArray());
             }
         }
         Definitions.Stock(d,Nutrients,NutrientKg,NutrientPrice,"bulk_nutrients",false);
         MaintenanceDefinitions.SetStat(d.Objects[Nutrients],"IsCategoryIndustrialProducts",1);
-        foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})
-        {
-            foreach(var size in Sizes)MarketStock.Add(d,merchant,size.Prefix+merchant,size.Prefix+"Loose", StockQuantities.Chance(size.Prefix+"Loose", 1),StockCondition.Pristine,TankStock);
-            MarketStock.Add(d,merchant,Nutrients+merchant,Nutrients, StockQuantities.Chance(Nutrients, 1),StockCondition.Pristine,NutrientStock);
-        }
     }
 }

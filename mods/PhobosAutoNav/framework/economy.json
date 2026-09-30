@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "schema": "economy",
+  "notes": "Phobos Auto Nav economy (Auto Nav 0.30.0): the Asterel navigation boards' prices, repair and dismantle work, repair bill (two small electronic parts; dismantling returns the 0.4 kg board residue), merchant offers, regional factors, the lot of sixteen and the rare derelict salvage. Balance record: docs/auto-nav-economy.md.",
+  "equipment": {
+    "PhobosNavModAutoNav": {
+      "notes": "Asterel N1 Polaris Auto Nav Module, 0.4 kg.",
+      "forms": "item",
+      "price": 3600,
+      "brokenPrice": 900,
+      "work": {
+        "repair": 900,
+        "dismantle": 100
+      },
+      "repairBill": {
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {},
+      "brokenSalvage": {},
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.3,
+      "lot": "boards"
+    },
+    "PhobosNavModPursuit": {
+      "notes": "Asterel N2 Pursuit module.",
+      "forms": "item",
+      "price": 5400,
+      "brokenPrice": 1350,
+      "work": {
+        "repair": 900,
+        "dismantle": 100
+      },
+      "repairBill": {
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {},
+      "brokenSalvage": {},
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.15,
+      "lot": "boards"
+    },
+    "PhobosNavModFireControl": {
+      "notes": "Asterel N3 Fire Control module.",
+      "forms": "item",
+      "price": 5400,
+      "brokenPrice": 1350,
+      "work": {
+        "repair": 900,
+        "dismantle": 100
+      },
+      "repairBill": {
+        "ItmPartsElecSmall01": 2
+      },
+      "salvage": {},
+      "brokenSalvage": {},
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.1,
+      "lot": "boards"
+    }
+  },
+  "supplies": {},
+  "offerTemplates": [
+    {
+      "notes": "Used at the K-Leg fixer.",
+      "merchant": "ItmOKLGFixer",
+      "tag": "Used",
+      "form": "Loose",
+      "condition": "Worn",
+      "chance": 0.3
+    },
+    {
+      "notes": "Broken at K-Leg supplies.",
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "tag": "Broken",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.25
+    },
+    {
+      "notes": "New at San Diego Polaris.",
+      "merchant": "ItmTraderSanDiegoPolarisInv",
+      "tag": "New",
+      "form": "Loose",
+      "condition": "Pristine",
+      "chance": 0.6
+    },
+    {
+      "notes": "Refurbished at Venus scrap.",
+      "merchant": "ItmVORBScrapKioskInv",
+      "tag": "Refurb",
+      "form": "Loose",
+      "condition": "Refurbished",
+      "chance": 0.2
+    }
+  ],
+  "offers": {},
+  "regions": {
+    "BCER": 1,
+    "BCRS": 0.75,
+    "EJDR": 0.75,
+    "HQCH": 0.5,
+    "JATL": 0.75,
+    "JFTS": 0.75,
+    "MHNG": 1,
+    "MSUZ": 1.25,
+    "MTRS": 1.25,
+    "MVOL": 1.5,
+    "OFLT": 0.5,
+    "SVIR": 0.5,
+    "VCBR": 0.75,
+    "VENC": 0.75,
+    "VNCA": 0.75
+  },
+  "regional": {
+    "notes": "Each board has its own regional chance; OFLT sells refurbished boards; five expanded merchants carry all three at the floor chance.",
+    "baseChance": 0.3,
+    "refurbished": [
+      "OFLT"
+    ],
+    "expandedMerchants": [
+      "ItmOKLGSupplyKioskInv",
+      "ItmOKLGFixer",
+      "ItmTraderSanDiegoHalvorsonInv",
+      "ItmVORBScrapKioskInv",
+      "ItmTraderSanDiegoPolarisInv"
+    ]
+  },
+  "lots": {
+    "boards": 16
+  },
+  "chanceFloors": {
+    "equipment": 0.85
+  },
+  "worldLoot": [
+    {
+      "notes": "Rare derelict salvage in the game's own navigation-module leaf tables (never the parent random tables): the chance is split over the three boards, two thirds of it damaged; tables ending in Dmg yield only damaged boards. The Salvage settings can switch it off or change the chance.",
+      "tables": [
+        "ItmNavStationModsAll",
+        "ItmNavStationModsAllDmg",
+        "ItmNavStationModsCombat",
+        "ItmNavStationModsTorchShip",
+        "ItmNavStationModsTorchShip2",
+        "ItmNavStationModsAtmo",
+        "ItmNavStationModsPod",
+        "ItmNavStationModsTorchCombat",
+        "ItmNavStationModsTorchCombat2",
+        "ItmNavStationModsRandomAll",
+        "ItmNavStationModsRandomAllDmg",
+        "ItmNavStationModsRandomPod",
+        "ItmNavStationModsRandomAtmoSub",
+        "ItmNavStationModsRandomCombatSub",
+        "ItmNavStationModsRandomTorchSub"
+      ],
+      "branch": "PhobosAutoNavSalvage",
+      "chance": 0.3,
+      "brokenShare": 0.6666666666666666
+    }
+  ]
+}

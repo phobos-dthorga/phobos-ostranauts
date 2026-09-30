@@ -1,56 +1,21 @@
 using System.Linq;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Registration;
-using Phobos.Ostranauts.Framework.Trading;
 using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
 
-// Authored availability factors informed by native production and retail roles.
-// Native supply/demand, condition, merchant margins and negotiation still set prices.
+/// <summary>Regional availability across the vanilla solar system, from the economy data pack's region factors
+/// and regional section. Native supply/demand, condition, merchant margins and negotiation still set prices.</summary>
 internal static class RegionalEconomy
 {
-    internal static readonly (string Region, double Factor)[] Profiles = {
-        ("BCER", 1),
-        ("BCRS", 1.25),
-        ("EJDR", 0.75),
-        ("HQCH", 0.75),
-        ("JATL", 0.75),
-        ("JFTS", 1),
-        ("MHNG", 0.5),
-        ("MSUZ", 1),
-        ("MTRS", 1.5),
-        ("MVOL", 1.5),
-        ("OFLT", 0.5),
-        ("SVIR", 1.25),
-        ("VCBR", 1),
-        ("VENC", 0.75),
-        ("VNCA", 1.25)
-    };
+    internal static (string Region, double Factor)[] Profiles => ShipbreakerEconomy.Pack.regions.Select(p => (p.Key, p.Value)).ToArray();
 
     internal static readonly string[] TerminalRemainders = { ReclaimerRules.Reject, FurnaceRules.Remainder, FurnaceRecipes.SteelRemainder };
 
     internal static void Apply(NativeDefinitions d)
     {
-        foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
-        foreach (string item in EquipmentEconomy.Machines.Select(m => m.Prefix + "Loose").Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, FurnaceCooling.Conduit + "Loose", FurnaceService.CoolantStock }).Concat(FurnaceRecipes.Ingots))
-            MarketStock.AddMissing(d, merchant, "PhobosExpanded_Shipbreaker_" + merchant + "_" + item,
-                item, StockQuantities.Chance(item, 0), StockCondition.Pristine, StockQuantities.For(item));
-        foreach (var profile in Profiles)
-        {
-            var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
-            foreach (var machine in EquipmentEconomy.Machines)
-            {
-                bool small = machine.Prefix == IntakeRules.Chute || machine.Prefix == CollectorRules.Prefix;
-                Offer(machine.Prefix + "Loose", small ? .30 : .20);
-            }
-            foreach (string section in new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section })
-                Offer(section, .30);
-            Offer(FurnaceCooling.Conduit + "Loose", .65);
-            // Consumable charge quality is independent of refurbished machinery.
-            RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, StockQuantities.Chance(FurnaceService.CoolantStock, .65 * profile.Factor), StockCondition.Pristine, StockQuantities.Coolant);
-            foreach (string ingot in FurnaceRecipes.Ingots) RegionalMarkets.Add(d, profile.Region, ingot, StockQuantities.Chance(ingot, .5 * profile.Factor), StockCondition.Pristine, StockQuantities.Ingots);
-            void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, StockQuantities.Chance(item, chance * profile.Factor), condition, StockQuantities.For(item));
-        }
+        EconomyStock.ApplyRegional(d, ShipbreakerEconomy.Pack, ShipbreakerEconomy.OwnerTag, EquipmentEconomy.Sales);
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantWaste], "IsCategoryTrash", 1);

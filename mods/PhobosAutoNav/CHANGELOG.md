@@ -21,6 +21,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.30.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The board economy now lives in framework/economy.json, read through Phobos Framework with player override files in BepInEx/config/PhobosAutoNav/economy: the N1, N2 and N3 prices and broken prices, repair and dismantle work, the repair bill, the four merchant routes, the regional factors, the lot of sixteen and the derelict salvage chance the Salvage settings start from. Shipped figures are unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Saves, flights and stocked shops are unchanged. Offline checks are not gameplay validation.
+
 ## [0.29.0] - 2026-09-30 - Draft
 
 ### Fixed

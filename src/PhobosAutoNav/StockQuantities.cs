@@ -1,10 +1,12 @@
+using Phobos.Ostranauts.Framework.Data;
+
 namespace PhobosAutoNav;
 
+/// <summary>The board lot and availability floor, from the economy data pack through the shared Framework resolver.</summary>
 internal static class StockQuantities
 {
-    internal const double EquipmentChance = .85;
-    internal static double Chance(string item, double original) => System.Math.Min(1, System.Math.Max(EquipmentChance, original));
-
+    internal static double EquipmentChance => AutoNavEconomy.Pack.Floor(EconomySchema.Equipment, EconomyStock.DefaultFloor);
+    internal static double Chance(string item, double original) => EconomyStock.Chance(AutoNavEconomy.Pack, item, original);
     // Each successful merchant offer, in every region; rare derelict salvage stays separate.
-    internal const int Boards = 16;
+    internal static int Boards => AutoNavEconomy.Pack.Lot("boards", EconomyStock.DefaultLot);
 }

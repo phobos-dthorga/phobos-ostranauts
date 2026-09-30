@@ -180,7 +180,7 @@ internal static class EconomyChecks
         var navRestore = nav.Installables[PhobosAutoNav.EquipmentContent.Base + "Restore"];
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");
-        var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
+        var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosStock_", StringComparison.Ordinal) && l.strName.Contains("_PhobosNavMod")).ToArray();
         check(navOffers.Length == 12 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x" + PhobosAutoNav.StockQuantities.Boards, StringComparison.Ordinal)),
             "Four offers each for N1, N2 and N3 request their configured board lots");
         check(Stat("PhobosFireControlBoard", "StatBasePrice") == 5400 && Stat("PhobosFireControlBoardDmg", "StatBasePrice") == 1350,

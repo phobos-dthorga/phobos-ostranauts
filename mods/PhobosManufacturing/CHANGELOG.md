@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Merchant offers, regional stock and world finds are applied through Phobos Framework's shared stock resolver instead of this mod's own copy. The offers, chances, lots and finds are unchanged; only the internal ids of the propellant line offers differ, which no save or shop records.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.13.0] - 2026-09-30 - Draft
 
 ### Changed

@@ -1,0 +1,557 @@
+{
+  "schemaVersion": 1,
+  "schema": "economy",
+  "notes": "Phobos Agriculture economy (Agriculture 0.24.0): Verdemorrow equipment prices, repair and dismantle work, repair bills and salvage (what the bills leave of the housing returns as a retained housing remainder), the irrigation pipe, merchant offers, regional factors, lots and loot. Food, seed and nutrient item prices stay with their item definitions for now. Balance record: docs/agriculture-economy-review.md.",
+  "equipment": {
+    "PhobosVerdemorrowFirstlight4": {
+      "notes": "Firstlight-4 Cultivation Rack, 4 x 4, 80 kg.",
+      "price": 700,
+      "work": {
+        "repair": 2400,
+        "dismantle": 800
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 2,
+        "ItmPartsElecSmall01": 1,
+        "ItmScrapAluminum": 2
+      },
+      "salvage": {
+        "ItmScrapSteel": 12,
+        "ItmScrapAluminum": 8,
+        "ItmPartsMechSmall01": 2
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 4,
+        "ItmScrapAluminum": 2
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25
+    },
+    "PhobosVerdemorrowHearth2": {
+      "notes": "Hearth-2 Galley Cooker, 2 x 2, 12 kg.",
+      "price": 150,
+      "work": {
+        "repair": 1200,
+        "dismantle": 400
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 1,
+        "ItmScrapAluminum": 1
+      },
+      "salvage": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 1
+      },
+      "brokenSalvage": {
+        "ItmScrapAluminum": 1
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25
+    },
+    "PhobosVerdemorrowGroundworkW2": {
+      "notes": "Groundwork W2 Water Supply Unit, 2 x 2, 20 kg.",
+      "price": 250,
+      "work": {
+        "repair": 1800,
+        "dismantle": 600
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 1,
+        "ItmPartsElecSmall01": 1,
+        "ItmScrapAluminum": 1
+      },
+      "salvage": {
+        "ItmScrapSteel": 4
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 1
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25
+    },
+    "PhobosVerdemorrowGroundworkB2": {
+      "notes": "Groundwork B2 Workup Bench, 2 x 2, 20 kg.",
+      "price": 250,
+      "work": {
+        "repair": 1800,
+        "dismantle": 600
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 1,
+        "ItmPartsElecSmall01": 1,
+        "ItmScrapAluminum": 1
+      },
+      "salvage": {
+        "ItmScrapSteel": 3
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 1
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25
+    },
+    "PhobosVerdemorrowGroundworkR3": {
+      "notes": "Groundwork R3 Agricultural Water Reservoir, 3 x 3, 25 kg dry; the R4 and R5 follow through the ladder (bills grow with the step), sold four to a lot.",
+      "price": 450,
+      "work": {
+        "repair": 1800,
+        "dismantle": 600
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 1,
+        "ItmPartsElecSmall01": 1,
+        "ItmScrapAluminum": 1
+      },
+      "salvage": {
+        "ItmScrapSteel": 4
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 1
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25,
+      "lot": "reservoirs"
+    }
+  },
+  "supplies": {
+    "PhobosVerdemorrowWaterConduit": {
+      "notes": "Groundwork irrigation pipe: 1 kg, lots of 128 at the supplies floor, offered in every region and by the expanded merchants.",
+      "price": 2,
+      "repairWork": 120,
+      "dismantleWork": 120,
+      "repairBill": {
+        "ItmScrapAluminum": 1
+      },
+      "remainder": "PhobosVerdemorrowWaterConduitWaste",
+      "merchants": [
+        "ItmOKLGSupplyKioskInv",
+        "ItmOKLGFixer",
+        "ItmTraderSanDiegoHalvorsonInv"
+      ],
+      "chance": 1,
+      "lot": "pipes",
+      "expanded": true,
+      "regionalChance": 0.65,
+      "regionalCondition": "Pristine"
+    }
+  },
+  "offerTemplates": [
+    {
+      "notes": "Every machine has the same second-hand routes: used at the K-Leg fixer, refurbished and broken at Venus scrap.",
+      "merchant": "ItmOKLGFixer",
+      "tag": "Used",
+      "form": "Loose",
+      "condition": "Worn",
+      "chance": 0.3
+    },
+    {
+      "merchant": "ItmVORBScrapKioskInv",
+      "tag": "Refurbished",
+      "form": "Loose",
+      "condition": "Refurbished",
+      "chance": 0.2
+    },
+    {
+      "merchant": "ItmVORBScrapKioskInv",
+      "tag": "Broken",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.25
+    }
+  ],
+  "offers": {
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowFirstlight4Loose": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowFirstlight4Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowHearth2Loose": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowHearth2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuancePotato": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuancePotato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceLettuce": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceLettuce",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkNutrients": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkIrrigation": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkIrrigation",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkRecoveryCartridge": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkW2LooseOffer_ItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkW2Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkB2Loose": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkB2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkMakeup": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkMakeup",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkR3ItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkR3Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3MediumItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3LargeItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkBulkNutrientsItmOKLGSupplyKioskInv": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowFirstlight4Loose": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowFirstlight4Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowHearth2Loose": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowHearth2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuancePotato": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuancePotato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceLettuce": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceLettuce",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkNutrients": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkIrrigation": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkIrrigation",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkRecoveryCartridge": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkW2LooseOffer_ItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkW2Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkB2Loose": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkB2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkMakeup": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkMakeup",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkR3ItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkR3Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3MediumItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3LargeItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkBulkNutrientsItmOKLGFixer": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowFirstlight4Loose": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowFirstlight4Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowHearth2Loose": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowHearth2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuancePotato": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuancePotato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceLettuce": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceLettuce",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowGroundworkNutrients": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowGroundworkIrrigation": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkIrrigation",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowGroundworkRecoveryCartridge": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkW2LooseOffer_ItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkW2Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowGroundworkB2Loose": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkB2Loose",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowGroundworkMakeup": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkMakeup",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosVerdemorrowGroundworkR3ItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkR3Loose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3MediumItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkR3LargeItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosVerdemorrowGroundworkBulkNutrientsItmTraderSanDiegoHalvorsonInv": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+      "condition": "Pristine",
+      "chance": 1
+    },
+    "PhobosHearthFood_ItmOKLGFoodCart01KioskInv": {
+      "notes": "Cooked portions at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart01KioskInv",
+      "item": "PhobosVerdemorrowHearthPotatoes",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthFood_ItmOKLGFoodCart02KioskInv": {
+      "notes": "Cooked portions at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart02KioskInv",
+      "item": "PhobosVerdemorrowHearthPotatoes",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthFood_ItmTraderSanDiegoFutureFoodsInv": {
+      "notes": "Cooked portions at the food carts, at the supplies floor.",
+      "merchant": "ItmTraderSanDiegoFutureFoodsInv",
+      "item": "PhobosVerdemorrowHearthPotatoes",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    }
+  },
+  "regions": {
+    "BCER": 0.75,
+    "BCRS": 0.75,
+    "EJDR": 0.75,
+    "HQCH": 0.5,
+    "JATL": 0.75,
+    "JFTS": 0.75,
+    "MHNG": 1.25,
+    "MSUZ": 1.25,
+    "MTRS": 1.5,
+    "MVOL": 0.75,
+    "OFLT": 0.5,
+    "SVIR": 0.75,
+    "VCBR": 0.75,
+    "VENC": 1,
+    "VNCA": 1
+  },
+  "regional": {
+    "notes": "Every region offers the machines at 0.25 times its factor (OFLT refurbished) and the supplies below at 0.65; the four expanded merchants carry everything at the floor chance.",
+    "baseChance": 0.25,
+    "refurbished": [
+      "OFLT"
+    ],
+    "expandedMerchants": [
+      "ItmOKLGSupplyKioskInv",
+      "ItmOKLGFixer",
+      "ItmTraderSanDiegoHalvorsonInv",
+      "ItmVORBScrapKioskInv"
+    ],
+    "items": {
+      "PhobosVerdemorrowContinuancePotato": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowContinuanceLettuce": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowGroundworkNutrients": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowGroundworkBulkNutrients": {
+        "notes": "Bulk nutrient charges ship eight to a lot.",
+        "chance": 0.65,
+        "lot": "nutrients"
+      },
+      "PhobosVerdemorrowGroundworkIrrigation": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowGroundworkRecoveryCartridge": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowGroundworkMakeup": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowRawPotatoes": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowLettuce": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowHearthPotatoes": {
+        "chance": 0.65
+      }
+    }
+  },
+  "lots": {
+    "equipment": 8,
+    "supplies": 64,
+    "pipes": 128,
+    "reservoirs": 4,
+    "nutrients": 8
+  },
+  "chanceFloors": {
+    "equipment": 0.85,
+    "supplies": 0.95
+  },
+  "worldLoot": [
+    {
+      "notes": "Stored seeds and produce in fridges; chances per contents roll, scaled by the Loot setting.",
+      "table": "ItmFridge01Contents",
+      "branch": "PhobosAgricultureStoredSeeds",
+      "items": {
+        "PhobosVerdemorrowContinuancePotato": 0.03,
+        "PhobosVerdemorrowContinuanceLettuce": 0.04,
+        "PhobosVerdemorrowRawPotatoes": 0.06,
+        "PhobosVerdemorrowLettuce": 0.05,
+        "PhobosVerdemorrowHearthPotatoes": 0.04
+      }
+    },
+    {
+      "notes": "Supplies in locked crates.",
+      "table": "ItmRandomCrateLockedContents",
+      "branch": "PhobosAgricultureCrateSupplies",
+      "items": {
+        "PhobosVerdemorrowContinuancePotato": 0.03,
+        "PhobosVerdemorrowContinuanceLettuce": 0.04,
+        "PhobosVerdemorrowGroundworkNutrients": 0.08,
+        "PhobosVerdemorrowGroundworkIrrigation": 0.06,
+        "PhobosVerdemorrowGroundworkRecoveryCartridge": 0.05,
+        "PhobosVerdemorrowWaterConduitLoose": 0.04
+      }
+    },
+    {
+      "notes": "Loose machinery in engineering salvage, half of it broken, spread over the five small families.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosAgricultureMachinerySalvage",
+      "chance": 0.3,
+      "brokenShare": 0.5
+    }
+  ]
+}

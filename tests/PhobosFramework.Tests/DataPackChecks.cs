@@ -69,7 +69,7 @@ internal static class DataPackChecks
             pack.supplies["PhobosPipe"] = new SupplyEconomyEntry { price = 1, repairWork = 1, dismantleWork = 1, repairBill = { ["ItmScrapSteel"] = 1 }, merchants = { "ItmSomeKiosk" }, chance = 0 };
             pack.offerTemplates.Add(new OfferTemplate { merchant = "ItmSomeKiosk", tag = "Scrap", form = "LooseDmg", condition = "Broken", chance = .2 });
             pack.regions["OKLG"] = 1; pack.regional = new RegionalStock { baseChance = .2, refurbished = { "OFLT" } };
-            pack.lots["equipment"] = 8; pack.chanceFloors["supplies"] = .95;
+            pack.lots["equipment"] = 8; pack.lots["supplies"] = 128; pack.chanceFloors["equipment"] = .85; pack.chanceFloors["supplies"] = .95;
             pack.worldLoot.Add(new WorldLootEntry { table = "ItmLootSpawnEngineering", branch = "PhobosSalvage", chance = .05, brokenShare = .75 });
             return pack;
         }
@@ -92,6 +92,27 @@ internal static class DataPackChecks
         Bad(p => p.lots["equipment"] = 0, "Lots are 1 to 256");
         Bad(p => p.worldLoot[0].brokenShare = 2, "Broken share is a fraction");
         Bad(p => p.supplies["PhobosPipe"].merchants.Clear(), "Supplies need a merchant");
+        Bad(p => p.equipment["PhobosThing"].lot = "crates", "Lots must be named in the lots table");
+        Bad(p => p.equipment["PhobosThing"].forms = "sheet", "Forms must be machine, item or single");
+        Bad(p => p.equipment["PhobosThing"].offerScale = 0, "Offer scale must be positive");
+        Bad(p => p.worldLoot[0].items = new Dictionary<string, double> { ["PhobosThing"] = .8, ["PhobosOther"] = .3 }, "Explicit loot items add up to 1 at most");
+        // Sections need only a price, dismantle work and salvage; a remainder lets salvage weigh less, never more.
+        var wide = new EconomyContext(new[] { "PhobosThing", "PhobosPart" }, new[] { "PhobosPipe" }) { MassOf = p => p == "PhobosThing" || p == "PhobosPart" ? 10 : null, MaterialMassOf = context.MaterialMassOf };
+        var withSection = Good();
+        withSection.equipment["PhobosPart"] = new EquipmentEconomyEntry { kind = "section", forms = "single", price = 10, work = new WorkEntry { dismantle = 1 }, salvage = { ["ItmScrapSteel"] = 10 }, offers = false, lot = "supplies" };
+        EconomySchema.Validate(withSection, wide); check(true, "A section validates with a price, dismantle work and salvage");
+        withSection.equipment["PhobosPart"].salvage["ItmScrapSteel"] = 9; throws(() => EconomySchema.Validate(withSection, wide), "Section salvage must weigh what the section weighs");
+        var remainder = Good(); remainder.equipment["PhobosThing"].salvageRemainder = true; remainder.equipment["PhobosThing"].salvage["ItmScrapSteel"] = 2;
+        EconomySchema.Validate(remainder, context); check(true, "With a remainder the salvage may weigh less than the machine");
+        remainder.equipment["PhobosThing"].salvage["ItmScrapSteel"] = 20; throws(() => EconomySchema.Validate(remainder, context), "With a remainder the salvage may not weigh more than the machine");
+        // Stock classification: machines by prefix, supplies by prefix, regional items exactly, each to its lot and floor.
+        var stock = Good(); stock.regional!.items["PhobosIngot"] = new RegionalItemEntry { chance = .5, lot = "supplies" };
+        check(EconomyStock.Quantity(stock, "PhobosThingLoose") == 8 && EconomyStock.Quantity(stock, "PhobosThingMediumLooseDmg") == 8 && EconomyStock.Quantity(stock, "PhobosPipeLoose") == 128
+            && EconomyStock.Quantity(stock, "PhobosIngot") == 128 && EconomyStock.Chance(stock, "PhobosPipeLoose", 0) == .95 && EconomyStock.Chance(stock, "PhobosThingLoose", .9) == .9 && EconomyStock.Chance(stock, "PhobosThingLoose", 0) == .85,
+            "Items resolve to their lot and floor");
+        var sales = new[] { EquipmentSale.Of("PhobosThing", stock.equipment["PhobosThing"]), EquipmentSale.Size("PhobosThingMedium", stock.equipment["PhobosThing"]) };
+        var spread = EconomyStock.LootChances(stock.worldLoot[0], sales);
+        check(spread.Count == 2 && Math.Abs(spread["PhobosThingLooseDmg"] - .05 * .75) < 1e-12 && Math.Abs(spread["PhobosThingLoose"] - .05 * .25) < 1e-12, "World loot spreads over the small sizes only, the broken share to the damaged form");
 
         // The recipe schema: mass conservation and the game's gases on every file.
         var recipeContext = new RecipeContext { Machines = new[] { "kiln" }, Requirements = new[] { "other-mod" }, UnitMassOf = id => id == "ItmOre" ? 10 : null, IsCommodity = id => id == "water", ReferenceK = 298.15 };

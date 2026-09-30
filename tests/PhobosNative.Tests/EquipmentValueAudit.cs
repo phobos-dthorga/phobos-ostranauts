@@ -116,7 +116,7 @@ internal static class EquipmentValueAudit
             "| Repair target | Replacement inputs, base value |", "|---|---:|" });
         foreach (var spec in EquipmentEconomy.Machines)
             rows.Add($"| {DataHandler.dictCOs[spec.Prefix + "Loose"].strNameFriendly} | ${spec.RepairBill.Select((count,i) => count * Price(EquipmentEconomy.Materials[i])).Sum():N2} |");
-        rows.AddRange(new[] { $"| {DataHandler.dictCOs[PhobosAutoNav.EquipmentContent.Base].strNameFriendly} | ${PhobosAutoNav.Core.EquipmentRules.RepairElectronicsCount*Price(PhobosAutoNav.Core.EquipmentRules.ElectronicsItem):N2} |", "", "Repair values exclude purchasing markups, reusable tools, work and subsequent Restore. Repair returns equal-mass spent material; it does not mint fresh valuable components.", "" });
+        rows.AddRange(new[] { $"| {DataHandler.dictCOs[PhobosAutoNav.EquipmentContent.Base].strNameFriendly} | ${PhobosAutoNav.AutoNavEconomy.RepairElectronicsCount*Price(PhobosAutoNav.Core.EquipmentRules.ElectronicsItem):N2} |", "", "Repair values exclude purchasing markups, reusable tools, work and subsequent Restore. Repair returns equal-mass spent material; it does not mint fresh valuable components.", "" });
         if (report != null) File.WriteAllText(report, string.Join("\n", rows));
     }
 }

@@ -11,7 +11,7 @@ namespace PhobosShipbreaker;
 
 internal static class Content
 {
-    internal const string Prefix = "PhobosShipbreaker";
+    internal const string Prefix = ProcessRules.Prefix;
     internal const string Installed = Prefix + "Installed";
     internal const string Loose = Prefix + "Loose";
     internal const string InputBin = Prefix + "InputBin";
@@ -79,6 +79,7 @@ internal static class Content
         ShipbreakerVessels.Load();
         ShipbreakerMaterials.Load();
         ShipbreakerRecipes.Load(NativeMass);
+        ShipbreakerEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
 
         foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working, StorageRules.Unloading })
             prepared.Conditions[condition] = new JsonCond { strName = condition,

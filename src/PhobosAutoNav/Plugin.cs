@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.45.1")]
+[BepInDependency(FrameworkInfo.PluginId, "0.52.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.29.0";
+    public const string Version = "0.30.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -62,7 +62,7 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new NavigationCrewProvider());
         Phobos.Ostranauts.Framework.Crew.CrewWork.SkipStarting += Service.SuspendForSkip;
         SalvageEnabled = Config.Bind("Salvage", "Enabled", true, Text.Get("Salvage.enabled"));
-        SalvageChance = Number("Salvage", "NavModuleChance", EquipmentRules.SalvageChance, 0, 1, Text.Get("Salvage.chance"));
+        SalvageChance = Number("Salvage", "NavModuleChance", AutoNavEconomy.SalvageChance, 0, 1, Text.Get("Salvage.chance"));
         ResumeAfterLoad = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("Persistence.resume_setting"));
         AutoEngageSensors = Config.Bind("Sensors", "AutoEngage", SensorAutoEngage.All, Text.Get("SensorAssist.setting"));
         TorchDriveController.SensorSettling = Service.SensorsSettlingForTorch;
