@@ -17,7 +17,7 @@ public static class IndustrialRules
         IntakeRules.IsHardware(id) && id!.StartsWith(IntakeRules.Grabber, StringComparison.Ordinal) ? "grabber" :
         IntakeRules.IsHardware(id) && id!.StartsWith(IntakeRules.Chute, StringComparison.Ordinal) ? "chute" :
         ReclaimerRules.IsFamily(id) ? "reclaimer" : CollectorRules.IsFamily(id) ? "collector" :
-        SiloRules.IsFamily(id) ? "silo" : ThawRules.IsFamily(id) ? "thaw" :
+        ThawRules.IsFamily(id) ? "thaw" :
         id == "PhobosShipbreakerInstalled" || id == "PhobosShipbreakerInstalledDmg" ? "fixture" : "";
     public static bool Equipment(string? id) => Group(id) != "" && !Console(id);
 }

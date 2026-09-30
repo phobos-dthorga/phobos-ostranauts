@@ -52,8 +52,10 @@ internal static class BulkDefinitions
     /// <summary>The R3, R4 and R5, smallest first.</summary>
     internal static readonly IReadOnlyList<TankSize> Sizes=BulkVesselSizes.All.Select(s=>new TankSize(s)).ToArray();
     internal static BulkVesselSpec Spec=>Sizes[0].Spec;
-    /// <summary>Any size of reservoir.</summary>
+    /// <summary>Any size of reservoir (a retired R-series definition; saved ones convert to Framework's tanks on load).</summary>
     internal static bool IsTank(CondOwner? co)=>co!=null && BulkVesselSizes.InLadder(co.strCODef,Tank);
+    /// <summary>Any tank Agriculture's crew fill and drain: a reservoir or one of Framework's Rivetline water tanks.</summary>
+    internal static bool IsWaterTank(CondOwner? co)=>IsTank(co)||Phobos.Ostranauts.Framework.Items.WaterTanks.IsTank(co);
     internal static TankSize? SizeOf(string? id)=>Sizes.FirstOrDefault(s=>EquipmentIdentity.IsFamily(id,s.Prefix));
     /// <summary>The capacity of any registered water vessel (a reservoir of any size, a Shipbreaker silo).</summary>
     internal static double CapacityOf(CondOwner co)=>BulkVessels.Of(co)?.CapacityKg??CapacityKg;
@@ -92,5 +94,40 @@ internal static class BulkDefinitions
             LineDefinitions.AddPort(d,p,Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(),LinePorts.WaterPoint,port.X,port.Y,port.Socket);
         }
         Definitions.Stock(d,Nutrients,"bulk_nutrients");
+        RetireIntoFrameworkTanks();
+        // Retired: the reservoirs leave the INSTALL menu (their jobs stay, for any job saved against one).
+        foreach(var size in Sizes)foreach(var form in new[]{"Loose","LooseDmg"})
+            if(d.Installables.TryGetValue(size.Prefix+form+"Install",out var install))install.bNoJobMenu=true;
+    }
+    /// <summary>Agriculture 0.31.0 (the owner's consolidation, 30 September 2026): every saved R3, R4 and R5 converts on
+    /// load to Framework's Rivetline S3, S4 or S5 tank of the same footprint, in every form, keeping its position, id,
+    /// water, reserve, inventory and links. The water record, journal and guard take the tank's names and owner; the
+    /// saved conditions take the tank's (its mass moves by the difference in housing). The reservoir definitions stay
+    /// registered for jobs saved against them. Framework's tanks gain the reservoir's crew work (load a charge,
+    /// recover trapped water, drain) so nothing a reservoir did is lost.</summary>
+    private static void RetireIntoFrameworkTanks()
+    {
+        var tanks=Phobos.Ostranauts.Framework.Items.WaterTanks.All;
+        for(int i=0;i<Sizes.Count;i++)
+        {
+            var r=Sizes[i].Spec;var s=tanks.First(t=>t.Footprint==Sizes[i].Footprint);var target=s.Spec;
+            var renames=new Dictionary<string,string>(StringComparer.Ordinal)
+            {
+                ["PhobosState."+r.Record]="PhobosState."+target.Record,["PhobosState."+r.Journal]="PhobosState."+target.Journal,["PhobosState."+r.Guard]="PhobosState."+target.Guard
+            };
+            foreach(var form in new[]{"Installed","Loose","InstalledDmg","LooseDmg"})
+                Phobos.Ostranauts.Framework.Persistence.DefinitionMigrations.Register(Sizes[i].Prefix+form,s.Prefix+form,renames,TakeOwnership,
+                    Phobos.Ostranauts.Framework.Persistence.DefinitionMigrations.Retarget(Sizes[i].Prefix+form,s.Prefix+form,Sizes[i].DryKg,s.DryKg,Sizes[i].Prefix+"Machine"));
+        }
+        // Framework publishes its tanks before any content mod; amend them in place, never republish.
+        foreach(var tank in tanks)
+            if(DataHandler.dictCOs!=null&&DataHandler.dictCOs.TryGetValue(tank.Installed,out var installed))
+                Phobos.Ostranauts.Framework.Registration.DefinitionAmendments.AppendInteractions(installed,Work.Select(WorkId).ToArray());
+    }
+    /// <summary>A carried record keeps its values; its envelope names the tank's owner instead of Agriculture.</summary>
+    private static Dictionary<string,string> TakeOwnership(string oldName,Dictionary<string,string> map)
+    {
+        if(map.TryGetValue("owner",out var owner)&&owner==Plugin.Id)map["owner"]=Phobos.Ostranauts.Framework.Items.WaterTanks.RecordOwner;
+        return map;
     }
 }

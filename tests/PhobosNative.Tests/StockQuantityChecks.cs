@@ -58,7 +58,8 @@ internal static class StockQuantityChecks
             (packs[1].Definitions, PhobosShipbreaker.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray()),
             (packs[2].Definitions, new[] { PhobosAutoNav.NavigationService.ModuleId, PhobosAutoNav.NavigationService.PursuitId, PhobosAutoNav.NavigationService.FireControlId }
                 .Select(id => (id, id + "Dmg")).ToArray()),
-            (packs[3].Definitions, PhobosManufacturing.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray())
+            (packs[3].Definitions, PhobosManufacturing.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray()),
+            (packs[4].Definitions, Phobos.Ostranauts.Framework.Items.WaterTanks.All.Select(t => (t.Prefix + "Loose", t.Prefix + "LooseDmg")).ToArray())
         };
         foreach (var (d, machines) in families)
         {

@@ -40,6 +40,41 @@ internal static class DefinitionMigrationChecks
             check(ReferenceEquals(DefinitionMigrations.Convert(plainSave), plainSave), "Other saved objects are returned as they are");
             check(typeof(JsonItem).GetProperties().All(p => !p.Name.Contains("Point") && !p.Name.Contains("Socket") && !p.Name.Contains("SpriteSheet")),
                 "The game saves no map points, socket adds or sprite sheets per item: new line ports reach old saves from the definition");
+
+            // Agriculture 0.31.0: a saved R3 becomes Framework's S3 (and R4, R5 the S4, S5), keeping its water record,
+            // links, position and wear, with its records under the silo names and owner and its mass moved by the
+            // difference in housing.
+            DefinitionMigrations.Reset();
+            PhobosAgriculture.Definitions.Prepare();
+            string[] Envelope(string owner) => DataHandler.ConvertDictToStringArray(new Dictionary<string, string> { ["schema"] = "1", ["owner"] = owner, ["data.service"] = "100" });
+            JsonItem Reservoir(string id, string prefix, string record) => new()
+            {
+                strName = prefix + "Installed", strID = id, fX = 5, fY = 6, fRotation = 180,
+                aGPMSettings = new[]
+                {
+                    new JsonGUIPropMap { strName = "PhobosState." + record, dictGUIPropMap = Envelope(PhobosAgriculture.Plugin.Id) },
+                    new JsonGUIPropMap { strName = "PhobosMaterialPort.PhobosAgriculture.BulkOut", dictGUIPropMap = new[] { "schema", "1" } }
+                }
+            };
+            var r3 = Reservoir("r3-1", PhobosAgriculture.BulkDefinitions.Tank, "AgricultureBulk");
+            var r4 = Reservoir("r4-1", PhobosAgriculture.BulkDefinitions.Tank + "Medium", "AgricultureBulkMedium");
+            check(DefinitionMigrations.Convert(r3) && DefinitionMigrations.Convert(r4) && r3.strName == "PhobosProcessSiloInstalled" && r4.strName == "PhobosProcessSiloMediumInstalled" &&
+                r3.strID == "r3-1" && r3.fX == 5 && r3.fY == 6 && r3.fRotation == 180, "Each reservoir becomes the silo of its footprint, in place, with its id");
+            var water = DataHandler.ConvertStringArrayToDict(r3.aGPMSettings[0].dictGUIPropMap);
+            check(r3.aGPMSettings[0].strName == "PhobosState.ShipbreakerSilo" && r4.aGPMSettings[0].strName == "PhobosState.ShipbreakerSiloMedium" &&
+                water["owner"] == Phobos.Ostranauts.Framework.Items.WaterTanks.RecordOwner && water["data.service"] == "100",
+                "The water record takes the silo's name and owner, contents unchanged");
+            check(r3.aGPMSettings[1].strName == "PhobosMaterialPort.PhobosAgriculture.BulkOut", "The W2 link is carried: the tank's outlet bank keeps the reservoir's port id");
+            var r3Save = new JsonCondOwnerSave { strID = "r3-1", strCODef = PhobosAgriculture.BulkDefinitions.Tank + "Installed",
+                aConds = new[] { "IsInstalled=1.0x1", "StatMass=1.0x145", "StatDamage=1.0x3", PhobosAgriculture.BulkDefinitions.Tank + "Machine=1.0x1", "StatBasePrice=1.0x450", "IsLocked=1.0x1" } };
+            var s3 = DefinitionMigrations.Convert(r3Save);
+            double Amount(string[] conds, string name) => double.Parse(conds.Single(c => c.StartsWith(name + "=", StringComparison.Ordinal)).Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
+            check(s3.strCODef == "PhobosProcessSiloInstalled" && Amount(s3.aConds, "StatMass") == 360 && Amount(s3.aConds, "StatBasePrice") == 4800 && Amount(s3.aConds, "StatDamage") == 3 &&
+                s3.aConds.Any(c => c.StartsWith("IsLocked=", StringComparison.Ordinal)) && s3.aConds.Any(c => c.StartsWith("PhobosProcessSiloMachine=", StringComparison.Ordinal)) &&
+                !s3.aConds.Any(c => c.StartsWith(PhobosAgriculture.BulkDefinitions.Tank + "Machine=", StringComparison.Ordinal)),
+                "Saved conditions take the silo's: 120 kg of water now weighs with a 240 kg housing, the silo's price and family mark, wear and locks kept");
+            var fresh = DefinitionMigrations.Convert(new JsonCondOwnerSave { strID = "r3-2", strCODef = PhobosAgriculture.BulkDefinitions.Tank + "Loose", aConds = new[] { "DEFAULT" } });
+            check(fresh.strCODef == "PhobosProcessSiloLoose" && Amount(fresh.aConds, "StatMass") == 240, "An untouched loose reservoir becomes an empty loose silo");
         }
         finally { DefinitionMigrations.Reset(); }
     }

@@ -25,6 +25,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.54.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The S3, S4 and S5 process water silos are Phobos Framework's now, one ladder shared by every Phobos mod, with a new S2 below them. Their saved ids, water records, names, prices and stock are unchanged, so placed and carried silos load as they were; they gain a general inventory and their own Control Panel.
+- The Silo section's crew water reserve setting moved to Framework, which takes over the value you set here.
+- The machinery salvage roll drops from 0.4 to 0.36667 because the silo left it for Framework's own roll: every family still turns up one engineering roll in thirty.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.58.0 or newer. The T2 stays here and fills any silo as before. Offline checks are not gameplay validation.
+
 ## [0.53.0] - 2026-10-01 - Draft
 
 ### Added

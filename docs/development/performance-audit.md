@@ -549,3 +549,16 @@ two-second scan adds one pass over installed oxygen and fuel stores, grouped by 
 each asking its gas network's members (a pass over that ship's gas participants).
 Framework's own items publish once per content load. No performance capture or
 measured FPS claim accompanies this change.
+
+## 1 October: one water silo ladder (L3)
+
+L3 — Static review of Framework 0.58.0 with Shipbreaker 0.54.0 and Agriculture 0.31.0.
+The water tanks are passive: no ticker, no power interface and no per-frame work;
+their records are read when a panel, console or linked machine asks, as the
+Shipbreaker silos were. Moving them to Framework changes the owner, not the work.
+Loading a save adds one dictionary probe per spawned object's definition id; only
+a retired reservoir is converted, once, with its conditions compared against two
+definition lists. The crew water reserve setting reads Shipbreaker's configuration
+file once, the first time it is needed. Agriculture's crew provider now also
+accepts the tanks, one more prefix test per candidate it already examined. No
+performance capture or measured FPS claim accompanies this change.

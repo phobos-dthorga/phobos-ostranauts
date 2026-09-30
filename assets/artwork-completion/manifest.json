@@ -1357,8 +1357,41 @@
       "registrationSHA256": "4ad032a2fc0d8995093b8d9c1c5f211d031158cddd4994068e9c83bcf88b72df"
     },
     {
+      "mod": "PhobosFramework",
+      "masterSize": [
+        96,
+        96
+      ],
+      "status": "selected",
+      "source": "source/s3-silo.png",
+      "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
+      "requestRecord": "bulk-silo-requests.json",
+      "fullFootprint": true,
+      "key": "s2-silo",
+      "definition": "PhobosProcessSiloCompactInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/framework/PhobosProcessSiloCompact",
+      "review": "Placeholder for the new S2 (Framework 0.58.0): a recorded reduction of the approved S3, inspected at native scale. A dedicated overhead pilot may replace it. Owner in-game review pending.",
+      "reduction": {
+        "key": "s3-silo",
+        "parentNativeSize": [
+          48,
+          48
+        ],
+        "colours": 48,
+        "method": "Box (area) reduction of the S3 native 48 x 48 export to 32 x 32, every pixel held to the S3 export palette; no provider call."
+      }
+    },
+    {
       "key": "s3-silo",
-      "mod": "PhobosShipbreaker",
+      "mod": "PhobosFramework",
       "definition": "PhobosProcessSiloInstalled",
       "nativeSize": [
         48,
@@ -1372,14 +1405,15 @@
         24,
         24
       ],
-      "runtime": "phobos/shipbreaker/PhobosProcessSilo",
+      "runtime": "phobos/framework/PhobosProcessSilo",
       "status": "selected",
       "source": "source/s3-silo.png",
       "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
       "requestRecord": "bulk-silo-requests.json",
       "review": "Overhead and native-scale export inspected; Rivetline/vanilla colour language checked against approved family. Owner in-game review pending.",
       "fullFootprint": true,
-      "jobId": "3553be2c-f8b1-4935-adaf-47db209f26c7"
+      "jobId": "3553be2c-f8b1-4935-adaf-47db209f26c7",
+      "moved": "Framework 0.58.0: the tanks moved from Shipbreaker with their art unchanged; only the package path changed."
     },
     {
       "key": "t2-thaw-unit",
@@ -2076,7 +2110,7 @@
     },
     {
       "key": "s4-silo",
-      "mod": "PhobosShipbreaker",
+      "mod": "PhobosFramework",
       "definition": "PhobosProcessSiloMediumInstalled",
       "nativeSize": [
         64,
@@ -2090,18 +2124,19 @@
         32,
         32
       ],
-      "runtime": "phobos/shipbreaker/PhobosProcessSiloMedium",
+      "runtime": "phobos/framework/PhobosProcessSiloMedium",
       "status": "selected",
       "source": "source/s4-silo.png",
       "sourceSHA256": "b3527effed4ccb587520bff458c7220254e616104600286f4c0cc76c645d2821",
       "requestRecord": "bulk-silo-requests.json",
       "review": "Overhead and native-scale export inspected; S3 colour language (slate deck, yellow clamps, cream domes, teal bands) kept. Owner in-game review pending.",
       "fullFootprint": true,
-      "jobId": "9e78a7d8-3aee-4efe-a9cd-9372c1e6885b"
+      "jobId": "9e78a7d8-3aee-4efe-a9cd-9372c1e6885b",
+      "moved": "Framework 0.58.0: the tanks moved from Shipbreaker with their art unchanged; only the package path changed."
     },
     {
       "key": "s5-silo",
-      "mod": "PhobosShipbreaker",
+      "mod": "PhobosFramework",
       "definition": "PhobosProcessSiloLargeInstalled",
       "nativeSize": [
         80,
@@ -2115,14 +2150,15 @@
         40,
         40
       ],
-      "runtime": "phobos/shipbreaker/PhobosProcessSiloLarge",
+      "runtime": "phobos/framework/PhobosProcessSiloLarge",
       "status": "selected",
       "source": "source/s5-silo.png",
       "sourceSHA256": "07b30e88d20168ca1546bec9389e2aa2bc00b4572337477a86fa79edb25c4865",
       "requestRecord": "bulk-silo-requests.json",
       "review": "Overhead and native-scale export inspected; S3 colour language (slate deck, yellow clamps, cream domes, teal bands) kept. Owner in-game review pending.",
       "fullFootprint": true,
-      "jobId": "3fda023c-b0ea-472e-bf68-16a66067d789"
+      "jobId": "3fda023c-b0ea-472e-bf68-16a66067d789",
+      "moved": "Framework 0.58.0: the tanks moved from Shipbreaker with their art unchanged; only the package path changed."
     },
     {
       "key": "r4-reservoir",

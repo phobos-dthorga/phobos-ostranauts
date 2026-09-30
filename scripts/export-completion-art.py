@@ -37,7 +37,10 @@ def main():
             master = image.convert('RGBA')
         native = tuple(entry['nativeSize'])
         factor = 4 if min(native) <= 32 else 2
-        if master.size != tuple(entry['masterSize']) or any(a < b * factor for a, b in zip(master.size, native)):
+        # A derived placeholder (the S2 tank, Framework 0.58.0) reuses another entry's retained master through a
+        # recorded reduction of that entry's native export; it adds no detail and is replaced when a pilot is made.
+        derived = entry.get('reduction')
+        if master.size != tuple(entry['masterSize']) or (not derived and any(a < b * factor for a, b in zip(master.size, native))):
             raise ValueError(f'Insufficient/unexpected master dimensions: {source}')
         bounds = master.getchannel('A').getbbox()
         # A full-footprint fixture (a deck-mounted tank or cabinet, like the game's own square-deck machinery)
@@ -50,7 +53,15 @@ def main():
             raise ValueError(f'Missing object/transparency: {source}')
         if not full and not entry.get('registrationReference') and (min(bounds[:2]) <= 0 or bounds[2] >= master.width or bounds[3] >= master.height):
             raise ValueError(f'Clipped silhouette: {source}')
-        pixels = master.resize(native, Image.Resampling.NEAREST)
+        if derived:
+            # Area-average the parent's native sprite down to this size, then hold every pixel to the parent's own
+            # palette (no blended colours), opaque edge to edge like its parent.
+            parent = master.resize(tuple(derived['parentNativeSize']), Image.Resampling.NEAREST).convert('RGB')
+            palette = parent.quantize(colors=derived['colours'], method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+            reduced = parent.resize(native, Image.Resampling.BOX).quantize(palette=palette, dither=Image.Dither.NONE)
+            pixels = reduced.convert('RGBA')
+        else:
+            pixels = master.resize(native, Image.Resampling.NEAREST)
         if entry.get('registrationReference'):
             reference_path = ASSETS / entry['registrationReference']
             if hashlib.sha256(reference_path.read_bytes()).hexdigest() != entry['registrationSHA256']:

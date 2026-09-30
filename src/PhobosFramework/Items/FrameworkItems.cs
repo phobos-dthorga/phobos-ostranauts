@@ -14,12 +14,17 @@ public static class FrameworkItems
     public static NativeDefinitions Prepare()
     {
         var d = new NativeDefinitions();
+        ItemVessels.Load();
         ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         SharedLines.Add(d);
-        var none = Array.Empty<EquipmentSale>();
-        EconomyStock.AddOffers(d, ItemEconomy.Pack, none);
-        EconomyStock.ApplyRegional(d, ItemEconomy.Pack, "Framework", none);
-        EconomyStock.ApplyFactionKiosks(d, ItemEconomy.Pack, "Framework", none);
+        // The water tank ladder (Framework 0.58.0): definitions, ports, economy, merchant offers and world finds.
+        WaterTanks.Add(d);
+        TankEconomy.Apply(d);
+        var sales = TankEconomy.Sales;
+        EconomyStock.ApplyRegional(d, ItemEconomy.Pack, "Framework", sales);
+        EconomyStock.ApplyFactionKiosks(d, ItemEconomy.Pack, "Framework", sales);
+        MaintenanceInformation.Register(d, "PhobosFrameworkMaintenanceInformation", co =>
+            WaterTanks.IsTank(co) ? WaterTankService.MaintenanceReason(co, true) ?? Text.Get("WaterTanks.maintenance_ready") : "");
         ItemHandling.Apply(d);
         return d;
     }

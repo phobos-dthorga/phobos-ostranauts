@@ -3123,41 +3123,41 @@
       "key": "bulk_pair",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "The W2 now accepts any water vessel within one tile; the old edge-to-edge rule is retired.",
+      "reason": "The reservoirs retired into silos; says the process-water line also links them.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/BulkService.cs:63"
       ],
-      "before": "Place an intact R3 and W2 edge to edge, facing the same direction, with both front service approaches clear. The W2 must be on the R3’s right side.",
-      "after": "Place an intact water reservoir or silo within one tile of the W2 (touching or one tile apart, diagonals count), on the same ship."
+      "before": "Place an intact water reservoir or silo within one tile of the W2 (touching or one tile apart, diagonals count), on the same ship.",
+      "after": "Place an intact water silo within one tile of the W2 (touching or one tile apart, diagonals count), or lay a process-water line between their water ports."
     },
     {
       "mod": "PhobosAgriculture",
       "key": "bulk_connection",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Names what the W2 now links to: a water silo.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Panel.cs:106",
         "src/PhobosAgriculture/Plugin.cs:122"
       ],
       "before": "Reservoir / supply connection",
-      "after": "Reservoir / supply connection"
+      "after": "Water silo connection"
     },
     {
       "mod": "PhobosAgriculture",
       "key": "bulk_reserve",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Names the silo instead of the retired R3.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Panel.cs:118",
         "src/PhobosAgriculture/Plugin.cs:123"
       ],
       "before": "Keep water in R3",
-      "after": "Keep water in R3"
+      "after": "Keep water in the silo"
     },
     {
       "mod": "PhobosAgriculture",
@@ -3193,28 +3193,15 @@
       "mod": "PhobosAgriculture",
       "key": "bulk-link:none",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Names what the W2 now links to: a water silo.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Panel.cs:106",
         "src/PhobosAgriculture/Plugin.cs:122"
       ],
       "before": "Disconnect reservoir / supply",
-      "after": "Disconnect reservoir / supply"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "bulk_water_offer",
-      "category": "control/name/value",
-      "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/BulkTrading.cs:18"
-      ],
-      "before": "Agricultural water (R3)",
-      "after": "Agricultural water (Groundwork reservoirs)"
+      "after": "Disconnect the water silo"
     },
     {
       "mod": "PhobosAgriculture",
@@ -3273,14 +3260,14 @@
       "mod": "PhobosAgriculture",
       "key": "crew_recipe_bulk-fill",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The order now runs on silos; says what it stocks instead of naming the retired R3.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAgriculture/CrewProvider.cs:26"
       ],
       "before": "Maintain R3 water stock",
-      "after": "Maintain R3 water stock"
+      "after": "Keep the silo stocked with irrigation charges"
     },
     {
       "mod": "PhobosAgriculture",
@@ -3299,27 +3286,27 @@
       "mod": "PhobosAgriculture",
       "key": "bulk_intake",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The intake now draws from a silo, not an R3.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:172"
       ],
       "before": "R3 supply: {0} | W2 target: {1:G} kg\n{2}",
-      "after": "R3 supply: {0} | W2 target: {1:G} kg\n{2}"
+      "after": "Silo supply: {0} | W2 target: {1:G} kg\n{2}"
     },
     {
       "mod": "PhobosAgriculture",
       "key": "bulk_intake_wait",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "The intake now draws from a silo; plain checklist of what to look at.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:172"
       ],
-      "before": "Waiting: check R3 stock/reserve, containment, pairing, service access and W2 headroom. No alternate source is used.",
-      "after": "Waiting. Check R3 water and reserve, damage, connections, service access and room in W2. This connection uses R3 only."
+      "before": "Waiting. Check R3 water and reserve, damage, connections, service access and room in W2. This connection uses R3 only.",
+      "after": "Waiting. Check the silo's water and reserve, damage, the connection, service access and room in the W2. This connection draws from the linked silo only."
     },
     {
       "mod": "PhobosAgriculture",
@@ -37708,350 +37695,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Silo.name",
-      "category": "item name",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
-      ],
-      "before": "Process Water Silo",
-      "after": "Process Water Silo"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.description",
-      "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloDefinitions.cs:31"
-      ],
-      "before": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it.",
-      "after": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:30"
-      ],
-      "before": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nThaw units delivering here: {4}",
-      "after": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nThaw units delivering here: {4}"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.protected",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:26",
-        "src/PhobosShipbreaker/SiloService.cs:35",
-        "src/PhobosShipbreaker/SiloService.cs:42",
-        "src/PhobosShipbreaker/SiloService.cs:73"
-      ],
-      "before": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log.",
-      "after": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.not_ready",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:43"
-      ],
-      "before": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress.",
-      "after": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.accept_done",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:39"
-      ],
-      "before": "Records accepted. The silo's mass now matches them and it can be used again.",
-      "after": "Records accepted. The silo's mass now matches them and it can be used again."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.accept_unavailable",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:39"
-      ],
-      "before": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance.",
-      "after": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.catch_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:30"
-      ],
-      "before": "Repair the silo and recover the trapped water before filling.",
-      "after": "Repair the silo and recover the trapped water before filling."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.recovered",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:51"
-      ],
-      "before": "Recovered {0:F1} kg of trapped water into service.",
-      "after": "Recovered {0:F1} kg of trapped water into service."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.nothing_to_recover",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:49"
-      ],
-      "before": "No trapped water to recover.",
-      "after": "No trapped water to recover."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.reserve_field",
-      "category": "control",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:90"
-      ],
-      "before": "Keep in reserve",
-      "after": "Keep in reserve"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.draw_field",
-      "category": "control",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:92"
-      ],
-      "before": "Draw from the drinking-water tanks",
-      "after": "Draw from the drinking-water tanks"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.waste_field",
-      "category": "control",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:93"
-      ],
-      "before": "Send to the waste tanks",
-      "after": "Send to the waste tanks"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.kg",
-      "category": "label",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:90",
-        "src/PhobosShipbreaker/SiloService.cs:92",
-        "src/PhobosShipbreaker/SiloService.cs:93"
-      ],
-      "before": "{0:G} kg",
-      "after": "{0:G} kg"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.drawn",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:64"
-      ],
-      "before": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew.",
-      "after": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.nothing_drawn",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:64"
-      ],
-      "before": "Nothing drawn: no drinking water above the crew reserve, or no tank ready.",
-      "after": "Nothing drawn: no drinking water above the crew reserve, or no tank ready."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.deposited",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:70"
-      ],
-      "before": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water.",
-      "after": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.nothing_deposited",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:70"
-      ],
-      "before": "Nothing sent: no waste tank with room, or nothing above the reserve.",
-      "after": "Nothing sent: no waste tank with room, or nothing above the reserve."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.no_shipswater",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:58"
-      ],
-      "before": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead.",
-      "after": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.nothing_to_pause",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:40"
-      ],
-      "before": "Nothing to pause. A silo only stores water.",
-      "after": "Nothing to pause. A silo only stores water."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.invalid_amount",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:56",
-        "src/PhobosShipbreaker/SiloService.cs:59"
-      ],
-      "before": "Choose a whole number of kilograms within the silo's capacity.",
-      "after": "Choose a whole number of kilograms within the silo's capacity."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.done",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:57"
-      ],
-      "before": "Done.",
-      "after": "Done."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.offer",
-      "category": "label",
-      "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:24"
-      ],
-      "before": "Process water (S3)",
-      "after": "Process water (Rivetline S-series silos)"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.unit_kg",
-      "category": "label",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:20"
-      ],
-      "before": "kg",
-      "after": "kg"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.action_accept",
-      "category": "control",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:115"
-      ],
-      "before": "Accept contents as they are",
-      "after": "Accept contents as they are"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.action_recover",
-      "category": "control",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:116"
-      ],
-      "before": "Recover trapped water",
-      "after": "Recover trapped water"
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Thaw.name",
       "category": "item name",
       "decision": "add",
@@ -38646,19 +38289,6 @@
       "after": "Start thawing the loaded ice"
     },
     {
-      "mod": "PhobosShipbreaker",
-      "key": "Settings.crew_water_reserve",
-      "category": "settings help",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/Settings.cs:50"
-      ],
-      "before": "Kilograms of drinking water left in the Ship's Water tanks when a silo draws from them.",
-      "after": "Kilograms of drinking water left in the Ship's Water tanks when a silo draws from them."
-    },
-    {
       "mod": "PhobosFramework",
       "key": "BulkVessel.lost",
       "category": "log",
@@ -38683,19 +38313,6 @@
       ],
       "before": "The destination or its available room changed. Choose the quantity again for a fresh quote.",
       "after": "The destination or its available room changed. Choose the quantity again for a fresh quote."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.maintenance_water",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/SiloService.cs:40"
-      ],
-      "before": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo.",
-      "after": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -45185,34 +44802,6 @@
       "after": "Carbon dioxide: {0:F1} of {1:F0} kg."
     },
     {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.name_medium",
-      "category": "item name",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/Core/SiloRules.cs:23",
-        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
-      ],
-      "before": "Process Water Silo",
-      "after": "Process Water Silo"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Silo.name_large",
-      "category": "item name",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/Core/SiloRules.cs:23",
-        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
-      ],
-      "before": "Process Water Silo",
-      "after": "Process Water Silo"
-    },
-    {
       "mod": "PhobosAgriculture",
       "key": "bulk_tank_medium",
       "category": "item name",
@@ -48363,19 +47952,6 @@
       ],
       "before": "{0}: leakKgPerHour must be 0 to {1}.",
       "after": "{0}: leakKgPerHour must be 0 to {1}."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Vessels.silo_kind",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/Core/VesselData.cs:25"
-      ],
-      "before": "{0} must stay kind {1} holding {2}; only its capacity, dry mass and leak rate are open to files.",
-      "after": "{0} must stay kind {1} holding {2}; only its capacity, dry mass and leak rate are open to files."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -52280,14 +51856,14 @@
       "mod": "PhobosFramework",
       "key": "FrameworkItems.failed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Log line if Framework cannot register its own items.",
+      "decision": "rewrite",
+      "reason": "Names the water tanks now that Framework registers them too.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/FrameworkItems.cs:30"
       ],
       "before": "Phobos Framework could not register its own items (shared lines): {0}",
-      "after": "Phobos Framework could not register its own items (shared lines): {0}"
+      "after": "Phobos Framework could not register its own items (shared lines and water tanks): {0}"
     },
     {
       "mod": "PhobosAgriculture",
@@ -52301,6 +51877,626 @@
       ],
       "before": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor.",
       "after": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DefinitionMigrations.conditions_failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new diagnostic.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/DefinitionMigrations.cs:115"
+      ],
+      "before": "Object {0}: its saved conditions could not be adapted to {1} ({2}), so they were carried over unchanged.",
+      "after": "Object {0}: its saved conditions could not be adapted to {1} ({2}), so they were carried over unchanged."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ItemVessels.commodity",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new diagnostic.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:135"
+      ],
+      "before": "{0} must hold {1}.",
+      "after": "{0} must hold {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.name_s2",
+      "category": "item name",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.name with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:27"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.name_s3",
+      "category": "item name",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.name with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:27"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.name_s4",
+      "category": "item name",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.name with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:27"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.name_s5",
+      "category": "item name",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.name with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:27"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.condition",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:94"
+      ],
+      "before": "Process water silo",
+      "after": "Process water silo"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.controls",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:80"
+      ],
+      "before": "Control Panel",
+      "after": "Control Panel"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.controls_tooltip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:80"
+      ],
+      "before": "Open this silo's Control Panel.",
+      "after": "Open this silo's Control Panel."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTanks.cs:100"
+      ],
+      "before": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked machine such as a T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Machines reach it by touching it or along a process-water line to the port beside the middle of its left-hand side, and several can share it. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it.",
+      "after": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked machine such as a T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Machines reach it by touching it or along a process-water line to the port beside the middle of its left-hand side, and several can share it. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.dismantle_note",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/TankEconomy.cs:97"
+      ],
+      "before": " Empty the silo's water and inventory before dismantling.",
+      "after": " Empty the silo's water and inventory before dismantling."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.access",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:34",
+        "src/PhobosFramework/Items/WaterTankService.cs:35",
+        "src/PhobosFramework/Items/WaterTankService.cs:36"
+      ],
+      "before": "Move an awake crew member beside the silo, or use a console that controls it.",
+      "after": "Move an awake crew member beside the silo, or use a console that controls it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.protected",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.protected with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:40",
+        "src/PhobosFramework/Items/WaterTankService.cs:59",
+        "src/PhobosFramework/Items/WaterTankService.cs:66",
+        "src/PhobosFramework/Items/WaterTankService.cs:98"
+      ],
+      "before": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log.",
+      "after": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:45"
+      ],
+      "before": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nLinked machines: {4}",
+      "after": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nLinked machines: {4}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.catch_wait",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.catch_wait with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:45"
+      ],
+      "before": "Repair the silo and recover the trapped water before filling.",
+      "after": "Repair the silo and recover the trapped water before filling."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.maintenance_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:53"
+      ],
+      "before": "The silo's records are protected; accept its contents or repair it first.",
+      "after": "The silo's records are protected; accept its contents or repair it first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.maintenance_water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:55"
+      ],
+      "before": "Send the water to the waste tanks or let a linked machine use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo.",
+      "after": "Send the water to the waste tanks or let a linked machine use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.maintenance_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/FrameworkItems.cs:27"
+      ],
+      "before": "Ready for maintenance.",
+      "after": "Ready for maintenance."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.accept_done",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.accept_done with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:63"
+      ],
+      "before": "Records accepted. The silo's mass now matches them and it can be used again.",
+      "after": "Records accepted. The silo's mass now matches them and it can be used again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.accept_unavailable",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.accept_unavailable with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:63"
+      ],
+      "before": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance.",
+      "after": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.nothing_to_pause",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.nothing_to_pause with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:64"
+      ],
+      "before": "Nothing to pause. A silo only stores water.",
+      "after": "Nothing to pause. A silo only stores water."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.not_ready",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.not_ready with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:67"
+      ],
+      "before": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress.",
+      "after": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.nothing_to_recover",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.nothing_to_recover with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:74"
+      ],
+      "before": "No trapped water to recover.",
+      "after": "No trapped water to recover."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.recovered",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.recovered with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:76"
+      ],
+      "before": "Recovered {0:F1} kg of trapped water into service.",
+      "after": "Recovered {0:F1} kg of trapped water into service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.unsupported",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:79"
+      ],
+      "before": "That command does not apply to a silo.",
+      "after": "That command does not apply to a silo."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.invalid_amount",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.invalid_amount with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:81",
+        "src/PhobosFramework/Items/WaterTankService.cs:84"
+      ],
+      "before": "Choose a whole number of kilograms within the silo's capacity.",
+      "after": "Choose a whole number of kilograms within the silo's capacity."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.done",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.done with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:82"
+      ],
+      "before": "Done.",
+      "after": "Done."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.no_shipswater",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.no_shipswater with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:83"
+      ],
+      "before": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead.",
+      "after": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.drawn",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.drawn with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:89"
+      ],
+      "before": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew.",
+      "after": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.nothing_drawn",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.nothing_drawn with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:89"
+      ],
+      "before": "Nothing drawn: no drinking water above the crew reserve, or no tank ready.",
+      "after": "Nothing drawn: no drinking water above the crew reserve, or no tank ready."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.deposited",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.deposited with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:95"
+      ],
+      "before": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water.",
+      "after": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.nothing_deposited",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.nothing_deposited with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:95"
+      ],
+      "before": "Nothing sent: no waste tank with room, or nothing above the reserve.",
+      "after": "Nothing sent: no waste tank with room, or nothing above the reserve."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.offer",
+      "category": "label",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.offer with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:26"
+      ],
+      "before": "Process water (Rivetline S-series silos)",
+      "after": "Process water (Rivetline S-series silos)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.unit_kg",
+      "category": "label",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.unit_kg with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:26"
+      ],
+      "before": "kg",
+      "after": "kg"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.reserve_field",
+      "category": "control",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.reserve_field with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:114"
+      ],
+      "before": "Keep in reserve",
+      "after": "Keep in reserve"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.draw_field",
+      "category": "control",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.draw_field with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:117"
+      ],
+      "before": "Draw from the drinking-water tanks",
+      "after": "Draw from the drinking-water tanks"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.waste_field",
+      "category": "control",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.waste_field with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:118"
+      ],
+      "before": "Send to the waste tanks",
+      "after": "Send to the waste tanks"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.kg",
+      "category": "label",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.kg with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:114",
+        "src/PhobosFramework/Items/WaterTankService.cs:115",
+        "src/PhobosFramework/Items/WaterTankService.cs:117",
+        "src/PhobosFramework/Items/WaterTankService.cs:118"
+      ],
+      "before": "{0:G} kg",
+      "after": "{0:G} kg"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.action_accept",
+      "category": "control",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.action_accept with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:132"
+      ],
+      "before": "Accept contents as they are",
+      "after": "Accept contents as they are"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.action_recover",
+      "category": "control",
+      "decision": "retain",
+      "reason": "Moved from Shipbreaker Silo.action_recover with the silos (Framework 0.58.0); wording unchanged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:133"
+      ],
+      "before": "Recover trapped water",
+      "after": "Recover trapped water"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.group",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:143"
+      ],
+      "before": "Water silos",
+      "after": "Water silos"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.panel_operation",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:147"
+      ],
+      "before": "Operation",
+      "after": "Operation"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.panel_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:147"
+      ],
+      "before": "Connections",
+      "after": "Connections"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.panel_details",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:147"
+      ],
+      "before": "Details",
+      "after": "Details"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.panel_help",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:147"
+      ],
+      "before": "A silo only stores process water. Link it from each machine's own panel; this page lists every machine linked to it. Keep in reserve holds water back from the waste tanks. Damage traps the water: repair, then recover it.",
+      "after": "A silo only stores process water. Link it from each machine's own panel; this page lists every machine linked to it. Keep in reserve holds water back from the waste tanks. Damage traps the water: repair, then recover it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.panel_no_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:147"
+      ],
+      "before": "Link this silo from a machine's own Control Panel.",
+      "after": "Link this silo from a machine's own Control Panel."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.setting_reserve",
+      "category": "settings help",
+      "decision": "add",
+      "reason": "Framework 0.58.0 water tanks: new shared-tank wording.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Plugin.cs:66"
+      ],
+      "before": "Drinking water, in kg, that Ship's Water keeps for the crew when a silo draws from its tanks.",
+      "after": "Drinking water, in kg, that Ship's Water keeps for the crew when a silo draws from its tanks."
     }
   ],
   "documents": [
@@ -52308,8 +52504,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "19a4cf490d7cb8f0b5456589e0a7d6d3d34438767ba32b203f5ede9cd18e5468",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "ea7a6f8425424dc0ee98d664bcfbf68f3ab4799da9f90f84335dd49f5d5c3cc1",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "SUPPORT.md",
@@ -52322,22 +52518,22 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "8e95497ab000df1d8cdcbca2e48df109c338a9522df9501da21c3474a65c3f82",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "605372c952ff955c93d74d994873e07ee7c629193913db54522aef083b93e33f",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d268d8a365a11bdb1326499e872f27bdf1359929210d9d712cd9b530a635aa5b",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "5bfb82fad38e1435d7bb18dfefac53a69d56974b7795ceee068e5ace8c098bef",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "74f332afa6dc3aa723d3acfb4d3cd4a499dbe3e068e692639228d0973ff27276",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "955172f9e92b22c598b933bde28eebb26d52223ffd213e6aa0c74293b84e014d",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -52357,8 +52553,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d992a0c3be2382878fe3aeafe1c5ed2b5810157f04d66f06c3624c3e5ebb1266",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "ce6e1511d60d74df7e550f619d05729148a5fffe4cd7ac383301310174243a72",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -52468,8 +52664,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dcddf5387e1e6f61a657468662490321aaf5e6690f58d701e9a3a7bcb6f354f0",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "a81935a5b604fd84f1994e4e698387a25e7f46d424c210029ead470d3dc2064a",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52496,8 +52692,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "7b466944b8d27230d0adb105e42d5184b661c5ca4966abc2f4dfe214220d6ab1",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "87c029e6b0e749d60776fc95c547d079afd0c99ada93a60ab527bb53782c2ebe",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -52735,15 +52931,15 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "0054cfda1a916d4c63a8fc6263074df1d8fc9763a78c26af1b61ceebe1a420a6",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "5a3677616c468560b5dc63c88f2b9be1aad3e65628cbfd85abdfdb9aa1db7060",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "43243e25d7cf5aa66dc84419dbdeb1661c54024904affe5f8a6d124ff5965430",
-      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4d09e6480fa0e63952611d6095523dcd068410647747d2c63925991454f76834",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -52769,8 +52965,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a8567f6d2b461c7885be05117fe84cc05f4c0b30df498ad73585cf20e1e601bf",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "af150b57aeac4c8e7c8df784a4ce087f6241cf2f6b4e3afcccb2f3c5cb506eb3",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -52853,15 +53049,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c06d06c07c8423c5d6cbb6671db73462b9e54f6cfffea5b7e951df21847fb658",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "aec690bbdc0d39203225236c337b9a31ab7fdd6dd05f591eeded7acb52da1291",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "7fa1d299c5ba73df4dfac16d2eb25d68a61e135ab10e28f8d56699537430f2ca",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "65e0b6c74672df8ff6ae7275218be9b51c5264e7240de3c0dd5ddce5e5fbb82b",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -52965,8 +53161,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2e9c49ace4430982cfc327745c5d67641a8e0ab3e8a9a601de0ca2c68666045a",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "dfff841be4ce8c8d613c9e1332f9d5f741bd78d7e808d9d2b7f9d0b9bb11cc9e",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -52991,8 +53187,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "7d58e22dfd6617e3d70d8df790880540993c1a389e0b529ad2cf23ad1aa7ad0c",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "d18344146d860dfd93ab5c8cd2f7b77ef464b609f98a00bd3e542022358b389f",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53189,22 +53385,22 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "400380066cdf3b0cf2c03ea07b971df29c6c0f51eb53d1b494639377589d726c",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "6a39d914080b9d0dd94c4e0526373f9d43123cc5d861dc50d6fbed3913c610a2",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9b645a786c051c5062e551488e48cfbfd3e4ccc8aee0d3da67e13d71a884e439",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "e8d52dec48f07f2110a7d263c37398ab9c144a513cefeb92ec78e11129a30fb5",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6abea12e614f8a607534ece7f1c2b7a51a687b76b019578fe00660e0e801eb44",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "e7275393b835f1f7559d71dbb56f8b0cf1b3e4a27c3c1f459501639ed17cfbb8",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53259,15 +53455,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "810951fd4065bcf45fed55b48a3eefc3fb4ddd5144e572548ed7b9ffd708ec9a",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "10603813ab4234daf472ca01a364634509d073e521b5811b9413d7a9d5f1ab12",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3ab99370aaa96c9e34b4d080d069ad3f94bd216dd7e506f1b4689f0e05135a91",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "e9b41b01eb2f18af43721196cc74f6f185de2b4b8473f4686ae62583f92df85b",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/item-references.md",
@@ -53287,8 +53483,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "6e3e9e996b13d0cb580c5d6318031f08bf170b36b2aab915d40d0e46d8e074a9",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "a138dd66698f3915ed43415f3514fb5fb0f9aefdb825145a6d77b3bece08519c",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -53308,8 +53504,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "31bb2a53829a21d0b97a4fd5ec5b28794a9b07e3b770602324d6f06553fd223f",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "440283410bc59b66873f09ff4e9e4202df4d1c9331e3220194e3cbfd2bd9aa3f",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/residue-collector.md",
@@ -53343,8 +53539,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "5cbd890100aaeaf42e4ef58965950ad5a7ea8a31b11e9357262c47a5cf518fea",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "dda641a5938764f2fb892ebb75622ec09ca867c73f3797d9d52b61a93e341500",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -53357,8 +53553,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "896ba87ba3d304e0146a6cfebcafdcece6ed5528c711e81a8ca039c82a79759b",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "29531e2fe31e98a2ce111a71aed98ecba1e11753ab24730fe58c076021c53ff6",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -53385,8 +53581,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4a9a583d5b1f9fb96bdf5fe4f60ae816fe9847caa9ff6f74a552c21ef91d0cd5",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "94432f5b85d993cf28d45e1de17b0192569e84712cfd06ca21d4f0cd0e99db34",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -53399,22 +53595,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6c096ab3ce814c18d37081aa046316bea0f3898a22fbbcfe9f0cc976af38a0a1",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "3246f30c10ca91754a096a94287dcf0a2c615431dfa7cad8044a820fbc23b617",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5165606b09262021ce9d93c34f390e737ead038d5b4ddd2492673ed4ebba6d85",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "218bddd096576a8d96ca7c07d8094d082f088a2b30469f1915828c18bd6437f8",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6ce98e74fe9f4e03364590cd83664ac1bf7c289c3993e11319a4bb166f71fd0c",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "95b7c2f7650e211e1ac9b08eae5b7f7d379929d8ad752e0acb3d74e4b8f153ac",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -53476,8 +53672,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "e3e76414e624c31a467915df6a5288c0cada1786d6041103b55638fe87bcca7d",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "ce26a337ec82e9b6816cf335c7c647e48d6086043213e2d5a43fc24443660e88",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -53490,16 +53686,16 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "c5844e98a802177ab0e3e58df07eee3aa344fe3dcd03942500338bf3c27f62ff",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "6ddf7458ccc9b2dad340461b2f6bf974e48637806b12897d40ac48c84722bebc",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ca9a6e8704d98cee525cb28576c1c0af9c63074edfec205a941449b274d6455b",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "0e257dd67d0cfd635937f4a152400e2278566a795d8fcc7beb7f848308a41f63",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -53515,8 +53711,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b7aedd2129a1422b15f7fc9aa467ce283663176b1356e2d1fb764dc06d7c4f1f",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "a6dce01469d416b36fe2de74210fb2fda619abf6570450c1d7183bf002746971",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -53542,14 +53738,14 @@
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "88493ff30815075ec1a6af770aa84b17a69135e9315b074573d148174080e0cd",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "461bd300a91759e577d8d61f3e9c651233bea08cff588b2dc4a150571dd27c6b",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "fd2d33cae60a60d7860898652f9393b659975c95d1b063b1b15db9c89e9df888",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "f0b7aec1999a9069f94b1ee6b09f8b0c11335347b3aa2279c2f6ce90d515e754",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -53560,8 +53756,8 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0c39d0a6efac904a2a4cc273ff1060ebbc20da33d5fd6d26c1ac32b95fe77184",
-      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "1b61213dff0601471229864c94086b50bbd90643a7a261ec44f3887cf0974e94",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
@@ -53572,8 +53768,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8cf8802af9310683ecb3256758ece203ef5c2fddd1c770267172230c90e0f0a9",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "406bf971ad34dbe7429143b653eb9763db84eae5f69842b7e3571a2fca6c0e14",
+      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

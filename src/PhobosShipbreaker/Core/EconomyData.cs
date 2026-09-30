@@ -23,7 +23,7 @@ public static class ShipbreakerEconomy
         (FurnaceRules.Prefix, FurnaceRules.MachineKg), (FurnaceRules.Radiator, FurnaceRules.RadiatorKg), (FurnaceRules.ThermalPort, FurnaceRules.RadiatorKg),
         (IndustrialRules.Prefix, IndustrialRules.MassKg), (ProcessRules.Prefix, ProcessRules.MachineKg), (IntakeRules.Grabber, IntakeRules.GrabberKg),
         (IntakeRules.Chute, IntakeRules.ChuteKg), (ReclaimerRules.Prefix, ReclaimerRules.MachineKg), (CollectorRules.Prefix, CollectorRules.MachineKg),
-        (SiloRules.Prefix, 0), (ThawRules.Prefix, ThawRules.MachineKg), (BinRules.Prefix, 0)
+        (ThawRules.Prefix, ThawRules.MachineKg), (BinRules.Prefix, 0)
     };
     /// <summary>The assembly sections, sold whole and dismantled to their own mass.</summary>
     public static readonly IReadOnlyList<(string Id, double MassKg)> Sections = new[]
@@ -39,10 +39,9 @@ public static class ShipbreakerEconomy
         pack = DataPacks.Load<EconomyPack>(Source, p => EconomySchema.Validate(p, context));
         return pack;
     }
-    /// <summary>The mass a family's salvage must add up to; the silo and bin read theirs from the vessels pack.</summary>
+    /// <summary>The mass a family's salvage must add up to; the bin reads its own from the vessels pack.</summary>
     public static double? MassOf(string key)
     {
-        if (key == SiloRules.Prefix) return SiloRules.DryKg;
         if (key == BinRules.Prefix) return BinRules.DryKg;
         foreach (var m in Machines) if (m.Prefix == key) return m.MassKg;
         foreach (var s in Sections) if (s.Id == key) return s.MassKg;

@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.53.0";
+    public const string Version = "0.54.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -46,7 +46,6 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new IndustrialCrewProvider());
         Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(new VesselProvider());
-        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(SiloService.Supplies);
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("IndustrialProcessing",Text.Get("Crew.skill"),Id,Phobos.Ostranauts.Framework.Crew.CrewRole.Industry));
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }

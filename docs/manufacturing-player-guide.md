@@ -83,7 +83,7 @@ station can bottle the stored carbon dioxide into a CO2 canister for the K2.
 ```mermaid
 flowchart LR
     Feed["One charge in the Refinery charge feed"] --> V4["V4 refinery, after Start"]
-    V4 -->|water from hydrates, clay or carbon ore| Vessel["Linked S3 or R3 water vessel"]
+    V4 -->|water from hydrates, clay or carbon ore| Vessel["Linked water silo"]
     V4 -->|solids| Tray["V4 tray, emptied by hand"]
     V4 -->|salt crust only, 0.955 kg ammonia| Store["Linked Q2, Q3 or Q4 ammonia store"]
     V4 -->|leached residue only, 0.26 kg carbon dioxide| C2["Linked C2, C3 or C4 carbon dioxide store"]
@@ -101,7 +101,7 @@ What you gain is material aboard, away from stations.
 
 ## Linking machines and stores
 
-A machine links to a store (or tank, silo or reservoir) only when the two
+A machine links to a store (or tank or silo) only when the two
 **touch** or share a **line**. Nothing links across open floor. The only
 exception is the station refuelling kiosk's Bulk supplies view.
 
@@ -143,7 +143,7 @@ exception is the station refuelling kiosk's Bulk supplies view.
    room with a scrubber if you will roast carbon ore or bake salt crust.
 2. For the water charges, install a water vessel within one tile of the V4, or
    lay process-water line between their water ports: a Shipbreaker S3 to S5
-   process water silo or an Agriculture R3 to R5 reservoir. Right-click the V4, choose
+   process water silo (Framework's Rivetline S2 to S5). Right-click the V4, choose
    **Control Panel**, open **Connections** and pick the vessel under **Water
    vessel**. Apply. The C1 console offers the same field.
    For the salt crust, also install an ammonia store (any size) within one
@@ -201,7 +201,7 @@ canister and store is linked on the machine's panel and sits within one tile.
 
 ```mermaid
 flowchart LR
-    Vessel["S3 or R3 water vessel"] -->|1.125 kg water| X2["X2 electrolysis cell, 6 kW"]
+    Vessel["Water silo"] -->|1.125 kg water| X2["X2 electrolysis cell, 6 kW"]
     X2 -->|1.000 kg oxygen| O2{"O2 canister linked?"}
     O2 -->|Yes| Canister["O2 canister, up to rated pressure"]
     O2 -->|None| Cabin["Cabin air"]
@@ -215,7 +215,7 @@ flowchart LR
 ```
 
 1. Install the K2 within one tile of an H2 store, an installed CO2 canister,
-   a water vessel (S3 or R3) and an M2 methane store, and connect its power
+   a water silo (S2 to S5) and an M2 methane store, and connect its power
    point. One vessel can serve a refinery, an X2 and a K2 at once.
 2. Fill the CO2 canister with the game's own CO2 scrubber: that is where the
    crew's breathing CO2 ends up, and nothing else in the game empties it.
@@ -284,7 +284,7 @@ works the recipe you choose, one charge at a time, at 12 kW.
 ```mermaid
 flowchart LR
     Crust["Evaporite crust, mined"] --> Leach["LC-3: evaporite leach"]
-    Water["Linked S3 or R3 water vessel"] -->|20 kg on hand, returned| Leach
+    Water["Linked water silo"] -->|20 kg on hand, returned| Leach
     Leach --> K["Potassium sulfate"]
     Leach --> P["Phosphate concentrate"]
     Leach --> R["Leached residue"]
@@ -325,8 +325,8 @@ flowchart LR
     Hopper --> W2["Agriculture W2 doses from it"]
 ```
 
-1. Install the LC-3 within one tile of a water vessel (an S3 to S5 silo or an
-   R3 to R5 reservoir) and connect its power point. For struvite, also install an
+1. Install the LC-3 within one tile of a water silo (S2 to S5), or on its
+   process-water line, and connect its power point. For struvite, also install an
    ammonia store within one tile; for the acid recipes an acid tank; for crop
    nutrients a Groundwork nutrient hopper. One vessel can serve a refinery, an X2,
    a K2 and an LC-3 at once.

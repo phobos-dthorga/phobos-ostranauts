@@ -90,6 +90,54 @@
       "sha256": "68D7CD184CEDD650FDDEE18FDCC0DCE79C646A7ED64C4939B5449BEBED452C86",
       "retiredIn": "0.23.0",
       "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.22.0 shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSilo.png",
+      "sha256": "78352A8DBB1700BA3D2AB5E188CC27720C8BBA0B7055CEF795F90A1187851439",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloNormal.png",
+      "sha256": "DF50BBD4E122EFD8A6FBF5EFC01E3CD8D6678C45B0486C05B0C14E0A71AF953A",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloMedium.png",
+      "sha256": "22981444F1D4E0F933D734AC3647223E4DE2BBBA4418577292D41ED52E9C7E2C",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloMediumNormal.png",
+      "sha256": "072B54CF18C7B6527F75471C798C9FD23E7BA7163F0A2F02E651F8CAA08F30B5",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloLarge.png",
+      "sha256": "7C55EEB8A66559153B29E8FF9889B12D9179407E857EFE0EE8EB45E8423F245B",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloLargeNormal.png",
+      "sha256": "559C253BAC93C89F0B42A47079720C0DE65383DCFDF5869ED946BA69CC8C6773",
+      "retiredIn": "0.54.0",
+      "reason": "The process water silos moved to Framework 0.58.0 with their art; this is a copy an earlier Shipbreaker shipped."
     }
   ]
 }

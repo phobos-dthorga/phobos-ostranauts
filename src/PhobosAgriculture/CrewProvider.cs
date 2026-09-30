@@ -8,26 +8,26 @@ namespace PhobosAgriculture;
 
 internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProvider, ICrewOrderPresentation
 {
-    public OrderFields Fields(CondOwner co)=>BulkDefinitions.IsTank(co)?OrderFields.Source|OrderFields.Routine:OrderFields.Stock|OrderFields.Source|OrderFields.Destination|OrderFields.Routine|
+    public OrderFields Fields(CondOwner co)=>BulkDefinitions.IsWaterTank(co)?OrderFields.Source|OrderFields.Routine:OrderFields.Stock|OrderFields.Source|OrderFields.Destination|OrderFields.Routine|
         (Definitions.IsCooker(co)||WorkupDefinitions.IsBench(co)?OrderFields.None:IrrigationDefinitions.IsSupply(co)?OrderFields.Drain:OrderFields.ClearCrops|OrderFields.Drain);
     public IEnumerable<Ship> Targets(CondOwner co)=>Array.Empty<Ship>();
     public OrderState Activity(CondOwner co,StandingOrder order)
-    {if(BulkDefinitions.IsTank(co))return BulkService.Protected(co)||co.HasCond("IsDamaged")||co.HasCond("IsLocked")?OrderState.Blocked:OrderState.Waiting;var s=Service.Get(co);return s.Protected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||s.State.Running&&!co.HasCond("IsPowered")?OrderState.Blocked:s.State.Running?OrderState.Running:OrderState.Waiting;}
+    {if(BulkDefinitions.IsWaterTank(co))return BulkService.Protected(co)||co.HasCond("IsDamaged")||co.HasCond("IsLocked")?OrderState.Blocked:OrderState.Waiting;var s=Service.Get(co);return s.Protected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||s.State.Running&&!co.HasCond("IsPowered")?OrderState.Blocked:s.State.Running?OrderState.Running:OrderState.Waiting;}
     public bool Validate(CondOwner co,StandingOrder draft,out string reason){reason="";return true;}
     public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?IsOutput(co,c,draft):
-        BulkDefinitions.IsTank(co)?c.strCODef==Definitions.Irrigation:Definitions.IsCooker(co)?c.strCODef==Definitions.Raw:WorkupDefinitions.IsBench(co)?
+        BulkDefinitions.IsWaterTank(co)?c.strCODef==Definitions.Irrigation:Definitions.IsCooker(co)?c.strCODef==Definitions.Raw:WorkupDefinitions.IsBench(co)?
         c.strCODef==(draft.Recipe=="recover-crop"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate)||c.strCODef==WorkupDefinitions.Makeup:
         c.strCODef==Definitions.Irrigation||c.strCODef=="LiquidWater"||c.strCODef.StartsWith("PhobosVerdemorrow",StringComparison.Ordinal));
     public string Id => Plugin.Id;
-    public bool Supports(CondOwner equipment) => Definitions.Machine(equipment)||BulkDefinitions.IsTank(equipment);
+    public bool Supports(CondOwner equipment) => Definitions.Machine(equipment)||BulkDefinitions.IsWaterTank(equipment);
     public bool RoutineResume(CondOwner equipment) => true;
-    public IReadOnlyList<string> Recipes(CondOwner co) => BulkDefinitions.IsTank(co)?new[]{"bulk-fill"}:Definitions.IsCooker(co)?new[]{"cook"}:WorkupDefinitions.IsBench(co)?new[]{"recover-crop","formulate-nutrients"}:
+    public IReadOnlyList<string> Recipes(CondOwner co) => BulkDefinitions.IsWaterTank(co)?new[]{"bulk-fill"}:Definitions.IsCooker(co)?new[]{"cook"}:WorkupDefinitions.IsBench(co)?new[]{"recover-crop","formulate-nutrients"}:
         IrrigationDefinitions.IsSupply(co)?new[]{"supply","supply-charges","recover-solution"}:new[]{"potato","lettuce","lettuce-seed"};
     public string RecipeLabel(string recipe) => Text.Get("crew_recipe_"+recipe);
     public CrewWorkOffer? Next(CondOwner co,StandingOrder order,out string reason)
     {
         reason=CrewWork.Message("waiting");
-        if(BulkDefinitions.IsTank(co))return BulkNext(co,order,out reason);
+        if(BulkDefinitions.IsWaterTank(co))return BulkNext(co,order,out reason);
         var s=Service.Get(co); var b=s.State;
         if(!Definitions.Ready || s.Protected || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || co.HasCond("IsLocked")) {reason=Text.Get("protected");return null;}
         if(!Recipes(co).Contains(order.Recipe)) {reason=Text.Get("crew_select_recipe");return null;}
@@ -124,14 +124,14 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
     {
         var next=Next(context.Equipment,context.Order,out reason);
         if(next?.Action!=offer.Action)return false;
-        bool done=BulkDefinitions.IsTank(context.Equipment)?BulkService.Work(context.Equipment,context.Actor,offer.Action):offer.Action=="bulk-dose"?Service.CrewReplaceDose(context.Equipment,context.Actor):Definitions.Work.Contains(offer.Action)?Service.Work(context.Equipment,context.Actor,offer.Action):Service.Command(context.Equipment,null,offer.Action,out reason);
+        bool done=BulkDefinitions.IsWaterTank(context.Equipment)?BulkService.Work(context.Equipment,context.Actor,offer.Action):offer.Action=="bulk-dose"?Service.CrewReplaceDose(context.Equipment,context.Actor):Definitions.Work.Contains(offer.Action)?Service.Work(context.Equipment,context.Actor,offer.Action):Service.Command(context.Equipment,null,offer.Action,out reason);
         if(done && offer.Action=="drain" && !CrewWork.CompleteOnce(context.Equipment))
         { Suspend(context.Equipment); return false; }
         if(done)reason=CrewWork.Message("done");return done;
     }
-    public void Suspend(CondOwner equipment){if(!BulkDefinitions.IsTank(equipment))Service.CrewSuspend(equipment);}
+    public void Suspend(CondOwner equipment){if(!BulkDefinitions.IsWaterTank(equipment))Service.CrewSuspend(equipment);}
     public bool CanAdvance(CondOwner equipment,out string reason)
-    { reason=Text.Get("gap");return Supports(equipment) && Definitions.Ready && !(BulkDefinitions.IsTank(equipment)?BulkService.Protected(equipment):Service.Get(equipment).Protected); }
+    { reason=Text.Get("gap");return Supports(equipment) && Definitions.Ready && !(BulkDefinitions.IsWaterTank(equipment)?BulkService.Protected(equipment):Service.Get(equipment).Protected); }
     public void BeforeSkip() { }
     public void AfterSkip() { }
 }

@@ -32,6 +32,8 @@ internal static class FrameworkItemChecks
         foreach (string line in new[] { LineFamilies.GasPrefix, LineFamilies.ProcessWaterPrefix })
             check(d.Loot.Keys.Count(k => k.StartsWith("PhobosStock_Supply_", StringComparison.Ordinal) && k.EndsWith(line + "Loose", StringComparison.Ordinal)) == 4,
                 "Four merchants stock the line in supply lots: " + line);
-        check(ItemEconomy.Pack.factionKiosks?.tiers.Count == 2 && ItemEconomy.Pack.factionKiosks.tiers.Values.All(t => t == "Neutral"), "Both lines sit at Neutral at the faction kiosks");
+        var tiers = ItemEconomy.Pack.factionKiosks!.tiers;
+        check(tiers[LineFamilies.GasPrefix] == "Neutral" && tiers[LineFamilies.ProcessWaterPrefix] == "Neutral" && tiers[WaterTanks.BasePrefix] == "Warm",
+            "Both lines sit at Neutral at the faction kiosks, and every silo size at Warm as under Shipbreaker");
     }
 }

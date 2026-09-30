@@ -323,7 +323,7 @@ internal static class ManufacturingNativeChecks
         //    at base prices, well inside the game's buy/sell spread, so no repeatable trade loop pays; 3. commodity
         //    records (water, stored gases) are valued at the station price for information only, because they have
         //    no sell route. Off-gas has no value.
-        double Price(string id) => id == ManufacturingRules.Water ? PhobosShipbreaker.Core.SiloRules.WaterPricePerKg
+        double Price(string id) => id == ManufacturingRules.Water ? Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg
             : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
         // Stored gases (ammonia) are valued at the game's own gas price per kilogram, read from its GasPrices table (the
         // table GasContainer.GetGasPrice reads in a running game).

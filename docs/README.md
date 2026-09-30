@@ -18,7 +18,7 @@ common failures and useful reports.
 
 ## More player references
 
-- [R3 agricultural water and bulk station supplies](agriculture-bulk-storage.md)
+- [Water silos for the W2, nutrient hoppers and bulk station supplies](agriculture-bulk-storage.md)
 - [Phobos Agriculture: equipment and item reference](agriculture-item-reference.md)
 - [Nutrient production and retained waste](agriculture-nutrient-production.md)
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md)

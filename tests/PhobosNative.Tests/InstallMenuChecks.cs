@@ -20,6 +20,12 @@ internal static class InstallMenuChecks
             InstallMenu.Validate(definitions.Installables.Values);
             foreach (var co in definitions.Objects.Values.Where(c => c.aStartingConds?.Any(s => s.Split('=')[0] == "IsInstalled") == true))
             {
+                // A recorded exception: Agriculture's retired R3 to R5 convert to Framework's silos on load and leave the menu.
+                if (Phobos.Ostranauts.Framework.Liquids.BulkVesselSizes.InLadder(co.strName, PhobosAgriculture.BulkDefinitions.Tank))
+                {
+                    check(!Installables.dictJobBuildOptionsListed.Values.Any(t => t.ContainsKey(co.strName)), "A retired reservoir is not offered in INSTALL: " + co.strName);
+                    continue;
+                }
                 string expected = co.strName.StartsWith(FurnaceRules.Radiator) || co.strName.StartsWith(FurnaceRules.ThermalPort) || co.strName.StartsWith(FurnaceCooling.Conduit) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPrefix) ||
                     co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) ||

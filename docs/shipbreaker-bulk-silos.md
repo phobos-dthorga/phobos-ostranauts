@@ -1,44 +1,50 @@
-# Process water silo and ice thaw unit
+# Process water silos and ice thaw unit
 
-Shipbreaker 0.37.0 with Framework 0.39.0 (Agriculture 0.18.0 shares the same
-water vessels). Implemented and checked offline; owner gameplay checks are
-pending, including how the machines' artwork looks in play. Use the
-[current dependency requirements](installing-mods.md).
+The silos are **Phobos Framework's** since Framework 0.58.0: one ladder every Phobos
+mod shares, installed with Framework alone. The S3 to S5 moved there from
+Shipbreaker with their saved ids, water and names unchanged, and a smaller S2
+joined them; Agriculture's old R3 to R5 reservoirs turn into the silo of the same
+size when a save loads. The T2 thaw unit stays in Shipbreaker. Implemented and
+checked offline; owner gameplay checks are pending, including how the artwork
+looks in play. Use the [current dependency requirements](installing-mods.md).
 
 ## Equipment
 
 | Item | Size and mass | Base price | Where |
 | --- | --- | --- | --- |
+| Phobos' Rivetline S2 Process Water Silo (new) | 2 x 2 tiles; 125 kg empty; holds 400 kg of water | 2,950 cr, broken 737 cr | The same sellers as the S3; INSTALL > APPS. Purchase only; not found in salvage. |
 | Phobos' Rivetline S3 Process Water Silo | 3 x 3 tiles; 240 kg empty; holds 1,000 kg of water (1,240 kg full) | 4,800 cr, broken 1,200 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; INSTALL > APPS. Purchase only: no fabrication recipe. |
 | Phobos' Rivetline S4 Process Water Silo | 4 x 4 tiles; 365 kg empty; holds 1,960 kg of water | 6,780 cr, broken 1,695 cr | The same sellers; INSTALL > APPS. Purchase only; too big to turn up in salvage. |
 | Phobos' Rivetline S5 Process Water Silo | 5 x 5 tiles; 465 kg empty; holds 3,330 kg of water | 8,860 cr, broken 2,215 cr | The same sellers; INSTALL > APPS. Purchase only; too big to turn up in salvage. |
-| Phobos' Rivetline T2 Ice Thaw Unit | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. Purchase only: no fabrication recipe. |
+| Phobos' Rivetline T2 Ice Thaw Unit (Shipbreaker) | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. Purchase only: no fabrication recipe. |
 
-The S4 and S5 work exactly like the S3 and hold more water for less per
+Every size works the same way; bigger silos hold more water for less per
 kilogram of capacity. Everything below applies to every size. The S3's capacity
-and empty weight are in the mod's framework/vessels.json and can be overridden
-(see [editing the data files](editing-data-files.md)); the larger sizes follow. The silo stores **process water** only. It is not a drinking-water tank and
+and empty weight are in Framework's framework/vessels.json and can be overridden
+(see [editing the data files](editing-data-files.md)); the other sizes follow. The S2's
+sprite is a recorded reduction of the S3's until a dedicated one is drawn.
+
+Each silo has a general **Inventory** (like the reservoirs had) and its own
+**Control Panel** (Framework's): usable water, trapped water, Keep in reserve,
+Ship's Water transfers and the list of every machine linked to it. With Phobos
+Agriculture, crew can also load 5 kg irrigation charges from its inventory,
+recover trapped water, drain it, or keep it topped up by standing order under
+**Crew settings**. The silo stores **process water** only. It is not a drinking-water tank and
 never joins Ship's Water's potable tanks. The water is a saved record on the
 silo, not a native stat, so the station's fuel kiosk and the reactor never read
 it as fuel. A full silo weighs what it holds: the ship's mass readouts include it.
 
 ## Set up
 
-1. Install the S3 on intact floor. It needs no electricity and has no inventory.
+1. Install a silo on intact floor. It needs no electricity.
 2. Install the T2 within one tile of the silo (touching or with one tile between
    them, on any side; diagonal placement counts), or anywhere aboard with
    Framework's **process-water line** laid between their water ports. Each water
    port is the tile beside the middle of the equipment's left-hand side, turning
    with it. Connect the T2's power point.
 3. Right-click the T2, choose **Control Panel**, then **Deliver water to** and
-   pick the silo (or an Agriculture reservoir it reaches). The list says how each
-   is reached and marks a full one. Apply. The C1 console offers the same choice.
-   Pause the T2 before changing the link.
-
-Silos are shared: up to eight machines of each kind can link to one silo, from
-any mod, and the silo's panel lists every machine linked to it. Nothing links
-across open floor; see
-[linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
+   pick the silo. The list says how each is reached and marks a full one. Apply.
+   The C1 console offers the same choice. Pause the T2 before changing the link.
 4. Right-click the T2 and choose **Inventory**. The gangue tray opens, and the
    **Ice Feed** opens as its own window. Put one block of water ice in at a
    time (right-click a stack to place one); the feed holds two. Gangue and
@@ -48,6 +54,11 @@ across open floor; see
    block for 40 minutes at 6 kW: 22.7 kg of water goes into the linked vessel
    and 2 kg of ice gangue drops into the tray, which holds two. Empty the tray
    by hand or with a crew output store.
+
+Silos are shared: up to eight machines of each kind can link to one silo, from
+any mod, and the silo's panel lists every machine linked to it. Nothing links
+across open floor; see
+[linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
 
 Nothing warms until the linked vessel can take a whole block's water. If the
 vessel is full, damaged, locked, protected or too far away, the T2 says why and
@@ -72,7 +83,7 @@ middle of its right-hand side).
 2. On the T2's **Control Panel**, choose **Send methane to** and pick the store.
    The field appears once a methane store is in reach.
 3. Load methane ice like water ice and start. Each block takes 50 minutes at
-   6 kW: 19.89 kg of water goes to the linked silo or reservoir, 2.95 kg of
+   6 kW: 19.89 kg of water goes to the linked silo, 2.95 kg of
    methane to the store, and 2 kg of ice gangue to the tray.
 
 Methane never goes into the air. Without a linked store, methane ice waits in
@@ -95,13 +106,13 @@ research below and our own choices:
   Thermodynamics* 18](https://www.sciencedirect.com/science/article/abs/pii/0021961486901497)).
   With our warming allowance a block needs about 4.1 kWh; the 50-minute cycle
   delivers 4.25 kWh to it after the room's share.
-- **Price.** The game values methane ice at 20, less than the water inside it.
-  Shipbreaker corrects the price to 250 so breaking a block down still loses
-  money, as every Phobos process does. Blocks already in a save keep their old
-  price.
+- **Price.** The game values methane ice at 20 cr, and since Shipbreaker 0.49.0
+  that price stands (0.45.0 to 0.48 raised it to 250 cr). Thawing gains water and
+  methane aboard, and nothing buys either back, so no trade loop pays. Blocks a
+  save already priced at 250 keep that price.
 
-None of these institutions endorses the mod; the gangue share, the warming
-allowance and the price are ours.
+None of these institutions endorses the mod; the gangue share and the warming
+allowance are ours.
 
 ## Where to find water ice
 
@@ -131,30 +142,31 @@ flowchart LR
     Ice["Water ice block in the Ice Feed"] --> T2["T2 ice thaw unit, 40 min at 6 kW"]
     T2 -->|2 kg ice gangue| Tray["T2 gangue tray"]
     T2 -->|22.7 kg water| S3["S3 process water silo, holds 1,000 kg"]
-    T2 -->|or 22.7 kg water| R3["Agriculture R3 reservoir"]
     Kiosk["Station Bulk supplies"] --> S3
     Drink["Ship's Water drinking tanks"] -->|Draw, above the crew reserve| S3
     S3 -->|Send, above Keep in reserve| Waste["Ship's Water waste tanks"]
     Waste --> Recycler["Their Recycler decides what returns"]
     S3 -->|touching or water line| X2["Manufacturing X2 electrolysis cell"]
+    S3 -->|touching or water line| W2["Agriculture W2 irrigation supply"]
 ```
 
 - **At a station:** open the refuelling terminal, then **Bulk supplies**, then
   **Process water (Rivetline S-series silos)**. Water costs 10 cr/kg in 10 kg
   steps; one quote can fill any empty silo. The usual quote, destination and payment checks apply
-  (see [R3 agricultural water](agriculture-bulk-storage.md#station-purchasing)).
+  (see [station purchasing](agriculture-bulk-storage.md#station-purchasing)).
 - **From Ship's Water (optional, 0.16.1 only):** the silo's panel and the C1 offer
   **Draw from the drinking-water tanks** (50, 100, 250 or 500 kg) and **Send to
-  the waste tanks**. Drawing leaves the crew reserve in the tanks (setting
-  `Silo/CrewWaterReserveKg`, default 50 kg). Sending fills installed waste tanks
+  the waste tanks**. Drawing leaves the crew reserve in the tanks (Framework's
+  setting `WaterTanks/CrewWaterReserveKg`, default 50 kg; it took over the value
+  set under Shipbreaker's `Silo` section). Sending fills installed waste tanks
   up to the capacity Ship's Water itself configures for them; its Recycler then
   decides what returns as drinking water, with its own loss. Nothing is ever
   put into the potable tanks.
 - **Keep in reserve** (none, a tenth, a quarter, half or all of the silo):
   water below the reserve is never sent
   to the waste tanks; a T2 still fills above it.
-- **Consumers:** a linked Agriculture R3 reservoir takes thaw water for
-  irrigation. With [Phobos Manufacturing](manufacturing-player-guide.md), an X2
+- **Consumers:** an Agriculture W2 touching the silo or on its water line draws
+  irrigation water from it. With [Phobos Manufacturing](manufacturing-player-guide.md), an X2
   electrolysis cell touching the silo or on its water line draws its water from
   it, and a V4 refinery the same way delivers the water from its ore charges into it;
   pick the silo on that machine's panel. Filter regeneration and other process
@@ -188,7 +200,7 @@ itself. Vacuum is not free cooling.
 
 ## Limits
 
-Water is the only Shipbreaker silo commodity. Bulk gases live in
+Water is the only commodity these silos hold. Bulk gases live in
 [Phobos Manufacturing's gas stores](manufacturing-player-guide.md#gas-stores),
 which also come in three sizes. No custom gas species are created, and nothing
 is vented. Methane ice has no recipe until something

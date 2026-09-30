@@ -1264,8 +1264,12 @@
   `ProviderPanel`, `DefinitionMigrations`); Framework 0.57.0 with Manufacturing 0.23.0,
   Shipbreaker 0.53.0 and Agriculture 0.30.0 (Framework-owned gas and process-water
   lines, the `LinePorts` rule, `VesselLink` for every machine-to-vessel link, shared
-  banks, link labels and the oxygen/fuel caution). New machine or store links go
-  through `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`.
+  banks, link labels and the oxygen/fuel caution); Framework 0.58.0 with Shipbreaker
+  0.54.0 and Agriculture 0.31.0 (the Rivetline S2-S5 water silos in Framework under
+  their saved ids, `MachineFamilies`, R3-R5 converted on load through
+  `DefinitionMigrations.Retarget`). New machine or store links go through
+  `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
+  water is stored only in `WaterTanks`, and new mods add work to them by amendment.
 
 ## Refining value (2026-09-30)
 

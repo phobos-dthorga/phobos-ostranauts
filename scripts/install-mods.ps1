@@ -340,6 +340,13 @@ foreach ($mod in $Mods) {
                     "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
                 }
             }
+            # 0.58.0 takes the process-water silos from Shipbreaker and adds the S2.
+            if ($version -ge [version]'0.58.0') {
+                'framework/vessels.json'
+                foreach ($image in @('PhobosProcessSiloCompact', 'PhobosProcessSilo', 'PhobosProcessSiloMedium', 'PhobosProcessSiloLarge')) {
+                    "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
+                }
+            }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
@@ -421,8 +428,8 @@ foreach ($mod in $Mods) {
                     "images/phobos/shipbreaker/$image.png"; "images/phobos/shipbreaker/${image}Normal.png"
                 }
             }
-            # 0.40.0 adds the S4 and S5 process-water silos.
-            if ($version -ge [version]'0.40.0') {
+            # 0.40.0 adds the S4 and S5 process-water silos; 0.54.0 hands every silo to Framework.
+            if ($version -ge [version]'0.40.0' -and $version -lt [version]'0.54.0') {
                 foreach ($image in @('PhobosProcessSiloMedium', 'PhobosProcessSiloLarge')) {
                     "images/phobos/shipbreaker/$image.png"; "images/phobos/shipbreaker/${image}Normal.png"
                 }

@@ -4,7 +4,7 @@
   "notes": "Phobos Agriculture vessels, small size: the Verdemorrow Groundwork R3 water reservoir and E2 nutrient hopper (Framework bulk vessels; the R4, R5, E3 and E4 scale through the ladder). The W2 irrigation supply is not here: its 20 kg is the rack reservoir the crop model is written for. Changing a capacity or dry mass leaves existing reservoirs Protected until accepted. Record: docs/agriculture-bulk-storage.md.",
   "families": {
     "PhobosVerdemorrowGroundworkR3": {
-      "notes": "R3: 120 kg of water in a 25 kg housing, 3 x 3.",
+      "notes": "R3: 120 kg of water in a 25 kg housing, 3 x 3. Retired in Agriculture 0.31.0: saved reservoirs convert to Framework's S3 to S5 silos on load, and these ratings are what the conversion reads from them.",
       "kind": "reservoir",
       "commodity": "water",
       "capacityKg": 120,

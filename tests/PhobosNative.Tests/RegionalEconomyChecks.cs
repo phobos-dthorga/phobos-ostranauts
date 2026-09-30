@@ -84,7 +84,7 @@ internal static class RegionalEconomyChecks
             (PhobosAutoNav.NavigationService.FireControlId, "AnyControlSystems"),
             (PhobosShipbreaker.Content.Loose, "AnyIndustrialProducts"),
             (PhobosShipbreaker.FurnaceService.CoolantStock, "AnyIndustrialProducts"),
-            (PhobosShipbreaker.Core.SiloRules.Prefix + "Loose", "AnyIndustrialProducts"),
+            (Phobos.Ostranauts.Framework.Items.WaterTanks.BasePrefix + "Loose", "AnyIndustrialProducts"),
             (PhobosShipbreaker.Core.ThawRules.Prefix + "Loose", "AnyIndustrialProducts"),
             (PhobosShipbreaker.Core.FurnaceRecipes.AluminiumIngot, "AnyMetal"),
             (PhobosShipbreaker.Core.FurnaceRecipes.SteelIngot, "AnyMetal"),

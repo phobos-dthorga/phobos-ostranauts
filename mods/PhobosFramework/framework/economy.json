@@ -1,8 +1,39 @@
 {
   "schemaVersion": 1,
   "schema": "economy",
-  "notes": "Framework's own items (Framework 0.57.0): the shared line families every Phobos mod uses. The gas line moved here from Manufacturing with its identities, price, bills and stock unchanged; the process-water line is new and follows it. Ordinary pipe supplies: priced like the other mods' pipes, repaired with a little aluminium, dismantled to their own retained waste, and sold in supply lots at the supplies floor.",
-  "equipment": {},
+  "notes": "Framework's own items: the shared line families every Phobos mod uses (Framework 0.57.0) and the Rivetline process water tanks (Framework 0.58.0). The gas line moved here from Manufacturing and the S3 tank from Shipbreaker with their identities, prices, bills and stock unchanged; the process-water line and the S2 tank are new. Pipes are ordinary supplies; the tanks are equipment on Shipbreaker's pattern, the S2, S4 and S5 derived from the S3 through the shared size ladder.",
+  "equipment": {
+    "PhobosProcessSilo": {
+      "notes": "Rivetline S3 Process Water Silo, 3 x 3, 240 kg dry (moved from Shipbreaker 0.53.0 unchanged); the S2, S4 and S5 follow through the ladder.",
+      "price": 4800,
+      "work": {
+        "install": 1200,
+        "uninstall": 900,
+        "repair": 2400,
+        "dismantle": 800
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 4
+      },
+      "salvage": {
+        "ItmScrapSteel": 170,
+        "ItmScrapAluminum": 40,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 4,
+        "ItmScrapTrash": 18
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 40,
+        "ItmScrapAluminum": 10,
+        "ItmPartsMechSmall01": 4,
+        "ItmScrapTrash": 188
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    }
+  },
   "supplies": {
     "PhobosPropellantLine": {
       "notes": "Fennmark gas line (moved from Manufacturing 0.22.0 unchanged): ordinary pipe supply, sold in lots of the supplies size at the supplies chance floor (chance 0 leaves the floor to decide).",
@@ -39,7 +70,40 @@
       "chance": 0
     }
   },
-  "offerTemplates": [],
+  "offerTemplates": [
+    {
+      "notes": "K-Leg supply kiosk sells broken tanks, as it did under Shipbreaker.",
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "tag": "Scrap",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.2
+    },
+    {
+      "notes": "K-Leg fixer sells worn tanks.",
+      "merchant": "ItmOKLGFixer",
+      "tag": "Fixer",
+      "form": "Loose",
+      "condition": "Worn",
+      "chance": 0.1
+    },
+    {
+      "notes": "San Diego Halvorson sells new tanks.",
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "tag": "Industrial",
+      "form": "Loose",
+      "condition": "Pristine",
+      "chance": 0.4
+    },
+    {
+      "notes": "Venus scrap kiosk sells broken tanks.",
+      "merchant": "ItmVORBScrapKioskInv",
+      "tag": "VenusScrap",
+      "form": "LooseDmg",
+      "condition": "Broken",
+      "chance": 0.15
+    }
+  ],
   "offers": {},
   "regions": {
     "BCER": 1,
@@ -79,9 +143,17 @@
     "equipment": 0.85,
     "supplies": 0.95
   },
-  "worldLoot": [],
+  "worldLoot": [
+    {
+      "notes": "The S3's own share of the engineering roll it had among Shipbreaker's twelve families (0.4 / 12), half of it broken; Shipbreaker's roll dropped to 0.36667 when the S3 moved, so no family's odds changed. The S2, S4 and S5 are not found.",
+      "table": "ItmLootSpawnEngineering",
+      "branch": "PhobosFrameworkEquipmentSalvage",
+      "chance": 0.03333,
+      "brokenShare": 0.5
+    }
+  ],
   "factionKiosks": {
-    "notes": "Framework's lines at the CCRE and GalCon faction kiosks for scrip. Tier rule (docs/development/faction-kiosk-stock.md): supplies, pipe and line Neutral, like the game's tools and cladding; nothing at Honored.",
+    "notes": "Framework's lines and water tanks at the CCRE and GalCon faction kiosks for scrip, every tank size with its family. Tier rule (docs/development/faction-kiosk-stock.md): supplies, pipe and line Neutral, like the game's tools and cladding; equipment under 10,000 credits Warm, like its nav modules; nothing at Honored.",
     "merchants": [
       "ItmFactionKioskBCRSInv",
       "ItmFactionKioskBCERInv",
@@ -90,7 +162,8 @@
     "chance": 1,
     "tiers": {
       "PhobosPropellantLine": "Neutral",
-      "PhobosProcessWaterLine": "Neutral"
+      "PhobosProcessWaterLine": "Neutral",
+      "PhobosProcessSilo": "Warm"
     }
   }
 }

@@ -15,7 +15,7 @@ internal static class CompletionArtworkChecks
             type.GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Cast<System.Reflection.MemberInfo>().ToList();
     }
 
-    internal static void Run(NativeDefinitions definitions, string mod, string repo, Action<bool, string> check)
+    internal static void Run(NativeDefinitions definitions, string mod, string repo, Action<bool, string> check, string? bindingPrefix = null)
     {
         var serializer = JsonSerializer.Create(new JsonSerializerSettings { ContractResolver = new FieldsOnly() });
         var runtimeHashes = JObject.Parse(File.ReadAllText(Path.Combine(repo, "assets/artwork-completion/runtime-hashes.json")));
@@ -41,7 +41,12 @@ internal static class CompletionArtworkChecks
         }
         // Exercise the shared binding against real physical definitions: only the
         // four named presentation fields may change, including repeat application.
-        string prefix = mod == "PhobosAgriculture" ? "PhobosVerdemorrowFirstlight4" : "PhobosFurnace";
+        string prefix = bindingPrefix ?? (mod == "PhobosAgriculture" ? "PhobosVerdemorrowFirstlight4" : "PhobosFurnace");
+        // The exercise rebinds live presentation fields; restore them afterwards so later checks see the shipped art.
+        var images = definitions.Items.ToDictionary(p => p.Key, p => (p.Value.strImg, p.Value.strImgNorm, p.Value.strImgDamaged));
+        var portraits = definitions.Objects.ToDictionary(p => p.Key, p => p.Value.strPortraitImg);
+        try
+        {
         foreach (int repeat in new[] { 1, 2 })
         {
             var owners = definitions.Objects.ToDictionary(p => p.Key, p => JObject.FromObject(p.Value, serializer));
@@ -60,6 +65,12 @@ internal static class CompletionArtworkChecks
                 foreach (string field in new[] { "strImg", "strImgNorm", "strImgDamaged" }) { actual.Remove(field); items[pair.Key].Remove(field); }
                 check(JToken.DeepEquals(items[pair.Key], actual), "Artwork preserves native sockets and item configuration: " + pair.Key);
             }
+        }
+        }
+        finally
+        {
+            foreach (var pair in images) (definitions.Items[pair.Key].strImg, definitions.Items[pair.Key].strImgNorm, definitions.Items[pair.Key].strImgDamaged) = pair.Value;
+            foreach (var pair in portraits) definitions.Objects[pair.Key].strPortraitImg = pair.Value;
         }
     }
 }

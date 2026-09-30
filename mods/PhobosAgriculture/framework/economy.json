@@ -95,7 +95,7 @@
       "regionalChance": 0.25
     },
     "PhobosVerdemorrowGroundworkR3": {
-      "notes": "Groundwork R3 Agricultural Water Reservoir, 3 x 3, 25 kg dry; the R4 and R5 follow through the ladder (bills grow with the step), sold four to a lot.",
+      "notes": "Groundwork R3 Agricultural Water Reservoir, 3 x 3, 25 kg dry; the R4 and R5 follow through the ladder. Retired in Agriculture 0.31.0: every R3, R4 and R5 converts to Framework's Rivetline S3, S4 or S5 water tank on load, so none is sold or found any more; this row keeps the bills for jobs saved against a reservoir.",
       "price": 450,
       "work": {
         "repair": 1800,
@@ -114,8 +114,8 @@
       },
       "salvageRemainder": true,
       "salvageValueHigh": false,
-      "regionalChance": 0.25,
-      "lot": "reservoirs"
+      "offers": false,
+      "loot": false
     },
     "PhobosVerdemorrowGroundworkE2": {
       "notes": "Groundwork E2 Nutrient Hopper, 2 x 2, 15 kg dry; the E3 and E4 follow through the ladder like the reservoirs and share their lot. The kiosk fills it with crop nutrients at the bulk charge's own price per kilogram.",
@@ -248,24 +248,6 @@
       "condition": "Pristine",
       "chance": 0.65
     },
-    "PhobosVerdemorrowGroundworkR3ItmOKLGSupplyKioskInv": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosVerdemorrowGroundworkR3Loose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3MediumItmOKLGSupplyKioskInv": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3LargeItmOKLGSupplyKioskInv": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-      "condition": "Pristine",
-      "chance": 1
-    },
     "PhobosVerdemorrowGroundworkBulkNutrientsItmOKLGSupplyKioskInv": {
       "merchant": "ItmOKLGSupplyKioskInv",
       "item": "PhobosVerdemorrowGroundworkBulkNutrients",
@@ -332,24 +314,6 @@
       "condition": "Pristine",
       "chance": 0.65
     },
-    "PhobosVerdemorrowGroundworkR3ItmOKLGFixer": {
-      "merchant": "ItmOKLGFixer",
-      "item": "PhobosVerdemorrowGroundworkR3Loose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3MediumItmOKLGFixer": {
-      "merchant": "ItmOKLGFixer",
-      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3LargeItmOKLGFixer": {
-      "merchant": "ItmOKLGFixer",
-      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-      "condition": "Pristine",
-      "chance": 1
-    },
     "PhobosVerdemorrowGroundworkBulkNutrientsItmOKLGFixer": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosVerdemorrowGroundworkBulkNutrients",
@@ -415,24 +379,6 @@
       "item": "PhobosVerdemorrowGroundworkMakeup",
       "condition": "Pristine",
       "chance": 0.65
-    },
-    "PhobosVerdemorrowGroundworkR3ItmTraderSanDiegoHalvorsonInv": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosVerdemorrowGroundworkR3Loose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3MediumItmTraderSanDiegoHalvorsonInv": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
-      "condition": "Pristine",
-      "chance": 1
-    },
-    "PhobosVerdemorrowGroundworkR3LargeItmTraderSanDiegoHalvorsonInv": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
-      "condition": "Pristine",
-      "chance": 1
     },
     "PhobosVerdemorrowGroundworkBulkNutrientsItmTraderSanDiegoHalvorsonInv": {
       "merchant": "ItmTraderSanDiegoHalvorsonInv",
@@ -570,10 +516,10 @@
       }
     },
     {
-      "notes": "Loose machinery in engineering salvage, half of it broken, spread over the five small families.",
+      "notes": "Loose machinery in engineering salvage, half of it broken, spread over the five small families: 1 in 20 each, as before the R3 retired in Agriculture 0.31.0 (its tanks are Framework's S-series now).",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosAgricultureMachinerySalvage",
-      "chance": 0.3,
+      "chance": 0.25,
       "brokenShare": 0.5
     }
   ],
@@ -590,7 +536,6 @@
       "PhobosVerdemorrowHearth2": "Warm",
       "PhobosVerdemorrowGroundworkW2": "Warm",
       "PhobosVerdemorrowGroundworkB2": "Warm",
-      "PhobosVerdemorrowGroundworkR3": "Warm",
       "PhobosVerdemorrowGroundworkE2": "Warm",
       "PhobosVerdemorrowWaterConduit": "Neutral",
       "PhobosVerdemorrowContinuancePotato": "Neutral",

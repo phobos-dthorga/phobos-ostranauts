@@ -241,7 +241,7 @@ you earn by selling them mining output.
 | Standing needed | What you can buy |
 | --- | --- |
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
-| Warm (25) | Agriculture machines, reservoirs and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
+| Warm (25) | Agriculture machines and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
 | Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
 | Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4, LC-3 and SA-3 |
 
@@ -272,8 +272,8 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 
 The S3 and T2 stay purchase-only by owner decision (29 September 2026):
 construction of anything beyond semi-advanced equipment waits for the Phobos
-Manufacturing mod to decide where and when it belongs. The Agriculture R3
-reservoir is likewise sold, not built.
+Manufacturing mod to decide where and when it belongs. The S2 to S5 silos, now
+Framework's, are likewise sold, not built.
 
 Native work ticks are 0.001 hours (3.6 seconds). Install/uninstall/repair apply
 five progress units per unmodified tick; dismantle applies one. Chosen progress
@@ -647,6 +647,8 @@ of 10 kg. Nothing sells back.
 
 ## Shipbreaker 0.40.0: S4 and S5 silos
 
+Framework's since 0.58.0, with these figures unchanged; see the last section.
+
 The S4 and S5 scale from the S3 through Framework's shared size ladder (the same
 rule as the gas stores): capacity 1,960 and 3,330 kg, dry mass 365 and 465 kg,
 price $6,780 and $8,860 (broken a quarter). Work grows with the footprint: install
@@ -673,6 +675,8 @@ Y2 is sold on the silos' routes and may turn up in engineering salvage; the Y3
 and Y4 never appear in salvage loot.
 
 ## Agriculture 0.20.0: R4 and R5 reservoirs
+
+Historical: the reservoirs retired in Agriculture 0.31.0 and convert to silos on load.
 
 The R4 and R5 scale from the R3 through Framework's shared size ladder: 235 and
 400 kg of water, 38 and 49 kg empty, $635 and $830 (broken a fifth, as the R3).
@@ -801,3 +805,29 @@ decision). Bagged into bulk charges they sell like any other; every salt in the
 blend is made aboard from mined feed, so bought stock alone never pays. At about
 4,150 cr of nutrients a charge from about 75 cr of salts, the formulation is a
 strong earner.
+
+## Framework 0.58.0: one water silo ladder
+
+The Rivetline S3 to S5 silos moved from Shipbreaker to Framework with every
+price, work figure, bill and salvage unchanged, and Framework adds a smaller S2
+one tile narrower than the S3 on the same size ladder:
+
+| Silo | Empty | Price | Broken | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| S2 (2 x 2, 400 kg of water) | 125 kg | $2,950 | $737 | 800 / 600 | 1800 | 600 | 20 min |
+| S3 (3 x 3, 1,000 kg) | 240 kg | $4,800 | $1,200 | 1200 / 900 | 2400 | 800 | 30 min |
+
+The S2's repair takes one steel scrap, one aluminium scrap and two small
+mechanical parts. Its salvage keeps the S3's fittings (20 mechanical and 4
+electronic parts intact, 4 mechanical broken) and fills the rest of the housing
+with steel, aluminium and retained trash in the S3's proportions; intact salvage
+is worth about $480 against the silo's $2,950. Every size sells on the silos'
+routes in lots of eight, and only the S3 turns up in engineering salvage: its
+share moved with it (3.3% of a roll, half of it broken), and Shipbreaker's
+machinery roll fell by the same amount, so no family's odds changed.
+
+Agriculture 0.31.0 retires the R3, R4 and R5 reservoirs. Saved ones convert to
+the S3, S4 and S5 on load; the heavier housing raises the converted item's mass
+and base value to the silo's. Merchants no longer offer reservoirs, and
+Agriculture's machinery salvage roll fell from 30% to 25% with the R3's share,
+leaving every remaining family's chance as it was.

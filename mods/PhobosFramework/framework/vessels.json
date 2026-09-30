@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "schema": "vessels",
+  "notes": "Framework's water tanks (Framework 0.58.0): the Rivetline S3 process water silo, moved from Shipbreaker with its ratings and saved records unchanged. The S2, S4 and S5 scale from it through the shared size ladder (one tile narrower for the S2). Process grade only, a kilogram record, never the game's potable water. Changing a capacity or dry mass leaves existing tanks Protected until accepted. Record: docs/shipbreaker-bulk-silos.md.",
+  "families": {
+    "PhobosProcessSilo": { "notes": "S3: a 3 x 3 sealed vessel of one cubic metre of process water in a 240 kg housing.", "kind": "silo", "commodity": "water", "capacityKg": 1000, "dryKg": 240, "leakKgPerHour": 0 }
+  }
+}

@@ -253,31 +253,6 @@
           "labels": {}
         },
         {
-          "key": "s3",
-          "title": "S3, S4 and S5 Process Water Silos",
-          "ids": [
-            "PhobosProcessSiloLoose",
-            "PhobosProcessSiloLooseDmg",
-            "PhobosProcessSiloInstalled",
-            "PhobosProcessSiloInstalledDmg",
-            "PhobosProcessSiloMediumLoose",
-            "PhobosProcessSiloMediumLooseDmg",
-            "PhobosProcessSiloMediumInstalled",
-            "PhobosProcessSiloMediumInstalledDmg",
-            "PhobosProcessSiloLargeLoose",
-            "PhobosProcessSiloLargeLooseDmg",
-            "PhobosProcessSiloLargeInstalled",
-            "PhobosProcessSiloLargeInstalledDmg"
-          ],
-          "function": "Passive vessels holding process water as a saved record: the 3 x 3 S3 holds 1,000 kg, the 4 x 4 S4 1,960 kg and the 5 x 5 S5 3,330 kg. Bigger silos hold more for less per kilogram of capacity; a full silo weighs its housing plus its water.",
-          "use": "Install through APPS; no power or inventory. Fill at a station under Bulk supplies, from a linked T2 within one tile, or (with Ship's Water 0.16.1) draw from the drinking-water tanks above the crew reserve; send water to the waste tanks for the Recycler. Set Keep in reserve on the panel or C1, in steps of the silo's size. After damage, repair and Recover trapped water; a protected silo offers Accept contents as they are. See [the silo guide](shipbreaker-bulk-silos.md).",
-          "find": "Buy loose hardware from the sellers below. No fabrication recipe. The S3 may also appear in eligible engineering-equipment loot; the S4 and S5 are too big to turn up in salvage. See the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
-          "notes": "Process water only: never a drinking-water tank, never fuel. Uninstalling carries the water with the loose silo; Dismantle is refused while water remains, and removal is refused while the silo is protected. Water is lost with a destroyed silo (logged). A linked Agriculture R3 and, with Phobos Manufacturing, the X2, V4 and K2 use or fill silo water.",
-          "guide": "shipbreaker-bulk-silos.md",
-          "internal": false,
-          "labels": {}
-        },
-        {
           "key": "y2",
           "title": "Y2, Y3 and Y4 Material Bins",
           "ids": [
@@ -1031,10 +1006,10 @@
             "PhobosVerdemorrowGroundworkR3LargeInstalled",
             "PhobosVerdemorrowGroundworkR3LargeInstalledDmg"
           ],
-          "function": "Passive agricultural water buffers for one explicitly paired W2: 120 kg in the 3 x 3 R3, 235 kg in the 4 x 4 R4 and 400 kg in the 5 x 5 R5. Storage and catch share one capacity; they add no pump power.",
-          "use": "Install through APPS within one tile of a W2 (the original R3 layout against its right edge still works; a Shipbreaker silo can also feed a W2). Pause W2, Apply the reservoir connection, choose reserve/refill target, then explicitly enable W2 receiving and Resume. Fill through station Bulk supplies or put 5 kg irrigation charges in its inventory and Load. Routine crew loading is opt-in.",
-          "find": "Empty loose hardware at Agriculture supply/fixer/Halvorson and supported regional merchants; finite lots of four. No fabrication recipe. The R3 may also appear in eligible engineering-equipment loot; the R4 and R5 never do. See the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
-          "notes": "Damage isolates the water in a finite catch. Repair does not recover or resume it: use Recover locally. Explicit lossy Drain creates recorded treatment feed, at most 20 kg per action. Filled, linked or uncertain storage cannot be uninstalled/dismantled. Whole-ship disposal remains native. Not a potable tank, feed-mixture tank or drainage receiver.",
+          "function": "Retired in Agriculture 0.31.0. The former agricultural water buffers (120 kg in the 3 x 3 R3, 235 kg in the 4 x 4 R4, 400 kg in the 5 x 5 R5) convert on load to Framework's Rivetline S3, S4 and S5 process water silos of the same footprint.",
+          "use": "Nothing to do: every saved reservoir, installed or loose, becomes the silo of its size when the game loads, in place, with its water, reserve, inventory and W2 link. Use the silo as before; its Control Panel is Framework's, and the reservoir crew work (load a charge, recover, drain, standing fill order) carries on there.",
+          "find": "No longer sold or found. The definitions stay only as conversion sources for jobs saved against a reservoir.",
+          "notes": "The conversion keeps the water record under the silo's names, carries wear and locks, and moves the saved mass by the difference in housing, so the converted silo weighs and is worth what a silo is. Downgrading afterwards is not supported.",
           "guide": "agriculture-bulk-storage.md",
           "internal": false,
           "labels": {}
@@ -1130,6 +1105,35 @@
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. It holds no water between transfers. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
           "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "water-tanks",
+          "title": "S2, S3, S4 and S5 Process Water Silos",
+          "ids": [
+            "PhobosProcessSiloCompactLoose",
+            "PhobosProcessSiloCompactLooseDmg",
+            "PhobosProcessSiloCompactInstalled",
+            "PhobosProcessSiloCompactInstalledDmg",
+            "PhobosProcessSiloLoose",
+            "PhobosProcessSiloLooseDmg",
+            "PhobosProcessSiloInstalled",
+            "PhobosProcessSiloInstalledDmg",
+            "PhobosProcessSiloMediumLoose",
+            "PhobosProcessSiloMediumLooseDmg",
+            "PhobosProcessSiloMediumInstalled",
+            "PhobosProcessSiloMediumInstalledDmg",
+            "PhobosProcessSiloLargeLoose",
+            "PhobosProcessSiloLargeLooseDmg",
+            "PhobosProcessSiloLargeInstalled",
+            "PhobosProcessSiloLargeInstalledDmg"
+          ],
+          "function": "Passive vessels holding process water as a saved record, shared by every Phobos mod: the 2 x 2 S2 holds 400 kg, the 3 x 3 S3 1,000 kg, the 4 x 4 S4 1,960 kg and the 5 x 5 S5 3,330 kg. Bigger silos hold more for less per kilogram of capacity; a full silo weighs its housing plus its water. Each has a general inventory for manual work.",
+          "use": "Install through APPS; no power. Machines reach a silo by touching it or along a process-water line to its water port, on the tile beside the middle of its left-hand side, and several machines can share one. Fill at a station under Bulk supplies, from a linked machine such as a T2, or (with Ship's Water 0.16.1) draw from the drinking-water tanks above the crew reserve; send water to the waste tanks for the Recycler. With Agriculture, crew can load 5 kg irrigation charges from its inventory, drain it or keep it topped up by standing order. Set Keep in reserve on the panel or C1. After damage, repair and Recover trapped water; a protected silo offers Accept contents as they are. See [the silo guide](shipbreaker-bulk-silos.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. The S3 may also appear in eligible engineering-equipment loot; the S2, S4 and S5 do not. See the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
+          "notes": "Moved from Shipbreaker to Framework in Framework 0.58.0 with their ids, saved records and names unchanged; the S2 is new, and Agriculture's retired R3, R4 and R5 reservoirs convert to the S3, S4 and S5 on load. Process water only: never a drinking-water tank, never fuel. Uninstalling carries the water with the loose silo; Dismantle is refused while water remains, and removal is refused while the silo is protected. Water is lost with a destroyed silo (logged). The S2's sprite is a recorded reduction of the S3's.",
+          "guide": "shipbreaker-bulk-silos.md",
           "internal": false,
           "labels": {}
         }

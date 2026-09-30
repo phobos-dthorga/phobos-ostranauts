@@ -58,7 +58,7 @@ public static class ShipbreakerRecipes
         {
             Machines = Machines, Requirements = Array.Empty<string>(), ReferenceK = FurnaceRules.ReferenceK,
             UnitMassOf = id => ShipbreakerMaterials.KgOf(id) ?? nativeMass?.Invoke(id),
-            IsCommodity = id => id == SiloRules.Commodity || id == ThawRules.MethaneCommodity
+            IsCommodity = id => id == ThawRules.Commodity || id == ThawRules.MethaneCommodity
         };
         pack = DataPacks.Load<RecipePack>(Source, (p, raw) => { RecipeSchema.Validate(p, context); Check(p); RecipeFreeze.Enforce(raw, frozen); });
         return pack;

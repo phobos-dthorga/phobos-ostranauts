@@ -13,7 +13,7 @@ shop inventories or a scientific/economic claim.
 | Agriculture equipment | 8 |
 | Agriculture irrigation pipes | 128 |
 | Agriculture consumables | 64 |
-| Agriculture R3 reservoirs | 4 |
+| Agriculture nutrient hoppers | 4 |
 | Agriculture 500 g nutrient charges | 8 |
 | Shipbreaker equipment | 8 |
 | Shipbreaker assembly sections | 24 |
@@ -23,12 +23,15 @@ shop inventories or a scientific/economic claim.
 | Auto Nav boards | 16 |
 | Manufacturing equipment | 8 |
 | Framework gas and process-water lines | 128 |
+| Framework water silos (S2 to S5) | 8 |
 
 Agriculture consumables include planting stock, nutrients, irrigation charges,
 treatment cartridges and nutrient makeup. Equipment lots cover both working and
 broken offers wherever those forms are sold. W2 and the B2 workup bench are
 included. Since Framework 0.57.0 Framework sells its own two lines (the gas line
-moved from Manufacturing with its lot unchanged); Manufacturing's scaffold and the
+moved from Manufacturing with its lot unchanged), and since 0.58.0 the water silos
+(moved from Shipbreaker; Agriculture's R3 to R5 reservoirs retired into them and are
+no longer sold, so the reservoirs lot now serves the nutrient hoppers); Manufacturing's scaffold and the
 historical Approach Assist prototype have no separate retail stock to multiply.
 
 The same content-owned lot sizes apply at the original K-Leg, San Diego and
@@ -159,7 +162,7 @@ the five mods. Shipbreaker 0.39.0, Agriculture 0.19.0 and Auto Nav 0.26.0 close 
 gaps: every machine family now has used, refurbished and broken routes; single
 ingots join engineering salvage; the remaining terminal remainders trade as trash.
 Native checks now also confirm that a native buyer accepts every retail identity.
-The S3, T2 and R3 stay purchase-only by owner decision.
+The S2 to S5 silos and the T2 stay purchase-only by owner decision (the R3 to R5 reservoirs retired into the silos in Agriculture 0.31.0).
 
 ## Faction kiosks — 30 September 2026
 

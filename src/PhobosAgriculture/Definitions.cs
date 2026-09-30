@@ -30,10 +30,8 @@ internal static class Definitions
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
     internal static bool MachineDefinition(string? id) => id != null && Machines.Contains(id);
-    /// <summary>Every tradeable Agriculture machine family, including the R3 vessel; shared by stock and loot.</summary>
-    internal static readonly string[] MachineFamilies = { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank };
-    /// <summary>Everything merchants sell: the machine families plus the R4 and R5 reservoirs, which are too big for salvage loot.</summary>
-    internal static readonly string[] SaleFamilies = MachineFamilies.Concat(BulkDefinitions.Sizes.Skip(1).Select(s => s.Prefix)).ToArray();
+    /// <summary>Every tradeable Agriculture machine family (the R3 retired into Framework's S3 in Agriculture 0.31.0).</summary>
+    internal static readonly string[] MachineFamilies = { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench };
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
     internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? CookerKg : RackKg;
     internal static void Load()

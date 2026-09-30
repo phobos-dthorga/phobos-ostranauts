@@ -94,9 +94,9 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
 - `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `e2dcb182a80bf8ca8872aa22a01b17402b9c3f74f08c1c0721e36023e4174df0`
-- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `7a3bb53a5b18df64a02115c4fe45c12386783ca17e530d01d706ed081007877f`
+- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `c3bcd95737233ffcb1226d971a935abd3932d0f5b9483d415fc0de4dde71b70b`
 - `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `dba4e221480a6c1f366cd5ef088aeafb6baa73fc3c9c03af39df132db2b038f1`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`
 - `src/PhobosAgriculture/IrrigationDefinitions.cs` (UTF-8/LF, no BOM): `6527d5526e76171aca3880a58784987bff2cc2d0abd45e208855a5f19c8c603c`
-- `src/PhobosAgriculture/BulkDefinitions.cs` (UTF-8/LF, no BOM): `3190558c2785f9d8dfe2faf21022579d966f0c9cd7f172b248e1aefa206ceb33`
+- `src/PhobosAgriculture/BulkDefinitions.cs` (UTF-8/LF, no BOM): `e94d052a316122c423d9e25655db405a6896bcc96e5e77c67ea2aa647c696eec`

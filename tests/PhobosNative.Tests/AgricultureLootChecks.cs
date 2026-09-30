@@ -40,7 +40,9 @@ internal static class AgricultureLootChecks
                 check(live.aCOs.SequenceEqual(originals[parent].aCOs) && live.aLoots.SequenceEqual(before[parent].Concat(new[] { branch + "=1x1" })),
                     "Native and foreign contents survive additive Agriculture registration");
                 var units = Choices(prepared.Loot[branch]);
-                check(units.All(u => u.fMin == 1 && u.fMax == 1) && Math.Abs(units.Sum(u => u.fChance) - (n == 0 ? .22 : .30)) < 1e-7, "Native parser sees one bounded Agriculture item choice per contents roll");
+                // The machinery roll is the pack's own (0.25 since the reservoirs retired in Agriculture 0.31.0).
+                double expected = n == 0 ? .22 : n == 1 ? .30 : PhobosAgriculture.AgricultureEconomy.Pack.worldLoot[2].chance;
+                check(units.All(u => u.fMin == 1 && u.fMax == 1) && Math.Abs(units.Sum(u => u.fChance) - expected) < 1e-7, "Native parser sees one bounded Agriculture item choice per contents roll");
                 foreach (var unit in units)
                 {
                     check(content.Objects.TryGetValue(unit.strName, out var co) && (n == 2 ? !co.aStartingConds.Any(c => c.StartsWith("IsInstalled=", StringComparison.Ordinal)) : co.inventoryWidth == 1 && co.inventoryHeight == 1), "Container loot fits one slot; engineering machinery is loose, never installed");

@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.57.0",
+      "value": "0.58.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.53.0",
+      "value": "0.54.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.0",
+      "value": "0.31.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -631,7 +631,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.57.0",
+      "value": "0.58.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -703,7 +703,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.57.0",
+      "value": "0.58.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -873,7 +873,7 @@
       "value": "4",
       "min": 1,
       "max": 256,
-      "description": "Authored R3 bulk supply balance: TankStock (economy data pack).",
+      "description": "Authored lot of the Groundwork nutrient hoppers per successful offer (the economy pack's reservoirs lot, kept by name after the R3 to R5 retired in Agriculture 0.31.0).",
       "targets": [
         {
           "path": "mods/PhobosAgriculture/framework/economy.json",
@@ -881,7 +881,7 @@
         },
         {
           "path": "docs/development/merchant-stock.md",
-          "pattern": "\\| Agriculture R3 reservoirs \\| (?P<value>[0-9]+) \\|",
+          "pattern": "\\| Agriculture nutrient hoppers \\| (?P<value>[0-9]+) \\|",
           "count": 1
         }
       ],
@@ -1196,7 +1196,7 @@
     },
     "Shipbreaker.machinerySalvageChance": {
       "type": "number",
-      "value": ".4",
+      "value": "0.36667",
       "min": 0,
       "max": 1,
       "description": "Authored chance per eligible engineering loot roll; finite single-item choice (economy data pack).",
@@ -1212,7 +1212,7 @@
     },
     "Agriculture.machinerySalvageChance": {
       "type": "number",
-      "value": ".3",
+      "value": "0.25",
       "min": 0,
       "max": 0.333,
       "description": "Authored chance per eligible engineering loot roll; finite single-item choice (economy data pack).",
@@ -1226,36 +1226,36 @@
         "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
       ]
     },
-    "Shipbreaker.siloCapacityKg": {
+    "Framework.tankCapacityKg": {
       "type": "number",
       "value": "1000",
       "min": 100,
       "max": 100000,
-      "description": "Authored S3 process water silo capacity in kg (vessels data pack).",
+      "description": "Authored S3 process water tank capacity in kg; the S2, S4 and S5 scale from it (Framework vessels data pack; moved from Shipbreaker in Framework 0.58.0).",
       "targets": [
         {
-          "path": "mods/PhobosShipbreaker/framework/vessels.json",
+          "path": "mods/PhobosFramework/framework/vessels.json",
           "pointer": "/families/PhobosProcessSilo/capacityKg"
         }
       ],
       "review": [
-        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+        "Run Framework native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing tank records keep their saved contents; a lowered capacity never discards them."
       ]
     },
-    "Shipbreaker.siloPrice": {
+    "Framework.tankPrice": {
       "type": "number",
       "value": "4800",
       "min": 1,
       "max": 1000000,
-      "description": "Authored S3 silo base price (broken form is one quarter) (economy data pack).",
+      "description": "Authored S3 tank base price (broken form is one quarter); the S2, S4 and S5 scale from it (Framework economy data pack).",
       "targets": [
         {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
+          "path": "mods/PhobosFramework/framework/economy.json",
           "pointer": "/equipment/PhobosProcessSilo/price"
         }
       ],
       "review": [
-        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+        "Run Framework native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Tanks in saves keep their contents; only the listed price changes."
       ]
     },
     "Shipbreaker.binPrice": {
@@ -1274,21 +1274,37 @@
         "Run Shipbreaker core and native checks (economy parity, salvage below a quarter of the price) and regenerate item references. Bins in saves keep their contents; only the listed price changes."
       ]
     },
-    "Shipbreaker.siloWaterPricePerKg": {
+    "Framework.tankWaterPricePerKg": {
       "type": "number",
       "value": "10",
       "min": 0.01,
       "max": 10000,
-      "description": "Authored station price of process water per kg.",
+      "description": "Authored station price of process water per kg, into any Rivetline water tank.",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/SiloRules.cs",
+          "path": "src/PhobosFramework/Items/WaterTanks.cs",
           "pattern": "\\bWaterPricePerKg\\s*=\\s*(?P<value>[0-9.]+)",
           "count": 1
         }
       ],
       "review": [
-        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+        "Run Framework native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. A price change applies to new quotes only."
+      ]
+    },
+    "Framework.tankSalvageChance": {
+      "type": "number",
+      "value": "0.03333",
+      "min": 0,
+      "max": 1,
+      "description": "Authored chance per eligible engineering loot roll of a loose S3 tank (the share it had among Shipbreaker's families), half of them broken (Framework economy data pack).",
+      "targets": [
+        {
+          "path": "mods/PhobosFramework/framework/economy.json",
+          "pointer": "/worldLoot/0/chance"
+        }
+      ],
+      "review": [
+        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
       ]
     },
     "Shipbreaker.thawPrice": {

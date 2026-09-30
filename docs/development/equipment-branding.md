@@ -1,6 +1,6 @@
 # Equipment brands and models
 
-R3 bulk-storage follow-up: **Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir** and **Phobos' Verdemorrow Groundwork Bulk Nutrient Charge**. Both are registered Agriculture content; the charge has no artificial machine model. See the [bulk guide](../agriculture-bulk-storage.md).
+R3 bulk-storage follow-up: **Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir** and **Phobos' Verdemorrow Groundwork Bulk Nutrient Charge**. Both are registered Agriculture content; the charge has no artificial machine model. See the [bulk guide](../agriculture-bulk-storage.md). The R3 to R5 reservoirs retired in Agriculture 0.31.0: saved ones convert to the Rivetline S3 to S5 silos, the one water-tank line every mod shares.
 Agriculture 0.27.0 adds **Phobos' Verdemorrow Groundwork E2, E3 and E4 Nutrient Hoppers**: E for feed (the letter no other brand uses) and the
 digit for the footprint, as for the R reservoirs, in the reservoir family's charcoal, sage and cream.
 
@@ -23,7 +23,7 @@ first machine is built. The nitrogen line became **Tolvane** (Manufacturing 0.10
 the earlier proposal, Azomere, sits close to Azomureș, a real Romanian fertiliser
 maker, so it was dropped; no chemical or gas company named Tolvane was found.
 Siblings keep their family's brand: solid material bins stay Rivetline beside
-the S3 to S5 silos, and a new gas store stays Fennmark beside the other stores.
+the S2 to S5 silos, and a new gas store stays Fennmark beside the other stores.
 
 **Verdemorrow Agronomics** is Agriculture's separate fictional manufacturer.
 Its short brand, **Verdemorrow**, combines the intended associations of *verdant*
@@ -47,7 +47,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline F6-P Thermal Exhaust Port | One-tile sealed deck fitting and complete underside radiator assembly |
 | Phobos' Rivetline F6-S Furnace Assembly Section | Eighty-kilogram construction section |
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
-| Phobos' Rivetline S3, S4 and S5 Process Water Silos | Passive water silos in three sizes; the model digit is the footprint (S4 and S5 from Shipbreaker 0.40.0) |
+| Phobos' Rivetline S2, S3, S4 and S5 Process Water Silos | Passive water silos in four sizes; the model digit is the footprint (S4 and S5 from Shipbreaker 0.40.0; Framework's since 0.58.0, which added the S2). Rivetline stays the maker although Framework now owns them: they are the same product line |
 | Phobos' Rivetline Y2, Y3 and Y4 Material Bins | Solid mined-material stores in three sizes (Shipbreaker 0.43.0); Y (yard stock) is unused by every other brand, and the digit is the footprint as for the silos |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
@@ -217,4 +217,4 @@ naming; variable crop biomass and wet rejects have no machine model number.
 
 Agriculture 0.20.0 adds the medium and large reservoir sizes: **Phobos' Verdemorrow
 Groundwork R4 Agricultural Water Reservoir** (4 x 4) and **R5** (5 x 5). The model
-digit is the footprint, as for the R3; the definition IDs extend the R3's own prefix.
+digit is the footprint, as for the R3; the definition IDs extend the R3's own prefix. (Retired in Agriculture 0.31.0; see the top of this record.)

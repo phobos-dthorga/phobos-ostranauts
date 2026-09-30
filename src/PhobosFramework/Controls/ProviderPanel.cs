@@ -80,6 +80,9 @@ public sealed class ProviderPanel : GUIData
         shell.Changed = () => Page(co);
         foreach (var page in new[] { "operation", "connections", "details" })
         { var name = page; C.Button(shell.Navigation, spec.Text(name), () => shell.Navigate(() => { tab = name; Page(co); })); }
+        // Any mod's crew orders for this object (Framework 0.58.0): Agriculture's fill order on a water tank, the L2's
+        // bottle order. The crew panel is the shared one.
+        if (Crew.CrewWork.Provider(co) != null) C.Button(shell.Navigation, C.Text("crew_settings"), () => shell.Navigate(() => Crew.CrewPanel.Show(co)));
         C.Button(shell.Navigation, C.Text("close"), shell.Close);
         ObjectPresentation.Picture(shell.List, co, 120); C.Label(shell.List, ObjectPresentation.Location(co));
         live = C.Label(shell.List, "");

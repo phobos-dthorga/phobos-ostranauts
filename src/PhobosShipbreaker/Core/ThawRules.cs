@@ -12,7 +12,8 @@ public static class ThawRules
     public const string Prefix = "PhobosIceThaw", Installed = Prefix + "Installed";
     public const string InputBin = Prefix + "InputBin", InputSlot = Prefix + "Input";
     /// <summary>Exact identities: water ice here; methane ice below. Gangue is not feed.</summary>
-    public const string Ice = "ItmIce01", Gangue = "ItmIceTrash01", Commodity = SiloRules.Commodity;
+    /// <summary>The commodity every registered water vessel holds (Framework's water tanks, Agriculture's reservoirs).</summary>
+    public const string Ice = "ItmIce01", Gangue = "ItmIceTrash01", Commodity = "water";
     /// <summary>The thaw unit's outlet and the port any registered water vessel offers it.</summary>
     public const string OutPort = "PhobosShipbreaker.ThawOut", VesselPort = "PhobosShipbreaker.VesselIn";
     public const int Footprint = 2, FeedCapacity = 2, TrayCells = 2;

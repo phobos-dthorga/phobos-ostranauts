@@ -9,7 +9,7 @@ the complete loop and Unity layout still need in-game evaluation.
 
 Start with the rack and cooker below. Add [W2 irrigation](agriculture-water-conduits.md),
 [nutrient mixing](agriculture-nutrient-solutions.md), [B2 recovery](agriculture-nutrient-production.md)
-or an [R3 water reserve and nutrient hopper](agriculture-bulk-storage.md) when needed. A W2 can serve
+or a [water silo and nutrient hopper](agriculture-bulk-storage.md) when needed. A W2 can serve
 up to eight linked racks. For replacement lettuce seed, choose the separate
 [seed crop](agriculture-seed-production.md).
 
@@ -165,7 +165,7 @@ conditions stops further stress but does not magically restore lost health.
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
 as recorded non-potable process solution eligible for W2 treatment. Older unrecorded crop residue has no recovery recipe. New recorded residue can
 be processed at [B2](agriculture-nutrient-production.md). Empty the inventory and stored liquids/nutrients before uninstalling/dismantling; cancel cooking
-progress first. Use **Maintenance information** to identify retained contents, active work, protected transfers or an R3 link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
+progress first. Use **Maintenance information** to identify retained contents, active work, protected transfers or a silo link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.
 
 Since 0.17.0 the game leads in four more places. Machines have a real power
@@ -209,7 +209,7 @@ adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 
 Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.
 See the [native economic evidence](development/agriculture-economy-evidence.md) for comparisons.
 
-For every machine, including the W2, B2 and R3 since 0.19.0, the fixer can
+For every machine, including the W2 and B2 since 0.19.0, the fixer can
 offer worn equipment and VORB scrap stock can offer refurbished or broken units.
 Existing pristine supply/fixer/Halvorson offers remain. Offers are
 probabilistic and do not refresh existing inventories. Native supply and VORB

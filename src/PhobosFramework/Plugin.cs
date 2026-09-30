@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.57.0";
+    public const string Version = "0.58.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -59,6 +59,13 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         harmony.PatchAll(typeof(FrameworkPlugin).Assembly);
         FrameworkLifecycle.ContentLoaded += Crew.CrewSpecialities.Definitions;
         FrameworkLifecycle.ContentLoaded += Trading.FactionKiosks.Definitions;
+        // Framework's own water tanks (0.58.0): their panel, console group, station water and the crew reserve setting,
+        // which carries over the value a player set under Shipbreaker's Silo section the first time it is read here.
+        Items.WaterTankService.Log = message => Logger.LogWarning(message);
+        Items.WaterTankService.CrewReserveKg = Config.Bind("WaterTanks", "CrewWaterReserveKg", Items.WaterTankSettings.InitialReserve(Config.ConfigFilePath, Paths.ConfigPath),
+            new BepInEx.Configuration.ConfigDescription(Text.Get("WaterTanks.setting_reserve"), new BepInEx.Configuration.AcceptableValueRange<double>(0, 100000))).Value;
+        Items.WaterTankProvider.Register(message => Logger.LogWarning(message));
+        Trading.BulkSupplies.Register(Items.WaterTankService.Supplies);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
     private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); }

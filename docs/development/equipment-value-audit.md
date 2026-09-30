@@ -24,16 +24,10 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos' Rivetline R4 Scrap Reclaimer (Damaged) | $3,700.00 | $925.00 | $450.00 | 12.16% | $370.00 / $225.00 |
 | Phobos' Rivetline C2 Residue Collector | $2,400.00 | $600.00 | $88.50 | 3.69% | $240.00 / $44.25 |
 | Phobos' Rivetline C2 Residue Collector (Damaged) | $600.00 | $150.00 | $41.45 | 6.91% | $60.00 / $20.72 |
-| Phobos' Rivetline S3 Process Water Silo | $4,800.00 | $1,200.00 | $814.90 | 16.98% | $480.00 / $407.45 |
-| Phobos' Rivetline S3 Process Water Silo (Damaged) | $1,200.00 | $300.00 | $184.40 | 15.37% | $120.00 / $92.20 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $3,200.00 | $800.00 | $495.00 | 15.47% | $320.00 / $247.50 |
 | Phobos' Rivetline T2 Ice Thaw Unit (Damaged) | $800.00 | $200.00 | $140.80 | 17.60% | $80.00 / $70.40 |
 | Phobos' Rivetline Y2 Material Bin | $2,400.00 | $600.00 | $193.20 | 8.05% | $240.00 / $96.60 |
 | Phobos' Rivetline Y2 Material Bin (Damaged) | $600.00 | $150.00 | $58.70 | 9.78% | $60.00 / $29.35 |
-| Phobos' Rivetline S4 Process Water Silo | $6,780.00 | $1,695.00 | $1,174.40 | 17.32% | $678.00 / $587.20 |
-| Phobos' Rivetline S4 Process Water Silo (Damaged) | $1,695.00 | $423.75 | $270.45 | 15.96% | $169.50 / $135.22 |
-| Phobos' Rivetline S5 Process Water Silo | $8,860.00 | $2,215.00 | $1,463.50 | 16.52% | $886.00 / $731.75 |
-| Phobos' Rivetline S5 Process Water Silo (Damaged) | $2,215.00 | $553.75 | $340.00 | 15.35% | $221.50 / $170.00 |
 | Phobos' Rivetline Y3 Material Bin | $3,900.00 | $975.00 | $342.80 | 8.79% | $390.00 / $171.40 |
 | Phobos' Rivetline Y3 Material Bin (Damaged) | $975.00 | $243.75 | $103.65 | 10.63% | $97.50 / $51.82 |
 | Phobos' Rivetline Y4 Material Bin | $5,510.00 | $1,377.50 | $495.95 | 9.00% | $551.00 / $247.97 |
@@ -93,11 +87,8 @@ The processor's final assembly consumes two priced sections. Raw materials for b
 | Phobos' Rivetline H4 Sealed Hull Chute | $18.30 |
 | Phobos' Rivetline R4 Scrap Reclaimer | $104.60 |
 | Phobos' Rivetline C2 Residue Collector | $40.10 |
-| Phobos' Rivetline S3 Process Water Silo | $29.40 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $58.40 |
 | Phobos' Rivetline Y2 Material Bin | $14.70 |
-| Phobos' Rivetline S4 Process Water Silo | $44.10 |
-| Phobos' Rivetline S5 Process Water Silo | $58.80 |
 | Phobos' Rivetline Y3 Material Bin | $29.40 |
 | Phobos' Rivetline Y4 Material Bin | $44.10 |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 |

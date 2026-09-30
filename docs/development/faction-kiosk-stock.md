@@ -63,7 +63,7 @@ Value and usefulness together, anchored on those rows:
 | Trusted | Equipment from 30,000 credits, and the F6 furnace as Shipbreaker's centrepiece | PDCs |
 | Honored | Nothing (owner rule) | Missiles |
 
-A family's band is judged on its base size. Larger store, silo, bin and reservoir
+A family's band is judged on its base size. Other store, silo, bin and hopper
 sizes share that tier, because a bigger tank is not a new capability. Assembly
 sections share their machine's tier; otherwise three F6 sections would bypass the
 F6's gate. Agriculture machines are cheap but keep a crew fed indefinitely, so
@@ -82,7 +82,7 @@ are base values; the kiosk's own factors apply on top.
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
 | Neutral | Steel and aluminium ingots; coolant charge; F6-C conduit | 3 to 25 | 0.15 to 1.25 |
-| Warm | H4 chute, C2 collector, Y2/Y3/Y4 bins, T2 thaw unit, S3/S4/S5 silos, C1 console, F6-R radiator, F6-P port | 1,800 to 8,860 | 90 to 443 |
+| Warm | H4 chute, C2 collector, Y2/Y3/Y4 bins, T2 thaw unit, C1 console, F6-R radiator, F6-P port | 1,800 to 7,200 | 90 to 360 |
 | Friendly | G4 grabber | 6,400 | 320 |
 | Friendly | D4 fixture and D4-S section | 12,000 / 4,800 | 600 / 240 |
 | Friendly | R4 reclaimer and R4-S section | 14,800 / 6,000 | 740 / 300 |
@@ -93,7 +93,7 @@ are base values; the kiosk's own factors apply on top.
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
 | Neutral | Seeds, nutrients, bulk nutrient charge, irrigation and treatment cartridges, makeup salts, irrigation conduit, raw and cooked produce | 2 to 750 | 0.10 to 37.50 |
-| Warm | Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 bench, R3/R4/R5 reservoirs, E2/E3/E4 nutrient hoppers | 150 to 830 | 7.50 to 41.50 |
+| Warm | Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 bench, E2/E3/E4 nutrient hoppers | 150 to 700 | 7.50 to 35 |
 
 ### Auto Nav
 
@@ -117,11 +117,12 @@ fight other ships, so they ask Friendly.
 
 ### Framework
 
-Framework 0.57.0 owns the shared lines; the gas line keeps the tier it had under Manufacturing.
+Framework 0.57.0 owns the shared lines; the gas line keeps the tier it had under Manufacturing. Framework 0.58.0 adds the water silos, which keep the Warm tier they had under Shipbreaker; Agriculture's R3 to R5 reservoirs retired into them and are no longer offered.
 
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
 | Neutral | Gas line, process water line | 3 | 0.15 |
+| Warm | Rivetline S2/S3/S4/S5 process water silos | 2,950 to 8,860 | 147.50 to 443 |
 
 ## Mechanism
 

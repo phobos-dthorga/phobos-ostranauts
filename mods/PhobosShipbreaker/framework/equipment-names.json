@@ -175,18 +175,6 @@
     "brand": "Rivetline",
     "model": "F6-P"
   },
-  "Silo.name": {
-    "brand": "Rivetline",
-    "model": "S3"
-  },
-  "Silo.name_medium": {
-    "brand": "Rivetline",
-    "model": "S4"
-  },
-  "Silo.name_large": {
-    "brand": "Rivetline",
-    "model": "S5"
-  },
   "Bin.name": {
     "brand": "Rivetline",
     "model": "Y2"

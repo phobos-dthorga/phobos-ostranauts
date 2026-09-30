@@ -192,7 +192,7 @@ requires an entry for every prefix the owner names and no others, positive
 capacity and dry mass within bounds, a non-negative leak rate and the right field
 set for the kind (`VesselContext.ItemKinds`, `bin` by default). Owners add their own
 binding in the validator lambda: Manufacturing refuses a commodity that differs
-from the family's code, Shipbreaker pins the silo to `water` and the bin to its kind.
+from the family's code, Framework pins its S3 tank to `water` (Shipbreaker did, before 0.58.0) and Shipbreaker pins the bin to its kind.
 
 What stays in code: identities, record, journal and guard names, species, model
 letters, prices (economy pack) and the size ladder (`Liquids.BulkVesselSizes`),
@@ -207,7 +207,9 @@ player guide says so.
 First consumers: Manufacturing 0.13.0 (six gas store families), Shipbreaker 0.47.0
 (the S3 silo and the Y2 bin) and Agriculture 0.23.0 (the R3 reservoir; the W2 supply
 stays in code because its 20 kg is the rack reservoir the crop model is written
-for). Consumers require **0.51.0**.
+for). Consumers require **0.51.0**. Since 0.58.0 the S3's entry is Framework's own
+(`mods/PhobosFramework/framework/vessels.json`), and Agriculture's R3 entry only feeds
+the conversion of saved reservoirs.
 
 ### Equipment, recipe working volumes and commodity settlement (0.54.0)
 
@@ -1335,3 +1337,32 @@ piped, and joins chain across the ship.
   five-foot, half-hour fire-rated barrier). Applying it to a line that holds no gas
   between transfers is our design choice.
 
+
+## Water tanks, machine families and definition retargeting (0.58.0)
+
+- **`Items.WaterTanks`.** The Rivetline process water tanks every mod shares:
+  `WaterTanks.All` is the S2, S3, S4 and S5 (`WaterTank`: model, footprint, prefix,
+  capacity, dry mass, price, record names), `For(id)`/`IsTank` identify any form,
+  and each tank is a registered `BulkVessel` of `water` with a general inventory, a
+  process-water port and Framework's `PhobosFrameworkTankControls` panel. The S3 to
+  S5 keep Shipbreaker's definition ids, record names and record owner
+  (`WaterTanks.RecordOwner`), so saved silos read unchanged. The S3's capacity and
+  dry mass come from Framework's `vessels` pack (`ItemVessels`); the rest follow the
+  size ladder. `TankEconomy` derives price, work, bills and salvage per size from
+  the S3's economy entry. Content adds its own work to the published tank
+  definitions with `DefinitionAmendments` (Agriculture adds charge loading, trapped
+  water recovery and draining) and never republishes them.
+- **`Registration.MachineFamilies`.** `Add(d, prefix, buildCategory, conditionName,
+  name, shortName)` generates the four forms (Installed, Loose, InstalledDmg,
+  LooseDmg), family condition, triggers, mode-switch damage and native install,
+  uninstall and repair jobs under the exact ids Shipbreaker's machines have always
+  used, so equipment that changes owner keeps every saved id and queued job.
+  `Border(footprint, interior)` builds the socket rim.
+- **`Persistence.DefinitionMigrations.Retarget`.** `Retarget(oldId, newId, oldDryKg,
+  newDryKg, definitionOnly...)` is a conditions rewrite for `Register`: the saved
+  object takes the new definition's starting conditions plus every saved condition
+  that differs from the old definition's (wear, progress, locks, marks), leaving out
+  the definitions' own stats and the listed family marks, and its saved mass moves by
+  the difference in housing. Agriculture 0.31.0 uses it to turn saved R3 to R5
+  reservoirs into S3 to S5 tanks, with `recordRenames` moving the water record,
+  journal and guard to the tank's names.

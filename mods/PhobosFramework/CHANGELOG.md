@@ -22,6 +22,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.58.0] - 2026-10-01 - Draft
+
+### Added
+
+- One ladder of Rivetline process water silos that every Phobos mod shares: the S3, S4 and S5 move here from Shipbreaker with their saved ids, records, names, prices, stock and odds of turning up in salvage unchanged, and a new 2 x 2 S2 holds 400 kg. Each silo now has a general inventory, a process-water port on its left-hand side, its own Control Panel, and can be shared by several machines. Stations sell process water into any of them under Bulk supplies.
+- Load-time conversion can now adapt an object's saved conditions to its new definition (mass, price, family marks), keeping wear, locks and progress; Agriculture uses it to turn its retired reservoirs into silos.
+- The shared Control Panel shows Crew settings whenever a mod offers crew orders for the equipment.
+
+### Changed
+
+- The crew water reserve setting moved from Shipbreaker's Silo section to Framework's WaterTanks section; the first time it is read, it takes the value you set under Shipbreaker.
+
+### Compatibility and limits
+
+- Shipbreaker 0.54.0 and Agriculture 0.31.0 need this version. Saved silos read unchanged. The S2's sprite is a recorded reduction of the S3's until a dedicated one is drawn. Offline checks are not gameplay validation.
+
 ## [0.57.0] - 2026-10-01 - Draft
 
 ### Added

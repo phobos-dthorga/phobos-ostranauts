@@ -21,7 +21,6 @@ internal sealed class Settings
     internal double FeederSeconds { get; }
     internal double FeederKW { get; }
     internal bool FeederContinue { get; }
-    internal double CrewWaterReserveKg { get; }
     internal bool SpawnIceFields { get; }
     internal bool ExtraDepositIce { get; }
     internal KeyCode ControlsKey { get; }
@@ -49,7 +48,8 @@ internal sealed class Settings
             Text.Get("Settings.working_electrical_demand_in_kw_including_idle")));
         ContinueQueue = config.Bind("Processing", "ContinueQueue", true,
             Text.Get("Settings.automatically_start_the_next_loaded_panel_after")).Value;
-        CrewWaterReserveKg = Number(config, "Silo", "CrewWaterReserveKg", SiloRules.DefaultCrewReserveKg, 0, 100000, Text.Get("Settings.crew_water_reserve"));
+        // Silo/CrewWaterReserveKg moved to Framework's WaterTanks section with the tanks (Shipbreaker 0.54.0); Framework
+        // adopts the value set here the first time it reads its own entry.
         SpawnIceFields = config.Bind("Mining", "SpawnIceFields", true, Text.Get("Settings.spawn_ice_fields")).Value;
         ExtraDepositIce = config.Bind("Mining", "ExtraDepositIce", true, Text.Get("Settings.extra_deposit_ice")).Value;
         ControlsKey = config.Bind("Controls", "WindowKey", KeyCode.F9,

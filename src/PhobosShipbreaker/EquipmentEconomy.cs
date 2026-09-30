@@ -54,12 +54,6 @@ internal static class EquipmentEconomy
             var entry = pack.equipment[machine.Prefix];
             list.Add(FromEntry(machine.Prefix, entry)); saleList.Add(EquipmentSale.Of(machine.Prefix, entry));
         }
-        var silo = pack.equipment[SiloRules.Prefix];
-        foreach (var size in SiloRules.Sizes.Skip(1))
-        {
-            list.Add(LadderSpec(size.Prefix, size.Footprint - SiloRules.Footprint, size.DryKg, SiloRules.DryKg, size.Price, silo, 400, 300, 600, 200, 10));
-            saleList.Add(EquipmentSale.Size(size.Prefix, silo));
-        }
         var bin = pack.equipment[BinRules.Prefix];
         foreach (var size in BinRules.Sizes.Skip(1))
         {

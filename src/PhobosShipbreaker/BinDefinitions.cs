@@ -43,8 +43,8 @@ internal static class BinDefinitions
             co.mapPoints = new[] { "use,0," + (-8 * footprint - 8) };
             item.nCols = footprint; item.fZScale = 0.5f;
             item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", footprint * footprint).ToArray();
-            item.aSocketReqs = SiloDefinitions.Border(footprint, installed ? "TILFloor" : "Blank");
-            item.aSocketForbids = SiloDefinitions.Border(footprint, installed ? "TILObstruction" : "TILItemForbids");
+            item.aSocketReqs = ThawDefinitions.Border(footprint, installed ? "TILFloor" : "Blank");
+            item.aSocketForbids = ThawDefinitions.Border(footprint, installed ? "TILObstruction" : "TILItemForbids");
             // One dedicated overhead sprite for every form, as the inventory portrait too; damaged forms use the
             // game's damage tint. The master and its provenance are in assets/artwork-completion.
             Content.ApplyArtwork(co, item, size.Art, size.Art);

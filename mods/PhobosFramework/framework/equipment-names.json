@@ -18,5 +18,21 @@
   "SharedLines.water_waste": {
     "brand": "",
     "model": ""
+  },
+  "WaterTanks.name_s2": {
+    "brand": "Rivetline",
+    "model": "S2"
+  },
+  "WaterTanks.name_s3": {
+    "brand": "Rivetline",
+    "model": "S3"
+  },
+  "WaterTanks.name_s4": {
+    "brand": "Rivetline",
+    "model": "S4"
+  },
+  "WaterTanks.name_s5": {
+    "brand": "Rivetline",
+    "model": "S5"
   }
 }

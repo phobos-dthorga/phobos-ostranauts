@@ -41,7 +41,10 @@ internal static class AgricultureEconomy
     internal static EquipmentEconomyEntry Entry(string prefix) => Pack.equipment.TryGetValue(prefix, out var e) ? e : throw new InvalidOperationException("No economy entry for " + prefix);
     internal static double Price(string prefix) => Entry(prefix).price;
     internal static SupplyEconomyEntry Supply(string prefix) => Pack.supplies.TryGetValue(prefix, out var s) ? s : throw new InvalidOperationException("No economy entry for " + prefix);
-    /// <summary>Every saleable size: the six families, and the larger ladder sizes (R4 and R5, E3 and E4) on their small entry.</summary>
-    internal static IReadOnlyList<EquipmentSale> Sales => EquipmentKeys.Select(k => EquipmentSale.Of(k, Pack.equipment[k]))
-        .Concat(EquipmentKeys.SelectMany(k => (Ladder(k) ?? Array.Empty<(string Prefix, int Step, double DryKg)>()).Skip(1).Select(s => EquipmentSale.Size(s.Prefix, Pack.equipment[k])))).ToArray();
+    /// <summary>Every saleable size: the families, and the larger hopper sizes (E3 and E4) on their small entry. The R3,
+    /// R4 and R5 reservoirs are no longer sold (Agriculture 0.31.0): they convert to Framework's S3, S4 and S5 water
+    /// tanks on load, and their definitions stay only as conversion sources for jobs saved against them.</summary>
+    internal static IReadOnlyList<EquipmentSale> Sales => EquipmentKeys.Where(k => k != BulkDefinitions.Tank).Select(k => EquipmentSale.Of(k, Pack.equipment[k]))
+        .Concat(EquipmentKeys.Where(k => k != BulkDefinitions.Tank).SelectMany(k => (Ladder(k) ?? Array.Empty<(string Prefix, int Step, double DryKg)>()).Skip(1)
+            .Select(s => EquipmentSale.Size(s.Prefix, Pack.equipment[k])))).ToArray();
 }

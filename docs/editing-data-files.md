@@ -102,17 +102,19 @@ keeps the recipe revision it started with.
 | Phobos Shipbreaker 0.46.0 | `process-recipes` | The F6 furnace recipes and thermal profiles, the T2 thaw recipes, the R4 budget |
 | Phobos Shipbreaker 0.46.0 | `materials` | Housing stock, ingots, remainders and the reject packets |
 | Phobos Manufacturing 0.13.0 | `vessels` | The six gas store families: capacity, empty weight, leak rate when damaged |
-| Phobos Shipbreaker 0.47.0 | `vessels` | The S3 water silo's capacity and weight; the Y2 bin's weight and cells per tile |
-| Phobos Agriculture 0.23.0 | `vessels` | The R3 reservoir's capacity and weight |
+| Phobos Shipbreaker 0.47.0 | `vessels` | The Y2 bin's weight and cells per tile (the S3 silo's entry moved to Framework in 0.58.0) |
+| Phobos Agriculture 0.23.0 | `vessels` | The E2 nutrient hopper's capacity and weight; the retired R3 reservoir's ratings, read when an old reservoir converts |
 | Phobos Shipbreaker 0.48.0 | `economy` | Every Rivetline machine and section: price, work, repair bill, salvage; the coolant conduit; offers, regions, lots, world finds |
 | Phobos Agriculture 0.24.0 | `economy` | Every Verdemorrow machine: price, repair and dismantle work, bills, salvage; the irrigation pipe; offers, regions, lots, loot |
 | Phobos Auto Nav 0.30.0 | `economy` | The three navigation boards: price, repair, dismantle, offers, regions, the lot of sixteen, derelict salvage |
 | Phobos Agriculture 0.25.0 | `materials` | Seeds, nutrient and irrigation charges, produce, meals, recovery supplies and wastes: mass, price, stack, category |
+| Phobos Framework 0.57.0 | `economy` | The shared gas and process-water lines, and since 0.58.0 the Rivetline S2 to S5 water silos: price, work, bills, salvage, offers, lots, world finds |
+| Phobos Framework 0.58.0 | `vessels` | The S3 water silo's capacity and weight |
 | Phobos Manufacturing 0.17.0 | `equipment` | The V4 refinery's size, weight, power, heat into the room, feed cells and connection points (read only for now) |
 
-Larger sizes (S4, S5, R4, R5, Y3, Y4 and the medium and large gas stores) follow
-from the small entry: one tile wider per step, more capacity and less weight per
-kilogram, so you edit the small size and the rest follow. Assembly sections and
+Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
+from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
+kilogram, so you edit the listed size and the rest follow. Assembly sections and
 navigation boards are entries too: a section has a price, dismantle work and salvage;
 a board has a price, a broken price, repair and dismantle work. Every entry names
 the `lot` it ships in and the `floor` its offers never fall below, from the pack's

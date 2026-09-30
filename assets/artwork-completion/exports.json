@@ -1343,6 +1343,32 @@
     "patches": null
   },
   {
+    "key": "s2-silo",
+    "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloCompact.png": "134b690137c83df368b0e5c2a3177b7adbcf62ac1635b6fd4e911994d70b163a",
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloCompactNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "s3-silo",
     "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
     "nativeSize": [
@@ -1360,8 +1386,8 @@
       96
     ],
     "exports": {
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSilo.png": "78352a8dbb1700ba3d2ab5e188cc27720c8bba0b7055cef795f90a1187851439",
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSilo.png": "78352a8dbb1700ba3d2ab5e188cc27720c8bba0b7055cef795f90a1187851439",
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
@@ -2107,8 +2133,8 @@
       128
     ],
     "exports": {
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloMedium.png": "22981444f1d4e0f933d734ac3647223e4de2bbba4418577292d41ed52e9c7e2c",
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloMediumNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloMedium.png": "22981444f1d4e0f933d734ac3647223e4de2bbba4418577292d41ed52e9c7e2c",
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloMediumNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
@@ -2133,8 +2159,8 @@
       160
     ],
     "exports": {
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloLarge.png": "7c55eeb8a66559153b29e8ff9889b12d9179407e857efe0ee8eb45e8423f245b",
-      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloLargeNormal.png": "559c253bac93c89f0b42a47079720c0de65383dcfdf5869ed946ba69cc8c6773"
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloLarge.png": "7c55eeb8a66559153b29e8ff9889b12d9179407e857efe0ee8eb45e8423f245b",
+      "mods/PhobosFramework/images/phobos/framework/PhobosProcessSiloLargeNormal.png": "559c253bac93c89f0b42a47079720c0de65383dcfdf5869ed946ba69cc8c6773"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,

@@ -18,50 +18,11 @@ internal static class MachineDefinitions
         return d;
     }
 
-    // The same native install/repair/damage contract serves all three machines.
-    internal static void AddFamily(NativeDefinitions d, string P, string buildCategory = InstallMenu.Appliances)
-    {
-        d.Conditions.Add(P + "Machine", new JsonCond { strName = P + "Machine", strNameFriendly = Text.Get("MachineDefinitions.dismantling_fixture"),
-            strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 });
-        foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
-        {
-            string id = P + state;
-            bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
-            var conditions = new List<string> { "IsSalvageValueHigh=1.0x1", "IsSolid=1.0x1", "IsCategoryIndustrialProducts=1.0x1",
-                "IsMechanical=1.0x1", "StatInstallProgressMax=1.0x100", "StatUninstallProgressMax=1.0x100",
-                P + "Machine=1.0x1", "StatDamageMax=1.0x20", "IsContainer=1.0x1", "StatMass=1.0x160", "StatBasePrice=1.0x1600" };
-            conditions.Add(installed ? "IsInstalled=1.0x1" : "IsCumbersome=1.0x1");
-            if (damaged) conditions.AddRange(new[] { "IsDamaged=1.0x1", "StatRepairProgressMax=1.0x100" });
-            d.Objects.Add(id, new JsonCondOwner {
-                strName = id, strNameFriendly = Text.Get("MachineDefinitions.phobos_powered_dismantling_fixture"), strNameShort = Text.Get("MachineDefinitions.dismantling_fixture_2"),
-                strType = "Item", strItemDef = id, strLoot = P + "Compartments", strContainerCT = "TIsFitContainerSolid",
-                nStackLimit = 1, nContainerWidth = 8, nContainerHeight = 8, inventoryWidth = 4, inventoryHeight = 4,
-                aInteractions = new[] { "Inventory" }, aStartingConds = conditions.ToArray(),
-                aSlotsWeHave = new[] { P + "Input" }, mapGUIPropMaps = new[] { "GUIInv", "Inventory" },
-                mapSlotEffects = new[] { "drag", "Blank" }, mapPoints = Array.Empty<string>(),
-                jsonPI = installed && !damaged ? P + "Power" : null,
-                aTickers = installed && !damaged ? new[] { "Power" } : Array.Empty<string>(),
-                aUpdateCommands = new[] { "Destructable,StatDamage," + (damaged ? "ACTDefaultDestroy" : P + "Damage" + state) + ",StatDamageMax,1.0" }
-            });
-            d.Items.Add(id, new JsonItemDef { strName = id, fZScale = 0.5f, strDmgColor = "DamageTintDefault" });
-            d.Loot.Add(id, ItemLoot(id, id));
-            var req = new List<string> { P + "Machine" };
-            var forbid = new List<string>();
-            (installed ? req : forbid).Add("IsInstalled"); (damaged ? req : forbid).Add("IsDamaged");
-            d.Triggers.Add(P + "T" + state, new CondTrigger { strName = P + "T" + state, fChance = 1, fCount = 1,
-                bAND = true, aReqs = req.ToArray(), aForbids = forbid.ToArray(), aTriggers = Array.Empty<string>() });
-            if (!damaged)
-            {
-                string damage = P + "ModeDamage" + state;
-                d.Interactions.Add(damage, new JsonInteraction { strName = damage, strThemType = "Self", bIgnoreFeelings = true,
-                    objLootModeSwitch = id + "Dmg", aLootItms = Array.Empty<string>() });
-                d.Loot.Add(P + "Damage" + state, new Loot { strName = P + "Damage" + state,
-                    strType = "interaction", aCOs = new[] { damage + "=1.0x1" }, aLoots = Array.Empty<string>() });
-            }
-            AddInstallable(d, P, state, installed ? "Uninstall" : "Install", buildCategory);
-            if (damaged) AddInstallable(d, P, state, "Repair", buildCategory);
-        }
-    }
+    // The same native install/repair/damage contract serves every machine; since Framework 0.58.0 the generator is
+    // Framework's (MachineFamilies), so equipment that moves to Framework keeps its ids. The output is unchanged.
+    internal static void AddFamily(NativeDefinitions d, string P, string buildCategory = InstallMenu.Appliances) =>
+        MachineFamilies.Add(d, P, buildCategory, Text.Get("MachineDefinitions.dismantling_fixture"),
+            Text.Get("MachineDefinitions.phobos_powered_dismantling_fixture"), Text.Get("MachineDefinitions.dismantling_fixture_2"));
 
     // The D4 feed admits the game's structural part families at the game level (any wall, any floor grate: the
     // same conditions the game's scrap kiosks buy by); FeedPatch then applies the feed families' own rule.
@@ -95,25 +56,5 @@ internal static class MachineDefinitions
         d.Interactions.Add(P + "PowerChange", new JsonInteraction { strName = P + "PowerChange", strThemType = "Self",
             bIgnoreFeelings = true, aLootItms = Array.Empty<string>() });
     }
-    private static Loot ItemLoot(string id, string item) => new Loot { strName = id, strType = "item",
-        aCOs = new[] { item + "=1.0x1" }, aLoots = Array.Empty<string>() };
-    private static void AddInstallable(NativeDefinitions d, string P, string state, string job, string buildCategory)
-    {
-        bool repair = job == "Repair", install = job == "Install";
-        string source = P + state, intact = state.Replace("Dmg", ""), id = P + (repair ? intact : state) + job;
-        string output = repair ? P + intact : P + state.Replace(install ? "Loose" : "Installed", install ? "Installed" : "Loose");
-        d.Installables.Add(id, new JsonInstallable {
-            strName = id, strActionCO = source, strActionGroup = "Work", strJobType = job.ToLowerInvariant(),
-            strInteractionName = job, strInteractionTemplate = "ACT" + job + (repair ? "" : "NoSparks") + "TEMP",
-            strStartInstall = install ? output : null, strBuildType = install ? buildCategory : null,
-            CTThem = repair ? "TIsRepairableNotContained" : P + "T" + state,
-            aInputs = repair ? new[] { "TIsPartsMechSmall=1.0x1", "TIsScrapAluminum=1.0x1" } :
-                install ? new[] { P + "T" + state + "=1.0x1" } : Array.Empty<string>(),
-            aToolCTsUse = repair ? new[] { "TIsToolMortorq" } : Array.Empty<string>(),
-            aLootCOs = new[] { output }, fDuration = 0.001f, fTargetPointRange = 2,
-            strAllowLootCTsUs = "CTWorkProgressMISC", strAllowLootCTsThem = "COND" + job + "Progressx5",
-            strProgressStat = "Stat" + job + "Progress", strCTThemMultCondUs = "StatInstallRateMISC",
-            strCTThemMultCondTools = repair ? "IsToolMortorq" : null
-        });
-    }
+    private static Loot ItemLoot(string id, string item) => MachineFamilies.ItemLoot(id, item);
 }

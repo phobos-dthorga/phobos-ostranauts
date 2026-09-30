@@ -6,6 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- With Phobos Framework 0.58.0 or newer, the process water silos come with Framework itself, so water work no longer needs Shipbreaker or Agriculture installed. The guide and page say so; nothing in Manufacturing changed.
+
 ## [0.23.0] - 2026-10-01 - Draft
 
 ### Added

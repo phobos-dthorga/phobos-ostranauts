@@ -15,14 +15,18 @@ public static class ItemEconomy
     private static EconomyPack? pack;
     public static EconomyPack Pack => pack ??= Load();
     public static DataPackSource Source => new(FrameworkInfo.PluginId, ModFolder, EconomySchema.Name, typeof(ItemEconomy).Assembly, Resource);
-    public static IReadOnlyList<string> EquipmentKeys { get; } = Array.Empty<string>();
+    /// <summary>The equipment families (the S3 tank; the other sizes follow it through the ladder).</summary>
+    public static IReadOnlyList<string> EquipmentKeys { get; } = new[] { WaterTanks.BasePrefix };
     public static IReadOnlyList<string> SupplyKeys { get; } = new[] { LineFamilies.GasPrefix, LineFamilies.ProcessWaterPrefix };
     public static EconomyPack Load(Func<string, double?>? materialMassOf = null, Func<string, bool>? merchantExists = null)
     {
-        var context = new EconomyContext(EquipmentKeys, SupplyKeys) { MassOf = _ => null, MaterialMassOf = materialMassOf, MerchantExists = merchantExists };
+        var context = new EconomyContext(EquipmentKeys, SupplyKeys) { MassOf = MassOf, MaterialMassOf = materialMassOf, MerchantExists = merchantExists };
         pack = DataPacks.Load<EconomyPack>(Source, p => EconomySchema.Validate(p, context));
         return pack;
     }
+    /// <summary>The dry mass a family's salvage must weigh.</summary>
+    public static double? MassOf(string prefix) => prefix == WaterTanks.BasePrefix ? WaterTanks.BaseDryKg : null;
+    public static double Price(string prefix) => Pack.equipment.TryGetValue(prefix, out var e) ? e.price : throw new InvalidOperationException("No economy entry for " + prefix);
     public static double SupplyPrice(string prefix) => Pack.supplies.TryGetValue(prefix, out var s) ? s.price : throw new InvalidOperationException("No economy entry for " + prefix);
     public static int Quantity(string item) => EconomyStock.Quantity(Pack, item);
 }

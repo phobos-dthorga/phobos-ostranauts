@@ -16,8 +16,9 @@ internal static class BulkEffects
             if(done)Phobos.Ostranauts.Framework.Crew.CrewSpecialities.CreditPractical(__instance);
             return;
         }
-        if(!BulkDefinitions.IsTank(__instance.objThem))return;
-        if(__instance.strName==BulkDefinitions.Controls){if(__instance.objUs==CrewSim.GetSelectedCrew())Panel.Show(__instance.objThem);return;}
+        // The reservoir crew work applies to Framework's water tanks too (Agriculture 0.31.0); their panel is Framework's.
+        if(!BulkDefinitions.IsWaterTank(__instance.objThem))return;
+        if(__instance.strName==BulkDefinitions.Controls&&BulkDefinitions.IsTank(__instance.objThem)){if(__instance.objUs==CrewSim.GetSelectedCrew())Panel.Show(__instance.objThem);return;}
         foreach(var action in BulkDefinitions.Work)if(__instance.strName==BulkDefinitions.WorkId(action)&&BulkService.Work(__instance.objThem,__instance.objUs,action))Phobos.Ostranauts.Framework.Crew.CrewSpecialities.CreditPractical(__instance);
     }
 }
@@ -28,7 +29,7 @@ internal static class BulkMode
 {
     private static void Postfix(CondOwner coNew)
     {
-        if(!BulkDefinitions.IsTank(coNew)||!coNew.HasCond("IsDamaged"))return;
+        if(!BulkDefinitions.IsWaterTank(coNew)||!coNew.HasCond("IsDamaged"))return;
         try{BulkService.PauseSupply(coNew);}catch(Exception e){Plugin.Log(e.ToString());}
     }
 }

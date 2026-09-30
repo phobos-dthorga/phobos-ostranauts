@@ -24,6 +24,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.31.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The R3, R4 and R5 reservoirs retire into Phobos Framework's Rivetline S3, S4 and S5 process water silos, one ladder shared by every Phobos mod. Every saved reservoir, installed or loose, becomes the silo of its footprint when the game loads, in place, with its water, reserve, inventory and W2 link. Its housing weighs and is worth what a silo does.
+- Loading a 5 kg irrigation charge, recovering trapped water, draining, and the standing fill order work on every silo, the new S2 included. Water for them is bought as Framework's process water under Bulk supplies; the separate agricultural water offer is gone.
+- Reservoirs are no longer sold or found, and they leave the INSTALL menu. The machinery salvage roll drops from 0.3 to 0.25 so the other five families keep their one-in-twenty.
+- The W2's Supplies page says **Water silo connection**, and its intake status and waiting message name the silo instead of the R3. The fill order is now **Keep the silo stocked with irrigation charges**.
+
+### Documentation
+
+- The bulk-storage guide leads with feeding a W2 from a silo and says what happens to old reservoirs; the other guides name silos instead of reservoirs.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.58.0 or newer. The conversion is automatic and happens once; loading the save with an older Agriculture afterwards is not supported. Offline checks are not gameplay validation.
+
 ## [0.30.0] - 2026-10-01 - Draft
 
 ### Added

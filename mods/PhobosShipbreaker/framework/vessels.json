@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
   "schema": "vessels",
-  "notes": "Phobos Shipbreaker bulk storage, small sizes: the Rivetline S3 process water silo (a kilogram record, never the game's potable water) and the Rivetline Y2 material bin (an item grid for mined material). The S4, S5, Y3 and Y4 scale through the Framework ladder. Changing a capacity or dry mass leaves existing vessels Protected until accepted. Records: docs/shipbreaker-bulk-silos.md, docs/shipbreaker-material-bins.md.",
+  "notes": "Phobos Shipbreaker bulk storage, small sizes: the Rivetline Y2 material bin (an item grid for mined material); the Y3 and Y4 scale through the Framework ladder. The S3 process water silo moved to Framework's own vessels pack in Shipbreaker 0.54.0. Changing a dry mass leaves existing bins Protected until accepted. Record: docs/shipbreaker-material-bins.md.",
   "families": {
-    "PhobosProcessSilo": { "notes": "S3: a 3 x 3 sealed vessel of one cubic metre of process water in a 240 kg housing.", "kind": "silo", "commodity": "water", "capacityKg": 1000, "dryKg": 240, "leakKgPerHour": 0 },
     "PhobosMaterialBin": { "notes": "Y2: a 2 x 2 sealed bin, four cells per tile (the D4 tray density), 60 kg housing.", "kind": "bin", "dryKg": 60, "leakKgPerHour": 0, "cellsPerTileSide": 2 }
   }
 }

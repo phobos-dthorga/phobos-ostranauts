@@ -8,63 +8,27 @@ using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
 
-/// <summary>Native definitions for the S3 process-water silo (passive vessel) and the T2 ice thaw unit
-/// (powered, one feed bin, one gangue tray). Both use the shared machine family contract.</summary>
-internal static class SiloDefinitions
+/// <summary>Native definitions for the T2 ice thaw unit (powered, one feed bin, one gangue tray) on the shared machine
+/// family contract. The S3 to S5 process water silos it fills moved to Framework's water tanks in Shipbreaker 0.54.0,
+/// with their ids, records and names unchanged.</summary>
+internal static class ThawDefinitions
 {
-    internal const string SiloArt = "PhobosProcessSilo", ThawArt = "PhobosIceThaw";
+    internal const string ThawArt = "PhobosIceThaw";
     internal static void Add(NativeDefinitions d)
     {
-        foreach (var spec in SiloService.Specs) BulkVessels.Register(spec);
-        foreach (var size in SiloRules.Sizes) AddSilo(d, size);
         AddThaw(d);
         AddLinePorts(d);
     }
-    /// <summary>Ports on Framework's shared lines (Shipbreaker 0.53.0): every silo size gains a process-water port on
-    /// its local -X side, and the T2 a process-water port there and a gas port on its +X side for methane, all in the
-    /// middle row. Methane is carried by the gas line. Points are rebuilt from definitions on load.</summary>
+    /// <summary>Ports on Framework's shared lines (Shipbreaker 0.53.0): the T2 has a process-water port on its local -X
+    /// side and a gas port on its +X side for methane, both in the middle row. Methane is carried by the gas line.
+    /// Points are rebuilt from definitions on load.</summary>
     private static void AddLinePorts(NativeDefinitions d)
     {
         LineFamilies.Assign(ThawRules.MethaneCommodity, LineFamilies.Gas);
         var water = Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(); var gas = Phobos.Ostranauts.Framework.Items.SharedLines.GasSpec();
-        foreach (var size in SiloRules.Sizes)
-        {
-            var w = LinePorts.Water(size.Footprint);
-            LineDefinitions.AddPort(d, size.Prefix, water, LinePorts.WaterPoint, w.X, w.Y, w.Socket);
-        }
         var tw = LinePorts.Water(ThawRules.Footprint); var tg = LinePorts.Gas(ThawRules.Footprint);
         LineDefinitions.AddPort(d, ThawRules.Prefix, water, LinePorts.WaterPoint, tw.X, tw.Y, tw.Socket);
         LineDefinitions.AddPort(d, ThawRules.Prefix, gas, LinePorts.GasPoint, tg.X, tg.Y, tg.Socket);
-    }
-    private static void AddSilo(NativeDefinitions d, SiloSize size)
-    {
-        string p = size.Prefix; int footprint = size.Footprint;
-        MachineDefinitions.AddFamily(d, p);
-        foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
-        {
-            bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
-            var co = d.Objects[p + state]; var item = d.Items[p + state];
-            co.strNameFriendly = co.strNameShort = Text.Get(size.NameKey) + (damaged ? Text.Get("Content.damaged") : "");
-            co.strDesc = Text.Get("Silo.description", size.DryKg, size.CapacityKg, footprint);
-            // A passive vessel: no container, no feed, no electricity, no tickers. Its water is a saved record.
-            co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>(); co.strContainerCT = null;
-            co.nContainerWidth = co.nContainerHeight = 0;
-            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsContainer=", StringComparison.Ordinal)).ToArray();
-            co.mapGUIPropMaps = Array.Empty<string>();
-            co.jsonPI = null; co.aTickers = Array.Empty<string>();
-            co.aInteractions = Array.Empty<string>();
-            co.inventoryWidth = co.inventoryHeight = footprint;
-            Content.SetStat(co, "StatMass", size.DryKg);
-            co.mapPoints = new[] { "use,0," + (-8 * footprint - 8) };
-            item.nCols = footprint; item.fZScale = 0.5f;
-            item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", footprint * footprint).ToArray();
-            item.aSocketReqs = Border(footprint, installed ? "TILFloor" : "Blank");
-            item.aSocketForbids = Border(footprint, installed ? "TILObstruction" : "TILItemForbids");
-            // One dedicated overhead sprite for every form, as the inventory portrait too; damaged forms use the
-            // game's damage tint. The master and its provenance are in assets/artwork-completion.
-            Content.ApplyArtwork(co, item, size.Art, size.Art);
-            co.strPortraitImg = item.strImg;
-        }
     }
     private static void AddThaw(NativeDefinitions d)
     {
@@ -106,11 +70,6 @@ internal static class SiloDefinitions
         power.strOverrideCond = ProcessRules.Working;
         power.fOverrideAmount = ThawRules.WorkingKW / Units.SecondsPerHour;
     }
-    /// <summary>A socket grid one tile wider than the footprint on every side: the interior value inside, Blank on the rim.</summary>
-    internal static string[] Border(int footprint, string interior)
-    {
-        int side = footprint + 2;
-        return Enumerable.Range(0, side * side).Select(i =>
-            i % side > 0 && i % side < side - 1 && i / side > 0 && i / side < side - 1 ? interior : "Blank").ToArray();
-    }
+    /// <summary>A socket grid one tile wider than the footprint on every side (Framework's shared rule).</summary>
+    internal static string[] Border(int footprint, string interior) => MachineFamilies.Border(footprint, interior);
 }

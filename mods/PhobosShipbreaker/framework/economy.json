@@ -283,36 +283,6 @@
       "salvageValueHigh": false,
       "offerScale": 1.5
     },
-    "PhobosProcessSilo": {
-      "notes": "Rivetline S3 Process Water Silo, 3 x 3, 240 kg dry; the S4 and S5 follow through the ladder.",
-      "price": 4800,
-      "work": {
-        "install": 1200,
-        "uninstall": 900,
-        "repair": 2400,
-        "dismantle": 800
-      },
-      "repairBill": {
-        "ItmScrapSteel": 2,
-        "ItmScrapAluminum": 2,
-        "ItmPartsMechSmall01": 4
-      },
-      "salvage": {
-        "ItmScrapSteel": 170,
-        "ItmScrapAluminum": 40,
-        "ItmPartsMechSmall01": 20,
-        "ItmPartsElecSmall01": 4,
-        "ItmScrapTrash": 18
-      },
-      "brokenSalvage": {
-        "ItmScrapSteel": 40,
-        "ItmScrapAluminum": 10,
-        "ItmPartsMechSmall01": 4,
-        "ItmScrapTrash": 188
-      },
-      "restoreMinutes": 30,
-      "salvageValueHigh": false
-    },
     "PhobosIceThaw": {
       "notes": "Rivetline T2 Ice Thaw Unit, 2 x 2, 120 kg.",
       "price": 3200,
@@ -662,10 +632,10 @@
   },
   "worldLoot": [
     {
-      "notes": "One engineering roll in 2.5 yields a loose Rivetline machine, half of them broken, spread evenly over the small sizes.",
+      "notes": "About one engineering roll in 2.7 yields a loose Rivetline machine, half of them broken, spread evenly over the small sizes: 1 in 30 per family, as before the S3 moved to Framework (Shipbreaker 0.54.0) with its own share.",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosShipbreakerMachinerySalvage",
-      "chance": 0.4,
+      "chance": 0.36667,
       "brokenShare": 0.5
     },
     {
@@ -716,7 +686,6 @@
       "PhobosFurnaceRadiator": "Warm",
       "PhobosFurnaceThermalPort": "Warm",
       "PhobosIndustrialConsole": "Warm",
-      "PhobosProcessSilo": "Warm",
       "PhobosIceThaw": "Warm",
       "PhobosMaterialBin": "Warm",
       "PhobosResidueCollector": "Warm",
