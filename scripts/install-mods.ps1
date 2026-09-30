@@ -340,6 +340,12 @@ foreach ($mod in $Mods) {
                     "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
                 }
             }
+            # 0.61.0 adds the Rivetline conveyor belt.
+            if ($version -ge [version]'0.61.0') {
+                foreach ($image in @('ConveyorBelt', 'ConveyorBeltSheet')) {
+                    "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
+                }
+            }
             # 0.58.0 takes the process-water silos from Shipbreaker and adds the S2.
             if ($version -ge [version]'0.58.0') {
                 'framework/vessels.json'

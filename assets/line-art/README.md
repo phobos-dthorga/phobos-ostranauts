@@ -21,6 +21,11 @@ recorded luminance ramp:
 | Process water (Framework 0.57.0) | 0 | blue | `ProcessWaterPipe*` |
 | Acid (Lixivar, Manufacturing 0.24.0) | 2 | violet, the pipeline identification colour for acids and alkalis in BS 1710 (British Standards Institution) | `AcidPipe*` |
 
+The Rivetline conveyor belt (Framework 0.61.0) is drawn by the same script beneath every lane:
+a 12-pixel band of dark belting with raised cross-cleats every third pixel between steel
+side rails, in the lowest layer, with the same joint mask; its loose icon is a straight run
+(`ConveyorBelt*`, colours recorded under `belt` in the export record).
+
 The loose icon is the full cross in the middle lane. Sheets follow the game's joint
 mask order (N=8, W=4, E=2, S=1, bottom-left first) with flat normals.
 `line-art-exports.json` records the ramps, lanes and export hashes;

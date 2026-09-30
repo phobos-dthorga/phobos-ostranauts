@@ -1399,3 +1399,18 @@ piped, and joins chain across the ship.
   snapshot), so a segment switching to its damaged form still answers for the
   network it belonged to. Manufacturing 0.24.0's acid line uses it to find the tank
   a wet segment carries acid from.
+
+## Conveyor belts and unit transfers (0.61.0)
+
+- **`Inventory.BeltNetwork`.** The Rivetline conveyor belt as a plain segment family
+  (no port participants). `Joins(ship, starts, goals)` is true when one run of intact
+  belt lies on or beside a start cell and a goal cell (`FluidTopology.JoinsNear` on
+  the cached snapshot); `Reaches(a, b, aCells, bCells)` adds the touching test, which
+  is the owner's link rule for items. Content chooses each endpoint's cells. Items
+  never ride a belt; transfers stay the content mod's checked moves.
+- **`Inventory.UnitItemTransfer`.** One unit into a container, detached from a native
+  stack if it is in one, with `IsUnitPreflight` so content admission knows a single
+  unit is being asked about; moved from the crew hauling orders, which use it
+  unchanged (`CrewLogistics.IsUnitPreflight` delegates to it).
+- **`Items.SharedLines.BeltSpec`.** The belt's segment spec, published with the other
+  Framework lines. See the [conveyor design record](conveyor-design.md).

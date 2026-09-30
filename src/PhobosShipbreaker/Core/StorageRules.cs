@@ -12,6 +12,8 @@ public static class StorageRules
 {
     public const string ProductsOut = "PhobosShipbreaker.ProductsOut", SteelOut = "PhobosShipbreaker.SteelOut";
     public const string Unloading = "PhobosShipbreakerUnloading";
+    /// <summary>The saved mark of running storage unloading on its machine (Shipbreaker 0.56.0): a reload resumes it.</summary>
+    public const string Resume = "PhobosShipbreakerStorageRunning";
     // Products already carried by another published address never use the storage output.
     private static readonly HashSet<string> RoutedElsewhere = new(StringComparer.Ordinal)
     { ProcessRules.Residue, ReclaimerRules.Feedstock, ReclaimerRules.Reject };

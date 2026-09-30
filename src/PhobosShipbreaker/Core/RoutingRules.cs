@@ -9,6 +9,8 @@ public static class RoutingRules
     // Published addresses keep their meaning. A reclaimer's input is a distinct port.
     public const string SendPort = "PhobosShipbreaker.ResidueOut", CollectorIn = "PhobosShipbreaker.ResidueIn";
     public const string ReclaimerIn = "PhobosShipbreaker.ReclaimerFeed", Feeding = "PhobosReclaimerFeeding";
+    /// <summary>The saved mark of a running item route on its receiver (Shipbreaker 0.56.0): a reload resumes it.</summary>
+    public const string BeltResume = "PhobosShipbreakerRouteRunning";
     public const string MetalsOut = "PhobosShipbreaker.MetalsOut", FurnaceIn = "PhobosFurnace.MaterialIn", FurnaceOut = "PhobosFurnace.MaterialOut";
     public const string Processor = "PhobosShipbreakerInstalled";
     public const double FeedSeconds = 2, FeedKW = 2;

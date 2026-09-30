@@ -123,6 +123,7 @@ Framework 0.57.0 owns the shared lines; the gas line keeps the tier it had under
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
 | Neutral | Gas line, process water line | 3 | 0.15 |
+| Neutral | Rivetline conveyor belt | 24 | 1.20 |
 | Warm | Rivetline S2/S3/S4/S5 process water silos | 2,950 to 8,860 | 147.50 to 443 |
 
 ## Mechanism

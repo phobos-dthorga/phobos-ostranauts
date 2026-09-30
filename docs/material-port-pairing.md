@@ -66,7 +66,7 @@ beside the collector. Console operations use the same service and gameplay check
 
 The grabber/chute/processor's direct mechanical intake still requires its physical
 alignment. Pairing selects a material destination and does not replace that mount
-or the structural-floor route. Electrical signals may enable/disable machinery
+or the conveyor belt route (structural floor before Shipbreaker 0.56.0). Electrical signals may enable/disable machinery
 through the existing native conditions; they do not carry items. Persistent
 space ejection, arbitrary-material filters and standalone conveyor endpoint equipment
 remain later work.

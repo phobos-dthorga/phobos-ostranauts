@@ -11,6 +11,14 @@
     "brand": "Fennmark",
     "model": ""
   },
+  "SharedLines.belt_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "SharedLines.belt_waste": {
+    "brand": "Rivetline",
+    "model": ""
+  },
   "SharedLines.water_name": {
     "brand": "",
     "model": ""

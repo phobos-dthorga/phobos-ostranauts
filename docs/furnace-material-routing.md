@@ -41,7 +41,8 @@ flowchart TD
 
 1. Install and power the R4 and F6 on the same player-owned ship. Prepare the
    furnace cooling connection and let its instruments establish valid readings.
-   Keep structural floor between the material endpoints.
+   Lay a conveyor belt from beside the R4 to the F6's input marker (and from the
+   output marker to the collector), or place them within one tile (Shipbreaker 0.56.0).
 2. In the F6 local Control Panel or C1 routing page, select the R4 as its input.
    Alternatively choose the separate **Aluminium output** on the R4. Its residue
    output remains independently paired. Receiving and processing are distinct.
@@ -88,14 +89,14 @@ Damage and uninstallation preserve logical addresses for explicit unlinking.
 
 The furnace input is at local **(-2.5, -2.5)** and output at **(+2.5, -2.5)**,
 rotated with its heading. The live installation key marks both front corners.
-These are structural-floor transport approaches inside the 6 x 6 footprint;
-they do not route through painted pipes or electrical conduit. The middle front
+These are the belt approaches inside the 6 x 6 footprint: a conveyor belt tile on
+or beside the marker joins it. They do not route through pipes or electrical conduit. The middle front
 operator aisle and cooling connections keep their existing roles.
 
-Routing requires intact structural floor, grid-aligned installed endpoints and
-the same ship. Walls, flexible floor, EVA tiles and bare space cannot carry the
-route. Search remains bounded to 4,096 visited cells. Moving or rotating an
-endpoint, damage or broken floor invalidates the route. The collector retains
+Routing requires an intact conveyor belt run between the two (or the two within one
+tile), grid-aligned installed endpoints and the same ship. Belts lie on intact floor;
+walls, flexible floor, EVA tiles and bare space carry none. Moving or rotating an
+endpoint, or cutting, damaging or taking up the belt, invalidates the route. The collector retains
 its two hull-wall supports and clear exterior mounting pocket.
 
 ## Controls and F3
@@ -158,8 +159,8 @@ received (0.34.0; earlier versions paused receiving with a time-gap notice).
 | Full collector | Product stays in the F6 tray until exact native placement fits |
 | Power loss, flight, invalid probe or unusable cooling | F6 receiving pauses; cargo and heat remain; explicit Receive required |
 | Partial measured power | Only paid motor time advances |
-| Floor/endpoint movement, damage, pair or filter change | Affected route pauses; other logical ports retain their connections |
-| Reload | Links, filters and physical cargo survive; receiving permission and clock credit do not |
+| Belt or endpoint movement, damage, pair or filter change | Affected route pauses; other logical ports retain their connections |
+| Reload | Links, filters and physical cargo survive; a route that was running resumes by itself (0.56.0), with no clock credit carried over |
 | Unqualified recovered charge | Remains in the charge bin for local handling; output routing does not extract it |
 
 The optional serviced-coolant extension in this same release can also block

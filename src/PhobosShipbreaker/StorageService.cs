@@ -10,9 +10,10 @@ using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
 
-/// <summary>Moves D4 ordinary products and R4 steel, one physical item at a time, into one chosen
-/// native store. The selection is saved on the sending machine; permission to unload is not saved
-/// and pauses on reload. The store keeps its own native capacity; nothing is created or discarded.</summary>
+/// <summary>Moves D4 ordinary products and R4 steel, one physical unit at a time (taken from a native stack if the
+/// tray stacked them, Shipbreaker 0.56.0), into one chosen native store that touches the machine or shares a conveyor
+/// belt with it. The selection is saved on the sending machine; running unloading is marked on it and resumes after a
+/// reload (owner decision, 30 September 2026). The store keeps its own native capacity; nothing is created or discarded.</summary>
 internal sealed class StorageService
 {
     private sealed class Session
@@ -25,6 +26,8 @@ internal sealed class StorageService
         internal string Status = Text.Get("Storage.paused");
         // A true admission holds for the rest of its step (native power in between changes no item or store).
         internal long AdmittedStep = long.MinValue;
+        // Whether this load already tried to resume unloading that was running when the game was saved.
+        internal bool ResumeTried;
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new();
     private readonly Action<string> log;
@@ -64,11 +67,19 @@ internal sealed class StorageService
         if (store == null) return Text.Get("Storage.missing");
         return selection.ShipId == machine.ship?.strRegID && Eligible(machine, store) ? null : Text.Get("Storage.ineligible");
     }
-    private static bool Payload(CondOwner machine, CondOwner item) => !item.bDestroyed && item.Crew == null &&
-        StorageRules.Carries(machine.strCODef, item.strCODef, item.GetTotalMass(), !item.HasCond("IsInstalled"),
-            item.GetCOsSafe(true).Count == 0 && item.GetLotCOs(true).Count == 0, item.coStackHead == null && item.aStack.Count == 0);
+    /// <summary>One unit the machine may send: a single item, or one unit of a native stack judged at its own mass.</summary>
+    private static bool Payload(CondOwner machine, CondOwner unit)
+    {
+        if (unit.bDestroyed || unit.Crew != null || !CrewLogistics.Loose(unit)) return false;
+        bool stacked = unit.coStackHead != null || unit.aStack.Count > 0;
+        return StorageRules.Carries(machine.strCODef, unit.strCODef, stacked ? unit.GetCondAmount("StatMass") : unit.GetTotalMass(), !unit.HasCond("IsInstalled"),
+            unit.GetLotCOs(true).Count == 0, true);
+    }
+    /// <summary>The units in the machine's tray, stacks opened, in id order.</summary>
+    private static IEnumerable<CondOwner> TrayUnits(CondOwner machine) => CrewLogistics.Contents(machine);
     private static void SetUnloading(CondOwner machine, bool on) { if (!machine.bDestroyed) machine.SetCondAmount(StorageRules.Unloading, on ? 1 : 0); }
-    private static void Disarm(CondOwner machine, Session s) { s.Armed = false; SetUnloading(machine, false); }
+    private static void Disarm(CondOwner machine, Session s) { s.Armed = false; SetUnloading(machine, false); SetResume(machine, false); }
+    private static void SetResume(CondOwner machine, bool on) { if (!machine.bDestroyed && machine.HasCond(StorageRules.Resume) != on) machine.SetCondAmount(StorageRules.Resume, on ? 1 : 0); }
     private static void Clear(CondOwner machine, Session s, string status)
     { Disarm(machine, s); s.Item = null; s.Clock = null; s.Store = null; s.Route = null; s.Status = status; }
 
@@ -99,16 +110,22 @@ internal sealed class StorageService
     }
     internal bool Start(CondOwner machine, ConsoleBinding? console, out string message)
     {
-        var s = Get(machine);
+        string? access = ProcessingService.AccessProblem(machine, console);
+        if (access != null) { Get(machine).Status = access; message = access; return false; }
+        return Arm(machine, Get(machine), out message);
+    }
+    /// <summary>Arms unloading after every machine, selection and route check; no operator presence is needed.</summary>
+    private bool Arm(CondOwner machine, Session s, out string message)
+    {
         CondOwner? store = null;
-        string? problem = ProcessingService.AccessProblem(machine, console) ?? MachineProblem(machine);
+        string? problem = MachineProblem(machine);
         if (problem == null) problem = SelectionProblem(machine, out store);
         var route = problem == null ? CollectorRoute.Find(store!, machine) : null;
         if (problem == null && route == null) problem = Text.Get("Storage.no_route");
         if (problem != null) { s.Status = problem; message = problem; return false; }
         if (!ReferenceEquals(s.Store, store)) { s.Item = null; s.Clock = null; }
         s.Store = store; s.Route = route; s.Armed = true; s.NeedsAttention = false; s.Last = StarSystem.fEpoch;
-        s.Status = Text.Get("Storage.enabled");
+        s.Status = Text.Get("Storage.enabled"); SetResume(machine, true);
         message = Describe(machine); return true;
     }
     internal bool Pause(CondOwner machine, ConsoleBinding? console, out string message)
@@ -124,8 +141,20 @@ internal sealed class StorageService
     /// <summary>Native power selection. Only a checked, admitted item requests feeder power.</summary>
     internal bool BeforePower(CondOwner machine)
     {
+        ResumeAfterLoad(machine);
         SetUnloading(machine, false);
         return sessions.TryGetValue(machine, out var s) && s.Armed && Admit(machine, s);
+    }
+    /// <summary>Owner decision (30 September 2026): unloading that was running when the game was saved resumes once
+    /// after the reload, through every check; if one fails it stays paused with the reason.</summary>
+    private void ResumeAfterLoad(CondOwner machine)
+    {
+        if (!machine.HasCond(StorageRules.Resume) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
+        var s = Get(machine);
+        if (s.Armed || s.ResumeTried) return;
+        s.ResumeTried = true;
+        if (Arm(machine, s, out _)) s.Status = Text.Get("Routing.resumed");
+        else { SetResume(machine, false); s.NeedsAttention = true; }
     }
     private bool Admit(CondOwner machine, Session s)
     {
@@ -144,18 +173,17 @@ internal sealed class StorageService
             problem = Text.Get("Storage.route_changed");
         if (problem != null) { Disarm(machine, s); s.NeedsAttention = true; s.Status = problem; return false; }
         double now = StarSystem.fEpoch;
-        var tray = machine.objContainer;
-        if (s.Item != null && (!tray.Contains(s.Item) || !Payload(machine, s.Item))) { s.Item = null; s.Clock = null; }
+        if (s.Item != null && (!TrayUnits(machine).Contains(s.Item) || !Payload(machine, s.Item))) { s.Item = null; s.Clock = null; }
         if (s.Item == null)
         {
-            s.Item = tray.ContainedCOs.OrderBy(i => i.strID, StringComparer.Ordinal).FirstOrDefault(i => Payload(machine, i));
+            s.Item = TrayUnits(machine).FirstOrDefault(i => Payload(machine, i));
             s.Last = now;
             if (s.Item == null) { s.Status = Text.Get("Storage.waiting"); return false; }
             s.Clock = new TransferClock(s.Item.strID, options.FeederSeconds);
         }
         var destination = store!.objContainer;
         // A full store keeps products in the tray and retries; nothing is dropped or discarded.
-        if (destination == null || destination.Locked || !destination.AllowedCO(s.Item) || !destination.CanAddSimple(s.Item, out _))
+        if (destination == null || destination.Locked || !UnitItemTransfer.Fits(store!, s.Item, out _))
         { s.Status = Text.Get("Storage.full"); s.Last = now; return false; }
         SetUnloading(machine, true); return true;
     }
@@ -176,7 +204,7 @@ internal sealed class StorageService
             { s.Item = null; s.Clock = null; s.Status = Text.Get("Storage.waiting"); return; }
             s.Status = powered ? Text.Get("Storage.moving", s.Clock.Progress.ToString("F0"), s.Clock.Duration.ToString("F0")) : Text.Get("Routing.no_power");
             if (!powered || !s.Clock.Complete) return;
-            var move = new NativeItemTransfer(machine.objContainer, s.Store!.objContainer, s.Item);
+            var move = new UnitItemTransfer(s.Item, s.Store!);
             if (!PhysicalTransfer.Commit(move)) { s.Status = Text.Get("Storage.blocked"); SetUnloading(machine, false); return; }
             s.Item = null; s.Clock = null; SetUnloading(machine, false);
             s.Status = Text.Get("Storage.delivered"); move.Redraw();

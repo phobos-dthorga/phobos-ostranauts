@@ -81,7 +81,8 @@ internal static class Content
         ShipbreakerRecipes.Load(NativeMass);
         ShipbreakerEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
 
-        foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working, StorageRules.Unloading })
+        foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working, StorageRules.Unloading,
+                     RoutingRules.BeltResume, StorageRules.Resume })
             prepared.Conditions[condition] = new JsonCond { strName = condition,
                 strNameFriendly = condition, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
 

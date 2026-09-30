@@ -82,6 +82,7 @@ foreach (var co in framework.Objects.Values)
     Check(co.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Framework names are branded: " + co.strName);
 framework.Publish();
 FrameworkItemChecks.Run(framework, repo, Check);
+BeltNativeChecks.Run(framework, Check);
 CompletionArtworkChecks.Run(framework, "PhobosFramework", repo, Check, Phobos.Ostranauts.Framework.Items.WaterTanks.BasePrefix);
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);

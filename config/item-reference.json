@@ -143,7 +143,7 @@
             "PhobosResidueCollectorInstalledDmg"
           ],
           "function": "A finite physical cargo receiver for explicitly paired industrial outputs.",
-          "use": "Install on two structural floor tiles with a clear two-tile service walkway, or at the hull with the existing wall supports. Link the required machine/output port, select an exact filter and enable receiving. For Agriculture's optional Recycler capture, align the full two-tile pocket against the Recycler with the service side facing away; enable collection from the Recycler panel. Empty Inventory when full. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Install on two structural floor tiles with a clear two-tile service walkway, or at the hull with the existing wall supports. Lay a conveyor belt from its inboard tiles to the machine, or place the machine within one tile; then link the required machine/output port, select an exact filter and enable receiving. For Agriculture's optional Recycler capture, align the full two-tile pocket against the Recycler with the service side facing away; enable collection from the Recycler panel. Empty Inventory when full. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy from equipment offers or build at a supported table. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
           "notes": "Full collectors block transfer; cargo stays at the sender. It does not jettison material or reduce ship mass. Furnace products need their explicit filter.",
           "guide": "residue-collector.md",
@@ -1105,6 +1105,24 @@
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. It holds no water between transfers. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
           "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "conveyor-belt",
+          "title": "Rivetline conveyor belt",
+          "ids": [
+            "PhobosConveyorBeltLoose",
+            "PhobosConveyorBeltLooseDmg",
+            "PhobosConveyorBeltInstalled",
+            "PhobosConveyorBeltInstalledDmg",
+            "PhobosConveyorBeltWaste"
+          ],
+          "function": "Conveyor belt for loose items between machines, collectors and stores. A run of intact belt that lies on or beside two pieces of equipment joins them for Phobos Shipbreaker's item routes: a collector fed by a D4, the reclaimer's feed, the F6's input and output, and D4 or R4 storage output. Equipment within one tile of each other needs no belt.",
+          "use": "Lay it through INSTALL > MISC on intact floor, tile by tile, from beside the sender to beside the receiver: a machine's footprint, a collector's inboard tiles or the F6's input or output marker. Then link and start the route; its status says whether it runs by conveyor belt or touching. Belts share tiles with pipe and line, in the lowest lane.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "New in Framework 0.61.0. Items never ride it: each still moves straight from one machine to the other in one checked transfer, powered and paid for by the machine that sends or receives it. A belt cut, damaged or taken up stops the route until you mend it and resume. Dismantling returns the whole segment as retained waste, which is terminal.",
+          "guide": "automatic-material-routing.md",
           "internal": false,
           "labels": {}
         },

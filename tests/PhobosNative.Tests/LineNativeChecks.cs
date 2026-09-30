@@ -16,6 +16,7 @@ internal static class LineNativeChecks
         ("PhobosVerdemorrowWaterConduit", LineLayers.Irrigation, "PhobosWaterConduitPresent"),
         ("PhobosFurnaceCoolantConduit", LineLayers.Coolant, "PhobosFurnaceCoolantSegment"),
         (PhobosManufacturing.Core.AcidLineRules.Prefix, LineLayers.Acid, PhobosManufacturing.Core.AcidLineRules.Present),
+        (Phobos.Ostranauts.Framework.Inventory.BeltNetwork.Prefix, LineLayers.Belt, Phobos.Ostranauts.Framework.Inventory.BeltNetwork.Present),
     };
     internal static void Run(IEnumerable<NativeDefinitions> definitions, Action<bool, string> check)
     {

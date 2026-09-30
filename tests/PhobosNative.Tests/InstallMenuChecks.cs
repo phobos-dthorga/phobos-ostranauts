@@ -32,7 +32,7 @@ internal static class InstallMenuChecks
                     co.strName.StartsWith(PhobosManufacturing.Core.FillerRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.RegulatorRules.Prefix) ? "HVAC" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
                     BinRules.IsFamily(co.strName) ? "FURN" :
-                    co.strName.StartsWith(PhobosAgriculture.IrrigationDefinitions.Pipe) ? "MISC" : "APPS";
+                    co.strName.StartsWith(PhobosAgriculture.IrrigationDefinitions.Pipe) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Inventory.BeltNetwork.Prefix) ? "MISC" : "APPS";
                 check(Installables.dictJobBuildOptionsListed.TryGetValue(expected, out var tab) && tab.ContainsKey(co.strName), "Native INSTALL tab covers intact/damaged fixture: " + co.strName);
                 var job = Installables.dictJobBuildOptionsListed[expected][co.strName];
                 check(job.aInputs?.Length > 0 && job.aLootCOs.Contains(co.strName), "Placement retains physical input and correct output: " + co.strName);

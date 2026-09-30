@@ -7,20 +7,26 @@ using UnityEngine;
 
 namespace PhobosShipbreaker;
 
-/// <summary>The content mod owns the physical floor-routing model; Framework only finds a path.</summary>
+/// <summary>The item route between a sender and a receiver (Shipbreaker 0.56.0; owner rule, 30 September 2026): the two
+/// touch, or a Rivetline conveyor belt run lies on or beside the cells each uses (Framework's <see cref="BeltNetwork"/>).
+/// Nothing moves across open floor any more. The content mod owns which cells each endpoint uses; Framework owns the
+/// belt network. A route is remembered with both endpoints' positions and angles and rechecked against the cached belt
+/// snapshot, so a belt that is cut, damaged or taken up stops the route within a couple of seconds.</summary>
 internal sealed class CollectorRoute
 {
     private readonly Ship ship;
     private readonly Vector2 portPosition, sourcePosition;
     private readonly double portAngle, sourceAngle;
     private readonly int columns, rows;
-    private readonly int[] cells;
-    internal int Length => cells.Length;
-    private CollectorRoute(CondOwner port, CondOwner source, int[] cells)
+    private readonly int[] starts, goals;
+    /// <summary>The two touched when the route was found (no belt needed); otherwise a belt joined them.</summary>
+    internal bool Touching { get; }
+    private CollectorRoute(CondOwner port, CondOwner source, int[] starts, int[] goals)
     {
+        Touching = Phobos.Ostranauts.Framework.Liquids.BulkVessels.Adjacent(source, port);
         ship = port.ship; portPosition = port.GetPos(); sourcePosition = source.GetPos();
         portAngle = Angle(port); sourceAngle = Angle(source);
-        columns = ship.nCols; rows = ship.nRows; this.cells = cells;
+        columns = ship.nCols; rows = ship.nRows; this.starts = starts; this.goals = goals;
     }
     private static double Angle(CondOwner co) => co.Item.TF.eulerAngles.z;
     private static Vector2 Point(CondOwner co, double x, double y)
@@ -86,10 +92,8 @@ internal sealed class CollectorRoute
         var ship = port.ship;
         if (source.ship != ship || source.Item == null || CollectorRules.IsFamily(source.strCODef) && MountProblem(source) != null) return null;
         if (source.Item == null || !IntakeRules.SameAngle(Angle(source), 0, 90)) return null;
-        var starts = Cells(source, false);
-        var goals = new HashSet<int>(Cells(port, true));
-        int[]? path = GridRoute.Find(ship.nCols, ship.nRows, starts, goals, i => Floor(ship, i));
-        return path == null ? null : new CollectorRoute(port, source, path);
+        var starts = Cells(source, false); var goals = Cells(port, true);
+        return BeltNetwork.Reaches(source, port, starts, goals) ? new CollectorRoute(port, source, starts, goals) : null;
     }
     private static int[] Cells(CondOwner co, bool input)
     {
@@ -114,5 +118,5 @@ internal sealed class CollectorRoute
     }
     internal bool Valid(CondOwner port, CondOwner source) => port.ship == ship && source.ship == ship &&
         (!CollectorRules.IsFamily(source.strCODef) || MountProblem(source) == null) && columns == ship.nCols && rows == ship.nRows && portPosition == port.GetPos() && sourcePosition == source.GetPos() &&
-        IntakeRules.SameAngle(portAngle, Angle(port)) && IntakeRules.SameAngle(sourceAngle, Angle(source)) && cells.All(i => Floor(ship, i));
+        IntakeRules.SameAngle(portAngle, Angle(port)) && IntakeRules.SameAngle(sourceAngle, Angle(source)) && BeltNetwork.Reaches(source, port, starts, goals);
 }

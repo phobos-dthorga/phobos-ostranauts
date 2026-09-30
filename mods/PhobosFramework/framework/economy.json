@@ -68,6 +68,23 @@
         "ItmVORBScrapKioskInv"
       ],
       "chance": 0
+    },
+    "PhobosConveyorBelt": {
+      "notes": "Rivetline conveyor belt (Framework 0.61.0): a 4 kg segment of steel frame, rollers and belting, priced above its steel (scrap steel is 3.6 cr/kg) and sold with the lines in lots of the supplies size. Repair takes a steel scrap; dismantling returns the whole segment as retained waste, so it loses value against selling it whole.",
+      "price": 24,
+      "repairWork": 120,
+      "dismantleWork": 180,
+      "repairBill": {
+        "ItmScrapSteel": 1
+      },
+      "remainder": "PhobosConveyorBeltWaste",
+      "merchants": [
+        "ItmOKLGSupplyKioskInv",
+        "ItmOKLGFixer",
+        "ItmTraderSanDiegoHalvorsonInv",
+        "ItmVORBScrapKioskInv"
+      ],
+      "chance": 0
     }
   },
   "offerTemplates": [
@@ -163,6 +180,7 @@
     "tiers": {
       "PhobosPropellantLine": "Neutral",
       "PhobosProcessWaterLine": "Neutral",
+      "PhobosConveyorBelt": "Neutral",
       "PhobosProcessSilo": "Warm"
     }
   }

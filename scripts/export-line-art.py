@@ -33,6 +33,10 @@ FAMILIES = [
     {'name': 'acid', 'lane': 2, 'ramp': {'r': (1.0, 22), 'g': (0.55, 8), 'b': (1.3, 30)},
      'targets': ['mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe']},
 ]
+# The Rivetline conveyor belt (Framework 0.61.0) lies under every pipe lane: a 12-pixel band of dark belting with raised
+# cross-cleats every third pixel between steel side rails, joined by the same native joint mask as the pipes.
+BELT = {'rail': (118, 124, 132), 'rail_dark': (70, 75, 82), 'belt': (44, 46, 50), 'cleat': (76, 79, 85)}
+BELT_TARGETS = ['mods/PhobosFramework/images/phobos/framework/ConveyorBelt']
 # Native Item.SetSpriteSheetIndex bitmask to sheet index; UV rows count from the bottom.
 INDICES = {3: 12, 7: 13, 5: 14, 8: 15, 11: 8, 15: 9, 13: 10, 2: 11, 10: 4, 14: 5, 12: 6, 4: 7, 6: 0, 0: 1, 9: 2, 1: 3}
 N, W, E, S = 8, 4, 2, 1
@@ -74,6 +78,41 @@ def tile(mask, lane, ramp):
     return img
 
 
+def belt_tile(mask):
+    img = Image.new('RGBA', (16, 16))
+    px = img.load()
+    lo, hi = 2, 13  # the band's outer rows or columns
+    c = {k: v + (255,) for k, v in BELT.items()}
+    horizontal_run = bool(mask & (W | E)) or not mask & (N | S)
+    def band(horizontal, start, end):
+        for t in range(start, end):
+            for s in range(lo, hi + 1):
+                colour = c['rail'] if s == lo else c['rail_dark'] if s == hi else c['cleat'] if t % 3 == 0 else c['belt']
+                px[(t, s) if horizontal else (s, t)] = colour
+    if mask & W: band(True, 0, lo)
+    if mask & E: band(True, hi + 1, 16)
+    if mask & N: band(False, 0, lo)
+    if mask & S: band(False, hi + 1, 16)
+    # The centre carries the belt on in its main direction, with rails on every side that has no arm.
+    for x in range(lo, hi + 1):
+        for y in range(lo, hi + 1):
+            t = x if horizontal_run else y
+            px[x, y] = c['cleat'] if t % 3 == 0 else c['belt']
+    for s in range(lo, hi + 1):
+        if not mask & N: px[s, lo] = c['rail']
+        if not mask & S: px[s, hi] = c['rail_dark']
+        if not mask & W: px[lo, s] = c['rail']
+        if not mask & E: px[hi, s] = c['rail_dark']
+    return img
+
+
+def belt_sheet():
+    out = Image.new('RGBA', (64, 64))
+    for mask, index in INDICES.items():
+        out.paste(belt_tile(mask), ((index % 4) * 16, (3 - index // 4) * 16))
+    return out
+
+
 def sheet(lane, ramp):
     out = Image.new('RGBA', (64, 64))
     for mask, index in INDICES.items():
@@ -99,12 +138,22 @@ def outputs():
             result[base.with_name(base.name + 'Normal.png')] = png(normal(icon))
             result[base.with_name(base.name + 'Sheet.png')] = png(full)
             result[base.with_name(base.name + 'SheetNormal.png')] = png(normal(full))
+    icon, full = belt_tile(W | E), belt_sheet()
+    for target in BELT_TARGETS:
+        base = ROOT / target
+        result[base.with_name(base.name + '.png')] = png(icon)
+        result[base.with_name(base.name + 'Normal.png')] = png(normal(icon))
+        result[base.with_name(base.name + 'Sheet.png')] = png(full)
+        result[base.with_name(base.name + 'SheetNormal.png')] = png(normal(full))
     return result
 
 
 def preview(path):
     """A 6 x 4 test scene at native scale x4: each family a straight run, crossings, a shared corridor."""
     scene = Image.new('RGBA', (16 * 6, 16 * 4), (58, 64, 70, 255))
+    # A belt run along the top row and down the last column, under the pipes that cross it.
+    for x in range(6): scene.alpha_composite(belt_tile(W | E if x < 5 else W | S), (16 * x, 0))
+    for y in range(1, 4): scene.alpha_composite(belt_tile(N | S if y < 3 else N), (16 * 5, 16 * y))
     for family in FAMILIES:
         l, r = family['lane'], family['ramp']
         for x in range(6): scene.alpha_composite(tile(W | E if 0 < x < 5 else (E if x == 0 else W), l, r), (16 * x, 16))
@@ -131,6 +180,7 @@ def main():
     if stale: raise SystemExit('Missing/stale line art: ' + ', '.join(stale))
     if not args.check:
         record = {'families': [{k: f[k] for k in ('name', 'lane', 'ramp', 'targets')} for f in FAMILIES], 'base': BASE,
+                  'belt': {'colours': BELT, 'targets': BELT_TARGETS},
                   'exports': {str(p.relative_to(ROOT).as_posix()): hashlib.sha256(b).hexdigest() for p, b in sorted(files.items())}}
         (ROOT / 'assets/line-art/line-art-exports.json').parent.mkdir(parents=True, exist_ok=True)
         (ROOT / 'assets/line-art/line-art-exports.json').write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8', newline='\n')

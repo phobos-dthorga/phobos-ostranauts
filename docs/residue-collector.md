@@ -111,8 +111,10 @@ session. Moving/removing the selected packet invalidates that timer; another
 packet cannot inherit its work. Ambiguous transfer failures pause and log the
 problem rather than blindly retrying.
 
-**Reload retains the pair and real cargo, but resets the timer and pauses collection.**
-Press Collect to resolve the same full object IDs and recheck the floor route.
+**Reload retains the pair and real cargo and resets the timer.** Since Shipbreaker
+0.56.0 a collection that was running resumes by itself, rechecking the same full
+object IDs and the conveyor belt or touching route; one that was paused waits for
+Collect.
 Already spent electricity is not refunded. No work accumulates while unloaded,
 and an unexpected time gap pauses the collector. Missing, mismatched or invalid
 links stop work; there is no nearest-machine fallback. The same checks run before

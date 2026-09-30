@@ -115,6 +115,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Regional economy: generated native evidence](solar-system-economy-evidence.md)
 - [Terminal social network](terminal-social-network.md)
 - [Underfloor material transport — discussion proposal](underfloor-material-transport.md)
+- [Conveyor belts — design record (Framework 0.61.0, Shipbreaker 0.56.0)](conveyor-design.md)
 - [Updating versions and maintained constants](updating-constants.md)
 - [Vanilla economy audit](vanilla-economy-audit.md)
 - [Changelogs and Steam Workshop publication records](workshop-publication.md)

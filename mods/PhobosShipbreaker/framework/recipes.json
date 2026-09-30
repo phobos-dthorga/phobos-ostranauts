@@ -209,7 +209,7 @@
     {
       "id": "PhobosBuildResidueCollector",
       "name": "Phobos' Rivetline C2 Residue Collector",
-      "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+      "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

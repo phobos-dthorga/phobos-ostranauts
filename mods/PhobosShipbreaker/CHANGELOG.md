@@ -25,6 +25,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.56.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Item routes need a conveyor belt or touching equipment, never bare floor. A collector fed by a D4, a reclaimer fed from its source, the F6's input and output, and D4 or R4 storage output run when Framework's Rivetline conveyor belt joins the two, or when the two are within one tile. The route status says whether it runs by conveyor belt or touching.
+- A route or storage unloading that was running when you saved resumes by itself after a reload, like the crew's standing orders; one that was paused stays paused. Processing still waits for Start after a reload.
+- Storage output takes products the tray stacked one unit at a time, each checked at its own mass, instead of leaving the stack for you to split.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.61.0 or newer. **Manual step after updating:** routes laid over bare floor in earlier versions stop with a message that no conveyor belt joins the two. Pairs, filters and cargo are kept; lay belt between them, or move them within one tile, then start the route again. Laying belt cannot be done for you, because it would create free material. Offline checks are not gameplay validation.
+
 ## [0.55.0] - 2026-10-01 - Draft
 
 ### Changed

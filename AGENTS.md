@@ -571,7 +571,8 @@
   paired output collectors. Version 0.9.0 adds automatic reclaimer feed from
   fixtures or collector buffers, independent input/output pairs and saved exact-ID
   filters through Framework. Follow `docs/automatic-material-routing.md`. Keep
-  receiving and processing permissions separate and paused after reload. Full
+  receiving and processing permissions separate (running belt routes resume after
+  reload since Shipbreaker 0.56.0; processing stays paused). Full
   destinations retain cargo at the sender; no virtual inventories or silent disposal.
   Preserve shared staged delivery and the native powered-job pause on reload.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
@@ -768,7 +769,8 @@
   native property maps. Use full object IDs plus stable logical port IDs, not
   nearest-machine matching or short display IDs. Keep routing configuration
   distinct from permission to resume work after reload. See `docs/material-port-pairing.md`.
-  Shipbreaker's collector is one paired floor route, not a general conveyor network.
+  Shipbreaker's collector is one paired route, not a general conveyor network (a floor
+  route until Shipbreaker 0.56.0; now a conveyor belt or touching equipment).
   Framework/Shipbreaker 0.6.0 and Auto Nav 0.2.0 add ordinary merchant acquisition,
   maintenance, tool requirements and save-compatible economy upgrades. Reuse the
   shared additive stock and native maintenance helpers; keep balance in content
@@ -1115,7 +1117,8 @@
   aluminium identities/masses into a cool idle unsealed bin; stop at twenty.
   Protect hot/native-commit state, recheck routes/IDs at settlement and preserve
   blocked cargo. Sealing cancels pending transfer clocks. Reload retains pairs,
-  filters and cargo but pauses receiving with zero transport credit.
+  filters and cargo, with zero transport credit; since Shipbreaker 0.56.0 receiving
+  that was running resumes by itself.
 - Front input/output approaches are (-2.5,-2.5)/(+2.5,-2.5) in furnace-local tile
   coordinates, rotated with the 6 x 6 machine. Structural floor routes remain
   distinct from coolant and electrical conduit. Reuse existing artwork; no new
@@ -1274,7 +1277,14 @@
   step); Framework 0.60.0 with Manufacturing 0.24.0 and Shipbreaker 0.55.0 (the
   Lixivar acid line with acid ports on the LC-3, SA-3 and AT tanks, the wet-line
   spill into the source tank's bund through `BulkVessel.Contain` and
-  `LineReach.MembersThrough`, and link wording that names touching or the line).
+  `LineReach.MembersThrough`, and link wording that names touching or the line);
+  Framework 0.61.0 with Shipbreaker 0.56.0 (the Rivetline conveyor belt,
+  `BeltNetwork` and `UnitItemTransfer`; Shipbreaker's item routes need a belt or
+  touching equipment instead of structural floor, with routes over bare floor
+  stopping as a documented manual step). Owner decision, applied in Shipbreaker
+  0.56.0: running belt routes and storage unloading **resume after a reload**; this
+  supersedes the pause-on-reload rule for those transfer routes only, and processing
+  permission keeps its own rule. See `docs/development/conveyor-design.md`.
   New machine or store links go through
   `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
   water is stored only in `WaterTanks`, and new mods add work to them by amendment.

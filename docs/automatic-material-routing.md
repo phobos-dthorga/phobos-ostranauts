@@ -10,8 +10,37 @@ the [industrial console player guide](industrial-console-player-guide.md).
 
 Prepared Framework **0.9.0**, Shipbreaker **0.9.0**, Auto Nav **0.3.0**.
 Built and checked offline against installed Ostranauts **1.0.1.5**. Gameplay
-verification remains with the owner. This extends existing equipment and uses
-its current artwork; no extra belt appliance or construction bill is required.
+verification remains with the owner. Since Shipbreaker 0.56.0 every route needs
+a conveyor belt between the two machines, or the two within one tile; see below.
+
+## Belts (Shipbreaker 0.56.0)
+
+Items never cross open floor. A route runs along **Phobos' Rivetline Conveyor
+Belt** (a Framework supply, 24 cr a segment in lots of 128), or between equipment
+whose footprints touch or have one tile between them.
+
+1. Buy belt at the K-Leg supply kiosk or fixer, San Diego Halvorson or the Venus
+   scrap kiosk, and lay it through **INSTALL > MISC** on intact floor, tile by tile.
+2. Run it from beside the sender to beside the receiver. A belt tile on or next to
+   a machine's footprint joins it; for a residue collector use its inboard tiles,
+   and for the F6 the amber front-corner marker of the input or output.
+3. Link and start the route as before. The route status says whether it runs *by
+   conveyor belt* or *touching*.
+
+Belts share tiles with pipe and line, in the lowest lane, and hold nothing: each
+item still moves straight from one machine to the other in one checked transfer,
+powered and paid for by the machine that sends or receives it. A belt cut, damaged
+or taken up stops the route within a couple of seconds; mend it and resume.
+
+**After updating (manual step).** Routes laid over bare floor in earlier versions
+stop with *These do not touch and no conveyor belt joins them*. Their pairs,
+filters and cargo are kept: lay belt between the two, or move them within one
+tile, then start the route again. Laying belt cannot be done for you, because it
+would mean free material.
+
+**Reload.** A route that was running when you saved resumes by itself after a
+reload, like the crew's standing orders; a route that was paused stays paused.
+Processing keeps its own rule and waits for Start / resume.
 
 ## Connect the equipment
 
@@ -73,10 +102,11 @@ timer. It never changes or removes cargo already held. Unknown, future or
 incompatible saved filters block transfer until the player selects a valid one.
 
 Every route checks the full IDs, reciprocal pair token, same loaded ship,
-installation, damage, locks, receiver switch/signal state, structural floors,
-exact item identity/mass, absence of stacks or contents, and destination capacity.
-Collector sources also retain their hull-mount checks. Routes do not cross ships,
-bare space, EVA floor or cargo webbing. Native electrical conduit is separate.
+installation, damage, locks, receiver switch/signal state, the belt or touching
+equipment between them, exact item identity/mass, absence of stacks or contents,
+and destination capacity. Collector sources also retain their hull-mount checks.
+Routes do not cross ships, bare space, EVA floor or cargo webbing. Native
+electrical conduit is separate.
 
 The item remains in the sender for the complete transfer interval. Only a checked
 move of that same object completes delivery; there is no intermediate virtual
@@ -102,8 +132,8 @@ reclamation run does not stop merely because the tray filled.
 | D4 | Small mechanical parts, aluminium, carbon fibre and steel scrap | Identified or legacy residue |
 | R4 | Steel scrap | Aluminium to the F6; rejects to a collector |
 
-1. Place an ordinary storage container on the same ship, joined to the machine by
-   structural floor. It must be unlocked and have a limited capacity. People,
+1. Place an ordinary storage container on the same ship, within one tile of the
+   machine or at the end of a conveyor belt from it. It must be unlocked and have a limited capacity. People,
    machine trays and Phobos equipment cannot be chosen. Material bins are not
    listed either: they take only mined material, never these products.
 2. Open the machine's **Routing** page and choose **Storage output**, or use the
@@ -113,15 +143,16 @@ reclamation run does not stop merely because the tray filled.
 
 Each item takes the feeder time and adds the feeder power to the sending machine,
 which pays for it: 2 powered seconds and 2 kW at the default settings. R4 unloading
-energy joins its existing room-heat accounting. Items move one at a time by full ID,
-and only unstacked items with nothing inside them. Stacked or nested products stay
-in the tray; separate them by hand. The container's own grid decides what fits. When
+energy joins its existing room-heat accounting. Items move one at a time by full ID;
+since 0.56.0 a stack in the tray is taken one unit at a time, each unit checked at
+its own mass. Products with something inside them stay in the tray; empty them by hand. The container's own grid decides what fits. When
 it is full, products wait in the tray and unloading continues once there is space.
 Nothing is created, merged, dropped or destroyed. Several machines may choose the
 same container; the choice is saved on each machine, not on the container.
 
-Unloading pauses on reload and when the container, machine or floor route
-changes; choose **Start unloading to storage** again. A long unobserved interval
+Unloading that was running resumes by itself after a reload (0.56.0). It pauses
+when the container, the machine or the belt between them changes; choose **Start
+unloading to storage** again. A long unobserved interval
 is not a fault: like a native machine, unloading catches up, bounded by the
 electricity actually received (0.34.0). Clearing the
 **Storage output** choice forgets it without moving anything. An unreadable saved
@@ -166,9 +197,10 @@ Shipbreaker settings, read at startup:
 These are separate from `Processing/ContinueQueue` and the existing collector
 settings. Pausing processing does not implicitly empty or disable its input
 route; use **Pause** in Input routing when you also want to stop deliveries.
-After reload, saved jobs, pairs, filters and physical cargo survive, but both
-transfer and processing permissions reset to paused. Transfer clocks reset;
-saved processing work and recipe contracts retain their meaning.
+After reload, saved jobs, pairs, filters and physical cargo survive. Transfer routes
+that were running resume by themselves (0.56.0); processing permission still resets
+to paused. Transfer clocks reset; saved processing work and recipe contracts retain
+their meaning.
 
 ```text
 phobosroute status
@@ -188,12 +220,14 @@ Routing never starts processing: use the reclaimer panel or `phobosreclaimer sta
 ## Shared ownership and verification
 
 Framework supplies persistent exact-ID `SavedPortFilter` records, alongside the
-existing reciprocal pairing, finite transfer, clock and floor-search helpers.
+existing reciprocal pairing, finite transfer and clock helpers, and since Framework
+0.61.0 the conveyor belt network (`BeltNetwork`) and the unit transfer that takes
+one unit from a stack (`UnitItemTransfer`).
 Filters live in `PhobosMaterialFilter.<port>`; pairs keep
 `PhobosMaterialPort.<port>`. Neither writes native signal settings. Content owns
 eligible equipment, filter choices, physical routes, power and gameplay controls.
-There is one transfer service for collectors and reclaimer input, not a parallel
-conveyor implementation. This is not a general network, fluid API or scheduler.
+There is one transfer service for collectors and reclaimer input; belts only decide
+whether a route exists. This is not a scheduler, and items never ride a belt.
 
 Offline checks cover separate input/output pairs, native saved filter round trips,
 legacy defaults, malformed/foreign records, incompatible filters, safe unlink,

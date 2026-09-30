@@ -585,3 +585,14 @@ the cached snapshot once and each member tank's saved links. The removal refusal
 runs that same read only when uninstall or dismantle work is offered on a segment.
 Pouring filters tanks aboard by `LineReach` instead of the touching test alone.
 No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: conveyor belts (L6)
+
+L6 — Static review of Framework 0.61.0 with Shipbreaker 0.56.0. The belt is one
+more family in the ship's single object scan (a definition-id comparison per object).
+A route check that walked a bounded floor search on every power step now asks the
+cached snapshot about the few cells beside each endpoint (a handful of dictionary
+probes) after the touching test, so it is cheaper than before. Resume after a
+reload is one condition read per receiver per step until the first attempt. Storage
+output lists the tray's units with stacks opened, as the crew orders already do. No
+performance capture or measured FPS claim accompanies this change.

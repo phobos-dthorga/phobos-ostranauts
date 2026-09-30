@@ -17229,29 +17229,16 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "CollectorService.floor_route_changed_restore_it_and_resume",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CollectorService.cs:126"
-      ],
-      "before": "Floor route changed; restore it and resume collection.",
-      "after": "Floor route changed; restore it and resume collection."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "CollectorService.floor_route_tiles_stored_packets_kg_maximum",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/CollectorService.cs:188"
       ],
       "before": "{0}\n{1}\nFloor route: {2} tiles; receiving inventory: {3}/{5} packets, {6} kg maximum. {4}",
-      "after": "{0}\n{1}\nFloor route: {2} tiles; receiving inventory: {3}/{5} packets, {6} kg maximum. {4}"
+      "after": "{0}\n{1}\nRoute: {2}; receiving inventory: {3}/{5} packets, {6} kg maximum. {4}"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -17291,32 +17278,6 @@
       ],
       "before": "No power.",
       "after": "No power."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "CollectorService.no_structural_floor_route_restore_flooring_or",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CollectorService.cs:93"
-      ],
-      "before": "No structural-floor route. Restore flooring or choose another processor.",
-      "after": "No structural-floor route. Restore flooring or choose another processor."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "CollectorService.no_structural_floor_route_to_this_processor",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CollectorService.cs:74"
-      ],
-      "before": "No structural-floor route to this processor (search limit {0} tiles).",
-      "after": "No structural-floor route to this processor (search limit {0} tiles)."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19617,13 +19578,13 @@
       "key": "Recipe.PhobosBuildResidueCollector.description",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "mods/PhobosShipbreaker/framework/recipes.json#Recipe.PhobosBuildResidueCollector.description"
       ],
-      "before": "Build a 20 kg, 2 wide x 1 deep collector over two intact exterior walls. Control Panel links a processor through structural flooring. Inventory holds four 13 kg residue packets; collected cargo remains aboard. Separate conduit power required.",
-      "after": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power."
+      "before": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+      "after": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -31588,14 +31549,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.furnace_receiving",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/CollectorService.cs:187"
       ],
       "before": "Furnace receiving: {0}\n{1}\nStructural floor route: {2} tiles; charge bin: {3}/{4} pieces.",
-      "after": "Furnace receiving: {0}\n{1}\nStructural floor route: {2} tiles; charge bin: {3}/{4} pieces."
+      "after": "Furnace receiving: {0}\n{1}\nRoute: {2}; charge bin: {3}/{4} pieces."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -31873,14 +31834,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.installation_legend",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/FurnaceInstallationView.cs:37"
       ],
       "before": "Amber front-corner markers: input on the furnace’s left, output on its right. They rotate with the furnace. These material routes use structural flooring, independently of cooling pipes and electrical conduit.",
-      "after": "Amber front-corner markers: input on the furnace’s left, output on its right. They rotate with the furnace. These material routes use structural flooring, independently of cooling pipes and electrical conduit."
+      "after": "Amber front-corner markers: input on the furnace’s left, output on its right. They rotate with the furnace. Material reaches them by conveyor belt, or from equipment within one tile, independently of cooling pipes and electrical conduit."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -36048,28 +36009,28 @@
       "mod": "PhobosShipbreaker",
       "key": "Storage.no_route",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/StorageService.cs:78",
         "src/PhobosShipbreaker/StorageService.cs:103"
       ],
       "before": "No structural floor route between this machine and the store. Restore flooring or choose a closer store.",
-      "after": "No structural floor route between this machine and the store. Restore flooring or choose a closer store."
+      "after": "This machine and the store do not touch and no conveyor belt joins them. Lay belt from one to the other, or choose a store within one tile."
     },
     {
       "mod": "PhobosShipbreaker",
       "key": "Storage.route_changed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/StorageService.cs:133"
       ],
       "before": "The store, machine or floor route changed. Unloading paused; check the route and start again.",
-      "after": "The store, machine or floor route changed. Unloading paused; check the route and start again."
+      "after": "The store, the machine or the belt between them changed. Unloading paused; check them and start again."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -36168,14 +36129,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Storage.no_candidates",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Belt routes: a route needs a conveyor belt or touching equipment instead of structural floor, and says how it runs.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/RoutingCommands.cs:40"
       ],
       "before": "No suitable store on this ship. Place an unlocked storage container on structural floor.",
-      "after": "No suitable store on this ship. Place an unlocked storage container on structural floor."
+      "after": "No suitable store on this ship. Place an unlocked storage container within one tile of the machine, or at the end of a conveyor belt from it."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -52706,6 +52667,138 @@
       ],
       "before": "{0} moved {2:F3} kg of {1} into its catch chamber: {3}.",
       "after": "{0} moved {2:F3} kg of {1} into its catch chamber: {3}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.belt_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "The Rivetline conveyor belt segment.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:11"
+      ],
+      "before": "Conveyor Belt",
+      "after": "Conveyor Belt"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.belt_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What the belt joins, how to lay it, and that items never ride it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:11"
+      ],
+      "before": "Conveyor belt for loose items between machines, collectors and stores. Lay it tile by tile on intact floor from one piece of equipment to the other: a run that lies on or beside both joins them, and equipment within one tile of each other needs no belt at all. Shares a tile with pipe and line, in the lowest lane. It holds nothing; each item goes straight from one to the other while the machine that sends or takes it has power.",
+      "after": "Conveyor belt for loose items between machines, collectors and stores. Lay it tile by tile on intact floor from one piece of equipment to the other: a run that lies on or beside both joins them, and equipment within one tile of each other needs no belt at all. Shares a tile with pipe and line, in the lowest lane. It holds nothing; each item goes straight from one to the other while the machine that sends or takes it has power."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.belt_waste",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Dismantling remainder of the belt.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:46"
+      ],
+      "before": "Retained conveyor belt waste",
+      "after": "Retained conveyor belt waste"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BeltNetwork.label",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Names the belt in route text.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/BeltNetwork.cs:16"
+      ],
+      "before": "belt",
+      "after": "belt"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.no_belt",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a route cannot be made or started, and the two ways to make one.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:78",
+        "src/PhobosShipbreaker/CollectorService.cs:107"
+      ],
+      "before": "These do not touch and no conveyor belt joins them. Lay Rivetline conveyor belt (INSTALL > MISC) from one to the other, or place them within one tile.",
+      "after": "These do not touch and no conveyor belt joins them. Lay Rivetline conveyor belt (INSTALL > MISC) from one to the other, or place them within one tile."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.belt_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a running route stopped, and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:165"
+      ],
+      "before": "The conveyor belt between them was cut, damaged or taken up, or one of them moved. Mend or relay the belt, then resume.",
+      "after": "The conveyor belt between them was cut, damaged or taken up, or one of them moved. Mend or relay the belt, then resume."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.route_belt",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Route status: runs by conveyor belt.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:128"
+      ],
+      "before": "by conveyor belt",
+      "after": "by conveyor belt"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.route_touching",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Route status: the two touch.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:128"
+      ],
+      "before": "touching",
+      "after": "touching"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.route_none",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Route status: no route.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:128"
+      ],
+      "before": "none",
+      "after": "none"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Routing.resumed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says a running route resumed after the reload, and why.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CollectorService.cs:138",
+        "src/PhobosShipbreaker/StorageService.cs:156"
+      ],
+      "before": "Resumed after the reload; the belt route was running when the game was saved.",
+      "after": "Resumed after the reload; the belt route was running when the game was saved."
     }
   ],
   "documents": [
@@ -52713,8 +52806,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "948a98026610f491218cc86c960d8a69fbd66d54deff7c7c90fd822f694d63a2",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "890c3f62ac57316aa98f2518d69b7fafbb52c85ea1b4b9cae8f6adf4f07672c2",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "SUPPORT.md",
@@ -52866,15 +52959,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "bcb8247255898484be28393df0d896e4f870422a5dd9d11a0b8b60bd33de870c",
-      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "5c5824f96bb46729c3959c45a7e02f2e9b3d51c3fbd8608499fde984b32b87ac",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "11c8b446ace752da8696c1a3a85485f57a725d938f7d66177937744de45dec44",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "772a65372add9c4d86fb1dce6e5cce4261c60d0183adb485432a788595b10cf2",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52887,8 +52980,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "ab2d7fbfca0b835922dc30ca8d263e1edf82bc22b83870f1941dbdb0f5523305",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "6be34c4fecf48ac31f17d941ccfb1e5ee0534acd6483daecd1367da41fbabab2",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -53140,8 +53233,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "15fe920c6e1d0e1f6bb791b7fa7a732db3cbd5b4f9dec1f11a79b47ae85f3048",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "0cad6a8a12ef68da2c7b0626b9320d36a73aaecc9d4b7be6db162bdfac4be486",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -53174,8 +53267,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "791f55eccaf04cc23f3e7860af9c88534bf0db07e3005271b1d185218f318ab6",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "e6d6e2f6bb6cbd7e917c74f7808c83ac7e0f54a5304e7f468bd79b7c3e7a5f14",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53258,15 +53351,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "36bb6a0daa81b651520ced2edfdb32fac60987ae8f1dbb5ad17e58879fbbc10c",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "505c85f7080045e0a1068ffa5898a59664348edcbb0d7d540c68dba4b0556692",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "fa2c6aab6d2ba81ffd05f9a5663712a136267f7ba35e7b357d30616e99e75328",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "8d1b214168d54c36bbbab66885a5a5c76b91a7b6bde1cb5aba7938e9f535e946",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53370,8 +53463,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e4a564211a654b2ea097364f7c34ed5eb62e3b7b9a7df3323a1cc76f1802ed37",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "d2caf96bc32b5d5a63637aba538c6cb36e4b767a6a805e1cf1404192947ac270",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -53396,8 +53489,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f9a364a8dbffd2d55dbe87b400ddae788347873da887e460755e5dfe6bfa4247",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "a8e024c962da2c2ae534ce2c9e7284b36b651c45e12a098836fb1ae72f908067",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53594,8 +53687,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "84f3204fd31e65dbf881e7506e780017073728af0465df4848868aae29e22019",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "6e3d08783da33ecce4efdde514343c8d4cbf910a3bcbf2930e26f6c6a7a228ca",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -53608,8 +53701,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b95f71fc6b87fbbf504227602e47951dd2d82e2607ad84f00b4e3cf4eaeb616f",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "38676e3a4db9249509759b1796fbc5b8100a63ffe523c1ef07f7b8a82518fe7c",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53622,8 +53715,8 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3acd4951d663963fc0f6a889e4a59f1d6969d766626c89455ef718587716cd40",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "10acaa91ae6c1e0fa9eb197f0304333a483e895effbcccec80b3bbb66b37ce49",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/furnace-player-guide.md",
@@ -53664,15 +53757,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1c3855a516cc989111c15089812517f4d63fc1afbaa1fee3e3ccb8e01f7cea7c",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "1b841e149b79334c3edb329a72505ad7502b2cb691827ac0124ed92f255a719c",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8414a356e3e09be2240e0f38c194bb1f6b78c50b81c286ad7a77a6a173413abf",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "51faeffa8aeab0d0821fccb7a15d7fe0ca6f02a876df92a661e0d5076fb1c61d",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/item-references.md",
@@ -53699,8 +53792,8 @@
       "path": "docs/material-port-pairing.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "0ba450568e327a1a40a807847ce10506e88622ea909ffdb5369e13dacb04e160",
-      "review": "2026-09-28: storage outputs are sender-saved selections, not reciprocal pairs; pair contract unchanged."
+      "sha256": "cb68c03ef691ea14731b322f7e03d29439f6e3b8ffd13685dea458e6ad66c079",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/performance-captures.md",
@@ -53713,15 +53806,15 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "92b040b2c2bbfceb397377aeb8a313fd67a87787a04dbbcea128ca6d08dc3f79",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "710655021d6c3e8e8e3996566bfd052665c1fefc58f921db4c2f9973969e4436",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/residue-collector.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4386cd361358a88434edac4e5fe54dadfd083c866cb15957586447cbad8c7be4",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "5ad103473490aefab4b6c4b3934e78043345dcc3211bf4b2d0a61d6203c9e88d",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/scrap-reclaimer.md",
@@ -53762,8 +53855,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b74654b70ca433c312b238c7ea6f110fb37aa85b3331289527b30db76d093222",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "93e8c75c597a1f370555ac7ae217942702a558a44603f3a72b4eab9f6712c5aa",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -53804,8 +53897,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "225212a1c35112c91d6d704bfe70e5534fdb9dfc8319d5c9c2a98588e671a06e",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "881383ac2e15594290bdf1002b501df62457c0fa8e1cc08d3f77078e21cd069f",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -53818,8 +53911,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cc426c9dd02ce437ff6a2bfcac5bba1f797517ef2de8c1ba9ff6fae8c50d29d6",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "66b0ee2d68a7746640b2e7a61c49ada9664c0c1bb7528b52889d76d048b4f54c",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -53895,16 +53988,23 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "8c6466dc38301e9cecb4cd568c4b5132461559b37a7887d0851eb7d5e9cdffe4",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "c4a2f5755ab99d02bdaa218f196b147bcd1cb67821f75cc8f1ef1c09e1e3e0b6",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+    },
+    {
+      "path": "docs/development/conveyor-design.md",
+      "scope": "development",
+      "decision": "Development design record; not player-facing.",
+      "sha256": "db56e08fb2e798001248c7a384b388782b85b5314daa5be42448dab6115899e4",
+      "review": "Reviewed 2026-10-01 for Framework 0.61.0 and Shipbreaker 0.56.0: the conveyor belt, belt routes, resume after reload, unit transfers and the manual step for routes over bare floor; direct wording."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "47dca90b8aaf5a6f8d5f712018933e96fb59ce3b98c4a712355a868bf762cede",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "73191db38f9f2a99ff869067dfe2d2bf774e7513c41477977e9fccc7b1e912b8",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -53947,14 +54047,14 @@
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "461bd300a91759e577d8d61f3e9c651233bea08cff588b2dc4a150571dd27c6b",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "12a51cca9e4a28aacbfe7721ff85bf7be7a9ee9a69bd04390d53e5a6cdf08da0",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "728a36e3d9c45c084ce7b525e521845be7ae51ae1607b6647fdb75f8adc55f8a",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "5971e2f2ee721251a83499d5e1b8c331cb634c625f363a88a95c067d60668faa",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -53971,14 +54071,14 @@
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
-      "review": "2026-09-29: two ingot recovery recipes."
+      "sha256": "d55e75f78fb7ee1f56e588e3f0d1d00e50f5f0337e082894fb1011b1e2abdfbf",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b1ab5df11e612aab6061aa3ac97bc074b6ccb85019e13d1b836de0918233fe76",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "3bcfb40970bb9b0204c8922528c41da234dbd440688195bcfe68523e06dc2442",
+      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

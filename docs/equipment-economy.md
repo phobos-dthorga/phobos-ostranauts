@@ -842,3 +842,14 @@ Twice the plain gas or process-water line ($3) for its lining. It sells at the
 same four merchants in lots of 128, at the supplies floor, and for scrip at the
 faction kiosks at any standing. Dismantling returns no clean metal, because
 acid-wetted lining is not recovered as scrap.
+
+## Framework 0.61.0: the Rivetline conveyor belt
+
+| Item | Mass | Price | Repair | Dismantle |
+|---|---:|---:|---|---|
+| Rivetline conveyor belt segment | 4 kg | $24 | 120 work, one steel scrap | 180 work, 4 kg retained waste |
+
+Priced above the steel in it (scrap steel is 3.6 cr/kg) and sold with the lines at
+the same four merchants in lots of 128 and for scrip at the faction kiosks at any
+standing. Belts use no power of their own: the machine that sends or receives an
+item pays for its transfer, as before.

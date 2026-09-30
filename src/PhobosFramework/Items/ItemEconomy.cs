@@ -17,7 +17,7 @@ public static class ItemEconomy
     public static DataPackSource Source => new(FrameworkInfo.PluginId, ModFolder, EconomySchema.Name, typeof(ItemEconomy).Assembly, Resource);
     /// <summary>The equipment families (the S3 tank; the other sizes follow it through the ladder).</summary>
     public static IReadOnlyList<string> EquipmentKeys { get; } = new[] { WaterTanks.BasePrefix };
-    public static IReadOnlyList<string> SupplyKeys { get; } = new[] { LineFamilies.GasPrefix, LineFamilies.ProcessWaterPrefix };
+    public static IReadOnlyList<string> SupplyKeys { get; } = new[] { LineFamilies.GasPrefix, LineFamilies.ProcessWaterPrefix, Inventory.BeltNetwork.Prefix };
     public static EconomyPack Load(Func<string, double?>? materialMassOf = null, Func<string, bool>? merchantExists = null)
     {
         var context = new EconomyContext(EquipmentKeys, SupplyKeys) { MassOf = MassOf, MaterialMassOf = materialMassOf, MerchantExists = merchantExists };

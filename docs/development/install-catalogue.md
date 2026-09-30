@@ -16,6 +16,7 @@ is still pending.
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, Tolvane AX-2 ammonia cracker, Lixivar LC-3 leach and crystallise unit, Lixivar SA-3 acid plant, the AT-2, AT-3 and AT-4 acid tanks, and the hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores in all three sizes |
 | Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, L2 canister filling station and A2 cabin air regulator; Lixivar acid line (0.24.0) |
 | Phobos Framework | HVAC | Fennmark gas line (moved from Manufacturing in Framework 0.57.0) and process water line |
+| Phobos Framework | MISC | Rivetline conveyor belt (Framework 0.61.0) |
 | Phobos Framework | APPS | Rivetline S2, S3, S4 and S5 process water silos (the S3 to S5 moved from Shipbreaker in Framework 0.58.0) |
 
 The native coverage checks include every implemented intact/damaged placement family. The silos have no fabrication recipe: buy the loose hardware before installation. Recorded exception: Agriculture's retired R3, R4 and R5 reservoirs (Agriculture 0.31.0) convert to the S3, S4 and S5 on load and are no longer offered in INSTALL; their definitions and jobs remain only for jobs saved against them.

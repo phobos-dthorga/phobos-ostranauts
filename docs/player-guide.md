@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.60.0**, Shipbreaker **0.55.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.61.0**, Shipbreaker **0.56.0**, Auto Nav
 **0.31.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -96,8 +96,9 @@ with its service panel inward and receiving pocket outward, clear exterior space
 and structural floor inside. For Agriculture's optional Recycler attachment,
 align the collector's full two-tile pocket against a Recycler edge, with the
 service face away; see the [attachment guide](agriculture-nutrient-production.md).
-It requires its own electrical connection and a structural-floor route from
-the processor. It does not cross gaps, cargo webbing or a docked ship.
+It requires its own electrical connection and a conveyor belt from the processor,
+or the processor within one tile (Shipbreaker 0.56.0; see [belts](automatic-material-routing.md#belts-shipbreaker-0560)).
+It does not cross gaps, cargo webbing or a docked ship.
 
 ## Load, run and unload
 
@@ -238,7 +239,7 @@ recipes stop with the panel retained; status explains the next action.
 | Wall rejected or inventory grey | The processor's own Inventory is the product tray: use the grabber's Inventory, the feed window in the controls or Load feed by crew; check crew reach, that it is a part the fixture takes (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), stacks and contents |
 | Pipeline not connected | Check flush placement, facing, intact supporting walls and clear exterior cells |
 | Processor waiting | Read F9/status for power, feed eligibility or space for a complete output batch |
-| Collector waiting | Check pair, Collect state, floor route, clear mouth and its four-packet capacity |
+| Collector waiting | Check pair, Collect state, the belt or touching route, clear mouth and its four-packet capacity |
 | No equipment in a shop | Allow normal restocking; stock is not guaranteed on every refresh |
 
 For a concrete failure, send the relevant status text and a screenshot:
@@ -307,7 +308,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.55.0 requires Framework 0.58.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.56.0 requires Framework 0.61.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

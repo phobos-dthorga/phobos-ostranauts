@@ -21,6 +21,8 @@ internal sealed partial class CollectorService
         internal string FilterSignature = "";
         // A true admission holds for the rest of its step (native power in between changes no item or route).
         internal long AdmittedStep = long.MinValue;
+        // Whether this load already tried to resume a route that was running when the game was saved.
+        internal bool ResumeTried;
         internal string Status = Text.Get("CollectorService.paused_link_endpoints_if_needed_then_press");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -73,7 +75,7 @@ internal sealed partial class CollectorService
         problem = MachineProblem(port) ?? SourceProblem(port, source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem != null) { s.Status = problem; return false; }
         var route = CollectorRoute.Find(port, source);
-        if (route == null) { s.Status = Text.Get("CollectorService.no_structural_floor_route_to_this_processor", GridRoute.DefaultVisitLimit); return false; }
+        if (route == null) { s.Status = Text.Get("Routing.no_belt"); return false; }
         if (PortPairing.Matches(SourcePort(source, port), Receiver(port)))
         { s.Status = Text.Get("CollectorService.these_endpoints_are_already_paired_collection_settings"); return true; }
         if (!PortPairing.TryLink(SourcePort(source, port), Receiver(port), out string linkProblem)) { s.Status = linkProblem; return false; }
@@ -102,11 +104,12 @@ internal sealed partial class CollectorService
         if (s.PairId != link.PairId || !ReferenceEquals(s.Source, source)) { s.Clock = null; s.Item = null; }
         s.Source = source; s.PairId = link.PairId;
         s.Route = CollectorRoute.Find(port, s.Source!);
-        if (s.Route == null) { s.Status = Text.Get("CollectorService.no_structural_floor_route_restore_flooring_or"); Disarm(port, s); return false; }
+        if (s.Route == null) { s.Status = Text.Get("Routing.no_belt"); Disarm(port, s); return false; }
         s.FilterSignature = FilterSignature(port);
         if (FurnaceRules.Machine(port.strCODef) && FurnaceMaterialRules.ChargeFull(Destination(port)!.ContainedCOs.Count))
         { s.Status = Text.Get("Routing.charge_full", FurnaceRules.ChargeUnits); return false; }
         s.NeedsAttention = false; s.Armed = true; s.Last = StarSystem.fEpoch; s.Status = Text.Get("CollectorService.collection_enabled_waiting_for_residue");
+        SetResume(port, true);
         return true;
     }
     internal bool Pause(CondOwner port, ConsoleBinding? console = null)
@@ -118,7 +121,23 @@ internal sealed partial class CollectorService
         Disarm(port, s); s.NeedsAttention = false; s.Status = Text.Get("CollectorService.collection_paused_material_retained"); return true;
     }
     private static void SetWorking(CondOwner port, bool working) { if (!FurnaceRules.Machine(port.strCODef) && !port.bDestroyed) port.SetCondAmount(WorkingCondition(port), working ? 1 : 0); }
-    private static void Disarm(CondOwner port, Session s) { s.Armed = false; SetWorking(port, false); }
+    private static void Disarm(CondOwner port, Session s) { s.Armed = false; SetWorking(port, false); SetResume(port, false); }
+    /// <summary>The saved mark of a running route (Shipbreaker 0.56.0): set while armed, so a reload resumes it.</summary>
+    private static void SetResume(CondOwner port, bool on) { if (!port.bDestroyed && port.HasCond(RoutingRules.BeltResume) != on) port.SetCondAmount(RoutingRules.BeltResume, on ? 1 : 0); }
+    /// <summary>How the route runs, for the status: by belt, or touching.</summary>
+    private static string RouteText(CollectorRoute? route) => Text.Get(route == null ? "Routing.route_none" : route.Touching ? "Routing.route_touching" : "Routing.route_belt");
+    /// <summary>Owner decision (30 September 2026): belt routes resume after a reload, like the crew's standing orders.
+    /// A route that was running when the game was saved arms itself once, through every pair, route and filter check;
+    /// if any fails it stays paused with the reason, as it would have before.</summary>
+    private void ResumeAfterLoad(CondOwner port)
+    {
+        if (!port.HasCond(RoutingRules.BeltResume) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
+        var s = sessions.GetValue(port, _ => new Session());
+        if (s.Armed || s.ResumeTried) return;
+        s.ResumeTried = true;
+        if (Arm(port, s)) s.Status = Text.Get("Routing.resumed");
+        else { SetResume(port, false); s.NeedsAttention = true; }
+    }
     internal object? TransferToken(CondOwner port) => sessions.TryGetValue(port, out var s) && s.Armed ? s.Clock : null;
     internal bool ReceivingEnabled(CondOwner port) => sessions.TryGetValue(port, out var s) && s.Armed;
     internal EquipmentActivity? ActiveReceiving(CondOwner port) => sessions.TryGetValue(port, out var s) && (s.Armed || s.NeedsAttention) ? Activity(port) : (EquipmentActivity?)null;
@@ -126,6 +145,7 @@ internal sealed partial class CollectorService
     internal void CancelPending(CondOwner port, string status) => ClearTransfer(port, status);
     internal bool BeforePower(CondOwner port)
     {
+        ResumeAfterLoad(port);
         if (sessions.TryGetValue(port, out var admitted) && admitted.Armed && admitted.AdmittedStep == Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame && admitted.Item != null && admitted.Clock != null) return true;
         bool verdict = BeforePowerNow(port);
         if (verdict && sessions.TryGetValue(port, out var s)) s.AdmittedStep = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
@@ -142,7 +162,7 @@ internal sealed partial class CollectorService
         problem = problem ?? MachineProblem(port) ?? SourceProblem(port, s.Source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem == null && s.FilterSignature != FilterSignature(port)) problem = Text.Get("Routing.filter_changed");
         if (problem != null || s.Route == null || !s.Route.Valid(port, s.Source!))
-        { s.NeedsAttention = true; s.Status = problem ?? Text.Get("CollectorService.floor_route_changed_restore_it_and_resume"); Disarm(port, s); return false; }
+        { s.NeedsAttention = true; s.Status = problem ?? Text.Get("Routing.belt_changed"); Disarm(port, s); return false; }
         if (FurnaceRules.Machine(port.strCODef) && FurnaceMaterialRules.ChargeFull(Destination(port)!.ContainedCOs.Count))
         { ClearTransfer(port, Text.Get("Routing.charge_full", FurnaceRules.ChargeUnits)); return false; }
         var source = s.Source!.objContainer;
@@ -204,8 +224,8 @@ internal sealed partial class CollectorService
     internal string Describe(CondOwner port)
     {
         var s = sessions.GetValue(port, _ => new Session());
-        if (FurnaceRules.Machine(port.strCODef)) return Text.Get("Routing.furnace_receiving", s.Status, DescribeLink(port, false), s.Route?.Length ?? 0, Destination(port)?.ContainedCOs.Count ?? 0, FurnaceRules.ChargeUnits);
-        return Text.Get("CollectorService.floor_route_tiles_stored_packets_kg_maximum", s.Status + "\n" + FilterLabel(port), DescribeLink(port, false), (s.Route?.Length ?? 0), (Destination(port)?.ContainedCOs.Count ?? 0), (port.HasCond("IsPowered") ? Text.Get("CollectorService.powered") : Text.Get("CollectorService.no_power")), CollectorRules.Capacity, CollectorRules.MaxPayloadKg);
+        if (FurnaceRules.Machine(port.strCODef)) return Text.Get("Routing.furnace_receiving", s.Status, DescribeLink(port, false), RouteText(s.Route), Destination(port)?.ContainedCOs.Count ?? 0, FurnaceRules.ChargeUnits);
+        return Text.Get("CollectorService.floor_route_tiles_stored_packets_kg_maximum", s.Status + "\n" + FilterLabel(port), DescribeLink(port, false), RouteText(s.Route), (Destination(port)?.ContainedCOs.Count ?? 0), (port.HasCond("IsPowered") ? Text.Get("CollectorService.powered") : Text.Get("CollectorService.no_power")), CollectorRules.Capacity, CollectorRules.MaxPayloadKg);
     }
     internal void Reset() => sessions = new ConditionalWeakTable<CondOwner, Session>();
     internal bool OpenInventory(CondOwner port)

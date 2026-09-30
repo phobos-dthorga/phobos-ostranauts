@@ -36,6 +36,15 @@ internal static class NetworkChecks
         check(piped.ParticipantsOn(9).SequenceEqual(new[] { 1, 2 }) && joined.ParticipantsOn(8).SequenceEqual(new[] { 0, 1, 2 }),
             "A segment's network lists the participants at its ports and those touching them");
         check(!piped.ParticipantsOn(7).Any() && !overflow.ParticipantsOn(9).Any(), "A cell without pipe, or an overflowing layout, joins no one");
+        // Conveyor belts (Framework 0.61.0): a run joins two pieces of equipment when it lies on or beside the cells of each.
+        check(plain.JoinsNear(new[] { 7 }, new[] { 11 }) && plain.JoinsNear(new[] { 7 }, new[] { 16 }) && plain.JoinsNear(new[] { 9 }, new[] { 9 }),
+            "A belt run beside, or under, both ends joins them");
+        check(!plain.JoinsNear(new[] { 0 }, new[] { 11 }) && !plain.JoinsNear(new[] { 7 }, new[] { 5 }) && !plain.JoinsNear(Array.Empty<int>(), new[] { 11 }),
+            "An end with no belt on or beside it is not joined");
+        var wrap = FluidTopology.Build(6, 3, 1, new[] { 5 });
+        check(!wrap.JoinsNear(new[] { 6 }, new[] { 4 }) && wrap.JoinsNear(new[] { 4 }, new[] { 11 }), "A belt at the end of one row is not beside the start of the next");
+        var twoRuns = FluidTopology.Build(6, 3, 2, new[] { 0, 5 });
+        check(!twoRuns.JoinsNear(new[] { 1 }, new[] { 4 }) && !overflow.JoinsNear(new[] { 7 }, new[] { 11 }), "Two separate runs, or an overflowing layout, join nothing");
         // A bund holds a spill: service moves into the catch chamber, total and capacity unchanged.
         var acid = new StoredCommodity("sulfuric acid", 100); acid.SetService(40);
         double moved = acid.Contain(1.5);

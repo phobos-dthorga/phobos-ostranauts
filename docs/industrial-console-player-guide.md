@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.55.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.56.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -45,7 +45,8 @@ other ship's equipment, even when both ships belong to the player. Unknown,
 leased and foreign ownership does not grant remote control. Moving/uninstalling
 the console or changing selected crew ends the open session. Losing power or
 ownership disables commands. Closing a screen or losing console power does not
-cancel autonomous machinery work. Work and receiving still pause after reload.
+cancel autonomous machinery work. Work still pauses after reload; a belt route that
+was running resumes by itself (Shipbreaker 0.56.0).
 
 Use **Overview**, **Equipment**, **Routing**, **Observations** and **Attention**. Equipment groups
 collapse by type; search accepts a name or full object ID. **Change status filter**
@@ -55,7 +56,7 @@ to the list. Text wraps in scrolling content. The ship/access header and
 **Pause ship industry** remain outside the scrolling body. There is no Start All.
 
 Select one machine, then start/pause processing or receiving separately. The
-Routing screen offers only supported pairs on this ship. Links and filters still need valid floor routes, unlocked equipment, free space,
+Routing screen offers only supported pairs on this ship. Links and filters still need a conveyor belt or touching equipment, unlocked equipment, free space,
 accepted inputs and enough cooling.
 Receiving filters cover identified feedstock, reclaimer rejects, legacy residue
 and explicit released furnace products. Shipbreaker 0.17.0 adds a separate R4

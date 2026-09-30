@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.60.0",
+      "value": "0.61.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.55.0",
+      "value": "0.56.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -631,7 +631,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.58.0",
+      "value": "0.61.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1751,7 +1751,7 @@
       "value": "128",
       "min": 1,
       "max": 1024,
-      "description": "Gas and process-water line quantity per successful merchant offer (the lines moved to Framework in 0.57.0).",
+      "description": "Gas and process-water line and conveyor belt quantity per successful merchant offer (the lines moved to Framework in 0.57.0; the belt joined in 0.61.0).",
       "targets": [
         {
           "path": "mods/PhobosFramework/framework/economy.json",
@@ -1759,7 +1759,7 @@
         },
         {
           "path": "docs/development/merchant-stock.md",
-          "pattern": "^\\| Framework\\ gas\\ and\\ process-water\\ lines \\| (?P<value>[0-9]+) \\|\\r?$",
+          "pattern": "^\\| Framework\\ gas\\ and\\ process-water\\ lines\\ and\\ conveyor\\ belt \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
       ],

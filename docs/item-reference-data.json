@@ -11522,9 +11522,472 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.60.0",
+      "version": "0.61.0",
       "gameTarget": "1.0.1.5",
       "items": [
+        {
+          "id": "PhobosConveyorBeltInstalled",
+          "name": "Phobos' Rivetline Conveyor Belt",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosFrameworkMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 4.0,
+          "baseValue": 24.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "MISC",
+          "jobs": [
+            {
+              "id": "PhobosConveyorBeltInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosConveyorBeltInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 180.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltWaste",
+                  "name": "Phobos' Rivetline Retained conveyor belt waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosConveyorBeltInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosConveyorBeltInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosConveyorBeltInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltLoose",
+                  "name": "Phobos' Rivetline Conveyor Belt",
+                  "count": 1,
+                  "baseValue": 24.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosConveyorBeltInstalledDmg",
+          "name": "Phobos' Rivetline Conveyor Belt (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosFrameworkMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 4.0,
+          "baseValue": 4.800000190734863,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "MISC",
+          "jobs": [
+            {
+              "id": "PhobosConveyorBeltInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosConveyorBeltInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 180.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltWaste",
+                  "name": "Phobos' Rivetline Retained conveyor belt waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosConveyorBeltInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltInstalled",
+                  "name": "Phobos' Rivetline Conveyor Belt",
+                  "count": 1,
+                  "baseValue": 24.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosConveyorBeltInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltLooseDmg",
+                  "name": "Phobos' Rivetline Conveyor Belt (Damaged)",
+                  "count": 1,
+                  "baseValue": 4.800000190734863
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosConveyorBeltLoose",
+          "name": "Phobos' Rivetline Conveyor Belt",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosFrameworkMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 4.0,
+          "baseValue": 24.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosConveyorBeltLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosConveyorBeltLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 180.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltWaste",
+                  "name": "Phobos' Rivetline Retained conveyor belt waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosConveyorBeltLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosConveyorBeltLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltInstalled",
+                  "name": "Phobos' Rivetline Conveyor Belt",
+                  "count": 1,
+                  "baseValue": 24.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosConveyorBeltLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosConveyorBeltLooseDmg",
+          "name": "Phobos' Rivetline Conveyor Belt (Damaged)",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosFrameworkMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 4.0,
+          "baseValue": 4.800000190734863,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosConveyorBeltLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosConveyorBeltLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 180.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltWaste",
+                  "name": "Phobos' Rivetline Retained conveyor belt waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosConveyorBeltLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosConveyorBeltLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltInstalledDmg",
+                  "name": "Phobos' Rivetline Conveyor Belt (Damaged)",
+                  "count": 1,
+                  "baseValue": 4.800000190734863
+                }
+              ]
+            },
+            {
+              "id": "PhobosConveyorBeltLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosConveyorBeltLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosConveyorBeltLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosConveyorBeltLoose",
+                  "name": "Phobos' Rivetline Conveyor Belt",
+                  "count": 1,
+                  "baseValue": 24.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosConveyorBeltWaste",
+          "name": "Phobos' Rivetline Retained conveyor belt waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 4.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
         {
           "id": "PhobosMaintenanceSpentParts",
           "name": "Phobos' Spent Service Parts (0.5 kg)",
@@ -14568,6 +15031,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosConveyorBeltLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine, Warm standing",
           "chance": 1.0,
@@ -14610,6 +15080,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosConveyorBeltLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine, Warm standing",
           "chance": 1.0,
@@ -14646,6 +15123,13 @@
         {
           "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosProcessWaterLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosConveyorBeltLoose",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
           "count": 128
@@ -14763,6 +15247,13 @@
           "count": 128
         },
         {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosConveyorBeltLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosProcessSiloCompactLooseDmg",
           "condition": "Broken",
@@ -14806,6 +15297,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosConveyorBeltLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -15262,6 +15760,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosProcessWaterLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosConveyorBeltLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -15304,6 +15809,13 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosProcessWaterLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosConveyorBeltLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -38274,7 +38786,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.55.0",
+      "version": "0.56.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -50083,7 +50595,7 @@
         {
           "id": "PhobosBuildResidueCollector",
           "name": "Phobos' Rivetline C2 Residue Collector",
-          "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+          "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -50871,10 +51383,10 @@
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
     "mods/PhobosAutoNav/mod_info.json": "76674e8bee6bf29ca2eed300fa32c690dc0aad101e1502380879cea2ea502307",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "mods/PhobosFramework/framework/economy.json": "642e4503125a83ad43be33ace64c7cb7e7f39968e867f3beceb96ecdb3b18138",
-    "mods/PhobosFramework/framework/equipment-names.json": "461bd300a91759e577d8d61f3e9c651233bea08cff588b2dc4a150571dd27c6b",
+    "mods/PhobosFramework/framework/economy.json": "83b622a111be7e9536a2c533e07a59cb21644a8836183ce596ee9664d886a581",
+    "mods/PhobosFramework/framework/equipment-names.json": "12a51cca9e4a28aacbfe7721ff85bf7be7a9ee9a69bd04390d53e5a6cdf08da0",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "728a36e3d9c45c084ce7b525e521845be7ae51ae1607b6647fdb75f8adc55f8a",
+    "mods/PhobosFramework/mod_info.json": "5971e2f2ee721251a83499d5e1b8c331cb634c625f363a88a95c067d60668faa",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
@@ -50893,9 +51405,9 @@
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
-    "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
+    "mods/PhobosShipbreaker/framework/recipes.json": "d55e75f78fb7ee1f56e588e3f0d1d00e50f5f0337e082894fb1011b1e2abdfbf",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "b1ab5df11e612aab6061aa3ac97bc074b6ccb85019e13d1b836de0918233fe76",
+    "mods/PhobosShipbreaker/mod_info.json": "3bcfb40970bb9b0204c8922528c41da234dbd440688195bcfe68523e06dc2442",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -51054,7 +51566,7 @@
     "src/PhobosFramework/Controls/SecondaryClick.cs": "93e615ca660eeef481ff93743375c0717ce87879980e055b3eb9885a860e9b90",
     "src/PhobosFramework/Controls/ShipEquipment.cs": "337956f400f58768dc5860d04d2db085ac83ddfb73050ed2fc6333de78f4f70a",
     "src/PhobosFramework/Crew/CrewDiagnostics.cs": "f8a22a3d87913e1bfd95aec78c0ae8508a5836b6fc703636003268c566d00cbc",
-    "src/PhobosFramework/Crew/CrewLogistics.cs": "4d1c8570288122c34d4907f5ac32c062548cb948f25780bbbfddd996326f463e",
+    "src/PhobosFramework/Crew/CrewLogistics.cs": "cbd66e4ef7a1370428024a3ab57dee529b1c40cdbe5638b3b86ce5ae3816c04b",
     "src/PhobosFramework/Crew/CrewPanel.cs": "91b9617edf2e38d22af372d83f033b9764f70a68344612d084341dc8490490bb",
     "src/PhobosFramework/Crew/CrewRoster.cs": "95dd898b92876261429e1ff8f87f4a78bfe9a645c73d5f49a430f60615b7bda3",
     "src/PhobosFramework/Crew/CrewSkip.cs": "d44b2cced65f96a00cea17f87d5023b79c8e5b468316741d5b9d884f662f4561",
@@ -51083,6 +51595,7 @@
     "src/PhobosFramework/FrameworkLifecycle.cs": "91eaca9a6cf0b16114cc4183cc87281471b57e5e7886a75f4156f05301671c2d",
     "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2717d661636337f41b782aef9f3307dae27fa9b1ce3c403230ae8a7deff2bbcb",
+    "src/PhobosFramework/Inventory/BeltNetwork.cs": "b46e303dc1a1bfc9ce98651be2a5a144c893bc1b2422912cfb825400916758fb",
     "src/PhobosFramework/Inventory/CollectorCargo.cs": "6e08c64cbce9799d4e1d38d3e8a7bd03bbc7b1976ddca167985d1cefe9430ffb",
     "src/PhobosFramework/Inventory/GridRoute.cs": "9cb05c97bdd83ee2b4d27185f8a1beae9c0aabd7d3213ccccf35091bf1d62b28",
     "src/PhobosFramework/Inventory/ItemDefinitionFilter.cs": "5c57a856fe92cc28723f79562a7c87d21aaabf10e0ddfd6650537207137ae961",
@@ -51094,9 +51607,10 @@
     "src/PhobosFramework/Inventory/SharedPorts.cs": "a7375a0db9181dc9836f0e007fb649459760aecc4a3fe9f21d4dc518f459f023",
     "src/PhobosFramework/Inventory/StackUnits.cs": "286642d040f637286ed65998c23c35926e8cec898d483544dbde74f498885fbd",
     "src/PhobosFramework/Inventory/TransferClock.cs": "c4ad66a777b7d510fe93f5e805fb29ddee60a989a28613e53290b6e71155df50",
+    "src/PhobosFramework/Inventory/UnitItemTransfer.cs": "a9265e963d7910333988f5d968f433f842633e1a15faddbb99816fabca614450",
     "src/PhobosFramework/Items/FrameworkItems.cs": "eda8c615c0c3e39bc9bc8cdf884ddce28cec7ba52a16e8f486f8625f32ee7543",
-    "src/PhobosFramework/Items/ItemEconomy.cs": "dcbcb6a6ca02bd42550771c9334a5c65eca2ecefef65832705e7b916ca472928",
-    "src/PhobosFramework/Items/SharedLines.cs": "ee30a4285517c84b0679569bd17a4eb283bd09922e594e79669b747e04ae7b1e",
+    "src/PhobosFramework/Items/ItemEconomy.cs": "ba64dbc8df15e1b2298655d8c436db006485ea1fbc4cd55a8301b911cd54962b",
+    "src/PhobosFramework/Items/SharedLines.cs": "db8dc5542e4d7c92d4107b3620ccb251b564bbeede2fe9712c2c9071f898d424",
     "src/PhobosFramework/Items/TankEconomy.cs": "d5f3e949cd570328fabaa8d9c886a731574a008d81793bd7781b61857fb12e0d",
     "src/PhobosFramework/Items/WaterTanks.cs": "eda254ff4dc7fb7dfcc43c3de50eaae7d8a44a1d8efe0cbef82e747c85f61e9f",
     "src/PhobosFramework/Items/WaterTankService.cs": "f593306709580a297bed7fd10a4839c3a6e1857b91f5497bfb8adcdea1bcfc2d",
@@ -51108,7 +51622,7 @@
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
     "src/PhobosFramework/Liquids/FluidRouteCache.cs": "121d19272fffb55baddbc380e7617e77ca8870f7ada97f78727ed82a31cdee1d",
-    "src/PhobosFramework/Liquids/FluidTopology.cs": "86ef515cbbf1ea3c398ba04d89605bb0ee0c745b419e557454919859a15f8692",
+    "src/PhobosFramework/Liquids/FluidTopology.cs": "b17668caaf5a759745b212028779e4034bf44b851259d6fcf7da899c98b44321",
     "src/PhobosFramework/Liquids/GasNetworkSafety.cs": "8f65a912bc8033c73d24d0324fbb7dd1b16a7cde374eb32e92640ee00b188044",
     "src/PhobosFramework/Liquids/GasTransfers.cs": "22cc09d49830aeb238cd904e60f5822baa80d1aba21e56ce5b0789e9669a9b2c",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
@@ -51140,8 +51654,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "a213f1623af6ab56137a62391a2a3c92583db536ee0b3b12abca93eea7e51016",
-    "src/PhobosFramework/Plugin.cs": "095fa7e5bfa31d31e435f533a62826351b9d517de964d139e25913b6a31a5254",
+    "src/PhobosFramework/PhobosFramework.csproj": "f67e6414a44a4828555aa5d37bf92f5fd39fd48b7f81c00ccac72d0e63f4f2c6",
+    "src/PhobosFramework/Plugin.cs": "235de29eaf974bfec0e95d9b65cc100088a25fdd03abd9ef6c48636283965e75",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -51244,10 +51758,10 @@
     "src/PhobosShipbreaker/CollectorLinks.cs": "8343e88e1030a5c92845fe780d6f0cce43c5047ea9ed70a0435755f9afaf01a7",
     "src/PhobosShipbreaker/CollectorPanel.cs": "82eea88c9806b53ad209b05ea7f0331ae1489de3eb2ac646c05a01f918520173",
     "src/PhobosShipbreaker/CollectorPlacement.cs": "ec2627d7283682cca7445e314d47fdd5dd51e043d79484858830e7ed252ee565",
-    "src/PhobosShipbreaker/CollectorRoute.cs": "2fac357db0fd152d628aae43c762d217a5f5ea8e57348695ded717cf7f96ff3a",
-    "src/PhobosShipbreaker/CollectorService.cs": "2a0be265a17171d491a988d93dc760c8dc5fa7087d940316046ca9f69f590daa",
+    "src/PhobosShipbreaker/CollectorRoute.cs": "4864ced5f667613f8b434592c9dd96a063b17aaa74935b31695e0084326178ca",
+    "src/PhobosShipbreaker/CollectorService.cs": "13fd2a704e2c4e12efefaf45ec3aadc4c4bc7fa6c776ccbd4bb5433cf94f1bb4",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "ddf02c3ccd9b6a9816127681c36cc856243caf0838c35661997b05772cf7d2b2",
+    "src/PhobosShipbreaker/Content.cs": "3affd55bcac30b23f33beae6c55cc6bd86854381de40335da9210d7ff5c5d64b",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
     "src/PhobosShipbreaker/CoolantService.cs": "3712b3a821ec605a7546077eafca2a6cbf1b00c8c67063ffafe9025d4586e516",
     "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
@@ -51258,7 +51772,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "241d8420181a52b71f9518a7a86f1d6e49b31551fc011f2b4be92e0a2dd6d5d1",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "5451dcab66886486e5950121de7933fbe041630bdf1835e34f6b6d61d15df9eb",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "3c33b7bcc45fd867d6495be3386847790ea0856ea096c408265dd8b2a64593ce",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -51277,8 +51791,8 @@
     "src/PhobosShipbreaker/Core/ReclaimerRules.cs": "bd4c2176242a320e54ee7a37403f81d4bc3a9ce6e53adcc841f829be0e5a357b",
     "src/PhobosShipbreaker/Core/ReclamationRules.cs": "af67f6bed2bfc0a97e7ffaa9bc00d4a11d589b0c8319d39914471252573b3b32",
     "src/PhobosShipbreaker/Core/RoutingCommand.cs": "5da9f80e3bbe039c2f3dc63f01d7013a72b56f9283af0c979b5198bdc9812afd",
-    "src/PhobosShipbreaker/Core/RoutingRules.cs": "c916440921dc1401896998a2d486ba4b3d2d1225f3c07f208e4bf775cc0bc88d",
-    "src/PhobosShipbreaker/Core/StorageRules.cs": "b1c70ebe17c7aedecb2aed74cd4e21626da5a66808e9931c12fa9d1b042e698c",
+    "src/PhobosShipbreaker/Core/RoutingRules.cs": "fe39f0b09a819192686ce257ace7fb7f47050282aa237892201c625321d67c11",
+    "src/PhobosShipbreaker/Core/StorageRules.cs": "6620efc97e05240322f36221f062b60108089ee67228d8fd663b2cdc1fc7dcbf",
     "src/PhobosShipbreaker/Core/ThawRules.cs": "4c903bfd79e58342eeebdcba313a2a804643f9551156dcf50b204c4a877d0622",
     "src/PhobosShipbreaker/Core/VesselData.cs": "4f9d228133ec6b458e06d801c6fad314d31a327ec6a563d29c6c54b757413fec",
     "src/PhobosShipbreaker/CrewProvider.cs": "8a47595e558c49609b3f7c7057797ab78c5264d9a122dc224e9706ab4067b332",
@@ -51309,9 +51823,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "89c27031d3426be275cb76d8c7e2fbe75c01ad5186c4a50b23ca2e218a90764d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "12d02dc31060abcc1d6b6de4353de7b2424358ea3a3a2b6c421e633e84ad7422",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "0893ad38670108dd01c0325e8b9e50f1425d4a956674a7ebbcc00737c416faa3",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "66a3d2649ec4ea09f1176b86b2f546deddf2380a9bb40b5957abfd8e49f251ec",
+    "src/PhobosShipbreaker/Plugin.cs": "d6042e2d21b1c040d1b7f2b4e3f50b37347f6de0a7242c34cf24e2af4341db9e",
     "src/PhobosShipbreaker/PowerKinds.cs": "1fd8de318e12433eb363fa069c4e21b6457ebf6e859f20039531a98f7b278629",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -51325,7 +51839,7 @@
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "107361436e1db468ccba8f00a947d7b86f5abb73ce581f4555bd431e6540441c",
     "src/PhobosShipbreaker/StockQuantities.cs": "737284b15c7b91066ab6071df2ce8021fa38e50f217560f787e26bf3f3080726",
-    "src/PhobosShipbreaker/StorageService.cs": "c045693a0142664905f568569b739713e2aba5117fa09a9e73d436f8c2461535",
+    "src/PhobosShipbreaker/StorageService.cs": "c12a8b584c173828752493c85f1f6b1a8bf0a86a82a990d6125d9933f31ead31",
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "src/PhobosShipbreaker/ThawDefinitions.cs": "308778b6b4fc90ff485e9deca9b833395795c7a05333b74d44e19a5beff376d0",
@@ -51346,12 +51860,12 @@
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "7be1995998713001a106085263a77f39a5a67cea5e85dc52cee132b5bec6bfc4",
-    "tests/PhobosNative.Tests/Program.cs": "7d4dadabccbd12bba555325c7046390c1c86fe2a15c0e4d3dfbde4323f7d9d67",
+    "tests/PhobosNative.Tests/Program.cs": "fc4b325db4f213dc5251af089b240ceb3f5efde216fbf419eb5aab0e4bcafe84",
     "translations/PhobosAgriculture/en.json": "facb6ab7d17821afacff6935773a58f797e3b30139894eabfa6e9d9cbdeee3ca",
     "translations/PhobosAutoNav/en.json": "4b34b642eb89e9927640c50d446a4d2760ef8b7b5f5b27d1f8161206648c70a6",
-    "translations/PhobosFramework/en.json": "6b94cc635f8de999350396c95e24ed01eb11f340ee3b4be9a5074781975babce",
+    "translations/PhobosFramework/en.json": "d593f76fe740f4ebf8bf67b28f0be96fb231f116443b46f4f713d66e3c22360a",
     "translations/PhobosManufacturing/en.json": "51b97b05af7725a62ded05a15166371028427a51da741bf8b34cc3c3c4603c23",
-    "translations/PhobosShipbreaker/en.json": "71d86d688285fb353e8d27516275c0dc2e6ae6c784c571b3371f17ae02be2320",
+    "translations/PhobosShipbreaker/en.json": "ea4c5c5f250ba70f2af9c8d13f708c98b8fb52ebc61bdb1e3ee3646bd3b84060",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }
 }

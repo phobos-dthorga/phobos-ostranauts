@@ -112,6 +112,28 @@ public sealed class FluidTopology
     /// <summary>Whether two participants share one network: through segments at their ports, through touching
     /// participants, or both.</summary>
     public bool ParticipantsConnected(int a, int b) => !Overflow && a != b && ParticipantComponentOf(a) >= 0 && ParticipantComponentOf(a) == ParticipantComponentOf(b);
+    /// <summary>Whether one connected run of segments has a cell on or beside (north, south, east or west of) one of the
+    /// <paramref name="starts"/> and a cell on or beside one of the <paramref name="goals"/> (Framework 0.61.0): how a
+    /// conveyor belt joins two pieces of equipment by their own tiles. False on an overflowing layout.</summary>
+    public bool JoinsNear(IEnumerable<int> starts, IEnumerable<int> goals)
+    {
+        if (Overflow) return false;
+        var near = new HashSet<int>(ComponentsNear(starts));
+        if (near.Count == 0) return false;
+        foreach (int id in ComponentsNear(goals)) if (near.Contains(id)) return true;
+        return false;
+    }
+    private IEnumerable<int> ComponentsNear(IEnumerable<int> cells)
+    {
+        int count = Columns * Rows;
+        foreach (int cell in cells)
+        {
+            if (cell < 0 || cell >= count) continue;
+            int column = cell % Columns;
+            foreach (int c in new[] { cell, column > 0 ? cell - 1 : -1, column + 1 < Columns ? cell + 1 : -1, cell - Columns, cell + Columns })
+                if (c >= 0 && c < count && component.TryGetValue(c, out int id)) yield return id;
+        }
+    }
     /// <summary>Every participant on the network that runs through a segment cell (Framework 0.60.0), in index order;
     /// none when the cell carries no fluid or the snapshot overflowed.</summary>
     public IEnumerable<int> ParticipantsOn(int cell)

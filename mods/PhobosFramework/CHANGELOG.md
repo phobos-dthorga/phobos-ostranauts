@@ -22,6 +22,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.61.0] - 2026-10-01 - Draft
+
+### Added
+
+- The Rivetline conveyor belt: a 4 kg segment laid tile by tile from INSTALL, MISC, sold with the lines in lots of 128 at 24 cr and at the faction kiosks at any standing. It lies in the lowest lane under pipe and line. A belt run that lies on or beside two pieces of equipment joins them; items never ride it, they move straight from one to the other while the machine that sends or takes them has power. Phobos Shipbreaker's item routes use it.
+- For content mods: the crew hauling orders' way of taking one unit from a stack is shared, so any mod's transfers can move stacked items one unit at a time.
+
+### Compatibility and limits
+
+- Phobos Shipbreaker 0.56.0 needs this version. Offline checks are not gameplay validation.
+
 ## [0.60.0] - 2026-10-01 - Draft
 
 ### Added
