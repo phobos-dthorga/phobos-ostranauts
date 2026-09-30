@@ -47,24 +47,33 @@ against 2.26 MJ/kg for water evaporation (NIST, below) plus heating the rock.
 Fifteen percent of the working power warms the room under the same 10 kPa /
 40 C bounds as Shipbreaker's R4 (`RoomHeat`, Framework 0.41.0).
 
-Value loss (the dismantling rule), at 0.1.1 prices with water at the station's
-10 cr/kg bulk price: 450 cr of meteoric iron becomes 96 cr of ingots and 2 cr
-of gangue; 99 cr of carbides becomes 50 cr of carbon, 10 cr of water and 2 cr
-of gangue; 150 cr of hydrates becomes 10 cr of water and 6 cr of gangue; 180 cr
-of clay hydrates becomes 20 cr of water and a 0.01 cr residue; 106 cr of
-nickel-iron and carbon becomes 100 cr of Rivetline steel ingots; 150 cr of salt
-crust becomes 3.25 cr of ammonia (at the game's own 3.40 cr/kg), 5.05 cr of water
-and a 0.01 cr cake. Refining trades
-money for material aboard; it is never a profit route. The native checks compute
-this for every charge from live definitions, Shipbreaker's steel ingot included.
+**Refining value (review of 30 September 2026).** The rule that every charge must
+lose value is retired (owner direction; AGENTS.md "Refining value"). What replaces
+it, as an agent proposal the owner may revise, is checked at live prices by the
+native and pure suites: the sellable products of a charge stay within one and a
+half times its inputs (a gain reflects real work, never a windfall); a charge fed
+only from bought stock gains at most a quarter at base prices, well inside the
+game's buy/sell spread, so no repeatable trade loop pays; commodity records
+(water, stored gases) are valued at the station price for information only, since
+nothing sells them back; and stock stays plausible beside the game's own metals,
+between scrap steel (3.6 cr/kg) and the ore it comes from (22.5 cr/kg).
+
+At 0.15.0 prices with water at the station's 10 cr/kg bulk price: 450 cr of
+meteoric iron becomes 80 cr of ingots and 2 cr of gangue (the game prices ore far
+above metal, so refining ore is for the stock, not the money); 99 cr of carbides
+becomes 50 cr of carbon, 10 cr of water and 2 cr of gangue; 150 cr of hydrates
+becomes 10 cr of water and 6 cr of gangue; 180 cr of clay hydrates becomes 20 cr
+of water and a 0.01 cr residue; 90 cr of nickel-iron and carbon (refined from
+mined ore; no merchant sells either) becomes 100 cr of Rivetline steel ingots, an
+eleven percent gain for a 250 kW melt; 150 cr of salt crust becomes 3.25 cr of ammonia (at the
+game's own 3.40 cr/kg), 5.05 cr of water and a 0.01 cr cake, for the nitrogen,
+not the money.
 
 Stock is ordinary-priced raw material (owner correction, 29 September 2026:
-only the machinery is late-game priced), and the vanilla ore prices are its
-ceiling anyway: a nickel-iron ingot above about 111 cr, or carbon above about
-17 cr, would make a charge profitable. Manufacturing 0.1.0 priced the ingot at
-20 cr, which made the steel charge gain value (80 + 10 cr in, 100 cr out);
-0.1.1 moves the ingot only as far as that fix needs, to 24 cr, and leaves carbon
-at 10 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
+only the machinery is late-game priced). The nickel-iron ingot returns to the
+0.1.0 price of 20 cr (5 cr/kg) in 0.15.0; 0.1.1 had raised it to 24 cr only so
+the steel charge would lose value under the retired rule. Carbon stays at
+10 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
 
 ## The ammonium salt crust (0.9.0)
 

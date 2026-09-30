@@ -232,8 +232,8 @@ the T2's thin supply.
   setting that is on by default, and also carve extra water ice into C-class
   deposits from silicates so existing saves benefit. Owned by Shipbreaker (the T2
   is the ice consumer); planned for Shipbreaker's ice-supply release. Methane
-  ice's native price will be corrected in place in the same release as the
-  clathrate recipe (D1), so processing it still loses value.
+  ice's native price was corrected in place with the clathrate recipe (D1) and
+  the correction withdrawn in 0.49.0 with the retired value-loss rule.
 - **Implemented (Shipbreaker 0.44.0):** `ClusterI01` carved into `RandomAsteroidC`
   (from `ClusterC02`) and `RandomAsteroidS` (from `ClusterS01`) at 0.05 each, and
   0.05 water ice into C-class deposits from silicates (silicates 0.40 to 0.25 with
@@ -424,7 +424,8 @@ tools bound with cobalt give W and Co ores a consumer, using our carbon stock.
   cemented carbides is typically a few to about 12 wt% (*from memory, cite a
   handbook before use*).
 - The ores are "Ore: Wolfram" and "Ore: Cobalt", not pure metal; the grade is
-  authored. The high ore prices make the value-loss rule easy to satisfy.
+  authored. The high ore prices sit far above the game's metal prices, so the
+  refining value guardrails (stock between scrap and ore per kilogram) apply.
 - Prerequisite: the M4 design in the [Manufacturing research](manufacturing-research.md).
 
 #### D6. Platinum-group catalysts (only with catalyst wear)

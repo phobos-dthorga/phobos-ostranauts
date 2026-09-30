@@ -25,6 +25,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.49.0] - 2026-09-30 - Draft
+
+### Balance
+
+- The game's own methane ice price (20 cr) stands again; the 0.45.0 correction to 250 cr is withdrawn now that a Phobos process is no longer required to lose value. Thawing methane ice gains water and methane aboard, which nothing sells back. Blocks already priced 250 in a save keep that price.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.48.0] - 2026-09-30 - Draft
 
 ### Changed

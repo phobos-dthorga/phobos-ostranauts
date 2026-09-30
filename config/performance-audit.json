@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-30",
-  "baselineCommit": "ff8c68a955a7c7f465884ac59604b3eb69f678bc",
+  "baselineCommit": "4ba83eaa13ea49ed4a279cca9b9f44a01e15f504",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -5312,7 +5312,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "a897a55163b4df16f6f4e441c0ed875be0ea4b5b2a1987c9e8900addbbd3f3bd",
+      "sha256": "d05fdad7b7f11a9b02238a9896ed06acd3353251996e95d9a0b749c1c7298865",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -6399,7 +6399,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
-      "sha256": "67e861c76328c12f3b44f771adae87793f86c87fe9520f05339b7179b10dcef9",
+      "sha256": "aeb6f3de8db6bb01e1ec92b4187a9dfe373843a80aea611a4bf8f743a216ebf5",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -6794,7 +6794,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/IceSupply.cs",
-      "sha256": "571c316202f7a69b3a0d0073a6d07a83616b09c9bc8c22a38e044c091266b735",
+      "sha256": "436d7b4cd9ac9c2cfa14767f84ca1602c77aff9e04c18ca05b9ab5bc13961acd",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -7078,7 +7078,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "2bed2b460b46d50d11ccaeac4b0529854a04a44a70e183aa03987b2637fa2de0",
+      "sha256": "1c7a1c1a278032eb84a1c4c56b571614d79ed4acafc7a64aca5df10b34ed4690",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",

@@ -195,8 +195,13 @@ internal static class ManufacturingNativeChecks
         check(RefineryRecipes.Available(true).Count() == 6 && RefineryRecipes.Available(false).Count() == 5 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
-        // The recovery rule on every charge, at live prices (Shipbreaker's steel ingot included): the products,
-        // water at the station's bulk price, are worth less than the charge sold whole. Off-gas has no value.
+        // Refining value guardrails (agent proposal under the owner's 30 September 2026 direction, in place of the
+        // retired every-charge-loses-value rule), at live prices with Shipbreaker's steel ingot included:
+        // 1. sellable products of any charge are worth at most one and a half times its inputs (a gain reflects real
+        //    work, never a windfall); 2. a charge whose inputs are all station-bought stock gains at most a quarter
+        //    at base prices, well inside the game's buy/sell spread, so no repeatable trade loop pays; 3. commodity
+        //    records (water, stored gases) are valued at the station price for information only, because they have
+        //    no sell route. Off-gas has no value.
         double Price(string id) => id == ManufacturingRules.Water ? PhobosShipbreaker.Core.SiloRules.WaterPricePerKg
             : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
         // Stored gases (ammonia) are valued at the game's own gas price per kilogram, read from its GasPrices table (the
@@ -205,12 +210,19 @@ internal static class ManufacturingNativeChecks
             System.Globalization.CultureInfo.InvariantCulture);
         double ProductValue(ProductSpec p) => p.Id == ManufacturingRules.Water ? p.Count * p.Kg * Price(p.Id) :
             GasStores.FamilyOf(p.Id) is GasFamily gas ? p.Count * p.Kg * GasPrice(gas.Species) : p.Count * Price(p.Id);
+        bool Sellable(string id) => id != ManufacturingRules.Water && GasStores.FamilyOf(id) == null;
+        bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
+            || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
         foreach (var recipe in RefineryRecipes.All)
         {
             double inValue = recipe.Inputs.Sum(i => i.Count * Price(i.Id));
-            double outValue = recipe.Products.Sum(ProductValue);
-            check(outValue < inValue, $"The {recipe.Id} charge loses value: {outValue:F2} out of {inValue:F2} in");
+            double sellable = recipe.Products.Where(p => Sellable(p.Id)).Sum(ProductValue);
+            double commodities = recipe.Products.Where(p => !Sellable(p.Id)).Sum(ProductValue);
+            check(sellable <= 1.5 * inValue, $"The {recipe.Id} charge's sellable products stay within half again its inputs: {sellable:F2} out of {inValue:F2} in ({commodities:F2} of commodities aside)");
+            if (recipe.Inputs.All(i => Bought(i.Id)))
+                check(sellable <= 1.25 * inValue, $"The {recipe.Id} charge, fed from bought stock, gains at most a quarter at base prices: {sellable:F2} out of {inValue:F2}");
         }
+        check(!RefineryRecipes.All.SelectMany(r => r.Inputs).Any(i => Bought(i.Id)), "No V4 charge is fed from bought stock: ores and chunks are mined, and nickel-iron ingots and carbon come only from the V4 (the bought-stock guardrail is ready for a future charge)");
         check(GasPrice("NH3") > 0 && RefineryRecipes.Ammonium.StoredGases.All(p => GasStores.FamilyOf(p.Id) != null),
             "The game prices ammonia, and the salt crust charge's ammonia goes to a store family");
 

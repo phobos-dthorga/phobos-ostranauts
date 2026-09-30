@@ -101,11 +101,14 @@ internal static class RefineryChecks
         check(Materials.Crust.Price > a.StoredGases.Single().Kg * 3.40 + a.OffGas["CO2"] * 1.3 + a.Products.Single(p => p.Id == "water").Kg * 10 + Materials.SaltCake.Price,
             "The crust is worth more than its ammonia and carbon dioxide at the game's gas prices, its water and the cake");
 
-        // Prices keep the recovery rule.
-        check(4 * Materials.Ingot.Price < 450 && 5 * Materials.Carbon.Price + 10 < 99 && Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180,
-            "Four ingots are worth less than the iron block, five carbon plus water less than the carbide ore; remainders are trash; the clay chunk sells like hydrates");
-        // Shipbreaker's steel ingot is $25; the native checks repeat this against its live definition.
-        check(4 * 25 + Materials.TerminalPrice < 4 * Materials.Ingot.Price + Materials.Carbon.Price, "Carburising loses value: four steel ingots are worth less than four nickel-iron ingots and one carbon");
+        // Refining value (owner, 30 September 2026): stock prices stay plausible beside the game's own metals, above
+        // scrap steel (3.6 cr/kg) and below the ore they come from (22.5 cr/kg); remainders are trash; the clay chunk sells like hydrates.
+        check(Materials.Ingot.Price / Materials.IngotKg > 3.6 && Materials.Ingot.Price / Materials.IngotKg < 22.5 && Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180,
+            "A nickel-iron ingot is priced between scrap steel and meteoric iron ore per kilogram; remainders are trash; the clay chunk sells like hydrates");
+        // Shipbreaker's steel ingot is $25; carburising may gain (alloying is real work) and stays within a quarter at base prices,
+        // the bound for bought stock, although nickel-iron and carbon are only ever refined from mined ore. The native checks repeat this.
+        check(4 * 25 > 4 * Materials.Ingot.Price + Materials.Carbon.Price && 4 * 25 <= 1.25 * (4 * Materials.Ingot.Price + Materials.Carbon.Price),
+            "Carburising gains value within a quarter: four steel ingots against four nickel-iron ingots and one carbon");
         check(Materials.IsTerminal(Materials.RefinerySlag) && Materials.IsTerminal(Materials.AnhydrousResidue) && !Materials.IsTerminal(Materials.CarbonStock) && Materials.IsStock(Materials.NickelIronIngot), "Terminal and stock identities are distinct");
 
         // The saved record.

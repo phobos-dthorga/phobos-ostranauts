@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-09-30 - Draft
+
+### Balance
+
+- The nickel-iron ingot returns to 20 cr (5 cr per kilogram, above scrap steel and far below the ore). Refining is no longer required to lose value: four ingots and one carbon stock (both only ever refined from mined ore; no shop sells them) now carburise into four 25 cr steel ingots, an eleven percent gain at base prices for a 250 kW melt. The other charges keep their prices; ore is still worth far more sold than refined, and the salt crust charge is for the nitrogen.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Ingots already in a save keep the price they were made with. Offline checks are not gameplay validation.
+
 ## [0.14.0] - 2026-09-30 - Draft
 
 ### Changed

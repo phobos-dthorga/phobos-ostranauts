@@ -42,15 +42,20 @@ a real fertiliser company.
 
 ## Remaining stages
 
-### Stage A: refining-value review (new, from the retired rule)
+### Stage A: refining-value review (done, Manufacturing 0.15.0 / Shipbreaker 0.49.0)
 
-Short pricing round, recommended before round three because round three prices
-new products. Candidates and the checks that still enforce the old rule are
-listed in AGENTS.md "Refining value": V4 charges and the ingot/carbon ceilings,
-F6 casting, the T2 thaw, the methane ice price correction (vanilla precedence
-favours restoring the native $20), the salt crust, and the K2/AX-2 gas
-conversions. Each price move replaces its old check with the new guardrails and
-updates the economy documents in the same change.
+The retired rule's checks are replaced by the guardrails recorded in AGENTS.md
+"Refining value" (agent-applied, open to owner revision): sellable products of a
+charge within 1.5 x its inputs; a quarter at most when every input is bought
+stock; commodity records valued for information only; stock priced between
+scrap steel and its ore per kilogram. Outcomes: the nickel-iron ingot returns to
+20 cr (carburising gains eleven percent at base prices; neither input is sold by
+any merchant, so there is no loop); the
+methane ice price correction is withdrawn and the game's 20 stands (the thaw
+gains water and methane aboard, which nothing sells back); carbon, the clay and
+salt crust chunks, F6 casting and the K2/AX-2 conversions keep their prices, each
+now justified by real work rather than a loss. Round three prices its salts
+under the same guardrails.
 
 ### Round three: salts, sulfur and fertiliser (B2, B3, D3)
 

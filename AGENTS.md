@@ -1227,16 +1227,16 @@
   machine wear, crew work); no closed loop that returns its own inputs may gain
   value; inputs bought at a station deserve the most scrutiny, because they make a
   repeatable trade loop; prices stay plausible beside the game's own economy.
-- Review candidates: V4 charges and their stock prices (nickel-iron ingot and carbon
-  ceilings in the constants catalogue), F6 ingot casting, the T2 thaw and the
-  methane ice price correction ($20 to $250, made only to satisfy the old rule;
-  vanilla precedence favours restoring the native price), the salt crust, and the
-  K2/AX-2 stored-gas conversions. The old rule is still enforced by
-  `ManufacturingNativeChecks` (every charge), `RefineryChecks` (carburising),
-  `SiloNativeChecks` (thaw) and the catalogue review notes; replace those checks
-  with the new guardrails in the same change that moves a price, and update the
-  economy docs (equipment economy, refinery record, economy coverage and
-  vanilla-precedence audits) alongside. Existing prices stay until then.
+- Review outcome (2026-09-30, Manufacturing 0.15.0 / Shipbreaker 0.49.0, agent-applied
+  under the guardrails above and open to owner revision): the nickel-iron ingot
+  returns to $20 (carburising gains eleven percent at base prices; no merchant
+  sells nickel-iron ingots or carbon, so there is no loop); the methane ice price correction is withdrawn and the game's $20
+  stands (neither thaw product sells back); carbon, the mined chunks, F6 casting
+  and the K2/AX-2 conversions keep their prices. `ManufacturingNativeChecks`,
+  `RefineryChecks` and `SiloNativeChecks` now prove the guardrails at live prices:
+  sellable products within 1.5 x inputs, a quarter when every input is bought
+  stock, stock priced between scrap steel (3.6 cr/kg) and its ore (22.5 cr/kg).
+  Price new refined products against these; do not reintroduce a loss requirement.
 
 ## Documentation audiences
 

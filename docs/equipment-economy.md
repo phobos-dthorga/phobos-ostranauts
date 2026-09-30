@@ -506,15 +506,18 @@ $23,944. These are authored balance choices, not measured gameplay outcomes.
 | Fennmark M2 methane store (0.2.0) | 160 kg empty | $21,000 | $26,250 | $15,750 | $5,250 |
 | Fennmark P1 RCS propellant manifold (0.3.0) | 10 kg | $24,000 | $30,000 | $18,000 | $6,000 |
 | Fennmark propellant line (0.3.0, ordinary supply) | 1 kg | $3 | — | — | — |
-| Nickel-iron ingot | 4 kg | $24 | — | — | — |
+| Nickel-iron ingot | 4 kg | $20 (0.15.0; $24 from 0.1.1 to 0.14.0) | — | — | — |
 | Carbon stock | 1 kg | $10 | — | — | — |
 
 San Diego's traders add their own markup (sell 2–3×, per the
 [vanilla audit](development/vanilla-economy-audit.md#merchant-multipliers)).
 Only the machinery is late-game priced (owner correction, 29 September 2026);
-ingots, carbon, ore and remainders keep ordinary raw-material prices, and the
-vanilla ore they come from caps them anyway: every refinery charge must lose value, which the native checks verify from live definitions (see
-[the refinery record](development/manufacturing-refinery-and-chemistry.md)).
+ingots, carbon, ore and remainders keep ordinary raw-material prices. Since the
+refining value review (30 September 2026) a charge may gain value where the
+work is real, within guardrails the native checks verify from live definitions:
+sellable products within half again the inputs, a quarter at most when every
+input is bought stock, and stock priced between scrap steel and its ore per
+kilogram (see [the refinery record](development/manufacturing-refinery-and-chemistry.md)).
 
 **Where to buy and sell.** The same routes as the Shipbreaker S3/T2, in lots of
 eight: K-Leg supplies (broken), the K-Leg fixer (worn), San Diego Halvorson
@@ -673,9 +676,9 @@ the one-in-twenty engineering find; the medium and large sizes are never salvage
 loot. No station sells ammonia: it comes only from the V4's salt crust charge.
 
 The ammonium salt crust is ore (mined, never sold by merchants; the government
-kiosks buy it at 150 cr, the game's hydrates price). Refining it loses value like
-every charge: 150 cr of crust becomes about 3.25 cr of ammonia at the game's own
-NH3 price, 5.05 cr of water and a spent salt cake at the technical minimum.
+kiosks buy it at 150 cr, the game's hydrates price). Refining it is for the
+nitrogen, not the money: 150 cr of crust becomes about 3.25 cr of ammonia at the
+game's own NH3 price, 5.05 cr of water and a spent salt cake at the technical minimum.
 
 ## Manufacturing 0.10.0: the Tolvane AX-2 ammonia cracker
 

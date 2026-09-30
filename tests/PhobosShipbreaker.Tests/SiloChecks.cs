@@ -39,8 +39,8 @@ internal static class SiloChecks
         check(!clathrate.Products.Any(p => ThawRules.IsFeed(p.Id)) && ThawRules.RecipesFor("ItmIce02") == ThawRules.MethaneRecipes && ThawRules.RecipesFor("ItmIce01") == ThawRules.Recipes &&
             ThawRules.CycleSecondsFor("ItmIce02") == 3000 && ThawRules.CycleSecondsFor("ItmIce01") == ThawRules.CycleSeconds, "Each feed identity reads its own recipe catalog and cycle");
         check(ThawRules.MethaneOutPort != ThawRules.OutPort && ThawRules.MethaneInPort != ThawRules.VesselPort, "Methane has its own port pair, apart from water's");
-        check(ThawRules.MethaneIcePrice > ThawRules.ClathrateWaterKg * SiloRules.WaterPricePerKg + ThawRules.MethaneKg * 2.2,
-            "The corrected methane ice price exceeds its products at the station water price and the game's methane price");
+        // Refining value (30 September 2026): the game's 20 cr block yields water and methane worth more at station prices; nothing sells them back.
+        check(ThawRules.ClathrateWaterKg * SiloRules.WaterPricePerKg + ThawRules.MethaneKg * 2.2 > 20, "Thawing methane ice gains water and methane aboard against the game's own 20 cr block");
         check(!ThawRules.ValidIce("ItmIceTrash01", 2, true, true, true), "Ice gangue is not feed");
         check(!ThawRules.ValidIce("ItmIce01", 24, true, true, true) && !ThawRules.ValidIce("ItmIce01", 24.7, false, true, true) &&
             !ThawRules.ValidIce("ItmIce01", 24.7, true, false, true) && !ThawRules.ValidIce("ItmIce01", 24.7, true, true, false), "Wrong mass, installed, loaded or stacked blocks are refused");

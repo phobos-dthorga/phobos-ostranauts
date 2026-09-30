@@ -59,8 +59,10 @@ internal static class SiloNativeChecks
             check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false) == new DataCO(DataHandler.dictCOs[outside]).HasCond("IsIce"), "Only ice enters the thaw feed at the game level: " + outside);
         check(ThawRules.ValidIce(methane.strName, Stat(methane, "StatMass"), true, true, true) && Stat(methane, "StatMass") == ThawRules.MethaneIceKg,
             "Methane ice is accepted at the game's own 24.84 kg");
-        check(Stat(methane, "StatBasePrice") == ThawRules.MethaneIcePrice, "The game's methane ice price is corrected in place, the definition never republished");
-        check(Stat(gangue, "StatBasePrice") == 0, "Ice gangue stays worthless, so every thaw loses value");
+        // Refining value (owner, 30 September 2026): the game's own methane ice price stands; the thaw gains value from a
+        // mined feed and five kilowatt-hours, and neither product has a sell route, so there is no trade loop to guard.
+        check(Stat(methane, "StatBasePrice") == 20, "The game's methane ice price is left as the game set it (the 0.45.0 correction is withdrawn)");
+        check(Stat(gangue, "StatBasePrice") == 0, "Ice gangue stays worthless");
         var gangueItem = DataHandler.dictItemDefs[gangue.strItemDef];
         check(gangueItem.nCols == 1 && gangueItem.aSocketAdds.Length == 1, "Native gangue is a one-cell item that fits the tray");
         var power = d.Power[ThawRules.Prefix + "Power"];

@@ -274,3 +274,9 @@ place on the live definition (never republished), in the same release as the T2
 recipe that consumes it. The mass, conditions, art and every other field stay the
 game's. Blocks already in a save keep the price they were created with. Verdict:
 a minimal in-place correction tied to its consumer.
+
+Withdrawn (Shipbreaker 0.49.0, 30 September 2026): the rule it served is retired
+(AGENTS.md "Refining value"), so the game's own 20 stands and Shipbreaker no
+longer amends the definition. Vanilla precedence favoured this from the start.
+Neither thaw product has a sell route, so the gain is water and methane aboard,
+not money. Blocks priced 250 in an existing save keep that price.

@@ -48,10 +48,6 @@ public static class ThawRules
     public const double ClathrateThermalNeedKWh = (ClathrateMol * DissociationKJPerMol + MethaneIceKg * (MeltKJPerKg - FusionKJPerKg)) / 3600;
     /// <summary>50 minutes at the same 6 kW: 5 kWh a block, 4.25 kWh of it into the block after the room's share.</summary>
     public static double MethaneCycleSeconds => ShipbreakerRecipes.Entry("thaw-methane").seconds!.Value;
-    /// <summary>The game prices methane ice at 20 for 24.84 kg, below the water inside it (owner decision,
-    /// 30 September 2026: correct the native price in place so processing still loses value). At full occupancy
-    /// its products are worth 3.33 kg x 2.2 (the game's methane price) + 21.51 kg x 10 = 222.</summary>
-    public const double MethaneIcePrice = 250;
     /// <summary>The thaw unit's methane outlet and the port it pairs on a methane store, distinct from the K2's.</summary>
     public const string MethaneOutPort = "PhobosShipbreaker.ThawMethaneOut", MethaneInPort = "PhobosShipbreaker.ThawMethaneIn";
     /// <summary>The methane ice catalog from the recipe pack.</summary>

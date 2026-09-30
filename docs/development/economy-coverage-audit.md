@@ -72,7 +72,7 @@ $23,944). Findings and changes:
 | Repair bills were scrap only | Every vanilla late-game repair uses motors, mainboards, heat sinks and screens | Component bills ($100–573 of parts), component-bearing dismantling, still mass-balanced and 1.7–3.3% of whole value |
 | No high-salvage mark | Every native loose item above $20,000 carries `IsSalvageValueHigh`, all forms | Added to all forms: the K-Leg fixer now buys them intact, the supplies kiosk no longer does, Venus buys either |
 | A 40% engineering-loot chance | At late-game prices that is a money printer | 5%, three in four broken, a registered constant capped by a native check |
-| The steel charge gained value (0.1.0: 4 x $20 + $10 in, 4 x $25 out) | Live-price computation | Nickel-iron ingot $24 (the smallest fix; carbon stays $10); a native check now proves every charge loses value at live prices. Stock stays ordinary-priced: only the machinery is late-game (owner correction) |
+| The steel charge gained value (0.1.0: 4 x $20 + $10 in, 4 x $25 out) | Live-price computation | Nickel-iron ingot $24 (the smallest fix; carbon stays $10); a native check then proved every charge lost value at live prices. Superseded 30 September 2026: the ingot returns to $20 and the checks prove the refining value guardrails instead (sellable products within 1.5 x inputs, a quarter when every input is bought stock). Stock stays ordinary-priced: only the machinery is late-game (owner correction) |
 
 Lots stay at eight and the 85% equipment floor stays, per the stock memoranda;
 price, not scarcity, is the late-game gate. Manufacturing 0.2.0 adds the K2 Sabatier
