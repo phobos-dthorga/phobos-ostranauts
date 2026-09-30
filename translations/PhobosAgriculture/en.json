@@ -94,7 +94,7 @@
   "water_supply": "Water Supply Unit",
   "water_pipe": "Irrigation Conduit",
   "water_supply_desc": "Groundwork W2: mix feed and water up to eight linked racks. This 2 x 2 unit weighs 20 kg empty and holds 20 kg of liquid plus 0.5 kg of nutrients. The racks share one 0.18 kW pump. Load nutrient packets or B2 mixtures in Inventory for gradual mixing. A cartridge adds 0.5 kW drainage treatment. Load water by hand or use compatible Ship's Water tanks. Pipe flow and travel time are simplified for play.",
-  "water_pipe_desc": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. Each tile holds 0.01 kg of water, kept at the receiving rack if the route breaks. Drain before moving pipes. Flow and travel time are simplified for play.",
+  "water_pipe_desc": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. The W2 fills it first, about 0.2 kg of water or feed a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play.",
   "water-routed": "Select pipe-fed water (paused)",
   "water-legacy": "Select direct tank refill (paused)",
   "unlink-water": "Disconnect water supply (paused)",
@@ -123,8 +123,7 @@
   "solution_receipt": "Last feed delivered: {0:0.000000} kg water + {1:0.000000} kg nutrients.",
   "solution_mixed": "Mixed {0:0.000000} kg of plant feed.",
   "solution_status": "Feed: {0}\nMixed feed: {1:0.000000} kg water + {2:0.000000} kg nutrients\nDry nutrients: {3:0.000000} kg\nTotal liquid: {4:0.000000} / {5} kg\nFeed chemistry is simplified for play; pH and conductivity are not simulated.",
-  "line_drain": "Drain the pipes before changing this route or connection.",
-  "line_status": "Water in pipes: {0:0.000} / {1:0.000} kg; {2:0.0} s until delivery. If the route breaks, the rack's service cassette keeps the contents.",
+  "line_drain": "This rack still holds feed that was in its pipes before the update. Start the W2 so it arrives, or drain the rack, before changing this route or connection.",
   "line_flow": "Estimated maximum flow: {0:0.0}% through {1} pipe tiles. Calculated outlet pressure: {2:0.0} kPa at rated pump pressure. Not a sensor reading.",
   "recover-solution": "Queue drainage treatment (15 minutes; then Start)",
   "cancel-recovery": "Cancel treatment (keep supplies)",
@@ -253,5 +252,7 @@
   "hopper_offer": "Crop nutrients (Groundwork hoppers)",
   "dose_hopper_status": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing.",
   "dose_hopper_unready": "Feeding from {0}, but it cannot dose now ({1:F2} kg ready): it is damaged, protected, holding trapped nutrients, empty or out of reach.",
-  "Maintenance.hopper": "Bag the hopper's nutrients before moving or dismantling it."
+  "Maintenance.hopper": "Bag the hopper's nutrients before moving or dismantling it.",
+  "line_legacy": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run.",
+  "line_priming": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles."
 }

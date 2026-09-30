@@ -1461,7 +1461,7 @@
         "src/PhobosAgriculture/IrrigationDefinitions.cs:59"
       ],
       "before": "One tile, 1 kg structural mass. Independent cardinal irrigation route; crosses join. Each selected route reserves 0.01 kg per tile in a retained line parcel, accounted at its receiving rack. Authored resistance and transit delay; no density/CFD claim. Drain lines before rerouting.",
-      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. Each tile holds 0.01 kg of water, kept at the receiving rack if the route breaks. Drain before moving pipes. Flow and travel time are simplified for play."
+      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. The W2 fills it first, about 0.2 kg of water or feed a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play."
     },
     {
       "mod": "PhobosAgriculture",
@@ -1891,20 +1891,7 @@
         "src/PhobosAgriculture/LineService.cs:33"
       ],
       "before": "Drain retained line contents before changing this route or pairing.",
-      "after": "Drain the pipes before changing this route or connection."
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "line_status",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/LineService.cs:56"
-      ],
-      "before": "Retained line contents: {0:0.000} / {1:0.000} kg; transit remaining {2:0.0} s. Contents are held in the rack service cassette if the route breaks.",
-      "after": "Water in pipes: {0:0.000} / {1:0.000} kg; {2:0.0} s until delivery. If the route breaks, the rack's service cassette keeps the contents."
+      "after": "This rack still holds feed that was in its pipes before the update. Start the W2 so it arrives, or drain the rack, before changing this route or connection."
     },
     {
       "mod": "PhobosAgriculture",
@@ -53078,6 +53065,33 @@
       ],
       "before": "Conduit filling: {0:0.00} of {1:0.00} kg. The loop will not circulate until it is full; load about {2:0.0} kg more.",
       "after": "Conduit filling: {0:0.00} of {1:0.00} kg. The loop will not circulate until it is full; load about {2:0.0} kg more."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_legacy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Rack or W2 status while feed saved by an earlier version is still on its way into the rack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/LineService.cs:52",
+        "src/PhobosAgriculture/LineService.cs:82"
+      ],
+      "before": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run.",
+      "after": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_priming",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Rack notice while the W2 fills the pipes before feed reaches it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/LineService.cs:63"
+      ],
+      "before": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
+      "after": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles."
     }
   ],
   "documents": [
@@ -53085,8 +53099,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d09e8c3ca9bc9d84dc400fb9d4586a3effe57ee5ca20e9416c0f78380bf5c4d9",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "c625988ab6f45b6c8916c5c18aef7a72c83d0ae2b0692c4457c512cfb6ced152",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "SUPPORT.md",
@@ -53113,8 +53127,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "786bae575db251f459dcfe7f3b807c96a23ac6ceae6e56397a488f48f230b4df",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "8670f9e2af081dd720dfc2c8f2e21737473676c76f0e4fe34836848a055c2775",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -53127,8 +53141,8 @@
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "eb1c2a2ac551d5b584c79d7e584124b1393f37dea93fd61f8e542ebd9d299e1e",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "c4d349c6ff6f567bab4c846ec759b4ccbecb82390dcc012e7d538a309310beab",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/agriculture-player-guide.md",
@@ -53147,8 +53161,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "81966c6ce6c18157db202b738d0500310b909ab1a8cb8051099ecf6991f75731",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "c864ca9b031ae24ace98bcada1d16d565c353fe6bb8a30b78c4560f68bb710c6",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -53245,8 +53259,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e2a154370b71c4b00ac453c4c168f5548e86203337cc2bffb07fcada70b81244",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "0f5f4544005d7123ffad755adb19c379e6f8b053c385e4aa67b6ca342c7b9f55",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53273,8 +53287,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "8e3fd62971f1ed44095360f6a528e2f605e4c8cc052c65c072c7ca58f2a386c8",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "ccdce13dd4acaab71a224715b456935103b998c6e338603d029cd962803866da",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -53637,8 +53651,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "97b967b17d2d568b700f6bb572efd67c1a1defe65ccdb04bcd252eac01f60b7a",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "8ba1eea56410d12b1a5e03aa57754aeb6360ab505636f14481c14bb8a8df8481",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53768,8 +53782,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "417e40d96e3e6b6eac87f3dc3a9a2be340e75a9044362e368226557dd85fc261",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "491dc6d9d86b5a97eb01886ae5986937c6c4911256cac355db773db0bdd65e8c",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53973,8 +53987,8 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "312e998c6d9febb8c4578dfb334f8a170470f7f8acc39482c93fe2ab47b669b5",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "a5b213926009c0488b3d022f0e0c67540f85d5ca57fcbd5e74995c3fdcad48de",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/framework-item-reference.md",
@@ -54043,8 +54057,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "eff0f579a03be917352ac69d3055cb0d503c40002befeb9bdd18d4d674e2159a",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "16a2eb342c3930a4c7c00fa910e66e53fa5c221dd8c2b4c3e20459e19c4f2234",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/item-references.md",
@@ -54162,8 +54176,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "59c11dad53a39f460ca059b7e61ccc50cec0f6bbbe8aafb9b084fd6b4ae4244b",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "aa5a853dca6b20b33efc5de5d064a981d8449c1e4813bcb85e3b68270b820d12",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -54281,23 +54295,23 @@
       "path": "docs/development/line-contents-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "8417924c25b2898be45b2a93cf94cdb279f26a8cc64872f77810ddcfe16b75c2",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "fa16c009b1bec7e9593f7520b0cf22ed8f8094a35ecb586aefe2624518180d9e",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "docs/lines-and-draining.md",
       "scope": "current player text",
       "decision": "New player guide written to the crew voice: situation, action and limits first.",
-      "sha256": "71e0e6f9edbc4036cecbf8d7005a12436bd089909d4ae49d2149732ecba00cb7",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "8b81d6ee8937d8ef2384783e0d43db6c2a2d7ee46483ed07fde62dc661c973a9",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f6db036ab91fab42c702ed204a0aced081f3480fe38fdafbead48814a652f287",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "f816d12c24bd8f2a10d7a1091e78a396d7071db4441dfdf0e22eaeeddfc45730",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -54313,8 +54327,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "98b724cb4a2e544a84bbae4ad172cb31bce613fbec84b20a972e113a05d16ecc",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "bac774a148f662321f7670dabd4419c9ef500ba472b49e9a12c0195dc7d0a6e3",
+      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

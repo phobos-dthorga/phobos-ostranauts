@@ -637,3 +637,18 @@ content-filled families at once. Canister pouring asks each registered receiver
 about an installed container that is not a bulk vessel: a definition test per such
 object on the existing two-second scan. No performance capture or measured FPS
 claim accompanies this change.
+
+## 1 October: the irrigation conduit holds its feed (L10)
+
+L10 — Static review of Agriculture 0.33.0 with Framework 0.64.0.
+
+- **Per receiving branch and power step, the W2 now does:**
+  - one pass over its connected run from the cached snapshot (the route it already
+    finds);
+  - a record read per segment for room;
+  - writes only while priming.
+- **Removed:** the route-key hash and the parcel's per-step save.
+- **Once the run is full**, delivery is the same guarded mixture transfer as before,
+  one per branch.
+
+No performance capture or measured FPS claim accompanies this change.

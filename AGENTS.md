@@ -1316,8 +1316,13 @@
   - `DrainCanisters.RegisterReceiver` lets the F6 take a canister of coolant.
   - The legacy sealed assembly keeps an empty conduit. A running serviced loop needing
     more charges is the documented manual step.
-- Agriculture irrigation is the remaining release. Owner gameplay checks remain
-  pending.
+- Agriculture 0.33.0 completes the set: the irrigation conduit holds water or one of
+  three feeds.
+  - A running W2 primes each branch's run before delivering straight through,
+    replacing the per-rack parcel and its transit clock.
+  - Old parcels are delivered into their racks on the next powered run.
+  - The W2 takes canisters of water or its own feed.
+  - Owner gameplay checks remain pending.
 
 ## Refining value (2026-09-30)
 

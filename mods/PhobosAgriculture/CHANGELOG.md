@@ -24,6 +24,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.33.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The irrigation conduit now holds what it carries, about 0.2 kg of water or feed on every tile, like the other Phobos lines. A running W2 first fills its racks' pipes from its own reservoir; once the pipes are full, water or feed flows straight through to the racks. The old travel delay is gone: a long line now takes a few minutes to fill the first time, and stays full.
+- Right-click an installed conduit and choose Drain line into canister to drain the run into a Framework drain canister; the run then stops until Return line to service and refills. A conduit holding water or feed cannot be taken up until drained.
+- A drain canister of water, or of the W2's own feed, put in the W2's inventory pours into its reservoir.
+
+### Save compatibility
+
+- Automatic. Feed that was in the pipes of a rack saved by an earlier version is delivered into that rack on the W2's next powered run, then the old record empties. Conduits already laid start empty and fill from the W2 when it runs, taking about 0.2 kg a tile from its reservoir.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.64.0 or newer. The 16 mm bore and dilute feed at water's density are authored figures. Changing a W2's formulation leaves the old feed in its pipes until drained; drained feed pours back only into a W2 with the same formulation, not into drainage treatment. Offline checks are not gameplay validation.
+
 ## [0.32.0] - 2026-10-01 - Draft
 
 ### Changed

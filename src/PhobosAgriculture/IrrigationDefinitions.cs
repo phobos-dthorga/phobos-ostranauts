@@ -40,6 +40,11 @@ internal static class IrrigationDefinitions
             Present = Segment, Intact = WorkingSegment, Kg = PipeKg, Price = pipe.price, InstallTab = InstallMenu.Miscellaneous,
             Controls = Definitions.Controls, LooseStack = StackLimits.Pipes, Layer = LineLayers.Irrigation
         });
+        // The conduit holds its water or feed until drained (Agriculture 0.33.0; owner decision, 1 October 2026): about
+        // 0.20 kg a tile, filled by the W2's pump, drained into Framework's drain canister, which pours back into a W2.
+        Service.IrrigationHolding = LineContents.Declare(Service.WaterPipes, Pipe, Service.ConduitCommodities());
+        LineContents.OfferActions(d, Pipe, gas: false);
+        DrainCanisters.RegisterReceiver(new W2CanisterReceiver());
         foreach (string form in new[] { "Installed", "InstalledDmg" })
         {
             foreach (string prefix in new[] { Supply, Definitions.Rack })

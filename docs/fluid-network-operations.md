@@ -40,27 +40,31 @@ outlet pressure is `100 / (1 + tiles / 16)` kPa. These are **design calculations
 not measured sensor readings or real pump specifications. Received electricity
 and the shared branch budget additionally limit actual work.
 
-Each selected route has a finite parcel capacity of **0.01 kg per pipe tile**
-and **0.5 seconds per tile** of powered transit time. A parcel must finish its
-transit before entering the rack reservoir; new feed cannot borrow an old
-parcel's clock. Filling, powered transit and delivery share the same work budget; transit work
-cannot also fund W2 blending or refill.
-Parcels are processed discretely, so this is deliberately a lower-throughput
-model than a continuously flowing hydraulic simulation.
+Since Agriculture 0.33.0 the conduit **holds what it carries**, about **0.2 kg a
+tile** (an authored 16 mm bore of dilute feed at water's density), in each tile's own
+record and mass. The W2's pump first fills the pipes of each receiving branch from
+its own reservoir, taking water or feed in its own proportions; once the connected
+run is full, what the pump pushes in reaches the rack straight away. Filling and
+delivery share the same work budget, so filling cannot also fund W2 blending or
+refill. A 64-tile run holds about 12.8 kg and takes a few minutes to fill the first
+time. Branches that share a trunk share its contents; the trunk fills once.
 
-Line contents are recorded and physically mass-accounted at the **receiving
-rack's service cassette**, including after pipe damage/removal. This is a lumped
-custody model: shared trunk volume is reserved per branch, not a per-segment
-simulation. Changing the route requires draining retained contents; a broken
-pipe cannot erase water/nutrients. Full racks keep line contents. Both component
-masses, route identity and remaining transit survive saves; pumping/receiving
-pause after reload, and unloaded time grants no movement.
+The pipes keep their contents through damage, route changes and reload; pumping and
+receiving still pause after reload, and unloaded time grants no movement. To take
+pipe up, right-click it and choose **Drain line into canister** with a Framework drain
+canister carried or within two tiles; the run stays closed until **Return line to
+service**. A canister of water, or of the W2's own feed, put in the W2's inventory
+pours into its reservoir. Changing the W2's formulation leaves the old feed in the
+pipes until you drain them; drained feed does not go to drainage treatment. See
+[draining and venting](lines-and-draining.md).
 
-Drain at a rack includes its line parcel, plain water, dry nutrient stock and
-mixed feed. Clear a living crop separately when changing crop types. Removing
-or dismantling a rack with retained line contents is blocked. Existing water
-and dry-stock fields retain their original meaning; missing additive line
-records start empty. Longer old routes now need shortening to the 64-tile limit.
+Racks saved by earlier versions may still hold a line parcel from the old model
+(0.01 kg a tile, at the rack's service cassette). The W2 delivers it into its rack on
+the next powered run, whatever the route now is; until then it counts in the rack's
+mass and blocks relinking, as before. Drain at a rack still includes any such
+parcel, plus plain water, dry nutrient stock and mixed feed. Clear a living crop
+separately when changing crop types. Longer old routes need shortening to the
+64-tile limit.
 
 ## Recorded drainage treatment
 

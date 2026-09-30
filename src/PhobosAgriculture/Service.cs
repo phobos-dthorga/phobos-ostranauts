@@ -30,11 +30,8 @@ internal static partial class Service
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         internal string Notice = "";
-        // Per-session caches for the per-step paths: the water port bank (its ports read the maps live) and the
-        // last irrigation route key, hashed once per distinct path instead of once per pump step.
+        // Per-session cache for the per-step paths: the water port bank (its ports read the maps live).
         internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
-        internal string RouteKey = "", RouteKeySource = "";
-        internal int[]? RouteKeyPath;
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static readonly List<CondOwner> scanned = new();

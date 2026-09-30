@@ -91,9 +91,11 @@ allowance. All electricity becomes cabin heat, including unsuccessful pumping.
 There is no accumulated energy credit or transfer through an unloaded ship.
 No suitable cabin heat recipient means no pump power admission.
 
-Water exists only in finite equipment reservoirs. Pipe hold-up, pressure and
-travel time are neglected gameplay abstractions. Removing a pipe does not spill
-imaginary cargo. The existing 20 kg empty-appliance reservoir record also serves
+Water exists only in finite equipment reservoirs and, since Agriculture 0.33.0, in
+the pipes themselves, about 0.2 kg a tile filled by the W2 (see
+[fluid networks](fluid-network-operations.md) and [draining](lines-and-draining.md)).
+Pressure and travel time remain gameplay abstractions. A pipe holding water must be
+drained before it is taken up. The existing 20 kg empty-appliance reservoir record also serves
 the W2; it cannot accept crops, nutrients or cooking jobs. Native contents mass
 includes the numerical water plus any physical inventory exactly once.
 

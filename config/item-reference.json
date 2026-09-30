@@ -640,7 +640,7 @@
             "PhobosVerdemorrowGroundworkW2InstalledDmg"
           ],
           "function": "Stores and supplies irrigation water or formulated nutrient solution; also treats recorded process solution.",
-          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements. A drain canister of water, or of its own feed, put in its inventory pours into its reservoir.",
           "find": "Buy supply/fixer/Halvorson stock or build at a supported table. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
           "notes": "Use separate circuits for incompatible formulations. Receiving pauses after reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
           "guide": "fluid-network-operations.md",
@@ -657,9 +657,9 @@
             "PhobosVerdemorrowWaterConduitInstalledDmg"
           ],
           "function": "Carries irrigation water or crop nutrient solution between W2 and paired racks.",
-          "use": "Place contiguous segments in MISC, connect the pipe sockets and use Pair/Receive controls.",
+          "use": "Place contiguous segments in MISC, connect the pipe sockets and use Pair/Receive controls. A running W2 fills it first, about 0.2 kg of water or feed a tile; to take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles.",
           "find": "Buy stock, build at a supported table, or find a loose segment in eligible locked-crate contents. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "Separate from electricity and F6 coolant. Removing a line does not delete the contents retained at its receiving machine. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
+          "notes": "Separate from electricity and F6 coolant. Since Agriculture 0.33.0 each tile holds its own water or feed and cannot be taken up until drained; a line parcel saved by an earlier version is delivered into its rack on the next powered run. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
           "guide": "agriculture-water-conduits.md",
           "internal": false,
           "labels": {}

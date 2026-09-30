@@ -13,8 +13,7 @@ Framework 0.63.0 and Manufacturing 0.25.0 (1 October 2026). The player guide is
 - Realistic hold-up per tile.
 - Irrigation parcels and the furnace coolant charge move to the same model, with their
   saved contents converted on load. Shipbreaker 0.58.0 delivers the coolant conduit
-  (see *Pumped circuits* below); **not yet delivered:** Agriculture's irrigation
-  follows in its own release.
+  and Agriculture 0.33.0 the irrigation conduit (see *Pumped circuits* below).
 
 ## Model
 
@@ -117,7 +116,8 @@ when it finishes. A finished action reports its amounts to the worker's log.
 | Manufacturing 0.24.0 bund contents | Unchanged; recovered from the tank's panel as before |
 | F6 coolant charge (`FurnaceCoolantCharge`, four keys) | Automatic: record unchanged; its meaning becomes the reservoir, and what it held above 5 kg (the old 0.01 kg a tile pipe allowance) is pumped into the conduit on the next powered step |
 | A running serviced loop | **Manual step:** it needs about 0.33 kg a conduit tile more before it circulates; the furnace status says how much, and the crew coolant order loads it |
-| Irrigation parcels (`AgricultureLine`) | Not yet converted; Agriculture's release |
+| Irrigation parcels (`AgricultureLine`, seven keys, at the rack) | Automatic: a non-empty parcel is delivered into its rack on the W2's next powered run, whatever the route now is (it was on its way there and matches the rack's profile, as the load check requires); the empty record then stays harmlessly. Until then it keeps counting in the rack's mass and relink gates |
+| Irrigation conduit already laid | Automatic: starts empty; the W2 fills it when it runs, about 0.2 kg a tile from its reservoir |
 
 ## Pumped circuits (Framework 0.64.0, Shipbreaker 0.58.0)
 
@@ -139,6 +139,20 @@ when it finishes. A finished action reports its amounts to the worker's log.
   kilograms and its own mass.
   - The F6 accepts coolant under the same guards and service journal as loading a
     charge.
+- **The irrigation conduit (Agriculture 0.33.0).**
+  - It holds one of four stable commodities: `water`, `potato feed`, `lettuce feed`
+    or `lettuce seed feed`. Each is dilute feed in its profile's declared proportions,
+    at an authored 998.2 kg/m³ in a 16 mm bore, about 0.20 kg a tile.
+  - A running W2 primes each receiving branch's connected run from its own reservoir,
+    taking the reservoir's own proportions. With a full run it delivers straight to
+    the rack through the existing guarded mixture transfer.
+  - This replaces the per-rack parcel's authored transit time (0.5 s a tile, 0.01 kg
+    a tile). Branches sharing a trunk share one run; the one-W2-per-circuit rule keeps
+    one profile a run.
+  - The W2 is a canister receiver for water (into its intake reservoir) and its own
+    feed (within each component's headroom).
+  - Changing formulation leaves old feed in the pipe until drained. Drained feed does
+    not go to drainage treatment; its assay record belongs to the rack drain.
 - **A drained conduit is closed**, so the furnace sees no route and its reservoir
   follows the existing broken-route leak into the catch tank until the run returns
   to service.

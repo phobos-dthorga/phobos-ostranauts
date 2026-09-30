@@ -116,6 +116,14 @@ internal static class AgricultureNativeChecks
         }
         check(pipe.aSocketReqs[4] == "TILFloor" && pipe.aSocketForbids[4] == PhobosAgriculture.IrrigationDefinitions.Pipe + "Off", "Pipe requires floor and rejects duplicate pipe, independent of power sockets");
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"].jsonPI == null, "A pipe cannot draw or distribute electricity");
+        // Agriculture 0.33.0: the conduit holds its water or feed, filled by the W2's pump, drained into a canister.
+        var irrigationHolding = Phobos.Ostranauts.Framework.Liquids.LineContents.Families.FirstOrDefault(f => f.Prefix == PhobosAgriculture.IrrigationDefinitions.Pipe);
+        check(irrigationHolding != null && !irrigationHolding.StoreFilled && !irrigationHolding.Gas && irrigationHolding.Commodities.Count == 4 &&
+            irrigationHolding.Commodities.All(c => Math.Abs(c.KgPerTile - .2007) < .001) && irrigationHolding.Of("potato feed") != null && irrigationHolding.Of("water") != null,
+            "The irrigation conduit holds water or one of the three feeds, about 0.2 kg a tile, filled by the W2's pump");
+        check(PhobosAgriculture.Service.FeedProfiles.Select(PhobosAgriculture.Service.FeedCommodity).Distinct().Count() == 4, "Every feed profile has its own stable conduit commodity");
+        foreach (string form in new[] { "Installed", "InstalledDmg" })
+            check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + form].aInteractions.Contains(Phobos.Ostranauts.Framework.Liquids.LineContents.DrainAction), "An installed conduit offers Drain line into canister: " + form);
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Outlet + ",24,8"), "Supply outlet has a rotating native named point");
         check(d.Objects[PhobosAgriculture.Definitions.Rack + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Inlet + ",-40,8"), "Rack inlet is outside its unchanged four-tile footprint");
         check(Math.Abs(PhobosAgriculture.IrrigationDefinitions.CapacityKg - PhobosAgriculture.Core.CropState.ReservoirKg) < 1e-9, "Shared empty-appliance reservoir schema retains its existing capacity bound");

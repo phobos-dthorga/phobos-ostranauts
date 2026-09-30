@@ -59,7 +59,9 @@ Mixing consumes measured water and dry stock. Delivery moves the two components
 in their declared proportion, limited by both destination component headrooms
 and total liquid headroom. Matching mixed feed is consumed before supplementary
 manual stock. Incompatible solution must be drained before changing crops or feed.
-Pipe tiles hold no inventory; hold-up, pressure and travel time remain abstracted.
+Since Agriculture 0.33.0 pipe tiles hold the feed they carry (about 0.2 kg a tile,
+as one feed commodity in its declared proportions), filled before delivery begins;
+pressure and travel time remain abstracted.
 
 Delivery, mixing and optional provider intake share one received-electricity
 budget per interval, in that order: up to 0.05 kg of work per second and

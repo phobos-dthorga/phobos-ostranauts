@@ -115,7 +115,7 @@ internal static partial class Service
             if(!target.Protected&&!WaterGuard(peer).Protected&&!LineGuard(peer).Protected&&target.Routed&&CompatibleSolution(source,target)&&(!requireReceiving||target.State.Receiving)) yield return target;
         }
     }
-    private static readonly FluidSegmentFamily WaterPipes = new("PhobosAgriculture.Water", c => c.strCODef == IrrigationDefinitions.Pipe + "Installed");
+    internal static readonly FluidSegmentFamily WaterPipes = new("PhobosAgriculture.Water", c => c.strCODef == IrrigationDefinitions.Pipe + "Installed");
     // A power step asks for the same routes from the demand check and the pump; one answer per step per pair.
     private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<(CondOwner, CondOwner), int[]?> routes = new();
     private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<Ship, CondOwner[]> supplies = new();
