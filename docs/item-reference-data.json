@@ -10019,7 +10019,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.17.0",
+      "version": "0.18.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -12244,6 +12244,37 @@
           "aliases": []
         },
         {
+          "id": "PhobosBrineSaltCake",
+          "name": "Phobos' Lixivar Brine Salt Cake",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 2.25,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosCabinAirRegulatorInstalled",
           "name": "Phobos' Fennmark A2 Cabin Air Regulator",
           "stackLimit": 1,
@@ -12797,6 +12828,37 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCalcinedResidue",
+          "name": "Phobos' Fennmark Calcined Residue",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 6.54,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         },
         {
@@ -14970,6 +15032,39 @@
           "aliases": []
         },
         {
+          "id": "PhobosCausticRemainder",
+          "name": "Phobos' Lixivar Caustic Remainder",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.07,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosChemicalProcessorInstalled",
           "name": "Phobos' Fennmark X2 Chemical Processor",
           "stackLimit": 1,
@@ -15575,6 +15670,40 @@
           ],
           "massKg": 10.0,
           "baseValue": 180.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEvaporiteCrust",
+          "name": "Phobos' Lixivar Evaporite Crust",
+          "stackLimit": 6,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR",
+            "drag"
+          ],
+          "massKg": 10.0,
+          "baseValue": 150.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -17157,6 +17286,682 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachUnitInputBin",
+          "name": "Phobos' Lixivar LC-3 Leach unit charge",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosLeachUnitTFeed",
+            "width": 4,
+            "height": 1,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [
+            "PhobosLeachUnitInput"
+          ],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachUnitInstalled",
+          "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosLeachUnitInput"
+            ],
+            "loot": "PhobosLeachUnitCompartments"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 220.0,
+          "baseValue": 48000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosLeachUnitInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosLeachUnitInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 40,
+                  "baseValue": 44.000000953674316
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 12,
+                  "baseValue": 174.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 39,
+                  "baseValue": 1.9500000290572643
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosLeachUnitInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosLeachUnitInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosLeachUnitInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitLoose",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+                  "count": 1,
+                  "baseValue": 48000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachUnitInstalledDmg",
+          "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosLeachUnitInput"
+            ],
+            "loot": "PhobosLeachUnitCompartments"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 220.0,
+          "baseValue": 12000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosLeachUnitInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosLeachUnitInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 100,
+                  "baseValue": 359.99999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 34,
+                  "baseValue": 37.40000081062317
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 10,
+                  "baseValue": 50.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 75,
+                  "baseValue": 3.7500000558793545
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosLeachUnitInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x5",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x2",
+                "TIsMobo=1x1",
+                "TIsHeatSink=1x1",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitInstalled",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+                  "count": 1,
+                  "baseValue": 48000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosLeachUnitInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitLooseDmg",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit (Damaged)",
+                  "count": 1,
+                  "baseValue": 12000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachUnitLoose",
+          "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosLeachUnitInput"
+            ],
+            "loot": "PhobosLeachUnitCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 220.0,
+          "baseValue": 48000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosLeachUnitLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosLeachUnitLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 40,
+                  "baseValue": 44.000000953674316
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 12,
+                  "baseValue": 174.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 39,
+                  "baseValue": 1.9500000290572643
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosLeachUnitLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosLeachUnitLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitInstalled",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+                  "count": 1,
+                  "baseValue": 48000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosLeachUnitLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachUnitLooseDmg",
+          "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosLeachUnitInput"
+            ],
+            "loot": "PhobosLeachUnitCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 220.0,
+          "baseValue": 12000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosLeachUnitLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosLeachUnitLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 100,
+                  "baseValue": 359.99999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 34,
+                  "baseValue": 37.40000081062317
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 10,
+                  "baseValue": 50.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 75,
+                  "baseValue": 3.7500000558793545
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosLeachUnitLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosLeachUnitLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitInstalledDmg",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit (Damaged)",
+                  "count": 1,
+                  "baseValue": 12000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosLeachUnitLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosLeachUnitLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosLeachUnitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x5",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x2",
+                "TIsMobo=1x1",
+                "TIsHeatSink=1x1",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosLeachUnitLoose",
+                  "name": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+                  "count": 1,
+                  "baseValue": 48000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLeachedResidue",
+          "name": "Phobos' Lixivar Leached Residue",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 6.8,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         },
         {
@@ -21927,6 +22732,72 @@
           "aliases": []
         },
         {
+          "id": "PhobosPhosphateConcentrate",
+          "name": "Phobos' Lixivar Phosphate Concentrate",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.25,
+          "baseValue": 12.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPotassiumSulfate",
+          "name": "Phobos' Lixivar Potassium Sulfate",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.7,
+          "baseValue": 42.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosPropellantLineInstalled",
           "name": "Phobos' Fennmark Gas Line",
           "stackLimit": 1,
@@ -23546,6 +24417,39 @@
           "aliases": []
         },
         {
+          "id": "PhobosStruvite",
+          "name": "Phobos' Lixivar Struvite",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.43,
+          "baseValue": 17.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosVolatilesRefineryInputBin",
           "name": "Phobos' Fennmark V4 Refinery charge",
           "stackLimit": 1,
@@ -24303,6 +25207,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -24485,6 +25396,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -24667,6 +25585,13 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -24864,6 +25789,13 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -24998,182 +25930,196 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Loot",
+          "chance": 0.0008928571428571429,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosLeachUnitLooseDmg",
+          "condition": "Loot",
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0009615384615384616,
+          "chance": 0.0008928571428571429,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.002884615384615385,
+          "chance": 0.002678571428571429,
           "count": 1
         },
         {
@@ -25221,6 +26167,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -25403,6 +26356,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosCabinAirRegulatorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosLeachUnitLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -25591,6 +26551,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -25766,6 +26733,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -25941,6 +26915,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -26116,6 +27097,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -26291,6 +27279,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -26466,6 +27461,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -26641,6 +27643,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosLeachUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -26810,6 +27819,13 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -26985,6 +28001,13 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -27160,6 +28183,13 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -27335,6 +28365,13 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -27510,6 +28547,13 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -27685,6 +28729,13 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -27860,6 +28911,13 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -28035,6 +29093,13 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -28210,6 +29275,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -28398,6 +29470,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosLeachUnitLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -28567,6 +29646,13 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosLeachUnitLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -28716,6 +29802,13 @@
           "item": "PhobosClayHydrates",
           "condition": "Loot",
           "chance": 0.1,
+          "count": 1
+        },
+        {
+          "table": "ItmRandomMineralCClass",
+          "item": "PhobosEvaporiteCrust",
+          "condition": "Loot",
+          "chance": 0.05,
           "count": 1
         }
       ],
@@ -43374,14 +44467,14 @@
     "mods/PhobosFramework/mod_info.json": "e76abe46c2ad9cb20d056dd6441a448c2a53811a331f6d08ae6ccdf2081c6533",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "8699660bcbdb13b41134638f66d70e1ddb4fb410d96856723e7d5b0b64203540",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "cde40c591b87dcf2e9a02c90490d1684f9aabcb9acd634558385dcd5eef366e7",
-    "mods/PhobosManufacturing/framework/equipment.json": "59c82fcc7e49fd1d9d117d57aa0d27fc3ff05b66d084c84a7f62fd9b4b95415e",
-    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "708e92c8251d992c5d0700d8b65acefbf7c4f0e9a2662234d2d325341338d29a",
-    "mods/PhobosManufacturing/framework/materials.json": "cbcf2643d151622ec6e1104ff63d2f2171c133f530052321b06f203d664a2017",
-    "mods/PhobosManufacturing/framework/process-recipes.json": "583d1032de03512f194a88bf8398c639f1e0050e24f0679ce2739ffa99543379",
+    "mods/PhobosManufacturing/framework/economy.json": "07ef3d8982e34d2daa551c1dc745f15684d35f035660e85e6c00d230d9a3393e",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "cab045ee028cd6fe1e86f59f783e9666847b875ad3cb3f86c47f8eaf2fdd132e",
+    "mods/PhobosManufacturing/framework/equipment.json": "caa3a4293fd7fc709d13fabb4880153b55fa5def0712f2ddcc9e8e1158ad4cd3",
+    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "3da4bf7f047a9d1068321a51f64e93f711ad50500993475f9b53d3475cc9d83a",
+    "mods/PhobosManufacturing/framework/materials.json": "aa755368c6e2f44477ce418394a7a0142a6b79aa763e9b1893a084c6cdb61cc7",
+    "mods/PhobosManufacturing/framework/process-recipes.json": "6670e4f03932ab8ac42d9e8fe5f24934fb233ae1ad0e4cc1c052a4cddd77fd3e",
     "mods/PhobosManufacturing/framework/vessels.json": "450b9baf5eab6ca0c1ef22758df13f67d8bc954ed249d73b987ead598ac3f19a",
-    "mods/PhobosManufacturing/mod_info.json": "17fda9d3cbc275612c73dd90546ea703f3eded4a43d1827be7a582eae30db9b0",
+    "mods/PhobosManufacturing/mod_info.json": "0e1fa0723a0931ae1b724e289be30eaf89378aefe8b156551dbc81351b6ed52f",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -43658,32 +44751,33 @@
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosManufacturing/ChargeMachine.cs": "1dfd58181374008ff51a14f114d185d1571e46a6bb072e812f5d15afd6061f7e",
-    "src/PhobosManufacturing/ChargeMachines.cs": "e8afa9c7dc9428b7093d8dd583db7136419cb4628c9a26cbbbcdb32bc913e275",
+    "src/PhobosManufacturing/ChargeMachine.cs": "b831bb41f759e0232dcda71ea3947087b17a56800134bd03a27a807285125d37",
+    "src/PhobosManufacturing/ChargeMachines.cs": "eff91929c5627bd054afac38578c661ae46e5e899f3edc9799d4f8e0c6125970",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "bb1e9a5476ceb69e880f953715315b7ffd409d1a9180a456daf459e42c84bd7b",
-    "src/PhobosManufacturing/Content.cs": "3adbf1badda14e480c6c5a6c315a0d5c2fb3b0e566d7667afd0651c841afe376",
-    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "0f147bb3876bb51e4d93ba6738a925ccfcf5328605fb496ddff5ed5735431964",
+    "src/PhobosManufacturing/Content.cs": "3033f6d138e3d6b79bb0176bd0c9682ccced773801c785762dd130447264d078",
+    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "fd053e11bcc78196ece4ffd232de7f42c0ebe420b8ccd3b560605cd91442d6c1",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "b62969d3592f766d83ad8c45f0a7c230f2aa32f027aa39d37c0255ab58f9025d",
     "src/PhobosManufacturing/Core/ChargeState.cs": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "9773a7304d886b0d92ba34d84fcb8254271495019af7fbf7dd862254b7081ce9",
+    "src/PhobosManufacturing/Core/Economy.cs": "74a0b4bf1f3841bfac6403a8384026b5eb893c5e4010e9311e242d22b8bcacc6",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "78ccdce853ae55822c56fb97387c437b3ac72909014585b08793a5f6fe8f32d5",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "a5ea5e856cf9803e858eae68f65cb9b64289e88bbf7c438f18b1ae14b1410c84",
+    "src/PhobosManufacturing/Core/LeachRules.cs": "f52bc4bff93de9c839a418aa8df8d44143f39f375196f151fc9a968dd3688ca4",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
     "src/PhobosManufacturing/Core/ManufacturingRules.cs": "900d0c6ab899f26309e0ecb719dca28036c7a549104edcf7524fb56a6c58f984",
-    "src/PhobosManufacturing/Core/Materials.cs": "0d52a180edb979e6cc2df093c58cd95c63da4b99c5aa86fef1670e8b05f86303",
+    "src/PhobosManufacturing/Core/Materials.cs": "905d0ebfb3926b135c0725090203e4f1a66eb9880858f0f166bbb6ae4a57a84e",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "31b3433e1ccfe19fc3569f25aedbbd2a778acad9bd3e65f7bdcb41f6b3ed40dd",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
-    "src/PhobosManufacturing/Core/RefineryRules.cs": "8145db3eaa9ea509e1e72f833d39aed73850df9e222d78f75d80a57fa9e615f7",
+    "src/PhobosManufacturing/Core/RefineryRules.cs": "2db815e6f9bcced1cc1faf68cafb8b9121814e8121b9109227e2e3da2c4054b0",
     "src/PhobosManufacturing/Core/RegulatorRules.cs": "45d3ede89f6c2bd86006afe77edeeecf788c69a55dd19a97d2d205cf6f156940",
     "src/PhobosManufacturing/Core/SabatierRules.cs": "59203809e3ad9ba2790935144eca458c6a5ffbb988befe7def9e91ac630ddf63",
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "1ff2d3efc5572d5f78c4b227e8c93130558bdc5598ce27f2ca2505a941f7876d",
     "src/PhobosManufacturing/CrackerService.cs": "092a97400da31b5847c36bd371044ac674407e507901d49c83bbdd0f7d8c2f6b",
-    "src/PhobosManufacturing/Definitions.cs": "a7fe06b774629830cf359e1c3d7cd24fc12b9133072fc579f313a4fc6516268c",
+    "src/PhobosManufacturing/Definitions.cs": "a8f8b23464d4c3ea1b71601245a4141c769bb4f001f61fd4111ebb8ca5a7840f",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "43db04fc3abc7875e8298bc21c49a85c207400531be177ce841a0669f649807f",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "81f0311f97e18a0056bbd825f945845fa56cbb71e5c0f0866a8dfb37e2c32824",
@@ -43692,13 +44786,13 @@
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "109c1eb82f8abb9bf53630b7a4bae08f8ca856fcde42a73fd125c239fb3809ac",
-    "src/PhobosManufacturing/Plugin.cs": "b0a56e8eb03e3943ec8598e0a9caf7214377c0cafc9355b8ebf2c65c1d89b466",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "7aa1b3347352e762021b22fd05aad692f59be00e0898b3da0354da60ad745e82",
+    "src/PhobosManufacturing/Plugin.cs": "5798d499cdf1d1044bb3fe2a8ab00bf355cf579bbc7175bcf149ab1d15279612",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
     "src/PhobosManufacturing/Provider.cs": "1bd7e74fa73a8e549a3354fd4cce68cb235c9f7bc1349a6a4a5e13459f2cfad0",
     "src/PhobosManufacturing/RegulatorService.cs": "d760030832d2a2a28fe314225db75ebf5f1b85e95e6121f8515912bdaf0f4f1e",
     "src/PhobosManufacturing/SabatierService.cs": "4e1be170e3ee4b962d59317e252c4a4206f865655454f0281520e4d551033b89",
-    "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
+    "src/PhobosManufacturing/ShipbreakerStock.cs": "254bf5a1e2e3a34d72211c728232fc74899a432b78cd90d63281c324e9763820",
     "src/PhobosManufacturing/StoreService.cs": "3cb52b52a1eea3b4e54c36913b9414590a64768b1ad84c53eb98029836a2f8b6",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
@@ -43818,7 +44912,7 @@
     "translations/PhobosAgriculture/en.json": "fa38b4a68918a16f7c5e10e25a577e6ca3bc7461baed07e83337cd6cb42df12f",
     "translations/PhobosAutoNav/en.json": "bf6f99c73e3899ec48482799d29ce35146bc86bb786135a1bfc419096999b0e9",
     "translations/PhobosFramework/en.json": "fc478192d0734a4f5f054d9ef4d85ae339cabd915b495656565455178828bb3d",
-    "translations/PhobosManufacturing/en.json": "74d975f7c902528dc2082459a183a13e2fe1eaf42fc47046e36222569c98d15d",
+    "translations/PhobosManufacturing/en.json": "82244a9481a40c7e43dc8ec744ef3b2bc9d26b3bc54025e9b9b3326bbff8e61d",
     "translations/PhobosShipbreaker/en.json": "873a8c93a2ee9152051028246ffe17939a31695233fc1c2d2dddab7aefb5a5f1",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }

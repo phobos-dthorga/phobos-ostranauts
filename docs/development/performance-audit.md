@@ -481,5 +481,8 @@ kiosk tier stamping runs only while a kiosk generates stock. The V4's power, fee
 panel and maintenance paths moved unchanged into one engine; power and feed hooks
 resolve the machine through a memoized definition-id dictionary (one probe per call,
 the same cost as the old family test), and the shared commodity settlement runs once
-per finished charge. No new scans, cadences or per-frame work. No performance
-capture or measured FPS claim accompanies this change.
+per finished charge. Manufacturing 0.18.0 adds the LC-3 as a second engine
+instance on the same paths (the registry probe stays one dictionary lookup per
+definition id) and one more mining carve applied at preparation. No new scans,
+cadences or per-frame work. No performance capture or measured FPS claim
+accompanies this change.

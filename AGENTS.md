@@ -1217,6 +1217,21 @@
   `ConsoleAuthority`, `ApplianceDefinitions.AddFeedBin/SetPowerOverride` and the
   bulk-vessel `DamagePolicy.Leak`; content owns thresholds, recipes and balance.
 
+## Feedstock round three (2026-09-30)
+
+- Owner decisions on the round-three design record: the Lixivar LC-3 name and the
+  authored evaporite crust are approved; the formulation into Agriculture's makeup
+  salts is priced at Agriculture's own packet price (an exception to the 1.5 x
+  guardrail, capped by that price; no merchant sells the salts); the refuelling kiosk
+  also sells bulk fertiliser, delivered as a Groundwork nutrient hopper a W2 doses
+  from; both struvite routes, with sulfur and sulfuric acid (a meteorite
+  sulfide-phosphide nodule, Lixivar acid tanks that are not gas stores, an SA-3 acid
+  plant); and the V4 service refactored into a shared charge engine, not copied.
+  Follow `docs/development/feedstock-round-three-design.md` and the phase table in
+  `docs/development/asteroid-feedstock-programme-status.md`. Manufacturing 0.17.0
+  (engine) and 0.18.0 (LC-3, crust, calcine) implement phases A and B; owner
+  gameplay checks remain pending.
+
 ## Refining value (2026-09-30)
 
 - Owner direction: the rule that **every refining charge must lose value** belonged

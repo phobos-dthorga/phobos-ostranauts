@@ -10,7 +10,8 @@ namespace PhobosManufacturing;
 internal static class ChargeMachines
 {
     internal static readonly ChargeMachine Refinery = new(RefinerySpec());
-    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery };
+    internal static readonly ChargeMachine Leach = new(LeachSpec());
+    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach };
     private static readonly Dictionary<string, ChargeMachine?> byDefinition = new(StringComparer.Ordinal);
     internal static ChargeMachine? For(string? id)
     {
@@ -63,4 +64,42 @@ internal static class ChargeMachines
             },
             () => Text.Get("Refinery.store_linked", Gas()), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.store_link_missing", Gas()));
     }
+
+    /// <summary>The Lixivar LC-3 (Manufacturing 0.18.0): the crew selects the recipe; nothing melts or spoils and it
+    /// is no ignition source. Water circulates through, and is drawn from, a linked water vessel; the struvite step
+    /// draws ammonia from a linked ammonia store; the makeup formulation needs Agriculture's makeup packet.</summary>
+    private static ChargeMachineSpec LeachSpec() => new()
+    {
+        Prefix = LeachRules.Prefix, StockTrigger = LeachRules.StockTrigger, StockFeed = LeachRules.StockFeed, AdmitsOre = false,
+        Record = LeachRules.Record, MachineKey = ChargeCatalog.Leach, TextPrefix = "Leach", SnapshotKind = "leach", Art = Definitions.LeachArt,
+        Selection = RecipeSelection.Explicit, IgnitionSource = false,
+        Met = key => key == ChargeCatalog.MakeupRequirement && AgricultureStock.Available,
+        ExtraStatus = _ => AgricultureStock.Available ? null : Text.Get("Leach.no_agriculture"),
+        MaintenanceChargeKey = "Maintenance.leach_charge",
+        Links = () => new[] { LeachWater(), LeachAmmonia() }
+    };
+    private static ChargeLinkSpec LeachWater() => new(ManufacturingRules.Water, "link:", LeachRules.WaterPort, LeachRules.VesselPort, _ => true,
+        () => Text.Get("Provider.vessel_field"), alwaysShow: true,
+        (problem, have, need) => problem switch
+        {
+            LinkProblem.None => Text.Get("Leach.no_vessel"),
+            LinkProblem.NotReady => Text.Get("Leach.vessel_not_ready"),
+            LinkProblem.Protected or LinkProblem.Busy => Text.Get("Leach.vessel_protected"),
+            LinkProblem.Catch => Text.Get("Leach.vessel_catch"),
+            LinkProblem.Short => Text.Get("Leach.vessel_short", have, need),
+            _ => Text.Get("Leach.vessel_full", have, need)
+        },
+        () => Text.Get("Leach.linked"), () => Text.Get("Leach.unlinked"), () => Text.Get("Leach.link_missing"));
+    private static ChargeLinkSpec LeachAmmonia() => new(ManufacturingRules.Ammonia, "ammonia:", LeachRules.AmmoniaPort, LeachRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Ammonia), () => Text.Get("Provider.ammonia_field"), alwaysShow: false,
+        (problem, have, need) => problem switch
+        {
+            LinkProblem.None => Text.Get("Leach.no_ammonia"),
+            LinkProblem.NotReady => Text.Get("Leach.ammonia_not_ready"),
+            LinkProblem.Protected or LinkProblem.Busy => Text.Get("Leach.ammonia_protected"),
+            LinkProblem.Catch => Text.Get("Leach.ammonia_catch"),
+            LinkProblem.Short => Text.Get("Leach.ammonia_short", have, need),
+            _ => Text.Get("Leach.ammonia_full", have, need)
+        },
+        () => Text.Get("Leach.ammonia_linked"), () => Text.Get("Leach.ammonia_unlinked"), () => Text.Get("Leach.ammonia_link_missing"));
 }

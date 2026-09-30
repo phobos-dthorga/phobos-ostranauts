@@ -21,7 +21,7 @@ public static class Economy
     {
         (RefineryRules.Prefix, RefineryRules.MachineKg), (ProcessorRules.Prefix, ProcessorRules.MachineKg), (SabatierRules.Prefix, SabatierRules.MachineKg),
         (CrackerRules.Prefix, CrackerRules.MachineKg), (ManifoldRules.Prefix, ManifoldRules.MachineKg), (FillerRules.Prefix, FillerRules.MachineKg),
-        (RegulatorRules.Prefix, RegulatorRules.MachineKg)
+        (RegulatorRules.Prefix, RegulatorRules.MachineKg), (LeachRules.Prefix, LeachRules.MachineKg)
     };
     public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).Concat(GasStores.Families.Select(f => f.SmallPrefix)).ToArray();
     public static IReadOnlyList<string> SupplyKeys { get; } = new[] { PropellantLineRules.Prefix };

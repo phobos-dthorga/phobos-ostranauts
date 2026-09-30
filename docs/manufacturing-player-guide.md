@@ -1,10 +1,11 @@
-# Refinery, electrolysis, Sabatier reactor, ammonia cracker, gas stores, canister filling, cabin air and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, ammonia cracker, leach unit, gas stores, canister filling, cabin air and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
 gameplay checks are pending, including how the artwork looks in play.
 Shipbreaker 0.38.0 or newer is optional: it adds the steel charge and its S3
-water silo.
+water silo. Phobos Agriculture is optional too: with it, the leach unit can make
+Groundwork makeup salts.
 
 ## Equipment
 
@@ -18,6 +19,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark H2, H3 and H4 Hydrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; 160, 305 and 450 kg empty; hold 24, 59 and 115 kg of hydrogen | 22,000, 35,790 and 50,540 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Tolvane AX-2 Ammonia Cracker | 2 x 2 tiles; 150 kg; one power point; 2 kW working | 42,000 cr, broken 10,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Lixivar LC-3 Leach and Crystallise Unit | 3 x 3 tiles; 220 kg; one power point; 12 kW working | 48,000 cr, broken 12,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
@@ -38,10 +40,10 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 (motors, mainboards, heat sinks and, for the V4, a screen); see the
 [equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
-Ores are mined, never bought. Two chunks come from dark rock: C-class deposits
-and dark regolith walls give a clay hydrates chunk about one C-class find in ten
-and an ammonium salt crust about one in twenty, in place of some of the
-silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
+Ores are mined, never bought. Three chunks come from dark rock: C-class deposits
+and dark regolith walls give a clay hydrates chunk about one C-class find in ten,
+an ammonium salt crust about one in twenty and an evaporite crust about one in
+twenty, in place of some of the silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
 installed store of that gas, at the kiosk's own price per kilogram. Nothing
 sells back. No station sells ammonia: the salt crust is its only source.
@@ -59,11 +61,14 @@ what went in, sorted.
 | 1 carbon/carbides block (10 kg, mined) | 5 carbon stock (1 kg each); 1 kg of water; 1 gangue; **1 kg of pyrolysis gas breathed into the room** (CO2, CO and smoke) | 30 min |
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
 | 4 nickel-iron ingots + 1 carbon stock (Shipbreaker only) | 4 Rivetline steel ingots (4 kg each); 1 steel melt remainder (1 kg) | 33 min |
+| 1 leached residue (6.8 kg, from the LC-3; new) | 0.26 kg of carbon dioxide into the linked carbon dioxide store; 1 calcined residue (6.54 kg) | 7.5 min |
 
-Every charge sorts into up to four places: solids to the tray, water to the
-linked vessel, ammonia to the linked ammonia store and, for carbon ore and the
-salt crust, gas into the room. Ammonia is never let into the room on purpose.
-Tray products can go back in as the steel charge.
+Every charge sorts into up to five places: solids to the tray, water to the
+linked vessel, ammonia to the linked ammonia store, the leached residue's carbon
+dioxide to the linked carbon dioxide store and, for carbon ore and the salt crust,
+gas into the room. Ammonia and the residue's carbon dioxide are never let into the
+room on purpose. Tray products can go back in as the steel charge. An L2 filling
+station can bottle the stored carbon dioxide into a CO2 canister for the K2.
 
 ```mermaid
 flowchart LR
@@ -71,14 +76,15 @@ flowchart LR
     V4 -->|water from hydrates, clay or carbon ore| Vessel["Linked S3 or R3 water vessel"]
     V4 -->|solids| Tray["V4 tray, emptied by hand"]
     V4 -->|salt crust only, 0.955 kg ammonia| Store["Linked Q2, Q3 or Q4 ammonia store"]
+    V4 -->|leached residue only, 0.26 kg carbon dioxide| C2["Linked C2, C3 or C4 carbon dioxide store"]
     V4 -->|carbon ore and salt crust: pyrolysis gas or CO2| Room["Room air"]
     Store -->|through a P1, if you switch it on| RCS["RCS thrusters"]
     Tray -->|4 nickel-iron ingots and 1 carbon stock, with Shipbreaker| Feed
 ```
 
-Refining loses money against selling the ore whole (four ingots are worth 96 cr;
-the iron block 450 cr), and carburising loses a little more (four steel ingots
-are worth 100 cr; the four nickel-iron ingots and carbon that make them, 106 cr).
+Refining iron loses money against selling the ore whole (four ingots are worth
+80 cr; the iron block 450 cr). Carburising gains a little: four steel ingots are
+worth 100 cr, the four nickel-iron ingots and carbon that make them 90 cr.
 Only the machines are late-game priced; ingots, carbon, ore and remainders keep
 ordinary raw-material prices.
 What you gain is material aboard, away from stations.
@@ -93,11 +99,12 @@ What you gain is material aboard, away from stations.
    **Control Panel**, open **Connections** and pick the vessel under **Water
    vessel**. Apply. The C1 console offers the same field.
    For the salt crust, also install an ammonia store (any size) within one
-   tile and pick it under **Send ammonia to**. The field appears once a store is
-   in reach.
+   tile and pick it under **Send ammonia to**; for a leached residue, a carbon
+   dioxide store under **Send carbon dioxide to**. Each field appears once a
+   store is in reach.
 3. Right-click the V4 and choose **Inventory**. The tray opens, and the
    **Refinery charge** feed opens as its own window. Put one ore block, clay
-   chunk or salt crust in it (right-click a stack to place one), or four nickel-iron ingots
+   chunk, salt crust or leached residue in it (right-click a stack to place one), or four nickel-iron ingots
    and one carbon stock. It holds six units and refuses ice, regolith, gangue,
    scrap and anything stacked, with the reason.
 4. On the panel choose **Start**. The refinery binds the exact charge in the
@@ -211,6 +218,61 @@ the cycle's energy.
 Each kilogram of ammonia goes one way: into the RCS through a P1, or into the
 cracker. The cracker does not make gas out of nothing: the nitrogen and hydrogen
 together weigh exactly the ammonia it took.
+
+## The leach unit
+
+The Lixivar LC-3 dissolves and recrystallises salts. Unlike the refinery, it
+works the recipe you choose, one charge at a time, at 12 kW.
+
+| Recipe | Charge | Gives | Time |
+| --- | --- | --- | --- |
+| Evaporite leach | 1 evaporite crust (10 kg, mined), with 20 kg of water on hand in the linked vessel | 1 potassium sulfate (0.70 kg); 1 phosphate concentrate (0.25 kg); 1 leached residue (6.8 kg) for the refinery; 1 brine salt cake (2.25 kg). The 20 kg of water goes back. | 60 min |
+| Struvite | 1 phosphate concentrate; 30 g of ammonia from the linked ammonia store; 0.22 kg of water from the linked vessel | 1 struvite (0.43 kg), a slow-release fertiliser; 1 caustic remainder (70 g) | 5 min |
+| Makeup formulation (Agriculture only) | 1 potassium sulfate and 2 struvite | 39 Verdemorrow Groundwork makeup salts packets (40 g each), nothing left over | 2.5 min |
+
+```mermaid
+flowchart LR
+    Crust["Evaporite crust, mined"] --> Leach["LC-3: evaporite leach"]
+    Water["Linked S3 or R3 water vessel"] -->|20 kg on hand, returned| Leach
+    Leach --> K["Potassium sulfate"]
+    Leach --> P["Phosphate concentrate"]
+    Leach --> R["Leached residue"]
+    Leach --> Cake["Brine salt cake, trash"]
+    R --> V4["V4: calcine"]
+    V4 -->|0.26 kg carbon dioxide| C2["Carbon dioxide store"]
+    P --> Stru["LC-3: struvite"]
+    Q["Linked ammonia store"] -->|30 g ammonia| Stru
+    Water -->|0.22 kg water| Stru
+    Stru --> S["Struvite"]
+    K --> Form["LC-3: makeup formulation, with Agriculture"]
+    S -->|two| Form
+    Form --> Salts["39 Groundwork makeup salts"]
+    Salts --> B2["Agriculture B2 nutrient formulation"]
+```
+
+1. Install the LC-3 within one tile of a water vessel (an S3 to S5 silo or an
+   R3 to R5 reservoir) and connect its power point. For struvite, also install an
+   ammonia store within one tile. One vessel can serve a refinery, an X2, a K2 and
+   an LC-3 at once.
+2. Open its **Control Panel** > **Connections**. Pick the vessel under **Water
+   vessel**, the store under **Ammonia from** if you have one, and the recipe
+   under **Recipe**. Apply.
+3. Right-click the LC-3 and choose **Inventory**. Put the chosen recipe's charge
+   in the **Leach unit charge** window. It holds four units and takes only the
+   chosen recipe's feed, with the reason when it refuses one.
+4. Choose **Start**. It works the charge, puts the products in its tray, then
+   binds the next charge of the same recipe if the feed holds one. Change the
+   recipe only while no charge is bound; **Cancel** releases a bound charge.
+
+A leach waits until the linked vessel holds 20 kg of water; struvite waits until
+the vessel and the ammonia store hold what it takes. The panel gives the reason.
+A charge that needs no vessel (the formulation) runs without one.
+
+Leaching a crust earns less than selling it (the salts are worth about 54 cr, the
+crust 150 cr); you leach it for what the ship can use. Makeup salts made aboard
+are worth Agriculture's own 30 cr a packet. Sodium harms crops, so the sodium
+salts leave as the brine salt cake, and nothing recovers it or the other two
+remainders.
 
 ## Gas stores
 

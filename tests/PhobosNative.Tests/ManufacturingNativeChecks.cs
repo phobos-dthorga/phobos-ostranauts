@@ -101,12 +101,68 @@ internal static class ManufacturingNativeChecks
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);
             }
         }
+        // The Lixivar LC-3: a 3 x 3 charge machine with its own feed rule, power and name.
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var leach = d.Objects[LeachRules.Prefix + state]; var leachItem = d.Items[leach.strItemDef];
+            check(leachItem.nCols == 3 && leachItem.aSocketAdds.Length == 9 && leach.inventoryWidth == 3 && leach.inventoryHeight == 3 && Stat(leach, "StatMass") == LeachRules.MachineKg,
+                "LC-3 occupies three by three native tiles and weighs 220 kg: " + state);
+            check(leach.nContainerWidth == 8 && leach.nContainerHeight == 8 && leach.aSlotsWeHave.Contains(LeachRules.Prefix + "Input"), "LC-3 has an eight by eight tray and its charge feed: " + state);
+            check(leach.strNameFriendly.StartsWith("Phobos' Lixivar LC-3 Leach and Crystallise Unit", StringComparison.Ordinal), "LC-3 carries the Lixivar LC-3 name: " + state);
+            check(Stat(leach, "StatBasePrice") == (damaged ? (int)Economy.Price(LeachRules.Prefix) / 4 : (int)Economy.Price(LeachRules.Prefix)) && Has(leach, EquipmentEconomy.HighSalvageMark),
+                "LC-3 carries its late-game price and the high-salvage mark: " + state);
+            check((leach.jsonPI == LeachRules.Prefix + "Power") == (installed && !damaged), "LC-3 draws power only when installed and intact: " + state);
+            check(d.Installables.ContainsKey(LeachRules.Prefix + state + "Dismantle") && (damaged ? d.Installables.ContainsKey(LeachRules.Prefix + state + "Repair") : d.Installables.ContainsKey(LeachRules.Prefix + state + "Restore")),
+                "LC-3 has native dismantle, and Repair or Restore: " + state);
+            if (installed) check(leach.aInteractions.Count(i => i == Definitions.Controls) == 1 && leach.mapPoints.Contains("PowerA,0,16"), "Installed LC-3 offers one Control Panel and its power point");
+        }
+        var leachFeed = d.Objects[LeachRules.Prefix + "InputBin"]; var leachTrigger = DataHandler.dictCTs[leachFeed.strContainerCT];
+        check(leachFeed.nContainerWidth * leachFeed.nContainerHeight == LeachRules.FeedCapacity, "The LC-3 feed holds four units");
+        foreach (string id in LeachRules.StockFeed)
+            check(leachTrigger.TriggeredDataCO(new DataCO(d.Objects[id]), false), "The LC-3 feed admits its own feed at the game level: " + id);
+        foreach (string outside in new[] { RefineryRules.Hydrates, "ItmMineral02", "ItmIce01", "ItmScrapSteel" })
+            check(!leachTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "The LC-3 feed takes no native ore or scrap: " + outside);
+        foreach (string outside in new[] { Materials.NickelIronIngot, Materials.LeachedResidue, Materials.BrineSaltCake, Materials.CausticRemainder })
+            check(!leachTrigger.TriggeredDataCO(new DataCO(d.Objects[outside]), false), "The LC-3 feed takes no other Phobos material: " + outside);
+        var leachPower = d.Power[LeachRules.Prefix + "Power"];
+        check(Math.Abs(leachPower.fAmount - LeachRules.IdleKW / Units.SecondsPerHour) < 1e-12 && leachPower.strOverrideCond == ManufacturingRules.Working &&
+              Math.Abs(leachPower.fOverrideAmount - LeachRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && leachPower.aInputPts.SequenceEqual(new[] { "PowerA" }),
+            "LC-3 draws 0.1 kW idle and 12 kW working through one input point");
+        check(DataHandler.dictCOs[LeachRules.MakeupPacket] is var packet && Stat(packet, "StatMass") == LeachRules.MakeupPacketKg, "Agriculture's makeup packet weighs the 40 g the formulation makes");
+
+        // Every message the shared engine builds from a spec's text prefix exists for every charge machine (spoil
+        // messages only where a charge can spoil, selection messages only where the crew selects), and every link's
+        // texts resolve, including the name of each gas a charge stores.
+        var engineSource = File.ReadAllText(Path.Combine(repo, "src/PhobosManufacturing/ChargeMachine.cs"));
+        var engineKeys = System.Text.RegularExpressions.Regex.Matches(engineSource, @"\bT\(([^;]*?)\)").Cast<System.Text.RegularExpressions.Match>()
+            .SelectMany(m => System.Text.RegularExpressions.Regex.Matches(m.Groups[1].Value, "\"([a-z_]+)\"").Cast<System.Text.RegularExpressions.Match>().Select(k => k.Groups[1].Value))
+            .Concat(new[] { "name", "description", "feed_name", "feed_description" }).Distinct().ToArray();
+        check(engineKeys.Length > 40 && engineKeys.Contains("no_selection") && engineKeys.Contains("spoiled_log"), "The engine's message keys are read from its source");
+        foreach (var machine in ChargeMachines.All)
+        {
+            var chargeSpec = machine.Spec;
+            foreach (string key in engineKeys)
+            {
+                if (key.StartsWith("spoiled", StringComparison.Ordinal) && chargeSpec.Spoiled == null) continue;
+                if ((key.StartsWith("select", StringComparison.Ordinal) || key == "no_selection") && chargeSpec.Selection != RecipeSelection.Explicit) continue;
+                check(!PhobosManufacturing.Text.Get(chargeSpec.Text(key), 0, 0, 0, 0, 0, 0, 0).StartsWith("[", StringComparison.Ordinal), "Engine message exists: " + chargeSpec.Text(key));
+            }
+            check(!PhobosManufacturing.Text.Get(chargeSpec.MaintenanceChargeKey).StartsWith("[", StringComparison.Ordinal), "Removal refusal exists: " + chargeSpec.MaintenanceChargeKey);
+            foreach (var link in machine.Links)
+                foreach (string text in Enum.GetValues(typeof(LinkProblem)).Cast<LinkProblem>().Select(problem => link.Reason(problem, 1, 2))
+                             .Concat(new[] { link.FieldLabel(), link.Linked(), link.Unlinked(), link.Missing() }))
+                    check(!text.Contains("["), "Link text resolves on " + chargeSpec.Prefix + " for " + link.Commodity + ": " + text);
+        }
+        check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia }),
+            "The V4 links a carbon dioxide store for the calcine; the LC-3 links water and ammonia");
+
         // The feed at the game level: any ore or our stock through native containment; the exact rule narrows it.
         var feed = d.Objects[RefineryRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
         check(feed.nContainerWidth * feed.nContainerHeight == RefineryRules.FeedCapacity && d.Slots[RefineryRules.InputSlot].bHide, "The charge feed holds six units as a hidden slot with its own window");
         foreach (string id in new[] { RefineryRules.Hydrates, RefineryRules.Iron, RefineryRules.Carbides, "ItmMineral02" })
             check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[id]), false), "Every native ore enters the feed at the game level: " + id);
-        foreach (string id in new[] { Materials.ClayHydrates, Materials.NickelIronIngot, Materials.CarbonStock })
+        foreach (string id in new[] { Materials.ClayHydrates, Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue })
             check(trigger.TriggeredDataCO(new DataCO(d.Objects[id]), false), "Our chunk and stock enter the feed at the game level: " + id);
         foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", RefineryRules.Gangue, "ItmScrapSteel", "ItmCanisterLH02Loose" })
             check(!trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "Ice, regolith, gangue, scrap and canisters never enter the feed: " + outside);
@@ -179,7 +235,7 @@ internal static class ManufacturingNativeChecks
             var co = d.Objects[m.Id];
             check(Stat(co, "StatMass") == m.Kg && Stat(co, "StatBasePrice") == m.Price && co.nStackLimit == m.Stack && Has(co, m.Category) && Has(co, m.Id + "Identity"),
                 "Material carries its mass, price, stack and category: " + m.Id);
-            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal), "Material is branded: " + m.Id);
+            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Lixivar ", StringComparison.Ordinal), "Material is branded Fennmark or Lixivar: " + m.Id);
             check(d.Items.ContainsKey(co.strItemDef), "Material item definition exists: " + m.Id);
         }
         var clay = new DataCO(d.Objects[Materials.ClayHydrates]);
@@ -192,7 +248,8 @@ internal static class ManufacturingNativeChecks
         check(!DataHandler.dictCTs["TIsBarterFlotillaScrapKiosk"].TriggeredDataCO(new DataCO(d.Objects[Materials.NickelIronIngot]), false), "Scrap kiosks do not buy ingots: they are not IsScrap, so they are not feed either");
 
         // With and without Shipbreaker: the same definitions, a different available catalog.
-        check(RefineryRecipes.Available(true).Count() == 6 && RefineryRecipes.Available(false).Count() == 5 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
+        check(RefineryRecipes.Available(true).Count() == 7 && RefineryRecipes.Available(false).Count() == 6 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
+        check(AgricultureStock.Definitions(), "Agriculture's makeup packet is published at the 40 g the formulation expects");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
         // Refining value guardrails (agent proposal under the owner's 30 September 2026 direction, in place of the
@@ -217,6 +274,14 @@ internal static class ManufacturingNativeChecks
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
         foreach (var recipe in ChargeCatalog.All)
         {
+            // The owner's exception (30 September 2026): formulating the LC-3's salts into Agriculture's makeup packets
+            // is where the value is made, capped at Agriculture's own packet price. No loop pays: no merchant sells the salts.
+            if (recipe.Requires.Contains(ChargeCatalog.MakeupRequirement))
+            {
+                check(recipe.Products.All(p => p.Id == LeachRules.MakeupPacket) && Stat(DataHandler.dictCOs[LeachRules.MakeupPacket], "StatBasePrice") == PhobosAgriculture.Core.NutrientRecovery.MakeupPrice &&
+                    !recipe.ItemInputs.Any(i => Bought(i.Id)), $"The {recipe.Id} charge yields only Agriculture's makeup packet at Agriculture's own price, from salts no merchant sells");
+                continue;
+            }
             double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
             double sellable = recipe.Products.Where(p => Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
             double commodities = recipe.Products.Where(p => !Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
@@ -224,7 +289,7 @@ internal static class ManufacturingNativeChecks
             if (recipe.ItemInputs.All(i => Bought(i.Id)))
                 check(sellable <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, gains at most a quarter at base prices: {sellable:F2} out of {inValue:F2}");
         }
-        check(!RefineryRecipes.All.SelectMany(r => r.Inputs).Any(i => Bought(i.Id)), "No V4 charge is fed from bought stock: ores and chunks are mined, and nickel-iron ingots and carbon come only from the V4 (the bought-stock guardrail is ready for a future charge)");
+        check(!ChargeCatalog.All.SelectMany(r => r.Inputs).Any(i => Bought(i.Id)), "No V4 or LC-3 charge is fed from bought stock: ores and chunks are mined, and nickel-iron ingots and carbon come only from the V4 (the bought-stock guardrail is ready for a future charge)");
         check(GasPrice("NH3") > 0 && RefineryRecipes.Ammonium.StoredGases.All(p => GasStores.FamilyOf(p.Id) != null),
             "The game prices ammonia, and the salt crust charge's ammonia goes to a store family");
 
@@ -238,6 +303,9 @@ internal static class ManufacturingNativeChecks
         check(units.Count(u => u.StartsWith(Materials.ClayHydrates + "=", StringComparison.Ordinal)) == 1 && silicates >= 0 && clayAt > silicates &&
               units.Skip(silicates + 1).Take(clayAt - silicates - 1).All(u => d.LootCarves[MiningLoot.Table].ContainsKey(u.Split('=')[0]) || u.StartsWith("ItmIce01=", StringComparison.Ordinal)),
             "The live C-class table holds the clay chunk once, among the carves that follow silicates");
+        var evaporite = d.LootCarves[MiningLoot.Table][Materials.EvaporiteCrust];
+        check(evaporite.Donor == MiningLoot.Donor && evaporite.Share == MiningLoot.EvaporiteChance && units.Count(u => u.StartsWith(Materials.EvaporiteCrust + "=", StringComparison.Ordinal)) == 1 &&
+              Array.FindIndex(units, u => u.StartsWith(Materials.EvaporiteCrust + "=", StringComparison.Ordinal)) > silicates, "The evaporite crust is carved once from the C-class silicates share");
         foreach (string wall in new[] { "ItmRock05SalvageOutput", "ItmRock06SalvageOutput" })
             check(!DataHandler.dictLoot[wall].aCOs.Any(c => c.Contains(Materials.ClayHydrates)) && !DataHandler.dictLoot[wall].aLoots.Any(l => l.StartsWith("PhobosManufacturingClay_", StringComparison.Ordinal)),
                 "Dark walls reach clay only through their nested C-class roll, never a second time: " + wall);

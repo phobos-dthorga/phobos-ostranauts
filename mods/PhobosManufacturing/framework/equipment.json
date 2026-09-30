@@ -15,6 +15,19 @@
       "art": "PhobosVolatilesRefinery",
       "installTab": "APPS",
       "points": { "use": [ 0, -40 ], "PowerA": [ -24, 24 ], "PowerB": [ 24, 24 ] }
+    },
+    "PhobosLeachUnit": {
+      "notes": "Lixivar LC-3 Leach and Crystallise Unit: a heated leach tank and a closed crystalliser with condensate recovery, one selected charge at a time. 12 kW sets every recipe's energy through its seconds.",
+      "kind": "charge-machine",
+      "footprint": 3,
+      "massKg": 220,
+      "idleKW": 0.1,
+      "workingKW": 12,
+      "roomHeatFraction": 0.15,
+      "feedCells": 4,
+      "art": "PhobosLeachUnit",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 16 ] }
     }
   }
 }

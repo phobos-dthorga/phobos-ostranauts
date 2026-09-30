@@ -21,6 +21,7 @@ internal static class Content
         try
         {
             ShipbreakerStock.Resolve();
+            AgricultureStock.Resolve();
             var mod = DataHandler.dictModInfos?.Values.FirstOrDefault(m => m.strName == ModName && !m.GetIsDisabled());
             if (mod == null) throw new InvalidOperationException(Text.Get("Content.missing_package"));
             var prepared = Prepare(ShipbreakerStock.Available);
@@ -30,8 +31,9 @@ internal static class Content
         }
         catch (Exception e) { Ready = false; Status = Text.Get("Content.failed"); log(e.ToString()); }
     }
-    /// <summary>The whole definition set. The steel recipe's feed admission depends on the flag, so offline checks
-    /// exercise both installations without touching plugin state.</summary>
+    /// <summary>The whole definition set. The definitions are the same with or without the optional providers: the
+    /// steel and makeup recipes are gated at run time by the providers' detection, not by what is registered. The flag
+    /// names the installation an offline check describes.</summary>
     internal static NativeDefinitions Prepare(bool steelStock)
     {
         var d = new NativeDefinitions();
@@ -40,7 +42,7 @@ internal static class Content
         Equipment.Load();
         RefineryRecipes.Load(NativeMass);
         Economy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
-        Definitions.Add(d, steelStock);
+        Definitions.Add(d);
         EquipmentEconomy.Apply(d);
         RegionalEconomy.Apply(d);
         MiningLoot.Add(d);

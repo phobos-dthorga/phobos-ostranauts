@@ -10,7 +10,7 @@ using PhobosManufacturing.Core;
 
 namespace PhobosManufacturing;
 
-/// <summary>Native definitions for the Fennmark machines, every size of gas store, the gas line, the five materials, and
+/// <summary>Native definitions for the Fennmark and Lixivar machines, every size of gas store, the gas line, the materials, and
 /// the three deflagration objects. Machines use Framework's appliance contract; materials clone the game's own scrap and hydrate
 /// definitions so pickup, stacking, damage and market behaviour stay vanilla.</summary>
 internal static class Definitions
@@ -18,9 +18,9 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
-    internal static void Add(NativeDefinitions d, bool steelStock)
+    internal static void Add(NativeDefinitions d)
     {
         foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Filling, ManufacturingRules.Content })
             d.Conditions[condition] = new JsonCond { strName = condition, strNameFriendly = Text.Get("Condition." + condition), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
@@ -281,8 +281,8 @@ internal static class Definitions
     }
 
     /// <summary>Stock and remainders clone the game's scrap steel (its pickup, stacking, wear and destruction
-    /// behaviour); mined chunks (clay hydrates, the ammonium salt crust) clone the game's hydrates so they mine,
-    /// break and sell like them.</summary>
+    /// behaviour); mined chunks (clay hydrates, the ammonium salt crust, the evaporite crust) clone the game's hydrates
+    /// so they mine, break and sell like them.</summary>
     private static void AddMaterials(NativeDefinitions d)
     {
         foreach (var m in Materials.All)
@@ -346,6 +346,9 @@ internal static class MiningLoot
     /// <summary>The ammonium salt crust's share of the C-class roll, also from silicates (Manufacturing 0.9.0): Ceres,
     /// where Dawn found ammonium salts, is a dark carbonaceous body, and bright salt deposits are local, not bulk rock.</summary>
     internal const double CrustChance = 0.05;
+    /// <summary>The evaporite crust's share (Manufacturing 0.18.0), also from silicates: a dried brine vein of the kind
+    /// NASA's OSIRIS-REx team found in Bennu samples is a local vein, not bulk rock.</summary>
+    internal const double EvaporiteChance = 0.05;
     internal const string Table = "ItmRandomMineralCClass", Donor = "ItmMineral04";
     internal static double Chance = DefaultChance;
     internal static void Add(NativeDefinitions d)
@@ -353,5 +356,6 @@ internal static class MiningLoot
         if (DataHandler.dictLoot == null || !DataHandler.dictLoot.ContainsKey(Table)) { Plugin.Log(Text.Get("Content.missing_table", Table)); return; }
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.ClayHydrates, Chance);
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.AmmoniumSaltCrust, CrustChance);
+        AdditiveLoot.CarveChoice(d, Table, Donor, Materials.EvaporiteCrust, EvaporiteChance);
     }
 }

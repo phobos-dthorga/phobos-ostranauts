@@ -13,11 +13,12 @@ namespace PhobosManufacturing;
 [BepInPlugin(Id, "Phobos Manufacturing", Version)]
 [BepInDependency(FrameworkInfo.PluginId, MinimumFrameworkVersion)]
 [BepInDependency(ShipbreakerStock.PluginId, BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency(AgricultureStock.PluginId, BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.17.0";
+    public const string Version = "0.18.0";
     public const string MinimumFrameworkVersion = "0.54.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -28,6 +29,7 @@ public sealed class Plugin : BaseUnityPlugin
         PerformanceMetrics.Initialize();
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         ShipbreakerStock.Detect();
+        AgricultureStock.Detect();
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());

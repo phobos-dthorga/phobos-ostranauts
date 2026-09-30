@@ -243,7 +243,7 @@ you earn by selling them mining output.
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines and reservoirs; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
 | Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store, the A2, P1 and L2 |
-| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2 and V4 |
+| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4 and LC-3 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
 faction a little, as it does for vanilla goods. Stock arrives in the usual lots
@@ -719,3 +719,28 @@ salvage 80 steel, 30 aluminium, 16 mechanical and 11 electronic parts, a motor, 
 mainboards, two heat sinks and 20 kg of retained trash (150 kg). It is sold on the
 other Manufacturing machines' routes, carries the high-salvage mark and shares
 their one-in-twenty engineering find.
+
+## Manufacturing 0.18.0: the Lixivar LC-3 leach and crystallise unit
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Lixivar LC-3 leach and crystallise unit | 220 kg | $48,000 | $12,000 | 1600 / 1300 | 4800 | 1200 | 120 min |
+
+The LC-3 sits between the AX-2 and the V4 in price. Repair takes 3 steel, 2
+aluminium, 5 mechanical and 6 electronic parts, two motors, a mainboard, a heat
+sink and a screen; intact salvage is 110 steel, 40 aluminium, 20 mechanical and 12
+electronic parts, two motors, two mainboards, two heat sinks, a screen and 39 kg of
+retained trash (220 kg). It is sold on the other Manufacturing machines' routes and
+at the faction kiosks for Trusted standing, carries the high-salvage mark and
+shares their one-in-twenty engineering find.
+
+Its products are never sold by merchants: potassium sulfate 42 cr (0.70 kg),
+struvite 17 cr (0.43 kg), phosphate concentrate 12 cr (0.25 kg), and the leached
+residue, brine salt cake, caustic remainder and calcined residue at the technical
+minimum. The evaporite crust is ore (mined, never sold; the government kiosks buy
+it at 150 cr). Leaching one earns about 54 cr of salts, a loss taken for what the
+ship can use; struvite stays within half again its concentrate and reagents under
+the refining guardrails. The makeup formulation is the owner's exception (30
+September 2026): its 39 packets carry Agriculture's own 30 cr price, 1,170 cr from
+about 76 cr of salts, because formulation is where a finished nutrient's value is
+made and no merchant sells the salts, so no trade loop pays.

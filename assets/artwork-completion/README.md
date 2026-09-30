@@ -85,3 +85,16 @@ Manufacturing 0.2.0 adds `source/k2-reactor.png` and `source/m2-methane-store.pn
 first passes in `references/`; four included generations (1,865 to 1,861), $0
 credit, no purchases, nothing archived. Requests are appended to
 [manufacturing-requests.json](manufacturing-requests.json).
+
+Manufacturing 0.18.0 adds the Lixivar family: `source/lc3-leach-unit.png` (full
+footprint, 48 px native from a 96 px master; the first pass with a recorded repair
+turning a blue drain ring steel grey, so nothing reads as a lamp), and the
+evaporite crust, potassium sulfate, phosphate concentrate and caustic remainder
+(64 px masters, 16 px native). Struvite is a recorded palette swap of the potassium
+sulfate sack; the leached and calcined residues are recorded luminance ramps of the
+anhydrous residue and the brine salt cake one of the spent salt cake. Start drawings
+are original Pillow drawings in `references/`. Nine included generations (1,762 to
+1,753), $0 credit, no purchases; two phosphate attempts returned empty canvases and
+the rejected LC-3 second pass and struvite pass stay in the provider gallery, so
+nothing was archived. Every request, seed, job ID, repair and derivation is in
+[round-three-requests.json](round-three-requests.json).

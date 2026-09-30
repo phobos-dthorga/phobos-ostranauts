@@ -93,7 +93,7 @@ internal sealed class ChargeMachine
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             var selected = SelectedRecipe(machine);
-            return selected == null || !selected.Requires.All(Spec.Met) ? null : Catalog.FeedKg(id, Spec.Met, selected);
+            return selected == null ? null : Catalog.FeedKg(id, Spec.Met, selected);
         }
         return Catalog.FeedKg(id, Spec.Met);
     }

@@ -65,6 +65,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark L2 Canister Filling Station | Two-by-two safe filling booster for canisters and suit bottles (Manufacturing 0.4.0) |
 | Phobos' Fennmark A2 Cabin Air Regulator | Two-by-two valve and sensor unit keeping one room's oxygen and pressure (Manufacturing 0.5.0); A for air |
 | Phobos' Tolvane AX-2 Ammonia Cracker | Two-by-two catalytic ammonia cracker, ammonia into nitrogen and hydrogen (Manufacturing 0.10.0); AX for ammonia split, 2 for the footprint |
+| Phobos' Lixivar LC-3 Leach and Crystallise Unit | Three-by-three leach tank and closed crystalliser for salts and fertiliser (Manufacturing 0.18.0); L for leach, C for crystallise, 3 for the footprint |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen
@@ -72,6 +73,19 @@ line: deep teal frames, cool enamel lids and signal-yellow corner brackets, kept
 visibly apart from Fennmark's graphite and burnt orange. Its model names are two
 letters for the job, a hyphen and the footprint width (AX-2). The ammonia stores
 stay Fennmark beside the other gas stores.
+
+**Lixivar** is Manufacturing's third fictional manufacturer (owner approval, 30
+September 2026), for hydrometallurgy: leaching, crystallisation and, later, the
+sulfuric acid plant and acid tanks. The name comes from lixiviation, the chemists'
+word for leaching; no chemical, mining or water-treatment company of that name was
+found in a web search on 30 September 2026. Its colours are pale sage enamel
+frames, dark slate tanks and copper-brown drums and brackets, apart from
+Fennmark's graphite and burnt orange and Tolvane's teal. Models follow Tolvane's
+pattern: two letters for the job, a hyphen and the footprint width (LC-3). Its
+materials carry the brand without model numbers: Phobos' Lixivar Evaporite Crust,
+Potassium Sulfate, Phosphate Concentrate, Leached Residue, Struvite, Brine Salt
+Cake and Caustic Remainder. The calcined residue is made by the V4 and stays
+Fennmark.
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

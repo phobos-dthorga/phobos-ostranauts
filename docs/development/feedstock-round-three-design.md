@@ -4,8 +4,17 @@ Prepared 30 September 2026 after schema separation steps 1 to 6 and the refining
 value review ([programme status](asteroid-feedstock-programme-status.md)). This
 is the research-first record the round asks for: sourced chemistry, authored
 fractions labelled as ours, worked mass balances, the machine design and the
-decisions the owner should see before any of it is written into a pack. Nothing
-here is implemented.
+decisions the owner should see before any of it is written into a pack.
+
+**Status (30 September 2026).** The owner approved all five decisions, choosing the
+kiosk nutrient hopper, both struvite routes with sulfur and acid, and the shared
+charge engine. Manufacturing 0.18.0 implements this record's chunk, the four
+recipes and the LC-3 (at 12 kW, so the struvite and formulation steps run five and
+two and a half minutes), with two changes: the formulation blends one potassium
+sulfate with two struvite into 39 packets so nothing is left over, and the phosphate
+concentrate is priced at 12 cr so struvite stays within the 1.5 x guardrail (the
+10 cr below would not). Progress is tracked in
+[the programme status](asteroid-feedstock-programme-status.md).
 
 ## What the round delivers
 

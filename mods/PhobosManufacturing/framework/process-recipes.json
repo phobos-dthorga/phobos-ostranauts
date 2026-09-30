@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "process-recipes",
-  "notes": "Phobos Manufacturing V4 charges. Every charge conserves mass to the gram of its item units; the reaction, sources and rounding of each are in docs/development/manufacturing-refinery-and-chemistry.md. Water, methane and ammonia products go to a linked vessel or store; offGas is breathed into the room. Published revisions are frozen (frozen-process-recipes.json): change a charge by adding a revision.",
+  "notes": "Phobos Manufacturing charges: the V4 refinery (machine refinery) and the Lixivar LC-3 leach and crystallise unit (machine leach), each in its own revision space. Every charge conserves mass to the gram of its item units; the reaction, sources and rounding of each are in docs/development/manufacturing-refinery-and-chemistry.md. Water, carbon dioxide and ammonia products go to a linked vessel or store, and drawn water and ammonia come from one; circulates is water a charge needs on hand and returns; offGas is breathed into the room. Published revisions are frozen (frozen-process-recipes.json): change a charge by adding a revision.",
   "recipes": {
     "hydrates": {
       "notes": "Hydrate dehydration. CM-chondrite bound water 9 to 13 percent by weight (Alexander et al. 2012); authored 10 percent. The dehydrated silicate and oxide is the game's own gangue.",
@@ -55,6 +55,41 @@
       "products": [ { "id": "PhobosSpentSaltCake", "count": 1, "kg": 7.305 }, { "id": "water", "count": 1, "kg": 0.505 }, { "id": "ammonia", "count": 1, "kg": 0.955 } ],
       "offGas": { "CO2": 1.235 },
       "seconds": 900
+    },
+    "calcine": {
+      "notes": "Calcining the LC-3's leached residue: MgCO3 -> MgO + CO2 on its 0.50 kg of magnesite (5.930 mol, IUPAC 2013 molar masses). The 0.261 kg of CO2 goes to a linked carbon dioxide store; the clay matrix and 0.239 kg of MgO leave as the terminal calcined residue. The reaction absorbs about 118 kJ/mol (formation enthalpies: MgO and CO2 from the CODATA key values, magnesite from Robie and Hemingway 1995, USGS Bulletin 2131), 0.19 kWh; the 3 kWh charge energy is authored.",
+      "machine": "refinery",
+      "revision": 7,
+      "inputs": [ { "id": "PhobosLeachedResidue", "count": 1, "kg": 6.8 } ],
+      "products": [ { "id": "PhobosCalcinedResidue", "count": 1, "kg": 6.54 }, { "id": "carbon dioxide", "count": 1, "kg": 0.26 } ],
+      "seconds": 450,
+      "reactionKWh": -0.19
+    },
+    "evaporite-leach": {
+      "notes": "Leach and glaserite-route crystallisation of the evaporite crust in 20 kg of circulating water: 2 KCl + Na2SO4 -> K2SO4 + 2 NaCl, KCl limiting at 8.048 mol (route: US patents 4,215,100 and 6,143,271). Potassium sulfate 0.701 kg; the Na,Mg phosphate (0.250 kg) is wet-separated; halite, the NaCl made, the leftover thenardite, trona and villiaumite leave as the terminal brine salt cake (2.248 kg); the clay matrix and magnesite leave as the leached residue for the V4. Rounded to item units, the gram of rounding to the cake. The water is condensed and returned. 12 kWh authored: a closed crystalliser with condensate recovery, about a quarter of open-pan evaporation at 2.26 MJ/kg (NIST). Crust minerals after McCoy et al. 2025 (NASA OSIRIS-REx Bennu samples); the proportions are authored.",
+      "machine": "leach",
+      "revision": 1,
+      "inputs": [ { "id": "PhobosEvaporiteCrust", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "PhobosPotassiumSulfate", "count": 1, "kg": 0.7 }, { "id": "PhobosPhosphateConcentrate", "count": 1, "kg": 0.25 }, { "id": "PhobosLeachedResidue", "count": 1, "kg": 6.8 }, { "id": "PhobosBrineSaltCake", "count": 1, "kg": 2.25 } ],
+      "circulates": { "water": 20 },
+      "seconds": 3600
+    },
+    "struvite": {
+      "notes": "Struvite precipitation from the crust's own Na,Mg phosphate (our simplification): NaMgPO4 + NH3 + 7 H2O -> MgNH4PO4.6H2O + NaOH on 1.757 mol (struvite recovery reviewed in Environmental Evidence 9:34, 2020). Ammonia 0.030 kg from a linked ammonia store and 0.222 kg of hydration water from a linked water vessel give 0.431 kg of struvite; the sodium hydroxide is the terminal caustic remainder. Rounded to item units, the 2 g of rounding to the water drawn. 1 kWh authored (mixing and a low-temperature dry).",
+      "machine": "leach",
+      "revision": 2,
+      "inputs": [ { "id": "PhobosPhosphateConcentrate", "count": 1, "kg": 0.25 }, { "id": "ammonia", "count": 1, "kg": 0.03 }, { "id": "water", "count": 1, "kg": 0.22 } ],
+      "products": [ { "id": "PhobosStruvite", "count": 1, "kg": 0.43 }, { "id": "PhobosCausticRemainder", "count": 1, "kg": 0.07 } ],
+      "seconds": 300
+    },
+    "makeup-formulation": {
+      "notes": "Blending one potassium sulfate unit with two struvite units into Verdemorrow Groundwork makeup salts: 0.70 + 0.86 kg makes 39 packets of 40 g with nothing left over (potassium, sulfur, nitrogen, phosphorus and magnesium in the one aggregate figure Agriculture's nutrient model uses). Needs Agriculture's makeup packet identity. The packets carry Agriculture's own price (owner decision, 30 September 2026). 0.5 kWh authored.",
+      "machine": "leach",
+      "revision": 3,
+      "inputs": [ { "id": "PhobosPotassiumSulfate", "count": 1, "kg": 0.7 }, { "id": "PhobosStruvite", "count": 2, "kg": 0.43 } ],
+      "products": [ { "id": "PhobosVerdemorrowGroundworkMakeup", "count": 39, "kg": 0.04 } ],
+      "seconds": 150,
+      "requires": [ "agriculture-makeup" ]
     }
   }
 }

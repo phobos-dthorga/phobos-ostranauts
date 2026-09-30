@@ -39470,13 +39470,13 @@
       "key": "Refinery.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Updated for this feature (the ammonium salt crust charge); placeholders follow the new arguments; states the situation and next action directly.",
+      "reason": "Updated for the V4 calcine charge (Manufacturing 0.18.0): names the leached residue and its carbon dioxide store; placeholders unchanged.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
       "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel within one tile. A melt left waiting for a cool room too long freezes into slag.",
-      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel within one tile, and ammonia to a linked ammonia store within one tile. A melt left waiting for a cool room too long freezes into slag."
+      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each within one tile. A melt left waiting for a cool room too long freezes into slag."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39495,14 +39495,14 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.feed_description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the V4 calcine charge (Manufacturing 0.18.0): names the leached residue and its carbon dioxide store; placeholders unchanged.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:47"
       ],
       "before": "Up to {0} loose units: ore blocks at their full mass, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time.",
-      "after": "Up to {0} loose units: ore blocks at their full mass, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time."
+      "after": "Up to {0} loose units: ore blocks at their full mass, a leached residue, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39610,15 +39610,15 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.no_charge",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the V4 calcine charge (Manufacturing 0.18.0): names the leached residue and its carbon dioxide store; placeholders unchanged.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
         "src/PhobosManufacturing/ChargeMachine.cs:240"
       ],
       "before": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock.",
-      "after": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock."
+      "after": "The feed holds no complete charge: one ore block, one leached residue, or four nickel-iron ingots with one carbon stock."
     },
     {
       "mod": "PhobosManufacturing",
@@ -48781,6 +48781,1142 @@
       ],
       "before": "the linked {0} store holds contents in its catch chamber; recover them first",
       "after": "the linked {0} store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.recipe_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:544"
+      ],
+      "before": "Recipe",
+      "after": "Recipe"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.leach_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:78"
+      ],
+      "before": "A charge is bound in the leach unit. Cancel or finish it first.",
+      "after": "A charge is bound in the leach unit. Cancel or finish it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:51"
+      ],
+      "before": "Leach and Crystallise Unit",
+      "after": "Leach and Crystallise Unit"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge: an evaporite crust (into potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake), one phosphate concentrate (with a little ammonia and water, into struvite), or one potassium sulfate with two struvite (into Groundwork makeup salts, with Phobos Agriculture). It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile: a leach needs 20 kg on hand and gives it back, and the struvite step keeps a little. Link an ammonia store within one tile for struvite.",
+      "after": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge: an evaporite crust (into potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake), one phosphate concentrate (with a little ammonia and water, into struvite), or one potassium sulfate with two struvite (into Groundwork makeup salts, with Phobos Agriculture). It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile: a leach needs 20 kg on hand and gives it back, and the struvite step keeps a little. Link an ammonia store within one tile for struvite."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.feed_name",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:60"
+      ],
+      "before": "Leach unit charge",
+      "after": "Leach unit charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.feed_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:61"
+      ],
+      "before": "Up to {0} loose units of the chosen recipe's charge. The unit binds one exact charge at a time.",
+      "after": "Up to {0} loose units of the chosen recipe's charge. The unit binds one exact charge at a time."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:65"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:202",
+        "src/PhobosManufacturing/ChargeMachine.cs:571",
+        "src/PhobosManufacturing/ChargeMachine.cs:576",
+        "src/PhobosManufacturing/ChargeMachine.cs:74",
+        "src/PhobosManufacturing/ChargeMachine.cs:79"
+      ],
+      "before": "This leach unit's record could not be read. Repair it, then Accept its contents from the panel.",
+      "after": "This leach unit's record could not be read. Repair it, then Accept its contents from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:75"
+      ],
+      "before": "A {0} charge is bound and waiting. Start resumes it.",
+      "after": "A {0} charge is bound and waiting. Start resumes it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.retained_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:218"
+      ],
+      "before": "A {0} charge is bound, but this installation cannot finish it (Phobos Agriculture is not loaded). It is kept as it is.",
+      "after": "A {0} charge is bound, but this installation cannot finish it (Phobos Agriculture is not loaded). It is kept as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.charge_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:219",
+        "src/PhobosManufacturing/ChargeMachine.cs:314",
+        "src/PhobosManufacturing/ChargeMachine.cs:393",
+        "src/PhobosManufacturing/ChargeMachine.cs:414",
+        "src/PhobosManufacturing/ChargeMachine.cs:468"
+      ],
+      "before": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it.",
+      "after": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:227",
+        "src/PhobosManufacturing/ChargeMachine.cs:309"
+      ],
+      "before": "The feed is empty. Load a charge for the chosen recipe.",
+      "after": "The feed is empty. Load a charge for the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:235",
+        "src/PhobosManufacturing/ChargeMachine.cs:240",
+        "src/PhobosManufacturing/ChargeMachine.cs:244"
+      ],
+      "before": "Nothing in the feed belongs to the chosen recipe.",
+      "after": "Nothing in the feed belongs to the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:235",
+        "src/PhobosManufacturing/ChargeMachine.cs:240"
+      ],
+      "before": "The feed holds part of a charge. Load the rest of the chosen recipe's charge.",
+      "after": "The feed holds part of a charge. Load the rest of the chosen recipe's charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_selection",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:233",
+        "src/PhobosManufacturing/ChargeMachine.cs:521"
+      ],
+      "before": "No recipe chosen. Pick one on the panel: evaporite leach, struvite or makeup formulation.",
+      "after": "No recipe chosen. Pick one on the panel: evaporite leach, struvite or makeup formulation."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.selected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "Next charge: {0}.",
+      "after": "Next charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.select_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:572"
+      ],
+      "before": "Finish or cancel the bound charge before choosing another recipe.",
+      "after": "Finish or cancel the bound charge before choosing another recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.select_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:574"
+      ],
+      "before": "That recipe is not available here: {0}.",
+      "after": "That recipe is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:253"
+      ],
+      "before": "Waiting: {0}",
+      "after": "Waiting: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261"
+      ],
+      "before": "Working: {0}.",
+      "after": "Working: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:273"
+      ],
+      "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
+      "after": "Cancelled. The charge units stay in the feed; the work is forfeited."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:273"
+      ],
+      "before": "Paused. The bound charge and its progress are kept.",
+      "after": "Paused. The bound charge and its progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:288",
+        "src/PhobosManufacturing/ChargeMachine.cs:590"
+      ],
+      "before": "The leach unit stopped on a fault. See the log.",
+      "after": "The leach unit stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:338"
+      ],
+      "before": "Waiting for the room to cool.",
+      "after": "Waiting for the room to cool."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:400"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:424"
+      ],
+      "before": "The tray has no room for the products. Clear it.",
+      "after": "The tray has no room for the products. Clear it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:426"
+      ],
+      "before": "{0} at {1}: charge finished.",
+      "after": "{0} at {1}: charge finished."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:430"
+      ],
+      "before": "Finished. The feed is empty.",
+      "after": "Finished. The feed is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_charge_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:519"
+      ],
+      "before": "No charge bound.",
+      "after": "No charge bound."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:519"
+      ],
+      "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
+      "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:523"
+      ],
+      "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
+      "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:525"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_agriculture",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:77"
+      ],
+      "before": "Phobos Agriculture is not loaded: no makeup formulation. The salts keep as stock.",
+      "after": "Phobos Agriculture is not loaded: no makeup formulation. The salts keep as stock."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:552"
+      ],
+      "before": "Stop the leach unit before changing its links.",
+      "after": "Stop the leach unit before changing its links."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:446"
+      ],
+      "before": "Product definition unavailable: {0}.",
+      "after": "Product definition unavailable: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:449"
+      ],
+      "before": "Product definition changed: {0}.",
+      "after": "Product definition changed: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:452"
+      ],
+      "before": "The charge would not conserve mass; nothing was delivered.",
+      "after": "The charge would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:459"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:463"
+      ],
+      "before": "A product could not be placed in the tray.",
+      "after": "A product could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:474"
+      ],
+      "before": "A charge unit could not be removed from the feed.",
+      "after": "A charge unit could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:163"
+      ],
+      "before": "Install the leach unit first.",
+      "after": "Install the leach unit first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:164"
+      ],
+      "before": "Repair the leach unit first.",
+      "after": "Repair the leach unit first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:167"
+      ],
+      "before": "Unlock the leach unit and its feed first.",
+      "after": "Unlock the leach unit and its feed first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:168"
+      ],
+      "before": "The leach unit is switched off at its power control.",
+      "after": "The leach unit is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:169"
+      ],
+      "before": "The leach unit's feed compartment is missing.",
+      "after": "The leach unit's feed compartment is missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:85"
+      ],
+      "before": "no water vessel linked",
+      "after": "no water vessel linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:86"
+      ],
+      "before": "the linked water vessel is not installed, not adjacent or not ready",
+      "after": "the linked water vessel is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:87"
+      ],
+      "before": "the linked water vessel needs its owner's attention",
+      "after": "the linked water vessel needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:88"
+      ],
+      "before": "the linked water vessel holds water in its catch chamber; recover it first",
+      "after": "the linked water vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.vessel_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:89"
+      ],
+      "before": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand",
+      "after": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:90"
+      ],
+      "before": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg",
+      "after": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:92"
+      ],
+      "before": "Water vessel linked.",
+      "after": "Water vessel linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:92"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:92"
+      ],
+      "before": "That vessel is not a registered water vessel within one tile of the leach unit.",
+      "after": "That vessel is not a registered water vessel within one tile of the leach unit."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_ammonia",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:97"
+      ],
+      "before": "no ammonia store linked",
+      "after": "no ammonia store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:98"
+      ],
+      "before": "the linked ammonia store is damaged, locked, moved away or not on this ship",
+      "after": "the linked ammonia store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:99"
+      ],
+      "before": "the linked ammonia store is protected or busy; accept its contents or wait",
+      "after": "the linked ammonia store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:100"
+      ],
+      "before": "the linked ammonia store holds contents in its catch chamber; recover them first",
+      "after": "the linked ammonia store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:101"
+      ],
+      "before": "the linked ammonia store holds {0:F3} kg and the charge needs {1:F3} kg",
+      "after": "the linked ammonia store holds {0:F3} kg and the charge needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:102"
+      ],
+      "before": "the linked ammonia store has {0:F3} kg of room and the charge returns {1:F3} kg",
+      "after": "the linked ammonia store has {0:F3} kg of room and the charge returns {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:104"
+      ],
+      "before": "Ammonia store linked.",
+      "after": "Ammonia store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:104"
+      ],
+      "before": "Ammonia store unlinked.",
+      "after": "Ammonia store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.ammonia_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:104"
+      ],
+      "before": "That is not an ammonia store within one tile of the leach unit.",
+      "after": "That is not an ammonia store within one tile of the leach unit."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.calcine",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "residue calcining",
+      "after": "residue calcining"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.evaporite-leach",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "evaporite leach",
+      "after": "evaporite leach"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.struvite",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "struvite precipitation",
+      "after": "struvite precipitation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.makeup-formulation",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "makeup formulation",
+      "after": "makeup formulation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosEvaporiteCrust",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Evaporite Crust",
+      "after": "Evaporite Crust"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosEvaporiteCrust_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "A chunk of salt-streaked clay from a dried brine vein: rock salt, potassium chloride, sodium sulfate and carbonate, a little magnesium phosphate and a trace of fluoride salt, the minerals NASA's OSIRIS-REx team found in samples from the asteroid Bennu. Leach it in a Lixivar LC-3 for potassium sulfate and phosphate. The government kiosks buy it like other ore.",
+      "after": "A chunk of salt-streaked clay from a dried brine vein: rock salt, potassium chloride, sodium sulfate and carbonate, a little magnesium phosphate and a trace of fluoride salt, the minerals NASA's OSIRIS-REx team found in samples from the asteroid Bennu. Leach it in a Lixivar LC-3 for potassium sulfate and phosphate. The government kiosks buy it like other ore."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosPotassiumSulfate",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Potassium Sulfate",
+      "after": "Potassium Sulfate"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosPotassiumSulfate_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: blend one with two struvite in the LC-3 for Groundwork makeup salts.",
+      "after": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: blend one with two struvite in the LC-3 for Groundwork makeup salts."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosPhosphateConcentrate",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Phosphate Concentrate",
+      "after": "Phosphate Concentrate"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosPhosphateConcentrate_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "250 g of sodium magnesium phosphate washed out of an evaporite crust. With a little ammonia and water the LC-3 turns it into struvite.",
+      "after": "250 g of sodium magnesium phosphate washed out of an evaporite crust. With a little ammonia and water the LC-3 turns it into struvite."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosLeachedResidue",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Leached Residue",
+      "after": "Leached Residue"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosLeachedResidue_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "6.8 kg of washed clay and magnesium carbonate left after leaching an evaporite crust. Calcine it in a V4 refinery to drive its carbon dioxide into a linked carbon dioxide store.",
+      "after": "6.8 kg of washed clay and magnesium carbonate left after leaching an evaporite crust. Calcine it in a V4 refinery to drive its carbon dioxide into a linked carbon dioxide store."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosStruvite",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Struvite",
+      "after": "Struvite"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosStruvite_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. Blend two with one potassium sulfate in the LC-3 for Groundwork makeup salts.",
+      "after": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. Blend two with one potassium sulfate in the LC-3 for Groundwork makeup salts."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosBrineSaltCake",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Brine Salt Cake",
+      "after": "Brine Salt Cake"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosBrineSaltCake_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "2.25 kg of the crust's sodium salts: rock salt, sodium carbonate and a trace of sodium fluoride. Sodium harms crops, so it is no fertiliser. Nothing recovers it.",
+      "after": "2.25 kg of the crust's sodium salts: rock salt, sodium carbonate and a trace of sodium fluoride. Sodium harms crops, so it is no fertiliser. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCausticRemainder",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Caustic Remainder",
+      "after": "Caustic Remainder"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCausticRemainder_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "70 g of sodium hydroxide left over from struvite precipitation. Caustic. Nothing recovers it.",
+      "after": "70 g of sodium hydroxide left over from struvite precipitation. Caustic. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCalcinedResidue",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "Calcined Residue",
+      "after": "Calcined Residue"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCalcinedResidue_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:294"
+      ],
+      "before": "6.54 kg of baked clay and magnesia: a leached residue with its carbon dioxide driven off. Nothing recovers it.",
+      "after": "6.54 kg of baked clay and magnesia: a leached residue with its carbon dioxide driven off. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.gas",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:54"
+      ],
+      "before": "carbon dioxide",
+      "after": "carbon dioxide"
     }
   ],
   "documents": [
@@ -48788,8 +49924,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "18613b9a94b0a8907854be6ece5f7cbf21b815be8e2ace8693409c7136a0ea2f",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "5054f5fe700cbacbdced522056d700190cdfb0191b46b560cd7b9bd8c6bc80fb",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -49208,15 +50344,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "6828da4f8983629e401ece594f59ab98cd96e000c24eb2f8e6da11b6f41fa0d0",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "b8cb8a594c5fc8418d1cc1d4303e52baf0e8d0bfa8df1401c5849957369e9579",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f7cf66dcb09e639cc68d8ba0ffa4450f0a3f9c21cd0eedab2ef8f793edc613cc",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "49474e6679b59287c23b578a52f3ca151f0cda3e889f51f3ddad6a335b2693df",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -49333,15 +50469,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "1f70e7fdf101914010ce7a98cbc4547b934e589ca3206e9e79874bb22a859ed7",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "ac66dd71fcfd25e572e276f973a6c82892e6efbb27c9485e739de1a057874e4e",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "d84d8ada6adf79a2ff5fc4bb05785ca818ede280200955b466d2790987f40c1f",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "b694abf93318de4e2f477da925c93e2c7843750be29af8894e72c0590a319334",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -49392,15 +50528,15 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ea2b153b93ef74dbba3743b58f88c4d2462490b8e59c63fcc0214f4f3e5aa3ac",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "8494b7ddf89836b52534b326773395daf238038f8497430c5fe262e814ee9b90",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "ef77d89f260934b9d60a23a133efb16d7b8d0e1eb7be6611fabebfa6c10d2394",
-      "review": "Refining value review: regenerated item references and notes carry the reviewed price wording."
+      "sha256": "1ffd3a97b79a0469a5ff95b32065b2f5e02a9871ec9976e034acb0b0aa1336df",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -49471,8 +50607,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "8deeeda3d142dc357048635a7e7ce9534b5a783162fc421036ac46630563137e",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "b17e5154a8822a88fad0b9d79b295fc2e690104229f6633a5725e90ec116f3ec",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -49669,8 +50805,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "243f5db852ade12ce4aa7be5c7ad32216998cd7ced338b616bd4a0892aaaf2ac",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "d4132d24fc627a29be76327e1c55b08fc383e87b98d39e01b2a30b4507d0cfb2",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -49760,15 +50896,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "8096139d34857414d349ccdabd55403eb4d342361622c6e3e063f825824b9a8c",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "9a2963da7f50ab2ced6d99e67c81f65fca4c396827bbb17e194c2f4c06fd1fb6",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "2ea65ac37803e6142678fa5c010f97e634ec1adf556ff2454b02e2d6c4304061",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "2686e19e6f6f9bee1bd4dfc812e442d9c9d60a2c975ab56c94f7a9ea3bef519a",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -49886,8 +51022,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "846a1090b89b9f1484d2f1cf05e69eb5420abd15e15208c33c1847f017cceab1",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "a29311029afcf335756e75fb7b9e7bdfe300e364856559bc797293ee9a4e4cff",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -49942,8 +51078,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "0368836e969b253d4c4e2de2dab4c7574d726a7e0fbf1398c6a0c39aaf1c94f4",
-      "review": "Round three design record: a development record, not player text."
+      "sha256": "7adbaf88b7fcd5da2fc2a9ed018ab44e4a0ccb6d95c5cdd19c7145fad35132d4",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/schema-separation-audit.md",
@@ -49963,23 +51099,23 @@
       "path": "docs/development/feedstock-round-three-design.md",
       "scope": "development",
       "decision": "Development research record; not player-facing.",
-      "sha256": "558d26252dfdc3f128ebb55fa914d4102c4dde03cf77854905493d3ad57a5c65",
-      "review": "Round three design record: a development record, not player text."
+      "sha256": "c000b3d5984890976172a1e30ceb623fdb66d98a9b9be5159749f0c6f1408b35",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "3a88f3da1cb2a03760a87bcb5ad13d9627965a0665502164f586ffa49ba2fcd0",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): new record; vanilla evidence, tier rule, scrip prices and limits."
+      "sha256": "b6694e78eac790e7b16b080c89101cc7d86f91d0d365339e7e4d2d4b9d42e21a",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "171166d068dd938badd5d7bee86eb5e5e01b05208c696688d7a912411e5af58b",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "85180ffdc6c618ca9691034b9de85fd8f6d48f70517a3eaabdcbe49c9d15b6e6",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -50033,8 +51169,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "17fda9d3cbc275612c73dd90546ea703f3eded4a43d1827be7a582eae30db9b0",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "0e1fa0723a0931ae1b724e289be30eaf89378aefe8b156551dbc81351b6ed52f",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

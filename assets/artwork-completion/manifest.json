@@ -2417,6 +2417,219 @@
       "review": "Overhead and native-scale export inspected; Tolvane colour language (teal frame, enamel lid, yellow brackets) kept distinct from Fennmark. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "912bd9ce-a3ba-46cd-8635-1f45f994071b"
+    },
+    {
+      "key": "lc3-leach-unit",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosLeachUnitInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosLeachUnit",
+      "status": "selected",
+      "source": "source/lc3-leach-unit.png",
+      "sourceSHA256": "6d96eaf2b9e655a45c6073c50bf2c90c8614a3c2fd829d933a5c298fcb797540",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "8aaa4141-8fd7-4146-a89f-240b5035df1a"
+    },
+    {
+      "key": "evaporite-crust",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosEvaporiteCrust",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockEvaporiteCrust",
+      "status": "selected",
+      "source": "source/evaporite-crust.png",
+      "sourceSHA256": "170f61528ae442cf3337193cae3edb67a1df9b8e8f177271990a511d69dc0c6a",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "ef606329-5d4e-4a57-881f-454e88556b4e"
+    },
+    {
+      "key": "potassium-sulfate",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosPotassiumSulfate",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockPotassiumSulfate",
+      "status": "selected",
+      "source": "source/potassium-sulfate.png",
+      "sourceSHA256": "5f802bc6ab67651bfc64a9fc909629425521402605f0b169baa3aa651f8a2429",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "a8b3615e-6378-42cf-b739-a51969489931"
+    },
+    {
+      "key": "phosphate-concentrate",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosPhosphateConcentrate",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockPhosphateConcentrate",
+      "status": "selected",
+      "source": "source/phosphate-concentrate.png",
+      "sourceSHA256": "28fbf8cdb62e1146ad63c574e277fd78b1f2a7768acc15ed96fbf7a128986e86",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "3efbedd8-0967-42f4-b54e-c1f7550d60e2"
+    },
+    {
+      "key": "leached-residue",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosLeachedResidue",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockLeachedResidue",
+      "status": "selected",
+      "source": "source/leached-residue.png",
+      "sourceSHA256": "b876842d5597bc2cb704cfa164be8c1ad9f8207ed382d20e06cd919ce5ba1a0d",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
+    },
+    {
+      "key": "struvite",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosStruvite",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockStruvite",
+      "status": "selected",
+      "source": "source/struvite.png",
+      "sourceSHA256": "5baec3fc9d6cda08ef3b18f72578780855a3783ebbdb3112257759fa7fc32987",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
+    },
+    {
+      "key": "brine-salt-cake",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosBrineSaltCake",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockBrineSaltCake",
+      "status": "selected",
+      "source": "source/brine-salt-cake.png",
+      "sourceSHA256": "18338cd549e0d6458d838c131b336e8ab04ef96f3df7de01f3004ba163c9981a",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
+    },
+    {
+      "key": "caustic-remainder",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCausticRemainder",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockCausticRemainder",
+      "status": "selected",
+      "source": "source/caustic-remainder.png",
+      "sourceSHA256": "242a258a2fdbdc611111b50f5149a20f8f921b805ae1fb37a459ffa82161f986",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "ee40a6a5-64d2-4b1b-af4e-fe8d280b95c6"
+    },
+    {
+      "key": "calcined-residue",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCalcinedResidue",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockCalcinedResidue",
+      "status": "selected",
+      "source": "source/calcined-residue.png",
+      "sourceSHA256": "a2eaa3c040497c09fbdf63d9718fdfff6c5158ba6fb2043028610c51ceac78be",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
     }
   ],
   "records": [
@@ -2875,9 +3088,105 @@
       ],
       "costGenerations": 2,
       "review": "49ab12d8 superseded (retained input); 912bd9ce selected with a recorded latch repair"
+    },
+    {
+      "key": "lc3-leach-unit",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "8aaa4141-8fd7-4146-a89f-240b5035df1a",
+        "a08ed8ea-17d1-47cb-954c-f567d94d5a36"
+      ],
+      "costGenerations": 2,
+      "review": "8aaa4141 selected; a08ed8ea rejected"
+    },
+    {
+      "key": "evaporite-crust",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "ef606329-5d4e-4a57-881f-454e88556b4e"
+      ],
+      "costGenerations": 1,
+      "review": "ef606329 selected"
+    },
+    {
+      "key": "potassium-sulfate",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "a8b3615e-6378-42cf-b739-a51969489931"
+      ],
+      "costGenerations": 1,
+      "review": "a8b3615e selected"
+    },
+    {
+      "key": "phosphate-concentrate",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "2ccec7b1-011d-4272-93b1-2faed728a6c8",
+        "361b7326-0e2d-4ce4-8998-251563ebaedc",
+        "3efbedd8-0967-42f4-b54e-c1f7550d60e2"
+      ],
+      "costGenerations": 3,
+      "review": "2ccec7b1 rejected; 361b7326 rejected; 3efbedd8 selected"
+    },
+    {
+      "key": "caustic-remainder",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "ee40a6a5-64d2-4b1b-af4e-fe8d280b95c6"
+      ],
+      "costGenerations": 1,
+      "review": "ee40a6a5 selected"
+    },
+    {
+      "key": "struvite",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "f7de268b-918e-4f73-8e86-92f650483bfe"
+      ],
+      "costGenerations": 1,
+      "review": "f7de268b rejected; recorded palette swap selected"
+    },
+    {
+      "key": "leached-residue",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded luminance derivation, no generation"
+    },
+    {
+      "key": "brine-salt-cake",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded luminance derivation, no generation"
+    },
+    {
+      "key": "calcined-residue",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded luminance derivation, no generation"
     }
   ],
-  "allowanceAfter": 1762,
-  "allowanceDelta": 190,
+  "allowanceAfter": 1753,
+  "allowanceDelta": 199,
   "creditBalanceAfterUSD": 0
 }

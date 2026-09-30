@@ -18,7 +18,7 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 6, "Six distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 7, "Seven distinct revisions");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,
@@ -54,7 +54,7 @@ internal static class RefineryChecks
         check(RefineryRecipes.Match(steelCharge.Concat(new[] { "ItmMineral11" }), true) == s, "With a hydrate block beside it the larger steel charge is preferred");
         foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", "ItmMineral02", "ItmMiningTrash", "ItmScrapSteel", Materials.RefinerySlag })
             check(RefineryRecipes.Match(new[] { outside }, true) == null, "Never a charge: " + outside);
-        check(RefineryRecipes.Available(false).Count() == 5 && RefineryRecipes.Available(true).Count() == 6, "Without Shipbreaker five recipes are available; with it six");
+        check(RefineryRecipes.Available(false).Count() == 6 && RefineryRecipes.Available(true).Count() == 7, "Without Shipbreaker six recipes are available; with it seven");
 
         // Feed admission is exact.
         check(RefineryRules.ValidFeed("ItmMineral11", 10, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral01", 20, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral03", 10, true, true, true, false),
@@ -89,7 +89,7 @@ internal static class RefineryChecks
         double sodaKg = reactions * 0.105988, saltKg = nh4cl * 0.05844, remainderKg = 10 - 3.0 - sodaKg;
         check(Math.Abs(a.Products.Single(p => p.Id == Materials.SpentSaltCake).Kg - (saltKg + remainderKg)) < .001 && Math.Abs(a.ChargeKg - Sum(a)) < 1e-9,
             "The salt cake is the sodium chloride plus the crust's clay; the charge conserves mass");
-        check(a.StoredGases.Count == 1 && a.Solids(a.Products).Single().Id == Materials.SpentSaltCake && RefineryRules.StoredGasFamilies.Single() == GasStores.AmmoniaFamily,
+        check(a.StoredGases.Count == 1 && a.Solids(a.Products).Single().Id == Materials.SpentSaltCake && RefineryRules.StoredGasFamilies.Contains(GasStores.AmmoniaFamily),
             "Ammonia goes to a store, the cake to the tray, water to the vessel, CO2 into the room");
         // Standard enthalpies of formation (kJ/mol): NH4Cl -314.4, Na2CO3 -1130.7, NaCl -411.2, NH3 -45.9, CO2 -393.5, H2O(g) -241.8.
         double reactionKJ = (2 * -411.2 + 2 * -45.9 + -393.5 + -241.8) - (2 * -314.4 + -1130.7);
@@ -100,6 +100,20 @@ internal static class RefineryChecks
             "Mined chunks and terminal remainders are declared on the material");
         check(Materials.Crust.Price > a.StoredGases.Single().Kg * 3.40 + a.OffGas["CO2"] * 1.3 + a.Products.Single(p => p.Id == "water").Kg * 10 + Materials.SaltCake.Price,
             "The crust is worth more than its ammonia and carbon dioxide at the game's gas prices, its water and the cake");
+
+        // Calcining the LC-3's leached residue (Manufacturing 0.18.0): MgCO3 -> MgO + CO2 on 0.50 kg of magnesite.
+        var cal = RefineryRecipes.Calcine;
+        double magnesite = 0.500 / 0.084313;
+        check(Math.Abs(cal.StoredGases.Single(p => p.Id == ManufacturingRules.CarbonDioxide).Kg - magnesite * 0.044009) < .002 &&
+              Math.Abs(cal.Products.Single(p => p.Id == Materials.CalcinedResidue).Kg - (6.30 + magnesite * 0.040304)) < .002 && Math.Abs(cal.ChargeKg - Sum(cal)) < 1e-9,
+            "Calcining gives the magnesite's carbon dioxide to a store and leaves the matrix and magnesia as the calcined residue");
+        // Formation enthalpies (kJ/mol): MgO -601.6 and CO2 -393.5 (CODATA key values), magnesite -1113.3 (Robie and Hemingway 1995).
+        double calcineKJ = -601.6 + -393.5 - -1113.3;
+        check(Math.Abs(cal.ReactionKWh + magnesite * calcineKJ / 3600) < .01 && cal.ReactionKWh < 0 && Math.Abs(cal.EnergyKWh - 3) < 1e-9 && !cal.Melt,
+            "The calcine absorbs its reaction heat (about 118 kJ per mole) within a 3 kWh charge; not a melt");
+        check(RefineryRules.StoredGasFamilies.Count() == 2 && RefineryRules.StoredGasFamilies.Contains(GasStores.CarbonDioxideFamily), "The V4 links an ammonia store and a carbon dioxide store");
+        check(RefineryRules.ValidFeed(Materials.LeachedResidue, 6.8, true, true, true, false) && RefineryRecipes.Match(new[] { Materials.LeachedResidue }, false) == cal && Materials.IsTerminal(Materials.CalcinedResidue) && !Materials.IsTerminal(Materials.LeachedResidue),
+            "The leached residue enters and matches the calcine; the calcined residue is terminal");
 
         // Refining value (owner, 30 September 2026): stock prices stay plausible beside the game's own metals, above
         // scrap steel (3.6 cr/kg) and below the ore they come from (22.5 cr/kg); remainders are trash; the clay chunk sells like hydrates.

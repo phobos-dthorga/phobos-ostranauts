@@ -61,7 +61,23 @@ under the same guardrails.
 
 Research done 30 September 2026: [the round-three design record](feedstock-round-three-design.md)
 gives the sourced chemistry, an authored evaporite chunk, four worked recipes, the
-Lixivar LC-3 design and five decisions for the owner. Implementation waits for them.
+Lixivar LC-3 design and five decisions for the owner.
+
+Owner decisions (30 September 2026): the Lixivar LC-3 name, the authored chunk and
+the formulation priced at Agriculture's own packet price are approved; the kiosk
+should also sell bulk fertiliser, which the owner chose to deliver as a Groundwork
+nutrient hopper the refuelling kiosk fills and a W2 doses from; both struvite
+routes, with sulfur and sulfuric acid, the second from a meteorite sulfide-phosphide
+nodule; and the V4 service refactored into a shared charge engine rather than
+copied. The plan runs in five phases:
+
+| Phase | Delivered | Versions |
+| --- | --- | --- |
+| A | Shared charge engine, equipment pack, recipe working volumes and reaction heat, commodity settlement | Framework 0.54.0, Manufacturing 0.17.0 (2e66342) |
+| B | Lixivar LC-3; evaporite crust (C-class carve, 0.05); evaporite leach, struvite from the crust's phosphate, makeup formulation with Agriculture; V4 calcine of the leached residue into a CO2 store | Manufacturing 0.18.0 |
+| C | Groundwork nutrient hopper, kiosk fertiliser, W2 dosing | pending (Agriculture) |
+| D | Lixivar acid tanks, kiosk acid, sulfide nodule, SA-3 acid plant | pending |
+| E | Epsom salt from olivine, ammonium sulfate, acid-route struvite, complete formulation into the hopper | pending |
 
 - Research first: the evaporite mineral fractions from McCoy et al. 2025 (NASA
   OSIRIS-REx) for an evaporite crust chunk.

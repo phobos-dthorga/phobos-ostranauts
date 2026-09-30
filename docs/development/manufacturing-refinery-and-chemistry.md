@@ -239,6 +239,68 @@ hold is at most one cycle, about a kilogram.
 on crowded brands, 30 September 2026). The planning proposal, Azomere, was dropped
 because it sits close to Azomureș, a real Romanian fertiliser maker.
 
+## The leach unit and the evaporite crust (0.18.0)
+
+Feedstock round three, as approved by the owner on 30 September 2026 (brand, chunk
+composition, formulation pricing, both struvite routes and the shared charge
+engine; the worked design is in [the round-three record](feedstock-round-three-design.md)).
+The Lixivar LC-3 runs on the same charge engine as the V4, with a crew-selected
+recipe, 12 kW working power and 15% of it into the room. The first route to struvite
+(from the crust's own phosphate) is implemented here; the sulfuric-acid route comes
+with the acid plant.
+
+**The chunk (authored).** McCoy et al. 2025 (NASA OSIRIS-REx sample team, Nature,
+below) report a complete evaporite sequence in Bennu samples: sodium and calcium
+carbonates, sodium sulfate, sodium and potassium chlorides, sodium fluoride, calcite
+and a magnesium-sodium phosphate. The paper gives no bulk fractions we could read,
+so the 10 kg evaporite crust's proportions are ours: clay matrix 6.30 kg, halite
+1.20, sylvite (KCl) 0.60, thenardite (Na2SO4) 0.60, trona 0.50, magnesite 0.50,
+NaMgPO4 0.25 and villiaumite (NaF) 0.05 kg. It is deliberately richer than bulk
+rock, as the ammonium salt crust is, and takes a 5% share of the C-class roll from
+silicates.
+
+| Recipe (machine, revision) | Reaction | Charge | Products | Energy |
+| --- | --- | --- | --- | --- |
+| Evaporite leach (leach 1) | 2 KCl + Na2SO4 -> K2SO4 + 2 NaCl, KCl limiting (8.048 mol) | 1 crust; 20 kg of water circulating | K2SO4 0.70 kg (0.701); phosphate concentrate 0.25; leached residue 6.80 (matrix and magnesite); brine salt cake 2.25 (2.248: halite, NaCl made, leftover Na2SO4, trona, NaF) | 12 kWh, 1 h |
+| Struvite (leach 2) | NaMgPO4 + NH3 + 7 H2O -> MgNH4PO4.6H2O + NaOH (1.757 mol) | 1 concentrate; 0.03 kg NH3 and 0.22 kg water drawn | struvite 0.43 kg (0.431); caustic remainder 0.07 (0.070) | 1 kWh, 5 min |
+| Makeup formulation (leach 3) | blending, no reaction | 1 K2SO4 and 2 struvite (1.56 kg) | 39 Groundwork makeup salts packets of 40 g | 0.5 kWh, 2.5 min |
+| Calcine (refinery 7) | MgCO3 -> MgO + CO2 (5.930 mol) | 1 leached residue (6.80 kg) | CO2 0.26 kg (0.261) to a linked carbon dioxide store; calcined residue 6.54 (6.539) | 3 kWh, 7.5 min; the reaction absorbs 0.19 kWh |
+
+Molar masses are the IUPAC 2013 conventional atomic weights to three decimals.
+Rounding to item units puts the leach's gram into the salt cake and the struvite
+step's 2 g into the water drawn; the formulation's unit masses were chosen so it
+leaves nothing. Each feed leaves exactly one terminal remainder (brine salt cake,
+caustic remainder, calcined residue); intermediates are feeds in their own right.
+
+**Our simplifications.** The glaserite route (US patents 4,215,100 and 6,143,271,
+below) runs through K3Na(SO4)2 in cooled crystallisers with yields up to about 98.6%;
+we use its overall stoichiometry with complete potassium recovery. Struvite
+precipitation is a mature technique for recovering phosphorus from wastewater at an
+equimolar Mg:N:P ratio and pH 8 to 9.5 (systematic review, Environmental Evidence
+2020, below); making it from the crust's own sodium magnesium phosphate, with the
+sodium leaving as hydroxide, is our simplification. Villiaumite and trona stay in
+the cake; the recipes do not pretend to separate them.
+
+**Energy (authored).** Dissolving the crust and evaporating 20 kg of water in a
+closed crystalliser with condensate recovery is set at 12 kWh, about a quarter of
+open-pan evaporation (2.26 MJ/kg, NIST, below), because the condenser returns most
+of the latent heat. The calcine's absorbed heat follows the formation enthalpies of
+MgO (-601.6 kJ/mol) and CO2 (-393.5 kJ/mol, CODATA key values) and magnesite
+(-1113.3 kJ/mol, Robie and Hemingway 1995, below): about 118 kJ/mol, 0.19 kWh per
+charge, which the engine takes out of the machine's room heat (never below zero).
+
+**Value.** Leaching earns about 54 cr of salts from a 150 cr crust: a loss taken for
+what the ship can use, as with the salt crust. Struvite (17 cr) stays within half
+again its concentrate (12 cr) and reagents. The formulation turns about 76 cr of
+salts into 39 packets at Agriculture's own 30 cr, the owner's exception to the 1.5 x
+guardrail (30 September 2026): formulation is where a finished nutrient's value is
+made, the packets are capped at Agriculture's price, and no merchant sells the salts,
+so no trade loop pays. The native checks enforce all three.
+
+**Brand.** Lixivar, from lixiviation, the chemists' word for leaching; no chemical,
+mining or water-treatment company of that name was found in a web search on 30
+September 2026. The sulfuric acid plant and acid tanks join the same brand.
+
 ## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
 
 The game's RCS is species-blind: `Ship.Maneuver` asks `Ship.RemoveGasMass` for a
@@ -453,6 +515,27 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   cracking; supports the AX-2's process, not its authored power or rate. *The
   temperature and conversion figures quoted above are from memory of the review;
   verify them before quoting.*
+- McCoy, T. J. et al. (2025), "An evaporite sequence from ancient brine recorded
+  in Bennu samples", *Nature* 637, 1072-1077. NASA OSIRIS-REx sample analysis team,
+  led from the Smithsonian Institution. https://www.nature.com/articles/s41586-024-08495-6
+  — the minerals of the evaporite crust; the proportions are ours (the paper's bulk
+  fractions were not readable behind the journal login).
+- US patent 4,215,100 and US patent 6,143,271, glaserite processes for potassium
+  sulfate from potassium chloride and sodium sulfate.
+  https://patents.google.com/patent/US4215100A/en ,
+  https://patents.google.com/patent/US6143271A/en — the leach's overall
+  stoichiometry; the yield figure quoted is *from memory of the patents, verify
+  before quoting*.
+- Struvite recovery systematic review, *Environmental Evidence* 9:34 (2020).
+  https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-020-00211-x
+  — struvite precipitation at equimolar Mg:N:P and pH 8 to 9.5, and its use as a
+  slow-release fertiliser. *Author list not re-read; verify before quoting.*
+- Robie, R. A. and Hemingway, B. S. (1995), Thermodynamic Properties of Minerals
+  and Related Substances at 298.15 K and 1 Bar, US Geological Survey Bulletin 2131
+  — magnesite formation enthalpy for the calcine. *Value from memory of the
+  tables; verify before quoting.*
+- Cox, J. D., Wagman, D. D. and Medvedev, V. A. (1989), CODATA Key Values for
+  Thermodynamics — MgO and CO2 formation enthalpies. *From memory; verify.*
 - Buchwald, V. F. (1975), Handbook of Iron Meteorites, University of California
   Press — kamacite/taenite nickel contents, troilite, schreibersite and
   cohenite inclusions.

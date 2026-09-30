@@ -50,7 +50,7 @@ public static class RefineryRules
     /// <summary>The unit mass a feed identity must carry, or null when it is not feed: from the available recipes.</summary>
     public static double? FeedKg(string? id, bool steelStock) => ChargeCatalog.For(ChargeCatalog.Refinery).FeedKg(id, RefineryRecipes.Met(steelStock));
     /// <summary>Feed identities the bin admits at the game level beyond the native TIsOre rule: our own stock.</summary>
-    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock };
+    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue };
 }
 
 /// <summary>The V4 catalog (owner chemistry decisions, 29 September 2026; sources in the refinery design record): the
@@ -75,6 +75,8 @@ public static class RefineryRecipes
     public static ChargeRecipe NickelIron => ById("nickel-iron")!;
     public static ChargeRecipe Steel => ById("steel")!;
     public static ChargeRecipe Ammonium => ById("ammonium")!;
+    /// <summary>Calcining the LC-3's leached residue: its magnesite's CO2 to a linked carbon dioxide store (Manufacturing 0.18.0).</summary>
+    public static ChargeRecipe Calcine => ById("calcine")!;
     /// <summary>The salt crust's ammonia yield, as the pack states it (0.955 kg on 56.08 mol of ammonium chloride).</summary>
     public static double CrustAmmoniaKg => Ammonium.Products.Single(p => p.Id == ManufacturingRules.Ammonia).Kg;
     public static ChargeRecipe? ByRevision(int revision) => View.ByRevision(revision);

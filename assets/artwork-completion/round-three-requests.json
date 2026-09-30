@@ -1,0 +1,292 @@
+{
+  "date": "2026-09-30",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "mod": "PhobosManufacturing",
+  "allowanceBefore": 1762,
+  "allowanceAfter": 1753,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "Start images are original Phobos procedural drawings in the new Lixivar colours (pale sage frame, dark slate tank, copper-brown crystalliser), drawn with Pillow and sent base64; the LC-3 second pass and the struvite attempt started from earlier outputs by their PixelLab download URLs. No game or third-party imagery.",
+  "initImageHashes": {
+    "references/lc3-leach-unit-start.png": "d089ed90a1af32f82ff4f3e39a4ac9581304f99c926575a2c85f0b89ccfd9bbd",
+    "references/evaporite-crust-start.png": "2e4fc16bac0ce2cf878a39cb2c56c2265ef0b2f600e269ebf5946c4711fbba64",
+    "references/potassium-sulfate-start.png": "5604e3b18787bc391b1f6fe84ab715cc000bc5cb527eb00dbed2c954a75a89bc",
+    "references/phosphate-concentrate-start.png": "d46c2ea842b458d76b9b119d803c0e2585d2904ab81df390749e0fa19cb6fe11",
+    "references/caustic-remainder-start.png": "3a8509b1a3e450c62bdb5abe3fef444845165216850ee7aae25e9b8cb877e5eb"
+  },
+  "repairs": {
+    "lc3-leach-unit": {
+      "from": "references/lc3-leach-unit-first-pass.png",
+      "fromSHA256": "f2b7402d1cfa8f9bfe11e4bbc629d3ec5fc030cd22092e61a8aace39f91b2585",
+      "to": "source/lc3-leach-unit.png",
+      "method": "Inside the drain funnel box (pixels x 44-65, y 60-81) the 100 pixels with hue 190-250 degrees, saturation >= 0.2 and value >= 0.2 (a blue ring that could read as a lamp) are set to steel grey: grey = round(0.95 * luminance + 12), blue channel + 4, luminance 0.299 R + 0.587 G + 0.114 B. Owner ruling of 29 September 2026: no painted indicators. No other pixel changed."
+    }
+  },
+  "derived": {
+    "struvite": {
+      "from": "source/potassium-sulfate.png",
+      "to": "source/struvite.png",
+      "method": "exact palette swap of the potassium sulfate sack, so struvite reads as its sibling in a different sack: body f1e9d1 -> d6dde6, cabdad -> a9b4c2, 83766e -> 6e7888; band 9aa588 -> b87848, 616550 -> 7c4a2c; outline, tie and alpha unchanged"
+    },
+    "leached-residue": {
+      "from": "source/anhydrous-residue.png",
+      "to": "source/leached-residue.png",
+      "method": "per-pixel luminance map onto a damp dark grey-brown ramp (washed clay and magnesite); alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.78,
+          18
+        ],
+        "g": [
+          0.74,
+          16
+        ],
+        "b": [
+          0.7,
+          14
+        ]
+      }
+    },
+    "calcined-residue": {
+      "from": "source/anhydrous-residue.png",
+      "to": "source/calcined-residue.png",
+      "method": "per-pixel luminance map onto a pale neutral grey ramp (baked clay and magnesia); alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.9,
+          36
+        ],
+        "g": [
+          0.9,
+          36
+        ],
+        "b": [
+          0.88,
+          34
+        ]
+      }
+    },
+    "brine-salt-cake": {
+      "from": "source/spent-salt-cake.png",
+      "to": "source/brine-salt-cake.png",
+      "method": "per-pixel luminance map onto a warm cream ramp (rock salt and sodium carbonate), so it reads apart from the cool grey spent salt cake; alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.95,
+          40
+        ],
+        "g": [
+          0.9,
+          34
+        ],
+        "b": [
+          0.8,
+          30
+        ]
+      }
+    }
+  },
+  "rejectedArchive": "Nothing archived: the two empty phosphate outputs returned fully transparent canvases (nothing to keep), the rejected struvite pass is recorded below and remains in the provider gallery, and the LC-3 second pass is recorded below and remains in the provider gallery.",
+  "attempts": [
+    {
+      "key": "lc3-leach-unit",
+      "jobId": "8aaa4141-8fd7-4146-a89f-240b5035df1a",
+      "assetId": "17cb5d5b-4adf-5ba9-88b7-6f0c5727fa61",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a spacecraft leach and crystallise unit installed in a square frame: a pale sage green painted steel frame with copper-brown corner brackets around a pale grey-green enamel deck lit from the upper left; upper left a large round dark slate leach tank seen from above with a bolted steel rim and a central agitator hub; upper right a copper-brown crystalliser drum lying horizontally with banded rings; a short steel pipe joining tank and drum; below the drum a grey condenser box with parallel steel coil lines; lower left a dark control plate; lower centre a round steel drain funnel; a small blue water flange on the left edge; a small yellow flange on the right edge; a small dark orange power socket on the bottom frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9310101,
+        "init_image_strength": 100,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/lc3-leach-unit-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces, on the start layout: tank and hub, banded drum, condenser box and control plate read at 48 px. The edge flanges were dropped (connection points are logical). The drain funnel's blue ring repaired to steel (see repairs)."
+    },
+    {
+      "key": "lc3-leach-unit",
+      "jobId": "a08ed8ea-17d1-47cb-954c-f567d94d5a36",
+      "assetId": "80263ee1-3344-5087-a2c3-868708d98c9d",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead leach and crystallise unit with the same layout, repainted as worn working spacecraft equipment (medium shading pass; full prompt as the AX-2 second pass pattern, naming the tank, drum, condenser, control plate, a plain round grey drain funnel, the flanges and the power socket).",
+        "width": 96,
+        "height": 96,
+        "seed": 9310102,
+        "init_image_strength": 120,
+        "no_background": false,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/lc3-leach-unit-first-pass.png",
+      "decision": "rejected",
+      "review": "Overhead, but the leach tank became an empty black void without its hub and the drain became a blue pin that reads as an indicator. The first pass with a recorded repair was selected instead."
+    },
+    {
+      "key": "evaporite-crust",
+      "jobId": "ef606329-5d4e-4a57-881f-454e88556b4e",
+      "assetId": "191ae5bb-4579-5d05-8495-2502e4c748da",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A single mined asteroid chunk lying on the floor, top surface only: an irregular lump of pinkish tan clay rock streaked with bright white and pale salmon salt veins, a few darker pits, rough stony texture, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: crisp dark outline, readable colour regions, restrained shading. Transparent background. No perspective, no shadow, no text, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310201,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/evaporite-crust-start.png",
+      "decision": "selected",
+      "review": "Overhead lump; pink clay with white salt veins reads apart from the tan ammonium salt crust at 16 px."
+    },
+    {
+      "key": "potassium-sulfate",
+      "jobId": "a8b3615e-6378-42cf-b739-a51969489931",
+      "assetId": "823df1c6-f202-534f-bcae-f6a5eebba7b7",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A small closed sack of white fertiliser salt lying flat, top surface only: a plump cream canvas sack with a gathered, tied neck at the top closed by a copper-brown tie, a pale sage green band stitched across its lower part, soft folds, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: crisp dark outline, readable colour regions, restrained shading. Transparent background. No perspective, no shadow, no text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310301,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/potassium-sulfate-start.png",
+      "decision": "selected",
+      "review": "Overhead sack, no lettering; the sage band carries the Lixivar colour."
+    },
+    {
+      "key": "phosphate-concentrate",
+      "jobId": "2ccec7b1-011d-4272-93b1-2faed728a6c8",
+      "assetId": "42862641-9fa5-51c6-8476-58f4caab67c8",
+      "costGenerations": 1,
+      "request": {
+        "description": "Flat rectangular slab of damp pale green-grey mineral filter cake (overhead, transparent background).",
+        "width": 64,
+        "height": 64,
+        "seed": 9310401,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/phosphate-concentrate-start.png",
+      "decision": "rejected",
+      "review": "Returned an empty, fully transparent canvas (the pale cake was removed as background)."
+    },
+    {
+      "key": "phosphate-concentrate",
+      "jobId": "361b7326-0e2d-4ce4-8998-251563ebaedc",
+      "assetId": "def07478-34ca-57b4-9150-7bbf787f5033",
+      "costGenerations": 1,
+      "request": {
+        "description": "Pressed pale sea-green mineral powder brick (overhead, transparent background), init strength 60.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310402,
+        "init_image_strength": 60,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/phosphate-concentrate-start.png",
+      "decision": "rejected",
+      "review": "Empty again."
+    },
+    {
+      "key": "phosphate-concentrate",
+      "jobId": "3efbedd8-0967-42f4-b54e-c1f7550d60e2",
+      "assetId": "ce530fca-5b40-5cd4-9d29-56a9d9e6f04f",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A small rectangular filter-press cake of damp sea-green phosphate mineral paste lying flat on a dark floor, top surface only, filling the middle of the canvas: muted green surface with faint horizontal press ridges, a few white specks, darker green bevelled edges, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: thick crisp black outline around the cake, readable colour regions, restrained shading. No perspective, no shadow, no text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310403,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": null,
+      "decision": "selected",
+      "review": "Overhead cake without an init image; brighter green than asked but distinct from every residue at 16 px."
+    },
+    {
+      "key": "caustic-remainder",
+      "jobId": "ee40a6a5-64d2-4b1b-af4e-fe8d280b95c6",
+      "assetId": "3a48c6f5-7d0d-566d-a64e-528f04b1c8d6",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A small round sealed chemical tub seen from the top: a white plastic screw lid with a pale sage green rim and a small copper-brown centre cap, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: crisp dark outline, readable colour regions, restrained shading. Transparent background. No perspective, no side walls, no shadow, no text, numbers, hazard symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310501,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/caustic-remainder-start.png",
+      "decision": "selected",
+      "review": "Overhead lid; reads as a small sealed tub at 16 px, no hazard lettering."
+    },
+    {
+      "key": "struvite",
+      "jobId": "f7de268b-918e-4f73-8e86-92f650483bfe",
+      "assetId": "4ec97dc7-e323-514a-bc0d-4ae635d0a427",
+      "costGenerations": 1,
+      "request": {
+        "description": "Same small closed sack, now pale grey-blue with a copper-brown band (overhead, transparent background), from the potassium sulfate output.",
+        "width": 64,
+        "height": 64,
+        "seed": 9310601,
+        "init_image_strength": 150,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "PixelLab download of job a8b3615e",
+      "decision": "rejected",
+      "review": "Came back almost identical to the potassium sulfate sack. Replaced by the recorded palette swap."
+    }
+  ]
+}

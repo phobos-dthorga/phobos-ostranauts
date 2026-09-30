@@ -128,6 +128,15 @@ engineering salvage (the Y3 and Y4 are purchase-only by size, like the S4 and
 S5), a native buyer under industrial products, and full repair, Restore and
 dismantle coverage. The same native economy checks cover them.
 
+Later addition (Manufacturing 0.18.0, 30 September 2026): the Lixivar LC-3 joins
+the Manufacturing machines at parity through the same economy table: broken, worn,
+new and refurbished offers on the other machines' routes and the regional supply
+kiosks, the one-in-twenty engineering find (three in four broken), the high-salvage
+mark, component repair, Restore and mass-balanced dismantling, and the faction
+kiosks at Trusted standing. Its salts, intermediates and remainders and the mined
+evaporite crust are never sold. The same native economy, stock, faction-kiosk and
+buyer checks cover it.
+
 Across the three content mods the regenerated references record 746 merchant
 offers (738 before), 56 retail identities (51: the five newly sold broken forms)
 and 54 identities in world-loot choices (52: the two ingots). Used and refurbished

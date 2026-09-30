@@ -34,8 +34,7 @@ internal static class PerformanceHelperChecks
             !EquipmentIdentity.IsFamily("Installed", ""), "Missing IDs and empty prefixes do not match");
         // Allocation API here is .NET's supported test runtime, not a Unity measurement.
         for (int i = 0; i < 1000; i++) EquipmentIdentity.IsFamily("OtherInstalled", prefix);
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 42000; i++) EquipmentIdentity.IsFamily("OtherInstalled", prefix);
-        check(GC.GetAllocatedBytesForCurrentThread() == before, "Nonmatching equipment scan allocates no candidate strings on the test runtime");
+        check(!PrimitiveChecks.Allocates(() => { for (int i = 0; i < 42000; i++) EquipmentIdentity.IsFamily("OtherInstalled", prefix); }),
+            "Nonmatching equipment scan allocates no candidate strings on the test runtime");
     }
 }

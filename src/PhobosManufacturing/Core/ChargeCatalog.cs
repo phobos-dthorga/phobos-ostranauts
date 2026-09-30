@@ -15,29 +15,32 @@ namespace PhobosManufacturing.Core;
 public static class ChargeCatalog
 {
     public const string Schema = RecipeSchema.Name, Resource = "PhobosManufacturing.process-recipes.json", FrozenResource = "PhobosManufacturing.frozen-process-recipes.json";
-    public const string Refinery = "refinery";
-    public const string SteelStockRequirement = "shipbreaker-steel-stock";
+    public const string Refinery = "refinery", Leach = "leach";
+    public const string SteelStockRequirement = "shipbreaker-steel-stock", MakeupRequirement = "agriculture-makeup";
     /// <summary>Each catalog machine key and the definition prefix of the machine it runs on.</summary>
     public static readonly IReadOnlyDictionary<string, string> MachinePrefixes = new Dictionary<string, string>(StringComparer.Ordinal)
     {
-        [Refinery] = RefineryRules.Prefix
+        [Refinery] = RefineryRules.Prefix,
+        [Leach] = LeachRules.Prefix
     };
     /// <summary>Feature keys a recipe may require; the owner resolves each at load.</summary>
-    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement };
+    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement };
     public static string PrefixOf(string machine) => MachinePrefixes.TryGetValue(machine, out var prefix) ? prefix : throw new InvalidOperationException("Unknown charge machine: " + machine);
     private static RecipePack? pack; private static IReadOnlyList<ChargeRecipe>? all; private static RecipePack? builtFrom;
     private static readonly Dictionary<string, ChargeRecipeView> views = new(StringComparer.Ordinal);
     public static RecipePack Pack => pack ??= Load();
     public static DataPackSource Source => new(ManufacturingRules.Owner, Economy.ModFolder, Schema, typeof(ChargeCatalog).Assembly, Resource);
     /// <summary>Reads the shipped pack and any player files. Unit masses are checked against Manufacturing's own
-    /// materials, Shipbreaker's steel stock and, when the game's data is loaded, the native items.</summary>
+    /// materials, Shipbreaker's steel stock, Agriculture's makeup packet and, when the game's data is loaded, the
+    /// native items.</summary>
     public static RecipePack Load(Func<string, double?>? nativeMass = null)
     {
         var frozen = RecipeFreeze.Read(typeof(ChargeCatalog).Assembly, FrozenResource);
         var context = new RecipeContext
         {
             Machines = MachinePrefixes.Keys.ToArray(), Requirements = Requirements,
-            UnitMassOf = id => Materials.KgOf(id) ?? (id == RefineryRules.SteelIngot ? RefineryRules.SteelIngotKg : id == RefineryRules.SteelRemainder ? RefineryRules.SteelRemainderKg : nativeMass?.Invoke(id)),
+            UnitMassOf = id => Materials.KgOf(id) ?? (id == RefineryRules.SteelIngot ? RefineryRules.SteelIngotKg : id == RefineryRules.SteelRemainder ? RefineryRules.SteelRemainderKg :
+                id == LeachRules.MakeupPacket ? LeachRules.MakeupPacketKg : nativeMass?.Invoke(id)),
             IsCommodity = ChargeCommodities.Is
         };
         pack = DataPacks.Load<RecipePack>(Source, (p, raw) =>
@@ -106,11 +109,11 @@ public sealed class ChargeRecipeView
         return Available(met).OrderByDescending(r => r.Units).ThenBy(r => r.Revision)
             .FirstOrDefault(r => r.ItemInputs.All(i => counts.TryGetValue(i.Id, out int n) && n >= i.Count));
     }
-    /// <summary>The unit mass a feed identity must carry among the available recipes (or only <paramref name="selected"/>
-    /// when the machine binds an explicitly selected recipe), or null when it is not feed.</summary>
+    /// <summary>The unit mass a feed identity must carry among the available recipes (or only <paramref name="selected"/>,
+    /// when its requirements are met, for a machine that binds an explicitly selected recipe), or null when it is not feed.</summary>
     public double? FeedKg(string? id, Func<string, bool> met, ChargeRecipe? selected = null)
     {
-        if (id == null) return null;
+        if (id == null || selected != null && !selected.Requires.All(met)) return null;
         var recipes = selected != null ? new[] { selected } : Available(met);
         foreach (var recipe in recipes)
             foreach (var input in recipe.ItemInputs)

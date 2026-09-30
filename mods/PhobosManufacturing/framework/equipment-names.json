@@ -33,5 +33,15 @@
   "Material.PhobosAnhydrousResidue": { "brand": "Fennmark", "model": "" },
   "Material.PhobosClayHydrates": { "brand": "Fennmark", "model": "" },
   "Material.PhobosAmmoniumSaltCrust": { "brand": "Fennmark", "model": "" },
-  "Material.PhobosSpentSaltCake": { "brand": "Fennmark", "model": "" }
+  "Material.PhobosSpentSaltCake": { "brand": "Fennmark", "model": "" },
+  "Leach.name": { "brand": "Lixivar", "model": "LC-3" },
+  "Leach.feed_name": { "brand": "Lixivar", "model": "LC-3" },
+  "Material.PhobosEvaporiteCrust": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosPotassiumSulfate": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosPhosphateConcentrate": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosLeachedResidue": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosStruvite": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosBrineSaltCake": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosCausticRemainder": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosCalcinedResidue": { "brand": "Fennmark", "model": "" }
 }

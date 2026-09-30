@@ -38,11 +38,17 @@ public static class Materials
 {
     public const string NickelIronIngot = "PhobosNickelIronIngot", CarbonStock = "PhobosCarbonStock", RefinerySlag = "PhobosRefinerySlag",
         AnhydrousResidue = "PhobosAnhydrousResidue", ClayHydrates = "PhobosClayHydrates", AmmoniumSaltCrust = "PhobosAmmoniumSaltCrust", SpentSaltCake = "PhobosSpentSaltCake";
+    /// <summary>Feedstock round three (Manufacturing 0.18.0): the mined evaporite crust, the LC-3's products and
+    /// intermediates, and one terminal remainder per feed (brine salt cake, caustic remainder, calcined residue).</summary>
+    public const string EvaporiteCrust = "PhobosEvaporiteCrust", PotassiumSulfate = "PhobosPotassiumSulfate", PhosphateConcentrate = "PhobosPhosphateConcentrate",
+        LeachedResidue = "PhobosLeachedResidue", Struvite = "PhobosStruvite", BrineSaltCake = "PhobosBrineSaltCake", CausticRemainder = "PhobosCausticRemainder",
+        CalcinedResidue = "PhobosCalcinedResidue";
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
     /// <summary>Every material, in definition order.</summary>
-    public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake };
+    public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
+        EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();
@@ -81,6 +87,7 @@ public static class Materials
     public static Material? ById(string? id) { foreach (var m in All) if (m.Id == id) return m; return null; }
     /// <summary>A material's unit mass, for recipe checks; null for an id that is not ours.</summary>
     public static double? KgOf(string? id) => ById(id)?.Kg;
+    /// <summary>Raw stock the V4 takes (ingots and carbon); the LC-3's salts are stock too but feed only the LC-3.</summary>
     public static bool IsStock(string? id) => id == NickelIronIngot || id == CarbonStock;
     public static bool IsTerminal(string? id) => ById(id)?.Terminal == true;
 }

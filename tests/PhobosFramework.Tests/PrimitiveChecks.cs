@@ -25,9 +25,7 @@ internal static class PrimitiveChecks
         index.Add("PhobosSiloA", "a2");
         check(index.Get("PhobosSiloAInstalled") == "a2", "A re-registered family replaces its value and forgets remembered answers");
         for (int i = 0; i < 1000; i++) index.Get("ItmOtherInstalled");
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 42000; i++) index.Get("ItmOtherInstalled");
-        check(GC.GetAllocatedBytesForCurrentThread() == before, "A remembered miss allocates nothing on the test runtime");
+        check(!Allocates(() => { for (int i = 0; i < 42000; i++) index.Get("ItmOtherInstalled"); }), "A remembered miss allocates nothing on the test runtime");
         check(index.Remove(v => v == "b") == 1 && index.Get("PhobosSiloBInstalled") == null && index.Count == 1, "Removing an owner's families forgets their answers");
         index.Clear(); check(index.Count == 0 && index.Get("PhobosSiloAInstalled") == null, "Clear empties the index");
         Reject(() => index.Add("", "x"), "An empty prefix is refused");
@@ -171,7 +169,9 @@ internal static class PrimitiveChecks
         check(Allocates(() => { for (int i = 0; i < 1000; i++) world.Members(racks, found); }) == false, "Reading a family allocates nothing on the test runtime");
     }
 
-    private static bool Allocates(Action action)
+    /// <summary>Whether the action allocates in steady state: up to three attempts, a pause between them, so the
+    /// runtime's one-off tier-up and profile-guided instrumentation allocations are not mistaken for the code's own.</summary>
+    internal static bool Allocates(Action action)
     {
         for (int attempt = 0; attempt < 3; attempt++)
         {

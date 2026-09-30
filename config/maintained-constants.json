@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.17.0",
+      "value": "0.18.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2029,6 +2029,109 @@
       ],
       "review": [
         "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
+      ]
+    },
+    "Manufacturing.leachPrice": {
+      "type": "number",
+      "value": "48000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored LC-3 leach and crystallise unit base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosLeachUnit/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "The faction-kiosk tier follows the price (docs/development/faction-kiosk-stock.md): from 30,000 credits the LC-3 is Trusted."
+      ]
+    },
+    "Manufacturing.leachKilowatts": {
+      "type": "number",
+      "value": "12",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored LC-3 working electrical demand, in kW; recipe durations are fixed, so this also sets each LC-3 charge's energy (equipment data pack; read-only to player files).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/equipment.json",
+          "pointer": "/equipment/PhobosLeachUnit/workingKW"
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe.",
+        "Review docs/development/manufacturing-refinery-and-chemistry.md: the evaporite leach is authored at 12 kWh (a quarter of open-pan evaporation of its 20 kg of water)."
+      ]
+    },
+    "Manufacturing.evaporiteCrustChance": {
+      "type": "number",
+      "value": "0.05",
+      "min": 0,
+      "max": 0.2,
+      "description": "Share of the game's C-class mineral roll (ItmRandomMineralCClass) carved from silicates for the evaporite crust; C-class deposits roll it directly and dark-regolith walls through their nested C-class roll. Never a shop.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Definitions.cs",
+          "pattern": "\\bEvaporiteChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the native checks (the crust must appear once in the C-class table, among the carves after silicates) and regenerate item references. Existing deposits already rolled are unchanged.",
+        "The silicates share (0.40 in the game's table) is a budget shared with clay hydrates, the ammonium salt crust and Shipbreaker's extra deposit ice; the donor must cover every share or later carves are refused."
+      ]
+    },
+    "Manufacturing.potassiumSulfatePrice": {
+      "type": "number",
+      "value": "42",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.70 kg potassium sulfate unit (60 cr/kg).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosPotassiumSulfate/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+      ]
+    },
+    "Manufacturing.struvitePrice": {
+      "type": "number",
+      "value": "17",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.43 kg struvite unit (about 40 cr/kg).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosStruvite/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+      ]
+    },
+    "Manufacturing.phosphateConcentratePrice": {
+      "type": "number",
+      "value": "12",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.25 kg phosphate concentrate unit, set so struvite precipitation stays within half again its inputs.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosPhosphateConcentrate/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
       ]
     }
   }

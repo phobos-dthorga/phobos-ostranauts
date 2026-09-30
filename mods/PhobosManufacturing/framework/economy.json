@@ -67,6 +67,16 @@
       "brokenSalvage": { "ItmScrapSteel": 20, "ItmScrapAluminum": 6, "ItmPartsMechSmall01": 2, "ItmScrapTrash": 33 },
       "restoreMinutes": 45
     },
+    "PhobosLeachUnit": {
+      "notes": "Lixivar LC-3 Leach and Crystallise Unit, 3 x 3, 220 kg: priced between the AX-2 and the V4, billed like them.",
+      "price": 48000,
+      "work": { "install": 1600, "uninstall": 1300, "repair": 4800, "dismantle": 1200 },
+      "repairBill": { "ItmScrapSteel": 3, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 5, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 2, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmPartsScreen01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 40, "ItmPartsMechSmall01": 20, "ItmPartsElecSmall01": 12, "ItmComponentMotor01": 2, "ItmComponentMobo01": 2, "ItmHeatSink01": 2, "ItmPartsScreen01": 1, "ItmScrapTrash": 39 },
+      "brokenSalvage": { "ItmScrapSteel": 100, "ItmScrapAluminum": 34, "ItmPartsMechSmall01": 10, "ItmPartsElecSmall01": 4, "ItmComponentMotor01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 75 },
+      "restoreMinutes": 120,
+      "internalBin": "PhobosLeachUnitInputBin"
+    },
     "PhobosHydrogenStore": {
       "notes": "Fennmark H2 Hydrogen Store, the small size; H3 and H4 derive from it through the size ladder.",
       "price": 22000,
@@ -170,6 +180,7 @@
       "PhobosSabatierReactor": "Trusted",
       "PhobosAmmoniaCracker": "Trusted",
       "PhobosChemicalProcessor": "Trusted",
+      "PhobosLeachUnit": "Trusted",
       "PhobosCanisterFiller": "Friendly",
       "PhobosPropellantManifold": "Friendly",
       "PhobosCabinAirRegulator": "Friendly",

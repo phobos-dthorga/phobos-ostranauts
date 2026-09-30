@@ -74,6 +74,89 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockSpentSaltCake"
+    },
+    "PhobosEvaporiteCrust": {
+      "notes": "Mined, never sold: an evaporite-rich piece of a brine vein from C-class finds, after the minerals NASA's OSIRIS-REx team reported in Bennu samples (McCoy et al. 2025); proportions authored. Sells like the game's hydrates.",
+      "kind": "mined",
+      "kg": 10,
+      "price": 150,
+      "stack": 6,
+      "side": 1,
+      "category": "IsCategoryOre",
+      "art": "StockEvaporiteCrust"
+    },
+    "PhobosPotassiumSulfate": {
+      "notes": "LC-3 product, 60 cr/kg: fertiliser-grade potassium sulfate. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.7,
+      "price": 42,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockPotassiumSulfate"
+    },
+    "PhobosPhosphateConcentrate": {
+      "notes": "LC-3 intermediate, 48 cr/kg: the crust's wet-separated Na,Mg phosphate, feed for struvite. Priced so the struvite step stays within half again its inputs. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.25,
+      "price": 12,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockPhosphateConcentrate"
+    },
+    "PhobosLeachedResidue": {
+      "notes": "LC-3 intermediate at the technical minimum price: the crust's clay matrix and magnesite, feed for the V4's calcine charge. Not terminal: the V4 takes it.",
+      "kind": "stock",
+      "kg": 6.8,
+      "price": 0.01,
+      "stack": 1,
+      "side": 2,
+      "category": "IsCategoryTrash",
+      "art": "StockLeachedResidue"
+    },
+    "PhobosStruvite": {
+      "notes": "LC-3 product, about 40 cr/kg: slow-release magnesium ammonium phosphate fertiliser. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.43,
+      "price": 17,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockStruvite"
+    },
+    "PhobosBrineSaltCake": {
+      "notes": "Terminal: the crust's sodium salts (halite, the sodium chloride made, trona, leftover thenardite, villiaumite).",
+      "kind": "stock",
+      "kg": 2.25,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockBrineSaltCake"
+    },
+    "PhobosCausticRemainder": {
+      "notes": "Terminal: the sodium hydroxide left by struvite precipitation.",
+      "kind": "stock",
+      "kg": 0.07,
+      "price": 0.01,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockCausticRemainder"
+    },
+    "PhobosCalcinedResidue": {
+      "notes": "Terminal: the leached residue's clay matrix with its magnesite calcined to magnesia.",
+      "kind": "stock",
+      "kg": 6.54,
+      "price": 0.01,
+      "stack": 1,
+      "side": 2,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockCalcinedResidue"
     }
   }
 }
