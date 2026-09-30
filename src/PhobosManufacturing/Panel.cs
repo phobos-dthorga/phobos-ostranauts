@@ -46,6 +46,8 @@ public sealed class Panel : GUIData
         shell = ConsoleShell.Create(transform, co.strNameFriendly, C.Green);
         shell.SelectionOrigin = co;
         shell.EmergencyStop = () => Execute(co, "pause");
+        // An applied setting or a finished action can change link names, offered actions and field values: redraw.
+        shell.Changed = () => Page(co);
         foreach (var page in new[] { "operation", "connections", "details" })
         { var name = page; C.Button(shell.Navigation, Text.Get("Panel." + name), () => shell.Navigate(() => { tab = name; Page(co); })); }
         C.Button(shell.Navigation, C.Text("close"), shell.Close);
@@ -62,7 +64,7 @@ public sealed class Panel : GUIData
             foreach (var field in provider.Fields(co))
             {
                 var f = field;
-                C.Button(shell.Detail, f.Label + ": " + f.Value, () => ConfigurationSheet.Choices(shell, f.Label, "", provider.ConfigurationStamp(co), f.Choices,
+                C.Button(shell.Detail, f.Label + ": " + f.Value, () => ConfigurationSheet.Choices(shell, f.Label, f.Current, provider.ConfigurationStamp(co), f.Choices,
                     (string expected, string value, out string reason) => provider.ApplyConfiguration(co, null, expected, value, out reason)));
             }
             if (!provider.Fields(co).Any()) C.Label(shell.Detail, Text.Get("Panel.no_connections"));
@@ -80,8 +82,8 @@ public sealed class Panel : GUIData
     {
         bool success = provider.Command(co, null, action, out result);
         result = PanelFeedback.Additional(success, result, provider.Snapshot(co).Activity.Detail);
+        Page(co);
         shell.Notice.text = result;
-        Refresh(co);
     }
     private void Update()
     {

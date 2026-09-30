@@ -727,5 +727,15 @@
   "AcidPlant.linked": "Water vessel linked.",
   "AcidPlant.unlinked": "Unlinked.",
   "AcidPlant.link_missing": "That vessel is not a registered water vessel within one tile of the acid plant.",
-  "Provider.action_recover": "Recover acid from the bund"
+  "Provider.action_recover": "Recover acid from the bund",
+  "Group.refinery": "Refineries",
+  "Group.leach": "Leach and crystallise units",
+  "Group.acid-plant": "Acid plants",
+  "Group.processor": "Chemical processors",
+  "Group.filler": "Canister filling stations",
+  "Group.regulator": "Cabin air regulators",
+  "Group.manifold": "RCS propellant manifolds",
+  "Group.reactor": "Sabatier reactors",
+  "Group.cracker": "Ammonia crackers",
+  "Group.store": "Gas stores and acid tanks"
 }

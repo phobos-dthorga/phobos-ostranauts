@@ -11,6 +11,8 @@ internal static class FrameworkConsole
     /// <summary>Further status lines appended to <c>phobosframework status</c> (the data packs); set by the plugin so
     /// the console can be compiled on its own.</summary>
     internal static Func<string>? ExtraStatus { get; set; }
+    /// <summary>The <c>loot [table]</c> report (the loot carve registry), set by the plugin for the same reason.</summary>
+    internal static Func<string?, string>? Loot { get; set; }
     private static bool Prefix(ref string strInput, ref bool __result)
     {
         var words = (strInput ?? "").Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -22,6 +24,12 @@ internal static class FrameworkConsole
             return false;
         }
         string command = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
+        if (command == "loot" && words.Length <= 3 && Loot != null)
+        {
+            __result = true;
+            strInput += "\n" + Loot(words.Length == 3 ? words[2] : null);
+            return false;
+        }
         if (command == "crew" && words.Length <= 3)
         {
             __result = true;

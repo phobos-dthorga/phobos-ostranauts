@@ -24,6 +24,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.28.0] - 2026-09-30 - Draft
+
+### Fixed
+
+- The control panel redraws as soon as a setting is applied or an action runs, so supplies, links and offered actions no longer stay stale until the panel is reopened.
+- A protected nutrient hopper's accept button and a water reservoir's Details page show their text instead of bracketed keys.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.55.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.27.0] - 2026-09-30 - Draft
 
 ### Added

@@ -42,12 +42,15 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 (motors, mainboards, heat sinks and, for the V4, a screen); see the
 [equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
-Ores are mined, never bought. Three chunks come from dark rock: C-class deposits
-and dark regolith walls give a clay hydrates chunk about one C-class find in ten,
-an ammonium salt crust about one in twenty and an evaporite crust about one in
-twenty, in place of some of the silicates they would otherwise give. Iron-rich
-M-class and S-class finds give a sulfide nodule in place of some of their
-meteoric iron (about one M-class find in twenty-five, one S-class find in fifty).
+Ores are mined, never bought. Three chunks come from dark rock, in place of some
+of the silicates: each pull from a dark rock (C-class) deposit gives a clay
+hydrates chunk about one time in eleven, and an ammonium salt crust or an
+evaporite crust each about one time in twenty-one; dark regolith walls give them
+far more rarely. Iron-rich deposits give a sulfide nodule in place of some of
+their meteoric iron: about one pull in thirty-six from an M-class deposit and one
+in sixty-three from an S-class one. A single deposit can run out without giving
+one. To see a table as the game rolls it now, open the console (F3) and type
+`phobosframework loot ItmRandomMineralCClass` (or `MClass`, `SClass`).
 Stations also sell sulfuric acid into an acid tank through **Bulk supplies**, at
 the game's own 3.1 cr/kg. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
@@ -578,7 +581,7 @@ releases it.
 ## Owner checks (game closed, `scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing`)
 
 Buy and install a V4, X2 and H2 store, link an S3 within one tile; mine a dark
-(C-class) deposit and confirm a clay chunk appears about one pull in ten; run each charge and read
+(C-class) deposit and confirm a clay chunk appears about one pull in eleven; run each charge and read
 the products and vessel levels; carburise four nickel-iron ingots with one
 carbon; start the X2 with an installed O2 canister adjacent and watch its
 pressure and the hydrogen store rise; vent hydrogen; save and reload mid-cycle
@@ -627,7 +630,7 @@ bottle in a worn suit is left alone, and, with a destination locker chosen in
 the Crew panel, that charged bottles go there. Choose it again to stop.
 
 Salt crust and ammonia (0.9.0): mine C-class deposits and confirm a salt crust
-turns up about one pull in twenty. Install a Q2 within one tile of a V4, link it
+turns up about one pull in twenty-one. Install a Q2 within one tile of a V4, link it
 under Send ammonia to, load the crust and Start. Confirm it waits with the
 reason while no store is linked or the store is full, then that about 0.96 kg
 of ammonia, 0.5 kg of water, a spent salt cake and CO2 in the room come out

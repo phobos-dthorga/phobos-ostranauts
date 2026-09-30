@@ -79,6 +79,8 @@ public sealed class IndustrialPanel : GUIData
         shell=ConsoleShell.Create(transform,Text.Get("Industry.title"),C.Amber);plate=(RectTransform)shell.transform;header=shell.Title;
         shell.UsePolarisStyle();
         shell.EmergencyStop=StopSelected;
+        // An applied setting can change link names, fields and offered commands: redraw the selected equipment.
+        shell.Changed=ShowDetail;
         list=shell.List;details=shell.Detail;listScroll=shell.ListScroll;detailScroll=shell.DetailScroll;
         var tabs=Central?new[]{"overview","equipment","routing","maintenance","observations","attention","details"}:new[]{"equipment","routing","maintenance","details"};
         foreach(var key in tabs){var captured=key;navigationButtons[key]=PolarisWidgets.Button(shell.Navigation,key=="maintenance"||key=="details"?C.Text(key):Text.Get("Industry.tab_"+key),()=>shell.Navigate(()=>
@@ -155,7 +157,7 @@ public sealed class IndustrialPanel : GUIData
         foreach (var group in visible.GroupBy(c => c.Group))
         {
             string key = group.Key;
-            PolarisWidgets.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "- ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
+            PolarisWidgets.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "- ") + GroupName(key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
             if (collapsed.Contains(key)) continue;
             foreach (var card in group)
             {
@@ -182,6 +184,8 @@ public sealed class IndustrialPanel : GUIData
             readout.text = card == null ? Text.Get("Industry.select") : card.Name + "\n" + (tab=="details"||card.Instrument?card.Detail+(tab=="details"?"\n\n"+card.Id:""):IndustryService.StateName(card.State)+(card.Summary.Length>0?"\n"+card.Summary:""));
         }
     }
+    /// <summary>A group's heading: the name its provider registered (Manufacturing names its own), else ours.</summary>
+    internal static string GroupName(string key) => EquipmentProviders.GroupLabel(key) ?? Text.Get("Industry.group_" + key);
     private void ShowDetail()
     {
         W.Clear(details); commands = null!;
@@ -202,7 +206,7 @@ public sealed class IndustrialPanel : GUIData
             foreach(var field in fields.Fields(target))
             {
                 var selected=field;
-                PolarisWidgets.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,"",fields.ConfigurationStamp(target),selected.Choices,
+                PolarisWidgets.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,selected.Current,fields.ConfigurationStamp(target),selected.Choices,
                     (string expected,string chosen,out string reason)=>fields.ApplyConfiguration(target,binding,expected,chosen,out reason)));
             }
         if (provider != null)
@@ -294,7 +298,7 @@ public sealed class IndustrialPanel : GUIData
                 if(inventory)CrewSim.LowerUI();
                 bool success = IndustryService.Run(binding, targetId, action, value, out string message);
                 result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : Text.Get("Industry.rejected", message);
-                if(!inventory){shell.Notice.text=result;RefreshReadout();}
+                if(!inventory){ShowDetail();shell.Notice.text=result;}
             }
             if(inventory)shell.Navigate(Execute);else Execute();
         });

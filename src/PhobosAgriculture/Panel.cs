@@ -47,6 +47,8 @@ public sealed class Panel : GUIData
         shell=ConsoleShell.Create(transform,co.strNameFriendly,C.Green);
         shell.SelectionOrigin=co;
         shell.EmergencyStop=()=>Execute(co,RecyclerCapture.IsRecycler(co)?"capture-pause":"pause");
+        // An applied setting or a finished action can change field values and offered actions: redraw the page.
+        shell.Changed=()=>Page(co);
         foreach(var page in new[]{"operation","supplies","details"})
         {var name=page;C.Button(shell.Navigation,C.Text(name),()=>shell.Navigate(()=>{tab=name;Page(co);}));}
         if(Definitions.Machine(co)||BulkDefinitions.IsTank(co))C.Button(shell.Navigation,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(co)));
@@ -111,7 +113,7 @@ public sealed class Panel : GUIData
         if(tab=="details")C.Label(shell.Detail,Text.Get("hopper_desc")+"\n"+co.strCODef+"\n"+co.strID);
         else
         {
-            if(HopperService.Protected(co))C.Button(shell.Detail,Text.Get("bulk-accept"),()=>Execute(co,"bulk-accept"));
+            if(HopperService.Protected(co))C.Button(shell.Detail,Text.Get("accept"),()=>Execute(co,"bulk-accept"));
             foreach(var action in HopperDefinitions.Work)AddButton(shell.Detail,co,action);
         }
         C.Button(shell.Actions,C.Text("details"),()=>{tab="details";Page(co);});C.Button(shell.Actions,C.Text("close"),shell.Close);
@@ -148,8 +150,8 @@ public sealed class Panel : GUIData
         // already rendered live here; preserve distinct notices (e.g. queued work).
         result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,
             recycler ? RecyclerCapture.Describe(co) : BulkDefinitions.IsTank(co)?BulkService.Describe(co):HopperDefinitions.IsHopper(co)?HopperService.Describe(co):Service.Describe(co));
+        Page(co);
         shell.Notice.text=result;
-        Refresh(co);
     }
     private void Update()
     {

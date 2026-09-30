@@ -534,15 +534,14 @@ internal sealed class ChargeMachine
             var vessels = Candidates(co, link).ToArray();
             string peer = Peer(co, link);
             if (!link.AlwaysShow && vessels.Length == 0 && peer.Length == 0) continue;
-            yield return new(link.FieldLabel(), ObjectPresentation.Name(peer),
-                vessels.Select(v => (link.ActionPrefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (link.ActionPrefix + "none", Text.Get("Provider.link_none")) }));
+            yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels);
         }
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             var s = Get(co);
             var chosen = Catalog.ByRevision(s.State.Selected);
             yield return new(Text.Get("Provider.recipe_field"), chosen == null ? Text.Get("Provider.link_none") : Text.Get("Recipe." + chosen.Id),
-                Catalog.Available(Spec.Met).Select(r => ("recipe:" + r.Id, Text.Get("Recipe." + r.Id))));
+                Catalog.Available(Spec.Met).Select(r => ("recipe:" + r.Id, Text.Get("Recipe." + r.Id))), chosen == null ? "" : "recipe:" + chosen.Id);
         }
     }
     internal bool Link(CondOwner co, ChargeLinkSpec link, string id, ConsoleBinding? binding, out string reason)

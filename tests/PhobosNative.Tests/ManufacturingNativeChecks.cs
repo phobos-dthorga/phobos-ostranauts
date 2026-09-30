@@ -161,7 +161,11 @@ internal static class ManufacturingNativeChecks
                 foreach (string text in Enum.GetValues(typeof(LinkProblem)).Cast<LinkProblem>().Select(problem => link.Reason(problem, 1, 2))
                              .Concat(new[] { link.FieldLabel(), link.Linked(), link.Unlinked(), link.Missing() }))
                     check(!text.Contains("["), "Link text resolves on " + chargeSpec.Prefix + " for " + link.Commodity + ": " + text);
+            check(Provider.Groups.Contains(chargeSpec.SnapshotKind), "The charge machine's console group is one we name: " + chargeSpec.SnapshotKind);
         }
+        foreach (string group in Provider.Groups)
+            check(!PhobosManufacturing.Text.Get("Group." + group).StartsWith("[", StringComparison.Ordinal), "Console group name exists: " + group);
+        check(!PhobosManufacturing.Text.Get("Store.accept_done").StartsWith("[", StringComparison.Ordinal), "Acid tanks and gas stores share the accept notice");
         check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia, LiquidStores.SulfuricAcid, ManufacturingRules.CropNutrients }),
             "The V4 links a carbon dioxide store for the calcine; the LC-3 links water, ammonia, an acid tank and a nutrient hopper");
         check(ManufacturingRules.CropNutrients == PhobosAgriculture.Core.HopperRules.Commodity && AgricultureStock.HopperMinimum == new Version(0, 27, 0) &&

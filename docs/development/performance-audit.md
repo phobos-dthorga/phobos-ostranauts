@@ -498,3 +498,15 @@ when a panel or console builds its fields, peers resolved by saved id), and its
 requirement gate is a plain predicate with no allocation per check. No new scans,
 cadences or per-frame work. No performance capture or measured FPS claim accompanies this
 change.
+
+## 30 September: panel refresh and interface fixes (U1)
+
+U1 — Static review of Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0,
+Agriculture 0.28.0 and Auto Nav 0.31.1. The control panels now rebuild their page
+when a configuration sheet closes after an Apply and after a player command: one
+rebuild per click, the same work as opening the page, never per frame (the 0.5 s
+text refresh is unchanged). Selection sheets receive the current choice id the
+fields already computed. Console group headings look up a provider-registered
+label in one dictionary probe per heading while the list is built. The
+`phobosframework loot` report reads one loot table on demand. No new scans,
+cadences or per-step work. No performance capture accompanies this change.

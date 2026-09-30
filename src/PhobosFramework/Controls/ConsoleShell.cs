@@ -25,6 +25,9 @@ public sealed class ConsoleShell : MonoBehaviour
     public Action? Discard;
     public Action? CancelOverlay;
     public Action? EmergencyStop;
+    /// <summary>Raised after a configuration sheet closes having applied a change, so the host redraws the pages
+    /// whose buttons were built from the old settings (link names, field values, offered actions).</summary>
+    public Action? Changed;
     public CondOwner? SelectionOrigin;
     private RectTransform body=null!, listRoot=null!, detailRoot=null!;
     private GameObject? dialog;

@@ -127,6 +127,24 @@ internal static class LootCarveRegistry
     internal static IReadOnlyList<string>? Original(string tableId, Loot table) =>
         tables.TryGetValue(tableId, out var e) && ReferenceEquals(e.Table, table) ? e.Original : null;
 
+    /// <summary>Read-only report for <c>phobosframework loot [table]</c>: a table's live expressions as the game rolls
+    /// them now and the Phobos shares carved into it, or, with no table, which tables carry shares.</summary>
+    internal static string Describe(string? tableId)
+    {
+        if (string.IsNullOrWhiteSpace(tableId))
+            return tables.Count == 0 ? Text.Get("LootConsole.none")
+                : Text.Get("LootConsole.carved_tables", string.Join(", ", tables.Keys.OrderBy(k => k, StringComparer.Ordinal)));
+        if (DataHandler.dictLoot == null || !DataHandler.dictLoot.TryGetValue(tableId!, out var table)) return Text.Get("LootConsole.missing", tableId!);
+        var lines = new List<string> { Text.Get("LootConsole.table", tableId!) };
+        lines.AddRange((table.aCOs ?? Array.Empty<string>()).Select(e => "  " + e));
+        if (tables.TryGetValue(tableId!, out var entry) && ReferenceEquals(entry.Table, table) && entry.Carves.Count > 0)
+        {
+            lines.Add(Text.Get("LootConsole.carves"));
+            lines.AddRange(entry.Carves.OrderBy(c => c.Key, StringComparer.Ordinal).Select(c => Text.Get("LootConsole.carve", c.Key, c.Value.Share, c.Value.Donor)));
+        }
+        else lines.Add(Text.Get("LootConsole.no_carves"));
+        return string.Join("\n", lines);
+    }
     internal static void Apply(string tableId, string choice, LootCarve carve)
     {
         if (DataHandler.dictLoot == null || !DataHandler.dictLoot.TryGetValue(tableId, out var table))

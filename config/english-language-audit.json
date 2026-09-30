@@ -7569,8 +7569,8 @@
       "mod": "PhobosAutoNav",
       "key": "Preferences.cruise_down",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The minus sign U+2212 is missing from the game fonts; the hyphen-minus renders.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAutoNav/NavigationApproachDock.cs:28",
@@ -7600,7 +7600,7 @@
         "src/PhobosAutoNav/NavigationService.cs:330"
       ],
       "before": "− Cruise speed",
-      "after": "− Cruise speed"
+      "after": "- Cruise speed"
     },
     {
       "mod": "PhobosAutoNav",
@@ -7643,8 +7643,8 @@
       "mod": "PhobosAutoNav",
       "key": "Preferences.arrival_down",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The minus sign U+2212 is missing from the game fonts; the hyphen-minus renders.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAutoNav/NavigationApproachDock.cs:28",
@@ -7674,7 +7674,7 @@
         "src/PhobosAutoNav/NavigationService.cs:330"
       ],
       "before": "− Arrival speed",
-      "after": "− Arrival speed"
+      "after": "- Arrival speed"
     },
     {
       "mod": "PhobosAutoNav",
@@ -12602,13 +12602,13 @@
       "key": "FrameworkConsole.commands_phobosframework_status_recipes_help_read_only",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Adds the crew diagnostic command.",
+      "reason": "Adds the read-only loot report to the command list.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosFramework/FrameworkConsole.cs:30"
       ],
       "before": "Commands: phobosframework status | recipes | help | perf help. Performance capture is opt-in and does not change gameplay. No hot reload.",
-      "after": "Commands: phobosframework status | recipes | crew [name] | help | perf help. crew explains why each crew member is or is not studying or working. Performance capture is opt-in and does not change gameplay. No hot reload."
+      "after": "Commands: phobosframework status | recipes | crew [name] | loot [table] | help | perf help. crew explains why each crew member is or is not studying or working; loot shows a mining or loot table as the game rolls it now, with any Phobos shares carved into it. Performance capture is opt-in and does not change gameplay. No hot reload."
     },
     {
       "mod": "PhobosFramework",
@@ -51731,6 +51731,292 @@
       ],
       "before": "14.33 kg of silica gel, iron sulfate and undissolved rock, with the Epsom liquor soaked into them, left when the LC-3 leaches olivine. Nothing recovers it.",
       "after": "14.33 kg of silica gel, iron sulfate and undissolved rock, with the Epsom liquor soaked into them, left when the LC-3 leaches olivine. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.state_Paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Controls/ConsoleBinding.cs:36",
+        "src/PhobosManufacturing/Panel.cs:100"
+      ],
+      "before": "Paused",
+      "after": "Paused"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.state_Ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Controls/ConsoleBinding.cs:36",
+        "src/PhobosManufacturing/Panel.cs:100"
+      ],
+      "before": "Ready",
+      "after": "Ready"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.state_Unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Controls/ConsoleBinding.cs:36",
+        "src/PhobosManufacturing/Panel.cs:100"
+      ],
+      "before": "Unavailable",
+      "after": "Unavailable"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:135"
+      ],
+      "before": "No Phobos share is carved into any loot table in this game.",
+      "after": "No Phobos share is carved into any loot table in this game."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.carved_tables",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:136"
+      ],
+      "before": "Tables with Phobos shares: {0}. Use phobosframework loot <table> to see one.",
+      "after": "Tables with Phobos shares: {0}. Use phobosframework loot <table> to see one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:137"
+      ],
+      "before": "No loot table is called {0}.",
+      "after": "No loot table is called {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.table",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:138"
+      ],
+      "before": "Loot table {0}, as the game rolls it now:",
+      "after": "Loot table {0}, as the game rolls it now:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.carves",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:142"
+      ],
+      "before": "Phobos shares carved into it:",
+      "after": "Phobos shares carved into it:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.carve",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:143"
+      ],
+      "before": "  {0}: {1:0.###} taken from {2}",
+      "after": "  {0}: {1:0.###} taken from {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootConsole.no_carves",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:145"
+      ],
+      "before": "No Phobos share is carved into it.",
+      "after": "No Phobos share is carved into it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.refinery",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Refineries",
+      "after": "Refineries"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.leach",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Leach and crystallise units",
+      "after": "Leach and crystallise units"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.acid-plant",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Acid plants",
+      "after": "Acid plants"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.processor",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Chemical processors",
+      "after": "Chemical processors"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.filler",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Canister filling stations",
+      "after": "Canister filling stations"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.regulator",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Cabin air regulators",
+      "after": "Cabin air regulators"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.manifold",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "RCS propellant manifolds",
+      "after": "RCS propellant manifolds"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.reactor",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Sabatier reactors",
+      "after": "Sabatier reactors"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.cracker",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Ammonia crackers",
+      "after": "Ammonia crackers"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.store",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:35",
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Gas stores and acid tanks",
+      "after": "Gas stores and acid tanks"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_tank_desc",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this fix; names the state or result directly.",
+      "trace": "literal/built key reference",
+      "references": [
+        "src/PhobosAgriculture/Panel.cs:123"
+      ],
+      "before": "A Groundwork water reservoir keeps process water by the kilogram for the growing shift. A W2 within one tile draws from it; link it on the W2's Supplies page. Not for drinking.",
+      "after": "A Groundwork water reservoir keeps process water by the kilogram for the growing shift. A W2 within one tile draws from it; link it on the W2's Supplies page. Not for drinking."
     }
   ],
   "documents": [
@@ -51738,8 +52024,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "578b9901d1a63d34bac98f64bbcf7f635a5d4f37246250edba694de2dbb6bda8",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "f41cba4b818e3cae299939cdb06b528463855560215b52102e6554b5925460f2",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -51766,8 +52052,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "2aef17436d364500b7b9d0bbcae65ddeec147ef464a3108935614cef48d4be36",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "f9f6eb8c881ce69dc7719672cf6a5867db3d8bd392aab8a209b920c838955b3c",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -51849,8 +52135,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b8dbd8bf3b03a25552d6d2d2191c2b7235391da1cca8b612daa8eb247422e5c8",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "0590775c05981911349ecc70787e6592a18ae4e3604252338a327212e5f9d6cf",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -51898,8 +52184,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ebb9ce37c8d57a09f0a834bc934bbc39ff2b8a86ee5dfa8657c5199906d35e93",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "f6b433fdd0d1e5a48f59d8435402b38b79caf46a93a89963ad0953008924012d",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52421,8 +52707,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "949edcf8af9861f423a80be486ec9e3d4ac25c56d48b4bfd52c93091bb8c154c",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "3f43278f4a281ba67a2a409e66bdc6a134382355c87ce09d0feb4191b6d2c610",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -52633,8 +52919,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "27b1abd10cafbc2dd0ae959ce7a85c8983dfbf6e1a4ddfb6b96a899fec58cd5c",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "e0a26e277fad329e86ebe07ddb37f016d152a5f36fd0a4309aaa4ba1c913225e",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -52689,15 +52975,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8cc4a96fefcb3d38263f725a26b94ff1e38aa48ef0417db60f49142667dbcba0",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "02b7feca7dec5563fe5df52f33d57d90c2dc992814ef980dc283de6ec2856298",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4f4ccfdc0b6a198e7b31938369d719249adee11c4a7c6319644a380c7cca6bdf",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "fe1671014c94d7239aa44af58c8f924922a23291092a94628a27555c0617e3db",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/item-references.md",
@@ -52710,15 +52996,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "d1757914388b93359036ab0dd492673ffe700fb6ce4faab0cab25687d64e3b67",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "ac9669aed3228f1aff72ae0a830f1a58777db62a44fa650c0dec935333f244a1",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "eec60797560c89dc185d45f23c9937d34170e40ac1b5261c1a923c9d65b10b30",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "bfd74d0151f2c7a74808621c75b4320773cb33e6cc89392a7dbd25efee36d8fc",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -52738,8 +53024,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c52a2f3376ed1efed6c97c659935938bd5ab6f9bce5e077830b6212f5b97cec8",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "7b8681ffe52a021e456deddf3c427c222ac71e14b0649a1cee05815a90b37b18",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/residue-collector.md",
@@ -52787,8 +53073,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fdb385844dd3bf242b4cefae75f8381dc39fccf3e85ed9d07c65098d7c5a57af",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "8422bb9fb11410106a3b951d1c767234650e2519c9db8afc67b418fc91df4089",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -52815,36 +53101,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "26cbe92516b9666022b28216e4d328ae1b6b7a5084e116bb5af9606c753ced4e",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "09bf0f8cc1bc131d981cd6dee7c13ee9a9e42616f5da49006d8919d22ce534bc",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "df32efc113b4028c3e310027020a96749bfdf683b9dfc2002f36a1f3b01e3fef",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "4046ade78b460fa55199a80c50450d4f33e24bec47ad68e51c596ba391673ac9",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "769714c9e26cc30a423a2354b2411820ad301ff783e66a2e8cd2599441ed7363",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "f8ec50310a0ad045bff45f8ce196a834ecb2d53a594901fbbc1a94b9dc85d462",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4e007aba0de476dfc83a5fbcadf17b75d4a0e4df55803b55bbdcf4cc5603532a",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "fbf420f2433ba666e14d8ec7b514b0f1d223b654a94d289653f01703f3843728",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5294b6809e1ea6beb0ab95b7690073dcb1f661c0f0e400dd34bcb6d7e2d94e9f",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "e5b342805b113c572ad98d85dd7b755fed929fb4312b6cd75bb11ffd53a2c157",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -52928,8 +53214,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d8d29802b2e53202b33e397929c5ee14c68604b5370c5e40e72a42d08e851c6f",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "240f47bc51c10a987a2cdcef3f1f9b8dfbb10a512cfcfe884b9de0b509d5e540",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -52945,8 +53231,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1ea3004130476092c7764f0229f91edfe2c0b7b65af7973d20a83e50e6c9effa",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "5df2aa066218f450e17adb2865add8f741b8ca048b32eaeeb3a4adcedfc61993",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -52966,8 +53252,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cbb3be4a3e567188cc4777060d5be40d62f97d6f1df2d74647c22c5a04b671e7",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "76674e8bee6bf29ca2eed300fa32c690dc0aad101e1502380879cea2ea502307",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -52977,14 +53263,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e76abe46c2ad9cb20d056dd6441a448c2a53811a331f6d08ae6ccdf2081c6533",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "bdb92b12333b4f4486acecdd98c75536d6f5fdbaeb28cf3d7a4e2349b3b2f815",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c3b4fb145ff5a16a06870ded38de8e6f3c02de672afbdc8c7f570af459bb8da8",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "2a74ff51cf6780dbba0d8da98aa2957cbdc4d50042c0ede6ce79c6957dd5daaa",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -53001,8 +53287,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d0adb72abf9cf8dc13c961160e57607e8a8aa746014faa6a95b7b3e183ce0029",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "36842438e6ac6790eb60a740dd85c44694b1d3d04f205755e387a41e5c796b7b",
+      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

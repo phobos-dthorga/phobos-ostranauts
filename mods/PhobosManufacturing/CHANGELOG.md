@@ -6,6 +6,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-09-30 - Draft
+
+### Fixed
+
+- The Control Panel redraws the moment a link or setting is applied, and after Start, Pause or Accept, so the Connections page shows the new link straight away. Each selection sheet opens with the current link or setting marked.
+- The console groups for Manufacturing equipment in Shipbreaker's industrial console now have names instead of bracketed keys, and accepting a protected acid tank shows the right notice.
+
+### Changed
+
+- The player guide and item reference give the chunk odds per pull from a deposit (for example a clay hydrates chunk about one pull in eleven from a C-class deposit, a sulfide nodule about one in thirty-six from an M-class deposit), and show how to read a live table with the console command phobosframework loot.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.55.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.20.0] - 2026-09-30 - Draft
 
 ### Added

@@ -44,6 +44,18 @@ class LanguageAuditTests(unittest.TestCase):
             self.assertTrue(any('Review is stale' in x for x in errors))
             self.assertTrue(any('Document inventory changed' in x for x in errors))
 
+    def test_glyph_missing_from_game_fonts_fails(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); self.fixture(root)
+            text = '− Cruise speed'
+            ledger = json.loads((root / 'config/english-language-audit.json').read_text(encoding='utf-8'))
+            ledger['entries'][0].update({'before': text, 'after': text})
+            (root / 'config/english-language-audit.json').write_text(json.dumps(ledger), encoding='utf-8')
+            (root / 'translations/Example/en.json').write_text(json.dumps({'status': text}), encoding='utf-8')
+            errors = audit.verify(root)['errors']
+            self.assertTrue(any('Glyph missing from the game fonts' in x and 'U+2212' in x for x in errors), errors)
+            self.assertEqual(audit.missing_glyphs('- Cruise speed'), [])
+
     def test_newlines_do_not_invalidate_review(self):
         self.assertEqual(audit.digest('one\r\ntwo'), audit.digest('one\ntwo'))
 

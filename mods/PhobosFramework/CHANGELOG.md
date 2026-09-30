@@ -22,6 +22,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.55.0] - 2026-09-30 - Draft
+
+### Fixed
+
+- Control panels redraw as soon as a setting is applied: link names, field values and offered actions no longer stay as they were until the panel is reopened. After Apply the notice carries the machine's own reply (for example "Hydrogen store linked.") and a selection sheet opens with the current setting marked.
+- Machine states Paused, Ready and Unavailable now have names in the shared console instead of showing a bracketed key.
+
+### Added
+
+- The console command phobosframework loot, followed by a table name (open the console with F3), shows a mining or loot table as the game rolls it now, with any Phobos shares carved into it; without a name it lists the tables that carry our shares. Read only.
+- Equipment providers can name their own console groups, so a console that lists every mod's equipment shows them in the owner's words.
+
+### Compatibility and limits
+
+- Phobos Shipbreaker, Agriculture and Manufacturing need this version for the panel fixes. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.54.0] - 2026-09-30 - Draft
 
 ### Added

@@ -16,6 +16,15 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(ChargeMachines.All.Select(m => m.Spec.Installed).Concat(new[] { ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed })
         .Concat(GasStores.All.Select(s => s.Installed)).Concat(LiquidStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+    /// <summary>Every snapshot group this provider reports; each has a "Group." name in the catalogue, registered with
+    /// Framework so consoles that list every mod's equipment show them in our words.</summary>
+    internal static readonly string[] Groups = { "refinery", "leach", "acid-plant", "processor", "filler", "regulator", "manifold", "reactor", "cracker", "store" };
+    /// <summary>A link field: the linked object's name, every candidate and None, with the current link marked.</summary>
+    internal static EquipmentField LinkField(string label, string prefix, string? peer, IEnumerable<CondOwner> candidates)
+    {
+        string linked = string.IsNullOrEmpty(peer) || peer == "none" ? "none" : peer!;
+        return new(label, ObjectPresentation.Name(peer ?? ""), candidates.Select(v => (prefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (prefix + "none", Text.Get("Provider.link_none")) }), prefix + linked);
+    }
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
         if (ChargeMachines.For(co.strCODef) is ChargeMachine charge)
@@ -24,39 +33,31 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
         else if (ProcessorRules.IsFamily(co.strCODef))
         {
-            yield return new(Text.Get("Provider.water_field"), ObjectPresentation.Name(ProcessorService.WaterPeer(co)),
-                ProcessorService.WaterCandidates(co).Select(v => ("water:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("water:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.store_field"), ObjectPresentation.Name(ProcessorService.StorePeer(co)),
-                ProcessorService.StoreCandidates(co).Select(v => ("store:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("store:none", Text.Get("Provider.link_none")) }));
+            yield return LinkField(Text.Get("Provider.water_field"), "water:", ProcessorService.WaterPeer(co), ProcessorService.WaterCandidates(co));
+            yield return LinkField(Text.Get("Provider.store_field"), "store:", ProcessorService.StorePeer(co), ProcessorService.StoreCandidates(co));
             yield return new(Text.Get("Provider.canister_field"), ProcessorService.CanisterName(co),
                 ProcessorService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, ObjectPresentation.Name(c))).Concat(new[] { ("canister:none", Text.Get("Processor.cabin")) }));
         }
         else if (SabatierRules.IsFamily(co.strCODef))
         {
-            yield return new(Text.Get("Provider.hydrogen_field"), ObjectPresentation.Name(SabatierService.HydrogenPeer(co)),
-                SabatierService.HydrogenCandidates(co).Select(v => ("hydrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("hydrogen:none", Text.Get("Provider.link_none")) }));
+            yield return LinkField(Text.Get("Provider.hydrogen_field"), "hydrogen:", SabatierService.HydrogenPeer(co), SabatierService.HydrogenCandidates(co));
             yield return new(Text.Get("Provider.co2_field"), SabatierService.CanisterName(co),
                 SabatierService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, ObjectPresentation.Name(c))).Concat(new[] { ("canister:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.water_out_field"), ObjectPresentation.Name(SabatierService.WaterPeer(co)),
-                SabatierService.WaterCandidates(co).Select(v => ("water:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("water:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.methane_field"), ObjectPresentation.Name(SabatierService.MethanePeer(co)),
-                SabatierService.MethaneCandidates(co).Select(v => ("methane:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("methane:none", Text.Get("Provider.link_none")) }));
+            yield return LinkField(Text.Get("Provider.water_out_field"), "water:", SabatierService.WaterPeer(co), SabatierService.WaterCandidates(co));
+            yield return LinkField(Text.Get("Provider.methane_field"), "methane:", SabatierService.MethanePeer(co), SabatierService.MethaneCandidates(co));
         }
         else if (CrackerRules.IsFamily(co.strCODef))
         {
-            yield return new(Text.Get("Provider.ammonia_field"), ObjectPresentation.Name(CrackerService.AmmoniaPeer(co)),
-                CrackerService.AmmoniaCandidates(co).Select(v => ("ammonia:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("ammonia:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.nitrogen_out_field"), ObjectPresentation.Name(CrackerService.NitrogenPeer(co)),
-                CrackerService.NitrogenCandidates(co).Select(v => ("nitrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("nitrogen:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.hydrogen_out_field"), ObjectPresentation.Name(CrackerService.HydrogenPeer(co)),
-                CrackerService.HydrogenCandidates(co).Select(v => ("hydrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("hydrogen:none", Text.Get("Provider.link_none")) }));
+            yield return LinkField(Text.Get("Provider.ammonia_field"), "ammonia:", CrackerService.AmmoniaPeer(co), CrackerService.AmmoniaCandidates(co));
+            yield return LinkField(Text.Get("Provider.nitrogen_out_field"), "nitrogen:", CrackerService.NitrogenPeer(co), CrackerService.NitrogenCandidates(co));
+            yield return LinkField(Text.Get("Provider.hydrogen_out_field"), "hydrogen:", CrackerService.HydrogenPeer(co), CrackerService.HydrogenCandidates(co));
         }
         else if (ManifoldRules.IsFamily(co.strCODef))
         {
             yield return new(Text.Get("Provider.feed_field"), Text.Get(ManifoldService.On(co) ? "Provider.on" : "Provider.off"),
-                new[] { ("feed:on", Text.Get("Provider.on")), ("feed:off", Text.Get("Provider.off")) });
+                new[] { ("feed:on", Text.Get("Provider.on")), ("feed:off", Text.Get("Provider.off")) }, ManifoldService.On(co) ? "feed:on" : "feed:off");
             yield return new(Text.Get("Provider.order_field"), Text.Get(ManifoldService.First(co) ? "Provider.order_first" : "Provider.order_last"),
-                new[] { ("order:first", Text.Get("Provider.order_first")), ("order:last", Text.Get("Provider.order_last")) });
+                new[] { ("order:first", Text.Get("Provider.order_first")), ("order:last", Text.Get("Provider.order_last")) }, ManifoldService.First(co) ? "order:first" : "order:last");
             foreach (var source in ManifoldService.Sources(co))
                 yield return new(ObjectPresentation.Name(source.Id), Text.Get(source.Enabled ? "Provider.on" : "Provider.off"),
                     new[] { ("source-on:" + source.Id, Text.Get("Provider.on")), ("source-off:" + source.Id, Text.Get("Provider.off")), ("unlink:" + source.Id, Text.Get("Provider.unlink")) });
@@ -68,7 +69,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         {
             var state = FillerService.StateOf(co);
             yield return new(Text.Get("Provider.mode_field"), Text.Get(state.Mode == FillerMode.Decant ? "Provider.mode_decant" : "Provider.mode_fill"),
-                new[] { ("mode:fill", Text.Get("Provider.mode_fill")), ("mode:decant", Text.Get("Provider.mode_decant")) });
+                new[] { ("mode:fill", Text.Get("Provider.mode_fill")), ("mode:decant", Text.Get("Provider.mode_decant")) }, state.Mode == FillerMode.Decant ? "mode:decant" : "mode:fill");
             foreach (var link in state.Links)
             {
                 var choices = new List<(string, string)>();
@@ -91,13 +92,11 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         {
             var state = RegulatorService.StateOf(co);
             yield return new(Text.Get("Provider.o2_target_field"), Text.Get("Regulator.kpa", state.OxygenKPa),
-                RegulatorRules.OxygenTargets.Select(v => ("o2:" + N(v), Text.Get("Regulator.kpa", v))));
+                RegulatorRules.OxygenTargets.Select(v => ("o2:" + N(v), Text.Get("Regulator.kpa", v))), "o2:" + N(state.OxygenKPa));
             yield return new(Text.Get("Provider.pressure_target_field"), state.PressureKPa > 0 ? Text.Get("Regulator.kpa", state.PressureKPa) : Text.Get("Regulator.pressure_off"),
-                RegulatorRules.PressureTargets.Select(v => ("pressure:" + N(v), v > 0 ? Text.Get("Regulator.kpa", v) : Text.Get("Regulator.pressure_off"))));
-            yield return new(Text.Get("Provider.oxygen_store_field"), ObjectPresentation.Name(state.OxygenStore),
-                RegulatorService.Candidates(co, ManufacturingRules.Oxygen).Select(v => ("oxygen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("oxygen:none", Text.Get("Provider.link_none")) }));
-            yield return new(Text.Get("Provider.nitrogen_store_field"), ObjectPresentation.Name(state.NitrogenStore),
-                RegulatorService.Candidates(co, ManufacturingRules.Nitrogen).Select(v => ("nitrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("nitrogen:none", Text.Get("Provider.link_none")) }));
+                RegulatorRules.PressureTargets.Select(v => ("pressure:" + N(v), v > 0 ? Text.Get("Regulator.kpa", v) : Text.Get("Regulator.pressure_off"))), "pressure:" + N(state.PressureKPa));
+            yield return LinkField(Text.Get("Provider.oxygen_store_field"), "oxygen:", state.OxygenStore, RegulatorService.Candidates(co, ManufacturingRules.Oxygen));
+            yield return LinkField(Text.Get("Provider.nitrogen_store_field"), "nitrogen:", state.NitrogenStore, RegulatorService.Candidates(co, ManufacturingRules.Nitrogen));
         }
         else if (LiquidStores.IsFamily(co.strCODef) && !BulkVessel.Protected(co))
         {

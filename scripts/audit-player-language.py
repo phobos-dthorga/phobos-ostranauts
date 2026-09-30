@@ -20,6 +20,16 @@ def signature(text):
 def grammar(text):
     return sorted(re.findall(r'\[(?:us|them|crafts|checks)\]', text))
 
+# Characters the game's own fonts are known to lack. Each entry is evidence from Player.log ("The character with
+# Unicode value ... was not found in the [font] font asset"), seen in our own [Label] objects; extend it when the log
+# shows another. Text using one renders as a blank.
+MISSING_GLYPHS = {
+    '−': 'minus sign U+2212 (NotoSansSC, robotocondensedb; 25-26 September 2026); use the hyphen-minus "-"',
+}
+
+def missing_glyphs(text):
+    return [note for ch, note in MISSING_GLYPHS.items() if ch in text]
+
 def verify(root=ROOT):
     ledger = json.loads((root / 'config/english-language-audit.json').read_text(encoding='utf-8'))
     errors = []
@@ -27,6 +37,9 @@ def verify(root=ROOT):
     for path in sorted((root / 'translations').glob('*/en.json')):
         for key, value in json.loads(path.read_text(encoding='utf-8-sig')).items():
             actual[(path.parent.name, key)] = value
+    for identity, value in actual.items():
+        for note in missing_glyphs(value):
+            errors.append('Glyph missing from the game fonts (' + note + '): ' + '/'.join(identity))
     reviewed = {(r['mod'], r['key']): r for r in ledger['entries']}
     if len(reviewed) != len(ledger['entries']): errors.append('Duplicate ledger entries')
     for identity in actual.keys() | reviewed.keys():

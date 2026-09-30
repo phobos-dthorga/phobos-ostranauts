@@ -43,7 +43,7 @@ internal static class LiquidStoreService
         if (!Content.Ready) { message = Content.Status; return false; }
         message = Content.Access(co, binding) ?? ""; if (message.Length > 0) return false;
         var store = Store(co);
-        if (action == "accept") { bool ok = BulkVessel.Accept(co, Plugin.Log); message = Text.Get(ok ? "Store.accepted" : "Store.accept_unavailable"); return ok; }
+        if (action == "accept") { bool ok = BulkVessel.Accept(co, Plugin.Log); message = Text.Get(ok ? "Store.accept_done" : "Store.accept_unavailable"); return ok; }
         if (BulkVessel.Protected(co)) return false;
         if (action == "recover")
         {

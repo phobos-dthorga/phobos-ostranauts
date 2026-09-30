@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.20.0";
-    public const string MinimumFrameworkVersion = "0.54.0";
+    public const string Version = "0.21.0";
+    public const string MinimumFrameworkVersion = "0.55.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -32,6 +32,7 @@ public sealed class Plugin : BaseUnityPlugin
         AgricultureStock.Detect();
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
+        foreach (string group in Provider.Groups) { string g = group; EquipmentProviders.RegisterGroup(g, () => Text.Get("Group." + g)); }
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.Supplies);

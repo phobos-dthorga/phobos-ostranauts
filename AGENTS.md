@@ -1236,6 +1236,31 @@
   ammonium sulfate charge became the formulation's ammoniation, because a charge
   must bind an item. Owner gameplay checks remain pending.
 
+## Shared equipment, links and save migration (2026-09-30)
+
+- Owner direction: **share resources and equipment across the Phobos mods where
+  possible; inter-mod dependencies are acceptable.** Equipment every mod needs (pipe
+  and belt lines, water tanks, panel hosts) belongs in Framework, which every mod
+  already requires; consolidate near-duplicate families instead of keeping them in
+  parallel. This refines "Framework only" dependency wording elsewhere: a content mod
+  may depend on another where sharing needs it, recorded through the constants
+  catalogue and `config/mod-dependency-minimums.json`.
+- Owner rule (must): **every link between our machines and stores, and machine to
+  store to machine, runs through touching equipment (footprints touching or one tile
+  apart, `BulkVessels.WithinOneTile`) or a pipe or conveyor-belt network, never across
+  open floor.** The station refuelling kiosk is the only exception. Touching suitable
+  equipment joins as if piped, and joins chain across the player's ship.
+- Owner rule: **migrate existing saves automatically** (the owner plays with these
+  mods). Prefer idempotent load-time conversions (converting old assets to their new
+  equivalents is preferred to keeping legacy forms); a documented manual step is
+  acceptable only when unavoidable and must be stated explicitly in the changelog and
+  player guides. Every plan lists the saved structures it touches, marks each
+  automatic or manual, and tests it with old-record or old-save fixtures.
+- The approved plan (fixes; shared line networks and stacking; process-water, gas and
+  acid lines; shared stores; the Framework water-tank ladder with R3-R5 converted on
+  load; Ship's Water tanks joining water networks; working conveyor belts) is carried
+  out in release sets; check the changelogs for what has landed.
+
 ## Refining value (2026-09-30)
 
 - Owner direction: the rule that **every refining charge must lose value** belonged

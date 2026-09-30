@@ -21,8 +21,12 @@ public sealed class EquipmentField
 {
     public readonly string Label,Value;
     public readonly IReadOnlyList<(string Id,string Label)> Choices;
-    public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices)
-    {Label=label;Value=value;Choices=Array.AsReadOnly(choices.ToArray());}
+    /// <summary>The choice id matching the current setting, so a configuration sheet opens with it marked; empty when
+    /// the provider does not say (the sheet then marks nothing, as before).</summary>
+    public readonly string Current;
+    public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices):this(label,value,choices,""){}
+    public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices,string? current)
+    {Label=label;Value=value;Choices=Array.AsReadOnly(choices.ToArray());Current=current??"";}
 }
 
 public sealed class EquipmentAction
@@ -61,4 +65,16 @@ public static class EquipmentProviders
     public static void Unregister(string id)
     { foreach (string key in definitions.Where(p => p.Value.Id == id).Select(p => p.Key).ToArray()) definitions.Remove(key); }
     public static IEquipmentProvider? For(string definition) => definitions.TryGetValue(definition, out var provider) ? provider : null;
+
+    private static readonly Dictionary<string, Func<string>> groups = new(StringComparer.Ordinal);
+    /// <summary>A provider names its own snapshot groups, so a console that lists every mod's equipment (Shipbreaker's
+    /// C1) shows them in the owner's words instead of needing a translation for each foreign group.</summary>
+    public static void RegisterGroup(string group, Func<string> label)
+    {
+        if (string.IsNullOrEmpty(group) || label == null) throw new ArgumentException("Equipment group needs an id and a label.");
+        groups[group] = label;
+    }
+    /// <summary>The registered label of a group, or null when no provider has named it.</summary>
+    public static string? GroupLabel(string group) => groups.TryGetValue(group, out var label) ? label() : null;
+    public static IReadOnlyCollection<string> Groups => groups.Keys;
 }
