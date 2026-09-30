@@ -60,7 +60,7 @@ The rules:
 ## Editor help
 
 The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
-`process-recipes`, `materials`, `vessels`). Point your editor at them and it will
+`process-recipes`, `materials`, `vessels`, `equipment`). Point your editor at them and it will
 complete field names and flag a wrong type or range as you type. In VS Code, add
 to your settings (adjust the path to where you cloned or downloaded the schemas):
 
@@ -108,6 +108,7 @@ keeps the recipe revision it started with.
 | Phobos Agriculture 0.24.0 | `economy` | Every Verdemorrow machine: price, repair and dismantle work, bills, salvage; the irrigation pipe; offers, regions, lots, loot |
 | Phobos Auto Nav 0.30.0 | `economy` | The three navigation boards: price, repair, dismantle, offers, regions, the lot of sixteen, derelict salvage |
 | Phobos Agriculture 0.25.0 | `materials` | Seeds, nutrient and irrigation charges, produce, meals, recovery supplies and wastes: mass, price, stack, category |
+| Phobos Manufacturing 0.17.0 | `equipment` | The V4 refinery's size, weight, power, heat into the room, feed cells and connection points (read only for now) |
 
 Larger sizes (S4, S5, R4, R5, Y3, Y4 and the medium and large gas stores) follow
 from the small entry: one tile wider per step, more capacity and less weight per
@@ -115,5 +116,13 @@ kilogram, so you edit the small size and the rest follow. Assembly sections and
 navigation boards are entries too: a section has a price, dismantle work and salvage;
 a board has a price, a broken price, repair and dismantle work. Every entry names
 the `lot` it ships in and the `floor` its offers never fall below, from the pack's
-own `lots` and `chanceFloors` tables. More packs (equipment shapes, loot) follow as
-the tables move over; this page lists them as they land.
+own `lots` and `chanceFloors` tables.
+
+The equipment pack is for reading only, for now: a file that changes a shipped
+machine's size, weight, power or connection points is skipped with a message,
+because a new footprint or connection would move a machine already placed in
+your save. Recipes may also say how much of a commodity a machine needs on hand
+but gives back (`circulates`, such as wash water) and how much heat the reaction
+itself gives off into the room over the charge (`reactionKWh`, negative when it
+draws heat in). More packs (loot) follow as the tables move over; this page lists
+them as they land.

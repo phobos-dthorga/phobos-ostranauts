@@ -1,0 +1,608 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Ostranauts.Inventory;
+using Phobos.Ostranauts.Framework;
+using Phobos.Ostranauts.Framework.Controls;
+using Phobos.Ostranauts.Framework.Crew;
+using Phobos.Ostranauts.Framework.Inventory;
+using Phobos.Ostranauts.Framework.Liquids;
+using Phobos.Ostranauts.Framework.Persistence;
+using Phobos.Ostranauts.Framework.Processing;
+using PhobosManufacturing.Core;
+
+namespace PhobosManufacturing;
+
+/// <summary>The shared charge machine (Manufacturing 0.17.0, lifted from the V4's service): one bound charge at a time
+/// from a feed bin, progress in powered seconds on the machine's own record, measured electricity with a declared share
+/// (plus any reaction heat) into the room's air, the recipe's off-gas breathed into that air as it progresses, and a
+/// settlement at the end that delivers solids to the tray and draws and deposits commodities in linked vessels in one
+/// fixed order (Framework <see cref="CommoditySettlement"/>). A reload drops the session; Start resumes the retained
+/// charge. A melt left waiting for a cool room longer than its own duration freezes and is lost to slag. One engine
+/// instance per machine family, configured by a <see cref="ChargeMachineSpec"/>.</summary>
+internal sealed class ChargeMachine
+{
+    private sealed class Session
+    {
+        internal ChargeState State = null!;
+        internal bool Protected, AwaitingFeed, HeatWait, VesselWait, NeedsAttention;
+        internal double Last, NextVesselCheck, WaitSince;
+        internal string Status = "";
+        internal string? LastStop;
+    }
+    internal sealed class Transfer
+    {
+        internal RoomHeat.Air Air = null!;
+        internal double RequestedKWh, WorkSeconds, HeatFraction;
+        internal EnergyReceipt Receipt = null!;
+    }
+    internal ChargeMachineSpec Spec { get; }
+    private ConditionalWeakTable<CondOwner, Session> sessions = new();
+    private readonly ConditionalWeakTable<Powered, Transfer> pending = new();
+    private readonly Dictionary<string, string> workingText = new(StringComparer.Ordinal);
+    private IReadOnlyList<ChargeLinkSpec>? links; private object? linksFrom;
+    internal ChargeMachine(ChargeMachineSpec spec) { Spec = spec ?? throw new ArgumentNullException(nameof(spec)); }
+    internal void Reset() { sessions = new(); links = null; workingText.Clear(); }
+    private string T(string key, params object[] args) => Text.Get(Spec.Text(key), args);
+    private ChargeRecipeView Catalog => ChargeCatalog.For(Spec.MachineKey);
+    internal IReadOnlyList<ChargeLinkSpec> Links
+    {
+        get
+        {
+            var from = ChargeCatalog.Pack;
+            if (links == null || !ReferenceEquals(linksFrom, from)) { links = Spec.Links(); linksFrom = from; }
+            return links;
+        }
+    }
+    internal bool IsFamily(string? id) => Phobos.Ostranauts.Framework.Registration.EquipmentIdentity.IsFamily(id, Spec.Prefix);
+
+    private ObjectStateStore Store(CondOwner co) => new(co.mapGUIPropMaps, Spec.Record, Plugin.Id, 1);
+    private Session Get(CondOwner co)
+    {
+        if (sessions.TryGetValue(co, out var found)) return found;
+        bool explicitSelection = Spec.Selection == RecipeSelection.Explicit;
+        var s = new Session { State = explicitSelection ? new ChargeState(true) : new RefineryState(), Status = T("paused") };
+        var status = Store(co).Read(out var fields);
+        if (status == SavedStateStatus.Ready)
+        {
+            try { s.State = explicitSelection ? ChargeState.Read(fields, true) : RefineryState.Read(fields); }
+            catch (Exception e) { s.Protected = true; Plugin.Log(e.ToString()); }
+        }
+        else if (status != SavedStateStatus.Missing) s.Protected = true;
+        s.State.Running = false;
+        if (s.Protected) s.Status = T("protected");
+        else if (s.State.Bound) s.Status = T("retained", s.State.RecipeId);
+        sessions.Add(co, s);
+        return s;
+    }
+    private void Save(CondOwner co, Session s) { if (!Store(co).TryWrite(s.State.Save())) { s.Protected = true; s.Status = T("protected"); } }
+
+    // ---- Feed ----
+    internal CondOwner? Feed(CondOwner co) => co.compSlots?.GetCOs(Spec.InputSlot, true, null)?.FirstOrDefault(c => c != null && c.strCODef == Spec.InputBin);
+    private ChargeRecipe? SelectedRecipe(CondOwner? machine)
+    {
+        if (Spec.Selection != RecipeSelection.Explicit || machine == null) return null;
+        var s = Get(machine);
+        return s.State.Bound ? Recipe(s) : Catalog.ByRevision(s.State.Selected);
+    }
+    /// <summary>The unit mass an identity must carry to enter this machine's feed (for an explicit machine, only the
+    /// selected recipe's feed), or null.</summary>
+    private double? FeedKg(string? id, CondOwner? machine)
+    {
+        if (Spec.Selection == RecipeSelection.Explicit)
+        {
+            var selected = SelectedRecipe(machine);
+            return selected == null || !selected.Requires.All(Spec.Met) ? null : Catalog.FeedKg(id, Spec.Met, selected);
+        }
+        return Catalog.FeedKg(id, Spec.Met);
+    }
+    private CondOwner? MachineOf(CondOwner? bin) => bin?.objCOParent;
+    internal bool ValidFeed(CondOwner? input, CondOwner? machine) => input != null && !input.bDestroyed && input.Crew == null &&
+        !input.HasCond("IsInstalled") && input.GetCOsSafe(true).Count == 0 && input.GetLotCOs(true).Count == 0 && input.coStackHead == null && input.aStack.Count == 0 &&
+        FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetTotalMass(), kg);
+    internal bool CrewFeed(CondOwner input, CondOwner? machine) => CrewLogistics.Loose(input) && FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetCondAmount("StatMass"), kg);
+    internal bool CanFeed(CondOwner bin, CondOwner input)
+    {
+        var machine = MachineOf(bin);
+        return !bin.HasCond("IsLocked") && (CrewLogistics.IsUnitPreflight(input) ? CrewFeed(input, machine) : ValidFeed(input, machine)) &&
+            bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < Equipment.Entry(Spec.Prefix).feedCells);
+    }
+
+    // ---- Links ----
+    private MaterialPort Ours(CondOwner co, ChargeLinkSpec link) => new(co.strID, link.MachinePort, co.mapGUIPropMaps);
+    private static MaterialPort Theirs(CondOwner vessel, ChargeLinkSpec link) => new(vessel.strID, link.PeerPort, vessel.mapGUIPropMaps);
+    internal string Peer(CondOwner co, ChargeLinkSpec link) => PortPairing.Read(Ours(co, link)).PeerObjectId;
+    private static int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
+    internal static bool Adjacent(CondOwner a, CondOwner b) { var p = a.GetPos(); var q = b.GetPos(); return ManufacturingRules.Adjacent(p.x, p.y, Footprint(a), q.x, q.y, Footprint(b)); }
+    internal IEnumerable<CondOwner> Candidates(CondOwner co, ChargeLinkSpec link) =>
+        BulkVessels.Aboard(co.ship, link.Commodity).Where(v => v != co && link.Accepts(v) && Adjacent(co, v));
+    private ChargeLinkSpec? LinkFor(string commodity) => Links.FirstOrDefault(l => l.Commodity == commodity);
+    /// <summary>The linked vessel when it can settle this commodity's need now; otherwise null with the reason.</summary>
+    private CondOwner? Endpoint(CondOwner co, ChargeLinkSpec link, SettlementNeed need, out string reason)
+    {
+        reason = link.Reason(LinkProblem.None, 0, 0);
+        var vessel = CrewWork.Resolve(Peer(co, link));
+        if (vessel == null || BulkVessels.Of(vessel)?.Commodity != link.Commodity || !link.Accepts(vessel)) return null;
+        reason = link.Reason(LinkProblem.NotReady, 0, 0);
+        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(Ours(co, link), Theirs(vessel, link)) || !Adjacent(co, vessel)) return null;
+        var snapshot = BulkVessel.Snapshot(vessel);
+        switch (SettlementPlan.Check(need, snapshot, CommodityReservations.Held(vessel.strID)))
+        {
+            case SettlementRefusal.Protected: reason = link.Reason(LinkProblem.Protected, 0, 0); return null;
+            case SettlementRefusal.Busy: reason = link.Reason(LinkProblem.Busy, 0, 0); return null;
+            case SettlementRefusal.Catch: reason = link.Reason(LinkProblem.Catch, snapshot.CatchKg, 0); return null;
+            case SettlementRefusal.Short: reason = link.Reason(LinkProblem.Short, snapshot.AvailableKg, need.NeedAvailableKg); return null;
+            case SettlementRefusal.Full: reason = link.Reason(LinkProblem.Full, snapshot.HeadroomKg, need.NeedHeadroomKg); return null;
+        }
+        reason = ""; return vessel;
+    }
+    /// <summary>A charge's commodity legs: draws, deposits of the products it will release, and circulating volumes.</summary>
+    private static IReadOnlyList<SettlementNeed> Needs(ChargeRecipe recipe, IEnumerable<ProductSpec> products) => SettlementPlan.Build(
+        recipe.Draws.Select(i => new SettlementLeg(i.Id, SettlementRole.Draw, i.Kg * i.Count))
+            .Concat(products.Where(p => ChargeCommodities.Is(p.Id)).Select(p => new SettlementLeg(p.Id, SettlementRole.Deposit, p.Kg * p.Count)))
+            .Concat(recipe.Circulates.Select(c => new SettlementLeg(c.Key, SettlementRole.Circulate, c.Value))));
+    /// <summary>Every vessel the needs touch, ready now; null with the first reason otherwise.</summary>
+    private List<(SettlementNeed Need, CondOwner Vessel)>? ReadyVessels(CondOwner co, IReadOnlyList<SettlementNeed> needs, out string reason)
+    {
+        reason = "";
+        var ready = new List<(SettlementNeed, CondOwner)>();
+        foreach (var need in needs)
+        {
+            var link = LinkFor(need.Commodity) ?? throw new InvalidOperationException("No " + need.Commodity + " link on " + Spec.Prefix);
+            var vessel = Endpoint(co, link, need, out reason);
+            if (vessel == null) return null;
+            ready.Add((need, vessel));
+        }
+        return ready;
+    }
+
+    internal string? MachineProblem(CondOwner co)
+    {
+        if (!Content.Ready) return Content.Status;
+        if (co == null || co.bDestroyed || co.strCODef != Spec.Installed || !co.HasCond("IsInstalled")) return T("install_first");
+        if (co.HasCond("IsDamaged")) return T("repair_first");
+        if (co.ship == null || (int)co.ship.LoadState < 2) return Text.Get("Content.ship_not_loaded");
+        var feed = Feed(co);
+        if (co.HasCond("IsLocked") || feed?.HasCond("IsLocked") == true || co.objContainer?.Locked == true || feed?.objContainer?.Locked == true) return T("unlock");
+        if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return T("switched_off");
+        if (co.objContainer == null || feed?.objContainer == null) return T("missing_feed");
+        return null;
+    }
+    // The working line names the recipe; it is formatted once per recipe and language, not on every power step.
+    private string WorkingStatus(ChargeRecipe recipe)
+    {
+        string key = Phobos.Ostranauts.Framework.Localization.Translations.Language + "|" + recipe.Id;
+        if (!workingText.TryGetValue(key, out var text)) workingText[key] = text = T("working", Text.Get("Recipe." + recipe.Id));
+        return text;
+    }
+    private void SetWorking(CondOwner co, bool value) => co.SetCondAmount(Spec.WorkingCondition, value ? 1 : 0);
+    private ChargeRecipe? Recipe(Session s) => s.State.Bound ? Catalog.ByRevision(s.State.Revision) : null;
+    private bool Available(ChargeRecipe recipe) => recipe.Requires.All(Spec.Met);
+    /// <summary>The bound units, when every one of them still sits in the feed bin and is still valid feed.</summary>
+    private List<CondOwner>? Charge(CondOwner co, Session s)
+    {
+        var bin = Feed(co)?.objContainer?.ContainedCOs;
+        if (bin == null || !s.State.Bound) return null;
+        var items = new List<CondOwner>();
+        foreach (string id in s.State.Charge)
+        {
+            var item = bin.FirstOrDefault(c => c.strID == id);
+            if (item == null || !ValidFeed(item, co)) return null;
+            items.Add(item);
+        }
+        return items;
+    }
+
+    internal bool Start(CondOwner co, ConsoleBinding? binding = null)
+    {
+        var s = Get(co);
+        string? problem = Content.Access(co, binding) ?? MachineProblem(co);
+        if (problem != null) { s.Status = problem; return false; }
+        if (s.Protected) { s.Status = T("protected"); return false; }
+        try
+        {
+            s.LastStop = null; s.NeedsAttention = false; s.AwaitingFeed = true;
+            if (s.State.Running) return true;
+            bool started = Resume(co, s) || Bind(co, s);
+            if (!started && !s.VesselWait) s.AwaitingFeed = false;
+            return started || s.VesselWait;
+        }
+        catch (Exception ex) { Fault(co, ex); return false; }
+    }
+    /// <summary>A retained charge resumes exactly; one whose recipe this installation lacks stays retained.</summary>
+    private bool Resume(CondOwner co, Session s)
+    {
+        if (!s.State.Bound) return false;
+        var recipe = Recipe(s);
+        if (recipe == null || !Available(recipe)) { s.Status = T("retained_unavailable", s.State.RecipeId); return false; }
+        if (Charge(co, s) == null) { s.Status = T("charge_changed"); return false; }
+        return Run(co, s, recipe);
+    }
+    /// <summary>Binds the largest exact charge present in the bin, or the selected recipe's charge.</summary>
+    private bool Bind(CondOwner co, Session s)
+    {
+        SetWorking(co, false); s.VesselWait = false;
+        var bin = Feed(co)?.objContainer?.ContainedCOs;
+        if (bin == null || bin.Count == 0) { s.Status = T("feed_empty"); return false; }
+        var valid = bin.Where(c => ValidFeed(c, co)).ToList();
+        ChargeRecipe? recipe;
+        if (Spec.Selection == RecipeSelection.Explicit)
+        {
+            recipe = Catalog.ByRevision(s.State.Selected);
+            if (recipe == null || !Available(recipe)) { s.Status = T("no_selection"); return false; }
+            var counts = valid.GroupBy(c => c.strCODef, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
+            if (!recipe.ItemInputs.All(i => counts.TryGetValue(i.Id, out int n) && n >= i.Count)) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
+        }
+        else
+        {
+            recipe = Catalog.Match(valid.Select(c => c.strCODef), Spec.Met);
+            if (recipe == null) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
+        }
+        var units = new List<CondOwner>();
+        foreach (var input in recipe.ItemInputs) units.AddRange(valid.Where(c => c.strCODef == input.Id).OrderBy(c => c.strID, StringComparer.Ordinal).Take(input.Count));
+        if (units.Any(u => !ChargeState.SafeId(u.strID))) { s.Status = T("invalid_feed"); return false; }
+        s.State.RecipeId = recipe.Id; s.State.Revision = recipe.Revision; s.State.ProgressSeconds = 0; s.State.WaitSeconds = 0; s.State.EmittedKg = 0;
+        s.State.Charge = units.Select(u => u.strID).ToList();
+        Save(co, s);
+        if (s.Protected) return false;
+        return Run(co, s, recipe);
+    }
+    private void WaitForVessel(Session s, string why)
+    {
+        s.VesselWait = true; s.NextVesselCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = T("waiting_vessel", why);
+    }
+    private bool Run(CondOwner co, Session s, ChargeRecipe recipe)
+    {
+        // Nothing heats until every vessel the charge will touch can take part: stored gases are never vented, and a
+        // reagent the charge draws must be there.
+        if (ReadyVessels(co, Needs(recipe, recipe.Products), out string why) == null) { WaitForVessel(s, why); return false; }
+        s.State.Running = true; s.Last = StarSystem.fEpoch; s.VesselWait = false;
+        s.Status = T("working", Text.Get("Recipe." + recipe.Id));
+        if (s.State.ProgressSeconds >= recipe.Seconds) return Finish(co, s);
+        SetWorking(co, true);
+        return true;
+    }
+    internal bool Pause(CondOwner co, bool cancel, ConsoleBinding? binding = null)
+    {
+        var s = Get(co);
+        string? problem = Content.Access(co, binding);
+        if (problem != null) { s.Status = problem; return false; }
+        s.NeedsAttention = false;
+        CrewWork.ManualStop(co);
+        Stop(co, s, T(cancel ? "cancelled" : "paused_retained"), needsAttention: false);
+        if (!cancel || s.Protected) return !s.Protected;
+        // Cancelling releases the bound units unchanged; the charge's work is forfeited, its mass is not.
+        s.State.Clear(); Save(co, s);
+        return true;
+    }
+    private void Stop(CondOwner co, Session s, string message, bool needsAttention = true)
+    {
+        s.LastStop = message; s.NeedsAttention = needsAttention; s.AwaitingFeed = false; s.VesselWait = false; s.HeatWait = false;
+        s.State.Running = false; s.Status = message; SetWorking(co, false);
+    }
+    internal void Block(CondOwner co, string reason) => Stop(co, Get(co), reason);
+    internal void Fault(CondOwner co, Exception ex)
+    {
+        var s = Get(co);
+        Stop(co, s, T("fault")); s.NeedsAttention = true;
+        Plugin.Log(ex.ToString());
+    }
+
+    internal void BeforePower(CondOwner co)
+    {
+        if (!sessions.TryGetValue(co, out var s)) { SetWorking(co, false); return; }
+        // Rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.
+        if (s.VesselWait && Cadence.RealTime >= s.NextVesselCheck)
+        {
+            s.NextVesselCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds;
+            var fault = MachineProblem(co);
+            if (fault != null) { Stop(co, s, fault); return; }
+            var recipe = Recipe(s);
+            if (recipe != null && s.State.ProgressSeconds >= recipe.Seconds) Finish(co, s);
+            else if (s.AwaitingFeed) { if (!(Resume(co, s) || Bind(co, s)) && !s.VesselWait) s.AwaitingFeed = false; }
+        }
+        else if (s.AwaitingFeed && !s.State.Running && !s.VesselWait)
+        {
+            var problem = MachineProblem(co);
+            if (problem != null) { Stop(co, s, problem); return; }
+            if (Feed(co)?.objContainer?.ContainedCOs.Count == 0 && !s.State.Bound) { s.Status = T("feed_empty"); return; }
+            if (!(Resume(co, s) || Bind(co, s)) && !s.VesselWait) s.AwaitingFeed = false;
+        }
+        if (!s.State.Running) { if (!s.VesselWait) SetWorking(co, false); return; }
+        string? machineProblem = MachineProblem(co);
+        if (machineProblem != null || Charge(co, s) == null) { Stop(co, s, machineProblem ?? T("charge_changed")); return; }
+        var current = Recipe(s);
+        SetWorking(co, current != null && s.State.ProgressSeconds < current.Seconds);
+    }
+    /// <summary>Reaction heat released per working hour (0 for a machine without one, or an absorbing reaction).</summary>
+    private static double ReactionKW(ChargeRecipe? recipe) => recipe == null || recipe.ReactionKWh <= 0 ? 0 : recipe.ReactionKWh * Units.SecondsPerHour / recipe.Seconds;
+    internal bool BeginPower(Powered power, CondOwner co, ref double amount, out Transfer? transfer)
+    {
+        transfer = null;
+        pending.Remove(power);
+        var shape = Equipment.Entry(Spec.Prefix);
+        bool working = co.HasCond(Spec.WorkingCondition);
+        double demand = working ? shape.workingKW : shape.idleKW;
+        double electricHeat = working ? shape.workingKW * shape.roomHeatFraction : shape.idleKW;
+        double seconds = amount * Units.SecondsPerHour / demand;
+        double heatKW = electricHeat + (working && sessions.TryGetValue(co, out var bound) ? ReactionKW(Recipe(bound)) : 0);
+        var air = RoomHeat.Read(co);
+        if (!RoomHeat.Admit(air, heatKW, seconds, out _))
+        {
+            // Not a stop: no power is drawn this step and the charge keeps its permission. A melt that waits
+            // too long freezes (see AfterPower); a drying charge simply resumes when the room can take the heat.
+            if (sessions.TryGetValue(co, out var s) && s.State.Running)
+            {
+                if (!s.HeatWait) { s.HeatWait = true; s.WaitSince = StarSystem.fEpoch; }
+                s.Status = T("heat_wait");
+            }
+            co.ZeroCondAmount("IsPowered");
+            return false;
+        }
+        if (sessions.TryGetValue(co, out var ready)) SettleWait(co, ready);
+        transfer = new Transfer { Air = air!, RequestedKWh = amount, WorkSeconds = seconds, HeatFraction = electricHeat / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        pending.Add(power, transfer);
+        return true;
+    }
+    /// <summary>Heat-wait time accrues to the bound charge; a melt over its own duration is frozen.</summary>
+    private void SettleWait(CondOwner co, Session s)
+    {
+        if (!s.HeatWait) return;
+        s.HeatWait = false;
+        double waited = StarSystem.fEpoch - s.WaitSince;
+        if (waited > 0 && s.State.Bound) { s.State.WaitSeconds += waited; Save(co, s); }
+    }
+    internal void FinishPower(Powered power, CondOwner co, Transfer? transfer)
+    {
+        pending.Remove(power);
+        if (transfer == null) return;
+        double supplied = NativeEnergyReceipts.Complete(power, co, transfer.Receipt);
+        if (!ManufacturingRules.Finite(supplied)) throw new InvalidOperationException("Invalid charge machine energy receipt.");
+        Session? s = null;
+        var recipe = sessions.TryGetValue(co, out s) && s.State.Running && co.HasCond(Spec.WorkingCondition) ? Recipe(s) : null;
+        double before = s?.State.ProgressSeconds ?? 0;
+        if (recipe != null)
+        {
+            // Progress is powered seconds: a partial supply credits a partial step.
+            double poweredSeconds = transfer.RequestedKWh > 0 ? transfer.WorkSeconds * Math.Min(1, supplied / transfer.RequestedKWh) : 0;
+            double now = StarSystem.fEpoch, elapsed = Math.Max(0, now - s!.Last); s.Last = now;
+            s.State.ProgressSeconds = Math.Min(recipe.Seconds, s.State.ProgressSeconds + Math.Min(elapsed, poweredSeconds));
+        }
+        // The electricity's room share, plus the reaction heat over the progress just made (an absorbing reaction
+        // takes its share out of the electricity's heat, never below nothing).
+        double reaction = recipe == null ? 0 : recipe.ReactionKWhOver(s!.State.ProgressSeconds - before);
+        if (reaction == 0) RoomHeat.Deposit(transfer.Air, supplied, transfer.HeatFraction);
+        else RoomHeat.Deposit(transfer.Air, Math.Max(0, supplied * transfer.HeatFraction + reaction), 1);
+        if (recipe == null) return;
+        double due = recipe.OffGasDueKg(s!.State.ProgressSeconds / recipe.Seconds, s.State.EmittedKg);
+        if (due > 0)
+        {
+            foreach (var pair in recipe.Split(due)) if (pair.Value > 0) RoomGas.Emit(transfer.Air, pair.Key, pair.Value);
+            s.State.EmittedKg += due;
+        }
+        Save(co, s);
+    }
+    internal void Forget(Powered power) { pending.Remove(power); NativeEnergyReceipts.Forget(power); }
+    internal void AfterPower(CondOwner co)
+    {
+        if (!sessions.TryGetValue(co, out var s) || !s.State.Running) return;
+        try
+        {
+            var recipe = Recipe(s);
+            if (recipe == null) { Stop(co, s, T("charge_changed")); return; }
+            if (s.HeatWait)
+            {
+                double waited = StarSystem.fEpoch - s.WaitSince;
+                if (Spec.Spoiled != null && Spec.Spoiled(recipe, s.State.WaitSeconds + Math.Max(0, waited))) { SettleWait(co, s); Finish(co, s); }
+                return;
+            }
+            s.Status = co.HasCond("IsPowered") ? WorkingStatus(recipe) : T("waiting_power");
+            if (s.State.ProgressSeconds >= recipe.Seconds && co.HasCond("IsPowered")) Finish(co, s);
+        }
+        catch (Exception ex) { Fault(co, ex); }
+    }
+
+    /// <summary>The charge becomes its products: every vessel the charge touches is checked, then the settlement
+    /// places the solids, removes the bound units, draws and deposits the commodities under their conversion
+    /// journals. A frozen melt yields slag.</summary>
+    private bool Finish(CondOwner co, Session s)
+    {
+        SetWorking(co, false);
+        var recipe = Recipe(s);
+        var units = Charge(co, s);
+        if (recipe == null || units == null || MachineProblem(co) != null) { Stop(co, s, T("charge_changed")); return false; }
+        bool spoiled = Spec.Spoiled != null && Spec.Spoiled(recipe, s.State.WaitSeconds);
+        var products = spoiled ? Spec.SpoiledProducts!(recipe) : recipe.Products;
+        var vessels = ReadyVessels(co, Needs(recipe, products), out string why);
+        if (vessels == null) { WaitForVessel(s, why); return false; }
+        double depositKg = products.Where(p => ChargeCommodities.Is(p.Id)).Sum(p => p.Kg * p.Count);
+        var delivery = new ChargeDelivery(this, co, units, recipe.Solids(products).ToList(), recipe.ChargeKg - recipe.OffGasKg - depositKg);
+        var result = CommoditySettlement.Commit(vessels, units[0].strID, delivery);
+        if (result != DeliveryResult.Completed)
+        {
+            s.VesselWait = true; s.NextVesselCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = T("tray_full"); return false;
+        }
+        Plugin.Log(T(spoiled ? "spoiled_log" : "completed_log", Text.Get("Recipe." + recipe.Id), co.strID));
+        if (spoiled) Phobos.Ostranauts.Framework.Notices.PlayerNotices.Post(co.ship, "PhobosManufacturing.spoiled", Phobos.Ostranauts.Framework.Notices.NoticeLevel.Caution, T("spoiled_notice", co.strNameFriendly));
+        s.State.Cycles++; s.State.Clear(); Save(co, s);
+        if (s.Protected) return true;
+        if (!(Resume(co, s) || Bind(co, s)) && !s.VesselWait) { s.AwaitingFeed = Feed(co)?.objContainer?.ContainedCOs.Count > 0 && s.AwaitingFeed; if (!s.AwaitingFeed) s.Status = T("complete"); }
+        return true;
+    }
+    private sealed class ChargeDelivery : IBatchDelivery
+    {
+        private readonly ChargeMachine owner; private readonly CondOwner machine; private readonly List<CondOwner> units; private readonly IReadOnlyList<ProductSpec> specs; private readonly double solidsKg;
+        private readonly List<CondOwner> products = new(); private Position[]? plan; private bool retired;
+        internal ChargeDelivery(ChargeMachine owner, CondOwner machine, List<CondOwner> units, IReadOnlyList<ProductSpec> specs, double solidsKg)
+        { this.owner = owner; this.machine = machine; this.units = units; this.specs = specs; this.solidsKg = solidsKg; }
+        public bool InputConsumed => retired || units.All(u => u.bDestroyed);
+        public bool Prepare()
+        {
+            if (machine.objContainer == null || units.Any(u => u.objCOParent != owner.Feed(machine) || !owner.ValidFeed(u, machine))) return false;
+            foreach (var spec in specs)
+            for (int n = 0; n < spec.Count; n++)
+            {
+                var product = DataHandler.GetCondOwner(spec.Id) ?? throw new InvalidOperationException(owner.T("missing_output", spec.Id));
+                products.Add(product);
+                if (product.coStackHead != null || product.aStack.Count != 0 || product.GetCOsSafe(true).Count != 0 || !ProcessMaterial.MassMatches(product.GetTotalMass(), spec.Kg))
+                    throw new InvalidOperationException(owner.T("output_definition_changed", spec.Id));
+                if (!machine.objContainer.AllowedCO(product)) return false;
+            }
+            if (!ProcessMaterial.Balanced(solidsKg, products.Select(p => p.GetTotalMass()))) throw new InvalidOperationException(owner.T("unbalanced"));
+            var sizes = products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p)).Select(v => new ItemSize(v.x, v.y)).ToArray();
+            plan = BatchPlacement.Plan(Occupancy(machine.objContainer), sizes);
+            return plan != null;
+        }
+        public void PlaceProducts()
+        {
+            if (plan == null) throw new InvalidOperationException(owner.T("unprepared"));
+            for (int i = 0; i < products.Count; i++)
+            {
+                machine.objContainer.AddCOSimple(products[i], new PairXY(plan[i].X, plan[i].Y));
+                if (products[i].objCOParent != machine || !machine.objContainer.ContainedCOs.Contains(products[i])) throw new InvalidOperationException(owner.T("output_placement_failed"));
+            }
+        }
+        public void ConsumeInput()
+        {
+            if (units.Any(u => u.objCOParent != owner.Feed(machine) || !owner.ValidFeed(u, machine))) throw new InvalidOperationException(owner.T("charge_changed"));
+            foreach (var unit in units)
+            {
+                bool gone;
+                try { unit.RemoveFromCurrentHome(bForce: true); }
+                finally { gone = unit.objCOParent == null && unit.ship == null; }
+                if (!gone) throw new InvalidOperationException(owner.T("input_not_removed"));
+                unit.Destroy();
+            }
+            retired = true;
+            machine.objContainer.Redraw(); owner.Feed(machine)?.objContainer?.Redraw();
+        }
+        public void RollbackProducts()
+        {
+            foreach (var product in products)
+            {
+                if (product == null || product.bDestroyed) continue;
+                if (product.objCOParent != null || product.ship != null) product.RemoveFromCurrentHome(bForce: true);
+                product.Destroy();
+            }
+            products.Clear();
+            machine.objContainer.Redraw();
+        }
+        private static bool[,] Occupancy(Container tray)
+        {
+            var grid = tray.gridLayout;
+            var result = new bool[grid.gridMaxX, grid.gridMaxY];
+            for (int x = 0; x < grid.gridMaxX; x++)
+            for (int y = 0; y < grid.gridMaxY; y++)
+                result[x, y] = grid.gridID[x, y] != null || grid.gridInventoryItem[x, y] != null;
+            return result;
+        }
+    }
+
+    // ---- Presentation and commands ----
+    internal EquipmentState State(CondOwner co)
+    {
+        if (co.HasCond("IsDamaged") || co.HasCond("IsLocked")) return EquipmentState.Blocked;
+        sessions.TryGetValue(co, out var s);
+        if (s?.NeedsAttention == true || s?.Protected == true) return EquipmentState.Blocked;
+        if (co.HasCond(Spec.WorkingCondition)) return co.HasCond("IsPowered") ? EquipmentState.Running : EquipmentState.Waiting;
+        return s != null && (s.AwaitingFeed || s.VesselWait) ? EquipmentState.Waiting : EquipmentState.Paused;
+    }
+    /// <summary>Whether this machine is working and powered: an ignition source for a leaking store beside it.</summary>
+    internal bool Igniting(CondOwner co) => Spec.IgnitionSource && co.HasCond(Spec.WorkingCondition) && co.HasCond("IsPowered");
+    internal string Describe(CondOwner co)
+    {
+        var s = Get(co);
+        var recipe = Recipe(s);
+        var shape = Equipment.Entry(Spec.Prefix);
+        int count = Feed(co)?.objContainer?.ContainedCOs.Count ?? 0;
+        string charge = recipe == null ? T("no_charge_bound") : T("charge", Text.Get("Recipe." + recipe.Id), s.State.ProgressSeconds, recipe.Seconds, s.State.WaitSeconds);
+        string primary = Links.Count == 0 ? "" : Peer(co, Links[0]);
+        string selected = Spec.Selection != RecipeSelection.Explicit ? "" : "\n" + (Catalog.ByRevision(s.State.Selected) is ChargeRecipe chosen ? T("selected", Text.Get("Recipe." + chosen.Id)) : T("no_selection"));
+        string? extra = Spec.ExtraStatus?.Invoke(co);
+        return T("status", s.Status, count, shape.feedCells, charge,
+            co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(primary), s.State.Cycles) + selected +
+            "\n" + T("demand", shape.workingKW, shape.workingKW * shape.roomHeatFraction) +
+            (extra == null ? "" : "\n" + extra) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+    }
+    /// <summary>The panel's fields: one per commodity link (shown once a vessel is in reach or linked, or always for
+    /// the primary one), and the recipe choice on an explicit-selection machine.</summary>
+    internal IEnumerable<EquipmentField> Fields(CondOwner co)
+    {
+        foreach (var link in Links)
+        {
+            var vessels = Candidates(co, link).ToArray();
+            string peer = Peer(co, link);
+            if (!link.AlwaysShow && vessels.Length == 0 && peer.Length == 0) continue;
+            yield return new(link.FieldLabel(), ObjectPresentation.Name(peer),
+                vessels.Select(v => (link.ActionPrefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (link.ActionPrefix + "none", Text.Get("Provider.link_none")) }));
+        }
+        if (Spec.Selection == RecipeSelection.Explicit)
+        {
+            var s = Get(co);
+            var chosen = Catalog.ByRevision(s.State.Selected);
+            yield return new(Text.Get("Provider.recipe_field"), chosen == null ? Text.Get("Provider.link_none") : Text.Get("Recipe." + chosen.Id),
+                Catalog.Available(Spec.Met).Select(r => ("recipe:" + r.Id, Text.Get("Recipe." + r.Id))));
+        }
+    }
+    internal bool Link(CondOwner co, ChargeLinkSpec link, string id, ConsoleBinding? binding, out string reason)
+    {
+        reason = Content.Access(co, binding) ?? "";
+        if (reason.Length > 0) return false;
+        if (co.HasCond(Spec.WorkingCondition) || sessions.TryGetValue(co, out var s) && s.State.Running) { reason = T("link_busy"); return false; }
+        var ours = Ours(co, link);
+        var current = CrewWork.Resolve(Peer(co, link));
+        if (id == "none") { PortPairing.Unlink(ours, current == null ? null : Theirs(current, link)); reason = link.Unlinked(); return true; }
+        var vessel = Candidates(co, link).FirstOrDefault(v => v.strID == id);
+        if (vessel == null) { reason = link.Missing(); return false; }
+        if (current != null && current != vessel) PortPairing.Unlink(ours, Theirs(current, link));
+        if (PortPairing.Matches(ours, Theirs(vessel, link))) { reason = link.Linked(); return true; }
+        if (!PortPairing.TryLink(ours, Theirs(vessel, link), out reason)) return false;
+        reason = link.Linked(); return true;
+    }
+    /// <summary>Chooses the recipe the next charge binds (explicit machines only): idle and unbound, so a bound or
+    /// running charge keeps its recipe; units of another recipe stay in the feed until removed.</summary>
+    internal bool SelectRecipe(CondOwner co, string value, ConsoleBinding? binding, out string reason)
+    {
+        reason = Content.Access(co, binding) ?? "";
+        if (reason.Length > 0) return false;
+        if (Spec.Selection != RecipeSelection.Explicit) { reason = Text.Get("Content.unsupported_action"); return false; }
+        var s = Get(co);
+        if (s.Protected) { reason = T("protected"); return false; }
+        if (s.State.Running || s.State.Bound || co.HasCond(Spec.WorkingCondition)) { reason = T("select_busy"); return false; }
+        var recipe = Catalog.ById(value) ?? (int.TryParse(value, out int revision) ? Catalog.ByRevision(revision) : null);
+        if (recipe == null || !Available(recipe)) { reason = T("select_missing", value); return false; }
+        s.State.Selected = recipe.Revision; Save(co, s);
+        if (s.Protected) { reason = T("protected"); return false; }
+        s.Status = reason = T("selected", Text.Get("Recipe." + recipe.Id));
+        return true;
+    }
+    internal string? MaintenanceReason(CondOwner co)
+    {
+        var s = Get(co);
+        if (s.Protected) return Text.Get("Maintenance.protected");
+        return s.State.Bound ? Text.Get(Spec.MaintenanceChargeKey) : null;
+    }
+    /// <summary>Whether any of this machine's commodity links points at the vessel.</summary>
+    internal bool LinksTo(CondOwner co, string vesselId) => Links.Any(l => Peer(co, l) == vesselId);
+    internal bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
+    {
+        message = T("fault");
+        if (!Content.Ready) { message = Content.Status; return false; }
+        if (action.StartsWith("recipe:", StringComparison.Ordinal)) return SelectRecipe(co, action.Substring(7), binding, out message);
+        // The longest matching prefix wins, so gas-link:<store>: is never read as a shorter prefix.
+        foreach (var link in Links.OrderByDescending(l => l.ActionPrefix.Length))
+            if (action.StartsWith(link.ActionPrefix, StringComparison.Ordinal)) return Link(co, link, action.Substring(link.ActionPrefix.Length), binding, out message);
+        bool result;
+        switch (action)
+        {
+            case "start": result = Start(co, binding); break;
+            case "pause": result = Pause(co, false, binding); break;
+            case "cancel": result = Pause(co, true, binding); break;
+            case "status": result = true; break;
+            default: message = Text.Get("Content.unsupported_action"); return false;
+        }
+        message = Describe(co);
+        return result;
+    }
+}

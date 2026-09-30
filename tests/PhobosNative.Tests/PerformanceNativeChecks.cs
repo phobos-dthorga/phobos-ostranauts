@@ -45,12 +45,17 @@ internal static class PerformanceNativeChecks
         // Manufacturing's hooks classify the same way.
         PhobosManufacturing.MachineKinds.Reset();
         foreach (var (id, kind) in new[] {
-            (PhobosManufacturing.Core.RefineryRules.Installed, PhobosManufacturing.MachineKind.Refinery), (PhobosManufacturing.Core.ProcessorRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Processor),
+            (PhobosManufacturing.Core.RefineryRules.Installed, PhobosManufacturing.MachineKind.Charge), (PhobosManufacturing.Core.ProcessorRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Processor),
             (PhobosManufacturing.Core.SabatierRules.Installed, PhobosManufacturing.MachineKind.Sabatier), (PhobosManufacturing.Core.FillerRules.Installed, PhobosManufacturing.MachineKind.Filler),
             (PhobosManufacturing.Core.CrackerRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Cracker),
             (PhobosManufacturing.Core.ManifoldRules.Installed, PhobosManufacturing.MachineKind.None), (PhobosManufacturing.Core.GasStores.Hydrogen.Installed, PhobosManufacturing.MachineKind.None),
             ("ItmAirPumpInstalled", PhobosManufacturing.MachineKind.None), (null!, PhobosManufacturing.MachineKind.None) })
             check(PhobosManufacturing.MachineKinds.Classify(id) == kind, "Manufacturing power hook classification: " + (id ?? "null") + " -> " + kind);
+        // Every registered charge machine reaches the Charge handlers, intact or damaged, and resolves back to its own engine.
+        foreach (var machine in PhobosManufacturing.ChargeMachines.All)
+            foreach (var id in new[] { machine.Spec.Prefix + "Installed", machine.Spec.Prefix + "InstalledDmg" })
+                check(PhobosManufacturing.MachineKinds.Classify(id) == PhobosManufacturing.MachineKind.Charge && PhobosManufacturing.ChargeMachines.For(id) == machine,
+                    "Charge machine " + id + " classifies as Charge and resolves to its own engine");
         check(PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.ManifoldRules.Installed) && PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.GasStores.Hydrogen.Installed + "Dmg") &&
             PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.RegulatorRules.Installed) && !PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled") && !PhobosManufacturing.MachineKinds.IsOurs(null),
             "Every Manufacturing family is ours by definition; foreign ids are not");

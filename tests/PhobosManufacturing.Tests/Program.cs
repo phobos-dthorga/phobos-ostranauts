@@ -4,6 +4,7 @@ int checks = 0;
 void Check(bool condition, string message) { if (!condition) throw new Exception(message); checks++; }
 void Throws(Action action, string message) { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); }
 RefineryChecks.Run(Check, Throws);
+ChargeChecks.Run(Check, Throws);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);

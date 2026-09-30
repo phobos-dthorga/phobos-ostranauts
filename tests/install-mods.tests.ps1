@@ -545,7 +545,7 @@ foreach ($id in @('PhobosFramework', 'PhobosManufacturing')) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot "$id-P0") -Destination $shopBrokenPackages -Recurse
 }
 $shopNative = Join-Path $shopBrokenPackages 'PhobosManufacturing-P0/Mods/PhobosManufacturing'
-foreach ($missing in @('data/explosions/phobos_manufacturing.json', 'framework/equipment-names.json', 'images/phobos/manufacturing/PhobosHydrogenStoreNormal.png')) {
+foreach ($missing in @('data/explosions/phobos_manufacturing.json', 'framework/equipment-names.json', 'framework/equipment.json', 'images/phobos/manufacturing/PhobosHydrogenStoreNormal.png')) {
     $held = Join-Path $shopNative $missing
     $stash = "$held.stashed"
     Move-Item -LiteralPath $held -Destination $stash

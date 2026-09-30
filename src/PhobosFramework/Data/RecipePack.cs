@@ -52,6 +52,12 @@ public sealed class RecipeEntry
     /// <summary>Feature keys the owner must satisfy before the recipe is offered (for example another mod's stock).</summary>
     public List<string> requires = new();
     public ThermalEntry? thermal;
+    /// <summary>A working volume of a commodity the charge needs present and returns (a leach's circulating water):
+    /// checked before and during the charge, never part of the mass balance.</summary>
+    public Dictionary<string, double> circulates = new(StringComparer.Ordinal);
+    /// <summary>Heat the reaction itself releases into the room over the charge, in kWh (negative when it absorbs
+    /// heat from the machine's own electricity). Absent means none is modelled.</summary>
+    public double? reactionKWh;
     public double InputKg => inputs.Sum(i => i.count * i.kg);
     public double ProductKg => products.Sum(p => p.count * p.kg);
     public double OffGasKg => offGas.Values.Sum();
@@ -73,6 +79,8 @@ public sealed class RecipeContext
 public static class RecipeSchema
 {
     public const string Name = "process-recipes";
+    /// <summary>Bound on the heat a single charge may declare, either sign.</summary>
+    public const double MaximumReactionKWh = 1000;
     public static void Validate(RecipePack pack, RecipeContext context)
     {
         if (pack == null) throw new ArgumentNullException(nameof(pack));
@@ -97,6 +105,9 @@ public static class RecipeSchema
             }
             if (r.inputs.Select(u => u.id).Distinct(StringComparer.Ordinal).Count() != r.inputs.Count || r.products.Select(u => u.id).Distinct(StringComparer.Ordinal).Count() != r.products.Count)
                 throw new ArgumentException(Text.Get("RecipeSchema.duplicate_unit", id));
+            foreach (var pair2 in r.circulates)
+                if (context.IsCommodity?.Invoke(pair2.Key) != true || !Finite(pair2.Value) || pair2.Value <= 0) throw new ArgumentException(Text.Get("RecipeSchema.circulates", id, pair2.Key));
+            if (r.reactionKWh is double reaction && (!Finite(reaction) || Math.Abs(reaction) > MaximumReactionKWh)) throw new ArgumentException(Text.Get("RecipeSchema.reaction", id, MaximumReactionKWh));
             foreach (var gas in r.offGas)
             {
                 if (!NativeGasCanister.IsRoomSpecies(gas.Key)) throw new ArgumentException(Text.Get("RecipeSchema.species", id, gas.Key));

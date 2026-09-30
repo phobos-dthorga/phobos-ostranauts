@@ -209,6 +209,45 @@ First consumers: Manufacturing 0.13.0 (six gas store families), Shipbreaker 0.47
 stays in code because its 20 kg is the rack reservoir the crop model is written
 for). Consumers require **0.51.0**.
 
+### Equipment, recipe working volumes and commodity settlement (0.54.0)
+
+`Data.EquipmentPack` (`equipment`) holds a machine's physical figures by definition
+prefix: `kind` (how the owner builds it), `footprint` (tiles per side), `massKg`,
+`idleKW`, `workingKW`, `roomHeatFraction`, `feedCells`, `art`, `installTab` and named
+connection `points` (x, y in native pixels). `EquipmentSchema.Validate` requires an
+entry for every prefix the owner names and no others, ranges for each figure and a
+known kind and install tab. The pack is **read-only to player files**: pass the
+shipped entries as `EquipmentContext.Baseline` (read the shipped text with
+`DataPacks.ShippedText(source)`) and any overlay that differs is refused with
+`EquipmentSchema.read_only`, because a footprint or point change would move
+equipment already placed in a save. `EquipmentSchema.MapPoints(entry)` formats the
+points as the native `name,x,y` list.
+
+`RecipeEntry.circulates` names commodities (by the owner's `IsCommodity`) a recipe
+needs on hand but returns, such as a wash water volume; they are outside the mass
+balance and may not be item ids. `reactionKWh` is heat the reaction itself releases
+into the room over the charge (negative when absorbed), bounded by
+`RecipeSchema.MaximumReactionKWh`. Entries without either field hash exactly as
+before, so frozen revisions are unaffected.
+
+`Liquids.CommoditySettlement` settles a finished charge's commodities against bulk
+vessels. `SettlementPlan.Build(legs)` nets the draw, deposit and circulate legs per
+vessel (a vessel drawn from and deposited into changes by the difference);
+`SettlementPlan.Check(need, snapshot, held)` refuses Protected, Busy (a reservation held),
+Catch (catch chamber in use), Short (contents below the draw plus circulating
+volume) and Full (headroom below the net deposit). `CommoditySettlement.Commit`
+opens one conversion journal per changing vessel, commits the item delivery
+(`IBatchDelivery`), then applies draws before deposits and closes the journals; a
+refused delivery closes the journals and changes nothing. It is not crash-atomic: an
+exception after the delivery leaves the remaining journals open as evidence and those
+vessels Protected until their owner accepts them. Pure planning is covered by
+the Framework tests; the live commit is used by Manufacturing's charge machines.
+
+First consumer: Manufacturing 0.17.0, whose V4 now runs on a shared charge-machine
+engine (`ChargeMachine` per family, a `ChargeMachineSpec` for identity, texts, recipe
+selection, requirement gates, spoil policy and commodity links). Consumers require
+**0.54.0**.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

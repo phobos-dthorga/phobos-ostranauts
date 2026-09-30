@@ -37,6 +37,7 @@ PropellantChecks.Run(Check);
 VesselSizeChecks.Run(Check);
 LootCarveChecks.Run(Check);
 DataPackChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
+SettlementChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
 PrimitiveChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.

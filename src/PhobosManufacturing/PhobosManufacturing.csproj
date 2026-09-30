@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.16.0</Version>
+    <Version>0.17.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -31,4 +31,5 @@
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosManufacturing/framework/frozen-process-recipes.json" LogicalName="PhobosManufacturing.frozen-process-recipes.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosManufacturing/framework/materials.json" LogicalName="PhobosManufacturing.materials.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosManufacturing/framework/vessels.json" LogicalName="PhobosManufacturing.vessels.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosManufacturing/framework/equipment.json" LogicalName="PhobosManufacturing.equipment.json" /></ItemGroup>
 </Project>

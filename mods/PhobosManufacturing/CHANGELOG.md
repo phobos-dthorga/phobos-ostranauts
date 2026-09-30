@@ -6,6 +6,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The V4 refinery now runs on a shared charge-machine engine that later Manufacturing machines will use too. Its recipes, prices, links, controls, messages and saved records are unchanged; a V4 part-way through a charge carries on as before.
+- The V4's physical figures (4 x 4 footprint, 180 kg, 24 kW working and 0.1 kW idle, 15 percent of its heat into the room, six feed cells, artwork and connection points) now live in an equipment data file shipped with the mod. Player files cannot change them yet, because a footprint or connection change would move a V4 already placed in a save.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.54.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.16.0] - 2026-09-30 - Draft
 
 ### Added

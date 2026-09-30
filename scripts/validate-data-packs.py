@@ -248,7 +248,13 @@ def process_recipes(pack, where):
         w = f'{where}/recipes/{key}'
         if not key or any(not (c.isalnum() or c == '-') for c in key):
             raise Problem(f'{w}: ids are letters, digits and hyphens')
-        fields(r, {'notes', 'machine', 'revision', 'inputs', 'products', 'offGas', 'seconds', 'legacySeconds', 'melt', 'requires', 'thermal'}, w)
+        fields(r, {'notes', 'machine', 'revision', 'inputs', 'products', 'offGas', 'seconds', 'legacySeconds', 'melt', 'requires', 'thermal', 'circulates', 'reactionKWh'}, w)
+        for commodity, kg in r.get('circulates', {}).items():
+            if not commodity:
+                raise Problem(f'{w}/circulates: commodity needed')
+            number(kg, f'{w}/circulates/{commodity}', 0, None, exclusive_low=True)
+        if 'reactionKWh' in r:
+            number(r['reactionKWh'], f'{w}/reactionKWh', -1000, 1000)
         if not r.get('machine'):
             raise Problem(f'{w}/machine: needed')
         number(r.get('revision'), f'{w}/revision', 1, None, integer=True)
@@ -324,7 +330,31 @@ def vessels(pack, where):
         number(v.get('leakKgPerHour', 0), f'{w}/leakKgPerHour', 0, 1000)
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels}
+
+def equipment(pack, where):
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'equipment'}, where)
+    entries = pack.get('equipment', {})
+    if not isinstance(entries, dict) or not entries:
+        raise Problem(f'{where}/equipment: needs at least one machine')
+    for key, e in entries.items():
+        w = f'{where}/equipment/{key}'
+        fields(e, {'notes', 'kind', 'footprint', 'massKg', 'idleKW', 'workingKW', 'roomHeatFraction', 'feedCells', 'art', 'installTab', 'points'}, w)
+        number(e.get('footprint'), f'{w}/footprint', 1, 12, integer=True)
+        number(e.get('massKg'), f'{w}/massKg', 0, 100000, exclusive_low=True)
+        working = number(e.get('workingKW'), f'{w}/workingKW', 0, 10000, exclusive_low=True)
+        number(e.get('idleKW', 0), f'{w}/idleKW', 0, working)
+        number(e.get('roomHeatFraction', 0), f'{w}/roomHeatFraction', 0, 1)
+        number(e.get('feedCells', 0), f'{w}/feedCells', 0, 64, integer=True)
+        points = e.get('points', {})
+        if not isinstance(points, dict):
+            raise Problem(f'{w}/points: expected named offsets')
+        for name, xy in points.items():
+            if not isinstance(xy, list) or len(xy) != 2:
+                raise Problem(f'{w}/points/{name}: two pixel offsets')
+            for i, v in enumerate(xy):
+                number(v, f'{w}/points/{name}/{i}', -512, 512, integer=True)
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment}
 
 
 def check_file(path):

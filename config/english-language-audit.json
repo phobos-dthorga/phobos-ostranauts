@@ -39179,8 +39179,12 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:165",
+        "src/PhobosManufacturing/CrackerService.cs:125",
+        "src/PhobosManufacturing/FillerService.cs:161",
         "src/PhobosManufacturing/ProcessorService.cs:137",
-        "src/PhobosManufacturing/RefineryService.cs:95"
+        "src/PhobosManufacturing/ProcessorService.cs:146",
+        "src/PhobosManufacturing/SabatierService.cs:161"
       ],
       "before": "This ship is not loaded yet.",
       "after": "This ship is not loaded yet."
@@ -39193,8 +39197,13 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:524",
+        "src/PhobosManufacturing/CrackerService.cs:324",
+        "src/PhobosManufacturing/FillerService.cs:290",
         "src/PhobosManufacturing/ProcessorService.cs:304",
-        "src/PhobosManufacturing/RefineryService.cs:406"
+        "src/PhobosManufacturing/ProcessorService.cs:332",
+        "src/PhobosManufacturing/RegulatorService.cs:145",
+        "src/PhobosManufacturing/SabatierService.cs:384"
       ],
       "before": "powered",
       "after": "powered"
@@ -39207,8 +39216,13 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:524",
+        "src/PhobosManufacturing/CrackerService.cs:324",
+        "src/PhobosManufacturing/FillerService.cs:290",
         "src/PhobosManufacturing/ProcessorService.cs:304",
-        "src/PhobosManufacturing/RefineryService.cs:406"
+        "src/PhobosManufacturing/ProcessorService.cs:332",
+        "src/PhobosManufacturing/RegulatorService.cs:145",
+        "src/PhobosManufacturing/SabatierService.cs:384"
       ],
       "before": "no power",
       "after": "no power"
@@ -39221,8 +39235,12 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:526",
+        "src/PhobosManufacturing/CrackerService.cs:326",
+        "src/PhobosManufacturing/FillerService.cs:309",
         "src/PhobosManufacturing/ProcessorService.cs:306",
-        "src/PhobosManufacturing/RefineryService.cs:408"
+        "src/PhobosManufacturing/ProcessorService.cs:334",
+        "src/PhobosManufacturing/SabatierService.cs:386"
       ],
       "before": "Last stop: {0}",
       "after": "Last stop: {0}"
@@ -39235,9 +39253,19 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:569",
+        "src/PhobosManufacturing/ChargeMachine.cs:603",
+        "src/PhobosManufacturing/CrackerService.cs:334",
+        "src/PhobosManufacturing/CrackerService.cs:367",
+        "src/PhobosManufacturing/FillerService.cs:355",
         "src/PhobosManufacturing/HydrogenService.cs:54",
+        "src/PhobosManufacturing/ManifoldService.cs:197",
         "src/PhobosManufacturing/ProcessorService.cs:354",
-        "src/PhobosManufacturing/RefineryService.cs:443"
+        "src/PhobosManufacturing/ProcessorService.cs:383",
+        "src/PhobosManufacturing/RegulatorService.cs:186",
+        "src/PhobosManufacturing/SabatierService.cs:408",
+        "src/PhobosManufacturing/SabatierService.cs:440",
+        "src/PhobosManufacturing/StoreService.cs:128"
       ],
       "before": "That command is not one this machine understands.",
       "after": "That command is not one this machine understands."
@@ -39484,7 +39512,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:29"
+        "src/PhobosManufacturing/ChargeMachine.cs:65"
       ],
       "before": "Paused.",
       "after": "Paused."
@@ -39497,9 +39525,11 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:123",
-        "src/PhobosManufacturing/RefineryService.cs:51",
-        "src/PhobosManufacturing/RefineryService.cs:56"
+        "src/PhobosManufacturing/ChargeMachine.cs:202",
+        "src/PhobosManufacturing/ChargeMachine.cs:571",
+        "src/PhobosManufacturing/ChargeMachine.cs:576",
+        "src/PhobosManufacturing/ChargeMachine.cs:74",
+        "src/PhobosManufacturing/ChargeMachine.cs:79"
       ],
       "before": "This refinery's record could not be read. Repair it, then Accept its contents from the panel.",
       "after": "This refinery's record could not be read. Repair it, then Accept its contents from the panel."
@@ -39512,7 +39542,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:52"
+        "src/PhobosManufacturing/ChargeMachine.cs:75"
       ],
       "before": "A {0} charge is bound and waiting. Start resumes it.",
       "after": "A {0} charge is bound and waiting. Start resumes it."
@@ -39525,7 +39555,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:139"
+        "src/PhobosManufacturing/ChargeMachine.cs:218"
       ],
       "before": "A {0} charge is bound, but this installation cannot finish it (Shipbreaker is not loaded). It is kept as it is.",
       "after": "A {0} charge is bound, but this installation cannot finish it (Shipbreaker is not loaded). It is kept as it is."
@@ -39538,11 +39568,11 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:140",
-        "src/PhobosManufacturing/RefineryService.cs:218",
-        "src/PhobosManufacturing/RefineryService.cs:284",
-        "src/PhobosManufacturing/RefineryService.cs:299",
-        "src/PhobosManufacturing/RefineryService.cs:357"
+        "src/PhobosManufacturing/ChargeMachine.cs:219",
+        "src/PhobosManufacturing/ChargeMachine.cs:314",
+        "src/PhobosManufacturing/ChargeMachine.cs:393",
+        "src/PhobosManufacturing/ChargeMachine.cs:414",
+        "src/PhobosManufacturing/ChargeMachine.cs:468"
       ],
       "before": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it.",
       "after": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it."
@@ -39555,8 +39585,8 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:148",
-        "src/PhobosManufacturing/RefineryService.cs:213"
+        "src/PhobosManufacturing/ChargeMachine.cs:227",
+        "src/PhobosManufacturing/ChargeMachine.cs:309"
       ],
       "before": "The feed is empty. Load a charge.",
       "after": "The feed is empty. Load a charge."
@@ -39569,8 +39599,9 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:151",
-        "src/PhobosManufacturing/RefineryService.cs:154"
+        "src/PhobosManufacturing/ChargeMachine.cs:235",
+        "src/PhobosManufacturing/ChargeMachine.cs:240",
+        "src/PhobosManufacturing/ChargeMachine.cs:244"
       ],
       "before": "Nothing in the feed is a valid charge unit.",
       "after": "Nothing in the feed is a valid charge unit."
@@ -39583,7 +39614,8 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:151"
+        "src/PhobosManufacturing/ChargeMachine.cs:235",
+        "src/PhobosManufacturing/ChargeMachine.cs:240"
       ],
       "before": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock.",
       "after": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock."
@@ -39596,8 +39628,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:164",
-        "src/PhobosManufacturing/RefineryService.cs:305"
+        "src/PhobosManufacturing/ChargeMachine.cs:253"
       ],
       "before": "Waiting for a water vessel: {0}",
       "after": "Waiting for a water vessel: {0}"
@@ -39610,8 +39641,8 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261"
       ],
       "before": "Working: {0}.",
       "after": "Working: {0}."
@@ -39624,7 +39655,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:178"
+        "src/PhobosManufacturing/ChargeMachine.cs:273"
       ],
       "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
       "after": "Cancelled. The charge units stay in the feed; the work is forfeited."
@@ -39637,7 +39668,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:178"
+        "src/PhobosManufacturing/ChargeMachine.cs:273"
       ],
       "before": "Paused. The bound charge and its progress are kept.",
       "after": "Paused. The bound charge and its progress are kept."
@@ -39650,8 +39681,8 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:193",
-        "src/PhobosManufacturing/RefineryService.cs:433"
+        "src/PhobosManufacturing/ChargeMachine.cs:288",
+        "src/PhobosManufacturing/ChargeMachine.cs:590"
       ],
       "before": "The refinery stopped on a fault. See the log.",
       "after": "The refinery stopped on a fault. See the log."
@@ -39664,7 +39695,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:237"
+        "src/PhobosManufacturing/ChargeMachine.cs:338"
       ],
       "before": "Waiting for the room to cool. A melt that waits longer than its own run freezes.",
       "after": "Waiting for the room to cool. A melt that waits longer than its own run freezes."
@@ -39677,7 +39708,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:286"
+        "src/PhobosManufacturing/ChargeMachine.cs:400"
       ],
       "before": "Waiting for power.",
       "after": "Waiting for power."
@@ -39690,7 +39721,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:313"
+        "src/PhobosManufacturing/ChargeMachine.cs:424"
       ],
       "before": "The tray has no room for the products. Clear it.",
       "after": "The tray has no room for the products. Clear it."
@@ -39703,7 +39734,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:316"
+        "src/PhobosManufacturing/ChargeMachine.cs:426"
       ],
       "before": "{0} at {1}: the melt froze while waiting for a cool room. Slag, not metal.",
       "after": "{0} at {1}: the melt froze while waiting for a cool room. Slag, not metal."
@@ -39716,7 +39747,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:316"
+        "src/PhobosManufacturing/ChargeMachine.cs:426"
       ],
       "before": "{0} at {1}: charge finished.",
       "after": "{0} at {1}: charge finished."
@@ -39729,7 +39760,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:317"
+        "src/PhobosManufacturing/ChargeMachine.cs:427"
       ],
       "before": "{0}: the melt froze while waiting for a cool room and is now slag.",
       "after": "{0}: the melt froze while waiting for a cool room and is now slag."
@@ -39742,7 +39773,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:320"
+        "src/PhobosManufacturing/ChargeMachine.cs:430"
       ],
       "before": "Finished. The feed is empty.",
       "after": "Finished. The feed is empty."
@@ -39755,7 +39786,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:519"
       ],
       "before": "No charge bound.",
       "after": "No charge bound."
@@ -39768,7 +39799,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:519"
       ],
       "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
       "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
@@ -39781,7 +39812,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:405"
+        "src/PhobosManufacturing/ChargeMachine.cs:523"
       ],
       "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
       "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
@@ -39794,7 +39825,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:407"
+        "src/PhobosManufacturing/ChargeMachine.cs:525"
       ],
       "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
       "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
@@ -39807,7 +39838,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:408"
+        "src/PhobosManufacturing/ChargeMachines.cs:37"
       ],
       "before": "Shipbreaker is not loaded: no carburised steel charge.",
       "after": "Shipbreaker is not loaded: no carburised steel charge."
@@ -39820,7 +39851,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:414"
+        "src/PhobosManufacturing/ChargeMachine.cs:552"
       ],
       "before": "Stop the refinery before changing its water vessel.",
       "after": "Stop the refinery before changing its water vessel."
@@ -39833,7 +39864,8 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:416"
+        "src/PhobosManufacturing/ChargeMachines.cs:50",
+        "src/PhobosManufacturing/ChargeMachines.cs:64"
       ],
       "before": "Water vessel unlinked.",
       "after": "Water vessel unlinked."
@@ -39846,7 +39878,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:418"
+        "src/PhobosManufacturing/ChargeMachines.cs:50"
       ],
       "before": "That vessel is not a registered water vessel within one tile of the refinery.",
       "after": "That vessel is not a registered water vessel within one tile of the refinery."
@@ -39859,8 +39891,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:420",
-        "src/PhobosManufacturing/RefineryService.cs:422"
+        "src/PhobosManufacturing/ChargeMachines.cs:50"
       ],
       "before": "Water vessel linked.",
       "after": "Water vessel linked."
@@ -39873,7 +39904,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:335"
+        "src/PhobosManufacturing/ChargeMachine.cs:446"
       ],
       "before": "Product definition unavailable: {0}.",
       "after": "Product definition unavailable: {0}."
@@ -39886,7 +39917,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:338"
+        "src/PhobosManufacturing/ChargeMachine.cs:449"
       ],
       "before": "Product definition changed: {0}.",
       "after": "Product definition changed: {0}."
@@ -39899,7 +39930,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:341"
+        "src/PhobosManufacturing/ChargeMachine.cs:452"
       ],
       "before": "The charge would not conserve mass; nothing was delivered.",
       "after": "The charge would not conserve mass; nothing was delivered."
@@ -39912,7 +39943,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:348"
+        "src/PhobosManufacturing/ChargeMachine.cs:459"
       ],
       "before": "The batch was not prepared.",
       "after": "The batch was not prepared."
@@ -39925,7 +39956,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:352"
+        "src/PhobosManufacturing/ChargeMachine.cs:463"
       ],
       "before": "A product could not be placed in the tray.",
       "after": "A product could not be placed in the tray."
@@ -39938,7 +39969,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:363"
+        "src/PhobosManufacturing/ChargeMachine.cs:474"
       ],
       "before": "A charge unit could not be removed from the feed.",
       "after": "A charge unit could not be removed from the feed."
@@ -39951,7 +39982,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:93"
+        "src/PhobosManufacturing/ChargeMachine.cs:163"
       ],
       "before": "Install the refinery first.",
       "after": "Install the refinery first."
@@ -39964,7 +39995,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:94"
+        "src/PhobosManufacturing/ChargeMachine.cs:164"
       ],
       "before": "Repair the refinery first.",
       "after": "Repair the refinery first."
@@ -39977,7 +40008,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:96"
+        "src/PhobosManufacturing/ChargeMachine.cs:167"
       ],
       "before": "Unlock the refinery and its feed first.",
       "after": "Unlock the refinery and its feed first."
@@ -39990,7 +40021,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:97"
+        "src/PhobosManufacturing/ChargeMachine.cs:168"
       ],
       "before": "The refinery is switched off at its power control.",
       "after": "The refinery is switched off at its power control."
@@ -40003,7 +40034,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:98"
+        "src/PhobosManufacturing/ChargeMachine.cs:169"
       ],
       "before": "The refinery's feed compartment is missing.",
       "after": "The refinery's feed compartment is missing."
@@ -40016,7 +40047,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:76"
+        "src/PhobosManufacturing/ChargeMachines.cs:44"
       ],
       "before": "no water vessel linked",
       "after": "no water vessel linked"
@@ -40029,7 +40060,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:79"
+        "src/PhobosManufacturing/ChargeMachines.cs:45"
       ],
       "before": "the linked vessel is not installed, not adjacent or not ready",
       "after": "the linked vessel is not installed, not adjacent or not ready"
@@ -40042,7 +40073,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:81"
+        "src/PhobosManufacturing/ChargeMachines.cs:46"
       ],
       "before": "the linked vessel needs its owner's attention",
       "after": "the linked vessel needs its owner's attention"
@@ -40055,7 +40086,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:84"
+        "src/PhobosManufacturing/ChargeMachines.cs:47"
       ],
       "before": "the linked vessel holds water in its catch chamber; recover it first",
       "after": "the linked vessel holds water in its catch chamber; recover it first"
@@ -40068,7 +40099,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:86"
+        "src/PhobosManufacturing/ChargeMachines.cs:48"
       ],
       "before": "the linked vessel has {0:F1} kg of room and the charge yields {1:F1} kg",
       "after": "the linked vessel has {0:F1} kg of room and the charge yields {1:F1} kg"
@@ -40081,10 +40112,14 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286",
-        "src/PhobosManufacturing/RefineryService.cs:316",
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "hydrate dehydration",
       "after": "hydrate dehydration"
@@ -40097,10 +40132,14 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286",
-        "src/PhobosManufacturing/RefineryService.cs:316",
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "clay hydrate dehydration",
       "after": "clay hydrate dehydration"
@@ -40113,10 +40152,14 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286",
-        "src/PhobosManufacturing/RefineryService.cs:316",
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "carbon extraction",
       "after": "carbon extraction"
@@ -40129,10 +40172,14 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286",
-        "src/PhobosManufacturing/RefineryService.cs:316",
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "nickel-iron casting",
       "after": "nickel-iron casting"
@@ -40145,10 +40192,14 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:166",
-        "src/PhobosManufacturing/RefineryService.cs:286",
-        "src/PhobosManufacturing/RefineryService.cs:316",
-        "src/PhobosManufacturing/RefineryService.cs:404"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "carburised steel",
       "after": "carburised steel"
@@ -40161,9 +40212,16 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:583",
+        "src/PhobosManufacturing/CrackerService.cs:350",
+        "src/PhobosManufacturing/FillerService.cs:312",
         "src/PhobosManufacturing/HydrogenService.cs:41",
+        "src/PhobosManufacturing/ManifoldService.cs:165",
         "src/PhobosManufacturing/ProcessorService.cs:337",
-        "src/PhobosManufacturing/RefineryService.cs:428"
+        "src/PhobosManufacturing/ProcessorService.cs:366",
+        "src/PhobosManufacturing/RegulatorService.cs:148",
+        "src/PhobosManufacturing/SabatierService.cs:423",
+        "src/PhobosManufacturing/StoreService.cs:109"
       ],
       "before": "This machine needs its owner's attention before it is moved or taken apart.",
       "after": "This machine needs its owner's attention before it is moved or taken apart."
@@ -40176,7 +40234,7 @@
       "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:429"
+        "src/PhobosManufacturing/ChargeMachineSpec.cs:80"
       ],
       "before": "A charge is bound in the refinery. Cancel or finish it first.",
       "after": "A charge is bound in the refinery. Cancel or finish it first."
@@ -46321,8 +46379,14 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:143",
-        "src/PhobosManufacturing/RefineryService.cs:213"
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
       ],
       "before": "ammonia release from salt crust",
       "after": "ammonia release from salt crust"
@@ -46387,7 +46451,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:100"
+        "src/PhobosManufacturing/ChargeMachines.cs:58"
       ],
       "before": "no {0} store linked",
       "after": "no {0} store linked"
@@ -46400,7 +46464,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:103"
+        "src/PhobosManufacturing/ChargeMachines.cs:59"
       ],
       "before": "the linked {0} store is damaged, locked, moved away or not on this ship",
       "after": "the linked {0} store is damaged, locked, moved away or not on this ship"
@@ -46413,7 +46477,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:105"
+        "src/PhobosManufacturing/ChargeMachines.cs:60"
       ],
       "before": "the linked {0} store is protected or busy; accept its contents or wait",
       "after": "the linked {0} store is protected or busy; accept its contents or wait"
@@ -46426,7 +46490,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:108"
+        "src/PhobosManufacturing/ChargeMachines.cs:62"
       ],
       "before": "the linked {0} store has {1:F2} kg of room and the charge yields {2:F3} kg",
       "after": "the linked {0} store has {1:F2} kg of room and the charge yields {2:F3} kg"
@@ -46439,7 +46503,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:489"
+        "src/PhobosManufacturing/ChargeMachines.cs:64"
       ],
       "before": "That is not a {0} store within one tile of the refinery.",
       "after": "That is not a {0} store within one tile of the refinery."
@@ -46452,7 +46516,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/RefineryService.cs:491"
+        "src/PhobosManufacturing/ChargeMachines.cs:64"
       ],
       "before": "Linked the {0} store. The refinery never vents it.",
       "after": "Linked the {0} store. The refinery never vents it."
@@ -46478,8 +46542,7 @@
       "reason": "New player text for this feature; states the situation, consequence and next action directly.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Provider.cs:32",
-        "src/PhobosManufacturing/RefineryService.cs:99"
+        "src/PhobosManufacturing/Provider.cs:32"
       ],
       "before": "ammonia",
       "after": "ammonia"
@@ -48536,6 +48599,188 @@
       ],
       "before": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it.",
       "after": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.circulates",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:109"
+      ],
+      "before": "Recipe {0}: circulates must name a commodity with a kilogram amount above 0, not {1}.",
+      "after": "Recipe {0}: circulates must name a commodity with a kilogram amount above 0, not {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.reaction",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:110"
+      ],
+      "before": "Recipe {0}: reactionKWh must be a number between -{1} and {1}.",
+      "after": "Recipe {0}: reactionKWh must be a number between -{1} and {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:57"
+      ],
+      "before": "No equipment entry for {0}. Every machine the mod knows needs one.",
+      "after": "No equipment entry for {0}. Every machine the mod knows needs one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:61"
+      ],
+      "before": "{0} is not a machine this mod knows. Machines cannot be added in a data file.",
+      "after": "{0} is not a machine this mod knows. Machines cannot be added in a data file."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:62"
+      ],
+      "before": "{0}: kind {1} is not one this mod builds.",
+      "after": "{0}: kind {1} is not one this mod builds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.footprint",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:63"
+      ],
+      "before": "{0}: footprint must be 1 to {1} tiles.",
+      "after": "{0}: footprint must be 1 to {1} tiles."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:64"
+      ],
+      "before": "{0}: massKg must be above 0 and at most {1}.",
+      "after": "{0}: massKg must be above 0 and at most {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:66"
+      ],
+      "before": "{0}: workingKW must be above 0 and at most {1}, and idleKW between 0 and workingKW.",
+      "after": "{0}: workingKW must be above 0 and at most {1}, and idleKW between 0 and workingKW."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.heat",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:67"
+      ],
+      "before": "{0}: roomHeatFraction must be 0 to 1.",
+      "after": "{0}: roomHeatFraction must be 0 to 1."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:68"
+      ],
+      "before": "{0}: feedCells must be 0 to {1}.",
+      "after": "{0}: feedCells must be 0 to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.tab",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:69"
+      ],
+      "before": "{0}: {1} is not an INSTALL tab this mod uses.",
+      "after": "{0}: {1} is not an INSTALL tab this mod uses."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.point",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:72"
+      ],
+      "before": "{0}: point {1} needs two pixel offsets within range.",
+      "after": "{0}: point {1} needs two pixel offsets within range."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EquipmentSchema.read_only",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data-file check shown to players editing override files; names the field and the allowed range directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EquipmentPack.cs:74"
+      ],
+      "before": "{0}: machine shapes are a read-only reference for now; a saved machine's mass and footprint depend on them. The file was not applied.",
+      "after": "{0}: machine shapes are a read-only reference for now; a saved machine's mass and footprint depend on them. The file was not applied."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.store_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:61"
+      ],
+      "before": "the linked {0} store holds contents in its catch chamber; recover them first",
+      "after": "the linked {0} store holds contents in its catch chamber; recover them first"
     }
   ],
   "documents": [
@@ -48543,8 +48788,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aa026008ca6336f06dd8fa98fb0a7311d9d1231edd5b8f5dc3244c1389c336bd",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "18613b9a94b0a8907854be6ece5f7cbf21b815be8e2ace8693409c7136a0ea2f",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -48571,8 +48816,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1f0b09a838975844ddac99cc78d28e4b656f2e1e8f8a09fbd98a20e0a534049e",
-      "review": "Step 6: regenerated item references carry version and wording already reviewed."
+      "sha256": "7e61c0df5ece6fea777c832eae6dad091f7e0cdfeaa63088c8ba878c4ba9117f",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -48654,8 +48899,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "057f7a472e1bf8d3906d46d504beddd4f4bfa312dd3bf98048fd3eab2a34c058",
-      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
+      "sha256": "b8dbd8bf3b03a25552d6d2d2191c2b7235391da1cca8b612daa8eb247422e5c8",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -48703,8 +48948,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "83ef434b6fc0e0fdea9a876d4fe4f7200375f9ffa58dc58a976698ce9163701a",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "34aecb69f1aa0df2f898d7cd5cbeda08b052b62f326b1d1c4992eb2f274974cf",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/crew-automation.md",
@@ -49004,8 +49249,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4d4b84af857e8a9c050a0c713c1ede1910df2884c8ea913120c9e5f29604bbaf",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "2ef0f7f8a453b130474e0a49617b0ca0607a5bd13b5e974b56f9824332236730",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -49147,8 +49392,8 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c2764f47730c4e7d90ae38f71df41190478918c498a1cce4a85daaaa2a18a6e7",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "ea2b153b93ef74dbba3743b58f88c4d2462490b8e59c63fcc0214f4f3e5aa3ac",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
@@ -49226,8 +49471,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "7707811886eaf6f2f8dba9840a55b2f083d083c83920986e210312a60e2b1330",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "8deeeda3d142dc357048635a7e7ce9534b5a783162fc421036ac46630563137e",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -49438,8 +49683,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9fa425e931daf0bf7b2af82d0570a79e77bc1b8f7fe227eaefa6ac7549304abb",
-      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
+      "sha256": "27b1abd10cafbc2dd0ae959ce7a85c8983dfbf6e1a4ddfb6b96a899fec58cd5c",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -49501,8 +49746,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f88cd9300fe0eb20aa80ed8e345f115dd438100dc67533d1084db5e8a3bb7b77",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "4f4ccfdc0b6a198e7b31938369d719249adee11c4a7c6319644a380c7cca6bdf",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/item-references.md",
@@ -49515,8 +49760,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "de9b4b341efa9e8058bfceb6574727bcf26b522af721e39c3b0d215a058a0611",
-      "review": "Refining value review: regenerated item references and notes carry the reviewed price wording."
+      "sha256": "8096139d34857414d349ccdabd55403eb4d342361622c6e3e063f825824b9a8c",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -49543,8 +49788,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b541ecb911de3f7a5c058a0875796d572f9146dc11ad5f4ebd706ce44cc15eee",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "c52a2f3376ed1efed6c97c659935938bd5ab6f9bce5e077830b6212f5b97cec8",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/residue-collector.md",
@@ -49592,8 +49837,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "91cdba4ce9ea3fbbcd8f34755ce4bf707015e8797f3a5e28b62b6dafb7890ece",
-      "review": "Refining value review: regenerated item references and notes carry the reviewed price wording."
+      "sha256": "fdb385844dd3bf242b4cefae75f8381dc39fccf3e85ed9d07c65098d7c5a57af",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -49634,15 +49879,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "be952f8065128e86cf5d0bd3027f93e9d3c0cd507cdcb56ededfe2f0b56f2665",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "769714c9e26cc30a423a2354b2411820ad301ff783e66a2e8cd2599441ed7363",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a23c77a4bdcc3ad37fb0bcf1c97fb1fe3a97963528c7ef6463141aea40386030",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "846a1090b89b9f1484d2f1cf05e69eb5420abd15e15208c33c1847f017cceab1",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -49704,15 +49949,15 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "3983ed2f8f6b3101199a31cc56b6e7eb5bdaea49b773d46c5ec4392f687d4a6b",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "882b13c3e3c85a1fe076e7f63d8dcd59fe5c61041384c9bce58ff1072ecad541",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "ac69f99c1885edd499159f26d1e0b57078858cfc9525ac46cc7b2c15143e316d",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "e3e76414e624c31a467915df6a5288c0cada1786d6041103b55638fe87bcca7d",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -49733,8 +49978,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "922b18988da37f5898b7dcb188fb4b0d1c313461e341f6fdb61b95750f34511a",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "171166d068dd938badd5d7bee86eb5e5e01b05208c696688d7a912411e5af58b",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -49782,14 +50027,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "58650f6e96b28e1b933edf0316a76ae14e4f818cd4801c4f6476209c85c36e2a",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "e76abe46c2ad9cb20d056dd6441a448c2a53811a331f6d08ae6ccdf2081c6533",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2c75d9c08ce07912cbaf9c9b106a084240f51aecc6d2f4096f4bce7186fc63ce",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "17fda9d3cbc275612c73dd90546ea703f3eded4a43d1827be7a582eae30db9b0",
+      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

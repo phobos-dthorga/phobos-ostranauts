@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/equipment.schema.json",
+  "title": "Phobos equipment data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "equipment"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "equipment": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "kind": {
+              "type": "string",
+              "description": "How the mod builds it (for example charge-machine)."
+            },
+            "footprint": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "massKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 100000
+            },
+            "idleKW": {
+              "type": "number",
+              "minimum": 0
+            },
+            "workingKW": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 10000
+            },
+            "roomHeatFraction": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "feedCells": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 64
+            },
+            "art": {
+              "type": "string"
+            },
+            "installTab": {
+              "type": "string",
+              "description": "A native INSTALL tab, for example APPS."
+            },
+            "points": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "integer",
+                    "minimum": -512,
+                    "maximum": 512
+                  }
+                }
+              },
+              "description": "Named map points in pixels from the centre."
+            }
+          },
+          "required": [
+            "footprint",
+            "massKg",
+            "workingKW"
+          ]
+        }
+      },
+      "description": "Machine shapes by definition prefix; a read-only reference for now."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "equipment"
+  ],
+  "description": "Footprint, mass, power, heat share, feed cells, art and use points of each machine."
+}

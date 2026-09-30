@@ -140,6 +140,8 @@ def recipes():
         'offGas': named(num(0, exclusive_minimum=0), 'Kilograms of a native gas breathed into the room.', '^(' + '|'.join(SPECIES) + ')$'),
         'seconds': num(0, exclusive_minimum=0), 'legacySeconds': num(0, exclusive_minimum=0), 'melt': {'type': 'boolean'},
         'requires': {'type': 'array', 'items': string()}, 'thermal': thermal,
+        'circulates': named(num(0, exclusive_minimum=0), 'Working volume of a commodity present during the charge and returned; not in the mass balance.'),
+        'reactionKWh': num(-1000, 1000, description='Reaction heat released into the room over the charge (negative when absorbed).'),
     }, ['machine', 'revision', 'inputs', 'products'])
     return obj({**header('process-recipes'), 'recipes': named(recipe, 'Recipes by id; published revisions are frozen by hash.', '^[a-z0-9-]+$')},
                ['schemaVersion', 'schema', 'recipes'], 'Fixed process recipes: mass-conserving inputs, products and native off-gas.')
@@ -161,7 +163,17 @@ def vessels():
                'Capacity, dry mass and leak rate of each bulk vessel family; larger sizes follow the Framework ladder.')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels}
+
+def equipment():
+    entry = obj({'notes': NOTES, 'kind': string('How the mod builds it (for example charge-machine).'), 'footprint': num(1, 12, integer=True),
+                 'massKg': num(0, 100000, exclusive_minimum=0), 'idleKW': num(0), 'workingKW': num(0, 10000, exclusive_minimum=0),
+                 'roomHeatFraction': num(0, 1), 'feedCells': num(0, 64, integer=True), 'art': string(), 'installTab': string('A native INSTALL tab, for example APPS.'),
+                 'points': named({'type': 'array', 'minItems': 2, 'items': num(-512, 512, integer=True)}, 'Named map points in pixels from the centre.')},
+                ['footprint', 'massKg', 'workingKW'])
+    return obj({**header('equipment'), 'equipment': named(entry, 'Machine shapes by definition prefix; a read-only reference for now.')},
+               ['schemaVersion', 'schema', 'equipment'], 'Footprint, mass, power, heat share, feed cells, art and use points of each machine.')
+
+SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment}
 
 
 def render(name):

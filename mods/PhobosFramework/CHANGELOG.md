@@ -22,6 +22,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.54.0] - 2026-09-30 - Draft
+
+### Added
+
+- An equipment data-pack schema: a machine's footprint, empty weight, idle and working power, share of its heat into the room, feed cells, artwork, install tab and connection points. For now it is read-only: a player file that changes a shipped machine is refused with a message, because a footprint or connection change would move equipment already placed in a save.
+- Process recipes may now declare a working volume a machine needs on hand but gives back (circulates), and heat the reaction itself releases into the room, or absorbs, over the charge (reactionKWh). Old recipes are unchanged, and their frozen fingerprints stay the same.
+- A shared settlement for machines that draw from and deposit into bulk stores when a charge finishes: draws and deposits on the same store are netted, every store is checked first (protected, busy, catch chamber in use, too little, too full), and the finished items are delivered before any store changes, so a blocked delivery changes nothing.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself; Manufacturing 0.17.0 is the first user. Offline checks are not gameplay validation.
+
 ## [0.53.0] - 2026-09-30 - Draft
 
 ### Added

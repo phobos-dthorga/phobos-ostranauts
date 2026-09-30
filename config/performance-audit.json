@@ -504,10 +504,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "e1754b91c724ffef9ab1196bf72c99e38dc8317768d78febe335e78a7a90abc5",
+      "sha256": "3a94cf457fbdfa92fd1b2d8f552eadaf259741f82a132a3eaa578b4ccf59f623",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R1",
         "E1",
@@ -515,7 +515,8 @@
         "FF0",
         "FF1",
         "FF2",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -603,14 +604,15 @@
     },
     {
       "path": "src/PhobosAgriculture/RegionalEconomy.cs",
-      "sha256": "0d3e2fa2e1fd7259a7bee7866284f0f84bfb71c20d487a0c0239fe968a66a360",
+      "sha256": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R4",
         "E1",
-        "FF0"
+        "FF0",
+        "K1"
       ],
       "indicators": {
         "collection": [
@@ -1842,10 +1844,10 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "15f680ad12959603f563322824207a8c42dd6536585cfde02cdd0abb883f44af",
+      "sha256": "2f573195a0d004301d06e92affd2ce987d007835e03ff48a0e47e2fcde9944bf",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R2",
         "P8",
@@ -1856,7 +1858,8 @@
         "FF5",
         "FF6",
         "FF1",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1886,13 +1889,14 @@
     },
     {
       "path": "src/PhobosAutoNav/RegionalEconomy.cs",
-      "sha256": "d784bb73c5c81a2f32fa88b00475dabd8e46ca49bf9fd1aa98062b98008d2272",
+      "sha256": "6d88800bbdf4af8e7f11728a3bd683350cd99349910f05558e623cf29260e035",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R4",
-        "E1"
+        "E1",
+        "K1"
       ],
       "indicators": {
         "collection": [
@@ -3035,55 +3039,76 @@
     },
     {
       "path": "src/PhobosFramework/Data/DataPacks.cs",
-      "sha256": "7c94254c9699c46ac7e020691a6c8aac5bde0bd70e2b4002d3c6dbc693e91754",
+      "sha256": "b7f81acc0e9c1fcbde94b32e962a253427370165d9cf2feb6abd4dbbff00e18c",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
       "findings": [
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "persistence_or_io": [
-          80,
-          92,
-          110
+          83,
+          95,
+          113
         ],
         "collection": [
-          105,
-          159
+          108,
+          162
         ]
       },
       "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Data/EconomyPack.cs",
-      "sha256": "a95f418a7d5511c584a96c0c9506b1044b93e908254176e5965794424cf94e22",
+      "sha256": "2d3b15d689da4d07f4dbd1eacfd7f6754f8c2621e74a7657c00c47a0c42ab8b3",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {},
       "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Data/EconomyStock.cs",
-      "sha256": "c13e4e8dd3b9d80477e4367c0851bece14f2f5cf655c175e10d82f997cbace16",
+      "sha256": "fec57f790718bfa93778fb140937396f534b1c0d5b1e18a4a387ce4a4ea24ecd",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
           105,
           106,
           107,
-          133,
-          173,
-          174
+          153,
+          167,
+          207,
+          208
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosFramework/Data/EquipmentPack.cs",
+      "sha256": "003680f4a5f4c5b4b3ab9b4c8c6cf8041aeb780dc946cecd9ac2f4852c7d18ae",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
+      "findings": [
+        "R4",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          83
         ]
       },
       "reviewed": "2026-09-30"
@@ -3102,19 +3127,20 @@
     },
     {
       "path": "src/PhobosFramework/Data/RecipePack.cs",
-      "sha256": "1deda44e3d0478db032f8977e37dbbd5e71848f14d23a3c044689ecce46a1316",
+      "sha256": "4d0c3acb686e76c8dc2a482dcefaeb59068ea5ff35668a1e052caf5854f8b5ac",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
       "findings": [
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
-          98,
-          156,
-          157,
-          163
+          106,
+          167,
+          168,
+          174
         ]
       },
       "reviewed": "2026-09-30"
@@ -3583,6 +3609,28 @@
       ],
       "indicators": {},
       "reviewed": "2026-09-29"
+    },
+    {
+      "path": "src/PhobosFramework/Liquids/CommoditySettlement.cs",
+      "sha256": "832ab7ddc97089016550970d61af4a50e2ce7ec737947147263d395f09ef4417",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
+      "findings": [
+        "R3",
+        "FF3",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          52,
+          53,
+          54,
+          81,
+          92
+        ]
+      },
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs",
@@ -4070,10 +4118,10 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "8586d47f52c7be870f69b088580ecb67d46015ffca656e7aa12c91478b55b207",
+      "sha256": "2979a6f9957263731ab3f6212708efc4fdf02a9d32585b04b6a342989ff3ba90",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R3",
         "P8",
@@ -4082,14 +4130,15 @@
         "FF0",
         "FF1",
         "FF2",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
           35
         ],
         "runtime_hook": [
-          62
+          63
         ]
       },
       "reviewed": "2026-09-30"
@@ -4681,23 +4730,48 @@
       }
     },
     {
+      "path": "src/PhobosFramework/Trading/FactionKiosks.cs",
+      "sha256": "c1e10f5647e7f8d278504c1ec4c5b22a735285be941c4a867fa412d2e238c96c",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
+      "findings": [
+        "R4",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          36,
+          74,
+          75,
+          76
+        ],
+        "persistence_or_io": [
+          60,
+          64
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
       "path": "src/PhobosFramework/Trading/MarketStock.cs",
-      "sha256": "5881afeef60bdfe8fd051264cf07d80f9096057a0c6fb680bf0c5dd01e2fb925",
+      "sha256": "f577110347081cda1f70c4b308d49c18059f26a21e3af868bfa82eeb75125e0a",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R4",
         "E1",
-        "FF0"
+        "FF0",
+        "K1"
       ],
       "indicators": {
         "runtime_hook": [
-          85,
-          93
+          91,
+          99
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Trading/RegionalMarkets.cs",
@@ -4763,19 +4837,171 @@
       "reviewed": "2026-09-29"
     },
     {
-      "path": "src/PhobosManufacturing/Content.cs",
-      "sha256": "11171d9ed498bc6afc7196dfae1faf252dac12014420d8badb79cfb60bd280fb",
-      "role": "registration, metadata or event-driven content",
+      "path": "src/PhobosManufacturing/ChargeMachine.cs",
+      "sha256": "1dfd58181374008ff51a14f114d185d1571e46a6bb072e812f5d15afd6061f7e",
+      "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "FF0",
         "FF3",
         "FF4",
         "FF5",
-        "R4"
+        "R3",
+        "K1"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          60,
+          66,
+          70,
+          79,
+          113,
+          114,
+          289,
+          426
+        ],
+        "discovery": [
+          82
+        ],
+        "collection": [
+          119,
+          142,
+          143,
+          144,
+          149,
+          187,
+          228,
+          239,
+          242,
+          243,
+          246,
+          419,
+          420,
+          452,
+          453,
+          534,
+          538,
+          545
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/ChargeMachineSpec.cs",
+      "sha256": "bb1e9a5476ceb69e880f953715315b7ffd409d1a9180a456daf459e42c84bd7b",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
+      "findings": [
+        "R3",
+        "FF3",
+        "K1"
       ],
       "indicators": {},
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/ChargeMachines.cs",
+      "sha256": "e8afa9c7dc9428b7093d8dd583db7136419cb4628c9a26cbbbcdb32bc913e275",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
+      "findings": [
+        "R3",
+        "FF3",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          38
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/Content.cs",
+      "sha256": "3adbf1badda14e480c6c5a6c315a0d5c2fb3b0e566d7667afd0651c841afe376",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
+      "findings": [
+        "FF0",
+        "FF3",
+        "FF4",
+        "FF5",
+        "R4",
+        "K1"
+      ],
+      "indicators": {},
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/Core/ChargeCatalog.cs",
+      "sha256": "0f147bb3876bb51e4d93ba6738a925ccfcf5328605fb496ddff5ed5735431964",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
+      "findings": [
+        "R4",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          39,
+          53,
+          54,
+          55,
+          56,
+          67,
+          85,
+          100,
+          121
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/Core/ChargeRecipe.cs",
+      "sha256": "b62969d3592f766d83ad8c45f0a7c230f2aa32f027aa39d37c0255ab58f9025d",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
+      "findings": [
+        "R4",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          57,
+          59,
+          61,
+          64,
+          66,
+          75,
+          79,
+          81,
+          87,
+          89
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/Core/ChargeState.cs",
+      "sha256": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
+      "findings": [
+        "FF0",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          37
+        ]
+      },
       "reviewed": "2026-09-30"
     },
     {
@@ -4814,6 +5040,23 @@
       "indicators": {
         "collection": [
           26
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosManufacturing/Core/Equipment.cs",
+      "sha256": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
+      "findings": [
+        "R4",
+        "K1"
+      ],
+      "indicators": {
+        "collection": [
+          19
         ]
       },
       "reviewed": "2026-09-30"
@@ -4947,47 +5190,22 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
-      "sha256": "96a67df4e5d9592caf98cdb926787a746ce4aada3f70905bd5b9269fbdcb40cd",
+      "sha256": "8145db3eaa9ea509e1e72f833d39aed73850df9e222d78f75d80a57fa9e615f7",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "FF0",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
-          23,
-          87,
-          89,
-          93,
-          96,
-          98,
-          103,
-          159,
-          160,
-          161,
-          175,
-          197
+          25,
+          100
         ]
       },
       "reviewed": "2026-09-30"
-    },
-    {
-      "path": "src/PhobosManufacturing/Core/RefineryState.cs",
-      "sha256": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
-      "role": "registration, metadata or event-driven content",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
-      "findings": [
-        "FF0"
-      ],
-      "indicators": {
-        "collection": [
-          31
-        ]
-      },
-      "reviewed": "2026-09-29"
     },
     {
       "path": "src/PhobosManufacturing/Core/RegulatorRules.cs",
@@ -5077,53 +5295,56 @@
     },
     {
       "path": "src/PhobosManufacturing/Definitions.cs",
-      "sha256": "e0b70551c99d63fdd114616e2169d10903c12fc102e10561069638711ed42de6",
+      "sha256": "a7fe06b774629830cf359e1c3d7cd24fc12b9133072fc579f313a4fc6516268c",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Data-pack loading and validation run once at start-up; the equipment pack is read-only. No per-step work. See K1.",
       "findings": [
         "FF0",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
-          53,
-          81,
-          101,
-          121,
-          141,
-          164,
-          170,
-          190,
-          212,
-          213,
-          245,
-          253,
-          254,
-          264,
-          275,
-          296,
-          297,
-          302,
-          314
+          57,
+          62,
+          85,
+          105,
+          125,
+          145,
+          168,
+          174,
+          194,
+          216,
+          217,
+          249,
+          257,
+          258,
+          268,
+          279,
+          300,
+          301,
+          306,
+          318
         ],
         "persistence_or_io": [
-          246,
-          276,
-          349
+          250,
+          280,
+          353
         ]
       },
       "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
-      "sha256": "03dfda3f15e36bd6e734820cc24e807741f3680d61698fe54ffd580af75b970e",
+      "sha256": "43db04fc3abc7875e8298bc21c49a85c207400531be177ce841a0669f649807f",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "FF0",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
@@ -5222,15 +5443,16 @@
     },
     {
       "path": "src/PhobosManufacturing/MachineKinds.cs",
-      "sha256": "ed765a6659479c87f0e949a667945f705dfb57fcc110e69faedde15509510f4a",
+      "sha256": "2c0f99f4956f401554663a14cc8e5d305a844cc90ce25ce8d7120f036e740ce5",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "FF3",
         "FF4",
         "FF5",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {},
       "reviewed": "2026-09-30"
@@ -5312,10 +5534,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "d05fdad7b7f11a9b02238a9896ed06acd3353251996e95d9a0b749c1c7298865",
+      "sha256": "b0a56e8eb03e3943ec8598e0a9caf7214377c0cafc9355b8ebf2c65c1d89b466",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "R6",
         "FF0",
@@ -5323,43 +5545,44 @@
         "FF4",
         "FF5",
         "FF1",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "persistence_or_io": [
           36,
           63,
-          153
+          156
         ],
         "runtime_hook": [
           46,
           75,
-          159,
-          180,
-          190,
-          199,
-          206,
-          217,
-          231,
-          242,
-          261,
-          272,
-          284
+          162,
+          186,
+          196,
+          205,
+          212,
+          223,
+          237,
+          248,
+          267,
+          278,
+          290
         ],
         "discovery": [
           50,
-          292
+          298
         ],
         "profiling": [
           51,
           62,
           87,
-          111,
-          168
+          114,
+          171
         ],
         "collection": [
-          202,
-          292
+          208,
+          298
         ]
       },
       "reviewed": "2026-09-30"
@@ -5406,95 +5629,44 @@
     },
     {
       "path": "src/PhobosManufacturing/Provider.cs",
-      "sha256": "021cda84ab580e4fe50c28d4dbda32e0346b7f0f62c39f2b764e38f3d4b200c5",
+      "sha256": "1bd7e74fa73a8e549a3354fd4cce68cb235c9f7bc1349a6a4a5e13459f2cfad0",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "FF0",
-        "R3"
+        "R3",
+        "K1"
       ],
       "indicators": {
         "collection": [
+          16,
           17,
-          24,
           28,
-          33,
+          30,
+          32,
+          37,
           39,
           41,
           43,
           48,
           50,
           52,
-          54,
-          59,
-          61,
-          63,
-          76,
+          65,
+          74,
+          82,
           85,
-          93,
+          88,
+          94,
           96,
-          99,
+          98,
+          100,
+          104,
           105,
           107,
-          109,
-          111,
           115,
-          116,
-          118,
-          126,
-          157,
-          161
-        ]
-      },
-      "reviewed": "2026-09-30"
-    },
-    {
-      "path": "src/PhobosManufacturing/RefineryService.cs",
-      "sha256": "11f5678e364886e06e43b3ee289efa10a1f639d767c588263c1151cf17c5bb21",
-      "role": "industrial service, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
-      "findings": [
-        "FF0",
-        "FF3",
-        "FF4",
-        "FF5",
-        "R3"
-      ],
-      "indicators": {
-        "persistence_or_io": [
-          42,
-          47,
-          48,
-          56,
-          67,
-          68,
-          90,
-          91,
-          241,
-          371
-        ],
-        "discovery": [
-          58
-        ],
-        "collection": [
-          72,
-          95,
-          116,
-          117,
-          153,
-          194,
-          195,
-          197,
-          198,
-          201,
-          208,
-          350,
-          358,
-          360,
-          396,
-          397
+          146,
+          150
         ]
       },
       "reviewed": "2026-09-30"
@@ -5589,16 +5761,17 @@
     },
     {
       "path": "src/PhobosManufacturing/StoreService.cs",
-      "sha256": "ef98d5f1f6261824fa7f5f59754a9121df75e8d6786084b9a5f2d0e93e203424",
+      "sha256": "3cb52b52a1eea3b4e54c36913b9414590a64768b1ad84c53eb98029836a2f8b6",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
       "findings": [
         "FF0",
         "FF3",
         "FF4",
         "FF5",
-        "R3"
+        "R3",
+        "K1"
       ],
       "indicators": {
         "collection": [
@@ -6059,10 +6232,10 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "63134f328819607a944f03d0261b560a0657a757a82979d67ac7f159e5decf98",
+      "sha256": "61cb8adf9e7db67f0d5eb76aa9b9a63e7a92a776dd885184265e2759e6e60cd3",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R3",
         "P8",
@@ -6073,7 +6246,8 @@
         "FF4",
         "FF5",
         "FF1",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "collection": [
@@ -7078,10 +7252,10 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "1c7a1c1a278032eb84a1c4c56b571614d79ed4acafc7a64aca5df10b34ed4690",
+      "sha256": "c872e400100dfa1f0edcbc03693fd670c280022ca00f4133ad10904367d6dc24",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R3",
         "P8",
@@ -7092,7 +7266,8 @@
         "FF4",
         "FF5",
         "FF1",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -7319,14 +7494,15 @@
     },
     {
       "path": "src/PhobosShipbreaker/RegionalEconomy.cs",
-      "sha256": "1226f2488499e87291cc8178daa34d6999a5efc94800af15344285825bb08eaf",
+      "sha256": "3e0fc14a05f908faa8754e280204ac24b8db413c4af9193624bbe869b9195388",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Load-time registration: kiosk tier marks registered and the five native tier triggers amended in place once; stock stamping runs only while a kiosk generates stock. No per-step or per-frame work. See K1.",
       "findings": [
         "R4",
         "E1",
-        "FF0"
+        "FF0",
+        "K1"
       ],
       "indicators": {
         "collection": [

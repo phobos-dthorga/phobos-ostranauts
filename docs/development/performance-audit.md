@@ -470,3 +470,16 @@ The section selector hook uses a dictionary fast path. Cooling's native admissio
 hook performs an allocation-free empty-list check during ordinary operation;
 its captured-cargo set exists only during a synchronous damage/repair transition.
 No repeat performance capture or measured FPS claim accompanies this change.
+
+## 30 September: data packs, faction kiosks and the shared charge machine (K1)
+
+K1 — Static review of the 30 September changes: the equipment, economy, recipe and
+faction-kiosk data packs (Framework 0.52.0 to 0.54.0), the faction-kiosk tier marks
+(Framework 0.53.0) and Manufacturing 0.17.0's shared charge machine. Pack loading,
+validation, recipe freezing and the kiosk trigger amendments run once at start-up;
+kiosk tier stamping runs only while a kiosk generates stock. The V4's power, feed,
+panel and maintenance paths moved unchanged into one engine; power and feed hooks
+resolve the machine through a memoized definition-id dictionary (one probe per call,
+the same cost as the old family test), and the shared commodity settlement runs once
+per finished charge. No new scans, cadences or per-frame work. No performance
+capture or measured FPS claim accompanies this change.

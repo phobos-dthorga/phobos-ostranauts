@@ -17,8 +17,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.16.0";
-    public const string MinimumFrameworkVersion = "0.53.0";
+    public const string Version = "0.17.0";
+    public const string MinimumFrameworkVersion = "0.54.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -36,7 +36,7 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { MachineKinds.Reset(); RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); CrackerService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
+    internal static void ResetServices() { MachineKinds.Reset(); ProcessorService.Reset(); SabatierService.Reset(); CrackerService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
     private readonly List<CondOwner> damagedStores = new(), regulators = new(), members = new();
     // Stage 8: regulators and gas stores come from Framework's shared world sweep, not a pass over every world object.
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =
@@ -77,7 +77,7 @@ internal static class PowerPatch
 {
     // The game calls these for every powered object in the world; an appliance that is not ours is classified by one
     // dictionary probe and leaves no state behind (29 September 2026 performance pass, FF3).
-    internal sealed class PowerState { internal MachineKind Kind; internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal CrackerService.Transfer? Cracker; internal FillerService.Transfer? Filler; }
+    internal sealed class PowerState { internal MachineKind Kind; internal bool Finished; internal ChargeMachine? Engine; internal ChargeMachine.Transfer? Charge; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal CrackerService.Transfer? Cracker; internal FillerService.Transfer? Filler; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
         __state = null;
@@ -88,9 +88,11 @@ internal static class PowerPatch
         var state = __state = new PowerState { Kind = kind };
         switch (kind)
         {
-            case MachineKind.Refinery:
-                try { return RefineryService.BeginPower(__instance, __0, ref __1, out state.Refinery); }
-                catch (Exception ex) { RefineryService.Fault(__0, ex); return false; }
+            case MachineKind.Charge:
+                state.Engine = ChargeMachines.For(__0.strCODef);
+                if (state.Engine == null) return true;
+                try { return state.Engine.BeginPower(__instance, __0, ref __1, out state.Charge); }
+                catch (Exception ex) { state.Engine.Fault(__0, ex); return false; }
             case MachineKind.Processor:
                 try { return ProcessorService.BeginPower(__instance, __0, ref __1, out state.Processor); }
                 catch (Exception ex) { ProcessorService.Fault(__0, ex); return false; }
@@ -100,9 +102,10 @@ internal static class PowerPatch
             case MachineKind.Cracker:
                 try { return CrackerService.BeginPower(__instance, __0, ref __1, out state.Cracker); }
                 catch (Exception ex) { CrackerService.Fault(__0, ex); return false; }
-            default:
+            case MachineKind.Filler:
                 try { return FillerService.BeginPower(__instance, __0, ref __1, out state.Filler); }
                 catch (Exception ex) { FillerService.Fault(__0, ex); return false; }
+            default: return true;
         }
     }
     private static void Postfix(Powered __instance, CondOwner __0, PowerState? __state)
@@ -113,25 +116,25 @@ internal static class PowerPatch
         {
             switch (__state.Kind)
             {
-                case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); RefineryService.AfterPower(__0); break;
+                case MachineKind.Charge: __state.Engine?.FinishPower(__instance, __0, __state.Charge); __state.Engine?.AfterPower(__0); break;
                 case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
                 case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
                 case MachineKind.Cracker: CrackerService.FinishPower(__instance, __0, __state.Cracker); break;
-                default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
+                case MachineKind.Filler: FillerService.FinishPower(__instance, __0, __state.Filler); break;
             }
         }
-        catch (Exception ex) { Fault(__state.Kind, __0, ex); }
+        catch (Exception ex) { Fault(__state, __0, ex); }
         finally { __state.Finished = true; }
     }
-    private static void Fault(MachineKind kind, CondOwner co, Exception ex)
+    private static void Fault(PowerState state, CondOwner co, Exception ex)
     {
-        switch (kind)
+        switch (state.Kind)
         {
-            case MachineKind.Refinery: RefineryService.Fault(co, ex); break;
+            case MachineKind.Charge: state.Engine?.Fault(co, ex); break;
             case MachineKind.Processor: ProcessorService.Fault(co, ex); break;
             case MachineKind.Sabatier: SabatierService.Fault(co, ex); break;
             case MachineKind.Cracker: CrackerService.Fault(co, ex); break;
-            default: FillerService.Fault(co, ex); break;
+            case MachineKind.Filler: FillerService.Fault(co, ex); break;
         }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
@@ -143,15 +146,15 @@ internal static class PowerPatch
             if (!__state.Finished)
                 switch (__state.Kind)
                 {
-                    case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); break;
+                    case MachineKind.Charge: __state.Engine?.FinishPower(__instance, __0, __state.Charge); break;
                     case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
                     case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
                     case MachineKind.Cracker: CrackerService.FinishPower(__instance, __0, __state.Cracker); break;
-                    default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
+                    case MachineKind.Filler: FillerService.FinishPower(__instance, __0, __state.Filler); break;
                 }
         }
         catch (Exception ex) { Plugin.Log(ex.Message); }
-        finally { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); CrackerService.Forget(__instance); FillerService.Forget(__instance); }
+        finally { foreach (var engine in ChargeMachines.All) engine.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); CrackerService.Forget(__instance); FillerService.Forget(__instance); }
     }
 }
 
@@ -168,11 +171,14 @@ internal static class PowerDemandPatch
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.MachineStep);
         switch (kind)
         {
-            case MachineKind.Refinery: try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } break;
+            case MachineKind.Charge:
+                var engine = ChargeMachines.For(machine.strCODef);
+                if (engine != null) try { engine.BeforePower(machine); } catch (Exception ex) { engine.Fault(machine, ex); }
+                break;
             case MachineKind.Processor: try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } break;
             case MachineKind.Sabatier: try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } break;
             case MachineKind.Cracker: try { CrackerService.BeforePower(machine); } catch (Exception ex) { CrackerService.Fault(machine, ex); } break;
-            default: try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } break;
+            case MachineKind.Filler: try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } break;
         }
     }
 }
@@ -182,7 +188,7 @@ internal static class FeedPatch
 {
     private static void Postfix(Container __instance, CondOwner coIn, ref bool __result)
     {
-        if (__result && __instance.CO?.strCODef == RefineryRules.InputBin) __result = RefineryService.CanFeed(__instance.CO, coIn);
+        if (__result && ChargeMachines.ForBin(__instance.CO?.strCODef) is ChargeMachine machine) __result = machine.CanFeed(__instance.CO!, coIn);
     }
 }
 
@@ -192,7 +198,7 @@ internal static class FeedStackPatch
 {
     private static void Postfix(CondOwner __instance, CondOwner objIncoming, ref int __result)
     {
-        if (__instance.objCOParent?.strCODef == RefineryRules.InputBin || objIncoming?.objCOParent?.strCODef == RefineryRules.InputBin) __result = 0;
+        if (ChargeMachines.IsBin(__instance.objCOParent?.strCODef) || ChargeMachines.IsBin(objIncoming?.objCOParent?.strCODef)) __result = 0;
     }
 }
 
@@ -293,7 +299,7 @@ internal static class ConsolePatch
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
-            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

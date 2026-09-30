@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "schema": "equipment",
+  "notes": "Phobos Manufacturing charge machines: footprint, dry mass, idle and working power, the share of the working power that warms the room, feed-bin cells, art, INSTALL tab and use and power points (pixels from the centre). A read-only reference for now: a saved machine's mass and footprint depend on these, so a player file that changes one is refused. Balance record: docs/development/manufacturing-refinery-and-chemistry.md.",
+  "equipment": {
+    "PhobosVolatilesRefinery": {
+      "notes": "Fennmark V4 Volatiles Refinery: an electric hearth and drying retort, one exact charge at a time.",
+      "kind": "charge-machine",
+      "footprint": 4,
+      "massKg": 180,
+      "idleKW": 0.1,
+      "workingKW": 24,
+      "roomHeatFraction": 0.15,
+      "feedCells": 6,
+      "art": "PhobosVolatilesRefinery",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -40 ], "PowerA": [ -24, 24 ], "PowerB": [ 24, 24 ] }
+    }
+  }
+}

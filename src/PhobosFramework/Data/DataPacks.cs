@@ -39,6 +39,9 @@ public static class DataPacks
     /// <summary>The player override folder for a source, whether or not it exists yet.</summary>
     public static string UserDirectory(DataPackSource source) => UserRoot.Length == 0 ? "" : Path.Combine(UserRoot, source.ModFolder, source.Schema);
 
+    /// <summary>The shipped pack's own text, before any player file (a read-only baseline for owners that lock a pack).</summary>
+    public static string ShippedText(DataPackSource source) => source == null ? throw new ArgumentNullException(nameof(source)) : ReadResource(source.Assembly, source.ResourceName);
+
     /// <summary>Loads the shipped pack, applies valid player files and returns the result. <paramref name="validate"/>
     /// runs on the shipped pack (a failure throws) and on every candidate overlay (a failure rejects that file).</summary>
     public static T Load<T>(DataPackSource source, Action<T> validate) where T : DataPack

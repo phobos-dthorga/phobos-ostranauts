@@ -68,7 +68,7 @@ internal static class StoreService
         if (CrackerRules.IsFamily(c.strCODef)) return CrackerService.AmmoniaPeer(c) == storeId || CrackerService.NitrogenPeer(c) == storeId || CrackerService.HydrogenPeer(c) == storeId;
         if (ManifoldRules.IsFamily(c.strCODef)) return ManifoldService.Sources(c).Any(x => x.Id == storeId);
         if (FillerRules.IsFamily(c.strCODef)) return FillerService.StateOf(c).Links.Any(x => x.Id == storeId);
-        if (RefineryRules.IsFamily(c.strCODef)) return RefineryRules.StoredGasFamilies.Any(f => RefineryService.GasPeer(c, f) == storeId);
+        if (ChargeMachines.For(c.strCODef) is ChargeMachine charge) return charge.LinksTo(c, storeId);
         return false;
     }
     /// <summary>Stores of the same gas this one can pour into: within one tile, or along a gas line between the two line ports.</summary>
@@ -233,7 +233,7 @@ internal static class StoreService
     private static bool SameRoom(CondOwner c, RoomHeat.Air air) => c.ship?.GetRoomAtWorldCoords1(c.GetPos(), false)?.CO == air.Room;
     private static IEnumerable<CondOwner> Nearby(CondOwner co) => co.ship?.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c != co) ?? Enumerable.Empty<CondOwner>();
     private static bool FireInRoom(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => c.HasCond("IsFire") && !c.HasCond("IsExtinguished") && SameRoom(c, air));
-    private static bool HearthWorking(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => RefineryRules.IsFamily(c.strCODef) && c.HasCond(ManufacturingRules.Working) && c.HasCond("IsPowered") && SameRoom(c, air));
+    private static bool HearthWorking(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => ChargeMachines.For(c.strCODef) is ChargeMachine charge && charge.Igniting(c) && SameRoom(c, air));
     /// <summary>The game's own spark rule: a powered device at half its damage or more throws sparks.</summary>
     private static bool SparkingDevice(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => c.HasCond("IsPowered") && c.GetCondAmount("StatDamageMax") > 0 &&
         c.GetCondAmount("StatDamage") >= .5 * c.GetCondAmount("StatDamageMax") && SameRoom(c, air));

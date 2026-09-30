@@ -519,5 +519,6 @@
   "Ammonia.leak_reason": "leaked into the room through damage",
   "Ammonia.leak_reason_space": "leaked to space through damage",
   "Ammonia.transferred": "Poured {0:F1} kg of ammonia into {1}.",
-  "Ammonia.released_log": "{0} was destroyed and released {1:F1} kg of ammonia into the room. Get the crew clear and ventilate before anyone breathes it."
+  "Ammonia.released_log": "{0} was destroyed and released {1:F1} kg of ammonia into the room. Get the crew clear and ventilate before anyone breathes it.",
+  "Refinery.store_catch": "the linked {0} store holds contents in its catch chamber; recover them first"
 }

@@ -153,6 +153,24 @@
                 }
               },
               "description": "Furnace heat profile: melting point and target in kelvin, heat capacities in kJ/(kg K), latent heat in kJ/kg, hold in seconds."
+            },
+            "circulates": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                }
+              },
+              "description": "Working volume of a commodity present during the charge and returned; not in the mass balance."
+            },
+            "reactionKWh": {
+              "type": "number",
+              "minimum": -1000,
+              "maximum": 1000,
+              "description": "Reaction heat released into the room over the charge (negative when absorbed)."
             }
           },
           "required": [

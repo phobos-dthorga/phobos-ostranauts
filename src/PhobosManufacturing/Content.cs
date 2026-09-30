@@ -37,6 +37,7 @@ internal static class Content
         var d = new NativeDefinitions();
         Vessels.Load();
         Materials.Load();
+        Equipment.Load();
         RefineryRecipes.Load(NativeMass);
         Economy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         Definitions.Add(d, steelStock);
@@ -73,7 +74,7 @@ internal static class Content
     internal static string? MaintenanceReason(CondOwner? co, bool dismantle)
     {
         if (co == null) return null;
-        if (RefineryRules.IsFamily(co.strCODef)) return RefineryService.MaintenanceReason(co);
+        if (ChargeMachines.For(co.strCODef) is ChargeMachine charge) return charge.MaintenanceReason(co);
         if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co);
         if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co);
         if (CrackerRules.IsFamily(co.strCODef)) return CrackerService.MaintenanceReason(co);

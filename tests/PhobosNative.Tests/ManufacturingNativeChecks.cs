@@ -208,19 +208,21 @@ internal static class ManufacturingNativeChecks
         // table GasContainer.GetGasPrice reads in a running game).
         double GasPrice(string species) => double.Parse(DataHandler.dictLoot["GasPrices"].aCOs.Single(e => e.StartsWith(species + "=", StringComparison.Ordinal)).Split('x')[1],
             System.Globalization.CultureInfo.InvariantCulture);
-        double ProductValue(ProductSpec p) => p.Id == ManufacturingRules.Water ? p.Count * p.Kg * Price(p.Id) :
-            GasStores.FamilyOf(p.Id) is GasFamily gas ? p.Count * p.Kg * GasPrice(gas.Species) : p.Count * Price(p.Id);
-        bool Sellable(string id) => id != ManufacturingRules.Water && GasStores.FamilyOf(id) == null;
+        // One valuation for inputs and products alike: a commodity by the kilogram (water at the station price, a stored
+        // gas at the game's gas price), an item by the unit.
+        double UnitValue(string id, int count, double kg) => id == ManufacturingRules.Water ? count * kg * Price(id) :
+            GasStores.FamilyOf(id) is GasFamily gas ? count * kg * GasPrice(gas.Species) : count * Price(id);
+        bool Sellable(string id) => !ChargeCommodities.Is(id);
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
-        foreach (var recipe in RefineryRecipes.All)
+        foreach (var recipe in ChargeCatalog.All)
         {
-            double inValue = recipe.Inputs.Sum(i => i.Count * Price(i.Id));
-            double sellable = recipe.Products.Where(p => Sellable(p.Id)).Sum(ProductValue);
-            double commodities = recipe.Products.Where(p => !Sellable(p.Id)).Sum(ProductValue);
-            check(sellable <= 1.5 * inValue, $"The {recipe.Id} charge's sellable products stay within half again its inputs: {sellable:F2} out of {inValue:F2} in ({commodities:F2} of commodities aside)");
-            if (recipe.Inputs.All(i => Bought(i.Id)))
-                check(sellable <= 1.25 * inValue, $"The {recipe.Id} charge, fed from bought stock, gains at most a quarter at base prices: {sellable:F2} out of {inValue:F2}");
+            double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
+            double sellable = recipe.Products.Where(p => Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
+            double commodities = recipe.Products.Where(p => !Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
+            check(sellable <= 1.5 * inValue, $"The {recipe.Machine} {recipe.Id} charge's sellable products stay within half again its inputs: {sellable:F2} out of {inValue:F2} in ({commodities:F2} of commodities aside)");
+            if (recipe.ItemInputs.All(i => Bought(i.Id)))
+                check(sellable <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, gains at most a quarter at base prices: {sellable:F2} out of {inValue:F2}");
         }
         check(!RefineryRecipes.All.SelectMany(r => r.Inputs).Any(i => Bought(i.Id)), "No V4 charge is fed from bought stock: ores and chunks are mined, and nickel-iron ingots and carbon come only from the V4 (the bought-stock guardrail is ready for a future charge)");
         check(GasPrice("NH3") > 0 && RefineryRecipes.Ammonium.StoredGases.All(p => GasStores.FamilyOf(p.Id) != null),

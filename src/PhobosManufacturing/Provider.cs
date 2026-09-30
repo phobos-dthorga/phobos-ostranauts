@@ -13,25 +13,14 @@ namespace PhobosManufacturing;
 internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed }
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(ChargeMachines.All.Select(m => m.Spec.Installed).Concat(new[] { ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed })
         .Concat(GasStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
-        if (RefineryRules.IsFamily(co.strCODef))
+        if (ChargeMachines.For(co.strCODef) is ChargeMachine charge)
         {
-            yield return new(Text.Get("Provider.vessel_field"), ObjectPresentation.Name(RefineryService.Peer(co)),
-                RefineryService.Candidates(co).Select(v => ("link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("link:none", Text.Get("Provider.link_none")) }));
-            // One field per gas a charge keeps in a store (ammonia), shown once a store of it is in reach or linked.
-            foreach (var family in RefineryRules.StoredGasFamilies)
-            {
-                var stores = RefineryService.GasCandidates(co, family).ToArray();
-                string peer = RefineryService.GasPeer(co, family);
-                if (stores.Length == 0 && peer.Length == 0) continue;
-                string prefix = "gas-link:" + family.SmallPrefix + ":";
-                yield return new(Text.Get("Provider.gas_field", Text.Get(family.TextPrefix + ".gas")), ObjectPresentation.Name(peer),
-                    stores.Select(v => (prefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (prefix + "none", Text.Get("Provider.link_none")) }));
-            }
+            foreach (var field in charge.Fields(co)) yield return field;
         }
         else if (ProcessorRules.IsFamily(co.strCODef))
         {
@@ -119,11 +108,11 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
-        "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
-        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
+        "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
+        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(ChargeMachines.All.Select(m => "PhobosState." + m.Spec.Record)).Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
@@ -134,8 +123,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     }
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
-        if (RefineryRules.IsFamily(co.strCODef))
-            return new EquipmentSnapshot(co.strID, co.strNameFriendly, "refinery", new EquipmentActivity(RefineryService.State(co), RefineryService.Describe(co)), Actions("start", "pause", "cancel"));
+        if (ChargeMachines.For(co.strCODef) is ChargeMachine charge)
+            return new EquipmentSnapshot(co.strID, co.strNameFriendly, charge.Spec.SnapshotKind, new EquipmentActivity(charge.State(co), charge.Describe(co)), Actions("start", "pause", "cancel"));
         if (ProcessorRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "processor", new EquipmentActivity(ProcessorService.State(co), ProcessorService.Describe(co)),
                 ProcessorService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
@@ -160,7 +149,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     }
     private static EquipmentAction[] Actions(params string[] ids) => ids.Select(a => new EquipmentAction(a, Text.Get("Provider.action_" + a))).ToArray();
     public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) =>
-        RefineryRules.IsFamily(co.strCODef) ? RefineryService.Command(co, binding, action, out message) :
+        ChargeMachines.For(co.strCODef) is ChargeMachine charge ? charge.Command(co, binding, action, out message) :
         ProcessorRules.IsFamily(co.strCODef) ? ProcessorService.Command(co, binding, action, out message) :
         SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) :
         CrackerRules.IsFamily(co.strCODef) ? CrackerService.Command(co, binding, action, out message) :

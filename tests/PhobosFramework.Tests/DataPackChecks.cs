@@ -140,6 +140,12 @@ internal static class DataPackChecks
         BadRecipe(p => p.recipes["Bake!"] = p.recipes["bake"], "Recipe ids are letters, digits and hyphens");
         BadRecipe(p => { var again = Recipes().recipes["bake"]; p.recipes["bake2"] = again; }, "One revision per machine");
         BadRecipe(p => p.recipes["bake"].thermal = new ThermalEntry { meltK = 900, targetK = 800, solidCp = 1, liquidCp = 1, latentKJ = 1, holdSeconds = 1 }, "A thermal target must be above the melt");
+        // A circulating working volume is a commodity outside the mass balance; reaction heat is bounded.
+        var circulating = Recipes(); circulating.recipes["bake"].circulates["water"] = 20; circulating.recipes["bake"].reactionKWh = -3;
+        RecipeSchema.Validate(circulating, recipeContext); check(true, "A circulating commodity and an absorbed reaction heat validate without touching the balance");
+        BadRecipe(p => p.recipes["bake"].circulates["ItmOre"] = 1, "Only a commodity can circulate");
+        BadRecipe(p => p.recipes["bake"].circulates["water"] = 0, "A circulating volume is above zero");
+        BadRecipe(p => p.recipes["bake"].reactionKWh = 5000, "Reaction heat is bounded");
 
         // The freeze: the same canonical text and digest as scripts/freeze-recipes.py (tests/test_data_packs.py holds the twin).
         var sample = Newtonsoft.Json.Linq.JObject.Parse("{\"notes\":\"x\",\"machine\":\"test\",\"revision\":1,\"inputs\":[{\"id\":\"A\",\"count\":2,\"kg\":1.5}],\"products\":[{\"id\":\"B\",\"count\":1,\"kg\":3}],\"melt\":false}");
@@ -192,5 +198,28 @@ internal static class DataPackChecks
         BadVessel(p => p.families["PhobosBin"].cellsPerTileSide = 0, "A bin needs at least one cell per tile side");
         BadVessel(p => p.families["PhobosBin"].dryKg = 0, "Dry mass must be positive");
         BadVessel(p => p.families["PhobosTank"].leakKgPerHour = -1, "Leak rate cannot be negative");
+
+        // The equipment schema: shapes in range, known machines only, and a read-only baseline.
+        EquipmentPack Shapes()
+        {
+            var pack = new EquipmentPack { schemaVersion = 1, schema = "equipment" };
+            pack.equipment["PhobosMill"] = new EquipmentEntry { kind = "charge-machine", footprint = 3, massKg = 200, idleKW = 0.1, workingKW = 12, roomHeatFraction = 0.15, feedCells = 4,
+                points = { ["use"] = new[] { 0, -32 }, ["PowerA"] = new[] { 0, 16 } } };
+            return pack;
+        }
+        var shapeContext = new EquipmentContext(new[] { "PhobosMill" }) { Kinds = new[] { "charge-machine" }, InstallTabs = new[] { "APPS" }, Baseline = Shapes() };
+        EquipmentSchema.Validate(Shapes(), shapeContext); check(true, "An unchanged equipment pack validates against its baseline");
+        check(EquipmentSchema.MapPoints(Shapes().equipment["PhobosMill"]).SequenceEqual(new[] { "use,0,-32", "PowerA,0,16" }), "Map points keep the file's order and the game's name,x,y form");
+        void BadShape(Action<EquipmentPack> mutate, string message) { var pack = Shapes(); mutate(pack); throws(() => EquipmentSchema.Validate(pack, shapeContext), message); }
+        BadShape(p => p.equipment["PhobosMill"].massKg = 250, "A changed machine shape is refused while the pack is read-only");
+        BadShape(p => p.equipment.Remove("PhobosMill"), "Every known machine needs an entry");
+        BadShape(p => p.equipment["PhobosOther"] = Shapes().equipment["PhobosMill"], "Machines cannot be added in a file");
+        var free = new EquipmentContext(new[] { "PhobosMill" }) { Kinds = new[] { "charge-machine" }, InstallTabs = new[] { "APPS" } };
+        void BadFree(Action<EquipmentPack> mutate, string message) { var pack = Shapes(); mutate(pack); throws(() => EquipmentSchema.Validate(pack, free), message); }
+        BadFree(p => p.equipment["PhobosMill"].footprint = 0, "A footprint is at least one tile");
+        BadFree(p => p.equipment["PhobosMill"].idleKW = 20, "Idle power cannot exceed working power");
+        BadFree(p => p.equipment["PhobosMill"].roomHeatFraction = 1.5, "The room-heat share is a fraction");
+        BadFree(p => p.equipment["PhobosMill"].installTab = "NOPE", "Unknown INSTALL tabs are refused");
+        BadFree(p => p.equipment["PhobosMill"].points["use"] = new[] { 0 }, "A point needs two offsets");
     }
 }

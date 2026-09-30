@@ -381,6 +381,8 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.12.0') { 'framework/process-recipes.json'; 'framework/frozen-process-recipes.json'; 'framework/materials.json' }
             # 0.13.0 moves the gas store ratings into a data pack.
             if ($version -ge [version]'0.13.0') { 'framework/vessels.json' }
+            # 0.17.0 moves the charge machines' physical figures into a read-only equipment pack.
+            if ($version -ge [version]'0.17.0') { 'framework/equipment.json' }
             # 0.10.0 adds the Tolvane AX-2 ammonia cracker.
             if ($version -ge [version]'0.10.0') {
                 'images/phobos/manufacturing/PhobosAmmoniaCracker.png'; 'images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png'

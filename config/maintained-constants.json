@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.53.0",
+      "value": "0.54.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.0",
+      "value": "0.17.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1421,7 +1421,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.53.0",
+      "value": "0.54.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1507,12 +1507,11 @@
       "value": "24",
       "min": 0.1,
       "max": 1000,
-      "description": "Authored V4 working electrical demand, in kW; charge durations are fixed, so this also sets each charge energy.",
+      "description": "Authored V4 working electrical demand, in kW; charge durations are fixed, so this also sets each charge energy (equipment data pack; read-only to player files).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
-          "pattern": "\\bWorkingKW\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/equipment.json",
+          "pointer": "/equipment/PhobosVolatilesRefinery/workingKW"
         }
       ],
       "review": [

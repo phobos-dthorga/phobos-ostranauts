@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.53.0
+[b]Version:[/b] 0.54.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods that need it, and it keeps their controls, crew work and supplies behaving the same way from one machine to the next.
@@ -17,7 +17,7 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [*]Content mods can lay the game's own build sites for destroyed parts, vanilla or modded; the crew still build them with real parts.
 [*]Shared merchant stock, faction-kiosk scrip offers gated by reputation, salvage finds, mining-find shares, repair, Restore and dismantling rules for the content mods, without refilling or rewriting existing shops or saves.
 [*]Shared translation support that falls back to English when a line is missing.
-[*]Data packs: the tables a content mod keeps outside its code (prices, work, repair bills, salvage, offers, lots, recipes, materials, store ratings) ship as readable files and accept your own override files in BepInEx/config, merged by name and checked before use. Every recipe must conserve mass, and a shipped recipe revision never changes: a new one is added beside it. See the editing guide.
+[*]Data packs: the tables a content mod keeps outside its code (prices, work, repair bills, salvage, offers, lots, recipes, materials, store ratings, machine sizes) ship as readable files and accept your own override files in BepInEx/config, merged by name and checked before use; machine sizes and connection points are read-only for now. Every recipe must conserve mass, and a shipped recipe revision never changes: a new one is added beside it. See the editing guide.
 [/list]
 
 [h2]Getting started[/h2]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Phobos.Ostranauts.Framework;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosManufacturing.Core;
@@ -28,7 +29,7 @@ internal static class Definitions
         controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[Controls] = controls;
         AddMaterials(d);
-        AddRefinery(d, steelStock);
+        foreach (var machine in ChargeMachines.All) AddChargeMachine(d, machine);
         AddProcessor(d);
         AddReactor(d);
         AddCracker(d);
@@ -42,26 +43,29 @@ internal static class Definitions
         AddDeflagrations(d);
     }
 
-    private static void AddRefinery(NativeDefinitions d, bool steelStock)
+    /// <summary>A charge machine from its spec and its equipment entry: the appliance, its game-level feed rule (own stock
+    /// identities, plus native ore where the machine takes it), the hidden feed bin, the power override and use points.</summary>
+    private static void AddChargeMachine(NativeDefinitions d, ChargeMachine machine)
     {
-        string p = RefineryRules.Prefix;
-        ApplianceDefinitions.Add(d, p, Text.Get("Refinery.name"), Text.Get("Refinery.description", RefineryRules.MachineKg, RefineryRules.WorkingKW, RefineryRules.Footprint),
-            RefineryRules.Footprint, RefineryRules.MachineKg, Economy.Price(RefineryRules.Prefix), ImagePath + RefineryArt, Controls, RefineryRules.IdleKW, InstallMenu.Appliances);
-        // Feed at the game level: any ore (the native TIsOre rule) or our own stock; the container patch then
+        var spec = machine.Spec; string p = spec.Prefix; var shape = Equipment.Entry(p);
+        string name = Text.Get(spec.Text("name"));
+        ApplianceDefinitions.Add(d, p, name, Text.Get(spec.Text("description"), shape.massKg, shape.workingKW, shape.footprint),
+            shape.footprint, shape.massKg, Economy.Price(p), ImagePath + (shape.art ?? spec.Art), Controls, shape.idleKW, shape.installTab);
+        // Feed at the game level: native ore (where the machine takes it) or our own stock; the container patch then
         // applies the exact identity, mass and count rule.
-        d.Triggers[RefineryRules.StockTrigger] = new CondTrigger { strName = RefineryRules.StockTrigger, fChance = 1, fCount = 1, bAND = false,
-            aReqs = new[] { "IsOre" }.Concat(RefineryRules.StockFeed.Select(id => id + "Identity")).ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
-        d.Triggers[RefineryRules.FeedTrigger] = new CondTrigger { strName = RefineryRules.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
-            aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", RefineryRules.StockTrigger } };
-        ApplianceDefinitions.AddFeedBin(d, p, RefineryRules.FeedTrigger, RefineryRules.FeedCapacity, Text.Get("Refinery.feed_name"));
-        d.Objects[RefineryRules.InputBin].strDesc = Text.Get("Refinery.feed_description", RefineryRules.FeedCapacity);
-        ApplianceDefinitions.SetPowerOverride(d, p, RefineryRules.IdleKW, RefineryRules.WorkingKW, ManufacturingRules.Working, "PowerA", "PowerB");
+        d.Triggers[spec.StockTrigger] = new CondTrigger { strName = spec.StockTrigger, fChance = 1, fCount = 1, bAND = false,
+            aReqs = (spec.AdmitsOre ? new[] { "IsOre" } : Array.Empty<string>()).Concat(spec.StockFeed.Select(id => id + "Identity")).ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+        d.Triggers[spec.FeedTrigger] = new CondTrigger { strName = spec.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
+        ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));
+        d.Objects[spec.InputBin].strDesc = Text.Get(spec.Text("feed_description"), shape.feedCells);
+        ApplianceDefinitions.SetPowerOverride(d, p, shape.idleKW, shape.workingKW, spec.WorkingCondition, shape.points.Keys.Where(k => k != "use").ToArray());
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
             bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
-            co.strNameFriendly = co.strNameShort = Text.Get("Refinery.name") + (damaged ? Text.Get("Content.damaged") : "");
-            co.mapPoints = new[] { "use,0,-40", "PowerA,-24,24", "PowerB,24,24" };
+            co.strNameFriendly = co.strNameShort = name + (damaged ? Text.Get("Content.damaged") : "");
+            co.mapPoints = EquipmentSchema.MapPoints(shape);
             co.strPortraitImg = item.strImg;
         }
     }

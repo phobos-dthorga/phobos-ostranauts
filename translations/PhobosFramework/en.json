@@ -451,5 +451,18 @@
   "FactionKiosks.mark_name": "Faction kiosk tier: {0}",
   "FactionKiosks.mark_description": "Faction kiosks sell this item only to buyers they rate {0} or better.",
   "FactionKiosks.missing_trigger": "Faction kiosk tier {0} is missing from the game data. Phobos items gated at that tier will not be listed there.",
-  "FactionKiosks.unexpected_trigger": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it."
+  "FactionKiosks.unexpected_trigger": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it.",
+  "RecipeSchema.circulates": "Recipe {0}: circulates must name a commodity with a kilogram amount above 0, not {1}.",
+  "RecipeSchema.reaction": "Recipe {0}: reactionKWh must be a number between -{1} and {1}.",
+  "EquipmentSchema.missing": "No equipment entry for {0}. Every machine the mod knows needs one.",
+  "EquipmentSchema.unknown": "{0} is not a machine this mod knows. Machines cannot be added in a data file.",
+  "EquipmentSchema.kind": "{0}: kind {1} is not one this mod builds.",
+  "EquipmentSchema.footprint": "{0}: footprint must be 1 to {1} tiles.",
+  "EquipmentSchema.mass": "{0}: massKg must be above 0 and at most {1}.",
+  "EquipmentSchema.power": "{0}: workingKW must be above 0 and at most {1}, and idleKW between 0 and workingKW.",
+  "EquipmentSchema.heat": "{0}: roomHeatFraction must be 0 to 1.",
+  "EquipmentSchema.feed": "{0}: feedCells must be 0 to {1}.",
+  "EquipmentSchema.tab": "{0}: {1} is not an INSTALL tab this mod uses.",
+  "EquipmentSchema.point": "{0}: point {1} needs two pixel offsets within range.",
+  "EquipmentSchema.read_only": "{0}: machine shapes are a read-only reference for now; a saved machine's mass and footprint depend on them. The file was not applied."
 }
