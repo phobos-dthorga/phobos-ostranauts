@@ -50,7 +50,7 @@ internal static partial class Service
     private static NutrientCharge ReadCharge(CondOwner co)
     {
         var status=ChargeStore(co).Read(out var fields);
-        double initial=co.strCODef==BulkDefinitions.Nutrients?BulkDefinitions.NutrientKg:co.strCODef==Definitions.Nutrient?.04:co.strCODef==WorkupDefinitions.Makeup?NutrientRecovery.MakeupKg:0;
+        double initial=co.strCODef==BulkDefinitions.Nutrients?BulkDefinitions.NutrientKg:co.strCODef==Definitions.Nutrient?Definitions.NutrientKg:co.strCODef==WorkupDefinitions.Makeup?NutrientRecovery.MakeupKg:0;
         if(status==SavedStateStatus.Missing && initial>0 && Math.Abs(co.GetTotalMass()-initial)<1e-8) return new(initial,initial);
         if(status!=SavedStateStatus.Ready) throw new ArgumentException("Unrecorded or protected nutrient charge.");
         return NutrientCharge.Read(fields,co.GetTotalMass());

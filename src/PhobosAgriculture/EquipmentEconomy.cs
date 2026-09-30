@@ -11,7 +11,6 @@ namespace PhobosAgriculture;
 /// follow the R3's entry: bills and scrap grow with the footprint step, repair by 600 and dismantling by 200.</summary>
 internal static class EquipmentEconomy
 {
-    internal const double LettuceSeedPrice = 5;
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
     private static readonly double[] UnitKg = { 1, 1, .5, .5 };
     private const int RepairStep = 600, DismantleStep = 200;

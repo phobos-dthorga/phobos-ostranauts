@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.25.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The loose items now live in framework/materials.json, read through Phobos Framework with player override files in BepInEx/config/PhobosAgriculture/materials: seed potatoes and lettuce seed, nutrient, makeup and bulk nutrient charges, irrigation charges, raw potatoes, cooked portions and lettuce, the recovery cartridge, and the recorded wastes, each with its mass, price, stack size, market category and art. Shipped figures are unchanged. Masses the crop, recovery and workup models are written for (irrigation and nutrient charges, the cartridge, makeup salts) and the two prices those models quote are bound and refused if a file changes them.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.52.0 or newer. Saved items are unchanged. Offline checks are not gameplay validation.
+
 ## [0.24.0] - 2026-09-30 - Draft
 
 ### Changed

@@ -13,8 +13,5 @@ internal static class RegionalEconomy
     internal static void Apply(NativeDefinitions d)
     {
         EconomyStock.ApplyRegional(d, AgricultureEconomy.Pack, AgricultureEconomy.OwnerTag, AgricultureEconomy.Sales);
-        MaintenanceDefinitions.SetStat(d.Objects[WorkupDefinitions.Makeup], "IsCategoryIndustrialProducts", 1);
-        foreach (string waste in new[] { WorkupDefinitions.Spent, Service.RecoveryReject, RecyclerCapture.Wet })
-            MaintenanceDefinitions.SetStat(d.Objects[waste], "IsCategoryTrash", 1);
     }
 }

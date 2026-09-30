@@ -20,6 +20,8 @@ def load(name):
 
 validate = load('validate-data-packs')
 freeze = load('freeze-recipes')
+schemas = load('check-json-schemas')
+writer = load('write-json-schemas')
 
 SAMPLE = {"notes": "x", "machine": "test", "revision": 1, "inputs": [{"id": "A", "count": 2, "kg": 1.5}],
           "products": [{"id": "B", "count": 1, "kg": 3}], "melt": False}
@@ -32,6 +34,23 @@ class DataPackTests(unittest.TestCase):
         for path in sorted((ROOT / 'mods').glob('*/framework/*.json')):
             with self.subTest(path=path.name):
                 validate.check_file(path)
+
+    def test_shipped_packs_match_json_schemas(self):
+        for path in sorted((ROOT / 'mods').glob('*/framework/*.json')):
+            found = schemas.check_file(path)
+            if found is None:
+                continue
+            with self.subTest(path=path.name):
+                self.assertEqual(found, [])
+
+    def test_json_schemas_are_current_and_refuse_drift(self):
+        for name in writer.SCHEMAS:
+            with self.subTest(schema=name):
+                self.assertEqual((ROOT / 'schemas' / f'{name}.schema.json').read_text(encoding='utf-8'), writer.render(name))
+        bad = {'schemaVersion': 1, 'schema': 'materials', 'materials': {'m': {'kg': 1, 'price': 1, 'colour': 'red'}}}
+        self.assertTrue(schemas.problems(json.loads(writer.render('materials')), bad))
+        bad_economy = {'schemaVersion': 1, 'schema': 'economy', 'equipment': {'PhobosX': {'price': 1, 'work': {'dismantle': 1}, 'kind': 'furniture'}}}
+        self.assertTrue(schemas.problems(json.loads(writer.render('economy')), bad_economy))
 
     def test_freeze_is_current(self):
         result = subprocess.run([sys.executable, str(ROOT / 'scripts/freeze-recipes.py'), '--check', '--format', 'json'], capture_output=True, text=True, cwd=ROOT)

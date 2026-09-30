@@ -173,6 +173,8 @@ untouched. The receipt records the backup. This option rejects other assemblies
 or versions and cannot be combined with selecting Manufacturing or `-PreviewsOnly`.
 `-KeepInstalledFramework` validates the installed Framework version, assembly,
 recorder, required files and enabled load-order entry, then retains its files.
+Packages built since the data-pack rounds carry `phobos-package.json` next to
+`mod_info.json`; the installer refuses a package whose files do not match it.
 It does not compare that dependency with the newly prepared Framework build.
 The ordinary default still updates the dependency from its prepared package.
 The five suite covers are native `preview.png` files; their

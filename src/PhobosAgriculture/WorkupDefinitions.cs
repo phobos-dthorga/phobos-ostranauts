@@ -22,9 +22,7 @@ internal static class WorkupDefinitions
             string id = Bench + form;
             if (form == "Installed") d.Objects[id].aInteractions = d.Objects[id].aInteractions.Concat(new[] { "recover-crop", "formulate-nutrients" }.Select(Definitions.WorkId)).ToArray();
         }
-        foreach (var stock in new[] { (Residue,"recorded_residue","recorded_residue",.5,.01), (Concentrate,"concentrate","concentrate",.004,.01),
-            (Spent,"spent_biomass","spent_biomass",.5,.01), (Makeup,"makeup","makeup",NutrientRecovery.MakeupKg,NutrientRecovery.MakeupPrice),
-            (Mixture,"mixture","mixture",.008,.01) })
-            Definitions.Stock(d, stock.Item1, stock.Item4, stock.Item5, stock.Item2, false, stock.Item3);
+        foreach (var stock in new[] { (Residue, "recorded_residue"), (Concentrate, "concentrate"), (Spent, "spent_biomass"), (Makeup, "makeup"), (Mixture, "mixture") })
+            Definitions.Stock(d, stock.Item1, stock.Item2);
     }
 }

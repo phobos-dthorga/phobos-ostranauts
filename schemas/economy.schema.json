@@ -1,0 +1,564 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/economy.schema.json",
+  "title": "Phobos economy data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "economy"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "equipment": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "kind": {
+              "type": "string",
+              "description": "equipment: a machine with the four forms; section: an assembly part sold whole.",
+              "enum": [
+                "equipment",
+                "section"
+              ]
+            },
+            "forms": {
+              "type": "string",
+              "description": "machine: Installed, Loose, InstalledDmg, LooseDmg under the key; item: the key and the key plus Dmg; single: the key alone.",
+              "enum": [
+                "machine",
+                "item",
+                "single"
+              ]
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "brokenPrice": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Below price; a quarter of price when omitted."
+            },
+            "work": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "install": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Zero keeps the definition's own value."
+                },
+                "uninstall": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Zero keeps the definition's own value."
+                },
+                "repair": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Positive unless the entry is a section."
+                },
+                "dismantle": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                }
+              },
+              "description": "Native work-progress targets, not seconds."
+            },
+            "repairBill": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              },
+              "description": "Material counts by item id."
+            },
+            "salvage": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              },
+              "description": "Material counts by item id."
+            },
+            "brokenSalvage": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              },
+              "description": "Material counts by item id."
+            },
+            "restoreMinutes": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Zero keeps the native Restore pace."
+            },
+            "internalBin": {
+              "type": "string",
+              "description": "Internal compartment emptied before dismantling."
+            },
+            "loot": {
+              "type": "boolean"
+            },
+            "salvageValueHigh": {
+              "type": "boolean"
+            },
+            "offers": {
+              "type": "boolean"
+            },
+            "offerScale": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 4,
+              "description": "Multiplies template and regional offer chances."
+            },
+            "regionalChance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Regional offer chance before the region factor; the regional base chance when omitted."
+            },
+            "salvageRemainder": {
+              "type": "boolean",
+              "description": "The mod adds a remainder carrying what the salvage leaves of the mass."
+            },
+            "lot": {
+              "type": "string",
+              "description": "A name in the lots table; the kind when omitted."
+            },
+            "floor": {
+              "type": "string",
+              "description": "A name in the chanceFloors table; equipment when omitted."
+            }
+          },
+          "required": [
+            "price",
+            "work"
+          ]
+        }
+      },
+      "description": "Machines and sections by definition prefix or item id."
+    },
+    "supplies": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "supplies"
+              ]
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "repairWork": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "dismantleWork": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "repairBill": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^.+$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000
+                }
+              },
+              "description": "Material counts by item id."
+            },
+            "remainder": {
+              "type": "string",
+              "description": "Retained remainder returned by dismantling."
+            },
+            "merchants": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "chance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Offer chance before the floor; 0 leaves the floor to decide."
+            },
+            "lot": {
+              "type": "string"
+            },
+            "floor": {
+              "type": "string"
+            },
+            "expanded": {
+              "type": "boolean"
+            },
+            "regionalChance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "regionalCondition": {
+              "type": "string",
+              "enum": [
+                "regional",
+                "Pristine",
+                "Refurbished",
+                "Worn",
+                "Broken"
+              ]
+            }
+          },
+          "required": [
+            "price",
+            "repairWork",
+            "dismantleWork",
+            "repairBill",
+            "merchants"
+          ]
+        }
+      },
+      "description": "Ordinary supplies by definition prefix."
+    },
+    "offerTemplates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "notes": {
+            "type": "string",
+            "description": "Free text for maintainers; ignored by the game."
+          },
+          "merchant": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9]+$"
+          },
+          "form": {
+            "type": "string",
+            "enum": [
+              "Loose",
+              "LooseDmg"
+            ]
+          },
+          "condition": {
+            "type": "string",
+            "enum": [
+              "Pristine",
+              "Refurbished",
+              "Worn",
+              "Broken"
+            ]
+          },
+          "chance": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "merchant",
+          "tag",
+          "chance"
+        ]
+      }
+    },
+    "offers": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^Phobos": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "merchant": {
+              "type": "string"
+            },
+            "item": {
+              "type": "string"
+            },
+            "condition": {
+              "type": "string",
+              "enum": [
+                "Pristine",
+                "Refurbished",
+                "Worn",
+                "Broken"
+              ]
+            },
+            "chance": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "lot": {
+              "type": "string"
+            },
+            "floor": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "merchant",
+            "item",
+            "chance"
+          ]
+        }
+      },
+      "description": "Explicit offers keyed by loot id."
+    },
+    "regions": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(BCER|BCRS|EJDR|HQCH|JATL|JFTS|JPTN|MHNG|MLAB|MSUZ|MTRS|MVOL|OFLT|OKLG|SVIR|VCBR|VENC|VNCA|VORB)$": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4
+        }
+      },
+      "description": "Availability factor by region code."
+    },
+    "regional": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "baseChance": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "refurbished": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "BCER",
+              "BCRS",
+              "EJDR",
+              "HQCH",
+              "JATL",
+              "JFTS",
+              "JPTN",
+              "MHNG",
+              "MLAB",
+              "MSUZ",
+              "MTRS",
+              "MVOL",
+              "OFLT",
+              "OKLG",
+              "SVIR",
+              "VCBR",
+              "VENC",
+              "VNCA",
+              "VORB"
+            ]
+          }
+        },
+        "expandedMerchants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^.+$": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "notes": {
+                  "type": "string",
+                  "description": "Free text for maintainers; ignored by the game."
+                },
+                "chance": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0,
+                  "maximum": 1
+                },
+                "condition": {
+                  "type": "string",
+                  "enum": [
+                    "Pristine",
+                    "Refurbished",
+                    "Worn",
+                    "Broken"
+                  ]
+                },
+                "lot": {
+                  "type": "string"
+                },
+                "floor": {
+                  "type": "string"
+                },
+                "expanded": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "chance"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "baseChance"
+      ]
+    },
+    "lots": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      },
+      "description": "Finite lot per successful offer, by lot name."
+    },
+    "chanceFloors": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "description": "Minimum offer probability, by floor name."
+    },
+    "worldLoot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "notes": {
+            "type": "string",
+            "description": "Free text for maintainers; ignored by the game."
+          },
+          "table": {
+            "type": "string"
+          },
+          "tables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "branch": {
+            "type": "string",
+            "pattern": "^Phobos"
+          },
+          "chance": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          },
+          "brokenShare": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^.+$": {
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "required": [
+          "branch"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "equipment"
+  ],
+  "description": "Prices, work, bills, salvage, offers, regional stock, lots and world finds of a Phobos mod."
+}

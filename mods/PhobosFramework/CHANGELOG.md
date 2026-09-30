@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- JSON Schema files for the four data packs in the repository's schemas folder, for editor completion of shipped packs and player override files, generated from the same field sets the offline validator uses; the editing guide shows how to point an editor at them. Built packages now carry a manifest the installer checks.
+
 - Audit linked player documentation and correct generated placement wording for section assembly while preserving direct installation of complete machinery. No gameplay or save changes.
 
 - Extend maintained item evidence to actual native maintenance generation, attachment and fresh/worn/contained target checks. Document shared dismantling restrictions for cargo, lots and stacks; add a read-only aggregate save audit. Runtime behaviour is unchanged.

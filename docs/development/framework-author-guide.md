@@ -138,6 +138,18 @@ turns a bill into the game's requirement triggers. Owners keep only their ladder
 increments, remainder naming and category flags. Consumers: Manufacturing 0.14.0,
 Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 require **0.52.0**.
 
+Tooling around the packs: `scripts/write-json-schemas.py` writes the JSON Schema
+files in `schemas/` from the same field sets the Python validator uses (run it
+after changing a schema; `--check` and `tests/test_data_packs.py` refuse drift),
+and `scripts/check-json-schemas.py` validates every shipped pack against them with
+a small built-in validator. `New-PhobosPackage` writes `phobos-package.json` into
+each package's native folder (id, version, every shipped file); the installer
+checks a package against its manifest when present, so new files no longer need a
+version-gated line in `install-mods.ps1` (the hand lists stay for older packages).
+Agriculture 0.25.0 moved its loose items into a `materials` pack whose masses the
+crop, recovery and workup models depend on are bound to their constants in the
+loader, the pattern for any pack value a formula in code is written for.
+
 ### Process recipes and materials (0.50.0)
 
 `Data.RecipePack` (`process-recipes`) holds fixed recipes keyed by id: machine,

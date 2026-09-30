@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/materials.schema.json",
+  "title": "Phobos materials data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "materials"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "materials": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "kind": {
+              "type": "string",
+              "description": "How the mod builds it (stock, mined, packet, food, waste, ...)."
+            },
+            "kg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "stack": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "side": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "category": {
+              "type": "string",
+              "description": "Native market category condition, e.g. IsCategoryMetals."
+            },
+            "terminal": {
+              "type": "boolean"
+            },
+            "art": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kg",
+            "price"
+          ]
+        }
+      },
+      "description": "Loose items by definition id."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "materials"
+  ],
+  "description": "Loose items a Phobos mod adds: mass, price, stack, footprint, category and art."
+}

@@ -325,6 +325,8 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.23.0') { 'framework/vessels.json' }
             # 0.24.0 moves the equipment economy, offers and loot into a data pack.
             if ($version -ge [version]'0.24.0') { 'framework/economy.json' }
+            # 0.25.0 moves the loose items (seeds, nutrients, produce, wastes) into a data pack.
+            if ($version -ge [version]'0.25.0') { 'framework/materials.json' }
             foreach ($image in @('Rack', 'RackNormal', 'Cooker', 'CookerNormal', 'Potato-sprout', 'Potato-young', 'Potato-mature', 'Potato-harvest', 'Potato-wilted', 'Potato-dead')) {
                 "images/phobos/agriculture/$image.png"
             }
@@ -448,6 +450,23 @@ foreach ($mod in $Mods) {
     }
     foreach ($relative in $required) {
         if (-not (Test-Path -LiteralPath (Join-Path $nativeSource $relative) -PathType Leaf)) { throw "Package is incomplete: $id/$relative" }
+    }
+    # Packages built since the data-pack rounds carry a manifest the build wrote: it must match the package version,
+    # every listed file must be present and every native file must be listed. Older packages keep the lists above.
+    $manifestPath = Join-Path $nativeSource 'phobos-package.json'
+    if (Test-Path -LiteralPath $manifestPath -PathType Leaf) {
+        $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+        if ($manifest.schemaVersion -ne 1 -or $manifest.id -ne $id -or [version]$manifest.version -ne $version -or $null -eq $manifest.files) {
+            throw "Package manifest does not describe this package: $id/phobos-package.json"
+        }
+        foreach ($relative in @($manifest.files)) {
+            if ($relative -isnot [string] -or $relative -match '^(/|\\|[A-Za-z]:)' -or $relative -match '(^|/)\.\.(/|$)') { throw "Package manifest lists an unsafe path: $id/$relative" }
+            if (-not (Test-Path -LiteralPath (Join-Path $nativeSource $relative) -PathType Leaf)) { throw "Package is incomplete (manifest): $id/$relative" }
+        }
+        foreach ($file in Get-ChildItem -LiteralPath $nativeSource -Recurse -File -Force) {
+            $relativeFile = [IO.Path]::GetRelativePath($nativeSource, $file.FullName).Replace('\', '/')
+            if ($relativeFile -ne 'phobos-package.json' -and $relativeFile -notin @($manifest.files)) { throw "Package has a file its manifest does not list: $id/$relativeFile" }
+        }
     }
     $needsEquipmentNames = ($mod -eq 'Framework' -and $version -ge [version]'0.12.0') -or
         ($mod -eq 'Shipbreaker' -and $version -ge [version]'0.10.1') -or

@@ -48458,6 +48458,19 @@
       ],
       "before": "{0} names {1}, which is not an item this mod registers.",
       "after": "{0} names {1}, which is not an item this mod registers."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "materials_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/MaterialData.cs:39"
+      ],
+      "before": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it.",
+      "after": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it."
     }
   ],
   "documents": [
@@ -48465,8 +48478,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c416d1d7899b947932254b74a1b8768db6154a937e11c92a3c8a8cd6f9b32dc6",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "0725a2708f125a280177d6e4de8f60d0666c380833debc7369ae61a458da0fbe",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "SUPPORT.md",
@@ -48493,8 +48506,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0fdec55bac4a84217431e3c52ecc50bc6ff0a1afd1a0154820831cc4603a7e9b",
-      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
+      "sha256": "1f0b09a838975844ddac99cc78d28e4b656f2e1e8f8a09fbd98a20e0a534049e",
+      "review": "Step 6: regenerated item references carry version and wording already reviewed."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -48625,8 +48638,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5f8d059d6e7730e5d43085762e0c6a3f69b65932a31b5c171ca07815f0cb7a98",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "213af8b1c17279538fb5d14daac6f9cafd24729585defd850bb2862d1c4d952c",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "docs/crew-automation.md",
@@ -48653,8 +48666,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "721a6c9920fa9a455984e9b05e49209d9f303034388b224a17638500de8f53d7",
-      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
+      "sha256": "3317cd3ede35fa5850ee705c9fad974159bd33cf3515701be5a3cf097b2d485c",
+      "review": "Step 6: regenerated item references carry version and wording already reviewed."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -48926,8 +48939,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2e12501faff1c0b979d4f23683f6c7b674c9a4ce3c9dd45cf90eb5997989a5ed",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "4d4b84af857e8a9c050a0c713c1ede1910df2884c8ea913120c9e5f29604bbaf",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -49423,8 +49436,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4fc50c74552167e835e6a74fd579bcccb0417f635c01b168b473198e2e871b46",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "920d6134bcdaa48bb6fce8f6439bcf3def3fcdf3e96177d253f5bd0d1b3cb7df",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "docs/item-references.md",
@@ -49542,8 +49555,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dcda35ae74bd141842a6a25c44157392bc8df8dadc45f141d804ab5667683c4a",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "bf5fac747172d44cc1cc89bef5b71cb6f40425ce7b23a629428d537e5d001e9b",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -49626,15 +49639,15 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "33ffbfd270dfa14467ba1e9880662ec7830b7c21ab74f904101a568eb3641af7",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "3983ed2f8f6b3101199a31cc56b6e7eb5bdaea49b773d46c5ec4392f687d4a6b",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "7744747b30cfed2444942f19a3a3cdb90b4aa85fdcd6979bb8f7f2ae1c4fe1e6",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "ac69f99c1885edd499159f26d1e0b57078858cfc9525ac46cc7b2c15143e316d",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     }
   ],
   "surfaces": [
@@ -49658,8 +49671,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "298fdd5905a08ae899dfe221d925ec2615fd80a1f2c573dc2b6069a77c521000",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "87a537985e2d404fb8e21b51bec584fc41bd2a97ff6ba017096140a21248d9cc",
+      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

@@ -275,6 +275,25 @@ Remove-Item -LiteralPath $missingFaceplate
 Fails { & $installer @incomplete | Out-Null } 'PhobosIndustrialPanel.png'
 Check ((InstalledFiles $incomplete) -eq $before) 'Missing console faceplate partially installed a package'
 [IO.File]::WriteAllBytes($missingFaceplate, $faceplateBytes)
+# The manifest the build wrote must list every native file and match the package version.
+$manifestPath = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/phobos-package.json'
+if (Test-Path -LiteralPath $manifestPath) {
+    $manifestBytes = [IO.File]::ReadAllBytes($manifestPath)
+    $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+    $manifest.files = @($manifest.files | Where-Object { $_ -ne 'framework/economy.json' })
+    ConvertTo-Json -InputObject $manifest -Depth 4 | Set-Content -LiteralPath $manifestPath
+    Fails { & $installer @incomplete | Out-Null } 'manifest does not list'
+    Check ((InstalledFiles $incomplete) -eq $before) 'An unlisted native file partially installed a package'
+    $manifest.files += 'framework/economy.json'; $manifest.files += 'framework/missing-table.json'
+    ConvertTo-Json -InputObject $manifest -Depth 4 | Set-Content -LiteralPath $manifestPath
+    Fails { & $installer @incomplete | Out-Null } 'incomplete (manifest)'
+    Check ((InstalledFiles $incomplete) -eq $before) 'A listed but missing file partially installed a package'
+    [IO.File]::WriteAllBytes($manifestPath, $manifestBytes)
+    $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json; $manifest.version = '0.0.1'
+    ConvertTo-Json -InputObject $manifest -Depth 4 | Set-Content -LiteralPath $manifestPath
+    Fails { & $installer @incomplete | Out-Null } 'manifest does not describe'
+    [IO.File]::WriteAllBytes($manifestPath, $manifestBytes)
+}
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'

@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/process-recipes.schema.json",
+  "title": "Phobos process-recipes data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "process-recipes"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "recipes": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "machine": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "inputs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "kg": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "id",
+                  "kg"
+                ]
+              }
+            },
+            "products": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "kg": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "id",
+                  "kg"
+                ]
+              }
+            },
+            "offGas": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^(CH4|CO|CO2|H2SO4|N2|NH3|O2|Smoke)$": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                }
+              },
+              "description": "Kilograms of a native gas breathed into the room."
+            },
+            "seconds": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "legacySeconds": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0
+            },
+            "melt": {
+              "type": "boolean"
+            },
+            "requires": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "thermal": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "meltK": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                },
+                "targetK": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                },
+                "solidCp": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                },
+                "liquidCp": {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": 0
+                },
+                "latentKJ": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "holdSeconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "description": "Furnace heat profile: melting point and target in kelvin, heat capacities in kJ/(kg K), latent heat in kJ/kg, hold in seconds."
+            }
+          },
+          "required": [
+            "machine",
+            "revision",
+            "inputs",
+            "products"
+          ]
+        }
+      },
+      "description": "Recipes by id; published revisions are frozen by hash."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "recipes"
+  ],
+  "description": "Fixed process recipes: mass-conserving inputs, products and native off-gas."
+}

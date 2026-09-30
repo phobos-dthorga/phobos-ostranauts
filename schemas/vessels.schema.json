@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/vessels.schema.json",
+  "title": "Phobos vessels data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "vessels"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "families": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "kind": {
+              "type": "string",
+              "description": "gas-store, silo, reservoir, bin or another kind the mod names."
+            },
+            "commodity": {
+              "type": "string"
+            },
+            "capacityKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 100000
+            },
+            "dryKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 10000
+            },
+            "leakKgPerHour": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "cellsPerTileSide": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8,
+              "description": "Bins only."
+            }
+          },
+          "required": [
+            "dryKg"
+          ]
+        }
+      },
+      "description": "Small size of each vessel or bin family by definition prefix."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "families"
+  ],
+  "description": "Capacity, dry mass and leak rate of each bulk vessel family; larger sizes follow the Framework ladder."
+}

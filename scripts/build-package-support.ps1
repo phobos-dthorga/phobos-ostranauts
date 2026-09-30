@@ -193,6 +193,13 @@ function New-PhobosPackage {
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'external/phobos-scope/docs/licensing.md') -Destination (Join-Path $nativeTarget 'PhobosFramework/licenses/PhobosScope-LICENSING.md')
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'external/phobos-scope/LICENSE') -Destination (Join-Path $nativeTarget 'PhobosFramework/licenses/PhobosScope-MIT.md')
     }
+    # The manifest the installer checks the package against: every native file the build shipped, with the
+    # package version, so required-file lists no longer need typing by hand for each version.
+    $nativeFolder = Join-Path $nativeTarget $Id
+    $info = @(Get-Content -LiteralPath (Join-Path $nativeFolder 'mod_info.json') -Raw | ConvertFrom-Json)[0]
+    $listed = @(Get-ChildItem -LiteralPath $nativeFolder -Recurse -File -Force | ForEach-Object { [IO.Path]::GetRelativePath($nativeFolder, $_.FullName).Replace('\', '/') } | Sort-Object)
+    $manifest = [ordered]@{ schemaVersion = 1; id = $Id; version = [string]$info.strModVersion; files = $listed }
+    Set-Content -LiteralPath (Join-Path $nativeFolder 'phobos-package.json') -Value (ConvertTo-Json -InputObject $manifest -Depth 4) -Encoding utf8
     Copy-Item -LiteralPath (Join-Path $RepoRoot $Readme) -Destination (Join-Path $package 'README.md')
     foreach ($document in $ExtraDocs) { Copy-Item -LiteralPath (Join-Path $RepoRoot $document) -Destination $package }
     Copy-PhobosPlayerGuides -RepoRoot $RepoRoot -Package $package -Readme $Readme

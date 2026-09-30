@@ -16,7 +16,7 @@ internal sealed class AgricultureBulkSupplies : IBulkSupplyProvider
             if(!Definitions.Ready)yield break;
             // One quote can fill the largest reservoir; the chosen reservoir's own room bounds it.
             yield return new("agriculture.water",Text.Get("bulk_water_offer"),Text.Get("bulk_unit_kg"),BulkDefinitions.WaterPricePerKg,.25,(int)Math.Ceiling(BulkDefinitions.Sizes.Max(s=>s.CapacityKg)/.25));
-            yield return new("agriculture.nutrients",Text.Get("bulk_nutrients"),Text.Get("bulk_unit_charge"),BulkDefinitions.NutrientPrice,1,1);
+            yield return new("agriculture.nutrients",Text.Get("bulk_nutrients"),Text.Get("bulk_unit_charge"),AgricultureMaterials.Price(BulkDefinitions.Nutrients),1,1);
         }
     }
     public IEnumerable<CondOwner> Destinations(Ship ship,BulkSupplyOffer offer)=>ship.GetCOs(null,false,false,true).Where(c=>Eligible(c,offer.Id));

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.24.0</Version>
+    <Version>0.25.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -28,4 +28,5 @@
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/equipment-names.json" LogicalName="PhobosAgriculture.equipment-names.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/vessels.json" LogicalName="PhobosAgriculture.vessels.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/economy.json" LogicalName="PhobosAgriculture.economy.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/materials.json" LogicalName="PhobosAgriculture.materials.json" /></ItemGroup>
 </Project>

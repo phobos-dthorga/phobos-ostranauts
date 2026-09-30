@@ -46,7 +46,7 @@ internal static class BulkDefinitions
     /// <summary>The R3's ratings, from the vessels data pack (framework/vessels.json); larger sizes scale through the ladder.</summary>
     internal static double CapacityKg=>AgricultureVessels.Entry(Tank).capacityKg??0;
     internal static double DryKg=>AgricultureVessels.Entry(Tank).dryKg;
-    internal const double NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
+    internal const double NutrientKg=.5,WaterPricePerKg=10;
     /// <summary>The R3 as a Framework bulk vessel (Agriculture 0.18.0). Record, journal and guard names are the
     /// ones every saved R3 already carries, so an existing save reads unchanged; a Shipbreaker T2 may deliver into it.</summary>
     /// <summary>The R3, R4 and R5, smallest first.</summary>
@@ -88,7 +88,6 @@ internal static class BulkDefinitions
                 }
             }
         }
-        Definitions.Stock(d,Nutrients,NutrientKg,NutrientPrice,"bulk_nutrients",false);
-        MaintenanceDefinitions.SetStat(d.Objects[Nutrients],"IsCategoryIndustrialProducts",1);
+        Definitions.Stock(d,Nutrients,"bulk_nutrients");
     }
 }

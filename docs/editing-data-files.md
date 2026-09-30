@@ -57,6 +57,25 @@ The rules:
   frozen revision is skipped with that reason. Material masses are tied to the
   recipes that use them in the same way.
 
+## Editor help
+
+The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
+`process-recipes`, `materials`, `vessels`). Point your editor at them and it will
+complete field names and flag a wrong type or range as you type. In VS Code, add
+to your settings (adjust the path to where you cloned or downloaded the schemas):
+
+```json
+"json.schemas": [
+  { "fileMatch": ["**/BepInEx/config/Phobos*/economy/*.json", "**/framework/economy.json"], "url": "./schemas/economy.schema.json" },
+  { "fileMatch": ["**/BepInEx/config/Phobos*/materials/*.json", "**/framework/materials.json"], "url": "./schemas/materials.schema.json" }
+]
+```
+
+Do not write a `$schema` line into a pack or an override file: unknown fields are
+refused, and that is one. The schemas check shape and ranges only; the rules that
+need other entries (mass conservation, salvage weight, known ids, frozen
+revisions) are checked when the game loads the file.
+
 ## Seeing what happened
 
 A skipped file is written to the BepInEx log with the reason, and `phobosframework
@@ -88,6 +107,7 @@ keeps the recipe revision it started with.
 | Phobos Shipbreaker 0.48.0 | `economy` | Every Rivetline machine and section: price, work, repair bill, salvage; the coolant conduit; offers, regions, lots, world finds |
 | Phobos Agriculture 0.24.0 | `economy` | Every Verdemorrow machine: price, repair and dismantle work, bills, salvage; the irrigation pipe; offers, regions, lots, loot |
 | Phobos Auto Nav 0.30.0 | `economy` | The three navigation boards: price, repair, dismantle, offers, regions, the lot of sixteen, derelict salvage |
+| Phobos Agriculture 0.25.0 | `materials` | Seeds, nutrient and irrigation charges, produce, meals, recovery supplies and wastes: mass, price, stack, category |
 
 Larger sizes (S4, S5, R4, R5, Y3, Y4 and the medium and large gas stores) follow
 from the small entry: one tile wider per step, more capacity and less weight per

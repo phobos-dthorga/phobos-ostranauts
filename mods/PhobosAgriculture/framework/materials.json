@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "schema": "materials",
+  "notes": "Phobos Agriculture loose items (Agriculture 0.25.0): Continuance planting stock, Groundwork nutrients and irrigation charges, produce and Hearth meals, recovery supplies and the recorded wastes. Masses the crop, recovery and workup models are written for (irrigation and nutrient charges, the recovery cartridge, makeup salts) are bound to their constants and refused if changed. Food and produce prices are authored balance beside the game's own rations.",
+  "materials": {
+    "PhobosVerdemorrowRecyclerWetRejects": {
+      "notes": "Wet rejects captured from the Ship's Water recycler: a terminal record, never processed again.",
+      "kind": "waste",
+      "kg": 13,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "art": "wet_rejects"
+    },
+    "PhobosVerdemorrowContinuancePotato": {
+      "notes": "Continuance seed potato, one per planting.",
+      "kind": "stock",
+      "kg": 0.2,
+      "price": 40,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "potato_seed"
+    },
+    "PhobosVerdemorrowContinuanceLettuce": {
+      "notes": "Continuance lettuce seed packet.",
+      "kind": "stock",
+      "kg": 0.005,
+      "price": 5,
+      "stack": 50,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "lettuce_seed"
+    },
+    "PhobosVerdemorrowGroundworkNutrients": {
+      "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
+      "kind": "stock",
+      "kg": 0.04,
+      "price": 60,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "nutrients"
+    },
+    "PhobosVerdemorrowRawPotatoes": {
+      "notes": "Raw potatoes, 0.4 kg; cook them in the Hearth-2.",
+      "kind": "stock",
+      "kg": 0.4,
+      "price": 12,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryFood",
+      "art": "raw"
+    },
+    "PhobosVerdemorrowHearthPotatoes": {
+      "notes": "Hearth cooked potato portion, 0.4 kg; eaten directly.",
+      "kind": "food",
+      "kg": 0.4,
+      "price": 35,
+      "stack": 10,
+      "side": 1,
+      "art": "meal"
+    },
+    "PhobosVerdemorrowLettuce": {
+      "notes": "Fresh lettuce, 0.25 kg; eaten directly.",
+      "kind": "food",
+      "kg": 0.25,
+      "price": 8,
+      "stack": 10,
+      "side": 1,
+      "art": "leaves"
+    },
+    "PhobosVerdemorrowCropResidue": {
+      "notes": "Unrecorded crop residue from older crops: waste.",
+      "kind": "waste",
+      "kg": 0.5,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "art": "residue"
+    },
+    "PhobosVerdemorrowProcessSolution": {
+      "notes": "Uncharacterised drainage: waste.",
+      "kind": "waste",
+      "kg": 0.25,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "art": "drainage"
+    },
+    "PhobosVerdemorrowCharacterizedProcessSolution": {
+      "notes": "Recorded drainage awaiting treatment; its record carries the measured contents.",
+      "kind": "stock",
+      "kg": 0.25,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "art": "characterized_drainage"
+    },
+    "PhobosVerdemorrowTreatmentRejects": {
+      "notes": "Treatment reject: terminal waste.",
+      "kind": "waste",
+      "kg": 0.25,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "art": "recovery_reject"
+    },
+    "PhobosVerdemorrowGroundworkRecoveryCartridge": {
+      "notes": "Treatment cartridge, 50 g of medium, priced full; bound to the recovery model.",
+      "kind": "stock",
+      "kg": 0.05,
+      "price": 25,
+      "stack": 3,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "recovery_cartridge"
+    },
+    "PhobosVerdemorrowGroundworkIrrigation": {
+      "notes": "Groundwork 5 kg irrigation charge; bound to the rack model.",
+      "kind": "stock",
+      "kg": 5,
+      "price": 50,
+      "stack": 3,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "irrigation"
+    },
+    "PhobosVerdemorrowRecordedCropResidue": {
+      "notes": "Recorded fresh crop residue, 0.5 kg, for the B2 workup.",
+      "kind": "stock",
+      "kg": 0.5,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "art": "recorded_residue"
+    },
+    "PhobosVerdemorrowRecoveredConcentrate": {
+      "notes": "Recovered nutrient concentrate, 4 g.",
+      "kind": "stock",
+      "kg": 0.004,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "art": "concentrate"
+    },
+    "PhobosVerdemorrowSpentBiomass": {
+      "notes": "Spent biomass after workup: waste.",
+      "kind": "waste",
+      "kg": 0.5,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "art": "spent_biomass"
+    },
+    "PhobosVerdemorrowGroundworkMakeup": {
+      "notes": "Groundwork makeup salts, 40 g; bound to the workup model.",
+      "kind": "stock",
+      "kg": 0.04,
+      "price": 30,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "makeup"
+    },
+    "PhobosVerdemorrowGroundworkMixture": {
+      "notes": "Formulated nutrient mixture, 8 g.",
+      "kind": "stock",
+      "kg": 0.008,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "art": "mixture"
+    },
+    "PhobosVerdemorrowGroundworkBulkNutrients": {
+      "notes": "Groundwork 500 g bulk nutrient charge, sold eight to a lot; bound to the bulk model.",
+      "kind": "stock",
+      "kg": 0.5,
+      "price": 750,
+      "stack": 3,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "bulk_nutrients"
+    }
+  }
+}

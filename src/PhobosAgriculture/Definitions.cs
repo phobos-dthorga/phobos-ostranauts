@@ -13,9 +13,10 @@ internal static class Definitions
 {
     internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
     internal const double RackKg = 80, CookerKg = 12;
+    /// <summary>Masses the crop model is written for; the materials pack is bound to them.</summary>
+    internal const double IrrigationKg = 5, NutrientKg = .04;
     internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
-    internal const double IrrigationKg = 5, IrrigationPrice = 50;
     internal static bool Ready;
     internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
@@ -46,6 +47,7 @@ internal static class Definitions
     {
         var d = new NativeDefinitions();
         AgricultureVessels.Load();
+        AgricultureMaterials.Load();
         AgricultureEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("controls"); controls.strDesc = controls.strTooltip = Text.Get("controls"); controls.strRaiseUI = null; controls.fTargetPointRange = 2;
@@ -78,15 +80,15 @@ internal static class Definitions
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);
         BulkDefinitions.Add(d);
-        Stock(d, RecyclerCapture.Wet, 13, .01, "wet_rejects", false);
+        Stock(d, RecyclerCapture.Wet, "wet_rejects");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
-        Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);
-        Stock(d, Nutrient, .04, 60, "nutrients", false); Stock(d, Raw, .4, 12, "raw", false);
-        Stock(d, Meal, .4, 35, "meal", true); Stock(d, Leaves, .25, 8, "leaves", true); Stock(d, Residue, .5, .01, "residue", false);
-        Stock(d, Drainage, .25, .01, "drainage", false);
-        Stock(d, Service.CharacterizedDrainage, .25, .01, "characterized_drainage", false);
-        Stock(d, Service.RecoveryReject, .25, .01, "recovery_reject", false);
-        Stock(d, Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, TreatmentCartridge.FullPrice, "recovery_cartridge", false);
+        Stock(d, PotatoSeed, "potato_seed"); Stock(d, LettuceSeed, "lettuce_seed");
+        Stock(d, Nutrient, "nutrients"); Stock(d, Raw, "raw");
+        Stock(d, Meal, "meal"); Stock(d, Leaves, "leaves"); Stock(d, Residue, "residue");
+        Stock(d, Drainage, "drainage");
+        Stock(d, Service.CharacterizedDrainage, "characterized_drainage");
+        Stock(d, Service.RecoveryReject, "recovery_reject");
+        Stock(d, Service.RecoveryCartridge, "recovery_cartridge");
         foreach (string food in new[] { Meal, Leaves })
         {
             d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
@@ -101,12 +103,7 @@ internal static class Definitions
             d.Interactions[reply] = eat;
             d.Amend(() => { foreach (string parent in EatOpeners) if (DataHandler.dictInteractions.TryGetValue(parent, out var opener)) DefinitionAmendments.InsertInverse(opener, reply, name => name == "SeekFoodAllowDirectPrepared" || name == EatTemplate); });
         }
-        Stock(d, Irrigation, IrrigationKg, IrrigationPrice, "irrigation", false);
-        foreach (string id in new[] { PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
-            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1" }).ToArray();
-        d.Objects[Raw].aStartingConds = d.Objects[Raw].aStartingConds.Concat(new[] { "IsCategoryFood=1x1" }).ToArray();
-        foreach (string id in new[] { Residue, Drainage })
-            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryTrash=1x1" }).ToArray();
+        Stock(d, Irrigation, "irrigation");
         EquipmentEconomy.Apply(d);
         LootContent.Add(d, lootEnabled, lootMultiplier);
         RegionalEconomy.Apply(d);
@@ -132,12 +129,17 @@ internal static class Definitions
         }
         return null;
     }
-    internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)
+    /// <summary>A loose item from the materials pack: mass, price, stack, market category and art come from its entry;
+    /// the translation key, the donor (a ration for food, scrap for everything else) and the identity stay here.</summary>
+    internal static void Stock(NativeDefinitions d, string id, string key)
     {
+        var entry = AgricultureMaterials.Entry(id); bool food = entry.kind == AgricultureMaterials.Food;
+        double kg = entry.kg, price = entry.price; string? artKey = entry.art;
         var co = NativeDefinitions.Clone(DataHandler.dictCOs[food ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"]);
         co.strName = id; co.strNameFriendly = co.strNameShort = Text.Get(key); co.strDesc = Text.Get(key + "_desc");
-        co.nStackLimit = StackLimits.Stock(id); co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
+        co.nStackLimit = entry.stack; co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
         co.aStartingConds = food ? new[] { "IsSolid=1x1", "IsEdible=1x1", "IsFood=1x1", "IsCategoryFood=1x1", "IsPocketable=1x1" } : new[] { "IsSolid=1x1", "IsPocketable=1x1" };
+        if (entry.category != null && !co.aStartingConds.Contains(entry.category + "=1x1")) co.aStartingConds = co.aStartingConds.Concat(new[] { entry.category + "=1x1" }).ToArray();
         MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", price);
         // Keep the donor's native item behavior and socket geometry, but give each
         // commodity its own registered image. Saved commodity identities stay fixed.

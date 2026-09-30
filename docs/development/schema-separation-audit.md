@@ -271,15 +271,20 @@ validator split (decision 3). Steps land as one commit set each, on `main`:
 | 1 | `DataPacks` loader, `economy` schema, pointer targets, Python validator, golden export; Manufacturing economy | Framework 0.49.0, Manufacturing 0.11.0 | 5c0ab38 |
 | 2 | `process-recipes` and `materials` with the revision freeze; Manufacturing charges and materials; Shipbreaker furnace, thaw, reclaimer and packets | Framework 0.50.0, Manufacturing 0.12.0, Shipbreaker 0.46.0 | 1d39d7a |
 | 3 | `vessels`: gas store families, S3 silo, Y2 bin, R3 reservoir; ladder kept in code | Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0 | 8a29426 |
-| 4 | `economy` for Shipbreaker, Agriculture and Auto Nav; schema generalised (sections, item forms, offer scale, named lots, regional items, explicit loot items, remainder salvage); shared `EconomyStock` replaces four `StockQuantities`/regional copies; 24 catalogue regex targets retired | Framework 0.52.0, Manufacturing 0.14.0, Shipbreaker 0.48.0, Agriculture 0.24.0, Auto Nav 0.30.0 | this change |
-| 5 | `equipment` per family as touched | | pending |
-| 6 | Tooling closure | | pending |
+| 4 | `economy` for Shipbreaker, Agriculture and Auto Nav; schema generalised (sections, item forms, offer scale, named lots, regional items, explicit loot items, remainder salvage); shared `EconomyStock` replaces four `StockQuantities`/regional copies; 24 catalogue regex targets retired | Framework 0.52.0, Manufacturing 0.14.0, Shipbreaker 0.48.0, Agriculture 0.24.0, Auto Nav 0.30.0 | ff8c68a |
+| 5 | `equipment` per family as touched | folded into step 7: the first new machine of round three declares its shaping in the pack | pending |
+| 6 | Tooling closure: JSON Schemas in `schemas/` with a drift test and a built-in checker; build-written `phobos-package.json` checked by the installer; Agriculture `materials` pack (19 items, model-bound masses); six more catalogue targets retired | Agriculture 0.25.0 | this change |
 | 7 | Feedstock programme round three in the packs | | pending |
 
 Step 3 differs from the table in section 5.2 in two places: the ladder parameters
 stay in `BulkVesselSizes` (saved medium and large vessels are checked against
 them), and prices stay in the economy pack rather than being repeated in vessels.
 The W2 supply is not a vessels entry because its 20 kg is `CropState.ReservoirKg`.
+
+Step 6 left two items of section 5.3 as they are, deliberately: tests that pin a
+shipped value (the S3's 1,000 kg, the ingot prices) stay as regression guards
+against an accidental edit, and the item reference keeps reading the live native
+definitions, which now come from the packs, rather than the packs themselves.
 
 Step 4 kept the four regional tables per mod (they differ) rather than collapsing
 them, and left Agriculture's food, seed and nutrient item prices in code: those are
