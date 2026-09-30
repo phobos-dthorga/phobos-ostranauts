@@ -71,6 +71,12 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 830.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir (Damaged) | 166.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | 750.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E2 Nutrient Hopper | 300.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E3 Nutrient Hopper | 490.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E3 Nutrient Hopper (Damaged) | 98.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E4 Nutrient Hopper | 690.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork E4 Nutrient Hopper (Damaged) | 138.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Recycler Wet Rejects | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Seed Potato (0.2 kg) | 40.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Lettuce Seeds (5 g) | 5.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -84,6 +90,12 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Retained Treatment Rejects | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Treatment Cartridge | 25.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg) | 50.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |

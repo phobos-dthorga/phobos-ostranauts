@@ -98,5 +98,17 @@
   "bulk_nutrients": {
     "brand": "Verdemorrow",
     "model": "Groundwork"
+  },
+  "hopper": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork E2"
+  },
+  "hopper_medium": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork E3"
+  },
+  "hopper_large": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork E4"
   }
 }

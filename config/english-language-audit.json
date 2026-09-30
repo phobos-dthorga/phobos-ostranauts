@@ -49917,6 +49917,177 @@
       ],
       "before": "carbon dioxide",
       "after": "carbon dioxide"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/Core/HopperRules.cs:16",
+        "src/PhobosAgriculture/HopperDefinitions.cs:36",
+        "src/PhobosAgriculture/Panel.cs:172"
+      ],
+      "before": "Nutrient Hopper",
+      "after": "Nutrient Hopper"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:36"
+      ],
+      "before": "Nutrient Hopper",
+      "after": "Nutrient Hopper"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:36"
+      ],
+      "before": "Nutrient Hopper",
+      "after": "Nutrient Hopper"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:67"
+      ],
+      "before": "Holds {0:F0} kg of dry crop nutrients in a passive {1} x {1} hopper, {2:F0} kg empty. Fill it at a station's refuelling kiosk under Bulk supplies; a W2 within one tile doses from it while mixing once you pick it as the W2's nutrient source. Damage traps the nutrients in a catch chamber: repair it, then recover them. Bag the nutrients before moving or dismantling it.",
+      "after": "Holds {0:F0} kg of dry crop nutrients in a passive {1} x {1} hopper, {2:F0} kg empty. Fill it at a station's refuelling kiosk under Bulk supplies; a W2 within one tile doses from it while mixing once you pick it as the W2's nutrient source. Damage traps the nutrients in a catch chamber: repair it, then recover them. Bag the nutrients before moving or dismantling it."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/Panel.cs:111"
+      ],
+      "before": "A Groundwork nutrient hopper keeps formulated crop nutrients by the kilogram. A W2 within one tile doses from it; pick the hopper as the W2's nutrient source on the W2's Supplies page.",
+      "after": "A Groundwork nutrient hopper keeps formulated crop nutrients by the kilogram. A W2 within one tile doses from it; pick the hopper as the W2's nutrient source on the W2's Supplies page."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperService.cs:40"
+      ],
+      "before": "Nutrients ready: {0:F2} kg | Trapped: {1:F2} kg\nCapacity: {2:F0} kg",
+      "after": "Nutrients ready: {0:F2} kg | Trapped: {1:F2} kg\nCapacity: {2:F0} kg"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_catch_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperService.cs:40"
+      ],
+      "before": "Repair the hopper, then recover the trapped nutrients before it can dose or be filled.",
+      "after": "Repair the hopper, then recover the trapped nutrients before it can dose or be filled."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper-recover",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:52"
+      ],
+      "before": "Recover trapped nutrients after repair",
+      "after": "Recover trapped nutrients after repair"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper-bag",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:52"
+      ],
+      "before": "Bag up to 500 g as a bulk nutrient charge",
+      "after": "Bag up to 500 g as a bulk nutrient charge"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_offer",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkTrading.cs:22"
+      ],
+      "before": "Crop nutrients (Groundwork hoppers)",
+      "after": "Crop nutrients (Groundwork hoppers)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "dose_hopper_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/WorkupService.cs:152"
+      ],
+      "before": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing.",
+      "after": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "dose_hopper_unready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/WorkupService.cs:152"
+      ],
+      "before": "Feeding from {0}, but it cannot dose now ({1:F2} kg ready): it is damaged, protected, holding trapped nutrients, empty or out of reach.",
+      "after": "Feeding from {0}, but it cannot dose now ({1:F2} kg ready): it is damaged, protected, holding trapped nutrients, empty or out of reach."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.hopper",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/HopperService.cs:35"
+      ],
+      "before": "Bag the hopper's nutrients before moving or dismantling it.",
+      "after": "Bag the hopper's nutrients before moving or dismantling it."
     }
   ],
   "documents": [
@@ -49924,8 +50095,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5054f5fe700cbacbdced522056d700190cdfb0191b46b560cd7b9bd8c6bc80fb",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "e17b0182ff6494dfa6a2372ae3fda64dbd78ca6cb31549aa588e6c9e3d81fb32",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -49945,15 +50116,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "19eee36384d05f477ffbe53e9472c6178a0fb01584c205ce777f5402f5d94961",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "b00e40b948bfa68538c4ce0f1a28627c02ab75e7863917b3e428ffd4885541a9",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7e61c0df5ece6fea777c832eae6dad091f7e0cdfeaa63088c8ba878c4ba9117f",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "2aef17436d364500b7b9d0bbcae65ddeec147ef464a3108935614cef48d4be36",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -49966,15 +50137,15 @@
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "891d5ee53bf64c6d4f50fa909dc297b3bae7692dd0aaea0fcab1f1ab89dae4d5",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "81c86b895e05fea3d86edb065d07b6b9cf25f054d9c0b48219b820a375d62133",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1b24df2f21b8a7dcb6aa8e822b534bbadb25bf919a9bf1cc44bb476a045dfa30",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "d992a0c3be2382878fe3aeafe1c5ed2b5810157f04d66f06c3624c3e5ebb1266",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -50084,8 +50255,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "34aecb69f1aa0df2f898d7cd5cbeda08b052b62f326b1d1c4992eb2f274974cf",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "ebb9ce37c8d57a09f0a834bc934bbc39ff2b8a86ee5dfa8657c5199906d35e93",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/crew-automation.md",
@@ -50112,8 +50283,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "3317cd3ede35fa5850ee705c9fad974159bd33cf3515701be5a3cf097b2d485c",
-      "review": "Step 6: regenerated item references carry version and wording already reviewed."
+      "sha256": "23a545ee040c0966df26a1d4eee2c16447936ed2c5ede6fa04f92924491946b6",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -50133,8 +50304,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "d3cd1b7a93124826d773914a833c51fbabe68d665d59d8c39ed3adbd08e33775",
-      "review": "Economy data packs (Framework 0.52.0): regenerated item references and pages carry version and wording already reviewed; no new player text beyond the schema messages."
+      "sha256": "dff1233001c8de8a9d361817e726f1d9e07b2efd04aeb55c61f5cbea05bb7514",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -50344,15 +50515,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "b8cb8a594c5fc8418d1cc1d4303e52baf0e8d0bfa8df1401c5849957369e9579",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "eb1f04359bef07e3a1f7ace1678cbe5581eebcda73567689a9a4a102dbb51827",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "49474e6679b59287c23b578a52f3ca151f0cda3e889f51f3ddad6a335b2693df",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "582fb58c41ada8ecbc42f7dfe3a581df475fceda71a3d724dee833d462dea42d",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -50469,15 +50640,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "ac66dd71fcfd25e572e276f973a6c82892e6efbb27c9485e739de1a057874e4e",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "9733f813a9413c89b5f3c985adf6ecc932c263a77d67982bd75a51c9a9f6a403",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "b694abf93318de4e2f477da925c93e2c7843750be29af8894e72c0590a319334",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "2c1d613e0cae828e3598420c17d958e92cf567d3a10b0609304da951f7aaf121",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -50607,8 +50778,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "b17e5154a8822a88fad0b9d79b295fc2e690104229f6633a5725e90ec116f3ec",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "309fd48fa2c91057a9d3441730495a6005ed14e0d1ebd75a7817b19ad0027c18",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -50805,8 +50976,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d4132d24fc627a29be76327e1c55b08fc383e87b98d39e01b2a30b4507d0cfb2",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "3b52fc5402d49738909dd86763399e76fdbe9de19b5f7e21969cfe336cff9b9b",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -51001,8 +51172,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4ae61d428a0fc7447a79f6b88a38d1f01f3f528bd84acc783f68f31589589d5e",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "26cbe92516b9666022b28216e4d328ae1b6b7a5084e116bb5af9606c753ced4e",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -51078,8 +51249,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "7adbaf88b7fcd5da2fc2a9ed018ab44e4a0ccb6d95c5cdd19c7145fad35132d4",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "1db7e9f4a05d09a714c314f2496d488be87ebe0cdc689808421834606b3f2cef",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "docs/development/schema-separation-audit.md",
@@ -51106,22 +51277,22 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "b6694e78eac790e7b16b080c89101cc7d86f91d0d365339e7e4d2d4b9d42e21a",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "e319de869eec4f09655b13bdc4e1ddd07aed4bd62ce639dd132fb2860a003006",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "85180ffdc6c618ca9691034b9de85fd8f6d48f70517a3eaabdcbe49c9d15b6e6",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "306324e764f1fb6e9b235717a2eea7315cd878939c744b95042c20851d5e20a4",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "53bbc29557319786fd5a7c96855f611f8418db27a82511a9ba7846e7d743535c",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3bf8b964be3d3158d54ef0bd84b3cc282a11b349388ae41f29a0217e18c7cffb",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/recipes.json",
@@ -51131,8 +51302,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ad3dc0731d09df414a43e27d79390104b9f079af7af07d2dc624176e22e6ccc1",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "1ea3004130476092c7764f0229f91edfe2c0b7b65af7973d20a83e50e6c9effa",
+      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

@@ -80,6 +80,7 @@ internal static class Definitions
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);
         BulkDefinitions.Add(d);
+        HopperDefinitions.Add(d);
         Stock(d, RecyclerCapture.Wet, "wet_rejects");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         Stock(d, PotatoSeed, "potato_seed"); Stock(d, LettuceSeed, "lettuce_seed");

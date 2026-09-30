@@ -24,6 +24,8 @@ one W2 to one Firstlight-4 rack. Keep one supply unit per connected circuit.
    one 5 kg water charge and one 0.04 kg nutrient packet support one complete
    authored feed batch. Unused water remains available. Lettuce uses less nutrient
    per cohort; one packet can supply eight full feed batches if water is replenished.
+   Instead of packets, a [Groundwork nutrient hopper](agriculture-bulk-storage.md#nutrient-hoppers-0270)
+   within one tile can be the W2's nutrient source (Agriculture 0.27.0).
 4. Install the W2 and conduit route as described in the water guide. Pair the
    paused rack with the W2. Its planted crop must match the selected feed; an
    empty rack may receive solution before planting the matching crop.

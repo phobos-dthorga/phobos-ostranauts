@@ -1,4 +1,4 @@
-# R3, R4 and R5 agricultural water and bulk station supplies
+# R3, R4 and R5 agricultural water, E2 to E4 nutrient hoppers and bulk station supplies
 
 Agriculture 0.14.0 / Framework 0.27.0 implement the first bulk-storage slice.
 Shipbreaker 0.27.0 adds the corresponding compact selectors to C1. These are
@@ -13,6 +13,7 @@ No Steam publication is implied.
 | Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | 4 x 4 tiles; 235 kg water; 38 kg empty | 635 cr; the same merchants; INSTALL → APPS; never found in salvage |
 | Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 5 x 5 tiles; 400 kg water; 49 kg empty | 830 cr; the same merchants; INSTALL → APPS; never found in salvage |
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 750 cr; eight per merchant offer, or one per station purchase |
+| Phobos' Verdemorrow Groundwork E2, E3 and E4 Nutrient Hoppers | 2 x 2, 3 x 3 and 4 x 4 tiles; 10, 25 and 48 kg of crop nutrients; 15, 29 and 42 kg empty | 300, 490 and 690 cr; the reservoir merchants, four per successful offer; INSTALL → APPS; only the E2 turns up in salvage |
 
 The R4 and R5 work exactly like the R3 and hold more for less per kilogram of
 capacity; everything below applies to every size. The R3's capacity and empty
@@ -50,6 +51,31 @@ R3 uses W2's existing received-electricity and throughput budget: output,
 blending and intake compete for that one budget. R3 adds storage, not a second pump. A 120 kg intake requires 0.12 kWh of the existing
 0.001 kWh/kg transfer budget. Room heat follows the existing W2 accounting.
 W2 treatment still suspends distribution; storage does not bypass it.
+
+## Nutrient hoppers (0.27.0)
+
+A Groundwork nutrient hopper keeps formulated crop nutrients by the kilogram, so a
+W2 can mix for many cohorts without a crew member swapping charges.
+
+1. Install the hopper within one tile of the W2 (touching or one tile between
+   them, diagonals included).
+2. Fill it at a station: the refuelling kiosk's **Bulk supplies** view offers
+   **Crop nutrients (Groundwork hoppers)** by the kilogram at 1,500 cr/kg, the same
+   as a bulk charge or a 40 g packet. Choose the hopper as the destination and
+   review the quote. Nothing sells back.
+3. Pause the W2, open its Supplies page and pick the hopper as its nutrient source
+   (the same field as a charge in its inventory). Resume. While mixing, the W2
+   takes only what each step needs, through the same guarded transfer it uses for
+   water, and the panel shows how much the hopper still holds.
+
+A damaged hopper traps its nutrients in a catch chamber: nothing leaks, but it
+cannot dose or be filled until it is repaired and a crew member chooses
+**Recover trapped nutrients after repair**. To empty a hopper before moving or
+dismantling it, choose **Bag up to 500 g as a bulk nutrient charge**: each job
+packs up to 500 g into an ordinary bulk charge in the hopper's tray, at the same
+value per kilogram. A hopper that still holds nutrients refuses to be moved or
+dismantled. The contents are the crop model's single aggregate nutrient figure,
+the same as every charge and packet.
 
 ## Nutrient charges and crew
 

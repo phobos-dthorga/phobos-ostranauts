@@ -23,6 +23,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.27.0] - 2026-09-30 - Draft
+
+### Added
+
+- Phobos' Verdemorrow Groundwork E2, E3 and E4 Nutrient Hoppers: passive stores of formulated crop nutrients in three sizes (2 x 2, 3 x 3 and 4 x 4; 10, 25 and 48 kg). Install them from APPS.
+- Station refuelling kiosks sell crop nutrients by the kilogram into a hopper under Bulk supplies, at 1,500 cr/kg: the same per kilogram as a bulk nutrient charge or a 40 g packet. Nothing sells back.
+- A W2 within one tile can dose from a hopper while mixing: pick the hopper as the W2's nutrient source on its Supplies page. It takes only what each mixing step needs.
+- Hopper crew work: recover nutrients a repair left in the catch chamber, and bag up to 500 g at a time into an ordinary bulk nutrient charge to empty a hopper before moving it.
+- Overhead sprites for all three hopper sizes, in the reservoir family's colours.
+
+### Balance
+
+- Hoppers cost 300, 490 and 690 cr (a fifth when broken) and are sold on the reservoirs' routes, four to a lot, and at the faction kiosks for Warm standing. The E2 joins Agriculture's share of engineering salvage, which is now split one more way: each machine turns up in 2.5% of rolls instead of 3%, the same total.
+
+### Compatibility and limits
+
+- A damaged hopper traps its nutrients in a catch chamber until it is repaired and recovered; nothing leaks. A hopper holding nutrients refuses to be moved or dismantled. The hopper's contents are the crop model's one aggregate nutrient figure. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.26.0] - 2026-09-30 - Draft
 
 ### Added

@@ -7,7 +7,16 @@ internal static class BulkEffects
 {
     private static void Postfix(Interaction __instance,bool isCancelIa)
     {
-        if(isCancelIa||__instance.bCancel||!BulkDefinitions.IsTank(__instance.objThem))return;
+        if(isCancelIa||__instance.bCancel)return;
+        if(HopperDefinitions.IsHopper(__instance.objThem))
+        {
+            if(__instance.strName==BulkDefinitions.Controls){if(__instance.objUs==CrewSim.GetSelectedCrew())Panel.Show(__instance.objThem);return;}
+            bool done=__instance.strName==HopperDefinitions.WorkId(HopperDefinitions.RecoverWork)?HopperService.Recover(__instance.objThem,__instance.objUs):
+                __instance.strName==HopperDefinitions.WorkId(HopperDefinitions.BagWork)&&Service.BagFromHopper(__instance.objThem,__instance.objUs);
+            if(done)Phobos.Ostranauts.Framework.Crew.CrewSpecialities.CreditPractical(__instance);
+            return;
+        }
+        if(!BulkDefinitions.IsTank(__instance.objThem))return;
         if(__instance.strName==BulkDefinitions.Controls){if(__instance.objUs==CrewSim.GetSelectedCrew())Panel.Show(__instance.objThem);return;}
         foreach(var action in BulkDefinitions.Work)if(__instance.strName==BulkDefinitions.WorkId(action)&&BulkService.Work(__instance.objThem,__instance.objUs,action))Phobos.Ostranauts.Framework.Crew.CrewSpecialities.CreditPractical(__instance);
     }

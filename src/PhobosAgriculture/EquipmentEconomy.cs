@@ -7,8 +7,9 @@ namespace PhobosAgriculture;
 
 /// <summary>Applies the economy data pack (<c>framework/economy.json</c>, Agriculture 0.24.0) to every Verdemorrow
 /// machine: repair bills and work, dismantle work and salvage, with whatever the salvage leaves of the housing
-/// returned as a retained housing remainder. Framework keeps native work and actual repair waste. The R4 and R5
-/// follow the R3's entry: bills and scrap grow with the footprint step, repair by 600 and dismantling by 200.</summary>
+/// returned as a retained housing remainder. Framework keeps native work and actual repair waste. The larger ladder
+/// sizes (R4 and R5, E3 and E4) follow their small entry: bills and scrap grow with the footprint step, repair by 600 and
+/// dismantling by 200.</summary>
 internal static class EquipmentEconomy
 {
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
@@ -21,13 +22,10 @@ internal static class EquipmentEconomy
         foreach (var machine in AgricultureEconomy.Machines)
         {
             var entry = pack.equipment[machine.Prefix];
-            if (machine.Prefix == BulkDefinitions.Tank)
-                foreach (var size in BulkDefinitions.Sizes)
-                {
-                    int step = size.Footprint - 3;
-                    ApplyForms(d, size.Prefix, size.DryKg, Scale(entry.repairBill, 1 + step, except: "ItmPartsElecSmall01"), Scale(entry.salvage, 1 + step), Scale(entry.brokenSalvage, 1 + step),
+            if (AgricultureEconomy.Ladder(machine.Prefix) is { } ladder)
+                foreach (var (prefix, step, dryKg) in ladder)
+                    ApplyForms(d, prefix, dryKg, Scale(entry.repairBill, 1 + step, except: "ItmPartsElecSmall01"), Scale(entry.salvage, 1 + step), Scale(entry.brokenSalvage, 1 + step),
                         entry.work.repair + RepairStep * step, entry.work.dismantle + DismantleStep * step);
-                }
             else ApplyForms(d, machine.Prefix, machine.MassKg, entry.repairBill, entry.salvage, entry.brokenSalvage, entry.work.repair, entry.work.dismantle);
         }
         EconomyStock.AddOffers(d, pack, AgricultureEconomy.Sales);

@@ -62,7 +62,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             if(!CrewLogistics.Contents(co).Any(c=>c.strCODef==Service.RecoveryCartridge))return Supply(Service.RecoveryCartridge)??Blocked(out reason);
             return Act("recover-solution",900);
         }
-        if(IrrigationDefinitions.IsSupply(co)&&order.Recipe=="supply-charges"&&s.Solution.Enabled&&!Service.DoseCandidates(s).Any(c=>c.strID==s.DoseId))
+        if(IrrigationDefinitions.IsSupply(co)&&order.Recipe=="supply-charges"&&s.Solution.Enabled&&!Service.DoseReady(s))
         {
             if(Service.DoseCandidates(s).Any())return Act("bulk-dose");
             return Supply(BulkDefinitions.Nutrients)??Supply(Definitions.Nutrient)??Supply(WorkupDefinitions.Mixture)??Blocked(out reason);

@@ -137,6 +137,13 @@ kiosks at Trusted standing. Its salts, intermediates and remainders and the mine
 evaporite crust are never sold. The same native economy, stock, faction-kiosk and
 buyer checks cover it.
 
+Later addition (Agriculture 0.27.0, 30 September 2026): the Groundwork E2, E3 and
+E4 nutrient hoppers join the Agriculture ladder families at the reservoirs' parity:
+the same routes and lot of four, only the small size in engineering salvage (the
+share split one more way, 3% to 2.5% per machine), component repair, Restore and
+mass-balanced dismantling with a retained housing remainder, and the faction kiosks
+at Warm standing.
+
 Across the three content mods the regenerated references record 746 merchant
 offers (738 before), 56 retail identities (51: the five newly sold broken forms)
 and 54 identities in world-loot choices (52: the two ingots). Used and refurbished

@@ -27,7 +27,7 @@ public sealed class Panel : GUIData
     private readonly PresentationRefresh refresh = new(.5);
     internal static bool Show(CondOwner co)
     {
-        if (!(Definitions.Machine(co) || BulkDefinitions.IsTank(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
+        if (!(Definitions.Machine(co) || BulkDefinitions.IsTank(co) || HopperDefinitions.IsHopper(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
             CrewSim.objInstance.coConnectMode != null || GUIInventory.instance?.Selected != null ||
             CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
         CrewSim.LowerUI(); if (CrewSim.goUI != null) return false;
@@ -66,6 +66,7 @@ public sealed class Panel : GUIData
         W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);readout=C.Label(shell.Detail,"");
         bool recycler=RecyclerCapture.IsRecycler(co);
         if(BulkDefinitions.IsTank(co)){BulkPage(co);Refresh(co);return;}
+        if(HopperDefinitions.IsHopper(co)){HopperPage(co);Refresh(co);return;}
         if(tab=="details") {C.Label(shell.Detail,Text.Get("panel_help"));C.Label(shell.Detail,co.strCODef+"\n"+co.strID);}
         else if(tab=="supplies")
         {
@@ -104,6 +105,17 @@ public sealed class Panel : GUIData
         C.Button(shell.Actions,C.Text("details"),()=>{tab="details";Page(co);});C.Button(shell.Actions,C.Text("close"),shell.Close);Refresh(co);
     }
     private void BulkField(CondOwner co) => C.Field(shell.Detail,Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),()=>ConfigurationSheet.Objects(shell,Text.Get("bulk_connection"),BulkService.Peer(co),PanelConfiguration.Stamp(co),()=>BulkService.Candidates(co),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,"bulk-link:"+value,out reason)),()=>ObjectPicker.Locate(shell,Service.Resolve(BulkService.Peer(co))),()=>Setting(co,"bulk-link:none"),Service.Resolve(BulkService.Peer(co))!=null,BulkService.HasLink(co));
+    /// <summary>The nutrient hopper: what it holds, accepting a protected record, and recovering the catch chamber.</summary>
+    private void HopperPage(CondOwner co)
+    {
+        if(tab=="details")C.Label(shell.Detail,Text.Get("hopper_desc")+"\n"+co.strCODef+"\n"+co.strID);
+        else
+        {
+            if(HopperService.Protected(co))C.Button(shell.Detail,Text.Get("bulk-accept"),()=>Execute(co,"bulk-accept"));
+            foreach(var action in HopperDefinitions.Work)AddButton(shell.Detail,co,action);
+        }
+        C.Button(shell.Actions,C.Text("details"),()=>{tab="details";Page(co);});C.Button(shell.Actions,C.Text("close"),shell.Close);
+    }
     private void BulkPage(CondOwner co)
     {
         if(tab=="details")C.Label(shell.Detail,Text.Get("bulk_tank_desc")+"\n"+co.strCODef+"\n"+co.strID);
@@ -130,11 +142,12 @@ public sealed class Panel : GUIData
     private void Execute(CondOwner co, string action)
     {
         bool recycler = RecyclerCapture.IsRecycler(co);
-        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : BulkDefinitions.IsTank(co)?BulkService.Command(co,null,action,out result):Service.Command(co, null, action, out result);
+        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : BulkDefinitions.IsTank(co)?BulkService.Command(co,null,action,out result):
+            HopperDefinitions.IsHopper(co)?HopperService.Command(co,null,action,out result):Service.Command(co, null, action, out result);
         // Services also serve console callers. Their successful status response is
         // already rendered live here; preserve distinct notices (e.g. queued work).
         result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,
-            recycler ? RecyclerCapture.Describe(co) : BulkDefinitions.IsTank(co)?BulkService.Describe(co):Service.Describe(co));
+            recycler ? RecyclerCapture.Describe(co) : BulkDefinitions.IsTank(co)?BulkService.Describe(co):HopperDefinitions.IsHopper(co)?HopperService.Describe(co):Service.Describe(co));
         shell.Notice.text=result;
         Refresh(co);
     }
@@ -156,6 +169,7 @@ public sealed class Panel : GUIData
             if(portrait.transform.parent!=parent){portrait.transform.SetParent(parent,false);if(shell.IsNarrow)portrait.transform.SetAsFirstSibling();}
         }
         if(BulkDefinitions.IsTank(co)){live.text=Text.Get("bulk_tank");readout.text=BulkService.Describe(co);return;}
+        if(HopperDefinitions.IsHopper(co)){live.text=Text.Get("hopper");readout.text=HopperService.Describe(co);return;}
         if(RecyclerCapture.IsRecycler(co)){readout.text=RecyclerCapture.Describe(co);live.text=C.Text("collector");return;}
         var session=Service.Get(co);var b=session.State;
         string state=C.Text(session.Protected?"state_Blocked":b.Running?"state_Running":"state_Stopped");

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "vessels",
-  "notes": "Phobos Agriculture water vessels, small size: the Verdemorrow Groundwork R3 reservoir (a Framework bulk vessel; the R4 and R5 scale through the ladder). The W2 irrigation supply is not here: its 20 kg is the rack reservoir the crop model is written for. Changing a capacity or dry mass leaves existing reservoirs Protected until accepted. Record: docs/agriculture-bulk-storage.md.",
+  "notes": "Phobos Agriculture vessels, small size: the Verdemorrow Groundwork R3 water reservoir and E2 nutrient hopper (Framework bulk vessels; the R4, R5, E3 and E4 scale through the ladder). The W2 irrigation supply is not here: its 20 kg is the rack reservoir the crop model is written for. Changing a capacity or dry mass leaves existing reservoirs Protected until accepted. Record: docs/agriculture-bulk-storage.md.",
   "families": {
     "PhobosVerdemorrowGroundworkR3": {
       "notes": "R3: 120 kg of water in a 25 kg housing, 3 x 3.",
@@ -9,6 +9,14 @@
       "commodity": "water",
       "capacityKg": 120,
       "dryKg": 25,
+      "leakKgPerHour": 0
+    },
+    "PhobosVerdemorrowGroundworkE2": {
+      "notes": "E2 nutrient hopper: 10 kg of formulated dry crop nutrients in a 15 kg housing, 2 x 2; the E3 and E4 scale through the ladder. Damage isolates the contents in a catch chamber; nothing leaks.",
+      "kind": "hopper",
+      "commodity": "crop nutrients",
+      "capacityKg": 10,
+      "dryKg": 15,
       "leakKgPerHour": 0
     }
   }

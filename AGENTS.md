@@ -1229,7 +1229,8 @@
   plant); and the V4 service refactored into a shared charge engine, not copied.
   Follow `docs/development/feedstock-round-three-design.md` and the phase table in
   `docs/development/asteroid-feedstock-programme-status.md`. Manufacturing 0.17.0
-  (engine) and 0.18.0 (LC-3, crust, calcine) implement phases A and B; owner
+  (engine) and 0.18.0 (LC-3, crust, calcine) and Agriculture 0.27.0 (nutrient
+  hoppers, kiosk crop nutrients, W2 dosing) implement phases A to C; owner
   gameplay checks remain pending.
 
 ## Refining value (2026-09-30)

@@ -4,15 +4,17 @@
   "operation": "create_image_pixflux",
   "mod": "PhobosManufacturing",
   "allowanceBefore": 1762,
-  "allowanceAfter": 1753,
+  "allowanceAfter": 1750,
   "creditBalanceUSD": 0,
-  "inputProvenance": "Start images are original Phobos procedural drawings in the new Lixivar colours (pale sage frame, dark slate tank, copper-brown crystalliser), drawn with Pillow and sent base64; the LC-3 second pass and the struvite attempt started from earlier outputs by their PixelLab download URLs. No game or third-party imagery.",
+  "inputProvenance": "Start images are original Phobos procedural drawings in the new Lixivar colours (pale sage frame, dark slate tank, copper-brown crystalliser), drawn with Pillow and sent base64; the LC-3 second pass and the struvite attempt started from earlier outputs by their PixelLab download URLs. No game or third-party imagery. The Agriculture 0.27.0 nutrient hopper starts from an original Pillow drawing in the Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid); its E3 pass started from the selected E2 master resized to 96 px by nearest neighbour.",
   "initImageHashes": {
     "references/lc3-leach-unit-start.png": "d089ed90a1af32f82ff4f3e39a4ac9581304f99c926575a2c85f0b89ccfd9bbd",
     "references/evaporite-crust-start.png": "2e4fc16bac0ce2cf878a39cb2c56c2265ef0b2f600e269ebf5946c4711fbba64",
     "references/potassium-sulfate-start.png": "5604e3b18787bc391b1f6fe84ab715cc000bc5cb527eb00dbed2c954a75a89bc",
     "references/phosphate-concentrate-start.png": "d46c2ea842b458d76b9b119d803c0e2585d2904ab81df390749e0fa19cb6fe11",
-    "references/caustic-remainder-start.png": "3a8509b1a3e450c62bdb5abe3fef444845165216850ee7aae25e9b8cb877e5eb"
+    "references/caustic-remainder-start.png": "3a8509b1a3e450c62bdb5abe3fef444845165216850ee7aae25e9b8cb877e5eb",
+    "references/e2-nutrient-hopper-start.png": "f0c0f22be2884b9767b2745abd2ba2def8c5cea730bfe0c35791f6de64cd5f5c",
+    "references/e2-nutrient-hopper-first-pass.png": "90a81c02ae6a829c6b3585d66329f1e7167dc2bcac9335cc9f0b0e3c799c34a6"
   },
   "repairs": {
     "lc3-leach-unit": {
@@ -287,6 +289,72 @@
       "initImage": "PixelLab download of job a8b3615e",
       "decision": "rejected",
       "review": "Came back almost identical to the potassium sulfate sack. Replaced by the recorded palette swap."
+    },
+    {
+      "key": "e2-nutrient-hopper",
+      "jobId": "f70ac876-bf73-4795-8eb5-eb68c0bc3c17",
+      "assetId": "2990eeae-4d2d-5c4d-9e15-df053a5453c3",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a spacecraft fertiliser hopper installed in a square frame: a dark charcoal steel frame around a sage green square hopper whose four sloped walls narrow toward a small dark square outlet in the lower middle; over the upper part a cream enamel lid with a round steel fill hatch, a small hinge and four bolt dots, lit from the upper left; along the right side a long narrow cream dosing auger housing with evenly spaced steel ribs and a small sage outlet flange on the right edge. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9320101,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/e2-nutrient-hopper-start.png",
+      "decision": "superseded",
+      "review": "Overhead on the start layout, flat. Retained as the input of the selected second pass."
+    },
+    {
+      "key": "e2-nutrient-hopper",
+      "jobId": "6709d934-371a-47d5-86f4-fb077eb648a8",
+      "assetId": "dbcc481e-a9c7-573d-9c05-a071028ae57c",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead fertiliser hopper with the same layout, repainted as worn working spacecraft equipment: the dark charcoal frame with a few scuffs, the sage green hopper walls shaded as four slopes (lighter at the top and left, darker at the bottom and right) narrowing to the small dark outlet, the cream enamel lid lit from the upper left with soft shading toward the lower right and a round steel fill hatch with a soft highlight, the long cream dosing auger housing on the right with evenly spaced steel ribs, the small sage outlet flange on the right edge. Crisp dark outlines, small readable colour regions, restrained shading. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9320102,
+        "init_image_strength": 130,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/e2-nutrient-hopper-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; lid, hatch, sloped walls, outlet and auger housing read at 32 px. Also the E4 master (exported at 64 px, an integer halving). The auger ribs merge at native size."
+    },
+    {
+      "key": "e3-nutrient-hopper",
+      "jobId": "2f58032d-805d-4cbd-bf0e-5244cc3a619e",
+      "assetId": "e64e705c-5cff-50a2-8547-6dc9d20740c8",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead fertiliser hopper with the same layout, redrawn cleanly at this size: a dark charcoal frame, the sage green hopper walls shaded as four slopes narrowing to the small dark square outlet, the cream enamel lid lit from the upper left with a round steel fill hatch and four bolt dots, the long cream dosing auger housing on the right with a small steel coupling. Crisp dark outlines, small readable colour regions, restrained shading. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9320201,
+        "init_image_strength": 250,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "source/e2-nutrient-hopper.png resized to 96 px (nearest neighbour)",
+      "decision": "selected",
+      "review": "The E2 layout at 96 px, so the 48 px E3 export is an integer halving; matches the E2 and E4."
     }
   ]
 }

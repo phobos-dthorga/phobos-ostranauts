@@ -43,6 +43,34 @@ internal static class BulkNativeChecks
         var charge=d.Objects[BulkDefinitions.Nutrients];
         check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==750&&charge.nStackLimit==3,"Finite bulk charge has an individual physical identity and authored price");
         check(charge.inventoryWidth==1&&charge.inventoryHeight==1&&charge.aUpdateCommands.Length==0,"Bulk nutrient charge fits one slot and cannot regenerate through a native damage mode");
+        // The Groundwork E-series nutrient hopper (Agriculture 0.27.0): three ladder sizes of a passive crop-nutrient
+        // vessel that isolates its contents when damaged, filled at the kiosk, dosed from by a W2.
+        foreach(var size in HopperDefinitions.Sizes)
+        foreach(string form in new[]{"Installed","Loose","InstalledDmg","LooseDmg"})
+        {
+            var co=d.Objects[size.Prefix+form];var item=d.Items[co.strItemDef];
+            check(item.nCols==size.Footprint&&co.inventoryWidth==size.Footprint&&co.jsonPI==null&&co.aTickers.Length==0&&Stat(co,"StatMass")==size.DryKg,
+                "Each hopper is a passive vessel of its own footprint at its dry mass: "+size.Prefix+form);
+            check(co.strNameFriendly.StartsWith("Phobos' Verdemorrow Groundwork E"+size.Footprint+" Nutrient Hopper",StringComparison.Ordinal),"Each hopper carries its Groundwork model: "+size.Prefix+form);
+            check(Math.Abs(d.Installables[co.strName+"Dismantle"].aLootCOs.Sum(id=>Stat(d.Objects.TryGetValue(id,out var product)?product:DataHandler.dictCOs[id],"StatMass"))-size.DryKg)<1e-8,
+                "Each hopper's dismantling preserves its housing mass: "+size.Prefix+form);
+            var spec=Phobos.Ostranauts.Framework.Liquids.BulkVessels.SpecFor(co.strName);
+            check(spec!=null&&spec.Commodity==PhobosAgriculture.Core.HopperRules.Commodity&&spec.CapacityKg==size.CapacityKg&&spec.DryKg==size.DryKg&&
+                spec.DamagePolicy==Phobos.Ostranauts.Framework.Liquids.VesselDamagePolicy.Isolate&&spec.Owner==PhobosAgriculture.Plugin.Id,"Each hopper is its own registered crop-nutrient vessel that isolates on damage: "+size.Prefix+form);
+            foreach(var key in new[]{item.strImg,item.strImgNorm})
+            {
+                var png=File.ReadAllBytes(Path.Combine(repo,"mods/PhobosAgriculture/images",key+".png"));
+                int Size(int offset)=>(png[offset]<<24)|(png[offset+1]<<16)|(png[offset+2]<<8)|png[offset+3];
+                check(Size(16)==16*size.Footprint&&Size(20)==16*size.Footprint,"Each hopper's colour and normal use native bounds: "+key);
+            }
+            if(form=="Installed")check(co.aInteractions.Contains(BulkDefinitions.Controls)&&HopperDefinitions.Work.All(w=>co.aInteractions.Contains(HopperDefinitions.WorkId(w))),"Installed hoppers offer the panel, recovery and bagging: "+size.Prefix);
+        }
+        check(HopperDefinitions.Sizes.Select(s=>s.CapacityKg).SequenceEqual(new double[]{10,25,48})&&HopperDefinitions.Sizes.Select(s=>s.DryKg).SequenceEqual(new double[]{15,29,42})&&
+            HopperDefinitions.Sizes.Select(s=>s.Price).SequenceEqual(new double[]{300,490,690}),"The E2 holds 10 kg (15 kg empty, 300 cr), the E3 25 kg (29 kg, 490 cr) and the E4 48 kg (42 kg, 690 cr)");
+        check(HopperDefinitions.Sizes[0].Spec.Record=="AgricultureHopper"&&HopperDefinitions.Sizes.Select(s=>s.Spec.Record).Distinct().Count()==3,"Each hopper size keeps its own record");
+        var packet=d.Objects[Definitions.Nutrient];
+        check(PhobosAgriculture.Core.HopperRules.PricePerKg(Stat(charge,"StatBasePrice"),Stat(charge,"StatMass"))==1500&&Stat(packet,"StatBasePrice")/Stat(packet,"StatMass")==1500,
+            "Crop nutrients cost 1,500 cr/kg in a hopper, a bulk charge or a 40 g packet: no cheaper route and nothing to sell back");
         check(typeof(GUIStationRefuel).GetMethod("SetupFields",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!=null,"Audited station entry hook exists");
         check(typeof(CrewSim).GetMethod(nameof(CrewSim.ScheduleCODestruction))?.GetParameters()[0].Name=="coToDestroy","Destruction guard binds the inspected argument");
         check(typeof(CondOwner).GetMethod(nameof(CondOwner.ModeSwitch))?.GetParameters()[0].Name=="coNew","Containment mode-switch guard binds the inspected argument");

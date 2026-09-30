@@ -2676,5 +2676,83 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "e2-nutrient-hopper",
+    "sourceSHA256": "97ff87ac4a7c2bbd05c546e6ddd03a986d427722a579691f795679bbb9f103e3",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE2.png": "f4e14a625d9919d6856aa2c7c85162590101b836342a1bc069b25b74c705d3c6",
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE2Normal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "e3-nutrient-hopper",
+    "sourceSHA256": "684f42718a88c021e420a2eb0991ffe09d4548ccff0b1dcd38865e400392e704",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE3.png": "cfce965a2438122366040c1bacc18fcbb25a49146491efb05b99d8638b246e7d",
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE3Normal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "e4-nutrient-hopper",
+    "sourceSHA256": "97ff87ac4a7c2bbd05c546e6ddd03a986d427722a579691f795679bbb9f103e3",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE4.png": "69acfe25d2787b4481e5c6b1e48e749ad670bb9d2f11e0f23c48f3be7b1649de",
+      "mods/PhobosAgriculture/images/phobos/agriculture/HopperE4Normal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

@@ -241,7 +241,7 @@ you earn by selling them mining output.
 | Standing needed | What you can buy |
 | --- | --- |
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
-| Warm (25) | Agriculture machines and reservoirs; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
+| Warm (25) | Agriculture machines, reservoirs and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
 | Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store, the A2, P1 and L2 |
 | Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4 and LC-3 |
 
@@ -744,3 +744,21 @@ the refining guardrails. The makeup formulation is the owner's exception (30
 September 2026): its 39 packets carry Agriculture's own 30 cr price, 1,170 cr from
 about 76 cr of salts, because formulation is where a finished nutrient's value is
 made and no merchant sells the salts, so no trade loop pays.
+
+## Agriculture 0.27.0: Groundwork nutrient hoppers
+
+| Equipment | Mass | Base price | Broken base | Repair | Dismantle |
+|---|---:|---:|---:|---:|---:|
+| Groundwork E2 nutrient hopper | 15 kg | $300 | $60 | 1200 | 400 |
+| Groundwork E3 nutrient hopper | 29 kg | $490 | $98 | 1800 | 600 |
+| Groundwork E4 nutrient hopper | 42 kg | $690 | $138 | 2400 | 800 |
+
+The hoppers follow the reservoir ladder: a component repair bill (one small
+mechanical part, one small electronic part, one aluminium scrap, growing with the
+step), steel scrap salvage with the rest of the housing retained, four to a lot on
+the reservoirs' routes, only the E2 in salvage loot, and the faction kiosks at Warm
+standing. The E2 joins Agriculture's engineering-salvage share, which is split one
+more way: each machine falls from 3% to 2.5% of a roll, the same total. Station kiosks fill them with crop nutrients at 1,500 cr/kg under Bulk
+supplies, the same per kilogram as the 500 g bulk charge (750 cr) and the 40 g
+packet (60 cr), so no route is cheaper and nothing sells back.
+

@@ -2630,6 +2630,81 @@
       "sourceSHA256": "a2eaa3c040497c09fbdf63d9718fdfff6c5158ba6fb2043028610c51ceac78be",
       "requestRecord": "round-three-requests.json",
       "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
+    },
+    {
+      "key": "e2-nutrient-hopper",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkE2Installed",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/HopperE2",
+      "status": "selected",
+      "source": "source/e2-nutrient-hopper.png",
+      "sourceSHA256": "97ff87ac4a7c2bbd05c546e6ddd03a986d427722a579691f795679bbb9f103e3",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "6709d934-371a-47d5-86f4-fb077eb648a8"
+    },
+    {
+      "key": "e3-nutrient-hopper",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkE2MediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/agriculture/HopperE3",
+      "status": "selected",
+      "source": "source/e3-nutrient-hopper.png",
+      "sourceSHA256": "684f42718a88c021e420a2eb0991ffe09d4548ccff0b1dcd38865e400392e704",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "2f58032d-805d-4cbd-bf0e-5244cc3a619e"
+    },
+    {
+      "key": "e4-nutrient-hopper",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkE2LargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/agriculture/HopperE4",
+      "status": "selected",
+      "source": "source/e2-nutrient-hopper.png",
+      "sourceSHA256": "97ff87ac4a7c2bbd05c546e6ddd03a986d427722a579691f795679bbb9f103e3",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "6709d934-371a-47d5-86f4-fb077eb648a8"
     }
   ],
   "records": [
@@ -3184,9 +3259,32 @@
       "jobs": [],
       "costGenerations": 0,
       "review": "recorded luminance derivation, no generation"
+    },
+    {
+      "key": "e2-nutrient-hopper",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "f70ac876-bf73-4795-8eb5-eb68c0bc3c17",
+        "6709d934-371a-47d5-86f4-fb077eb648a8"
+      ],
+      "costGenerations": 2,
+      "review": "f70ac876 superseded (retained input); 6709d934 selected, also the E4 master"
+    },
+    {
+      "key": "e3-nutrient-hopper",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "2f58032d-805d-4cbd-bf0e-5244cc3a619e"
+      ],
+      "costGenerations": 1,
+      "review": "2f58032d selected"
     }
   ],
-  "allowanceAfter": 1753,
-  "allowanceDelta": 199,
+  "allowanceAfter": 1750,
+  "allowanceDelta": 202,
   "creditBalanceAfterUSD": 0
 }

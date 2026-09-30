@@ -238,5 +238,18 @@
   "bulk_tank_large": "Agricultural Water Reservoir",
   "bulk_tank_details": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water.",
   "vessels_commodity": "{0} holds {1}; the vessels file cannot change what it holds.",
-  "materials_bound": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it."
+  "materials_bound": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it.",
+  "hopper": "Nutrient Hopper",
+  "hopper_medium": "Nutrient Hopper",
+  "hopper_large": "Nutrient Hopper",
+  "hopper_details": "Holds {0:F0} kg of dry crop nutrients in a passive {1} x {1} hopper, {2:F0} kg empty. Fill it at a station's refuelling kiosk under Bulk supplies; a W2 within one tile doses from it while mixing once you pick it as the W2's nutrient source. Damage traps the nutrients in a catch chamber: repair it, then recover them. Bag the nutrients before moving or dismantling it.",
+  "hopper_desc": "A Groundwork nutrient hopper keeps formulated crop nutrients by the kilogram. A W2 within one tile doses from it; pick the hopper as the W2's nutrient source on the W2's Supplies page.",
+  "hopper_status": "Nutrients ready: {0:F2} kg | Trapped: {1:F2} kg\nCapacity: {2:F0} kg",
+  "hopper_catch_wait": "Repair the hopper, then recover the trapped nutrients before it can dose or be filled.",
+  "hopper-recover": "Recover trapped nutrients after repair",
+  "hopper-bag": "Bag up to 500 g as a bulk nutrient charge",
+  "hopper_offer": "Crop nutrients (Groundwork hoppers)",
+  "dose_hopper_status": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing.",
+  "dose_hopper_unready": "Feeding from {0}, but it cannot dose now ({1:F2} kg ready): it is damaged, protected, holding trapped nutrients, empty or out of reach.",
+  "Maintenance.hopper": "Bag the hopper's nutrients before moving or dismantling it."
 }

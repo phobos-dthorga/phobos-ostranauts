@@ -93,7 +93,7 @@ are base values; the kiosk's own factors apply on top.
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
 | Neutral | Seeds, nutrients, bulk nutrient charge, irrigation and treatment cartridges, makeup salts, irrigation conduit, raw and cooked produce | 2 to 750 | 0.10 to 37.50 |
-| Warm | Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 bench, R3/R4/R5 reservoirs | 150 to 830 | 7.50 to 41.50 |
+| Warm | Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 bench, R3/R4/R5 reservoirs, E2/E3/E4 nutrient hoppers | 150 to 830 | 7.50 to 41.50 |
 
 ### Auto Nav
 

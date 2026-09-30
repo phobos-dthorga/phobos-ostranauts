@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.26.0",
+      "version": "0.27.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -1266,6 +1266,1572 @@
           "operatingModes": [],
           "installTab": null,
           "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2BrokenHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 14.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2HousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 12.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2Installed",
+          "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgriculture_hopper-recover",
+            "PhobosAgriculture_hopper-bag",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 15.0,
+          "baseValue": 300.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2HousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2Loose",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 300.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2InstalledDmg",
+          "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 15.0,
+          "baseValue": 60.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 1,
+                  "baseValue": 3.5999999046325684
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2BrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x1",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2Installed",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 300.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2InstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LooseDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 60.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeBrokenHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 39.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 33.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeInstalled",
+          "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgriculture_hopper-recover",
+            "PhobosAgriculture_hopper-bag",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 42.0,
+          "baseValue": 690.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 9,
+                  "baseValue": 32.399999141693115
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeLoose",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 690.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDmg",
+          "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 42.0,
+          "baseValue": 138.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeBrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x3"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeInstalled",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 690.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeLooseDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 138.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 42.0,
+          "baseValue": 690.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 9,
+                  "baseValue": 32.399999141693115
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2LargeLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeInstalled",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 690.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LargeLooseDmg",
+          "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 42.0,
+          "baseValue": 138.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeBrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2LargeLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeInstalledDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 138.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LargeLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LargeLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x3"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2LargeLoose",
+                  "name": "Phobos' Verdemorrow Groundwork E4 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 690.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2Loose",
+          "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 15.0,
+          "baseValue": 300.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2HousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2LooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2Installed",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 300.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2LooseDmg",
+          "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 15.0,
+          "baseValue": 60.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 1,
+                  "baseValue": 3.5999999046325684
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2BrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2LooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2InstalledDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 60.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2LooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x1",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2Loose",
+                  "name": "Phobos' Verdemorrow Groundwork E2 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 300.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumBrokenHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 27.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 23.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumInstalled",
+          "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgriculture_hopper-recover",
+            "PhobosAgriculture_hopper-bag",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 29.0,
+          "baseValue": 490.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 6,
+                  "baseValue": 21.59999942779541
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumLoose",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 490.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDmg",
+          "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosAgricultureBulkControls",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 29.0,
+          "baseValue": 98.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 2,
+                  "baseValue": 7.199999809265137
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumBrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumInstalled",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 490.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumLooseDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 98.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 29.0,
+          "baseValue": 490.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 6,
+                  "baseValue": 21.59999942779541
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2MediumLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumInstalled",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 490.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkE2MediumLooseDmg",
+          "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "DropItem",
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 29.0,
+          "baseValue": 98.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 2,
+                  "baseValue": 7.199999809265137
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumBrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVerdemorrowGroundworkE2MediumLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumInstalledDmg",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper (Damaged)",
+                  "count": 1,
+                  "baseValue": 98.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkE2MediumLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkE2MediumLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkE2MediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkE2MediumLoose",
+                  "name": "Phobos' Verdemorrow Groundwork E3 Nutrient Hopper",
+                  "count": 1,
+                  "baseValue": 490.0
+                }
+              ]
+            }
+          ],
           "aliases": []
         },
         {
@@ -4896,6 +6462,27 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosVerdemorrowWaterConduitLoose",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -5022,6 +6609,27 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosVerdemorrowWaterConduitLoose",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -5148,6 +6756,27 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosVerdemorrowWaterConduitLoose",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -5260,6 +6889,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -5268,6 +6904,20 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 4
@@ -5388,70 +7038,84 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowFirstlight4LooseDmg",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkB2Loose",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkB2LooseDmg",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Loot",
+          "chance": 0.024999999999999998,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosVerdemorrowGroundworkE2LooseDmg",
+          "condition": "Loot",
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkR3Loose",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkR3LooseDmg",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkW2Loose",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowGroundworkW2LooseDmg",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowHearth2Loose",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVerdemorrowHearth2LooseDmg",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.024999999999999998,
           "count": 1
         },
         {
@@ -5491,6 +7155,13 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Worn",
           "chance": 0.85,
@@ -5499,6 +7170,20 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 4
@@ -5750,6 +7435,27 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -5848,6 +7554,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -5856,6 +7569,20 @@
         {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -5974,6 +7701,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -5982,6 +7716,20 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6100,6 +7848,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6108,6 +7863,20 @@
         {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6226,6 +7995,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6234,6 +8010,20 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6352,6 +8142,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6360,6 +8157,20 @@
         {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6478,6 +8289,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6486,6 +8304,20 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6604,6 +8436,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6612,6 +8451,20 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6730,6 +8583,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6738,6 +8598,20 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6856,6 +8730,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6864,6 +8745,20 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -6982,6 +8877,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -6990,6 +8892,20 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -7108,6 +9024,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -7116,6 +9039,20 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -7234,6 +9171,13 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -7242,6 +9186,20 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -7360,6 +9318,13 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -7368,6 +9333,20 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -7486,6 +9465,13 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -7494,6 +9480,20 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 4
@@ -7689,6 +9689,27 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7745,6 +9766,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2Loose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -7753,6 +9781,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 4
@@ -7794,6 +9836,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2LooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3MediumLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -7802,6 +9851,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3LargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2MediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkE2LargeLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 4
@@ -44450,12 +46513,12 @@
     }
   ],
   "sourceHashes": {
-    "mods/PhobosAgriculture/framework/economy.json": "0f12a85b923121d006534b5f693789a0a4d23082feb379ed270f4df7ccbbc93e",
-    "mods/PhobosAgriculture/framework/equipment-names.json": "53bbc29557319786fd5a7c96855f611f8418db27a82511a9ba7846e7d743535c",
+    "mods/PhobosAgriculture/framework/economy.json": "a3f49bedc0b66301945ee2b662f76a97a6160b1f703c7e6bd2013d37eba6fc85",
+    "mods/PhobosAgriculture/framework/equipment-names.json": "3bf8b964be3d3158d54ef0bd84b3cc282a11b349388ae41f29a0217e18c7cffb",
     "mods/PhobosAgriculture/framework/materials.json": "aab92c5f7b7feebe753134a9dbb73ca8d02e75ed8ac7d273dc866ff4e5466292",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
-    "mods/PhobosAgriculture/framework/vessels.json": "4907799fed3439eb092471976e446bee8d90ec81dcdc5927901ef51b1b30b01a",
-    "mods/PhobosAgriculture/mod_info.json": "ad3dc0731d09df414a43e27d79390104b9f079af7af07d2dc624176e22e6ccc1",
+    "mods/PhobosAgriculture/framework/vessels.json": "c946102530d2c3ae5e0efc0019634c6efe2f30410e5b2e0c873685432e652ff8",
+    "mods/PhobosAgriculture/mod_info.json": "1ea3004130476092c7764f0229f91edfe2c0b7b65af7973d20a83e50e6c9effa",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
@@ -44495,33 +46558,36 @@
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "77212244c1e32fbcf929681add466992bd1c9b2b177a4f60e42bfa5ff87e74f5",
-    "src/PhobosAgriculture/BulkHooks.cs": "15c1f4687cf8a3df2173b04a95f6774d1882f8635f7a7e69ec2555c328941815",
+    "src/PhobosAgriculture/BulkHooks.cs": "e1aa8f4bee1c266a89c356ba8b4c4698a9ee10b11cd7d192a39efd5aa86f7a5c",
     "src/PhobosAgriculture/BulkService.cs": "410ecd1fe7831ee006873416f58df221ecb84bfcc5dd8acbbcc6ce3cd3ec0710",
-    "src/PhobosAgriculture/BulkTrading.cs": "f645221c9d22e495b461782b9a052f34364d9fb260273ae15203a14b8d0d411a",
+    "src/PhobosAgriculture/BulkTrading.cs": "1050fdd8ad070870c9b9f3a28471360cc49cb18eb05533f95475f49440c8c975",
     "src/PhobosAgriculture/Core/Crop.cs": "e2dcb182a80bf8ca8872aa22a01b17402b9c3f74f08c1c0721e36023e4174df0",
     "src/PhobosAgriculture/Core/CropAppearance.cs": "04a8210c253b3acca497b71f309f04af23a1fbd4e0c0094ae2aaef45e45d9bc0",
     "src/PhobosAgriculture/Core/DosingBinding.cs": "7026d53c466a744f9d68ff027f36486109c8c25f14bc13d30eb731c3cba8de31",
     "src/PhobosAgriculture/Core/DrainageRecovery.cs": "5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047",
+    "src/PhobosAgriculture/Core/HopperRules.cs": "81d763c802527c1519f29bad8bc92995a9510a5e2c4736e8c404bdaa5decc0a9",
     "src/PhobosAgriculture/Core/NutrientRecovery.cs": "dba4e221480a6c1f366cd5ef088aeafb6baa73fc3c9c03af39df132db2b038f1",
     "src/PhobosAgriculture/Core/NutrientSolution.cs": "d59e4cb602b933364f6b992c64e32f38ea86ee67d5880a8520c32a1058625c04",
     "src/PhobosAgriculture/Core/RecoveryWork.cs": "3f4408e560add255d1f8f0320a8b0ea3814e52892e8d14487bad3b618f484efa",
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "156a1c054cc55084a3e175e550d68fb19d723b402b6cef5c7d1b222198304a80",
-    "src/PhobosAgriculture/Definitions.cs": "1fb7df79837aa9520345bea482cc92a7a51c9d33fdf67c83c872c79b5f139d48",
-    "src/PhobosAgriculture/EconomyData.cs": "b649779a4c29236918b9b6b3c57d846b48190843bf64b0244548799aa0f2673c",
-    "src/PhobosAgriculture/EquipmentEconomy.cs": "952657248fcd29418eb91db03e750619ec467d4843a6faeeeff29dee7c604ae7",
+    "src/PhobosAgriculture/Definitions.cs": "7a3bb53a5b18df64a02115c4fe45c12386783ca17e530d01d706ed081007877f",
+    "src/PhobosAgriculture/EconomyData.cs": "1976e2316c1b6cffcedb29a630e6829c00ea486b18c012078ebb892c402c7a73",
+    "src/PhobosAgriculture/EquipmentEconomy.cs": "cd003b2bb973afae140f4e26251741a183fb232659a68752d49c5d2f04fc0cd5",
+    "src/PhobosAgriculture/HopperDefinitions.cs": "ab35e32dfac80896dc9b2c381ee231c9be7849f4436b15c1f8decaa2d9dff3af",
+    "src/PhobosAgriculture/HopperService.cs": "20014f534478dec8ba0c878fe61cdc2816f3b5bda3497dc82e8873b802b04e2c",
     "src/PhobosAgriculture/IrrigationDefinitions.cs": "ebbd9ef4dfb44bd90ef268be6208bc19889295903becc1f53c5e244db175fc5b",
     "src/PhobosAgriculture/IrrigationService.cs": "56af8c537c349e5d9a9555138489a77b06eaccfcea3ab68f45941be3c631b67a",
     "src/PhobosAgriculture/LineService.cs": "89d1d8455d77a0a7246474301b9810f54e040fb0e8139d065c3b556c57987cfa",
     "src/PhobosAgriculture/LootContent.cs": "b68ca3f0583cf0658691553ae3330d89125e7fb0e356052f10438b68f9aa6a56",
     "src/PhobosAgriculture/MaterialData.cs": "83fb68410b56807270aa081aba953c28be12c8871d606e012fa5fa906e10358a",
     "src/PhobosAgriculture/MaterialOperations.cs": "7715c52d021c0fd5af50f072dbfe5c6bbde6e51e42f840308bd02c6147f8ef91",
-    "src/PhobosAgriculture/Panel.cs": "bbc54e2982e9653bf1bcf8ac908cfa6cd643d3e0c196635f9e280ce164afb85c",
+    "src/PhobosAgriculture/Panel.cs": "90256a331740a0ff8f53762f99f818f22ac44a14d1c9dad9632ec035ddaa9ceb",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "425bac1a862d16343a230a4be2461c4ec8a4c6f3031f902b8d09db40bc9345d7",
-    "src/PhobosAgriculture/Plugin.cs": "3a94cf457fbdfa92fd1b2d8f552eadaf259741f82a132a3eaa578b4ccf59f623",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "00180b4e6d2f69acf2c617f6e80c4fdc34bec4f6cb659fcf5421c6dd8ac83b38",
+    "src/PhobosAgriculture/Plugin.cs": "21f9d0a83ca41e09a944c0942527af5186ff143a86ea9ab0f1b3aa923e64fc43",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
@@ -44530,9 +46596,9 @@
     "src/PhobosAgriculture/StackLimits.cs": "39b7b65ca55474ccc6a90274064545e3cd6392a1c29699a669d20206573b6e47",
     "src/PhobosAgriculture/StockQuantities.cs": "e131d42cb4c79dbe7270c42bbd250df501657e5812c599364cf843c56bf9772c",
     "src/PhobosAgriculture/Text.cs": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
-    "src/PhobosAgriculture/VesselData.cs": "2befcb67e6e5af7fcaeb0c60c4736e735bd6c6602d45eefdfb5dff5d3ffb7c50",
+    "src/PhobosAgriculture/VesselData.cs": "d4ef57b56e12a92d25aab52dc5ef328329bee8ffe7f22d30e6d84b3edea3dc60",
     "src/PhobosAgriculture/WorkupDefinitions.cs": "1224b68398f8d728decb75e5d866749f1b256bf31f6bf3846e810b9718c1305e",
-    "src/PhobosAgriculture/WorkupService.cs": "1d2c2baced46d4ce5152906bbb676643c8d2f4ffc093d3f4cf1bf17e35f67b44",
+    "src/PhobosAgriculture/WorkupService.cs": "623a11a23f6ba9063a13fbafa67f0a64a17cf5840818433d853595aa0459fabd",
     "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "70a7a25a2b9047253fc90f92a38093841b5258e510c1364942c582bbf995c67a",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "d0009485d1bd2a44510a692333e1c975ccfede09cb2d737bf45db76cbeee2a48",
     "src/PhobosAutoNav/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -44909,7 +46975,7 @@
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "ededab0f80140382960b994f4f834dce795952bea7fd50ef589deed657dd3728",
     "tests/PhobosNative.Tests/Program.cs": "1a7173aad88aa95e6bc62c510fd386db496ec2aab638ef9d0d34821a3b808eb6",
-    "translations/PhobosAgriculture/en.json": "fa38b4a68918a16f7c5e10e25a577e6ca3bc7461baed07e83337cd6cb42df12f",
+    "translations/PhobosAgriculture/en.json": "ef9e1a145d1b2a33c584b32ceb97c6b93b32fddc8420584847b45e43c02b004d",
     "translations/PhobosAutoNav/en.json": "bf6f99c73e3899ec48482799d29ce35146bc86bb786135a1bfc419096999b0e9",
     "translations/PhobosFramework/en.json": "fc478192d0734a4f5f054d9ef4d85ae339cabd915b495656565455178828bb3d",
     "translations/PhobosManufacturing/en.json": "82244a9481a40c7e43dc8ec744ef3b2bc9d26b3bc54025e9b9b3326bbff8e61d",

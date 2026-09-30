@@ -21,8 +21,13 @@ internal static class AgricultureEconomy
     internal static IReadOnlyList<(string Prefix, double MassKg)> Machines => new[]
     {
         (Definitions.Rack, Definitions.RackKg), (Definitions.Cooker, Definitions.CookerKg), (IrrigationDefinitions.Supply, IrrigationDefinitions.DryKg),
-        (WorkupDefinitions.Bench, WorkupDefinitions.DryKg), (BulkDefinitions.Tank, BulkDefinitions.DryKg)
+        (WorkupDefinitions.Bench, WorkupDefinitions.DryKg), (BulkDefinitions.Tank, BulkDefinitions.DryKg), (Core.HopperRules.Prefix, HopperDefinitions.DryKg)
     };
+    /// <summary>The families sold in ladder sizes (the reservoir and the nutrient hopper): each size's prefix, its step
+    /// above the small size and its dry mass. The larger sizes follow the small entry.</summary>
+    internal static IReadOnlyList<(string Prefix, int Step, double DryKg)>? Ladder(string smallPrefix) =>
+        smallPrefix == BulkDefinitions.Tank ? BulkDefinitions.Sizes.Select(s => (s.Prefix, s.Footprint - 3, s.DryKg)).ToArray() :
+        smallPrefix == Core.HopperRules.Prefix ? HopperDefinitions.Sizes.Select(s => (s.Prefix, s.Footprint - Core.HopperRules.SmallFootprint, s.DryKg)).ToArray() : null;
     internal static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).ToArray();
     internal static IReadOnlyList<string> SupplyKeys { get; } = new[] { IrrigationDefinitions.Pipe };
 
@@ -36,7 +41,7 @@ internal static class AgricultureEconomy
     internal static EquipmentEconomyEntry Entry(string prefix) => Pack.equipment.TryGetValue(prefix, out var e) ? e : throw new InvalidOperationException("No economy entry for " + prefix);
     internal static double Price(string prefix) => Entry(prefix).price;
     internal static SupplyEconomyEntry Supply(string prefix) => Pack.supplies.TryGetValue(prefix, out var s) ? s : throw new InvalidOperationException("No economy entry for " + prefix);
-    /// <summary>Every saleable size: the five families and the R4 and R5 on the R3's entry.</summary>
+    /// <summary>Every saleable size: the six families, and the larger ladder sizes (R4 and R5, E3 and E4) on their small entry.</summary>
     internal static IReadOnlyList<EquipmentSale> Sales => EquipmentKeys.Select(k => EquipmentSale.Of(k, Pack.equipment[k]))
-        .Concat(BulkDefinitions.Sizes.Skip(1).Select(s => EquipmentSale.Size(s.Prefix, Pack.equipment[BulkDefinitions.Tank]))).ToArray();
+        .Concat(EquipmentKeys.SelectMany(k => (Ladder(k) ?? Array.Empty<(string Prefix, int Step, double DryKg)>()).Skip(1).Select(s => EquipmentSale.Size(s.Prefix, Pack.equipment[k])))).ToArray();
 }

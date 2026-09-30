@@ -483,6 +483,9 @@ resolve the machine through a memoized definition-id dictionary (one probe per c
 the same cost as the old family test), and the shared commodity settlement runs once
 per finished charge. Manufacturing 0.18.0 adds the LC-3 as a second engine
 instance on the same paths (the registry probe stays one dictionary lookup per
-definition id) and one more mining carve applied at preparation. No new scans,
-cadences or per-frame work. No performance capture or measured FPS claim
-accompanies this change.
+definition id) and one more mining carve applied at preparation. Agriculture 0.27.0
+adds the nutrient hopper: a W2 resolves a selected hopper by id on its power step
+(one dictionary lookup and the hopper's record), and the ship-wide list of hoppers
+within one tile is built only when a player or crew member chooses a source, never
+per step. No new scans, cadences or per-frame work. No performance capture or
+measured FPS claim accompanies this change.

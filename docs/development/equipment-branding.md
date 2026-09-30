@@ -1,6 +1,8 @@
 # Equipment brands and models
 
 R3 bulk-storage follow-up: **Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir** and **Phobos' Verdemorrow Groundwork Bulk Nutrient Charge**. Both are registered Agriculture content; the charge has no artificial machine model. See the [bulk guide](../agriculture-bulk-storage.md).
+Agriculture 0.27.0 adds **Phobos' Verdemorrow Groundwork E2, E3 and E4 Nutrient Hoppers**: E for feed (the letter no other brand uses) and the
+digit for the footprint, as for the R reservoirs, in the reservoir family's charcoal, sage and cream.
 
 Owner memorandum enacted in Framework 0.12.0, Shipbreaker 0.10.1 and Auto Nav
 0.8.1. Every full equipment name starts with **Phobos'**, including the apostrophe.

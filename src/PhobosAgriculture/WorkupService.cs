@@ -11,7 +11,7 @@ internal static partial class Service
     internal static bool CrewReplaceDose(CondOwner co,CondOwner actor)
     {
         if(Access(co,null,actor)!=null||!IrrigationDefinitions.IsSupply(co))return false;
-        var s=Get(co);if(s.Protected||!s.Solution.Enabled||DoseCandidates(s).Any(c=>c.strID==s.DoseId))return false;
+        var s=Get(co);if(s.Protected||!s.Solution.Enabled||DoseReady(s))return false;
         var selected=DoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault();if(selected==null)return false;
         // Explicit standing-order permission authorizes this replacement only.
         s.State.Running=s.State.Receiving=false;s.DoseId=selected.strID;Save(s);return true;
@@ -119,8 +119,23 @@ internal static partial class Service
     }
     private static string DescribeWorkup(Session s) => Text.Get("workup_status",s.Workup.Mode.Length==0?Text.Get("empty"):Text.Get("workup_"+s.Workup.Mode),s.Workup.Energy,
         Text.Get(s.State.Running?"running":"paused"),s.Protected?Text.Get("protected"):s.Notice);
-    private static CondOwner? DosingCharge(Session s) => DoseCandidates(s).FirstOrDefault(c=>c.strID==s.DoseId);
+    /// <summary>The selected dose source, if it can dose now. A selected hopper is resolved directly (one lookup, no
+    /// ship scan), because the W2 asks for its source on every power step.</summary>
+    private static CondOwner? DosingCharge(Session s)
+    {
+        if(Resolve(s.DoseId) is CondOwner hopper&&HopperDefinitions.IsHopper(hopper))return HopperService.CanDose(hopper,s.Object)?hopper:null;
+        return ItemDoseCandidates(s).FirstOrDefault(c=>c.strID==s.DoseId);
+    }
+    internal static bool DoseReady(Session s)=>DosingCharge(s)!=null;
+    /// <summary>Every dose source a crew member or the panel may choose: charges in the W2's inventory, then hoppers
+    /// within one tile. The hopper part scans the ship; it runs at choice time, never per power step.</summary>
     internal static IEnumerable<CondOwner> DoseCandidates(Session s)
+    {
+        foreach(var co in ItemDoseCandidates(s))yield return co;
+        // A Groundwork hopper within one tile, while it holds nutrients it can release (Agriculture 0.27.0).
+        foreach(var hopper in HopperService.Near(s.Object))if(HopperService.Available(hopper)>1e-10)yield return hopper;
+    }
+    private static IEnumerable<CondOwner> ItemDoseCandidates(Session s)
     {
         foreach(var co in s.Object.objContainer?.ContainedCOs ?? Enumerable.Empty<CondOwner>())
         {
@@ -135,6 +150,7 @@ internal static partial class Service
         if(!s.State.Running || !s.Solution.Enabled || budget<=0)return;
         double amount=NutrientCharge.DoseAllowance(s.State,s.Solution,budget);
         var co=amount>1e-10?DosingCharge(s):null;if(co==null)return;
+        if(HopperDefinitions.IsHopper(co)){HopperService.Dose(co,s.Object,new DryNutrients(s),amount,WaterGuard(s.Object));return;}
         var charge=ReadCharge(co);amount=Math.Min(amount,charge.Remaining);
         if(!DeliveryStore(s.Object).TryWrite(new Dictionary<string,string>{["state"]="pending"}))throw new InvalidOperationException("Protected nutrient dosing.");
         WriteCharge(co,charge.Spend(amount)); // physical debit precedes reservoir credit
@@ -144,7 +160,40 @@ internal static partial class Service
     }
     private static string DescribeDose(Session s)
     {
+        // A selected hopper is reported even when empty or unready, so the panel says which hopper and why.
+        if(Resolve(s.DoseId) is CondOwner hopper&&HopperDefinitions.IsHopper(hopper))
+            return Text.Get(HopperService.Ready(hopper)?"dose_hopper_status":"dose_hopper_unready",hopper.strNameFriendly,HopperService.Available(hopper));
         var co=DosingCharge(s);if(co==null)return Text.Get("dose_empty");
         var charge=ReadCharge(co);return Text.Get("dose_status",co.strNameFriendly,charge.Remaining*1000,100*charge.Remaining/charge.Initial);
+    }
+    /// <summary>Crew work: packs up to one bulk charge (500 g) of a hopper's nutrients into an ordinary Groundwork bulk
+    /// nutrient charge in the hopper's tray, at the same value per kilogram, so a hopper can be emptied before it is
+    /// moved and its nutrients carried by hand. The hopper's conversion journal covers the swap.</summary>
+    internal static bool BagFromHopper(CondOwner hopper,CondOwner actor)
+    {
+        if(!Definitions.Ready||Access(hopper,null,actor)!=null||!HopperService.Ready(hopper)||hopper.objContainer==null||hopper.objContainer.Locked)return false;
+        var state=HopperService.Read(hopper);double kg=Math.Min(BulkDefinitions.NutrientKg,state.AvailableKg);if(kg<=1e-6)return false;
+        CondOwner? product=null;bool published=false;
+        try
+        {
+            product=DataHandler.GetCondOwner(BulkDefinitions.Nutrients);WriteCharge(product,new NutrientCharge(kg,kg));
+            if(!hopper.objContainer.AllowedCO(product)||!hopper.objContainer.CanAddSimple(product,out var cell))return false;
+            Phobos.Ostranauts.Framework.Liquids.BulkVessel.BeginConversion(hopper,product.strID,state.TotalKg);
+            hopper.objContainer.AddCOSimple(product,cell);
+            if(product.objCOParent!=hopper)throw new InvalidOperationException("Hopper bag placement failed");published=true;
+            state.SetService(state.ServiceKg-kg);Phobos.Ostranauts.Framework.Liquids.BulkVessel.Save(hopper,state);
+            Phobos.Ostranauts.Framework.Liquids.BulkVessel.EndConversion(hopper);hopper.objContainer.Redraw();return true;
+        }
+        catch(Exception e){Plugin.Log(e.ToString());return false;}
+        finally{if(product!=null&&!published&&product.objCOParent==null)product.Destroy();}
+    }
+    /// <summary>The W2's dry-nutrient reservoir as the receiving end of a hopper transfer (capacity is the crop
+    /// model's own 0.5 kg); the record is saved with the rest of the W2's state.</summary>
+    private sealed class DryNutrients : Phobos.Ostranauts.Framework.Liquids.ILiquidReservoir
+    {
+        private readonly Session s; internal DryNutrients(Session s) { this.s = s; }
+        public string Identity => s.Object.strID; public string ShipId => s.Object.ship.strRegID; public string Commodity => Core.HopperRules.Commodity;
+        public double QuantityKg => s.State.Nutrients; public double CapacityKg => CropState.NutrientCapacityKg;
+        public void SetQuantity(double kg) { s.State.Nutrients = kg; Save(s); }
     }
 }

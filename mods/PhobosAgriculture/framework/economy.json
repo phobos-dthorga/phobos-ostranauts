@@ -116,6 +116,29 @@
       "salvageValueHigh": false,
       "regionalChance": 0.25,
       "lot": "reservoirs"
+    },
+    "PhobosVerdemorrowGroundworkE2": {
+      "notes": "Groundwork E2 Nutrient Hopper, 2 x 2, 15 kg dry; the E3 and E4 follow through the ladder like the reservoirs and share their lot. The kiosk fills it with crop nutrients at the bulk charge's own price per kilogram.",
+      "price": 300,
+      "work": {
+        "repair": 1200,
+        "dismantle": 400
+      },
+      "repairBill": {
+        "ItmPartsMechSmall01": 1,
+        "ItmPartsElecSmall01": 1,
+        "ItmScrapAluminum": 1
+      },
+      "salvage": {
+        "ItmScrapSteel": 3
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 1
+      },
+      "salvageRemainder": true,
+      "salvageValueHigh": false,
+      "regionalChance": 0.25,
+      "lot": "reservoirs"
     }
   },
   "supplies": {
@@ -568,6 +591,7 @@
       "PhobosVerdemorrowGroundworkW2": "Warm",
       "PhobosVerdemorrowGroundworkB2": "Warm",
       "PhobosVerdemorrowGroundworkR3": "Warm",
+      "PhobosVerdemorrowGroundworkE2": "Warm",
       "PhobosVerdemorrowWaterConduit": "Neutral",
       "PhobosVerdemorrowContinuancePotato": "Neutral",
       "PhobosVerdemorrowContinuanceLettuce": "Neutral",

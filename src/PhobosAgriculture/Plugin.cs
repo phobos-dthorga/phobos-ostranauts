@@ -19,7 +19,7 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.26.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.27.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -130,7 +130,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     }
     public string Id => Plugin.Id;
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed", BulkDefinitions.Tank + "Installed", BulkDefinitions.Tank + "InstalledDmg" }
-        .Concat(BulkDefinitions.Sizes.Skip(1).SelectMany(s => new[] { s.Prefix + "Installed", s.Prefix + "InstalledDmg" })).ToArray());
+        .Concat(BulkDefinitions.Sizes.Skip(1).SelectMany(s => new[] { s.Prefix + "Installed", s.Prefix + "InstalledDmg" }))
+        .Concat(HopperDefinitions.Sizes.SelectMany(s => new[] { s.Prefix + "Installed", s.Prefix + "InstalledDmg" })).ToArray());
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
         // A protected machine offers the owner-confirmed accept action in place of its ordinary controls.
@@ -140,11 +141,18 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             return new EquipmentSnapshot(co.strID,co.strNameFriendly,"agriculture",new EquipmentActivity(tankProtected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||BulkService.Read(co).CatchKg>0?EquipmentState.Blocked:EquipmentState.Ready,BulkService.Describe(co)),
                 tankProtected?new[]{new EquipmentAction("bulk-accept",Text.Get("accept")),new EquipmentAction("pause",Text.Get("pause"))}:new[]{new EquipmentAction("pause",Text.Get("pause"))});
         }
+        if(HopperDefinitions.IsHopper(co))
+        {
+            bool hopperProtected=HopperService.Protected(co);
+            return new EquipmentSnapshot(co.strID,co.strNameFriendly,"agriculture",new EquipmentActivity(hopperProtected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||HopperService.Read(co).CatchKg>0?EquipmentState.Blocked:EquipmentState.Ready,HopperService.Describe(co)),
+                hopperProtected?new[]{new EquipmentAction("bulk-accept",Text.Get("accept"))}:Array.Empty<EquipmentAction>());
+        }
         var s = Service.Get(co); var b = s.State;
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "agriculture", new EquipmentActivity(s.Protected || b.Health < .5 ? EquipmentState.Blocked : b.Ready ? EquipmentState.Ready : b.Running ? EquipmentState.Running : EquipmentState.Paused, Service.Describe(co)),
             (s.Protected ? new[] { "accept" } : Service.Actions(co)).Select(a => new EquipmentAction(a, Text.Get(a))));
     }
-    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => BulkDefinitions.IsTank(co)?BulkService.Command(co,binding,action,out message):Service.Command(co, binding, action, out message);
+    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => BulkDefinitions.IsTank(co)?BulkService.Command(co,binding,action,out message):
+        HopperDefinitions.IsHopper(co)?HopperService.Command(co,binding,action,out message):Service.Command(co, binding, action, out message);
 }
 
 [HarmonyPatch(typeof(Interaction), "TriggeredInternal")]
@@ -169,11 +177,12 @@ internal static class ContentsEligibilityPatch
         if (co == null) return null;
         bool supply = Definitions.Supplies.Contains(co.strCODef);
         if (supply) return name.Contains("Repair") || name.Contains("Restore") || name.Contains("Undamage") ? Text.Get("consumable_no_repair") : null;
-        if (!BulkDefinitions.IsTank(co) && !Definitions.Machine(co)) return null;
+        if (!BulkDefinitions.IsTank(co) && !HopperDefinitions.IsHopper(co) && !Definitions.Machine(co)) return null;
         return name.Contains("Dismantle") || name.Contains("Uninstall") ? RemovalReason(co) : null;
     }
     internal static string? RemovalReason(CondOwner? co)
     {
+        if (HopperDefinitions.IsHopper(co)) return HopperService.RemovalReason(co!);
         if (BulkDefinitions.IsTank(co))
         {
             if (BulkService.Protected(co!)) return Text.Get("Maintenance.protected");
