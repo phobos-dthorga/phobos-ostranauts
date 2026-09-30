@@ -2,5 +2,21 @@
   "MaintenanceDefinitions.spent_service_parts_kg": {
     "brand": "",
     "model": ""
+  },
+  "SharedLines.gas_name": {
+    "brand": "Fennmark",
+    "model": ""
+  },
+  "SharedLines.gas_waste": {
+    "brand": "Fennmark",
+    "model": ""
+  },
+  "SharedLines.water_name": {
+    "brand": "",
+    "model": ""
+  },
+  "SharedLines.water_waste": {
+    "brand": "",
+    "model": ""
   }
 }

@@ -74,7 +74,8 @@ internal static class FactionKioskChecks
             ("Agriculture", PhobosAgriculture.Definitions.Prepare(), PhobosAgriculture.AgricultureEconomy.Pack),
             ("Shipbreaker", PhobosShipbreaker.Content.Prepare(), PhobosShipbreaker.Core.ShipbreakerEconomy.Pack),
             ("AutoNav", PhobosAutoNav.EquipmentContent.Prepare(), PhobosAutoNav.AutoNavEconomy.Pack),
-            ("Manufacturing", PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.Core.Economy.Pack)
+            ("Manufacturing", PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.Core.Economy.Pack),
+            ("Framework", Phobos.Ostranauts.Framework.Items.FrameworkItems.Prepare(), Phobos.Ostranauts.Framework.Items.ItemEconomy.Pack)
         };
         foreach (var (name, d, pack) in packs)
         {

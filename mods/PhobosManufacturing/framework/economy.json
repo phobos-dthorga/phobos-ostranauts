@@ -151,18 +151,7 @@
       "restoreMinutes": 75
     }
   },
-  "supplies": {
-    "PhobosPropellantLine": {
-      "notes": "Fennmark gas line: ordinary pipe supply, sold in lots of the supplies size at the supplies chance floor (chance 0 leaves the floor to decide).",
-      "price": 3,
-      "repairWork": 120,
-      "dismantleWork": 120,
-      "repairBill": { "ItmScrapAluminum": 1 },
-      "remainder": "PhobosPropellantLineWaste",
-      "merchants": [ "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" ],
-      "chance": 0
-    }
-  },
+  "supplies": {},
   "offerTemplates": [
     { "notes": "K-Leg supply kiosk sells broken machines.", "merchant": "ItmOKLGSupplyKioskInv", "tag": "Scrap", "form": "LooseDmg", "condition": "Broken", "chance": 0.20 },
     { "notes": "K-Leg fixer sells worn machines.", "merchant": "ItmOKLGFixer", "tag": "Fixer", "form": "Loose", "condition": "Worn", "chance": 0.10 },
@@ -210,8 +199,7 @@
       "PhobosOxygenStore": "Friendly",
       "PhobosNitrogenStore": "Friendly",
       "PhobosCarbonDioxideStore": "Friendly",
-      "PhobosAmmoniaStore": "Friendly",
-      "PhobosPropellantLine": "Neutral"
+      "PhobosAmmoniaStore": "Friendly"
     }
   }
 }

@@ -20,6 +20,8 @@ public sealed class FluidSegmentFamily
     /// <summary>Whether participants within one tile of each other join one network (the owner's touching rule).</summary>
     public bool AdjacencyJoins { get; }
     public bool IsNetwork => Ports != null;
+    /// <summary>The line's name in running text ("the water line"), for link choices; null when it has none.</summary>
+    public Func<string>? Label { get; set; }
     public FluidSegmentFamily(string id, Func<CondOwner, bool> compatible) : this(id, compatible, null, false) { }
     public FluidSegmentFamily(string id, Func<CondOwner, bool> compatible, Func<CondOwner, IReadOnlyList<string>?>? ports, bool adjacencyJoins)
     {

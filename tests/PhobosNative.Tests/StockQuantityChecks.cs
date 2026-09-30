@@ -18,7 +18,8 @@ internal static class StockQuantityChecks
             (PhobosAgriculture.Definitions.Prepare(), PhobosAgriculture.StockQuantities.For),
             (PhobosShipbreaker.Content.Prepare(), PhobosShipbreaker.StockQuantities.For),
             (PhobosAutoNav.EquipmentContent.Prepare(), _ => PhobosAutoNav.StockQuantities.Boards),
-            (PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.StockQuantities.For)
+            (PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.StockQuantities.For),
+            (Phobos.Ostranauts.Framework.Items.FrameworkItems.Prepare(), Phobos.Ostranauts.Framework.Items.ItemEconomy.Quantity)
         };
         foreach (var (d, quantity) in packs)
         {

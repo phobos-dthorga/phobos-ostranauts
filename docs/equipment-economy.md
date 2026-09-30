@@ -531,7 +531,8 @@ $23,944. These are authored balance choices, not measured gameplay outcomes.
 | Fennmark K2 Sabatier reactor (0.2.0) | 150 kg | $44,000 | $55,000 | $33,000 | $11,000 |
 | Fennmark M2 methane store (0.2.0) | 160 kg empty | $21,000 | $26,250 | $15,750 | $5,250 |
 | Fennmark P1 RCS propellant manifold (0.3.0) | 10 kg | $24,000 | $30,000 | $18,000 | $6,000 |
-| Fennmark propellant line (0.3.0, ordinary supply) | 1 kg | $3 | — | — | — |
+| Fennmark gas line (0.3.0, ordinary supply; Framework's since Framework 0.57.0) | 1 kg | $3 | — | — | — |
+| Process water line (Framework 0.57.0, ordinary supply) | 1 kg | $3 | — | — | — |
 | Nickel-iron ingot | 4 kg | $20 (0.15.0; $24 from 0.1.1 to 0.14.0) | — | — | — |
 | Carbon stock | 1 kg | $10 | — | — | — |
 

@@ -1260,6 +1260,12 @@
   acid lines; shared stores; the Framework water-tank ladder with R3-R5 converted on
   load; Ship's Water tanks joining water networks; working conveyor belts) is carried
   out in release sets; check the changelogs for what has landed.
+- Landed so far: Framework 0.56.0 (topology, `LineReach`, `SharedPorts`, lanes,
+  `ProviderPanel`, `DefinitionMigrations`); Framework 0.57.0 with Manufacturing 0.23.0,
+  Shipbreaker 0.53.0 and Agriculture 0.30.0 (Framework-owned gas and process-water
+  lines, the `LinePorts` rule, `VesselLink` for every machine-to-vessel link, shared
+  banks, link labels and the oxygen/fuel caution). New machine or store links go
+  through `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`.
 
 ## Refining value (2026-09-30)
 

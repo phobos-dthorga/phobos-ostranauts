@@ -26,6 +26,70 @@
       "sha256": "EC4841B5B12E0ED015237AEE6299BA14530AB55B728910E12BE9E1267DB477A8",
       "retiredIn": "0.28.0",
       "reason": "The retired Approach Assist 0.1.2 prototype was still loading beside Auto Nav and its patches ran every frame; Auto Nav supersedes it."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipe.png",
+      "sha256": "9271BF49E1167DC86346E9285910C68F05350E4C762635B6D6D9EA80251D7F9E",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.3.0 to 0.21.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipe.png",
+      "sha256": "C5E7C8062EEFF2C453C1511FD9B57F0BEDC09CCA9BAD39BB05D757119B9E208C",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.22.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeNormal.png",
+      "sha256": "7826780E9D9F42B4498F17D77E1577FFE5A8A67CB309F9A853EE9C8B7C1A0B4C",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.3.0 to 0.21.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeNormal.png",
+      "sha256": "BD2711F2409E337C07F9B8D064C40A2AC3FBEE4C048FE569E3F2961D9EB4A65A",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.22.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeSheet.png",
+      "sha256": "CD390EA05531380CB114E1F188E7CF05F92B966C428DA6665ACD312665FE6568",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.3.0 to 0.21.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeSheet.png",
+      "sha256": "78CA03583DA9FAFDC3C59252956C71927C0A5FC295FB53B567D770E2C9902A11",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.22.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeSheetNormal.png",
+      "sha256": "C17C674690D1D3316D5FBB608CBF20D21DEC7E98B8BE752DCE6080F427A90223",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.3.0 to 0.21.0 shipped."
+    },
+    {
+      "mod": "Manufacturing",
+      "area": "native",
+      "path": "images/phobos/manufacturing/PropellantPipeSheetNormal.png",
+      "sha256": "68D7CD184CEDD650FDDEE18FDCC0DCE79C646A7ED64C4939B5449BEBED452C86",
+      "retiredIn": "0.23.0",
+      "reason": "The gas line moved to Framework 0.57.0 with its art; this is the copy Manufacturing 0.22.0 shipped."
     }
   ]
 }

@@ -25,11 +25,20 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
 ## Set up
 
 1. Install the S3 on intact floor. It needs no electricity and has no inventory.
-2. Install the T2 within one tile of the silo: touching or with one tile between
-   them, on any side; diagonal placement counts. Connect its power point.
+2. Install the T2 within one tile of the silo (touching or with one tile between
+   them, on any side; diagonal placement counts), or anywhere aboard with
+   Framework's **process-water line** laid between their water ports. Each water
+   port is the tile beside the middle of the equipment's left-hand side, turning
+   with it. Connect the T2's power point.
 3. Right-click the T2, choose **Control Panel**, then **Deliver water to** and
-   pick the silo (or an Agriculture R3 reservoir within one tile). Apply. The C1
-   console offers the same choice. Pause the T2 before changing the link.
+   pick the silo (or an Agriculture reservoir it reaches). The list says how each
+   is reached and marks a full one. Apply. The C1 console offers the same choice.
+   Pause the T2 before changing the link.
+
+Silos are shared: up to eight machines of each kind can link to one silo, from
+any mod, and the silo's panel lists every machine linked to it. Nothing links
+across open floor; see
+[linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
 4. Right-click the T2 and choose **Inventory**. The gangue tray opens, and the
    **Ice Feed** opens as its own window. Put one block of water ice in at a
    time (right-click a stack to place one); the feed holds two. Gangue and
@@ -54,9 +63,12 @@ can pin an input store and an output store for the gangue. A
 
 Since Shipbreaker 0.45.0 the T2 also breaks down the game's **methane ice**
 (24.84 kg a block). It needs somewhere to put the methane: a Phobos
-Manufacturing methane store (M2, M3 or M4) within one tile of the T2.
+Manufacturing methane store (M2, M3 or M4) within one tile of the T2, or joined
+to it by Framework's **gas line** (the T2's gas port is the tile beside the
+middle of its right-hand side).
 
-1. Install the methane store within one tile of the T2.
+1. Install the methane store within one tile of the T2, or lay gas line between
+   their gas ports.
 2. On the T2's **Control Panel**, choose **Send methane to** and pick the store.
    The field appears once a methane store is in reach.
 3. Load methane ice like water ice and start. Each block takes 50 minutes at
@@ -124,7 +136,7 @@ flowchart LR
     Drink["Ship's Water drinking tanks"] -->|Draw, above the crew reserve| S3
     S3 -->|Send, above Keep in reserve| Waste["Ship's Water waste tanks"]
     Waste --> Recycler["Their Recycler decides what returns"]
-    S3 -->|within one tile| X2["Manufacturing X2 electrolysis cell"]
+    S3 -->|touching or water line| X2["Manufacturing X2 electrolysis cell"]
 ```
 
 - **At a station:** open the refuelling terminal, then **Bulk supplies**, then
@@ -143,8 +155,8 @@ flowchart LR
   to the waste tanks; a T2 still fills above it.
 - **Consumers:** a linked Agriculture R3 reservoir takes thaw water for
   irrigation. With [Phobos Manufacturing](manufacturing-player-guide.md), an X2
-  electrolysis cell within one tile draws its water from the silo, and a V4
-  refinery within one tile delivers the water from its ore charges into it;
+  electrolysis cell touching the silo or on its water line draws its water from
+  it, and a V4 refinery the same way delivers the water from its ore charges into it;
   pick the silo on that machine's panel. Filter regeneration and other process
   fluids are recorded as later work in
   [asteroid resources for life support](development/asteroid-life-support-research.md)

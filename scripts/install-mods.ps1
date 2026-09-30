@@ -331,7 +331,16 @@ foreach ($mod in $Mods) {
                 "images/phobos/agriculture/$image.png"
             }
         }
-        'Framework' { 'data/conditions/phobos_framework.json' }
+        'Framework' {
+            'data/conditions/phobos_framework.json'
+            # 0.57.0 owns its first items: the gas line (moved from Manufacturing) and the process-water line.
+            if ($version -ge [version]'0.57.0') {
+                'framework/economy.json'
+                foreach ($image in @('PropellantPipe', 'PropellantPipeSheet', 'ProcessWaterPipe', 'ProcessWaterPipeSheet')) {
+                    "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
+                }
+            }
+        }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
             'data/conditions/phobos_war_declared.json'; 'schematics/safe.json'; 'schematics/everything.json'; 'schematics/hull-only.json'; 'schematics/safe-walls.json'
@@ -351,8 +360,9 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.23.0 hands the gas line and its art to Framework; the manifold stays.
             if ($version -ge [version]'0.3.0') {
-                foreach ($image in @('PhobosPropellantManifold', 'PropellantPipe', 'PropellantPipeSheet')) {
+                foreach ($image in @('PhobosPropellantManifold') + $(if ($version -lt [version]'0.23.0') { @('PropellantPipe', 'PropellantPipeSheet') } else { @() })) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
@@ -524,9 +534,11 @@ foreach ($mod in $Mods) {
                 # any other extra file is still the owner's to inspect.
                 $relativeExisting = [IO.Path]::GetRelativePath($folder, $existing.FullName)
                 $area = if ($folder -eq $nativeTarget) { 'native' } else { 'plugin' }
+                # A path may be listed once per released version of the file; any recorded hash retires it.
                 $retired = @($retiredCatalogue | Where-Object { $_.Area -eq $area -and $_.Folder -eq '' -and $_.Relative -eq $relativeExisting })
-                if ($retired.Count -eq 1 -and (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash -eq $retired[0].Hash) {
-                    $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$area/$relativeExisting"; Hash = $retired[0].Hash; Folder = '' }
+                $existingHash = if ($retired.Count -gt 0) { (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash } else { '' }
+                if ($retired.Count -gt 0 -and @($retired | Where-Object { $_.Hash -eq $existingHash }).Count -gt 0) {
+                    $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$area/$relativeExisting"; Hash = $existingHash; Folder = '' }
                     continue
                 }
                 throw "Unmanaged installed file; inspect before updating: $($existing.FullName)"
@@ -543,8 +555,9 @@ foreach ($mod in $Mods) {
         foreach ($existing in Get-ChildItem -LiteralPath $foreignRoot -Recurse -File -Force) {
             $relativeExisting = [IO.Path]::GetRelativePath($foreignRoot, $existing.FullName)
             $retired = @($group.Group | Where-Object { $_.Relative -eq $relativeExisting })
-            if ($retired.Count -eq 1 -and (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash -eq $retired[0].Hash) {
-                $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$($first.Area)/$($first.Folder)/$relativeExisting"; Hash = $retired[0].Hash; Folder = $foreignRoot }
+            $existingHash = if ($retired.Count -gt 0) { (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash } else { '' }
+            if ($retired.Count -gt 0 -and @($retired | Where-Object { $_.Hash -eq $existingHash }).Count -gt 0) {
+                $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$($first.Area)/$($first.Folder)/$relativeExisting"; Hash = $existingHash; Folder = $foreignRoot }
                 continue
             }
             throw "Unmanaged installed file; inspect before updating: $($existing.FullName)"

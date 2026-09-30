@@ -39,12 +39,17 @@ public sealed class LineSegmentSpec
     /// <summary>The loot name that draws this family's joint on equipment; default <c>Prefix + "FixturePort"</c>.</summary>
     public string? FixtureLoot { get; set; }
     public string Fixture => FixtureLoot ?? Prefix + "FixturePort";
+    /// <summary>The network family id whose ports <see cref="LineDefinitions.AddPort"/> records (Framework 0.57.0), or
+    /// null for a family without participants (irrigation and coolant circuits pair their own endpoints).</summary>
+    public string? Family { get; set; }
     public string Sprite => Prefix + "Sprite";
 }
 
 public static class LineDefinitions
 {
     public static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
+    // Fixture loots by name, so a port one mod adds can combine with a line family another mod published.
+    private static readonly Dictionary<string, Loot> fixtures = new(StringComparer.Ordinal);
     /// <summary>Publishes the family's conditions, sprite trigger, loot and four forms. Content adds its own economy,
     /// repair inputs, work rates and remainders afterwards.</summary>
     public static void Add(NativeDefinitions d, LineSegmentSpec s)
@@ -60,6 +65,7 @@ public static class LineDefinitions
         // The presence loot a segment's own centre forbids: one segment of a family per tile, any other family welcome.
         string presence = s.Intact == null ? s.Prefix + "Adds" : s.Prefix + "Off";
         d.Loot[s.Fixture] = new Loot { strName = s.Fixture, strType = "condition", aCOs = new[] { s.Present + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
+        fixtures[s.Fixture] = d.Loot[s.Fixture];
         ApplianceDefinitions.Add(d, s.Prefix, s.Name, s.Description, 1, s.Kg, s.Price, s.Art, s.Controls, 0, s.InstallTab);
         d.Power.Remove(s.Prefix + "Power"); d.Interactions.Remove(s.Prefix + "PowerChange");
         LineJobFilter.RegisterFamily(s.Prefix);
@@ -92,6 +98,7 @@ public static class LineDefinitions
         {
             if (!d.Objects.TryGetValue(equipmentPrefix + form, out var co)) continue;
             co.mapPoints = (co.mapPoints ?? Array.Empty<string>()).Where(p => !p.StartsWith(point + ",", StringComparison.Ordinal)).Concat(new[] { point + "," + x + "," + y }).ToArray();
+            if (line.Family != null) Liquids.LinePorts.Register(line.Family, equipmentPrefix + form, point);
             if (!form.StartsWith("Installed", StringComparison.Ordinal) || !d.Items.TryGetValue(equipmentPrefix + form, out var item)) continue;
             if (socket < 0 || item.aSocketAdds == null || socket >= item.aSocketAdds.Length) throw new ArgumentException("Line port socket outside the footprint: " + equipmentPrefix + form);
             item.aSocketAdds[socket] = item.aSocketAdds[socket] == "TILFixtureAdds" || item.aSocketAdds[socket] == line.Fixture ? line.Fixture : Combined(d, item.aSocketAdds[socket], line);
@@ -102,10 +109,12 @@ public static class LineDefinitions
     // A footprint tile that already draws another family's joint gets one loot adding both presences.
     private static string Combined(NativeDefinitions d, string existing, LineSegmentSpec line)
     {
-        if (!d.Loot.TryGetValue(existing, out var first) || first.strType != "condition") throw new ArgumentException("A line port tile already carries " + existing + ".");
+        if ((!d.Loot.TryGetValue(existing, out var first) && !fixtures.TryGetValue(existing, out first)) || first.strType != "condition")
+            throw new ArgumentException("A line port tile already carries " + existing + ".");
         string name = existing + "+" + line.Prefix;
         d.Loot[name] = new Loot { strName = name, strType = "condition", aCOs = first.aCOs.Concat(new[] { line.Present + "=1x1" }).Distinct().ToArray(),
             aLoots = (first.aLoots ?? Array.Empty<string>()).Concat(new[] { "TILFixtureAdds=1x1" }).Distinct().ToArray() };
+        fixtures[name] = d.Loot[name];
         return name;
     }
 }

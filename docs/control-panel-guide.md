@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.56.0, Agriculture 0.29.0, Shipbreaker 0.52.0 and Auto Nav 0.31.1
+Framework 0.57.0, Agriculture 0.30.0, Shipbreaker 0.53.0 and Auto Nav 0.31.1
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -40,6 +40,13 @@ visible. For an input store, **Use anything aboard** chooses the whole ship
 instead of one store: the deck, unlocked stores and other machines' product trays. Missing saved selections are retained and labelled unavailable. Connection
 pickers retain their content mod's candidate rules. Mission targets are limited
 to the already bound mission or saved resumable flight; no new target is acquired.
+
+Since Framework 0.57.0 a machine's store and tank connections list only what it
+can actually reach: equipment touching it, or on the same water or gas line.
+Each choice says how (*touching*, *water line*, *gas line*) and marks a
+destination that is *full* or a source that is *empty*. A store's own panel
+lists every machine linked to it. See
+[linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
 
 **Locate** centres a temporary ship view on the selected object. Locate is disabled
 when no object is available; Clear is disabled when there is no saved selection.

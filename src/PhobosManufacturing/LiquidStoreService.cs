@@ -25,7 +25,8 @@ internal static class LiquidStoreService
         var store = Store(co);
         if (BulkVessel.Protected(co)) return Text.Get("Store.protected");
         var s = BulkVessel.Snapshot(co);
-        string names = string.Join(", ", StoreService.Linked(co, c => ChargeMachines.For(c.strCODef)?.LinksTo(c, co.strID) == true).Select(ObjectPresentation.Name));
+        // Every machine paired with the tank, from any mod (tanks are shared since Manufacturing 0.23.0).
+        string names = string.Join(", ", LinkChoices.LinkedNames(co));
         string text = T(store, "level", s.ServiceKg, s.CapacityKg) + "\n" + Text.Get("Store.linked", names.Length == 0 ? ConsoleText.Get("not_selected") : names);
         if (s.CatchKg > 1e-8) text += "\n" + T(store, "bund", s.CatchKg);
         if (co.HasCond("IsDamaged")) text += "\n" + T(store, "damaged");

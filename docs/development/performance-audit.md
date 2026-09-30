@@ -531,3 +531,21 @@ probe for every placement and does work only for equipment with ports on more th
 one line family; the PDA filter postfix runs when the player changes filters. Load-
 time definition conversion is one dictionary probe per saved item and saved object.
 No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: shared lines and vessel links (L2)
+
+L2 — Static review of Framework 0.57.0 with Manufacturing 0.23.0, Shipbreaker 0.53.0
+and Agriculture 0.30.0. Every machine-to-vessel check on a power step now goes through
+`VesselLink.Connected`: the same two saved-record reads the reciprocal pair check
+made before, then `LineReach` (the touching test first, then two dictionary probes
+and a union-find comparison on the ship's cached snapshot). No new scan runs on a
+power step. The two shared families add their participants to the one object scan
+per ship; port lookups are a dictionary probe per scanned object. Candidate lists
+test reach per registered vessel of the commodity and read each candidate's record
+for its full or empty mark, only when a panel or console builds its fields. The
+P1, L2, A2 and store transfers answer from the snapshot instead of a bounded route
+search per store, so their five-second recheck gets cheaper. Manufacturing's existing
+two-second scan adds one pass over installed oxygen and fuel stores, grouped by ship,
+each asking its gas network's members (a pass over that ship's gas participants).
+Framework's own items publish once per content load. No performance capture or
+measured FPS claim accompanies this change.

@@ -54,5 +54,25 @@ internal static class NetworkChecks
         // The sender default still fans out, as the W2 racks rely on.
         var fan = new PortBank("w2", "example.Water", new(), 2);
         check(fan.Role == PortRole.Sender && fan.TryLink(new MaterialPort("rack", "example.Water", new()), out _), "Sender banks keep their behaviour");
+
+        // Framework 0.57.0 port rule: water on the -X side, gas on the +X side, both in the middle row; acid one row lower.
+        check(LinePorts.Gas(2) == (24, 8, 1) && LinePorts.Gas(3) == (32, 0, 5) && LinePorts.Gas(4) == (40, 8, 7) && LinePorts.Gas(5) == (48, 0, 14),
+            "The gas port is the neighbouring tile on the +X side in the middle row (the stores' original outlet)");
+        check(LinePorts.Water(2) == (-24, 8, 0) && LinePorts.Water(3) == (-32, 0, 3) && LinePorts.Water(4) == (-40, 8, 4) && LinePorts.Water(5) == (-48, 0, 10),
+            "The water port mirrors it on the -X side");
+        check(LinePorts.Acid(2) == (24, -8, 3) && LinePorts.Acid(3) == (32, -16, 8) && LinePorts.Acid(4) == (40, -8, 11), "The acid port sits one row below the gas port");
+        bool acidRefused = false; try { LinePorts.Acid(1); } catch (ArgumentOutOfRangeException) { acidRefused = true; }
+        check(acidRefused, "A one-tile footprint has no row below the middle for an acid port");
+        LinePorts.Register("example.family", "ExampleInstalled", "ExamplePoint");
+        LinePorts.Register("example.family", "ExampleInstalled", "ExamplePoint");
+        check(LinePorts.Points("example.family", "ExampleInstalled").Count == 1 && LinePorts.Points("example.family", "Other").Count == 0 && LinePorts.Points("none", null).Count == 0,
+            "Port registration is idempotent and lookups never fail");
+        check(LineCommodities.For(LineCommodities.Water) == LineFamilies.ProcessWaterId && LineCommodities.For("unknown commodity") == null && LineCommodities.For(null) == null,
+            "Water rides the process-water line; an unassigned commodity links by touching only");
+        LineCommodities.Assign("example gas", LineFamilies.GasId); LineCommodities.Assign("example gas", LineFamilies.GasId);
+        bool conflict = false; try { LineCommodities.Assign("example gas", LineFamilies.ProcessWaterId); } catch (ArgumentException) { conflict = true; }
+        check(LineCommodities.For("example gas") == LineFamilies.GasId && conflict, "A commodity is carried by one line; the same assignment twice is harmless, a different one is refused");
+        GasNetworkSafety.Classify("example oxidiser", GasHazardClass.Oxidiser);
+        check(GasNetworkSafety.ClassOf("example oxidiser") == GasHazardClass.Oxidiser && GasNetworkSafety.ClassOf("unclassed") == GasHazardClass.None, "Gas classes are content-declared");
     }
 }

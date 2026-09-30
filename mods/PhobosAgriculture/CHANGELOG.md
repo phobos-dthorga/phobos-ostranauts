@@ -24,6 +24,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.30.0] - 2026-10-01 - Draft
+
+### Added
+
+- Process-water ports: every R3, R4 and R5 reservoir has one on its left-hand side, and the W2 has an intake there. A W2 can now draw from a reservoir or silo along Framework's process-water line as well as when they touch.
+- One reservoir or silo can feed several W2s; its panel lists every machine linked to it, and Clear on the reservoir releases all of them.
+
+### Changed
+
+- Rack pairing lists only racks joined to the W2 by irrigation conduit, from the W2's outlet to the rack's inlet, and refuses a pairing across open floor with the reason.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.57.0 or newer. Saved pairings and reservoir records are kept; a saved W2 link reads as the reservoir's first slot. A rack pairing saved without a conduit between them stays saved but delivers nothing until conduit is laid, as before. Offline checks are not gameplay validation.
+
 ## [0.29.0] - 2026-09-30 - Draft
 
 ### Changed

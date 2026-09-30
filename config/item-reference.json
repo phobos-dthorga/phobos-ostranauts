@@ -1081,7 +1081,7 @@
       ]
     },
     "PhobosFramework": {
-      "intro": "Framework supplies shared services rather than a set of standalone machines. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects. Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
+      "intro": "Framework supplies shared services rather than a set of standalone machines. Since 0.57.0 it also owns the two lines every Phobos mod shares, the gas line and the process-water line, so any mod's machines can pipe to any mod's stores. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects. Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
       "groups": [
         {
           "key": "spent-service-parts",
@@ -1094,6 +1094,42 @@
           "find": "Native Repair jobs on supported Auto Nav, Shipbreaker and Agriculture equipment.",
           "notes": "The definition below is a template. Live mass follows the real consumed repair lot, including old jobs with different bills. No current refining recipe returns new electronic or mechanical parts.",
           "guide": "equipment-economy.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "gas-line",
+          "title": "Gas line",
+          "ids": [
+            "PhobosPropellantLineLoose",
+            "PhobosPropellantLineLooseDmg",
+            "PhobosPropellantLineInstalled",
+            "PhobosPropellantLineInstalledDmg",
+            "PhobosPropellantLineWaste"
+          ],
+          "function": "Sealed Fennmark gas line joining gas stores and the machines that fill or draw from them: Manufacturing's stores, V4, X2, K2, AX-2, LC-3, SA-3, P1, L2 and A2, and Shipbreaker's T2 for methane. Every machine and store whose gas port the line reaches joins one network, and touching equipment joins without it. It has its own lane, so it shares tiles with other lines. Its retained waste is what dismantling leaves.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The gas port is the tile beside the middle of each machine's or store's right-hand side, turning with it. A damaged segment breaks the network there until repaired.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "Moved from Manufacturing to Framework in 0.57.0 with its saved identity, name, price and bills unchanged, so it no longer needs Manufacturing installed. It holds no gas between transfers; hold-up and pressure drop are neglected. When an oxygen store and a fuel store share one line, the stores' panels and the crew log say so; nothing is blocked. The retained waste is terminal.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "water-line",
+          "title": "Process water line",
+          "ids": [
+            "PhobosProcessWaterLineLoose",
+            "PhobosProcessWaterLineLooseDmg",
+            "PhobosProcessWaterLineInstalled",
+            "PhobosProcessWaterLineInstalledDmg",
+            "PhobosProcessWaterLineWaste"
+          ],
+          "function": "Sealed line for process water between water tanks (Shipbreaker's silos, Agriculture's reservoirs) and the machines that draw or make water: Manufacturing's V4, X2, K2, LC-3 and SA-3, Shipbreaker's T2 and Agriculture's W2 intake. Every machine and tank whose water port the line reaches joins one network, and touching equipment joins without it. It has its own blue lane, so it shares tiles with other lines.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The water port is the tile beside the middle of each machine's or tank's left-hand side, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. It holds no water between transfers. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
+          "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
         }
@@ -1426,24 +1462,6 @@
           "use": "Install through INSTALL > HVAC on an RCS Intake Regulator's gas-input tile, where a gas canister would go, with its line port facing away. Link up to four stores within one tile or along a gas line, switch each on, choose Manifold first or Canisters first, and switch the manifold on. Everything starts off.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Not a gas canister: station refuelling never fills it. Draws settle to the stores every couple of seconds and before a save. Auto Nav's fuel and delta-v readings count the stores in nitrogen-equivalent kilograms.",
-          "guide": "manufacturing-player-guide.md",
-          "internal": false,
-          "labels": {}
-        },
-        {
-          "key": "line",
-          "title": "Gas line",
-          "ids": [
-            "PhobosPropellantLineLoose",
-            "PhobosPropellantLineLooseDmg",
-            "PhobosPropellantLineInstalled",
-            "PhobosPropellantLineInstalledDmg",
-            "PhobosPropellantLineWaste"
-          ],
-          "function": "Sealed gas line between Fennmark gas stores and the machines they feed (the P1 manifold, the L2 filling station and other stores), on the same tile-by-tile pattern as the other mods' conduits but its own family: it never joins coolant or irrigation lines. Its retained waste is what dismantling leaves.",
-          "use": "Lay it through INSTALL > HVAC on intact floor from a store's line port to a machine's or another store's. A damaged segment breaks the route until repaired.",
-          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply, not late-game plant. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "Hold-up and pressure drop along the line are neglected. The retained waste is terminal.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}

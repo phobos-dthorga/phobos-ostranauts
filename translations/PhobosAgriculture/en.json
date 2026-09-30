@@ -100,6 +100,7 @@
   "unlink-water": "Disconnect water supply (paused)",
   "water_pause": "Pause both machines and their water intake first. Both must be working, unlocked and on your ship, with readable saved settings.",
   "water_missing": "The selected water connection is unavailable.",
+  "water_no_conduit": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor.",
   "water_pair_help": "Pause both machines before linking. One W2 can supply eight racks; each rack accepts one supplier. Enable intake separately at each rack. Disconnecting a rack removes its own link; disconnecting W2 removes all its links. Drain pipes first. Use one supply unit per pipe circuit.",
   "water_pair": "Connect water: {0} [{1}]",
   "water_no_route": "No usable pipe route: check pairing, installed pipes, damage, supporting floors and inlet/outlet alignment. Keep one supply unit per connected pipe circuit.",

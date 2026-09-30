@@ -76,6 +76,12 @@ var missing = DependencyContract.MissingDefinitions((table,id) => table switch {
     "interactions" => DataHandler.dictInteractions.ContainsKey(id), "loot" => DataHandler.dictLoot.ContainsKey(id), _ => false });
 Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
+// Framework's own items publish first, as FrameworkLifecycle.Begin orders them in the game (Framework 0.57.0).
+var framework = Phobos.Ostranauts.Framework.Items.FrameworkItems.Prepare();
+foreach (var co in framework.Objects.Values)
+    Check(co.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Framework names are branded: " + co.strName);
+framework.Publish();
+FrameworkItemChecks.Run(framework, repo, Check);
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
@@ -125,7 +131,7 @@ manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
-LineNativeChecks.Run(new[] { prepared, agriculture, manufacturing }, Check);
+LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
 BinNativeChecks.Run(prepared, Check);
 IceSupplyNativeChecks.Run(Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
@@ -293,7 +299,7 @@ Check(!ConstructionRegistry.Ready("ConflictAfter") && ConstructionRegistry.Statu
 ClearConstruction();
 EconomyChecks.Run(repo, Check, Throws);
 EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
-InstallMenuChecks.Run(agriculture, prepared, manufacturing, Check, Throws);
+InstallMenuChecks.Run(agriculture, prepared, manufacturing, framework, Check, Throws);
 AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
 ShipbreakerGeometryChecks.Run(Check);

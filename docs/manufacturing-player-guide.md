@@ -30,7 +30,8 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark A2 Cabin Air Regulator | 2 x 2 tiles; 60 kg; one power point; 0.1 kW | 23,000 cr, broken 5,750 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
-| Phobos' Fennmark Gas Line | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
+| Phobos' Fennmark Gas Line (a Framework item since Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
+| Phobos' Process Water Line (Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | The same sellers, in lots of 128; INSTALL > HVAC. |
 
 Every store's broken price is a quarter of its price. The medium and large
 stores are too big to turn up in salvage; buy them.
@@ -98,13 +99,51 @@ Only the machines are late-game priced; ingots, carbon, ore and remainders keep
 ordinary raw-material prices.
 What you gain is material aboard, away from stations.
 
+## Linking machines and stores
+
+A machine links to a store (or tank, silo or reservoir) only when the two
+**touch** or share a **line**. Nothing links across open floor. The only
+exception is the station refuelling kiosk's Bulk supplies view.
+
+- **Touching** means the footprints meet or have one tile between them,
+  diagonal included. Wherever the steps below say *within one tile*, this is it,
+  and the matching line works as well. Touching also chains: a tank touching a V4 that touches an X2 serves the X2.
+- **Lines** are Framework's process-water line (blue) and gas line (amber),
+  bought and laid tile by tile through INSTALL > HVAC. Every machine and store
+  has its **water port** on the tile beside the middle of its left-hand side
+  and its **gas port** on the tile beside the middle of its right-hand side
+  (the upper of the two middle rows on an even size). Ports turn with the
+  equipment. Lay the line so it reaches both ports; every machine and store
+  whose port a line reaches is on the same network, and so is anything touching
+  them. Different lines can share a tile.
+- **Sharing:** one store serves up to eight machines of each kind. An H2 store
+  filled by an X2 can feed a K2 and a P1 at the same time, and one water tank can
+  serve every machine on its line.
+- **The link list** on a machine's Control Panel names how each store is reached
+  (*touching*, *water line* or *gas line*) and marks a destination that is
+  *full* or a source that is *empty*. A store's own panel lists every machine
+  linked to it.
+- If a link stops being reachable (a segment is damaged, or one of the pair
+  moves), the machine reports the store as not ready and waits; nothing is lost.
+- The game's own canisters, Agriculture's nutrient hoppers and the acid tanks
+  still link by touching only.
+- **Oxygen and fuel on one gas line.** If an oxygen store and a hydrogen, methane
+  or ammonia store end up on the same gas line, their panels say so and the crew
+  log gets one note. Nothing is blocked (the P1 and L2 mix gases on purpose), but
+  real yards keep them apart: the U.S. Occupational Safety and Health
+  Administration's oxygen-cylinder storage rule,
+  [29 CFR 1910.253(b)(4)(iii)](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.253),
+  asks for 20 feet or a fire-rated barrier between them. In the game the line
+  holds no gas between transfers and nothing here models a leak; the caution is
+  our design choice.
+
 ## Set up
 
 1. Install the V4 on intact floor and connect both power points. Give it a
    room with a scrubber if you will roast carbon ore or bake salt crust.
-2. For the water charges, install a water vessel within one tile of the V4:
-   a Shipbreaker S3 process water silo or an Agriculture R3 reservoir, touching
-   or with one tile between them, diagonal included. Right-click the V4, choose
+2. For the water charges, install a water vessel within one tile of the V4, or
+   lay process-water line between their water ports: a Shipbreaker S3 to S5
+   process water silo or an Agriculture R3 to R5 reservoir. Right-click the V4, choose
    **Control Panel**, open **Connections** and pick the vessel under **Water
    vessel**. Apply. The C1 console offers the same field.
    For the salt crust, also install an ammonia store (any size) within one

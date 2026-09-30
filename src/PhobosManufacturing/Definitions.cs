@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Phobos.Ostranauts.Framework;
 using Phobos.Ostranauts.Framework.Data;
+using Phobos.Ostranauts.Framework.Items;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosManufacturing.Core;
@@ -17,7 +18,7 @@ internal static class Definitions
 {
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
-        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
+        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold",
         FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d)
@@ -39,10 +40,10 @@ internal static class Definitions
         // Every size of every liquid store (Manufacturing 0.19.0); each size's art is named after its own definition prefix.
         foreach (var store in LiquidStores.All)
             AddLiquidStore(d, store);
-        AddPropellantLine(d);
         AddManifold(d);
         AddFiller(d);
         AddRegulator(d);
+        AddLinePorts(d);
         AddDeflagrations(d);
     }
 
@@ -62,7 +63,8 @@ internal static class Definitions
             aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
         ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));
         d.Objects[spec.InputBin].strDesc = Text.Get(spec.Text("feed_description"), shape.feedCells);
-        ApplianceDefinitions.SetPowerOverride(d, p, shape.idleKW, shape.workingKW, spec.WorkingCondition, shape.points.Keys.Where(k => k != "use").ToArray());
+        // Only Power points are electrical inputs; line ports and use points never are.
+        ApplianceDefinitions.SetPowerOverride(d, p, shape.idleKW, shape.workingKW, spec.WorkingCondition, shape.points.Keys.Where(k => k.StartsWith("Power", StringComparison.Ordinal)).ToArray());
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
@@ -198,7 +200,6 @@ internal static class Definitions
             // Power on the local -X side, the gas line port on the neighbouring tile of the local +X side.
             co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", FillerRules.Inlet + ",24,8" };
             co.strPortraitImg = item.strImg;
-            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[1] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
         }
     }
     /// <summary>The A2 cabin air regulator: a powered 2 x 2 valve and sensor unit on the native air-pump pattern, with
@@ -217,7 +218,6 @@ internal static class Definitions
             co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
             co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", RegulatorRules.Inlet + ",24,8" };
             co.strPortraitImg = item.strImg;
-            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[1] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
         }
     }
     /// <summary>The P1 manifold: a passive 1 x 1 valve block for a regulator's gas-input tile. Deliberately not
@@ -241,31 +241,46 @@ internal static class Definitions
             // The line port is the neighbouring tile on the manifold's local -Y side, rotating with it.
             co.mapPoints = new[] { "use,0,0", ManifoldRules.Inlet + ",0,-16" };
             co.strPortraitImg = item.strImg;
-            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[0] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
         }
     }
 
-    /// <summary>The Fennmark propellant line, on the shared conduit pattern with its own identity and sprite trigger,
-    /// so it never joins coolant or irrigation lines. Its art is a recorded recolour of the shared pipe sheet.</summary>
-    /// <summary>The gas line on Framework's shared segment pattern (Framework 0.56.0), in its own draw layer.</summary>
-    internal static LineSegmentSpec GasLineSpec() => new()
+    /// <summary>Ports on Framework's shared lines (Manufacturing 0.23.0; the gas line itself moved to Framework with its
+    /// identities unchanged). Every gas store keeps its port on the neighbouring tile of its local +X side; the P1, L2
+    /// and A2 keep their inlets; every machine gains a process-water port on its local -X side and a gas port on its +X
+    /// side where it uses them, both in the middle row (Framework's <see cref="LinePorts"/> rule). Points are rebuilt
+    /// from definitions on load, so machines saved before gain their ports with no rewrite. The gas commodities are
+    /// carried by the gas line, and oxygen and the fuels are classed for the shared-line caution.</summary>
+    private static void AddLinePorts(NativeDefinitions d)
     {
-        Prefix = PropellantLineRules.Prefix, Name = Text.Get("Line.name"), DamagedName = Text.Get("Line.name") + Text.Get("Content.damaged"),
-        Description = Text.Get("Line.description"), Art = ImagePath + LineArt, Present = PropellantLineRules.Segment, Intact = PropellantLineRules.WorkingSegment,
-        Kg = PropellantLineRules.Kg, Price = Economy.SupplyPrice(PropellantLineRules.Prefix), InstallTab = InstallMenu.Hvac, Controls = Controls,
-        LooseStack = EquipmentEconomy.LineStack, Layer = LineLayers.Gas
-    };
-    private static void AddPropellantLine(NativeDefinitions d)
-    {
-        var line = GasLineSpec();
-        LineDefinitions.Add(d, line);
-        // Every gas store gains a line port on the neighbouring tile of its local +X side, in the middle row, with pipe
-        // art joining it at the footprint tile beside the port.
+        var gas = SharedLines.GasSpec(); var water = SharedLines.ProcessWaterSpec();
+        foreach (string commodity in new[] { ManufacturingRules.Hydrogen, ManufacturingRules.Methane, ManufacturingRules.Oxygen, ManufacturingRules.Nitrogen,
+                     ManufacturingRules.CarbonDioxide, ManufacturingRules.Ammonia })
+            LineFamilies.Assign(commodity, LineFamilies.Gas);
+        GasNetworkSafety.Classify(ManufacturingRules.Oxygen, GasHazardClass.Oxidiser);
+        foreach (string fuel in new[] { ManufacturingRules.Hydrogen, ManufacturingRules.Methane, ManufacturingRules.Ammonia }) GasNetworkSafety.Classify(fuel, GasHazardClass.Fuel);
         foreach (var fuel in GasStores.All)
         {
             var outlet = fuel.Outlet;
-            LineDefinitions.AddPort(d, fuel.Prefix, line, ManifoldRules.StoreOutlet, outlet.X, outlet.Y, outlet.SocketIndex);
+            LineDefinitions.AddPort(d, fuel.Prefix, gas, ManifoldRules.StoreOutlet, outlet.X, outlet.Y, outlet.SocketIndex);
         }
+        LineDefinitions.AddPort(d, ManifoldRules.Prefix, gas, ManifoldRules.Inlet, 0, -16, 0);
+        foreach (string prefix in new[] { FillerRules.Prefix, RegulatorRules.Prefix })
+        {
+            var port = LinePorts.Gas(FillerRules.Footprint);
+            LineDefinitions.AddPort(d, prefix, gas, prefix == FillerRules.Prefix ? FillerRules.Inlet : RegulatorRules.Inlet, port.X, port.Y, port.Socket);
+        }
+        void Machine(string prefix, int footprint, bool usesWater)
+        {
+            var g = LinePorts.Gas(footprint);
+            LineDefinitions.AddPort(d, prefix, gas, LinePorts.GasPoint, g.X, g.Y, g.Socket);
+            if (!usesWater) return;
+            var w = LinePorts.Water(footprint);
+            LineDefinitions.AddPort(d, prefix, water, LinePorts.WaterPoint, w.X, w.Y, w.Socket);
+        }
+        foreach (var machine in ChargeMachines.All) Machine(machine.Spec.Prefix, Equipment.Entry(machine.Spec.Prefix).footprint, usesWater: true);
+        Machine(ProcessorRules.Prefix, ProcessorRules.Footprint, usesWater: true);
+        Machine(SabatierRules.Prefix, SabatierRules.Footprint, usesWater: true);
+        Machine(CrackerRules.Prefix, CrackerRules.Footprint, usesWater: false);
     }
 
     private static void StripContainer(JsonCondOwner co)

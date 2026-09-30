@@ -41,9 +41,18 @@ internal static partial class Service
         ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "mix-potato", "mix-lettuce", "mix-lettuce-seed", "water-only", "cancel-recovery", "dose-inventory", "dose-off" }
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
         : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
+    /// <summary>The racks a W2 can feed, or the W2s that can feed a rack: only those joined by an irrigation conduit
+    /// from the W2's outlet to the rack's inlet (Agriculture 0.30.0, the owner's rule: no link across open floor).</summary>
     internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) =>
         co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && Definitions.Machine(c) &&
-            !WorkupDefinitions.IsBench(c) && !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c));
+            !WorkupDefinitions.IsBench(c) && !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c) && Piped(co, c));
+    /// <summary>Whether an irrigation conduit joins a W2's outlet to a rack's inlet, either way round, within the route limit.</summary>
+    internal static bool Piped(CondOwner a, CondOwner b)
+    {
+        var (source, rack) = IrrigationDefinitions.IsSupply(a) ? (a, b) : (b, a);
+        var path = FluidRouteCache.Find(source, IrrigationDefinitions.Outlet, rack, IrrigationDefinitions.Inlet, WaterPipes);
+        return path != null && path.Length <= RouteTileLimit;
+    }
 
     private static bool? WaterCommand(Session s, string action, out string message)
     {
@@ -82,6 +91,7 @@ internal static partial class Service
             message = Describe(co); return true;
         }
         if (other == null) { message = Text.Get("water_missing"); return false; }
+        if (!Piped(co, other)) { message = Text.Get("water_no_conduit"); return false; }
         var source = IrrigationDefinitions.IsSupply(co) ? co : other;
         var rack = source == co ? other : co;
         var sourceState = Get(source); var rackState = Get(rack);

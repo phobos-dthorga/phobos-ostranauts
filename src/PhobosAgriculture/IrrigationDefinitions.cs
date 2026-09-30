@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Data;
+using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 
@@ -46,6 +47,10 @@ internal static class IrrigationDefinitions
                 fixture.ctSpriteSheet = Pipe + "Sprite"; // Native adjacent-sheet refresh, without making the appliance a sheet.
             }
         }
+        // The W2's intake on Framework's process-water line (Agriculture 0.30.0): the neighbouring tile of its local -X
+        // side, top row. Added after the irrigation fixture so the irrigation line keeps driving the item's own joints.
+        var intake = LinePorts.Water(2);
+        LineDefinitions.AddPort(d, Supply, Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(), LinePorts.WaterPoint, intake.X, intake.Y, intake.Socket);
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             bool damaged = form.EndsWith("Dmg");

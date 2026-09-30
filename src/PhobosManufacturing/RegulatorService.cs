@@ -51,10 +51,10 @@ internal static class RegulatorService
     internal static RegulatorState StateOf(CondOwner co) => Get(co).State;
     internal static bool Protected(CondOwner co) => Get(co).Protected;
 
-    /// <summary>Oxygen or nitrogen stores of any size within one tile or along a gas line.</summary>
+    /// <summary>Oxygen or nitrogen stores of any size touching the regulator or on its gas line.</summary>
     internal static IEnumerable<CondOwner> Candidates(CondOwner co, string commodity) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && GasStores.Holds(c.strCODef, commodity) &&
-            GasLine.Connection(co, RegulatorRules.Inlet, c) != null)
+            GasLine.Connection(co, c) != null)
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     private static CondOwner? Source(CondOwner co, string id, string commodity, out string why)
     {
@@ -62,7 +62,7 @@ internal static class RegulatorService
         if (id.Length == 0) return null;
         var store = CrewWork.Resolve(id);
         why = Text.Get("Regulator.store_missing");
-        if (store == null || store.ship != co.ship || !GasStores.Holds(store.strCODef, commodity) || GasLine.Connection(co, RegulatorRules.Inlet, store) == null) return null;
+        if (store == null || store.ship != co.ship || !GasStores.Holds(store.strCODef, commodity) || GasLine.Connection(co, store) == null) return null;
         why = Text.Get("Regulator.store_not_ready");
         if (!NativeFluidRoute.EndpointReady(store) || BulkVessel.Protected(store) || CommodityReservations.Held(store.strID)) return null;
         why = ""; return store;

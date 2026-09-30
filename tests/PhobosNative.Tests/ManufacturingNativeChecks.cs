@@ -60,9 +60,7 @@ internal static class ManufacturingNativeChecks
                 "P1 carries the Fennmark P1 name and a line port on its neighbouring tile: " + state);
             check(!DataHandler.dictCTs["TIsRCSValidInput"].TriggeredDataCO(new DataCO(manifold), false),
                 "The game's own RCS input rule refuses the manifold, so vanilla refuels never pour nitrogen into it: " + state);
-            var line = d.Objects[PropellantLineRules.Prefix + state];
-            check(Stat(line, "StatMass") == PropellantLineRules.Kg && (damaged ? Stat(line, "StatBasePrice") < Economy.SupplyPrice(PropellantLineRules.Prefix) : Stat(line, "StatBasePrice") == Economy.SupplyPrice(PropellantLineRules.Prefix)) &&
-                d.Installables.ContainsKey(PropellantLineRules.Prefix + state + "Dismantle"), "The propellant line is ordinary pipe supply: " + state);
+            check(!d.Objects.ContainsKey(PropellantLineRules.Prefix + state), "The gas line is Framework's since Manufacturing 0.23.0, not defined twice: " + state);
             foreach (var fuel in GasStores.All)
             {
                 var gas = d.Objects[fuel.Prefix + state]; var gasItem = d.Items[gas.strItemDef]; var port = fuel.Outlet;
@@ -197,13 +195,15 @@ internal static class ManufacturingNativeChecks
         var cell = d.Power[ProcessorRules.Prefix + "Power"];
         check(Math.Abs(cell.fAmount - ProcessorRules.IdleKW / Units.SecondsPerHour) < 1e-12 && cell.strOverrideCond == ManufacturingRules.Electrolysing && Math.Abs(cell.fOverrideAmount - ProcessorRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && cell.aInputPts.SequenceEqual(new[] { "PowerA" }),
             "X2 draws 0.02 kW idle and 6 kW electrolysing through one input point");
-        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power") && !d.Power.ContainsKey(MethaneRules.Prefix + "Power") && !d.Power.ContainsKey(ManifoldRules.Prefix + "Power") &&
-            !d.Power.ContainsKey(PropellantLineRules.Prefix + "Power"), "The fuel stores, the manifold and the line have no power info");
-        // The propellant line is its own pipe family: its own segment condition and sprite trigger, never coolant or irrigation.
-        var lineTrigger = d.Triggers[PropellantLineRules.Prefix + "Sprite"];
-        check(lineTrigger.aReqs.SequenceEqual(new[] { PropellantLineRules.Segment }) && d.Items[PropellantLineRules.Installed].ctSpriteSheet == PropellantLineRules.Prefix + "Sprite" &&
-            d.Items[PropellantLineRules.Installed].bHasSpriteSheet, "The propellant line joins only its own segments");
-        check(new[] { PropellantLineRules.Segment, "PhobosFurnaceCoolantSegment", "PhobosWaterConduitPresent" }.Distinct().Count() == 3, "Propellant, coolant and irrigation segments are distinct");
+        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power") && !d.Power.ContainsKey(MethaneRules.Prefix + "Power") && !d.Power.ContainsKey(ManifoldRules.Prefix + "Power"),
+            "The fuel stores and the manifold have no power info");
+        check(PropellantLineRules.Segment == Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPresent && PropellantLineRules.Prefix == Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPrefix &&
+            new[] { PropellantLineRules.Segment, "PhobosFurnaceCoolantSegment", "PhobosWaterConduitPresent", Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPresent }.Distinct().Count() == 4,
+            "The moved gas line keeps its saved identities, and gas, coolant, irrigation and process-water segments stay distinct");
+        foreach (string prefix in ChargeMachines.All.Select(m => m.Spec.Prefix).Concat(new[] { ProcessorRules.Prefix, SabatierRules.Prefix, CrackerRules.Prefix }))
+            check(d.Objects[prefix + "Installed"].mapPoints.Any(p => p.StartsWith(Phobos.Ostranauts.Framework.Liquids.LinePorts.GasPoint + ",", StringComparison.Ordinal)) &&
+                (prefix == CrackerRules.Prefix) != d.Objects[prefix + "Installed"].mapPoints.Any(p => p.StartsWith(Phobos.Ostranauts.Framework.Liquids.LinePorts.WaterPoint + ",", StringComparison.Ordinal)),
+                "Every machine has a gas port, and a water port unless it never handles water: " + prefix);
         // Both regulators put their gas inputs on neighbouring tiles, where a one-tile canister or manifold sits.
         foreach (string regulator in new[] { "ItmRCSDistro01", "ItmRCSDistro02" })
             check(DataHandler.dictCOs[regulator].mapPoints.Any(m => m.StartsWith("GasInput", StringComparison.Ordinal)) && DataHandler.dictItemDefs[DataHandler.dictCOs["ItmRTAN2"].strItemDef].nCols == 1,

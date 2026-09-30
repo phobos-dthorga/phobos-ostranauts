@@ -87,6 +87,9 @@ internal static class BulkDefinitions
                     co.strPortraitImg=image;d.Items[co.strItemDef].strImg=image;d.Items[co.strItemDef].strImgNorm=image+"Normal";
                 }
             }
+            // A process-water port on the local -X side, middle row (Agriculture 0.30.0), rebuilt from definitions on load.
+            var port=LinePorts.Water(size.Footprint);
+            LineDefinitions.AddPort(d,p,Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(),LinePorts.WaterPoint,port.X,port.Y,port.Socket);
         }
         Definitions.Stock(d,Nutrients,"bulk_nutrients");
     }

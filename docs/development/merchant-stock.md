@@ -22,13 +22,14 @@ shop inventories or a scientific/economic claim.
 | Shipbreaker ingots | 32 |
 | Auto Nav boards | 16 |
 | Manufacturing equipment | 8 |
-| Manufacturing propellant line | 128 |
+| Framework gas and process-water lines | 128 |
 
 Agriculture consumables include planting stock, nutrients, irrigation charges,
 treatment cartridges and nutrient makeup. Equipment lots cover both working and
 broken offers wherever those forms are sold. W2 and the B2 workup bench are
-included. Framework, Manufacturing's scaffold and the historical Approach
-Assist prototype have no separate retail stock to multiply.
+included. Since Framework 0.57.0 Framework sells its own two lines (the gas line
+moved from Manufacturing with its lot unchanged); Manufacturing's scaffold and the
+historical Approach Assist prototype have no separate retail stock to multiply.
 
 The same content-owned lot sizes apply at the original K-Leg, San Diego and
 Venus endpoints and all supported [regional suppliers](../solar-system-economy.md).

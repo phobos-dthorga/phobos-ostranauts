@@ -21,10 +21,12 @@ NEAREST = Image.Resampling.NEAREST
 BASE = {'light': (127, 138, 154), 'mid': (84, 93, 103), 'dark': (27, 38, 48), 'collar': (39, 53, 67), 'fitting': (79, 89, 100), 'jewel': (71, 235, 242)}
 # channel = a * luminance + b (rounded, clamped); None keeps the original colours.
 FAMILIES = [
+    {'name': 'process-water', 'lane': 0, 'ramp': {'r': (0.35, 10), 'g': (0.70, 20), 'b': (1.25, 30)},
+     'targets': ['mods/PhobosFramework/images/phobos/framework/ProcessWaterPipe']},
     {'name': 'irrigation', 'lane': 3, 'ramp': None,
      'targets': ['mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe']},
     {'name': 'gas', 'lane': 1, 'ramp': {'r': (1.25, 22), 'g': (0.86, 12), 'b': (0.34, 8)},
-     'targets': ['mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipe']},
+     'targets': ['mods/PhobosFramework/images/phobos/framework/PropellantPipe']},
     {'name': 'coolant', 'lane': 4, 'ramp': {'r': (0.45, 8), 'g': (1.05, 22), 'b': (0.62, 12)},
      'targets': ['mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe']},
 ]

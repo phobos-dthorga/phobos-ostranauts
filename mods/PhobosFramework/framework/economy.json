@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "schema": "economy",
+  "notes": "Framework's own items (Framework 0.57.0): the shared line families every Phobos mod uses. The gas line moved here from Manufacturing with its identities, price, bills and stock unchanged; the process-water line is new and follows it. Ordinary pipe supplies: priced like the other mods' pipes, repaired with a little aluminium, dismantled to their own retained waste, and sold in supply lots at the supplies floor.",
+  "equipment": {},
+  "supplies": {
+    "PhobosPropellantLine": {
+      "notes": "Fennmark gas line (moved from Manufacturing 0.22.0 unchanged): ordinary pipe supply, sold in lots of the supplies size at the supplies chance floor (chance 0 leaves the floor to decide).",
+      "price": 3,
+      "repairWork": 120,
+      "dismantleWork": 120,
+      "repairBill": {
+        "ItmScrapAluminum": 1
+      },
+      "remainder": "PhobosPropellantLineWaste",
+      "merchants": [
+        "ItmOKLGSupplyKioskInv",
+        "ItmOKLGFixer",
+        "ItmTraderSanDiegoHalvorsonInv",
+        "ItmVORBScrapKioskInv"
+      ],
+      "chance": 0
+    },
+    "PhobosProcessWaterLine": {
+      "notes": "Process-water line: the gas line's twin for water, at the same price, bills and stock.",
+      "price": 3,
+      "repairWork": 120,
+      "dismantleWork": 120,
+      "repairBill": {
+        "ItmScrapAluminum": 1
+      },
+      "remainder": "PhobosProcessWaterLineWaste",
+      "merchants": [
+        "ItmOKLGSupplyKioskInv",
+        "ItmOKLGFixer",
+        "ItmTraderSanDiegoHalvorsonInv",
+        "ItmVORBScrapKioskInv"
+      ],
+      "chance": 0
+    }
+  },
+  "offerTemplates": [],
+  "offers": {},
+  "regions": {
+    "BCER": 1,
+    "BCRS": 1.25,
+    "EJDR": 0.75,
+    "HQCH": 0.75,
+    "JATL": 0.75,
+    "JFTS": 1,
+    "MHNG": 0.5,
+    "MSUZ": 1,
+    "MTRS": 1.5,
+    "MVOL": 1.5,
+    "OFLT": 0.5,
+    "SVIR": 1.25,
+    "VCBR": 1,
+    "VENC": 0.75,
+    "VNCA": 1.25
+  },
+  "regional": {
+    "notes": "Supplies reach the regional kiosks through the expanded merchants at the supplies floor.",
+    "baseChance": 0.2,
+    "refurbished": [
+      "OFLT"
+    ],
+    "expandedMerchants": [
+      "ItmOKLGSupplyKioskInv",
+      "ItmOKLGFixer",
+      "ItmTraderSanDiegoHalvorsonInv",
+      "ItmVORBScrapKioskInv"
+    ]
+  },
+  "lots": {
+    "equipment": 8,
+    "supplies": 128
+  },
+  "chanceFloors": {
+    "equipment": 0.85,
+    "supplies": 0.95
+  },
+  "worldLoot": [],
+  "factionKiosks": {
+    "notes": "Framework's lines at the CCRE and GalCon faction kiosks for scrip. Tier rule (docs/development/faction-kiosk-stock.md): supplies, pipe and line Neutral, like the game's tools and cladding; nothing at Honored.",
+    "merchants": [
+      "ItmFactionKioskBCRSInv",
+      "ItmFactionKioskBCERInv",
+      "ItmFactionKioskMTRSInv"
+    ],
+    "chance": 1,
+    "tiers": {
+      "PhobosPropellantLine": "Neutral",
+      "PhobosProcessWaterLine": "Neutral"
+    }
+  }
+}

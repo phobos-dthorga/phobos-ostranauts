@@ -85,8 +85,8 @@ def economy(pack, where):
             raise Problem(f'{w}: floor {floor!r} is not in the chanceFloors table')
 
     equipment = pack.get('equipment', {})
-    if not isinstance(equipment, dict) or not equipment:
-        raise Problem(f'{where}/equipment: needs at least one family')
+    if not isinstance(equipment, dict) or (not equipment and not pack.get('supplies')):
+        raise Problem(f'{where}/equipment: needs at least one family or supply')
     for key, e in equipment.items():
         w = f'{where}/equipment/{key}'
         fields(e, {'notes', 'kind', 'forms', 'price', 'brokenPrice', 'work', 'repairBill', 'salvage', 'brokenSalvage', 'restoreMinutes', 'internalBin', 'loot',

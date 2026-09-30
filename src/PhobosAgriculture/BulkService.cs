@@ -28,13 +28,22 @@ internal static class BulkService
         reason=Text.Get(accepted?"accept_done":"accept_unavailable");return accepted;
     }
     internal static void Save(CondOwner co,StoredCommodity state)=>BulkVessel.Save(co,state);
-    internal static MaterialPort Port(CondOwner co,bool source)=>new(co.strID,source?Out:In,co.mapGUIPropMaps);
+    /// <summary>The W2's intake (Agriculture 0.30.0): a water vessel feeds it while the two touch or share a
+    /// process-water line, and the vessel's outlet is a sending bank, so one tank or silo may feed several W2s. A pair
+    /// saved before reads as the bank's first slot.</summary>
+    internal static readonly VesselLink WaterLink=new(In,Out,LineFamilies.Water,machineSends:false);
+    private static CondOwner? Find(string id)=>Service.Resolve(id);
     /// <summary>The vessel side of a link is any water vessel (a reservoir of any size or a Shipbreaker silo); the W2 is the other side.</summary>
     private static bool VesselSide(CondOwner co)=>!IrrigationDefinitions.IsSupply(co);
     internal static bool IsWaterVessel(CondOwner? co)=>co!=null&&BulkVessels.Of(co)?.Commodity=="water";
-    internal static string Peer(CondOwner co)=>PortPairing.Read(Port(co,VesselSide(co))).PeerObjectId;
-    internal static bool HasLink(CondOwner co)=>PortPairing.Read(Port(co,VesselSide(co))).State!=PortLinkState.Unlinked;
-    internal static bool HasSelection(CondOwner w2)=>PortPairing.Read(Port(w2,false)).State!=PortLinkState.Unlinked;
+    private static PortBank Bank(CondOwner tank)=>SharedPorts.Bank(tank,Out,PortRole.Sender);
+    /// <summary>The W2s a vessel feeds, from its outlet bank's saved slots, when each W2 still points back.</summary>
+    internal static IEnumerable<CondOwner> Supplies(CondOwner tank)=>Bank(tank).Ports.Select(PortPairing.Read).Where(l=>l.State==PortLinkState.Linked)
+        .Select(l=>Find(l.PeerObjectId)).Where(c=>c!=null&&IrrigationDefinitions.IsSupply(c)&&WaterLink.PeerId(c)==tank.strID).Select(c=>c!).ToArray();
+    /// <summary>A W2's vessel, or a vessel's first W2 (its panel lists them all).</summary>
+    internal static string Peer(CondOwner co)=>VesselSide(co)?Supplies(co).FirstOrDefault()?.strID??"":WaterLink.PeerId(co);
+    internal static bool HasLink(CondOwner co)=>VesselSide(co)?Bank(co).Occupied:HasSelection(co);
+    internal static bool HasSelection(CondOwner w2)=>PortPairing.Read(WaterLink.Ours(w2)).State!=PortLinkState.Unlinked;
     private static ObjectStateStore Settings(CondOwner w2)=>new(w2.mapGUIPropMaps,"AgricultureBulkSettings",Plugin.Id,1);
     internal static bool TryTarget(CondOwner w2,out double value)
     {
@@ -50,30 +59,39 @@ internal static class BulkService
         if(!double.TryParse(raw,NumberStyles.Float,CultureInfo.InvariantCulture,out double target)||double.IsNaN(target)||target<0||target>19.5||!Settings(w2).TryWrite(new Dictionary<string,string>{["target"]=target.ToString("R",CultureInfo.InvariantCulture)})){reason=Text.Get("protected");return false;}
         reason=Text.Get("done");return true;
     }
-    /// <summary>A water vessel reaches a W2 when both are ready on the same ship and within one tile of each other (Framework's
-    /// shared rule). The R3's original edge-to-edge placement still qualifies; any reservoir or silo size may now feed a W2.</summary>
+    /// <summary>A water vessel reaches a W2 when both are ready on the same ship and they touch (within one tile) or
+    /// share a process-water line (Agriculture 0.30.0). The R3's original edge-to-edge placement still qualifies.</summary>
     internal static bool Geometry(CondOwner tank,CondOwner w2)=>tank.ship!=null&&w2.ship==tank.ship&&IsWaterVessel(tank)&&IrrigationDefinitions.IsSupply(w2)&&
-        NativeFluidRoute.EndpointReady(tank)&&NativeFluidRoute.EndpointReady(w2)&&BulkVessels.Adjacent(tank,w2);
+        NativeFluidRoute.EndpointReady(tank)&&NativeFluidRoute.EndpointReady(w2)&&WaterLink.Reach(w2,tank)!=LineReachKind.None;
     internal static IEnumerable<CondOwner> Candidates(CondOwner co)=>co.ship?.GetCOs(null,false,false,true).Where(c=>VesselSide(co)?IrrigationDefinitions.IsSupply(c)&&Geometry(co,c):IsWaterVessel(c)&&Geometry(c,co)).OrderBy(c=>c.strID,StringComparer.Ordinal)??Enumerable.Empty<CondOwner>();
     internal static bool Link(CondOwner co,string id,ConsoleBinding? binding,out string reason)
     {
         reason=Text.Get("protected");if(!Definitions.Ready)return false;
         reason=Service.Access(co,binding)??"";if(reason.Length>0)return false;
-        var candidate=id=="none"?Service.Resolve(Peer(co)):Candidates(co).FirstOrDefault(c=>c.strID==id);
-        if(id!="none"&&candidate==null){reason=Text.Get("bulk_pair");return false;}
-        var tank=VesselSide(co)?co:candidate;var w2=VesselSide(co)?candidate:co;
-        if(w2!=null&&(Service.Get(w2).State.Running||Service.Get(w2).State.Receiving)){reason=Text.Get("water_pause");return false;}
-        if((tank!=null&&Protected(tank))||(w2!=null&&Service.Get(w2).Protected)){reason=Text.Get("protected");return false;}
-        if(id=="none")PortPairing.Unlink(Port(co,VesselSide(co)),candidate==null?null:Port(candidate,VesselSide(candidate)));
-        else if(!PortPairing.TryLink(Port(tank!,true),Port(w2!,false),out reason))return false;
-        if(tank!=null)ConfigurationStamp.SuspendChangedOrder(tank);
-        if(w2!=null)ConfigurationStamp.SuspendChangedOrder(w2);
+        bool vessel=VesselSide(co);
+        // Clearing a vessel's selection releases every W2 it feeds; clearing a W2's releases its one vessel.
+        var candidates=id=="none"?(vessel?Supplies(co).ToArray():new[]{Service.Resolve(Peer(co))}.Where(c=>c!=null).Select(c=>c!).ToArray()):Candidates(co).Where(c=>c.strID==id).Take(1).ToArray();
+        if(id!="none"&&candidates.Length==0){reason=Text.Get("bulk_pair");return false;}
+        var pairs=candidates.Select(c=>(Tank:vessel?co:c,W2:vessel?c:co)).ToArray();
+        if(pairs.Length==0&&!vessel)pairs=new[]{((CondOwner)null!,co)};
+        foreach(var (tank,w2) in pairs)
+        {
+            if(w2!=null&&(Service.Get(w2).State.Running||Service.Get(w2).State.Receiving)){reason=Text.Get("water_pause");return false;}
+            if((tank!=null&&Protected(tank))||(w2!=null&&Service.Get(w2).Protected)){reason=Text.Get("protected");return false;}
+        }
+        foreach(var (tank,w2) in pairs)
+        {
+            if(id=="none"){if(w2!=null)WaterLink.Unlink(w2,Find);}
+            else if(!WaterLink.Link(w2!,tank!,Find,out reason))return false;
+            if(tank!=null)ConfigurationStamp.SuspendChangedOrder(tank);
+            if(w2!=null)ConfigurationStamp.SuspendChangedOrder(w2);
+        }
         reason=Text.Get("done");return true;
     }
     internal static ILiquidReservoir Endpoint(CondOwner co)=>new BulkVessel.Endpoint(co);
     internal static double Intake(CondOwner w2,ILiquidReservoir destination,double requested,bool commit)
     {
-        var tank=Service.Resolve(Peer(w2));if(tank==null||!IsWaterVessel(tank)||!Geometry(tank,w2)||!PortPairing.Matches(Port(tank,true),Port(w2,false))||Protected(tank)||CommodityReservations.Held(tank.strID))return 0;
+        var tank=Service.Resolve(Peer(w2));if(tank==null||!IsWaterVessel(tank)||!Geometry(tank,w2)||!WaterLink.Paired(w2,tank)||Protected(tank)||CommodityReservations.Held(tank.strID))return 0;
         var s=Read(tank);if(s.CatchKg>1e-8)return 0;
         if(!TryTarget(w2,out double target))return 0;
         double kg=Math.Min(requested,Math.Min(s.AvailableKg,Math.Max(0,Math.Min(target,destination.CapacityKg)-destination.QuantityKg)));
@@ -82,7 +100,9 @@ internal static class BulkService
     internal static string Describe(CondOwner co)
     {
         if(Protected(co))return Text.Get("protected");var s=Read(co);
-        return Text.Get("bulk_status",s.ServiceKg,s.CatchKg,BulkDefinitions.CapacityOf(co),s.ReserveKg,ObjectPresentation.Name(Peer(co)))+(s.CatchKg>0?"\n"+Text.Get("bulk_catch_wait"):"");
+        // Every machine linked to the vessel, from any mod (Agriculture 0.30.0: tanks are shared).
+        var linked=LinkChoices.LinkedNames(co);
+        return Text.Get("bulk_status",s.ServiceKg,s.CatchKg,BulkDefinitions.CapacityOf(co),s.ReserveKg,linked.Count==0?ObjectPresentation.Name(""):string.Join(", ",linked))+(s.CatchKg>0?"\n"+Text.Get("bulk_catch_wait"):"");
     }
     internal static bool Command(CondOwner co,ConsoleBinding? binding,string action,out string reason)
     {
@@ -93,7 +113,7 @@ internal static class BulkService
         if(action!="pause"&&Protected(co)){reason=Text.Get("protected");return false;}
         try
         {
-            if(action=="pause") {var w2=Service.Resolve(Peer(co));if(w2!=null&&IrrigationDefinitions.IsSupply(w2)){Service.CrewSuspend(w2);CrewWork.ManualStop(w2);}CrewWork.ManualStop(co);reason=Text.Get("paused");return true;}
+            if(action=="pause") {foreach(var w2 in Supplies(co)){Service.CrewSuspend(w2);CrewWork.ManualStop(w2);}CrewWork.ManualStop(co);reason=Text.Get("paused");return true;}
             if(action.StartsWith("bulk-reserve:",StringComparison.Ordinal))
             {var s=Read(co);s.SetReserve(double.Parse(action.Substring(13),CultureInfo.InvariantCulture));Save(co,s);PauseSupply(co);reason=Text.Get("done");return true;}
             if(BulkDefinitions.Work.Contains(action)&&binding==null)
@@ -104,8 +124,7 @@ internal static class BulkService
     }
     internal static void PauseSupply(CondOwner co)
     {
-        var w2=Service.Resolve(Peer(co));if(w2==null||!IrrigationDefinitions.IsSupply(w2))return;
-        Service.CrewSuspend(w2);ConfigurationStamp.SuspendChangedOrder(w2);
+        foreach(var w2 in Supplies(co)){Service.CrewSuspend(w2);ConfigurationStamp.SuspendChangedOrder(w2);}
     }
     internal static bool Work(CondOwner co,CondOwner actor,string action)
     {

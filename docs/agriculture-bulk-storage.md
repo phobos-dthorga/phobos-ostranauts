@@ -26,13 +26,19 @@ aggregate formulation and value per kilogram as the existing selected charges.
 
 ## Set up a reservoir
 
-1. Install the reservoir on intact floor and put the W2 within one tile of it:
-   touching or with one tile between them, on any side, diagonals included.
+1. Install the reservoir on intact floor and put the W2 within one tile of it
+   (touching or with one tile between them, on any side, diagonals included), or
+   anywhere aboard with Framework's **process-water line** laid between the
+   reservoir's water port and the W2's intake. Each is the tile beside the middle
+   of the equipment's left-hand side, turning with it (since Agriculture 0.30.0).
    A Shipbreaker S3, S4 or S5 process water silo can feed a W2 the same way.
    The original R3 layout (W2 against its right edge) still works.
 2. Pause W2 operation and receiving. Open either local Supplies panel, choose
    **Reservoir / supply connection**, select the other machine, and Apply.
-   C1 exposes the same checked connection and reserve/target choices.
+   The list says how each is reached. One reservoir can feed several W2s; its
+   panel lists every machine linked to it, and **Clear** on the reservoir
+   releases all of its W2s. C1 exposes the same checked connection and
+   reserve/target choices.
 3. Fill R3 using station **Bulk supplies**, or put ordinary 5 kg irrigation
    charges in its inventory and choose **Load one 5 kg irrigation charge**.
    Each successful local load requires ten seconds before skill modifiers.
@@ -155,8 +161,9 @@ No reservoir fabrication recipe is added.
 Agriculture 0.18.0 keeps the R3's records, journals and guard under their
 existing names but moves their custody into Framework 0.39.0's shared bulk
 vessel service, the same one Shipbreaker's S3 silo uses. A saved R3 reads
-unchanged. A Shipbreaker T2 ice thaw unit installed within one tile of an R3
-can deliver its thaw water into the reservoir: link it from the T2's panel.
+unchanged. A Shipbreaker T2 ice thaw unit installed within one tile of an R3,
+or joined to it by the process-water line, can deliver its thaw water into the
+reservoir: link it from the T2's panel.
 See the [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
 
 ## Design basis and verification

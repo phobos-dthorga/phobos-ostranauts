@@ -38,13 +38,12 @@ internal static class SiloService
         new[] { (new BulkSupplyOffer("shipbreaker.water", Text.Get("Silo.offer"), Text.Get("Silo.unit_kg"), SiloRules.WaterPricePerKg, SiloRules.PurchaseStepKg,
             (int)Math.Ceiling(SiloRules.Sizes.Max(s => s.CapacityKg) / SiloRules.PurchaseStepKg)), (IReadOnlyList<string>)SiloRules.Sizes.Select(s => s.Prefix).ToArray()) } :
         Array.Empty<(BulkSupplyOffer, IReadOnlyList<string>)>());
-    internal static IEnumerable<CondOwner> ThawUnits(CondOwner silo) => (silo.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && ThawRules.IsFamily(c.strCODef) && ThawService.Peer(c) == silo.strID).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     internal static string Describe(CondOwner co)
     {
         if (BulkVessel.Protected(co)) return Text.Get("Silo.protected");
         var s = BulkVessel.Snapshot(co);
-        string units = string.Join(", ", ThawUnits(co).Select(ObjectPresentation.Name));
+        // Every machine linked to the silo, from any mod (Shipbreaker 0.53.0: silos are shared).
+        string units = string.Join(", ", LinkChoices.LinkedNames(co));
         if (units.Length == 0) units = ConsoleText.Get("not_selected");
         return Text.Get("Silo.status", s.ServiceKg, s.CatchKg, s.CapacityKg, s.ReserveKg, units) + (s.CatchKg > 0 ? "\n" + Text.Get("Silo.catch_wait") : "");
     }
@@ -122,13 +121,16 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
         }
         else if (ThawRules.IsFamily(co.strCODef))
         {
-            yield return new(Text.Get("Thaw.vessel_field"), ObjectPresentation.Name(ThawService.Peer(co)),
-                ThawService.Candidates(co).Select(v => ("link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("link:none", Text.Get("Thaw.link_none")) }));
+            string water = ThawService.Peer(co), methane = ThawService.MethanePeer(co);
+            yield return new(Text.Get("Thaw.vessel_field"), ObjectPresentation.Name(water),
+                ThawService.Candidates(co).Select(v => ("link:" + v.strID, LinkChoices.Label(co, v, ThawService.WaterLink, true))).Concat(new[] { ("link:none", Text.Get("Thaw.link_none")) }),
+                "link:" + (water.Length == 0 ? "none" : water));
             // Methane ice needs a methane store (Phobos Manufacturing); the field appears once one is in reach or linked.
             var stores = ThawService.MethaneCandidates(co).ToArray();
-            if (stores.Length > 0 || ThawService.MethanePeer(co).Length > 0)
-                yield return new(Text.Get("Thaw.methane_field"), ObjectPresentation.Name(ThawService.MethanePeer(co)),
-                    stores.Select(v => ("methane-link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }));
+            if (stores.Length > 0 || methane.Length > 0)
+                yield return new(Text.Get("Thaw.methane_field"), ObjectPresentation.Name(methane),
+                    stores.Select(v => ("methane-link:" + v.strID, LinkChoices.Label(co, v, ThawService.MethaneLink, true))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }),
+                    "methane-link:" + (methane.Length == 0 ? "none" : methane));
         }
     }
     public bool IsConfiguration(string action) => action.StartsWith("reserve:", StringComparison.Ordinal) || action.StartsWith("draw:", StringComparison.Ordinal) ||

@@ -1294,3 +1294,44 @@ piped, and joins chain across the ship.
   step only, idempotent, never touching a save file. The game rebuilds map points and
   socket adds from definitions on load, so a conversion only renames.
 
+## Shared lines, ports and vessel links (0.57.0)
+
+- **Framework-owned items (`Items`).** `FrameworkItems.Prepare()` returns Framework's
+  own definitions; `FrameworkLifecycle.Begin` publishes them before raising
+  `ContentLoading`, so content mods may add ports to them and name them in stock.
+  `ItemEconomy` is Framework's economy data pack (`mods/PhobosFramework/framework/economy.json`,
+  overrides in `BepInEx/config/PhobosFramework/economy`). `SharedLines.GasSpec()` and
+  `ProcessWaterSpec()` are the two line families: the gas line keeps every saved id of
+  Manufacturing's former propellant line.
+- **`Liquids.LineFamilies` and `LineCommodities`.** `LineFamilies.ProcessWater` and
+  `Gas` are network families with adjacency joins. `LineFamilies.Assign(commodity,
+  family)` says which line carries a bulk commodity (water is preassigned); a
+  commodity with no line links by touching only. `LineCommodities` is the same map
+  by family id, free of game types for offline checks.
+- **`Liquids.LinePorts`.** The port rule: `Water(footprint)` is the neighbouring tile
+  on the local -X side and `Gas(footprint)` on the +X side, both in the middle row
+  (the upper of two on an even footprint); `Acid(footprint)` is one row below the
+  gas port. Each returns the point offset and the footprint socket that draws the
+  joint. `LineDefinitions.AddPort` records the port against the spec's `Family`, and
+  `LinePorts.Points(family, definition)` feeds the family's participant test. Only
+  `Power` points should ever become electrical inputs.
+- **`Liquids.VesselLink`.** One machine-to-vessel link: machine port, vessel-side
+  bank primary, commodity and pairing direction (`machineSends`; a vessel that feeds
+  a machine, like Agriculture's tank feeding a W2, is the sender). `Candidates`,
+  `Connected` (same ship, ready, reciprocal, in reach; cheap enough for power steps),
+  `Link` and `Unlink` apply the owner's link rule through `LineReach` and shared
+  banks. Content keeps its own texts, guards and settlement.
+- **`Controls.LinkChoices`.** `Label(machine, vessel, link, deposit)` names a
+  candidate with how it is reached and whether it is full (destination) or empty
+  (source); `LinkedMachines`/`LinkedNames(vessel)` list every linked machine for a
+  vessel's panel, from any mod.
+- **`Liquids.GasNetworkSafety`.** Content classes its commodities as `Oxidiser` or
+  `Fuel`; `Mixed`/`Warning(participant)` report an oxidiser and a fuel store on one
+  gas network, and `Review(ship, stores)` posts one Caution per ship through
+  `PlayerNotices`. Advice only: nothing is blocked. Primary source for the practice:
+  the U.S. Occupational Safety and Health Administration,
+  [29 CFR 1910.253(b)(4)(iii)](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.253)
+  (oxygen cylinders in storage kept 20 feet from fuel-gas cylinders or behind a
+  five-foot, half-hour fire-rated barrier). Applying it to a line that holds no gas
+  between transfers is our design choice.
+

@@ -1,6 +1,27 @@
 {
   "families": [
     {
+      "name": "process-water",
+      "lane": 0,
+      "ramp": {
+        "r": [
+          0.35,
+          10
+        ],
+        "g": [
+          0.7,
+          20
+        ],
+        "b": [
+          1.25,
+          30
+        ]
+      },
+      "targets": [
+        "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipe"
+      ]
+    },
+    {
       "name": "irrigation",
       "lane": 3,
       "ramp": null,
@@ -26,7 +47,7 @@
         ]
       },
       "targets": [
-        "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipe"
+        "mods/PhobosFramework/images/phobos/framework/PropellantPipe"
       ]
     },
     {
@@ -88,10 +109,14 @@
     "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeSheet.png": "580c570a4721175df2e4ca7cec7365c1c2c57785509c4313967e8e202a5452c0",
     "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeSheetNormal.png": "1c007ee5e8650a99cf847ef3b78f04eca62ed1c3c8ba6f0d097c00e6e8366317",
-    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipe.png": "c5e7c8062eeff2c453c1511fd9b57f0bedc09cca9bad39bb05d757119b9e208c",
-    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
-    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeSheet.png": "78ca03583da9fafdc3c59252956c71927c0a5fc295fb53b567d770e2c9902a11",
-    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeSheetNormal.png": "68d7cd184cedd650fddee18fdcc0dce79c646a7ed64c4939b5449bebed452c86",
+    "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipe.png": "cbea4cf62857600eb0e3294e25ef326d5c147c71c54d3f20eed1457cc16b231f",
+    "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipeSheet.png": "ace889b648058ea92049241e6d1bbd9f06c5923f300d0af1461dba1a4e7a8a77",
+    "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipeSheetNormal.png": "e5cb3f27bc477c7b1c5a42f798db17de036f4de050c700ecb45025d426cc696f",
+    "mods/PhobosFramework/images/phobos/framework/PropellantPipe.png": "c5e7c8062eeff2c453c1511fd9b57f0bedc09cca9bad39bb05d757119b9e208c",
+    "mods/PhobosFramework/images/phobos/framework/PropellantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosFramework/images/phobos/framework/PropellantPipeSheet.png": "78ca03583da9fafdc3c59252956c71927c0a5fc295fb53b567d770e2c9902a11",
+    "mods/PhobosFramework/images/phobos/framework/PropellantPipeSheetNormal.png": "68d7cd184cedd650fddee18fdcc0dce79c646a7ed64c4939b5449bebed452c86",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe.png": "ae4c12b5ed3572642e72dda11ec60e96ae30afcec99bc4562418aeedb8088aa9",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeSheet.png": "11102c6e43ede69347dd26cc6611bfc473cdbd448a7aab49d21727e090638811",

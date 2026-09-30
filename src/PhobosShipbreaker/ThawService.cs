@@ -50,32 +50,30 @@ internal static class ThawService
         (CrewLogistics.IsUnitPreflight(input) ? bin.objCOParent != null && CrewFeed(bin.objCOParent, input) : ValidIce(input)) &&
         bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ThawRules.FeedCapacity);
 
-    internal static MaterialPort Outlet(CondOwner t2) => new(t2.strID, ThawRules.OutPort, t2.mapGUIPropMaps);
-    internal static MaterialPort Inlet(CondOwner vessel) => new(vessel.strID, ThawRules.VesselPort, vessel.mapGUIPropMaps);
-    internal static string Peer(CondOwner t2) => PortPairing.Read(Outlet(t2)).PeerObjectId;
-    internal static MaterialPort MethaneOutlet(CondOwner t2) => new(t2.strID, ThawRules.MethaneOutPort, t2.mapGUIPropMaps);
-    internal static MaterialPort MethaneInlet(CondOwner store) => new(store.strID, ThawRules.MethaneInPort, store.mapGUIPropMaps);
-    internal static string MethanePeer(CondOwner t2) => PortPairing.Read(MethaneOutlet(t2)).PeerObjectId;
-    private static int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
-    internal static bool Adjacent(CondOwner t2, CondOwner vessel)
-    { var a = t2.GetPos(); var b = vessel.GetPos(); return ThawRules.Adjacent(a.x, a.y, b.x, b.y, Footprint(vessel)); }
-    /// <summary>Registered water vessels within one tile on the same ship.</summary>
-    internal static IEnumerable<CondOwner> Candidates(CondOwner t2) => BulkVessels.Aboard(t2.ship, ThawRules.Commodity).Where(v => v != t2 && Adjacent(t2, v));
-    /// <summary>Registered methane vessels (Phobos Manufacturing's stores, when installed) within one tile.</summary>
-    internal static IEnumerable<CondOwner> MethaneCandidates(CondOwner t2) => BulkVessels.Aboard(t2.ship, ThawRules.MethaneCommodity).Where(v => v != t2 && Adjacent(t2, v));
+    /// <summary>The shared links (Shipbreaker 0.53.0): a water vessel touching the T2 or on its process-water line, a
+    /// methane store touching it or on its gas line; each vessel-side port is a bank several machines share. Saved
+    /// pairs from before read as the bank's first slot.</summary>
+    internal static readonly VesselLink WaterLink = new(ThawRules.OutPort, ThawRules.VesselPort, ThawRules.Commodity);
+    internal static readonly VesselLink MethaneLink = new(ThawRules.MethaneOutPort, ThawRules.MethaneInPort, ThawRules.MethaneCommodity);
+    internal static string Peer(CondOwner t2) => WaterLink.PeerId(t2);
+    internal static string MethanePeer(CondOwner t2) => MethaneLink.PeerId(t2);
+    /// <summary>Registered water vessels the T2 reaches: touching or on its process-water line.</summary>
+    internal static IEnumerable<CondOwner> Candidates(CondOwner t2) => WaterLink.Candidates(t2);
+    /// <summary>Registered methane vessels (Phobos Manufacturing's stores, when installed) touching or on its gas line.</summary>
+    internal static IEnumerable<CondOwner> MethaneCandidates(CondOwner t2) => MethaneLink.Candidates(t2);
     /// <summary>The linked water vessel when it can take one block's water now; otherwise null with the reason.</summary>
     internal static CondOwner? Vessel(CondOwner t2, double kg, out string reason) =>
-        Destination(t2, CrewWork.Resolve(Peer(t2)), Outlet(t2), Inlet, ThawRules.Commodity, kg, "Thaw.no_vessel", "Thaw.vessel_not_ready", "Thaw.vessel_protected", "Thaw.vessel_full", out reason);
+        Destination(t2, WaterLink, kg, "Thaw.no_vessel", "Thaw.vessel_not_ready", "Thaw.vessel_protected", "Thaw.vessel_full", out reason);
     /// <summary>The linked methane store when it can take one block's methane now; otherwise null with the reason.</summary>
     internal static CondOwner? MethaneStore(CondOwner t2, double kg, out string reason) =>
-        Destination(t2, CrewWork.Resolve(MethanePeer(t2)), MethaneOutlet(t2), MethaneInlet, ThawRules.MethaneCommodity, kg, "Thaw.no_methane_store", "Thaw.methane_not_ready", "Thaw.methane_protected", "Thaw.methane_full", out reason);
-    private static CondOwner? Destination(CondOwner t2, CondOwner? vessel, MaterialPort outlet, Func<CondOwner, MaterialPort> inlet, string commodity, double kg,
-        string missing, string notReady, string guarded, string full, out string reason)
+        Destination(t2, MethaneLink, kg, "Thaw.no_methane_store", "Thaw.methane_not_ready", "Thaw.methane_protected", "Thaw.methane_full", out reason);
+    private static CondOwner? Destination(CondOwner t2, VesselLink link, double kg, string missing, string notReady, string guarded, string full, out string reason)
     {
         reason = Text.Get(missing);
-        if (vessel == null || !BulkVessels.IsVessel(vessel) || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != commodity) return null;
+        var vessel = CrewWork.Resolve(link.PeerId(t2));
+        if (vessel == null || !BulkVessels.IsVessel(vessel) || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != link.Commodity) return null;
         reason = Text.Get(notReady);
-        if (vessel.ship != t2.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(outlet, inlet(vessel)) || !Adjacent(t2, vessel)) return null;
+        if (!link.Connected(t2, vessel)) return null;
         reason = Text.Get(guarded);
         if (BulkVessel.Protected(vessel) || CommodityReservations.Held(vessel.strID)) return null;
         var s = BulkVessel.Snapshot(vessel);
@@ -363,27 +361,19 @@ internal static class ThawService
             "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, ThawRules.WorkingKW * ThawRules.RoomHeatFraction) + IndustryObservations.ExplainStop(co);
     }
     internal static bool Link(CondOwner co, string id, ConsoleBinding? binding, out string reason) => Link(co, id, false, binding, out reason);
-    /// <summary>Links water to a vessel, or (methane) methane ice's methane to a methane store; each within one tile.</summary>
+    /// <summary>Links water to a vessel, or (methane) methane ice's methane to a methane store; each touching the T2 or on
+    /// the matching line.</summary>
     internal static bool Link(CondOwner co, string id, bool methane, ConsoleBinding? binding, out string reason)
     {
         reason = ProcessingService.AccessProblem(co, binding) ?? "";
         if (reason.Length > 0) return false;
         if (co.HasCond(ProcessRules.Working) || sessions.TryGetValue(co, out var s) && s.Job?.Running == true) { reason = Text.Get("Thaw.link_busy"); return false; }
-        var outlet = methane ? MethaneOutlet(co) : Outlet(co);
-        Func<CondOwner, MaterialPort> inlet = methane ? MethaneInlet : Inlet;
-        var current = CrewWork.Resolve(methane ? MethanePeer(co) : Peer(co));
-        if (id == "none")
-        {
-            PortPairing.Unlink(outlet, current == null ? null : inlet(current));
-            reason = Text.Get("Thaw.unlinked"); return true;
-        }
-        var vessel = (methane ? MethaneCandidates(co) : Candidates(co)).FirstOrDefault(v => v.strID == id);
+        var link = methane ? MethaneLink : WaterLink;
+        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Thaw.unlinked"); return true; }
+        var vessel = link.Candidates(co).FirstOrDefault(v => v.strID == id);
         if (vessel == null) { reason = Text.Get(methane ? "Thaw.methane_link_missing" : "Thaw.link_missing"); return false; }
-        if (current != null && current != vessel) PortPairing.Unlink(outlet, inlet(current));
-        string linked = Text.Get(methane ? "Thaw.methane_linked" : "Thaw.linked");
-        if (PortPairing.Matches(outlet, inlet(vessel))) { reason = linked; return true; }
-        if (!PortPairing.TryLink(outlet, inlet(vessel), out reason)) return false;
-        reason = linked; return true;
+        if (!link.Link(co, vessel, CrewWork.Resolve, out reason)) return false;
+        reason = Text.Get(methane ? "Thaw.methane_linked" : "Thaw.linked"); return true;
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {

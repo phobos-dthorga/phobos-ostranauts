@@ -19,6 +19,9 @@ internal static class ItemReferenceExport
         foreach (string file in Directory.GetFiles(Path.Combine(repo, "mods/PhobosAutoNav/data/cooverlays"), "*.json"))
             foreach (var overlay in JsonConvert.DeserializeObject<JsonCOOverlay[]>(File.ReadAllText(file))!)
                 DataHandler.dictCOOverlays[overlay.strName] = overlay;
+        // Framework's own items publish first, as FrameworkLifecycle.Begin orders them in the game (Framework 0.57.0).
+        var framework = Phobos.Ostranauts.Framework.Items.FrameworkItems.Prepare();
+        framework.Publish();
         var packs = new Dictionary<string, NativeDefinitions> {
             ["PhobosShipbreaker"] = PhobosShipbreaker.Content.Prepare(),
             ["PhobosAgriculture"] = PhobosAgriculture.Definitions.Prepare(),
@@ -31,9 +34,7 @@ internal static class ItemReferenceExport
         packs["PhobosWarDeclared"] = PhobosWarDeclared.Content.Prepare();
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
-        var shared = new NativeDefinitions();
-        shared.Objects[MaintenanceDefinitions.SpentParts] = DataHandler.dictCOs[MaintenanceDefinitions.SpentParts];
-        packs["PhobosFramework"] = shared;
+        packs["PhobosFramework"] = framework;
         var installedSources = Directory.GetDirectories(Path.Combine(repo, "mods"))
             .Where(path => File.Exists(Path.Combine(path, "mod_info.json"))).Select(Path.GetFileName).ToHashSet();
         if (!installedSources.SetEquals(packs.Keys))

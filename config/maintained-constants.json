@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.56.0",
+      "value": "0.57.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.52.0",
+      "value": "0.53.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.29.0",
+      "value": "0.30.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.22.0",
+      "value": "0.23.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -631,7 +631,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.56.0",
+      "value": "0.57.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -703,7 +703,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.56.0",
+      "value": "0.57.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1421,7 +1421,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.56.0",
+      "value": "0.57.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1730,25 +1730,25 @@
         "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
-    "Manufacturing.stockPipes": {
+    "Framework.stockLines": {
       "type": "integer",
       "value": "128",
       "min": 1,
       "max": 1024,
-      "description": "Propellant line quantity per successful merchant offer.",
+      "description": "Gas and process-water line quantity per successful merchant offer (the lines moved to Framework in 0.57.0).",
       "targets": [
         {
-          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "path": "mods/PhobosFramework/framework/economy.json",
           "pointer": "/lots/supplies"
         },
         {
           "path": "docs/development/merchant-stock.md",
-          "pattern": "^\\| Manufacturing\\ propellant\\ line \\| (?P<value>[0-9]+) \\|\\r?$",
+          "pattern": "^\\| Framework\\ gas\\ and\\ process-water\\ lines \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
       ],
       "review": [
-        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Lives in Framework's economy data pack (framework/economy.json); rebuild Framework so the embedded copy follows, then regenerate item references.",
         "Run native stock-quantity checks and regenerate item references. Existing inventories wait for native restocking."
       ]
     },

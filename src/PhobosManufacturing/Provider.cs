@@ -20,11 +20,17 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     /// Framework so consoles that list every mod's equipment show them in our words.</summary>
     internal static readonly string[] Groups = { "refinery", "leach", "acid-plant", "processor", "filler", "regulator", "manifold", "reactor", "cracker", "store" };
     /// <summary>A link field: the linked object's name, every candidate and None, with the current link marked.</summary>
-    internal static EquipmentField LinkField(string label, string prefix, string? peer, IEnumerable<CondOwner> candidates)
+    internal static EquipmentField LinkField(string label, string prefix, string? peer, IEnumerable<CondOwner> candidates) =>
+        LinkField(label, prefix, peer, candidates.Select(v => (v, ObjectPresentation.Name(v))));
+    /// <summary>A link field whose choices carry their own labels (how each is reached, and whether it is full or empty).</summary>
+    internal static EquipmentField LinkField(string label, string prefix, string? peer, IEnumerable<(CondOwner Vessel, string Label)> candidates)
     {
         string linked = string.IsNullOrEmpty(peer) || peer == "none" ? "none" : peer!;
-        return new(label, ObjectPresentation.Name(peer ?? ""), candidates.Select(v => (prefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (prefix + "none", Text.Get("Provider.link_none")) }), prefix + linked);
+        return new(label, ObjectPresentation.Name(peer ?? ""), candidates.Select(c => (prefix + c.Vessel.strID, c.Label)).Concat(new[] { (prefix + "none", Text.Get("Provider.link_none")) }), prefix + linked);
     }
+    /// <summary>A shared-vessel link field: every candidate the link reaches, labelled with how.</summary>
+    internal static EquipmentField LinkField(string label, string prefix, CondOwner co, VesselLink link, bool deposit, IEnumerable<CondOwner> candidates) =>
+        LinkField(label, prefix, link.PeerId(co), candidates.Select(v => (v, LinkChoices.Label(co, v, link, deposit))));
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
         if (ChargeMachines.For(co.strCODef) is ChargeMachine charge)
@@ -33,24 +39,24 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
         else if (ProcessorRules.IsFamily(co.strCODef))
         {
-            yield return LinkField(Text.Get("Provider.water_field"), "water:", ProcessorService.WaterPeer(co), ProcessorService.WaterCandidates(co));
-            yield return LinkField(Text.Get("Provider.store_field"), "store:", ProcessorService.StorePeer(co), ProcessorService.StoreCandidates(co));
+            yield return LinkField(Text.Get("Provider.water_field"), "water:", co, ProcessorService.WaterLink, false, ProcessorService.WaterCandidates(co));
+            yield return LinkField(Text.Get("Provider.store_field"), "store:", co, ProcessorService.HydrogenLink, true, ProcessorService.StoreCandidates(co));
             yield return new(Text.Get("Provider.canister_field"), ProcessorService.CanisterName(co),
-                ProcessorService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, ObjectPresentation.Name(c))).Concat(new[] { ("canister:none", Text.Get("Processor.cabin")) }));
+                ProcessorService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, LinkChoices.Label(co, c, LineFamilies.Gas, true))).Concat(new[] { ("canister:none", Text.Get("Processor.cabin")) }));
         }
         else if (SabatierRules.IsFamily(co.strCODef))
         {
-            yield return LinkField(Text.Get("Provider.hydrogen_field"), "hydrogen:", SabatierService.HydrogenPeer(co), SabatierService.HydrogenCandidates(co));
+            yield return LinkField(Text.Get("Provider.hydrogen_field"), "hydrogen:", co, SabatierService.HydrogenLink, false, SabatierService.HydrogenCandidates(co));
             yield return new(Text.Get("Provider.co2_field"), SabatierService.CanisterName(co),
-                SabatierService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, ObjectPresentation.Name(c))).Concat(new[] { ("canister:none", Text.Get("Provider.link_none")) }));
-            yield return LinkField(Text.Get("Provider.water_out_field"), "water:", SabatierService.WaterPeer(co), SabatierService.WaterCandidates(co));
-            yield return LinkField(Text.Get("Provider.methane_field"), "methane:", SabatierService.MethanePeer(co), SabatierService.MethaneCandidates(co));
+                SabatierService.CanisterCandidates(co).Select(c => ("canister:" + c.strID, LinkChoices.Label(co, c, LineFamilies.Gas, false))).Concat(new[] { ("canister:none", Text.Get("Provider.link_none")) }));
+            yield return LinkField(Text.Get("Provider.water_out_field"), "water:", co, SabatierService.WaterLink, true, SabatierService.WaterCandidates(co));
+            yield return LinkField(Text.Get("Provider.methane_field"), "methane:", co, SabatierService.MethaneLink, true, SabatierService.MethaneCandidates(co));
         }
         else if (CrackerRules.IsFamily(co.strCODef))
         {
-            yield return LinkField(Text.Get("Provider.ammonia_field"), "ammonia:", CrackerService.AmmoniaPeer(co), CrackerService.AmmoniaCandidates(co));
-            yield return LinkField(Text.Get("Provider.nitrogen_out_field"), "nitrogen:", CrackerService.NitrogenPeer(co), CrackerService.NitrogenCandidates(co));
-            yield return LinkField(Text.Get("Provider.hydrogen_out_field"), "hydrogen:", CrackerService.HydrogenPeer(co), CrackerService.HydrogenCandidates(co));
+            yield return LinkField(Text.Get("Provider.ammonia_field"), "ammonia:", co, CrackerService.LinkOf(CrackerService.Link.Ammonia), false, CrackerService.AmmoniaCandidates(co));
+            yield return LinkField(Text.Get("Provider.nitrogen_out_field"), "nitrogen:", co, CrackerService.LinkOf(CrackerService.Link.Nitrogen), true, CrackerService.NitrogenCandidates(co));
+            yield return LinkField(Text.Get("Provider.hydrogen_out_field"), "hydrogen:", co, CrackerService.LinkOf(CrackerService.Link.Hydrogen), true, CrackerService.HydrogenCandidates(co));
         }
         else if (ManifoldRules.IsFamily(co.strCODef))
         {

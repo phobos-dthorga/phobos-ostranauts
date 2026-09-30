@@ -65,9 +65,11 @@ internal static class StoreService
         var fuel = Fuel(co);
         if (BulkVessel.Protected(co)) return Text.Get("Store.protected");
         var s = BulkVessel.Snapshot(co);
-        string names = string.Join(", ", Linked(co, c => LinksTo(c, co.strID)).Select(ObjectPresentation.Name));
+        // Manufacturing's own one-sided references (canisters, P1 and L2 sources) and every paired machine from any mod.
+        string names = string.Join(", ", Linked(co, c => LinksTo(c, co.strID)).Select(ObjectPresentation.Name).Concat(LinkChoices.LinkedNames(co)).Distinct());
         string text = T(fuel, "level", s.ServiceKg, s.CapacityKg) + "\n" + Text.Get("Store.linked", names.Length == 0 ? ConsoleText.Get("not_selected") : names);
-        return text + (co.HasCond("IsDamaged") ? "\n" + T(fuel, "leaking", fuel.LeakKgPerHour) : "");
+        string? mixed = GasNetworkSafety.Warning(co);
+        return text + (co.HasCond("IsDamaged") ? "\n" + T(fuel, "leaking", fuel.LeakKgPerHour) : "") + (mixed == null ? "" : "\n" + mixed);
     }
     /// <summary>Whether a Manufacturing machine is linked to the store with this ID, in any role.</summary>
     private static bool LinksTo(CondOwner c, string storeId)
@@ -80,12 +82,12 @@ internal static class StoreService
         if (ChargeMachines.For(c.strCODef) is ChargeMachine charge) return charge.LinksTo(c, storeId);
         return false;
     }
-    /// <summary>Stores of the same gas this one can pour into: within one tile, or along a gas line between the two line ports.</summary>
+    /// <summary>Stores of the same gas this one can pour into: touching, or on the same gas line.</summary>
     internal static IEnumerable<CondOwner> TransferCandidates(CondOwner co)
     {
         var fuel = GasStores.For(co.strCODef);
         if (fuel == null || co.ship == null) return Enumerable.Empty<CondOwner>();
-        return BulkVessels.Aboard(co.ship, fuel.Commodity).Where(c => c != co && GasStores.IsFamily(c.strCODef) && GasLine.Connection(co, ManifoldRules.StoreOutlet, c) != null).ToArray();
+        return BulkVessels.Aboard(co.ship, fuel.Commodity).Where(c => c != co && GasStores.IsFamily(c.strCODef) && GasLine.Connection(co, c) != null).ToArray();
     }
     /// <summary>Pours everything that fits from one store into another of the same gas, under both stores' guards.</summary>
     private static bool Transfer(CondOwner co, GasStore fuel, string targetId, out string message)

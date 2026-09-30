@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.22.0";
-    public const string MinimumFrameworkVersion = "0.56.0";
+    public const string Version = "0.23.0";
+    public const string MinimumFrameworkVersion = "0.57.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -41,7 +41,7 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
     internal static void ResetServices() { MachineKinds.Reset(); ProcessorService.Reset(); SabatierService.Reset(); CrackerService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
-    private readonly List<CondOwner> damagedStores = new(), regulators = new(), members = new();
+    private readonly List<CondOwner> damagedStores = new(), regulators = new(), members = new(), classedStores = new();
     // Stage 8: regulators and gas stores come from Framework's shared world sweep, not a pass over every world object.
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =
         Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Id + ".scanned", id => id == RegulatorRules.Installed || GasStores.IsFamily(id));
@@ -53,14 +53,21 @@ public sealed class Plugin : BaseUnityPlugin
         nextScan = UnityEngine.Time.unscaledTime + 2;
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
-        damagedStores.Clear(); regulators.Clear();
+        damagedStores.Clear(); regulators.Clear(); classedStores.Clear();
         machines.Members(members);
         foreach (var c in members)
         {
             if (c.strCODef == RegulatorRules.Installed) regulators.Add(c);
             else if (GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")) damagedStores.Add(c);
+            else if (c.ship != null && GasStores.For(c.strCODef) is GasStore g && Phobos.Ostranauts.Framework.Liquids.GasNetworkSafety.ClassOf(g.Commodity) != Phobos.Ostranauts.Framework.Liquids.GasHazardClass.None)
+                classedStores.Add(c);
         }
         foreach (var co in damagedStores) StoreService.Tick(co);
+        // Oxygen and fuel stores sharing one gas line: advice through one crew-log line per ship, never a block.
+        foreach (var ship in classedStores.GroupBy(c => c.ship))
+        {
+            try { Phobos.Ostranauts.Framework.Liquids.GasNetworkSafety.Review(ship.Key, ship); } catch (Exception ex) { Log(ex.ToString()); }
+        }
         foreach (var co in regulators)
         {
             using var tick = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RegulatorTick);

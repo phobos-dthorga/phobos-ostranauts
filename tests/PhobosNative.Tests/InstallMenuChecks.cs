@@ -5,7 +5,7 @@ using PhobosShipbreaker.Core;
 
 internal static class InstallMenuChecks
 {
-    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, NativeDefinitions manufacturing, Action<bool,string> check, Action<Action,string> throws)
+    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, NativeDefinitions manufacturing, NativeDefinitions framework, Action<bool,string> check, Action<Action,string> throws)
     {
         // Exercise the actual native registration, not a replica of the menu algorithm.
         var foreign = new JsonInstallable { strName = "ForeignInstall", strJobType = "install",
@@ -14,13 +14,15 @@ internal static class InstallMenuChecks
         farm.Publish();
         foreach (var job in farm.Installables.Values) Installables.Create(job);
         foreach (var job in manufacturing.Installables.Values) Installables.Create(job);
-        foreach (var definitions in new[] { farm, industry, manufacturing })
+        foreach (var job in framework.Installables.Values) Installables.Create(job);
+        foreach (var definitions in new[] { farm, industry, manufacturing, framework })
         {
             InstallMenu.Validate(definitions.Installables.Values);
             foreach (var co in definitions.Objects.Values.Where(c => c.aStartingConds?.Any(s => s.Split('=')[0] == "IsInstalled") == true))
             {
                 string expected = co.strName.StartsWith(FurnaceRules.Radiator) || co.strName.StartsWith(FurnaceRules.ThermalPort) || co.strName.StartsWith(FurnaceCooling.Conduit) ||
-                    co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.PropellantLineRules.Prefix) ||
+                    co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPrefix) ||
+                    co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.FillerRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.RegulatorRules.Prefix) ? "HVAC" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
                     BinRules.IsFamily(co.strName) ? "FURN" :

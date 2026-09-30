@@ -11,6 +11,7 @@ internal static class LineNativeChecks
 {
     private static readonly (string Prefix, float Layer, string Presence)[] Families =
     {
+        ("PhobosProcessWaterLine", LineLayers.ProcessWater, "PhobosProcessWaterLinePresent"),
         ("PhobosPropellantLine", LineLayers.Gas, "PhobosPropellantLinePresent"),
         ("PhobosVerdemorrowWaterConduit", LineLayers.Irrigation, "PhobosWaterConduitPresent"),
         ("PhobosFurnaceCoolantConduit", LineLayers.Coolant, "PhobosFurnaceCoolantSegment"),
@@ -36,6 +37,37 @@ internal static class LineNativeChecks
                     "A segment sits on floor and adds no obstruction or power conduit, so other families share its tile: " + prefix + form);
             }
         check(Families.All(f => LineJobFilter.MachineConditions.Contains(f.Prefix + "Machine")), "Every line family is known to the paint filter");
+
+        // Framework 0.57.0 ports: every registered port is a map point on its definition, its installed forms draw the
+        // family's joint beside it, and no port point ever becomes an electrical input.
+        JsonCondOwner? Object(string id) => sets.Select(d => d.Objects.TryGetValue(id, out var co) ? co : null).FirstOrDefault(c => c != null);
+        var water = Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWater; var gas = Phobos.Ostranauts.Framework.Liquids.LineFamilies.Gas;
+        check(water.IsNetwork && water.AdjacencyJoins && gas.IsNetwork && gas.AdjacencyJoins, "Both shared lines are networks that touching equipment joins");
+        check(Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("water") == water && Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("hydrogen") == gas &&
+              Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("methane") == gas && Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("crop nutrients") == null,
+            "Water rides the water line, the gases the gas line, and the hoppers' nutrients link by touching only");
+        foreach (var (family, presence) in new[] { (Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterId, "PhobosProcessWaterLinePresent"),
+                     (Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasId, "PhobosPropellantLinePresent") })
+        {
+            var ported = Phobos.Ostranauts.Framework.Liquids.LinePorts.Definitions(family).ToArray();
+            check(ported.Length >= 8, "Equipment carries ports of " + family + " (" + ported.Length + " forms)");
+            foreach (string id in ported)
+            {
+                var co = Object(id);
+                if (co == null) continue;
+                foreach (string point in Phobos.Ostranauts.Framework.Liquids.LinePorts.Points(family, id))
+                    check(co.mapPoints.Any(p => p.StartsWith(point + ",", StringComparison.Ordinal)), "Port is a map point: " + id + " / " + point);
+                if (!id.Contains("Installed")) continue;
+                var item = Item(id);
+                check(item.aSocketAdds.Any(s => FindLoot(s)?.aCOs?.Any(c => c.StartsWith(presence + "=", StringComparison.Ordinal)) == true), "Installed equipment draws the joint beside its port: " + id);
+            }
+        }
+        Loot? FindLoot(string id) => sets.Select(d => d.Loot.TryGetValue(id, out var loot) ? loot : null).FirstOrDefault(l => l != null) ??
+            (DataHandler.dictLoot.TryGetValue(id, out var native) ? native : null);
+        foreach (var power in sets.SelectMany(d => d.Power))
+            check((power.Value.aInputPts ?? Array.Empty<string>()).All(p => p.StartsWith("Power", StringComparison.Ordinal)), "Only Power points are electrical inputs: " + power.Key);
+        foreach (var store in PhobosManufacturing.Core.GasStores.All)
+            check(store.Outlet == Phobos.Ostranauts.Framework.Liquids.LinePorts.Gas(store.Footprint), "A gas store's outlet is the shared gas port: " + store.Prefix);
 
         // The game's composite paint filter, as the PDA builds it, adjusted by our postfix.
         var added = LineJobFilter.Triggers();

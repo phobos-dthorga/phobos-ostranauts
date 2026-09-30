@@ -110,13 +110,10 @@ internal sealed class ChargeMachine
     }
 
     // ---- Links ----
-    private MaterialPort Ours(CondOwner co, ChargeLinkSpec link) => new(co.strID, link.MachinePort, co.mapGUIPropMaps);
-    private static MaterialPort Theirs(CondOwner vessel, ChargeLinkSpec link) => new(vessel.strID, link.PeerPort, vessel.mapGUIPropMaps);
-    internal string Peer(CondOwner co, ChargeLinkSpec link) => PortPairing.Read(Ours(co, link)).PeerObjectId;
-    private static int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
-    internal static bool Adjacent(CondOwner a, CondOwner b) { var p = a.GetPos(); var q = b.GetPos(); return ManufacturingRules.Adjacent(p.x, p.y, Footprint(a), q.x, q.y, Footprint(b)); }
-    internal IEnumerable<CondOwner> Candidates(CondOwner co, ChargeLinkSpec link) =>
-        BulkVessels.Aboard(co.ship, link.Commodity).Where(v => v != co && link.Accepts(v) && Adjacent(co, v));
+    // Links run through Framework's shared VesselLink (Manufacturing 0.23.0): the vessel touches the machine or shares
+    // the commodity's line with it, and the vessel-side port is a bank several machines share.
+    internal string Peer(CondOwner co, ChargeLinkSpec link) => link.Vessel.PeerId(co);
+    internal IEnumerable<CondOwner> Candidates(CondOwner co, ChargeLinkSpec link) => link.Vessel.Candidates(co, link.Accepts);
     private ChargeLinkSpec? LinkFor(string commodity) => Links.FirstOrDefault(l => l.Commodity == commodity);
     /// <summary>The linked vessel when it can settle this commodity's need now; otherwise null with the reason.</summary>
     private CondOwner? Endpoint(CondOwner co, ChargeLinkSpec link, SettlementNeed need, out string reason)
@@ -125,7 +122,7 @@ internal sealed class ChargeMachine
         var vessel = CrewWork.Resolve(Peer(co, link));
         if (vessel == null || BulkVessels.Of(vessel)?.Commodity != link.Commodity || !link.Accepts(vessel)) return null;
         reason = link.Reason(LinkProblem.NotReady, 0, 0);
-        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(Ours(co, link), Theirs(vessel, link)) || !Adjacent(co, vessel)) return null;
+        if (!link.Vessel.Connected(co, vessel)) return null;
         var snapshot = BulkVessel.Snapshot(vessel);
         switch (SettlementPlan.Check(need, snapshot, CommodityReservations.Held(vessel.strID)))
         {
@@ -534,7 +531,7 @@ internal sealed class ChargeMachine
             var vessels = Candidates(co, link).ToArray();
             string peer = Peer(co, link);
             if (!link.AlwaysShow && vessels.Length == 0 && peer.Length == 0) continue;
-            yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels);
+            yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels.Select(v => (v, LinkChoices.Label(co, v, link.Vessel, link.Deposit))));
         }
         if (Spec.Selection == RecipeSelection.Explicit)
         {
@@ -549,14 +546,10 @@ internal sealed class ChargeMachine
         reason = Content.Access(co, binding) ?? "";
         if (reason.Length > 0) return false;
         if (co.HasCond(Spec.WorkingCondition) || sessions.TryGetValue(co, out var s) && s.State.Running) { reason = T("link_busy"); return false; }
-        var ours = Ours(co, link);
-        var current = CrewWork.Resolve(Peer(co, link));
-        if (id == "none") { PortPairing.Unlink(ours, current == null ? null : Theirs(current, link)); reason = link.Unlinked(); return true; }
+        if (id == "none") { link.Vessel.Unlink(co, CrewWork.Resolve); reason = link.Unlinked(); return true; }
         var vessel = Candidates(co, link).FirstOrDefault(v => v.strID == id);
         if (vessel == null) { reason = link.Missing(); return false; }
-        if (current != null && current != vessel) PortPairing.Unlink(ours, Theirs(current, link));
-        if (PortPairing.Matches(ours, Theirs(vessel, link))) { reason = link.Linked(); return true; }
-        if (!PortPairing.TryLink(ours, Theirs(vessel, link), out reason)) return false;
+        if (!link.Vessel.Link(co, vessel, CrewWork.Resolve, out reason)) return false;
         reason = link.Linked(); return true;
     }
     /// <summary>Chooses the recipe the next charge binds (explicit machines only): idle and unbound, so a bound or

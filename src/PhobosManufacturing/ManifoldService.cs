@@ -75,7 +75,7 @@ internal sealed class ManifoldService : IRcsPropellantFeed
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && GasStores.IsFamily(c.strCODef) && c.HasCond("IsInstalled") && Connection(co, c) != null)
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     /// <summary>How a store reaches the manifold: "adjacent", "line", or null when it does not.</summary>
-    private static string? Connection(CondOwner manifold, CondOwner store) => GasLine.Connection(manifold, ManifoldRules.Inlet, store);
+    private static string? Connection(CondOwner manifold, CondOwner store) => GasLine.Connection(manifold, store);
     /// <summary>Refreshes the cached list of switched-on stores that can feed right now, with a reason for each that cannot.</summary>
     private static void Refresh(CondOwner co, Session s)
     {

@@ -6,6 +6,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-10-01 - Draft
+
+### Added
+
+- Water and gas ports on every machine: the V4, X2, K2, LC-3 and SA-3 take process water through the port on their left-hand side, and every machine takes gas through the port on its right-hand side (the AX-2 has no water port). Lay Framework's process-water or gas line from a port to a store's, or place the two touching.
+- Stores are shared: one store can serve up to eight machines of each kind, so a hydrogen store fed by an X2 can supply a K2, and one water tank can feed several machines. Link lists name how each store is reached and mark a full destination or an empty source; a store's panel lists every machine linked to it.
+- A caution on the stores' panels, and one crew-log note, when an oxygen store and a fuel store share one gas line. Nothing is blocked.
+
+### Changed
+
+- The link rule applies everywhere: a machine links to a store, and a link keeps working, only while the two touch (footprints within one tile, as before) or share a line network, never across open floor. Chains of touching machines and stores count, so a tank touching a V4 touching an X2 serves the X2. Oxygen and CO2 stores for the X2 and K2 follow the same rule; the game's own canisters still need to touch.
+- The P1 manifold, L2 filling station, A2 regulator and store-to-store transfers use the same gas-line network: every store whose port a line reaches is offered, with no 64-tile limit.
+- The gas line moved to Framework with its saved identity, name, price and stock unchanged; it no longer needs Manufacturing installed. Only power points are treated as the V4, LC-3 and SA-3's electrical inputs.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.57.0 or newer. Saved links and records are kept, and laid gas line stays in place. A link between a machine and a store that neither touch nor share a line now reports the store as not ready: move them together or lay the line between their ports. Offline checks are not gameplay validation.
+
 ## [0.22.0] - 2026-09-30 - Draft
 
 ### Changed

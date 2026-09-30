@@ -25,6 +25,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.53.0] - 2026-10-01 - Draft
+
+### Added
+
+- Line ports: every S3, S4 and S5 silo has a process-water port on its left-hand side, and the T2 has one there plus a gas port on its right-hand side for methane. Lay Framework's process-water or gas line between ports, or place the equipment touching.
+- The T2 can now send methane to a methane store along a gas line, which needs only Framework's line, not Manufacturing's.
+- Silos are shared: up to eight machines of each kind can link to one silo, from any mod, and the silo's panel lists every machine linked to it. Link lists name how each vessel is reached and mark a full one.
+
+### Changed
+
+- The T2 links to a water vessel or methane store, and keeps delivering, only while the two touch or share the matching line, never across open floor.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.57.0 or newer. Saved links and records are kept; a T2 link saved before reads as the silo's first slot. Offline checks are not gameplay validation.
+
 ## [0.52.0] - 2026-09-30 - Draft
 
 ### Changed

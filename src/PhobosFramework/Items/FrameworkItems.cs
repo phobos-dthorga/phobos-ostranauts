@@ -1,0 +1,44 @@
+using System;
+using Phobos.Ostranauts.Framework.Data;
+using Phobos.Ostranauts.Framework.Registration;
+
+namespace Phobos.Ostranauts.Framework.Items;
+
+/// <summary>The native definitions Framework itself owns (Framework 0.57.0): items every Phobos mod shares, so no
+/// content mod has to be installed for another to use them. They are published at the start of each content load,
+/// before any content mod registers, so ports, conversions and stock in content mods can name them.</summary>
+public static class FrameworkItems
+{
+    public static bool Ready { get; private set; }
+    /// <summary>Framework's whole item set, with merchant, regional and faction-kiosk stock.</summary>
+    public static NativeDefinitions Prepare()
+    {
+        var d = new NativeDefinitions();
+        ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
+        SharedLines.Add(d);
+        var none = Array.Empty<EquipmentSale>();
+        EconomyStock.AddOffers(d, ItemEconomy.Pack, none);
+        EconomyStock.ApplyRegional(d, ItemEconomy.Pack, "Framework", none);
+        EconomyStock.ApplyFactionKiosks(d, ItemEconomy.Pack, "Framework", none);
+        ItemHandling.Apply(d);
+        return d;
+    }
+    internal static void Register(Action<string> log)
+    {
+        Ready = false;
+        try { Prepare().Publish(); Ready = true; }
+        catch (Exception e) { log(Text.Get("FrameworkItems.failed", e)); }
+    }
+    /// <summary>A native definition's starting mass, as the game writes it (StatMass=1xN).</summary>
+    internal static double? NativeMass(string id)
+    {
+        if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(id, out var co)) return null;
+        foreach (string cond in co.aStartingConds ?? Array.Empty<string>())
+        {
+            if (!cond.StartsWith("StatMass=", StringComparison.Ordinal)) continue;
+            string amount = cond.Substring(cond.IndexOf('x') + 1);
+            return double.TryParse(amount, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double kg) ? kg : null;
+        }
+        return null;
+    }
+}

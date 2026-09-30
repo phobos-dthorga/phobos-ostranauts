@@ -68,20 +68,24 @@ internal static class CrackerService
     }
 
     /// <summary>The three links: which of the cracker's ports, which port on the store, and the store's commodity.</summary>
-    private enum Link { Ammonia, Nitrogen, Hydrogen }
+    internal enum Link { Ammonia, Nitrogen, Hydrogen }
     private static readonly Link[] Links = { Link.Ammonia, Link.Nitrogen, Link.Hydrogen };
     private static string Commodity(Link link) => link == Link.Ammonia ? ManufacturingRules.Ammonia : link == Link.Nitrogen ? ManufacturingRules.Nitrogen : ManufacturingRules.Hydrogen;
     private static string Kind(Link link) => link == Link.Ammonia ? "ammonia" : link == Link.Nitrogen ? "nitrogen" : "hydrogen";
-    private static MaterialPort Ours(CondOwner co, Link link) =>
-        new(co.strID, link == Link.Ammonia ? CrackerRules.AmmoniaInPort : link == Link.Nitrogen ? CrackerRules.NitrogenOutPort : CrackerRules.HydrogenOutPort, co.mapGUIPropMaps);
-    private static MaterialPort Theirs(CondOwner store, Link link) =>
-        new(store.strID, link == Link.Ammonia ? CrackerRules.StoreOutPort : CrackerRules.StoreInPort, store.mapGUIPropMaps);
-    private static string Peer(CondOwner co, Link link) => PortPairing.Read(Ours(co, link)).PeerObjectId;
+    /// <summary>The shared links (Manufacturing 0.23.0): each store touches the cracker or shares its gas line, and
+    /// each store-side port is a bank several machines share.</summary>
+    private static readonly VesselLink[] vesselLinks =
+    {
+        new(CrackerRules.AmmoniaInPort, CrackerRules.StoreOutPort, ManufacturingRules.Ammonia),
+        new(CrackerRules.NitrogenOutPort, CrackerRules.StoreInPort, ManufacturingRules.Nitrogen),
+        new(CrackerRules.HydrogenOutPort, CrackerRules.StoreInPort, ManufacturingRules.Hydrogen)
+    };
+    internal static VesselLink LinkOf(Link link) => vesselLinks[(int)link];
+    private static string Peer(CondOwner co, Link link) => LinkOf(link).PeerId(co);
     internal static string AmmoniaPeer(CondOwner co) => Peer(co, Link.Ammonia);
     internal static string NitrogenPeer(CondOwner co) => Peer(co, Link.Nitrogen);
     internal static string HydrogenPeer(CondOwner co) => Peer(co, Link.Hydrogen);
-    private static IEnumerable<CondOwner> Candidates(CondOwner co, Link link) =>
-        BulkVessels.Aboard(co.ship, Commodity(link)).Where(v => v != co && GasStores.Holds(v.strCODef, Commodity(link)) && ProcessorService.Adjacent(co, v));
+    private static IEnumerable<CondOwner> Candidates(CondOwner co, Link link) => LinkOf(link).Candidates(co, v => GasStores.Holds(v.strCODef, Commodity(link)));
     internal static IEnumerable<CondOwner> AmmoniaCandidates(CondOwner co) => Candidates(co, Link.Ammonia);
     internal static IEnumerable<CondOwner> NitrogenCandidates(CondOwner co) => Candidates(co, Link.Nitrogen);
     internal static IEnumerable<CondOwner> HydrogenCandidates(CondOwner co) => Candidates(co, Link.Hydrogen);
@@ -93,8 +97,7 @@ internal static class CrackerService
         string key = "Cracker." + Kind(link);
         var store = CrewWork.Resolve(Peer(co, link));
         if (store == null || !GasStores.Holds(store.strCODef, Commodity(link))) { reason = Text.Get(key + "_none"); return null; }
-        if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(Ours(co, link), Theirs(store, link)) || !ProcessorService.Adjacent(co, store))
-        { reason = Text.Get(key + "_not_ready"); return null; }
+        if (!LinkOf(link).Connected(co, store)) { reason = Text.Get(key + "_not_ready"); return null; }
         var snapshot = BulkVessel.Snapshot(store);
         if (snapshot.Protected || CommodityReservations.Held(store.strID)) { reason = Text.Get("Cracker.store_protected"); return null; }
         if (snapshot.CatchKg > 1e-8) { reason = Text.Get("Cracker.store_catch"); return null; }
@@ -333,14 +336,10 @@ internal static class CrackerService
         if (co.HasCond(ManufacturingRules.Reacting) || s.Running) { reason = Text.Get("Cracker.link_busy"); return false; }
         if (!Links.Any(l => Kind(l) == kind)) { reason = Text.Get("Content.unsupported_action"); return false; }
         var link = Links.First(l => Kind(l) == kind);
-        var ours = Ours(co, link);
-        var current = CrewWork.Resolve(Peer(co, link));
-        if (id == "none") { PortPairing.Unlink(ours, current == null ? null : Theirs(current, link)); reason = Text.Get("Cracker.unlinked"); return true; }
+        if (id == "none") { LinkOf(link).Unlink(co, CrewWork.Resolve); reason = Text.Get("Cracker.unlinked"); return true; }
         var target = Candidates(co, link).FirstOrDefault(v => v.strID == id);
         if (target == null) { reason = Text.Get("Cracker.link_missing"); return false; }
-        if (current != null && current != target) PortPairing.Unlink(ours, Theirs(current, link));
-        if (PortPairing.Matches(ours, Theirs(target, link))) { reason = Text.Get("Cracker.linked"); return true; }
-        if (!PortPairing.TryLink(ours, Theirs(target, link), out reason)) return false;
+        if (!LinkOf(link).Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Cracker.linked"); return true;
     }
     internal static string? MaintenanceReason(CondOwner co)

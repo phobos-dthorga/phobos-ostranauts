@@ -1,0 +1,23 @@
+[h1]Phobos Framework 0.57.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Framework owns its first items: the Fennmark gas line, moved from Manufacturing with its saved identity, name, price, bills and stock unchanged, and a new process-water line (blue, its own lane). Both install from INSTALL, HVAC, sell in lots of 128 at the usual supply merchants and for scrip at the faction kiosks at any standing, and no longer need any one content mod installed. Their art ships in Framework's package.
+[*]One port rule for every machine and store: the water port is the tile beside the middle of the left-hand side, the gas port the tile beside the middle of the right-hand side, both turning with the equipment. Ports come from definitions, so equipment saved before gains them on load.
+[*]A shared machine-to-store link that every mod uses: a store is offered, and a linked store keeps working, only while it touches the machine or shares its line network. Link lists say how each store is reached (touching, water line, gas line) and mark a full destination or an empty source. Store and tank panels list every machine linked to them, from any mod.
+[*]A caution when an oxygen store and a fuel store (hydrogen, methane or ammonia) share one gas line: a line on the stores' panels and one crew-log note per ship. Nothing is blocked. Yards keep them apart; the U.S. Occupational Safety and Health Administration's oxygen-cylinder storage rule, 29 CFR 1910.253(b)(4)(iii), asks for 20 feet or a fire-rated barrier.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The offline data-pack validator accepts an economy pack with supplies and no equipment (Framework's own). The installer retires a file by any of its recorded released hashes, so the gas line art Manufacturing shipped in two versions is backed up and removed cleanly.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Phobos Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0 need this version. Saved lines, links and records are kept; a link saved before reads as a store's first slot. The gas line keeps its saved ids, so laid lines stay where they are. Links that crossed open floor under the old one-tile rule still work only while the two touch; otherwise lay the matching line between their ports. Offline checks are not gameplay validation.
+[/list]

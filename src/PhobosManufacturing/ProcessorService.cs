@@ -67,24 +67,28 @@ internal static class ProcessorService
         return !s.Protected;
     }
 
+    /// <summary>Touching (footprints within one tile): the rule for the game's own canisters, which have no line port.</summary>
     internal static bool Adjacent(CondOwner a, CondOwner b) => BulkVessels.Adjacent(a, b);
-    internal static MaterialPort WaterIn(CondOwner co) => new(co.strID, ProcessorRules.WaterInPort, co.mapGUIPropMaps);
-    internal static MaterialPort VesselOut(CondOwner vessel) => new(vessel.strID, ProcessorRules.VesselOutPort, vessel.mapGUIPropMaps);
-    internal static MaterialPort HydrogenOut(CondOwner co) => new(co.strID, ProcessorRules.HydrogenOutPort, co.mapGUIPropMaps);
-    internal static MaterialPort StoreIn(CondOwner store) => new(store.strID, ProcessorRules.StoreInPort, store.mapGUIPropMaps);
-    internal static string WaterPeer(CondOwner co) => PortPairing.Read(WaterIn(co)).PeerObjectId;
-    internal static string StorePeer(CondOwner co) => PortPairing.Read(HydrogenOut(co)).PeerObjectId;
-    internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) => BulkVessels.Aboard(co.ship, ManufacturingRules.Water).Where(v => v != co && Adjacent(co, v));
-    internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => BulkVessels.Aboard(co.ship, ManufacturingRules.Hydrogen).Where(v => v != co && Adjacent(co, v));
-    /// <summary>Where the oxygen can go: installed native oxygen canisters within one tile (the game's own trigger)
-    /// and bulk oxygen stores of any size within one tile.</summary>
+    /// <summary>The shared links (Manufacturing 0.23.0): a water vessel on the process-water line or touching, a
+    /// hydrogen store on the gas line or touching; each vessel-side port is a bank several machines share.</summary>
+    internal static readonly VesselLink WaterLink = new(ProcessorRules.WaterInPort, ProcessorRules.VesselOutPort, ManufacturingRules.Water);
+    internal static readonly VesselLink HydrogenLink = new(ProcessorRules.HydrogenOutPort, ProcessorRules.StoreInPort, ManufacturingRules.Hydrogen);
+    internal static string WaterPeer(CondOwner co) => WaterLink.PeerId(co);
+    internal static string StorePeer(CondOwner co) => HydrogenLink.PeerId(co);
+    internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) => WaterLink.Candidates(co);
+    internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => HydrogenLink.Candidates(co);
+    /// <summary>A bulk gas store of the commodity on the gas line or touching (no pairing: the oxygen and CO2
+    /// destinations are one-sided saved ids).</summary>
+    internal static bool StoreReach(CondOwner co, CondOwner store) => LineReach.Of(co, store, LineFamilies.Gas) != LineReachKind.None;
+    /// <summary>Where the oxygen can go: installed native oxygen canisters touching the cell (the game's own trigger)
+    /// and bulk oxygen stores of any size touching it or on its gas line.</summary>
     internal static IEnumerable<CondOwner> CanisterCandidates(CondOwner co)
     {
         var trigger = NativeDefinitions.Trigger(ProcessorRules.CanisterTrigger);
         if (co.ship == null) return Enumerable.Empty<CondOwner>();
         var canisters = trigger == null ? Enumerable.Empty<CondOwner>() :
             co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && Adjacent(co, c));
-        return canisters.Concat(BulkVessels.Aboard(co.ship, ManufacturingRules.Oxygen).Where(v => v != co && Adjacent(co, v))).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+        return canisters.Concat(BulkVessels.Aboard(co.ship, ManufacturingRules.Oxygen).Where(v => v != co && StoreReach(co, v))).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
     // These run every power step while the cell works: reasons are formatted only on the way out, and a vessel is
     // read once (the snapshot carries its protection).
@@ -92,7 +96,7 @@ internal static class ProcessorService
     {
         var vessel = CrewWork.Resolve(WaterPeer(co));
         if (vessel == null || !BulkVessels.IsVessel(vessel)) { reason = Text.Get("Processor.no_vessel"); return null; }
-        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(WaterIn(co), VesselOut(vessel)) || !Adjacent(co, vessel)) { reason = Text.Get("Processor.vessel_not_ready"); return null; }
+        if (!WaterLink.Connected(co, vessel)) { reason = Text.Get("Processor.vessel_not_ready"); return null; }
         var s = BulkVessel.Snapshot(vessel);
         if (s.Protected || CommodityReservations.Held(vessel.strID)) { reason = Text.Get("Processor.vessel_protected"); return null; }
         if (s.CatchKg > 1e-8) { reason = Text.Get("Processor.vessel_catch"); return null; }
@@ -103,7 +107,7 @@ internal static class ProcessorService
     {
         var store = CrewWork.Resolve(StorePeer(co));
         if (store == null || !HydrogenRules.AnySize(store.strCODef)) { reason = Text.Get("Processor.no_store"); return null; }
-        if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(HydrogenOut(co), StoreIn(store)) || !Adjacent(co, store)) { reason = Text.Get("Processor.store_not_ready"); return null; }
+        if (!HydrogenLink.Connected(co, store)) { reason = Text.Get("Processor.store_not_ready"); return null; }
         var s = BulkVessel.Snapshot(store);
         if (s.Protected || CommodityReservations.Held(store.strID)) { reason = Text.Get("Processor.store_protected"); return null; }
         if (s.HeadroomKg + 1e-8 < ProcessorRules.HydrogenKgPerCycle) { reason = Text.Get("Processor.store_full", s.HeadroomKg); return null; }
@@ -113,10 +117,10 @@ internal static class ProcessorService
     /// listing them: the same rules applied to that object alone.</summary>
     private static bool IsCanisterCandidate(CondOwner co, CondOwner c)
     {
-        if (c == null || c.bDestroyed || c == co || c.ship != co.ship || !Adjacent(co, c)) return false;
-        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.Oxygen && c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c)) return true;
+        if (c == null || c.bDestroyed || c == co || c.ship != co.ship) return false;
+        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.Oxygen) return c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c) && StoreReach(co, c);
         var trigger = NativeDefinitions.Trigger(ProcessorRules.CanisterTrigger);
-        return trigger != null && trigger.Triggered(c);
+        return trigger != null && Adjacent(co, c) && trigger.Triggered(c);
     }
     /// <summary>The linked canister when it can take one cycle's oxygen; null with an empty reason means cabin air.</summary>
     private static CondOwner? Canister(CondOwner co, Session s, out string reason)
@@ -345,16 +349,11 @@ internal static class ProcessorService
             s.State.Canister = id == "none" ? "" : id; Save(co, s);
             reason = Text.Get(id == "none" ? "Processor.cabin_selected" : "Processor.linked"); return !s.Protected;
         }
-        bool water = kind == "water";
-        var ours = water ? WaterIn(co) : HydrogenOut(co);
-        Func<CondOwner, MaterialPort> theirs = water ? VesselOut : StoreIn;
-        var current = CrewWork.Resolve(water ? WaterPeer(co) : StorePeer(co));
-        if (id == "none") { PortPairing.Unlink(ours, current == null ? null : theirs(current)); reason = Text.Get("Processor.unlinked"); return true; }
-        var target = (water ? WaterCandidates(co) : StoreCandidates(co)).FirstOrDefault(v => v.strID == id);
+        var link = kind == "water" ? WaterLink : HydrogenLink;
+        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Processor.unlinked"); return true; }
+        var target = link.Candidates(co).FirstOrDefault(v => v.strID == id);
         if (target == null) { reason = Text.Get("Processor.link_missing"); return false; }
-        if (current != null && current != target) PortPairing.Unlink(ours, theirs(current));
-        if (PortPairing.Matches(ours, theirs(target))) { reason = Text.Get("Processor.linked"); return true; }
-        if (!PortPairing.TryLink(ours, theirs(target), out reason)) return false;
+        if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Processor.linked"); return true;
     }
     internal static string CanisterId(CondOwner co) => Get(co).State.Canister;

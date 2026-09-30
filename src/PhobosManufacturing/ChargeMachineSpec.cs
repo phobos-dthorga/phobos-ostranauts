@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Processing;
 using PhobosManufacturing.Core;
 
@@ -32,11 +33,17 @@ internal sealed class ChargeLinkSpec
     internal Func<string> Linked { get; }
     internal Func<string> Unlinked { get; }
     internal Func<string> Missing { get; }
+    /// <summary>Whether the machine deposits into the vessel (a destination shows "full" on the panel, a source "empty").</summary>
+    internal bool Deposit { get; }
+    /// <summary>The shared link (Manufacturing 0.23.0): the vessel-side port is a bank, so several machines share one
+    /// vessel, and the vessel must touch the machine or share the commodity's line with it.</summary>
+    internal VesselLink Vessel { get; }
     internal ChargeLinkSpec(string commodity, string actionPrefix, string machinePort, string peerPort, Func<CondOwner, bool> accepts, Func<string> fieldLabel, bool alwaysShow,
-        Func<LinkProblem, double, double, string> reason, Func<string> linked, Func<string> unlinked, Func<string> missing)
+        Func<LinkProblem, double, double, string> reason, Func<string> linked, Func<string> unlinked, Func<string> missing, bool deposit = false)
     {
         Commodity = commodity; ActionPrefix = actionPrefix; MachinePort = machinePort; PeerPort = peerPort; Accepts = accepts; FieldLabel = fieldLabel; AlwaysShow = alwaysShow;
-        Reason = reason; Linked = linked; Unlinked = unlinked; Missing = missing;
+        Reason = reason; Linked = linked; Unlinked = unlinked; Missing = missing; Deposit = deposit;
+        Vessel = new VesselLink(machinePort, peerPort, commodity);
     }
 }
 

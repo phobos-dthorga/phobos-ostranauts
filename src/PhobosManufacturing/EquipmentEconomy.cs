@@ -48,8 +48,6 @@ internal static class EquipmentEconomy
     /// <summary>The game's own mark on its late-game equipment: the K-Leg fixer buys it intact, the ordinary
     /// supplies kiosk does not; Venus buys either. Every native loose item above $20,000 carries it.</summary>
     internal const string HighSalvageMark = "IsSalvageValueHigh";
-    /// <summary>Loose propellant line stacks like the other mods' pipes.</summary>
-    internal const int LineStack = 10;
     private static Spec[]? machines; private static EquipmentSale[]? sales; private static EconomyPack? builtFrom;
     /// <summary>Every family and size in application order: the machines, then every gas store size. Rebuilt when the
     /// pack is reloaded (a new game load, a second offline preparation).</summary>
@@ -138,7 +136,6 @@ internal static class EquipmentEconomy
             mount.strCTThemMultCondTools = "IsToolMortorq";
             EquipmentSaveUpgrade.Register(d, id, id);
         }
-        AddSupplies(d);
         EconomyStock.AddOffers(d, Economy.Pack, Sales);
         EconomyStock.AddWorldLoot(d, Economy.Pack, Sales);
     }
@@ -154,32 +151,6 @@ internal static class EquipmentEconomy
         double removal = maximum * job.fDuration * MinutesPerHour / minutes;
         d.Loot[effect] = new Loot { strName = effect, strType = "trigger", aCOs = new[] { "TDnStatDamage=1x" + removal.ToString("R", CultureInfo.InvariantCulture) }, aLoots = Array.Empty<string>() };
         job.strAllowLootCTsThem = effect;
-    }
-    /// <summary>Supplies (the propellant line) are ordinary stock, not late-game plant: priced and stocked like the
-    /// other mods' pipes, repaired with a little aluminium, dismantled to their own retained waste.</summary>
-    private static void AddSupplies(NativeDefinitions d)
-    {
-        foreach (var pair in Economy.Pack.supplies)
-        {
-            string prefix = pair.Key; var supply = pair.Value;
-            string waste = supply.remainder ?? prefix + "Waste";
-            double kg = prefix == PropellantLineRules.Prefix ? PropellantLineRules.Kg : 1;
-            MaintenanceDefinitions.Remainder(d, waste, Text.Get("Line.waste"), kg);
-            var bill = Bill(supply.repairBill, Materials.Take(Triggers.Length).ToArray());
-            foreach (string state in Definitions.Forms)
-            {
-                string id = prefix + state; var co = d.Objects[id];
-                if (state.EndsWith("Dmg", StringComparison.Ordinal))
-                {
-                    MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", supply.repairWork);
-                    var repair = d.Installables[id + "Repair"];
-                    repair.aInputs = bill.Select((count, i) => Triggers[i] + "=1x" + count).Where((s, i) => bill[i] > 0).ToArray();
-                    MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
-                }
-                MaintenanceDefinitions.Dismantle(d, id, supply.dismantleWork, new[] { waste });
-                EquipmentSaveUpgrade.Register(d, id, id);
-            }
-        }
     }
 }
 

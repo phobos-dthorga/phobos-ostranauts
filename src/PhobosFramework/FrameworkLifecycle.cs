@@ -46,6 +46,9 @@ public static class FrameworkLifecycle
         Data.DataPacks.Reset();
         Registration.MaintenanceSafety.Repairs.Clear();
         Registration.MaintenanceSafety.LegacyFinishes.Clear();
+        Liquids.GasNetworkSafety.Reset();
+        // Framework's own items first, so content mods may add ports to them and name them in stock and conversions.
+        Items.FrameworkItems.Register(Log);
         Notify(ContentLoading);
     }
     internal static void Complete()

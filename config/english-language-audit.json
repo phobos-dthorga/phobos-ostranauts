@@ -42613,47 +42613,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Line.name",
-      "category": "item name",
-      "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/Definitions.cs:180",
-        "src/PhobosManufacturing/Definitions.cs:188",
-        "src/PhobosManufacturing/Definitions.cs:194"
-      ],
-      "before": "Propellant Line",
-      "after": "Gas Line"
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Line.description",
-      "category": "item description",
-      "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/Definitions.cs:188"
-      ],
-      "before": "Sealed gas line for hydrogen and methane between Fennmark stores and a propellant manifold. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines.",
-      "after": "Sealed gas line between Fennmark gas stores and the machines they feed: the P1 manifold, the L2 filling station and other stores. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Line.waste",
-      "category": "item name",
-      "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/EquipmentEconomy.cs:130"
-      ],
-      "before": "Retained propellant line waste",
-      "after": "Retained gas line waste"
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Provider.feed_field",
       "category": "status/warning",
       "decision": "add",
@@ -52082,6 +52041,266 @@
       ],
       "before": "The PDA paint filter could not include line segments ({0}); painted jobs follow the game's own filter.",
       "after": "The PDA paint filter could not include line segments ({0}); painted jobs follow the game's own filter."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineFamilies.water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Names the process-water line in link choices.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineFamilies.cs:21"
+      ],
+      "before": "water line",
+      "after": "water line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineFamilies.gas",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Names the gas line in link choices.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineFamilies.cs:23"
+      ],
+      "before": "gas line",
+      "after": "gas line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.touching",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Says a link candidate touches the machine.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:17"
+      ],
+      "before": "touching",
+      "after": "touching"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.full",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Marks a destination that cannot take more.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:22"
+      ],
+      "before": "full",
+      "after": "full"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.empty",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Marks a source with nothing to give.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:23"
+      ],
+      "before": "empty",
+      "after": "empty"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.one",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Candidate name with one note.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:29"
+      ],
+      "before": "{0} ({1})",
+      "after": "{0} ({1})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.two",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Candidate name with two notes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:30"
+      ],
+      "before": "{0} ({1}, {2})",
+      "after": "{0} ({1}, {2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.linked_machines",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Lists the machines a shared store serves.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:38"
+      ],
+      "before": "Linked machines: {0}",
+      "after": "Linked machines: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "GasNetworkSafety.warning",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Advice on a store panel when oxygen and fuel share a gas line; says nothing is blocked.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/GasNetworkSafety.cs:46"
+      ],
+      "before": "Caution: {0} holds oxygen and {1} holds fuel on the same gas line. Yards keep oxidiser and fuel stores apart; nothing here stops you, but you have been told.",
+      "after": "Caution: {0} holds oxygen and {1} holds fuel on the same gas line. Yards keep oxidiser and fuel stores apart; nothing here stops you, but you have been told."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "GasNetworkSafety.notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew-log advice when oxygen and fuel share a gas line, with what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/GasNetworkSafety.cs:62"
+      ],
+      "before": "{0} (oxygen) and {1} (fuel) now share one gas line. Allowed, but yards keep oxidiser and fuel stores apart. Move one, or split the line, if that was not the plan.",
+      "after": "{0} (oxygen) and {1} (fuel) now share one gas line. Allowed, but yards keep oxidiser and fuel stores apart. Move one, or split the line, if that was not the plan."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "GasNetworkSafety.banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Short nav-map banner for the same advice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/GasNetworkSafety.cs:62"
+      ],
+      "before": "Oxygen and fuel stores share a gas line",
+      "after": "Oxygen and fuel stores share a gas line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.gas_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "The gas line keeps its name after moving to Framework.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:19"
+      ],
+      "before": "Gas Line",
+      "after": "Gas Line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.gas_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what the gas line joins and how to lay it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:19"
+      ],
+      "before": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Holds no gas between transfers.",
+      "after": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Holds no gas between transfers."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.gas_waste",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Dismantling remainder of the gas line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:41"
+      ],
+      "before": "Retained gas line waste",
+      "after": "Retained gas line waste"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.water_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New process-water line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:19"
+      ],
+      "before": "Process Water Line",
+      "after": "Process Water Line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.water_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what the water line joins, how to lay it and that it never joins drinking water.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:19"
+      ],
+      "before": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Holds no water between transfers.",
+      "after": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Holds no water between transfers."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.water_waste",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Dismantling remainder of the water line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:41"
+      ],
+      "before": "Retained process water line waste",
+      "after": "Retained process water line waste"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "SharedLines.damaged",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Damaged-form suffix for Framework lines.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/SharedLines.cs:28"
+      ],
+      "before": " (Damaged)",
+      "after": " (Damaged)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FrameworkItems.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line if Framework cannot register its own items.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/FrameworkItems.cs:30"
+      ],
+      "before": "Phobos Framework could not register its own items (shared lines): {0}",
+      "after": "Phobos Framework could not register its own items (shared lines): {0}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_no_conduit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says why a rack pairing across open floor is refused and what to lay.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/IrrigationService.cs:94"
+      ],
+      "before": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor.",
+      "after": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor."
     }
   ],
   "documents": [
@@ -52089,8 +52308,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "83d4a17b851bd0d8d1793e6f328c9bf6d8f3aee112c34db62b724a8721736a23",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "19a4cf490d7cb8f0b5456589e0a7d6d3d34438767ba32b203f5ede9cd18e5468",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -52110,15 +52329,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b2d8488671f7b140625acbaf6259f9c50f865cc35a603e69f666619e97fcdced",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "d268d8a365a11bdb1326499e872f27bdf1359929210d9d712cd9b530a635aa5b",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8940e9dbe6a272ce2994ec529a8e647a07c8b1d11110af6682ec568c17b2dfa3",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "74f332afa6dc3aa723d3acfb4d3cd4a499dbe3e068e692639228d0973ff27276",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -52151,8 +52370,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c9178e2e8424d75b0520371667ab4240b8c45819fd3177d8e69d845344e38a45",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "a182f8f280378d9ad4bf96f9bce2110d9144e9295f2ec4e900a2ecb2dedede8d",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -52249,8 +52468,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "39c319a0e90fda5e78b0493f3922e9adc92d5a611093dc7528a887ed23b5f92c",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "dcddf5387e1e6f61a657468662490321aaf5e6690f58d701e9a3a7bcb6f354f0",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52550,8 +52769,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "887e357062cc419bd302ba5e16c8d1f9f39b050fb9ff5d830272ffda3aa618df",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "a8567f6d2b461c7885be05117fe84cc05f4c0b30df498ad73585cf20e1e601bf",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -52634,15 +52853,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7053d177644277e9180082adfb2422d32a628217843f75c00a7681e68af5618d",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "c06d06c07c8423c5d6cbb6671db73462b9e54f6cfffea5b7e951df21847fb658",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "d4320cbbe5ebeb0a14063aa9395d01ea93c1dad55c387d25c4650c799d564530",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "7fa1d299c5ba73df4dfac16d2eb25d68a61e135ab10e28f8d56699537430f2ca",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -52746,8 +52965,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "711da0bbefe3224323044ae100e3ab282e75b57cb2b11f530a9aac664223b827",
-      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
+      "sha256": "2e9c49ace4430982cfc327745c5d67641a8e0ab3e8a9a601de0ca2c68666045a",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -52772,8 +52991,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d3155e22962dceb4bce460ea8c472c6aad70b79f0289480e07eaa225f3f01a5d",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "7d58e22dfd6617e3d70d8df790880540993c1a389e0b529ad2cf23ad1aa7ad0c",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -52970,8 +53189,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "82e9031fc00938fa7df98629b1f2ef9fbad73cef985bb8a81c273a163a0f6225",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "400380066cdf3b0cf2c03ea07b971df29c6c0f51eb53d1b494639377589d726c",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -52984,8 +53203,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "f6d4dac6b05acf0cc28e319260b176f426d9cfe09b7c62e024d08baf5aea5d70",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "6abea12e614f8a607534ece7f1c2b7a51a687b76b019578fe00660e0e801eb44",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53040,36 +53259,36 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9f25e70a4baae1fbc699bddb077c9982cf4bb35d5e74819cd9c0e63b202f3084",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "810951fd4065bcf45fed55b48a3eefc3fb4ddd5144e572548ed7b9ffd708ec9a",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "42d3fc30bbcfb2752bbd7fc67aabd6a63f24cea1cf39bf3e3b8e00ed648cdf77",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "3ab99370aaa96c9e34b4d080d069ad3f94bd216dd7e506f1b4689f0e05135a91",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "cbeda11584b3d0abad461e2c38d13526a85f7429ee7f768a06e3b64040d08ef6",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Row for War Has Been Declared (no items; orders only)."
+      "sha256": "ba6ac4cab0152f64e1ff6774973301a136f99db29a9539027b44ea2a0cf5dcab",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "d49c80f44b9251ca6ebb8188702429ef57c3bea46ab5568ba1c4f9f30fce3e15",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "df7262eef9a9e94e9c9e3c54bf401980a1cb0f97f58da42527a9feb245db52b9",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "46aff22dba95df6704eb78ce7591ecd12d3359984977789ff47549db634dcd17",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "6e3e9e996b13d0cb580c5d6318031f08bf170b36b2aab915d40d0e46d8e074a9",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -53089,8 +53308,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "971268ecddff2b768a9e7c6ec0b40a5ad4e5c79c19b52d0dc980288da047153f",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "31bb2a53829a21d0b97a4fd5ec5b28794a9b07e3b770602324d6f06553fd223f",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/residue-collector.md",
@@ -53124,8 +53343,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "a9ad5f1a0841ab408eb67dc0b6feb95dc4b0bf684ecc883050a0e6c5876d87b0",
-      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
+      "sha256": "5cbd890100aaeaf42e4ef58965950ad5a7ea8a31b11e9357262c47a5cf518fea",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -53138,8 +53357,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "dc2a948d0b39f14b0d4f090fdf654e7ce308aab4b0a647a68df0f840e315912a",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "896ba87ba3d304e0146a6cfebcafdcece6ed5528c711e81a8ca039c82a79759b",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -53166,8 +53385,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e4eaa3a877975ee9d00ef78bec4db2544baf7fa1e863383770b5932fdc9a9232",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "4a9a583d5b1f9fb96bdf5fe4f60ae816fe9847caa9ff6f74a552c21ef91d0cd5",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -53180,22 +53399,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "263dc0bcb84043d87c2b8349ce8b3e864fd7caa7f0bc7bd7ed1e50018a484204",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "6c096ab3ce814c18d37081aa046316bea0f3898a22fbbcfe9f0cc976af38a0a1",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "090c5c26d0a9dfc883df5349aab75f90f135ddfe9dee2a2f746cee7f59d1121e",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "5165606b09262021ce9d93c34f390e737ead038d5b4ddd2492673ed4ebba6d85",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8b7f3fe82f047f9698ec486d1652f59566e863743fac25e74d534b9cf6f970cd",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "6ce98e74fe9f4e03364590cd83664ac1bf7c289c3993e11319a4bb166f71fd0c",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -53271,16 +53490,16 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "faec40115e10c3447f4dabc1af9f78e061b9168f0166a346b34ad5b155ed4417",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "c5844e98a802177ab0e3e58df07eee3aa344fe3dcd03942500338bf3c27f62ff",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "240f47bc51c10a987a2cdcef3f1f9b8dfbb10a512cfcfe884b9de0b509d5e540",
-      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
+      "sha256": "ca9a6e8704d98cee525cb28576c1c0af9c63074edfec205a941449b274d6455b",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -53296,8 +53515,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0aa7b56f0d5ec9c87b091bc3db25d206d2050a04eaab699568b23194013467b1",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "b7aedd2129a1422b15f7fc9aa467ce283663176b1356e2d1fb764dc06d7c4f1f",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -53323,19 +53542,20 @@
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7"
+      "sha256": "88493ff30815075ec1a6af770aa84b17a69135e9315b074573d148174080e0cd",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "154b8ff5de74d73b8a6fed3f6dd5872c967b18c2d8c7c4b4445cde8c7b2ef18d",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "fd2d33cae60a60d7860898652f9393b659975c95d1b063b1b15db9c89e9df888",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7256b973e93392e472c288d7a7d83dbf3297ca4c66c9ea0c5a86824a799d7718",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "0f580e0f2d65cca872d4c1a44b7c17f1446fe33d391017838d2decc8d998f8c7",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -53352,8 +53572,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6ced3c3066e551cde20919adae9c4375ea7d604ea38b0d2cc6c2f3bd9ea13d35",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "8cf8802af9310683ecb3256758ece203ef5c2fddd1c770267172230c90e0f0a9",
+      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

@@ -67,37 +67,36 @@ internal static class SabatierService
         return !s.Protected;
     }
 
-    private static MaterialPort WaterOut(CondOwner co) => new(co.strID, SabatierRules.WaterOutPort, co.mapGUIPropMaps);
-    private static MaterialPort VesselIn(CondOwner vessel) => new(vessel.strID, SabatierRules.VesselInPort, vessel.mapGUIPropMaps);
-    private static MaterialPort HydrogenIn(CondOwner co) => new(co.strID, SabatierRules.HydrogenInPort, co.mapGUIPropMaps);
-    private static MaterialPort StoreOut(CondOwner store) => new(store.strID, SabatierRules.StoreOutPort, store.mapGUIPropMaps);
-    private static MaterialPort MethaneOut(CondOwner co) => new(co.strID, SabatierRules.MethaneOutPort, co.mapGUIPropMaps);
-    private static MaterialPort MethaneStoreIn(CondOwner store) => new(store.strID, SabatierRules.MethaneStoreInPort, store.mapGUIPropMaps);
-    internal static string WaterPeer(CondOwner co) => PortPairing.Read(WaterOut(co)).PeerObjectId;
-    internal static string HydrogenPeer(CondOwner co) => PortPairing.Read(HydrogenIn(co)).PeerObjectId;
-    internal static string MethanePeer(CondOwner co) => PortPairing.Read(MethaneOut(co)).PeerObjectId;
-    private static IEnumerable<CondOwner> Vessels(CondOwner co, string commodity) => BulkVessels.Aboard(co.ship, commodity).Where(v => v != co && ProcessorService.Adjacent(co, v));
-    internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) => Vessels(co, ManufacturingRules.Water);
-    internal static IEnumerable<CondOwner> HydrogenCandidates(CondOwner co) => Vessels(co, ManufacturingRules.Hydrogen);
-    internal static IEnumerable<CondOwner> MethaneCandidates(CondOwner co) => Vessels(co, ManufacturingRules.Methane);
-    /// <summary>Where the CO2 can come from: installed native CO2 canisters within one tile (the game's own trigger)
-    /// and bulk carbon dioxide stores of any size within one tile.</summary>
+    /// <summary>The shared links (Manufacturing 0.23.0): each vessel touches the reactor or shares the commodity's line
+    /// with it, and each vessel-side port is a bank several machines share.</summary>
+    internal static readonly VesselLink WaterLink = new(SabatierRules.WaterOutPort, SabatierRules.VesselInPort, ManufacturingRules.Water);
+    internal static readonly VesselLink HydrogenLink = new(SabatierRules.HydrogenInPort, SabatierRules.StoreOutPort, ManufacturingRules.Hydrogen);
+    internal static readonly VesselLink MethaneLink = new(SabatierRules.MethaneOutPort, SabatierRules.MethaneStoreInPort, ManufacturingRules.Methane);
+    internal static string WaterPeer(CondOwner co) => WaterLink.PeerId(co);
+    internal static string HydrogenPeer(CondOwner co) => HydrogenLink.PeerId(co);
+    internal static string MethanePeer(CondOwner co) => MethaneLink.PeerId(co);
+    internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) => WaterLink.Candidates(co);
+    internal static IEnumerable<CondOwner> HydrogenCandidates(CondOwner co) => HydrogenLink.Candidates(co);
+    internal static IEnumerable<CondOwner> MethaneCandidates(CondOwner co) => MethaneLink.Candidates(co);
+    /// <summary>Where the CO2 can come from: installed native CO2 canisters touching the reactor (the game's own
+    /// trigger) and bulk carbon dioxide stores of any size touching it or on its gas line.</summary>
     internal static IEnumerable<CondOwner> CanisterCandidates(CondOwner co)
     {
         var trigger = NativeDefinitions.Trigger(SabatierRules.CanisterTrigger);
         if (co.ship == null) return Enumerable.Empty<CondOwner>();
         var canisters = trigger == null ? Enumerable.Empty<CondOwner>() :
             co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && ProcessorService.Adjacent(co, c));
-        return canisters.Concat(Vessels(co, ManufacturingRules.CarbonDioxide)).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+        var stores = BulkVessels.Aboard(co.ship, ManufacturingRules.CarbonDioxide).Where(v => v != co && ProcessorService.StoreReach(co, v));
+        return canisters.Concat(stores).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
 
     /// <summary>A linked vessel ready for this transfer, or null with the reason.</summary>
     // Runs every power step while the reactor works: reasons are formatted only on the way out, the vessel read once.
-    private static CondOwner? Linked(CondOwner co, string peer, Func<CondOwner, MaterialPort> ours, Func<CondOwner, MaterialPort> theirs, string commodity, string keyPrefix, out string reason)
+    private static CondOwner? Linked(CondOwner co, VesselLink link, string keyPrefix, out string reason)
     {
-        var vessel = CrewWork.Resolve(peer);
-        if (vessel == null || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != commodity) { reason = Text.Get(keyPrefix + "_none"); return null; }
-        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(ours(co), theirs(vessel)) || !ProcessorService.Adjacent(co, vessel)) { reason = Text.Get(keyPrefix + "_not_ready"); return null; }
+        var vessel = CrewWork.Resolve(link.PeerId(co));
+        if (vessel == null || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != link.Commodity) { reason = Text.Get(keyPrefix + "_none"); return null; }
+        if (!link.Connected(co, vessel)) { reason = Text.Get(keyPrefix + "_not_ready"); return null; }
         var snapshot = BulkVessel.Snapshot(vessel);
         if (snapshot.Protected || CommodityReservations.Held(vessel.strID)) { reason = Text.Get("Sabatier.vessel_protected"); return null; }
         if (snapshot.CatchKg > 1e-8) { reason = Text.Get("Sabatier.vessel_catch"); return null; }
@@ -106,14 +105,14 @@ internal static class SabatierService
     /// <summary>Whether one object is among the CO2 sources <see cref="CanisterCandidates"/> would list, without listing them.</summary>
     private static bool IsCanisterCandidate(CondOwner co, CondOwner c)
     {
-        if (c == null || c.bDestroyed || c == co || c.ship != co.ship || !ProcessorService.Adjacent(co, c)) return false;
-        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.CarbonDioxide && c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c)) return true;
+        if (c == null || c.bDestroyed || c == co || c.ship != co.ship) return false;
+        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.CarbonDioxide) return c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c) && ProcessorService.StoreReach(co, c);
         var trigger = NativeDefinitions.Trigger(SabatierRules.CanisterTrigger);
-        return trigger != null && trigger.Triggered(c);
+        return trigger != null && ProcessorService.Adjacent(co, c) && trigger.Triggered(c);
     }
     private static CondOwner? HydrogenSource(CondOwner co, double needKg, out string reason)
     {
-        var store = Linked(co, HydrogenPeer(co), HydrogenIn, StoreOut, ManufacturingRules.Hydrogen, "Sabatier.hydrogen", out reason);
+        var store = Linked(co, HydrogenLink, "Sabatier.hydrogen", out reason);
         if (store == null) return null;
         var s = BulkVessel.Snapshot(store);
         if (s.AvailableKg + 1e-9 < needKg) { reason = Text.Get("Sabatier.hydrogen_short", s.AvailableKg, needKg); return null; }
@@ -121,8 +120,7 @@ internal static class SabatierService
     }
     private static CondOwner? Destination(CondOwner co, bool water, double kg, out string reason)
     {
-        var vessel = water ? Linked(co, WaterPeer(co), WaterOut, VesselIn, ManufacturingRules.Water, "Sabatier.water", out reason)
-            : Linked(co, MethanePeer(co), MethaneOut, MethaneStoreIn, ManufacturingRules.Methane, "Sabatier.methane", out reason);
+        var vessel = water ? Linked(co, WaterLink, "Sabatier.water", out reason) : Linked(co, MethaneLink, "Sabatier.methane", out reason);
         if (vessel == null) return null;
         var s = BulkVessel.Snapshot(vessel);
         if (s.HeadroomKg + 1e-9 < kg) { reason = Text.Get(water ? "Sabatier.water_full" : "Sabatier.methane_full", s.HeadroomKg, kg); return null; }
@@ -399,21 +397,18 @@ internal static class SabatierService
             s.State.Canister = id == "none" ? "" : id; Save(co, s);
             reason = Text.Get(id == "none" ? "Sabatier.unlinked" : "Sabatier.linked"); return !s.Protected;
         }
-        MaterialPort ours; Func<CondOwner, MaterialPort> theirs; string peer; IEnumerable<CondOwner> candidates;
+        VesselLink link;
         switch (kind)
         {
-            case "water": ours = WaterOut(co); theirs = VesselIn; peer = WaterPeer(co); candidates = WaterCandidates(co); break;
-            case "hydrogen": ours = HydrogenIn(co); theirs = StoreOut; peer = HydrogenPeer(co); candidates = HydrogenCandidates(co); break;
-            case "methane": ours = MethaneOut(co); theirs = MethaneStoreIn; peer = MethanePeer(co); candidates = MethaneCandidates(co); break;
+            case "water": link = WaterLink; break;
+            case "hydrogen": link = HydrogenLink; break;
+            case "methane": link = MethaneLink; break;
             default: reason = Text.Get("Content.unsupported_action"); return false;
         }
-        var current = CrewWork.Resolve(peer);
-        if (id == "none") { PortPairing.Unlink(ours, current == null ? null : theirs(current)); reason = Text.Get("Sabatier.unlinked"); return true; }
-        var target = candidates.FirstOrDefault(v => v.strID == id);
+        if (id == "none") { link.Unlink(co, CrewWork.Resolve); reason = Text.Get("Sabatier.unlinked"); return true; }
+        var target = link.Candidates(co).FirstOrDefault(v => v.strID == id);
         if (target == null) { reason = Text.Get("Sabatier.link_missing"); return false; }
-        if (current != null && current != target) PortPairing.Unlink(ours, theirs(current));
-        if (PortPairing.Matches(ours, theirs(target))) { reason = Text.Get("Sabatier.linked"); return true; }
-        if (!PortPairing.TryLink(ours, theirs(target), out reason)) return false;
+        if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Sabatier.linked"); return true;
     }
     internal static string? MaintenanceReason(CondOwner co)

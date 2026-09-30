@@ -11,6 +11,6 @@ Choose your mod for what each object does, how to use it, where it appears, and 
 | Phobos Shipbreaker | [Items and equipment](shipbreaker-item-reference.md) |
 | Phobos' War Has Been Declared | [Items and equipment](war-declared-item-reference.md) |
 
-Framework documents shared spent parts.
+Framework documents the shared gas and process-water lines and shared spent parts.
 
 For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).

@@ -399,8 +399,9 @@ $retiredFile = Join-Path $retiredNative ('PhobosShipbreaker/' + $retiredRelative
 Set-Content -LiteralPath $retiredFile -Value 'old artwork'
 $retiredHash = (Get-FileHash -LiteralPath $retiredFile -Algorithm SHA256).Hash
 $retiredCatalogue = Join-Path $fixtures 'retired-catalogue.json'
-function WriteCatalogue([string]$Mod, [string]$Hash) {
-    ConvertTo-Json -InputObject @{ schemaVersion = 1; retired = @(@{ mod = $Mod; area = 'native'; path = $retiredRelative; sha256 = $Hash; retiredIn = '0.0.0'; reason = 'fixture' }) } -Depth 5 |
+function WriteCatalogue([string]$Mod, [string[]]$Hash) {
+    # One entry per recorded hash: a path may be listed once for each released version of the file.
+    ConvertTo-Json -InputObject @{ schemaVersion = 1; retired = @($Hash | ForEach-Object { @{ mod = $Mod; area = 'native'; path = $retiredRelative; sha256 = $_; retiredIn = '0.0.0'; reason = 'fixture' } }) } -Depth 5 |
         Set-Content -LiteralPath $retiredCatalogue
 }
 WriteCatalogue 'Shipbreaker' $retiredHash
@@ -417,7 +418,7 @@ Check (Test-Path -LiteralPath $retiredFile) 'Another mod''s catalogue entry remo
 WriteCatalogue 'Shipbreaker' ('0' * 64)
 Fails { & $installer @retired -RetiredCataloguePath $retiredCatalogue | Out-Null } 'Unmanaged installed file'
 Check ((Get-Content -LiteralPath $retiredFile -Raw).Trim() -eq 'old artwork') 'A file with a different hash was removed'
-WriteCatalogue 'Shipbreaker' $retiredHash
+WriteCatalogue 'Shipbreaker' @(('0' * 64), $retiredHash)
 $retiredBackup = BackupPath (& $installer @retired -RetiredCataloguePath $retiredCatalogue)
 Check (-not (Test-Path -LiteralPath $retiredFile)) 'Retired file remains installed'
 Check ((Get-FileHash -LiteralPath (Join-Path $retiredBackup ('PhobosShipbreaker/retired/native/' + $retiredRelative.Replace('/', [IO.Path]::DirectorySeparatorChar))) -Algorithm SHA256).Hash -eq $retiredHash) 'Retired file was not archived in the backup'

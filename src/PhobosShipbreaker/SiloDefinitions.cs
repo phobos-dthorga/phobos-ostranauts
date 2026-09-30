@@ -18,6 +18,23 @@ internal static class SiloDefinitions
         foreach (var spec in SiloService.Specs) BulkVessels.Register(spec);
         foreach (var size in SiloRules.Sizes) AddSilo(d, size);
         AddThaw(d);
+        AddLinePorts(d);
+    }
+    /// <summary>Ports on Framework's shared lines (Shipbreaker 0.53.0): every silo size gains a process-water port on
+    /// its local -X side, and the T2 a process-water port there and a gas port on its +X side for methane, all in the
+    /// middle row. Methane is carried by the gas line. Points are rebuilt from definitions on load.</summary>
+    private static void AddLinePorts(NativeDefinitions d)
+    {
+        LineFamilies.Assign(ThawRules.MethaneCommodity, LineFamilies.Gas);
+        var water = Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(); var gas = Phobos.Ostranauts.Framework.Items.SharedLines.GasSpec();
+        foreach (var size in SiloRules.Sizes)
+        {
+            var w = LinePorts.Water(size.Footprint);
+            LineDefinitions.AddPort(d, size.Prefix, water, LinePorts.WaterPoint, w.X, w.Y, w.Socket);
+        }
+        var tw = LinePorts.Water(ThawRules.Footprint); var tg = LinePorts.Gas(ThawRules.Footprint);
+        LineDefinitions.AddPort(d, ThawRules.Prefix, water, LinePorts.WaterPoint, tw.X, tw.Y, tw.Socket);
+        LineDefinitions.AddPort(d, ThawRules.Prefix, gas, LinePorts.GasPoint, tg.X, tg.Y, tg.Socket);
     }
     private static void AddSilo(NativeDefinitions d, SiloSize size)
     {

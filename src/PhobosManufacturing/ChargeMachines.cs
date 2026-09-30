@@ -49,7 +49,7 @@ internal static class ChargeMachines
             LinkProblem.Catch => Text.Get("Refinery.vessel_catch"),
             _ => Text.Get("Refinery.vessel_full", have, need)
         },
-        () => Text.Get("Refinery.linked"), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.link_missing"));
+        () => Text.Get("Refinery.linked"), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.link_missing"), deposit: true);
     private static ChargeLinkSpec RefineryGas(GasFamily family)
     {
         string Gas() => Text.Get(family.TextPrefix + ".gas");
@@ -63,7 +63,7 @@ internal static class ChargeMachines
                 LinkProblem.Catch => Text.Get("Refinery.store_catch", Gas()),
                 _ => Text.Get("Refinery.store_full", Gas(), have, need)
             },
-            () => Text.Get("Refinery.store_linked", Gas()), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.store_link_missing", Gas()));
+            () => Text.Get("Refinery.store_linked", Gas()), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.store_link_missing", Gas()), deposit: true);
     }
 
     /// <summary>The Lixivar LC-3 (Manufacturing 0.18.0): the crew selects the recipe; nothing melts or spoils and it
@@ -111,7 +111,7 @@ internal static class ChargeMachines
     /// <summary>Any registered vessel of Agriculture's crop nutrients is a hopper (the vessel list is by commodity).</summary>
     private static ChargeLinkSpec LeachNutrients() => new(ManufacturingRules.CropNutrients, "nutrients:", LeachRules.NutrientPort, LeachRules.VesselPort,
         _ => true, () => Text.Get("Provider.nutrients_field"), alwaysShow: false, Reasons("Leach", "nutrients"),
-        () => Text.Get("Leach.nutrients_linked"), () => Text.Get("Leach.nutrients_unlinked"), () => Text.Get("Leach.nutrients_link_missing"));
+        () => Text.Get("Leach.nutrients_linked"), () => Text.Get("Leach.nutrients_unlinked"), () => Text.Get("Leach.nutrients_link_missing"), deposit: true);
 
     /// <summary>The Lixivar SA-3 (Manufacturing 0.19.0): one recipe, chosen automatically; oxygen and water drawn from
     /// linked vessels, sulfuric acid deposited into a linked acid tank, the reactions' heat into the room. Nothing melts
@@ -150,5 +150,5 @@ internal static class ChargeMachines
         () => Text.Get("AcidPlant.linked"), () => Text.Get("AcidPlant.unlinked"), () => Text.Get("AcidPlant.link_missing"));
     private static ChargeLinkSpec AcidPlantAcid() => new(LiquidStores.SulfuricAcid, "acid:", AcidPlantRules.AcidPort, AcidPlantRules.VesselPort,
         v => LiquidStores.Holds(v.strCODef, LiquidStores.SulfuricAcid), () => Text.Get("Provider.acid_field"), alwaysShow: true, Reasons("AcidPlant", "acid"),
-        () => Text.Get("AcidPlant.acid_linked"), () => Text.Get("AcidPlant.acid_unlinked"), () => Text.Get("AcidPlant.acid_link_missing"));
+        () => Text.Get("AcidPlant.acid_linked"), () => Text.Get("AcidPlant.acid_unlinked"), () => Text.Get("AcidPlant.acid_link_missing"), deposit: true);
 }

@@ -72,10 +72,10 @@ internal static class FillerService
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && c.HasCond("IsInstalled") && !NativeGasVessel.IsBottle(c) &&
             NativeGasVessel.TryRead(c, out var r) && FillerRules.Species.Contains(r.Species) && ProcessorService.Adjacent(co, c))
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
-    /// <summary>Oxygen, nitrogen and carbon dioxide stores of any size within one tile or along a gas line.</summary>
+    /// <summary>Oxygen, nitrogen and carbon dioxide stores of any size touching the station or on its gas line.</summary>
     internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && GasStores.For(c.strCODef) is GasStore g &&
-            FillerRules.Species.Contains(g.Family.Species) && GasLine.Connection(co, FillerRules.Inlet, c) != null)
+            FillerRules.Species.Contains(g.Family.Species) && GasLine.Connection(co, c) != null)
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     private static bool CanisterReady(CondOwner co, CondOwner c) => !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && ProcessorService.Adjacent(co, c) && NativeGasVessel.TryRead(c, out _);
     private static bool StoreReady(CondOwner co, Session s, CondOwner store)
@@ -88,7 +88,7 @@ internal static class FillerService
     private static bool Connected(CondOwner co, Session s, CondOwner store)
     {
         if (s.Routes.TryGetValue(store.strID, out var cached) && Cadence.RealTime < cached.Until) return cached.Connected;
-        bool connected = GasLine.Connection(co, FillerRules.Inlet, store) != null;
+        bool connected = GasLine.Connection(co, store) != null;
         s.Routes[store.strID] = (Cadence.RealTime + FillerRules.RecheckSeconds, connected);
         return connected;
     }

@@ -46,8 +46,11 @@ and construction output value against purchased inputs; merchant quotes vary.
    the equipment. The rack retains its 4 × 4 footprint and gains a small inlet
    fitting on every crop image.
 3. Pause operation **and receiving at both ends**. Open either local Control
-   Panel and choose the named/full-ID peer from the pairing list. Pairing selects
-   **pipe-fed water** at the rack and disables its direct provider bypass.
+   Panel and choose the named/full-ID peer from the pairing list. Since
+   Agriculture 0.30.0 the list offers only racks (or W2s) joined by conduit from
+   the W2's outlet to the rack's inlet; a pairing across open floor is refused
+   with the reason. Pairing selects **pipe-fed water** at the rack and disables
+   its direct provider bypass.
    Reopen the panel to refresh the candidate list after installing equipment.
 4. Enable the rack's selected water supply and start the W2. Start cultivation
    normally. A stopped pump, broken/removed pipe, damaged support, full rack,
