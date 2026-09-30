@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "schema": "vessels",
+  "notes": "Phobos Manufacturing gas store families, small size (2 x 2). Every store uses the game's own RTA canister vessel (0.787 m3 at 41.4 MPa and 293 K, about 13,400 mol of ideal gas), authored at an 80% fill in a 160 kg housing; hydrogen is authored lower and ammonia is kept liquefied (609 kg/m3 at 20 C, Engineering ToolBox after NIST). Medium and large sizes scale through the Framework ladder. Changing a capacity or dry mass leaves existing stores Protected until accepted. Sources: docs/development/manufacturing-refinery-and-chemistry.md.",
+  "families": {
+    "PhobosHydrogenStore": { "notes": "Fennmark H2: 24 kg of usable hydrogen; leaks to space (no room species).", "kind": "gas-store", "commodity": "hydrogen", "capacityKg": 24, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosMethaneStore": { "notes": "Fennmark M2: about 200 kg fits at the rating; authored 160 kg.", "kind": "gas-store", "commodity": "methane", "capacityKg": 160, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosOxygenStore": { "notes": "Fennmark O2: 80% of the ideal-gas moles as oxygen.", "kind": "gas-store", "commodity": "oxygen", "capacityKg": 340, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosNitrogenStore": { "notes": "Fennmark N2: 80% of the ideal-gas moles as nitrogen.", "kind": "gas-store", "commodity": "nitrogen", "capacityKg": 300, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosCarbonDioxideStore": { "notes": "Fennmark C2: 80% of the ideal-gas moles as carbon dioxide (real CO2 would be a denser fluid; the game treats every gas as ideal).", "kind": "gas-store", "commodity": "carbon dioxide", "capacityKg": 470, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosAmmoniaStore": { "notes": "Fennmark Q2: liquefied ammonia at an 80% fill, 383 kg rounded to 380.", "kind": "gas-store", "commodity": "ammonia", "capacityKg": 380, "dryKg": 160, "leakKgPerHour": 2 }
+  }
+}

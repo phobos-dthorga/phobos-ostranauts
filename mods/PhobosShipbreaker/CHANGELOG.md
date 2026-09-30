@@ -25,6 +25,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.47.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The S3 process water silo's capacity and empty weight and the Y2 material bin's empty weight and cells per tile now live in framework/vessels.json, read through Phobos Framework with player override files in BepInEx/config/PhobosShipbreaker/vessels. The shipped figures are unchanged. Editing the silo leaves the silos you own waiting for Accept rather than changing their contents; the S4, S5, Y3 and Y4 follow the small entry.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.51.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.46.0] - 2026-09-30 - Draft
 
 ### Changed

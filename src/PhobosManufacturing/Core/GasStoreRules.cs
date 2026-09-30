@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Processing;
 using Phobos.Ostranauts.Framework.Registration;
@@ -51,11 +52,12 @@ public sealed class GasFamily
     public string TextPrefix { get; }
     public string Model { get; }
     public int SmallFootprint => 2;
-    public double SmallCapacityKg { get; }
-    public double SmallDryKg { get; }
+    /// <summary>The small size's ratings, from the vessels data pack (Manufacturing 0.13.0); larger sizes scale through the ladder.</summary>
+    public double SmallCapacityKg => Vessels.Entry(SmallPrefix).capacityKg ?? 0;
+    public double SmallDryKg => Vessels.Entry(SmallPrefix).dryKg;
     /// <summary>The small size's price, from the economy data pack; larger sizes scale through the ladder.</summary>
     public double SmallPrice => Economy.Price(SmallPrefix);
-    public double SmallLeakKgPerHour { get; }
+    public double SmallLeakKgPerHour => Vessels.Entry(SmallPrefix).leakKgPerHour;
     public string Record { get; }
     public string Journal { get; }
     public string Guard { get; }
@@ -63,11 +65,9 @@ public sealed class GasFamily
     /// <summary>Whether leaks go into the room: only gases the game has a room species for (never hydrogen).</summary>
     public bool LeaksIntoRoom => NativeGasCanister.IsRoomSpecies(Species);
     public IReadOnlyList<GasStore> Sizes { get; }
-    public GasFamily(string smallPrefix, string commodity, string species, string textPrefix, string model, double smallCapacityKg, double smallDryKg,
-        double smallLeakKgPerHour, string record, string journal, string guard, Combustion? fuel)
+    public GasFamily(string smallPrefix, string commodity, string species, string textPrefix, string model, string record, string journal, string guard, Combustion? fuel)
     {
-        SmallPrefix = smallPrefix; Commodity = commodity; Species = species; TextPrefix = textPrefix; Model = model; SmallCapacityKg = smallCapacityKg; SmallDryKg = smallDryKg;
-        SmallLeakKgPerHour = smallLeakKgPerHour; Record = record; Journal = journal; Guard = guard; Fuel = fuel;
+        SmallPrefix = smallPrefix; Commodity = commodity; Species = species; TextPrefix = textPrefix; Model = model; Record = record; Journal = journal; Guard = guard; Fuel = fuel;
         Sizes = BulkVesselSizes.All.Select(s => new GasStore(this, s)).ToArray();
     }
     public GasStore Small => Sizes[0];
@@ -92,7 +92,24 @@ public sealed class GasStore
     /// <summary>The native species a damaged store leaks into its room, or null when the leak goes to space.</summary>
     public string? LeakSpecies => Family.LeaksIntoRoom ? Family.Species : null;
     public bool IsFuel => Family.Fuel != null;
-    public BulkVesselSpec Spec { get; }
+    private BulkVesselSpec? spec; private VesselPack? specFrom;
+    /// <summary>The Framework vessel spec, built from the vessels data pack and rebuilt if that pack is reloaded.</summary>
+    public BulkVesselSpec Spec
+    {
+        get
+        {
+            var pack = Vessels.Pack;
+            if (spec == null || !ReferenceEquals(specFrom, pack))
+            {
+                // A bigger vessel leaks faster through the same kind of damage: the rate grows with its side.
+                double leak = Family.SmallLeakKgPerHour * Footprint / Family.SmallFootprint;
+                spec = BulkVesselSizes.Spec(Family.SmallPrefix, Family.SmallFootprint, Size, Family.Commodity, Family.SmallCapacityKg, Family.SmallDryKg, ManufacturingRules.Owner,
+                    Family.Record, Family.Journal, Family.Guard, VesselDamagePolicy.Leak, leak);
+                specFrom = pack;
+            }
+            return spec;
+        }
+    }
     /// <summary>The translation key of this size's name (its own Fennmark model in the naming map).</summary>
     public string NameKey => TextPrefix + ".name" + (Size == VesselSize.Small ? "" : "_" + Size.ToString().ToLowerInvariant());
     /// <summary>The art of this size, by family art name and size.</summary>
@@ -100,10 +117,6 @@ public sealed class GasStore
     internal GasStore(GasFamily family, VesselSize size)
     {
         Family = family; Size = size; Footprint = BulkVesselSizes.Footprint(family.SmallFootprint, size); Prefix = BulkVesselSizes.Prefix(family.SmallPrefix, size);
-        // A bigger vessel leaks faster through the same kind of damage: the rate grows with its side.
-        double leak = family.SmallLeakKgPerHour * Footprint / family.SmallFootprint;
-        Spec = BulkVesselSizes.Spec(family.SmallPrefix, family.SmallFootprint, size, family.Commodity, family.SmallCapacityKg, family.SmallDryKg, ManufacturingRules.Owner,
-            family.Record, family.Journal, family.Guard, VesselDamagePolicy.Leak, leak);
     }
     public bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     /// <summary>The line port on the neighbouring tile of the store's local +X side, in the middle row (the upper of
@@ -137,28 +150,25 @@ public static class GasStores
     public const string DeflagrationPrefix = "SysPhobosDeflagration";
     /// <summary>Oxygen, nitrogen and carbon dioxide stores use the same vessel as the fuel stores: the native RTA canister
     /// volume (0.787 m3) at its rated 41.4 MPa and 293 K holds about 13,400 mol of ideal gas; authored at 80%, about
-    /// 10,700 mol (340 kg of oxygen, 300 kg of nitrogen, 470 kg of carbon dioxide), in the same 160 kg housing.</summary>
-    public const double UsableMolesFraction = 0.8, InertDryKg = 160;
-    public const double OxygenCapacityKg = 340, NitrogenCapacityKg = 300, CarbonDioxideCapacityKg = 470;
-    public static readonly GasFamily HydrogenFamily = new(HydrogenRules.Prefix, ManufacturingRules.Hydrogen, "H2", "Store", "H", HydrogenRules.CapacityKg, HydrogenRules.DryKg,
-        HydrogenRules.LeakKgPerHour, HydrogenRules.Record, HydrogenRules.Journal, HydrogenRules.Guard,
+    /// 10,700 mol (340 kg of oxygen, 300 kg of nitrogen, 470 kg of carbon dioxide), in the same 160 kg housing. The
+    /// authored figures live in the vessels data pack (framework/vessels.json).</summary>
+    public const double UsableMolesFraction = 0.8;
+    public static readonly GasFamily HydrogenFamily = new(HydrogenRules.Prefix, ManufacturingRules.Hydrogen, "H2", "Store", "H", HydrogenRules.Record, HydrogenRules.Journal, HydrogenRules.Guard,
         new Combustion(HydrogenRules.HHVKJPerKg, HydrogenRules.OxygenPerHydrogen, new Dictionary<string, double>(StringComparer.Ordinal)));
-    public static readonly GasFamily MethaneFamily = new(MethaneRules.Prefix, ManufacturingRules.Methane, "CH4", "Methane", "M", MethaneRules.CapacityKg, MethaneRules.DryKg,
-        MethaneRules.LeakKgPerHour, MethaneRules.Record, MethaneRules.Journal, MethaneRules.Guard,
+    public static readonly GasFamily MethaneFamily = new(MethaneRules.Prefix, ManufacturingRules.Methane, "CH4", "Methane", "M", MethaneRules.Record, MethaneRules.Journal, MethaneRules.Guard,
         new Combustion(MethaneRules.HHVKJPerKg, MethaneRules.OxygenPerMethane, new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = MethaneRules.CarbonDioxidePerMethane }));
-    public static readonly GasFamily OxygenFamily = new("PhobosOxygenStore", ManufacturingRules.Oxygen, "O2", "Oxygen", "O", OxygenCapacityKg, InertDryKg, 2,
+    public static readonly GasFamily OxygenFamily = new("PhobosOxygenStore", ManufacturingRules.Oxygen, "O2", "Oxygen", "O",
         "ManufacturingOxygen", "ManufacturingOxygenWork", "ManufacturingOxygenTransfer", null);
-    public static readonly GasFamily NitrogenFamily = new("PhobosNitrogenStore", ManufacturingRules.Nitrogen, "N2", "Nitrogen", "N", NitrogenCapacityKg, InertDryKg, 2,
+    public static readonly GasFamily NitrogenFamily = new("PhobosNitrogenStore", ManufacturingRules.Nitrogen, "N2", "Nitrogen", "N",
         "ManufacturingNitrogen", "ManufacturingNitrogenWork", "ManufacturingNitrogenTransfer", null);
-    public static readonly GasFamily CarbonDioxideFamily = new("PhobosCarbonDioxideStore", ManufacturingRules.CarbonDioxide, "CO2", "CarbonDioxide", "C", CarbonDioxideCapacityKg, InertDryKg,
-        2, "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
+    public static readonly GasFamily CarbonDioxideFamily = new("PhobosCarbonDioxideStore", ManufacturingRules.CarbonDioxide, "CO2", "CarbonDioxide", "C",
+        "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
     /// <summary>Ammonia is kept liquefied, as industry keeps it: it condenses at about 0.86 MPa at 20 C, far below
     /// the vessel's rating, and the saturated liquid is 609 kg/m3 at 20 C (Engineering ToolBox tables after NIST).
-    /// The same 0.787 m3 vessel at an 80% fill holds 383 kg; authored 380 kg. The game treats the gas as ideal
-    /// everywhere else; the capacity is the only place the liquid matters. Model letter Q (unused by every brand).
-    /// Ammonia is a game gas species (it poisons the crew in bands), so a damaged store leaks into the room.</summary>
-    public const double AmmoniaCapacityKg = 380;
-    public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q", AmmoniaCapacityKg, InertDryKg, 2,
+    /// The same 0.787 m3 vessel at an 80% fill holds 383 kg; authored 380 kg in the vessels data pack. The game treats
+    /// the gas as ideal everywhere else; the capacity is the only place the liquid matters. Model letter Q (unused by
+    /// every brand). Ammonia is a game gas species (it poisons the crew in bands), so a damaged store leaks into the room.</summary>
+    public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q",
         "ManufacturingAmmonia", "ManufacturingAmmoniaWork", "ManufacturingAmmoniaTransfer", null);
     public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily, AmmoniaFamily };
     public static readonly IReadOnlyList<GasStore> All = Families.SelectMany(f => f.Sizes).ToArray();
@@ -192,8 +202,10 @@ public static class MethaneRules
     public const string Record = "ManufacturingMethane", Journal = "ManufacturingMethaneWork", Guard = "ManufacturingMethaneTransfer";
     public const int Footprint = 2;
     /// <summary>The native RTA canister volume (0.787 m3) at its rated 41.4 MPa holds roughly 200 kg of compressed
-    /// methane; authored 160 kg of usable capacity in a 160 kg housing.</summary>
-    public const double CapacityKg = 160, DryKg = 160, LeakKgPerHour = 2;
+    /// methane; authored 160 kg of usable capacity in a 160 kg housing (vessels data pack).</summary>
+    public static double CapacityKg => GasStores.MethaneFamily.SmallCapacityKg;
+    public static double DryKg => GasStores.MethaneFamily.SmallDryKg;
+    public static double LeakKgPerHour => GasStores.MethaneFamily.SmallLeakKgPerHour;
     /// <summary>Methane's higher heating value, 890.6 kJ/mol (NIST Chemistry WebBook), per kilogram.</summary>
     public const double HHVKJPerMol = 890.6;
     public static double HHVKJPerKg => HHVKJPerMol / KgPerMol("CH4");

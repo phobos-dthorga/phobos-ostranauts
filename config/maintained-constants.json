@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.50.0",
+      "value": "0.51.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.46.0",
+      "value": "0.47.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.22.0",
+      "value": "0.23.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.12.0",
+      "value": "0.13.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.50.0",
+      "value": "0.51.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -713,7 +713,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.46.0",
+      "value": "0.51.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1235,12 +1235,11 @@
       "value": "1000",
       "min": 100,
       "max": 100000,
-      "description": "Authored S3 process water silo capacity in kg.",
+      "description": "Authored S3 process water silo capacity in kg (vessels data pack).",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/SiloRules.cs",
-          "pattern": "\\bCapacityKg\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosShipbreaker/framework/vessels.json",
+          "pointer": "/families/PhobosProcessSilo/capacityKg"
         }
       ],
       "review": [
@@ -1430,7 +1429,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.50.0",
+      "value": "0.51.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1886,12 +1885,11 @@
       "value": "340",
       "min": 50,
       "max": 5000,
-      "description": "Small (2 x 2) oxygen store capacity in kilograms; about 80% of the native canister vessel's ideal moles.",
+      "description": "Small (2 x 2) oxygen store capacity in kilograms; about 80% of the native canister vessel's ideal moles (vessels data pack).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "OxygenCapacityKg = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/vessels.json",
+          "pointer": "/families/PhobosOxygenStore/capacityKg"
         }
       ],
       "review": [
@@ -1919,12 +1917,11 @@
       "value": "300",
       "min": 50,
       "max": 5000,
-      "description": "Small (2 x 2) nitrogen store capacity in kilograms; about 80% of the native canister vessel's ideal moles.",
+      "description": "Small (2 x 2) nitrogen store capacity in kilograms; about 80% of the native canister vessel's ideal moles (vessels data pack).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "NitrogenCapacityKg = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/vessels.json",
+          "pointer": "/families/PhobosNitrogenStore/capacityKg"
         }
       ],
       "review": [
@@ -1952,12 +1949,11 @@
       "value": "470",
       "min": 50,
       "max": 5000,
-      "description": "Small (2 x 2) carbon dioxide store capacity in kilograms; about 80% of the native canister vessel's ideal moles.",
+      "description": "Small (2 x 2) carbon dioxide store capacity in kilograms; about 80% of the native canister vessel's ideal moles (vessels data pack).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "CarbonDioxideCapacityKg = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/vessels.json",
+          "pointer": "/families/PhobosCarbonDioxideStore/capacityKg"
         }
       ],
       "review": [
@@ -1985,12 +1981,11 @@
       "value": "380",
       "min": 50,
       "max": 5000,
-      "description": "Small (2 x 2) ammonia store capacity in kilograms; liquefied ammonia (609 kg/m3 at 20 C) at an 80% fill of the native canister vessel.",
+      "description": "Small (2 x 2) ammonia store capacity in kilograms; liquefied ammonia (609 kg/m3 at 20 C) at an 80% fill of the native canister vessel (vessels data pack).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "AmmoniaCapacityKg = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/vessels.json",
+          "pointer": "/families/PhobosAmmoniaStore/capacityKg"
         }
       ],
       "review": [

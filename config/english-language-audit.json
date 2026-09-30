@@ -48198,6 +48198,175 @@
       ],
       "before": "The recipe pack has no recipe for {0}; the machine cannot run without one.",
       "after": "The recipe pack has no recipe for {0}; the machine cannot run without one."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "vessels_commodity",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/VesselData.cs:24"
+      ],
+      "before": "{0} holds {1}; the vessels file cannot change what it holds.",
+      "after": "{0} holds {1}; the vessels file cannot change what it holds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:53"
+      ],
+      "before": "No vessels entry for {0}. Every vessel family the mod knows needs one.",
+      "after": "No vessels entry for {0}. Every vessel family the mod knows needs one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:57"
+      ],
+      "before": "{0} is not a vessel family this mod knows. Vessels cannot be added in a data file.",
+      "after": "{0} is not a vessel family this mod knows. Vessels cannot be added in a data file."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:58"
+      ],
+      "before": "{0}: kind {1} is not one this mod builds.",
+      "after": "{0}: kind {1} is not one this mod builds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.bin_fields",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:62"
+      ],
+      "before": "{0}: a bin holds items, so it has no commodity or capacityKg.",
+      "after": "{0}: a bin holds items, so it has no commodity or capacityKg."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.cells",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:63"
+      ],
+      "before": "{0}: cellsPerTileSide must be 1 to {1}.",
+      "after": "{0}: cellsPerTileSide must be 1 to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.commodity",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:67"
+      ],
+      "before": "{0}: a vessel needs the commodity it holds.",
+      "after": "{0}: a vessel needs the commodity it holds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.capacity",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:68"
+      ],
+      "before": "{0}: capacityKg must be above 0 and at most {1}.",
+      "after": "{0}: capacityKg must be above 0 and at most {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.vessel_fields",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:69"
+      ],
+      "before": "{0}: cellsPerTileSide belongs to bins only.",
+      "after": "{0}: cellsPerTileSide belongs to bins only."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.dry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:71"
+      ],
+      "before": "{0}: dryKg must be above 0 and at most {1}.",
+      "after": "{0}: dryKg must be above 0 and at most {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselSchema.leak",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/VesselPack.cs:72"
+      ],
+      "before": "{0}: leakKgPerHour must be 0 to {1}.",
+      "after": "{0}: leakKgPerHour must be 0 to {1}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Vessels.silo_kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/VesselData.cs:25"
+      ],
+      "before": "{0} must stay kind {1} holding {2}; only its capacity, dry mass and leak rate are open to files.",
+      "after": "{0} must stay kind {1} holding {2}; only its capacity, dry mass and leak rate are open to files."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Vessels.bin_kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/VesselData.cs:26"
+      ],
+      "before": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files.",
+      "after": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files."
     }
   ],
   "documents": [
@@ -48205,8 +48374,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1aec67c33b4c63258eeb156bc758794e9e9d0e04c553c73d9d9aa597b93b24cc",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "cd54f8db472e6bd299c99df6f913e4d69f622424b9930b1f6042c17d987dad5b",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "SUPPORT.md",
@@ -48226,15 +48395,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "825eab41de0475670eed60655ad5de586b5aa18c26535bef725e8905d20f1b8a",
-      "review": "2026-09-29 (R4/R5 reservoirs): R4 and R5 rows; set-up now any water vessel within one tile; reserve and quote follow size."
+      "sha256": "19eee36384d05f477ffbe53e9472c6178a0fb01584c205ce777f5402f5d94961",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c4a6b2e287acace6b2100a306cc1a5deceb841293fd184bd9abaf6af72926b7c",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a1b8348ab4490ab442a891a7de1504126fc23df7c5a9864949e6881ad08693a1",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -48365,8 +48534,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5948872c2f16e33c21959f95c19cf985fb05ee4a621850633f2ca49d585cd732",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "04c342ce58467cb957c87fa06c8fb97c9e40ec2b4d4ac61977f07528b4ce9e13",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/crew-automation.md",
@@ -48393,8 +48562,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "f65a99f92b019c68cd6f4e41cf5d50d67f238a41f94018d6792cff1a8d1d69ae",
-      "review": "30 September 2026 performance pass, stage 8: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "e74e3d7ae42c22b414a9f3c03993dd93730c773db40ef360f08bb719d2605ae9",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -48666,8 +48835,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1eebb660b60a7bfac6c745ea277b1555e19307ab80c5ab1db00a2e4599e18a66",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "aa420de7e6b1e53c1f244baa17c525c81fcf0d922ec8aead42a929c9a3e6d280",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -49100,8 +49269,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6a75be6f7032e3abcfe643c24cb0555f40c72d07d1572e48d3f20ac048124a59",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "b4082cd0db991743f7226cf6eeb169f4f10d9ecdb6b7ccaaf4ca299566200364",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -49156,15 +49325,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8403c12f4ec10b6926e49b12a813701134fe5ea0af0560699c163f5499d8f16d",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "08bce03994f74c3bc6c6c3f46e364702a1cf81a8ec4601ed78d4fcb679f59693",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8bc1792e62659b078c034bbefa7a1ff066083b7653ec10e8220322b1a6106676",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "c167e5e1ac5b607e2c3f33ed4aba3055357380a454f804b70ee329485222f289",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/item-references.md",
@@ -49177,8 +49346,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "c1066a2aba166f9eda4e30f933cbf26caba06efc94f714de38c62dc0f03ccd3a",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "bd53a7507fd8a2b4af59da7521b0dc19db655fba550a677fcef2473aa3317748",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -49205,8 +49374,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a47a2d3d88f60e78609fa2379aa9c1fa13176d08ee53999a9f1d29e8ca2bd0dc",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "014f1f8ecb210943c6364e107d10c53d570d436ffadbdb8da7a24ff04cfb5b84",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/residue-collector.md",
@@ -49240,8 +49409,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "5fe534f936873edc380726af4e3f49d167d9db99fe1861478b86456a11ba6bba",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a9ad5f1a0841ab408eb67dc0b6feb95dc4b0bf684ecc883050a0e6c5876d87b0",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -49254,8 +49423,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "283bdd1f6e3459da3329292320336bc8903509b16ceb82acb92ec69dacaf5897",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "d05466162c16c34204d2b9ffa7a2a30ced073ab53ad3f47a38a73c6fd9d3f012",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): regenerated item references and the storage calculations report carry only version and hash changes; wording reviewed unchanged."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -49282,8 +49451,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "47ca5c9114084dff50fc75aa222adc44a6760c0d2c921c6d35c77cd23fbb872e",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "1c38ceb6cffce57ed69f7fb5b0b8ce4335e6d655cf1d11e98ded081c85267ad0",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -49296,22 +49465,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2b8fce9a454adaa7eb17f79983a61f90c58086accc9f0a74515ead6706d2a881",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "a075851932ad69a60a1f0ee722dd87c9dbd1afade0031f10cad2f7afa737983c",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "56698c1bc6173e33c0b8f8d4ebbef10a5e62cf70d9e5430b89c38719c4fdb767",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "5b128eb2f23b531156fde40c6e2675b8c5bbaefe00ffd7f439ab4da0034f1acc",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7d0db045bdbb765b6bf7922ebfadf04cdf7737d93347281df9a447f19d427a37",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "6d060c4295c1b268874de1fd50e5b7797f02a8b6497534be49677c36345a9706",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -49352,8 +49521,8 @@
       "path": "docs/shipbreaker-material-bins.md",
       "scope": "current player operating guide",
       "decision": "add",
-      "sha256": "6f34b5d283d5ad312e471bac3d639ee95075f37ae0fc5a6aef7af22f7fa36085",
-      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "f2b4ad9b1c51196d330419d037f0f9750bf3ed993fc92f89d45370031afac401",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/development/asteroid-feedstock-programme-status.md",
@@ -49366,15 +49535,15 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "432c4ac268d33dbf3560a2e796b44a80aa23512d89cd55bffd639e0453199833",
-      "review": "30 September 2026: programme status record and schema separation audit written; developer records, technical terminology retained."
+      "sha256": "9a59244e8f4486239ad23969e96d06402d6513fd46ffbc34fe0da05a56fa82eb",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "287e4df715b273b6724e1a5245e547cf5a175ea6446577a543e27ab156fa4a91",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "00de1f37dafcb5f81b3ad51a0f4e46779b55c0828647f1781cc09e000d2a43c2",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     }
   ],
   "surfaces": [
@@ -49398,8 +49567,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6358de9c36b19eb7ed03741acd2a4ac479c116bc8c6fa7b9218b11127c997254",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3109c1cf05dd58554a69821d9d646afe79786b7135d3e2c9c6d2ff7440dbbcb6",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -49430,14 +49599,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "30f69606a1d0cd151b8a326af469aff2689b36687312f6ab63349ffab3ff559f",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "978a76fd7ee804787b61b5fb3e2f7d16d229838d5dc8581d14bd90c84836dd1f",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2a0f15861a0e995ba2155cac3cf543884ac61b624867c2cf6e8424626f4576ed",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "d363cfb9d9417c801e871b0b4405c44f43a989876ec56bd581673c42e38d3d33",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -49454,8 +49623,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4ffd48ad59995af3937745a9a1ab783567a8faf5e945cf0b31f11d4f8733bb38",
-      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
+      "sha256": "0614fbd737afcca93923fb97576e367e3e77441198444d1bd14af45207a156e8",
+      "review": "Vessels data pack (Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0): schema refusal messages state what the file must hold; player and development guides say where the ratings live and that owned stores wait for Accept."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

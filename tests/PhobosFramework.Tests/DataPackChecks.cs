@@ -148,5 +148,28 @@ internal static class DataPackChecks
         BadMaterial(p => p.materials["PhobosThing"].kind = "gas", "Unknown material kinds are refused");
         BadMaterial(p => p.materials["PhobosThing"].kg = 0, "Mass must be positive");
         BadMaterial(p => p.materials["PhobosThing"].stack = 0, "Stack is 1 or more");
+
+        // The vessels schema: every known family has an entry, vessels need a commodity and a capacity, bins need cells instead.
+        var vesselContext = new VesselContext(new[] { "PhobosTank", "PhobosBin" }) { Kinds = new[] { "silo", "bin" } };
+        VesselPack Vessels()
+        {
+            var pack = new VesselPack { schemaVersion = 1, schema = "vessels" };
+            pack.families["PhobosTank"] = new VesselFamilyEntry { kind = "silo", commodity = "water", capacityKg = 1000, dryKg = 240 };
+            pack.families["PhobosBin"] = new VesselFamilyEntry { kind = "bin", dryKg = 60, cellsPerTileSide = 2 };
+            return pack;
+        }
+        VesselSchema.Validate(Vessels(), vesselContext);
+        check(true, "A complete vessels pack validates");
+        void BadVessel(Action<VesselPack> mutate, string message) { var pack = Vessels(); mutate(pack); throws(() => VesselSchema.Validate(pack, vesselContext), message); }
+        BadVessel(p => p.families.Remove("PhobosBin"), "Every known vessel family needs an entry");
+        BadVessel(p => p.families["PhobosOther"] = new VesselFamilyEntry { kind = "silo", commodity = "water", capacityKg = 1, dryKg = 1 }, "Vessels cannot be added by a file");
+        BadVessel(p => p.families["PhobosTank"].kind = "reservoir", "Unknown vessel kinds are refused");
+        BadVessel(p => p.families["PhobosTank"].capacityKg = 0, "A vessel needs a positive capacity");
+        BadVessel(p => p.families["PhobosTank"].commodity = null, "A vessel needs its commodity");
+        BadVessel(p => p.families["PhobosTank"].cellsPerTileSide = 2, "Cells belong to bins only");
+        BadVessel(p => p.families["PhobosBin"].capacityKg = 5, "A bin has no capacity");
+        BadVessel(p => p.families["PhobosBin"].cellsPerTileSide = 0, "A bin needs at least one cell per tile side");
+        BadVessel(p => p.families["PhobosBin"].dryKg = 0, "Dry mass must be positive");
+        BadVessel(p => p.families["PhobosTank"].leakKgPerHour = -1, "Leak rate cannot be negative");
     }
 }

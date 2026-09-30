@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "schema": "vessels",
+  "notes": "Phobos Agriculture water vessels, small size: the Verdemorrow Groundwork R3 reservoir (a Framework bulk vessel; the R4 and R5 scale through the ladder). The W2 irrigation supply is not here: its 20 kg is the rack reservoir the crop model is written for. Changing a capacity or dry mass leaves existing reservoirs Protected until accepted. Record: docs/agriculture-bulk-storage.md.",
+  "families": {
+    "PhobosVerdemorrowGroundworkR3": {
+      "notes": "R3: 120 kg of water in a 25 kg housing, 3 x 3.",
+      "kind": "reservoir",
+      "commodity": "water",
+      "capacityKg": 120,
+      "dryKg": 25,
+      "leakKgPerHour": 0
+    }
+  }
+}

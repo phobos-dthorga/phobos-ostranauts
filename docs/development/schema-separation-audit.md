@@ -261,6 +261,26 @@ should not resume before they land.
 5. Confirm that identifiers, record keys, ports and native mirrors stay in code
    (section 6.1), and that guidance tunables and UI theme are excluded (6.2, 6.3).
 
+## 9. Progress
+
+The owner approved every recommendation on 30 September 2026 and confirmed the
+validator split (decision 3). Steps land as one commit set each, on `main`:
+
+| Step | Delivered | Versions | Commit |
+| --- | --- | --- | --- |
+| 1 | `DataPacks` loader, `economy` schema, pointer targets, Python validator, golden export; Manufacturing economy | Framework 0.49.0, Manufacturing 0.11.0 | 5c0ab38 |
+| 2 | `process-recipes` and `materials` with the revision freeze; Manufacturing charges and materials; Shipbreaker furnace, thaw, reclaimer and packets | Framework 0.50.0, Manufacturing 0.12.0, Shipbreaker 0.46.0 | 1d39d7a |
+| 3 | `vessels`: gas store families, S3 silo, Y2 bin, R3 reservoir; ladder kept in code | Framework 0.51.0, Manufacturing 0.13.0, Shipbreaker 0.47.0, Agriculture 0.23.0 | this change |
+| 4 | `economy` for Shipbreaker, Agriculture and Auto Nav | | pending |
+| 5 | `equipment` per family as touched | | pending |
+| 6 | Tooling closure | | pending |
+| 7 | Feedstock programme round three in the packs | | pending |
+
+Step 3 differs from the table in section 5.2 in two places: the ladder parameters
+stay in `BulkVesselSizes` (saved medium and large vessels are checked against
+them), and prices stay in the economy pack rather than being repeated in vessels.
+The W2 supply is not a vessels entry because its 20 kg is `CropState.ReservoirKg`.
+
 ## Sources
 
 The four inventories behind this record were produced on 30 September 2026 by

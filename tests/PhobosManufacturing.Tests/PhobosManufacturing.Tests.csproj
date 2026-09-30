@@ -10,6 +10,7 @@
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/process-recipes.json" LogicalName="PhobosManufacturing.process-recipes.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/frozen-process-recipes.json" LogicalName="PhobosManufacturing.frozen-process-recipes.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/materials.json" LogicalName="PhobosManufacturing.materials.json" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/vessels.json" LogicalName="PhobosManufacturing.vessels.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />

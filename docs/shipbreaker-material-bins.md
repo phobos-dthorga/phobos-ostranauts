@@ -12,6 +12,10 @@ pending, including how the bins' artwork looks in play. Use the
 | Phobos' Rivetline Y3 Material Bin | 3 x 3 tiles; 115 kg empty | 6 x 6 grid: 216 ore blocks | 3,900 cr, broken 975 cr | The same sellers; INSTALL > FURN. Too big to turn up in salvage. |
 | Phobos' Rivetline Y4 Material Bin | 4 x 4 tiles; 170 kg empty | 8 x 8 grid: 384 ore blocks | 5,510 cr, broken 1,377 cr | The same sellers; INSTALL > FURN. Too big to turn up in salvage. |
 
+The Y2's empty weight and cells per tile are in the mod's framework/vessels.json
+and can be overridden (see [editing the data files](editing-data-files.md)); the
+Y3 and Y4 follow.
+
 No fabrication recipe. A bin is a sealed box with hinged lids for what the crew
 mine: ore, loose regolith, gangue, water ice, methane ice, ice gangue and mined
 chunks such as clay hydrates. It takes nothing else, so a bin never fills up

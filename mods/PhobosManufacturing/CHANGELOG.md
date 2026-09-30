@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The six gas store families (H2, M2, O2, N2, C2, Q2) read their capacity, empty weight and damaged leak rate from framework/vessels.json, read through Phobos Framework with player override files in BepInEx/config/PhobosManufacturing/vessels. The shipped figures are unchanged, so nothing in a save moves. Editing a capacity or weight leaves the stores you own waiting for Accept rather than changing their contents; the medium and large sizes follow the small entry.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.51.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.12.0] - 2026-09-30 - Draft
 
 ### Changed

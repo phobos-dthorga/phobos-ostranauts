@@ -42,7 +42,9 @@ def source_inputs():
             raise ValueError(f"Missing numeric constant: {key}")
         return float(match[1])
 
-    if (number(paths[6], "CapacityKg"), number(paths[6], "DryKg"), number(paths[6], "NutrientKg")) != (TANK_KG, TANK_DRY_KG, NUTRIENT_PACKAGE_KG):
+    # Agriculture 0.23.0: the R3 capacity and dry mass live in the vessels data pack, the nutrient charge in code.
+    tank = json.loads((ROOT / "mods/PhobosAgriculture/framework/vessels.json").read_text(encoding="utf-8-sig"))["families"]["PhobosVerdemorrowGroundworkR3"]
+    if (float(tank["capacityKg"]), float(tank["dryKg"]), number(paths[6], "NutrientKg")) != (TANK_KG, TANK_DRY_KG, NUTRIENT_PACKAGE_KG):
         raise ValueError("R3 material budget changed; review the endurance model")
     return dict(crops=crops,
                 buffer_kg=number(paths[0], "ReservoirKg"),

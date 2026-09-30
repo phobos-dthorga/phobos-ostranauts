@@ -13,7 +13,21 @@ internal sealed class TankSize
     internal VesselSize Size { get; }
     internal string Prefix { get; }
     internal int Footprint { get; }
-    internal BulkVesselSpec Spec { get; }
+    private BulkVesselSpec? spec; private Phobos.Ostranauts.Framework.Data.VesselPack? specFrom;
+    /// <summary>The Framework vessel spec, built from the vessels data pack (Agriculture 0.23.0) and rebuilt if that pack is reloaded.</summary>
+    internal BulkVesselSpec Spec
+    {
+        get
+        {
+            var pack = AgricultureVessels.Pack;
+            if (spec == null || !ReferenceEquals(specFrom, pack))
+            {
+                spec = BulkVesselSizes.Spec(BulkDefinitions.Tank, 3, Size, BulkDefinitions.Commodity, BulkDefinitions.CapacityKg, BulkDefinitions.DryKg, Plugin.Id, "AgricultureBulk", "AgricultureBulkWork", "AgricultureBulkTransfer");
+                specFrom = pack;
+            }
+            return spec;
+        }
+    }
     internal double Price { get; }
     internal double CapacityKg => Spec.CapacityKg;
     internal double DryKg => Spec.DryKg;
@@ -22,14 +36,18 @@ internal sealed class TankSize
     internal TankSize(VesselSize size)
     {
         Size = size; Prefix = BulkVesselSizes.Prefix(BulkDefinitions.Tank, size); Footprint = BulkVesselSizes.Footprint(3, size);
-        Spec = BulkVesselSizes.Spec(BulkDefinitions.Tank, 3, size, "water", BulkDefinitions.CapacityKg, BulkDefinitions.DryKg, Plugin.Id, "AgricultureBulk", "AgricultureBulkWork", "AgricultureBulkTransfer");
         Price = BulkVesselSizes.Scale(BulkDefinitions.Price, BulkVesselSizes.PriceFactor(3, size));
     }
 }
 internal static class BulkDefinitions
 {
     internal const string Tank="PhobosVerdemorrowGroundworkR3",Nutrients="PhobosVerdemorrowGroundworkBulkNutrients",Controls="PhobosAgricultureBulkControls";
-    internal const double CapacityKg=120,DryKg=25,Price=450,NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
+    /// <summary>The commodity id the Shipbreaker silo uses too, so guarded transfers between them stay compatible.</summary>
+    internal const string Commodity="water";
+    /// <summary>The R3's ratings, from the vessels data pack (framework/vessels.json); larger sizes scale through the ladder.</summary>
+    internal static double CapacityKg=>AgricultureVessels.Entry(Tank).capacityKg??0;
+    internal static double DryKg=>AgricultureVessels.Entry(Tank).dryKg;
+    internal const double Price=450,NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
     internal const int TankStock=4,NutrientStock=8;
     /// <summary>The R3 as a Framework bulk vessel (Agriculture 0.18.0). Record, journal and guard names are the
     /// ones every saved R3 already carries, so an existing save reads unchanged; a Shipbreaker T2 may deliver into it.</summary>

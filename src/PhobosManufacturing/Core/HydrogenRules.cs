@@ -14,8 +14,10 @@ public static class HydrogenRules
     public const string Record = "ManufacturingHydrogen", Journal = "ManufacturingHydrogenWork", Guard = "ManufacturingHydrogenTransfer";
     public const int Footprint = 2;
     /// <summary>The native RTA canister volume (0.787 m3) at its rated 41.4 MPa and 293 K holds ~27 kg of ideal-gas
-    /// hydrogen; authored 24 kg of usable capacity in a 160 kg housing.</summary>
-    public const double CapacityKg = 24, DryKg = 160, LeakKgPerHour = 2;
+    /// hydrogen; authored 24 kg of usable capacity in a 160 kg housing (vessels data pack).</summary>
+    public static double CapacityKg => GasStores.HydrogenFamily.SmallCapacityKg;
+    public static double DryKg => GasStores.HydrogenFamily.SmallDryKg;
+    public static double LeakKgPerHour => GasStores.HydrogenFamily.SmallLeakKgPerHour;
     /// <summary>Higher heating value of hydrogen, 285.83 kJ/mol of water formed (NIST), 141.9 MJ per kilogram.</summary>
     public const double HHVKJPerKg = 141900, OxygenPerHydrogen = 8;
     public const double IgnitionOxygenKPa = GasStores.IgnitionOxygenKPa;

@@ -2,7 +2,8 @@
 
 Since Phobos Framework 0.49.0, some of the numbers behind the Phobos mods live in
 plain text files you can read and change: prices, how long a job takes, what a
-repair needs, what dismantling returns, which merchants stock what and how often.
+repair needs, what dismantling returns, which merchants stock what and how often,
+what a charge yields and how much a store holds.
 You never edit the mod's own files. You write a small file of your own next to
 your game settings, and the mod reads it on top of the shipped one.
 
@@ -67,10 +68,10 @@ skipped. Changes take effect on the next game load; nothing reloads live.
 
 Prices, work and merchant odds change for future work and future restocks; an
 existing job keeps the work it started with, and a shop keeps what it already
-holds. Changing a store's capacity or a machine's weight is not offered in these
-files yet; where a later pack allows it, an existing machine will show as needing
-attention with an Accept button rather than silently changing its contents. A
-charge already running keeps the recipe revision it started with.
+holds. Changing a store's capacity or empty weight in a vessels file does not
+silently change a store you already own: it shows as needing attention with an
+Accept button, and its contents wait until you accept. A charge already running
+keeps the recipe revision it started with.
 
 ## Which packs exist
 
@@ -81,6 +82,12 @@ charge already running keeps the recipe revision it started with.
 | Phobos Manufacturing 0.12.0 | `materials` | Ingots, carbon stock, remainders and mined chunks: mass, price, stack, category |
 | Phobos Shipbreaker 0.46.0 | `process-recipes` | The F6 furnace recipes and thermal profiles, the T2 thaw recipes, the R4 budget |
 | Phobos Shipbreaker 0.46.0 | `materials` | Housing stock, ingots, remainders and the reject packets |
+| Phobos Manufacturing 0.13.0 | `vessels` | The six gas store families: capacity, empty weight, leak rate when damaged |
+| Phobos Shipbreaker 0.47.0 | `vessels` | The S3 water silo's capacity and weight; the Y2 bin's weight and cells per tile |
+| Phobos Agriculture 0.23.0 | `vessels` | The R3 reservoir's capacity and weight |
 
-More packs (recipes, materials, vessels, loot) follow as the other mods move
-their tables over; this page lists them as they land.
+Larger sizes (S4, S5, R4, R5, Y3, Y4 and the medium and large gas stores) follow
+from the small entry: one tile wider per step, more capacity and less weight per
+kilogram, so you edit the small size and the rest follow. More packs (economy for
+the other mods, equipment shapes, loot) follow as the tables move over; this page
+lists them as they land.

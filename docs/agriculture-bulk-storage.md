@@ -15,7 +15,9 @@ No Steam publication is implied.
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 750 cr; eight per merchant offer, or one per station purchase |
 
 The R4 and R5 work exactly like the R3 and hold more for less per kilogram of
-capacity; everything below applies to every size. R3 is optional. Existing racks, W2, B2, small packets and Ship's Water retain
+capacity; everything below applies to every size. The R3's capacity and empty
+weight are in the mod's framework/vessels.json and can be overridden (see
+[editing the data files](editing-data-files.md)); the larger sizes follow. R3 is optional. Existing racks, W2, B2, small packets and Ship's Water retain
 their roles. R3 holds clean agricultural water only. It is neither a potable
 tank nor a nutrient-solution/recovery receiver. No new chemical assay, crop
 yield, growth speed or pump power is introduced. The 500 g charge uses the same

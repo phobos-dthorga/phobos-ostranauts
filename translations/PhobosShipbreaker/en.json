@@ -903,5 +903,7 @@
   "Recipes.furnace_charge": "Recipe {0}: a furnace charge weighs {1:F0} kg (twenty one-kilogram scraps).",
   "Recipes.aluminium_profile": "Recipe {0}: furnace revision 1 must keep the original aluminium profile; batches saved before 0.38.0 read their heat with it.",
   "Recipes.seconds_required": "Recipe {0}: a thaw recipe needs its seconds.",
-  "Recipes.machine_missing": "The recipe pack has no recipe for {0}; the machine cannot run without one."
+  "Recipes.machine_missing": "The recipe pack has no recipe for {0}; the machine cannot run without one.",
+  "Vessels.silo_kind": "{0} must stay kind {1} holding {2}; only its capacity, dry mass and leak rate are open to files.",
+  "Vessels.bin_kind": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files."
 }

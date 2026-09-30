@@ -152,6 +152,33 @@ First consumers: Manufacturing 0.12.0 (six V4 charges, seven materials) and
 Shipbreaker 0.46.0 (three F6 recipes with thermal profiles, two T2 recipes, the R4
 budget; thirteen packets, ingots and rejects). Consumers require **0.50.0**.
 
+### Vessels (0.51.0)
+
+`Data.VesselPack` (`vessels`) holds the small size of every bulk vessel or bin
+family a mod ships, keyed by definition prefix: `kind` (how the owner builds it),
+`commodity`, `capacityKg`, `dryKg`, `leakKgPerHour` and, for item-grid bins,
+`cellsPerTileSide` instead of a commodity and capacity. `VesselSchema.Validate`
+requires an entry for every prefix the owner names and no others, positive
+capacity and dry mass within bounds, a non-negative leak rate and the right field
+set for the kind (`VesselContext.ItemKinds`, `bin` by default). Owners add their own
+binding in the validator lambda: Manufacturing refuses a commodity that differs
+from the family's code, Shipbreaker pins the silo to `water` and the bin to its kind.
+
+What stays in code: identities, record, journal and guard names, species, model
+letters, prices (economy pack) and the size ladder (`Liquids.BulkVesselSizes`),
+because saved medium and large vessels are checked against it. Read the pack
+through properties, not at static initialisation: a `BulkVesselSpec` built from it
+should be rebuilt when `Pack` changes identity (see `GasStore.Spec`), so a reload
+after `DataPacks.Reset()` is not served stale ratings. A capacity or dry mass that
+no longer matches a saved vessel leaves it **Protected** until the owner accepts it
+through the existing `BulkVessel` path; the pack does not hide that, and the
+player guide says so.
+
+First consumers: Manufacturing 0.13.0 (six gas store families), Shipbreaker 0.47.0
+(the S3 silo and the Y2 bin) and Agriculture 0.23.0 (the R3 reservoir; the W2 supply
+stays in code because its 20 kg is the rack reservoir the crop model is written
+for). Consumers require **0.51.0**.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

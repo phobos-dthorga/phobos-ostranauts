@@ -44,6 +44,7 @@ internal static class Definitions
     internal static NativeDefinitions Prepare(bool lootEnabled = true, double lootMultiplier = LootContent.DefaultMultiplier)
     {
         var d = new NativeDefinitions();
+        AgricultureVessels.Load();
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("controls"); controls.strDesc = controls.strTooltip = Text.Get("controls"); controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[Controls] = controls;

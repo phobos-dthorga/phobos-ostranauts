@@ -321,6 +321,8 @@ foreach ($mod in $Mods) {
                 foreach ($image in @('ReservoirMedium', 'ReservoirLarge')) { "images/phobos/agriculture/$image.png"; "images/phobos/agriculture/${image}Normal.png" }
             }
             'framework/recipes.json'; 'framework/equipment-names.json'
+            # 0.23.0 moves the reservoir ratings into a data pack.
+            if ($version -ge [version]'0.23.0') { 'framework/vessels.json' }
             foreach ($image in @('Rack', 'RackNormal', 'Cooker', 'CookerNormal', 'Potato-sprout', 'Potato-young', 'Potato-mature', 'Potato-harvest', 'Potato-wilted', 'Potato-dead')) {
                 "images/phobos/agriculture/$image.png"
             }
@@ -373,6 +375,8 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.11.0') { 'framework/economy.json' }
             # 0.12.0 moves the charges and materials into data packs, with the frozen revisions beside them.
             if ($version -ge [version]'0.12.0') { 'framework/process-recipes.json'; 'framework/frozen-process-recipes.json'; 'framework/materials.json' }
+            # 0.13.0 moves the gas store ratings into a data pack.
+            if ($version -ge [version]'0.13.0') { 'framework/vessels.json' }
             # 0.10.0 adds the Tolvane AX-2 ammonia cracker.
             if ($version -ge [version]'0.10.0') {
                 'images/phobos/manufacturing/PhobosAmmoniaCracker.png'; 'images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png'
@@ -389,6 +393,8 @@ foreach ($mod in $Mods) {
         'Shipbreaker' {
             # 0.46.0 moves the fixed recipes and loose materials into data packs, with the frozen revisions beside them.
             if ($version -ge [version]'0.46.0') { 'framework/process-recipes.json'; 'framework/frozen-process-recipes.json'; 'framework/materials.json' }
+            # 0.47.0 moves the silo and bin ratings into a data pack.
+            if ($version -ge [version]'0.47.0') { 'framework/vessels.json' }
             # 0.43.0 adds the Y2, Y3 and Y4 material bins.
             if ($version -ge [version]'0.43.0') {
                 foreach ($image in @('PhobosMaterialBin', 'PhobosMaterialBinMedium', 'PhobosMaterialBinLarge')) {

@@ -236,5 +236,6 @@
   "crop_present": "A crop is already planted. Harvest or clear it first.",
   "bulk_tank_medium": "Agricultural Water Reservoir",
   "bulk_tank_large": "Agricultural Water Reservoir",
-  "bulk_tank_details": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water."
+  "bulk_tank_details": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water.",
+  "vessels_commodity": "{0} holds {1}; the vessels file cannot change what it holds."
 }

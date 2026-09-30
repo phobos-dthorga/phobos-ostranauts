@@ -430,5 +430,15 @@
   "MaterialSchema.kind": "{0}: kind {1} is not one this mod builds.",
   "MaterialSchema.positive": "{0}: {1} must be a positive number.",
   "MaterialSchema.stack": "{0}: stack must be 1 to {1}.",
-  "MaterialSchema.side": "{0}: side must be 1 to {1} tiles."
+  "MaterialSchema.side": "{0}: side must be 1 to {1} tiles.",
+  "VesselSchema.missing": "No vessels entry for {0}. Every vessel family the mod knows needs one.",
+  "VesselSchema.unknown": "{0} is not a vessel family this mod knows. Vessels cannot be added in a data file.",
+  "VesselSchema.kind": "{0}: kind {1} is not one this mod builds.",
+  "VesselSchema.bin_fields": "{0}: a bin holds items, so it has no commodity or capacityKg.",
+  "VesselSchema.cells": "{0}: cellsPerTileSide must be 1 to {1}.",
+  "VesselSchema.commodity": "{0}: a vessel needs the commodity it holds.",
+  "VesselSchema.capacity": "{0}: capacityKg must be above 0 and at most {1}.",
+  "VesselSchema.vessel_fields": "{0}: cellsPerTileSide belongs to bins only.",
+  "VesselSchema.dry": "{0}: dryKg must be above 0 and at most {1}.",
+  "VesselSchema.leak": "{0}: leakKgPerHour must be 0 to {1}."
 }

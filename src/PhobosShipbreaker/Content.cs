@@ -76,6 +76,7 @@ internal static class Content
         bool iceFields = true, bool depositIce = true)
     {
         var prepared = MachineDefinitions.Create();
+        ShipbreakerVessels.Load();
         ShipbreakerMaterials.Load();
         ShipbreakerRecipes.Load(NativeMass);
 

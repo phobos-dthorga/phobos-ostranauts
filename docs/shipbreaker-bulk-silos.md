@@ -15,7 +15,9 @@ pending, including how the machines' artwork looks in play. Use the
 | Phobos' Rivetline T2 Ice Thaw Unit | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. Purchase only: no fabrication recipe. |
 
 The S4 and S5 work exactly like the S3 and hold more water for less per
-kilogram of capacity. Everything below applies to every size. The silo stores **process water** only. It is not a drinking-water tank and
+kilogram of capacity. Everything below applies to every size. The S3's capacity
+and empty weight are in the mod's framework/vessels.json and can be overridden
+(see [editing the data files](editing-data-files.md)); the larger sizes follow. The silo stores **process water** only. It is not a drinking-water tank and
 never joins Ship's Water's potable tanks. The water is a saved record on the
 silo, not a native stat, so the station's fuel kiosk and the reactor never read
 it as fuel. A full silo weighs what it holds: the ship's mass readouts include it.

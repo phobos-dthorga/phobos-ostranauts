@@ -230,7 +230,30 @@ def materials(pack, where):
             raise Problem(f'{w}/terminal: expected true or false')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials}
+
+def vessels(pack, where):
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'families'}, where)
+    entries = pack.get('families', {})
+    if not isinstance(entries, dict) or not entries:
+        raise Problem(f'{where}/families: needs at least one family')
+    for key, v in entries.items():
+        w = f'{where}/families/{key}'
+        fields(v, {'notes', 'kind', 'commodity', 'capacityKg', 'dryKg', 'leakKgPerHour', 'cellsPerTileSide'}, w)
+        if v.get('kind') == 'bin':
+            if 'capacityKg' in v or 'commodity' in v:
+                raise Problem(f'{w}: a bin has no commodity or capacityKg')
+            number(v.get('cellsPerTileSide'), f'{w}/cellsPerTileSide', 1, 8, integer=True)
+        else:
+            if not v.get('commodity'):
+                raise Problem(f'{w}/commodity: needed')
+            number(v.get('capacityKg'), f'{w}/capacityKg', 0, 100000, exclusive_low=True)
+            if 'cellsPerTileSide' in v:
+                raise Problem(f'{w}: cellsPerTileSide belongs to bins only')
+        number(v.get('dryKg'), f'{w}/dryKg', 0, 10000, exclusive_low=True)
+        number(v.get('leakKgPerHour', 0), f'{w}/leakKgPerHour', 0, 1000)
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels}
 
 
 def check_file(path):

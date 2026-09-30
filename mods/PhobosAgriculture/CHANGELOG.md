@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.23.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The R3 reservoir's capacity and empty weight now live in framework/vessels.json, read through Phobos Framework with player override files in BepInEx/config/PhobosAgriculture/vessels. The shipped figures are unchanged. Editing them leaves the reservoirs you own waiting for Accept rather than changing their contents; the R4 and R5 follow the R3 entry. The W2 supply's 20 kg stays fixed: it is the rack reservoir the crop cycle is written for.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.51.0 or newer. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.22.0] - 2026-09-30 - Draft
 
 ### Changed

@@ -35,6 +35,7 @@ internal static class Content
     internal static NativeDefinitions Prepare(bool steelStock)
     {
         var d = new NativeDefinitions();
+        Vessels.Load();
         Materials.Load();
         RefineryRecipes.Load(NativeMass);
         Economy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));

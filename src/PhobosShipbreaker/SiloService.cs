@@ -16,7 +16,21 @@ namespace PhobosShipbreaker;
 internal static class SiloService
 {
     /// <summary>Every silo size's declaration, S3 first; the S3's is <see cref="Spec"/>.</summary>
-    internal static readonly BulkVesselSpec[] Specs = SiloRules.Sizes.Select(s => new BulkVesselSpec(s.Prefix, SiloRules.Commodity, s.CapacityKg, s.DryKg, Plugin.Id, s.Record, s.Journal, s.Guard)).ToArray();
+    private static BulkVesselSpec[]? specs; private static Phobos.Ostranauts.Framework.Data.VesselPack? specsFrom;
+    /// <summary>The silo specs, built from the vessels data pack and rebuilt if that pack is reloaded.</summary>
+    internal static BulkVesselSpec[] Specs
+    {
+        get
+        {
+            var pack = ShipbreakerVessels.Pack;
+            if (specs == null || !ReferenceEquals(specsFrom, pack))
+            {
+                specs = SiloRules.Sizes.Select(s => new BulkVesselSpec(s.Prefix, SiloRules.Commodity, s.CapacityKg, s.DryKg, Plugin.Id, s.Record, s.Journal, s.Guard)).ToArray();
+                specsFrom = pack;
+            }
+            return specs;
+        }
+    }
     internal static BulkVesselSpec Spec => Specs[0];
     /// <summary>The station Bulk supplies offer: process water into an installed S3 at the authored price.</summary>
     /// <summary>One offer fills every silo size; a quote is bounded by the chosen silo's room and the largest silo's steps.</summary>

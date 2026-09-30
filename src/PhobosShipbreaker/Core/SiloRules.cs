@@ -13,8 +13,9 @@ public sealed class SiloSize
     public string Prefix { get; }
     public string Installed => Prefix + "Installed";
     public int Footprint { get; }
-    public double CapacityKg { get; }
-    public double DryKg { get; }
+    /// <summary>Scaled from the S3's ratings in the vessels data pack (Shipbreaker 0.47.0) through the Framework ladder.</summary>
+    public double CapacityKg => BulkVesselSizes.Scale(SiloRules.CapacityKg, BulkVesselSizes.CapacityFactor(SiloRules.Footprint, Size));
+    public double DryKg => BulkVesselSizes.Scale(SiloRules.DryKg, BulkVesselSizes.DryFactor(SiloRules.Footprint, Size));
     public double Price { get; }
     public string Record { get; }
     public string Journal { get; }
@@ -25,8 +26,6 @@ public sealed class SiloSize
     internal SiloSize(VesselSize size)
     {
         Size = size; Prefix = BulkVesselSizes.Prefix(SiloRules.Prefix, size); Footprint = BulkVesselSizes.Footprint(SiloRules.Footprint, size);
-        CapacityKg = BulkVesselSizes.Scale(SiloRules.CapacityKg, BulkVesselSizes.CapacityFactor(SiloRules.Footprint, size));
-        DryKg = BulkVesselSizes.Scale(SiloRules.DryKg, BulkVesselSizes.DryFactor(SiloRules.Footprint, size));
         Price = BulkVesselSizes.Scale(SiloRules.Price, BulkVesselSizes.PriceFactor(SiloRules.Footprint, size));
         Record = BulkVesselSizes.Name(SiloRules.Record, size); Journal = BulkVesselSizes.Name(SiloRules.Journal, size); Guard = BulkVesselSizes.Name(SiloRules.Guard, size);
     }
@@ -43,8 +42,10 @@ public static class SiloRules
     public const string Commodity = "water";
     public const string Record = "ShipbreakerSilo", Journal = "ShipbreakerSiloWork", Guard = "ShipbreakerSiloTransfer";
     public const int Footprint = 3;
-    // Authored: a 3 x 3 sealed vessel of 1,000 kg water (one cubic metre) in a 240 kg housing.
-    public const double CapacityKg = 1000, DryKg = 240, Price = 4800;
+    // Authored: a 3 x 3 sealed vessel of 1,000 kg water (one cubic metre) in a 240 kg housing (framework/vessels.json).
+    public static double CapacityKg => ShipbreakerVessels.Entry(Prefix).capacityKg ?? 0;
+    public static double DryKg => ShipbreakerVessels.Entry(Prefix).dryKg;
+    public const double Price = 4800;
     public const double WaterPricePerKg = 10, PurchaseStepKg = 10;
     public const int PurchaseSteps = 100;
     /// <summary>Drinking water Ship's Water keeps for the crew when a silo draws from its tanks (a setting).</summary>

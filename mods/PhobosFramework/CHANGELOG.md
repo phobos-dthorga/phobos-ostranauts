@@ -20,6 +20,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.51.0] - 2026-09-30 - Draft
+
+### Added
+
+- A vessels data-pack schema: the small size of every bulk store or bin a mod ships (what it holds, capacity, empty weight, leak rate when damaged, cells per tile for a bin). Every family the code names needs an entry and no other may be added; kinds, commodities and identities stay with the mod. Larger sizes still follow the shared size ladder. A capacity or weight edit does not silently change a store you own: it shows as needing attention until accepted, as before.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself; the first packs are Manufacturing 0.13.0, Shipbreaker 0.47.0 and Agriculture 0.23.0. Offline checks are not gameplay validation.
+
 ## [0.50.0] - 2026-09-30 - Draft
 
 ### Added
