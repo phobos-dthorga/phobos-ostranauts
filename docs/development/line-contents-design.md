@@ -12,8 +12,9 @@ Framework 0.63.0 and Manufacturing 0.25.0 (1 October 2026). The player guide is
 - Drained contents go into a portable drain canister that crew haul.
 - Realistic hold-up per tile.
 - Irrigation parcels and the furnace coolant charge move to the same model, with their
-  saved contents converted on load. **Not yet delivered:** Agriculture and
-  Shipbreaker follow in their own releases.
+  saved contents converted on load. Shipbreaker 0.58.0 delivers the coolant conduit
+  (see *Pumped circuits* below); **not yet delivered:** Agriculture's irrigation
+  follows in its own release.
 
 ## Model
 
@@ -114,7 +115,33 @@ when it finishes. A finished action reports its amounts to the worker's log.
 | Water, gas and acid segments already laid | Automatic: no record means empty and open; they fill from their stores within seconds, taking their hold-up from them |
 | AT acid tanks | Automatic: the rack comes from the definition when the save loads; cargo starts empty, so the mass invariant is unchanged |
 | Manufacturing 0.24.0 bund contents | Unchanged; recovered from the tank's panel as before |
-| Irrigation parcels, coolant charge | Not yet converted; later releases |
+| F6 coolant charge (`FurnaceCoolantCharge`, four keys) | Automatic: record unchanged; its meaning becomes the reservoir, and what it held above 5 kg (the old 0.01 kg a tile pipe allowance) is pumped into the conduit on the next powered step |
+| A running serviced loop | **Manual step:** it needs about 0.33 kg a conduit tile more before it circulates; the furnace status says how much, and the crew coolant order loads it |
+| Irrigation parcels (`AgricultureLine`) | Not yet converted; Agriculture's release |
+
+## Pumped circuits (Framework 0.64.0, Shipbreaker 0.58.0)
+
+- **Content-filled families.** A holding family need not be a network: one without
+  ports (`StoreFilled` false) is skipped by the top-up pass and filled by its content
+  mod through `LineContents.Circuit` (the open segments on the connected runs of a
+  path), `Room`, `Full`, `Holding` and `Top`.
+- **The F6 coolant conduit.**
+  - It holds the authored service fluid, 1,050 kg/m³ in a 20 mm bore, about 0.33 kg
+    a tile.
+  - The furnace's four-key charge is its reservoir. The pump primes the whole connected
+    circuit from the surplus above the 5 kg base, at an authored 0.1 kg a second of
+    pumping. Mass leaves the furnace's charge and joins the segments.
+  - `Filled` now means a full circuit plus the base charge. The route length, the
+    priming time and the flow fraction keep their earlier rules.
+  - The legacy sealed assembly (servicing disabled) keeps an empty conduit.
+- **Canister receivers.** `DrainCanisters.RegisterReceiver` lets a machine that is not
+  a bulk vessel take a canister's liquid from its inventory; the receiver records the
+  kilograms and its own mass.
+  - The F6 accepts coolant under the same guards and service journal as loading a
+    charge.
+- **A drained conduit is closed**, so the furnace sees no route and its reservoir
+  follows the existing broken-route leak into the catch tank until the run returns
+  to service.
 
 ## Performance
 

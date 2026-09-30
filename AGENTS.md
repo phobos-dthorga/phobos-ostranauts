@@ -1307,8 +1307,17 @@
     rack.
   - Follow `docs/development/line-contents-design.md`. Declare new holding lines through
     `LineContents.Declare`; never add a separate spill for them.
-- Agriculture irrigation and Shipbreaker coolant are the remaining releases. Owner
-  gameplay checks remain pending.
+- Framework 0.64.0 with Shipbreaker 0.58.0 put the F6-C coolant conduit on the model
+  as a pumped circuit:
+  - Non-network holding families are filled by their content mod through
+    `LineContents.Circuit`/`Top`.
+  - The furnace's unchanged four-key charge is the reservoir; the pump primes the
+    circuit from its surplus above 5 kg, and circulation needs a full circuit.
+  - `DrainCanisters.RegisterReceiver` lets the F6 take a canister of coolant.
+  - The legacy sealed assembly keeps an empty conduit. A running serviced loop needing
+    more charges is the documented manual step.
+- Agriculture irrigation is the remaining release. Owner gameplay checks remain
+  pending.
 
 ## Refining value (2026-09-30)
 

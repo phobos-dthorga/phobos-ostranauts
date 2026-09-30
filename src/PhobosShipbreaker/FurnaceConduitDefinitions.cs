@@ -22,6 +22,11 @@ internal static class FurnaceConduitDefinitions
             Present = Segment, Intact = null, Kg = 1, Price = supply.price, InstallTab = InstallMenu.Hvac, Controls = "Inventory",
             LooseStack = LooseStackLimit, Layer = LineLayers.Coolant, FixtureLoot = p + "Fixture"
         });
+        // The conduit holds its coolant until drained (Shipbreaker 0.58.0; owner decision, 1 October 2026): about 0.33 kg a
+        // tile of service fluid, primed by the F6's pump from its reservoir, drained into Framework's drain canister.
+        FurnaceService.CoolantHolding = Phobos.Ostranauts.Framework.Liquids.LineContents.Declare(FurnaceService.CoolantConduits, p, new[] { CoolantCharge.HeldCoolant() });
+        Phobos.Ostranauts.Framework.Liquids.LineContents.OfferActions(d, p, gas: false);
+        Phobos.Ostranauts.Framework.Liquids.DrainCanisters.RegisterReceiver(new FurnaceCoolantReceiver());
         string waste = supply.remainder ?? p + "Waste";
         MaintenanceDefinitions.Remainder(d, waste, Text.Get("Furnace.coolant_waste"), 1);
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })

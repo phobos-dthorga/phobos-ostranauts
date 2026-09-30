@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PhobosShipbreaker.Core;
 using Phobos.Ostranauts.Framework.Persistence;
+using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 using Phobos.Ostranauts.Framework.Inventory;
@@ -35,14 +36,38 @@ internal static partial class FurnaceService
     }
     private static int ChargeCells(Session s)
     {var peer=SelectedCooling(s.Object);return peer!=null&&Routed(s.Object)&&CoolantRoute(s.Object,peer,out var count)?count:0;}
-    private static bool ChargeReady(Session s)=>!s.Coolant.Enabled||ChargeCells(s) is int n&&n>0&&s.Coolant.Flow(n)>0;
+    private static bool ChargeReady(Session s)=>!s.Coolant.Enabled||ChargeCells(s) is int n&&n>0&&s.Coolant.Flow(n,CircuitFull(s))>0;
     private static string ChargeStatus(Session s)
-    {int cells=ChargeCells(s);return Text.Get("Furnace.charge_status",s.Coolant.Enabled?Text.Get("Furnace.charge_managed"):Text.Get("Furnace.charge_legacy"),s.Coolant.CleanKg,s.Coolant.CapturedKg,cells>0?s.Coolant.PressureKPa(cells):0,s.Coolant.PrimeSeconds);}
+    {
+        int cells=ChargeCells(s);bool full=CircuitFull(s);var circuit=CoolantCircuit(s);
+        double held=CoolantHolding==null?0:LineContents.Holding(circuit,CoolantCharge.Commodity),room=CoolantHolding==null?0:LineContents.Room(circuit,CoolantHolding,CoolantCharge.Commodity);
+        return Text.Get("Furnace.charge_status",s.Coolant.Enabled?Text.Get("Furnace.charge_managed"):Text.Get("Furnace.charge_legacy"),s.Coolant.CleanKg,s.Coolant.CapturedKg,cells>0?s.Coolant.PressureKPa(full):0,s.Coolant.PrimeSeconds)+
+            (s.Coolant.Enabled&&cells>0?"\n"+Text.Get(full?"Furnace.circuit_full":"Furnace.circuit_filling",held,held+room,Math.Max(0,room-s.Coolant.SurplusKg)):"");
+    }
+    /// <summary>The service guards every coolant action shares, and a canister pour too: mounted, unlocked, intact (drain
+    /// excepted), piped, idle, open, unarmed, with a container, and no unsafe repair on the furnace or its assembly.</summary>
+    private static bool ChargeServiceable(Session s,bool drain)
+    {
+        var co=s.Object;
+        if(!Mounted(co)||co.HasCond("IsLocked")||!drain&&!Intact(co)||!FurnaceRules.Machine(co.strCODef)||!Routed(co)||!s.State.Batch.SafeOpen||s.State.Batch.Phase!=FurnacePhase.Idle||s.State.Batch.Armed||co.objContainer==null||UnsafeRepair(co))return false;
+        var peer=SelectedCooling(co);return peer==null||!UnsafeRepair(peer);
+    }
+    /// <summary>A drain canister of coolant put in the furnace's Products pours into the reservoir (Shipbreaker 0.58.0),
+    /// up to its capacity, through the same service journal and guards as loading a charge.</summary>
+    internal static double AcceptCoolant(CondOwner co,double kg)
+    {
+        var s=Get(co);
+        if(s.Protected||!s.Coolant.Enabled||!ChargeServiceable(s,false))return 0;
+        double moved=Math.Min(kg,CoolantCharge.CapacityKg-s.Coolant.TotalKg);
+        if(moved<=1e-9||!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="pending",["input"]="drain canister"}))return 0;
+        s.Coolant.CleanKg+=moved;Save(s);
+        if(!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="clear"}))throw new InvalidOperationException("Coolant service completion failed.");
+        return moved;
+    }
     private static bool ChargeCommand(Session s,string action,bool local,out string message)
     {
         message=Text.Get("Furnace.charge_service");var co=s.Object;
-        if(!local||!Mounted(co)||co.HasCond("IsLocked")||action!="coolant-drain"&&!Intact(co)||!FurnaceRules.Machine(co.strCODef)||!Routed(co)||!s.State.Batch.SafeOpen||s.State.Batch.Phase!=FurnacePhase.Idle||s.State.Batch.Armed||co.objContainer==null||UnsafeRepair(co))return false;
-        var peer=SelectedCooling(co);if(peer!=null&&UnsafeRepair(peer))return false;
+        if(!local||!ChargeServiceable(s,action=="coolant-drain"))return false;
         if(action=="coolant-managed"||action=="coolant-sealed")
         {if(s.Coolant.TotalKg>1e-9)return false;s.Coolant.Enabled=action=="coolant-managed";s.Coolant.PrimeSeconds=0;Save(s);return true;}
         if(!s.Coolant.Enabled)return false;
@@ -90,6 +115,14 @@ internal static partial class FurnaceService
             d.Items[id]=item;d.Objects[id]=co;
         }
     }
+}
+
+/// <summary>The F6 as a drain-canister receiver: a canister of coolant in its Products pours into the reservoir.</summary>
+internal sealed class FurnaceCoolantReceiver : Phobos.Ostranauts.Framework.Liquids.ICanisterReceiver
+{
+    public string Id => "PhobosShipbreaker.FurnaceCoolant";
+    public bool Handles(CondOwner machine) => machine != null && FurnaceRules.Machine(machine.strCODef);
+    public double Accept(CondOwner machine, string commodity, double kg) => commodity == CoolantCharge.Commodity ? FurnaceService.AcceptCoolant(machine, kg) : 0;
 }
 
 // Both furnace damage forms retain the same dry mass and physical inventories.

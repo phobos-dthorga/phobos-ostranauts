@@ -9,9 +9,11 @@ using Phobos.Ostranauts.Framework.Registration;
 
 namespace Phobos.Ostranauts.Framework.Liquids;
 
-/// <summary>A line family whose segments hold contents (Framework 0.63.0): its network family, its definition prefix
+/// <summary>A line family whose segments hold contents (Framework 0.63.0): its segment family, its definition prefix
 /// (the shared four forms) and the commodities it holds. A liquid family holds one liquid; the gas family holds any mix
-/// of its gases.</summary>
+/// of its gases. A network family is topped up from its stores by Framework; a family without ports (a pumped circuit
+/// such as irrigation or furnace coolant, Framework 0.64.0) is filled by its content mod through
+/// <see cref="LineContents.Top"/>.</summary>
 public sealed class LineHoldUpFamily
 {
     public FluidSegmentFamily Family { get; }
@@ -19,9 +21,11 @@ public sealed class LineHoldUpFamily
     private readonly Dictionary<string, LineCommodity> commodities = new(StringComparer.Ordinal);
     public IReadOnlyCollection<LineCommodity> Commodities => commodities.Values;
     public bool Gas => commodities.Values.All(c => c.Gas);
+    /// <summary>Whether Framework tops this family up from its stores (a network family) or its content mod fills it.</summary>
+    public bool StoreFilled => Family.IsNetwork;
     public LineHoldUpFamily(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> held)
     {
-        if (family == null || !family.IsNetwork || string.IsNullOrEmpty(prefix)) throw new ArgumentException("A holding line family is a network family with a prefix.");
+        if (family == null || string.IsNullOrEmpty(prefix)) throw new ArgumentException("A holding line family needs a segment family and a prefix.");
         Family = family; Prefix = prefix;
         foreach (var c in held) Add(c);
         if (commodities.Count == 0) throw new ArgumentException("A holding line family holds at least one commodity.");
@@ -124,7 +128,7 @@ public static class LineContents
     /// <summary>Tops up every open run on a ship from the stores on its network.</summary>
     internal static void Maintain(Ship ship, LineHoldUpFamily family)
     {
-        if (ship.nCols < 1 || ship.nRows < 1) return;
+        if (!family.StoreFilled || ship.nCols < 1 || ship.nRows < 1) return;
         var topology = FluidRouteCache.Topology(ship, family.Family);
         if (topology.Overflow) return;
         var segments = FluidRouteCache.Segments(ship, family.Family);
@@ -202,6 +206,56 @@ public static class LineContents
     private static void Rebalance(List<LineMixture> open, string commodity, double shortfall)
     {
         for (int i = open.Count - 1; i >= 0 && shortfall > LineMixture.Tolerance; i--) shortfall -= open[i].Take(commodity, shortfall);
+    }
+
+    // Content-filled circuits (Framework 0.64.0) ----------------------------------------------------------------------
+    /// <summary>The open, intact segments carrying fluid on the connected runs through any of <paramref name="cells"/>
+    /// (a pumped circuit's path), in cell order, from the cached snapshot; none when the layout overflows.</summary>
+    public static IReadOnlyList<CondOwner> Circuit(Ship? ship, LineHoldUpFamily family, IEnumerable<int> cells)
+    {
+        if (ship == null || ship.nCols < 1 || ship.nRows < 1 || cells == null) return Array.Empty<CondOwner>();
+        var topology = FluidRouteCache.Topology(ship, family.Family);
+        if (topology.Overflow) return Array.Empty<CondOwner>();
+        var components = new HashSet<int>();
+        foreach (int cell in cells) { int id = topology.ComponentOf(cell); if (id >= 0) components.Add(id); }
+        if (components.Count == 0) return Array.Empty<CondOwner>();
+        return FluidRouteCache.Segments(ship, family.Family).Where(p => components.Contains(topology.ComponentOf(p.Key))).OrderBy(p => p.Key).Select(p => p.Value).ToArray();
+    }
+    /// <summary>The kilograms of a commodity the segments still have room for (unreadable or closed segments count as full).</summary>
+    public static double Room(IEnumerable<CondOwner> segments, LineHoldUpFamily family, string commodity)
+    {
+        var c = family.Of(commodity);
+        if (c == null) return 0;
+        double room = 0;
+        foreach (var co in segments) if (Read(co) is { Closed: false } m) room += m.Room(c, family.Of);
+        return room;
+    }
+    /// <summary>Whether every segment is open, readable and full to within the tolerance of its hold-up.</summary>
+    public static bool Full(IEnumerable<CondOwner> segments, LineHoldUpFamily family)
+    {
+        foreach (var co in segments) if (Read(co) is not { Closed: false } m || m.Fraction(family.Of) < 1 - 1e-6) return false;
+        return true;
+    }
+    /// <summary>What the segments hold of a commodity in total.</summary>
+    public static double Holding(IEnumerable<CondOwner> segments, string commodity) => segments.Sum(co => Read(co)?.Of(commodity) ?? 0);
+    /// <summary>Fills the segments in order with up to <paramref name="availableKg"/> of a commodity a content mod has
+    /// already taken from its own store, and returns the kilograms used; the caller keeps the rest. Each segment is
+    /// written with its mass.</summary>
+    public static double Top(IEnumerable<CondOwner> segments, LineHoldUpFamily family, string commodity, double availableKg)
+    {
+        var c = family.Of(commodity);
+        if (c == null || !LineGeometry.Finite(availableKg) || availableKg <= LineMixture.Tolerance) return 0;
+        double used = 0;
+        foreach (var co in segments)
+        {
+            if (availableKg - used <= LineMixture.Tolerance) break;
+            if (Read(co) is not { Closed: false } m) continue;
+            double amount = Math.Min(m.Room(c, family.Of), availableKg - used);
+            if (amount <= LineMixture.Tolerance) continue;
+            m.Add(commodity, amount);
+            if (Write(co, m)) used += amount;
+        }
+        return used;
     }
 
     // Runs ----------------------------------------------------------------------------------------------------------

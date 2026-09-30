@@ -558,7 +558,7 @@
   "Recipe.PhobosRecoverFurnaceHousing.name": "Recover aluminium from finished housing",
   "Recipe.PhobosRecoverFurnaceHousing.description": "Cut one unused 18 kg finished housing into 18 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
   "Furnace.coolant_pipe": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
-  "Furnace.coolant_pipe_desc": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. The sealed loop uses the equipment thermal stores; pipe hold-up and pressure are not simulated.",
+  "Furnace.coolant_pipe_desc": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. With serviced coolant the pump fills it, about 0.33 kg a tile, and it keeps its coolant: drain it into a canister before taking it up. The sealed assembly keeps it empty.",
   "Furnace.coolant_waste": "Phobos' Rivetline Retained Coolant Conduit Waste",
   "Furnace.coolant_mode": "Cooling connection: {0}",
   "Furnace.coolant_direct": "Direct cooling attachment",
@@ -572,7 +572,7 @@
   "Furnace.charge_managed": "serviceable coolant",
   "Furnace.charge_legacy": "sealed cooling assembly",
   "Furnace.charge_status": "Coolant: {0}; clean {1:0.000} kg; caught leakage {2:0.000} kg. Calculated pressure {3:0.0} kPa; priming {4:0.0} s. Stored heat is kept.",
-  "Furnace.charge_service": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. Drain into retained waste before disabling service or removing equipment.",
+  "Furnace.charge_service": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. The pump sends anything above 5 kg into the conduit until it is full, about 0.33 kg a tile, so keep loading charges until the circuit reads full. Drain into retained waste before disabling service or removing equipment; drain the conduit itself with a drain canister.",
   "Furnace.coolant_managed": "Enable finite coolant servicing (empty, cool)",
   "Furnace.coolant_sealed": "Restore legacy sealed assembly (empty, cool)",
   "Furnace.coolant_fill": "Load one 1 kg coolant charge (local)",
@@ -877,5 +877,7 @@
   "Recipes.aluminium_profile": "Recipe {0}: furnace revision 1 must keep the original aluminium profile; batches saved before 0.38.0 read their heat with it.",
   "Recipes.seconds_required": "Recipe {0}: a thaw recipe needs its seconds.",
   "Recipes.machine_missing": "The recipe pack has no recipe for {0}; the machine cannot run without one.",
-  "Vessels.bin_kind": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files."
+  "Vessels.bin_kind": "{0} must stay kind {1}; only its dry mass and cells per tile are open to files.",
+  "Furnace.circuit_full": "Conduit full: {0:0.00} kg of coolant in the circuit.",
+  "Furnace.circuit_filling": "Conduit filling: {0:0.00} of {1:0.00} kg. The loop will not circulate until it is full; load about {2:0.0} kg more."
 }

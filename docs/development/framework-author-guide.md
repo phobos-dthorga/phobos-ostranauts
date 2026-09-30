@@ -1459,3 +1459,19 @@ record is [line contents](line-contents-design.md).
   store without a general inventory can offer a canister rack with
   `ApplianceDefinitions.SetRack(d, prefix, DrainCanisterDefinitions.RackTrigger, 2, 2)`.
   Canisters in a registered vessel's container pour in on the next pass.
+
+## Pumped circuits and canister receivers (0.64.0)
+
+- **A holding family may be a pumped circuit.** Declare a family without ports
+  (`LineHoldUpFamily.StoreFilled` is false) and fill it yourself:
+  - `LineContents.Circuit(ship, family, pathCells)` lists the open segments on the
+    runs through a path;
+  - `Room` and `Holding` measure them, and `Full` tests them;
+  - `Top(segments, family, commodity, kg)` fills them from kilograms you have already
+    taken from your own store, returning what it used. Keep the rest.
+  Shipbreaker's F6 coolant conduit is the example.
+- **`DrainCanisters.RegisterReceiver(ICanisterReceiver)`** lets a machine take a
+  canister's liquid from its own inventory. `Accept(machine, commodity, kg)` records
+  the kilograms in your custody, adds them to the machine's mass, and returns what it
+  took; Framework removes the same from the canister. Refuse with zero when the
+  machine is not safe to fill.

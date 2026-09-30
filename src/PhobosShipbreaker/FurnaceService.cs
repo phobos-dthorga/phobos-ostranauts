@@ -242,7 +242,7 @@ internal static partial class FurnaceService
         var radiator = CoolingEndpoint(s.Object); Session? sink = radiator == null ? null : Get(radiator);
         if (sink != null) AdvanceCooling(sink);
         bool connected = sink != null && !sink.Protected;
-        if(s.Coolant.Enabled) { int cells=ChargeCells(s);s.Coolant.Advance(dt,cells>0&&!s.Object.HasCond("IsDamaged"),false,cells);if(!ChargeReady(s))b.Armed=false; }
+        if(s.Coolant.Enabled) { int cells=ChargeCells(s);s.Coolant.Advance(dt,cells>0&&!s.Object.HasCond("IsDamaged"),false,cells,cells>0&&CircuitFull(s));if(!ChargeReady(s))b.Armed=false; }
         if (connected) b.SinkKJ = sink!.SinkKJ;
         bool probe = ProbeValid(s.Object);
         if (b.Phase != FurnacePhase.Idle && (!ChargePresent(s) || s.State.ShipId != s.Object.ship?.strRegID))
@@ -306,8 +306,13 @@ internal static partial class FurnaceService
         b.SinkKJ += motor;
         if (transfer.Routed)
         {
-            int cells=ChargeCells(s);double flow=s.Coolant.Enabled?(cells>0?s.Coolant.Flow(cells):0):1;
-            if(s.Coolant.Enabled&&cells>0)s.Coolant.Advance(transfer.Seconds*Math.Min(1,pump/(FurnaceCooling.PumpKW*transfer.Seconds)),true,pump>0,cells);
+            int cells=ChargeCells(s);
+            double pumpSeconds=transfer.Seconds*Math.Min(1,pump/(FurnaceCooling.PumpKW*transfer.Seconds));
+            // The pump primes the conduit from the reservoir's surplus first (Shipbreaker 0.58.0); circulation needs it full.
+            if(s.Coolant.Enabled&&cells>0&&pump>0)PrimeCircuit(s,pumpSeconds);
+            bool full=cells>0&&CircuitFull(s);
+            double flow=s.Coolant.Enabled?(cells>0?s.Coolant.Flow(cells,full):0):1;
+            if(s.Coolant.Enabled&&cells>0)s.Coolant.Advance(pumpSeconds,true,pump>0,cells,full);
             b.Circulate(transfer.Seconds,pump,flow);
         }
         transfer.Cooling.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;

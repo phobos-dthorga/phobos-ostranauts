@@ -27,12 +27,19 @@ internal static class FurnaceCoolingNativeChecks
         var restoredChargeMaps=JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,string>>>(JsonConvert.SerializeObject(chargeMaps))!;
         var reloadedCharge=new ObjectStateStore(restoredChargeMaps,"FurnaceCoolantCharge",Text.Owner,1);
         check(reloadedCharge.Read(out var chargeFields)==SavedStateStatus.Ready&&Math.Abs(CoolantCharge.Read(chargeFields).TotalKg-6)<1e-9,"Native-compatible coolant maps retain clean and captured fluid");
+        var holding = Phobos.Ostranauts.Framework.Liquids.LineContents.Families.FirstOrDefault(f => f.Prefix == FurnaceCooling.Conduit);
+        check(holding != null && !holding.StoreFilled && holding.Of(CoolantCharge.Commodity) is { } coolant && Math.Abs(coolant.KgPerTile - .33) < .001 && !coolant.Gas,
+            "The coolant conduit holds about 0.33 kg a tile, filled by the furnace's pump rather than from a store (Shipbreaker 0.58.0)");
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             var pipe = prepared.Objects[FurnaceCooling.Conduit + state]; var art = prepared.Items[pipe.strItemDef];
             var data = new DataCO(pipe);
-            check(pipe.jsonPI == null && pipe.aTickers.Length == 0 && pipe.aInteractions.All(a => new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack", "PhobosShipbreakerMaintenanceInformation" }.Contains(a)) && pipe.nContainerWidth == 0,
-                "Coolant conduit is passive infrastructure, not an extra pump or virtual tank");
+            bool installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var allowed = new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack", "PhobosShipbreakerMaintenanceInformation", "PhobosFrameworkMaintenanceInformation" }
+                .Concat(installed ? new[] { Phobos.Ostranauts.Framework.Liquids.LineContents.DrainAction, Phobos.Ostranauts.Framework.Liquids.LineContents.ReopenAction } : Array.Empty<string>());
+            check(pipe.jsonPI == null && pipe.aTickers.Length == 0 && pipe.aInteractions.All(a => allowed.Contains(a)) && pipe.nContainerWidth == 0 &&
+                pipe.aInteractions.Contains(Phobos.Ostranauts.Framework.Liquids.LineContents.DrainAction) == installed,
+                "Coolant conduit is passive infrastructure, not a pump or tank; installed, it offers the line drain and return actions (Shipbreaker 0.58.0)");
             check(!data.HasCond("IsPowerPath") && !data.HasCond("IsPowerConduit") && !data.HasCond("PhobosWaterConduitPresent"),
                 "Coolant pipe cannot carry native electricity or Agriculture water");
             var salvage = prepared.Installables[pipe.strName + "Dismantle"].aLootCOs;

@@ -30484,7 +30484,7 @@
         "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs:21"
       ],
       "before": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. The sealed loop uses the equipment thermal stores; pipe hold-up and pressure are not simulated.",
-      "after": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. The sealed loop uses the equipment thermal stores; pipe hold-up and pressure are not simulated."
+      "after": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. With serviced coolant the pump fills it, about 0.33 kg a tile, and it keeps its coolant: drain it into a canister before taking it up. The sealed assembly keeps it empty."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -31053,7 +31053,7 @@
         "src/PhobosShipbreaker/FurnaceCoolantRoute.cs:58"
       ],
       "before": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. Drain into retained waste before disabling service or removing equipment.",
-      "after": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. Drain into retained waste before disabling service or removing equipment."
+      "after": "Service locally while cool, idle and paused, with a cool paired assembly. Select piped cooling, enable serviced coolant, place 1 kg charges in Products, and fill up to 6 kg. The pump sends anything above 5 kg into the conduit until it is full, about 0.33 kg a tile, so keep loading charges until the circuit reads full. Drain into retained waste before disabling service or removing equipment; drain the conduit itself with a drain canister."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -53052,6 +53052,32 @@
       ],
       "before": "Drain canister {0} poured {1:R} kg of {2} into {3}.",
       "after": "Drain canister {0} poured {1:R} kg of {2} into {3}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.circuit_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Furnace status line when the coolant conduit is full.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CoolantService.cs:45"
+      ],
+      "before": "Conduit full: {0:0.00} kg of coolant in the circuit.",
+      "after": "Conduit full: {0:0.00} kg of coolant in the circuit."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.circuit_filling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Furnace status line while the conduit fills, with how much more to load.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/CoolantService.cs:45"
+      ],
+      "before": "Conduit filling: {0:0.00} of {1:0.00} kg. The loop will not circulate until it is full; load about {2:0.0} kg more.",
+      "after": "Conduit filling: {0:0.00} of {1:0.00} kg. The loop will not circulate until it is full; load about {2:0.0} kg more."
     }
   ],
   "documents": [
@@ -53059,8 +53085,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c5fc45dbf821bb0cbfdc3f6b3fd3038cf416a3a002cf043c143405c16b99b314",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "d09e8c3ca9bc9d84dc400fb9d4586a3effe57ee5ca20e9416c0f78380bf5c4d9",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "SUPPORT.md",
@@ -53219,8 +53245,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dd46ffe5713a36d8297562c107d7d875417123c2ca051cb27e6300386e3507e2",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "e2a154370b71c4b00ac453c4c168f5548e86203337cc2bffb07fcada70b81244",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53520,8 +53546,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3ed20287b4374154326c6aae725256cd9767980d93f3da89ceb14b76e8e0db87",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "3c2ee03f59622db8fa549611fe3fda0d2373e8a09a678ad11b2a614d16c680d3",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53604,15 +53630,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "505c85f7080045e0a1068ffa5898a59664348edcbb0d7d540c68dba4b0556692",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "a5e271759be36f2f8b83ae0d78356a6b10dff4e623ee26d11214d57e602b241a",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "9f7531fd1e05a388071af4731e3cf9b4c79c0e6c1377580a681f2d06b4cd75cd",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "97b967b17d2d568b700f6bb572efd67c1a1defe65ccdb04bcd252eac01f60b7a",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53742,8 +53768,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "eb9b8d3ada9d0f138e6c8b0f01a1ab804e32c1268081631d997256028d853496",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "417e40d96e3e6b6eac87f3dc3a9a2be340e75a9044362e368226557dd85fc261",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53947,22 +53973,22 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "da891cf3a25be15c2cf3f12f6a0bf0243b5183fd627078b9f13396ff35cce22e",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "312e998c6d9febb8c4578dfb334f8a170470f7f8acc39482c93fe2ab47b669b5",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ef8ce02b317b799e2f5227638ecb46a0d3871f9d9840d06898151ad9b980913d",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "029cb482f3c2230e06cc5c60a877f1c1df039ccfe16c0c18bc82df9241d0a4cb",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "becfa8e0e1cb482ed5a67a7ad4ffb1383e20e6ad23de3e2df908acf5672a9cbd",
-      "review": "Reviewed 2026-10-01 for Shipbreaker 0.52.0: the coolant line in its own green lane, shared line-art provenance, PDA filter; direct player text."
+      "sha256": "e00472ff51182032f270ddece1b2987ca3a62f9c33200ae1691bf6c0616d286d",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/furnace-material-routing.md",
@@ -53975,8 +54001,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6a7a8b532554c78481180ad3e0701e4d4493ade4dc8dce00e46b341f815d9ec8",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "c663eb839ff56a6bec0a85fe15c1c4f89de43627d4f6cba5e0e34b1e00049ca0",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/getting-started.md",
@@ -54010,15 +54036,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cb32a027abe252a708f7bda19328addd7f7fe0965ebd04a694c103435a64f8ca",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "806622a1948860984d2d88d73cb8198909ac8aa610fafe284a1452e6f7d75d10",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b2d8d0d0d247001727ca28d74647b99f0358c918a130a2a66ea5196f5706cc9a",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "eff0f579a03be917352ac69d3055cb0d503c40002befeb9bdd18d4d674e2159a",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/item-references.md",
@@ -54059,8 +54085,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "31514f8e2c9ccf50ca0bb1a5bf63a39fac71032df87009acc522172460b5b856",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "33e35182a191f4f0b184b7df802d1a964c24eaf5110551827a4d5562a5d44966",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/residue-collector.md",
@@ -54108,8 +54134,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c073a2df47b751768ec75d3186992a580091c73a9a41b7e5246652cc2266e615",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "6a0c988de753c5f1e43aa073555754c0fcafa1d3ba9d6d950dd1c73c5e3d5998",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -54150,8 +54176,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4965d020015cfaf4bae72485c42b6bd077ee0121825e4aa3efe57991800df965",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "8bd23783238aa67a2456482c717cfccc94204a7c6a3aff23498d43f997482194",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -54164,8 +54190,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "09d7c0962719d63cf0f5bb79b096012b50a76bbf542f576ab4b41319d800ca18",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "13bcb0039604dd27445d6a6b5719ed77c63daa7530d5236f1318c8f443f3a294",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -54255,23 +54281,23 @@
       "path": "docs/development/line-contents-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "2b34bd22c122d824eb777c135b081d0e75bccb9bee2e100f2a1ae2acd0868fc3",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "8417924c25b2898be45b2a93cf94cdb279f26a8cc64872f77810ddcfe16b75c2",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "docs/lines-and-draining.md",
       "scope": "current player text",
       "decision": "New player guide written to the crew voice: situation, action and limits first.",
-      "sha256": "db52dd30c5f4a2f521cd1449ba94f39945524db67edc98d507d9e0dea9e0a585",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "71e0e6f9edbc4036cecbf8d7005a12436bd089909d4ae49d2149732ecba00cb7",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cdb9f86b6d0e7c0badd1ca76d3ada6a224f65f3127a8d81ab211a8c91beafc29",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "f6db036ab91fab42c702ed204a0aced081f3480fe38fdafbead48814a652f287",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -54320,8 +54346,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5f0ee2b157c8c5dfa27de3fcad17bd18bb75ebf1906840e8f62865e337fa10a7",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "ad91c852b901717275177d2e16ff910f75c06eaaa6989cfb83e96f3b4566b1fc",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -54344,8 +54370,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b2544b13e22cfc15b9d55cb7506b06da96f247a10cef593b24d8b40c01fbb6aa",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "a121af0e94ff01b66eb0cf35fdb8a6400a1f19a23e2887a9c9ce04c39b43fd09",
+      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

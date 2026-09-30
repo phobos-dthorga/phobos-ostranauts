@@ -112,10 +112,13 @@ beside its furnace; it does not accept a remote pipe connection.
 The original sealed cooling mode needs no coolant items. **Serviceable coolant
 is optional and only works with piped F6-R cooling.** To use it, stand beside a
 cool, idle, paused furnace, enable finite coolant servicing and place separate
-1 kg Thermal Service Fluid Charges in **Products**. Load them one at a time;
-six charges fill the 6 kg circuit. Do not put them in the aluminium Feed chamber
+1 kg Thermal Service Fluid Charges in **Products**. Load them one at a time. The
+furnace keeps 5 kg and its pump sends the rest into the conduit, about 0.33 kg a
+tile, so keep loading until the status reads *Conduit full*: a 20-tile circuit
+takes about 11.6 kg in all. Do not put them in the aluminium Feed chamber
 or inside the cooling unit. See [coolant filling, leaks and draining](fluid-network-operations.md#optional-finite-furnace-coolant)
-for route requirements and recovery of caught leakage.
+for route requirements and recovery of caught leakage, and
+[draining and venting](lines-and-draining.md) for draining the conduit itself.
 
 Fill, drain and coolant-mode changes require local access. C1 cannot perform
 those physical service steps. Drain retained fluid before unpairing, changing

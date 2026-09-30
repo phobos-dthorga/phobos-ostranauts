@@ -228,9 +228,9 @@
             "PhobosFurnaceCoolantConduitInstalledDmg"
           ],
           "function": "Provides the separate coolant route between the F6 and a remote F6-R.",
-          "use": "Place contiguous segments through HVAC, connect the correct cooling endpoints and select piped mode while cool and empty. Use the furnace’s checked routing controls.",
+          "use": "Place contiguous segments through HVAC, connect the correct cooling endpoints and select piped mode while cool and empty. Use the furnace’s checked routing controls. With serviced coolant the pump fills it, about 0.33 kg a tile; to take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles.",
           "find": "Buy ordinary supply/fixer/Halvorson stock or build at a supported table. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "This is not electrical cable or irrigation pipe. Legacy sealed operation and optional finite coolant servicing have different requirements. Damaged forms retain separate identities even when the display name lacks a damage suffix. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
+          "notes": "This is not electrical cable or irrigation pipe. Legacy sealed operation and optional finite coolant servicing have different requirements: since Shipbreaker 0.58.0 a serviced conduit holds its own coolant and cannot be taken up until drained, while a sealed-assembly conduit holds nothing. Damaged forms retain separate identities even when the display name lacks a damage suffix. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
           "guide": "furnace-coolant-conduits.md",
           "internal": false,
           "labels": {}
@@ -539,7 +539,7 @@
             "PhobosRivetlineCoolantCharge"
           ],
           "function": "Fresh fictional industrial coolant for optional finite F6 servicing.",
-          "use": "In cool, idle piped mode enable finite servicing, place charges in Products and load locally. Prime before operating.",
+          "use": "In cool, idle piped mode enable finite servicing, place charges in Products and load locally. The furnace keeps 5 kg and its pump sends the rest into the conduit, about 0.33 kg a tile, so keep loading until the status reads Conduit full. Prime before operating.",
           "find": "Ordinary supply, fixer or Halvorson stock as listed below. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "Not drinking water, irrigation feed or ammonia. The legacy sealed cooling mode does not require these charges. Fresh thermal service fluid charges support storage stacks of three. Split off one before furnace filling; retained coolant remains individual.",
           "guide": "fluid-network-operations.md",

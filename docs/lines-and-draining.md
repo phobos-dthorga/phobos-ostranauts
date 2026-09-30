@@ -1,8 +1,9 @@
 # Lines hold what they carry: draining and venting
 
-Phobos Framework 0.63.0 and Manufacturing 0.25.0. The process-water line, the gas
-line and the Lixivar acid line keep what flows through them, like real pipe. Irrigation
-conduit and furnace coolant conduit are not on this model yet.
+Phobos Framework 0.63.0 and Manufacturing 0.25.0, with Shipbreaker 0.58.0 for the
+furnace coolant conduit. The process-water line, the gas line, the Lixivar acid line
+and the F6-C coolant conduit keep what flows through them, like real pipe. Irrigation
+conduit is not on this model yet.
 
 ## What a line holds
 
@@ -11,9 +12,13 @@ conduit and furnace coolant conduit are not on this model yet.
 | Process-water line | about 0.49 kg of water | drain it into a canister |
 | Gas line | a few grams of gas: 0.4 g hydrogen, 3.2 g methane, 3.4 g ammonia, 5.6 g nitrogen, 6.4 g oxygen or 8.8 g CO2 | vent it |
 | Lixivar acid line | about 0.90 kg of sulfuric acid | drain it into a canister |
+| F6-C coolant conduit, serviced coolant | about 0.33 kg of service fluid | drain it into a canister |
 
-An open line fills itself from the tanks and stores on it, a couple of seconds after
-they have something above their reserve. The water, gas or acid comes out of those
+An open water, gas or acid line fills itself from the tanks and stores on it, a
+couple of seconds after they have something above their reserve. The coolant conduit
+is filled by the F6 furnace's pump instead, from the coolant charges loaded into the
+furnace; see the [furnace guide](furnace-player-guide.md). A conduit of the legacy
+sealed assembly holds nothing. The water, gas or acid comes out of those
 tanks, and each line tile weighs that much more. A gas line with several stores on it
 holds a mix of their gases; nothing stops you sharing one line between gases.
 
@@ -45,9 +50,9 @@ The run closes in the same way; **Return line to service** opens it again.
 A filled canister is ordinary cargo. Move it with the game's own Haul orders or by
 dragging it, or let a hauling mod such as LOGUSS's Common Sense move it. Put it in the
 inventory of an installed, undamaged tank that holds the same liquid: a Rivetline water
-silo for water, or the canister rack on an AT acid tank for acid. Within a couple of
-seconds it pours in, as far as the tank has room, and the empty canister stays there for
-next time.
+silo for water, the canister rack on an AT acid tank for acid, or the Products of a cool,
+idle F6 furnace with serviced coolant for coolant. Within a couple of seconds it pours
+in, as far as there is room, and the empty canister stays there for next time.
 
 ## Taking a line up, damage and loss
 

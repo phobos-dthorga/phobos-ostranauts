@@ -100,18 +100,23 @@ other agricultural supplies do; no extracted artwork is distributed.
 Existing direct and piped sealed assemblies keep working. While the F6 is cool,
 idle and paused in a piped mode, select **Enable finite coolant servicing**.
 Place **Phobos' Rivetline Thermal Service Fluid Charges** in Products and load
-them locally, one kilogram at a time. Six charges fill its 6 kg assembly. Required
-working charge is **5 kg + 0.01 kg per route tile**; no coolant appears when the
-mode is enabled. Fresh charges are additive ordinary merchant stock (20 cr each).
+them locally, one kilogram at a time, up to the furnace's 6 kg reservoir. Since
+Shipbreaker 0.58.0 the conduit holds its own coolant, about **0.33 kg a tile**
+(an authored 20 mm bore of 1,050 kg/m³ fluid). The pump sends whatever the
+reservoir holds above its **5 kg base** into the conduit at 0.1 kg a second until
+every conduit tile on the circuit is full; the loop circulates only with a full
+circuit and the base charge. Keep loading charges until the status reads *Conduit
+full*. No coolant appears when the mode is enabled. Fresh charges are additive
+ordinary merchant stock (20 cr each).
 
 This is fictional industrial coolant, not ammonia, drinking water or nutrient
-feed. The pipe allowance represents the twin-channel jacket together. The old
-hot/cold thermal stores and their heat capacities remain the authoritative
-effective assembly model; no second coolant heat store is added or lost on leaks.
+feed. The old hot/cold thermal stores and their heat capacities remain the
+authoritative effective assembly model; no second coolant heat store is added or
+lost on leaks, and the conduit's coolant carries mass, not heat.
 
-At sufficient charge, received pump electricity primes the route over
+With a full circuit, received pump electricity primes the route over
 **0.5 seconds per tile** before circulation. Rated static pressure is modeled as
-`200 * min(1, working charge / required charge)^2` kPa; route flow uses
+`200 * min(1, reservoir charge / 5 kg)^2` kPa with a full circuit, 0 otherwise; route flow uses
 `1 / sqrt(1 + tiles / 32)`, with actual partial electricity still limiting
 circulation. Values are explicitly authored calculations, not new pressure probes.
 
@@ -131,8 +136,16 @@ coolant-managed`, `coolant-fill`, `coolant-drain` and `coolant-sealed`.
 
 The catch tank is a bounded containment abstraction, not an exterior plume,
 toxic-atmosphere, fluid boiling or CFD model. No new ammonia species or room
-chemistry is introduced. Individual pipe temperature and per-segment fluid
-inventories remain outside this implementation by design.
+chemistry is introduced. Individual pipe temperature remains outside this
+implementation by design.
+
+The conduit's own coolant stays in its tiles through damage, reload and a broken
+route. To take conduit up, right-click it and choose **Drain line into canister**
+with a Framework drain canister carried or within two tiles; the circuit then
+stays closed, and the furnace treats it as a broken route, until **Return line to
+service**. A canister of coolant put in the furnace's Products pours into the
+reservoir while the furnace is cool, idle and serviceable. See
+[draining and venting](lines-and-draining.md).
 
 ## Evidence and owner checks
 

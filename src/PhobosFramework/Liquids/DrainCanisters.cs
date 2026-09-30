@@ -6,6 +6,16 @@ using Phobos.Ostranauts.Framework.Persistence;
 
 namespace Phobos.Ostranauts.Framework.Liquids;
 
+/// <summary>A machine that takes a drain canister's liquid from its own inventory (Framework 0.64.0). <see cref="Accept"/>
+/// records up to <c>kg</c> of the commodity in the machine's own custody, adds it to the machine's own mass, and returns
+/// the kilograms taken (zero to refuse); Framework then takes the same kilograms out of the canister.</summary>
+public interface ICanisterReceiver
+{
+    string Id { get; }
+    bool Handles(CondOwner machine);
+    double Accept(CondOwner machine, string commodity, double kg);
+}
+
 /// <summary>Drain canisters (Framework 0.63.0): a portable 20 litre canister that holds one liquid drained from a line,
 /// as a saved record, with its native mass the housing plus the liquid. A filled canister is ordinary cargo, so the game's
 /// own Haul orders (and hauling mods such as Common Sense) move it. Placed in the inventory of an installed store that
@@ -77,17 +87,42 @@ public static class DrainCanisters
         return Math.Max(Math.Abs(p.x - q.x), Math.Abs(p.y - q.y)) <= DrainCanisterRules.ReachTiles + 0.01;
     }
 
-    /// <summary>Pours every filled canister in an installed store's inventory into that store when it holds the same liquid.</summary>
+    private static readonly List<ICanisterReceiver> receivers = new();
+    /// <summary>Lets a machine that is not a bulk vessel take a canister's liquid when one is put in its inventory
+    /// (Framework 0.64.0: the F6 furnace takes coolant, the W2 takes water and its own feed). One receiver per id.</summary>
+    public static void RegisterReceiver(ICanisterReceiver receiver)
+    {
+        if (receiver == null) throw new ArgumentNullException(nameof(receiver));
+        receivers.RemoveAll(r => r.Id == receiver.Id);
+        receivers.Add(receiver);
+    }
+    /// <summary>Pours every filled canister in an installed store's inventory into that store when it holds the same
+    /// liquid, and into a registered receiver machine when it accepts it.</summary>
     internal static void Pour(Ship ship)
     {
-        foreach (var vessel in ship.GetCOs(null, false, false, true))
+        foreach (var holder in ship.GetCOs(null, false, false, true))
         {
-            if (vessel?.objContainer == null || vessel.ship != ship || vessel.objContainer.ContainedCOs.Count == 0 || !vessel.HasCond("IsInstalled") || vessel.HasCond("IsDamaged")) continue;
-            var spec = BulkVessels.Of(vessel);
-            if (spec == null) continue;
-            foreach (var canister in vessel.objContainer.ContainedCOs.Where(Is).ToArray())
-                if (Contents(canister) is { Kg: > LineMixture.Tolerance } c && c.Commodity == spec.Commodity) PourInto(vessel, spec, canister, c.Kg);
+            if (holder?.objContainer == null || holder.ship != ship || holder.objContainer.ContainedCOs.Count == 0 || !holder.HasCond("IsInstalled") || holder.HasCond("IsDamaged")) continue;
+            var spec = BulkVessels.Of(holder);
+            var receiver = spec == null ? receivers.FirstOrDefault(r => r.Handles(holder)) : null;
+            if (spec == null && receiver == null) continue;
+            foreach (var canister in holder.objContainer.ContainedCOs.Where(Is).ToArray())
+            {
+                if (Contents(canister) is not { Kg: > LineMixture.Tolerance } c) continue;
+                if (spec != null) { if (c.Commodity == spec.Commodity) PourInto(holder, spec, canister, c.Kg); }
+                else PourInto(holder, receiver!, canister, c.Commodity, c.Kg);
+            }
         }
+    }
+    private static void PourInto(CondOwner holder, ICanisterReceiver receiver, CondOwner canister, string commodity, double kg)
+    {
+        // The receiver records the liquid and adds it to its own mass; the canister's loss reaches the holder as its cargo,
+        // so the holder's mass is unchanged overall.
+        double moved = receiver.Accept(holder, commodity, kg);
+        if (!LineGeometry.Finite(moved) || moved <= LineMixture.Tolerance) return;
+        if (moved > kg + 1e-9) throw new InvalidOperationException("A canister receiver took more than the canister held.");
+        Set(canister, commodity, kg - moved, -moved);
+        FrameworkLifecycle.Log(Text.Get("DrainCanister.poured_log", canister.strID, moved, commodity, holder.strID));
     }
     private static void PourInto(CondOwner vessel, BulkVesselSpec spec, CondOwner canister, double kg)
     {

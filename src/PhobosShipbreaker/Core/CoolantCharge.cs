@@ -4,23 +4,37 @@ using System.Globalization;
 using Phobos.Ostranauts.Framework.Liquids;
 
 namespace PhobosShipbreaker.Core;
-/// <summary>Optional serviced loop. Leaks enter a sealed catch tank, preserving mass and existing thermal energy.</summary>
+/// <summary>Optional serviced loop. Leaks enter a sealed catch tank, preserving mass and existing thermal energy.
+/// Since Shipbreaker 0.58.0 (owner decision, 1 October 2026: lines hold their contents) the charge is the furnace's
+/// reservoir: the conduit segments hold their own coolant through Framework's line contents, primed by the pump from
+/// what the reservoir holds above its base charge. The loop circulates only with a full circuit and the base charge.</summary>
 public sealed class CoolantCharge
 {
-    public const double CapacityKg=6, BaseChargeKg=5, PipeKgPerCell=.01, LeakKgPerSecond=.001, RatedKPa=200;
+    public const double CapacityKg=6, BaseChargeKg=5, LeakKgPerSecond=.001, RatedKPa=200;
+    /// <summary>How fast the pump primes the conduit from the reservoir's surplus, authored: 0.1 kg a second.</summary>
+    public const double PrimeKgPerSecond=.1;
+    /// <summary>The authored service fluid: 1,050 kg per cubic metre (a water-glycol heat-transfer fluid's order of
+    /// density), in a 20 mm bore a tile, about 0.33 kg a conduit tile.</summary>
+    public const string Commodity="coolant";
+    public const double DensityKgPerM3=1050, BoreMm=20;
     public bool Enabled;
     public double CleanKg, CapturedKg, PrimeSeconds;
     public double TotalKg=>CleanKg+CapturedKg;
-    public static double Required(int cells)=>cells>=1&&cells<=FurnaceCooling.RouteLimit?BaseChargeKg+PipeKgPerCell*cells:throw new ArgumentOutOfRangeException(nameof(cells));
-    public bool Filled(int cells)=>CleanKg+1e-9>=Required(cells);
-    public double PressureKPa(int cells)=>RatedKPa*Math.Pow(Math.Min(1,CleanKg/Required(cells)),2);
-    public double Flow(int cells)=>Filled(cells)&&PrimeSeconds>=cells*.5?HydraulicRoute.FlowFraction(cells,32):0;
-    public void Advance(double seconds,bool intact,bool powered,int cells)
+    /// <summary>What the reservoir holds above its base charge, which the pump may send into the conduit.</summary>
+    public double SurplusKg=>Math.Max(0,CleanKg-BaseChargeKg);
+    public static LineCommodity HeldCoolant()=>LineCommodity.Liquid(Commodity,DensityKgPerM3,BoreMm);
+    public bool Filled(bool circuitFull)=>circuitFull&&CleanKg+1e-9>=BaseChargeKg;
+    public double PressureKPa(bool circuitFull)=>circuitFull?RatedKPa*Math.Pow(Math.Min(1,CleanKg/BaseChargeKg),2):0;
+    public double Flow(int cells,bool circuitFull)=>cells>=1&&cells<=FurnaceCooling.RouteLimit&&Filled(circuitFull)&&PrimeSeconds>=cells*.5?HydraulicRoute.FlowFraction(cells,32):0;
+    /// <summary>The kilograms the pump sends into a circuit with <paramref name="roomKg"/> free over <paramref name="seconds"/>
+    /// of pumping: never more than the surplus above the base charge.</summary>
+    public double PrimeKg(double seconds,double roomKg)=>!double.IsFinite(seconds)||seconds<=0||!double.IsFinite(roomKg)||roomKg<=0?0:Math.Min(roomKg,Math.Min(SurplusKg,seconds*PrimeKgPerSecond));
+    public void Advance(double seconds,bool intact,bool powered,int cells,bool circuitFull)
     {
         if(!double.IsFinite(seconds)||seconds<0||seconds>3600) throw new ArgumentOutOfRangeException(nameof(seconds));
         if(!Enabled)return;
         if(!intact) { double leak=Math.Min(CleanKg,seconds*LeakKgPerSecond);CleanKg-=leak;CapturedKg+=leak;PrimeSeconds=0; }
-        else if(powered&&Filled(cells)) PrimeSeconds=Math.Min(cells*.5,PrimeSeconds+seconds);
+        else if(powered&&Filled(circuitFull)) PrimeSeconds=Math.Min(cells*.5,PrimeSeconds+seconds);
         Validate();
     }
     public void Validate()

@@ -66,9 +66,12 @@ This is a **lumped sealed-loop model**, not water irrigation or an inventory of
 transferable liquid. Existing furnace enthalpy and the radiator's finite 80 kJ/K
 store represent the hot and cold sides. The existing 250°C sink limit, 12 m²
 radiating area, 100 kW transfer bound and insulation model remain authoritative.
-Pipe hold-up, transport delay, pressure drop and separate pipe temperature are
-neglected. The jacket's one kilogram is structural mass. No water or coolant
-commodity is created, consumed, certified or returned to drinking-water tanks.
+Transport delay, pressure drop and separate pipe temperature are neglected. The
+jacket's one kilogram is structural mass. With the legacy sealed assembly the pipe
+holds nothing; with [serviced coolant](fluid-network-operations.md#optional-finite-furnace-coolant)
+it holds about 0.33 kg of service fluid a tile since Shipbreaker 0.58.0, as mass
+only. No water commodity is created, consumed, certified or returned to
+drinking-water tanks.
 Historical design boundary at 0.16.0: a fill/drain/leak simulation needed an explicit fluid mass/energy contract (the later optional implementation is linked above);
 the scalar Agriculture water transfer helper cannot supply that by itself.
 
@@ -92,8 +95,9 @@ energy through the remaining available paths. Hot maintenance interlocks still a
 Mode is saved separately from the unchanged furnace/sink records. Unknown mode
 schemas are protected, never silently treated as direct. Cooling paths are
 rechecked at admission and settlement. No heating or pumping is simulated through
-an unloaded interval. Removing a conduit does not delete energy from either node;
-there is no separately modelled fluid cargo in the segment to spill.
+an unloaded interval. Removing a conduit does not delete energy from either node.
+A sealed-assembly conduit holds no fluid; a serviced one holds its coolant until
+drained into a canister, and cannot be taken up before then.
 
 ## Construction, artwork and scope
 

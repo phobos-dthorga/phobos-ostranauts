@@ -29,7 +29,36 @@ internal static partial class FurnaceService
         var rotated = IntakeRules.Rotate(offset.X, offset.Y, co.tf.eulerAngles.z);
         return new Vector2((float)(p.x + rotated.X), (float)(p.y + rotated.Y));
     }
-    private static readonly FluidSegmentFamily CoolantConduits = new("PhobosShipbreaker.Coolant", c => c.strCODef == FurnaceCooling.Conduit + "Installed");
+    internal static readonly FluidSegmentFamily CoolantConduits = new("PhobosShipbreaker.Coolant", c => c.strCODef == FurnaceCooling.Conduit + "Installed");
+    /// <summary>The conduit as a holding line (Shipbreaker 0.58.0), declared with the definitions; the pump fills it.</summary>
+    internal static LineHoldUpFamily? CoolantHolding;
+    // The conduit segments on a furnace's circuit and whether they are all full, once per furnace per step.
+    private static readonly StepMemo<CondOwner, IReadOnlyList<CondOwner>> circuits = new();
+    private static IReadOnlyList<CondOwner> CoolantCircuit(Session s)
+    {
+        var furnace = s.Object;
+        if (CoolantHolding == null || !s.Coolant.Enabled || !Routed(furnace)) return Array.Empty<CondOwner>();
+        long step = NativeSteps.Frame;
+        if (circuits.TryGet(step, furnace, out var circuit)) return circuit;
+        var peer = SelectedCooling(furnace);
+        var path = peer != null && CoolantRoute(furnace, peer, out _) ? PipePath(furnace, s.CoolingMode, peer) : null;
+        circuit = path == null ? Array.Empty<CondOwner>() : LineContents.Circuit(furnace.ship, CoolantHolding, path);
+        circuits.Set(step, furnace, circuit);
+        return circuit;
+    }
+    private static bool CircuitFull(Session s) => CoolantHolding == null || CoolantCircuit(s) is { Count: > 0 } c && LineContents.Full(c, CoolantHolding);
+    /// <summary>The pump primes the circuit from the reservoir's surplus above its base charge: mass leaves the furnace's
+    /// charge and joins the conduit segments, each with its own record and mass.</summary>
+    private static void PrimeCircuit(Session s, double pumpSeconds)
+    {
+        if (CoolantHolding == null || !s.Coolant.Enabled || pumpSeconds <= 0 || s.Coolant.SurplusKg <= 1e-9) return;
+        var circuit = CoolantCircuit(s);
+        if (circuit.Count == 0) return;
+        double kg = s.Coolant.PrimeKg(pumpSeconds, LineContents.Room(circuit, CoolantHolding, CoolantCharge.Commodity));
+        if (kg <= 1e-9) return;
+        double used = LineContents.Top(circuit, CoolantHolding, CoolantCharge.Commodity, kg);
+        s.Coolant.CleanKg = Math.Max(0, s.Coolant.CleanKg - used);
+    }
     private static int[]? PipePath(CondOwner furnace, string side, CondOwner endpoint, string endpointSide = "") =>
         FluidRouteCache.Find(furnace, CoolantPoint(furnace, side), endpoint, CoolantPoint(endpoint, endpointSide), CoolantConduits,
             allowLockedEndpoints: true, allowDamagedEndpoints: true);

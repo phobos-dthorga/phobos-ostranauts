@@ -25,6 +25,23 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.58.0] - 2026-10-01 - Draft
+
+### Changed
+
+- With serviced coolant, the F6-C coolant conduit now holds its coolant, about 0.33 kg on every tile, like the other Phobos lines. The F6's 6 kg charge is its reservoir: the pump sends whatever is above 5 kg into the conduit until the circuit is full, and the loop circulates only once it is full with the 5 kg base still in the furnace. Keep loading 1 kg charges (or leave the crew coolant order on) until the furnace's status reads Conduit full; a 20-tile circuit takes about 6.6 kg more than before.
+- Right-click an installed conduit and choose Drain line into canister to drain it into a Framework drain canister; the circuit then stops until Return line to service and a refill. A conduit holding coolant cannot be taken up until drained. A canister of coolant put in the furnace's Products pours into its reservoir.
+- The legacy sealed cooling assembly is unchanged: its conduit holds nothing.
+
+### Save compatibility
+
+- Automatic for the records: the furnace's saved charge keeps its meaning, and the coolant a saved charge held above 5 kg (the old pipe allowance) is pumped into the conduit on the next powered step.
+- **Manual step:** a serviced loop that was running needs more coolant to fill its conduit before it circulates again. Load the extra charges the furnace's status asks for, or let the crew coolant order load them. Heat already stored is kept while it waits.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.64.0 or newer. The coolant is our authored service fluid at 1,050 kg a cubic metre in a 20 mm bore; the priming rate of 0.1 kg a second is authored too. Offline checks are not gameplay validation.
+
 ## [0.57.0] - 2026-10-01 - Draft
 
 ### Changed

@@ -626,3 +626,14 @@ L8 — Static review of Framework 0.63.0 with Manufacturing 0.25.0.
   when the crew action is offered and when it finishes.
 
 No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: pumped circuits and the coolant conduit (L9)
+
+L9 — Static review of Framework 0.64.0 with Shipbreaker 0.58.0. A serviced F6 asks
+once per power step for its circuit's segments, from the cached snapshot and the
+route it already finds, memoised for the step. It then reads their records for
+fullness, and writes only when priming moves coolant. The top-up pass now skips
+content-filled families at once. Canister pouring asks each registered receiver
+about an installed container that is not a bulk vessel: a definition test per such
+object on the existing two-second scan. No performance capture or measured FPS
+claim accompanies this change.

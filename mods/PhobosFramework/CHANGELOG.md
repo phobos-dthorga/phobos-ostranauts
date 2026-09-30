@@ -22,6 +22,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.64.0] - 2026-10-01 - Draft
+
+### Added
+
+- Pumped circuits can hold their contents too: a content mod may make a line without store ports hold what its own pump puts in it, using LineContents.Circuit, Room, Full, Holding and Top. Phobos Shipbreaker 0.58.0's furnace coolant conduit is the first.
+- A drain canister put in a machine that registers as a canister receiver pours into that machine, not only into Phobos tanks; the F6 furnace takes coolant this way.
+
+### Compatibility and limits
+
+- Phobos Shipbreaker 0.58.0 needs this version. Nothing changes for lines already holding water, gas or acid. Offline checks are not gameplay validation.
+
 ## [0.63.0] - 2026-10-01 - Draft
 
 ### Added
