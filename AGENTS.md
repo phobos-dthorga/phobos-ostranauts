@@ -432,6 +432,13 @@
   Framework fallbacks or existing-save spawners. Report them honestly, but never
   use them to drop, defer or shrink a creative design.
 - Use observed progress to plan rounds; do not invent hour estimates.
+- Owner direction (2026-09-30): the asteroid feedstock programme is paused after
+  Manufacturing 0.10.0 for a schema separation audit. Read
+  `docs/development/schema-separation-audit.md` (findings, recommendation and the
+  decisions it asks for) and `docs/development/asteroid-feedstock-programme-status.md`
+  (what was delivered and what each later stage still holds) before adding
+  machines, recipes, economy rows or loot shares; the format they are written in
+  is being decided.
 - Explain what works, what was checked and what remains uncertain.
 - Do not control the owner's mouse or keyboard. Inspect files and use command-line
   tools; give the owner instructions for interactive steps unless they explicitly
