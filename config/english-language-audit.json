@@ -48652,8 +48652,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "d83d9a43592c6590d68afbbf15107a70f481be2bf7a5bf7e8391d749e006e774",
-      "review": "30 September 2026: programme status record and schema separation audit written; developer records, technical terminology retained."
+      "sha256": "53ce2ff9645137b8029be1e217d52d79b0cda3caff67d69e40ebfc1d7b5fe2f7",
+      "review": "Round three design record: a development record, not player text."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -49632,8 +49632,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "2fb808fc89f3571069707a02e5815632f8288d8f5109b213a730840ab226ff90",
-      "review": "Refining value review: regenerated item references and notes carry the reviewed price wording."
+      "sha256": "0368836e969b253d4c4e2de2dab4c7574d726a7e0fbf1398c6a0c39aaf1c94f4",
+      "review": "Round three design record: a development record, not player text."
     },
     {
       "path": "docs/development/schema-separation-audit.md",
@@ -49648,6 +49648,13 @@
       "decision": "new",
       "sha256": "ac69f99c1885edd499159f26d1e0b57078858cfc9525ac46cc7b2c15143e316d",
       "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+    },
+    {
+      "path": "docs/development/feedstock-round-three-design.md",
+      "scope": "development",
+      "decision": "Development research record; not player-facing.",
+      "sha256": "558d26252dfdc3f128ebb55fa914d4102c4dde03cf77854905493d3ad57a5c65",
+      "review": "Round three design record: a development record, not player text."
     }
   ],
   "surfaces": [

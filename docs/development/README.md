@@ -32,6 +32,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Asset generation: layered ChatGPT bases and PixelLab sprites](asset-generation-policy.md)
 - [Asteroid feedstocks: vanilla inventory, gaps and possibilities](asteroid-feedstock-gaps.md)
 - [Asteroid feedstock programme: status and remaining stages](asteroid-feedstock-programme-status.md)
+- [Feedstock round three: salts, phosphate and fertiliser (design record)](feedstock-round-three-design.md)
 - [Schema separation audit: authored data versus business logic](schema-separation-audit.md)
 - [Asteroid resources for long-term life support](asteroid-life-support-research.md)
 - [Flight hub validation — Auto Nav 0.14.1](auto-nav-hub-validation.md)

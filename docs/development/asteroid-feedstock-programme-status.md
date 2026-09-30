@@ -59,6 +59,10 @@ under the same guardrails.
 
 ### Round three: salts, sulfur and fertiliser (B2, B3, D3)
 
+Research done 30 September 2026: [the round-three design record](feedstock-round-three-design.md)
+gives the sourced chemistry, an authored evaporite chunk, four worked recipes, the
+Lixivar LC-3 design and five decisions for the owner. Implementation waits for them.
+
 - Research first: the evaporite mineral fractions from McCoy et al. 2025 (NASA
   OSIRIS-REx) for an evaporite crust chunk.
 - One new hydrometallurgy machine under a new brand (working name *Lixivar*, from
