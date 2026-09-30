@@ -1,16 +1,17 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.9.0
+[b]Version:[/b] 0.10.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
 
 [h2]What it does[/h2]
 [list]
-[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): bake hydrates or clay hydrates for water and the new ammonium salt crust for ammonia (into an ammonia store), roast carbon ore for carbon stock (it breathes CO2, CO and smoke into the room, so run a scrubber), and cast meteoric iron into nickel-iron ingots. With Shipbreaker it also melts four nickel-iron ingots and one carbon stock into four steel ingots.
+[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): bake hydrates or clay hydrates for water and salt crust for ammonia, roast carbon ore for carbon stock (it breathes CO2, CO and smoke into the room, so run a scrubber), and cast meteoric iron into nickel-iron ingots. With Shipbreaker it also melts four nickel-iron ingots and one carbon stock into four steel ingots.
 [*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): water electrolysis. Each hour, 1.125 kg of water becomes 1.000 kg of oxygen, into a linked O2 canister or the cabin air, and 0.125 kg of hydrogen into a linked H2 store.
 [*][b]Phobos' Fennmark H2 Hydrogen Store[/b] (2 x 2): holds 24 kg of hydrogen, with a vent overboard.
 [*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for your silo or reservoir, and methane for the [b]Phobos' Fennmark M2 Methane Store[/b] (holds 160 kg). Paired with the X2, it wins back about half the water, as NASA's Sabatier system on the ISS does.
-[*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (1 x 1, INSTALL > HVAC): set on an RCS regulator's gas input where a canister would go, it feeds your thrusters from up to four gas stores, within one tile or along the new Fennmark propellant line. Each gas pushes by its real worth: methane or ammonia about 1.4 times nitrogen per kilogram, hydrogen about 3.7. Each store has its own switch, and everything starts off.
+[*][b]Phobos' Tolvane AX-2 Ammonia Cracker[/b] (2 x 2, 2 kW): splits stored ammonia into nitrogen for your cabin air and hydrogen, 1 kg an hour into 0.82 kg of N2 and 0.18 kg of H2, each to its own store.
+[*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (1 x 1, INSTALL > HVAC): on an RCS regulator's gas input, it feeds your thrusters from up to four gas stores, within one tile or along a gas line. Each gas pushes by its real worth: methane or ammonia about 1.4 times nitrogen per kilogram, hydrogen about 3.7. Each store has its own switch, and everything starts off.
 [*][b]Gas stores in three sizes[/b]: hydrogen, methane, oxygen, nitrogen, carbon dioxide and new Q2 ammonia stores, each small, medium or large. Stations sell bulk oxygen, nitrogen and CO2 through Bulk supplies.
 [*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (2 x 2, 3 kW, INSTALL > HVAC): tops up suit O2 bottles in its rack and canisters beside it to a safe 99% and stops, from your stores or a canister; Decant mode empties them back. Right-click Keep suit bottles charged and your crew fetch loose bottles below 90% and start it.
 [*][b]Phobos' Fennmark A2 Cabin Air Regulator[/b] (2 x 2, INSTALL > HVAC): keeps its room at your oxygen and pressure set points from linked O2 and N2 stores. It only adds gas, stops if the room is open to space and never lets oxygen pass 30% of the air.
@@ -19,10 +20,10 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 
 [h2]Getting started[/h2]
 [list]
-[*]This is late-game plant, priced alongside the game's radars and heavy lift rotors: the V4 costs 64,000 cr. Buy Fennmark machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson (new) and regional supply kiosks, or find one, usually broken, in engineering salvage. They install from INSTALL > APPS; there are no construction recipes.
+[*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson (new) and regional supply kiosks, or find one, usually broken, in engineering salvage. They install from INSTALL > APPS; there are no construction recipes.
 [*]Water charges and the X2 need a Shipbreaker S3, S4 or S5 silo or an Agriculture R3, R4 or R5 reservoir within one tile.
 [*]Right-click a machine and choose Control Panel. Link its vessel, store or canister under Connections, load one charge into the V4's Refinery charge window, then choose Start.
-[*]In the F3 console, phobosmanufacturing lists your Fennmark machines.
+[*]In the F3 console, phobosmanufacturing lists your machines.
 [/list]
 
 [h2]Requirements[/h2]
@@ -45,8 +46,8 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [list]
 [*]Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
 [*]Working machines pause after a reload until you press Start, keeping their charge and progress.
-[*]Hydrogen and methane stay stored as kilogram records. Vent the H2 store before removing it.
-[*]A damaged H2 store leaks hydrogen to space; with oxygen in the room and a spark, fire or working refinery, it burns through the game's own explosion. A damaged M2 leaks methane into the room, which burns to CO2 with a spark; a damaged ammonia store leaks poison; a damaged K2 dumps its gas. Oxygen sent into the cabin air raises the fire risk.
+[*]Stored gases are kilogram records. Empty a store before removing it.
+[*]A damaged H2 store leaks hydrogen to space; with oxygen in the room and a spark, fire or working refinery, it burns through the game's own explosion. A damaged M2 leaks methane into the room, which burns to CO2 with a spark; a damaged ammonia store leaks poison; a damaged K2 or AX-2 dumps its gas. Oxygen sent into the cabin air raises the fire risk.
 [*]A metal melt left waiting for a cool room too long freezes into slag. No crew loading orders yet.
 [*]Automated checks pass; in-game checks are still pending.
 [/list]

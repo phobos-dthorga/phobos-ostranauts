@@ -17,7 +17,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d, bool steelStock)
     {
@@ -31,6 +31,7 @@ internal static class Definitions
         AddRefinery(d, steelStock);
         AddProcessor(d);
         AddReactor(d);
+        AddCracker(d);
         // Every size of every gas store; each size's art is named after its own definition prefix.
         foreach (var store in GasStores.All)
             AddStore(d, store, Text.Get(store.TextPrefix + ".details", store.DryKg, store.CapacityKg, store.LeakKgPerHour, store.Footprint), store.Prefix);
@@ -96,6 +97,26 @@ internal static class Definitions
             var co = d.Objects[p + form]; var item = d.Items[p + form];
             bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
             co.strNameFriendly = co.strNameShort = Text.Get("Sabatier.name") + (damaged ? Text.Get("Content.damaged") : "");
+            StripContainer(co);
+            co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
+            co.strPortraitImg = item.strImg;
+        }
+    }
+
+    /// <summary>The AX-2 ammonia cracker: a powered 2 x 2 appliance with no container; its gases are a saved record.</summary>
+    private static void AddCracker(NativeDefinitions d)
+    {
+        string p = CrackerRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Cracker.name"), Text.Get("Cracker.description", CrackerRules.MachineKg, CrackerRules.WorkingKW, CrackerRules.AmmoniaKgPerCycle,
+                CrackerRules.NitrogenKgPerCycle, CrackerRules.HydrogenKgPerCycle),
+            CrackerRules.Footprint, CrackerRules.MachineKg, CrackerRules.Price, ImagePath + CrackerArt, Controls, CrackerRules.IdleKW, InstallMenu.Appliances);
+        ApplianceDefinitions.SetPowerOverride(d, p, CrackerRules.IdleKW, CrackerRules.WorkingKW, ManufacturingRules.Reacting, "PowerA");
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Cracker.name") + (damaged ? Text.Get("Content.damaged") : "");
             StripContainer(co);
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
             co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };

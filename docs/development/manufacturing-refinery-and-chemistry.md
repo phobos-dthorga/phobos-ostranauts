@@ -131,10 +131,10 @@ times nitrogen per kilogram as cold gas (the formula in the RCS section below).
 Ammonia cold-gas thrusters are a real, if uncommon, choice. It leaves the ship as
 exhaust, not into any room.
 
-**Not yet:** the ammonia cracker that turns ammonia into nitrogen and hydrogen
-(2 NH3 -> N2 + 3 H2) is the next Manufacturing round; fertiliser formulation is
-later. One ammonia charge cannot be credited twice: the player routes each
-kilogram to the RCS, the cracker or, later, fertiliser.
+**Since 0.10.0** the Tolvane AX-2 cracker turns stored ammonia into nitrogen and
+hydrogen (next section); fertiliser formulation is later. One ammonia charge
+cannot be credited twice: the player routes each kilogram to the RCS, the cracker
+or, later, fertiliser.
 
 ## Electrolysis
 
@@ -181,6 +181,54 @@ kJ/mol). The water vapour has no game species and leaves with the blast, as for
 hydrogen. Blast size now follows energy: small below the energy of 2 kg of
 hydrogen, medium below 8 kg, so hydrogen sizes are unchanged. A damaged reactor
 dumps its held CO2 and methane into the room and its hydrogen burns or escapes.
+
+## The ammonia cracker (0.10.0)
+
+The Tolvane AX-2 is the reverse of the Haber-Bosch synthesis: ammonia over a hot
+catalyst bed splits into its elements, 2 NH3 -> N2 + 3 H2. It is the established
+route for recovering hydrogen from ammonia carried as a hydrogen store (reviewed by
+Lucentini, Garcia, Vendrell and Llorca 2021, Universitat Politècnica de Catalunya,
+below): nickel catalysts work at roughly 500 to 700 C, ruthenium lower, and
+equilibrium conversion above about 400 C is nearly complete at low pressure.
+
+| Per one-hour cycle at 2 kW | Amount | Destination |
+| --- | --- | --- |
+| Ammonia in | 1.000 kg, 58.72 mol | From a linked Q2, Q3 or Q4 through its ordinary outlet |
+| Hydrogen out | 88.07 mol, 0.1775 kg | A linked H2, H3 or H4 through its cracker inlet |
+| Nitrogen out | 29.36 mol, 0.8225 kg (the remainder) | A linked N2, N3 or N4 through its cracker inlet |
+
+Mass balance: nitrogen is the balancing remainder, so every cycle conserves mass
+exactly; with the game's own molar masses it stays within 0.004% of the
+stoichiometric nitrogen (hydrogen as the remainder would miss by 0.017%, beyond the
+0.01% bound the reactors keep). **Energy:** the reaction absorbs the reverse of
+ammonia's formation enthalpy, 45.94 kJ per mole (NIST Chemistry WebBook), 0.749 kWh
+per cycle. The authored 2 kWh per cycle covers that, heating the gas to the bed and
+the losses of a small recuperated unit; the absorbed share leaves as chemical energy
+in the products, so about 1.25 kW goes into the room while it works (Framework
+`RoomHeat`, the same 10 kPa / 40 C bounds as the other machines). Complete
+conversion is an authored simplification; a real cracker leaves a trace of ammonia
+that is scrubbed or recycled.
+
+**Value.** The products are worth slightly more than the ammonia at the game's own
+gas prices (0.822 kg N2 at 4.10 and 0.178 kg H2 at 2.43 against 1 kg NH3 at 3.40
+cr/kg), which the dismantling rule would normally forbid. It does not apply here:
+stored gases are kilogram records with no sell-back route, as the K2's water and
+methane are, so no conversion of stored gas can be sold at a profit. The rule stays
+in force for every item the V4 or F6 makes.
+
+**Ports.** The cracker draws ammonia from a store's ordinary outlet (the port the
+K2 uses on a hydrogen store) and delivers into a separate cracker inlet on each
+product store, so one hydrogen store can take from an X2 and a cracker, and one
+nitrogen store can feed an A2, at once.
+
+**Hazard.** A damaged or destroyed AX-2 dumps its hold: ammonia and nitrogen into
+the room as the game's own gases (ammonia poisons in its bands), hydrogen by the
+fuel-store rule (burns with oxygen and an ignition source, otherwise escapes). The
+hold is at most one cycle, about a kilogram.
+
+**Brand.** Tolvane is a new, original brand for the nitrogen line (owner direction
+on crowded brands, 30 September 2026). The planning proposal, Azomere, was dropped
+because it sits close to Azomureș, a real Romanian fertiliser maker.
 
 ## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
 
@@ -318,6 +366,7 @@ Our hazards:
 | --- | --- | --- | --- |
 | V4 off-gassing | Carbon extraction running | CO2, CO and smoke added to the room in proportion to progress each powered step (`OffGasDueKg`); refused while the room is below 10 kPa or the machine has no room | The charge's 1.0 kg gas share |
 | V4 salt crust off-gas | Salt crust charge running | 1.235 kg CO2 into the room in proportion to progress; ammonia is never vented: the charge waits until its linked store is intact and has room | The reaction's CO2 |
+| AX-2 damage or destruction | Native damage mode switch or destroy | Held ammonia and nitrogen into the room; held hydrogen burns by the H2 store rule or escapes | Conserved; at most one cycle |
 | Ammonia store damage | Native damage mode switch or destroy | Leak 2, 3 or 4 kg/h of NH3 into the room until repaired; destruction releases the contents. The game's NH3 poisoning bands apply | Conserved |
 | X2 cabin oxygen | No canister linked | 1.000 kg O2 per cycle into the room | The recipe's oxygen |
 | Reaction gone bad | A nickel-iron or steel melt waiting for a cool room longer than its own duration | The charge finishes as slag: 17 kg slag + gangue for iron, 17 kg slag for steel, logged and noticed | Conserved |
@@ -384,8 +433,17 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   compiled from NIST data) — saturated liquid density and vapour pressure near
   20 C. https://www.engineeringtoolbox.com/ammonia-liquid-gas-equilibrium-properties-d_2013.html
   *Secondary compilation; the page address is from memory, verify before quoting.*
-- NIST Chemistry WebBook, ammonia: standard enthalpy of formation of the gas.
+- NIST Chemistry WebBook, ammonia: standard enthalpy of formation of the gas
+  (-45.94 kJ/mol), used for the salt crust energy and the cracker's reaction heat.
   https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417
+- Lucentini, I., Garcia, X., Vendrell, X. and Llorca, J. (2021), "Review of the
+  Decomposition of Ammonia to Generate Hydrogen", *Industrial & Engineering
+  Chemistry Research* 60(51), 18560-18611, doi:10.1021/acs.iecr.1c00843.
+  Universitat Politècnica de Catalunya. https://pubs.acs.org/doi/10.1021/acs.iecr.1c00843
+  — catalysts, operating temperatures and equilibrium conversion of ammonia
+  cracking; supports the AX-2's process, not its authored power or rate. *The
+  temperature and conversion figures quoted above are from memory of the review;
+  verify them before quoting.*
 - Buchwald, V. F. (1975), Handbook of Iron Meteorites, University of California
   Press — kamacite/taenite nickel contents, troilite, schreibersite and
   cohenite inclusions.

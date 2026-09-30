@@ -13,7 +13,7 @@ namespace PhobosManufacturing;
 internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed }
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed }
         .Concat(GasStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
@@ -52,6 +52,15 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
                 SabatierService.WaterCandidates(co).Select(v => ("water:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("water:none", Text.Get("Provider.link_none")) }));
             yield return new(Text.Get("Provider.methane_field"), ObjectPresentation.Name(SabatierService.MethanePeer(co)),
                 SabatierService.MethaneCandidates(co).Select(v => ("methane:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("methane:none", Text.Get("Provider.link_none")) }));
+        }
+        else if (CrackerRules.IsFamily(co.strCODef))
+        {
+            yield return new(Text.Get("Provider.ammonia_field"), ObjectPresentation.Name(CrackerService.AmmoniaPeer(co)),
+                CrackerService.AmmoniaCandidates(co).Select(v => ("ammonia:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("ammonia:none", Text.Get("Provider.link_none")) }));
+            yield return new(Text.Get("Provider.nitrogen_out_field"), ObjectPresentation.Name(CrackerService.NitrogenPeer(co)),
+                CrackerService.NitrogenCandidates(co).Select(v => ("nitrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("nitrogen:none", Text.Get("Provider.link_none")) }));
+            yield return new(Text.Get("Provider.hydrogen_out_field"), ObjectPresentation.Name(CrackerService.HydrogenPeer(co)),
+                CrackerService.HydrogenCandidates(co).Select(v => ("hydrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("hydrogen:none", Text.Get("Provider.link_none")) }));
         }
         else if (ManifoldRules.IsFamily(co.strCODef))
         {
@@ -110,10 +119,10 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
-        "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + ManifoldRules.Record,
+        "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
         "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
@@ -142,6 +151,9 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if (SabatierRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "reactor", new EquipmentActivity(SabatierService.State(co), SabatierService.Describe(co)),
                 SabatierService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
+        if (CrackerRules.IsFamily(co.strCODef))
+            return new EquipmentSnapshot(co.strID, co.strNameFriendly, "cracker", new EquipmentActivity(CrackerService.State(co), CrackerService.Describe(co)),
+                CrackerService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
         var actions = new List<EquipmentAction>();
         if (BulkVessel.Protected(co)) actions.Add(new EquipmentAction("accept", Text.Get("Provider.action_accept")));
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "store", new EquipmentActivity(StoreService.State(co), StoreService.Describe(co)), actions);
@@ -151,6 +163,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         RefineryRules.IsFamily(co.strCODef) ? RefineryService.Command(co, binding, action, out message) :
         ProcessorRules.IsFamily(co.strCODef) ? ProcessorService.Command(co, binding, action, out message) :
         SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) :
+        CrackerRules.IsFamily(co.strCODef) ? CrackerService.Command(co, binding, action, out message) :
         ManifoldRules.IsFamily(co.strCODef) ? ManifoldService.Command(co, binding, action, out message) :
         FillerRules.IsFamily(co.strCODef) ? FillerService.Command(co, binding, action, out message) :
         RegulatorRules.IsFamily(co.strCODef) ? RegulatorService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);

@@ -47,6 +47,7 @@ internal static class PerformanceNativeChecks
         foreach (var (id, kind) in new[] {
             (PhobosManufacturing.Core.RefineryRules.Installed, PhobosManufacturing.MachineKind.Refinery), (PhobosManufacturing.Core.ProcessorRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Processor),
             (PhobosManufacturing.Core.SabatierRules.Installed, PhobosManufacturing.MachineKind.Sabatier), (PhobosManufacturing.Core.FillerRules.Installed, PhobosManufacturing.MachineKind.Filler),
+            (PhobosManufacturing.Core.CrackerRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Cracker),
             (PhobosManufacturing.Core.ManifoldRules.Installed, PhobosManufacturing.MachineKind.None), (PhobosManufacturing.Core.GasStores.Hydrogen.Installed, PhobosManufacturing.MachineKind.None),
             ("ItmAirPumpInstalled", PhobosManufacturing.MachineKind.None), (null!, PhobosManufacturing.MachineKind.None) })
             check(PhobosManufacturing.MachineKinds.Classify(id) == kind, "Manufacturing power hook classification: " + (id ?? "null") + " -> " + kind);

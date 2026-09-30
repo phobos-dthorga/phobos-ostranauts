@@ -7,6 +7,7 @@ RefineryChecks.Run(Check, Throws);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);
+CrackerChecks.Run(Check, Throws);
 ManifoldChecks.Run(Check, Throws);
 GasStoreChecks.Run(Check, Throws);
 RegulatorChecks.Run(Check, Throws);

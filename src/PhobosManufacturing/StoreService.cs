@@ -65,6 +65,7 @@ internal static class StoreService
     {
         if (ProcessorRules.IsFamily(c.strCODef)) return ProcessorService.StorePeer(c) == storeId || ProcessorService.CanisterId(c) == storeId;
         if (SabatierRules.IsFamily(c.strCODef)) return SabatierService.HydrogenPeer(c) == storeId || SabatierService.MethanePeer(c) == storeId || SabatierService.CanisterId(c) == storeId;
+        if (CrackerRules.IsFamily(c.strCODef)) return CrackerService.AmmoniaPeer(c) == storeId || CrackerService.NitrogenPeer(c) == storeId || CrackerService.HydrogenPeer(c) == storeId;
         if (ManifoldRules.IsFamily(c.strCODef)) return ManifoldService.Sources(c).Any(x => x.Id == storeId);
         if (FillerRules.IsFamily(c.strCODef)) return FillerService.StateOf(c).Links.Any(x => x.Id == storeId);
         if (RefineryRules.IsFamily(c.strCODef)) return RefineryRules.StoredGasFamilies.Any(f => RefineryService.GasPeer(c, f) == storeId);

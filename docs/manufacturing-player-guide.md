@@ -1,4 +1,4 @@
-# Refinery, electrolysis, Sabatier reactor, gas stores, canister filling, cabin air and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, ammonia cracker, gas stores, canister filling, cabin air and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
@@ -17,6 +17,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark X2 Chemical Processor | 2 x 2 tiles; 130 kg; one power point; 6 kW working | 38,000 cr, broken 9,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark H2, H3 and H4 Hydrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; 160, 305 and 450 kg empty; hold 24, 59 and 115 kg of hydrogen | 22,000, 35,790 and 50,540 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Tolvane AX-2 Ammonia Cracker | 2 x 2 tiles; 150 kg; one power point; 2 kW working | 42,000 cr, broken 10,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
@@ -173,6 +174,44 @@ The reaction gives off heat: with its electricity, about 2.3 kW goes into the
 room while it works, and it waits for the room to cool at 40 C. Pause keeps
 held gas, made products and progress; Cancel forfeits only the cycle's energy.
 
+## The ammonia cracker
+
+The Tolvane AX-2 turns the ammonia from salt crust into the two gases the ship
+uses: nitrogen for the cabin air and hydrogen for the K2 or the thrusters. Each
+one-hour cycle at 2 kW takes 1 kg of ammonia and makes 0.822 kg of nitrogen and
+0.178 kg of hydrogen: 2 NH3 -> N2 + 3 H2. One salt crust charge gives about one
+cycle's ammonia.
+
+```mermaid
+flowchart LR
+    Crust["Salt crust in the V4"] -->|0.955 kg ammonia| Q["Q2, Q3 or Q4 ammonia store"]
+    Q -->|1 kg ammonia| AX2["AX-2 ammonia cracker, 2 kW"]
+    AX2 -->|0.822 kg nitrogen| N["N2, N3 or N4 nitrogen store"]
+    AX2 -->|0.178 kg hydrogen| H["H2, H3 or H4 hydrogen store"]
+    N --> A2["A2 cabin air, L2 canisters, RCS"]
+    H --> K2["K2 Sabatier reactor, RCS"]
+```
+
+1. Install the AX-2 within one tile of an ammonia store, a nitrogen store and a
+   hydrogen store (any size), and connect its power point. A hydrogen store can
+   take from an X2 and a cracker at once.
+2. Open its **Control Panel** > **Connections** and set **Ammonia from**,
+   **Nitrogen to** and **Hydrogen to**. Apply, then **Start**.
+3. At the start of each cycle it draws a cycle's ammonia into its own hold; at
+   the end the nitrogen and hydrogen go to their stores, and the next cycle starts
+   only when they have. It starts a cycle only when both stores have room for a
+   whole cycle; a short ammonia store or a full product store makes it wait, with
+   the reason.
+
+Splitting ammonia soaks up about 0.75 kWh of each cycle's 2 kWh, so about 1.25 kW
+goes into the room while it works, and it waits for the room to cool at 40 C.
+Pause keeps the held ammonia, made products and progress; Cancel forfeits only
+the cycle's energy.
+
+Each kilogram of ammonia goes one way: into the RCS through a P1, or into the
+cracker. The cracker does not make gas out of nothing: the nitrogen and hydrogen
+together weigh exactly the ammonia it took.
+
 ## Gas stores
 
 Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large
@@ -183,12 +222,12 @@ ammonia.
 
 | Gas | Filled by | Used by |
 | --- | --- | --- |
-| Hydrogen (H) | an X2 | a K2, the RCS through a P1 |
+| Hydrogen (H) | an X2, an AX-2 | a K2, the RCS through a P1 |
 | Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | the RCS through a P1 |
 | Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
-| Nitrogen (N) | Bulk supplies | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
+| Nitrogen (N) | Bulk supplies, an AX-2 | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
 | Carbon dioxide (C) | Bulk supplies | a K2 (set the store as its CO2 source), an L2, the RCS |
-| Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | the RCS through a P1 |
+| Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), the RCS through a P1 |
 
 Each store's panel shows the kilograms held and every machine linked to it.
 
@@ -308,7 +347,7 @@ to space.
 
 ## After a reload
 
-The V4, X2, K2 and L2 pause after every reload and keep their bound charge,
+The V4, X2, K2, AX-2 and L2 pause after every reload and keep their bound charge,
 holds, links and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
 products it has made; it delivers waiting products first and starts a new cycle
 only once they have gone to their vessels. A bound steel charge on a ship whose
@@ -348,6 +387,9 @@ releases it.
   applies: repair the store, get the crew clear and vent or scrub the room.
   The V4 never lets its ammonia into the room: the salt crust waits for its
   store instead.
+- **A damaged cracker dumps its gas.** The ammonia and nitrogen in an AX-2's
+  hold go into the room (the ammonia poisons); its hydrogen burns by the rule
+  below if it can, otherwise it escapes. At most about a kilogram is ever held.
 - **Baking salt crust breathes carbon dioxide.** Each charge puts 1.235 kg of
   CO2 into the V4's room, as the carbon charge does. Run a CO2 scrubber there;
   its canister can then feed a K2.
@@ -389,8 +431,10 @@ releases it.
   authored from what NASA's Dawn mission saw on Ceres; no sample has been
   measured. The ammonia store keeps it liquid in the same vessel as the other
   gases; only its capacity treats it as a liquid.
-- No station sells ammonia, and nothing yet turns it into nitrogen or
-  fertiliser; for now it is RCS propellant.
+- No station sells ammonia. It becomes RCS propellant or, through the AX-2,
+  nitrogen and hydrogen; nothing turns it into fertiliser yet.
+- The cracker converts all of its ammonia each cycle; a real cracker leaves a
+  trace. That is an authored simplification.
 - Offline checks are not gameplay validation; see the owner checks below.
 
 ## Owner checks (game closed, `scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing`)
@@ -452,6 +496,15 @@ of ammonia, 0.5 kg of water, a spent salt cake and CO2 in the room come out
 after 15 minutes. Link the Q2 to a P1 and watch the RCS readings rise by about
 1.41 times its mass. Damage the store and watch the room's ammonia and the
 crew's poisoning.
+
+Ammonia cracker (0.10.0): install an AX-2 within one tile of a Q2 holding
+ammonia, an N2 and an H2, link all three and Start. Each hour, watch about 1 kg
+of ammonia leave the Q2, 0.82 kg of nitrogen reach the N2 and 0.18 kg of hydrogen
+reach the H2, and the room warm by about 1.25 kW. Empty the Q2, fill the N2 and
+fill the H2 in turn, and confirm each wait gives its reason. Save and reload
+mid-cycle, then confirm the pause until Start and that the products arrive once.
+Damage a running AX-2 and watch the room's ammonia and nitrogen rise and its
+hydrogen burn or escape.
 
 Cabin air regulator (0.5.0): install an A2 in a sealed room with an O2 store
 and an N2 store linked, set 21 kPa and 101 kPa and switch it on. Let the

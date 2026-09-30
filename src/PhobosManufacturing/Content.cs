@@ -60,6 +60,7 @@ internal static class Content
         if (RefineryRules.IsFamily(co.strCODef)) return RefineryService.MaintenanceReason(co);
         if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co);
         if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co);
+        if (CrackerRules.IsFamily(co.strCODef)) return CrackerService.MaintenanceReason(co);
         if (GasStores.IsFamily(co.strCODef)) return StoreService.MaintenanceReason(co, dismantle);
         if (ManifoldRules.IsFamily(co.strCODef)) return ManifoldService.MaintenanceReason(co);
         if (FillerRules.IsFamily(co.strCODef)) return FillerService.MaintenanceReason(co);

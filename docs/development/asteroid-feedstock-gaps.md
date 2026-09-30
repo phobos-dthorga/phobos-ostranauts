@@ -281,8 +281,11 @@ the C-class roll from silicates; the V4 heats it (2 NH4Cl + Na2CO3 -> 2 NH3 + CO
 + H2O + 2 NaCl) to 0.955 kg ammonia for a new Fennmark Q2/Q3/Q4 ammonia store,
 0.505 kg water, 1.235 kg CO2 into the room and a 7.305 kg terminal salt cake. The
 V4 gained stored-gas outputs for it. The owner chose to let the P1 burn ammonia in
-the RCS (player flexibility). The **cracker is still pending** (next round). Full
-record: [the refinery chemistry](manufacturing-refinery-and-chemistry.md#the-ammonium-salt-crust-090).
+the RCS (player flexibility). **Manufacturing 0.10.0 adds the cracker**: the
+Tolvane AX-2 splits 1 kg of stored ammonia an hour into 0.822 kg of nitrogen for an
+N2 store and 0.178 kg of hydrogen for an H2 store, a new brand because Fennmark was
+crowded. Full record: [the refinery chemistry](manufacturing-refinery-and-chemistry.md#the-ammonium-salt-crust-090)
+and [the cracker](manufacturing-refinery-and-chemistry.md#the-ammonia-cracker-0100).
 
 #### B2. Evaporite salt crust: potassium, phosphorus, sulfur and CO2
 

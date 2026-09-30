@@ -1,0 +1,22 @@
+[h1]Phobos Manufacturing 0.10.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Phobos' Tolvane AX-2 Ammonia Cracker (2 x 2, 150 kg, 2 kW, 42,000 cr, the INSTALL menu APPS tab): turns stored ammonia into the two gases the ship uses. Each one-hour cycle splits 1 kg of ammonia from a linked ammonia store into 0.822 kg of nitrogen for a linked nitrogen store and 0.178 kg of hydrogen for a linked hydrogen store (2 NH3 to N2 + 3 H2, the reverse of how industry makes ammonia). Mined salt crust now feeds the cabin air through an A2, and hydrogen through a K2 or the RCS.
+[*]Tolvane is a new brand for the nitrogen line, with its own colours (teal frame, pale enamel lid, yellow corner brackets), because Fennmark already carries a dozen machine and store families. It has a new PixelLab sprite.
+[*]The cracker links on its panel and the C1 (Ammonia from, Nitrogen to, Hydrogen to). A hydrogen store can take from an X2 and a cracker at once, and a nitrogen store can feed an A2 while a cracker fills it.
+[/list]
+
+[h2]Hazards[/h2]
+
+[list]
+[*]The split soaks up part of the heat, so about 1.25 kW warms the room while the cracker works; it waits for the room to cool at 40 C. A damaged or destroyed cracker releases the ammonia and nitrogen it holds into the room, and its hydrogen burns or escapes like a damaged K2's. It holds at most about a kilogram.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.48.0 or newer. Saved machines and stores are unchanged. Complete conversion each cycle is an authored simplification. Offline checks are not gameplay validation.
+[/list]

@@ -9578,9 +9578,587 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.9.0",
+      "version": "0.10.0",
       "gameTarget": "1.0.1.5",
       "items": [
+        {
+          "id": "PhobosAmmoniaCrackerInstalled",
+          "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 150.0,
+          "baseValue": 42000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaCrackerInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaCrackerInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 80,
+                  "baseValue": 287.99999237060547
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 16,
+                  "baseValue": 80.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 11,
+                  "baseValue": 159.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaCrackerInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosAmmoniaCrackerInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaCrackerInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerLoose",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+                  "count": 1,
+                  "baseValue": 42000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaCrackerInstalledDmg",
+          "name": "Phobos' Tolvane AX-2 Ammonia Cracker (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 150.0,
+          "baseValue": 10500.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaCrackerInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaCrackerInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 36,
+                  "baseValue": 129.59999656677246
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 98,
+                  "baseValue": 4.90000007301569
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaCrackerInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x1",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerInstalled",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+                  "count": 1,
+                  "baseValue": 42000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaCrackerInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerLooseDmg",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker (Damaged)",
+                  "count": 1,
+                  "baseValue": 10500.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaCrackerLoose",
+          "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 150.0,
+          "baseValue": 42000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaCrackerLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaCrackerLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 80,
+                  "baseValue": 287.99999237060547
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 16,
+                  "baseValue": 80.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 11,
+                  "baseValue": 159.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaCrackerLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaCrackerLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerInstalled",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+                  "count": 1,
+                  "baseValue": 42000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaCrackerLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaCrackerLooseDmg",
+          "name": "Phobos' Tolvane AX-2 Ammonia Cracker (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 150.0,
+          "baseValue": 10500.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaCrackerLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaCrackerLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 36,
+                  "baseValue": 129.59999656677246
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 98,
+                  "baseValue": 4.90000007301569
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaCrackerLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaCrackerLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerInstalledDmg",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker (Damaged)",
+                  "count": 1,
+                  "baseValue": 10500.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaCrackerLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaCrackerLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaCrackerLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x1",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaCrackerLoose",
+                  "name": "Phobos' Tolvane AX-2 Ammonia Cracker",
+                  "count": 1,
+                  "baseValue": 42000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
         {
           "id": "PhobosAmmoniaStoreInstalled",
           "name": "Phobos' Fennmark Q2 Ammonia Store",
@@ -23277,6 +23855,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -23424,170 +24009,184 @@
         },
         {
           "table": "ItmLootSpawnEngineering",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Loot",
+          "chance": 0.0009615384615384616,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosAmmoniaCrackerLooseDmg",
+          "condition": "Loot",
+          "chance": 0.002884615384615385,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0010416666666666667,
+          "chance": 0.0009615384615384616,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0031250000000000006,
+          "chance": 0.002884615384615385,
           "count": 1
         },
         {
@@ -23607,6 +24206,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -23782,6 +24388,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosSabatierReactorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -23963,6 +24576,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -24131,6 +24751,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -24299,6 +24926,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -24461,6 +25095,13 @@
         {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -24629,6 +25270,13 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -24797,6 +25445,13 @@
         {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -24965,6 +25620,13 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25133,6 +25795,13 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25301,6 +25970,13 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25469,6 +26145,13 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25637,6 +26320,13 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25805,6 +26495,13 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -25973,6 +26670,13 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -26141,6 +26845,13 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -26309,6 +27020,13 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -26477,6 +27195,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -26673,6 +27398,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosSabatierReactorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaCrackerLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -41161,8 +41900,8 @@
     "mods/PhobosFramework/mod_info.json": "15f2b31a71ec287ac5c3bcbfee46dab7ea400cdff84011a9689dc8266c14894f",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "738390b68ace99ed59b0501f924e247767f43ec1eb887b86194c076fa8897262",
-    "mods/PhobosManufacturing/mod_info.json": "80364301416a2e1ba8edb9f8177e61da0c65fe92bd9895241d2a094e37c7f084",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "cde40c591b87dcf2e9a02c90490d1684f9aabcb9acd634558385dcd5eef366e7",
+    "mods/PhobosManufacturing/mod_info.json": "46e99849f5316695c48347a1a9934831320cb92b944f4afb69d79fb8b45459aa",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -41420,7 +42159,9 @@
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosManufacturing/Content.cs": "8c7c320b7b633b4714c014af027157a2074c15d931d69e4e37a47a65ce637a66",
+    "src/PhobosManufacturing/Content.cs": "548e1071dc94f3b1caac7e89a22a7e134dcad50d915c7c5e121db3227f447e0e",
+    "src/PhobosManufacturing/Core/CrackerRules.cs": "1abe01c3dda40d438ae8d2f06e16e85a89fe2b2f3ccd7effc9889ee65c44773c",
+    "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
     "src/PhobosManufacturing/Core/FillerRules.cs": "f47a1515b4ca9485b9386e34f517931838e1646292f2f934f1301a570b9976c3",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "c6aef87f3d841034bb2b9864565e1f98542f5279130fc252ec69162de39c2039",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "3f4c4b2094b187ef49786df73af37f63432a0af6cb6c622f9d89ca01d2709142",
@@ -41434,24 +42175,25 @@
     "src/PhobosManufacturing/Core/RegulatorRules.cs": "0de744ece7fbbb822dce07665c5c80d14a980a017c7b168c4ae67a4dd3a68390",
     "src/PhobosManufacturing/Core/SabatierRules.cs": "e34ab7499438dd8a0103524b07e1a9acc1cb6257c1f36fb21160e50cf825ed85",
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
-    "src/PhobosManufacturing/Definitions.cs": "b34849db5600170f8bd4a6427b7449d9366f7a9b8a3f2ec861de159f38320941",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "7384ee7fa7cb4d00672903f8c10811d1d61cf9027ac80f4a87f49d67a39da1e3",
+    "src/PhobosManufacturing/CrackerService.cs": "092a97400da31b5847c36bd371044ac674407e507901d49c83bbdd0f7d8c2f6b",
+    "src/PhobosManufacturing/Definitions.cs": "3a1dd0c2f671259bee962063af67c4c47db160e59b5ba669af7dde288baabcfb",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "bdfc626c73c18bd926ef2295f8f7394e31d61efed8edd75028893ff5b5c32dcd",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "81f0311f97e18a0056bbd825f945845fa56cbb71e5c0f0866a8dfb37e2c32824",
     "src/PhobosManufacturing/GasLine.cs": "62d56a9f66fe6734ef29ef02d338fbdd9b8f32e7a44cc6f08d6e4f5414a16f73",
-    "src/PhobosManufacturing/MachineKinds.cs": "a48631f46dadbae3f282b5514b19e271b4bce9f3f71aaab693a04f089330ce77",
+    "src/PhobosManufacturing/MachineKinds.cs": "ed765a6659479c87f0e949a667945f705dfb57fcc110e69faedde15509510f4a",
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "f56dd9a1fbc45476c6808d4c12cc4c72d412eb8b55ad13ef8fc58d0ef8c237a6",
-    "src/PhobosManufacturing/Plugin.cs": "11c8944cdf390dc950ee1f91dde8ba12bee01bb6890451894e998c4448d994fc",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "58fecb3b11e64dcd365956da5437cd1ae11ca46027395b37154fb46de799b9ae",
+    "src/PhobosManufacturing/Plugin.cs": "cb67a593a26be49e1140858e9a7378a4b243f821c8e9a1695764f7880e253394",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
-    "src/PhobosManufacturing/Provider.cs": "8045e93e11f9d82109d1072dd3b98df3b1d48a632aaea5480d832afd0fe01480",
+    "src/PhobosManufacturing/Provider.cs": "021cda84ab580e4fe50c28d4dbda32e0346b7f0f62c39f2b764e38f3d4b200c5",
     "src/PhobosManufacturing/RefineryService.cs": "11f5678e364886e06e43b3ee289efa10a1f639d767c588263c1151cf17c5bb21",
     "src/PhobosManufacturing/RegulatorService.cs": "d760030832d2a2a28fe314225db75ebf5f1b85e95e6121f8515912bdaf0f4f1e",
     "src/PhobosManufacturing/SabatierService.cs": "4e1be170e3ee4b962d59317e252c4a4206f865655454f0281520e4d551033b89",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
-    "src/PhobosManufacturing/StoreService.cs": "66e2d3a666541c51c4abfba6c1beb0909f48444b23b0fb9ff714db7d34572d02",
+    "src/PhobosManufacturing/StoreService.cs": "ef98d5f1f6261824fa7f5f59754a9121df75e8d6786084b9a5f2d0e93e203424",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -41567,7 +42309,7 @@
     "translations/PhobosAgriculture/en.json": "baa257c35d18484305c98d2a256600510640cdad0b429874c4eb3058b6758c91",
     "translations/PhobosAutoNav/en.json": "e3904f4dad6e8aa05fbac7932eaaa298a652b82253678b47df55a234711ba377",
     "translations/PhobosFramework/en.json": "2c80ad28687a37c47a3dea59ed029033754ed29757a3622f37a6acbdc1e2805f",
-    "translations/PhobosManufacturing/en.json": "46103327c7aeff1eb6e21601ccc4fd24166d5dc66d353ed5cb9addb1e53c8eea",
+    "translations/PhobosManufacturing/en.json": "b3982153bd6dbcb072463a92ecb6887d84f2bf93a897a9101e6c37ae8ad3a8bc",
     "translations/PhobosShipbreaker/en.json": "bb5f667f1afb0b87139689eca08b3d29e5fc2a6adb8b46ca7d99c8fd722af2b7",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }

@@ -369,6 +369,10 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.10.0 adds the Tolvane AX-2 ammonia cracker.
+            if ($version -ge [version]'0.10.0') {
+                'images/phobos/manufacturing/PhobosAmmoniaCracker.png'; 'images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png'
+            }
         }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }

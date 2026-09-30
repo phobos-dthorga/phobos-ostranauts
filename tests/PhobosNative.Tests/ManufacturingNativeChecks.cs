@@ -42,6 +42,13 @@ internal static class ManufacturingNativeChecks
                 "K2 is a two by two reactor with no cargo: its gases are records: " + state);
             check(reactor.strNameFriendly.StartsWith("Phobos' Fennmark K2 ", StringComparison.Ordinal) && (reactor.jsonPI == SabatierRules.Prefix + "Power") == (installed && !damaged),
                 "K2 carries its Fennmark name and draws power only when installed and intact: " + state);
+            var cracker = d.Objects[CrackerRules.Prefix + state]; var crackerItem = d.Items[cracker.strItemDef];
+            check(crackerItem.nCols == 2 && crackerItem.aSocketAdds.Length == 4 && cracker.nContainerWidth == 0 && !Has(cracker, "IsContainer") && Stat(cracker, "StatMass") == CrackerRules.MachineKg,
+                "AX-2 is a two by two cracker with no cargo: its gases are records: " + state);
+            check(cracker.strNameFriendly.StartsWith("Phobos' Tolvane AX-2 ", StringComparison.Ordinal) && (cracker.jsonPI == CrackerRules.Prefix + "Power") == (installed && !damaged),
+                "AX-2 carries its Tolvane name and draws power only when installed and intact: " + state);
+            check(Stat(cracker, "StatBasePrice") == (damaged ? (int)CrackerRules.Price / 4 : (int)CrackerRules.Price) && Has(cracker, EquipmentEconomy.HighSalvageMark),
+                "AX-2 carries its late-game price and the high-salvage mark: " + state);
             var methane = d.Objects[MethaneRules.Prefix + state];
             check(d.Items[methane.strItemDef].nCols == 2 && methane.jsonPI == null && methane.aTickers.Length == 0 && !Has(methane, "IsContainer") && Stat(methane, "StatMass") == MethaneRules.DryKg,
                 "M2 store is a passive two by two vessel at its dry mass: " + state);
@@ -86,9 +93,9 @@ internal static class ManufacturingNativeChecks
                 "A2 carries its late-game price and the high-salvage mark: " + state);
             check(installed ? regulatorItem.aSocketAdds[1] == PropellantLineRules.Prefix + "FixturePort" : true, "A2 pipe joint sits on its port tile: " + state);
             if (installed)
-                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold, filler, regulator })
+                foreach (var co in new[] { refinery, processor, store, reactor, cracker, methane, manifold, filler, regulator })
                     check(co.aInteractions.Count(i => i == Definitions.Controls) == 1, "Installed machine offers one Control Panel: " + co.strName);
-            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix, FillerRules.Prefix, RegulatorRules.Prefix })
+            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, CrackerRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix, FillerRules.Prefix, RegulatorRules.Prefix })
             {
                 check(d.Installables.ContainsKey(prefix + state + "Dismantle") && d.Installables.ContainsKey(prefix + state + (installed ? "Uninstall" : "Install")), "Native removal and dismantle jobs exist: " + prefix + state);
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);
@@ -131,6 +138,12 @@ internal static class ManufacturingNativeChecks
         var bed = d.Power[SabatierRules.Prefix + "Power"];
         check(Math.Abs(bed.fAmount - SabatierRules.IdleKW / Units.SecondsPerHour) < 1e-12 && bed.strOverrideCond == ManufacturingRules.Reacting && Math.Abs(bed.fOverrideAmount - SabatierRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && bed.aInputPts.SequenceEqual(new[] { "PowerA" }),
             "K2 draws 0.02 kW idle and 1.2 kW reacting through one input point");
+        var crackerPower = d.Power[CrackerRules.Prefix + "Power"];
+        check(Math.Abs(crackerPower.fAmount - CrackerRules.IdleKW / Units.SecondsPerHour) < 1e-12 && crackerPower.strOverrideCond == ManufacturingRules.Reacting &&
+            Math.Abs(crackerPower.fOverrideAmount - CrackerRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && crackerPower.aInputPts.SequenceEqual(new[] { "PowerA" }),
+            "AX-2 draws 0.02 kW idle and 2 kW cracking through one input point");
+        check(CrackerRules.Balanced() && NativeGasCanister.IsRoomSpecies(CrackerRules.AmmoniaSpecies) && NativeGasCanister.IsRoomSpecies(CrackerRules.NitrogenSpecies),
+            "The cracker conserves mass with the game's molar masses, and NH3 and N2 are game gases");
         // Sabatier with the game's own molar masses, and the game's own CO2 canister rule.
         check(SabatierRules.Balanced() && NativeGasCanister.IsRoomSpecies(SabatierRules.CarbonDioxide) && NativeGasCanister.IsRoomSpecies(SabatierRules.MethaneSpecies),
             "The reactor conserves mass with the game's molar masses, and CO2 and CH4 are game gases");

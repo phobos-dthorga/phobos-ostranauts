@@ -15,9 +15,11 @@ an existing brand would become crowded and a separate line gives players a clear
 identity. Fennmark already carries the V4, X2, K2, A2, L2, P1 and five store
 families, so the planned nitrogen, hydrometallurgy and high-temperature
 chemistry lines of the [asteroid feedstock programme](asteroid-feedstock-gaps.md)
-get their own brands (working proposals: *Azomere*, from azote, the old name for
-nitrogen; *Lixivar*, from lixiviation, the chemists' word for leaching; *Oxsmith*).
-Check each for collisions and record it here when its first machine is built.
+get their own brands (working proposals: *Lixivar*, from lixiviation, the chemists'
+word for leaching; *Oxsmith*). Check each for collisions and record it here when its
+first machine is built. The nitrogen line became **Tolvane** (Manufacturing 0.10.0):
+the earlier proposal, Azomere, sits close to Azomureș, a real Romanian fertiliser
+maker, so it was dropped; no chemical or gas company named Tolvane was found.
 Siblings keep their family's brand: solid material bins stay Rivetline beside
 the S3 to S5 silos, and a new gas store stays Fennmark beside the other stores.
 
@@ -62,7 +64,14 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | Carbon dioxide stores in three sizes; distinct from the Rivetline C2 collector by brand and type (Manufacturing 0.4.0) |
 | Phobos' Fennmark L2 Canister Filling Station | Two-by-two safe filling booster for canisters and suit bottles (Manufacturing 0.4.0) |
 | Phobos' Fennmark A2 Cabin Air Regulator | Two-by-two valve and sensor unit keeping one room's oxygen and pressure (Manufacturing 0.5.0); A for air |
+| Phobos' Tolvane AX-2 Ammonia Cracker | Two-by-two catalytic ammonia cracker, ammonia into nitrogen and hydrogen (Manufacturing 0.10.0); AX for ammonia split, 2 for the footprint |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
+
+**Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen
+line: deep teal frames, cool enamel lids and signal-yellow corner brackets, kept
+visibly apart from Fennmark's graphite and burnt orange. Its model names are two
+letters for the job, a hyphen and the footprint width (AX-2). The ammonia stores
+stay Fennmark beside the other gas stores.
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

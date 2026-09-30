@@ -17,7 +17,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.9.0";
+    public const string Version = "0.10.0";
     public const string MinimumFrameworkVersion = "0.48.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -36,7 +36,7 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { MachineKinds.Reset(); RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
+    internal static void ResetServices() { MachineKinds.Reset(); RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); CrackerService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
     private readonly List<CondOwner> damagedStores = new(), regulators = new(), members = new();
     // Stage 8: regulators and gas stores come from Framework's shared world sweep, not a pass over every world object.
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =
@@ -77,7 +77,7 @@ internal static class PowerPatch
 {
     // The game calls these for every powered object in the world; an appliance that is not ours is classified by one
     // dictionary probe and leaves no state behind (29 September 2026 performance pass, FF3).
-    internal sealed class PowerState { internal MachineKind Kind; internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal FillerService.Transfer? Filler; }
+    internal sealed class PowerState { internal MachineKind Kind; internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal CrackerService.Transfer? Cracker; internal FillerService.Transfer? Filler; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
         __state = null;
@@ -97,6 +97,9 @@ internal static class PowerPatch
             case MachineKind.Sabatier:
                 try { return SabatierService.BeginPower(__instance, __0, ref __1, out state.Reactor); }
                 catch (Exception ex) { SabatierService.Fault(__0, ex); return false; }
+            case MachineKind.Cracker:
+                try { return CrackerService.BeginPower(__instance, __0, ref __1, out state.Cracker); }
+                catch (Exception ex) { CrackerService.Fault(__0, ex); return false; }
             default:
                 try { return FillerService.BeginPower(__instance, __0, ref __1, out state.Filler); }
                 catch (Exception ex) { FillerService.Fault(__0, ex); return false; }
@@ -113,6 +116,7 @@ internal static class PowerPatch
                 case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); RefineryService.AfterPower(__0); break;
                 case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
                 case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
+                case MachineKind.Cracker: CrackerService.FinishPower(__instance, __0, __state.Cracker); break;
                 default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
             }
         }
@@ -126,6 +130,7 @@ internal static class PowerPatch
             case MachineKind.Refinery: RefineryService.Fault(co, ex); break;
             case MachineKind.Processor: ProcessorService.Fault(co, ex); break;
             case MachineKind.Sabatier: SabatierService.Fault(co, ex); break;
+            case MachineKind.Cracker: CrackerService.Fault(co, ex); break;
             default: FillerService.Fault(co, ex); break;
         }
     }
@@ -141,11 +146,12 @@ internal static class PowerPatch
                     case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); break;
                     case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
                     case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
+                    case MachineKind.Cracker: CrackerService.FinishPower(__instance, __0, __state.Cracker); break;
                     default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
                 }
         }
         catch (Exception ex) { Plugin.Log(ex.Message); }
-        finally { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); FillerService.Forget(__instance); }
+        finally { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); CrackerService.Forget(__instance); FillerService.Forget(__instance); }
     }
 }
 
@@ -165,6 +171,7 @@ internal static class PowerDemandPatch
             case MachineKind.Refinery: try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } break;
             case MachineKind.Processor: try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } break;
             case MachineKind.Sabatier: try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } break;
+            case MachineKind.Cracker: try { CrackerService.BeforePower(machine); } catch (Exception ex) { CrackerService.Fault(machine, ex); } break;
             default: try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } break;
         }
     }
@@ -259,6 +266,7 @@ internal static class StoreDamagePatch
         if (coNew == null || !coNew.HasCond("IsDamaged")) return;
         if (GasStores.IsFamily(coNew.strCODef)) StoreService.Damaged(coNew);
         else if (SabatierRules.IsFamily(coNew.strCODef)) SabatierService.Damaged(coNew);
+        else if (CrackerRules.IsFamily(coNew.strCODef)) CrackerService.Damaged(coNew);
     }
 }
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.Destroy))]
@@ -269,6 +277,7 @@ internal static class StoreDestroyPatch
         if (__instance == null) return;
         if (GasStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
+        else if (CrackerRules.IsFamily(__instance.strCODef)) CrackerService.Destroying(__instance);
     }
 }
 

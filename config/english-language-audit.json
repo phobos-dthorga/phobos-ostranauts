@@ -46681,6 +46681,596 @@
       ],
       "before": "{0} was destroyed and released {1:F1} kg of ammonia into the room. Get the crew clear and ventilate before anyone breathes it.",
       "after": "{0} was destroyed and released {1:F1} kg of ammonia into the room. Get the crew clear and ventilate before anyone breathes it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.cracker",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:351"
+      ],
+      "before": "The cracker holds ammonia, nitrogen, hydrogen or a part-run cycle. Cancel it and let its products go to their stores first.",
+      "after": "The cracker holds ammonia, nitrogen, hydrogen or a part-run cycle. Cancel it and let its products go to their stores first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.ammonia_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:58"
+      ],
+      "before": "Ammonia from",
+      "after": "Ammonia from"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.nitrogen_out_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:60"
+      ],
+      "before": "Nitrogen to",
+      "after": "Nitrogen to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.hydrogen_out_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:62"
+      ],
+      "before": "Hydrogen to",
+      "after": "Hydrogen to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:111",
+        "src/PhobosManufacturing/Definitions.cs:119"
+      ],
+      "before": "Ammonia Cracker",
+      "after": "Ammonia Cracker"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:111"
+      ],
+      "before": "A 2 x 2, {0:F0} kg catalytic ammonia cracker: ammonia split back into nitrogen and hydrogen over a hot catalyst bed, 2 NH3 -> N2 + 3 H2. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of ammonia from a linked ammonia store within one tile and makes {3:F3} kg of nitrogen for a linked nitrogen store and {4:F3} kg of hydrogen for a linked hydrogen store. The split soaks up part of the heat; the rest warms the room. Nitrogen tops up the cabin air through an A2; hydrogen feeds a K2 or the RCS.",
+      "after": "A 2 x 2, {0:F0} kg catalytic ammonia cracker: ammonia split back into nitrogen and hydrogen over a hot catalyst bed, 2 NH3 -> N2 + 3 H2. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of ammonia from a linked ammonia store within one tile and makes {3:F3} kg of nitrogen for a linked nitrogen store and {4:F3} kg of hydrogen for a linked hydrogen store. The split soaks up part of the heat; the rest warms the room. Nitrogen tops up the cabin air through an A2; hydrogen feeds a K2 or the RCS."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:30",
+        "src/PhobosManufacturing/CrackerService.cs:66"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:48",
+        "src/PhobosManufacturing/CrackerService.cs:54",
+        "src/PhobosManufacturing/CrackerService.cs:137",
+        "src/PhobosManufacturing/CrackerService.cs:176",
+        "src/PhobosManufacturing/CrackerService.cs:197",
+        "src/PhobosManufacturing/CrackerService.cs:210"
+      ],
+      "before": "This cracker's record or holds could not be verified. Check it, then Accept its state from the panel.",
+      "after": "This cracker's record or holds could not be verified. Check it, then Accept its state from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.armed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:138"
+      ],
+      "before": "Armed. Waiting for ammonia, room in both product stores, and power.",
+      "after": "Armed. Waiting for ammonia, room in both product stores, and power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:147"
+      ],
+      "before": "Cancelled. The cycle's energy is forfeited; held ammonia and made products stay for the next cycle.",
+      "after": "Cancelled. The cycle's energy is forfeited; held ammonia and made products stay for the next cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:147"
+      ],
+      "before": "Paused. Held ammonia, made products and the cycle's progress are kept.",
+      "after": "Paused. Held ammonia, made products and the cycle's progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:160",
+        "src/PhobosManufacturing/CrackerService.cs:355"
+      ],
+      "before": "The cracker stopped on a fault. See the log.",
+      "after": "The cracker stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:229"
+      ],
+      "before": "Waiting for the room to cool.",
+      "after": "Waiting for the room to cool."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:251"
+      ],
+      "before": "Cracking: {0:F2} of {1:F2} kWh this cycle.",
+      "after": "Cracking: {0:F2} of {1:F2} kWh this cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:251"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.waiting_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:183",
+        "src/PhobosManufacturing/CrackerService.cs:184",
+        "src/PhobosManufacturing/CrackerService.cs:208"
+      ],
+      "before": "Waiting for somewhere to put the products: {0}",
+      "after": "Waiting for somewhere to put the products: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.waiting_ammonia",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:195"
+      ],
+      "before": "Waiting for ammonia: {0}",
+      "after": "Waiting for ammonia: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.ammonia_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:95"
+      ],
+      "before": "no ammonia store linked",
+      "after": "no ammonia store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.ammonia_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:97"
+      ],
+      "before": "the linked ammonia store is not installed, not adjacent or not ready",
+      "after": "the linked ammonia store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.ammonia_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:108"
+      ],
+      "before": "the linked store offers {0:F3} kg and a cycle needs {1:F3} kg",
+      "after": "the linked store offers {0:F3} kg and a cycle needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.nitrogen_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:95"
+      ],
+      "before": "no nitrogen store linked",
+      "after": "no nitrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.nitrogen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:97"
+      ],
+      "before": "the linked nitrogen store is not installed, not adjacent or not ready",
+      "after": "the linked nitrogen store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.nitrogen_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:116"
+      ],
+      "before": "the nitrogen store has {0:F2} kg of room and the cracker has {1:F3} kg to deliver",
+      "after": "the nitrogen store has {0:F2} kg of room and the cracker has {1:F3} kg to deliver"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.hydrogen_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:95"
+      ],
+      "before": "no hydrogen store linked",
+      "after": "no hydrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.hydrogen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:93",
+        "src/PhobosManufacturing/CrackerService.cs:97"
+      ],
+      "before": "the linked hydrogen store is not installed, not adjacent or not ready",
+      "after": "the linked hydrogen store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.hydrogen_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:116"
+      ],
+      "before": "the hydrogen store has {0:F2} kg of room and the cracker has {1:F3} kg to deliver; use or vent some hydrogen",
+      "after": "the hydrogen store has {0:F2} kg of room and the cracker has {1:F3} kg to deliver; use or vent some hydrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.store_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:99"
+      ],
+      "before": "a linked store needs its owner's attention",
+      "after": "a linked store needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.store_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:100"
+      ],
+      "before": "a linked store holds contents in its catch chamber; recover them first",
+      "after": "a linked store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:123"
+      ],
+      "before": "Install the cracker first.",
+      "after": "Install the cracker first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:124",
+        "src/PhobosManufacturing/CrackerService.cs:296"
+      ],
+      "before": "Repair the cracker first.",
+      "after": "Repair the cracker first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:126"
+      ],
+      "before": "Unlock the cracker first.",
+      "after": "Unlock the cracker first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:127"
+      ],
+      "before": "The cracker is switched off at its power control.",
+      "after": "The cracker is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.cycle_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:215"
+      ],
+      "before": "{0}: cycle done. {1:F3} kg of nitrogen and {2:F3} kg of hydrogen delivered.",
+      "after": "{0}: cycle done. {1:F3} kg of nitrogen and {2:F3} kg of hydrogen delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:283"
+      ],
+      "before": "{0} was damaged and dumped its gas: {1:F3} kg of ammonia and {2:F3} kg of nitrogen into the room; {3:F3} kg of hydrogen {4}. Ammonia poisons: get the crew clear and ventilate.",
+      "after": "{0} was damaged and dumped its gas: {1:F3} kg of ammonia and {2:F3} kg of nitrogen into the room; {3:F3} kg of hydrogen {4}. Ammonia poisons: get the crew clear and ventilate."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:288"
+      ],
+      "before": "{0} was destroyed and dumped its gas: {1:F3} kg of ammonia and {2:F3} kg of nitrogen into the room; {3:F3} kg of hydrogen {4}. Ammonia poisons: get the crew clear and ventilate.",
+      "after": "{0} was destroyed and dumped its gas: {1:F3} kg of ammonia and {2:F3} kg of nitrogen into the room; {3:F3} kg of hydrogen {4}. Ammonia poisons: get the crew clear and ventilate."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.dump_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:308"
+      ],
+      "before": "Cracker damaged: gas released",
+      "after": "Cracker damaged: gas released"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:322"
+      ],
+      "before": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nCycle: {4:F2} of {5:F2} kWh. Cycles: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}.",
+      "after": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nCycle: {4:F2} of {5:F2} kWh. Cycles: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:326"
+      ],
+      "before": "Draws {0:F1} kW working; the split takes up part of it, and {1:F1} kW goes into the room.",
+      "after": "Draws {0:F1} kW working; the split takes up part of it, and {1:F1} kW goes into the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:333"
+      ],
+      "before": "Stop the cracker before changing its connections.",
+      "after": "Stop the cracker before changing its connections."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:340"
+      ],
+      "before": "That is not a suitable store within one tile of the cracker.",
+      "after": "That is not a suitable store within one tile of the cracker."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:342",
+        "src/PhobosManufacturing/CrackerService.cs:344"
+      ],
+      "before": "Linked.",
+      "after": "Linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:338"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:365"
+      ],
+      "before": "Accepted. The cracker's record is trusted again.",
+      "after": "Accepted. The cracker's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/CrackerService.cs:365"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
     }
   ],
   "documents": [
@@ -46688,8 +47278,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e34ff2ef50bbbc92750a2cafd5fd3e2261513315890e81086a2837af8913a1eb",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "08336a92197c69c876c5265d515b5c1b6ad1abb2d68b30f7ab62e4a1637ebfd9",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "SUPPORT.md",
@@ -47115,8 +47705,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "4b85608b10f8a0a007cdc49f37d1d78a9dd3625061877e4207a8432990ac1b90",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "f7cf66dcb09e639cc68d8ba0ffa4450f0a3f9c21cd0eedab2ef8f793edc613cc",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -47233,15 +47823,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "244aa47fc37e5389f506b77a0b405a55e4c7f773c00a7f90f02cab3f8b4c1b1d",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "1f70e7fdf101914010ce7a98cbc4547b934e589ca3206e9e79874bb22a859ed7",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "0b78d7a5d3468c6d36d4b10f4d72943fe0d5909b671234b83330e77cba4bed25",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "d84d8ada6adf79a2ff5fc4bb05785ca818ede280200955b466d2790987f40c1f",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -47299,8 +47889,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "9ef2f6b29d8dfcd2c451c276aeffd16b8ac9acbbdd9407c58f155d1fdb376c33",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "342116b0313dbb2bda6d7e93bc3b6758d27ec8f623ee72b26b02cbddc8efb655",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -47569,8 +48159,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "83e27b8ee17ce6f20745ba090ca996ade8cddbe8f8fad17ad471ad7f372f4623",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "4e11639fc2c1cdea5c04bb72f707e286a0b42d7b1fe15f8f8e19c086666f10d2",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -47660,15 +48250,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "e9bf44540a321b703de6137d8740a0d456ce262f2fc04426ef6bae36ccde1fb8",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "54342ba7ce4f69a93ef0edc8617aefd62dddc53157e2a1c0bed716214aa3d992",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "9afde563cb8cecd7e2834a9f127033e2ea84c09a4b2394cb84096385fc99d820",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "2ea65ac37803e6142678fa5c010f97e634ec1adf556ff2454b02e2d6c4304061",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -47786,8 +48376,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7c726dcc0945c349649b5269cb8dff22260e44f54b90691bf1b77299d6c5d379",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "4d4f5cf7391bafaa7a7fabce1bfe50f4a62465290baec644aff9e78c92aa8f0e",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -47828,8 +48418,8 @@
       "path": "docs/development/asteroid-feedstock-gaps.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "5a57ce9ac82b2aad7099464e876873d93ee6c5030eb1199c561a5af829fa090d",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "446f0d2ed84bba1f5a4c422a973160033ff7b9a8d483df2eb80435d541949f03",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -47843,8 +48433,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "547649a4df3986af28989b19f079ce2b117257e8959dfe51036ad7a1d87f6a05",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "922b18988da37f5898b7dcb188fb4b0d1c313461e341f6fdb61b95750f34511a",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -47898,8 +48488,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "80364301416a2e1ba8edb9f8177e61da0c65fe92bd9895241d2a094e37c7f084",
-      "review": "Manufacturing 0.9.0 (30 September 2026): reviewed for the ammonium salt crust charge, the Q2 to Q4 ammonia stores and ammonia in the RCS; direct operating wording, sources and authored assumptions kept in the chemistry record."
+      "sha256": "46e99849f5316695c48347a1a9934831320cb92b944f4afb69d79fb8b45459aa",
+      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

@@ -1,0 +1,71 @@
+{
+  "date": "2026-09-30",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "mod": "PhobosManufacturing",
+  "allowanceBefore": 1764,
+  "allowanceAfter": 1762,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "The start image is an original Phobos procedural drawing in the new Tolvane colours (deep teal frame, cool enamel lid, signal-yellow brackets), sent base64; the second pass started from the first pass by its PixelLab download URL. No game or third-party imagery.",
+  "initImageHashes": {
+    "references/ax2-cracker-start.png": "2728c2cd9f3df2183d52c65b553af4f50817a03c61a1d18709160461eb267844",
+    "references/ax2-cracker-first-pass.png": "ac0ac7355dca491097addcbdfca5a1582c4abf1405e3381af26bda89d4311995"
+  },
+  "repairs": {
+    "ax2-cracker": {
+      "from": "references/ax2-cracker-second-pass.png",
+      "fromSHA256": "3617bb406397982a764caa5adbebf6e33d2733e4b42f0bc2a26409fa321ca3fc",
+      "to": "source/ax2-cracker.png",
+      "method": "Two 2 x 2 red-brown latch blocks on the control plate rim (pixels 20-21 and 55-56, rows 93-94) repainted with the colour of the same column two rows above, so nothing reads as a painted indicator light (owner ruling, 29 September 2026). No other pixel changed."
+    }
+  },
+  "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of the selected one.",
+  "attempts": [
+    {
+      "key": "ax2-cracker",
+      "operation": "create_image_pixflux",
+      "jobId": "49ab12d8-c390-4206-8d71-a21da8176810",
+      "assetId": "bcdeabe1-abf9-5314-b2c9-8cc7c3706e16",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft ammonia cracker installed in a square frame: a deep teal painted steel frame with signal-yellow corner brackets around a cool pale grey enamel lid lit from the upper left; upper left a dark insulated catalyst furnace box holding three long horizontal steel catalyst tubes with rounded ends; upper right a round steel recuperator drum with a bolted rim and a dark centre hub; a short steel pipe joining the box to the drum; a small yellow inlet flange on the left edge; a small blue outlet flange and a small dark grey outlet flange on the right edge; lower left a dark control plate; lower right a louvred vent panel; a small dark orange power socket on the bottom frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9300201,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/ax2-cracker-start.png",
+      "decision": "superseded",
+      "review": "Overhead, no side faces, on the start layout; flat (twenty colours). Retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "ax2-cracker",
+      "operation": "create_image_pixflux",
+      "jobId": "912bd9ce-a3ba-46cd-8635-1f45f994071b",
+      "assetId": "75288779-07d8-5f52-aa1a-48183c0392c0",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead ammonia cracker with the same layout, repainted as worn working spacecraft equipment: the cool pale grey enamel lid lit from the upper left with soft shading toward the lower right, a few scuffs and rivet dots along the deep teal frame, signal-yellow corner brackets with chipped paint, the dark insulated furnace box with three long steel catalyst tubes showing soft cylindrical highlights along their tops, the round steel recuperator drum with a bolted rim, a soft highlight on its upper left and a dark centre hub, the steel pipe joining them, the yellow inlet flange on the left edge, the blue and dark grey outlet flanges on the right edge, the dark control plate lower left, the louvred vent panel lower right with shaded slats, a small dark orange power socket on the bottom frame. Crisp dark outlines, small readable colour regions, restrained shading. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9300202,
+        "init_image_strength": 120,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/ax2-cracker-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; catalyst tubes, recuperator drum, yellow inlet and blue outlet read at 32 px; the vent louvres merge into a grey panel at native size. Two plate latches repaired (see repairs)."
+    }
+  ]
+}

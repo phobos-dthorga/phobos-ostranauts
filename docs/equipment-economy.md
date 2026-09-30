@@ -676,3 +676,17 @@ The ammonium salt crust is ore (mined, never sold by merchants; the government
 kiosks buy it at 150 cr, the game's hydrates price). Refining it loses value like
 every charge: 150 cr of crust becomes about 3.25 cr of ammonia at the game's own
 NH3 price, 5.05 cr of water and a spent salt cake at the technical minimum.
+
+## Manufacturing 0.10.0: the Tolvane AX-2 ammonia cracker
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Tolvane AX-2 ammonia cracker | 150 kg | $42,000 | $10,500 | 1200 / 1000 | 3600 | 900 | 90 min |
+
+The AX-2 is built like the K2 (catalyst bed, heat exchanger, controls) and shares
+its repair bill and mass-balanced salvage: 3 steel, 2 aluminium, 4 mechanical and 6
+electronic parts, a motor, two mainboards and two heat sinks to repair; intact
+salvage 80 steel, 30 aluminium, 16 mechanical and 11 electronic parts, a motor, two
+mainboards, two heat sinks and 20 kg of retained trash (150 kg). It is sold on the
+other Manufacturing machines' routes, carries the high-salvage mark and shares
+their one-in-twenty engineering find.

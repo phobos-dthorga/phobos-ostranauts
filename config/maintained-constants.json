@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.9.0",
+      "value": "0.10.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1684,6 +1684,23 @@
       "targets": [
         {
           "path": "src/PhobosManufacturing/Core/SabatierRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+      ]
+    },
+    "Manufacturing.crackerPrice": {
+      "type": "number",
+      "value": "42000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored AX-2 ammonia cracker base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/CrackerRules.cs",
           "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
           "count": 1
         }

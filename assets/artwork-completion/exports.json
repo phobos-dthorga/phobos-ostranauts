@@ -2424,5 +2424,31 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "ax2-cracker",
+    "sourceSHA256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCracker.png": "98acf89f01313b106baca70608a5648b05ad51181dd9cb8ffa50cd4198e03327",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

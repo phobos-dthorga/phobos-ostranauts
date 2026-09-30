@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "90 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "91 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -2392,6 +2392,31 @@
       "sourceSHA256": "442c62e4650eaf9be8866b1be9d84a0a6799ddf92101d21470df4d00c04827f7",
       "requestRecord": "nitrogen-requests.json",
       "review": "Overhead and native-scale export inspected; Fennmark stock language kept. Owner in-game review pending."
+    },
+    {
+      "key": "ax2-cracker",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniaCrackerInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosAmmoniaCracker",
+      "status": "selected",
+      "source": "source/ax2-cracker.png",
+      "sourceSHA256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
+      "requestRecord": "cracker-requests.json",
+      "review": "Overhead and native-scale export inspected; Tolvane colour language (teal frame, enamel lid, yellow brackets) kept distinct from Fennmark. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "912bd9ce-a3ba-46cd-8635-1f45f994071b"
     }
   ],
   "records": [
@@ -2838,9 +2863,21 @@
       ],
       "costGenerations": 2,
       "review": "4bfd78fa rejected; 7307ebc4 rejected; recorded derivation from the anhydrous residue selected"
+    },
+    {
+      "key": "ax2-cracker",
+      "attempts": [
+        "cracker-requests.json"
+      ],
+      "jobs": [
+        "49ab12d8-c390-4206-8d71-a21da8176810",
+        "912bd9ce-a3ba-46cd-8635-1f45f994071b"
+      ],
+      "costGenerations": 2,
+      "review": "49ab12d8 superseded (retained input); 912bd9ce selected with a recorded latch repair"
     }
   ],
-  "allowanceAfter": 1764,
-  "allowanceDelta": 188,
+  "allowanceAfter": 1762,
+  "allowanceDelta": 190,
   "creditBalanceAfterUSD": 0
 }
