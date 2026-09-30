@@ -77,8 +77,10 @@ when it finishes. A finished action reports its amounts to the worker's log.
   so 19.96 kg of water or 36.72 kg of acid.
 - It is sold as a regional item on the expanded merchants in lots of 16 (registered
   constant `Framework.stockCanisters`), and at the faction kiosks at Neutral.
-- The art is procedural, from `scripts/export-line-art.py`, an overhead view in the
-  conduit palette.
+- The art was procedural (`scripts/export-line-art.py`) in 0.63.0 and 0.64.0. Since
+  Framework 0.65.0 it is a PixelLab overhead master in `assets/artwork-completion`
+  (owner request, 1 October 2026), exported at a recorded nearest-neighbour phase.
+  The attempts, prompts and rejections are in `drain-canister-requests.json`.
 - **Pour on arrival.** On the same two-second pass, every canister in the container of
   an installed, undamaged registered bulk vessel of the same commodity is poured in.
   Pouring stops at the vessel's room and is wrapped in the vessel's conversion journal.
@@ -151,8 +153,18 @@ when it finishes. A finished action reports its amounts to the worker's log.
     one profile a run.
   - The W2 is a canister receiver for water (into its intake reservoir) and its own
     feed (within each component's headroom).
-  - Changing formulation leaves old feed in the pipe until drained. Drained feed does
-    not go to drainage treatment; its assay record belongs to the rack drain.
+  - Since Agriculture 0.34.0 (owner decisions, 1 October 2026), a formulation change is
+    flushed automatically. When the W2 next runs a branch, any other commodity in the
+    run is taken out, up to the step's budget and 20 kg. Plain water returns to the
+    W2's reservoir within its room. Feed, and water that does not fit, becomes one
+    recorded process solution item (`AgricultureDrainage`, water and nutrients by the
+    profile's ratio) in its inventory, and the flush waits while there is no room.
+  - A canister of another feed put in a W2 becomes the same item, so drainage treatment
+    recovers it.
+- **Ship's Water tanks (Framework 0.65.0).** Drinking tanks joined to a water line are
+  sources of the top-up pass after the Phobos stores. `ShipsWaterSupply.LineAvailableKg`
+  and `DrawForLine` never take the ship below `WaterTanks.CrewWaterReserveKg` across
+  every drinking tank aboard, and skip a tank with an interrupted transfer.
 - **A drained conduit is closed**, so the furnace sees no route and its reservoir
   follows the existing broken-route leak into the catch tank until the run returns
   to service.

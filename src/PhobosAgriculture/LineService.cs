@@ -54,6 +54,14 @@ internal static partial class Service
         if(budget<=1e-9) return used;
         string commodity=FeedCommodity(source.Solution.Profile);
         var circuit=IrrigationHolding==null?Array.Empty<CondOwner>():LineContents.Circuit(source.Object.ship,IrrigationHolding,path);
+        // After a formulation change the pipes still hold the old feed: the pump flushes it back to the W2 first
+        // (owner decision, 1 October 2026), as plain water into its reservoir or as recorded process solution for treatment.
+        if(IrrigationHolding!=null&&circuit.Any(c=>(LineContents.Read(c)?.Kilograms.Keys??Enumerable.Empty<string>()).Any(k=>k!=commodity)))
+        {
+            double flushed=Flush(source,circuit,commodity,budget);
+            target.Notice=Text.Get(flushed>NutrientSolution.Tolerance?"line_flushing":"line_flush_full",flushed);
+            return used+flushed;
+        }
         double room=IrrigationHolding==null?0:LineContents.Room(circuit,IrrigationHolding,commodity);
         if(room>1e-6)
         {
@@ -79,6 +87,64 @@ internal static partial class Service
         if(used>0) reservoir.SetQuantity(quantity-quantity.Scale(used/total));
         return used;
     }
+    /// <summary>The most one recorded process solution item holds, as the tank drain makes them.</summary>
+    internal const double DrainageItemKg=20;
+    /// <summary>Takes up to <paramref name="budget"/> kilograms of every commodity other than <paramref name="keep"/> out of the
+    /// circuit and returns it to the W2: plain water into its reservoir while there is room, everything else (and any
+    /// water that does not fit) as one recorded process solution item in its inventory, ready for drainage treatment.
+    /// Nothing moves when that item has no room. Returns the kilograms flushed.</summary>
+    private static double Flush(Session source,IReadOnlyList<CondOwner> circuit,string keep,double budget)
+    {
+        double limit=Math.Min(budget,DrainageItemKg), water=0; var feed=default(LiquidMixture);
+        var plan=new List<(CondOwner Segment,LineMixture Mixture)>();
+        foreach(var segment in circuit)
+        {
+            if(limit-(water+feed.TotalKg)<=NutrientSolution.Tolerance) break;
+            var m=LineContents.Read(segment);
+            if(m==null) continue;
+            bool changed=false;
+            foreach(string name in m.Kilograms.Keys.Where(k=>k!=keep).ToArray())
+            {
+                double take=m.Take(name,limit-(water+feed.TotalKg));
+                if(take<=0) continue;
+                changed=true;
+                string profile=FeedProfiles.FirstOrDefault(p=>FeedCommodity(p)==name)??NutrientSolution.None;
+                if(profile==NutrientSolution.None) water+=take;
+                else { var ratio=NutrientSolution.Ratio(profile); feed+=ratio.Scale(take/ratio.TotalKg); }
+            }
+            if(changed) plan.Add((segment,m));
+        }
+        double total=water+feed.TotalKg;
+        if(total<=NutrientSolution.Tolerance) return 0;
+        double toReservoir=Math.Min(water,Math.Max(0,source.Solution.PlainWaterCapacity-source.State.Water));
+        var drainage=feed+new LiquidMixture(water-toReservoir,0);
+        if(drainage.TotalKg>NutrientSolution.Tolerance&&!PlaceDrainage(source,drainage)) return 0;
+        foreach(var (segment,mixture) in plan) LineContents.Write(segment,mixture);
+        source.State.Water+=toReservoir; Save(source);
+        return total;
+    }
+    /// <summary>Puts one recorded process solution item holding <paramref name="q"/> in the W2's inventory, as the drain
+    /// work does, so drainage treatment can recover it. False, placing nothing, when there is no room.</summary>
+    private static bool PlaceDrainage(Session s,LiquidMixture q)
+    {
+        var container=s.Object.objContainer;
+        if(container==null||container.Locked||q.TotalKg<=NutrientSolution.Tolerance||q.TotalKg>DrainageItemKg+1e-9) return false;
+        var product=DataHandler.GetCondOwner(CharacterizedDrainage); bool placed=false;
+        try
+        {
+            product.SetCondAmount("StatMass",q.TotalKg); WriteDrainage(product,q);
+            if(!container.AllowedCO(product)) return false;
+            var grid=container.gridLayout; var cells=new bool[grid.gridMaxX,grid.gridMaxY];
+            for(int x=0;x<grid.gridMaxX;x++) for(int y=0;y<grid.gridMaxY;y++) cells[x,y]=grid.gridID[x,y]!=null||grid.gridInventoryItem[x,y]!=null;
+            var size=Ostranauts.Inventory.GUIInventoryItem.GetWidthHeightForCO(product);
+            var spot=Phobos.Ostranauts.Framework.Inventory.BatchPlacement.Plan(cells,new[]{new Phobos.Ostranauts.Framework.Inventory.ItemSize(size.x,size.y)});
+            if(spot==null) return false;
+            container.AddCOSimple(product,new PairXY(spot[0].X,spot[0].Y));
+            if(product.objCOParent!=s.Object) throw new InvalidOperationException("Recorded process solution placement failed.");
+            placed=true; container.Redraw(); return true;
+        }
+        finally { if(!placed&&!product.bDestroyed) product.Destroy(); }
+    }
     private static string DescribeLine(Session s)=>s.Line.Empty?"":Text.Get("line_legacy",s.Line.TotalKg);
     /// <summary>A drain canister of water, or of this W2's own feed, put in its inventory pours into its reservoir
     /// (Agriculture 0.33.0), as far as the reservoir has room for each component.</summary>
@@ -93,7 +159,16 @@ internal static partial class Service
             if(moved<=NutrientSolution.Tolerance) return 0;
             s.State.Water+=moved; Save(s); return moved;
         }
-        if(!s.Solution.Enabled||commodity!=FeedCommodity(s.Solution.Profile)) return 0;
+        string? profile=FeedProfiles.FirstOrDefault(p=>FeedCommodity(p)==commodity);
+        if(profile==null) return 0;
+        if(!s.Solution.Enabled||profile!=s.Solution.Profile)
+        {
+            // Feed this W2 does not mix becomes recorded process solution in its inventory, for drainage treatment
+            // (owner decision, 1 October 2026), one item at a time.
+            var other=NutrientSolution.Ratio(profile); double portion=Math.Min(kg,DrainageItemKg);
+            if(!PlaceDrainage(s,other.Scale(portion/other.TotalKg))) return 0;
+            Save(s); return portion;
+        }
         var reservoir=new FeedReservoir(s); var ratio=NutrientSolution.Ratio(s.Solution.Profile); var q=reservoir.Quantity; var cap=reservoir.ComponentCapacity;
         double fit=kg;
         if(ratio.CarrierKg>0) fit=Math.Min(fit,Math.Max(0,cap.CarrierKg-q.CarrierKg)*ratio.TotalKg/ratio.CarrierKg);

@@ -254,5 +254,7 @@
   "dose_hopper_unready": "Feeding from {0}, but it cannot dose now ({1:F2} kg ready): it is damaged, protected, holding trapped nutrients, empty or out of reach.",
   "Maintenance.hopper": "Bag the hopper's nutrients before moving or dismantling it.",
   "line_legacy": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run.",
-  "line_priming": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles."
+  "line_priming": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
+  "line_flushing": "Flushing the old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water in its reservoir or as process solution in its inventory for treatment.",
+  "line_flush_full": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish."
 }

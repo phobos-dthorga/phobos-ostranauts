@@ -135,11 +135,15 @@ public static class LineContents
         if (segments.Count == 0) return;
         var participants = FluidRouteCache.Participants(ship, family.Family);
         var sources = new Dictionary<int, List<CondOwner>>();
+        // Ship's Water drinking tanks on a water line fill it too (Framework 0.65.0; owner decision, 1 October 2026),
+        // above the crew reserve, after the Phobos stores on the same run.
+        bool drinkingWater = family.Of(LineFamilies.Water) != null && ShipsWaterSupply.Available;
         for (int k = 0; k < participants.Count; k++)
         {
             var co = participants[k];
             var spec = BulkVessels.Of(co);
-            if (spec == null || family.Of(spec.Commodity) == null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) continue;
+            bool store = spec != null && family.Of(spec.Commodity) != null && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged");
+            if (!store && !(drinkingWater && spec == null && ShipsWaterSupply.IsDrinkingTank(co))) continue;
             int component = topology.ParticipantComponentOf(k);
             if (component < 0) continue;
             if (!sources.TryGetValue(component, out var list)) sources[component] = list = new List<CondOwner>();
@@ -160,11 +164,15 @@ public static class LineContents
             Fill(family, sources[group.Key], run, mixtures);
         }
     }
-    private static void Fill(LineHoldUpFamily family, List<CondOwner> vessels, CondOwner[] run, LineMixture?[] mixtures)
+    private static void Fill(LineHoldUpFamily family, List<CondOwner> sources, CondOwner[] run, LineMixture?[] mixtures)
     {
         var usable = new List<CondOwner>();
         var available = new Dictionary<string, double>(StringComparer.Ordinal);
-        foreach (var v in vessels.OrderBy(v => v.strID, StringComparer.Ordinal))
+        var drinkingTanks = sources.Where(v => BulkVessels.Of(v) == null).ToArray();
+        var ship = run[0].ship;
+        double drinking = drinkingTanks.Length == 0 ? 0 : ShipsWaterSupply.LineAvailableKg(ship, drinkingTanks, Items.WaterTankService.CrewReserveKg);
+        if (drinking > LineMixture.Tolerance) available[LineFamilies.Water] = drinking;
+        foreach (var v in sources.Where(v => BulkVessels.Of(v) != null).OrderBy(v => v.strID, StringComparer.Ordinal))
         {
             if (CommodityReservations.Held(v.strID)) continue;
             BufferedDrains.Settle(v);
@@ -173,7 +181,7 @@ public static class LineContents
             usable.Add(v);
             available[snapshot.Commodity] = (available.TryGetValue(snapshot.Commodity, out var a) ? a : 0) + snapshot.AvailableKg;
         }
-        if (usable.Count == 0) return;
+        if (usable.Count == 0 && drinking <= LineMixture.Tolerance) return;
         var open = new List<LineMixture>(); var openObjects = new List<CondOwner>();
         for (int i = 0; i < run.Length; i++) if (mixtures[i] is { Closed: false } m) { open.Add(m); openObjects.Add(run[i]); }
         var drawn = LinePlanner.Fill(open, available, family.Of);
@@ -195,6 +203,8 @@ public static class LineContents
                 BulkVessel.Save(v, spec, s);
                 owed -= take;
             }
+            if (owed > LineMixture.Tolerance && pair.Key == LineFamilies.Water && drinkingTanks.Length > 0)
+                owed -= ShipsWaterSupply.DrawForLine(ship, drinkingTanks, owed, Items.WaterTankService.CrewReserveKg);
             given[pair.Key] = pair.Value - owed;
         }
         foreach (var pair in drawn)

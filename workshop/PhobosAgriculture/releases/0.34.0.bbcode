@@ -1,0 +1,45 @@
+[h1]Phobos Agriculture 0.34.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]After you change a W2's formulation, its pipes flush themselves: when the W2 next runs a rack, the pump first pushes the old feed back to the W2 before the new feed fills the pipes. Old plain water returns to the W2's reservoir while there is room; old feed, and any water that does not fit, comes back as Recorded Process Solution in the W2's inventory, ready for drainage treatment. If the W2's inventory has no room for it, the flush waits and the rack's status says so.
+[*]A drain canister of feed the W2 does not mix (another formulation, or feed in a water-only W2) now pours into the W2's inventory as Recorded Process Solution, so drainage treatment can recover it. Water and the W2's own feed still pour straight into its reservoir.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.65.0 or newer. Treatment still recovers only 90% of the water and 80% of the nutrients, as before. Offline checks are not gameplay validation.
+[/list]
+
+[h2]Documentation[/h2]
+
+[list]
+[*]The hopper guide names Phobos Manufacturing 0.20.0's LC-3 as a second way to fill a nutrient hopper. Documentation only; gameplay and saves are unchanged.
+[*]Point the player guide to current dependencies and explain Maintenance information. Distinguish original loot/roadmap milestones from current installation advice. Documentation only; gameplay and saves are unchanged.
+[/list]
+
+[list]
+[*]Include every Agriculture item in the complete action audit. Document why retained crops, fluids, jobs and R3 links can hide removal, and why loose conduit stacks require individual pieces for dismantling. No gameplay change is claimed.
+[/list]
+
+[list]
+[*]Added source-backed bulk-storage calculations for 54 farm scenarios, the R3 water-reservoir and larger nutrient-charge proposal later delivered in 0.14.0, and a local vanilla-art comparison workflow. Existing machinery, recipes, versions and installed files are unchanged; no production artwork was generated.
+[/list]
+
+[list]
+[*]Research crop-residue nutrient recovery, optional Ship's Water reject capture, a proposed Groundwork workup bench and non-repairable progressive W2 mixtures. These were implementation plans at the time; the 0.9.0 entry below delivers recorded residue recovery, the B2 workup bench and optional reject capture.
+[*]Expand the native economic audit with electricity sensitivity, repeating seed-production costs and bounded illustrative residue recovery; runtime prices and yields are unchanged.
+[/list]
+
+[list]
+[*]Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
+[/list]

@@ -22,6 +22,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.65.0] - 2026-10-01 - Draft
+
+### Added
+
+- Ship's Water drinking tanks on a process-water line now fill it too, like the Phobos water silos. They never give below the crew water reserve (Framework's WaterTanks setting CrewWaterReserveKg, 50 kg unless you changed it), counted across every drinking tank aboard. Phobos silos on the same line are drawn from first.
+
+### Changed
+
+- The Rivetline D20 drain canister has new PixelLab artwork, seen from directly above: a steel lid with pressed stiffening ribs and a filler cap.
+
+### Compatibility and limits
+
+- Needs Valtora's Ship's Water 0.16.1 for the tank filling; without it nothing changes. Phobos Agriculture 0.34.0 needs this version. Offline checks are not gameplay validation.
+
 ## [0.64.0] - 2026-10-01 - Draft
 
 ### Added

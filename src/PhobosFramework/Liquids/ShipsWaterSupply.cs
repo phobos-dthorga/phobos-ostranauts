@@ -99,6 +99,40 @@ public static class ShipsWaterSupply
         }
         return total;
     }
+    /// <summary>Whether an object is a usable Ship's Water drinking tank (installed, undamaged, unlocked), when the pinned
+    /// Ship's Water is loaded.</summary>
+    public static bool IsDrinkingTank(CondOwner? co) =>
+        co?.ship != null && Available && Rule(VesselTrigger) is CondTrigger trigger && trigger.Triggered(co) && Usable(co, co.ship);
+    /// <summary>What the given drinking tanks (those on one water line, Framework 0.65.0) can give without taking the
+    /// ship's drinking water below <paramref name="crewReserveKg"/>, which is kept across every tank aboard.</summary>
+    public static double LineAvailableKg(Ship ship, IEnumerable<CondOwner> tanksOnLine, double crewReserveKg)
+    {
+        if (ship == null || !Available || Rule(VesselTrigger) is not CondTrigger trigger) return 0;
+        double all = 0;
+        foreach (var v in InstalledTanks(ship, VesselTrigger, trigger)) if (Usable(v, ship)) all += Math.Max(0, v.GetCondAmount("StatLiqH2O"));
+        double here = tanksOnLine.Where(t => Usable(t, ship)).Sum(t => Math.Max(0, t.GetCondAmount("StatLiqH2O")));
+        return Math.Max(0, Math.Min(here, all - Math.Max(0, crewReserveKg)));
+    }
+    /// <summary>Draws up to <paramref name="requestKg"/> of drinking water from the given tanks into a line's hold-up
+    /// (Framework 0.65.0; owner decision, 1 October 2026: Ship's Water tanks fill the water lines they join), in ID
+    /// order, within <see cref="LineAvailableKg"/>. A tank with an interrupted transfer is skipped. Returns the kilograms
+    /// taken; litres equal kilograms for water only.</summary>
+    public static double DrawForLine(Ship ship, IEnumerable<CondOwner> tanksOnLine, double requestKg, double crewReserveKg)
+    {
+        var list = tanksOnLine.Where(t => Usable(t, ship)).OrderBy(t => t.strID, StringComparer.Ordinal).ToArray();
+        double allowed = Math.Min(requestKg, LineAvailableKg(ship, list, crewReserveKg)), total = 0;
+        foreach (var tank in list)
+        {
+            if (allowed - total <= 1e-12) break;
+            if (new LiquidTransferGuard(tank.mapGUIPropMaps, "WaterSupplyTransfer", FrameworkInfo.PluginId).Protected) continue;
+            var reservoir = new Tank(tank);
+            double take = Math.Min(allowed - total, Math.Max(0, reservoir.QuantityKg));
+            if (take <= 0) continue;
+            reservoir.SetQuantity(reservoir.QuantityKg - take);
+            total += take;
+        }
+        return total;
+    }
     private sealed class Tank : ILiquidReservoir
     {
         private readonly CondOwner co;

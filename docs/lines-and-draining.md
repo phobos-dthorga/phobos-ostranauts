@@ -22,7 +22,10 @@ furnace; see the [furnace guide](furnace-player-guide.md). A conduit of the lega
 sealed assembly holds nothing. The irrigation conduit is filled by a running W2 from
 its own reservoir before feed reaches the racks; see
 [fluid networks](fluid-network-operations.md). The water, gas or acid comes out of those
-tanks, and each line tile weighs that much more. A gas line with several stores on it
+tanks, and each line tile weighs that much more. Since Framework 0.65.0, Valtora's Ship's
+Water drinking tanks on a water line fill it too, after any Phobos silo on the same line,
+and never below the crew water reserve (Framework's `CrewWaterReserveKg` setting, 50 kg
+unless you changed it). A gas line with several stores on it
 holds a mix of their gases; nothing stops you sharing one line between gases.
 
 Machines still draw from and deliver to their linked stores exactly as before. The
@@ -56,7 +59,9 @@ inventory of an installed, undamaged tank that holds the same liquid: a Rivetlin
 silo for water, the canister rack on an AT acid tank for acid, or the Products of a cool,
 idle F6 furnace with serviced coolant for coolant, or a W2's inventory for water or that
 W2's own feed. Within a couple of seconds it pours in, as far as there is room, and the
-empty canister stays there for next time.
+empty canister stays there for next time. Since Agriculture 0.34.0 a canister of any other
+feed put in a W2 becomes Recorded Process Solution in its inventory, ready for drainage
+treatment.
 
 ## Taking a line up, damage and loss
 
@@ -77,7 +82,7 @@ its own contents, so canisters never stack.
 ## Limits
 
 The hold-up is authored: a 25 mm bore, one metre of pipe per tile, and gas at 10 bar.
-It is not a flow or pressure simulation. Ship's Water tanks do not fill lines.
+It is not a flow or pressure simulation.
 Existing saves need nothing from you: lines already laid start empty and fill within
 seconds, taking their hold-up from their tanks. None of this has been checked in play
 yet. Design details are in the [line contents record](development/line-contents-design.md).

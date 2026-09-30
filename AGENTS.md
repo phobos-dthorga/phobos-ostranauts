@@ -1323,6 +1323,16 @@
   - Old parcels are delivered into their racks on the next powered run.
   - The W2 takes canisters of water or its own feed.
   - Owner gameplay checks remain pending.
+- Owner decisions (1 October 2026), Framework 0.65.0 with Agriculture 0.34.0:
+  - Ship's Water drinking tanks fill the water lines they join, above the crew reserve.
+  - A W2 formulation change flushes the pipes automatically: old water back to its
+    reservoir, old feed as recorded process solution.
+  - Drained feed of another formulation goes to drainage treatment as the same item.
+  - Gas lines keep venting, with no gas canisters for now.
+  - The drain canister has PixelLab art.
+- Owner direction (1 October 2026): make edits in the base project checkout rather
+  than a `.claude/worktrees` worktree wherever possible, so the owner can follow the
+  work via Git.
 
 ## Refining value (2026-09-30)
 

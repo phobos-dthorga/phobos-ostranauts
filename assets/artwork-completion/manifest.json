@@ -2981,6 +2981,33 @@
       "sourceSHA256": "ecf00c8a6daace38a7e1d58196a51b4403af50780a04f6f990b8ffb660ae8d51",
       "requestRecord": "round-three-requests.json",
       "review": "Recorded derivation; native-scale export inspected beside its siblings. Owner in-game review pending."
+    },
+    {
+      "key": "drain-canister",
+      "mod": "PhobosFramework",
+      "definition": "PhobosLineDrainCanister",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/framework/DrainCanister",
+      "status": "selected",
+      "source": "source/drain-canister.png",
+      "sourceSHA256": "304c8e52750b54be07d4557e32f200e63f87f394fd8b799690a084a1cf51ff61",
+      "sampleOffset": [
+        1,
+        1
+      ],
+      "requestRecord": "drain-canister-requests.json",
+      "review": "Overhead lid, no side faces. Plain centre sampling scrambled the X at 16 x 16; every nearest phase was inspected at native size and phase (1, 1) selected. Owner in-game review pending."
     }
   ],
   "records": [
@@ -3649,6 +3676,22 @@
       "jobs": [],
       "costGenerations": 0,
       "review": "recorded luminance derivation, no generation"
+    },
+    {
+      "key": "drain-canister",
+      "attempts": [
+        "drain-canister-requests.json"
+      ],
+      "jobs": [
+        "a8da227f-cc43-4fd1-9f88-bb5e357c11e7",
+        "2501c0be-07d7-4619-a076-4ac6ee0eb245",
+        "1ff28ccc-1f70-457c-9b95-dd546c0cc779",
+        "7ea0bfae-1029-43c9-8f05-4affec492466",
+        "863814f3-d845-4833-bdfd-652294f64283",
+        "bb4ea797-43f7-403a-a910-9b20bcd4e065"
+      ],
+      "costGenerations": 6,
+      "review": "Attempt 4 (Pixflux, text only) selected; attempts 1 (front view), 2 and 3 (flat, detail lost), 5 (opaque green background) and 6 (rounded blob) rejected."
     }
   ],
   "allowanceAfter": 1745,

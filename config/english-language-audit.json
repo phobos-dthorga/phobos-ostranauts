@@ -53092,6 +53092,32 @@
       ],
       "before": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
       "after": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_flushing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Rack notice while the W2 flushes old feed back before the new feed fills the pipes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/LineService.cs:62"
+      ],
+      "before": "Flushing the old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water in its reservoir or as process solution in its inventory for treatment.",
+      "after": "Flushing the old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water in its reservoir or as process solution in its inventory for treatment."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "line_flush_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why the flush waits: no room in the W2 inventory for the flushed process solution, and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/LineService.cs:62"
+      ],
+      "before": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish.",
+      "after": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish."
     }
   ],
   "documents": [
@@ -53099,8 +53125,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c625988ab6f45b6c8916c5c18aef7a72c83d0ae2b0692c4457c512cfb6ced152",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "52b1c24d69727b81d2d13c8d5dbf6c1d2e5b612618ecd026033d1ba37bdc3556",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "SUPPORT.md",
@@ -53127,8 +53153,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8670f9e2af081dd720dfc2c8f2e21737473676c76f0e4fe34836848a055c2775",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "1c9dafe3e20c04dd366536ebb8ea38aa3edadf9b87c4dff86bfa8357254fdaab",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -53259,8 +53285,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0f5f4544005d7123ffad755adb19c379e6f8b053c385e4aa67b6ca342c7b9f55",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "fcb8bfa2e10490e560d2626266bd943d4823d36155f9e8d83d9e6e594a6f72a4",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53560,8 +53586,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3c2ee03f59622db8fa549611fe3fda0d2373e8a09a678ad11b2a614d16c680d3",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "2bd4202ef14502663874cf3abf10f4883f3ab030a2c18d4dc5bbf3753fb81e56",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53782,8 +53808,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "491dc6d9d86b5a97eb01886ae5986937c6c4911256cac355db773db0bdd65e8c",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "3fb81deba297682add3fd62dc2fcb83d2ed65192225f7d384500ac98e69f2906",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53987,15 +54013,15 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a5b213926009c0488b3d022f0e0c67540f85d5ca57fcbd5e74995c3fdcad48de",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "c9a905c09a92083d4d7ac420e1f50c793dfe6cc1a8c20e8c04a14e1955b1836b",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "029cb482f3c2230e06cc5c60a877f1c1df039ccfe16c0c18bc82df9241d0a4cb",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "7883b610a49218b745fae9db1a9e0dee22ffd587a21bd2e2ce70a116bfce3e18",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -54057,8 +54083,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "16a2eb342c3930a4c7c00fa910e66e53fa5c221dd8c2b4c3e20459e19c4f2234",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "2670da2a018a9502d07399877cf98175fbeea8aea3ae9bb2eb13f27372dfbb1e",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/item-references.md",
@@ -54099,8 +54125,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "33e35182a191f4f0b184b7df802d1a964c24eaf5110551827a4d5562a5d44966",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "48f560f8371ba4aaeb4ba338f8f6ef40414f44804ac8e320a9574135d3b0f5fb",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/residue-collector.md",
@@ -54176,8 +54202,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aa5a853dca6b20b33efc5de5d064a981d8449c1e4813bcb85e3b68270b820d12",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "fdd0db2826bb9f8f30ae26c1cc23959b3423316e6b5853b98aa491d5c0f3d0a5",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -54190,8 +54216,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8bd23783238aa67a2456482c717cfccc94204a7c6a3aff23498d43f997482194",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "466122d988fa8fa1e4e1f4e272c333b0abd6bfd7e93c99a872773b1dc95d7a37",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -54295,23 +54321,23 @@
       "path": "docs/development/line-contents-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "fa16c009b1bec7e9593f7520b0cf22ed8f8094a35ecb586aefe2624518180d9e",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "5785df0dbec5f1b4e8145b929f3fcaee6dd6d4020b7e46781a51b7916aecc717",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "docs/lines-and-draining.md",
       "scope": "current player text",
       "decision": "New player guide written to the crew voice: situation, action and limits first.",
-      "sha256": "8b81d6ee8937d8ef2384783e0d43db6c2a2d7ee46483ed07fde62dc661c973a9",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "48fbe00170f71357d22b4e76ab1624b0ce3759de799c4cd3c0d24d904c3799aa",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f816d12c24bd8f2a10d7a1091e78a396d7071db4441dfdf0e22eaeeddfc45730",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "f536a10429d8e8de4b8252114524daf44f742fcade6cca8e049dcaeb3c89de8a",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -54327,8 +54353,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bac774a148f662321f7670dabd4419c9ef500ba472b49e9a12c0195dc7d0a6e3",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "86fb00b070fdf6a957a1b700cf4e2899a00f8de0d9692778959a37f6d4c32580",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -54360,8 +54386,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ad91c852b901717275177d2e16ff910f75c06eaaa6989cfb83e96f3b4566b1fc",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "51a3c6589e7424b29ecf13f526f229e3990ab3af7e4d9eeba74d84f1b14c242f",
+      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

@@ -37,10 +37,6 @@ FAMILIES = [
 # cross-cleats every third pixel between steel side rails, joined by the same native joint mask as the pipes.
 BELT = {'rail': (118, 124, 132), 'rail_dark': (70, 75, 82), 'belt': (44, 46, 50), 'cleat': (76, 79, 85)}
 BELT_TARGETS = ['mods/PhobosFramework/images/phobos/framework/ConveyorBelt']
-# The Rivetline D20 drain canister (Framework 0.63.0), seen from directly above: a lined steel can in the conduit
-# palette with a recessed three-bar carrying handle at one end, pressed stiffening ribs and an amber filler cap.
-CANISTER = {'outline': BASE['dark'], 'body': BASE['mid'], 'light': BASE['light'], 'rib': BASE['collar'], 'cap': (214, 158, 46), 'cap_dark': (120, 84, 22)}
-CANISTER_TARGETS = ['mods/PhobosFramework/images/phobos/framework/DrainCanister']
 # Native Item.SetSpriteSheetIndex bitmask to sheet index; UV rows count from the bottom.
 INDICES = {3: 12, 7: 13, 5: 14, 8: 15, 11: 8, 15: 9, 13: 10, 2: 11, 10: 4, 14: 5, 12: 6, 4: 7, 6: 0, 0: 1, 9: 2, 1: 3}
 N, W, E, S = 8, 4, 2, 1
@@ -110,31 +106,6 @@ def belt_tile(mask):
     return img
 
 
-def canister():
-    img = Image.new('RGBA', (16, 16))
-    px = img.load()
-    c = {k: v + (255,) for k, v in CANISTER.items()}
-    x0, x1, y0, y1 = 3, 12, 1, 14  # the can's outer edge, seen from above
-    for x in range(x0, x1 + 1):
-        for y in range(y0, y1 + 1):
-            edge = x in (x0, x1) or y in (y0, y1)
-            px[x, y] = c['outline'] if edge else c['light'] if x == x0 + 1 or y == y0 + 1 else c['body']
-    # The carrying handle: a recessed slot at the top end with three bars across it.
-    for x in range(5, 11):
-        for y in range(3, 6):
-            px[x, y] = c['outline'] if x in (6, 8, 10) or y == 3 else c['rib']
-    # Pressed stiffening ribs along the body.
-    for y in range(8, 13):
-        px[5, y] = c['rib']; px[10, y] = c['rib']
-    for x in range(6, 10):
-        px[x, 7] = c['rib']
-    # The filler cap near the other end.
-    for x in range(7, 10):
-        for y in range(10, 13):
-            px[x, y] = c['cap_dark'] if x == 9 or y == 12 else c['cap']
-    return img
-
-
 def belt_sheet():
     out = Image.new('RGBA', (64, 64))
     for mask, index in INDICES.items():
@@ -174,11 +145,6 @@ def outputs():
         result[base.with_name(base.name + 'Normal.png')] = png(normal(icon))
         result[base.with_name(base.name + 'Sheet.png')] = png(full)
         result[base.with_name(base.name + 'SheetNormal.png')] = png(normal(full))
-    can = canister()
-    for target in CANISTER_TARGETS:
-        base = ROOT / target
-        result[base.with_name(base.name + '.png')] = png(can)
-        result[base.with_name(base.name + 'Normal.png')] = png(normal(can))
     return result
 
 
@@ -188,7 +154,6 @@ def preview(path):
     # A belt run along the top row and down the last column, under the pipes that cross it.
     for x in range(6): scene.alpha_composite(belt_tile(W | E if x < 5 else W | S), (16 * x, 0))
     for y in range(1, 4): scene.alpha_composite(belt_tile(N | S if y < 3 else N), (16 * 5, 16 * y))
-    scene.alpha_composite(canister(), (0, 16 * 3))
     for family in FAMILIES:
         l, r = family['lane'], family['ramp']
         for x in range(6): scene.alpha_composite(tile(W | E if 0 < x < 5 else (E if x == 0 else W), l, r), (16 * x, 16))
@@ -216,7 +181,6 @@ def main():
     if not args.check:
         record = {'families': [{k: f[k] for k in ('name', 'lane', 'ramp', 'targets')} for f in FAMILIES], 'base': BASE,
                   'belt': {'colours': BELT, 'targets': BELT_TARGETS},
-                  'canister': {'colours': CANISTER, 'targets': CANISTER_TARGETS},
                   'exports': {str(p.relative_to(ROOT).as_posix()): hashlib.sha256(b).hexdigest() for p, b in sorted(files.items())}}
         (ROOT / 'assets/line-art/line-art-exports.json').parent.mkdir(parents=True, exist_ok=True)
         (ROOT / 'assets/line-art/line-art-exports.json').write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8', newline='\n')

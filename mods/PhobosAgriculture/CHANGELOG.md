@@ -6,6 +6,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-10-01 - Draft
+
+### Changed
+
+- After you change a W2's formulation, its pipes flush themselves: when the W2 next runs a rack, the pump first pushes the old feed back to the W2 before the new feed fills the pipes. Old plain water returns to the W2's reservoir while there is room; old feed, and any water that does not fit, comes back as Recorded Process Solution in the W2's inventory, ready for drainage treatment. If the W2's inventory has no room for it, the flush waits and the rack's status says so.
+- A drain canister of feed the W2 does not mix (another formulation, or feed in a water-only W2) now pours into the W2's inventory as Recorded Process Solution, so drainage treatment can recover it. Water and the W2's own feed still pour straight into its reservoir.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.65.0 or newer. Treatment still recovers only 90% of the water and 80% of the nutrients, as before. Offline checks are not gameplay validation.
+
 ### Documentation
 
 - The hopper guide names Phobos Manufacturing 0.20.0's LC-3 as a second way to fill a nutrient hopper. Documentation only; gameplay and saves are unchanged.

@@ -152,43 +152,6 @@
       "mods/PhobosFramework/images/phobos/framework/ConveyorBelt"
     ]
   },
-  "canister": {
-    "colours": {
-      "outline": [
-        27,
-        38,
-        48
-      ],
-      "body": [
-        84,
-        93,
-        103
-      ],
-      "light": [
-        127,
-        138,
-        154
-      ],
-      "rib": [
-        39,
-        53,
-        67
-      ],
-      "cap": [
-        214,
-        158,
-        46
-      ],
-      "cap_dark": [
-        120,
-        84,
-        22
-      ]
-    },
-    "targets": [
-      "mods/PhobosFramework/images/phobos/framework/DrainCanister"
-    ]
-  },
   "exports": {
     "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe.png": "f633e6c56303c5b38b550419ffae203380f0267d54aa8f789f545b737f1dd2f7",
     "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
@@ -198,8 +161,6 @@
     "mods/PhobosFramework/images/phobos/framework/ConveyorBeltNormal.png": "71a9e0d56214b21687d03ab13253903fc44b161a2bde5eceef89fdbeb3aeffbf",
     "mods/PhobosFramework/images/phobos/framework/ConveyorBeltSheet.png": "01dceb03aec1756cce617162970466ab9ceb530c5bdc76e999db9706a87030a9",
     "mods/PhobosFramework/images/phobos/framework/ConveyorBeltSheetNormal.png": "b75d1fd8f4d04e90fc4c753ed853d993d0598b5977024efee94b7820e021af27",
-    "mods/PhobosFramework/images/phobos/framework/DrainCanister.png": "c79c03fa70dc34f5f23e2743970ed982a4fc56f0949f258aa12178e384409bc0",
-    "mods/PhobosFramework/images/phobos/framework/DrainCanisterNormal.png": "6e7b02105620814ad8b259a41c10c1925a4e0881512a34ad089d7294afcb3dbf",
     "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipe.png": "cbea4cf62857600eb0e3294e25ef326d5c147c71c54d3f20eed1457cc16b231f",
     "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosFramework/images/phobos/framework/ProcessWaterPipeSheet.png": "ace889b648058ea92049241e6d1bbd9f06c5923f300d0af1461dba1a4e7a8a77",

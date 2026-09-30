@@ -60,6 +60,18 @@ def main():
             palette = parent.quantize(colors=derived['colours'], method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
             reduced = parent.resize(native, Image.Resampling.BOX).quantize(palette=palette, dither=Image.Dither.NONE)
             pixels = reduced.convert('RGBA')
+        elif entry.get('sampleOffset'):
+            # A recorded nearest-neighbour phase (the D20 drain canister, Framework 0.65.0): each native pixel takes the
+            # master pixel at factor * i + offset instead of the block centre, chosen by inspecting every phase at native
+            # size. It selects existing master pixels only; nothing is redrawn or blended.
+            step = master.width // native[0], master.height // native[1]
+            ox, oy = entry['sampleOffset']
+            if not (0 <= ox < step[0] and 0 <= oy < step[1]):
+                raise ValueError(f'Invalid sample offset: {source}')
+            pixels = Image.new('RGBA', native)
+            for y in range(native[1]):
+                for x in range(native[0]):
+                    pixels.putpixel((x, y), master.getpixel((step[0] * x + ox, step[1] * y + oy)))
         else:
             pixels = master.resize(native, Image.Resampling.NEAREST)
         if entry.get('registrationReference'):

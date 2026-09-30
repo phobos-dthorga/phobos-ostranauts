@@ -1475,3 +1475,12 @@ record is [line contents](line-contents-design.md).
   the kilograms in your custody, adds them to the machine's mass, and returns what it
   took; Framework removes the same from the canister. Refuse with zero when the
   machine is not safe to fill.
+
+## Ship's Water tanks fill water lines (0.65.0)
+
+- The top-up pass treats Ship's Water drinking tanks on a process-water line as sources,
+  after the Phobos stores on the same run (owner decision, 1 October 2026). For your own
+  draws, use `ShipsWaterSupply.IsDrinkingTank`, `LineAvailableKg(ship, tanks, reserveKg)`
+  and `DrawForLine(ship, tanks, kg, reserveKg)`. They keep the reserve across every
+  drinking tank aboard and skip a tank whose transfer journal is open; Framework's own
+  pass uses the `WaterTanks` `CrewWaterReserveKg` setting.

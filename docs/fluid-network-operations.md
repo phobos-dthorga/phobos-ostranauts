@@ -54,8 +54,12 @@ receiving still pause after reload, and unloaded time grants no movement. To tak
 pipe up, right-click it and choose **Drain line into canister** with a Framework drain
 canister carried or within two tiles; the run stays closed until **Return line to
 service**. A canister of water, or of the W2's own feed, put in the W2's inventory
-pours into its reservoir. Changing the W2's formulation leaves the old feed in the
-pipes until you drain them; drained feed does not go to drainage treatment. See
+pours into its reservoir; a canister of any other feed becomes Recorded Process
+Solution in the W2's inventory for drainage treatment (Agriculture 0.34.0). After you
+change the W2's formulation, the pump flushes the old contents out first when it next
+runs a rack: old water back into the W2's reservoir while there is room, old feed (and
+water that does not fit) as Recorded Process Solution in its inventory, up to 20 kg an
+item; the flush waits if the inventory is full. See
 [draining and venting](lines-and-draining.md).
 
 Racks saved by earlier versions may still hold a line parcel from the old model

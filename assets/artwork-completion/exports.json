@@ -3034,5 +3034,30 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "drain-canister",
+    "sourceSHA256": "304c8e52750b54be07d4557e32f200e63f87f394fd8b799690a084a1cf51ff61",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      6,
+      5,
+      58,
+      59
+    ],
+    "exports": {
+      "mods/PhobosFramework/images/phobos/framework/DrainCanister.png": "5ca371596972a58411ad313c77913dd9b73fa0d505168978c8c060e273e55019",
+      "mods/PhobosFramework/images/phobos/framework/DrainCanisterNormal.png": "a520e2063494f5635753ee5bc7ba3ef2a232d17ac26bc957226a0f6dc9dec606"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

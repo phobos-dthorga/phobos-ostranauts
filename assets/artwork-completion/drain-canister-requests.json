@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-01",
+  "provider": "PixelLab",
+  "owner request": "Generate a nicer PixelLab image for the drain canister (1 October 2026).",
+  "allowanceBefore": 1745,
+  "allowanceAfter": 1739,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "Attempts 2 and 3 started from the original Phobos procedural canister (scripts/export-line-art.py, native 16 x 16) enlarged four times by nearest neighbour; no game or third-party imagery uploaded. Attempt 5 converted attempt 4 by its PixelLab download URL.",
+  "initImageHashes": {
+    "scratch:canister-init-64.png": "7ce120da06a2bae282efb62469f542d51dedad576d6948729006a4066c655083"
+  },
+  "rejectedArchive": "Rejected outputs are not copied to the rejected-artwork branch; they remain in the PixelLab gallery under the asset ids below, with the review reasons here.",
+  "attempts": [
+    {
+      "n": 1,
+      "operation": "create_image_pixflux",
+      "job": "a8da227f-cc43-4fd1-9f88-bb5e357c11e7",
+      "asset": "725868f6-faf8-50e4-8899-87335265ff41",
+      "seed": 20261001,
+      "size": [
+        64,
+        64
+      ],
+      "settings": {
+        "view": "high top-down",
+        "isometric": false,
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail",
+        "no_background": true
+      },
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one sealed 20 litre spacecraft drain canister as its rectangular slate blue-grey TOP PANEL, taller than wide, with a recessed three-bar carrying handle across the top end, pressed diagonal stiffening ribs forming an X on the panel, and a round amber filler cap near the bottom end. Original coarse pixel art, restrained shading, dark outline. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins; intended native export 16 x 16. No perspective, scene, ground shadow, text or logos.",
+      "cost": 1,
+      "review": "Rejected: reads as a front view (handle standing above the top edge, cap on the side); muddy at native size."
+    },
+    {
+      "n": 2,
+      "operation": "create_image_pixflux (init image, strength 300)",
+      "job": "2501c0be-07d7-4619-a076-4ac6ee0eb245",
+      "asset": "2f5a45bf-abf4-5c0a-8d99-9124c6523183",
+      "seed": 20261002,
+      "size": [
+        64,
+        64
+      ],
+      "cost": 1,
+      "review": "Rejected: overhead but flatter than the procedural start; handle bars and ribs lost."
+    },
+    {
+      "n": 3,
+      "operation": "create_image_pixflux (init image, strength 150)",
+      "job": "1ff28ccc-1f70-457c-9b95-dd546c0cc779",
+      "asset": "e90b7d83-4606-555f-b0f5-6e691ddf05c5",
+      "seed": 20261003,
+      "size": [
+        64,
+        64
+      ],
+      "cost": 1,
+      "review": "Rejected: same flat block layout as attempt 2."
+    },
+    {
+      "n": 4,
+      "operation": "create_image_pixflux",
+      "job": "7ea0bfae-1029-43c9-8f05-4affec492466",
+      "asset": "1767bb2f-856d-5309-90d3-4b031067925a",
+      "seed": 20261004,
+      "size": [
+        64,
+        64
+      ],
+      "settings": {
+        "view": "high top-down",
+        "isometric": false,
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "low detail",
+        "text_guidance_scale": 10,
+        "no_background": true
+      },
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One flat rectangular steel lid of a spacecraft liquid drain canister filling most of the canvas, portrait orientation, slate blue-grey with a lighter bevelled rim. Inside the upper part of the lid: a dark recessed hand slot crossed by three light bars. Across the middle: two large pressed diagonal ribs forming an X. Inside the lower part: one big round amber screw cap. Every feature sits inside the lid outline; nothing sticks out. Chunky coarse pixel art readable when shrunk to 16 by 16, basic shading lit from the upper left, dark outline. Transparent background, 64 x 64 canvas with 6-pixel margins. No perspective, scene, ground shadow, text or logos.",
+      "cost": 1,
+      "review": "Selected: a true overhead square lid with a pressed X, corner rivets and a centre cap (no handle slot). Exported with the recorded sampling phase (1, 1).",
+      "sha256": "304c8e52750b54be07d4557e32f200e63f87f394fd8b799690a084a1cf51ff61"
+    },
+    {
+      "n": 5,
+      "operation": "image_to_pixelart (faithful, strength 150, 16 x 16)",
+      "job": "863814f3-d845-4833-bdfd-652294f64283",
+      "asset": "4302559a-4a8a-5195-b8be-babe06484377",
+      "seed": 20261005,
+      "cost": 1,
+      "review": "Rejected: returned an opaque green background."
+    },
+    {
+      "n": 6,
+      "operation": "create_image_pixen (16 x 16)",
+      "job": "bb4ea797-43f7-403a-a910-9b20bcd4e065",
+      "asset": "1e68d4eb-02d9-5871-a23e-4252b227615f",
+      "seed": 20261006,
+      "cost": 1,
+      "review": "Rejected: a rounded blob without the lid features."
+    }
+  ]
+}

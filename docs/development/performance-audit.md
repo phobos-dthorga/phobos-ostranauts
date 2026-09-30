@@ -652,3 +652,12 @@ L10 — Static review of Agriculture 0.33.0 with Framework 0.64.0.
   one per branch.
 
 No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: Ship's Water line filling and the feed flush (L11)
+
+L11 — Static review of Framework 0.65.0 with Agriculture 0.34.0. The two-second
+top-up pass now also tests each water-line participant for Ship's Water drinking
+tanks (one trigger check) and, on a run that wants water, sums the ship's
+drinking tanks from the existing two-second tank list. A W2 branch step reads
+each run segment once to find old feed; a flush writes only while old feed
+remains. No performance capture or measured FPS claim accompanies this change.
