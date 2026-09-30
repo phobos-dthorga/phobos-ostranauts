@@ -75,8 +75,10 @@ eligible pipe cells on a ship; it does not guess connectivity beyond that limit.
 The optional W2 inlet uses **Valtora's Ship's Water 0.16.1**, following the
 [author's documentation](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
 and the version-scoped local contract. Enable selected supply on the W2 to draw
-from eligible same-ship tanks above the configured crew reserve. This inlet is
-provider plumbing; foreign tanks have no newly claimed physical pipe connection.
+from tanks that touch the W2 or share its process-water line, above the configured
+crew reserve (counted over every drinking tank aboard). Since Framework 0.59.0 each
+Ship's Water tank has a process-water port by the shared rule; its water stays in
+Ship's Water's own accounting.
 Unavailable versions leave manual supply working. Agriculture drainage never
 returns to drinking-water tanks.
 

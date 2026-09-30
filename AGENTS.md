@@ -1267,7 +1267,11 @@
   banks, link labels and the oxygen/fuel caution); Framework 0.58.0 with Shipbreaker
   0.54.0 and Agriculture 0.31.0 (the Rivetline S2-S5 water silos in Framework under
   their saved ids, `MachineFamilies`, R3-R5 converted on load through
-  `DefinitionMigrations.Retarget`). New machine or store links go through
+  `DefinitionMigrations.Retarget`); Framework 0.59.0 with Agriculture 0.32.0 (Ship's
+  Water 0.16.1 tanks amended in place with a water port, `ShipsWaterSupply` drawing and
+  depositing only through tanks the machine or silo reaches, the rack's water port;
+  open-floor Ship's Water users need a line or a touching tank, stated as a manual
+  step). New machine or store links go through
   `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
   water is stored only in `WaterTanks`, and new mods add work to them by amendment.
 

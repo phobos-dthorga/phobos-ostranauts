@@ -562,3 +562,15 @@ definition lists. The crew water reserve setting reads Shipbreaker's configurati
 file once, the first time it is needed. Agriculture's crew provider now also
 accepts the tanks, one more prefix test per candidate it already examined. No
 performance capture or measured FPS claim accompanies this change.
+
+## 1 October: Ship's Water tanks on the water line (L4)
+
+L4 — Static review of Framework 0.59.0 with Agriculture 0.32.0. Content load amends
+twelve Ship's Water definitions once. The Ship's Water tanks become process-water
+participants, so the ship's one object scan tests one more port list per tank. Every
+refill or deposit filters the per-ship tank list (still reread every two real seconds)
+by `LineReach`: a touching test, then two dictionary probes and a union-find
+comparison on the cached snapshot, per tank. The rack and W2 run that filter on the
+power steps they already used to refill; with Ship's Water absent it is skipped. A
+silo's status counts reachable drinking and waste tanks only while its panel or the
+console asks. No performance capture or measured FPS claim accompanies this change.

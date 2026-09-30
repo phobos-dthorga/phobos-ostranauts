@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.58.0**, Shipbreaker **0.54.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.59.0**, Shipbreaker **0.54.0**, Auto Nav
 **0.31.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -208,8 +208,9 @@ to place one piece at a time; the bin takes single pieces only.
 
 Since 0.37.0 the chain also stores water: the S3 process water silo holds
 1,000 kg (the S4 and S5 sizes 1,960 and 3,330 kg), the T2 ice thaw unit turns the game's water ice into silo water and
-gangue, station Bulk supplies sell process water, and Ship's Water tanks can
-be drawn from or returned to through their waste tanks. See the
+gangue, station Bulk supplies sell process water, and Ship's Water tanks that
+touch a silo or share its process-water line can be drawn from or returned to
+through their waste tanks. See the
 [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
 
 Since 0.43.0 the Y2, Y3 and Y4 [material bins](shipbreaker-material-bins.md)

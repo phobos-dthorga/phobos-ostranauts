@@ -224,6 +224,7 @@
   "bulk_intake": "Silo supply: {0} | W2 target: {1:G} kg\n{2}",
   "bulk_intake_wait": "Waiting. Check the silo's water and reserve, damage, the connection, service access and room in the W2. This connection draws from the linked silo only.",
   "bulk_intake_ready": "Ready when intake is enabled. Shares W2's pump power.",
+  "shipswater_unreached": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports.",
   "Maintenance.ready": "No extra agricultural restriction currently blocks removal. Native access, tools and materials still apply.",
   "Maintenance.protected": "A saved transfer or process needs attention. Keep the equipment in place and inspect its control panel before maintenance.",
   "Maintenance.tank": "Drain the tank before removing or dismantling it.",

@@ -106,6 +106,23 @@ public static class LineDefinitions
             else LineJoints.Register(equipmentPrefix + form, line.Sprite);
         }
     }
+    /// <summary>A line port on a definition another mod published (Framework 0.59.0), amended in place and never
+    /// republished: the named point, the family's joint on the footprint socket when that tile carries only the game's
+    /// plain fixture add, and the joint redraw through <see cref="LineJoints"/>. The item's own sprite-sheet trigger is
+    /// left alone. Returns false, changing nothing, when the footprint is not the expected one or the socket already
+    /// adds something else. Idempotent.</summary>
+    public static bool AmendPort(JsonCondOwner co, JsonItemDef item, string definition, int footprint, LineSegmentSpec line, string point, int x, int y, int socket)
+    {
+        if (co == null || item == null || line?.Family == null || string.IsNullOrEmpty(definition) || item.nCols != footprint ||
+            item.aSocketAdds == null || item.aSocketAdds.Length != footprint * footprint || socket < 0 || socket >= item.aSocketAdds.Length) return false;
+        string current = item.aSocketAdds[socket];
+        if (current != "TILFixtureAdds" && current != line.Fixture) return false;
+        item.aSocketAdds[socket] = line.Fixture;
+        co.mapPoints = (co.mapPoints ?? Array.Empty<string>()).Where(p => !p.StartsWith(point + ",", StringComparison.Ordinal)).Concat(new[] { point + "," + x + "," + y }).ToArray();
+        Liquids.LinePorts.Register(line.Family, definition, point);
+        LineJoints.Register(definition, line.Sprite);
+        return true;
+    }
     // A footprint tile that already draws another family's joint gets one loot adding both presences.
     private static string Combined(NativeDefinitions d, string existing, LineSegmentSpec line)
     {

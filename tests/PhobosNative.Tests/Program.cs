@@ -133,6 +133,7 @@ ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
+ShipsWaterPortChecks.Run(agriculture, Check);
 BinNativeChecks.Run(prepared, Check);
 IceSupplyNativeChecks.Run(Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall

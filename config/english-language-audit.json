@@ -52497,6 +52497,72 @@
       ],
       "before": "Drinking water, in kg, that Ship's Water keeps for the crew when a silo draws from its tanks.",
       "after": "Drinking water, in kg, that Ship's Water keeps for the crew when a silo draws from its tanks."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.shipswater_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Silo status: how many Ship's Water tanks it reaches, and how.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:46"
+      ],
+      "before": "Ship's Water tanks in reach: {0} drinking, {1} waste (touching, or on the water line)",
+      "after": "Ship's Water tanks in reach: {0} drinking, {1} waste (touching, or on the water line)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.no_tank_in_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says why nothing was drawn and the two ways to reach a tank.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:90"
+      ],
+      "before": "No Ship's Water drinking tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports.",
+      "after": "No Ship's Water drinking tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "WaterTanks.no_waste_in_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says why nothing was sent and the two ways to reach a waste tank.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/WaterTankService.cs:97"
+      ],
+      "before": "No Ship's Water waste tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports.",
+      "after": "No Ship's Water waste tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ShipsWaterPorts.failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line if the tank ports cannot be added, with what still works.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/FrameworkLifecycle.cs:54"
+      ],
+      "before": "Phobos Framework could not add water ports to Ship's Water tanks; they reach Phobos equipment only by touching it: {0}",
+      "after": "Phobos Framework could not add water ports to Ship's Water tanks; they reach Phobos equipment only by touching it: {0}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "shipswater_unreached",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Rack or W2 notice: no Ship's Water tank in reach, and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/IrrigationService.cs:183",
+        "src/PhobosAgriculture/Service.cs:187"
+      ],
+      "before": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports.",
+      "after": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports."
     }
   ],
   "documents": [
@@ -52504,8 +52570,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea7a6f8425424dc0ee98d664bcfbf68f3ab4799da9f90f84335dd49f5d5c3cc1",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "a716a1fc048f658ddbc8d223a6e059554075885b2c18da8e9982ae42ffbf90d3",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "SUPPORT.md",
@@ -52532,8 +52598,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "955172f9e92b22c598b933bde28eebb26d52223ffd213e6aa0c74293b84e014d",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "786bae575db251f459dcfe7f3b807c96a23ac6ceae6e56397a488f48f230b4df",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -52546,15 +52612,15 @@
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "81c86b895e05fea3d86edb065d07b6b9cf25f054d9c0b48219b820a375d62133",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "eb1c2a2ac551d5b584c79d7e584124b1393f37dea93fd61f8e542ebd9d299e1e",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ce6e1511d60d74df7e550f619d05729148a5fffe4cd7ac383301310174243a72",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "ed22ef618ef5d3a907e8e8e15b1cd6536da0e4f51a1f102d34337d8cfaa1bc0c",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -52566,8 +52632,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a182f8f280378d9ad4bf96f9bce2110d9144e9295f2ec4e900a2ecb2dedede8d",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "81966c6ce6c18157db202b738d0500310b909ab1a8cb8051099ecf6991f75731",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -52664,8 +52730,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a81935a5b604fd84f1994e4e698387a25e7f46d424c210029ead470d3dc2064a",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "95092e3152f2deee689415d753ef8be94e71c20fd95c058fc65c6e55ac3707fe",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52692,8 +52758,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "87c029e6b0e749d60776fc95c547d079afd0c99ada93a60ab527bb53782c2ebe",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "8e3fd62971f1ed44095360f6a528e2f605e4c8cc052c65c072c7ca58f2a386c8",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -52965,15 +53031,15 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "af150b57aeac4c8e7c8df784a4ce087f6241cf2f6b4e3afcccb2f3c5cb506eb3",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "09a34fdbd958b74aa0d4fb867c6d9d6e04b59e438acd04caaaa142c53f8c3504",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e2e8d1a2565494056685bbcfe6bb19161bec81c269a56a9c1e4b0e3b97391578",
-      "review": "2026-09-29: R3 custody note and the new Framework 0.39.0 bulk-vessel section."
+      "sha256": "d57a7a9c5f5f2f2e3101eb6c13ef28b94c5c39da779e6dd753a4f7702aec33f7",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/development/furnace-connections-and-instruments.md",
@@ -53187,8 +53253,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d18344146d860dfd93ab5c8cd2f7b77ef464b609f98a00bd3e542022358b389f",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "f7a4771c1707f73432e8c9a87edd405ff4b6e9ff8c21850f626b4327fb1e34cd",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53364,8 +53430,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "822599d73d8736c063e70bd4a4b0466d2340f3da7cfd7085b85b42bef7a2345a",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "6b36676a20704e13c29f9948311e01a9b2d32ecbb0976d1b36a7186b8a1455ed",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -53392,15 +53458,15 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e8d52dec48f07f2110a7d263c37398ab9c144a513cefeb92ec78e11129a30fb5",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "da891cf3a25be15c2cf3f12f6a0bf0243b5183fd627078b9f13396ff35cce22e",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e7275393b835f1f7559d71dbb56f8b0cf1b3e4a27c3c1f459501639ed17cfbb8",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "3ca88702a745af82f1a6d454147b396c81d0d83a5ea20fc9ec6a9379010cc086",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53462,8 +53528,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e9b41b01eb2f18af43721196cc74f6f185de2b4b8473f4686ae62583f92df85b",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "15224917e9979eec5e5390756058c1c04c273cf4966ee7d6436cfc2f0a8823ea",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/item-references.md",
@@ -53504,8 +53570,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "440283410bc59b66873f09ff4e9e4202df4d1c9331e3220194e3cbfd2bd9aa3f",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "27e9646296aec3f024a465485630307a00bccebb39825b90adf5cc7fb91fd289",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/residue-collector.md",
@@ -53539,8 +53605,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "dda641a5938764f2fb892ebb75622ec09ca867c73f3797d9d52b61a93e341500",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "67043b03c6db8f8fc9454e8adf14a555b00d0c008184f385fd48d3da05a3816c",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -53581,8 +53647,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "94432f5b85d993cf28d45e1de17b0192569e84712cfd06ca21d4f0cd0e99db34",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "59c11dad53a39f460ca059b7e61ccc50cec0f6bbbe8aafb9b084fd6b4ae4244b",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -53595,8 +53661,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3246f30c10ca91754a096a94287dcf0a2c615431dfa7cad8044a820fbc23b617",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "4ba52f6ddac30566bf0daae92934ab90008de4fa9ce156c75efe0534fbdb313a",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -53711,8 +53777,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a6dce01469d416b36fe2de74210fb2fda619abf6570450c1d7183bf002746971",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "98b724cb4a2e544a84bbae4ad172cb31bce613fbec84b20a972e113a05d16ecc",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -53744,8 +53810,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f0b7aec1999a9069f94b1ee6b09f8b0c11335347b3aa2279c2f6ce90d515e754",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "18dd863cd85ff8647b93f970d7fc652b5e15d3a75e19412c17222740175b5015",
+      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

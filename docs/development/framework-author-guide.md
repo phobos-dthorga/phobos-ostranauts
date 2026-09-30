@@ -1366,3 +1366,23 @@ piped, and joins chain across the ship.
   the difference in housing. Agriculture 0.31.0 uses it to turn saved R3 to R5
   reservoirs into S3 to S5 tanks, with `recordRenames` moving the water record,
   journal and guard to the tank's names.
+
+## Ship's Water tanks on the water line (0.59.0)
+
+- **`Liquids.ShipsWaterPorts`.** With the pinned Ship's Water 0.16.1 loaded, Framework
+  amends its installed tank definitions (drinking water and waste, small, medium and
+  large, intact and damaged) in place at content load: one `LinePorts.Water` point, the
+  water line's joint on the footprint tile beside it, and the redraw through
+  `LineJoints`. The tanks' own sprite-sheet trigger, draw order and data are left alone;
+  a definition whose footprint or port tile differs from the inspected one is skipped.
+  `Amend(objects, items)` is the table-level step, for offline checks.
+- **`Registration.LineDefinitions.AmendPort`.** The in-place counterpart of `AddPort`
+  for a definition another mod published: point, joint and redraw, or nothing when the
+  footprint or socket is not as expected. Never republish a foreign definition to add
+  a port.
+- **`Liquids.ShipsWaterSupply` reach.** `Refill(via, ...)` and `DepositWaste(via, ...)`
+  take the Phobos object the water enters or leaves, and use only tanks it reaches by
+  `LineReach` (touching, or on its process-water network). The crew reserve is still
+  counted over every drinking tank aboard. `ReachableTanks(via, waste)` lists them for
+  status text. The 0.58.0 ship-wide overloads remain, marked obsolete, for content
+  built against them; new callers use the `via` forms.

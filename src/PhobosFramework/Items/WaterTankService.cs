@@ -42,7 +42,9 @@ public static class WaterTankService
         // Every machine linked to the tank, from any mod.
         string linked = string.Join(", ", LinkChoices.LinkedNames(co));
         if (linked.Length == 0) linked = ConsoleText.Get("not_selected");
-        return Text.Get("WaterTanks.status", s.ServiceKg, s.CatchKg, s.CapacityKg, s.ReserveKg, linked) + (s.CatchKg > 0 ? "\n" + Text.Get("WaterTanks.catch_wait") : "");
+        // Ship's Water tanks count only when they touch the silo or share its water line (Framework 0.59.0).
+        string reach = ShipsWaterSupply.Available ? "\n" + Text.Get("WaterTanks.shipswater_reach", ShipsWaterSupply.ReachableTanks(co).Count, ShipsWaterSupply.ReachableTanks(co, waste: true).Count) : "";
+        return Text.Get("WaterTanks.status", s.ServiceKg, s.CatchKg, s.CapacityKg, s.ReserveKg, linked) + reach + (s.CatchKg > 0 ? "\n" + Text.Get("WaterTanks.catch_wait") : "");
     }
     public static EquipmentState State(CondOwner co) => BulkVessel.Protected(co) || co.HasCond("IsDamaged") || co.HasCond("IsLocked") || BulkVessel.Snapshot(co).CatchKg > 0 ? EquipmentState.Blocked : EquipmentState.Ready;
     /// <summary>Why removal work is refused at offer time: a protected tank stays in place, and a tank still holding
@@ -85,13 +87,15 @@ public static class WaterTankService
             var endpoint = new BulkVessel.Endpoint(co); var guard = BulkVessel.Guard(co);
             if (verb == "draw:")
             {
-                double got = ShipsWaterSupply.Refill(co.ship, endpoint, kg, CrewReserveKg, guard);
+                if (ShipsWaterSupply.ReachableTanks(co).Count == 0) { message = Text.Get("WaterTanks.no_tank_in_reach"); return false; }
+                double got = ShipsWaterSupply.Refill(co, endpoint, kg, CrewReserveKg, guard);
                 message = got > 0 ? Text.Get("WaterTanks.drawn", got, CrewReserveKg) : Text.Get("WaterTanks.nothing_drawn");
                 return got > 0;
             }
             // The reserve is what the player keeps aboard; a deposit never takes from it.
             double request = Math.Min(kg, BulkVessel.Snapshot(co).AvailableKg);
-            double sent = request <= 0 ? 0 : ShipsWaterSupply.DepositWaste(co.ship, endpoint, request, guard);
+            if (ShipsWaterSupply.ReachableTanks(co, waste: true).Count == 0) { message = Text.Get("WaterTanks.no_waste_in_reach"); return false; }
+            double sent = request <= 0 ? 0 : ShipsWaterSupply.DepositWaste(co, endpoint, request, guard);
             message = sent > 0 ? Text.Get("WaterTanks.deposited", sent) : Text.Get("WaterTanks.nothing_deposited");
             return sent > 0;
         }

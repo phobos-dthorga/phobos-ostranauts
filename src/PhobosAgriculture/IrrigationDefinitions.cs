@@ -13,6 +13,8 @@ internal static class IrrigationDefinitions
     internal const string Segment = "PhobosWaterConduitPresent", WorkingSegment = "PhobosWaterConduitIntact";
     internal const string Outlet = "PhobosWaterOut", Inlet = "PhobosWaterIn";
     internal const double DryKg = 20, CapacityKg = 20, PipeKg = 1;
+    /// <summary>The Firstlight-4 rack's footprint in tiles; its irrigation inlet and water port sit beside the middle of its -X side.</summary>
+    internal const int RackFootprint = 4;
     internal const double RateKgPerSecond = .05, EnergyKWhPerKg = .001;
     internal const double PumpKW = RateKgPerSecond * EnergyKWhPerKg * 3600;
     internal static bool IsSupply(CondOwner co) => co.strCODef.StartsWith(Supply, StringComparison.Ordinal);
@@ -27,7 +29,7 @@ internal static class IrrigationDefinitions
             if (form == "Installed") co.aInteractions = co.aInteractions.Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" }.Select(Definitions.WorkId)).ToArray();
         }
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Definitions.Rack, StringComparison.Ordinal)))
-            co.mapPoints = co.mapPoints.Concat(new[] { Inlet + ",-40,8" }).ToArray();
+            co.mapPoints = co.mapPoints.Concat(new[] { Inlet + "," + LinePorts.Water(RackFootprint).X + "," + LinePorts.Water(RackFootprint).Y }).ToArray();
 
         var pipe = AgricultureEconomy.Supply(Pipe);
         // Ordinary native install/repair workflow on Framework's shared segment pattern (Framework 0.56.0), with entirely
@@ -43,7 +45,7 @@ internal static class IrrigationDefinitions
             foreach (string prefix in new[] { Supply, Definitions.Rack })
             {
                 var fixture = d.Items[prefix + form];
-                fixture.aSocketAdds[prefix == Supply ? 1 : 4] = Pipe + "FixturePort";
+                fixture.aSocketAdds[prefix == Supply ? 1 : LinePorts.Water(RackFootprint).Socket] = Pipe + "FixturePort";
                 fixture.ctSpriteSheet = Pipe + "Sprite"; // Native adjacent-sheet refresh, without making the appliance a sheet.
             }
         }
@@ -51,6 +53,11 @@ internal static class IrrigationDefinitions
         // side, top row. Added after the irrigation fixture so the irrigation line keeps driving the item's own joints.
         var intake = LinePorts.Water(2);
         LineDefinitions.AddPort(d, Supply, Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(), LinePorts.WaterPoint, intake.X, intake.Y, intake.Socket);
+        // The rack's process-water port (Agriculture 0.32.0), so a rack refilling straight from Ship's Water reaches a
+        // tank by the owner's link rule: touching, or on the water line. It shares the irrigation inlet's tile, each
+        // family in its own lane, so the footprint tile beside it draws both joints.
+        var rackPort = LinePorts.Water(RackFootprint);
+        LineDefinitions.AddPort(d, Definitions.Rack, Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(), LinePorts.WaterPoint, rackPort.X, rackPort.Y, rackPort.Socket);
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             bool damaged = form.EndsWith("Dmg");

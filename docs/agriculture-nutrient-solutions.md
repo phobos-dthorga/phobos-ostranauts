@@ -71,7 +71,8 @@ no new mixing or delivery; route failure retains stock at the equipment.
 
 Valtora's [Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
 remains an optional, version-scoped **plain-water inlet only** (inspected 0.16.1).
-Its source ownership, crew reserve and same-ship safeguards remain intact. Nutrient
+Its source ownership, crew reserve and same-ship safeguards remain intact, and it
+draws only from tanks touching the machine or on its process-water line. Nutrient
 solution never enters potable storage. Independent circuits can use different profiles.
 
 ## Saves and shared services

@@ -70,6 +70,7 @@ owner.
 | A missing Ship's Water trigger silently became "always true". | `DataHandler.GetCondTrigger` returns the Blank trigger for an unknown name. | Fixed 0.36.0: the rule must exist in the trigger table. |
 | The LowerUI guard intercepted every panel close, not only the one hosting our shell. | `CrewSim.LowerUI` lowers `goUI`, whatever it is. | Fixed 0.36.0: the guard applies only while the raised panel hosts the shell. |
 | Object picking blocked the game's pause, time-scale, console and cancel keys; Escape did not close the picker the way it closes a native sub-window. | `CrewSim.CloseGUIData` calls `GUIData.CloseOutermostWindow` for registered `IDataWindow`s before lowering. | Fixed 0.36.0: the picker registers as a native window; only world selection is taken over. |
+| Ship's Water tanks had to join the process-water network without taking over their definitions (Framework 0.59.0). | Map points and socket adds are read from the definition when an item is placed or a save loads; the game redraws a placed item's neighbouring sheet pieces only for its own sprite-sheet trigger. | Amended in place at content load for the pinned 0.16.1 only: one map point and one plain `TILFixtureAdds` socket become the water port and joint; the redraw runs through `LineJoints`, so their sprite-sheet trigger, draw order and data stay theirs. A differently shaped definition is skipped. |
 
 ### Diagnostics
 

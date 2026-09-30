@@ -182,7 +182,11 @@ internal static partial class Service
             // Settle measured electricity even if a later liquid adapter fails.
             gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             if (s.State.Receiving && !s.Routed && !WorkupDefinitions.IsBench(co) && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
-                ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, s.Solution.PlainWaterCapacity - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
+            {
+                // Only tanks touching the rack or on its water line (Agriculture 0.32.0, the owner's link rule).
+                if (ShipsWaterSupply.Available && ShipsWaterSupply.ReachableTanks(co).Count == 0) s.Notice = Text.Get("shipswater_unreached");
+                else ShipsWaterSupply.Refill(co, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, s.Solution.PlainWaterCapacity - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
+            }
             Exchange exchange;
             if (IrrigationDefinitions.IsSupply(co))
             {

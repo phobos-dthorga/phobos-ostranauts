@@ -156,7 +156,10 @@ flowchart LR
   (see [station purchasing](agriculture-bulk-storage.md#station-purchasing)).
 - **From Ship's Water (optional, 0.16.1 only):** the silo's panel and the C1 offer
   **Draw from the drinking-water tanks** (50, 100, 250 or 500 kg) and **Send to
-  the waste tanks**. Drawing leaves the crew reserve in the tanks (Framework's
+  the waste tanks**. Only tanks that touch the silo (within one tile) or share its
+  process-water line take part; each Ship's Water tank's water port is the tile
+  beside the middle of its left-hand side, and the silo's status counts the tanks
+  in reach (since Framework 0.59.0). Drawing leaves the crew reserve in the tanks (Framework's
   setting `WaterTanks/CrewWaterReserveKg`, default 50 kg; it took over the value
   set under Shipbreaker's `Silo` section). Sending fills installed waste tanks
   up to the capacity Ship's Water itself configures for them; its Recycler then

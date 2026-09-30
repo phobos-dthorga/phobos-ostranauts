@@ -49,6 +49,9 @@ public static class FrameworkLifecycle
         Liquids.GasNetworkSafety.Reset();
         // Framework's own items first, so content mods may add ports to them and name them in stock and conversions.
         Items.FrameworkItems.Register(Log);
+        // Ship's Water tanks gain a process-water port once the water line's joint is published (Framework 0.59.0).
+        try { Liquids.ShipsWaterPorts.Apply(); }
+        catch (Exception e) { Log(Text.Get("ShipsWaterPorts.failed", e.Message)); }
         Notify(ContentLoading);
     }
     internal static void Complete()

@@ -49,9 +49,31 @@ public static class ShipsWaterSupply
     private static bool Usable(CondOwner tank, Ship ship) => tank != null && !tank.bDestroyed && tank.ship == ship && tank.objCOParent == null &&
         tank.HasCond("IsInstalled") && !tank.HasCond("IsDamaged") && !tank.HasCond("IsLocked");
 
+    /// <summary>Whether <paramref name="via"/> reaches <paramref name="tank"/> by the owner's link rule (30 September
+    /// 2026): touching, or on one process-water network (the tanks' ports come from <see cref="ShipsWaterPorts"/>).</summary>
+    public static bool Reaches(CondOwner via, CondOwner tank) => LineReach.Of(via, tank, LineFamilies.ProcessWater) != LineReachKind.None;
+    /// <summary>The usable drinking-water (or, with <paramref name="waste"/>, waste) tanks <paramref name="via"/> reaches,
+    /// in ID order; empty when the pinned Ship's Water is not loaded.</summary>
+    public static IReadOnlyList<CondOwner> ReachableTanks(CondOwner via, bool waste = false)
+    {
+        var ship = via?.ship;
+        string rule = waste ? WasteVesselTrigger : VesselTrigger;
+        if (via == null || ship == null || !Available || Rule(rule) is not CondTrigger trigger) return Array.Empty<CondOwner>();
+        return InstalledTanks(ship, rule, trigger).Where(t => Usable(t, ship) && Reaches(via, t)).ToArray();
+    }
+
+    /// <summary>Draws drinking water for <paramref name="via"/> (the Phobos machine or silo that receives it) from the
+    /// Ship's Water tanks it reaches, keeping <paramref name="crewReserveKg"/> across every tank aboard, since the crew
+    /// drink from all of them (Framework 0.59.0).</summary>
+    public static double Refill(CondOwner via, ILiquidReservoir destination, double requestKg, double crewReserveKg, LiquidTransferGuard? destinationGuard)
+        => via?.ship == null ? 0 : Refill(via.ship, via, destination, requestKg, crewReserveKg, destinationGuard);
+    [Obsolete("Takes tanks anywhere aboard, across open floor. Use Refill(via, ...), which applies the link rule.")]
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg)
-        => Refill(ship, destination, requestKg, crewReserveKg, null);
+        => Refill(ship, null, destination, requestKg, crewReserveKg, null);
+    [Obsolete("Takes tanks anywhere aboard, across open floor. Use Refill(via, ...), which applies the link rule.")]
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg, LiquidTransferGuard? destinationGuard)
+        => Refill(ship, null, destination, requestKg, crewReserveKg, destinationGuard);
+    private static double Refill(Ship ship, CondOwner? via, ILiquidReservoir destination, double requestKg, double crewReserveKg, LiquidTransferGuard? destinationGuard)
     {
         if (!FiniteLiquidTransfer.Finite(requestKg) || requestKg <= MinimumRequestKg || !Available || ship == null || destination.ShipId != ship.strRegID ||
             (int)ship.LoadState < 2 || CrewSim.system?.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) return 0;
@@ -60,12 +82,12 @@ public static class ShipsWaterSupply
         var trigger = Rule(VesselTrigger);
         if (trigger == null) return 0;
         var vessels = InstalledTanks(ship, VesselTrigger, trigger);
-        // The pool is summed once; each transfer then reads its own tank fresh.
+        // The pool is summed once, over every tank aboard; each transfer then reads its own tank fresh.
         double all = 0;
         foreach (var v in vessels) if (Usable(v, ship)) all += Math.Max(0, v.GetCondAmount("StatLiqH2O"));
         foreach (var tank in vessels)
         {
-            if (!Usable(tank, ship)) continue;
+            if (!Usable(tank, ship) || (via != null && !Reaches(via, tank))) continue;
             double amount = Math.Min(requestKg - total, Math.Max(0, all - crewReserveKg));
             if (amount <= 0) break;
             var guard = new LiquidTransferGuard(tank.mapGUIPropMaps, "WaterSupplyTransfer", FrameworkInfo.PluginId);
@@ -114,7 +136,14 @@ public static class ShipsWaterSupply
     /// <summary>Deposits up to requestKg from a Phobos reservoir into installed, undamaged, unlocked Ship's Water
     /// waste tanks on the same owned ship, in ID order, each up to its declared capacity, through guarded
     /// transfers. Returns the kilograms actually moved. Nothing is drawn from the potable tanks.</summary>
+    /// <summary>Deposits from <paramref name="via"/> (the Phobos vessel sending it) into the waste tanks it reaches:
+    /// touching, or on its process-water network (Framework 0.59.0).</summary>
+    public static double DepositWaste(CondOwner via, ILiquidReservoir source, double requestKg, LiquidTransferGuard sourceGuard)
+        => via?.ship == null ? 0 : DepositWaste(via.ship, via, source, requestKg, sourceGuard);
+    [Obsolete("Fills waste tanks anywhere aboard, across open floor. Use DepositWaste(via, ...), which applies the link rule.")]
     public static double DepositWaste(Ship ship, ILiquidReservoir source, double requestKg, LiquidTransferGuard sourceGuard)
+        => DepositWaste(ship, null, source, requestKg, sourceGuard);
+    private static double DepositWaste(Ship ship, CondOwner? via, ILiquidReservoir source, double requestKg, LiquidTransferGuard sourceGuard)
     {
         if (!FiniteLiquidTransfer.Finite(requestKg) || requestKg <= MinimumRequestKg || !Available || ship == null || source == null || sourceGuard == null ||
             source.ShipId != ship.strRegID || (int)ship.LoadState < 2 || CrewSim.system?.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) return 0;
@@ -124,7 +153,7 @@ public static class ShipsWaterSupply
         double total = 0;
         foreach (var tank in candidates)
         {
-            if (!Usable(tank, ship)) continue;
+            if (!Usable(tank, ship) || (via != null && !Reaches(via, tank))) continue;
             double? capacity = WasteCapacityKg(tank);
             if (capacity == null) continue;
             var guard = new LiquidTransferGuard(tank.mapGUIPropMaps, "WaterWasteTransfer", FrameworkInfo.PluginId);

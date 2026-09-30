@@ -179,7 +179,9 @@ internal static partial class Service
         if (s.State.Receiving && budget > NutrientSolution.Tolerance)
         {
             if(BulkService.HasSelection(s.Object))BulkService.Intake(s.Object,new Reservoir(s),budget,true);
-            else ShipsWaterSupply.Refill(s.Object.ship, new Reservoir(s), Math.Min(budget, ProviderHeadroom(s)), Plugin.ReserveLitres.Value, WaterGuard(s.Object));
+            // Only tanks touching the W2 or on its water line (Agriculture 0.32.0, the owner's link rule).
+            else if (ShipsWaterSupply.Available && ShipsWaterSupply.ReachableTanks(s.Object).Count == 0) s.Notice = Text.Get("shipswater_unreached");
+            else ShipsWaterSupply.Refill(s.Object, new Reservoir(s), Math.Min(budget, ProviderHeadroom(s)), Plugin.ReserveLitres.Value, WaterGuard(s.Object));
         }
     }
     private static string DescribeWaterRoute(Session s)

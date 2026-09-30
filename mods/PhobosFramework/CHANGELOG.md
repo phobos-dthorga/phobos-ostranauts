@@ -22,6 +22,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.59.0] - 2026-10-01 - Draft
+
+### Added
+
+- Ship's Water tanks join the process-water network. With Ship's Water 0.16.1, every installed drinking-water and waste tank (small, medium and large, intact or damaged) has a water port on the tile beside the middle of its left-hand side, the same rule as every Phobos machine. A silo or machine reaches a tank by touching it (within one tile) or through process-water line laid between their ports. The tanks' own definitions are amended in place; their water, sprites and behaviour are unchanged, and they never join a Phobos silo's water.
+
+### Changed
+
+- Drawing drinking water into a silo and sending water to the waste tanks use only the tanks that silo reaches, never tanks across open floor. The crew reserve still counts every drinking tank aboard, because the crew drink from all of them. A silo's status says how many drinking and waste tanks it reaches, and what to do when there are none.
+
+### Compatibility and limits
+
+- Tanks already aboard gain their port when the save loads; nothing is rewritten. **Manual step:** a silo that drew from, or sent to, Ship's Water tanks elsewhere aboard stops until a tank touches it or process-water line joins their ports. Lay the line or move a tank, then carry on. Ship's Water versions other than 0.16.1 get no ports and no transfers, as before. Offline checks are not gameplay validation.
+
 ## [0.58.0] - 2026-10-01 - Draft
 
 ### Added

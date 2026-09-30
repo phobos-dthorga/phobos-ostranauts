@@ -87,8 +87,15 @@ internal static class SiloNativeChecks
         // Optional Ship's Water waste contract: the trigger and stat names Ship's Water 0.16.1 uses, read here without the plugin.
         check(ShipsWaterSupply.WasteVesselTrigger == "TIsWasteVesselInstalled" && ShipsWaterSupply.WasteStat == "StatLiqH2OWaste", "The waste deposit binds the inspected Ship's Water names");
         check(ShipsWaterSupply.WasteCapacityKg(null!) == null, "Without a tank no waste capacity is known; without the plugin none is either (checked in play, not here)");
-        check(typeof(ShipsWaterSupply).GetMethod("DepositWaste") != null && typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(double), typeof(LiquidTransferGuard) }) != null,
-            "Draw and deposit share the guarded transfer contract");
+        check(typeof(ShipsWaterSupply).GetMethod("DepositWaste", new[] { typeof(CondOwner), typeof(ILiquidReservoir), typeof(double), typeof(LiquidTransferGuard) }) != null &&
+              typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(CondOwner), typeof(ILiquidReservoir), typeof(double), typeof(double), typeof(LiquidTransferGuard) }) != null,
+            "Draw and deposit share the guarded transfer contract, from the object that reaches the tanks (Framework 0.59.0)");
+        // The 0.58.0 signatures stay for content built against them, marked obsolete because they ignore the link rule.
+        check(new[] { typeof(ShipsWaterSupply).GetMethod("DepositWaste", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(LiquidTransferGuard) }),
+                      typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(double), typeof(LiquidTransferGuard) }),
+                      typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(double) }) }
+                .All(m => m != null && m.GetCustomAttributes(typeof(ObsoleteAttribute), false).Length == 1),
+            "The earlier ship-wide adapter calls remain for older content, marked obsolete");
         // Economy: the tank bills add up to each housing (the S2, S4 and S5 derived through the ladder), and the T2's too.
         foreach (var spec in TankEconomy.Specs)
         {

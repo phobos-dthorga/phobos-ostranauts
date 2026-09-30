@@ -24,6 +24,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.32.0] - 2026-10-01 - Draft
+
+### Changed
+
+- A Firstlight-4 rack refilling straight from Ship's Water, and a W2 falling back to Ship's Water, draw only from tanks that touch them or share their process-water line. The rack gains a process-water port on the same tile as its irrigation inlet, beside the middle of its left-hand side, each line in its own lane. When Ship's Water is installed but no tank is in reach, the rack or W2 says so and what to do.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.59.0 or newer. **Manual step:** a rack or W2 that drew from Ship's Water tanks elsewhere aboard stops drawing until a tank sits within a tile of it or process-water line joins their water ports. A W2 linked to a water silo, and racks fed through a W2, are unaffected. Offline checks are not gameplay validation.
+
 ## [0.31.0] - 2026-10-01 - Draft
 
 ### Changed

@@ -13,7 +13,7 @@ back to the W2 for treatment; nothing returns as drinking water.
 ```mermaid
 flowchart LR
     Hand["Charges, rations and nutrient packets, by hand"] --> W2["W2 supply unit"]
-    SW["Ship's Water tanks, optional inlet"] --> W2
+    SW["Ship's Water tanks, touching or on the water line, optional inlet"] --> W2
     Silo["Water silo, optional, replaces that inlet"] --> W2
     W2 -->|irrigation conduit, up to 64 tiles| Racks["Up to eight linked racks"]
     Racks -->|Drain| Sol["Recorded Process Solution"]
