@@ -52,10 +52,15 @@ internal static class AgricultureStock
     internal const string PluginId = "phobosgekko.ostranauts.agriculture";
     internal static readonly Version Minimum = new(0, 9, 0);
     private static readonly OptionalStock provider = new(PluginId, Minimum, (LeachRules.MakeupPacket, LeachRules.MakeupPacketKg));
+    /// <summary>The nutrient hopper arrived in Agriculture 0.27.0; its vessels are found by commodity at link time.</summary>
+    internal static readonly Version HopperMinimum = new(0, 27, 0);
+    private static readonly OptionalStock hoppers = new(PluginId, HopperMinimum);
     internal static bool PluginPresent => provider.PluginPresent;
     internal static bool Available => provider.Available;
-    internal static void Detect() => provider.Detect();
+    /// <summary>Whether the LC-3's complete formulation can deposit into Agriculture hoppers.</summary>
+    internal static bool Hoppers => hoppers.Available;
+    internal static void Detect() { provider.Detect(); hoppers.Detect(); }
     internal static bool Definitions() => provider.Definitions();
-    internal static void Resolve() => provider.Resolve();
-    internal static void Reset() => provider.Reset();
+    internal static void Resolve() { provider.Resolve(); hoppers.Resolve(); }
+    internal static void Reset() { provider.Reset(); hoppers.Reset(); }
 }

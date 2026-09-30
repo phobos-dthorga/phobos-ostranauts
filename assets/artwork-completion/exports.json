@@ -2933,5 +2933,80 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "epsom-salt",
+    "sourceSHA256": "2d7474c1e5613340a04c3ce90c522c576e2e85907a03570722e8a835113fab98",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      15,
+      10,
+      51,
+      53
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockEpsomSalt.png": "999957a892c42f9957e6b09f89ff3449f1ac7bb5d52dfad1aedf258056f3652b",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockEpsomSaltNormal.png": "848117b54ee9ec9761ba393633627c72251c17faf3691573dfd6f10d468e1dc3"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "ammonium-sulfate",
+    "sourceSHA256": "bdf313c7133af35041f0d7f8d6be8ad9df65782a86ecd5589e9d7895cffe4e49",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      15,
+      10,
+      51,
+      53
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAmmoniumSulfate.png": "facdd6d78834afe0c9245460609760bcfdbbd874d7fd24eb0a893ba31f6a7ccd",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAmmoniumSulfateNormal.png": "848117b54ee9ec9761ba393633627c72251c17faf3691573dfd6f10d468e1dc3"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "olivine-leach-cake",
+    "sourceSHA256": "ecf00c8a6daace38a7e1d58196a51b4403af50780a04f6f990b8ffb660ae8d51",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockOlivineLeachCake.png": "36a3fe66364bc133e8c9662e349347d7170a551245fea7a832729af8e672f0d5",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockOlivineLeachCakeNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

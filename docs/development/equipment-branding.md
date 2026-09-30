@@ -88,8 +88,9 @@ Fennmark's graphite and burnt orange and Tolvane's teal. Models follow Tolvane's
 pattern: two letters for the job, a hyphen and the footprint width (LC-3). Its
 materials carry the brand without model numbers: Phobos' Lixivar Evaporite Crust,
 Potassium Sulfate, Phosphate Concentrate, Leached Residue, Struvite, Brine Salt
-Cake and Caustic Remainder, and from 0.19.0 the Sulfide Nodule, Phosphoric Acid
-Flask and Roasted Calcine. The calcined residue is made by the V4 and stays
+Cake and Caustic Remainder, from 0.19.0 the Sulfide Nodule, Phosphoric Acid
+Flask and Roasted Calcine, and from 0.20.0 Epsom Salt, Ammonium Sulfate and the
+Olivine Leach Cake. The calcined residue is made by the V4 and stays
 Fennmark.
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,

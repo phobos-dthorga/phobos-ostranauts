@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.19.0",
+      "value": "0.20.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2097,7 +2097,7 @@
       ],
       "review": [
         "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
       ]
     },
     "Manufacturing.struvitePrice": {
@@ -2114,7 +2114,41 @@
       ],
       "review": [
         "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+      ]
+    },
+    "Manufacturing.epsomSaltPrice": {
+      "type": "number",
+      "value": "7",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.432 kg Epsom salt unit (about 16 cr/kg); the olivine charge and the acid-route struvite must stay inside the refining guardrails.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosEpsomSalt/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+      ]
+    },
+    "Manufacturing.ammoniumSulfatePrice": {
+      "type": "number",
+      "value": "8",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.232 kg ammonium sulfate unit (about 35 cr/kg), set so the acid-route struvite stays within half again its inputs.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosAmmoniumSulfate/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
       ]
     },
     "Manufacturing.phosphateConcentratePrice": {

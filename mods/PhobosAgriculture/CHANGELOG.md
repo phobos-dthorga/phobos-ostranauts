@@ -8,6 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- The hopper guide names Phobos Manufacturing 0.20.0's LC-3 as a second way to fill a nutrient hopper. Documentation only; gameplay and saves are unchanged.
 - Point the player guide to current dependencies and explain Maintenance information. Distinguish original loot/roadmap milestones from current installation advice. Documentation only; gameplay and saves are unchanged.
 
 - Include every Agriculture item in the complete action audit. Document why retained crops, fluids, jobs and R3 links can hide removal, and why loose conduit stacks require individual pieces for dismantling. No gameplay change is claimed.

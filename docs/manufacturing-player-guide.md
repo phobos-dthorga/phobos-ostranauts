@@ -235,6 +235,9 @@ works the recipe you choose, one charge at a time, at 12 kW.
 | Evaporite leach | 1 evaporite crust (10 kg, mined), with 20 kg of water on hand in the linked vessel | 1 potassium sulfate (0.70 kg); 1 phosphate concentrate (0.25 kg); 1 leached residue (6.8 kg) for the refinery; 1 brine salt cake (2.25 kg). The 20 kg of water goes back. | 60 min |
 | Struvite | 1 phosphate concentrate; 30 g of ammonia from the linked ammonia store; 0.22 kg of water from the linked vessel | 1 struvite (0.43 kg), a slow-release fertiliser; 1 caustic remainder (70 g) | 5 min |
 | Makeup formulation (Agriculture only) | 1 potassium sulfate and 2 struvite | 39 Verdemorrow Groundwork makeup salts packets (40 g each), nothing left over | 2.5 min |
+| Epsom salt from olivine | 1 olivine (the game's 10 kg ore chunk); 8.64 kg of sulfuric acid from the linked acid tank; 9.52 kg of water from the linked vessel | 32 Epsom salt (0.432 kg each); 1 olivine leach cake (14.33 kg, trash). About 5.3 kWh of extra heat goes into the room. | 60 min |
+| Acid-route struvite | 1 phosphoric acid flask (from the SA-3) and 3 Epsom salt; 0.27 kg of ammonia from the linked ammonia store | 3 struvite; 3 ammonium sulfate (0.232 kg each); 94 g of water back into the linked vessel | 10 min |
+| Crop nutrients (Agriculture 0.27.0 or newer) | 1 potassium sulfate, 1 struvite, 1 Epsom salt and 1 ammonium sulfate; 0.25 kg of ammonia and 0.73 kg of sulfuric acid from their links | 2.77 kg of crop nutrients into the linked nutrient hopper | 5 min |
 
 ```mermaid
 flowchart LR
@@ -256,13 +259,39 @@ flowchart LR
     Salts --> B2["Agriculture B2 nutrient formulation"]
 ```
 
+The acid recipes turn the SA-3's acid and flask into a complete feed for a
+nutrient hopper:
+
+```mermaid
+flowchart LR
+    Olivine["Olivine, mined"] --> Ep["LC-3: Epsom salt"]
+    Acid["Linked acid tank"] -->|8.64 kg| Ep
+    Ep --> E["32 Epsom salt"]
+    Ep --> OC["Olivine leach cake, trash"]
+    Flask["Phosphoric acid flask, from the SA-3"] --> AS["LC-3: acid-route struvite"]
+    E -->|three| AS
+    Q["Linked ammonia store"] -->|0.27 kg| AS
+    AS --> S3["3 struvite"]
+    AS --> A3["3 ammonium sulfate"]
+    K["Potassium sulfate"] --> CN["LC-3: crop nutrients, with Agriculture"]
+    S3 -->|one| CN
+    E -->|one| CN
+    A3 -->|one| CN
+    Q -->|0.25 kg| CN
+    Acid -->|0.73 kg| CN
+    CN -->|2.77 kg| Hopper["Linked Groundwork nutrient hopper"]
+    Hopper --> W2["Agriculture W2 doses from it"]
+```
+
 1. Install the LC-3 within one tile of a water vessel (an S3 to S5 silo or an
    R3 to R5 reservoir) and connect its power point. For struvite, also install an
-   ammonia store within one tile. One vessel can serve a refinery, an X2, a K2 and
-   an LC-3 at once.
+   ammonia store within one tile; for the acid recipes an acid tank; for crop
+   nutrients a Groundwork nutrient hopper. One vessel can serve a refinery, an X2,
+   a K2 and an LC-3 at once.
 2. Open its **Control Panel** > **Connections**. Pick the vessel under **Water
-   vessel**, the store under **Ammonia from** if you have one, and the recipe
-   under **Recipe**. Apply.
+   vessel**, the store under **Ammonia from**, the tank under **Acid tank** and the
+   hopper under **Nutrient hopper** where you have them, and the recipe under
+   **Recipe**. Apply.
 3. Right-click the LC-3 and choose **Inventory**. Put the chosen recipe's charge
    in the **Leach unit charge** window. It holds four units and takes only the
    chosen recipe's feed, with the reason when it refuses one.
@@ -271,14 +300,22 @@ flowchart LR
    recipe only while no charge is bound; **Cancel** releases a bound charge.
 
 A leach waits until the linked vessel holds 20 kg of water; struvite waits until
-the vessel and the ammonia store hold what it takes. The panel gives the reason.
-A charge that needs no vessel (the formulation) runs without one.
+the vessel and the ammonia store hold what it takes; the acid recipes wait for
+the acid, and crop nutrients wait until the hopper has room. The panel gives the
+reason. A charge that needs no vessel (the makeup formulation) runs without one.
 
 Leaching a crust earns less than selling it (the salts are worth about 54 cr, the
-crust 150 cr); you leach it for what the ship can use. Makeup salts made aboard
-are worth Agriculture's own 30 cr a packet. Sodium harms crops, so the sodium
-salts leave as the brine salt cake, and nothing recovers it or the other two
+crust 150 cr); you leach it for what the ship can use. Olivine is much the same:
+32 Epsom salt are worth 224 cr, against 180 cr for the ore and about 120 cr of
+acid and water. Makeup
+salts made aboard are worth Agriculture's own 30 cr a packet, and crop nutrients
+Agriculture's 1,500 cr/kg; bag a hopper's nutrients into bulk charges to sell them. Sodium harms crops, so the
+sodium salts leave as the brine salt cake, and nothing recovers it or the other
 remainders.
+
+The crop nutrient blend matches Hoagland solution's nitrogen to potassium; it is
+sulfate- and ammonium-rich and has no calcium, nitrate or trace elements, so it
+is not a real hydroponic recipe. Agriculture counts only its total.
 
 ## The acid plant and acid tanks
 
@@ -614,10 +651,33 @@ stores fall. Open a breach and confirm it stops below 10 kPa with one log
 line, then resumes once sealed. Set 23 kPa in a thin room and confirm the
 oxygen share never passes 30%. Save and reload and confirm it keeps working.
 
+Leach unit (0.18.0): install an LC-3 beside a water vessel and a Q2, choose
+Evaporite leach, load a crust and Start. Confirm the 20 kg of water is needed on
+hand and comes back, and the four products land in the tray after an hour. Choose
+Struvite, load the concentrate and confirm the ammonia and water drawn. With
+Agriculture, choose Makeup formulation and confirm the 39 packets.
+
+Acid plant and tanks (0.19.0): install an SA-3 beside an O2 store, a water vessel
+and an AT-2, link all three, load a nodule and Start. Watch the room temperature
+climb and confirm the plant waits near 40 C; after the hour confirm the acid in
+the tank, the flask and the calcine. Buy acid at a station's Bulk supplies and
+pour it into a second tank. Damage a tank holding acid, watch the room's
+sulfuric acid and the crew's poisoning, repair it and recover the acid.
+
+Acid recipes (0.20.0): link an acid tank to the LC-3, choose Epsom salt from
+olivine, load a mined olivine and confirm 32 Epsom salt and the leach cake after
+an hour, with the acid and water drawn and the room warming. Choose Acid-route
+struvite with a flask and three Epsom salt and confirm three struvite, three
+ammonium sulfate and the water returned. With Agriculture 0.27.0, link a
+nutrient hopper, choose Crop nutrients, load one of each salt and confirm 2.77 kg
+in the hopper, a wait with the reason when the hopper is full, and a W2 dosing
+from it. Save and reload mid-charge and confirm the pause until Start.
+
 ## Sources
 
 The chemistry, energies, hazard rules and their primary sources (NIST, NASA,
-the Dawn and OSIRIS-REx science teams, iron-meteorite mineralogy) are in
+the Dawn, OSIRIS-REx and Hayabusa science teams, iron-meteorite mineralogy,
+olivine leaching and Hoagland's nutrient solution) are in
 [the refinery record](development/manufacturing-refinery-and-chemistry.md).
 Yields are rounded to item units and labelled as authored; the sources inform
 the design and do not endorse it.

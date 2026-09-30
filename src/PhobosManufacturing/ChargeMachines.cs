@@ -67,17 +67,19 @@ internal static class ChargeMachines
     }
 
     /// <summary>The Lixivar LC-3 (Manufacturing 0.18.0): the crew selects the recipe; nothing melts or spoils and it
-    /// is no ignition source. Water circulates through, and is drawn from, a linked water vessel; the struvite step
-    /// draws ammonia from a linked ammonia store; the makeup formulation needs Agriculture's makeup packet.</summary>
+    /// is no ignition source. Water circulates through, and is drawn from, a linked water vessel; the struvite steps
+    /// draw ammonia from a linked ammonia store; the makeup formulation needs Agriculture's makeup packet. From 0.20.0
+    /// the game's olivine enters its feed (the container rule admits only the selected recipe's exact charge), the acid
+    /// steps draw from a linked acid tank and the complete formulation deposits into a linked Agriculture hopper.</summary>
     private static ChargeMachineSpec LeachSpec() => new()
     {
-        Prefix = LeachRules.Prefix, StockTrigger = LeachRules.StockTrigger, StockFeed = LeachRules.StockFeed, AdmitsOre = false,
+        Prefix = LeachRules.Prefix, StockTrigger = LeachRules.StockTrigger, StockFeed = LeachRules.StockFeed, AdmitsOre = true,
         Record = LeachRules.Record, MachineKey = ChargeCatalog.Leach, TextPrefix = "Leach", SnapshotKind = "leach", Art = Definitions.LeachArt,
         Selection = RecipeSelection.Explicit, IgnitionSource = false,
-        Met = key => key == ChargeCatalog.MakeupRequirement && AgricultureStock.Available,
-        ExtraStatus = _ => AgricultureStock.Available ? null : Text.Get("Leach.no_agriculture"),
+        Met = key => LeachRecipes.IsMet(key, AgricultureStock.Available, AgricultureStock.Hoppers),
+        ExtraStatus = _ => !AgricultureStock.Available ? Text.Get("Leach.no_agriculture") : AgricultureStock.Hoppers ? null : Text.Get("Leach.no_hoppers"),
         MaintenanceChargeKey = "Maintenance.leach_charge",
-        Links = () => new[] { LeachWater(), LeachAmmonia() }
+        Links = () => new[] { LeachWater(), LeachAmmonia(), LeachAcid(), LeachNutrients() }
     };
     private static ChargeLinkSpec LeachWater() => new(ManufacturingRules.Water, "link:", LeachRules.WaterPort, LeachRules.VesselPort, _ => true,
         () => Text.Get("Provider.vessel_field"), alwaysShow: true,
@@ -103,6 +105,13 @@ internal static class ChargeMachines
             _ => Text.Get("Leach.ammonia_full", have, need)
         },
         () => Text.Get("Leach.ammonia_linked"), () => Text.Get("Leach.ammonia_unlinked"), () => Text.Get("Leach.ammonia_link_missing"));
+    private static ChargeLinkSpec LeachAcid() => new(LiquidStores.SulfuricAcid, "acid:", LeachRules.AcidPort, LeachRules.VesselPort,
+        v => LiquidStores.Holds(v.strCODef, LiquidStores.SulfuricAcid), () => Text.Get("Provider.acid_field"), alwaysShow: false, Reasons("Leach", "acid"),
+        () => Text.Get("Leach.acid_linked"), () => Text.Get("Leach.acid_unlinked"), () => Text.Get("Leach.acid_link_missing"));
+    /// <summary>Any registered vessel of Agriculture's crop nutrients is a hopper (the vessel list is by commodity).</summary>
+    private static ChargeLinkSpec LeachNutrients() => new(ManufacturingRules.CropNutrients, "nutrients:", LeachRules.NutrientPort, LeachRules.VesselPort,
+        _ => true, () => Text.Get("Provider.nutrients_field"), alwaysShow: false, Reasons("Leach", "nutrients"),
+        () => Text.Get("Leach.nutrients_linked"), () => Text.Get("Leach.nutrients_unlinked"), () => Text.Get("Leach.nutrients_link_missing"));
 
     /// <summary>The Lixivar SA-3 (Manufacturing 0.19.0): one recipe, chosen automatically; oxygen and water drawn from
     /// linked vessels, sulfuric acid deposited into a linked acid tank, the reactions' heat into the room. Nothing melts

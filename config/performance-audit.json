@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-30",
-  "baselineCommit": "2226d6335e303b1f285745cca0b1c1e8578e4ff9",
+  "baselineCommit": "a25e4c37d9444d7b9d022afe6370b1fb7020ae0d",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -4973,7 +4973,7 @@
     },
     {
       "path": "src/PhobosManufacturing/ChargeMachines.cs",
-      "sha256": "0a9fb9e4bde16755ee385f57a3308ffa40f7267a3c383b41162dab29837358ff",
+      "sha256": "d04f22d568ec1f1a52158c1fe3a11238fffa05219131b328d19b58d32875b64b",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5020,7 +5020,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/ChargeCatalog.cs",
-      "sha256": "456c30e19335a430b54576ce659f2b140e9bff90544ef27ec51cb5ad8b5cac2a",
+      "sha256": "358b35c29325a199a598de14ca0cc519c0ee4a1640370ae3a2bc260f925d0993",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5045,7 +5045,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/ChargeRecipe.cs",
-      "sha256": "ba7840197d0024face4e4fb6601135bb829e7ae34ff1cbae5af9071f08df51e0",
+      "sha256": "e492850411bd145b842e28838d2eb7fd3f2f02f568991b577dc3f3eba8760b9e",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5201,7 +5201,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/LeachRules.cs",
-      "sha256": "f52bc4bff93de9c839a418aa8df8d44143f39f375196f151fc9a968dd3688ca4",
+      "sha256": "35711e5c4f9be2815eac0287e4524d33c7a4e74a6ce4ac8f0c1ed3af54278397",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5247,20 +5247,21 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/ManufacturingRules.cs",
-      "sha256": "900d0c6ab899f26309e0ecb719dca28036c7a549104edcf7524fb56a6c58f984",
+      "sha256": "e58b803d6f9f7340c11fec55b11b0bb2cf4c85bbe0ae3f87ee4974275119fff6",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF0",
-        "R4"
+        "R4",
+        "K1"
       ],
       "indicators": {},
       "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosManufacturing/Core/Materials.cs",
-      "sha256": "b1b52b652b5be855cc36e0e43ff1d6e2d9df94b4ff7b841757adaccc6b0480b0",
+      "sha256": "7807ed730263c48fbe75e173af66b0002e224da355bca957bcd6eaba9b38e2e8",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5271,7 +5272,7 @@
       ],
       "indicators": {
         "collection": [
-          72
+          75
         ]
       },
       "reviewed": "2026-09-30"
@@ -5675,7 +5676,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "eb469f9e38ba5f34108e89c97a94c806b28010346b33cec860e839b24882b152",
+      "sha256": "d2019991de58fcbb72348a9e808879480fa42b7146b02c3ccafaada692b15878",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5770,7 +5771,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Provider.cs",
-      "sha256": "1a4d6f7f559723ca14b23690e86d740e21e556fa8c68b01281947571dfebd165",
+      "sha256": "0dac6dff0e73dbb52d122624f67ecfa2067f724b031b7c52f377bafc06082d75",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -5892,7 +5893,7 @@
     },
     {
       "path": "src/PhobosManufacturing/ShipbreakerStock.cs",
-      "sha256": "254bf5a1e2e3a34d72211c728232fc74899a432b78cd90d63281c324e9763820",
+      "sha256": "7b473bf1a7f38c3c40b7d630d543fba05f2670e5607c28f27d1d13a1d7f9f100",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",

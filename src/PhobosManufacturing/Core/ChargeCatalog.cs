@@ -16,7 +16,7 @@ public static class ChargeCatalog
 {
     public const string Schema = RecipeSchema.Name, Resource = "PhobosManufacturing.process-recipes.json", FrozenResource = "PhobosManufacturing.frozen-process-recipes.json";
     public const string Refinery = "refinery", Leach = "leach", AcidPlant = "acid-plant";
-    public const string SteelStockRequirement = "shipbreaker-steel-stock", MakeupRequirement = "agriculture-makeup";
+    public const string SteelStockRequirement = "shipbreaker-steel-stock", MakeupRequirement = "agriculture-makeup", CropNutrientsRequirement = "agriculture-crop-nutrients";
     /// <summary>Each catalog machine key and the definition prefix of the machine it runs on.</summary>
     public static readonly IReadOnlyDictionary<string, string> MachinePrefixes = new Dictionary<string, string>(StringComparer.Ordinal)
     {
@@ -25,7 +25,7 @@ public static class ChargeCatalog
         [AcidPlant] = AcidPlantRules.Prefix
     };
     /// <summary>Feature keys a recipe may require; the owner resolves each at load.</summary>
-    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement };
+    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement, CropNutrientsRequirement };
     public static string PrefixOf(string machine) => MachinePrefixes.TryGetValue(machine, out var prefix) ? prefix : throw new InvalidOperationException("Unknown charge machine: " + machine);
     private static RecipePack? pack; private static IReadOnlyList<ChargeRecipe>? all; private static RecipePack? builtFrom;
     private static readonly Dictionary<string, ChargeRecipeView> views = new(StringComparer.Ordinal);

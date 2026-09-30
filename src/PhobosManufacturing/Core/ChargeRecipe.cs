@@ -9,7 +9,7 @@ namespace PhobosManufacturing.Core;
 /// Manufacturing gas-store commodity and every liquid-store commodity (sulfuric acid). Everything else is an item.</summary>
 public static class ChargeCommodities
 {
-    public static bool Is(string? id) => id != null && (id == ManufacturingRules.Water || GasStores.FamilyOf(id) != null || LiquidStores.FamilyOf(id) != null);
+    public static bool Is(string? id) => id != null && (id == ManufacturingRules.Water || id == ManufacturingRules.CropNutrients || GasStores.FamilyOf(id) != null || LiquidStores.FamilyOf(id) != null);
 }
 
 /// <summary>One input line of a charge: an exact identity (an item, or a commodity drawn from a linked vessel), how

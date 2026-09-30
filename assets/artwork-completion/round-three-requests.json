@@ -113,6 +113,50 @@
           8
         ]
       }
+    },
+    "epsom-salt": {
+      "from": "source/potassium-sulfate.png",
+      "to": "source/epsom-salt.png",
+      "method": "exact palette swap of the potassium sulfate sack's five colours: white sack, teal band; alpha and pixel placement unchanged",
+      "mapping": {
+        "f1e9d1": "f5f7f6",
+        "cabdad": "c9d3d6",
+        "83766e": "76858c",
+        "9aa588": "4f97a8",
+        "616550": "2f6473"
+      }
+    },
+    "ammonium-sulfate": {
+      "from": "source/potassium-sulfate.png",
+      "to": "source/ammonium-sulfate.png",
+      "method": "exact palette swap of the potassium sulfate sack's five colours: pale grey sack, amber band; alpha and pixel placement unchanged",
+      "mapping": {
+        "f1e9d1": "e6e6e1",
+        "cabdad": "b9b9b2",
+        "83766e": "76766f",
+        "9aa588": "d09a3a",
+        "616550": "8a5f1e"
+      }
+    },
+    "olivine-leach-cake": {
+      "from": "source/anhydrous-residue.png",
+      "to": "source/olivine-leach-cake.png",
+      "method": "per-pixel luminance map onto a pale grey-green ramp (silica gel and iron(II) sulfate); alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.8,
+          20
+        ],
+        "g": [
+          0.88,
+          30
+        ],
+        "b": [
+          0.7,
+          16
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: the two empty phosphate outputs returned fully transparent canvases (nothing to keep), the rejected struvite pass is recorded below and remains in the provider gallery, and the LC-3 second pass is recorded below and remains in the provider gallery.",

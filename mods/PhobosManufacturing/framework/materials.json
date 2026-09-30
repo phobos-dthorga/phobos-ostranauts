@@ -188,6 +188,37 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockRoastedCalcine"
+    },
+    "PhobosEpsomSalt": {
+      "notes": "LC-3 product, about 16 cr/kg: magnesium sulfate heptahydrate from olivine leached in sulfuric acid, 0.432 kg (1.753 mol) so one unit carries the magnesium of one struvite unit. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.432,
+      "price": 7,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockEpsomSalt"
+    },
+    "PhobosAmmoniumSulfate": {
+      "notes": "LC-3 product, about 35 cr/kg: the acid-route struvite's ammonium sulfate, 0.232 kg (1.756 mol), one unit beside each struvite unit. Priced so the acid route stays within half again its inputs. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.232,
+      "price": 8,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockAmmoniumSulfate"
+    },
+    "PhobosOlivineLeachCake": {
+      "notes": "Terminal: the olivine's silica gel, iron sulfate, undissolved rock and retained Epsom liquor.",
+      "kind": "stock",
+      "kg": 14.33,
+      "price": 0.01,
+      "stack": 1,
+      "side": 2,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockOlivineLeachCake"
     }
   }
 }

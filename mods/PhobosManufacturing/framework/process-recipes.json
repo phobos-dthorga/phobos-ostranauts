@@ -99,6 +99,33 @@
       "products": [ { "id": "sulfuric acid", "count": 1, "kg": 7.81 }, { "id": "PhobosPhosphoricAcidFlask", "count": 1, "kg": 0.515 }, { "id": "PhobosRoastedCalcine", "count": 1, "kg": 9.535 } ],
       "seconds": 3600,
       "reactionKWh": 21.1
+    },
+    "olivine-epsom": {
+      "notes": "Leaching the game's olivine ore in sulfuric acid, as in the olivine process for waste-acid neutralisation and precipitated silica (R.C.L. Jonckbloedt, Journal of Geochemical Exploration 62, 1998). The 10 kg chunk is authored as 7.000 kg of olivine at Fa29, the composition Nakamura et al. (Science 333, 2011) report for Hayabusa's Itokawa particles, and 3.000 kg of pyroxene, feldspar and chromite the acid leaves. (Mg0.71Fe0.29)2SiO4 + 2 H2SO4 + 12 H2O -> 1.42 MgSO4.7H2O + 0.58 FeSO4.7H2O + SiO2 on 44.03 mol: acid 8.636 kg from a linked tank and water 9.518 kg from a linked vessel. 32 units of Epsom salt (13.824 kg, 89.7% of the magnesium) crystallise; the rest stays in the liquor soaked into the cake, and the iron is left with it as iron sulfate (our simplification: a real plant would oxidise and drop the iron first). The terminal olivine leach cake carries the silica, the iron sulfate, the undissolved rock and that liquor, 14.330 kg. The reaction releases about 434 kJ per mole of olivine (formation enthalpies from the NBS tables and Robie and Hemingway 1995, from memory except epsomite; verify before quoting), 5.3 kWh a charge, into the room.",
+      "machine": "leach",
+      "revision": 4,
+      "inputs": [ { "id": "ItmMineral02", "count": 1, "kg": 10 }, { "id": "sulfuric acid", "count": 1, "kg": 8.636 }, { "id": "water", "count": 1, "kg": 9.518 } ],
+      "products": [ { "id": "PhobosEpsomSalt", "count": 32, "kg": 0.432 }, { "id": "PhobosOlivineLeachCake", "count": 1, "kg": 14.33 } ],
+      "seconds": 3600,
+      "reactionKWh": 5.3
+    },
+    "struvite-acid": {
+      "notes": "The acid route to struvite (owner request for both routes, 30 September 2026): H3PO4 + MgSO4.7H2O + 3 NH3 -> MgNH4PO4.6H2O + (NH4)2SO4 + H2O on the flask's 5.255 mol of phosphoric acid, magnesium from three Epsom salt and 0.269 kg of ammonia from a linked store. Three struvite units (1.290 kg), three ammonium sulfate units (0.696 kg) and 0.094 kg of water returned to a linked vessel; rounded to item units, the ammonium sulfate carries a gram and a half and the water gives up one gram. The reaction heat, about half a kilowatt-hour a charge with an uncertain struvite formation enthalpy, is not modelled. 2 kWh authored.",
+      "machine": "leach",
+      "revision": 5,
+      "inputs": [ { "id": "PhobosPhosphoricAcidFlask", "count": 1, "kg": 0.515 }, { "id": "PhobosEpsomSalt", "count": 3, "kg": 0.432 }, { "id": "ammonia", "count": 1, "kg": 0.269 } ],
+      "products": [ { "id": "PhobosStruvite", "count": 3, "kg": 0.43 }, { "id": "PhobosAmmoniumSulfate", "count": 3, "kg": 0.232 }, { "id": "water", "count": 1, "kg": 0.094 } ],
+      "seconds": 600
+    },
+    "crop-nutrients": {
+      "notes": "The complete formulation (Agriculture 0.27.0 hoppers): one each of potassium sulfate, struvite, Epsom salt and ammonium sulfate, with 0.252 kg of ammonia and 0.725 kg of sulfuric acid neutralised in the mixer into 0.977 kg more ammonium sulfate (2 NH3 + H2SO4 -> (NH4)2SO4 on 7.39 mol, the ammoniation step of a fertiliser granulation plant). 2.771 kg of crop nutrients go to a linked hopper. The nitrogen top-up sets nitrogen to potassium at the ratio of Hoagland solution (N 210, K 235 mg/L; Hoagland and Arnon, California Agricultural Experiment Station Circular 347, 1950); phosphorus and magnesium land near it, sulfur far above it, and there is no calcium, nitrate or trace element: our sulfate-and-ammonium blend is not a real hydroponic recipe, and Agriculture's crop model uses only its aggregate figure. The neutralisation releases about 275 kJ per mole of ammonium sulfate (NBS tables, from memory; verify before quoting), 0.56 kWh a charge. The hopper's contents carry Agriculture's own 1,500 cr/kg (the owner's formulation decision, 30 September 2026); bagged into bulk charges they sell like any other, and every salt in the blend is made aboard from mined feed. 1 kWh authored.",
+      "machine": "leach",
+      "revision": 6,
+      "inputs": [ { "id": "PhobosPotassiumSulfate", "count": 1, "kg": 0.7 }, { "id": "PhobosStruvite", "count": 1, "kg": 0.43 }, { "id": "PhobosEpsomSalt", "count": 1, "kg": 0.432 }, { "id": "PhobosAmmoniumSulfate", "count": 1, "kg": 0.232 }, { "id": "ammonia", "count": 1, "kg": 0.252 }, { "id": "sulfuric acid", "count": 1, "kg": 0.725 } ],
+      "products": [ { "id": "crop nutrients", "count": 1, "kg": 2.771 } ],
+      "seconds": 300,
+      "reactionKWh": 0.56,
+      "requires": [ "agriculture-crop-nutrients" ]
     }
   }
 }

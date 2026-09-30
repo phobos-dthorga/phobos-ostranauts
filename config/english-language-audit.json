@@ -48831,8 +48831,8 @@
       "references": [
         "src/PhobosManufacturing/Definitions.cs:52"
       ],
-      "before": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge: an evaporite crust (into potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake), one phosphate concentrate (with a little ammonia and water, into struvite), or one potassium sulfate with two struvite (into Groundwork makeup salts, with Phobos Agriculture). It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile: a leach needs 20 kg on hand and gives it back, and the struvite step keeps a little. Link an ammonia store within one tile for struvite.",
-      "after": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge: an evaporite crust (into potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake), one phosphate concentrate (with a little ammonia and water, into struvite), or one potassium sulfate with two struvite (into Groundwork makeup salts, with Phobos Agriculture). It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile: a leach needs 20 kg on hand and gives it back, and the struvite step keeps a little. Link an ammonia store within one tile for struvite."
+      "before": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile, and an ammonia store, an acid tank or a nutrient hopper within one tile when the recipe needs one.",
+      "after": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile, and an ammonia store, an acid tank or a nutrient hopper within one tile when the recipe needs one."
     },
     {
       "mod": "PhobosManufacturing",
@@ -48913,8 +48913,8 @@
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:218"
       ],
-      "before": "A {0} charge is bound, but this installation cannot finish it (Phobos Agriculture is not loaded). It is kept as it is.",
-      "after": "A {0} charge is bound, but this installation cannot finish it (Phobos Agriculture is not loaded). It is kept as it is."
+      "before": "A {0} charge is bound, but this installation cannot finish it (it needs Phobos Agriculture, and crop nutrients need a version with nutrient hoppers). It is kept as it is.",
+      "after": "A {0} charge is bound, but this installation cannot finish it (it needs Phobos Agriculture, and crop nutrients need a version with nutrient hoppers). It is kept as it is."
     },
     {
       "mod": "PhobosManufacturing",
@@ -48987,8 +48987,8 @@
         "src/PhobosManufacturing/ChargeMachine.cs:233",
         "src/PhobosManufacturing/ChargeMachine.cs:521"
       ],
-      "before": "No recipe chosen. Pick one on the panel: evaporite leach, struvite or makeup formulation.",
-      "after": "No recipe chosen. Pick one on the panel: evaporite leach, struvite or makeup formulation."
+      "before": "No recipe chosen. Pick one on the panel.",
+      "after": "No recipe chosen. Pick one on the panel."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49224,8 +49224,8 @@
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:77"
       ],
-      "before": "Phobos Agriculture is not loaded: no makeup formulation. The salts keep as stock.",
-      "after": "Phobos Agriculture is not loaded: no makeup formulation. The salts keep as stock."
+      "before": "Phobos Agriculture is not loaded: no makeup or crop nutrient formulation. The salts keep as stock.",
+      "after": "Phobos Agriculture is not loaded: no makeup or crop nutrient formulation. The salts keep as stock."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49746,8 +49746,8 @@
       "references": [
         "src/PhobosManufacturing/Definitions.cs:294"
       ],
-      "before": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: blend one with two struvite in the LC-3 for Groundwork makeup salts.",
-      "after": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: blend one with two struvite in the LC-3 for Groundwork makeup salts."
+      "before": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: in the LC-3, blend one with two struvite for Groundwork makeup salts, or one with a struvite, an Epsom salt and an ammonium sulfate for crop nutrients.",
+      "after": "700 g of potassium sulfate crystallised from an evaporite crust. A fertiliser salt: in the LC-3, blend one with two struvite for Groundwork makeup salts, or one with a struvite, an Epsom salt and an ammonium sulfate for crop nutrients."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49824,8 +49824,8 @@
       "references": [
         "src/PhobosManufacturing/Definitions.cs:294"
       ],
-      "before": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. Blend two with one potassium sulfate in the LC-3 for Groundwork makeup salts.",
-      "after": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. Blend two with one potassium sulfate in the LC-3 for Groundwork makeup salts."
+      "before": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. In the LC-3, blend two with one potassium sulfate for Groundwork makeup salts, or one into each batch of crop nutrients.",
+      "after": "430 g of struvite, a slow-release magnesium ammonium phosphate fertiliser. In the LC-3, blend two with one potassium sulfate for Groundwork makeup salts, or one into each batch of crop nutrients."
     },
     {
       "mod": "PhobosManufacturing",
@@ -50759,8 +50759,8 @@
       "references": [
         "src/PhobosManufacturing/Definitions.cs:317"
       ],
-      "before": "515 g of phosphoric acid caught from a roasted nodule, in a sealed flask. Corrosive. The LC-3 turns it into struvite with magnesium sulfate and ammonia.",
-      "after": "515 g of phosphoric acid caught from a roasted nodule, in a sealed flask. Corrosive. The LC-3 turns it into struvite with magnesium sulfate and ammonia."
+      "before": "515 g of phosphoric acid caught from a roasted nodule, in a sealed flask: the phosphorus of three struvite. Corrosive. The LC-3 turns it into struvite with three Epsom salt and ammonia.",
+      "after": "515 g of phosphoric acid caught from a roasted nodule, in a sealed flask: the phosphorus of three struvite. Corrosive. The LC-3 turns it into struvite with three Epsom salt and ammonia."
     },
     {
       "mod": "PhobosManufacturing",
@@ -51333,6 +51333,404 @@
       ],
       "before": "Recover acid from the bund",
       "after": "Recover acid from the bund"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_hoppers",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:80"
+      ],
+      "before": "This Phobos Agriculture has no nutrient hoppers (they need 0.27.0 or newer): no crop nutrient formulation.",
+      "after": "This Phobos Agriculture has no nutrient hoppers (they need 0.27.0 or newer): no crop nutrient formulation."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_acid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "no acid tank linked",
+      "after": "no acid tank linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "the linked acid tank is damaged, locked, moved away or not on this ship",
+      "after": "the linked acid tank is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "the linked acid tank is protected or busy; accept its contents or wait",
+      "after": "the linked acid tank is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "the linked acid tank holds acid in its bund; repair it and recover the acid first",
+      "after": "the linked acid tank holds acid in its bund; repair it and recover the acid first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "the linked acid tank holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked acid tank holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:109"
+      ],
+      "before": "the linked acid tank has {0:F2} kg of room and the charge returns {1:F2} kg",
+      "after": "the linked acid tank has {0:F2} kg of room and the charge returns {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:110"
+      ],
+      "before": "Acid tank linked.",
+      "after": "Acid tank linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:110"
+      ],
+      "before": "Acid tank unlinked.",
+      "after": "Acid tank unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.acid_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:110"
+      ],
+      "before": "That is not an acid tank within one tile of the leach unit.",
+      "after": "That is not an acid tank within one tile of the leach unit."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_nutrients",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "no nutrient hopper linked",
+      "after": "no nutrient hopper linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "the linked nutrient hopper is damaged, locked, moved away or not on this ship",
+      "after": "the linked nutrient hopper is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "the linked nutrient hopper is protected or busy; accept its contents or wait",
+      "after": "the linked nutrient hopper is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "the linked nutrient hopper holds trapped nutrients; repair it and recover them first",
+      "after": "the linked nutrient hopper holds trapped nutrients; repair it and recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "the linked nutrient hopper holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked nutrient hopper holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "the linked nutrient hopper has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked nutrient hopper has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:114"
+      ],
+      "before": "Nutrient hopper linked.",
+      "after": "Nutrient hopper linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:114"
+      ],
+      "before": "Nutrient hopper unlinked.",
+      "after": "Nutrient hopper unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.nutrients_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:114"
+      ],
+      "before": "That is not a nutrient hopper within one tile of the leach unit.",
+      "after": "That is not a nutrient hopper within one tile of the leach unit."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.olivine-epsom",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "Epsom salt from olivine",
+      "after": "Epsom salt from olivine"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.struvite-acid",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "acid-route struvite",
+      "after": "acid-route struvite"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.crop-nutrients",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176",
+        "src/PhobosManufacturing/ChargeMachine.cs:261",
+        "src/PhobosManufacturing/ChargeMachine.cs:426",
+        "src/PhobosManufacturing/ChargeMachine.cs:519",
+        "src/PhobosManufacturing/ChargeMachine.cs:521",
+        "src/PhobosManufacturing/ChargeMachine.cs:544",
+        "src/PhobosManufacturing/ChargeMachine.cs:545",
+        "src/PhobosManufacturing/ChargeMachine.cs:577"
+      ],
+      "before": "crop nutrient formulation",
+      "after": "crop nutrient formulation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.nutrients_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:113"
+      ],
+      "before": "Nutrient hopper",
+      "after": "Nutrient hopper"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosEpsomSalt",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "Epsom Salt",
+      "after": "Epsom Salt"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosEpsomSalt_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "432 g of Epsom salt (magnesium sulfate) crystallised from olivine dissolved in sulfuric acid. Magnesium for crops: the LC-3 takes three with a phosphoric acid flask for struvite, and one in each batch of crop nutrients.",
+      "after": "432 g of Epsom salt (magnesium sulfate) crystallised from olivine dissolved in sulfuric acid. Magnesium for crops: the LC-3 takes three with a phosphoric acid flask for struvite, and one in each batch of crop nutrients."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAmmoniumSulfate",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "Ammonium Sulfate",
+      "after": "Ammonium Sulfate"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAmmoniumSulfate_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "232 g of ammonium sulfate, a nitrogen fertiliser salt made beside struvite on the acid route. The LC-3 blends one into each batch of crop nutrients.",
+      "after": "232 g of ammonium sulfate, a nitrogen fertiliser salt made beside struvite on the acid route. The LC-3 blends one into each batch of crop nutrients."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosOlivineLeachCake",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "Olivine Leach Cake",
+      "after": "Olivine Leach Cake"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosOlivineLeachCake_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:317"
+      ],
+      "before": "14.33 kg of silica gel, iron sulfate and undissolved rock, with the Epsom liquor soaked into them, left when the LC-3 leaches olivine. Nothing recovers it.",
+      "after": "14.33 kg of silica gel, iron sulfate and undissolved rock, with the Epsom liquor soaked into them, left when the LC-3 leaches olivine. Nothing recovers it."
     }
   ],
   "documents": [
@@ -51340,8 +51738,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aedb866c8582e104dc6047dfdf42d1e401ecc2876250831b596ab6605274739e",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "578b9901d1a63d34bac98f64bbcf7f635a5d4f37246250edba694de2dbb6bda8",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "SUPPORT.md",
@@ -51361,8 +51759,8 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b00e40b948bfa68538c4ce0f1a28627c02ab75e7863917b3e428ffd4885541a9",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "b2d8488671f7b140625acbaf6259f9c50f865cc35a603e69f666619e97fcdced",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/agriculture-item-reference.md",
@@ -51760,15 +52158,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "663d408ec06ca79818134d8ce15c631bcbafc6cd4cd0fe7a7ad108dc1c88ec68",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "8fb62906dab3c5dfc8475ffb52c22f908f7b045aba298e7284524d1d6332ce96",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "2b50ec86ecdcdc001ee2b4c379f6bd288a476b00b13b86ad17aac381aa2a22e9",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "0054cfda1a916d4c63a8fc6263074df1d8fc9763a78c26af1b61ceebe1a420a6",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -51892,8 +52290,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "725f0ba7e40c2dd0231a3df6552cf24fd97e99b7326463e8bdf9a2a15ec4ff09",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "d4320cbbe5ebeb0a14063aa9395d01ea93c1dad55c387d25c4650c799d564530",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -51951,8 +52349,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "dc8421f6ffefbeb604e006868231b63a563c8fa5f70278de8dabf9191cf71e07",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them, with the nodule's phosphide share set for the acid-route struvite; direct player text."
+      "sha256": "ad67a697f9eafd5523c2b8158aed04dd3d65783f59441c1f4f0cb4dd789fe93f",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -52023,8 +52421,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "b9ccad1e7a8a2d8e4a02a8000c5871c787132d2de7faebb9784a1c254c9c0527",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them, with the nodule's phosphide share set for the acid-route struvite; direct player text."
+      "sha256": "949edcf8af9861f423a80be486ec9e3d4ac25c56d48b4bfd52c93091bb8c154c",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -52221,8 +52619,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "83e067b1da3e6c0603cd74ebde789832a0aefbd30cbfa80023f6d8523619cda5",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "82e9031fc00938fa7df98629b1f2ef9fbad73cef985bb8a81c273a163a0f6225",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -52312,15 +52710,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "bef70f7421c64ea92a95302e66032d528ae2307ba30b1fdd232634a0f0350ac7",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them, with the nodule's phosphide share set for the acid-route struvite; direct player text."
+      "sha256": "d1757914388b93359036ab0dd492673ffe700fb6ce4faab0cab25687d64e3b67",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "d4f445de215a92a19b08e995ad1c5c55f469f246ac7913f3683bf44907184c8b",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them, with the nodule's phosphide share set for the acid-route struvite; direct player text."
+      "sha256": "eec60797560c89dc185d45f23c9937d34170e40ac1b5261c1a923c9d65b10b30",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -52438,8 +52836,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "513d34238df7d75b0cce5d01292c3e32a75b5c04b4d7bd6807992ebef3a21b64",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "4e007aba0de476dfc83a5fbcadf17b75d4a0e4df55803b55bbdcf4cc5603532a",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -52494,8 +52892,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "b4270d6afeaab4b7d1eb94a7bd237091f1347f6bd25b32666ac84d8012524d7a",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "de31c6917b3e9a2e83eceba7df568e25f178a7a54899818a6908c099f79cda5f",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/schema-separation-audit.md",
@@ -52515,8 +52913,8 @@
       "path": "docs/development/feedstock-round-three-design.md",
       "scope": "development",
       "decision": "Development research record; not player-facing.",
-      "sha256": "c000b3d5984890976172a1e30ceb623fdb66d98a9b9be5159749f0c6f1408b35",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.18.0 (Lixivar LC-3, evaporite crust, V4 calcine): new machine, recipe and material wording, the calcine rows and the corrected refining-value figures; direct player text."
+      "sha256": "b28afeb771fee84d26f33540d839f4bd664d048541583988feeaa5d7c8ee4f40",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "docs/development/faction-kiosk-stock.md",
@@ -52530,8 +52928,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e0314ceb0c7165230948a300b1dd025a2d653be3da0071523955ccf9afbbc1b6",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them, with the nodule's phosphide share set for the acid-route struvite; direct player text."
+      "sha256": "d8d29802b2e53202b33e397929c5ee14c68604b5370c5e40e72a42d08e851c6f",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -52585,8 +52983,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "393bd0a5d67dcb3090f4ba4ab4379bba0d8c97e9613d3749c455418dd8ad6128",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.19.0 (SA-3 acid plant, AT acid tanks, sulfide nodule): new machine, tank, hazard and material wording and the guides and records that describe them; direct player text."
+      "sha256": "c3b4fb145ff5a16a06870ded38de8e6f3c02de672afbdc8c7f570af459bb8da8",
+      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

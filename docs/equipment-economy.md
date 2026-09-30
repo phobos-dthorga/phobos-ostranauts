@@ -779,3 +779,24 @@ the high-salvage mark and share the other machines' routes, the SA-3 at Trusted
 and the tanks at Friendly faction-kiosk standing. Stations sell sulfuric acid into
 a tank at the game's own 3.1 cr/kg; nothing sells back. The phosphoric acid flask
 is 30 cr and the roasted calcine is trash; neither is sold by merchants.
+
+## Manufacturing 0.20.0: the LC-3's acid recipes
+
+No new equipment. The LC-3 gains three recipes and three materials, none sold by
+merchants:
+
+| Material | Unit | Base price | Per kg |
+|---|---:|---:|---:|
+| Epsom salt | 0.432 kg | $7 | about $16 |
+| Ammonium sulfate | 0.232 kg | $8 | about $35 |
+| Olivine leach cake (terminal) | 14.33 kg | $0.01 | trash |
+
+The olivine charge's 32 Epsom salt ($224) stay within half again its inputs (the
+$180 ore, $26.80 of acid and $95.20 of water at station prices); the acid-route
+struvite's three struvite and three ammonium sulfate ($75) stay within half again
+the $30 flask and three Epsom salt ($51). Crop nutrients made aboard go straight
+into a hopper at Agriculture's own 1,500 cr/kg (the owner's formulation
+decision). Bagged into bulk charges they sell like any other; every salt in the
+blend is made aboard from mined feed, so bought stock alone never pays. At about
+4,150 cr of nutrients a charge from about 75 cr of salts, the formulation is a
+strong earner.

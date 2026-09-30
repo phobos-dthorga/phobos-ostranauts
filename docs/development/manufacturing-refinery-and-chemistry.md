@@ -355,6 +355,94 @@ acid into a tank at the game's own GasPrices figure.
 half again the 150 cr nodule before its oxygen and water; the acid itself is a
 commodity with no sell route. The native checks prove it at live prices.
 
+## Acid consumers on the LC-3 (0.20.0)
+
+Round three's last phase puts the SA-3's acid and flask to work in the LC-3,
+which gains an acid tank link (drawn) and a nutrient hopper link (deposited). The
+three recipes are machine `leach` revisions 4 to 6. Molar masses are IUPAC 2013;
+every balance is exact to the gram in the pack and checked in `LeachChecks`.
+
+**Epsom salt from olivine (`olivine-epsom`, revision 4).** Olivine dissolves in
+sulfuric acid to metal sulfates and silica; this is the basis of the olivine
+process for neutralising waste acid and making precipitated silica, whose
+dissolution kinetics R. C. L. Jonckbloedt measured (Journal of Geochemical
+Exploration 62, 1998, below). The game's olivine chunk (`ItmMineral02`, 10 kg,
+180 cr) is authored as 7.000 kg of olivine and 3.000 kg of pyroxene, feldspar and
+chromite that the acid leaves. The olivine is given the Fa29 composition that
+Nakamura et al. (Science 333, 2011, below) report for the Itokawa particles JAXA's
+Hayabusa returned, an LL-chondrite olivine; the split between olivine and other
+rock is ours.
+
+| Step | Reaction | Per chunk |
+| --- | --- | --- |
+| Leach | (Mg0.71Fe0.29)2SiO4 + 2 H2SO4 -> 1.42 MgSO4 + 0.58 FeSO4 + SiO2 + 2 H2O | 44.03 mol of olivine; 8.636 kg of acid |
+| Crystallise | MgSO4 + 7 H2O -> MgSO4.7H2O (and the iron sulfate as its heptahydrate) | 9.518 kg of water drawn, net of the 1.586 kg the leach makes |
+
+32 units of Epsom salt crystallise (13.824 kg, 0.432 kg each, 89.7% of the
+magnesium); the remaining magnesium sulfate stays in the liquor soaked into the
+cake. The iron stays with the cake as iron(II) sulfate: a real plant would
+oxidise and precipitate the iron before crystallising, and we leave that out (our
+simplification). The terminal olivine leach cake holds the rock, 2.645 kg of
+silica, 7.100 kg of iron sulfate heptahydrate and 1.586 kg of retained Epsom
+liquor, 14.330 kg. Both sides are 28.154 kg. Formation enthalpies (forsterite
+-2173.0, fayalite -1478.2, epsomite -3388.7, melanterite -3014.6, amorphous
+silica -903.5 kJ/mol; NBS tables and Robie and Hemingway 1995, below, from memory
+except epsomite; verify before quoting) give about 434 kJ released per mole of
+olivine: 5.3 kWh a charge into the room on top of 15% of the LC-3's 12 kW.
+
+**Acid-route struvite (`struvite-acid`, revision 5).** The owner asked for both
+struvite routes. With phosphoric acid, magnesium sulfate and ammonia:
+
+| Reaction | Per flask |
+| --- | --- |
+| H3PO4 + MgSO4.7H2O + 3 NH3 -> MgNH4PO4.6H2O + (NH4)2SO4 + H2O | 5.255 mol of phosphoric acid (0.515 kg), 3 Epsom salt (5.258 mol), 0.269 kg of ammonia |
+
+Products: three struvite units (1.290 kg, 5.257 mol), three ammonium sulfate units
+(0.696 kg; 0.232 kg each), 0.094 kg of water returned to the linked vessel. Both
+sides are 2.080 kg; the ammonium sulfate carries a gram and a half of rounding and
+the water gives up one gram. The flask size follows from the nodule: its
+phosphide share (1.058 kg of Fe2NiP) was set before the SA-3 was published so
+that one flask holds the phosphorus of exactly three struvite units, and the
+Epsom unit (0.432 kg, 1.753 mol) carries the magnesium of one. The reaction heat,
+about half a kilowatt-hour a charge, is not modelled: struvite's formation
+enthalpy is too uncertain in the sources at hand. 2 kWh authored.
+
+**Crop nutrients (`crop-nutrients`, revision 6).** The complete formulation
+blends one unit of each salt and neutralises drawn ammonia with drawn acid in the
+mixer (2 NH3 + H2SO4 -> (NH4)2SO4 on 7.39 mol), which is how fertiliser
+granulation plants add ammonium sulfate (the ammoniation step). 0.252 kg of
+ammonia and 0.725 kg of acid make 0.977 kg of ammonium sulfate in the blend; with
+the four salts (1.794 kg) that is 2.771 kg of crop nutrients, deposited into the
+linked Agriculture hopper as its commodity `crop nutrients`. The neutralisation
+releases about 275 kJ per mole (NBS tables; from memory, verify), 0.56 kWh a
+charge. 1 kWh authored.
+
+The nitrogen top-up is sized so nitrogen to potassium matches Hoagland solution
+(N 210, K 235 mg/L; Hoagland and Arnon, Circular 347, 1950, below). The blend is
+then, by mass, about 10.1% N, 2.0% P, 11.3% K, 3.1% Mg and 17.3% S: phosphorus
+and magnesium land near Hoagland's ratios, sulfur far above them, and there is
+no calcium, nitrate or trace element. An all-ammonium, sulfate-heavy feed would
+not suit real crops; it is not a hydroponic recipe. Agriculture's crop model uses
+only the aggregate nutrient figure, so the composition is recorded, not simulated.
+
+**Why no separate ammonium sulfate charge.** The plan named a fourth recipe making
+ammonium sulfate from ammonia and acid alone. The charge engine binds at least
+one item unit (a saved charge with a recipe and no units is treated as damaged
+evidence), so an item-free charge would weaken the save guard. The formulation's
+ammoniation does the same chemistry where it is used, and the acid route makes
+ammonium sulfate as an item for the blend's one unit.
+
+**Value.** The olivine charge's 32 Epsom salt (7 cr each, 224 cr) stay within half
+again its inputs (180 cr of ore, 26.8 cr of acid and 95 cr of water at their
+station prices). The acid route's three struvite and three ammonium sulfate (75 cr)
+stay within half again the flask and three Epsom salt (51 cr) before the ammonia.
+Crop nutrients take Agriculture's own 1,500 cr/kg under the owner's formulation
+decision (30 September 2026). A hopper can bag them into ordinary bulk charges,
+which sell, so the formulation earns about 4,150 cr a charge from about 75 cr of
+salts. Every salt in the blend is made aboard from mined feed (no merchant sells
+them), so bought stock alone never pays; the bought ammonia and acid, about 3 cr
+a charge, cannot run without those salts. The native checks prove each at live prices.
+
 ## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
 
 The game's RCS is species-blind: `Ship.Maneuver` asks `Ship.RemoveGasMass` for a
@@ -586,8 +674,8 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   slow-release fertiliser. *Author list not re-read; verify before quoting.*
 - Robie, R. A. and Hemingway, B. S. (1995), Thermodynamic Properties of Minerals
   and Related Substances at 298.15 K and 1 Bar, US Geological Survey Bulletin 2131
-  — magnesite formation enthalpy for the calcine. *Value from memory of the
-  tables; verify before quoting.*
+  — magnesite formation enthalpy for the calcine, forsterite and fayalite for the
+  olivine charge. *Values from memory of the tables; verify before quoting.*
 - Cox, J. D., Wagman, D. D. and Medvedev, V. A. (1989), CODATA Key Values for
   Thermodynamics — MgO and CO2 formation enthalpies. *From memory; verify.*
 - Buchwald, V. F. (1975), Handbook of Iron Meteorites, University of California
@@ -598,6 +686,27 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   the acid tank's mist fraction. *Value not re-read; verify before quoting.*
 - CRC Handbook of Chemistry and Physics — density of concentrated sulfuric acid.
   *From memory; verify the edition and value.*
+- Jonckbloedt, R. C. L. (1998), Olivine dissolution in sulphuric acid at elevated
+  temperatures: implications for the olivine process, an alternative waste acid
+  neutralizing process, Journal of Geochemical Exploration 62, 337-346
+  ([ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0375674298000028))
+  — olivine dissolves in sulfuric acid to metal sulfates and silica, controlled
+  by surface reaction. The basis of the Epsom salt charge, not its yield.
+- Nakamura, T. et al. (2011), Itokawa dust particles: a direct link between S-type
+  asteroids and ordinary chondrites, Science 333, 1113-1116
+  ([doi:10.1126/science.1207758](https://www.science.org/doi/10.1126/science.1207758))
+  — JAXA Hayabusa's Itokawa particles are LL-chondrite material with olivine
+  near Fa29. Used for the olivine's composition only; the chunk's olivine share
+  is ours.
+- Hoagland, D. R. and Arnon, D. I. (1950), The Water-Culture Method for Growing
+  Plants without Soil, California Agricultural Experiment Station Circular 347
+  — the nutrient solution whose N 210 and K 235 mg/L set the blend's nitrogen.
+  *Concentrations as commonly tabulated; the circular itself not re-read.*
+- Wagman, D. D. et al. (1982), The NBS Tables of Chemical Thermodynamic
+  Properties, Journal of Physical and Chemical Reference Data 11, Supplement 2
+  — epsomite, melanterite, ammonium sulfate and amorphous silica formation
+  enthalpies. *From memory except epsomite (-3388.7 kJ/mol, confirmed in the
+  magnesium sulfate hydrate literature); verify before quoting.*
 - ASM Handbook, Volume 1: Properties and Selection: Irons, Steels, and
   High-Performance Alloys — carbon ranges of steels.
 - Blue Bottle Games, Ostranauts 1.0.1.5 — item texts, molar masses, canister

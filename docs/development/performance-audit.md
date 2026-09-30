@@ -492,6 +492,9 @@ same paths and the AT acid tanks: a tank's panel lists its linked machines throu
 the gas stores' once-per-step machine list, its pour targets are listed only when
 the panel or console builds the field, its damage and destruction hooks test the
 family with one dictionary lookup, and the mist is a single event on damage, not a
-per-step leak. Two more mining carves apply at preparation. No new scans, cadences
-or per-frame work. No performance capture or measured FPS claim accompanies this
+per-step leak. Two more mining carves apply at preparation. Manufacturing 0.20.0
+gives the LC-3 two more links on the same engine paths (candidates listed only
+when a panel or console builds its fields, peers resolved by saved id), and its
+requirement gate is a plain predicate with no allocation per check. No new scans,
+cadences or per-frame work. No performance capture or measured FPS claim accompanies this
 change.

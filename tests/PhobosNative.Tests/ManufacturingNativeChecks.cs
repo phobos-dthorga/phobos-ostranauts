@@ -121,9 +121,17 @@ internal static class ManufacturingNativeChecks
         check(leachFeed.nContainerWidth * leachFeed.nContainerHeight == LeachRules.FeedCapacity, "The LC-3 feed holds four units");
         foreach (string id in LeachRules.StockFeed)
             check(leachTrigger.TriggeredDataCO(new DataCO(d.Objects[id]), false), "The LC-3 feed admits its own feed at the game level: " + id);
-        foreach (string outside in new[] { RefineryRules.Hydrates, "ItmMineral02", "ItmIce01", "ItmScrapSteel" })
-            check(!leachTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "The LC-3 feed takes no native ore or scrap: " + outside);
-        foreach (string outside in new[] { Materials.NickelIronIngot, Materials.LeachedResidue, Materials.BrineSaltCake, Materials.CausticRemainder })
+        // From 0.20.0 the LC-3 takes the game's olivine: native ore passes the game-level rule, as on the V4, and the
+        // container rule admits only the selected recipe's exact charge.
+        foreach (string ore in new[] { LeachRules.Olivine, RefineryRules.Hydrates })
+            check(leachTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[ore]), false), "Native ore enters the LC-3 feed at the game level: " + ore);
+        check(Stat(DataHandler.dictCOs[LeachRules.Olivine], "StatMass") == LeachRecipes.Epsom.ItemInputs.Single().Kg && LeachRecipes.Epsom.ItemInputs.Single().Id == LeachRules.Olivine,
+            "The Epsom salt charge takes one whole 10 kg olivine chunk");
+        check(LeachRecipes.FeedKg(RefineryRules.Hydrates, LeachRecipes.Epsom, true, true) == null && LeachRecipes.FeedKg(LeachRules.Olivine, LeachRecipes.Leach, true, true) == null,
+            "Other ore is refused by identity, and olivine only for the Epsom salt charge");
+        foreach (string outside in new[] { "ItmIce01", "ItmScrapSteel" })
+            check(!leachTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "The LC-3 feed takes no ice or scrap: " + outside);
+        foreach (string outside in new[] { Materials.NickelIronIngot, Materials.LeachedResidue, Materials.BrineSaltCake, Materials.CausticRemainder, Materials.OlivineLeachCake })
             check(!leachTrigger.TriggeredDataCO(new DataCO(d.Objects[outside]), false), "The LC-3 feed takes no other Phobos material: " + outside);
         var leachPower = d.Power[LeachRules.Prefix + "Power"];
         check(Math.Abs(leachPower.fAmount - LeachRules.IdleKW / Units.SecondsPerHour) < 1e-12 && leachPower.strOverrideCond == ManufacturingRules.Working &&
@@ -154,8 +162,13 @@ internal static class ManufacturingNativeChecks
                              .Concat(new[] { link.FieldLabel(), link.Linked(), link.Unlinked(), link.Missing() }))
                     check(!text.Contains("["), "Link text resolves on " + chargeSpec.Prefix + " for " + link.Commodity + ": " + text);
         }
-        check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia }),
-            "The V4 links a carbon dioxide store for the calcine; the LC-3 links water and ammonia");
+        check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia, LiquidStores.SulfuricAcid, ManufacturingRules.CropNutrients }),
+            "The V4 links a carbon dioxide store for the calcine; the LC-3 links water, ammonia, an acid tank and a nutrient hopper");
+        check(ManufacturingRules.CropNutrients == PhobosAgriculture.Core.HopperRules.Commodity && AgricultureStock.HopperMinimum == new Version(0, 27, 0) &&
+              LeachRecipes.CropNutrients.Deposits.Single().Id == PhobosAgriculture.Core.HopperRules.Commodity,
+            "The complete formulation deposits exactly the commodity Agriculture's hoppers hold, from the version that has them");
+        var leachPorts = ChargeMachines.Leach.Links.Select(l => l.MachinePort).ToArray();
+        check(leachPorts.Distinct().Count() == 4 && ChargeMachines.Leach.Links.All(l => l.PeerPort == LeachRules.VesselPort), "The LC-3's four links have their own ports and one vessel-side port");
 
         // The feed at the game level: any ore or our stock through native containment; the exact rule narrows it.
         var feed = d.Objects[RefineryRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
@@ -324,6 +337,14 @@ internal static class ManufacturingNativeChecks
         {
             // The owner's exception (30 September 2026): formulating the LC-3's salts into Agriculture's makeup packets
             // is where the value is made, capped at Agriculture's own packet price. No loop pays: no merchant sells the salts.
+            // The same decision for the complete formulation (Manufacturing 0.20.0): crop nutrients go into a hopper at
+            // Agriculture's own kiosk price (bagged into bulk charges they sell). Every salt is made aboard from mined feed.
+            if (recipe.Requires.Contains(ChargeCatalog.CropNutrientsRequirement))
+            {
+                check(recipe.Products.All(p => p.Id == ManufacturingRules.CropNutrients) && !recipe.ItemInputs.Any(i => Bought(i.Id)) && recipe.Solids(recipe.Products).Count() == 0,
+                    $"The {recipe.Id} charge deposits only crop nutrients into a hopper (Agriculture's own price), from salts no merchant sells");
+                continue;
+            }
             if (recipe.Requires.Contains(ChargeCatalog.MakeupRequirement))
             {
                 check(recipe.Products.All(p => p.Id == LeachRules.MakeupPacket) && Stat(DataHandler.dictCOs[LeachRules.MakeupPacket], "StatBasePrice") == PhobosAgriculture.Core.NutrientRecovery.MakeupPrice &&

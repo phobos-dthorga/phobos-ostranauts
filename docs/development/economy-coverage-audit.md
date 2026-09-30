@@ -144,6 +144,11 @@ repair, Restore, mass-balanced dismantling, the high-salvage mark, Trusted and
 Friendly faction tiers). The mined sulfide nodule and the SA-3's flask and calcine
 are never sold.
 
+Later addition (Manufacturing 0.20.0, 30 September 2026): no new equipment. The
+LC-3's Epsom salt, ammonium sulfate and olivine leach cake are never sold by
+merchants, and its crop nutrients go only into a hopper; bagged into bulk
+charges they sell like any other.
+
 Later addition (Agriculture 0.27.0, 30 September 2026): the Groundwork E2, E3 and
 E4 nutrient hoppers join the Agriculture ladder families at the reservoirs' parity:
 the same routes and lot of four, only the small size in engineering salvage (the

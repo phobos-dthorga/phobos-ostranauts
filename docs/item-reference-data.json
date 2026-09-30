@@ -12082,7 +12082,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.19.0",
+      "version": "0.20.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -16499,6 +16499,39 @@
           "aliases": []
         },
         {
+          "id": "PhobosAmmoniumSulfate",
+          "name": "Phobos' Lixivar Ammonium Sulfate",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.232,
+          "baseValue": 8.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosAnhydrousResidue",
           "name": "Phobos' Fennmark Anhydrous Residue",
           "stackLimit": 1,
@@ -19956,6 +19989,39 @@
           ],
           "massKg": 10.0,
           "baseValue": 180.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEpsomSalt",
+          "name": "Phobos' Lixivar Epsom Salt",
+          "stackLimit": 20,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.432,
+          "baseValue": 7.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -25437,6 +25503,37 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosOlivineLeachCake",
+          "name": "Phobos' Lixivar Olivine Leach Cake",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 14.33,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         },
         {
@@ -49566,13 +49663,13 @@
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "4162bb40d4a7117f6dabf54cbdafe3c170884dda171828f7a87e485b2a96cd7f",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "03df497128e66425bdd07662c8e7d82d01aab39f4c820897a655bd0f8f740fb9",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "379503d18ba68d76aa6cd8b5f23c9c1fd95b13b04c7b936e34aaee38be85b5c8",
     "mods/PhobosManufacturing/framework/equipment.json": "1da41d7fd58ddb3e922b403c61395bfd9bff078c830d6eac4d8ee69f96114a4f",
-    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "00732819161b8ae40163e1f609835a0fe3cb605485a15d0a4f0e2694252cf74d",
-    "mods/PhobosManufacturing/framework/materials.json": "a0436a44f1915b0cda88927756a88bcdc9bc298e0ea63348e32248ec2de16b53",
-    "mods/PhobosManufacturing/framework/process-recipes.json": "8f2541697e853f6f4daf47b07732b0f68651b7c7b73e7d3f3e1847c814abd356",
+    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "7be9ef0d128ac8f32458d67031d1f28f3d6c4901ae799b9dcc5553623033c50c",
+    "mods/PhobosManufacturing/framework/materials.json": "f5c967a00e0c077003abf7f146c68756b6653f9f9ce364e40c5ea2cea27d9c13",
+    "mods/PhobosManufacturing/framework/process-recipes.json": "8a88740a9e4cb33e2ef1c99aca60fe68b382e273ff38f1b16434d33b31dd45d8",
     "mods/PhobosManufacturing/framework/vessels.json": "38f780dd14722199d5fddf7c68baa000e2b57d507ea5773c0b6bbbd6bec6aec2",
-    "mods/PhobosManufacturing/mod_info.json": "393bd0a5d67dcb3090f4ba4ab4379bba0d8c97e9613d3749c455418dd8ad6128",
+    "mods/PhobosManufacturing/mod_info.json": "c3b4fb145ff5a16a06870ded38de8e6f3c02de672afbdc8c7f570af459bb8da8",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -49853,12 +49950,12 @@
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/ChargeMachine.cs": "b831bb41f759e0232dcda71ea3947087b17a56800134bd03a27a807285125d37",
-    "src/PhobosManufacturing/ChargeMachines.cs": "0a9fb9e4bde16755ee385f57a3308ffa40f7267a3c383b41162dab29837358ff",
+    "src/PhobosManufacturing/ChargeMachines.cs": "d04f22d568ec1f1a52158c1fe3a11238fffa05219131b328d19b58d32875b64b",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "bb1e9a5476ceb69e880f953715315b7ffd409d1a9180a456daf459e42c84bd7b",
     "src/PhobosManufacturing/Content.cs": "95a30f031c0ae8ec8e2fb42658bf1cd637ce3a76f1328f324b110b5ceebcf5ac",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
-    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "456c30e19335a430b54576ce659f2b140e9bff90544ef27ec51cb5ad8b5cac2a",
-    "src/PhobosManufacturing/Core/ChargeRecipe.cs": "ba7840197d0024face4e4fb6601135bb829e7ae34ff1cbae5af9071f08df51e0",
+    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "358b35c29325a199a598de14ca0cc519c0ee4a1640370ae3a2bc260f925d0993",
+    "src/PhobosManufacturing/Core/ChargeRecipe.cs": "e492850411bd145b842e28838d2eb7fd3f2f02f568991b577dc3f3eba8760b9e",
     "src/PhobosManufacturing/Core/ChargeState.cs": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
@@ -49867,11 +49964,11 @@
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "78ccdce853ae55822c56fb97387c437b3ac72909014585b08793a5f6fe8f32d5",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "a5ea5e856cf9803e858eae68f65cb9b64289e88bbf7c438f18b1ae14b1410c84",
-    "src/PhobosManufacturing/Core/LeachRules.cs": "f52bc4bff93de9c839a418aa8df8d44143f39f375196f151fc9a968dd3688ca4",
+    "src/PhobosManufacturing/Core/LeachRules.cs": "35711e5c4f9be2815eac0287e4524d33c7a4e74a6ce4ac8f0c1ed3af54278397",
     "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "68d1bbf0fa7eab5f067cb3be0f032ea9f8280592b6fae64885abab5d324ed821",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
-    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "900d0c6ab899f26309e0ecb719dca28036c7a549104edcf7524fb56a6c58f984",
-    "src/PhobosManufacturing/Core/Materials.cs": "b1b52b652b5be855cc36e0e43ff1d6e2d9df94b4ff7b841757adaccc6b0480b0",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "e58b803d6f9f7340c11fec55b11b0bb2cf4c85bbe0ae3f87ee4974275119fff6",
+    "src/PhobosManufacturing/Core/Materials.cs": "7807ed730263c48fbe75e173af66b0002e224da355bca957bcd6eaba9b38e2e8",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "31b3433e1ccfe19fc3569f25aedbbd2a778acad9bd3e65f7bdcb41f6b3ed40dd",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
     "src/PhobosManufacturing/Core/RefineryRules.cs": "2db815e6f9bcced1cc1faf68cafb8b9121814e8121b9109227e2e3da2c4054b0",
@@ -49890,13 +49987,13 @@
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "9a1b100aec5425b829b47ea46779c0df0fcdd3f8c06def1687467543cb641977",
-    "src/PhobosManufacturing/Plugin.cs": "eb469f9e38ba5f34108e89c97a94c806b28010346b33cec860e839b24882b152",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "fd662e6fedf618a915070e2638c7e21516dfebb972b9cdd7397ca84cb46afc31",
+    "src/PhobosManufacturing/Plugin.cs": "d2019991de58fcbb72348a9e808879480fa42b7146b02c3ccafaada692b15878",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
-    "src/PhobosManufacturing/Provider.cs": "1a4d6f7f559723ca14b23690e86d740e21e556fa8c68b01281947571dfebd165",
+    "src/PhobosManufacturing/Provider.cs": "0dac6dff0e73dbb52d122624f67ecfa2067f724b031b7c52f377bafc06082d75",
     "src/PhobosManufacturing/RegulatorService.cs": "d760030832d2a2a28fe314225db75ebf5f1b85e95e6121f8515912bdaf0f4f1e",
     "src/PhobosManufacturing/SabatierService.cs": "4e1be170e3ee4b962d59317e252c4a4206f865655454f0281520e4d551033b89",
-    "src/PhobosManufacturing/ShipbreakerStock.cs": "254bf5a1e2e3a34d72211c728232fc74899a432b78cd90d63281c324e9763820",
+    "src/PhobosManufacturing/ShipbreakerStock.cs": "7b473bf1a7f38c3c40b7d630d543fba05f2670e5607c28f27d1d13a1d7f9f100",
     "src/PhobosManufacturing/StoreService.cs": "e6cc5aa71a036900c8aa5291e7b24044089d22e02212004b67b63b08738a2e2c",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
@@ -50016,7 +50113,7 @@
     "translations/PhobosAgriculture/en.json": "ef9e1a145d1b2a33c584b32ceb97c6b93b32fddc8420584847b45e43c02b004d",
     "translations/PhobosAutoNav/en.json": "bf6f99c73e3899ec48482799d29ce35146bc86bb786135a1bfc419096999b0e9",
     "translations/PhobosFramework/en.json": "fc478192d0734a4f5f054d9ef4d85ae339cabd915b495656565455178828bb3d",
-    "translations/PhobosManufacturing/en.json": "ba82f52bdb2934f5446a7daa1f005e1a0ddff773129a825c2297577e2b3b92fa",
+    "translations/PhobosManufacturing/en.json": "10194b6291f2e20e322efd7efdd049bf5d81449e546524d7c7f0d8383ff9abf2",
     "translations/PhobosShipbreaker/en.json": "873a8c93a2ee9152051028246ffe17939a31695233fc1c2d2dddab7aefb5a5f1",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }

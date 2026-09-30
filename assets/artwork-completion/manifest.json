@@ -2876,6 +2876,75 @@
       "sourceSHA256": "5f323c4438f64a295b0ec93eb7d29c3876cf97cf03443f7b56b74ada84ce48d7",
       "requestRecord": "round-three-requests.json",
       "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
+    },
+    {
+      "key": "epsom-salt",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosEpsomSalt",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockEpsomSalt",
+      "status": "selected",
+      "source": "source/epsom-salt.png",
+      "sourceSHA256": "2d7474c1e5613340a04c3ce90c522c576e2e85907a03570722e8a835113fab98",
+      "requestRecord": "round-three-requests.json",
+      "review": "Recorded derivation; native-scale export inspected beside its siblings. Owner in-game review pending."
+    },
+    {
+      "key": "ammonium-sulfate",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniumSulfate",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockAmmoniumSulfate",
+      "status": "selected",
+      "source": "source/ammonium-sulfate.png",
+      "sourceSHA256": "bdf313c7133af35041f0d7f8d6be8ad9df65782a86ecd5589e9d7895cffe4e49",
+      "requestRecord": "round-three-requests.json",
+      "review": "Recorded derivation; native-scale export inspected beside its siblings. Owner in-game review pending."
+    },
+    {
+      "key": "olivine-leach-cake",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosOlivineLeachCake",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockOlivineLeachCake",
+      "status": "selected",
+      "source": "source/olivine-leach-cake.png",
+      "sourceSHA256": "ecf00c8a6daace38a7e1d58196a51b4403af50780a04f6f990b8ffb660ae8d51",
+      "requestRecord": "round-three-requests.json",
+      "review": "Recorded derivation; native-scale export inspected beside its siblings. Owner in-game review pending."
     }
   ],
   "records": [
@@ -3511,6 +3580,33 @@
     },
     {
       "key": "roasted-calcine",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded luminance derivation, no generation"
+    },
+    {
+      "key": "epsom-salt",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded palette swap, no generation"
+    },
+    {
+      "key": "ammonium-sulfate",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded palette swap, no generation"
+    },
+    {
+      "key": "olivine-leach-cake",
       "attempts": [
         "round-three-requests.json"
       ],

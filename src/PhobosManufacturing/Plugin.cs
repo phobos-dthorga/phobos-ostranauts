@@ -18,7 +18,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.19.0";
+    public const string Version = "0.20.0";
     public const string MinimumFrameworkVersion = "0.54.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -302,7 +302,7 @@ internal static class ConsolePatch
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
-            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link", "acid", "pour" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link", "acid", "pour", "nutrients" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

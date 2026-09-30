@@ -6,6 +6,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.20.0] - 2026-09-30 - Draft
+
+### Added
+
+- The LC-3 takes acid. Link an acid tank within one tile, and for crop nutrients a Groundwork nutrient hopper, from its panel or C1.
+- Epsom salt from olivine: one of the game's 10 kg olivine chunks with 8.64 kg of sulfuric acid and 9.52 kg of water gives 32 Epsom salt (magnesium sulfate, 0.432 kg each) and a 14.33 kg olivine leach cake in an hour. The reaction also puts about 5.3 kWh of heat into the room.
+- Acid-route struvite: one phosphoric acid flask from the SA-3 and three Epsom salt, with 0.27 kg of ammonia, give three struvite and three ammonium sulfate in ten minutes, and return 94 g of water to the linked vessel. This is the second struvite route; the crust route is unchanged.
+- Crop nutrients, with Phobos Agriculture 0.27.0 or newer: one potassium sulfate, one struvite, one Epsom salt and one ammonium sulfate, with 0.25 kg of ammonia and 0.73 kg of sulfuric acid drawn from their links, make 2.77 kg of crop nutrients straight into a linked nutrient hopper in five minutes. A W2 then doses from that hopper as it does from a bought fill.
+- Overhead sprites for Epsom salt, ammonium sulfate and the leach cake.
+
+### Changed
+
+- The SA-3's sulfide nodule carries a little more phosphide (1.058 kg), so one phosphoric acid flask (now 0.515 kg) holds exactly the phosphorus of three struvite. The plant draws 6.28 kg of oxygen and 1.58 kg of water per nodule and leaves 9.535 kg of calcine. Version 0.19.0 was never published, so no save holds the old figures.
+- The plan's separate ammonium sulfate charge became the formulation's own ammoniation step, as in a fertiliser granulation plant: a charge must bind at least one item, so ammonia and acid alone cannot make a charge.
+
+### Balance
+
+- Epsom salt is 7 cr and ammonium sulfate 8 cr; the leach cake is trash. None of them is sold by merchants. Crop nutrients made aboard carry Agriculture's own 1,500 cr/kg (the owner's formulation decision). Bagged from the hopper into bulk charges they sell like any other charge; every salt in the blend is made aboard from mined feed, so bought stock alone never pays. This makes the formulation a strong earner: about 4,150 cr of nutrients a charge from about 75 cr of salts.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.54.0 or newer. Phobos Agriculture stays optional; without 0.27.0 or newer the crop nutrient recipe is not offered. Existing charges and saves are unchanged. The olivine's make-up (7.000 kg of Fa29 olivine and 3.000 kg of other rock), the Epsom yield, the blend's nitrogen level and the energies are authored; the reactions and sources are in the refinery design record. The blend is sulfate- and ammonium-rich with no calcium, nitrate or trace elements: Agriculture counts only its total. Offline checks are not gameplay validation.
+
 ## [0.19.0] - 2026-09-30 - Draft
 
 ### Added

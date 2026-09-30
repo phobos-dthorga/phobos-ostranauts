@@ -113,3 +113,10 @@ the sulfide nodule and phosphoric acid flask (64 px masters), and the roasted
 calcine as a recorded rust ramp of the anhydrous residue. Five included generations
 (1,750 to 1,745), $0 credit, nothing rejected. Records are appended to
 [round-three-requests.json](round-three-requests.json).
+
+Manufacturing 0.20.0 adds three recorded derivations and no generation:
+`source/epsom-salt.png` and `source/ammonium-sulfate.png` are exact five-colour
+palette swaps of the potassium sulfate sack (white with a teal band, pale grey
+with an amber band), and `source/olivine-leach-cake.png` is a pale grey-green
+luminance ramp of the anhydrous residue. The mappings are in
+[round-three-requests.json](round-three-requests.json) under `derived`.

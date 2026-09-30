@@ -62,7 +62,10 @@ W2 can mix for many cohorts without a crew member swapping charges.
 2. Fill it at a station: the refuelling kiosk's **Bulk supplies** view offers
    **Crop nutrients (Groundwork hoppers)** by the kilogram at 1,500 cr/kg, the same
    as a bulk charge or a 40 g packet. Choose the hopper as the destination and
-   review the quote. Nothing sells back.
+   review the quote. Nothing sells back. With Phobos Manufacturing 0.20.0 or newer,
+   a Lixivar LC-3 within one tile can also fill it: link the hopper on the LC-3's
+   panel and run its crop nutrient recipe (see
+   [the Manufacturing guide](manufacturing-player-guide.md#the-leach-unit)).
 3. Pause the W2, open its Supplies page and pick the hopper as its nutrient source
    (the same field as a charge in its inventory). Resume. While mixing, the W2
    takes only what each step needs, through the same guarded transfer it uses for

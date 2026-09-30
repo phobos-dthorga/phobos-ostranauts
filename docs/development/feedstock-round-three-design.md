@@ -13,8 +13,13 @@ recipes and the LC-3 (at 12 kW, so the struvite and formulation steps run five a
 two and a half minutes), with two changes: the formulation blends one potassium
 sulfate with two struvite into 39 packets so nothing is left over, and the phosphate
 concentrate is priced at 12 cr so struvite stays within the 1.5 x guardrail (the
-10 cr below would not). Progress is tracked in
-[the programme status](asteroid-feedstock-programme-status.md).
+10 cr below would not). Manufacturing 0.19.0 adds the sulfur and acid route and
+0.20.0 the acid consumers (Epsom salt from olivine, acid-route struvite and the
+complete formulation into an Agriculture hopper), which completes the round. The
+standalone ammonium sulfate charge became the formulation's ammoniation step,
+because a charge must bind at least one item. The worked chemistry for both is
+in [the refinery record](manufacturing-refinery-and-chemistry.md). Progress is
+tracked in [the programme status](asteroid-feedstock-programme-status.md).
 
 ## What the round delivers
 

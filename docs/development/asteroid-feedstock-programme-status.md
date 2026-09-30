@@ -77,7 +77,7 @@ copied. The plan runs in five phases:
 | B | Lixivar LC-3; evaporite crust (C-class carve, 0.05); evaporite leach, struvite from the crust's phosphate, makeup formulation with Agriculture; V4 calcine of the leached residue into a CO2 store | Manufacturing 0.18.0 |
 | C | Groundwork E2, E3 and E4 nutrient hoppers; kiosk crop nutrients at 1,500 cr/kg; W2 dosing from a hopper; bagging back into charges | Agriculture 0.27.0 |
 | D | Lixivar AT-2 to AT-4 acid tanks (bunded liquid stores, mist on damage); kiosk acid at the game's 3.1 cr/kg; sulfide nodule (M- and S-class iron carves); SA-3 acid plant (acid-plant@1, 21.1 kWh of reaction heat) | Manufacturing 0.19.0 |
-| E | Epsom salt from olivine, ammonium sulfate, acid-route struvite, complete formulation into the hopper | pending |
+| E | LC-3 acid and hopper links; Epsom salt from the game's olivine (leach@4, Fa29 after Hayabusa); acid-route struvite with ammonium sulfate (leach@5); complete crop nutrient formulation into an Agriculture hopper, with ammonia neutralised by acid in the mixer (leach@6); the nodule's phosphide set so one flask makes three struvite | Manufacturing 0.20.0 |
 
 - Research first: the evaporite mineral fractions from McCoy et al. 2025 (NASA
   OSIRIS-REx) for an evaporite crust chunk.

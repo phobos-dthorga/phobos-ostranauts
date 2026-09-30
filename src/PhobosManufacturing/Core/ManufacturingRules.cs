@@ -11,6 +11,9 @@ public static class ManufacturingRules
         Content = "PhobosManufacturingContent";
     /// <summary>The commodity every registered water vessel holds (Shipbreaker's S3, Agriculture's R3) and ours.</summary>
     public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane", Oxygen = "oxygen", Nitrogen = "nitrogen", CarbonDioxide = "carbon dioxide", Ammonia = "ammonia";
+    /// <summary>Agriculture's hopper commodity (Agriculture 0.27.0 <c>HopperRules.Commodity</c>), named as a string only:
+    /// the LC-3's complete formulation deposits into a linked hopper. A native check keeps the two equal.</summary>
+    public const string CropNutrients = "crop nutrients";
     public const double LocalAccessTiles = 2.5, ConsoleAccessTiles = 2.5;
     public const double VesselRecheckSeconds = 5;
     /// <summary>Two square footprints lie within one tile of each other: the distance between centres, on the

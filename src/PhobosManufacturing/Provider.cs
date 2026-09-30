@@ -114,7 +114,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:", "nutrients:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
         "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
