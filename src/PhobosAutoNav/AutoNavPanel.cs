@@ -288,7 +288,23 @@ public sealed partial class AutoNavPanel : NavModBase
         surface.blocksRaycasts = !RescueOpen;
         controls.interactable = controls.blocksRaycasts = CanInteract;
     }
-    private void Invoke(Action action) { if (!CanInteract) return; CrewSim.bJustClickedInput = true; action(); ForceRefresh(); }
+    // A click that arrives after the station changed underneath acts on nothing; the refresh shows the new station first.
+    private void Invoke(Action action) { if (!CanInteract) return; if (FollowConsole()) { ForceRefresh(); return; } CrewSim.bJustClickedInput = true; action(); ForceRefresh(); }
+
+    /// <summary>
+    /// The game's crew switch (GUIOrbitDraw.CrewSwitch) keeps the open station's module panels and swaps the
+    /// console under them, while NavModBase captures COSelf only once, in Start. Follow the console the screen
+    /// shows, so the hub never reads or commands the previous station. Drafts and overlays belonged to it.
+    /// </summary>
+    internal bool FollowConsole()
+    {
+        var live = _guiOrbitDraw != null ? _guiOrbitDraw.COSelfBase() : null;
+        if (live == null || live == COSelf) return false;
+        COSelf = live;
+        if (live.mapGUIPropMaps.TryGetValue("Panel A", out var props)) dictPropMap = props;
+        CloseOverlay(); preferencesDirty = false; refresh.Invalidate();
+        return true;
+    }
     protected override void Init() => ForceRefresh();
     private void OnEnable() => refresh.Invalidate();
     private void ForceRefresh() { refresh.Invalidate(); UpdateUI(); }
@@ -297,6 +313,7 @@ public sealed partial class AutoNavPanel : NavModBase
     protected override void UpdateUI()
     {
         if (!labels.ContainsKey("title") || !gameObject.activeInHierarchy || !GUIOrbitDraw.IsOpen()) return;
+        FollowConsole();
         refresh.Bind(COSelf, CrewSim.GetSelectedCrew(), GUIOrbitDraw.CrossHairTarget?.Ship,
             Phobos.Ostranauts.Framework.Localization.Translations.Language);
         if (!refresh.Due(Time.unscaledTime)) return;

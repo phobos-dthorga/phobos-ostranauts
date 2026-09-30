@@ -56,6 +56,7 @@
   "Instruments.clearance_unknown": "Effective stopping distance unavailable.",
   "Instruments.clearance": "Requested stop: {0:0.###} km\nEffective stop with hull clearance: {1:0.###} km",
   "Instruments.other_console": "Another navigation console controls the active flight.",
+  "Instruments.other_console_aboard": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast.",
   "Instruments.blocked": "NOT READY",
   "Instruments.suspended": "AWAITING RESUME",
   "Instruments.ready": "READY",

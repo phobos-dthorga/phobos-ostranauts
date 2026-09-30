@@ -4384,6 +4384,19 @@
     },
     {
       "mod": "PhobosAutoNav",
+      "key": "Instruments.other_console_aboard",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New 2026-10-01: says what happened (another station aboard is flying), what the player can do (Disengage here) and the result (the ship coasts); matches the implemented stop.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationInstruments.cs"
+      ],
+      "before": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast.",
+      "after": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast."
+    },
+    {
+      "mod": "PhobosAutoNav",
       "key": "Instruments.blocked",
       "category": "control/name/value",
       "decision": "retain",
@@ -52806,7 +52819,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "890c3f62ac57316aa98f2518d69b7fafbb52c85ea1b4b9cae8f6adf4f07672c2",
+      "sha256": "aa296099cc2aed90e070a970dcc1a9d5ce388d674cc27efbc338fa8d2c349136",
       "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
@@ -52966,7 +52979,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "772a65372add9c4d86fb1dce6e5cce4261c60d0183adb485432a788595b10cf2",
+      "sha256": "2398cb83612ea3d59769987b68ebe0ec6c8433275439ad28e82332a6a3abe82d",
       "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
@@ -53806,7 +53819,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "710655021d6c3e8e8e3996566bfd052665c1fefc58f921db4c2f9973969e4436",
+      "sha256": "c2bd144884b660035aaa412b4141398e3c68a340fcef497623e2ffc35106c7ea",
       "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
     },
     {
@@ -53890,7 +53903,7 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4046ade78b460fa55199a80c50450d4f33e24bec47ad68e51c596ba391673ac9",
+      "sha256": "6b8546f63848188574b8ab67b174844e89c062e10bbcfcc9c56f607859f753cf",
       "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {
@@ -54041,7 +54054,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "76674e8bee6bf29ca2eed300fa32c690dc0aad101e1502380879cea2ea502307",
+      "sha256": "e6bdffcc194759f8b77070e9c75d88d16fda6109a29d4816b3430d29a0066a68",
       "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
     },
     {

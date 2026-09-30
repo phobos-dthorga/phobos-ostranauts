@@ -21,6 +21,17 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.31.2] - 2026-10-01 - Draft
+
+### Fixed
+
+- Switching crew with the nav screen open no longer leaves the Polaris Flight Hub reading and commanding the previous nav console. The game keeps its module panels when you switch to a crew member seated at another console; the hub now follows the console on screen, drops any unapplied setting changes and closes open pop-ups. This caused a stuck "Another navigation console controls the active flight" warning that only a reload cleared.
+- When another nav console aboard the same ship is flying it, the warning now says so and Disengage works from this console too; the ship coasts, as with any Disengage. Starting or changing a flight still belongs to the console that owns it, and a console on another ship still cannot stop it.
+
+### Compatibility and limits
+
+- No save changes. Offline checks only; the crew-switch case has not been tried in game.
+
 ## [0.31.1] - 2026-09-30 - Draft
 
 ### Fixed

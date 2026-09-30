@@ -18,7 +18,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.61.0**, Shipbreaker **0.56.0**, Auto Nav
-**0.31.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.31.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)

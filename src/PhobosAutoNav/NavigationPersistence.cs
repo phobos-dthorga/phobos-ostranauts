@@ -295,6 +295,8 @@ internal sealed partial class NavigationService
     internal void Stop(CondOwner? co, string reason)
     {
         if(co!=null)CrewManualStop(co);
+        // Stopped from another station aboard: the owning station's crew order stops with its flight.
+        if(AutoNavCore.Engaged&&console!=null&&console!=co)CrewManualStop(console);
         if (industrial != null) { EndIndustrial(reason); return; }
         if (!AutoNavCore.Engaged)
         {

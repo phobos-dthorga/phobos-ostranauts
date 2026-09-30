@@ -58,8 +58,12 @@ internal static class InstrumentChecks
         var other = new CondOwner { strID = "other", ship = ship };
         service.SetPanelTorch(other, true); service.StepPanelArrival(other, 1);
         view = service.ReadInstruments(other);
-        check(!Plugin.PreferTorch.Value && !view.CanFly && !view.CanStop && !view.CanAdjustArrival && !view.CanAdjustPropulsion,
+        check(!Plugin.PreferTorch.Value && !view.CanFly && !view.CanAdjustArrival && !view.CanAdjustPropulsion,
             "Another panel cannot commandeer a running flight");
+        check(view.CanStop && view.Warning && view.Notice == "Instruments.other_console_aboard",
+            "Another station aboard the flying ship can still Disengage it");
+        var elsewhere = new CondOwner { strID = "elsewhere", ship = new Ship { strRegID = "elsewhere" } };
+        check(!service.ReadInstruments(elsewhere).CanStop, "A station on another ship cannot stop this ship's flight");
         service.SetPanelTorch(co, true); check(Plugin.PreferTorch.Value, "Torch-authorized flight can restore AUTO after RCS inhibition");
         AutoNavCore.FlightPrefersTorch = false; service.SetPanelTorch(co, false); service.SetPanelTorch(co, true);
         check(!Plugin.PreferTorch.Value, "RCS-only flight cannot acquire unsaved torch authority from a dial");

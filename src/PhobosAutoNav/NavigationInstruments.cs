@@ -32,6 +32,8 @@ internal sealed partial class NavigationService
         }
         bool ownsFlight = AutoNavCore.Engaged && console == co;
         bool otherFlight = AutoNavCore.Engaged && !ownsFlight;
+        // Any station aboard the flying ship may stop the flight, as any seat may take the native helm.
+        bool aboardFlight = otherFlight && console?.ship == co!.ship;
         read ??= new PresentationRead(co!, ownsFlight);
         var snapshot = ownsFlight && combatActive ? savedFlight : read.Flight;
         bool validPreferences = read.ValidPreferences;
@@ -59,7 +61,7 @@ internal sealed partial class NavigationService
             view.RelativeSpeed = Text.Get("Instruments.relative_speed", speed);
             clearance = Text.Get("Instruments.clearance", view.ArrivalKM, plan.EffectiveArrivalKM);
         }
-        string? problem = otherFlight ? Text.Get("Instruments.other_console") :
+        string? problem = otherFlight ? Text.Get(aboardFlight ? "Instruments.other_console_aboard" : "Instruments.other_console") :
             !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : read.Hardware;
         var stored = read.Stored;
         bool validRecord = read.ValidRecord;
@@ -80,7 +82,7 @@ internal sealed partial class NavigationService
         if (previousDestination && problem == null && !view.Resumable)
             view.Heading = Text.Get(stored!.Mode == SavedFlightMode.Arrived ? "Instruments.arrived" : "Instruments.stopped");
         view.CanFly = !AutoNavCore.Engaged && problem == null && approachReady;
-        view.CanStop = !otherFlight && (ownsFlight || view.Resumable || CanReleaseNativeControls(co));
+        view.CanStop = aboardFlight || !otherFlight && (ownsFlight || view.Resumable || CanReleaseNativeControls(co));
         view.Notice = problem ?? (ownsFlight ? Text.Get(AutoNavCore.CurrentPhase == AutoNavCore.Phase.Coast ? "Instruments.coast_hint" : Torch.Reason) :
             view.Resumable ? Text.Get("Instruments.resume_hint") : Text.Get(target != null ? "Instruments.ready_hint" : "Instruments.select_hint"));
         if (previousDestination && problem == null && !view.Resumable) view.Notice = Text.Get("Instruments.guidance_off");

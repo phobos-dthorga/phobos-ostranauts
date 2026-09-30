@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.31.1";
+    public const string Version = "0.31.2";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -121,6 +121,17 @@ internal static class PanelPatch
 {
     private static void Prefix(GUIOrbitDraw __instance) => AutoNavPanel.Ensure(__instance);
     private static void Postfix(CondOwner coNav) => Plugin.Service.HubLoaded(coNav);
+}
+
+// Switching crew with the nav screen open keeps its module panels and swaps the console under them;
+// rebind the hub at once, including while it is hidden for a station without a Phobos module.
+[HarmonyPatch(typeof(GUIOrbitDraw), nameof(GUIOrbitDraw.CrewSwitch))]
+internal static class CrewSwitchPatch
+{
+    private static void Postfix(GUIOrbitDraw __instance)
+    {
+        foreach (var panel in __instance.GetComponentsInChildren<AutoNavPanel>(true)) panel.FollowConsole();
+    }
 }
 
 // Observe native aim normally; remove only leased offensive weapons from its queue.
