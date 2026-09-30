@@ -238,6 +238,21 @@ public static class BulkVessel
         if (log) FrameworkLifecycle.Log(Text.Get("BulkVessel.drained", co.strID, spec.Commodity, removed, reason));
         return removed;
     }
+    /// <summary>Contents that spill but stay with the vessel (Framework 0.60.0): up to <paramref name="kg"/> of the service
+    /// contents move into the catch chamber, where they wait for Recover after repair. The vessel's mass is unchanged;
+    /// the move is logged and the kilograms moved are returned. A protected vessel moves nothing.</summary>
+    public static double Contain(CondOwner co, double kg, string reason)
+    {
+        if (!BulkVesselSpec.Finite(kg) || kg < 0) throw new ArgumentException("Invalid containment amount.");
+        var spec = Spec(co);
+        if (Protected(co)) return 0;
+        var s = Read(co, spec);
+        double moved = s.Contain(kg);
+        if (moved <= 0) return 0;
+        Save(co, spec, s);
+        FrameworkLifecycle.Log(Text.Get("BulkVessel.contained", co.strID, spec.Commodity, moved, reason));
+        return moved;
+    }
     /// <summary>The vessel as a reservoir for guarded transfers; contents in the catch chamber take capacity.</summary>
     public sealed class Endpoint : ILiquidReservoir
     {

@@ -28,7 +28,7 @@ internal static class InstallMenuChecks
                 }
                 string expected = co.strName.StartsWith(FurnaceRules.Radiator) || co.strName.StartsWith(FurnaceRules.ThermalPort) || co.strName.StartsWith(FurnaceCooling.Conduit) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPrefix) ||
-                    co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) ||
+                    co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) || co.strName.StartsWith(PhobosManufacturing.Core.AcidLineRules.Prefix) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.FillerRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.RegulatorRules.Prefix) ? "HVAC" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
                     BinRules.IsFamily(co.strName) ? "FURN" :

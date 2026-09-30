@@ -22,6 +22,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.60.0] - 2026-10-01 - Draft
+
+### Added
+
+- For content mods: a bulk vessel can hold a spill in its catch chamber without losing it, and a line segment can tell which machines and stores its network joins. Phobos Manufacturing's acid line uses both. No change in play on its own.
+
+### Compatibility and limits
+
+- Phobos Manufacturing 0.24.0 needs this version. Offline checks are not gameplay validation.
+
 ## [0.59.0] - 2026-10-01 - Draft
 
 ### Added

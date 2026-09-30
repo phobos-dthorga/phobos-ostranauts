@@ -70,6 +70,27 @@
       "targets": [
         "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe"
       ]
+    },
+    {
+      "name": "acid",
+      "lane": 2,
+      "ramp": {
+        "r": [
+          1.0,
+          22
+        ],
+        "g": [
+          0.55,
+          8
+        ],
+        "b": [
+          1.3,
+          30
+        ]
+      },
+      "targets": [
+        "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe"
+      ]
     }
   ],
   "base": {
@@ -117,6 +138,10 @@
     "mods/PhobosFramework/images/phobos/framework/PropellantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosFramework/images/phobos/framework/PropellantPipeSheet.png": "78ca03583da9fafdc3c59252956c71927c0a5fc295fb53b567d770e2c9902a11",
     "mods/PhobosFramework/images/phobos/framework/PropellantPipeSheetNormal.png": "68d7cd184cedd650fddee18fdcc0dce79c646a7ed64c4939b5449bebed452c86",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe.png": "2ccfee1cc9f5a2bc9b5fec99f9e1439db4b98c5f6b00d2e973baffeda7d31b6d",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeSheet.png": "38dfff243b3552017093f866364f63b83543f6d2b5fa8af9dc0cbed48a840bf0",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeSheetNormal.png": "6238fb7a19a8da84f3c8ee0b6d0a4375edfa97904b1e86019cd5f5f6d16fd64a",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe.png": "ae4c12b5ed3572642e72dda11ec60e96ae30afcec99bc4562418aeedb8088aa9",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeSheet.png": "11102c6e43ede69347dd26cc6611bfc473cdbd448a7aab49d21727e090638811",

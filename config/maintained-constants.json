@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.59.0",
+      "value": "0.60.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.54.0",
+      "value": "0.55.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.23.0",
+      "value": "0.24.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1437,7 +1437,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.57.0",
+      "value": "0.60.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {

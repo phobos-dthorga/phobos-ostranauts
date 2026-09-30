@@ -1386,3 +1386,16 @@ piped, and joins chain across the ship.
   counted over every drinking tank aboard. `ReachableTanks(via, waste)` lists them for
   status text. The 0.58.0 ship-wide overloads remain, marked obsolete, for content
   built against them; new callers use the `via` forms.
+
+## Spills held by a bund, and what a segment joins (0.60.0)
+
+- **`Liquids.BulkVessel.Contain`.** `Contain(co, kg, reason)` moves up to `kg` of a
+  vessel's service contents into its catch chamber (`StoredCommodity.Contain`): mass
+  and capacity are unchanged, the move is logged, and the contents wait for
+  `Recover`. Use it where a spill stays with the vessel (a bund), and `Drain` where it
+  leaves. A protected vessel moves nothing.
+- **`Liquids.LineReach.MembersThrough`.** The participants on the network that runs
+  through a line segment (`FluidTopology.ParticipantsOn(cell)` on the cached
+  snapshot), so a segment switching to its damaged form still answers for the
+  network it belonged to. Manufacturing 0.24.0's acid line uses it to find the tank
+  a wet segment carries acid from.

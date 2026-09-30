@@ -45,6 +45,8 @@
   "Acid.name": { "brand": "Lixivar", "model": "AT-2" },
   "Acid.name_medium": { "brand": "Lixivar", "model": "AT-3" },
   "Acid.name_large": { "brand": "Lixivar", "model": "AT-4" },
+  "AcidLine.name": { "brand": "Lixivar", "model": "" },
+  "AcidLine.waste": { "brand": "Lixivar", "model": "" },
   "AcidPlant.name": { "brand": "Lixivar", "model": "SA-3" },
   "AcidPlant.feed_name": { "brand": "Lixivar", "model": "SA-3" },
   "Material.PhobosSulfideNodule": { "brand": "Lixivar", "model": "" },

@@ -44,6 +44,19 @@ public static class LineReach
             if (kind != LineReachKind.None) yield return (candidate, kind);
         }
     }
+    /// <summary>Every participant on the network that runs through <paramref name="segment"/>, a line segment of
+    /// <paramref name="family"/> (Framework 0.60.0): what a damaged or removed segment was joining. Read from the cached
+    /// snapshot, so a segment that is switching to its damaged form still answers for the network it belonged to.</summary>
+    public static IReadOnlyList<CondOwner> MembersThrough(CondOwner? segment, FluidSegmentFamily family)
+    {
+        if (segment?.ship == null || family == null || !family.IsNetwork) return Array.Empty<CondOwner>();
+        var ship = segment.ship;
+        int cell = NativeFluidRoute.CellAt(ship, segment.GetPos());
+        if (cell < 0) return Array.Empty<CondOwner>();
+        var topology = FluidRouteCache.Topology(ship, family);
+        var objects = FluidRouteCache.Participants(ship, family);
+        return topology.ParticipantsOn(cell).Where(k => k < objects.Count).Select(k => objects[k]).ToArray();
+    }
     /// <summary>Every other participant on <paramref name="co"/>'s network of <paramref name="family"/>.</summary>
     public static IEnumerable<CondOwner> Members(CondOwner? co, FluidSegmentFamily family)
     {

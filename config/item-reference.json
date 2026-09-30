@@ -1100,7 +1100,7 @@
             "PhobosProcessWaterLineInstalledDmg",
             "PhobosProcessWaterLineWaste"
           ],
-          "function": "Sealed line for process water between water tanks (Shipbreaker's silos, Agriculture's reservoirs) and the machines that draw or make water: Manufacturing's V4, X2, K2, LC-3 and SA-3, Shipbreaker's T2 and Agriculture's W2 intake. Every machine and tank whose water port the line reaches joins one network, and touching equipment joins without it. It has its own blue lane, so it shares tiles with other lines.",
+          "function": "Sealed line for process water between water tanks (Framework's Rivetline silos, and Ship's Water 0.16.1 tanks when installed) and the machines that draw or make water: Manufacturing's V4, X2, K2, LC-3 and SA-3, Shipbreaker's T2 and Agriculture's W2 intake and racks. Every machine and tank whose water port the line reaches joins one network, and touching equipment joins without it. It has its own blue lane, so it shares tiles with other lines.",
           "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The water port is the tile beside the middle of each machine's or tank's left-hand side, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached.",
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. It holds no water between transfers. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
@@ -1412,9 +1412,27 @@
             "PhobosAcidTankLargeInstalledDmg"
           ],
           "function": "Bunded tanks for concentrated sulfuric acid, kept as a kilogram record: 1,150 kg in the 2 x 2 AT-2, 2,850 kg in the 3 x 3 AT-3 and 5,520 kg in the 4 x 4 AT-4. Liquid tanks, not gas stores: no gas line and no feed to thrusters, filling stations or cabin air.",
-          "use": "Install through APPS within one tile of an SA-3 (which fills it) or an LC-3 (which draws from it); link it from those machines. Buy acid into it at a station's Bulk supplies. Pour acid into another tank within one tile from its panel or C1. Empty it before moving or dismantling it.",
+          "use": "Install through APPS touching an SA-3 (which fills it) or an LC-3 (which draws from it), or join them with the acid line from its acid port; link it from those machines. Buy acid into it at a station's Bulk supplies. Pour acid into another tank it touches or shares an acid line with, from its panel or C1. Empty it before moving or dismantling it.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices, and the bigger sizes cost less per kilogram held. No fabrication recipe. The small size is a rare engineering-loot find, usually broken; the medium and large sizes are too big to turn up in salvage. The K-Leg fixer buys them back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
-          "notes": "Damaged, the bund holds the acid but a ten-thousandth of it reaches the room as the game's own sulfuric acid mist, which poisons in its bands; repair, then recover the acid. A destroyed tank mists the same share and the rest is lost. Bought acid costs the game's own 3.1 cr/kg; nothing sells back.",
+          "notes": "Damaged, the bund holds the acid but a ten-thousandth of it reaches the room as the game's own sulfuric acid mist, which poisons in its bands; repair, then recover the acid. A destroyed tank mists the same share and the rest is lost. A wet acid line that is damaged spills about a kilogram from the tank feeding it into this bund. Bought acid costs the game's own 3.1 cr/kg; nothing sells back.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "acid-line",
+          "title": "Lixivar acid line",
+          "ids": [
+            "PhobosAcidLineLoose",
+            "PhobosAcidLineLooseDmg",
+            "PhobosAcidLineInstalled",
+            "PhobosAcidLineInstalledDmg",
+            "PhobosAcidLineWaste"
+          ],
+          "function": "Lined line for concentrated sulfuric acid between the AT acid tanks and the machines that fill or draw from them: the SA-3 and the LC-3. Every tank and machine whose acid port the line reaches joins one network, and touching equipment joins without it. It has its own violet lane, so it shares tiles with other lines.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The acid port is the tile beside each machine's or tank's right-hand side, one row below the gas port, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached. Unlink the tank before taking up a segment that carries acid.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "New in Manufacturing 0.24.0. It holds no acid between transfers in the accounts, but while it joins a tank to a machine linked to that tank it is wet: damaged or destroyed, a wet segment spills about a kilogram from that tank, a ten-thousandth as mist into the room and the rest into the tank's bund (the kilogram is an authored figure). Dismantling returns only retained waste, which is terminal.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}

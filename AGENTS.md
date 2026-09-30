@@ -1271,7 +1271,11 @@
   Water 0.16.1 tanks amended in place with a water port, `ShipsWaterSupply` drawing and
   depositing only through tanks the machine or silo reaches, the rack's water port;
   open-floor Ship's Water users need a line or a touching tank, stated as a manual
-  step). New machine or store links go through
+  step); Framework 0.60.0 with Manufacturing 0.24.0 and Shipbreaker 0.55.0 (the
+  Lixivar acid line with acid ports on the LC-3, SA-3 and AT tanks, the wet-line
+  spill into the source tank's bund through `BulkVessel.Contain` and
+  `LineReach.MembersThrough`, and link wording that names touching or the line).
+  New machine or store links go through
   `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
   water is stored only in `WaterTanks`, and new mods add work to them by amendment.
 

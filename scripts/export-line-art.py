@@ -29,6 +29,9 @@ FAMILIES = [
      'targets': ['mods/PhobosFramework/images/phobos/framework/PropellantPipe']},
     {'name': 'coolant', 'lane': 4, 'ramp': {'r': (0.45, 8), 'g': (1.05, 22), 'b': (0.62, 12)},
      'targets': ['mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe']},
+    # Violet, the pipeline identification colour for acids and alkalis (BS 1710), for the Lixivar acid line.
+    {'name': 'acid', 'lane': 2, 'ramp': {'r': (1.0, 22), 'g': (0.55, 8), 'b': (1.3, 30)},
+     'targets': ['mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe']},
 ]
 # Native Item.SetSpriteSheetIndex bitmask to sheet index; UV rows count from the bottom.
 INDICES = {3: 12, 7: 13, 5: 14, 8: 15, 11: 8, 15: 9, 13: 10, 2: 11, 10: 4, 14: 5, 12: 6, 4: 7, 6: 0, 0: 1, 9: 2, 1: 3}

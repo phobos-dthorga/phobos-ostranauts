@@ -70,6 +70,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | Three-by-three leach tank and closed crystalliser for salts and fertiliser (Manufacturing 0.18.0); L for leach, C for crystallise, 3 for the footprint |
 | Phobos' Lixivar SA-3 Sulfuric Acid Plant | Three-by-three roaster, converter and absorber (Manufacturing 0.19.0); SA for sulfuric acid |
 | Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | Bunded liquid tanks in three sizes (Manufacturing 0.19.0); AT for acid tank, the digit the footprint |
+| Phobos' Lixivar Acid Line | Lined 1 x 1 line segments for sulfuric acid (Manufacturing 0.24.0); a sibling of the tanks, so Lixivar, and like the other lines no model number |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen

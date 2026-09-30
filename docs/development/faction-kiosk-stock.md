@@ -111,6 +111,7 @@ fight other ships, so they ask Friendly.
 
 | Standing | Item | Credits | Scrip |
 | --- | --- | ---: | ---: |
+| Neutral | Lixivar acid line | 6 | 0.30 |
 | Friendly | H, M, O, N, C and Q gas stores, all three sizes | 20,000 to 50,540 | 1,000 to 2,527 |
 | Friendly | A2 cabin air regulator, P1 manifold, L2 canister filler | 23,000 to 26,000 | 1,150 to 1,300 |
 | Trusted | X2 processor, AX-2 cracker, K2 Sabatier reactor, LC-3 leach unit, SA-3 acid plant, V4 refinery | 38,000 to 64,000 | 1,900 to 3,200 |

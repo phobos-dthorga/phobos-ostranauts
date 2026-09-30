@@ -37711,13 +37711,13 @@
       "key": "Thaw.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Updated for this feature (methane ice in the T2); placeholders follow the new arguments; states the situation and next action directly.",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/SiloDefinitions.cs:59"
       ],
       "before": "An enclosed 2 x 2 thaw unit, {0:F0} kg. Melts one {1:G} kg block of water ice at a time into {2:G} kg of process water for a linked silo or reservoir within one tile, and drops {3:G} kg of gangue into its tray, drawing {4:G} kW for {5:G} minutes a block. It also breaks down a {6:G} kg block of methane ice in {9:G} minutes: {7:G} kg of water to the silo and {8:G} kg of methane to a linked methane store (Phobos Manufacturing), never into the air. Part of the power warms the room, so keep some air around it. Not a drinking-water source.",
-      "after": "An enclosed 2 x 2 thaw unit, {0:F0} kg. Melts one {1:G} kg block of water ice at a time into {2:G} kg of process water for a linked silo or reservoir within one tile, and drops {3:G} kg of gangue into its tray, drawing {4:G} kW for {5:G} minutes a block. It also breaks down a {6:G} kg block of methane ice in {9:G} minutes: {7:G} kg of water to the silo and {8:G} kg of methane to a linked methane store (Phobos Manufacturing), never into the air. Part of the power warms the room, so keep some air around it. Not a drinking-water source."
+      "after": "An enclosed 2 x 2 thaw unit, {0:F0} kg. Melts one {1:G} kg block of water ice at a time into {2:G} kg of process water for a linked water silo, touching it or on its water line, and drops {3:G} kg of gangue into its tray, drawing {4:G} kW for {5:G} minutes a block. It also breaks down a {6:G} kg block of methane ice in {9:G} minutes: {7:G} kg of water to the silo and {8:G} kg of methane to a linked methane store (Phobos Manufacturing), never into the air. Part of the power warms the room, so keep some air around it. Not a drinking-water source."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -37818,14 +37818,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Thaw.no_vessel",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:60"
       ],
       "before": "no silo or reservoir is linked",
-      "after": "no silo or reservoir is linked"
+      "after": "no water silo is linked"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -38095,14 +38095,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Thaw.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:328"
       ],
       "before": "Choose an installed silo or reservoir within one tile of the thaw unit, on this ship.",
-      "after": "Choose an installed silo or reservoir within one tile of the thaw unit, on this ship."
+      "after": "Choose an installed water silo touching the thaw unit or on its water line, on this ship."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -39033,13 +39033,13 @@
       "key": "Panel.help",
       "category": "control/help",
       "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Panel.cs:59"
       ],
-      "before": "Start binds a charge or arms the cell. Pause keeps the work; Cancel forfeits it. Connections link a water vessel, a hydrogen store and an oxygen canister within one tile. After a reload, press Start to resume.",
-      "after": "Start binds a charge or arms the machine. Pause keeps the work; Cancel forfeits it. Connections link water vessels, hydrogen and methane stores, and oxygen or CO2 canisters within one tile. After a reload, press Start to resume."
+      "before": "Start binds a charge or arms the machine. Pause keeps the work; Cancel forfeits it. Connections link water vessels, hydrogen and methane stores, and oxygen or CO2 canisters within one tile. After a reload, press Start to resume.",
+      "after": "Start binds a charge or arms the machine. Pause keeps the work; Cancel forfeits it. Connections link water silos and gas stores that touch the machine or share its line, and oxygen or CO2 canisters within one tile. After a reload, press Start to resume."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39087,13 +39087,13 @@
       "key": "Refinery.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Updated for the V4 calcine charge (Manufacturing 0.18.0): names the leached residue and its carbon dioxide store; placeholders unchanged.",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
-      "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel within one tile. A melt left waiting for a cool room too long freezes into slag.",
-      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each within one tile. A melt left waiting for a cool room too long freezes into slag."
+      "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each within one tile. A melt left waiting for a cool room too long freezes into slag.",
+      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked water silo, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each touching the refinery or on its water or gas line. A melt left waiting for a cool room too long freezes into slag."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39491,14 +39491,14 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:50"
       ],
       "before": "That vessel is not a registered water vessel within one tile of the refinery.",
-      "after": "That vessel is not a registered water vessel within one tile of the refinery."
+      "after": "That is not a water silo touching the refinery or on its water line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39887,14 +39887,14 @@
       "mod": "PhobosManufacturing",
       "key": "Processor.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:62"
       ],
       "before": "A 2 x 2, {0:F0} kg water electrolysis cell. Each one-hour cycle at {1:F0} kW splits {2:F3} kg of water from a linked S3 or R3 vessel into {3:F3} kg of oxygen and {4:F3} kg of hydrogen. Oxygen goes into a linked O2 canister, or into the cabin air when none is linked; hydrogen goes into a linked H2 store. It runs only while every output has room.",
-      "after": "A 2 x 2, {0:F0} kg water electrolysis cell. Each one-hour cycle at {1:F0} kW splits {2:F3} kg of water from a linked S3 or R3 vessel into {3:F3} kg of oxygen and {4:F3} kg of hydrogen. Oxygen goes into a linked O2 canister, or into the cabin air when none is linked; hydrogen goes into a linked H2 store. It runs only while every output has room."
+      "after": "A 2 x 2, {0:F0} kg water electrolysis cell. Each one-hour cycle at {1:F0} kW splits {2:F3} kg of water from a linked water silo into {3:F3} kg of oxygen and {4:F3} kg of hydrogen. Oxygen goes into a linked O2 canister, or into the cabin air when none is linked; hydrogen goes into a linked H2 store. It runs only while every output has room."
     },
     {
       "mod": "PhobosManufacturing",
@@ -40340,15 +40340,15 @@
       "mod": "PhobosManufacturing",
       "key": "Processor.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ProcessorService.cs:316",
         "src/PhobosManufacturing/ProcessorService.cs:326"
       ],
       "before": "That is not a suitable vessel, store or canister within one tile of the cell.",
-      "after": "That is not a suitable vessel, store or canister within one tile of the cell."
+      "after": "That is not a suitable silo or store touching the cell or on its line, or a canister within one tile of it."
     },
     {
       "mod": "PhobosManufacturing",
@@ -41044,14 +41044,14 @@
       "mod": "PhobosManufacturing",
       "key": "Sabatier.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:84"
       ],
       "before": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked S3 or R3 and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water.",
-      "after": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked S3 or R3 and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water."
+      "after": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked water silo and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water."
     },
     {
       "mod": "PhobosManufacturing",
@@ -41609,15 +41609,15 @@
       "mod": "PhobosManufacturing",
       "key": "Sabatier.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/SabatierService.cs:370",
         "src/PhobosManufacturing/SabatierService.cs:385"
       ],
       "before": "That is not a suitable vessel, store or canister within one tile of the reactor.",
-      "after": "That is not a suitable vessel, store or canister within one tile of the reactor."
+      "after": "That is not a suitable silo or store touching the reactor or on its line, or a canister within one tile of it."
     },
     {
       "mod": "PhobosManufacturing",
@@ -45897,14 +45897,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Thaw.methane_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:381"
       ],
       "before": "Choose an installed methane store within one tile of the thaw unit, on this ship.",
-      "after": "Choose an installed methane store within one tile of the thaw unit, on this ship."
+      "after": "Choose an installed methane store touching the thaw unit or on its gas line, on this ship."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -46047,14 +46047,14 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.store_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:64"
       ],
       "before": "That is not a {0} store within one tile of the refinery.",
-      "after": "That is not a {0} store within one tile of the refinery."
+      "after": "That is not a {0} store touching the refinery or on its gas line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -46363,14 +46363,14 @@
       "mod": "PhobosManufacturing",
       "key": "Cracker.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:111"
       ],
       "before": "A 2 x 2, {0:F0} kg catalytic ammonia cracker: ammonia split back into nitrogen and hydrogen over a hot catalyst bed, 2 NH3 -> N2 + 3 H2. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of ammonia from a linked ammonia store within one tile and makes {3:F3} kg of nitrogen for a linked nitrogen store and {4:F3} kg of hydrogen for a linked hydrogen store. The split soaks up part of the heat; the rest warms the room. Nitrogen tops up the cabin air through an A2; hydrogen feeds a K2 or the RCS.",
-      "after": "A 2 x 2, {0:F0} kg catalytic ammonia cracker: ammonia split back into nitrogen and hydrogen over a hot catalyst bed, 2 NH3 -> N2 + 3 H2. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of ammonia from a linked ammonia store within one tile and makes {3:F3} kg of nitrogen for a linked nitrogen store and {4:F3} kg of hydrogen for a linked hydrogen store. The split soaks up part of the heat; the rest warms the room. Nitrogen tops up the cabin air through an A2; hydrogen feeds a K2 or the RCS."
+      "after": "A 2 x 2, {0:F0} kg catalytic ammonia cracker: ammonia split back into nitrogen and hydrogen over a hot catalyst bed, 2 NH3 -> N2 + 3 H2. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of ammonia from a linked ammonia store, touching it or on its gas line, and makes {3:F3} kg of nitrogen for a linked nitrogen store and {4:F3} kg of hydrogen for a linked hydrogen store. The split soaks up part of the heat; the rest warms the room. Nitrogen tops up the cabin air through an A2; hydrogen feeds a K2 or the RCS."
     },
     {
       "mod": "PhobosManufacturing",
@@ -46821,14 +46821,14 @@
       "mod": "PhobosManufacturing",
       "key": "Cracker.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/CrackerService.cs:340"
       ],
       "before": "That is not a suitable store within one tile of the cracker.",
-      "after": "That is not a suitable store within one tile of the cracker."
+      "after": "That is not a suitable store touching the cracker or on its gas line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -48360,14 +48360,14 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:52"
       ],
       "before": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile, and an ammonia store, an acid tank or a nutrient hopper within one tile when the recipe needs one.",
-      "after": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile, and an ammonia store, an acid tank or a nutrient hopper within one tile when the recipe needs one."
+      "after": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water silo, and an ammonia store, an acid tank or a nutrient hopper when the recipe needs one: each touching the unit or on its water, gas or acid line, except the hopper, which must be within one tile."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49026,14 +49026,14 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:92"
       ],
       "before": "That vessel is not a registered water vessel within one tile of the leach unit.",
-      "after": "That vessel is not a registered water vessel within one tile of the leach unit."
+      "after": "That is not a water silo touching the leach unit or on its water line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49143,14 +49143,14 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.ammonia_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:104"
       ],
       "before": "That is not an ammonia store within one tile of the leach unit.",
-      "after": "That is not an ammonia store within one tile of the leach unit."
+      "after": "That is not an ammonia store touching the leach unit or on its gas line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49667,15 +49667,15 @@
       "mod": "PhobosManufacturing",
       "key": "Acid.details",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:158",
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
       "before": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it; an LC-3 draws from it; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air.",
-      "after": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it; an LC-3 draws from it; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air."
+      "after": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it and an LC-3 draws from it, touching it or through the acid line from its acid port; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49708,14 +49708,14 @@
       "mod": "PhobosManufacturing",
       "key": "Acid.bund",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "A line spill fills the bund of an intact tank, so the message says to recover once the tank is intact.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/LiquidStoreService.cs:30"
       ],
       "before": "In the bund: {0:F1} kg. Repair the tank, then recover it.",
-      "after": "In the bund: {0:F1} kg. Repair the tank, then recover it."
+      "after": "In the bund: {0:F1} kg. Recover it from this panel once the tank is intact."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49773,14 +49773,14 @@
       "mod": "PhobosManufacturing",
       "key": "Acid.pour_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/LiquidStoreService.cs:59"
       ],
       "before": "That is not an intact acid tank within one tile.",
-      "after": "That is not an intact acid tank within one tile."
+      "after": "That is not an intact acid tank touching this one or on its acid line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -49897,14 +49897,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:55"
       ],
       "before": "A {2} x {2}, {0:F0} kg roaster, converter and absorption tower. Load a sulfide nodule: it roasts in oxygen from a linked oxygen store, its sulfur becomes sulfuric acid for a linked acid tank, and its phosphorus a flask of phosphoric acid. It draws {1:F0} kW while working, but the reactions release about 21 kWh a nodule into the room: give it a big, cooled room, or it waits for the air to cool. Link an oxygen store, a water vessel and an acid tank within one tile.",
-      "after": "A {2} x {2}, {0:F0} kg roaster, converter and absorption tower. Load a sulfide nodule: it roasts in oxygen from a linked oxygen store, its sulfur becomes sulfuric acid for a linked acid tank, and its phosphorus a flask of phosphoric acid. It draws {1:F0} kW while working, but the reactions release about 21 kWh a nodule into the room: give it a big, cooled room, or it waits for the air to cool. Link an oxygen store, a water vessel and an acid tank within one tile."
+      "after": "A {2} x {2}, {0:F0} kg roaster, converter and absorption tower. Load a sulfide nodule: it roasts in oxygen from a linked oxygen store, its sulfur becomes sulfuric acid for a linked acid tank, and its phosphorus a flask of phosphoric acid. It draws {1:F0} kW while working, but the reactions release about 21 kWh a nodule into the room: give it a big, cooled room, or it waits for the air to cool. Link an oxygen store, a water silo and an acid tank, each touching the plant or on its gas, water or acid line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -50080,14 +50080,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.oxygen_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:129"
       ],
       "before": "That is not an oxygen store within one tile of the acid plant.",
-      "after": "That is not an oxygen store within one tile of the acid plant."
+      "after": "That is not an oxygen store touching the acid plant or on its gas line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -50197,14 +50197,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.acid_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:144"
       ],
       "before": "That is not an acid tank within one tile of the acid plant.",
-      "after": "That is not an acid tank within one tile of the acid plant."
+      "after": "That is not an acid tank touching the acid plant or on its acid line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -50847,14 +50847,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:141"
       ],
       "before": "That vessel is not a registered water vessel within one tile of the acid plant.",
-      "after": "That vessel is not a registered water vessel within one tile of the acid plant."
+      "after": "That is not a water silo touching the acid plant or on its water line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -50990,14 +50990,14 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.acid_link_missing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs:110"
       ],
       "before": "That is not an acid tank within one tile of the leach unit.",
-      "after": "That is not an acid tank within one tile of the leach unit."
+      "after": "That is not an acid tank touching the leach unit or on its acid line."
     },
     {
       "mod": "PhobosManufacturing",
@@ -52563,6 +52563,149 @@
       ],
       "before": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports.",
       "after": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "The Lixivar acid line segment.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLine.cs:21"
+      ],
+      "before": "Acid Line",
+      "after": "Acid Line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.damaged",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Damaged-form suffix for the acid line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLine.cs:24"
+      ],
+      "before": " (Damaged)",
+      "after": " (Damaged)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What the acid line joins, how to lay it, and what a wet line does when damaged.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLine.cs:24"
+      ],
+      "before": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. While it joins a tank to a machine linked to that tank it is wet: damage it and about a kilogram of acid spills, a trace of it as mist into the room, the rest caught by the tank's bund.",
+      "after": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. While it joins a tank to a machine linked to that tank it is wet: damage it and about a kilogram of acid spills, a trace of it as mist into the room, the rest caught by the tank's bund."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.waste",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Dismantling remainder of the acid line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLine.cs:40"
+      ],
+      "before": "Retained acid line waste",
+      "after": "Retained acid line waste"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.label",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Names the acid line in link and pour choices.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLine.cs:17"
+      ],
+      "before": "acid line",
+      "after": "acid line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.maintenance_wetted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a wet segment cannot be taken up, and what to do first.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLineService.cs:36"
+      ],
+      "before": "This line carries acid from {0}. Unlink the tank from the machines it feeds before taking the line up.",
+      "after": "This line carries acid from {0}. Unlink the tank from the machines it feeds before taking the line up."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.mist_reason",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log reason for the mist drawn from the tank.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLineService.cs:48"
+      ],
+      "before": "mist from a damaged acid line",
+      "after": "mist from a damaged acid line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.bund_reason",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log reason for the spill moved into the bund.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLineService.cs:51"
+      ],
+      "before": "acid spilled from a damaged acid line, caught by the bund",
+      "after": "acid spilled from a damaged acid line, caught by the bund"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew-log caution for a damaged wet line: what spilled, where it went and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLineService.cs:67"
+      ],
+      "before": "An acid line fed by {0} was damaged. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, repair the line, then recover the acid from the tank's panel.",
+      "after": "An acid line fed by {0} was damaged. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, repair the line, then recover the acid from the tank's panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidLine.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew-log caution for a destroyed wet line: what spilled, where it went and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/AcidLineService.cs:79"
+      ],
+      "before": "An acid line fed by {0} was destroyed. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, lay new line, then recover the acid from the tank's panel.",
+      "after": "An acid line fed by {0} was destroyed. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, lay new line, then recover the acid from the tank's panel."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BulkVessel.contained",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line when a spill moves into a vessel's catch chamber.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/BulkVessel.cs:253"
+      ],
+      "before": "{0} moved {2:F3} kg of {1} into its catch chamber: {3}.",
+      "after": "{0} moved {2:F3} kg of {1} into its catch chamber: {3}."
     }
   ],
   "documents": [
@@ -52570,8 +52713,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a716a1fc048f658ddbc8d223a6e059554075885b2c18da8e9982ae42ffbf90d3",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "948a98026610f491218cc86c960d8a69fbd66d54deff7c7c90fd822f694d63a2",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "SUPPORT.md",
@@ -52730,8 +52873,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "95092e3152f2deee689415d753ef8be94e71c20fd95c058fc65c6e55ac3707fe",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "11c8b446ace752da8696c1a3a85485f57a725d938f7d66177937744de45dec44",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/crew-automation.md",
@@ -52997,8 +53140,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "5a3677616c468560b5dc63c88f2b9be1aad3e65628cbfd85abdfdb9aa1db7060",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "15fe920c6e1d0e1f6bb791b7fa7a732db3cbd5b4f9dec1f11a79b47ae85f3048",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -53031,8 +53174,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "09a34fdbd958b74aa0d4fb867c6d9d6e04b59e438acd04caaaa142c53f8c3504",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "791f55eccaf04cc23f3e7860af9c88534bf0db07e3005271b1d185218f318ab6",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53115,15 +53258,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "aec690bbdc0d39203225236c337b9a31ab7fdd6dd05f591eeded7acb52da1291",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "36bb6a0daa81b651520ced2edfdb32fac60987ae8f1dbb5ad17e58879fbbc10c",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "65e0b6c74672df8ff6ae7275218be9b51c5264e7240de3c0dd5ddce5e5fbb82b",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "fa2c6aab6d2ba81ffd05f9a5663712a136267f7ba35e7b357d30616e99e75328",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53227,8 +53370,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "dfff841be4ce8c8d613c9e1332f9d5f741bd78d7e808d9d2b7f9d0b9bb11cc9e",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "e4a564211a654b2ea097364f7c34ed5eb62e3b7b9a7df3323a1cc76f1802ed37",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -53253,8 +53396,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f7a4771c1707f73432e8c9a87edd405ff4b6e9ff8c21850f626b4327fb1e34cd",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "f9a364a8dbffd2d55dbe87b400ddae788347873da887e460755e5dfe6bfa4247",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53451,8 +53594,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6a39d914080b9d0dd94c4e0526373f9d43123cc5d861dc50d6fbed3913c610a2",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "84f3204fd31e65dbf881e7506e780017073728af0465df4848868aae29e22019",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -53465,8 +53608,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "3ca88702a745af82f1a6d454147b396c81d0d83a5ea20fc9ec6a9379010cc086",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "b95f71fc6b87fbbf504227602e47951dd2d82e2607ad84f00b4e3cf4eaeb616f",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53521,15 +53664,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "10603813ab4234daf472ca01a364634509d073e521b5811b9413d7a9d5f1ab12",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "1c3855a516cc989111c15089812517f4d63fc1afbaa1fee3e3ccb8e01f7cea7c",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "15224917e9979eec5e5390756058c1c04c273cf4966ee7d6436cfc2f0a8823ea",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "8414a356e3e09be2240e0f38c194bb1f6b78c50b81c286ad7a77a6a173413abf",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/item-references.md",
@@ -53542,15 +53685,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "df7262eef9a9e94e9c9e3c54bf401980a1cb0f97f58da42527a9feb245db52b9",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "07cf5f0c1dc8a43e68dc97a4de5bdb874edd47e6d5604bb16d426965110229d4",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "a138dd66698f3915ed43415f3514fb5fb0f9aefdb825145a6d77b3bece08519c",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "9943d53faeb56dac48cfc487c26a9e4683b84e8c18253c298e2e731faa08e51a",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -53570,8 +53713,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "27e9646296aec3f024a465485630307a00bccebb39825b90adf5cc7fb91fd289",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "92b040b2c2bbfceb397377aeb8a313fd67a87787a04dbbcea128ca6d08dc3f79",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/residue-collector.md",
@@ -53619,8 +53762,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "29531e2fe31e98a2ce111a71aed98ecba1e11753ab24730fe58c076021c53ff6",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "b74654b70ca433c312b238c7ea6f110fb37aa85b3331289527b30db76d093222",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -53661,22 +53804,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4ba52f6ddac30566bf0daae92934ab90008de4fa9ce156c75efe0534fbdb313a",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "225212a1c35112c91d6d704bfe70e5534fdb9dfc8319d5c9c2a98588e671a06e",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "218bddd096576a8d96ca7c07d8094d082f088a2b30469f1915828c18bd6437f8",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "345d625c4907381845b1c28e72284c6e44ddec9913b1adb9c50236711859e56f",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "95b7c2f7650e211e1ac9b08eae5b7f7d379929d8ad752e0acb3d74e4b8f153ac",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "cc426c9dd02ce437ff6a2bfcac5bba1f797517ef2de8c1ba9ff6fae8c50d29d6",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -53752,16 +53895,16 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "6ddf7458ccc9b2dad340461b2f6bf974e48637806b12897d40ac48c84722bebc",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "8c6466dc38301e9cecb4cd568c4b5132461559b37a7887d0851eb7d5e9cdffe4",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0e257dd67d0cfd635937f4a152400e2278566a795d8fcc7beb7f848308a41f63",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "47dca90b8aaf5a6f8d5f712018933e96fb59ce3b98c4a712355a868bf762cede",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -53810,14 +53953,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "18dd863cd85ff8647b93f970d7fc652b5e15d3a75e19412c17222740175b5015",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "728a36e3d9c45c084ce7b525e521845be7ae51ae1607b6647fdb75f8adc55f8a",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0f580e0f2d65cca872d4c1a44b7c17f1446fe33d391017838d2decc8d998f8c7",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "be4cf074d790661373ae229b16caff9f3e5e8e8d335ec6cb4cb208e04c303644",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -53834,8 +53977,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "406bf971ad34dbe7429143b653eb9763db84eae5f69842b7e3571a2fca6c0e14",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "b1ab5df11e612aab6061aa3ac97bc074b6ccb85019e13d1b836de0918233fe76",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

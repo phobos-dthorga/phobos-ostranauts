@@ -108,7 +108,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         {
             var targets = LiquidStoreService.PourTargets(co).ToArray();
             if (targets.Length > 0)
-                yield return new(Text.Get("Acid.pour_field"), Text.Get("Provider.link_none"), targets.Select(c => ("pour:" + c.strID, ObjectPresentation.Name(c))));
+                yield return new(Text.Get("Acid.pour_field"), Text.Get("Provider.link_none"), targets.Select(c => ("pour:" + c.strID, LinkChoices.Label(co, c, LiquidStoreService.Line(co), deposit: true))));
         }
         else if (GasStores.For(co.strCODef) is GasStore fuel && !BulkVessel.Protected(co))
         {

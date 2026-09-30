@@ -452,6 +452,7 @@
   "BulkVessel.lost": "Bulk vessel {0} was destroyed with {2:F1} kg of {1} inside. That material is gone.",
   "BulkVessel.quote_changed": "The destination or its available room changed. Choose the quantity again for a fresh quote.",
   "BulkVessel.drained": "{0} lost {2:F3} kg of {1}: {3}.",
+  "BulkVessel.contained": "{0} moved {2:F3} kg of {1} into its catch chamber: {3}.",
   "Performance.probes_failed": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue.",
   "FrameworkConsole.data_packs": "Data packs (shipped tables plus player files in BepInEx/config/<Mod>/<schema>):",
   "DataPacks.file_too_large": "The file is larger than 1 MiB.",

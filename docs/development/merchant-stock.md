@@ -22,6 +22,7 @@ shop inventories or a scientific/economic claim.
 | Shipbreaker ingots | 32 |
 | Auto Nav boards | 16 |
 | Manufacturing equipment | 8 |
+| Manufacturing acid line | 128 |
 | Framework gas and process-water lines | 128 |
 | Framework water silos (S2 to S5) | 8 |
 

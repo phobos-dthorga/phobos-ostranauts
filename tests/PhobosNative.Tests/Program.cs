@@ -130,6 +130,7 @@ foreach (var equipment in manufacturing.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal) || equipment.strName.StartsWith("SysPhobos", StringComparison.Ordinal), "Branded Manufacturing machine or material: " + equipment.strName);
 manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
+AcidLineNativeChecks.Run(manufacturing, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);

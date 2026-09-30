@@ -373,6 +373,12 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.24.0 adds the Lixivar acid line.
+            if ($version -ge [version]'0.24.0') {
+                foreach ($image in @('AcidPipe', 'AcidPipeSheet')) {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
             # 0.4.0 adds medium and large gas stores, the oxygen, nitrogen and carbon dioxide stores, and the L2.
             if ($version -ge [version]'0.4.0') {
                 $stores = foreach ($family in @('PhobosHydrogenStore', 'PhobosMethaneStore', 'PhobosOxygenStore', 'PhobosNitrogenStore', 'PhobosCarbonDioxideStore')) {

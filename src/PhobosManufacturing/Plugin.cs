@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.23.0";
-    public const string MinimumFrameworkVersion = "0.57.0";
+    public const string Version = "0.24.0";
+    public const string MinimumFrameworkVersion = "0.60.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -251,7 +251,7 @@ internal static class MaintenanceOffer
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     {
         // This runs for every offer the game evaluates: our machines are recognised before any name search.
-        if (!__result || __instance.strName == null || !Content.Machine(objUs) && !Content.Machine(objThem)) return;
+        if (!__result || __instance.strName == null || !Content.Maintained(objUs) && !Content.Maintained(objThem)) return;
         var reason = MaintenanceFinish.Reason(__instance.strName, objUs, objThem);
         if (reason != null) { __instance.AddFailReason("main", reason); __result = false; }
     }
@@ -261,7 +261,7 @@ internal static class MaintenanceFinish
 {
     internal static string? Reason(string action, CondOwner? us, CondOwner? them)
     {
-        var machine = Content.Machine(us) ? us : Content.Machine(them) ? them : null;
+        var machine = Content.Maintained(us) ? us : Content.Maintained(them) ? them : null;
         if (machine == null || action == null) return null;
         bool dismantle = action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0;
         bool removal = dismantle || action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0;

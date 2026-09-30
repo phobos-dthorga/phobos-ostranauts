@@ -24,6 +24,9 @@ public sealed class StoredCommodity
     { if(!Valid(kg)||kg>CapacityKg)throw new ArgumentOutOfRangeException(nameof(kg));ReserveKg=kg;Revision++; }
     public void Isolate(){if(ServiceKg<=0)return;CatchKg+=ServiceKg;ServiceKg=0;Revision++;}
     public void Recover(){if(CatchKg<=0)return;ServiceKg+=CatchKg;CatchKg=0;Revision++;}
+    /// <summary>Moves up to <paramref name="kg"/> of the service contents into the catch chamber (a spill the bund holds,
+    /// Framework 0.60.0); total mass and capacity are unchanged. Returns the kilograms moved.</summary>
+    public double Contain(double kg){if(!Valid(kg))throw new ArgumentOutOfRangeException(nameof(kg));double moved=Math.Min(kg,ServiceKg);if(moved<=0)return 0;ServiceKg-=moved;CatchKg+=moved;Revision++;return moved;}
     public Dictionary<string,string> Save()=>new(){["commodity"]=Commodity,["service"]=ServiceKg.ToString("R",CultureInfo.InvariantCulture),["catch"]=CatchKg.ToString("R",CultureInfo.InvariantCulture),["reserve"]=ReserveKg.ToString("R",CultureInfo.InvariantCulture),["revision"]=Revision.ToString(CultureInfo.InvariantCulture)};
     public static StoredCommodity Read(IReadOnlyDictionary<string,string> d,string commodity,double capacity)
     {

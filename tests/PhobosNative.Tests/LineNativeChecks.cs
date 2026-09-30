@@ -15,6 +15,7 @@ internal static class LineNativeChecks
         ("PhobosPropellantLine", LineLayers.Gas, "PhobosPropellantLinePresent"),
         ("PhobosVerdemorrowWaterConduit", LineLayers.Irrigation, "PhobosWaterConduitPresent"),
         ("PhobosFurnaceCoolantConduit", LineLayers.Coolant, "PhobosFurnaceCoolantSegment"),
+        (PhobosManufacturing.Core.AcidLineRules.Prefix, LineLayers.Acid, PhobosManufacturing.Core.AcidLineRules.Present),
     };
     internal static void Run(IEnumerable<NativeDefinitions> definitions, Action<bool, string> check)
     {
@@ -47,7 +48,8 @@ internal static class LineNativeChecks
               Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("methane") == gas && Phobos.Ostranauts.Framework.Liquids.LineFamilies.For("crop nutrients") == null,
             "Water rides the water line, the gases the gas line, and the hoppers' nutrients link by touching only");
         foreach (var (family, presence) in new[] { (Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterId, "PhobosProcessWaterLinePresent"),
-                     (Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasId, "PhobosPropellantLinePresent") })
+                     (Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasId, "PhobosPropellantLinePresent"),
+                     (PhobosManufacturing.Core.AcidLineRules.FamilyId, PhobosManufacturing.Core.AcidLineRules.Present) })
         {
             var ported = Phobos.Ostranauts.Framework.Liquids.LinePorts.Definitions(family).ToArray();
             check(ported.Length >= 8, "Equipment carries ports of " + family + " (" + ported.Length + " forms)");

@@ -831,3 +831,14 @@ the S3, S4 and S5 on load; the heavier housing raises the converted item's mass
 and base value to the silo's. Merchants no longer offer reservoirs, and
 Agriculture's machinery salvage roll fell from 30% to 25% with the R3's share,
 leaving every remaining family's chance as it was.
+
+## Manufacturing 0.24.0: the Lixivar acid line
+
+| Item | Mass | Price | Repair | Dismantle |
+|---|---:|---:|---|---|
+| Lixivar acid line segment | 1 kg | $6 | 120 work, one steel scrap | 120 work, 1 kg retained waste |
+
+Twice the plain gas or process-water line ($3) for its lining. It sells at the
+same four merchants in lots of 128, at the supplies floor, and for scrip at the
+faction kiosks at any standing. Dismantling returns no clean metal, because
+acid-wetted lining is not recovered as scrap.

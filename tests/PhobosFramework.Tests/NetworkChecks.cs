@@ -32,6 +32,15 @@ internal static class NetworkChecks
             "A family without participants keeps its cell components and routes");
         var overflow = FluidTopology.Build(6, 3, 5000, new[] { 8, 9, 10 }, 4096, ports, new[] { (0, 1) });
         check(!overflow.ParticipantsConnected(1, 2) && !overflow.ParticipantsConnected(0, 1), "An overflowing layout trusts no network, as before");
+        // What a segment joins (Framework 0.60.0): every participant on its run, including one that only touches.
+        check(piped.ParticipantsOn(9).SequenceEqual(new[] { 1, 2 }) && joined.ParticipantsOn(8).SequenceEqual(new[] { 0, 1, 2 }),
+            "A segment's network lists the participants at its ports and those touching them");
+        check(!piped.ParticipantsOn(7).Any() && !overflow.ParticipantsOn(9).Any(), "A cell without pipe, or an overflowing layout, joins no one");
+        // A bund holds a spill: service moves into the catch chamber, total and capacity unchanged.
+        var acid = new StoredCommodity("sulfuric acid", 100); acid.SetService(40);
+        double moved = acid.Contain(1.5);
+        check(moved == 1.5 && acid.ServiceKg == 38.5 && acid.CatchKg == 1.5 && acid.TotalKg == 40, "Containment moves the spill from service into the catch chamber");
+        check(acid.Contain(100) == 38.5 && acid.ServiceKg == 0 && acid.CatchKg == 40 && acid.Contain(1) == 0, "Containment never moves more than is in service");
 
         // Receiver banks: one store, eight machines; the ninth is refused; slot zero is the old port.
         var store = new Dictionary<string, Dictionary<string, string>>();

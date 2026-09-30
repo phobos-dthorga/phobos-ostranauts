@@ -32,6 +32,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark Gas Line (a Framework item since Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
 | Phobos' Process Water Line (Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | The same sellers, in lots of 128; INSTALL > HVAC. |
+| Phobos' Lixivar Acid Line | 1 tile per segment; 1 kg | 6 cr | The same sellers, in lots of 128; INSTALL > HVAC. |
 
 Every store's broken price is a quarter of its price. The medium and large
 stores are too big to turn up in salvage; buy them.
@@ -109,24 +110,26 @@ exception is the station refuelling kiosk's Bulk supplies view.
   diagonal included. Wherever the steps below say *within one tile*, this is it,
   and the matching line works as well. Touching also chains: a tank touching a V4 that touches an X2 serves the X2.
 - **Lines** are Framework's process-water line (blue) and gas line (amber),
-  bought and laid tile by tile through INSTALL > HVAC. Every machine and store
+  and the Lixivar acid line (violet), bought and laid tile by tile through
+  INSTALL > HVAC. Every machine and store
   has its **water port** on the tile beside the middle of its left-hand side
   and its **gas port** on the tile beside the middle of its right-hand side
-  (the upper of the two middle rows on an even size). Ports turn with the
-  equipment. Lay the line so it reaches both ports; every machine and store
+  (the upper of the two middle rows on an even size). The LC-3, the SA-3 and
+  the acid tanks also have an **acid port** on the tile beside their right-hand
+  side, one row below the gas port. Ports turn with the equipment. Lay the line so it reaches both ports; every machine and store
   whose port a line reaches is on the same network, and so is anything touching
   them. Different lines can share a tile.
 - **Sharing:** one store serves up to eight machines of each kind. An H2 store
   filled by an X2 can feed a K2 and a P1 at the same time, and one water tank can
   serve every machine on its line.
 - **The link list** on a machine's Control Panel names how each store is reached
-  (*touching*, *water line* or *gas line*) and marks a destination that is
+  (*touching*, *water line*, *gas line* or *acid line*) and marks a destination that is
   *full* or a source that is *empty*. A store's own panel lists every machine
   linked to it.
 - If a link stops being reachable (a segment is damaged, or one of the pair
   moves), the machine reports the store as not ready and waits; nothing is lost.
-- The game's own canisters, Agriculture's nutrient hoppers and the acid tanks
-  still link by touching only.
+- The game's own canisters and Agriculture's nutrient hoppers still link by
+  touching only.
 - **Oxygen and fuel on one gas line.** If an oxygen store and a hydrogen, methane
   or ammonia store end up on the same gas line, their panels say so and the crew
   log gets one note. Nothing is blocked (the P1 and L2 mix gases on purpose), but
@@ -327,8 +330,9 @@ flowchart LR
 
 1. Install the LC-3 within one tile of a water silo (S2 to S5), or on its
    process-water line, and connect its power point. For struvite, also install an
-   ammonia store within one tile; for the acid recipes an acid tank; for crop
-   nutrients a Groundwork nutrient hopper. One vessel can serve a refinery, an X2,
+   ammonia store touching it or on its gas line; for the acid recipes an acid tank
+   touching it or on its acid line; for crop nutrients a Groundwork nutrient hopper
+   within one tile. One vessel can serve a refinery, an X2,
    a K2 and an LC-3 at once.
 2. Open its **Control Panel** > **Connections**. Pick the vessel under **Water
    vessel**, the store under **Ammonia from**, the tank under **Acid tank** and the
@@ -366,8 +370,9 @@ roasts one nodule (10 kg: troilite, a nickel-iron phosphide and rock) in 6.28 kg
 of oxygen with 1.58 kg of water, and makes 7.81 kg of sulfuric acid, a 0.515 kg
 phosphoric acid flask and 9.535 kg of roasted calcine (trash).
 
-1. Install the SA-3 within one tile of an oxygen store, a water vessel and an
-   acid tank (any sizes), and connect its power point.
+1. Install the SA-3 touching an oxygen store, a water silo and an acid tank (any
+   sizes), or join each to it with gas, water or acid line, and connect its power
+   point.
 2. Open its **Control Panel** > **Connections** and set **Oxygen from**, **Water
    vessel** and **Acid tank**. Apply.
 3. Put nodules in its **Acid plant charge** window (it holds two) and **Start**.
@@ -382,8 +387,18 @@ room with cooling or it will crawl. Vacuum is not free cooling.
 **Acid tanks** are bunded tanks, not gas stores: they have no gas line and never
 feed thrusters, filling stations or cabin air. Fill one from an SA-3 or at a
 station; the LC-3 draws from it. To move acid, open a tank's panel and **Pour
-acid into** another acid tank within one tile. A tank holding acid refuses to be
-moved or dismantled.
+acid into** another acid tank it touches or shares an acid line with; the list
+says how each is reached. A tank holding acid refuses to be moved or dismantled.
+
+**The acid line** joins the SA-3, the LC-3 and the tanks port to port, so the
+tank room need not sit beside the plant. While a line joins a tank to a machine
+linked to that tank, it is *wet*. Damage or destroy a wet segment and it spills
+about a kilogram from that tank: a ten-thousandth mists into the room, the rest
+lands in the tank's bund, and the crew log names the tank. Repair or relay the
+line, then choose **Recover acid from the bund** on the tank's panel (the tank
+itself is intact). You cannot take up a wet segment: unlink the tank from its
+machines on their panels first. The kilogram is ours: a metre of 25 mm bore line
+holds about 0.9 kg of 98% acid.
 
 ## Gas stores
 
@@ -561,6 +576,9 @@ releases it.
   own sulfuric acid mist, whose poisoning bands apply; a destroyed tank mists the
   same share and the rest is lost. Get the crew out and ventilate, then repair the
   tank and choose **Recover acid from the bund** to put it back in service.
+- **A wet acid line spills.** A damaged or destroyed segment that carries acid
+  from a tank to its machine lets about a kilogram out of that tank: 0.1 g mists
+  into the room and the rest goes to the tank's bund. See the acid plant section.
 - **The acid plant heats its room hard.** See the acid plant section: about 21 kW
   over an hour, beyond the plant's own draw.
 - **Ammonia poisons.** A damaged ammonia store leaks about 2, 3 or 4 kg an
@@ -707,6 +725,12 @@ climb and confirm the plant waits near 40 C; after the hour confirm the acid in
 the tank, the flask and the calcine. Buy acid at a station's Bulk supplies and
 pour it into a second tank. Damage a tank holding acid, watch the room's
 sulfuric acid and the crew's poisoning, repair it and recover the acid.
+
+Acid line (0.24.0): lay acid line from an AT-2's acid port to an LC-3's, link
+them and run an acid recipe. Confirm the line shares a tile with a gas line in its
+own lane, that uninstalling a segment is refused while linked, and that damaging
+one puts about a kilogram into the tank's bund, a trace of mist in the room and
+one crew-log caution; recover it from the tank's panel.
 
 Acid recipes (0.20.0): link an acid tank to the LC-3, choose Epsom salt from
 olivine, load a mined olivine and confirm 32 Epsom salt and the leach cake after

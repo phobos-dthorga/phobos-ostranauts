@@ -11522,7 +11522,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.59.0",
+      "version": "0.60.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -15343,9 +15343,472 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.23.0",
+      "version": "0.24.0",
       "gameTarget": "1.0.1.5",
       "items": [
+        {
+          "id": "PhobosAcidLineInstalled",
+          "name": "Phobos' Lixivar Acid Line",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 6.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosAcidLineInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAcidLineInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineWaste",
+                  "name": "Phobos' Lixivar Retained acid line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAcidLineInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosAcidLineInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAcidLineInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineLoose",
+                  "name": "Phobos' Lixivar Acid Line",
+                  "count": 1,
+                  "baseValue": 6.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAcidLineInstalledDmg",
+          "name": "Phobos' Lixivar Acid Line (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 1.2000000476837158,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosAcidLineInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAcidLineInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineWaste",
+                  "name": "Phobos' Lixivar Retained acid line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAcidLineInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineInstalled",
+                  "name": "Phobos' Lixivar Acid Line",
+                  "count": 1,
+                  "baseValue": 6.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAcidLineInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineLooseDmg",
+                  "name": "Phobos' Lixivar Acid Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 1.2000000476837158
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAcidLineLoose",
+          "name": "Phobos' Lixivar Acid Line",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 6.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAcidLineLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAcidLineLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineWaste",
+                  "name": "Phobos' Lixivar Retained acid line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosAcidLineLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAcidLineLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineInstalled",
+                  "name": "Phobos' Lixivar Acid Line",
+                  "count": 1,
+                  "baseValue": 6.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAcidLineLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAcidLineLooseDmg",
+          "name": "Phobos' Lixivar Acid Line (Damaged)",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 1.2000000476837158,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAcidLineLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAcidLineLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineWaste",
+                  "name": "Phobos' Lixivar Retained acid line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosAcidLineLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAcidLineLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineInstalledDmg",
+                  "name": "Phobos' Lixivar Acid Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 1.2000000476837158
+                }
+              ]
+            },
+            {
+              "id": "PhobosAcidLineLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAcidLineLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAcidLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosAcidLineLoose",
+                  "name": "Phobos' Lixivar Acid Line",
+                  "count": 1,
+                  "baseValue": 6.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAcidLineWaste",
+          "name": "Phobos' Lixivar Retained acid line waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
         {
           "id": "PhobosAcidPlantInputBin",
           "name": "Phobos' Lixivar SA-3 Acid plant charge",
@@ -32521,6 +32984,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -32731,6 +33201,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -32938,6 +33415,13 @@
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
           "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
         },
         {
           "table": "ItmFactionKioskMTRSInv",
@@ -33729,6 +34213,13 @@
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -33942,6 +34433,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -37299,6 +37797,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -37719,6 +38224,13 @@
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmRandomMineralCClass",
@@ -37762,7 +38274,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.54.0",
+      "version": "0.55.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -50362,17 +50874,17 @@
     "mods/PhobosFramework/framework/economy.json": "642e4503125a83ad43be33ace64c7cb7e7f39968e867f3beceb96ecdb3b18138",
     "mods/PhobosFramework/framework/equipment-names.json": "461bd300a91759e577d8d61f3e9c651233bea08cff588b2dc4a150571dd27c6b",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "18dd863cd85ff8647b93f970d7fc652b5e15d3a75e19412c17222740175b5015",
+    "mods/PhobosFramework/mod_info.json": "728a36e3d9c45c084ce7b525e521845be7ae51ae1607b6647fdb75f8adc55f8a",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "feb5ccfd0ce8e7f4053e91484e9e16b64d23caa4500432794cef0aa3693d4028",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "38c3155d9b589432225111e2a30c6708e4bf80499dc119b06d3c7731d034a940",
+    "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "70556e1b97c172b98c385dab4207da91d5973b3472f3c33b6246bbaede60dd88",
     "mods/PhobosManufacturing/framework/equipment.json": "1da41d7fd58ddb3e922b403c61395bfd9bff078c830d6eac4d8ee69f96114a4f",
     "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "7be9ef0d128ac8f32458d67031d1f28f3d6c4901ae799b9dcc5553623033c50c",
     "mods/PhobosManufacturing/framework/materials.json": "f5c967a00e0c077003abf7f146c68756b6653f9f9ce364e40c5ea2cea27d9c13",
     "mods/PhobosManufacturing/framework/process-recipes.json": "8a88740a9e4cb33e2ef1c99aca60fe68b382e273ff38f1b16434d33b31dd45d8",
     "mods/PhobosManufacturing/framework/vessels.json": "38f780dd14722199d5fddf7c68baa000e2b57d507ea5773c0b6bbbd6bec6aec2",
-    "mods/PhobosManufacturing/mod_info.json": "0f580e0f2d65cca872d4c1a44b7c17f1446fe33d391017838d2decc8d998f8c7",
+    "mods/PhobosManufacturing/mod_info.json": "be4cf074d790661373ae229b16caff9f3e5e8e8d335ec6cb4cb208e04c303644",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -50383,7 +50895,7 @@
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "406bf971ad34dbe7429143b653eb9763db84eae5f69842b7e3571a2fca6c0e14",
+    "mods/PhobosShipbreaker/mod_info.json": "b1ab5df11e612aab6061aa3ac97bc074b6ccb85019e13d1b836de0918233fe76",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -50590,19 +51102,19 @@
     "src/PhobosFramework/Items/WaterTankService.cs": "f593306709580a297bed7fd10a4839c3a6e1857b91f5497bfb8adcdea1bcfc2d",
     "src/PhobosFramework/Items/WaterTankSettings.cs": "c9cc09962816a7676b0002f4174a20497ed6533c9c328011f108bdaad0a41df5",
     "src/PhobosFramework/Liquids/BufferedDrains.cs": "dba7ec7e6e6fe67019127d3db7de5f8a54bfc85c12d70f552819e81598bcd843",
-    "src/PhobosFramework/Liquids/BulkVessel.cs": "46d9727c7cbe606f610b3cafd48a85df43e5202afb98e78b0fe1c0025b09543b",
+    "src/PhobosFramework/Liquids/BulkVessel.cs": "aa9430481f465ea8b6feeb0b22df728656080492a7e2721cd162cdc13003109f",
     "src/PhobosFramework/Liquids/BulkVesselSizes.cs": "147c82bc1645f6dd40e1c8f0cba355d8a5b9d4ed9a63109c206f1b0dd06352f1",
     "src/PhobosFramework/Liquids/CommoditySettlement.cs": "832ab7ddc97089016550970d61af4a50e2ce7ec737947147263d395f09ef4417",
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
     "src/PhobosFramework/Liquids/FluidRouteCache.cs": "121d19272fffb55baddbc380e7617e77ca8870f7ada97f78727ed82a31cdee1d",
-    "src/PhobosFramework/Liquids/FluidTopology.cs": "ce2790e14cc5e89a61ade5e3e531d627d08c52beefb4c5b6e46e37f07bb02d4c",
+    "src/PhobosFramework/Liquids/FluidTopology.cs": "86ef515cbbf1ea3c398ba04d89605bb0ee0c745b419e557454919859a15f8692",
     "src/PhobosFramework/Liquids/GasNetworkSafety.cs": "8f65a912bc8033c73d24d0324fbb7dd1b16a7cde374eb32e92640ee00b188044",
     "src/PhobosFramework/Liquids/GasTransfers.cs": "22cc09d49830aeb238cd904e60f5822baa80d1aba21e56ce5b0789e9669a9b2c",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
     "src/PhobosFramework/Liquids/LineFamilies.cs": "79d9b4d9b17d2eabce6b1d130dbd886aef612338bb83989b5945d38cc403fe99",
     "src/PhobosFramework/Liquids/LinePorts.cs": "064b0fff75aab4d5dc92245cceb8e0b43ffe4014b6065988dc2c45eaf6643e5f",
-    "src/PhobosFramework/Liquids/LineReach.cs": "6225363863d256da4203ca89aa6a7704ee6ee10dc9e7d2fe104bf1907436930d",
+    "src/PhobosFramework/Liquids/LineReach.cs": "94c1a520536ba63139c5ddbd632a9689431bf51abaf22c91d3f086e618e9af27",
     "src/PhobosFramework/Liquids/LiquidDeliveryBudget.cs": "5ddee4a9290d4d6c7c7e5346bd0c8e786ee943e9563732e97b651dc7621b0c74",
     "src/PhobosFramework/Liquids/LiquidTransferGuard.cs": "05a0e7cf72224a76f84a8c030aa96dedf24e98dc8f9c650704b17583bcf69c02",
     "src/PhobosFramework/Liquids/MixtureTransfer.cs": "ce5752c0f7a578e409bfb75cf211cf47f5a1904629e17d51aca9f881f45c423b",
@@ -50610,7 +51122,7 @@
     "src/PhobosFramework/Liquids/ShipsWaterPorts.cs": "3dc618c59119bd6c48e85cf5d16de0df7664a2f752a750cfbadcb08fd47ad8cb",
     "src/PhobosFramework/Liquids/ShipsWaterRejects.cs": "2583e4ddb5ce356923125067991b583ef0939e4f497635ad8160643aae78c090",
     "src/PhobosFramework/Liquids/ShipsWaterSupply.cs": "16246cc65917f2f3ad6788b44305f48bafc7ee7dd0738f8ee67c24ca98796a23",
-    "src/PhobosFramework/Liquids/StoredCommodity.cs": "33453cc17bd547e3b6bdfe62971b7ee0f798b3bea5ba457b6b4c99be77d053b6",
+    "src/PhobosFramework/Liquids/StoredCommodity.cs": "d6a2a5b3615252e2f6b5f833b36503f2679d6744e0428010e6d35d888390d056",
     "src/PhobosFramework/Liquids/VesselLink.cs": "1ff622049ce1e6f6e2730308f6dbaebe6a8fda31e0dfe2d147d916c206fc7fd7",
     "src/PhobosFramework/Localization/DeferredMessage.cs": "529c9ae888ddeccf8d18f5c50d956fdcc415f8583608820e0671747aa5ab2e08",
     "src/PhobosFramework/Localization/EquipmentNames.cs": "f2a1b562694330e16897c797b274248e0edef37d6b2def4b3688b83a0bea1445",
@@ -50628,8 +51140,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "f1ab6c995f809c610f04159545f5edf47c833b40ea569680f7f859c847a6d499",
-    "src/PhobosFramework/Plugin.cs": "5614bf2e74ab734ad59dc6255d7e74572791a593bdcafd77da7312931b9126d8",
+    "src/PhobosFramework/PhobosFramework.csproj": "a213f1623af6ab56137a62391a2a3c92583db536ee0b3b12abca93eea7e51016",
+    "src/PhobosFramework/Plugin.cs": "095fa7e5bfa31d31e435f533a62826351b9d517de964d139e25913b6a31a5254",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -50671,18 +51183,21 @@
     "src/PhobosFramework/Trading/RegionalMarkets.cs": "b79921a791e70a757cbf0457a382f53da73ef4ce9651c821bb36765464ca927b",
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
+    "src/PhobosManufacturing/AcidLine.cs": "29d536ff1ef7d3763f8b7027c126d2739f80dce5307826d30f6d7e97cbce3387",
+    "src/PhobosManufacturing/AcidLineService.cs": "fc2041a5cb1471b40b1a5350c154949196cf132b7d22d3f0fa660fc52b752f89",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/ChargeMachine.cs": "93b2beea63f06341bee2cc8fb15a6307fd98e6d3c08b1a7fab6c842624b0859d",
     "src/PhobosManufacturing/ChargeMachines.cs": "b077a2cc9f8862f97446572a6c4566900fb66e0c6615f7f4937fb7e0aa12cc86",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "efe2a860541282c5ec2d6399eea0308f5251a2c61b07517480f4744f66b8ac19",
-    "src/PhobosManufacturing/Content.cs": "95a30f031c0ae8ec8e2fb42658bf1cd637ce3a76f1328f324b110b5ceebcf5ac",
+    "src/PhobosManufacturing/Content.cs": "fced206fed9f1d0a4447bcc8e3f17526c1f0c7ef830f098d6de869903c4ff833",
+    "src/PhobosManufacturing/Core/AcidLineRules.cs": "a9ba575d878f07b86f85087518faa44a5e0e48af37999c81c1d7bb7bc0c930ff",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/ChargeCatalog.cs": "358b35c29325a199a598de14ca0cc519c0ee4a1640370ae3a2bc260f925d0993",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "e492850411bd145b842e28838d2eb7fd3f2f02f568991b577dc3f3eba8760b9e",
     "src/PhobosManufacturing/Core/ChargeState.cs": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "6ba1e6b5f9973cb50e14d32b1816a2e1865bd45faeb6a6342cd653e86d969a60",
+    "src/PhobosManufacturing/Core/Economy.cs": "7edc36b28c2bc09b5403360276011da3379016888879f438083fdc5bc27f3d6b",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "78ccdce853ae55822c56fb97387c437b3ac72909014585b08793a5f6fe8f32d5",
@@ -50700,20 +51215,20 @@
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "37b34f21d58a41d5b9cdb81126cddacf1714ae573875287b5a290dfa5a1a5de1",
-    "src/PhobosManufacturing/Definitions.cs": "278eafa09a3439928ee49fdfdc7e27552eacbca6bf500e20a2bafd296fd12ab6",
+    "src/PhobosManufacturing/Definitions.cs": "1cc1a1f4f84bf0a52e7c5061057c8bee5de78010c8eeef8d410de2d523e2b686",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "65bf19ef630800db202dc55c6ebcfc88b1144ff118ff18894924272bed36abec",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "08b32826b1fd9d1b55fa0ea57e7c486eb95c65fee43df3b347f70ce73fba35df",
     "src/PhobosManufacturing/GasLine.cs": "b91d34fd9ea7fd3f9596424f6ef020dc22b421beceb9b3a759a851f72f371b47",
-    "src/PhobosManufacturing/LiquidStoreService.cs": "60a4288388fa1f077737152505f0caee61bd130b5342546224aeec88b1c629d3",
+    "src/PhobosManufacturing/LiquidStoreService.cs": "8c411fde7c64add718ff3387262efa0f062f2f982e3cd691774c391ec29f4bc5",
     "src/PhobosManufacturing/MachineKinds.cs": "d25b3a55d1a0e5fd74e6165f2c13720222666710341c00fa2d92b4e029504481",
     "src/PhobosManufacturing/ManifoldService.cs": "33bf0955c258790a225d20167518c6d095157353ac57df2d7e8960d03c2f0ecc",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "3995e756fbdbf353f31150b67122df1ab5b77fd4cfef3f0c9c510ce735e1605e",
-    "src/PhobosManufacturing/Plugin.cs": "aa82ea294adaa039ff929baa386b111b636d3498e1c77ce7a29d0bf191f89ac0",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "8c38d2e25c14d0a9f0d08c054a224d885a308efd1f33f723e99ebae47d8dea75",
+    "src/PhobosManufacturing/Plugin.cs": "a50299c6a89261e94b5b9f5927cf4c63e848af8785be75cdfff1202a10e860c8",
     "src/PhobosManufacturing/ProcessorService.cs": "00bd8cadfeeb4a59c0d786d55fd22aaea153f7d2c20ff3688c0c2295b7b0e48b",
-    "src/PhobosManufacturing/Provider.cs": "e490ecf0f999a39fd925917527eb55d9b332812550dce60f7a55186f7f5b6fcc",
+    "src/PhobosManufacturing/Provider.cs": "2678bbb5b661931f46c5a789b16985657d8706cc7e569b2563d93c9fca656342",
     "src/PhobosManufacturing/RegulatorService.cs": "7168358b9d01fb4b13d5c37fbbde47c3238c127bf53165b3e91e02341a877e50",
     "src/PhobosManufacturing/SabatierService.cs": "ec3dd12c8ad027d986a53605d2726d41a50d22e60d7873e6e77b2e88ed2f7cac",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "7b473bf1a7f38c3c40b7d630d543fba05f2670e5607c28f27d1d13a1d7f9f100",
@@ -50794,9 +51309,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "89c27031d3426be275cb76d8c7e2fbe75c01ad5186c4a50b23ca2e218a90764d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "6a471f4eae36cd0c101ef8e78c97a0352a699a06590b8ea300f54f14d52d6410",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "12d02dc31060abcc1d6b6de4353de7b2424358ea3a3a2b6c421e633e84ad7422",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "f2807ac3a2b9cc7083f5e932a1a33cfe83034c1b541ccc7389ae0c02cd9ffbb0",
+    "src/PhobosShipbreaker/Plugin.cs": "66a3d2649ec4ea09f1176b86b2f546deddf2380a9bb40b5957abfd8e49f251ec",
     "src/PhobosShipbreaker/PowerKinds.cs": "1fd8de318e12433eb363fa069c4e21b6457ebf6e859f20039531a98f7b278629",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -50831,12 +51346,12 @@
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "7be1995998713001a106085263a77f39a5a67cea5e85dc52cee132b5bec6bfc4",
-    "tests/PhobosNative.Tests/Program.cs": "42d558ae053fc489b85ab2d90c7830e3cddecb1ce38c420f71eee9d66d675411",
+    "tests/PhobosNative.Tests/Program.cs": "7d4dadabccbd12bba555325c7046390c1c86fe2a15c0e4d3dfbde4323f7d9d67",
     "translations/PhobosAgriculture/en.json": "facb6ab7d17821afacff6935773a58f797e3b30139894eabfa6e9d9cbdeee3ca",
     "translations/PhobosAutoNav/en.json": "4b34b642eb89e9927640c50d446a4d2760ef8b7b5f5b27d1f8161206648c70a6",
-    "translations/PhobosFramework/en.json": "c4fcc726fb274dec266420e854b587d78883a8f2f5d33a66bfa93d505b9c3f6c",
-    "translations/PhobosManufacturing/en.json": "f73700ed50d47f341c6d47429ca5dc431817d9427e98cbf262ca6901a292636d",
-    "translations/PhobosShipbreaker/en.json": "5ba6b20e20dd3e28eb9a955a547862cf68065331584493c938538dece02957b6",
+    "translations/PhobosFramework/en.json": "6b94cc635f8de999350396c95e24ed01eb11f340ee3b4be9a5074781975babce",
+    "translations/PhobosManufacturing/en.json": "51b97b05af7725a62ded05a15166371028427a51da741bf8b34cc3c3c4603c23",
+    "translations/PhobosShipbreaker/en.json": "71d86d688285fb353e8d27516275c0dc2e6ae6c784c571b3371f17ae02be2320",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }
 }

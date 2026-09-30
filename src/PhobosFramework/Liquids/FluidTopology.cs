@@ -112,6 +112,14 @@ public sealed class FluidTopology
     /// <summary>Whether two participants share one network: through segments at their ports, through touching
     /// participants, or both.</summary>
     public bool ParticipantsConnected(int a, int b) => !Overflow && a != b && ParticipantComponentOf(a) >= 0 && ParticipantComponentOf(a) == ParticipantComponentOf(b);
+    /// <summary>Every participant on the network that runs through a segment cell (Framework 0.60.0), in index order;
+    /// none when the cell carries no fluid or the snapshot overflowed.</summary>
+    public IEnumerable<int> ParticipantsOn(int cell)
+    {
+        int id = Overflow ? -1 : ComponentOf(cell);
+        if (id < 0) yield break;
+        for (int k = 0; k < participantComponent.Length; k++) if (participantComponent[k] == id) yield return k;
+    }
     /// <summary>The bounded cardinal route between two cells, or null; identical to the former per-call search.</summary>
     public int[]? Path(int startCell, int goalCell, int visitLimit = GridRoute.DefaultVisitLimit)
     {

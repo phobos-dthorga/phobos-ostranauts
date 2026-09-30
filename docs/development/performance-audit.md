@@ -574,3 +574,14 @@ comparison on the cached snapshot, per tank. The rack and W2 run that filter on 
 power steps they already used to refill; with Ship's Water absent it is skipped. A
 silo's status counts reachable drinking and waste tanks only while its panel or the
 console asks. No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: the acid line (L5)
+
+L5 — Static review of Framework 0.60.0 with Manufacturing 0.24.0 and Shipbreaker
+0.55.0. The acid line is one more family in the ship's single object scan, with
+twenty ported definitions. Its hooks add a definition-id comparison to every
+`ModeSwitch` and `Destroy`; only an installed acid segment goes further, reading
+the cached snapshot once and each member tank's saved links. The removal refusal
+runs that same read only when uninstall or dismantle work is offered on a segment.
+Pouring filters tanks aboard by `LineReach` instead of the touching test alone.
+No performance capture or measured FPS claim accompanies this change.

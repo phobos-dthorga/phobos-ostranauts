@@ -44,6 +44,8 @@ internal static class Definitions
         AddFiller(d);
         AddRegulator(d);
         AddLinePorts(d);
+        // The Lixivar acid line and the acid ports (Manufacturing 0.24.0).
+        AcidLine.Add(d);
         AddDeflagrations(d);
     }
 

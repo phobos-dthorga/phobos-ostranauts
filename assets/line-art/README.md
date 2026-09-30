@@ -18,6 +18,8 @@ recorded luminance ramp:
 | Irrigation (Agriculture) | 3 | original steel with a cyan fitting | `WaterPipe*` |
 | Gas (Fennmark) | 1 | the propellant line's amber ramp, kept | `PropellantPipe*` |
 | Coolant (Shipbreaker) | 4 | green (cooling water) | `FurnaceCoolantPipe*` |
+| Process water (Framework 0.57.0) | 0 | blue | `ProcessWaterPipe*` |
+| Acid (Lixivar, Manufacturing 0.24.0) | 2 | violet, the pipeline identification colour for acids and alkalis in BS 1710 (British Standards Institution) | `AcidPipe*` |
 
 The loose icon is the full cross in the middle lane. Sheets follow the game's joint
 mask order (N=8, W=4, E=2, S=1, bottom-left first) with flat normals.

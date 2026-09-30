@@ -13,7 +13,8 @@ using PhobosManufacturing.Core;
 namespace PhobosManufacturing;
 
 /// <summary>The Lixivar acid tanks over Framework's bulk vessel: status, owner-confirmed acceptance, recovery of the
-/// bund after repair, pouring into another tank of the same liquid within one tile, and the hazard: when a tank is
+/// bund after repair, pouring into another tank of the same liquid it touches or shares an acid line with (Manufacturing
+/// 0.24.0), and the hazard: when a tank is
 /// damaged or destroyed, an authored mist fraction of its service contents reaches the room as the game's own H2SO4
 /// (its poisoning bands apply) and the crew are warned; the bund keeps the rest. Native destruction is never blocked.</summary>
 internal static class LiquidStoreService
@@ -36,8 +37,14 @@ internal static class LiquidStoreService
     internal static string? MaintenanceReason(CondOwner co) => BulkVessel.Protected(co) ? Text.Get("Maintenance.protected") :
         BulkVessel.Snapshot(co).ServiceKg + BulkVessel.Snapshot(co).CatchKg > 1e-8 ? Text.Get("Maintenance.acid") : null;
     internal static EquipmentState State(CondOwner co) => BulkVessel.Protected(co) || co.HasCond("IsDamaged") || co.HasCond("IsLocked") ? EquipmentState.Blocked : EquipmentState.Ready;
-    /// <summary>Other tanks of the same liquid within one tile that can take some of this one's contents.</summary>
-    internal static IEnumerable<CondOwner> PourTargets(CondOwner co) => BulkVessels.Aboard(co.ship, Store(co).Commodity).Where(v => v != co && LiquidStores.IsFamily(v.strCODef) && BulkVessels.Adjacent(co, v));
+    /// <summary>The line that carries this tank's liquid (the acid line), or null (touching only).</summary>
+    internal static FluidSegmentFamily? Line(CondOwner co) => LineFamilies.For(Store(co).Commodity);
+    /// <summary>Other tanks of the same liquid this one reaches, touching or on its line, that can take some of its contents.</summary>
+    internal static IEnumerable<CondOwner> PourTargets(CondOwner co)
+    {
+        var line = Line(co);
+        return BulkVessels.Aboard(co.ship, Store(co).Commodity).Where(v => v != co && LiquidStores.IsFamily(v.strCODef) && LineReach.Of(co, v, line) != LineReachKind.None);
+    }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
         message = Text.Get("Store.protected");

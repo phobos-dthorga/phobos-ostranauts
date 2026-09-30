@@ -6,9 +6,30 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.24.0] - 2026-10-01 - Draft
+
+### Added
+
+- The Lixivar acid line: lined pipe for concentrated sulfuric acid, laid tile by tile from INSTALL, HVAC, sold in lots of 128 at 6 cr a segment and at the faction kiosks at any standing. The LC-3, the SA-3 and every AT acid tank have an acid port on the tile beside their right-hand side, one row below the gas port. Acid line between two ports, or the equipment touching, links them. It shares tiles with the other lines in its own violet lane.
+- Acid tanks pour into another acid tank they touch or share an acid line with.
+
+### Changed
+
+- An LC-3 or SA-3 reaches an acid tank by touching it or through the acid line, never across open floor.
+- Machine descriptions and link refusals now say a store or silo must touch the machine or share its water, gas or acid line, where they used to say within one tile; O2 and CO2 canisters and nutrient hoppers still link by touching only. Water vessels are called water silos, after Framework 0.58.0.
+- An acid tank's bund message says to recover the acid once the tank is intact.
+
+### Hazards
+
+- A wet acid line spills when it is damaged or destroyed. A segment is wet while it joins an acid tank to a machine linked to that tank. The spill draws about a kilogram from that tank: a ten-thousandth mists into the room as the game's own H2SO4, and the rest is held in the tank's bund until you recover it from the tank's panel. The crew log says which tank and how much. Taking up a wet segment is refused until the tank is unlinked from its machines. The one-kilogram hold-up is ours (a metre of 25 mm bore line holds about 0.9 kg of 98% acid); the mist fraction is the tanks' own.
+
 ### Documentation
 
-- With Phobos Framework 0.58.0 or newer, the process water silos come with Framework itself, so water work no longer needs Shipbreaker or Agriculture installed. The guide and page say so; nothing in Manufacturing changed.
+- With Phobos Framework 0.58.0 or newer, the process water silos come with Framework itself, so water work no longer needs Shipbreaker or Agriculture installed. The guide and page say so.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.60.0 or newer. Machines and tanks already aboard gain their acid port when the save loads; acid links made before were all touching and keep working. Offline checks are not gameplay validation.
 
 ## [0.23.0] - 2026-10-01 - Draft
 
