@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Processing;
 using Phobos.Ostranauts.Framework.Registration;
 
@@ -118,51 +119,56 @@ public sealed class ChargeRecipe
     }
 }
 
-/// <summary>The V4 catalog (owner chemistry decisions, 29 September 2026; sources in the refinery design
-/// record). Every recipe conserves mass to the gram of its item units; the rounding each accepts is stated
-/// beside it.</summary>
+/// <summary>The V4 catalog (owner chemistry decisions, 29 September 2026; sources in the refinery design record),
+/// read from the <c>process-recipes</c> data pack (<c>framework/process-recipes.json</c>, Manufacturing 0.12.0).
+/// Every recipe conserves mass to the gram of its item units; the loader enforces that and the game's gas species
+/// on every file, and the frozen-revision file keeps every published revision exactly as a saved charge expects.</summary>
 public static class RefineryRecipes
 {
-    // Hydrates: CM-chondrite bound water 9-13 wt% (authored 10%); the dehydrated silicate/oxide is native gangue.
-    public static readonly ChargeRecipe Hydrates = new("hydrates", 1,
-        new[] { new ChargeInput(RefineryRules.Hydrates, 1, RefineryRules.HydratesKg) },
-        new[] { new ProductSpec(ManufacturingRules.Water, 1, 1), new ProductSpec(RefineryRules.Gangue, 3, RefineryRules.GangueKg) }, null, 600, false, false);
-    // Clay hydrates: CI-chondrite phyllosilicate water 18-22 wt% (authored 20%); 8 kg of anhydrous residue is no gangue multiple.
-    public static readonly ChargeRecipe Clay = new("clay", 2,
-        new[] { new ChargeInput(Materials.ClayHydrates, 1, Materials.ClayKg) },
-        new[] { new ProductSpec(ManufacturingRules.Water, 1, 2), new ProductSpec(Materials.AnhydrousResidue, 1, Materials.ResidueKg) }, null, 900, false, false);
-    // Carbon/carbides ("often hydrated"): pyrolysis; authored 50% carbon, 10% water, 30% silicate, 10% gas (CO2, CO, smoke).
-    public static readonly IReadOnlyDictionary<string, double> CarbonOffGas = new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = .6, ["CO"] = .3, ["Smoke"] = .1 };
-    public static readonly ChargeRecipe Carbon = new("carbon", 3,
-        new[] { new ChargeInput(RefineryRules.Carbides, 1, RefineryRules.CarbidesKg) },
-        new[] { new ProductSpec(Materials.CarbonStock, 5, Materials.CarbonKg), new ProductSpec(ManufacturingRules.Water, 1, 1), new ProductSpec(RefineryRules.Gangue, 1, RefineryRules.GangueKg) },
-        CarbonOffGas, 1800, false, false);
-    // Meteoric iron: Fe-Ni metal (kamacite/taenite) with adhering rock and troilite/schreibersite/oxide inclusions;
-    // authored 80% metal, 15% rock (native gangue), 5% slag. Cast as it comes: nickel-iron, not steel.
-    public static readonly ChargeRecipe NickelIron = new("nickel-iron", 4,
-        new[] { new ChargeInput(RefineryRules.Iron, 1, RefineryRules.IronKg) },
-        new[] { new ProductSpec(Materials.NickelIronIngot, 4, Materials.IngotKg), new ProductSpec(RefineryRules.Gangue, 1, RefineryRules.GangueKg), new ProductSpec(Materials.RefinerySlag, 1, Materials.SlagKg) },
-        null, 2400, true, false);
-    // Carburised (nickel) steel: four nickel-iron ingots melted with one kilogram of carbon in excess; the steel
-    // takes 0.2-2 wt% carbon within its 4 kg unit, the unreacted carbon and oxide leave in Shipbreaker's remainder.
-    public static readonly ChargeRecipe Steel = new("steel", 5,
-        new[] { new ChargeInput(Materials.NickelIronIngot, 4, Materials.IngotKg), new ChargeInput(Materials.CarbonStock, 1, Materials.CarbonKg) },
-        new[] { new ProductSpec(RefineryRules.SteelIngot, 4, RefineryRules.SteelIngotKg), new ProductSpec(RefineryRules.SteelRemainder, 1, RefineryRules.SteelRemainderKg) },
-        null, 2000, true, true);
-    // Ammonium salt crust (Manufacturing 0.9.0): ammonium chloride with its own sodium carbonate, the bright-area salts NASA's
-    // Dawn mission found on Ceres (Raponi et al. 2019; De Sanctis et al. 2024). Heated: 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O
-    // + 2 NaCl. Authored crust: 3.000 kg NH4Cl (56.08 mol), 2.972 kg Na2CO3 (stoichiometric), 4.028 kg clay and hydrohalite.
-    // Products: 0.955 kg NH3 to an ammonia store (never vented), 1.235 kg CO2 breathed into the room as the carbon charge does,
-    // 0.505 kg water to the vessel, and a 7.305 kg cake of 3.278 kg NaCl plus the remainder. Rounded to the gram.
-    // Energy: about +210 kJ per mole of reaction from standard enthalpies of formation, 1.6 kWh, plus 0.8 kWh to heat the
-    // crust; 900 s at 24 kW is 6 kWh.
-    public const double CrustAmmoniaKg = 0.955, CrustCarbonDioxideKg = 1.235, CrustWaterKg = 0.505;
-    public static readonly IReadOnlyDictionary<string, double> CrustOffGas = new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = CrustCarbonDioxideKg };
-    public static readonly ChargeRecipe Ammonium = new("ammonium", 6,
-        new[] { new ChargeInput(Materials.AmmoniumSaltCrust, 1, Materials.CrustKg) },
-        new[] { new ProductSpec(Materials.SpentSaltCake, 1, Materials.SaltCakeKg), new ProductSpec(ManufacturingRules.Water, 1, CrustWaterKg), new ProductSpec(ManufacturingRules.Ammonia, 1, CrustAmmoniaKg) },
-        CrustOffGas, 900, false, false);
-    public static readonly IReadOnlyList<ChargeRecipe> All = Array.AsReadOnly(new[] { Hydrates, Clay, Carbon, NickelIron, Steel, Ammonium });
+    public const string Schema = RecipeSchema.Name, Resource = "PhobosManufacturing.process-recipes.json", FrozenResource = "PhobosManufacturing.frozen-process-recipes.json";
+    public const string Machine = "refinery", SteelStockRequirement = "shipbreaker-steel-stock";
+    private static RecipePack? pack; private static IReadOnlyList<ChargeRecipe>? all; private static RecipePack? builtFrom;
+    public static RecipePack Pack => pack ??= Load();
+    public static DataPackSource Source => new(ManufacturingRules.Owner, Economy.ModFolder, Schema, typeof(RefineryRecipes).Assembly, Resource);
+    /// <summary>Reads the shipped pack and any player files. Unit masses are checked against Manufacturing's own
+    /// materials, Shipbreaker's steel stock and, when the game's data is loaded, the native items.</summary>
+    public static RecipePack Load(Func<string, double?>? nativeMass = null)
+    {
+        var frozen = RecipeFreeze.Read(typeof(RefineryRecipes).Assembly, FrozenResource);
+        var context = new RecipeContext
+        {
+            Machines = new[] { Machine }, Requirements = new[] { SteelStockRequirement },
+            UnitMassOf = id => Materials.KgOf(id) ?? (id == RefineryRules.SteelIngot ? RefineryRules.SteelIngotKg : id == RefineryRules.SteelRemainder ? RefineryRules.SteelRemainderKg : nativeMass?.Invoke(id)),
+            IsCommodity = id => id == ManufacturingRules.Water || GasStores.FamilyOf(id) != null
+        };
+        pack = DataPacks.Load<RecipePack>(Source, (p, raw) =>
+        {
+            RecipeSchema.Validate(p, context);
+            foreach (var pair in p.recipes) if (pair.Value.seconds == null) throw new ArgumentException("Recipe " + pair.Key + ": a refinery charge needs its seconds.");
+            RecipeFreeze.Enforce(raw, frozen);
+        });
+        return pack;
+    }
+    /// <summary>Every charge, by revision.</summary>
+    public static IReadOnlyList<ChargeRecipe> All
+    {
+        get
+        {
+            if (all != null && ReferenceEquals(builtFrom, Pack)) return all;
+            builtFrom = Pack;
+            return all = Array.AsReadOnly(builtFrom.recipes.OrderBy(p => p.Value.revision).Select(p => new ChargeRecipe(p.Key, p.Value.revision,
+                p.Value.inputs.Select(u => new ChargeInput(u.id, u.count, u.kg)), p.Value.products.Select(u => new ProductSpec(u.id, u.count, u.kg)),
+                p.Value.offGas, p.Value.seconds ?? 0, p.Value.melt, p.Value.requires.Contains(SteelStockRequirement))).ToArray());
+        }
+    }
+    public static ChargeRecipe Hydrates => ById("hydrates")!;
+    public static ChargeRecipe Clay => ById("clay")!;
+    public static ChargeRecipe Carbon => ById("carbon")!;
+    public static ChargeRecipe NickelIron => ById("nickel-iron")!;
+    public static ChargeRecipe Steel => ById("steel")!;
+    public static ChargeRecipe Ammonium => ById("ammonium")!;
+    /// <summary>The salt crust's ammonia yield, as the pack states it (0.955 kg on 56.08 mol of ammonium chloride).</summary>
+    public static double CrustAmmoniaKg => Ammonium.Products.Single(p => p.Id == ManufacturingRules.Ammonia).Kg;
     public static ChargeRecipe? ByRevision(int revision) => All.FirstOrDefault(r => r.Revision == revision);
     public static ChargeRecipe? ById(string? id) => id == null ? null : All.FirstOrDefault(r => r.Id == id);
     /// <summary>Recipes available now: the steel recipe needs Shipbreaker's stock identities.</summary>

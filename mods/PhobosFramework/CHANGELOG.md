@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.50.0] - 2026-09-30 - Draft
+
+### Added
+
+- Two more data-pack schemas. Process recipes: what a machine turns a charge into (inputs, products, gas breathed into the room, seconds, a furnace heat profile), checked on every file for mass conservation and the game's own gases. Materials: a mod's loose items (mass, price, stack, size, category, art). Both accept player files like the economy pack.
+- Frozen recipe revisions: a running machine remembers only its recipe revision, so every shipped revision is frozen by a checksum. A file that changes or removes a frozen revision is skipped with that reason; a new revision beside it is allowed, and the machine offers the highest.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself; the first packs are Manufacturing 0.12.0 and Shipbreaker 0.46.0. Offline checks are not gameplay validation.
+
 ## [0.49.0] - 2026-09-30 - Draft
 
 ### Added

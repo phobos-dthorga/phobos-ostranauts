@@ -20,15 +20,17 @@ public static class ThawRules
     public const double IceKg = 24.7, GangueKg = 2.0, WaterKg = IceKg - GangueKg, MachineKg = 120, Price = 3200;
     // Authored operation: 6 kW for 40 minutes a block. The thermal need below is 3.60 kWh; the rest covers the
     // drive, controls and the share that warms the room.
-    public const double WorkingKW = 6, IdleKW = 0.1, CycleSeconds = 2400, RoomHeatFraction = 0.15;
+    public const double WorkingKW = 6, IdleKW = 0.1, RoomHeatFraction = 0.15;
+    /// <summary>The water thaw's powered duration, from the recipe pack (2,400 s authored).</summary>
+    public static double CycleSeconds => ShipbreakerRecipes.Entry("thaw-water").seconds!.Value;
     /// <summary>Authored thermal need per kilogram of ice: warming the block from cold storage plus melting. The
     /// enthalpy of fusion of water is 6.01 kJ/mol (333.6 kJ/kg) in the NIST Chemistry WebBook; the warming
     /// allowance is our simplification, not a measured property of the game's ice.</summary>
     public const double MeltKJPerKg = 525, FusionKJPerKg = 333.6;
     public const double ThermalNeedKWh = IceKg * MeltKJPerKg / 3600;
-    public const double CycleEnergyKWh = WorkingKW * CycleSeconds / 3600;
-    public static readonly ProcessRecipeCatalog Recipes = new(1, new[] {
-        new ProcessRecipe(1, IceKg, new[] { new ProductSpec(Commodity, 1, WaterKg), new ProductSpec(Gangue, 1, GangueKg) }) });
+    public static double CycleEnergyKWh => WorkingKW * CycleSeconds / 3600;
+    /// <summary>The water thaw catalog from the recipe pack.</summary>
+    public static ProcessRecipeCatalog Recipes => ShipbreakerRecipes.Catalog(ShipbreakerRecipes.ThawWater);
 
     // Methane ice (Shipbreaker 0.45.0). The game calls ItmIce02 "Methane Ice" and "cold, wet": read as methane
     // clathrate (structure I hydrate), CH4.nH2O. Full cage occupancy is n = 5.75 (USGS Fact Sheet 2017-3080);
@@ -45,15 +47,15 @@ public static class ThawRules
     public const double ClathrateMol = (MethaneIceKg - GangueKg) / (MethaneMolarKg + HydrationNumber * WaterMolarKg);
     public const double ClathrateThermalNeedKWh = (ClathrateMol * DissociationKJPerMol + MethaneIceKg * (MeltKJPerKg - FusionKJPerKg)) / 3600;
     /// <summary>50 minutes at the same 6 kW: 5 kWh a block, 4.25 kWh of it into the block after the room's share.</summary>
-    public const double MethaneCycleSeconds = 3000;
+    public static double MethaneCycleSeconds => ShipbreakerRecipes.Entry("thaw-methane").seconds!.Value;
     /// <summary>The game prices methane ice at 20 for 24.84 kg, below the water inside it (owner decision,
     /// 30 September 2026: correct the native price in place so processing still loses value). At full occupancy
     /// its products are worth 3.33 kg x 2.2 (the game's methane price) + 21.51 kg x 10 = 222.</summary>
     public const double MethaneIcePrice = 250;
     /// <summary>The thaw unit's methane outlet and the port it pairs on a methane store, distinct from the K2's.</summary>
     public const string MethaneOutPort = "PhobosShipbreaker.ThawMethaneOut", MethaneInPort = "PhobosShipbreaker.ThawMethaneIn";
-    public static readonly ProcessRecipeCatalog MethaneRecipes = new(1, new[] {
-        new ProcessRecipe(1, MethaneIceKg, new[] { new ProductSpec(Commodity, 1, ClathrateWaterKg), new ProductSpec(MethaneCommodity, 1, MethaneKg), new ProductSpec(Gangue, 1, GangueKg) }) });
+    /// <summary>The methane ice catalog from the recipe pack.</summary>
+    public static ProcessRecipeCatalog MethaneRecipes => ShipbreakerRecipes.Catalog(ShipbreakerRecipes.ThawMethane);
 
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     public static bool IsFeed(string? id) => id == Ice || id == MethaneIce;

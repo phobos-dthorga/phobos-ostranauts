@@ -92,5 +92,61 @@ internal static class DataPackChecks
         Bad(p => p.lots["equipment"] = 0, "Lots are 1 to 256");
         Bad(p => p.worldLoot[0].brokenShare = 2, "Broken share is a fraction");
         Bad(p => p.supplies["PhobosPipe"].merchants.Clear(), "Supplies need a merchant");
+
+        // The recipe schema: mass conservation and the game's gases on every file.
+        var recipeContext = new RecipeContext { Machines = new[] { "kiln" }, Requirements = new[] { "other-mod" }, UnitMassOf = id => id == "ItmOre" ? 10 : null, IsCommodity = id => id == "water", ReferenceK = 298.15 };
+        RecipePack Recipes()
+        {
+            var pack = new RecipePack { schemaVersion = 1, schema = "process-recipes" };
+            pack.recipes["bake"] = new RecipeEntry
+            {
+                machine = "kiln", revision = 1, seconds = 600,
+                inputs = { new RecipeUnit { id = "ItmOre", count = 1, kg = 10 } },
+                products = { new RecipeUnit { id = "water", count = 1, kg = 1 }, new RecipeUnit { id = "ItmMiningTrash", count = 3, kg = 3 } }
+            };
+            return pack;
+        }
+        RecipeSchema.Validate(Recipes(), recipeContext);
+        check(true, "A balanced recipe validates");
+        void BadRecipe(Action<RecipePack> mutate, string message) { var pack = Recipes(); mutate(pack); throws(() => RecipeSchema.Validate(pack, recipeContext), message); }
+        BadRecipe(p => p.recipes["bake"].products[0].kg = 2, "A recipe that creates mass is refused");
+        BadRecipe(p => p.recipes["bake"].offGas["H2"] = .1, "Hydrogen is not a room gas and is refused as off-gas");
+        BadRecipe(p => { p.recipes["bake"].offGas["CO2"] = 1; p.recipes["bake"].products[0].kg = 0; }, "Off-gas counts toward the balance and units need positive mass");
+        BadRecipe(p => p.recipes["bake"].inputs[0].kg = 9, "A unit's kg must match the known item mass");
+        BadRecipe(p => p.recipes["bake"].machine = "oven", "Unknown machines are refused");
+        BadRecipe(p => p.recipes["bake"].requires.Add("nothing"), "Unknown requirement keys are refused");
+        BadRecipe(p => p.recipes["bake"].seconds = 0, "Seconds stay within the process job bounds");
+        BadRecipe(p => p.recipes["Bake!"] = p.recipes["bake"], "Recipe ids are letters, digits and hyphens");
+        BadRecipe(p => { var again = Recipes().recipes["bake"]; p.recipes["bake2"] = again; }, "One revision per machine");
+        BadRecipe(p => p.recipes["bake"].thermal = new ThermalEntry { meltK = 900, targetK = 800, solidCp = 1, liquidCp = 1, latentKJ = 1, holdSeconds = 1 }, "A thermal target must be above the melt");
+
+        // The freeze: the same canonical text and digest as scripts/freeze-recipes.py (tests/test_data_packs.py holds the twin).
+        var sample = Newtonsoft.Json.Linq.JObject.Parse("{\"notes\":\"x\",\"machine\":\"test\",\"revision\":1,\"inputs\":[{\"id\":\"A\",\"count\":2,\"kg\":1.5}],\"products\":[{\"id\":\"B\",\"count\":1,\"kg\":3}],\"melt\":false}");
+        check(RecipeFreeze.Canonical(sample) == "{\"inputs\":[{\"count\":2,\"id\":\"A\",\"kg\":1.5}],\"machine\":\"test\",\"melt\":false,\"products\":[{\"count\":1,\"id\":\"B\",\"kg\":3}],\"revision\":1}",
+            "Canonical form drops notes, sorts keys and strips whitespace: " + RecipeFreeze.Canonical(sample));
+        check(RecipeFreeze.Hash(sample) == "49f8679fceadf55956c05d1013dad41f13c41b907a56bf53add8faee176b5381", "The digest agrees with the Python freezer: " + RecipeFreeze.Hash(sample));
+        var raw = Newtonsoft.Json.Linq.JObject.Parse("{\"schemaVersion\":1,\"schema\":\"process-recipes\",\"recipes\":{\"one\":{\"machine\":\"test\",\"revision\":1,\"inputs\":[{\"id\":\"A\",\"count\":2,\"kg\":1.5}],\"products\":[{\"id\":\"B\",\"count\":1,\"kg\":3}],\"melt\":false,\"notes\":\"changed notes do not matter\"}}}");
+        var frozen = RecipeFreeze.Parse("{\"schemaVersion\":1,\"revisions\":{\"test@1\":\"49f8679fceadf55956c05d1013dad41f13c41b907a56bf53add8faee176b5381\"}}");
+        RecipeFreeze.Enforce(raw, frozen);
+        check(true, "A frozen revision with the same content passes, whatever its notes say");
+        var edited = (Newtonsoft.Json.Linq.JObject)raw.DeepClone(); edited["recipes"]!["one"]!["products"]![0]!["kg"] = 2.5; edited["recipes"]!["one"]!["inputs"]![0]!["kg"] = 1.25;
+        throws(() => RecipeFreeze.Enforce(edited, frozen), "A changed frozen revision is refused even when it still balances");
+        var removed = (Newtonsoft.Json.Linq.JObject)raw.DeepClone(); ((Newtonsoft.Json.Linq.JObject)removed["recipes"]!).Remove("one");
+        throws(() => RecipeFreeze.Enforce(removed, frozen), "A frozen revision cannot disappear");
+        var added = (Newtonsoft.Json.Linq.JObject)raw.DeepClone(); added["recipes"]!["two"] = Newtonsoft.Json.Linq.JObject.Parse("{\"machine\":\"test\",\"revision\":2,\"inputs\":[],\"products\":[]}");
+        RecipeFreeze.Enforce(added, frozen);
+        check(true, "A new revision beside the frozen ones passes the freeze (the schema judges its content)");
+
+        // The materials schema.
+        var materialContext = new MaterialContext(new[] { "PhobosThing" }) { Kinds = new[] { "stock" } };
+        MaterialPack Materials() { var pack = new MaterialPack { schemaVersion = 1, schema = "materials" }; pack.materials["PhobosThing"] = new MaterialEntry { kg = 1, price = 2, stack = 10, side = 1 }; return pack; }
+        MaterialSchema.Validate(Materials(), materialContext);
+        check(true, "A complete materials pack validates");
+        void BadMaterial(Action<MaterialPack> mutate, string message) { var pack = Materials(); mutate(pack); throws(() => MaterialSchema.Validate(pack, materialContext), message); }
+        BadMaterial(p => p.materials.Remove("PhobosThing"), "Every known material needs an entry");
+        BadMaterial(p => p.materials["PhobosOther"] = new MaterialEntry { kg = 1, price = 1 }, "Materials cannot be added by a file");
+        BadMaterial(p => p.materials["PhobosThing"].kind = "gas", "Unknown material kinds are refused");
+        BadMaterial(p => p.materials["PhobosThing"].kg = 0, "Mass must be positive");
+        BadMaterial(p => p.materials["PhobosThing"].stack = 0, "Stack is 1 or more");
     }
 }

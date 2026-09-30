@@ -13,5 +13,8 @@
     <Compile Include="../../src/PhobosShipbreaker/Text.cs" Link="Text.cs" />
     <EmbeddedResource Include="../../translations/PhobosShipbreaker/en.json" LogicalName="PhobosShipbreaker.en.json" />
     <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/equipment-names.json" LogicalName="PhobosShipbreaker.equipment-names.json" />
+    <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/process-recipes.json" LogicalName="PhobosShipbreaker.process-recipes.json" />
+    <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/frozen-process-recipes.json" LogicalName="PhobosShipbreaker.frozen-process-recipes.json" />
+    <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/materials.json" LogicalName="PhobosShipbreaker.materials.json" />
   </ItemGroup>
 </Project>

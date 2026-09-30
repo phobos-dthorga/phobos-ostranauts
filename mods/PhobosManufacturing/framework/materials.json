@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "schema": "materials",
+  "notes": "Phobos Manufacturing materials: raw stock with real consumers, terminal remainders at the technical minimum price, and mined chunks that clone the game's hydrates. Owner decisions of 29 September 2026; the recovery and pricing rules are in docs/development/manufacturing-refinery-and-chemistry.md. Kinds: stock clones the game's scrap steel, mined clones its hydrates. A material's kg is bound to the recipes that use it: change both or neither.",
+  "materials": {
+    "PhobosNickelIronIngot": { "notes": "Cast nickel-iron, Manufacturing raw stock; priced below its meteoric iron by the old ceiling (review candidate).", "kind": "stock", "kg": 4, "price": 24, "stack": 10, "side": 1, "category": "IsCategoryMetals", "art": "StockNickelIronIngot" },
+    "PhobosCarbonStock": { "notes": "Carbon stock from the carbides charge.", "kind": "stock", "kg": 1, "price": 10, "stack": 10, "side": 1, "category": "IsCategoryIndustrialProducts", "art": "StockCarbon" },
+    "PhobosRefinerySlag": { "notes": "Terminal: sulfide, phosphide and oxide skimmings or a frozen melt.", "kind": "stock", "kg": 1, "price": 0.01, "stack": 10, "side": 1, "category": "IsCategoryTrash", "terminal": true, "art": "StockRefinerySlag" },
+    "PhobosAnhydrousResidue": { "notes": "Terminal: baked clay minerals.", "kind": "stock", "kg": 8, "price": 0.01, "stack": 1, "side": 2, "category": "IsCategoryTrash", "terminal": true, "art": "StockAnhydrousResidue" },
+    "PhobosClayHydrates": { "notes": "Mined, never sold: a CI-type clay hydrate chunk from C-class finds. Uses the game's hydrate art until it has its own.", "kind": "mined", "kg": 10, "price": 180, "stack": 6, "side": 1, "category": "IsCategoryOre" },
+    "PhobosAmmoniumSaltCrust": { "notes": "Mined, never sold: ammonium chloride and sodium carbonate crust of the kind NASA's Dawn mission saw on Ceres; sells like the game's hydrates.", "kind": "mined", "kg": 10, "price": 150, "stack": 6, "side": 1, "category": "IsCategoryOre", "art": "StockAmmoniumSaltCrust" },
+    "PhobosSpentSaltCake": { "notes": "Terminal: sodium chloride baked into the crust's clay.", "kind": "stock", "kg": 7.305, "price": 0.01, "stack": 1, "side": 1, "category": "IsCategoryTrash", "terminal": true, "art": "StockSpentSaltCake" }
+  }
+}

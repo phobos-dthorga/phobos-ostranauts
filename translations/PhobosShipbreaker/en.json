@@ -896,5 +896,12 @@
   "Thaw.methane_link_none": "No store",
   "Thaw.methane_linked": "Linked. Methane from each methane-ice block goes to this store.",
   "Thaw.methane_link_missing": "Choose an installed methane store within one tile of the thaw unit, on this ship.",
-  "Thaw.completed_methane_log": "Thawed methane ice {0}: {1:G} kg of water into {2}, {3:G} kg of methane into {4}, {5:G} kg of gangue to the tray."
+  "Thaw.completed_methane_log": "Thawed methane ice {0}: {1:G} kg of water into {2}, {3:G} kg of methane into {4}, {5:G} kg of gangue to the tray.",
+  "Materials.bound_mass": "{0} must weigh {1:F3} kg: the recipes and family budgets are written for that mass. Change the recipe revision and the budget together, not the material alone.",
+  "Recipes.one_input": "Recipe {0}: Shipbreaker machines take one kind of input per recipe.",
+  "Recipes.furnace_thermal": "Recipe {0}: a furnace recipe needs its thermal profile (meltK, targetK, solidCp, liquidCp, latentKJ, holdSeconds).",
+  "Recipes.furnace_charge": "Recipe {0}: a furnace charge weighs {1:F0} kg (twenty one-kilogram scraps).",
+  "Recipes.aluminium_profile": "Recipe {0}: furnace revision 1 must keep the original aluminium profile; batches saved before 0.38.0 read their heat with it.",
+  "Recipes.seconds_required": "Recipe {0}: a thaw recipe needs its seconds.",
+  "Recipes.machine_missing": "The recipe pack has no recipe for {0}; the machine cannot run without one."
 }

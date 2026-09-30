@@ -65,14 +65,14 @@ internal static class FurnaceDefinitions
         // A one-kW clock coefficient; the checked service substitutes each interval's
         // real bounded demand before native UsePower. No free IsPowered receipt.
         d.Power[FurnaceRules.Prefix + "Power"].fAmount = 1.0 / 3600;
-        Packet(d, FurnaceRules.Blank, FurnaceRules.BlankKg, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosHousingBlankDedicated");
-        Packet(d, FurnaceRules.Housing, 18, 60, "Furnace.housing_name", "Furnace.housing_description", "PhobosFurnaceHousing");
-        Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", "StockMeltRemainder");
-        // Custom raw stock for Manufacturing (owner approval, 29 September 2026): one-cell ingots that stack, and the steel melt's own terminal remainder.
-        Packet(d, FurnaceRecipes.AluminiumIngot, FurnaceRecipes.IngotKg, FurnaceRecipes.AluminiumIngotPrice, "Furnace.aluminium_ingot_name", "Furnace.aluminium_ingot_description", "StockAluminiumIngot", 1, FurnaceRecipes.IngotStack);
-        Packet(d, FurnaceRecipes.SteelIngot, FurnaceRecipes.IngotKg, FurnaceRecipes.SteelIngotPrice, "Furnace.steel_ingot_name", "Furnace.steel_ingot_description", "StockSteelIngot", 1, FurnaceRecipes.IngotStack);
-        Packet(d, FurnaceRecipes.SteelRemainder, FurnaceRules.RemainderKg, .01, "Furnace.steel_remainder_name", "Furnace.steel_remainder_description", "StockSteelMeltRemainder", 1, 1);
-        foreach (string ingot in FurnaceRecipes.Ingots) d.Objects[ingot].aStartingConds = d.Objects[ingot].aStartingConds.Concat(new[] { "IsCategoryMetals=1x1" }).ToArray();
+        // Housing stock, the ingots (Manufacturing raw stock, owner approval 29 September 2026) and the terminal remainders, from the materials pack.
+        foreach (var (id, name) in new[] { (FurnaceRules.Blank, "blank"), (FurnaceRules.Housing, "housing"), (FurnaceRules.Remainder, "remainder"),
+            (FurnaceRecipes.AluminiumIngot, "aluminium_ingot"), (FurnaceRecipes.SteelIngot, "steel_ingot"), (FurnaceRecipes.SteelRemainder, "steel_remainder") })
+        {
+            var m = ShipbreakerMaterials.Entry(id);
+            Packet(d, id, m.kg, m.price, "Furnace." + name + "_name", "Furnace." + name + "_description", m.art ?? "", m.side, m.stack);
+            if (m.category != null) d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { m.category + "=1x1" }).ToArray();
+        }
         Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", "PhobosFurnaceSectionDedicated");
         CoolingCargo.Add(d);
     }

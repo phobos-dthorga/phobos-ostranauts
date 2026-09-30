@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "schema": "process-recipes",
+  "notes": "Phobos Manufacturing V4 charges. Every charge conserves mass to the gram of its item units; the reaction, sources and rounding of each are in docs/development/manufacturing-refinery-and-chemistry.md. Water, methane and ammonia products go to a linked vessel or store; offGas is breathed into the room. Published revisions are frozen (frozen-process-recipes.json): change a charge by adding a revision.",
+  "recipes": {
+    "hydrates": {
+      "notes": "Hydrate dehydration. CM-chondrite bound water 9 to 13 percent by weight (Alexander et al. 2012); authored 10 percent. The dehydrated silicate and oxide is the game's own gangue.",
+      "machine": "refinery",
+      "revision": 1,
+      "inputs": [ { "id": "ItmMineral11", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 1 }, { "id": "ItmMiningTrash", "count": 3, "kg": 3 } ],
+      "seconds": 600
+    },
+    "clay": {
+      "notes": "Clay hydrate dehydration. CI-chondrite and Bennu phyllosilicate water 18 to 22 percent (Alexander et al. 2012; Lauretta et al. 2024); authored 20 percent. 8 kg is no gangue multiple, so the residue has its own identity.",
+      "machine": "refinery",
+      "revision": 2,
+      "inputs": [ { "id": "PhobosClayHydrates", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 2 }, { "id": "PhobosAnhydrousResidue", "count": 1, "kg": 8 } ],
+      "seconds": 900
+    },
+    "carbon": {
+      "notes": "Carbon extraction from the game's carbon/carbides block (often hydrated). Authored 50 percent carbon, 10 percent water, 30 percent silicate, 10 percent pyrolysis gas split 0.6 CO2, 0.3 CO, 0.1 smoke.",
+      "machine": "refinery",
+      "revision": 3,
+      "inputs": [ { "id": "ItmMineral03", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "PhobosCarbonStock", "count": 5, "kg": 1 }, { "id": "water", "count": 1, "kg": 1 }, { "id": "ItmMiningTrash", "count": 1, "kg": 3 } ],
+      "offGas": { "CO2": 0.6, "CO": 0.3, "Smoke": 0.1 },
+      "seconds": 1800
+    },
+    "nickel-iron": {
+      "notes": "Nickel-iron casting from meteoric iron: kamacite and taenite metal with adhering rock and troilite, schreibersite and oxide inclusions (Buchwald 1975). Authored 80 percent metal, 15 percent rock, 5 percent slag. A melt: a long heat wait freezes it to slag.",
+      "machine": "refinery",
+      "revision": 4,
+      "inputs": [ { "id": "ItmMineral01", "count": 1, "kg": 20 } ],
+      "products": [ { "id": "PhobosNickelIronIngot", "count": 4, "kg": 4 }, { "id": "ItmMiningTrash", "count": 1, "kg": 3 }, { "id": "PhobosRefinerySlag", "count": 1, "kg": 1 } ],
+      "seconds": 2400,
+      "melt": true
+    },
+    "steel": {
+      "notes": "Carburised nickel steel: four nickel-iron ingots melted with one kilogram of carbon in excess; steel takes 0.02 to 2 percent carbon (ASM Handbook Vol. 1), the rest leaves in Shipbreaker's remainder. Needs Shipbreaker's steel ingot identity.",
+      "machine": "refinery",
+      "revision": 5,
+      "inputs": [ { "id": "PhobosNickelIronIngot", "count": 4, "kg": 4 }, { "id": "PhobosCarbonStock", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "PhobosSteelIngot", "count": 4, "kg": 4 }, { "id": "PhobosSteelMeltRemainder", "count": 1, "kg": 1 } ],
+      "seconds": 2000,
+      "melt": true,
+      "requires": [ "shipbreaker-steel-stock" ]
+    },
+    "ammonium": {
+      "notes": "Ammonia release from the ammonium salt crust: 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl on 56.08 mol of ammonium chloride (Raponi et al. 2019; De Sanctis et al. 2024, NASA Dawn). Ammonia goes to a linked store and is never vented; CO2 into the room takes the gram of rounding.",
+      "machine": "refinery",
+      "revision": 6,
+      "inputs": [ { "id": "PhobosAmmoniumSaltCrust", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "PhobosSpentSaltCake", "count": 1, "kg": 7.305 }, { "id": "water", "count": 1, "kg": 0.505 }, { "id": "ammonia", "count": 1, "kg": 0.955 } ],
+      "offGas": { "CO2": 1.235 },
+      "seconds": 900
+    }
+  }
+}

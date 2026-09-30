@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.49.0",
+      "value": "0.50.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.0",
+      "value": "0.46.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.11.0",
+      "value": "0.12.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.48.0",
+      "value": "0.50.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1340,12 +1340,12 @@
       "description": "Authored T2 seconds of powered work per block, captured on each started job.",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
-          "pattern": "\\bCycleSeconds\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosShipbreaker/framework/process-recipes.json",
+          "pointer": "/recipes/thaw-water/seconds"
         }
       ],
       "review": [
+        "Lives in the Shipbreaker process-recipes data pack; rebuild Shipbreaker so the embedded copy follows, then regenerate item references. A thaw duration is part of a published recipe revision: changing it needs a new revision and scripts/freeze-recipes.py.",
         "Run Shipbreaker core and native checks and regenerate item references. Started thaw jobs keep their captured duration; the recipe masses are the game's own."
       ]
     },
@@ -1357,12 +1357,12 @@
       "description": "Authored base price of one 4 kg aluminium ingot (above its four 1.1 cr scraps).",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
-          "pattern": "\\bAluminiumIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosShipbreaker/framework/materials.json",
+          "pointer": "/materials/PhobosAluminiumIngot/price"
         }
       ],
       "review": [
+        "Lives in the Shipbreaker materials data pack; rebuild Shipbreaker so the embedded copy follows, then regenerate item references.",
         "Run Shipbreaker core and native checks (value audit: an ingot must stay worth more than its four scraps) and regenerate item references."
       ]
     },
@@ -1374,12 +1374,12 @@
       "description": "Authored base price of one 4 kg steel ingot (above its four 3.6 cr scraps).",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
-          "pattern": "\\bSteelIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosShipbreaker/framework/materials.json",
+          "pointer": "/materials/PhobosSteelIngot/price"
         }
       ],
       "review": [
+        "Lives in the Shipbreaker materials data pack; rebuild Shipbreaker so the embedded copy follows, then regenerate item references.",
         "Run Shipbreaker core and native checks (value audit: an ingot must stay worth more than its four scraps) and regenerate item references."
       ]
     },
@@ -1391,12 +1391,16 @@
       "description": "Maximum physical objects per storage stack for Shipbreaker.stackIngots.",
       "targets": [
         {
-          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
-          "pattern": "\\bIngotStack\\s*=\\s*(?P<value>[0-9]+)",
-          "count": 1
+          "path": "mods/PhobosShipbreaker/framework/materials.json",
+          "pointer": "/materials/PhobosAluminiumIngot/stack"
+        },
+        {
+          "path": "mods/PhobosShipbreaker/framework/materials.json",
+          "pointer": "/materials/PhobosSteelIngot/stack"
         }
       ],
       "review": [
+        "Lives in the Shipbreaker materials data pack; rebuild Shipbreaker so the embedded copy follows, then regenerate item references.",
         "Regenerate item references and run native stack checks; update the StackLimitChecks allowlist to the same value."
       ]
     },
@@ -1426,7 +1430,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.49.0",
+      "value": "0.50.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1627,12 +1631,12 @@
       "description": "Authored base price of one 4 kg nickel-iron ingot.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/Materials.cs",
-          "pattern": "\\bIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosNickelIronIngot/price"
         }
       ],
       "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Every refinery charge must lose value (native check at live prices): 4 x nickel-iron ingot + $2 gangue < $450 meteoric iron; 5 x carbon + $10 water + $2 gangue < $99 carbide ore; 4 x Shipbreaker steel ingot < 4 x nickel-iron ingot + 1 x carbon.",
         "Run scripts/build-manufacturing.ps1 and regenerate item references. Existing ingots keep their identity; prices are definition values."
       ]
@@ -1645,12 +1649,12 @@
       "description": "Authored base price of one 1 kg carbon stock.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/Materials.cs",
-          "pattern": "\\bCarbonPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosCarbonStock/price"
         }
       ],
       "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Every refinery charge must lose value (native check at live prices): 4 x nickel-iron ingot + $2 gangue < $450 meteoric iron; 5 x carbon + $10 water + $2 gangue < $99 carbide ore; 4 x Shipbreaker steel ingot < 4 x nickel-iron ingot + 1 x carbon.",
         "Run scripts/build-manufacturing.ps1 and regenerate item references."
       ]

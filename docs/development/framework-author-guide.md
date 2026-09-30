@@ -120,6 +120,38 @@ chances within (0, 1] and lots within 1..256. Manufacturing 0.11.0 is the first
 consumer; identities and dry masses stay in its rules and the pack is checked
 against them. Consumers require **0.49.0**.
 
+### Process recipes and materials (0.50.0)
+
+`Data.RecipePack` (`process-recipes`) holds fixed recipes keyed by id: machine,
+revision, inputs, products (items or commodities such as `water`), `offGas` by
+native species, optional `seconds`, `legacySeconds`, `melt`, `requires` keys and a
+furnace `thermal` profile. `RecipeSchema.Validate` enforces, on every file: mass
+conservation within `Units.MassToleranceKg`, only the game's room gases as off-gas,
+positive units whose kg match the known item mass, unique ids, one revision per
+machine, duration bounds, known machines and requirement keys, and a sane thermal
+profile. Formula catalogs (the D4 feed families, the wall budget) stay in code.
+
+Published revisions are frozen. `scripts/freeze-recipes.py` writes each mod's
+`frozen-process-recipes.json` (embedded beside the pack) with a SHA-256 of every
+`machine@revision` over the entry's JSON with `notes` removed, keys sorted and no
+whitespace; `RecipeFreeze.Enforce(rawPack, frozen)` runs inside the loader's
+raw-aware validator (`DataPacks.Load<T>(source, Action<T, JObject>)`) and refuses a
+frozen revision that changed or disappeared, shipped or player. To change a recipe,
+add a revision and run the freezer; CI runs `freeze-recipes.py --check`. The
+Python and C# digests are asserted equal on a fixed sample in both test suites.
+
+`Data.MaterialPack` (`materials`) holds a mod's loose items by definition id: kind
+(how the owner builds it), kg, price, stack, side, category, terminal flag and art.
+`MaterialSchema.Validate` requires an entry for every id the owner names and no
+others, with positive mass and price and bounded stack and side. Owners add their
+own checks in the validator lambda (Shipbreaker binds reject and packet masses to
+the budgets written for them; Manufacturing feeds the material masses into the
+recipe check so a mass edited on one side is refused on the other).
+
+First consumers: Manufacturing 0.12.0 (six V4 charges, seven materials) and
+Shipbreaker 0.46.0 (three F6 recipes with thermal profiles, two T2 recipes, the R4
+budget; thirteen packets, ingots and rejects). Consumers require **0.50.0**.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

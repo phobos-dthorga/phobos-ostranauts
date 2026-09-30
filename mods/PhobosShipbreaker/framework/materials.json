@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "schema": "materials",
+  "notes": "Phobos Shipbreaker loose materials: furnace housing stock, ingots (Manufacturing raw stock), terminal remainders and the reclaimer and feed-family reject packets. Kinds name how the code builds them: furnace-packet and furnace-housing clone the residue packet with their own art; reclaimer-packet and reject are one-cell packets. Terminal items are priced at the technical minimum by authoring rule. A material's kg is bound to the recipes and family budgets that use it.",
+  "materials": {
+    "PhobosFurnaceHousingBlank": { "notes": "F6 housing blank, the revision-1 furnace product.", "kind": "furnace-packet", "kg": 19, "price": 55, "stack": 1, "side": 2, "art": "PhobosHousingBlankDedicated" },
+    "PhobosFurnaceHousing": { "notes": "Finished housing from the assembly table.", "kind": "furnace-housing", "kg": 18, "price": 60, "stack": 1, "side": 2, "art": "PhobosFurnaceHousing" },
+    "PhobosFurnaceMeltRemainder": { "notes": "Terminal: dross and skimmings of an aluminium melt.", "kind": "furnace-packet", "kg": 1, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockMeltRemainder" },
+    "PhobosAluminiumIngot": { "notes": "Rivetline aluminium ingot, Manufacturing raw stock; priced above the four scraps it holds.", "kind": "furnace-packet", "kg": 4, "price": 12, "stack": 10, "side": 1, "category": "IsCategoryMetals", "art": "StockAluminiumIngot" },
+    "PhobosSteelIngot": { "notes": "Rivetline steel ingot, Manufacturing raw stock.", "kind": "furnace-packet", "kg": 4, "price": 25, "stack": 10, "side": 1, "category": "IsCategoryMetals", "art": "StockSteelIngot" },
+    "PhobosSteelMeltRemainder": { "notes": "Terminal: the steel melt's own remainder.", "kind": "furnace-packet", "kg": 1, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockSteelMeltRemainder" },
+    "PhobosPanelResidueR2": { "notes": "Identified 13 kg residue packet from revision-2 wall jobs, the R4 feed.", "kind": "reclaimer-packet", "kg": 13, "price": 0.01, "stack": 1, "side": 1, "art": "StockClassifiedResidue" },
+    "PhobosPanelRejectR2": { "notes": "Terminal: the reclaimer's 9 kg reject.", "kind": "reclaimer-packet", "kg": 9, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockReclaimerRejects" },
+    "PhobosFloorRejectR1": { "notes": "Terminal one-kilogram reject of the floor grate family; stacks to ten.", "kind": "reject", "kg": 1, "price": 0.01, "stack": 10, "side": 1, "terminal": true, "art": "StockReclaimerRejects" },
+    "PhobosDuraWalRejectR1": { "notes": "Terminal: laminated cladding of a DuraWal panel.", "kind": "reject", "kg": 9.6, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockReclaimerRejects" },
+    "PhobosWindowRejectR1": { "notes": "Terminal: glazing and seals of a window panel.", "kind": "reject", "kg": 6, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockReclaimerRejects" },
+    "PhobosWhippleRejectR1": { "notes": "Terminal: Whipple shield remainder.", "kind": "reject", "kg": 1.5, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockReclaimerRejects" },
+    "PhobosAeroRejectR1": { "notes": "Terminal: aerodynamic panel remainder.", "kind": "reject", "kg": 2.1, "price": 0.01, "stack": 1, "side": 1, "terminal": true, "art": "StockReclaimerRejects" }
+  }
+}

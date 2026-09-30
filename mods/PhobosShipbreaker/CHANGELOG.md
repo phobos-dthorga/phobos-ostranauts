@@ -25,6 +25,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.46.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The F6 furnace recipes with their heat profiles, the T2 thaw recipes and the R4 reclaimer budget now live in framework/process-recipes.json, and the housing stock, ingots, remainders and reject packets in framework/materials.json, read through Phobos Framework with player overrides in BepInEx/config/PhobosShipbreaker. Every value is the same as 0.45.0; nothing changes in play. Shipped recipe revisions are frozen: a batch or thaw keeps its revision, and a changed recipe means a new revision. The D4 hand-disassembly budgets are formulas over part mass and stay in the mod.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.50.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.45.0] - 2026-09-30 - Draft
 
 ### Added

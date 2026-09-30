@@ -49,6 +49,12 @@ The rules:
 - **Some rules always apply.** Salvage must weigh what the machine weighs, prices
   and work must be above zero, chances are 0 to 1, and a recipe must conserve mass
   and use only the game's own gases. A file that breaks one is skipped.
+- **A published recipe never changes; add a new one.** Every shipped recipe
+  revision is frozen, because a machine mid-charge in your save remembers only its
+  revision number. To change what a charge yields, copy the recipe under a new id
+  with a higher `revision` (the machine offers the highest); a file that edits a
+  frozen revision is skipped with that reason. Material masses are tied to the
+  recipes that use them in the same way.
 
 ## Seeing what happened
 
@@ -63,13 +69,18 @@ Prices, work and merchant odds change for future work and future restocks; an
 existing job keeps the work it started with, and a shop keeps what it already
 holds. Changing a store's capacity or a machine's weight is not offered in these
 files yet; where a later pack allows it, an existing machine will show as needing
-attention with an Accept button rather than silently changing its contents.
+attention with an Accept button rather than silently changing its contents. A
+charge already running keeps the recipe revision it started with.
 
 ## Which packs exist
 
 | Mod | Schema | What it holds |
 | --- | --- | --- |
 | Phobos Manufacturing 0.11.0 | `economy` | Machine and store prices, work, repair bills, salvage, offers, lots, regional factors, world loot |
+| Phobos Manufacturing 0.12.0 | `process-recipes` | The six V4 charges: inputs, products, off-gas, seconds |
+| Phobos Manufacturing 0.12.0 | `materials` | Ingots, carbon stock, remainders and mined chunks: mass, price, stack, category |
+| Phobos Shipbreaker 0.46.0 | `process-recipes` | The F6 furnace recipes and thermal profiles, the T2 thaw recipes, the R4 budget |
+| Phobos Shipbreaker 0.46.0 | `materials` | Housing stock, ingots, remainders and the reject packets |
 
 More packs (recipes, materials, vessels, loot) follow as the other mods move
 their tables over; this page lists them as they land.

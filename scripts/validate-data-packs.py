@@ -147,7 +147,90 @@ def economy(pack, where):
         number(loot.get('brokenShare'), f'{w}/brokenShare', 0, 1)
 
 
-SCHEMAS = {'economy': economy}
+SPECIES = {'CH4', 'CO', 'CO2', 'H2SO4', 'N2', 'NH3', 'O2', 'Smoke'}
+MASS_TOLERANCE = 1e-6
+
+
+def units(items, where):
+    if not isinstance(items, list) or not items:
+        raise Problem(f'{where}: needs at least one unit')
+    ids = []
+    for i, u in enumerate(items):
+        fields(u, {'id', 'count', 'kg'}, f'{where}/{i}')
+        if not u.get('id'):
+            raise Problem(f'{where}/{i}: id needed')
+        number(u.get('count', 1), f'{where}/{i}/count', 1, None, integer=True)
+        number(u.get('kg'), f'{where}/{i}/kg', 0, None, exclusive_low=True)
+        ids.append(u['id'])
+    if len(set(ids)) != len(ids):
+        raise Problem(f'{where}: the same id appears twice')
+    return sum(u.get('count', 1) * u['kg'] for u in items)
+
+
+def process_recipes(pack, where):
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'recipes'}, where)
+    recipes = pack.get('recipes', {})
+    if not isinstance(recipes, dict) or not recipes:
+        raise Problem(f'{where}/recipes: needs at least one recipe')
+    seen = set()
+    for key, r in recipes.items():
+        w = f'{where}/recipes/{key}'
+        if not key or any(not (c.isalnum() or c == '-') for c in key):
+            raise Problem(f'{w}: ids are letters, digits and hyphens')
+        fields(r, {'notes', 'machine', 'revision', 'inputs', 'products', 'offGas', 'seconds', 'legacySeconds', 'melt', 'requires', 'thermal'}, w)
+        if not r.get('machine'):
+            raise Problem(f'{w}/machine: needed')
+        number(r.get('revision'), f'{w}/revision', 1, None, integer=True)
+        pair = (r['machine'], r['revision'])
+        if pair in seen:
+            raise Problem(f'{w}: {pair[0]} already has revision {pair[1]}')
+        seen.add(pair)
+        in_kg = units(r.get('inputs'), f'{w}/inputs')
+        out_kg = units(r.get('products'), f'{w}/products')
+        gas = r.get('offGas', {})
+        if not isinstance(gas, dict):
+            raise Problem(f'{w}/offGas: expected species to kg')
+        for species, kg in gas.items():
+            if species not in SPECIES:
+                raise Problem(f'{w}/offGas/{species}: not one of the game gases {sorted(SPECIES)}')
+            number(kg, f'{w}/offGas/{species}', 0, None, exclusive_low=True)
+        out_kg += sum(gas.values())
+        if abs(in_kg - out_kg) > MASS_TOLERANCE:
+            raise Problem(f'{w}: does not conserve mass ({in_kg:.6f} in, {out_kg:.6f} out)')
+        for name in ('seconds', 'legacySeconds'):
+            if name in r:
+                number(r[name], f'{w}/{name}', 1, 3600)
+        if 'melt' in r and not isinstance(r['melt'], bool):
+            raise Problem(f'{w}/melt: expected true or false')
+        requires = r.get('requires', [])
+        if not isinstance(requires, list) or not all(isinstance(x, str) and x for x in requires):
+            raise Problem(f'{w}/requires: expected a list of keys')
+        thermal = r.get('thermal')
+        if thermal is not None:
+            fields(thermal, {'meltK', 'targetK', 'solidCp', 'liquidCp', 'latentKJ', 'holdSeconds'}, f'{w}/thermal')
+            for name in ('meltK', 'targetK', 'solidCp', 'liquidCp', 'latentKJ', 'holdSeconds'):
+                number(thermal.get(name), f'{w}/thermal/{name}', 0, None, exclusive_low=True)
+            if thermal['targetK'] <= thermal['meltK']:
+                raise Problem(f'{w}/thermal: targetK must be above meltK')
+
+
+def materials(pack, where):
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'materials'}, where)
+    entries = pack.get('materials', {})
+    if not isinstance(entries, dict) or not entries:
+        raise Problem(f'{where}/materials: needs at least one material')
+    for key, m in entries.items():
+        w = f'{where}/materials/{key}'
+        fields(m, {'notes', 'kind', 'kg', 'price', 'stack', 'side', 'category', 'terminal', 'art'}, w)
+        number(m.get('kg'), f'{w}/kg', 0, None, exclusive_low=True)
+        number(m.get('price'), f'{w}/price', 0, None, exclusive_low=True)
+        number(m.get('stack', 1), f'{w}/stack', 1, 1000, integer=True)
+        number(m.get('side', 1), f'{w}/side', 1, 8, integer=True)
+        if 'terminal' in m and not isinstance(m['terminal'], bool):
+            raise Problem(f'{w}/terminal: expected true or false')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials}
 
 
 def check_file(path):

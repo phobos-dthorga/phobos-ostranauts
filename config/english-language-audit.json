@@ -47779,6 +47779,425 @@
       ],
       "before": "{0}: chance must be 0 to 1 (0 leaves the floor to decide).",
       "after": "{0}: chance must be 0 to 1 (0 leaves the floor to decide)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:80"
+      ],
+      "before": "The recipe pack holds no recipes.",
+      "after": "The recipe pack holds no recipes."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.id",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:85"
+      ],
+      "before": "Recipe id {0} must be letters, digits and hyphens.",
+      "after": "Recipe id {0} must be letters, digits and hyphens."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:86"
+      ],
+      "before": "Recipe {0} names no machine.",
+      "after": "Recipe {0} names no machine."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.unknown_machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:87"
+      ],
+      "before": "Recipe {0}: {1} is not a machine this mod knows.",
+      "after": "Recipe {0}: {1} is not a machine this mod knows."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.revision",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:88"
+      ],
+      "before": "Recipe {0}: revision must be 1 or more.",
+      "after": "Recipe {0}: revision must be 1 or more."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.duplicate_revision",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:89"
+      ],
+      "before": "Recipe {0}: {1} already has a revision {2}.",
+      "after": "Recipe {0}: {1} already has a revision {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.units",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:90"
+      ],
+      "before": "Recipe {0} needs at least one input and one product.",
+      "after": "Recipe {0} needs at least one input and one product."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.unit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:93"
+      ],
+      "before": "Recipe {0}: {1} needs an id, a count of 1 or more and a positive kg.",
+      "after": "Recipe {0}: {1} needs an id, a count of 1 or more and a positive kg."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.unit_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:96"
+      ],
+      "before": "Recipe {0}: {1} is written as {2:F3} kg but weighs {3:F3} kg.",
+      "after": "Recipe {0}: {1} is written as {2:F3} kg but weighs {3:F3} kg."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.duplicate_unit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:99"
+      ],
+      "before": "Recipe {0} lists the same id twice among its inputs or its products.",
+      "after": "Recipe {0} lists the same id twice among its inputs or its products."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.species",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:102"
+      ],
+      "before": "Recipe {0}: {1} is not one of the game's gases. Only CH4, CO, CO2, H2SO4, N2, NH3, O2 and Smoke can enter a room.",
+      "after": "Recipe {0}: {1} is not one of the game's gases. Only CH4, CO, CO2, H2SO4, N2, NH3, O2 and Smoke can enter a room."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.gas_kg",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:103"
+      ],
+      "before": "Recipe {0}: off-gas {1} must be a positive kg.",
+      "after": "Recipe {0}: off-gas {1} must be a positive kg."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:106"
+      ],
+      "before": "Recipe {0} does not conserve mass: {1:F3} kg in, {2:F3} kg out. Every recipe must balance.",
+      "after": "Recipe {0} does not conserve mass: {1:F3} kg in, {2:F3} kg out. Every recipe must balance."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.seconds",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:108"
+      ],
+      "before": "Recipe {0}: {1} must be {2:F0} to {3:F0} seconds.",
+      "after": "Recipe {0}: {1} must be {2:F0} to {3:F0} seconds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.requirement",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:110"
+      ],
+      "before": "Recipe {0}: requirement {1} is not one this mod knows.",
+      "after": "Recipe {0}: requirement {1} is not one this mod knows."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.thermal",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:113",
+        "src/PhobosFramework/Data/RecipePack.cs:114"
+      ],
+      "before": "Recipe {0}: the thermal profile needs positive values with melt above the reference and target above melt.",
+      "after": "Recipe {0}: the thermal profile needs positive values with melt above the reference and target above melt."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeFreeze.unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:143",
+        "src/PhobosFramework/Data/RecipePack.cs:144"
+      ],
+      "before": "The frozen-revisions file could not be read.",
+      "after": "The frozen-revisions file could not be read."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeFreeze.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:180"
+      ],
+      "before": "Published revision {0} is missing. A published revision can never be removed; saved jobs depend on it.",
+      "after": "Published revision {0} is missing. A published revision can never be removed; saved jobs depend on it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeFreeze.changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:182"
+      ],
+      "before": "Recipe {0} changes published revision {1}. Add a new revision instead; saved jobs keep the old one.",
+      "after": "Recipe {0} changes published revision {1}. Add a new revision instead; saved jobs keep the old one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:46"
+      ],
+      "before": "No materials entry for {0}. Every material the mod knows needs one.",
+      "after": "No materials entry for {0}. Every material the mod knows needs one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:50"
+      ],
+      "before": "{0} is not a material this mod knows. Materials cannot be added in a data file.",
+      "after": "{0} is not a material this mod knows. Materials cannot be added in a data file."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:51"
+      ],
+      "before": "{0}: kind {1} is not one this mod builds.",
+      "after": "{0}: kind {1} is not one this mod builds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.positive",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:52",
+        "src/PhobosFramework/Data/MaterialPack.cs:53"
+      ],
+      "before": "{0}: {1} must be a positive number.",
+      "after": "{0}: {1} must be a positive number."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.stack",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:54"
+      ],
+      "before": "{0}: stack must be 1 to {1}.",
+      "after": "{0}: stack must be 1 to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.side",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/MaterialPack.cs:55"
+      ],
+      "before": "{0}: side must be 1 to {1} tiles.",
+      "after": "{0}: side must be 1 to {1} tiles."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Materials.bound_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:33"
+      ],
+      "before": "{0} must weigh {1:F3} kg: the recipes and family budgets are written for that mass. Change the recipe revision and the budget together, not the material alone.",
+      "after": "{0} must weigh {1:F3} kg: the recipes and family budgets are written for that mass. Change the recipe revision and the budget together, not the material alone."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.one_input",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:72"
+      ],
+      "before": "Recipe {0}: Shipbreaker machines take one kind of input per recipe.",
+      "after": "Recipe {0}: Shipbreaker machines take one kind of input per recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.furnace_thermal",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:75"
+      ],
+      "before": "Recipe {0}: a furnace recipe needs its thermal profile (meltK, targetK, solidCp, liquidCp, latentKJ, holdSeconds).",
+      "after": "Recipe {0}: a furnace recipe needs its thermal profile (meltK, targetK, solidCp, liquidCp, latentKJ, holdSeconds)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.furnace_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:76"
+      ],
+      "before": "Recipe {0}: a furnace charge weighs {1:F0} kg (twenty one-kilogram scraps).",
+      "after": "Recipe {0}: a furnace charge weighs {1:F0} kg (twenty one-kilogram scraps)."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.aluminium_profile",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:78"
+      ],
+      "before": "Recipe {0}: furnace revision 1 must keep the original aluminium profile; batches saved before 0.38.0 read their heat with it.",
+      "after": "Recipe {0}: furnace revision 1 must keep the original aluminium profile; batches saved before 0.38.0 read their heat with it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.seconds_required",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:82"
+      ],
+      "before": "Recipe {0}: a thaw recipe needs its seconds.",
+      "after": "Recipe {0}: a thaw recipe needs its seconds."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipes.machine_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessData.cs:86"
+      ],
+      "before": "The recipe pack has no recipe for {0}; the machine cannot run without one.",
+      "after": "The recipe pack has no recipe for {0}; the machine cannot run without one."
     }
   ],
   "documents": [
@@ -47786,8 +48205,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e24e25edd2f97c3155c60bfd71c0cf2dfd0f5cd34dae9f646b65421e0acfdb60",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "1aec67c33b4c63258eeb156bc758794e9e9d0e04c553c73d9d9aa597b93b24cc",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "SUPPORT.md",
@@ -47946,8 +48365,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6cd528be90cb72bfd2e853284795f0449b6538643662c72132d8fafa601bb551",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "5948872c2f16e33c21959f95c19cf985fb05ee4a621850633f2ca49d585cd732",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/crew-automation.md",
@@ -48247,8 +48666,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3317e57683c4a878c6791e058ae3a643c1900ea07b1e603dafd7b1ba3be9b5d4",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "1eebb660b60a7bfac6c745ea277b1555e19307ab80c5ab1db00a2e4599e18a66",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -48681,8 +49100,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9c04f61c845b4f1c1c18dd4ebb1c904e60132d5619dd89c6529559616ad4634a",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "6a75be6f7032e3abcfe643c24cb0555f40c72d07d1572e48d3f20ac048124a59",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -48737,15 +49156,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a28205fd195a20743f1354099dca4e8584c93e252969847219d2b3df4c7460ec",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "8403c12f4ec10b6926e49b12a813701134fe5ea0af0560699c163f5499d8f16d",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "84fcfb39b786cfdfa51f9bbf0d1972c157e702acd85002ec7ad6797bd9425fec",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "8bc1792e62659b078c034bbefa7a1ff066083b7653ec10e8220322b1a6106676",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/item-references.md",
@@ -48758,8 +49177,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "6f9f5305c92509489511189a86ba633cb8c414694d40748c34aa379a1c55fb2c",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "c1066a2aba166f9eda4e30f933cbf26caba06efc94f714de38c62dc0f03ccd3a",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -48786,8 +49205,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "857382d109f7923b4d83695eebdba864a4893fcefbd7dc0955a87290adad76d4",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "a47a2d3d88f60e78609fa2379aa9c1fa13176d08ee53999a9f1d29e8ca2bd0dc",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/residue-collector.md",
@@ -48835,8 +49254,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "16a75053152dde8fcd65cac872b15a66b8e34d1a2d3ee6f49fac556755582580",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "283bdd1f6e3459da3329292320336bc8903509b16ceb82acb92ec69dacaf5897",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -48877,22 +49296,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e09f40c5071af30a791b95df522620da82e59a6caf8f332a31476db829dcfd71",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "2b8fce9a454adaa7eb17f79983a61f90c58086accc9f0a74515ead6706d2a881",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "617a141135758e7cec34a059f8a4c0d1f5e9ebbbf1c9556cc4a3e98fbf01a557",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "56698c1bc6173e33c0b8f8d4ebbef10a5e62cf70d9e5430b89c38719c4fdb767",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cf088941c07d215ebde05656ece4138a87f94db3247bbd29e7b4470afa36f4b2",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7d0db045bdbb765b6bf7922ebfadf04cdf7737d93347281df9a447f19d427a37",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -48954,8 +49373,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "28db4351842fceb851ca3ccb6ae7b59ae719ca8dea1e4192c681f0b225ad31b8",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "287e4df715b273b6724e1a5245e547cf5a175ea6446577a543e27ab156fa4a91",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     }
   ],
   "surfaces": [
@@ -49011,14 +49430,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0099fbcf01a2bb534a4c6cdaa2d766ccae8f3eb95ba5ddc593c6da950abf6c01",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "30f69606a1d0cd151b8a326af469aff2689b36687312f6ab63349ffab3ff559f",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c01acd78da52568a0fda0d4d43460e71b064681a43cad4d4e838d51e3706028f",
-      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
+      "sha256": "2a0f15861a0e995ba2155cac3cf543884ac61b624867c2cf6e8424626f4576ed",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -49035,8 +49454,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "64bfb7e7b635f8007e9ead392904b9057581ee434d1b98486af275b82d75e92d",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4ffd48ad59995af3937745a9a1ab783567a8faf5e945cf0b31f11d4f8733bb38",
+      "review": "Framework 0.50.0 process-recipe and materials packs, Manufacturing 0.12.0 and Shipbreaker 0.46.0 (30 September 2026): reviewed with this change; skip reasons say what to change and why a published revision stays."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

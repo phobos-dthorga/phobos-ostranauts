@@ -46,16 +46,28 @@ public static class DataPacks
         if (source == null) throw new ArgumentNullException(nameof(source));
         return LoadText(ReadResource(source.Assembly, source.ResourceName), UserDirectory(source), source.Owner, source.Schema, validate);
     }
+    /// <summary>As <see cref="Load{T}(DataPackSource, Action{T})"/>, with the validator also given the merged raw JSON
+    /// (for checks defined over the file text, such as the recipe revision freeze).</summary>
+    public static T Load<T>(DataPackSource source, Action<T, JObject> validate) where T : DataPack
+    {
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        return LoadText(ReadResource(source.Assembly, source.ResourceName), UserDirectory(source), source.Owner, source.Schema, validate);
+    }
 
     /// <summary>The same load from the shipped pack's text and an explicit player folder (empty for none). Tools and
     /// offline checks use this; the game uses <see cref="Load{T}"/>.</summary>
     public static T LoadText<T>(string shippedJson, string userDirectory, string owner, string schema, Action<T> validate) where T : DataPack
     {
         if (validate == null) throw new ArgumentNullException(nameof(validate));
+        return LoadText<T>(shippedJson, userDirectory, owner, schema, (pack, _) => validate(pack));
+    }
+    public static T LoadText<T>(string shippedJson, string userDirectory, string owner, string schema, Action<T, JObject> validate) where T : DataPack
+    {
+        if (validate == null) throw new ArgumentNullException(nameof(validate));
         string key = owner + "/" + schema;
         var merged = Parse(shippedJson, schema, shipped: true);
         var current = Materialize<T>(merged);
-        validate(current);
+        validate(current, merged);
         int applied = 0, rejected = 0;
         if (!string.IsNullOrEmpty(userDirectory))
         {
@@ -70,7 +82,7 @@ public static class DataPacks
                     var candidate = (JObject)merged.DeepClone();
                     candidate.Merge(overlay, Merge);
                     var result = Materialize<T>(candidate);
-                    validate(result);
+                    validate(result, candidate);
                     merged = candidate; current = result; applied++;
                 }
                 catch (Exception ex) when (ex is FormatException || ex is ArgumentException || ex is JsonException || ex is IOException || ex is UnauthorizedAccessException)

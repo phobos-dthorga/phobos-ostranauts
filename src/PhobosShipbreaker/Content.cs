@@ -60,10 +60,24 @@ internal static class Content
         }
     }
 
+    /// <summary>A native definition's starting mass, as the game writes it (StatMass=1xN), for the recipe pack's unit checks.</summary>
+    internal static double? NativeMass(string id)
+    {
+        if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(id, out var co)) return null;
+        foreach (string cond in co.aStartingConds ?? Array.Empty<string>())
+        {
+            if (!cond.StartsWith("StatMass=", StringComparison.Ordinal)) continue;
+            string amount = cond.Substring(cond.IndexOf('x') + 1);
+            return double.TryParse(amount, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double kg) ? kg : null;
+        }
+        return null;
+    }
     internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW, double reclaimerKW = ReclaimerRules.WorkingKW,
         bool iceFields = true, bool depositIce = true)
     {
         var prepared = MachineDefinitions.Create();
+        ShipbreakerMaterials.Load();
+        ShipbreakerRecipes.Load(NativeMass);
 
         foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working, StorageRules.Unloading })
             prepared.Conditions[condition] = new JsonCond { strName = condition,
@@ -126,9 +140,12 @@ internal static class Content
         BinDefinitions.Add(prepared);
         // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
         foreach (var reject in FeedFamilies.RejectKg)
-            ReclaimerDefinitions.Packet(prepared, reject.Key, reject.Value, "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_name",
-                "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_description", null);
-        prepared.Objects[FeedFamilies.FloorReject].nStackLimit = FeedFamilies.FloorRejectStack;
+        {
+            var m = ShipbreakerMaterials.Entry(reject.Key);
+            ReclaimerDefinitions.Packet(prepared, reject.Key, m.kg, "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_name",
+                "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_description", null, m.price);
+            prepared.Objects[reject.Key].nStackLimit = m.stack;
+        }
         FurnaceDefinitions.Add(prepared);
         FurnaceConduitDefinitions.Add(prepared);
         IndustrialDefinitions.Add(prepared);

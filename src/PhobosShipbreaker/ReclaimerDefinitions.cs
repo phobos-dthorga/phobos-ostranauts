@@ -47,8 +47,8 @@ internal static class ReclaimerDefinitions
         controls.strName = ReclaimerRules.Controls; controls.strTitle = Text.Get("CollectorDefinitions.control_panel");
         controls.strDesc = Text.Get("Reclaimer.controls_action"); controls.strTooltip = Text.Get("Reclaimer.controls_tooltip");
         controls.strRaiseUI = null; controls.fTargetPointRange = 2; d.Interactions[controls.strName] = controls;
-        Packet(d, ReclaimerRules.Feedstock, ReclaimerRules.InputKg, "Reclaimer.residue_name", "Reclaimer.residue_description", ReclaimerRules.FeedCondition);
-        Packet(d, ReclaimerRules.Reject, ReclaimerRules.RejectKg, "Reclaimer.reject_name", "Reclaimer.reject_description", null);
+        Packet(d, ReclaimerRules.Feedstock, ShipbreakerMaterials.Entry(ReclaimerRules.Feedstock).kg, "Reclaimer.residue_name", "Reclaimer.residue_description", ReclaimerRules.FeedCondition, ShipbreakerMaterials.Entry(ReclaimerRules.Feedstock).price);
+        Packet(d, ReclaimerRules.Reject, ShipbreakerMaterials.Entry(ReclaimerRules.Reject).kg, "Reclaimer.reject_name", "Reclaimer.reject_description", null, ShipbreakerMaterials.Entry(ReclaimerRules.Reject).price);
         var section = NativeDefinitions.Clone(d.Objects[ProcessRules.AssemblySection]);
         var sectionItem = NativeDefinitions.Clone(d.Items[ProcessRules.AssemblySection]);
         section.strName = section.strItemDef = sectionItem.strName = ReclaimerRules.Section;
@@ -61,7 +61,7 @@ internal static class ReclaimerDefinitions
         d.Triggers[ReclaimerRules.SectionTrigger] = new CondTrigger { strName = ReclaimerRules.SectionTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = new[] { ReclaimerRules.SectionCondition }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
     }
-    internal static void Packet(NativeDefinitions d, string id, double kg, string name, string description, string? condition)
+    internal static void Packet(NativeDefinitions d, string id, double kg, string name, string description, string? condition, double price = .01)
     {
         var co = NativeDefinitions.Clone(d.Objects[ProcessRules.Residue]);
         var item = NativeDefinitions.Clone(d.Items[ProcessRules.Residue]);
@@ -71,7 +71,7 @@ internal static class ReclaimerDefinitions
         item.aSocketAdds = new[] { "TILItemAdds" };
         item.aSocketReqs = Enumerable.Repeat("Blank", 9).ToArray();
         item.aSocketForbids = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILItemForbids" : "Blank").ToArray();
-        Content.SetStat(co, "StatMass", kg); Content.SetStat(co, "StatBasePrice", .01);
+        Content.SetStat(co, "StatMass", kg); Content.SetStat(co, "StatBasePrice", price);
         Content.ApplyStockArtwork(co, item, id == ReclaimerRules.Feedstock ? "StockClassifiedResidue" : "StockReclaimerRejects");
         if (condition != null) co.aStartingConds = co.aStartingConds.Concat(new[] { condition + "=1x1" }).ToArray();
         d.Objects[id] = co; d.Items[id] = item;

@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The six V4 charges now live in framework/process-recipes.json and the seven materials (ingots, carbon, remainders, mined chunks) in framework/materials.json, read through Phobos Framework with player overrides in BepInEx/config/PhobosManufacturing. Every value is the same as 0.11.0; nothing changes in play. The shipped charge revisions are frozen: a running charge keeps its revision, and a changed charge means a new revision.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.50.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.11.0] - 2026-09-30 - Draft
 
 ### Changed

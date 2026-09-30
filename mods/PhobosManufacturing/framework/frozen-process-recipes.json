@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "revisions": {
+    "refinery@1": "0c85d8be10dbaa87006bec267e099a7a0b7a362d9fd31b6c50d6e63c1650fbed",
+    "refinery@2": "acc404bd2116b6d891290c7dddf588a4dce83b28df90f423b25fad487367ff3c",
+    "refinery@3": "a4953ace355ee73b12bc7a81a8879633dce1868f99ebb2739e7dd9f48752bf61",
+    "refinery@4": "3fed6ad8abc74b65d697269af3622dc456702aa2906a1e6fcda7ad5a990d572a",
+    "refinery@5": "3d64e35b0a158931c761e021dad2081bff654271865b33d853065736041c8caa",
+    "refinery@6": "e766259831721bc38cb911743e4aa710adc2ca56439fd8aee53bdb10151d6078"
+  }
+}

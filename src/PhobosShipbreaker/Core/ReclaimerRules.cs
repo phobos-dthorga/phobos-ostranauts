@@ -17,10 +17,8 @@ public static class ReclaimerRules
     public const double JoulesPerKilojoule = 1000;
     public static bool IsFamily(string? id) => id == Installed || id == Installed + "Dmg" ||
         id == Prefix + "Loose" || id == Prefix + "LooseDmg";
-    public static readonly ProcessRecipeCatalog Recipes = new ProcessRecipeCatalog(1, new[] {
-        new ProcessRecipe(1, InputKg, new[] { new ProductSpec("ItmScrapSteel", 3, 1),
-            new ProductSpec("ItmScrapAluminum", 1, 1), new ProductSpec(Reject, 1, RejectKg) })
-    });
+    /// <summary>The reclaimer catalog from the recipe pack (revision 1: 3 kg steel, 1 kg aluminium, a 9 kg reject).</summary>
+    public static ProcessRecipeCatalog Recipes => ShipbreakerRecipes.Catalog(ShipbreakerRecipes.Reclaimer);
     public static bool CoolingBudget(double mols, double kelvin, double pendingKelvin, double pressure,
         double kw, double seconds, out double rise)
     {

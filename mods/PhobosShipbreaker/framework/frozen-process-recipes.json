@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "revisions": {
+    "furnace@1": "877bab60bfe30dfafc272bf1b06aaa96736dbc393a4a695fdad3d2b0a7044624",
+    "furnace@2": "a8f286821ca7dbcc8589f7932de0e222027d4b7cc6e758e77479333022253206",
+    "furnace@3": "7d5b157436081fe293df195b01c13a447331f398288a5a1f5f2d750461c6d3cd",
+    "reclaimer@1": "53a02ffb1df506943fae8bc1253184b0fd9b643d85bb2cb98211e5f89767d2f9",
+    "thaw-methane@1": "3c3ae9e4d66f4381bf525725a20299f505b621b3b73c8f8913a3e1d742e82ac1",
+    "thaw-water@1": "b9ce3dd616dc9e57179c1641574f36f53f8610efd2792c373ca8205d60dec2ed"
+  }
+}

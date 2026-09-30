@@ -1,0 +1,15 @@
+[h1]Phobos Framework 0.50.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Two more data-pack schemas. Process recipes: what a machine turns a charge into (inputs, products, gas breathed into the room, seconds, a furnace heat profile), checked on every file for mass conservation and the game's own gases. Materials: a mod's loose items (mass, price, stack, size, category, art). Both accept player files like the economy pack.
+[*]Frozen recipe revisions: a running machine remembers only its recipe revision, so every shipped revision is frozen by a checksum. A file that changes or removes a frozen revision is skipped with that reason; a new revision beside it is allowed, and the machine offers the highest.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]No gameplay or save change by itself; the first packs are Manufacturing 0.12.0 and Shipbreaker 0.46.0. Offline checks are not gameplay validation.
+[/list]

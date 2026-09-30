@@ -371,6 +371,8 @@ foreach ($mod in $Mods) {
             }
             # 0.11.0 moves the economy tables into a Framework data pack.
             if ($version -ge [version]'0.11.0') { 'framework/economy.json' }
+            # 0.12.0 moves the charges and materials into data packs, with the frozen revisions beside them.
+            if ($version -ge [version]'0.12.0') { 'framework/process-recipes.json'; 'framework/frozen-process-recipes.json'; 'framework/materials.json' }
             # 0.10.0 adds the Tolvane AX-2 ammonia cracker.
             if ($version -ge [version]'0.10.0') {
                 'images/phobos/manufacturing/PhobosAmmoniaCracker.png'; 'images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png'
@@ -385,6 +387,8 @@ foreach ($mod in $Mods) {
             }
         }
         'Shipbreaker' {
+            # 0.46.0 moves the fixed recipes and loose materials into data packs, with the frozen revisions beside them.
+            if ($version -ge [version]'0.46.0') { 'framework/process-recipes.json'; 'framework/frozen-process-recipes.json'; 'framework/materials.json' }
             # 0.43.0 adds the Y2, Y3 and Y4 material bins.
             if ($version -ge [version]'0.43.0') {
                 foreach ($image in @('PhobosMaterialBin', 'PhobosMaterialBinMedium', 'PhobosMaterialBinLarge')) {

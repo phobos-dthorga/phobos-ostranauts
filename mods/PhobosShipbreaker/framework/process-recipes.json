@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "schema": "process-recipes",
+  "notes": "Phobos Shipbreaker fixed recipes: the F6 furnace charges with their thermal profiles, the T2 thaw recipes and the R4 reclaimer budget. Every recipe conserves mass. The D4 feed-family budgets are formulas over part mass and stay in code (docs/development/feed-families.md). Published revisions are frozen (frozen-process-recipes.json): change a recipe by adding a revision. Records: docs/furnace-player-guide.md, docs/shipbreaker-bulk-silos.md, docs/scrap-reclaimer.md.",
+  "recipes": {
+    "housing": {
+      "notes": "F6 revision 1, unchanged since 0.12.0: twenty aluminium scraps into one 19 kg housing blank and a 1 kg melt remainder. Aluminium: melting point 933.45 K, 40 K superheat, latent 397 kJ/kg; solid and liquid heat capacities are averaged values (NIST Chemistry WebBook). Every saved batch before 0.38.0 uses this profile.",
+      "machine": "furnace",
+      "revision": 1,
+      "inputs": [ { "id": "ItmScrapAluminum", "count": 20, "kg": 1 } ],
+      "products": [ { "id": "PhobosFurnaceHousingBlank", "count": 1, "kg": 19 }, { "id": "PhobosFurnaceMeltRemainder", "count": 1, "kg": 1 } ],
+      "thermal": { "meltK": 933.45, "targetK": 973.15, "solidCp": 1.05, "liquidCp": 1.177, "latentKJ": 397, "holdSeconds": 60 }
+    },
+    "aluminium-ingots": {
+      "notes": "F6 revision 2 (Shipbreaker 0.38.0): twenty aluminium scraps into four 4 kg ingots, three scrap gates and the melt remainder. Same aluminium profile as the housing.",
+      "machine": "furnace",
+      "revision": 2,
+      "inputs": [ { "id": "ItmScrapAluminum", "count": 20, "kg": 1 } ],
+      "products": [ { "id": "PhobosAluminiumIngot", "count": 4, "kg": 4 }, { "id": "ItmScrapAluminum", "count": 3, "kg": 1 }, { "id": "PhobosFurnaceMeltRemainder", "count": 1, "kg": 1 } ],
+      "thermal": { "meltK": 933.45, "targetK": 973.15, "solidCp": 1.05, "liquidCp": 1.177, "latentKJ": 397, "holdSeconds": 60 }
+    },
+    "steel-ingots": {
+      "notes": "F6 revision 3 (Shipbreaker 0.38.0): twenty steel scraps into four 4 kg steel ingots, three scrap gates and the steel melt remainder. Iron: melting point 1811 K and enthalpy of fusion 247 kJ/kg (NIST Chemistry WebBook); the 40 K superheat and the averaged heat capacities are ours. The game's steel scrap is not pure iron; no alloy chemistry is modelled.",
+      "machine": "furnace",
+      "revision": 3,
+      "inputs": [ { "id": "ItmScrapSteel", "count": 20, "kg": 1 } ],
+      "products": [ { "id": "PhobosSteelIngot", "count": 4, "kg": 4 }, { "id": "ItmScrapSteel", "count": 3, "kg": 1 }, { "id": "PhobosSteelMeltRemainder", "count": 1, "kg": 1 } ],
+      "thermal": { "meltK": 1811, "targetK": 1851, "solidCp": 0.60, "liquidCp": 0.82, "latentKJ": 247, "holdSeconds": 60 }
+    },
+    "thaw-water": {
+      "notes": "T2 revision 1: one 24.7 kg block of the game's water ice into 22.7 kg of process water in the linked vessel and the game's own 2 kg ice gangue (masses from items_mining.json). 40 minutes at 6 kW; the thermal need is 525 kJ/kg authored with NIST's 333.6 kJ/kg enthalpy of fusion.",
+      "machine": "thaw-water",
+      "revision": 1,
+      "inputs": [ { "id": "ItmIce01", "count": 1, "kg": 24.7 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 22.7 }, { "id": "ItmIceTrash01", "count": 1, "kg": 2.0 } ],
+      "seconds": 2400
+    },
+    "thaw-methane": {
+      "notes": "T2 methane ice (Shipbreaker 0.45.0): the game's 24.84 kg methane ice read as structure I clathrate, CH4.6H2O (Circone et al. 2005, USGS), with the same 2 kg gangue: 2.95 kg of methane to a linked methane store and 19.89 kg of water to the vessel. Dissociation 54.2 kJ/mol (Handa 1986, NRC Canada). 50 minutes at 6 kW.",
+      "machine": "thaw-methane",
+      "revision": 1,
+      "inputs": [ { "id": "ItmIce02", "count": 1, "kg": 24.84 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 19.89 }, { "id": "methane", "count": 1, "kg": 2.95 }, { "id": "ItmIceTrash01", "count": 1, "kg": 2.0 } ],
+      "seconds": 3000
+    },
+    "reclaimer": {
+      "notes": "R4 revision 1 (Shipbreaker 0.8.0): one 13 kg identified residue packet into 3 kg of steel, 1 kg of aluminium and a 9 kg terminal reject. An authored budget, not a native assay; the cycle time is a player setting.",
+      "machine": "reclaimer",
+      "revision": 1,
+      "inputs": [ { "id": "PhobosPanelResidueR2", "count": 1, "kg": 13 } ],
+      "products": [ { "id": "ItmScrapSteel", "count": 3, "kg": 1 }, { "id": "ItmScrapAluminum", "count": 1, "kg": 1 }, { "id": "PhobosPanelRejectR2", "count": 1, "kg": 9 } ]
+    }
+  }
+}

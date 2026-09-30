@@ -7,6 +7,9 @@
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
     <Compile Include="../../src/PhobosManufacturing/Core/*.cs" Link="%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/economy.json" LogicalName="PhobosManufacturing.economy.json" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/process-recipes.json" LogicalName="PhobosManufacturing.process-recipes.json" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/frozen-process-recipes.json" LogicalName="PhobosManufacturing.frozen-process-recipes.json" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/materials.json" LogicalName="PhobosManufacturing.materials.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />
