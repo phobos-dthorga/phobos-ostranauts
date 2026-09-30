@@ -1161,6 +1161,11 @@
 - Owner requests much broader merchant availability and world finds. Current stock floors are content-owned (85% equipment/sections/boards, 95% supplies/food) before Framework availability configuration, with existing finite lots. Maintain through the constants updater and regenerate item references.
 - Fill general-market coverage without duplicating prepared offers; retain native restocking, prices, merchant roles, other providers and saved inventories. Use suitable native leaf/engineering pools and single-item loot choices; never put wholesale lots, installed machinery or fabricated process records into world loot. See [merchant stock](docs/development/merchant-stock.md).
 
+## Faction kiosks (2026-09-30)
+
+- Owner direction: every sold Phobos machine, equipment and item is also offered at the game's faction kiosks (CCRE and GalCon), which sell only for scrip, gated by reputation according to its value and usefulness. The one owner rule: **nothing needs Honored.** Prices and gates are delegated, based on comparable vanilla items. Framework 0.53.0 implements this: each economy pack's `factionKiosks` section lists kiosks and a tier per family, supply or item; hidden tier marks are stamped on kiosk stock, and the game's tier triggers are amended in place (mark required by its tier, forbidden by every lower one). Scrip prices stay native (credit price x 0.05, as for all vanilla kiosk goods).
+- Follow [the faction kiosk record](docs/development/faction-kiosk-stock.md) for the tier rule and vanilla anchors. A new sold item needs a tier in the same change; `tests/test_data_packs.py` and the native `FactionKioskChecks` enforce coverage and the Honored ban. Sections share their machine's tier and larger sizes their family's.
+
 ## Vanilla precedence (2026-09-28)
 
 - Owner direction: the game's own actions take precedence; hook or amend them rather than working around them, and remove sections that fight them. The findings, verdicts and native evidence are in [the vanilla-precedence audit](docs/development/vanilla-precedence-audit.md); extend it when a related gate or override is found or changed.

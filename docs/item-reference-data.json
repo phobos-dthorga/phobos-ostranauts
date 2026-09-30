@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.25.0",
+      "version": "0.26.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -4846,6 +4846,384 @@
       ],
       "sources": [
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowFirstlight4Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowHearth2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowContinuancePotato",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowContinuanceLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkIrrigation",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowRawPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowFirstlight4Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowHearth2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowContinuancePotato",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowContinuanceLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkIrrigation",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowRawPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowFirstlight4Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowHearth2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3MediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkR3LargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 4
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowContinuancePotato",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowContinuanceLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkBulkNutrients",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkIrrigation",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkRecoveryCartridge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowRawPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowLettuce",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Refurbished",
@@ -7792,7 +8170,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.30.0",
+      "version": "0.31.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8367,6 +8745,69 @@
         }
       ],
       "sources": [
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNavModAutoNav",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNavModPursuit",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNavModFireControl",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNavModAutoNav",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNavModPursuit",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNavModFireControl",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNavModAutoNav",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNavModPursuit",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNavModFireControl",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 16
+        },
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosNavModAutoNav",
@@ -9536,7 +9977,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.52.0",
+      "version": "0.53.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9578,7 +10019,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.15.0",
+      "version": "0.16.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -23833,6 +24274,552 @@
       ],
       "sources": [
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosHydrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosHydrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMethaneStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMethaneStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosOxygenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosOxygenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosOxygenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNitrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNitrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosNitrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonDioxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonDioxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosHydrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosHydrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMethaneStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMethaneStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosOxygenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosOxygenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosOxygenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNitrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNitrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosNitrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonDioxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonDioxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAmmoniaCrackerLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosHydrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosHydrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMethaneStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMethaneStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosOxygenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosOxygenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosOxygenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNitrogenStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNitrogenStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosNitrogenStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonDioxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonDioxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Refurbished",
@@ -27738,7 +28725,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.49.0",
+      "version": "0.50.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -37385,6 +38372,489 @@
       ],
       "sources": [
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosFurnaceLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosFurnaceSection",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosScrapReclaimerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosScrapReclaimerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosShipbreakerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosShipbreakerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosExteriorGrabberLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosFurnaceRadiatorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosFurnaceThermalPortLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosIndustrialConsoleLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosProcessSiloLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosIceThawLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMaterialBinLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosResidueCollectorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosHullChuteLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosRivetlineCoolantCharge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosAluminiumIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosSteelIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosFurnaceLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosFurnaceSection",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosScrapReclaimerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosScrapReclaimerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosShipbreakerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosShipbreakerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosExteriorGrabberLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosFurnaceRadiatorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosFurnaceThermalPortLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosIndustrialConsoleLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosProcessSiloLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosIceThawLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMaterialBinLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosResidueCollectorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosHullChuteLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosRivetlineCoolantCharge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosAluminiumIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosSteelIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosFurnaceLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosFurnaceSection",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosScrapReclaimerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosScrapReclaimerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosShipbreakerLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosShipbreakerSection",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 24
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosExteriorGrabberLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosFurnaceRadiatorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosFurnaceThermalPortLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosIndustrialConsoleLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosProcessSiloLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosIceThawLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMaterialBinLargeLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosResidueCollectorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosHullChuteLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosRivetlineCoolantCharge",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosAluminiumIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosSteelIngot",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 32
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosFurnaceLoose",
           "condition": "Refurbished",
@@ -41887,41 +43357,41 @@
     }
   ],
   "sourceHashes": {
-    "mods/PhobosAgriculture/framework/economy.json": "6a1419e2795534063f58a9c2aadc1df6778a0c7cae3dd53792f1d9f024bc97cc",
+    "mods/PhobosAgriculture/framework/economy.json": "0f12a85b923121d006534b5f693789a0a4d23082feb379ed270f4df7ccbbc93e",
     "mods/PhobosAgriculture/framework/equipment-names.json": "53bbc29557319786fd5a7c96855f611f8418db27a82511a9ba7846e7d743535c",
     "mods/PhobosAgriculture/framework/materials.json": "aab92c5f7b7feebe753134a9dbb73ca8d02e75ed8ac7d273dc866ff4e5466292",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "4907799fed3439eb092471976e446bee8d90ec81dcdc5927901ef51b1b30b01a",
-    "mods/PhobosAgriculture/mod_info.json": "87a537985e2d404fb8e21b51bec584fc41bd2a97ff6ba017096140a21248d9cc",
+    "mods/PhobosAgriculture/mod_info.json": "ad3dc0731d09df414a43e27d79390104b9f079af7af07d2dc624176e22e6ccc1",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
-    "mods/PhobosAutoNav/framework/economy.json": "40cd8ff16e514e65e5f2708fafff76c379e754005e39cd5f75e2c49468727e29",
+    "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "a216b8d5dba17aba71e1a064dce6f316354404502f23d1752de28df808f6a568",
+    "mods/PhobosAutoNav/mod_info.json": "cbb3be4a3e567188cc4777060d5be40d62f97d6f1df2d74647c22c5a04b671e7",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "3885fee001b349cf5d1ff45b18f6af9fa16ef2809964312d27e6eb2d69672ed5",
+    "mods/PhobosFramework/mod_info.json": "58650f6e96b28e1b933edf0316a76ae14e4f818cd4801c4f6476209c85c36e2a",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "3d7cd9a787533ebed24a2ff3e20c5ae0c275f91aac69ef7879754d51678c3ee7",
+    "mods/PhobosManufacturing/framework/economy.json": "8699660bcbdb13b41134638f66d70e1ddb4fb410d96856723e7d5b0b64203540",
     "mods/PhobosManufacturing/framework/equipment-names.json": "cde40c591b87dcf2e9a02c90490d1684f9aabcb9acd634558385dcd5eef366e7",
     "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "708e92c8251d992c5d0700d8b65acefbf7c4f0e9a2662234d2d325341338d29a",
     "mods/PhobosManufacturing/framework/materials.json": "cbcf2643d151622ec6e1104ff63d2f2171c133f530052321b06f203d664a2017",
     "mods/PhobosManufacturing/framework/process-recipes.json": "583d1032de03512f194a88bf8398c639f1e0050e24f0679ce2739ffa99543379",
     "mods/PhobosManufacturing/framework/vessels.json": "450b9baf5eab6ca0c1ef22758df13f67d8bc954ed249d73b987ead598ac3f19a",
-    "mods/PhobosManufacturing/mod_info.json": "c442cca9256d74cc0225b5d492100264d764221b1314138fef7a65cc88f3a994",
+    "mods/PhobosManufacturing/mod_info.json": "2c75d9c08ce07912cbaf9c9b106a084240f51aecc6d2f4096f4bce7186fc63ce",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
-    "mods/PhobosShipbreaker/framework/economy.json": "e6dace6323dc89c0c83820e9fedec7ebbcce62a195e12cb7d754caa1a0bfb7ff",
+    "mods/PhobosShipbreaker/framework/economy.json": "9c72db0699d6354cb5d0351bb33348ede6a3a70c4cd5e27ef3b6f7739eec946e",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "0c39d0a6efac904a2a4cc273ff1060ebbc20da33d5fd6d26c1ac32b95fe77184",
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
     "mods/PhobosShipbreaker/framework/vessels.json": "c656a1807b649dcf25d03030c73be49b3de4f7d524c61ccf1848476cd05d097e",
-    "mods/PhobosShipbreaker/mod_info.json": "83105124e8cc5b2a83a786033b4daf75b1ffdbb4359b4547a86f87cab2746029",
+    "mods/PhobosShipbreaker/mod_info.json": "d0adb72abf9cf8dc13c961160e57607e8a8aa746014faa6a95b7b3e183ce0029",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -41956,11 +43426,11 @@
     "src/PhobosAgriculture/Panel.cs": "bbc54e2982e9653bf1bcf8ac908cfa6cd643d3e0c196635f9e280ce164afb85c",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "0041ac53daf4d29252f8724112e562c86119f41941530fd2ef8b24fe57471359",
-    "src/PhobosAgriculture/Plugin.cs": "e1754b91c724ffef9ab1196bf72c99e38dc8317768d78febe335e78a7a90abc5",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "425bac1a862d16343a230a4be2461c4ec8a4c6f3031f902b8d09db40bc9345d7",
+    "src/PhobosAgriculture/Plugin.cs": "3a94cf457fbdfa92fd1b2d8f552eadaf259741f82a132a3eaa578b4ccf59f623",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
-    "src/PhobosAgriculture/RegionalEconomy.cs": "0d3e2fa2e1fd7259a7bee7866284f0f84bfb71c20d487a0c0239fe968a66a360",
+    "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
     "src/PhobosAgriculture/Service.cs": "295cc9c02840a773c2f87598265f4258def313b764845ce5343fd9381c774fcd",
     "src/PhobosAgriculture/SolutionService.cs": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
     "src/PhobosAgriculture/StackLimits.cs": "39b7b65ca55474ccc6a90274064545e3cd6392a1c29699a669d20206573b6e47",
@@ -42026,9 +43496,9 @@
     "src/PhobosAutoNav/NavigationWeaponGroups.cs": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "f376199224f4058d229bc0bbeb6ff4fcfc477e4e305ca341357d496805e9edda",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "1e0eb79f2493880174cba633c570e6989e583a3de734475b6ae6de1b04f62762",
-    "src/PhobosAutoNav/Plugin.cs": "15f680ad12959603f563322824207a8c42dd6536585cfde02cdd0abb883f44af",
-    "src/PhobosAutoNav/RegionalEconomy.cs": "d784bb73c5c81a2f32fa88b00475dabd8e46ca49bf9fd1aa98062b98008d2272",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "5dfaaad53e48622640ac277bf11bd417bfdb48553029b00b008cf32ec9eebf0f",
+    "src/PhobosAutoNav/Plugin.cs": "2f573195a0d004301d06e92affd2ce987d007835e03ff48a0e47e2fcde9944bf",
+    "src/PhobosAutoNav/RegionalEconomy.cs": "6d88800bbdf4af8e7f11728a3bd683350cd99349910f05558e623cf29260e035",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "07d1a17b28f1a26bfa7bd427b28983658a686bd3c7df949f224bcc43df24aa37",
     "src/PhobosAutoNav/Text.cs": "6e7a22770d59134bdfc83f49bfec573f59e6036829676087435dcdb612cc1879",
@@ -42087,8 +43557,8 @@
     "src/PhobosFramework/Crew/WorkRules.cs": "e79e0df16e8f0d41d39ca0b1093b149d0585f2a83ae695bbc739c392b546e4ae",
     "src/PhobosFramework/Data/DataPack.cs": "7d5c92c79801c6b2ef58b81cbe295d4506997c414038dd703f36df75c9882a06",
     "src/PhobosFramework/Data/DataPacks.cs": "7c94254c9699c46ac7e020691a6c8aac5bde0bd70e2b4002d3c6dbc693e91754",
-    "src/PhobosFramework/Data/EconomyPack.cs": "a95f418a7d5511c584a96c0c9506b1044b93e908254176e5965794424cf94e22",
-    "src/PhobosFramework/Data/EconomyStock.cs": "c13e4e8dd3b9d80477e4367c0851bece14f2f5cf655c175e10d82f997cbace16",
+    "src/PhobosFramework/Data/EconomyPack.cs": "2d3b15d689da4d07f4dbd1eacfd7f6754f8c2621e74a7657c00c47a0c42ab8b3",
+    "src/PhobosFramework/Data/EconomyStock.cs": "fec57f790718bfa93778fb140937396f534b1c0d5b1e18a4a387ce4a4ea24ecd",
     "src/PhobosFramework/Data/MaterialPack.cs": "a7f7cff6b06ef3922764b35ef3caa01b0570931f4ac9ed2a596cac273f59fa61",
     "src/PhobosFramework/Data/RecipePack.cs": "1deda44e3d0478db032f8977e37dbbd5e71848f14d23a3c044689ecce46a1316",
     "src/PhobosFramework/Data/VesselPack.cs": "a3c0d7ca76ed4e9560e4ee5d4083a51ef6f18384e0d899cbc05809c4d7563ac1",
@@ -42144,8 +43614,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "53778cd043cc7499706f6fcb233c116a69506397e2e09af0e1a855862e0d2d0c",
-    "src/PhobosFramework/Plugin.cs": "8586d47f52c7be870f69b088580ecb67d46015ffca656e7aa12c91478b55b207",
+    "src/PhobosFramework/PhobosFramework.csproj": "49a3b758fe928809b4c74d0cb76eb51459cb7f4d9610803dc1f85b524e4c8f2a",
+    "src/PhobosFramework/Plugin.cs": "3b3f5c0f69b1bb8bbc97fb44296833070340fc3dae3d89c6d3b2caffc2ad94cc",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -42179,7 +43649,8 @@
     "src/PhobosFramework/Text.cs": "866668152e077c30ff9d278aa86762e0b44e9662a46d9a6bd94f99cf040ea493",
     "src/PhobosFramework/Trading/BulkSettlement.cs": "7b25b5da6ea5d3ece352f8fb2009370dba1900ee31d3bd032950f4410c154aec",
     "src/PhobosFramework/Trading/BulkSupplies.cs": "7a489a45f6ff27daf31c0e8df18dafde0c4d7781fd0f3158b2badd122a3af378",
-    "src/PhobosFramework/Trading/MarketStock.cs": "5881afeef60bdfe8fd051264cf07d80f9096057a0c6fb680bf0c5dd01e2fb925",
+    "src/PhobosFramework/Trading/FactionKiosks.cs": "c1e10f5647e7f8d278504c1ec4c5b22a735285be941c4a867fa412d2e238c96c",
+    "src/PhobosFramework/Trading/MarketStock.cs": "f577110347081cda1f70c4b308d49c18059f26a21e3af868bfa82eeb75125e0a",
     "src/PhobosFramework/Trading/RegionalMarkets.cs": "b79921a791e70a757cbf0457a382f53da73ef4ce9651c821bb36765464ca927b",
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
@@ -42204,7 +43675,7 @@
     "src/PhobosManufacturing/Core/Vessels.cs": "1ff2d3efc5572d5f78c4b227e8c93130558bdc5598ce27f2ca2505a941f7876d",
     "src/PhobosManufacturing/CrackerService.cs": "092a97400da31b5847c36bd371044ac674407e507901d49c83bbdd0f7d8c2f6b",
     "src/PhobosManufacturing/Definitions.cs": "e0b70551c99d63fdd114616e2169d10903c12fc102e10561069638711ed42de6",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "03dfda3f15e36bd6e734820cc24e807741f3680d61698fe54ffd580af75b970e",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "43db04fc3abc7875e8298bc21c49a85c207400531be177ce841a0669f649807f",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "81f0311f97e18a0056bbd825f945845fa56cbb71e5c0f0866a8dfb37e2c32824",
     "src/PhobosManufacturing/GasLine.cs": "62d56a9f66fe6734ef29ef02d338fbdd9b8f32e7a44cc6f08d6e4f5414a16f73",
@@ -42212,8 +43683,8 @@
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "3e028897a3d9f87c95970d6139f5b720e7a64a6106eb62298ffe7a12ea074c37",
-    "src/PhobosManufacturing/Plugin.cs": "d05fdad7b7f11a9b02238a9896ed06acd3353251996e95d9a0b749c1c7298865",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "f2742798aba4fed28cae5c8f322fc13f5a6d457c2d7b871538c7a82b2d8e9860",
+    "src/PhobosManufacturing/Plugin.cs": "61d4a59e00c52bfe397d4da51f6f9e436d887b56b077aa422cd6522d53123df1",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
     "src/PhobosManufacturing/Provider.cs": "021cda84ab580e4fe50c28d4dbda32e0346b7f0f62c39f2b764e38f3d4b200c5",
     "src/PhobosManufacturing/RefineryService.cs": "11f5678e364886e06e43b3ee289efa10a1f639d767c588263c1151cf17c5bb21",
@@ -42246,7 +43717,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "63134f328819607a944f03d0261b560a0657a757a82979d67ac7f159e5decf98",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "61cb8adf9e7db67f0d5eb76aa9b9a63e7a92a776dd885184265e2759e6e60cd3",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "87a16bd5380a5a9eb6e4af705917fd388c158f9350895a9e862349fd0fdccec2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -42298,9 +43769,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "89c27031d3426be275cb76d8c7e2fbe75c01ad5186c4a50b23ca2e218a90764d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "e1605a3766dfc7d69cde6f4352d55a05abe86adda3142ccad79b3470fa8551bf",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "9005c1adfd239418be9dd44c8c471b31463a3d5bce6aa81a076b4685b7a69de3",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "1c7a1c1a278032eb84a1c4c56b571614d79ed4acafc7a64aca5df10b34ed4690",
+    "src/PhobosShipbreaker/Plugin.cs": "c872e400100dfa1f0edcbc03693fd670c280022ca00f4133ad10904367d6dc24",
     "src/PhobosShipbreaker/PowerKinds.cs": "1fd8de318e12433eb363fa069c4e21b6457ebf6e859f20039531a98f7b278629",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -42310,7 +43781,7 @@
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "438d1c8a621efd7c6d00391eba81285e83ee6b87f9b3c207b16990f04d71ffa1",
     "src/PhobosShipbreaker/ReclamationPower.cs": "39c03c78a1d5c91d739e7a9c85aabe7c4e1dc167ce3fe39bf73d22fb730c7ca0",
     "src/PhobosShipbreaker/ReclamationService.cs": "63a9e8492c036f5615c50037131dc7ed703790207b4618f63b81ae0edef7956c",
-    "src/PhobosShipbreaker/RegionalEconomy.cs": "1226f2488499e87291cc8178daa34d6999a5efc94800af15344285825bb08eaf",
+    "src/PhobosShipbreaker/RegionalEconomy.cs": "3e0fc14a05f908faa8754e280204ac24b8db413c4af9193624bbe869b9195388",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "1e9fa1facd79a585987f93d60aa4f0e59a616cc99cd5e845fc0f4abc37794b99",
     "src/PhobosShipbreaker/SiloDefinitions.cs": "ac0b45f2c9caeca06373dfd33215ceeeaca91b57da632f346c4abb120e6849e4",
@@ -42334,11 +43805,11 @@
     "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "da6d159eeb9656168e9082e38c4e83ba1ed57ae5ac60ce655345c06f9d6cc030",
-    "tests/PhobosNative.Tests/Program.cs": "f1e63af0c592d90da54fba7d652b325e4d81ca768e5de3c25128b03bb5f5f5ae",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "ededab0f80140382960b994f4f834dce795952bea7fd50ef589deed657dd3728",
+    "tests/PhobosNative.Tests/Program.cs": "1a7173aad88aa95e6bc62c510fd386db496ec2aab638ef9d0d34821a3b808eb6",
     "translations/PhobosAgriculture/en.json": "fa38b4a68918a16f7c5e10e25a577e6ca3bc7461baed07e83337cd6cb42df12f",
     "translations/PhobosAutoNav/en.json": "bf6f99c73e3899ec48482799d29ce35146bc86bb786135a1bfc419096999b0e9",
-    "translations/PhobosFramework/en.json": "8df6d2e31ab0468811abf2cf2658f1830fed0e9602408bbbca58aa1574a9bb16",
+    "translations/PhobosFramework/en.json": "ba6a5bd690cc74f989dcfcf7261cf8d547a8d5ea33ce3342459dd29559ee6ae9",
     "translations/PhobosManufacturing/en.json": "b3982153bd6dbcb072463a92ecb6887d84f2bf93a897a9101e6c37ae8ad3a8bc",
     "translations/PhobosShipbreaker/en.json": "873a8c93a2ee9152051028246ffe17939a31695233fc1c2d2dddab7aefb5a5f1",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"

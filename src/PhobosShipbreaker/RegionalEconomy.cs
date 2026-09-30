@@ -16,6 +16,7 @@ internal static class RegionalEconomy
     internal static void Apply(NativeDefinitions d)
     {
         EconomyStock.ApplyRegional(d, ShipbreakerEconomy.Pack, ShipbreakerEconomy.OwnerTag, EquipmentEconomy.Sales);
+        EconomyStock.ApplyFactionKiosks(d, ShipbreakerEconomy.Pack, ShipbreakerEconomy.OwnerTag, EquipmentEconomy.Sales);
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantWaste], "IsCategoryTrash", 1);

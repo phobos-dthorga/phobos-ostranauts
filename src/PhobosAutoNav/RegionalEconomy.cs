@@ -10,5 +10,9 @@ internal static class RegionalEconomy
 {
     internal static (string Region, double Factor)[] Profiles => AutoNavEconomy.Pack.regions.Select(p => (p.Key, p.Value)).ToArray();
 
-    internal static void Apply(NativeDefinitions d) => EconomyStock.ApplyRegional(d, AutoNavEconomy.Pack, AutoNavEconomy.OwnerTag, AutoNavEconomy.Sales);
+    internal static void Apply(NativeDefinitions d)
+    {
+        EconomyStock.ApplyRegional(d, AutoNavEconomy.Pack, AutoNavEconomy.OwnerTag, AutoNavEconomy.Sales);
+        EconomyStock.ApplyFactionKiosks(d, AutoNavEconomy.Pack, AutoNavEconomy.OwnerTag, AutoNavEconomy.Sales);
+    }
 }

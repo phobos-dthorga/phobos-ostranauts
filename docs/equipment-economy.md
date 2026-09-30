@@ -194,9 +194,10 @@ An item may also fail to appear if shop stock placement has no usable space.
 The San Diego entries use the game's existing named industrial/electronics
 merchant definitions. We do not spawn a new merchant or claim they exist at every
 station. K-Leg offers and construction mean no journey to a particular region is
-required. Venus gains an additional second-hand route. Ceres/Callisto faction
-shops and character-creation-only supply lists are left alone: a mining-themed
-table name alone is not enough evidence of an ordinary industrial retailer.
+required. Venus gains an additional second-hand route. Character-creation-only supply
+lists are left alone. The CCRE and GalCon faction kiosks were also left alone
+here; since 30 September 2026 they sell everything for scrip (see
+[Faction kiosks (scrip)](#faction-kiosks-scrip) below).
 
 The native sales filters permit these offers. Intact Shipbreaker machinery and
 sections retain `IsSalvageValueHigh`, so the fixer is a resale route while K-Leg's
@@ -224,6 +225,31 @@ inventory the player expects to remain present.
 It multiplies chances, capped at 100%, without changing the quantity per successful offer. Change
 with the game closed; restart and allow a normal restock. Prices, dimensions and
 material identities remain a coherent fixed baseline in this version.
+
+## Faction kiosks (scrip)
+
+Every Phobos machine, section, board, supply, crop and meal is also sold at the
+CCRE faction kiosks (Zhonghuamen Terminal; Port Yangshan, Mars) and the GalCon
+faction kiosk (Port Mojave, Ceres). These kiosks take only faction scrip, which
+you earn by selling them mining output.
+
+- **Price:** the usual credit price at the faction's rate, one scrip per 20
+  credits, like everything else they sell. A 24,000 credit F6 costs 1,200 scrip
+  before the kiosk's own adjustments.
+- **Standing:** the kiosk lists what you can't buy yet as locked rows.
+
+| Standing needed | What you can buy |
+| --- | --- |
+| Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
+| Warm (25) | Agriculture machines and reservoirs; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
+| Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store, the A2, P1 and L2 |
+| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2 and V4 |
+
+Nothing needs Honored. Buying at a kiosk also raises your standing with that
+faction a little, as it does for vanilla goods. Stock arrives in the usual lots
+at the kiosk's next normal restock; kiosks already stocked are not refilled. The
+full table, vanilla comparisons and reasoning are in the
+[faction kiosk record](development/faction-kiosk-stock.md).
 
 ## Construction, repair and restoration
 

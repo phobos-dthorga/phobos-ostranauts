@@ -25,6 +25,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.50.0] - 2026-09-30 - Draft
+
+### Added
+
+- Every Rivetline machine, assembly section and supply is now also sold for scrip at the CCRE faction kiosks at Zhonghuamen Terminal and Port Yangshan (Mars) and the GalCon faction kiosk at Port Mojave (Ceres), in the usual lots. Standing needed: Neutral for coolant pipe, coolant charges and ingots; Warm for the hull chute, residue collector, material bins, T2 thaw unit, process silos, industrial console, F6 radiator and F6 thermal port; Friendly for the D4 processor, R4 reclaimer, their sections and the G4 grabber (it captures and cuts other hulls); Trusted for the F6 furnace and its sections. Nothing needs Honored.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.53.0 or newer. Kiosks keep their current stock until their next normal restock; nothing is refilled or edited in a save. Offline checks are not gameplay validation.
+
 ## [0.49.0] - 2026-09-30 - Draft
 
 ### Balance

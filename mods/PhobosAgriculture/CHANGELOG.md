@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.26.0] - 2026-09-30 - Draft
+
+### Added
+
+- Every Verdemorrow machine, supply, crop and meal is now also sold for scrip at the CCRE faction kiosks at Zhonghuamen Terminal and Port Yangshan (Mars) and the GalCon faction kiosk at Port Mojave (Ceres), in the usual lots. Standing needed: Neutral for seed stock, nutrients, irrigation and recovery cartridges, makeup, pipe, produce and Hearth meals; Warm for the Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 workup bench and every reservoir size. Nothing needs Honored.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.53.0 or newer. Kiosks keep their current stock until their next normal restock; nothing is refilled or edited in a save. Offline checks are not gameplay validation.
+
 ## [0.25.0] - 2026-09-30 - Draft
 
 ### Changed

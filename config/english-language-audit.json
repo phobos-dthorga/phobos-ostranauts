@@ -48471,6 +48471,71 @@
       ],
       "before": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it.",
       "after": "{0} must stay {1} kg at {2} cr: the crop, recovery and workup models are written for it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.faction_tier",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for faction kiosk stock; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:318"
+      ],
+      "before": "{0}: faction tier {1} must be Neutral, Warm, Friendly, Trusted or Honored.",
+      "after": "{0}: faction tier {1} must be Neutral, Warm, Friendly, Trusted or Honored."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FactionKiosks.mark_name",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for faction kiosk stock; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Trading/FactionKiosks.cs:48"
+      ],
+      "before": "Faction kiosk tier: {0}",
+      "after": "Faction kiosk tier: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FactionKiosks.mark_description",
+      "category": "description/help",
+      "decision": "add",
+      "reason": "New player text for faction kiosk stock; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Trading/FactionKiosks.cs:48"
+      ],
+      "before": "Faction kiosks sell this item only to buyers they rate {0} or better.",
+      "after": "Faction kiosks sell this item only to buyers they rate {0} or better."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FactionKiosks.missing_trigger",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for faction kiosk stock; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Trading/FactionKiosks.cs:60"
+      ],
+      "before": "Faction kiosk tier {0} is missing from the game data. Phobos items gated at that tier will not be listed there.",
+      "after": "Faction kiosk tier {0} is missing from the game data. Phobos items gated at that tier will not be listed there."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FactionKiosks.unexpected_trigger",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for faction kiosk stock; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Trading/FactionKiosks.cs:64"
+      ],
+      "before": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it.",
+      "after": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it."
     }
   ],
   "documents": [
@@ -48478,8 +48543,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "abb5db482809dd665e05300556bb08bcd49159b9ae6c515697256730beff313a",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "aa026008ca6336f06dd8fa98fb0a7311d9d1231edd5b8f5dc3244c1389c336bd",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "SUPPORT.md",
@@ -48638,8 +48703,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1c1c6776c306d7018dfaf2b7ec94e0d0b7bd03954f20483805bd7e309648706b",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "83ef434b6fc0e0fdea9a876d4fe4f7200375f9ffa58dc58a976698ce9163701a",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/crew-automation.md",
@@ -48652,8 +48717,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "53ce2ff9645137b8029be1e217d52d79b0cda3caff67d69e40ebfc1d7b5fe2f7",
-      "review": "Round three design record: a development record, not player text."
+      "sha256": "ab2d7fbfca0b835922dc30ca8d263e1edf82bc22b83870f1941dbdb0f5523305",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -49135,8 +49200,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e269e381248dffda7df743e5d252f381729624c95351ad53dd2a442ee8ceaa56",
-      "review": "2026-09-29 (RCS propellant): propellant line lot row."
+      "sha256": "711da0bbefe3224323044ae100e3ab282e75b57cb2b11f530a9aac664223b827",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -49359,8 +49424,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8bf217bd079d18ef045feab858046842b1b9b52fe21945ffcb7c91880a500f75",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "243f5db852ade12ce4aa7be5c7ad32216998cd7ced338b616bd4a0892aaaf2ac",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -49429,15 +49494,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ee01cc735025197d416893eb36b71313c44d05291733c5dafcb7134aeb009109",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "8cc4a96fefcb3d38263f725a26b94ff1e38aa48ef0417db60f49142667dbcba0",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "920d6134bcdaa48bb6fce8f6439bcf3def3fcdf3e96177d253f5bd0d1b3cb7df",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "f88cd9300fe0eb20aa80ed8e345f115dd438100dc67533d1084db5e8a3bb7b77",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/item-references.md",
@@ -49478,8 +49543,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "201fcc1ba330b6337875ede028428951988db024f9c1651b9de72f92e4b574b8",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "b541ecb911de3f7a5c058a0875796d572f9146dc11ad5f4ebd706ce44cc15eee",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/residue-collector.md",
@@ -49555,36 +49620,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bf5fac747172d44cc1cc89bef5b71cb6f40425ce7b23a629428d537e5d001e9b",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "4ae61d428a0fc7447a79f6b88a38d1f01f3f528bd84acc783f68f31589589d5e",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0975978e892e0abbb942db7808bab24d08d3be9101fbe118cd789d1764558529",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "df32efc113b4028c3e310027020a96749bfdf683b9dfc2002f36a1f3b01e3fef",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ee5c387f235c1dc7454392a0e9d1719663caccc7936db5331c6cadb2b10c0c5f",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "be952f8065128e86cf5d0bd3027f93e9d3c0cd507cdcb56ededfe2f0b56f2665",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c50e68b94a09b3b775e4ec64cc9b64b1b21fd4cddfff453e4853f68a1d37c8ac",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "a23c77a4bdcc3ad37fb0bcf1c97fb1fe3a97963528c7ef6463141aea40386030",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a596c88fbcc4c6ecf10a91ad3e113d608c54b59a2b1a02c3d0de4d7d83491cc2",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "5294b6809e1ea6beb0ab95b7690073dcb1f661c0f0e400dd34bcb6d7e2d94e9f",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -49655,6 +49720,13 @@
       "decision": "Development research record; not player-facing.",
       "sha256": "558d26252dfdc3f128ebb55fa914d4102c4dde03cf77854905493d3ad57a5c65",
       "review": "Round three design record: a development record, not player text."
+    },
+    {
+      "path": "docs/development/faction-kiosk-stock.md",
+      "scope": "contributor design record with a player-relevant summary table",
+      "decision": "add",
+      "sha256": "3a88f3da1cb2a03760a87bcb5ad13d9627965a0665502164f586ffa49ba2fcd0",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): new record; vanilla evidence, tier rule, scrip prices and limits."
     }
   ],
   "surfaces": [
@@ -49678,8 +49750,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "87a537985e2d404fb8e21b51bec584fc41bd2a97ff6ba017096140a21248d9cc",
-      "review": "Step 6 tooling closure: JSON Schemas, package manifest and the Agriculture materials pack; the bound-mass refusal names the item, mass and price; guides describe editor schemas and the manifest."
+      "sha256": "ad3dc0731d09df414a43e27d79390104b9f079af7af07d2dc624176e22e6ccc1",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -49699,8 +49771,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a216b8d5dba17aba71e1a064dce6f316354404502f23d1752de28df808f6a568",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "cbb3be4a3e567188cc4777060d5be40d62f97d6f1df2d74647c22c5a04b671e7",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -49710,14 +49782,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3885fee001b349cf5d1ff45b18f6af9fa16ef2809964312d27e6eb2d69672ed5",
-      "review": "Economy data packs for Shipbreaker 0.48.0, Agriculture 0.24.0 and Auto Nav 0.30.0 (Framework 0.52.0): schema refusal messages name the field and the rule; guides and pages say where the tables live and how to override them."
+      "sha256": "58650f6e96b28e1b933edf0316a76ae14e4f818cd4801c4f6476209c85c36e2a",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c442cca9256d74cc0225b5d492100264d764221b1314138fef7a65cc88f3a994",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "2c75d9c08ce07912cbaf9c9b106a084240f51aecc6d2f4096f4bce7186fc63ce",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -49734,8 +49806,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "83105124e8cc5b2a83a786033b4daf75b1ffdbb4359b4547a86f87cab2746029",
-      "review": "Refining value review (Manufacturing 0.15.0, Shipbreaker 0.49.0): balance notes state the price moves, why, and that saved items keep their prices."
+      "sha256": "d0adb72abf9cf8dc13c961160e57607e8a8aa746014faa6a95b7b3e183ce0029",
+      "review": "Faction kiosks (Framework 0.53.0, 30 September 2026): scrip kiosk offers and reputation gates reviewed; version fields from the constants updater."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

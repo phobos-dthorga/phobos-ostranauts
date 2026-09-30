@@ -18,6 +18,7 @@ public static class MarketStock
     {
         internal string Item = "";
         internal StockCondition Condition;
+        internal string? Mark;
     }
     private static readonly Dictionary<string, Offer> Offers = new Dictionary<string, Offer>(StringComparer.Ordinal);
     private static ConditionalWeakTable<CondOwner, Offer> fresh = new ConditionalWeakTable<CondOwner, Offer>();
@@ -29,7 +30,11 @@ public static class MarketStock
     // Keep the old public overload and rare world-loot quantities unchanged.
     public const int MaximumOfferQuantity = 256;
     public static void Add(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
-        double probability, StockCondition condition, int quantity)
+        double probability, StockCondition condition, int quantity) => Add(d, merchantLoot, offerId, itemId, probability, condition, quantity, FactionTier.Neutral);
+
+    /// <summary>A finite lot whose freshly stocked units carry the faction-kiosk tier mark (see FactionKiosks).</summary>
+    public static void Add(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
+        double probability, StockCondition condition, int quantity, FactionTier tier)
     {
         if (quantity < 1 || quantity > MaximumOfferQuantity)
             throw new ArgumentOutOfRangeException(nameof(quantity), Text.Get("MarketStock.invalid_merchant_offer"));
@@ -41,7 +46,7 @@ public static class MarketStock
         // Assign through aCOs so the native parser refreshes its cached LootUnits.
         d.Loot[offerId].aCOs = new[] { itemId + "=" + Math.Min(1, probability * AvailabilityMultiplier).ToString("R", CultureInfo.InvariantCulture)
             + "x" + quantity.ToString(CultureInfo.InvariantCulture) };
-        Offers[offerId] = new Offer { Item = itemId, Condition = condition };
+        Offers[offerId] = new Offer { Item = itemId, Condition = condition, Mark = FactionKiosks.Mark(tier) };
     }
 
     /// <summary>Fill an omitted stock identity without duplicating an already prepared offer.</summary>
@@ -79,6 +84,7 @@ public static class MarketStock
         item.SetCondAmount("IsPristine", offer.Condition == StockCondition.Pristine ? 1 : 0);
         // Broken offers use the actual damaged definition, never a cosmetic wear flag.
         item.SetCondAmount("StatDamage", item.GetCondAmount("StatDamageMax") * WearFraction(offer.Condition));
+        if (offer.Mark != null) item.SetCondAmount(offer.Mark, 1);
     }
 }
 

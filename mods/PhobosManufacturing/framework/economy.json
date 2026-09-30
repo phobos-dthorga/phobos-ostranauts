@@ -156,5 +156,30 @@
   "chanceFloors": { "equipment": 0.85, "supplies": 0.95 },
   "worldLoot": [
     { "notes": "One engineering-salvage roll in twenty yields a machine, three in four broken, split evenly across the families that may be found.", "table": "ItmLootSpawnEngineering", "branch": "PhobosManufacturingMachinerySalvage", "chance": 0.05, "brokenShare": 0.75 }
-  ]
+  ],
+  "factionKiosks": {
+    "notes": "Fennmark machinery at the CCRE and GalCon faction kiosks for scrip, every store size with its family. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
+    "merchants": [
+      "ItmFactionKioskBCRSInv",
+      "ItmFactionKioskBCERInv",
+      "ItmFactionKioskMTRSInv"
+    ],
+    "chance": 1,
+    "tiers": {
+      "PhobosVolatilesRefinery": "Trusted",
+      "PhobosSabatierReactor": "Trusted",
+      "PhobosAmmoniaCracker": "Trusted",
+      "PhobosChemicalProcessor": "Trusted",
+      "PhobosCanisterFiller": "Friendly",
+      "PhobosPropellantManifold": "Friendly",
+      "PhobosCabinAirRegulator": "Friendly",
+      "PhobosHydrogenStore": "Friendly",
+      "PhobosMethaneStore": "Friendly",
+      "PhobosOxygenStore": "Friendly",
+      "PhobosNitrogenStore": "Friendly",
+      "PhobosCarbonDioxideStore": "Friendly",
+      "PhobosAmmoniaStore": "Friendly",
+      "PhobosPropellantLine": "Neutral"
+    }
+  }
 }

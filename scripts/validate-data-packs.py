@@ -16,6 +16,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS = {'BCER', 'BCRS', 'EJDR', 'HQCH', 'JATL', 'JFTS', 'JPTN', 'MHNG', 'MLAB', 'MSUZ', 'MTRS', 'MVOL', 'OFLT', 'OKLG', 'SVIR', 'VCBR', 'VENC', 'VNCA', 'VORB'}
 CONDITIONS = {'Pristine', 'Refurbished', 'Worn', 'Broken'}
+FACTION_TIERS = ('Neutral', 'Warm', 'Friendly', 'Trusted', 'Honored')
 KINDS = {'equipment', 'supplies', 'section'}
 FORMS = {'machine', 'item', 'single'}
 MAX_QUANTITY = 256
@@ -65,7 +66,7 @@ def work(obj, where, repair_optional=False):
 
 
 def economy(pack, where):
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'equipment', 'supplies', 'offerTemplates', 'offers', 'regions', 'regional', 'lots', 'chanceFloors', 'worldLoot'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'equipment', 'supplies', 'offerTemplates', 'offers', 'regions', 'regional', 'lots', 'chanceFloors', 'worldLoot', 'factionKiosks'}, where)
     lots = pack.get('lots', {})
     floors = pack.get('chanceFloors', {})
     for name, lot in lots.items():
@@ -200,6 +201,22 @@ def economy(pack, where):
         else:
             number(loot.get('chance'), f'{w}/chance', 0, 1, exclusive_low=True)
         number(loot.get('brokenShare', 0), f'{w}/brokenShare', 0, 1)
+    kiosks = pack.get('factionKiosks')
+    if kiosks is not None:
+        w = f'{where}/factionKiosks'
+        fields(kiosks, {'notes', 'merchants', 'chance', 'tiers'}, w)
+        merchants = kiosks.get('merchants', [])
+        if not isinstance(merchants, list) or not merchants or not all(isinstance(m, str) and m.strip() for m in merchants):
+            raise Problem(f'{w}/merchants: at least one merchant is needed')
+        number(kiosks.get('chance', 1), f'{w}/chance', 0, 1, exclusive_low=True)
+        tiers = kiosks.get('tiers', {})
+        if not isinstance(tiers, dict):
+            raise Problem(f'{w}/tiers: expected tiers by item')
+        for item, tier in tiers.items():
+            if not item.strip():
+                raise Problem(f'{w}/tiers: item id needed')
+            if tier not in FACTION_TIERS:
+                raise Problem(f'{w}/tiers/{item}: {tier!r} is not one of {list(FACTION_TIERS)}')
 
 SPECIES = {'CH4', 'CO', 'CO2', 'H2SO4', 'N2', 'NH3', 'O2', 'Smoke'}
 MASS_TOLERANCE = 1e-6

@@ -1,5 +1,5 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.15.0
+[b]Version:[/b] 0.16.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
@@ -11,24 +11,24 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [*][b]Phobos' Fennmark H2 Hydrogen Store[/b] (2 x 2): holds 24 kg of hydrogen, with a vent overboard.
 [*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for your silo or reservoir, and methane for the [b]Phobos' Fennmark M2 Methane Store[/b] (holds 160 kg). Paired with the X2, it wins back about half the water, as NASA's Sabatier system on the ISS does.
 [*][b]Phobos' Tolvane AX-2 Ammonia Cracker[/b] (2 x 2, 2 kW): splits stored ammonia into nitrogen for your cabin air and hydrogen, 1 kg an hour into 0.82 kg of N2 and 0.18 kg of H2, each to its own store.
-[*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (1 x 1, INSTALL > HVAC): on an RCS regulator's gas input, it feeds your thrusters from up to four gas stores, within one tile or along a gas line. Each gas pushes by its real worth: methane or ammonia about 1.4 times nitrogen per kilogram, hydrogen about 3.7. Each store has its own switch, and everything starts off.
-[*][b]Gas stores in three sizes[/b]: hydrogen, methane, oxygen, nitrogen, carbon dioxide and new Q2 ammonia stores, each small, medium or large. Stations sell bulk oxygen, nitrogen and CO2 through Bulk supplies.
+[*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (1 x 1, INSTALL > HVAC): on an RCS regulator's gas input, it feeds your thrusters from up to four gas stores, within one tile or along a gas line. Each gas pushes by its real worth: methane or ammonia about 1.4 times nitrogen per kilogram, hydrogen about 3.7. Each store has its own switch; all start off.
+[*][b]Gas stores in three sizes[/b]: hydrogen, methane, oxygen, nitrogen, carbon dioxide and new Q2 ammonia stores. Stations sell bulk oxygen, nitrogen and CO2 through Bulk supplies.
 [*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (2 x 2, 3 kW, INSTALL > HVAC): tops up suit O2 bottles in its rack and canisters beside it to a safe 99% and stops, from your stores or a canister; Decant mode empties them back. Right-click Keep suit bottles charged and your crew fetch loose bottles below 90% and start it.
 [*][b]Phobos' Fennmark A2 Cabin Air Regulator[/b] (2 x 2, INSTALL > HVAC): keeps its room at your oxygen and pressure set points from linked O2 and N2 stores. It only adds gas, stops if the room is open to space and never lets oxygen pass 30% of the air.
 [*]Clay hydrates and salt crust turn up in C-class finds, in place of some silicates. Ores are mined, never bought.
-[*]Prices, work, salvage, merchant odds, charges, materials and store ratings are files in the framework folder; override them in BepInEx/config/PhobosManufacturing.
+[*]Prices, salvage, merchant odds, charges, materials and store ratings are files in the framework folder; override them in BepInEx/config/PhobosManufacturing.
 [/list]
 
 [h2]Getting started[/h2]
 [list]
-[*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson (new) and regional supply kiosks, or find one, usually broken, in engineering salvage. They install from INSTALL > APPS; there are no construction recipes.
+[*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson and regional supply kiosks (new), for scrip at CCRE and GalCon faction kiosks (Friendly or Trusted), or find one in engineering salvage. They install from INSTALL > APPS; none can be built.
 [*]Water charges and the X2 need a Shipbreaker S3 to S5 silo or an Agriculture R3 to R5 reservoir within one tile.
 [*]Right-click a machine and choose Control Panel. Link its vessel, store or canister under Connections, load one charge into the V4's Refinery charge window, then choose Start.
 [/list]
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.52.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.53.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [*]Optional: Phobos Shipbreaker 0.38.0 or newer (S3 silo and the steel charge) and Phobos Agriculture (R3 reservoir). Water work needs one of them.
 [/list]

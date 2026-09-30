@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.52.0";
+    public const string Version = "0.53.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -57,9 +57,10 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         harmony = new Harmony(FrameworkInfo.PluginId);
         harmony.PatchAll(typeof(FrameworkPlugin).Assembly);
         FrameworkLifecycle.ContentLoaded += Crew.CrewSpecialities.Definitions;
+        FrameworkLifecycle.ContentLoaded += Trading.FactionKiosks.Definitions;
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
     private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
-    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

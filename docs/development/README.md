@@ -85,6 +85,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Medical and power runtime findings](medical-runtime-findings.md)
 - [Field and shipboard medical system](medical-system-vision.md)
 - [Merchant stock in useful quantities](merchant-stock.md)
+- [Faction kiosk stock for scrip](faction-kiosk-stock.md)
 - [Installed mods and extension opportunities](mod-extension-survey.md)
 - [Initial modding findings](modding-notes.md)
 - [Alternative PDA cartridge ideas](pda-cartridge-ideas.md)

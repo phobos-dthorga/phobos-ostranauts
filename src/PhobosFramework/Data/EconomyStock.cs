@@ -125,6 +125,40 @@ public static class EconomyStock
         }
     }
 
+    /// <summary>Offers every item the pack's faction-kiosk section lists at each listed kiosk: a pristine finite lot of
+    /// the item's usual size whose stock carries its reputation tier. Scrip prices stay the game's own conversion.</summary>
+    public static void ApplyFactionKiosks(NativeDefinitions d, EconomyPack pack, string ownerTag, IReadOnlyList<EquipmentSale> equipment)
+    {
+        var kiosks = pack.factionKiosks;
+        if (kiosks == null) return;
+        foreach (var (item, tier, declared) in FactionKioskItems(pack, equipment))
+        {
+            // Equipment and supply entries are the owner's own definitions (some, like nav boards, are native overlays).
+            if (!declared) Known(d, item, "factionKiosks/tiers");
+            foreach (string merchant in kiosks.merchants)
+                MarketStock.Add(d, merchant, "PhobosFaction_" + ownerTag + "_" + merchant + "_" + item, item,
+                    Chance(pack, item, kiosks.chance), StockCondition.Pristine, Quantity(pack, item), tier);
+        }
+    }
+    /// <summary>The kiosk items and tiers: an equipment key gives the intact form of every saleable size, a supply key
+    /// its loose item, anything else is an item id as written (not declared by an entry).</summary>
+    public static IEnumerable<(string Item, FactionTier Tier, bool Declared)> FactionKioskItems(EconomyPack pack, IReadOnlyList<EquipmentSale> equipment)
+    {
+        if (pack.factionKiosks == null) yield break;
+        foreach (var pair in pack.factionKiosks.tiers)
+        {
+            var tier = FactionKiosks.Parse(pair.Value);
+            if (pack.equipment.TryGetValue(pair.Key, out var entry))
+            {
+                var sizes = equipment.Where(s => ReferenceEquals(s.Entry, entry)).ToArray();
+                if (sizes.Length == 0) throw new ArgumentException(Text.Get("EconomyStock.unknown_item", "factionKiosks/tiers", pair.Key));
+                foreach (var sale in sizes) yield return (sale.Intact, tier, true);
+            }
+            else if (pack.supplies.ContainsKey(pair.Key)) yield return (pair.Key + "Loose", tier, true);
+            else yield return (pair.Key, tier, false);
+        }
+    }
+
     /// <summary>The spread of one world-loot entry: explicit items as written, or the entry's chance divided over the
     /// loot-eligible equipment sale ids, the broken share to the damaged forms.</summary>
     public static Dictionary<string, double> LootChances(WorldLootEntry loot, IReadOnlyList<EquipmentSale> equipment)

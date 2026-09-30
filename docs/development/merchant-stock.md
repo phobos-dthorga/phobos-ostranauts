@@ -159,3 +159,9 @@ gaps: every machine family now has used, refurbished and broken routes; single
 ingots join engineering salvage; the remaining terminal remainders trade as trash.
 Native checks now also confirm that a native buyer accepts every retail identity.
 The S3, T2 and R3 stay purchase-only by owner decision.
+
+## Faction kiosks — 30 September 2026
+
+Framework 0.53.0 adds the CCRE and GalCon faction kiosks, which sell for scrip,
+as a further route for every sold Phobos item. Each item keeps its usual lot and
+asks a reputation tier below Honored. See [faction kiosk stock](faction-kiosk-stock.md).

@@ -28,6 +28,8 @@ public sealed class EconomyPack : DataPack
     public Dictionary<string, double> chanceFloors = new(StringComparer.Ordinal);
     /// <summary>Rare world finds in the game's own loot tables.</summary>
     public List<WorldLootEntry> worldLoot = new();
+    /// <summary>What the game's faction kiosks sell for scrip, and the reputation each item asks.</summary>
+    public FactionKioskStock? factionKiosks;
 
     public int Lot(string name, int fallback) => lots.TryGetValue(name, out int v) ? v : fallback;
     public double Floor(string name, double fallback) => chanceFloors.TryGetValue(name, out double v) ? v : fallback;
@@ -145,6 +147,18 @@ public sealed class RegionalItemEntry
     public string lot = EconomySchema.Supplies;
     public string floor = EconomySchema.Supplies;
     public bool expanded = true;
+}
+
+public sealed class FactionKioskStock
+{
+    public string? notes;
+    /// <summary>The kiosk inventory loot tables that carry every listed item.</summary>
+    public List<string> merchants = new();
+    /// <summary>Offer chance before the item's availability floor; the game's own kiosk offers are certain.</summary>
+    public double chance = 1;
+    /// <summary>Reputation tier by equipment key (every saleable size, intact form), supply key (its loose item) or
+    /// item id. Only listed items are sold; a player file may retune a tier or add an item.</summary>
+    public Dictionary<string, string> tiers = new(StringComparer.Ordinal);
 }
 
 public sealed class WorldLootEntry
@@ -292,6 +306,17 @@ public static class EconomySchema
         {
             if (string.IsNullOrWhiteSpace(floor.Key)) throw new ArgumentException(Text.Get("EconomySchema.unknown_kind", "chanceFloors", floor.Key));
             if (!Finite(floor.Value) || floor.Value < 0 || floor.Value > 1) throw new ArgumentException(Text.Get("EconomySchema.chance", "chanceFloors/" + floor.Key, "value"));
+        }
+        if (pack.factionKiosks is { } kiosks)
+        {
+            if (kiosks.merchants.Count == 0) throw new ArgumentException(Text.Get("EconomySchema.merchants", "factionKiosks"));
+            foreach (string merchant in kiosks.merchants) Merchant(merchant, "factionKiosks", context);
+            Chance(kiosks.chance, "factionKiosks", "chance");
+            foreach (var pair in kiosks.tiers)
+            {
+                if (string.IsNullOrWhiteSpace(pair.Key)) throw new ArgumentException(Text.Get("EconomySchema.offer_item", "factionKiosks/tiers"));
+                if (!FactionKiosks.Known(pair.Value)) throw new ArgumentException(Text.Get("EconomySchema.faction_tier", "factionKiosks/tiers/" + pair.Key, pair.Value));
+            }
         }
         foreach (var loot in pack.worldLoot)
         {

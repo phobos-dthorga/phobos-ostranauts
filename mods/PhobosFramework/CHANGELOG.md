@@ -22,6 +22,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.53.0] - 2026-09-30 - Draft
+
+### Added
+
+- Faction kiosk stock. A content mod's economy data pack can now list items for the game's CCRE and GalCon faction kiosks, which sell for scrip, and the reputation each item needs there: Neutral, Warm, Friendly, Trusted or Honored. The new factionKiosks section names the kiosks and a tier per machine family (every size), supply or item; a player override file can retune a tier or add an item. Stock is stamped with a hidden tier mark, and the game's own kiosk tier checks are extended in place, so a marked item shows up exactly at its tier while vanilla kiosk stock keeps the tiers the game gave it.
+- Scrip prices stay the game's own: an item's usual price converted at the faction's rate, one scrip for every 20 credits, the same as everything else those kiosks sell.
+
+### Compatibility and limits
+
+- Kiosks keep their current stock until their next normal restock; nothing is refilled or edited in a save. Offline checks are not gameplay validation.
+
 ## [0.52.0] - 2026-09-30 - Draft
 
 ### Added

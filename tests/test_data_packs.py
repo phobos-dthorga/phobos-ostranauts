@@ -73,6 +73,36 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.process_recipes(pack, 'test')
 
+    def test_faction_kiosks_sell_everything_below_honored(self):
+        # Owner direction (30 September 2026): every sold Phobos item is also at the faction kiosks, never at Honored.
+        for path in sorted((ROOT / 'mods').glob('*/framework/economy.json')):
+            pack = json.loads(path.read_text(encoding='utf-8'))
+            with self.subTest(pack=path.parent.parent.name):
+                kiosks = pack.get('factionKiosks')
+                self.assertIsNotNone(kiosks, 'no faction-kiosk section')
+                tiers = kiosks['tiers']
+                self.assertNotIn('Honored', tiers.values())
+                equipment = pack.get('equipment', {})
+
+                def family(item):
+                    # An exact key first, then the longest machine prefix (PhobosShipbreaker must not claim its section).
+                    if item in equipment:
+                        return item
+                    found = [k for k, e in equipment.items() if (e.get('forms', 'machine') == 'machine' and item.startswith(k))
+                             or (e.get('forms') == 'item' and item == k + 'Dmg')]
+                    return max(found, key=len) if found else item
+                sold = {k for k, e in equipment.items() if e.get('offers', True)} | set(pack.get('supplies', {}))
+                sold |= set((pack.get('regional') or {}).get('items', {}))
+                sold |= {family(o['item']) for o in pack.get('offers', {}).values()}
+                self.assertEqual(sorted(sold - set(tiers)), [], 'sold elsewhere but not at the faction kiosks')
+
+    def test_validator_refuses_bad_faction_tiers(self):
+        pack = {'schemaVersion': 1, 'schema': 'economy', 'equipment': {}, 'factionKiosks': {'merchants': ['ItmFactionKioskBCRSInv'], 'tiers': {'PhobosX': 'Revered'}}}
+        with self.assertRaises(validate.Problem):
+            validate.economy(pack, 'test')
+        bad = {'schemaVersion': 1, 'schema': 'economy', 'equipment': {}, 'factionKiosks': {'merchants': [], 'tiers': {}}}
+        self.assertTrue(schemas.problems(json.loads(writer.render('economy')), bad))
+
     def test_validator_refuses_unknown_fields(self):
         pack = {'schemaVersion': 1, 'schema': 'materials', 'materials': {'m': {'kg': 1, 'price': 1, 'colour': 'red'}}}
         with self.assertRaises(validate.Problem):

@@ -13,5 +13,6 @@ internal static class RegionalEconomy
     internal static void Apply(NativeDefinitions d)
     {
         EconomyStock.ApplyRegional(d, AgricultureEconomy.Pack, AgricultureEconomy.OwnerTag, AgricultureEconomy.Sales);
+        EconomyStock.ApplyFactionKiosks(d, AgricultureEconomy.Pack, AgricultureEconomy.OwnerTag, AgricultureEconomy.Sales);
     }
 }

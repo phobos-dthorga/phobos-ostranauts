@@ -189,5 +189,9 @@ internal static class StockQuantities
 internal static class RegionalEconomy
 {
     internal static (string Region, double Factor)[] Profiles => Economy.Pack.regions.Select(p => (p.Key, p.Value)).ToArray();
-    internal static void Apply(NativeDefinitions d) => EconomyStock.ApplyRegional(d, Economy.Pack, "Manufacturing", EquipmentEconomy.Sales);
+    internal static void Apply(NativeDefinitions d)
+    {
+        EconomyStock.ApplyRegional(d, Economy.Pack, "Manufacturing", EquipmentEconomy.Sales);
+        EconomyStock.ApplyFactionKiosks(d, Economy.Pack, "Manufacturing", EquipmentEconomy.Sales);
+    }
 }

@@ -110,6 +110,11 @@ def economy():
                     'expandedMerchants': {'type': 'array', 'items': string()}, 'items': named(regional_item)}, ['baseChance'])
     loot = obj({'notes': NOTES, 'table': string(), 'tables': {'type': 'array', 'items': string()}, 'branch': string(pattern='^Phobos'),
                 'chance': num(0, 1, exclusive_minimum=0), 'brokenShare': num(0, 1), 'items': named(num(0, 1, exclusive_minimum=0))}, ['branch'])
+    kiosks = obj({'notes': NOTES, 'merchants': {'type': 'array', 'minItems': 1, 'items': string()},
+                  'chance': num(0, 1, exclusive_minimum=0, description="Offer chance before the availability floor; 1 when omitted, like the game's own kiosk stock."),
+                  'tiers': named(string(enum=['Neutral', 'Warm', 'Friendly', 'Trusted', 'Honored']),
+                                 'Reputation tier by equipment key (every saleable size), supply key or item id. Only listed items are sold.')},
+                 ['merchants', 'tiers'], "What the game's faction kiosks sell for scrip, and the reputation each item asks.")
     return obj({
         **header('economy'),
         'equipment': named(equipment, 'Machines and sections by definition prefix or item id.'),
@@ -121,7 +126,8 @@ def economy():
         'lots': named(num(1, 256, integer=True), 'Finite lot per successful offer, by lot name.'),
         'chanceFloors': named(num(0, 1), 'Minimum offer probability, by floor name.'),
         'worldLoot': {'type': 'array', 'items': loot},
-    }, ['schemaVersion', 'schema', 'equipment'], 'Prices, work, bills, salvage, offers, regional stock, lots and world finds of a Phobos mod.')
+        'factionKiosks': kiosks,
+    }, ['schemaVersion', 'schema', 'equipment'], 'Prices, work, bills, salvage, offers, regional stock, lots, world finds and faction-kiosk tiers of a Phobos mod.')
 
 
 def recipes():

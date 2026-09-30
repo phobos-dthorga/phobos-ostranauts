@@ -553,5 +553,32 @@
       "chance": 0.3,
       "brokenShare": 0.5
     }
-  ]
+  ],
+  "factionKiosks": {
+    "notes": "Verdemorrow goods at the CCRE and GalCon faction kiosks for scrip. The cultivation machines are cheap but keep a crew fed indefinitely, so they ask Warm standing; seeds, nutrients, pipe, produce and meals are Neutral. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
+    "merchants": [
+      "ItmFactionKioskBCRSInv",
+      "ItmFactionKioskBCERInv",
+      "ItmFactionKioskMTRSInv"
+    ],
+    "chance": 1,
+    "tiers": {
+      "PhobosVerdemorrowFirstlight4": "Warm",
+      "PhobosVerdemorrowHearth2": "Warm",
+      "PhobosVerdemorrowGroundworkW2": "Warm",
+      "PhobosVerdemorrowGroundworkB2": "Warm",
+      "PhobosVerdemorrowGroundworkR3": "Warm",
+      "PhobosVerdemorrowWaterConduit": "Neutral",
+      "PhobosVerdemorrowContinuancePotato": "Neutral",
+      "PhobosVerdemorrowContinuanceLettuce": "Neutral",
+      "PhobosVerdemorrowGroundworkNutrients": "Neutral",
+      "PhobosVerdemorrowGroundworkBulkNutrients": "Neutral",
+      "PhobosVerdemorrowGroundworkIrrigation": "Neutral",
+      "PhobosVerdemorrowGroundworkRecoveryCartridge": "Neutral",
+      "PhobosVerdemorrowGroundworkMakeup": "Neutral",
+      "PhobosVerdemorrowRawPotatoes": "Neutral",
+      "PhobosVerdemorrowLettuce": "Neutral",
+      "PhobosVerdemorrowHearthPotatoes": "Neutral"
+    }
+  }
 }

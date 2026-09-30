@@ -446,5 +446,10 @@
   "EconomySchema.unknown_lot": "{0}: lot {1} is not in the lots table.",
   "EconomySchema.unknown_floor": "{0}: floor {1} is not in the chanceFloors table.",
   "EconomySchema.loot_items": "{0}: loot items need at least one entry and their chances add up to 1 at most.",
-  "EconomyStock.unknown_item": "{0} names {1}, which is not an item this mod registers."
+  "EconomyStock.unknown_item": "{0} names {1}, which is not an item this mod registers.",
+  "EconomySchema.faction_tier": "{0}: faction tier {1} must be Neutral, Warm, Friendly, Trusted or Honored.",
+  "FactionKiosks.mark_name": "Faction kiosk tier: {0}",
+  "FactionKiosks.mark_description": "Faction kiosks sell this item only to buyers they rate {0} or better.",
+  "FactionKiosks.missing_trigger": "Faction kiosk tier {0} is missing from the game data. Phobos items gated at that tier will not be listed there.",
+  "FactionKiosks.unexpected_trigger": "Faction kiosk tier {0} no longer accepts any one listed tag. Its Phobos gate was left off so vanilla stock stays as the game set it."
 }

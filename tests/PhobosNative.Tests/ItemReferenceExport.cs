@@ -78,7 +78,13 @@ internal static class ItemReferenceExport
         string Condition(string branch)
         {
             var offer = offers[branch];
-            return offer == null ? "Loot" : offer.GetType().GetField("Condition", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(offer)!.ToString()!;
+            if (offer == null) return "Loot";
+            string condition = offer.GetType().GetField("Condition", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(offer)!.ToString()!;
+            // Faction kiosk offers carry the reputation mark their stock receives (Neutral carries none).
+            var mark = (string?)offer.GetType().GetField("Mark", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(offer);
+            if (branch.StartsWith("PhobosFaction_", StringComparison.Ordinal))
+                condition += ", " + (mark == null ? "Neutral" : mark.Substring(Phobos.Ostranauts.Framework.Trading.FactionKiosks.MarkPrefix.Length)) + " standing";
+            return condition;
         }
         var mods = new List<object>();
         foreach (var pair in packs.OrderBy(p => p.Key, StringComparer.Ordinal))

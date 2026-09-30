@@ -553,6 +553,52 @@
           "branch"
         ]
       }
+    },
+    "factionKiosks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "merchants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "chance": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "description": "Offer chance before the availability floor; 1 when omitted, like the game's own kiosk stock."
+        },
+        "tiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^.+$": {
+              "type": "string",
+              "enum": [
+                "Neutral",
+                "Warm",
+                "Friendly",
+                "Trusted",
+                "Honored"
+              ]
+            }
+          },
+          "description": "Reputation tier by equipment key (every saleable size), supply key or item id. Only listed items are sold."
+        }
+      },
+      "required": [
+        "merchants",
+        "tiers"
+      ],
+      "description": "What the game's faction kiosks sell for scrip, and the reputation each item asks."
     }
   },
   "required": [
@@ -560,5 +606,5 @@
     "schema",
     "equipment"
   ],
-  "description": "Prices, work, bills, salvage, offers, regional stock, lots and world finds of a Phobos mod."
+  "description": "Prices, work, bills, salvage, offers, regional stock, lots, world finds and faction-kiosk tiers of a Phobos mod."
 }
