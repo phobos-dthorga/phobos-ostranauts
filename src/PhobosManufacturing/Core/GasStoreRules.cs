@@ -41,7 +41,7 @@ public sealed class Combustion
 /// <summary>One gas store family: the small size's identities and ratings, the gas, and whether it burns. The
 /// medium and large sizes follow Framework's shared size ladder (one tile wider per step, capacity with floor area
 /// plus 10% per step). Text keys specific to the gas live under <see cref="TextPrefix"/>; shared ones under
-/// "Store". Model letters: H hydrogen, M methane, O oxygen, N nitrogen, C carbon dioxide; digit = footprint.</summary>
+/// "Store". Model letters: H hydrogen, M methane, O oxygen, N nitrogen, C carbon dioxide, Q ammonia; digit = footprint.</summary>
 public sealed class GasFamily
 {
     public string SmallPrefix { get; }
@@ -152,7 +152,15 @@ public static class GasStores
         "ManufacturingNitrogen", "ManufacturingNitrogenWork", "ManufacturingNitrogenTransfer", null);
     public static readonly GasFamily CarbonDioxideFamily = new("PhobosCarbonDioxideStore", ManufacturingRules.CarbonDioxide, "CO2", "CarbonDioxide", "C", CarbonDioxideCapacityKg, InertDryKg,
         CarbonDioxidePrice, 2, "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
-    public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily };
+    /// <summary>Ammonia is kept liquefied, as industry keeps it: it condenses at about 0.86 MPa at 20 C, far below
+    /// the vessel's rating, and the saturated liquid is 609 kg/m3 at 20 C (Engineering ToolBox tables after NIST).
+    /// The same 0.787 m3 vessel at an 80% fill holds 383 kg; authored 380 kg. The game treats the gas as ideal
+    /// everywhere else; the capacity is the only place the liquid matters. Model letter Q (unused by every brand).
+    /// Ammonia is a game gas species (it poisons the crew in bands), so a damaged store leaks into the room.</summary>
+    public const double AmmoniaCapacityKg = 380, AmmoniaPrice = 20000;
+    public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q", AmmoniaCapacityKg, InertDryKg, AmmoniaPrice, 2,
+        "ManufacturingAmmonia", "ManufacturingAmmoniaWork", "ManufacturingAmmoniaTransfer", null);
+    public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily, AmmoniaFamily };
     public static readonly IReadOnlyList<GasStore> All = Families.SelectMany(f => f.Sizes).ToArray();
     // One dictionary probe per definition on the hot paths (every powered object, every destroyed object, the
     // two-second world scan), instead of a query over fifteen sizes with string comparisons.

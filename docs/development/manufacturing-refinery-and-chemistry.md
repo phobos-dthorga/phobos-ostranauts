@@ -21,7 +21,7 @@ Framework, MIT, inspected locally as inspiration only): one refined product per
 mineral with no consumer; random ingots from gangue (creates mass); CO2 and
 water to plastic at a price that prints money and is not the chemistry;
 nitrogen from regolith without a nitrogen-bearing feed (deferred to a nitrogen
-round with its own chunk).
+round with its own chunk; delivered in 0.9.0 as the ammonium salt crust below).
 
 ## The charges
 
@@ -36,6 +36,7 @@ charge keeps its captured products through later balance changes.
 | Clay hydrate dehydration (2), 900 s | 1 x clay hydrates chunk, 10 kg (`PhobosClayHydrates`, new) | 2 kg water; 1 x anhydrous residue, 8 kg (`PhobosAnhydrousResidue`, new terminal) | CI-chondrite and Bennu-type phyllosilicate water 18 to 22 wt% (Alexander et al. 2012; Lauretta et al. 2024); authored 20%. 8 kg is not a gangue multiple, so it has its own identity |
 | Carbon extraction (3), 1,800 s | 1 x carbon/carbides block, 10 kg (`ItmMineral03`) | 5 x carbon stock, 1 kg (`PhobosCarbonStock`, new); 1 kg water; 1 x gangue; 1.0 kg off-gas into the room: 0.6 kg CO2, 0.3 kg CO, 0.1 kg smoke | The game's own text calls the item carbon or carbides, "often hydrated". Authored 50% carbon, 10% water, 30% silicate, 10% pyrolysis gas. The gas split is authored (incomplete combustion of volatiles); the game's molar masses convert kg to moles |
 | Nickel-iron casting (4), 2,400 s | 1 x meteoric iron block, 20 kg (`ItmMineral01`) | 4 x nickel-iron ingot, 4 kg (`PhobosNickelIronIngot`, new); 1 x gangue; 1 x refinery slag, 1 kg (`PhobosRefinerySlag`, new terminal) | Iron meteorites are Fe-Ni metal (kamacite and taenite, roughly 5 to 10% Ni, with cobalt) carrying troilite, schreibersite and oxide inclusions and adhering rock (Buchwald 1975); the game calls the item "iron-nickel alloy" with iron oxide. Authored 80% metal, 15% rock, 5% slag. The ingot is nickel-iron, not steel |
+| Ammonium salt crust (6), 900 s, Manufacturing 0.9.0 | 1 x ammonium salt crust, 10 kg (`PhobosAmmoniumSaltCrust`, new) | 0.955 kg ammonia to a linked ammonia store; 0.505 kg water; 1.235 kg CO2 into the room; 1 x spent salt cake, 7.305 kg (`PhobosSpentSaltCake`, new terminal) | 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl. See [the salt crust](#the-ammonium-salt-crust-090) below |
 | Carburised steel (5), 2,000 s, Shipbreaker present | 4 x nickel-iron ingot (16 kg) + 1 x carbon stock (1 kg) | 4 x Rivetline steel ingot, 4 kg (`PhobosSteelIngot`); 1 x steel melt remainder, 1 kg (`PhobosSteelMeltRemainder`) | Steel is iron with 0.02 to about 2 wt% carbon (ASM Handbook Vol. 1); 16 kg of melt absorbs 0.03 to 0.3 kg. The remainder holds the unreacted carbon and skimmed oxide. The product is nickel steel, labelled as Shipbreaker's steel ingot so one identity serves both providers |
 
 Energies: 24 kW for the durations above gives 4, 6, 12, 16 and 13.3 kWh. The
@@ -51,7 +52,9 @@ Value loss (the dismantling rule), at 0.1.1 prices with water at the station's
 of gangue; 99 cr of carbides becomes 50 cr of carbon, 10 cr of water and 2 cr
 of gangue; 150 cr of hydrates becomes 10 cr of water and 6 cr of gangue; 180 cr
 of clay hydrates becomes 20 cr of water and a 0.01 cr residue; 106 cr of
-nickel-iron and carbon becomes 100 cr of Rivetline steel ingots. Refining trades
+nickel-iron and carbon becomes 100 cr of Rivetline steel ingots; 150 cr of salt
+crust becomes 3.25 cr of ammonia (at the game's own 3.40 cr/kg), 5.05 cr of water
+and a 0.01 cr cake. Refining trades
 money for material aboard; it is never a profit route. The native checks compute
 this for every charge from live definitions, Shipbreaker's steel ingot included.
 
@@ -62,6 +65,76 @@ ceiling anyway: a nickel-iron ingot above about 111 cr, or carbon above about
 20 cr, which made the steel charge gain value (80 + 10 cr in, 100 cr out);
 0.1.1 moves the ingot only as far as that fix needs, to 24 cr, and leaves carbon
 at 10 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
+
+## The ammonium salt crust (0.9.0)
+
+The first nitrogen the ship can mine. The research record's first proposal,
+an ammoniated clay chunk ([asteroid feedstock gaps, B1](asteroid-feedstock-gaps.md#b1-ammonium-bearing-clay-nitrogen)),
+was dropped when the measured numbers were read: samples of Bennu returned by
+NASA's OSIRIS-REx carry about 0.23 to 0.25 wt% nitrogen in total and about
+13.6 micromoles of ammonia per gram (Glavin et al. 2025, below). A 10 kg clay
+chunk would hold about 24 g of nitrogen however it was processed, and only about
+2 g of free ammonia; an honest recipe would round to nothing. The salt deposits
+on the dwarf planet Ceres are a concentrated source instead. NASA's Dawn mission
+found ammonium chloride in the bright faculae of Occator crater (Raponi et al.
+2019, VIR spectrometer), with sodium carbonate as the main bright salt, and
+ammonium-rich bright material elsewhere on Ceres (De Sanctis et al. 2024);
+Ceres' dark surface is ammoniated phyllosilicate (De Sanctis et al. 2015).
+
+**Authored crust** (our composition, not a measured sample): 3.000 kg ammonium
+chloride (56.08 mol), 2.972 kg sodium carbonate (exactly the stoichiometric
+partner), and 4.028 kg of clay and salt hydrate that stay in the cake. The sources
+show these salts together; they do not give this mix.
+
+**Reaction on heating:** 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl (the
+carbonate displaces ammonia from its salt, as lime does in the classic ammonia
+preparation). On 28.04 mol of reaction, with the game's molar masses:
+
+| Product | Amount | Destination |
+| --- | --- | --- |
+| Ammonia | 56.08 mol, 0.955 kg | The V4's linked ammonia store (a Q2, Q3 or Q4); never vented |
+| Carbon dioxide | 28.04 mol, 1.234 kg, rounded to 1.235 kg | Breathed into the room over the charge, as the carbon charge's off-gas is |
+| Water | 28.04 mol, 0.505 kg | The linked water vessel |
+| Spent salt cake | 3.278 kg NaCl plus the 4.028 kg remainder, 7.305 kg | The tray; terminal |
+
+Mass balance: 0.955 + 1.235 + 0.505 + 7.305 = 10.000 kg. The carbon dioxide
+takes the gram of rounding. **Energy:** from standard enthalpies of formation
+(ammonium chloride -314.4, sodium carbonate -1,130.7, ammonia gas -45.9, CO2
+-393.5, water vapour -241.8, sodium chloride -411.2 kJ/mol; NIST Chemistry
+WebBook and standard tables) the reaction absorbs about +210 kJ per mole, 1.6 kWh
+for the charge, plus about 0.8 kWh to heat 10 kg of crust. The authored 900 s at
+24 kW is 6 kWh, the rest losses and the hearth, like the other drying charges.
+
+**Loot:** the crust carves 0.05 of the game's C-class mineral roll from silicates
+(Framework `AdditiveLoot.CarveChoice`), beside clay hydrates (0.10) and
+Shipbreaker's extra deposit ice (0.05): silicates fall from the game's 0.40 to 0.20.
+Dark regolith walls reach it through their nested C-class roll. It clones the
+game's hydrates block (mining, stacking six, ore sale at 150 cr), with its own
+PixelLab sprite.
+
+**Ammonia storage.** Ammonia is a game gas species (it poisons in bands) with no
+game canister, so it lives in a new Fennmark gas store family, Q2, Q3 and Q4.
+Industry keeps ammonia liquefied: it condenses at about 0.86 MPa at 20 C, far
+below the vessel's 41.4 MPa rating, and the saturated liquid is 609 kg/m3 at
+20 C (Engineering ToolBox tables after NIST, below). The same 0.787 m3 vessel at
+an 80% fill holds 383 kg; authored 380 kg, then 940 and 1,820 kg on the shared
+size ladder. The game treats every gas as ideal elsewhere; the capacity is the
+only place the liquid matters. A damaged store leaks the game's NH3 into the room
+(2, 3 or 4 kg an hour by size) and a destroyed one releases what it held. No
+station sells ammonia (the game prices it at 3.40 cr/kg in `GasPrices`, used only
+for the value-loss check).
+
+**Ammonia in the RCS (owner decision, 30 September 2026: ultimate player
+flexibility).** The P1 manifold accepts ammonia stores like every other gas
+store. At a heat-capacity ratio of 1.310 and 17.031 g/mol, ammonia is worth 1.41
+times nitrogen per kilogram as cold gas (the formula in the RCS section below).
+Ammonia cold-gas thrusters are a real, if uncommon, choice. It leaves the ship as
+exhaust, not into any room.
+
+**Not yet:** the ammonia cracker that turns ammonia into nitrogen and hydrogen
+(2 NH3 -> N2 + 3 H2) is the next Manufacturing round; fertiliser formulation is
+later. One ammonia charge cannot be credited twice: the player routes each
+kilogram to the RCS, the cracker or, later, fertiliser.
 
 ## Electrolysis
 
@@ -118,8 +191,8 @@ tiles, and thrust is that mass times a fixed exhaust speed of 5.26077e-9 AU/s,
 cold-gas expansion gives v_e = sqrt(2γ/(γ−1)·RT/M) (standard rocket-propulsion
 result, for example Sutton and Biblarz, *Rocket Propulsion Elements*; *from
 memory of the text, verify the edition*), so at one temperature each gas is worth
-sqrt((γ/(γ−1))/M) relative to nitrogen: hydrogen 3.69, methane 1.45, carbon
-monoxide 1.00, oxygen 0.94, carbon dioxide 0.90, with γ from standard gas tables
+sqrt((γ/(γ−1))/M) relative to nitrogen: hydrogen 3.69, methane 1.45, ammonia
+1.41, carbon monoxide 1.00, oxygen 0.94, carbon dioxide 0.90, with γ from standard gas tables
 near 298 K and the game's molar masses. A mixture is taken at its mass-weighted
 worth, a stated approximation. Real cold-gas thrusters reach close to, not
 exactly, the ideal figure.
@@ -135,7 +208,7 @@ model. Station refuelling, which fills only nitrogen, is untouched.
 The P1 manifold is Manufacturing's feed: its switched-on stores supply the
 nitrogen-equivalent asked for, converted back to their own kilograms, through
 Framework's buffered draws (settled every couple of seconds and before a save).
-Hydrogen and methane leave the ship as exhaust, not into any room.
+Hydrogen, methane and ammonia leave the ship as exhaust, not into any room.
 
 ## Gas stores in three sizes (Framework 0.44.0, Manufacturing 0.4.0)
 
@@ -244,6 +317,8 @@ Our hazards:
 | Hazard | Trigger | Effect | Mass and energy |
 | --- | --- | --- | --- |
 | V4 off-gassing | Carbon extraction running | CO2, CO and smoke added to the room in proportion to progress each powered step (`OffGasDueKg`); refused while the room is below 10 kPa or the machine has no room | The charge's 1.0 kg gas share |
+| V4 salt crust off-gas | Salt crust charge running | 1.235 kg CO2 into the room in proportion to progress; ammonia is never vented: the charge waits until its linked store is intact and has room | The reaction's CO2 |
+| Ammonia store damage | Native damage mode switch or destroy | Leak 2, 3 or 4 kg/h of NH3 into the room until repaired; destruction releases the contents. The game's NH3 poisoning bands apply | Conserved |
 | X2 cabin oxygen | No canister linked | 1.000 kg O2 per cycle into the room | The recipe's oxygen |
 | Reaction gone bad | A nickel-iron or steel melt waiting for a cool room longer than its own duration | The charge finishes as slag: 17 kg slag + gangue for iron, 17 kg slag for steel, logged and noticed | Conserved |
 | H2 store damage or destruction | Native damage mode switch or destroy | If ppO2 >= 5 kPa and an ignition source is present: burn min(H2, O2 / 8) kg, consume 8 kg O2 per kg H2 (clamped to the room), heat the room to at most 333.15 K, spawn the deflagration object sized by kg burned (Small < 2, Medium < 8, Large), journal the rest as blast energy; otherwise leak 2 kg/h to space until repaired, and deflagrate later if ignition arrives. Hydrogen not burned in a destruction is lost with the blast, journaled | 2 H2 + O2 -> 2 H2O, 141.9 MJ per kg of hydrogen (higher heating value, from NIST's water enthalpy); the water formed is not modelled as a species |
@@ -288,6 +363,29 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   Science 59, doi:10.1111/maps.14227 — hydrated phyllosilicates and
   water-rich clays in the returned sample. NASA / University of Arizona
   OSIRIS-REx science team authorship. *From memory; verify the citation.*
+- Raponi, A. et al. (2019), "Mineralogy of Occator crater on Ceres and insight
+  into its evolution from the properties of carbonates, phyllosilicates, and
+  chlorides", *Icarus* 320, 83-96. NASA Dawn, VIR spectrometer.
+  https://www.sciencedirect.com/science/article/pii/S0019103517305535 — ammonium
+  chloride with sodium carbonate in the Occator faculae; supports the salt
+  crust's premise, not its authored mix.
+- De Sanctis, M. C. et al. (2024), "Ammonium-rich bright areas on Ceres
+  demonstrate complex chemical activity", *Communications Earth & Environment*
+  5, 131. NASA Dawn. https://www.nature.com/articles/s43247-024-01281-2 —
+  ammonium carbonate or chloride in Ceres' bright material.
+- De Sanctis, M. C. et al. (2015), "Ammoniated phyllosilicates with a likely
+  outer Solar System origin on (1) Ceres", *Nature* 528, 241-244. NASA Dawn.
+  https://www.nature.com/articles/nature16172
+- Glavin, D. P. et al. (2025), "Abundant ammonia and nitrogen-rich soluble
+  organic matter in samples from asteroid (101955) Bennu", *Nature Astronomy* 9,
+  199-210. NASA OSIRIS-REx. https://ntrs.nasa.gov/citations/20250001355 — the
+  measured nitrogen and ammonia that ruled out an ammoniated clay chunk.
+- Engineering ToolBox, ammonia properties at gas-liquid equilibrium (tables
+  compiled from NIST data) — saturated liquid density and vapour pressure near
+  20 C. https://www.engineeringtoolbox.com/ammonia-liquid-gas-equilibrium-properties-d_2013.html
+  *Secondary compilation; the page address is from memory, verify before quoting.*
+- NIST Chemistry WebBook, ammonia: standard enthalpy of formation of the gas.
+  https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417
 - Buchwald, V. F. (1975), Handbook of Iron Meteorites, University of California
   Press — kamacite/taenite nickel contents, troilite, schreibersite and
   cohenite inclusions.

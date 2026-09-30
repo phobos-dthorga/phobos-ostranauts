@@ -248,6 +248,11 @@
       "commit": "1c01c0c107be942713d66b5a813e0b2e171eff3a",
       "date": "2026-09-30",
       "note": "Material-bin PixelLab pass: rejected outputs and the rejected-only 96 px Y3 start drawing, never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/material-bin-requests.json."
+    },
+    {
+      "commit": "be830af99c9c6698fa1d849e805569babcb3c3d4",
+      "date": "2026-09-30",
+      "note": "Manufacturing 0.9.0 item pass: rejected salt crust and salt cake outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/nitrogen-requests.json."
     }
   ]
 }

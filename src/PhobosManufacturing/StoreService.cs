@@ -67,6 +67,7 @@ internal static class StoreService
         if (SabatierRules.IsFamily(c.strCODef)) return SabatierService.HydrogenPeer(c) == storeId || SabatierService.MethanePeer(c) == storeId || SabatierService.CanisterId(c) == storeId;
         if (ManifoldRules.IsFamily(c.strCODef)) return ManifoldService.Sources(c).Any(x => x.Id == storeId);
         if (FillerRules.IsFamily(c.strCODef)) return FillerService.StateOf(c).Links.Any(x => x.Id == storeId);
+        if (RefineryRules.IsFamily(c.strCODef)) return RefineryRules.StoredGasFamilies.Any(f => RefineryService.GasPeer(c, f) == storeId);
         return false;
     }
     /// <summary>Stores of the same gas this one can pour into: within one tile, or along a gas line between the two line ports.</summary>

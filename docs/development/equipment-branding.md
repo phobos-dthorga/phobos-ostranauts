@@ -62,13 +62,15 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | Carbon dioxide stores in three sizes; distinct from the Rivetline C2 collector by brand and type (Manufacturing 0.4.0) |
 | Phobos' Fennmark L2 Canister Filling Station | Two-by-two safe filling booster for canisters and suit bottles (Manufacturing 0.4.0) |
 | Phobos' Fennmark A2 Cabin Air Regulator | Two-by-two valve and sensor unit keeping one room's oxygen and pressure (Manufacturing 0.5.0); A for air |
+| Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the
 refinery, chemical-cell and hydrogen-store roles, K the catalytic reactor and M
 the methane store; the digit is the footprint width. Its materials carry the brand without model numbers: Phobos' Fennmark
-Nickel-Iron Ingot, Carbon Stock, Refinery Slag, Anhydrous Residue and Clay
-Hydrates (the last is a mined chunk, branded only because every Phobos item is).
+Nickel-Iron Ingot, Carbon Stock, Refinery Slag, Anhydrous Residue, Spent Salt
+Cake, Clay Hydrates and Ammonium Salt Crust (the last two are mined chunks,
+branded only because every Phobos item is).
 See [the refinery record](manufacturing-refinery-and-chemistry.md).
 
 N and C identify navigation/control electronics; D, G, H, R and C identify the

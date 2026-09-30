@@ -87,6 +87,42 @@ internal static class RefineryService
         if (s.HeadroomKg + 1e-8 < kg) return null;
         reason = ""; return vessel;
     }
+    internal static MaterialPort GasOutlet(CondOwner co, GasFamily family) => new(co.strID, RefineryRules.GasOutPort(family), co.mapGUIPropMaps);
+    internal static MaterialPort GasInlet(CondOwner store) => new(store.strID, RefineryRules.GasInPort, store.mapGUIPropMaps);
+    internal static string GasPeer(CondOwner co, GasFamily family) => PortPairing.Read(GasOutlet(co, family)).PeerObjectId;
+    /// <summary>Stores of one gas within one tile, the water vessel rule.</summary>
+    internal static IEnumerable<CondOwner> GasCandidates(CondOwner co, GasFamily family) =>
+        BulkVessels.Aboard(co.ship, family.Commodity).Where(v => v != co && GasStores.Holds(v.strCODef, family.Commodity) && Adjacent(co, v));
+    /// <summary>The linked store of one gas when it can take this much now; otherwise null with the reason.</summary>
+    internal static CondOwner? LinkedGasStore(CondOwner co, GasFamily family, double kg, out string reason)
+    {
+        string gas = Text.Get(family.TextPrefix + ".gas");
+        reason = Text.Get("Refinery.no_store", gas);
+        var store = CrewWork.Resolve(GasPeer(co, family));
+        if (store == null || !GasStores.Holds(store.strCODef, family.Commodity)) return null;
+        reason = Text.Get("Refinery.store_not_ready", gas);
+        if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(GasOutlet(co, family), GasInlet(store)) || !Adjacent(co, store)) return null;
+        reason = Text.Get("Refinery.store_protected", gas);
+        if (BulkVessel.Protected(store) || CommodityReservations.Held(store.strID)) return null;
+        var s = BulkVessel.Snapshot(store);
+        reason = Text.Get("Refinery.store_full", gas, s.HeadroomKg, kg);
+        if (s.HeadroomKg + 1e-8 < kg) return null;
+        reason = ""; return store;
+    }
+    /// <summary>Every store a set of products needs, ready now; null with the first reason otherwise.</summary>
+    private static List<(CondOwner Store, double Kg)>? ReadyStores(CondOwner co, IEnumerable<ProductSpec> products, out string reason)
+    {
+        reason = "";
+        var stores = new List<(CondOwner, double)>();
+        foreach (var gas in products.Where(p => Core.GasStores.FamilyOf(p.Id) != null))
+        {
+            double kg = gas.Kg * gas.Count;
+            var store = LinkedGasStore(co, Core.GasStores.FamilyOf(gas.Id)!, kg, out reason);
+            if (store == null) return null;
+            stores.Add((store, kg));
+        }
+        return stores;
+    }
     internal static string? MachineProblem(CondOwner co)
     {
         if (!Content.Ready) return Content.Status;
@@ -171,6 +207,8 @@ internal static class RefineryService
     {
         double water = recipe.Products.Where(p => p.Id == ManufacturingRules.Water).Sum(p => p.Kg * p.Count);
         if (water > 0 && Vessel(co, water, out string why) == null) { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
+        // Stored gases (ammonia) are never vented: nothing heats until each one's store can take it.
+        if (ReadyStores(co, recipe.Products, out string gasWhy) == null) { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", gasWhy); return false; }
         s.State.Running = true; s.Last = StarSystem.fEpoch; s.VesselWait = false;
         s.Status = Text.Get("Refinery.working", Text.Get("Recipe." + recipe.Id));
         if (s.State.ProgressSeconds >= recipe.Seconds) return Finish(co, s);
@@ -313,16 +351,23 @@ internal static class RefineryService
         CondOwner? vessel = null;
         if (water > 0 && (vessel = Vessel(co, water, out string why)) == null)
         { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
-        var delivery = new ChargeDelivery(co, units, products.Where(p => p.Id != ManufacturingRules.Water).ToList(), recipe.ChargeKg - recipe.OffGasKg - water);
-        StoredCommodity? state = null;
-        if (vessel != null) { state = BulkVessel.Read(vessel); BulkVessel.BeginConversion(vessel, units[0].strID, state.TotalKg); }
+        var gasStores = ReadyStores(co, products, out string gasWhy);
+        if (gasStores == null)
+        { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", gasWhy); return false; }
+        double storedKg = gasStores.Sum(g => g.Kg);
+        var delivery = new ChargeDelivery(co, units, recipe.Solids(products).ToList(), recipe.ChargeKg - recipe.OffGasKg - water - storedKg);
+        // Every receiving record carries a conversion journal across the item swap, so an interruption leaves evidence.
+        var receivers = new List<(CondOwner Vessel, StoredCommodity State, double Kg)>();
+        if (vessel != null) receivers.Add((vessel, BulkVessel.Read(vessel), water));
+        foreach (var (store, kg) in gasStores) receivers.Add((store, BulkVessel.Read(store), kg));
+        foreach (var r in receivers) BulkVessel.BeginConversion(r.Vessel, units[0].strID, r.State.TotalKg);
         var result = BatchDelivery.Commit(delivery);
         if (result != DeliveryResult.Completed)
         {
-            if (vessel != null) BulkVessel.EndConversion(vessel);
+            foreach (var r in receivers) BulkVessel.EndConversion(r.Vessel);
             s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.tray_full"); return false;
         }
-        if (vessel != null && state != null) { state.SetService(state.ServiceKg + water); BulkVessel.Save(vessel, state); BulkVessel.EndConversion(vessel); }
+        foreach (var r in receivers) { r.State.SetService(r.State.ServiceKg + r.Kg); BulkVessel.Save(r.Vessel, r.State); BulkVessel.EndConversion(r.Vessel); }
         Plugin.Log(Text.Get(spoiled ? "Refinery.spoiled_log" : "Refinery.completed_log", Text.Get("Recipe." + recipe.Id), co.strID));
         if (spoiled) Phobos.Ostranauts.Framework.Notices.PlayerNotices.Post(co.ship, "PhobosManufacturing.spoiled", Phobos.Ostranauts.Framework.Notices.NoticeLevel.Caution, Text.Get("Refinery.spoiled_notice", co.strNameFriendly));
         s.State.Cycles++; s.State.Clear(); Save(co, s);
@@ -431,6 +476,23 @@ internal static class RefineryService
         if (!PortPairing.TryLink(Outlet(co), Inlet(vessel), out reason)) return false;
         reason = Text.Get("Refinery.linked"); return true;
     }
+    /// <summary>Links one gas's outlet to a store of that gas within one tile, or clears it with "none".</summary>
+    internal static bool GasLink(CondOwner co, GasFamily family, string id, ConsoleBinding? binding, out string reason)
+    {
+        reason = Content.Access(co, binding) ?? "";
+        if (reason.Length > 0) return false;
+        if (co.HasCond(ManufacturingRules.Working) || sessions.TryGetValue(co, out var s) && s.State.Running) { reason = Text.Get("Refinery.link_busy"); return false; }
+        var outlet = GasOutlet(co, family);
+        var current = CrewWork.Resolve(GasPeer(co, family));
+        if (id == "none") { PortPairing.Unlink(outlet, current == null ? null : GasInlet(current)); reason = Text.Get("Refinery.unlinked"); return true; }
+        var store = GasCandidates(co, family).FirstOrDefault(v => v.strID == id);
+        if (store == null) { reason = Text.Get("Refinery.store_link_missing", Text.Get(family.TextPrefix + ".gas")); return false; }
+        if (current != null && current != store) PortPairing.Unlink(outlet, GasInlet(current));
+        string linked = Text.Get("Refinery.store_linked", Text.Get(family.TextPrefix + ".gas"));
+        if (PortPairing.Matches(outlet, GasInlet(store))) { reason = linked; return true; }
+        if (!PortPairing.TryLink(outlet, GasInlet(store), out reason)) return false;
+        reason = linked; return true;
+    }
     internal static string? MaintenanceReason(CondOwner co)
     {
         if (!RefineryRules.IsFamily(co.strCODef)) return null;
@@ -443,6 +505,14 @@ internal static class RefineryService
         message = Text.Get("Refinery.fault");
         if (!Content.Ready) { message = Content.Status; return false; }
         if (action.StartsWith("link:", StringComparison.Ordinal)) return Link(co, action.Substring(5), binding, out message);
+        if (action.StartsWith("gas-link:", StringComparison.Ordinal))
+        {
+            // gas-link:<store family prefix>:<store id or none>
+            var parts = action.Substring(9).Split(new[] { ':' }, 2);
+            var family = parts.Length == 2 ? Core.GasStores.Families.FirstOrDefault(f => f.SmallPrefix == parts[0]) : null;
+            if (family == null) { message = Text.Get("Content.unsupported_action"); return false; }
+            return GasLink(co, family, parts[1], binding, out message);
+        }
         bool result;
         switch (action)
         {

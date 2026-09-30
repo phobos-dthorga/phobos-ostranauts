@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.8.0",
+      "value": "0.9.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1604,6 +1604,24 @@
         "The silicates share (0.40 in the game's table) is a budget shared with other carves, such as Shipbreaker's extra deposit ice; the donor must cover every share or later carves are refused."
       ]
     },
+    "Manufacturing.saltCrustChance": {
+      "type": "number",
+      "value": "0.05",
+      "min": 0,
+      "max": 0.2,
+      "description": "Share of the game's C-class mineral roll (ItmRandomMineralCClass) carved from silicates for the ammonium salt crust; C-class deposits roll it directly and dark-regolith walls through their nested C-class roll. Never a shop.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Definitions.cs",
+          "pattern": "\\bCrustChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the native checks (the crust must appear once in the C-class table, among the carves after silicates) and regenerate item references. Existing deposits already rolled are unchanged.",
+        "The silicates share (0.40 in the game's table) is a budget shared with clay hydrates and Shipbreaker's extra deposit ice; the donor must cover every share or later carves are refused."
+      ]
+    },
     "Manufacturing.nickelIronIngotPrice": {
       "type": "number",
       "value": "24",
@@ -1944,6 +1962,40 @@
         {
           "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
           "pattern": "CarbonDioxidePrice = (?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+      ]
+    },
+    "Manufacturing.ammoniaStoreCapacityKg": {
+      "type": "number",
+      "value": "380",
+      "min": 50,
+      "max": 5000,
+      "description": "Small (2 x 2) ammonia store capacity in kilograms; liquefied ammonia (609 kg/m3 at 20 C) at an 80% fill of the native canister vessel.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
+          "pattern": "AmmoniaCapacityKg = (?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+      ]
+    },
+    "Manufacturing.ammoniaStorePrice": {
+      "type": "number",
+      "value": "20000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored small ammonia store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
+          "pattern": "AmmoniaPrice = (?P<value>[0-9.]+)",
           "count": 1
         }
       ],

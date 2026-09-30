@@ -663,3 +663,16 @@ motor and a mainboard. It dismantles to 30 steel, 12 aluminium, 6 mechanical and
 (60 kg); broken, to 20 steel, 6 aluminium, 2 mechanical parts and 33 kg of trash.
 It is sold on the other Fennmark machines' routes, carries the high-salvage mark
 and shares their one-in-twenty engineering find.
+
+## Manufacturing 0.9.0: Q2, Q3 and Q4 ammonia stores
+
+The ammonia stores follow the other gas stores exactly: $20,000, $32,530 and
+$45,950 (broken a quarter), 160, 305 and 450 kg empty, with the same work, repair
+bills, salvage and routes as the other store sizes above. The small size shares
+the one-in-twenty engineering find; the medium and large sizes are never salvage
+loot. No station sells ammonia: it comes only from the V4's salt crust charge.
+
+The ammonium salt crust is ore (mined, never sold by merchants; the government
+kiosks buy it at 150 cr, the game's hydrates price). Refining it loses value like
+every charge: 150 cr of crust becomes about 3.25 cr of ammonia at the game's own
+NH3 price, 5.05 cr of water and a spent salt cake at the technical minimum.

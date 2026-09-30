@@ -15,6 +15,11 @@ public static class RefineryRules
     public const string InputBin = Prefix + "InputBin", InputSlot = Prefix + "Input", FeedTrigger = Prefix + "TFeed", StockTrigger = "PhobosManufacturingTStock";
     public const string Record = "ManufacturingRefinery";
     public const string OutPort = "PhobosManufacturing.RefineryOut", VesselPort = "PhobosManufacturing.VesselIn";
+    /// <summary>Stored gases (Manufacturing 0.9.0): one V4 outlet per gas family, pairing with this port on a store of that gas.</summary>
+    public const string GasInPort = "PhobosManufacturing.RefineryGasIn";
+    public static string GasOutPort(GasFamily family) => "PhobosManufacturing.RefineryGasOut." + family.SmallPrefix;
+    /// <summary>The gas families any charge keeps in a store, for the V4's links.</summary>
+    public static IEnumerable<GasFamily> StoredGasFamilies => RefineryRecipes.All.SelectMany(r => r.StoredGases).Select(p => GasStores.FamilyOf(p.Id)!).Distinct();
     /// <summary>Native feed identities and their masses (items_mining.json): hydrates 10 kg, meteoric iron 20 kg,
     /// carbon/carbides 10 kg, gangue 3 kg. Steel identities are Shipbreaker's, named as strings only.</summary>
     public const string Hydrates = "ItmMineral11", Iron = "ItmMineral01", Carbides = "ItmMineral03", Gangue = "ItmMiningTrash";
@@ -38,7 +43,7 @@ public static class RefineryRules
     /// <summary>The unit mass a feed identity must carry, or null when it is not feed.</summary>
     public static double? FeedKg(string? id, bool steelStock) => id switch
     {
-        Hydrates => HydratesKg, Iron => IronKg, Carbides => CarbidesKg, Materials.ClayHydrates => Materials.ClayKg,
+        Hydrates => HydratesKg, Iron => IronKg, Carbides => CarbidesKg, Materials.ClayHydrates => Materials.ClayKg, Materials.AmmoniumSaltCrust => Materials.CrustKg,
         Materials.NickelIronIngot when steelStock => Materials.IngotKg, Materials.CarbonStock when steelStock => Materials.CarbonKg, _ => null
     };
     /// <summary>Feed identities the bin admits at the game level beyond the native TIsOre rule: our own stock.</summary>
@@ -77,6 +82,10 @@ public sealed class ChargeRecipe
     public double OffGasKg => OffGas.Values.Sum();
     public double EnergyKWh => RefineryRules.WorkingKW * Seconds / 3600;
     public bool NeedsVessel => Products.Any(p => p.Id == ManufacturingRules.Water);
+    /// <summary>Products that go to a gas store: any Manufacturing gas commodity (ammonia). Never vented.</summary>
+    public IReadOnlyList<ProductSpec> StoredGases => Products.Where(p => GasStores.FamilyOf(p.Id) != null).ToArray();
+    /// <summary>Products that are items in the tray: everything but water and stored gases.</summary>
+    public IEnumerable<ProductSpec> Solids(IEnumerable<ProductSpec> products) => products.Where(p => p.Id != ManufacturingRules.Water && GasStores.FamilyOf(p.Id) == null);
     public int Units => Inputs.Sum(i => i.Count);
     public ChargeRecipe(string id, int revision, IEnumerable<ChargeInput> inputs, IEnumerable<ProductSpec> products, IReadOnlyDictionary<string, double>? offGas, double seconds, bool melt, bool needsSteelStock)
     {
@@ -140,7 +149,20 @@ public static class RefineryRecipes
         new[] { new ChargeInput(Materials.NickelIronIngot, 4, Materials.IngotKg), new ChargeInput(Materials.CarbonStock, 1, Materials.CarbonKg) },
         new[] { new ProductSpec(RefineryRules.SteelIngot, 4, RefineryRules.SteelIngotKg), new ProductSpec(RefineryRules.SteelRemainder, 1, RefineryRules.SteelRemainderKg) },
         null, 2000, true, true);
-    public static readonly IReadOnlyList<ChargeRecipe> All = Array.AsReadOnly(new[] { Hydrates, Clay, Carbon, NickelIron, Steel });
+    // Ammonium salt crust (Manufacturing 0.9.0): ammonium chloride with its own sodium carbonate, the bright-area salts NASA's
+    // Dawn mission found on Ceres (Raponi et al. 2019; De Sanctis et al. 2024). Heated: 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O
+    // + 2 NaCl. Authored crust: 3.000 kg NH4Cl (56.08 mol), 2.972 kg Na2CO3 (stoichiometric), 4.028 kg clay and hydrohalite.
+    // Products: 0.955 kg NH3 to an ammonia store (never vented), 1.235 kg CO2 breathed into the room as the carbon charge does,
+    // 0.505 kg water to the vessel, and a 7.305 kg cake of 3.278 kg NaCl plus the remainder. Rounded to the gram.
+    // Energy: about +210 kJ per mole of reaction from standard enthalpies of formation, 1.6 kWh, plus 0.8 kWh to heat the
+    // crust; 900 s at 24 kW is 6 kWh.
+    public const double CrustAmmoniaKg = 0.955, CrustCarbonDioxideKg = 1.235, CrustWaterKg = 0.505;
+    public static readonly IReadOnlyDictionary<string, double> CrustOffGas = new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = CrustCarbonDioxideKg };
+    public static readonly ChargeRecipe Ammonium = new("ammonium", 6,
+        new[] { new ChargeInput(Materials.AmmoniumSaltCrust, 1, Materials.CrustKg) },
+        new[] { new ProductSpec(Materials.SpentSaltCake, 1, Materials.SaltCakeKg), new ProductSpec(ManufacturingRules.Water, 1, CrustWaterKg), new ProductSpec(ManufacturingRules.Ammonia, 1, CrustAmmoniaKg) },
+        CrustOffGas, 900, false, false);
+    public static readonly IReadOnlyList<ChargeRecipe> All = Array.AsReadOnly(new[] { Hydrates, Clay, Carbon, NickelIron, Steel, Ammonium });
     public static ChargeRecipe? ByRevision(int revision) => All.FirstOrDefault(r => r.Revision == revision);
     public static ChargeRecipe? ById(string? id) => id == null ? null : All.FirstOrDefault(r => r.Id == id);
     /// <summary>Recipes available now: the steel recipe needs Shipbreaker's stock identities.</summary>

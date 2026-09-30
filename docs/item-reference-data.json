@@ -9578,9 +9578,1621 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.8.0",
+      "version": "0.9.0",
       "gameTarget": "1.0.1.5",
       "items": [
+        {
+          "id": "PhobosAmmoniaStoreInstalled",
+          "name": "Phobos' Fennmark Q2 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 20000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosAmmoniaStoreInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLoose",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreInstalledDmg",
+          "name": "Phobos' Fennmark Q2 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 5000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreInstalled",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLooseDmg",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLargeInstalled",
+          "name": "Phobos' Fennmark Q4 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 450.0,
+          "baseValue": 45950.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 320,
+                  "baseValue": 1151.9999694824219
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 87,
+                  "baseValue": 95.70000207424164
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 35,
+                  "baseValue": 1.750000026077032
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeLoose",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLargeInstalledDmg",
+          "name": "Phobos' Fennmark Q4 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 450.0,
+          "baseValue": 11487.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 113,
+                  "baseValue": 406.7999892234802
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 307,
+                  "baseValue": 15.350000228732824
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeInstalled",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreLargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeLooseDmg",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 11487.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLargeLoose",
+          "name": "Phobos' Fennmark Q4 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 450.0,
+          "baseValue": 45950.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 320,
+                  "baseValue": 1151.9999694824219
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 87,
+                  "baseValue": 95.70000207424164
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 35,
+                  "baseValue": 1.750000026077032
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreLargeLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeInstalled",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLargeLooseDmg",
+          "name": "Phobos' Fennmark Q4 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 450.0,
+          "baseValue": 11487.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 113,
+                  "baseValue": 406.7999892234802
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 307,
+                  "baseValue": 15.350000228732824
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreLargeLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeInstalledDmg",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 11487.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLargeLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreLargeLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLargeLoose",
+                  "name": "Phobos' Fennmark Q4 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLoose",
+          "name": "Phobos' Fennmark Q2 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 20000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreInstalled",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreLooseDmg",
+          "name": "Phobos' Fennmark Q2 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 5000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreInstalledDmg",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreLoose",
+                  "name": "Phobos' Fennmark Q2 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreMediumInstalled",
+          "name": "Phobos' Fennmark Q3 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 305.0,
+          "baseValue": 32530.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 215,
+                  "baseValue": 773.9999794960022
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 59,
+                  "baseValue": 64.90000140666962
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumLoose",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreMediumInstalledDmg",
+          "name": "Phobos' Fennmark Q3 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 305.0,
+          "baseValue": 8132.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 77,
+                  "baseValue": 277.19999265670776
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 207,
+                  "baseValue": 10.350000154227018
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumInstalled",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosAmmoniaStoreMediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumLooseDmg",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 8132.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreMediumLoose",
+          "name": "Phobos' Fennmark Q3 Ammonia Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 305.0,
+          "baseValue": 32530.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 215,
+                  "baseValue": 773.9999794960022
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 59,
+                  "baseValue": 64.90000140666962
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreMediumLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumInstalled",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniaStoreMediumLooseDmg",
+          "name": "Phobos' Fennmark Q3 Ammonia Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 305.0,
+          "baseValue": 8132.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 77,
+                  "baseValue": 277.19999265670776
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 207,
+                  "baseValue": 10.350000154227018
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosAmmoniaStoreMediumLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumInstalledDmg",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 8132.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosAmmoniaStoreMediumLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosAmmoniaStoreMediumLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosAmmoniaStoreMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosAmmoniaStoreMediumLoose",
+                  "name": "Phobos' Fennmark Q3 Ammonia Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosAmmoniumSaltCrust",
+          "name": "Phobos' Fennmark Ammonium Salt Crust",
+          "stackLimit": 6,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR",
+            "drag"
+          ],
+          "massKg": 10.0,
+          "baseValue": 150.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
         {
           "id": "PhobosAnhydrousResidue",
           "name": "Phobos' Fennmark Anhydrous Residue",
@@ -20884,6 +22496,37 @@
           "aliases": []
         },
         {
+          "id": "PhobosSpentSaltCake",
+          "name": "Phobos' Fennmark Spent Salt Cake",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 7.305,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosVolatilesRefineryInputBin",
           "name": "Phobos' Fennmark V4 Refinery charge",
           "stackLimit": 1,
@@ -21759,157 +23402,192 @@
           "count": 8
         },
         {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Loot",
+          "chance": 0.0010416666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosAmmoniaStoreLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0031250000000000006,
+          "count": 1
+        },
+        {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0011363636363636365,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.00340909090909091,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
@@ -22055,6 +23733,27 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosAmmoniaStoreLargeLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -22215,6 +23914,27 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosPropellantLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -22368,6 +24088,27 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -22515,6 +24256,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -22662,6 +24424,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -22809,6 +24592,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -22956,6 +24760,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23103,6 +24928,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23250,6 +25096,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23397,6 +25264,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23544,6 +25432,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23691,6 +25600,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23838,6 +25768,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -23985,6 +25936,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -24132,6 +26104,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -24279,6 +26272,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -24426,6 +26440,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -24568,6 +26603,27 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosCarbonDioxideStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -24875,10 +26931,59 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosPropellantLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
+        },
+        {
+          "table": "ItmRandomMineralCClass",
+          "item": "PhobosAmmoniumSaltCrust",
+          "condition": "Loot",
+          "chance": 0.05,
+          "count": 1
         },
         {
           "table": "ItmRandomMineralCClass",
@@ -39056,8 +41161,8 @@
     "mods/PhobosFramework/mod_info.json": "15f2b31a71ec287ac5c3bcbfee46dab7ea400cdff84011a9689dc8266c14894f",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "b6799f46f113a0341915d1b3db47fafc5f134d9cd22c52ac338797aa9e49ef4d",
-    "mods/PhobosManufacturing/mod_info.json": "72033613029b4f3bcce7ac4f43c96b529a7626b8e23e2777fb7404b7ea2ae332",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "738390b68ace99ed59b0501f924e247767f43ec1eb887b86194c076fa8897262",
+    "mods/PhobosManufacturing/mod_info.json": "80364301416a2e1ba8edb9f8177e61da0c65fe92bd9895241d2a094e37c7f084",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -39317,19 +41422,19 @@
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/Content.cs": "8c7c320b7b633b4714c014af027157a2074c15d931d69e4e37a47a65ce637a66",
     "src/PhobosManufacturing/Core/FillerRules.cs": "f47a1515b4ca9485b9386e34f517931838e1646292f2f934f1301a570b9976c3",
-    "src/PhobosManufacturing/Core/GasStoreRules.cs": "6090fcb5d54c554a6a86c3589596f238cf08c2a20155a7bc442b964e9fd29538",
+    "src/PhobosManufacturing/Core/GasStoreRules.cs": "c6aef87f3d841034bb2b9864565e1f98542f5279130fc252ec69162de39c2039",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "3f4c4b2094b187ef49786df73af37f63432a0af6cb6c622f9d89ca01d2709142",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "a06da4b78b9fb7473f198a17d16eb5a027349ce47ad29a7da7cd8271de247673",
-    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "2266aa427ffce4cb204afdfb0d3b74438a3a24c2399fd3beac51dd7b41db453a",
-    "src/PhobosManufacturing/Core/Materials.cs": "638659608f0b9bd36eb5376d1c022b98c8f903e96e4c2394c61688cf108e3545",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "900d0c6ab899f26309e0ecb719dca28036c7a549104edcf7524fb56a6c58f984",
+    "src/PhobosManufacturing/Core/Materials.cs": "0ad998f9ef75d7ebc3c7b84bd60cbd8b92560ec166e58741e8844d83adfd034d",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "cb0c1734b2db899b326a89f2602699632086ef6a77edebc09cd742ab3f4c221c",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
-    "src/PhobosManufacturing/Core/RefineryRules.cs": "5c4f66076235de2c06c09277a6aebee36cfc2d96bd1db3e8fb61e738e67e2bc6",
+    "src/PhobosManufacturing/Core/RefineryRules.cs": "69da614b5e98e84c824be324b94eef4591f65bb5c63406329f39505d0c4d3eb0",
     "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
     "src/PhobosManufacturing/Core/RegulatorRules.cs": "0de744ece7fbbb822dce07665c5c80d14a980a017c7b168c4ae67a4dd3a68390",
     "src/PhobosManufacturing/Core/SabatierRules.cs": "e34ab7499438dd8a0103524b07e1a9acc1cb6257c1f36fb21160e50cf825ed85",
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
-    "src/PhobosManufacturing/Definitions.cs": "a733a93abd11b8b5f7e406f51f69ddd239bfcd260bdaef03197ffdc92fc6ab34",
+    "src/PhobosManufacturing/Definitions.cs": "b34849db5600170f8bd4a6427b7449d9366f7a9b8a3f2ec861de159f38320941",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "7384ee7fa7cb4d00672903f8c10811d1d61cf9027ac80f4a87f49d67a39da1e3",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "81f0311f97e18a0056bbd825f945845fa56cbb71e5c0f0866a8dfb37e2c32824",
@@ -39338,15 +41443,15 @@
     "src/PhobosManufacturing/ManifoldService.cs": "101abee77c09aa8b057cd5ac6ff54658bb5fbeaeedac5791ffc1a2284f1a3eb9",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "2c1505158418d86840071edafe411503a0c53e986c40dfa59bc974418527ce77",
-    "src/PhobosManufacturing/Plugin.cs": "8cfc7718f0de4de614e347c37143b60c8b62edbc52cdf5c895f28987efbfa741",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "f56dd9a1fbc45476c6808d4c12cc4c72d412eb8b55ad13ef8fc58d0ef8c237a6",
+    "src/PhobosManufacturing/Plugin.cs": "11c8944cdf390dc950ee1f91dde8ba12bee01bb6890451894e998c4448d994fc",
     "src/PhobosManufacturing/ProcessorService.cs": "13a5d2536f4409798ceca4797b5a9411231942bcc666f2212ef559ff12e1875d",
-    "src/PhobosManufacturing/Provider.cs": "079a1ec47b4c03a60b0f3574fc54a62154b0c905b4beaf4dac48d44ed50f8d93",
-    "src/PhobosManufacturing/RefineryService.cs": "8a3de3ba7f50b7fc3e07aa379ae075bf01299a4a5abcaa8e96a4519ecf037f3c",
+    "src/PhobosManufacturing/Provider.cs": "8045e93e11f9d82109d1072dd3b98df3b1d48a632aaea5480d832afd0fe01480",
+    "src/PhobosManufacturing/RefineryService.cs": "11f5678e364886e06e43b3ee289efa10a1f639d767c588263c1151cf17c5bb21",
     "src/PhobosManufacturing/RegulatorService.cs": "d760030832d2a2a28fe314225db75ebf5f1b85e95e6121f8515912bdaf0f4f1e",
     "src/PhobosManufacturing/SabatierService.cs": "4e1be170e3ee4b962d59317e252c4a4206f865655454f0281520e4d551033b89",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
-    "src/PhobosManufacturing/StoreService.cs": "a62398d1d85defb42c392c642f02bbd9ce7afe7991ad5f78ad13a215a423eb42",
+    "src/PhobosManufacturing/StoreService.cs": "66e2d3a666541c51c4abfba6c1beb0909f48444b23b0fb9ff714db7d34572d02",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -39462,7 +41567,7 @@
     "translations/PhobosAgriculture/en.json": "baa257c35d18484305c98d2a256600510640cdad0b429874c4eb3058b6758c91",
     "translations/PhobosAutoNav/en.json": "e3904f4dad6e8aa05fbac7932eaaa298a652b82253678b47df55a234711ba377",
     "translations/PhobosFramework/en.json": "2c80ad28687a37c47a3dea59ed029033754ed29757a3622f37a6acbdc1e2805f",
-    "translations/PhobosManufacturing/en.json": "52781da1efe42869cd017cace09e628e9db75c0a93d3f47a12fa58188fdd28f1",
+    "translations/PhobosManufacturing/en.json": "46103327c7aeff1eb6e21601ccc4fd24166d5dc66d353ed5cb9addb1e53c8eea",
     "translations/PhobosShipbreaker/en.json": "bb5f667f1afb0b87139689eca08b3d29e5fc2a6adb8b46ca7d99c8fd722af2b7",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }

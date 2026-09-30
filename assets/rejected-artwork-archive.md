@@ -73,3 +73,13 @@ The Rivetline Y2/Y3/Y4 material bin pass rejected four PixelLab outputs and one 
 | [assets/artwork-completion/source/material-bin-y3-rejected-indicators-1.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-1.png) | Y3 at 96 px: red and green indicator blocks (painted live-state instruments are refused) and a lost bottom rim. |
 | [assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png) | Y3 at 96 px, second seed: the same indicator artefact despite an explicit exclusion. |
 | [assets/artwork-completion/references/y3-bin-start-96-rejected.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/references/y3-bin-start-96-rejected.png) | 96 px Y3 start drawing, input only of the two rejected Y3 passes; the selected pass used references/y3-bin-start.png at 144 px. |
+
+## Added 30 September 2026 (salt crust and salt cake)
+
+The Manufacturing 0.9.0 item pass rejected three PixelLab outputs; none were committed to main. Requests, seeds, job IDs and reasons are in [nitrogen-requests.json](artwork-completion/nitrogen-requests.json).
+
+| Archived image | Reason |
+| --- | --- |
+| [assets/artwork-completion/source/ammonium-salt-crust-rejected-pebble.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/ammonium-salt-crust-rejected-pebble.png) | Salt crust pass 1: a pinkish pebble with a dark lower band that reads as a side face. |
+| [assets/artwork-completion/source/spent-salt-cake-rejected-isometric.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/spent-salt-cake-rejected-isometric.png) | Salt cake pass 1: an isometric slab with visible front and side faces. |
+| [assets/artwork-completion/source/spent-salt-cake-rejected-residue-copy.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/spent-salt-cake-rejected-residue-copy.png) | Salt cake pass 2: overhead but indistinguishable from the anhydrous residue; replaced by a recorded grey-white derivation. |

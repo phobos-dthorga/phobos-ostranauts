@@ -2296,5 +2296,133 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "q2-ammonia-store",
+    "sourceSHA256": "305e86523c524ef0fce32ab2d3cf57fa52be115ca06d0f60c81f7b8bd94d2027",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStore.png": "54a12530332f5b5e5d7bfff0f35da3d3d4f5d1ca4e36dbb2f03e41de2b3b3c26",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "q3-ammonia-store",
+    "sourceSHA256": "9be64be9a8f50ebe3113e8872417b99b46a185d91f23a32492dcd397a1bb4890",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      192,
+      192
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreMedium.png": "2cacf3ca1f611788da309b01a92f0b949518e403f1ba15cd95fd273a6317baaf",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreMediumNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "q4-ammonia-store",
+    "sourceSHA256": "3b9edd9bd0f474d68b66bf5572bd3909a6cb0eedf73dcbe81d60f3b10e63a042",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      256,
+      256
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreLarge.png": "85f294c5e1315a08dbd911732b67fb66ea558c68cea625c8a358807f65bd838c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "ammonium-salt-crust",
+    "sourceSHA256": "eb1fd9804c82b44bd4c3e1f81c0522753e7c705af03454c189d523d3a5791d51",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAmmoniumSaltCrust.png": "8c0be43baae1dc53d74756e52aa7a8579f01ad1c82f419cb877e0c3b62406e36",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAmmoniumSaltCrustNormal.png": "cde6c63a49ece69930b846fa01e5dccd270891e88d5e0a7a959fcc99288a8722"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "spent-salt-cake",
+    "sourceSHA256": "442c62e4650eaf9be8866b1be9d84a0a6799ddf92101d21470df4d00c04827f7",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentSaltCake.png": "81affebaa941923b80e15aa47cec9ac89aa23dc2f9cc748f73996de3510254d0",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentSaltCakeNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

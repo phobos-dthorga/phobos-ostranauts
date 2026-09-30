@@ -256,12 +256,13 @@ internal static class Definitions
     }
 
     /// <summary>Stock and remainders clone the game's scrap steel (its pickup, stacking, wear and destruction
-    /// behaviour); the clay chunk clones the game's hydrates so it mines, breaks and sells like them.</summary>
+    /// behaviour); mined chunks (clay hydrates, the ammonium salt crust) clone the game's hydrates so they mine,
+    /// break and sell like them.</summary>
     private static void AddMaterials(NativeDefinitions d)
     {
         foreach (var m in Materials.All)
         {
-            string source = m == Materials.Clay ? RefineryRules.Hydrates : "ItmScrapSteel";
+            string source = m.Mined ? RefineryRules.Hydrates : "ItmScrapSteel";
             var native = DataHandler.dictCOs[source];
             var co = NativeDefinitions.Clone(native); var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[native.strItemDef]);
             co.strName = co.strItemDef = item.strName = m.Id;
@@ -269,7 +270,7 @@ internal static class Definitions
             co.nStackLimit = m.Stack; co.mapChargeProfiles = Array.Empty<string>();
             string identity = m.Id + "Identity";
             d.Conditions[identity] = new JsonCond { strName = identity, strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-            var keep = m == Materials.Clay ? new[] { "IsNonHighlightable", "IsSolid", "IsMineral", "IsEdged", "IsTough", "IsImmuneAnnihilation", "IsOre", "StatDamage", "StatDamageMax" }
+            var keep = m.Mined ? new[] { "IsNonHighlightable", "IsSolid", "IsMineral", "IsEdged", "IsTough", "IsImmuneAnnihilation", "IsOre", "StatDamage", "StatDamageMax" }
                 : new[] { "IsRigid", "IsSolid", "StatDamageMax" };
             co.aStartingConds = co.aStartingConds.Where(s => keep.Contains(s.Split('=')[0])).Concat(new[] { identity + "=1x1", m.Category + "=1x1",
                 "StatMass=1x" + m.Kg.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x" + m.Price.ToString(CultureInfo.InvariantCulture) }).ToArray();
@@ -317,11 +318,15 @@ internal static class Definitions
 internal static class MiningLoot
 {
     internal const double DefaultChance = 0.10;
+    /// <summary>The ammonium salt crust's share of the C-class roll, also from silicates (Manufacturing 0.9.0): Ceres,
+    /// where Dawn found ammonium salts, is a dark carbonaceous body, and bright salt deposits are local, not bulk rock.</summary>
+    internal const double CrustChance = 0.05;
     internal const string Table = "ItmRandomMineralCClass", Donor = "ItmMineral04";
     internal static double Chance = DefaultChance;
     internal static void Add(NativeDefinitions d)
     {
         if (DataHandler.dictLoot == null || !DataHandler.dictLoot.ContainsKey(Table)) { Plugin.Log(Text.Get("Content.missing_table", Table)); return; }
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.ClayHydrates, Chance);
+        AdditiveLoot.CarveChoice(d, Table, Donor, Materials.AmmoniumSaltCrust, CrustChance);
     }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "85 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "90 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -2273,6 +2273,125 @@
       "review": "Overhead and native-scale export inspected; S3-S5 silo family cues (slate deck, blue rim, yellow clamps) kept, ochre ribbed hatches for the bin identity; no painted gauges or lights. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "56af1361-531b-4edb-8b4f-2c77ef3197fb"
+    },
+    {
+      "key": "q2-ammonia-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniaStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosAmmoniaStore",
+      "status": "selected",
+      "source": "source/q2-ammonia-store.png",
+      "sourceSHA256": "305e86523c524ef0fce32ab2d3cf57fa52be115ca06d0f60c81f7b8bd94d2027",
+      "requestRecord": "nitrogen-requests.json",
+      "review": "Derived from the approved N-series masters by a recorded hue recolour: Fennmark frame and clamps kept, sulphur-yellow domes for ammonia (toxic-gas cylinder convention). Native-scale export inspected. Owner in-game review pending.",
+      "fullFootprint": true
+    },
+    {
+      "key": "q3-ammonia-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniaStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosAmmoniaStoreMedium",
+      "status": "selected",
+      "source": "source/q3-ammonia-store.png",
+      "sourceSHA256": "9be64be9a8f50ebe3113e8872417b99b46a185d91f23a32492dcd397a1bb4890",
+      "requestRecord": "nitrogen-requests.json",
+      "review": "Derived from the approved N-series masters by a recorded hue recolour: Fennmark frame and clamps kept, sulphur-yellow domes for ammonia (toxic-gas cylinder convention). Native-scale export inspected. Owner in-game review pending.",
+      "fullFootprint": true
+    },
+    {
+      "key": "q4-ammonia-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniaStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosAmmoniaStoreLarge",
+      "status": "selected",
+      "source": "source/q4-ammonia-store.png",
+      "sourceSHA256": "3b9edd9bd0f474d68b66bf5572bd3909a6cb0eedf73dcbe81d60f3b10e63a042",
+      "requestRecord": "nitrogen-requests.json",
+      "review": "Derived from the approved N-series masters by a recorded hue recolour: Fennmark frame and clamps kept, sulphur-yellow domes for ammonia (toxic-gas cylinder convention). Native-scale export inspected. Owner in-game review pending.",
+      "fullFootprint": true
+    },
+    {
+      "key": "ammonium-salt-crust",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAmmoniumSaltCrust",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockAmmoniumSaltCrust",
+      "status": "selected",
+      "source": "source/ammonium-salt-crust.png",
+      "sourceSHA256": "eb1fd9804c82b44bd4c3e1f81c0522753e7c705af03454c189d523d3a5791d51",
+      "requestRecord": "nitrogen-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark stock language kept. Owner in-game review pending.",
+      "jobId": "f0493c32-02c6-424b-b8e1-7e809cd6ec74"
+    },
+    {
+      "key": "spent-salt-cake",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosSpentSaltCake",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockSpentSaltCake",
+      "status": "selected",
+      "source": "source/spent-salt-cake.png",
+      "sourceSHA256": "442c62e4650eaf9be8866b1be9d84a0a6799ddf92101d21470df4d00c04827f7",
+      "requestRecord": "nitrogen-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark stock language kept. Owner in-game review pending."
     }
   ],
   "records": [
@@ -2695,9 +2814,33 @@
       ],
       "costGenerations": 1,
       "review": "56af1361 selected"
+    },
+    {
+      "key": "ammonium-salt-crust",
+      "attempts": [
+        "nitrogen-requests.json"
+      ],
+      "jobs": [
+        "78f06330-15b9-46f3-9a40-7f5816a3b25d",
+        "f0493c32-02c6-424b-b8e1-7e809cd6ec74"
+      ],
+      "costGenerations": 2,
+      "review": "78f06330 rejected; f0493c32 selected"
+    },
+    {
+      "key": "spent-salt-cake",
+      "attempts": [
+        "nitrogen-requests.json"
+      ],
+      "jobs": [
+        "4bfd78fa-8940-4bd3-bc69-34bb3eab1edd",
+        "7307ebc4-a4f8-49ed-bdda-e890961b2022"
+      ],
+      "costGenerations": 2,
+      "review": "4bfd78fa rejected; 7307ebc4 rejected; recorded derivation from the anhydrous residue selected"
     }
   ],
-  "allowanceAfter": 1768,
-  "allowanceDelta": 184,
+  "allowanceAfter": 1764,
+  "allowanceDelta": 188,
   "creditBalanceAfterUSD": 0
 }

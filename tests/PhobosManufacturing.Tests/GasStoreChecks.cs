@@ -12,12 +12,12 @@ internal static class GasStoreChecks
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
         // The ladder: five families, three sizes each, the small size unchanged.
-        check(GasStores.Families.Count == 5 && GasStores.All.Count == 15 && GasStores.All.Select(s => s.Prefix).Distinct().Count() == 15,
-            "Five gas families in three sizes, fifteen distinct definitions");
+        check(GasStores.Families.Count == 6 && GasStores.All.Count == 18 && GasStores.All.Select(s => s.Prefix).Distinct().Count() == 18,
+            "Six gas families in three sizes, eighteen distinct definitions");
         check(GasStores.Hydrogen.Prefix == HydrogenRules.Prefix && GasStores.Hydrogen.CapacityKg == 24 && GasStores.Hydrogen.Spec.Record == HydrogenRules.Record &&
               GasStores.Methane.Prefix == MethaneRules.Prefix && GasStores.Methane.CapacityKg == 160 && GasStores.Methane.Spec.Record == MethaneRules.Record,
             "The original H2 and M2 keep their identities, capacities and saved records");
-        check(GasStores.All.Select(s => s.Spec.Record).Concat(GasStores.All.Select(s => s.Spec.Journal)).Concat(GasStores.All.Select(s => s.Spec.Guard)).Distinct().Count() == 45,
+        check(GasStores.All.Select(s => s.Spec.Record).Concat(GasStores.All.Select(s => s.Spec.Journal)).Concat(GasStores.All.Select(s => s.Spec.Guard)).Distinct().Count() == 54,
             "Every size keeps its own record, journal and guard");
         // The definition index answers exactly as the query over every size did, for every form of every size.
         foreach (var store in GasStores.All)
@@ -50,6 +50,12 @@ internal static class GasStoreChecks
             throws(() => family.Small.Burn(1, 1), "Burning a non-fuel is refused: " + species);
         }
         check(GasStores.Hydrogen.LeakSpecies == null, "Hydrogen still leaks to space, never into a room");
+        // Ammonia: kept liquefied (609 kg/m3 at 20 C) in the same vessel at an 80% fill; leaks into the room as the game's NH3.
+        var ammonia = GasStores.AmmoniaFamily;
+        check(ammonia.Species == "NH3" && ammonia.LeaksIntoRoom && ammonia.Fuel == null && ammonia.Model == "Q" && ammonia.Commodity == ManufacturingRules.Ammonia,
+            "The ammonia store holds the game's NH3, leaks into the room and is not modelled as a deflagrating fuel");
+        check(Math.Abs(ammonia.SmallCapacityKg - 0.787 * 609 * 0.8) < 5 && ammonia.SmallCapacityKg > NativeGasCanister.Kilograms("NH3", moles), "Liquefied ammonia fills the vessel far beyond its ideal-gas moles");
+        check(Math.Abs(ManifoldRules.Ratio("ammonia") - 1.409) < .005, "The P1 burns stored ammonia in the RCS (owner decision) at its cold-gas worth, about 1.41 times nitrogen per kilogram");
         check(GasStores.FamilyOf("carbon dioxide") == GasStores.CarbonDioxideFamily && GasStores.FamilyOf("water") == null, "Commodities resolve to their family");
         check(Math.Abs(ManifoldRules.Ratio("nitrogen") - 1) < 1e-12 && Math.Abs(ManifoldRules.Ratio("oxygen") - 0.935) < 0.01, "The P1 values nitrogen and oxygen stores at their RCS worth");
         // The line port: neighbouring tile on +X, in the middle row, with the joint on the footprint tile beside it.

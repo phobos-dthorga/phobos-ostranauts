@@ -18,7 +18,7 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 5, "Five distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 6, "Six distinct revisions");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,
@@ -54,7 +54,7 @@ internal static class RefineryChecks
         check(RefineryRecipes.Match(steelCharge.Concat(new[] { "ItmMineral11" }), true) == s, "With a hydrate block beside it the larger steel charge is preferred");
         foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", "ItmMineral02", "ItmMiningTrash", "ItmScrapSteel", Materials.RefinerySlag })
             check(RefineryRecipes.Match(new[] { outside }, true) == null, "Never a charge: " + outside);
-        check(RefineryRecipes.Available(false).Count() == 4 && RefineryRecipes.Available(true).Count() == 5, "Without Shipbreaker four recipes are available; with it five");
+        check(RefineryRecipes.Available(false).Count() == 5 && RefineryRecipes.Available(true).Count() == 6, "Without Shipbreaker five recipes are available; with it six");
 
         // Feed admission is exact.
         check(RefineryRules.ValidFeed("ItmMineral11", 10, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral01", 20, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral03", 10, true, true, true, false),
@@ -80,6 +80,26 @@ internal static class RefineryChecks
         var spoiledSteel = RefineryRecipes.SpoiledProducts(s);
         check(spoiledSteel.Sum(p => p.Kg * p.Count) == 17 && spoiledSteel.Single().Count == 17, "A frozen steel melt is 17 kg of slag");
         throws(() => RefineryRecipes.SpoiledProducts(h), "Drying cannot spoil");
+
+        // Ammonium salt crust: 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl on an authored 3.000 kg of NH4Cl.
+        var a = RefineryRecipes.Ammonium;
+        double nh4cl = 3.0 / 0.053491, reactions = nh4cl / 2;
+        check(Math.Abs(a.StoredGases.Single(p => p.Id == "ammonia").Kg - nh4cl * 0.017031) < .001 && Math.Abs(a.OffGas["CO2"] - reactions * 0.04401) < .001 &&
+              Math.Abs(a.Products.Single(p => p.Id == "water").Kg - reactions * 0.018015) < .001, "Ammonia, carbon dioxide and water follow the reaction on 56.08 mol of ammonium chloride");
+        double sodaKg = reactions * 0.105988, saltKg = nh4cl * 0.05844, remainderKg = 10 - 3.0 - sodaKg;
+        check(Math.Abs(a.Products.Single(p => p.Id == Materials.SpentSaltCake).Kg - (saltKg + remainderKg)) < .001 && Math.Abs(a.ChargeKg - Sum(a)) < 1e-9,
+            "The salt cake is the sodium chloride plus the crust's clay; the charge conserves mass");
+        check(a.StoredGases.Count == 1 && a.Solids(a.Products).Single().Id == Materials.SpentSaltCake && RefineryRules.StoredGasFamilies.Single() == GasStores.AmmoniaFamily,
+            "Ammonia goes to a store, the cake to the tray, water to the vessel, CO2 into the room");
+        // Standard enthalpies of formation (kJ/mol): NH4Cl -314.4, Na2CO3 -1130.7, NaCl -411.2, NH3 -45.9, CO2 -393.5, H2O(g) -241.8.
+        double reactionKJ = (2 * -411.2 + 2 * -45.9 + -393.5 + -241.8) - (2 * -314.4 + -1130.7);
+        check(Math.Abs(reactionKJ - 210) < 1 && a.EnergyKWh * (1 - RefineryRules.RoomHeatFraction) > (reactions * reactionKJ + 10 * 0.9 * 330) / 3600,
+            "The 15 minute charge covers the reaction's +210 kJ per mole and heating the crust, after the room's share");
+        check(RefineryRules.ValidFeed(Materials.AmmoniumSaltCrust, 10, true, true, true, false) && RefineryRecipes.Match(new[] { Materials.AmmoniumSaltCrust }, false) == a, "The salt crust enters and matches its charge");
+        check(Materials.Crust.Mined && Materials.Clay.Mined && !Materials.Ingot.Mined && Materials.IsTerminal(Materials.SpentSaltCake) && !Materials.IsTerminal(Materials.AmmoniumSaltCrust),
+            "Mined chunks and terminal remainders are declared on the material");
+        check(Materials.Crust.Price > a.StoredGases.Single().Kg * 3.40 + a.OffGas["CO2"] * 1.3 + a.Products.Single(p => p.Id == "water").Kg * 10 + Materials.SaltCake.Price,
+            "The crust is worth more than its ammonia and carbon dioxide at the game's gas prices, its water and the cake");
 
         // Prices keep the recovery rule.
         check(4 * Materials.Ingot.Price < 450 && 5 * Materials.Carbon.Price + 10 < 99 && Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180,

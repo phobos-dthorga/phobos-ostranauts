@@ -19,8 +19,20 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
         if (RefineryRules.IsFamily(co.strCODef))
+        {
             yield return new(Text.Get("Provider.vessel_field"), ObjectPresentation.Name(RefineryService.Peer(co)),
                 RefineryService.Candidates(co).Select(v => ("link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("link:none", Text.Get("Provider.link_none")) }));
+            // One field per gas a charge keeps in a store (ammonia), shown once a store of it is in reach or linked.
+            foreach (var family in RefineryRules.StoredGasFamilies)
+            {
+                var stores = RefineryService.GasCandidates(co, family).ToArray();
+                string peer = RefineryService.GasPeer(co, family);
+                if (stores.Length == 0 && peer.Length == 0) continue;
+                string prefix = "gas-link:" + family.SmallPrefix + ":";
+                yield return new(Text.Get("Provider.gas_field", Text.Get(family.TextPrefix + ".gas")), ObjectPresentation.Name(peer),
+                    stores.Select(v => (prefix + v.strID, ObjectPresentation.Name(v))).Concat(new[] { (prefix + "none", Text.Get("Provider.link_none")) }));
+            }
+        }
         else if (ProcessorRules.IsFamily(co.strCODef))
         {
             yield return new(Text.Get("Provider.water_field"), ObjectPresentation.Name(ProcessorService.WaterPeer(co)),
@@ -98,7 +110,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
         "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + ManifoldRules.Record,

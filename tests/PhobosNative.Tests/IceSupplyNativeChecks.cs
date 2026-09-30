@@ -19,8 +19,8 @@ internal static class IceSupplyNativeChecks
         check(Single(IceSupplyRules.CFields).Contains("ClusterC02=0.15x1|ClusterI01=0.05x1"), "C-class fields carry the game's ice cluster, carved from ClusterC02");
         check(Single(IceSupplyRules.SFields).Contains("ClusterS01=0.45x1|ClusterI01=0.05x1"), "S-class fields carry the game's ice cluster, carved from ClusterS01");
         string deposits = Single(IceSupplyRules.DepositTable);
-        check(deposits.Contains("ItmMineral04=0.25x1|ItmIce01=0.05x1|PhobosClayHydrates=0.1x1") && deposits.Contains("ItmIce01=0.1x1"),
-            "C-class deposits: silicates 0.25, carved water ice 0.05 and clay 0.10, with the game's own 0.10 water ice unchanged");
+        check(deposits.Contains("ItmMineral04=0.2x1|ItmIce01=0.05x1|PhobosAmmoniumSaltCrust=0.05x1|PhobosClayHydrates=0.1x1") && deposits.Contains("ItmIce01=0.1x1"),
+            "C-class deposits: silicates 0.20, carved water ice 0.05, salt crust 0.05 and clay 0.10, with the game's own 0.10 water ice unchanged");
 
         // Methane ice: the T2 delivers the commodity Manufacturing's methane stores hold, and its corrected price
         // stays above the products at the game's own methane price.
@@ -35,8 +35,8 @@ internal static class IceSupplyNativeChecks
             Content.Prepare(iceFields: false, depositIce: false).Publish();
             check(DataHandler.dictLoot[IceSupplyRules.CFields].aCOs.SequenceEqual(original[IceSupplyRules.CFields]) &&
                   DataHandler.dictLoot[IceSupplyRules.SFields].aCOs.SequenceEqual(original[IceSupplyRules.SFields]), "Ice fields switched off: the game's field pickers are exactly restored");
-            check(!Single(IceSupplyRules.DepositTable).Contains("ItmIce01=0.05x1") && Single(IceSupplyRules.DepositTable).Contains("ItmMineral04=0.3x1|PhobosClayHydrates=0.1x1"),
-                "Extra deposit ice switched off: only Manufacturing's clay remains carved");
+            check(!Single(IceSupplyRules.DepositTable).Contains("ItmIce01=0.05x1") && Single(IceSupplyRules.DepositTable).Contains("ItmMineral04=0.25x1|PhobosAmmoniumSaltCrust=0.05x1|PhobosClayHydrates=0.1x1"),
+                "Extra deposit ice switched off: only Manufacturing's clay and salt crust remain carved");
         }
         finally { Content.Prepare().Publish(); }
         check(Single(IceSupplyRules.DepositTable) == deposits, "Switching the settings back on restores the same tables");

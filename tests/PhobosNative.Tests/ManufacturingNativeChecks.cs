@@ -179,19 +179,27 @@ internal static class ManufacturingNativeChecks
         check(!DataHandler.dictCTs["TIsBarterFlotillaScrapKiosk"].TriggeredDataCO(new DataCO(d.Objects[Materials.NickelIronIngot]), false), "Scrap kiosks do not buy ingots: they are not IsScrap, so they are not feed either");
 
         // With and without Shipbreaker: the same definitions, a different available catalog.
-        check(RefineryRecipes.Available(true).Count() == 5 && RefineryRecipes.Available(false).Count() == 4 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
+        check(RefineryRecipes.Available(true).Count() == 6 && RefineryRecipes.Available(false).Count() == 5 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
         // The recovery rule on every charge, at live prices (Shipbreaker's steel ingot included): the products,
         // water at the station's bulk price, are worth less than the charge sold whole. Off-gas has no value.
         double Price(string id) => id == ManufacturingRules.Water ? PhobosShipbreaker.Core.SiloRules.WaterPricePerKg
             : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
+        // Stored gases (ammonia) are valued at the game's own gas price per kilogram, read from its GasPrices table (the
+        // table GasContainer.GetGasPrice reads in a running game).
+        double GasPrice(string species) => double.Parse(DataHandler.dictLoot["GasPrices"].aCOs.Single(e => e.StartsWith(species + "=", StringComparison.Ordinal)).Split('x')[1],
+            System.Globalization.CultureInfo.InvariantCulture);
+        double ProductValue(ProductSpec p) => p.Id == ManufacturingRules.Water ? p.Count * p.Kg * Price(p.Id) :
+            GasStores.FamilyOf(p.Id) is GasFamily gas ? p.Count * p.Kg * GasPrice(gas.Species) : p.Count * Price(p.Id);
         foreach (var recipe in RefineryRecipes.All)
         {
             double inValue = recipe.Inputs.Sum(i => i.Count * Price(i.Id));
-            double outValue = recipe.Products.Sum(p => p.Count * (p.Id == ManufacturingRules.Water ? p.Kg * Price(p.Id) : Price(p.Id)));
+            double outValue = recipe.Products.Sum(ProductValue);
             check(outValue < inValue, $"The {recipe.Id} charge loses value: {outValue:F2} out of {inValue:F2} in");
         }
+        check(GasPrice("NH3") > 0 && RefineryRecipes.Ammonium.StoredGases.All(p => GasStores.FamilyOf(p.Id) != null),
+            "The game prices ammonia, and the salt crust charge's ammonia goes to a store family");
 
         // The clay chunk takes a carved share of the game's C-class roll, taken from silicates, and no shop.
         var cClass = DataHandler.dictLoot[MiningLoot.Table];

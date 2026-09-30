@@ -363,6 +363,12 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.5.0') {
                 'images/phobos/manufacturing/PhobosCabinAirRegulator.png'; 'images/phobos/manufacturing/PhobosCabinAirRegulatorNormal.png'
             }
+            # 0.9.0 adds the Q2, Q3 and Q4 ammonia stores, the ammonium salt crust and the spent salt cake.
+            if ($version -ge [version]'0.9.0') {
+                foreach ($image in @('PhobosAmmoniaStore', 'PhobosAmmoniaStoreMedium', 'PhobosAmmoniaStoreLarge', 'StockAmmoniumSaltCrust', 'StockSpentSaltCake')) {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
         }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }

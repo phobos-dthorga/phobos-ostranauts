@@ -21,6 +21,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 470, 1,160 and 2,260 kg of carbon dioxide | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 380, 940 and 1,820 kg of liquefied ammonia | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark A2 Cabin Air Regulator | 2 x 2 tiles; 60 kg; one power point; 0.1 kW | 23,000 cr, broken 5,750 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
@@ -36,12 +37,13 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 (motors, mainboards, heat sinks and, for the V4, a screen); see the
 [equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
-Ores are mined, never bought. Clay hydrates chunks come from dark rock: C-class
-deposits and dark regolith walls give one about as often as one C-class find in
-ten, in place of some of the silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
+Ores are mined, never bought. Two chunks come from dark rock: C-class deposits
+and dark regolith walls give a clay hydrates chunk about one C-class find in ten
+and an ammonium salt crust about one in twenty, in place of some of the
+silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
 installed store of that gas, at the kiosk's own price per kilogram. Nothing
-sells back.
+sells back. No station sells ammonia: the salt crust is its only source.
 
 ## What the refinery makes
 
@@ -51,21 +53,25 @@ what went in, sorted.
 | Charge | Gives | Time at 24 kW |
 | --- | --- | --- |
 | 1 hydrates block (10 kg, mined) | 1 kg of water into the linked vessel; 3 gangue (3 kg each) in the tray | 10 min |
-| 1 clay hydrates chunk (10 kg, mined; new) | 2 kg of water; 1 anhydrous residue (8 kg) | 15 min |
+| 1 clay hydrates chunk (10 kg, mined) | 2 kg of water; 1 anhydrous residue (8 kg) | 15 min |
+| 1 ammonium salt crust (10 kg, mined; new) | 0.955 kg of ammonia into the linked ammonia store; 0.505 kg of water; 1 spent salt cake (7.305 kg); **1.235 kg of carbon dioxide breathed into the room** | 15 min |
 | 1 carbon/carbides block (10 kg, mined) | 5 carbon stock (1 kg each); 1 kg of water; 1 gangue; **1 kg of pyrolysis gas breathed into the room** (CO2, CO and smoke) | 30 min |
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
 | 4 nickel-iron ingots + 1 carbon stock (Shipbreaker only) | 4 Rivetline steel ingots (4 kg each); 1 steel melt remainder (1 kg) | 33 min |
 
-Every charge sorts into three places: solids to the tray, water to the linked
-vessel and, for carbon ore only, gas into the room. Tray products can go back in
-as the steel charge.
+Every charge sorts into up to four places: solids to the tray, water to the
+linked vessel, ammonia to the linked ammonia store and, for carbon ore and the
+salt crust, gas into the room. Ammonia is never let into the room on purpose.
+Tray products can go back in as the steel charge.
 
 ```mermaid
 flowchart LR
     Feed["One charge in the Refinery charge feed"] --> V4["V4 refinery, after Start"]
     V4 -->|water from hydrates, clay or carbon ore| Vessel["Linked S3 or R3 water vessel"]
     V4 -->|solids| Tray["V4 tray, emptied by hand"]
-    V4 -->|carbon ore only, 1 kg pyrolysis gas| Room["Room air"]
+    V4 -->|salt crust only, 0.955 kg ammonia| Store["Linked Q2, Q3 or Q4 ammonia store"]
+    V4 -->|carbon ore and salt crust: pyrolysis gas or CO2| Room["Room air"]
+    Store -->|through a P1, if you switch it on| RCS["RCS thrusters"]
     Tray -->|4 nickel-iron ingots and 1 carbon stock, with Shipbreaker| Feed
 ```
 
@@ -79,15 +85,18 @@ What you gain is material aboard, away from stations.
 ## Set up
 
 1. Install the V4 on intact floor and connect both power points. Give it a
-   room with a scrubber if you will roast carbon ore.
+   room with a scrubber if you will roast carbon ore or bake salt crust.
 2. For the water charges, install a water vessel within one tile of the V4:
    a Shipbreaker S3 process water silo or an Agriculture R3 reservoir, touching
    or with one tile between them, diagonal included. Right-click the V4, choose
    **Control Panel**, open **Connections** and pick the vessel under **Water
    vessel**. Apply. The C1 console offers the same field.
+   For the salt crust, also install an ammonia store (any size) within one
+   tile and pick it under **Send ammonia to**. The field appears once a store is
+   in reach.
 3. Right-click the V4 and choose **Inventory**. The tray opens, and the
-   **Refinery charge** feed opens as its own window. Put one ore block or clay
-   chunk in it (right-click a stack to place one), or four nickel-iron ingots
+   **Refinery charge** feed opens as its own window. Put one ore block, clay
+   chunk or salt crust in it (right-click a stack to place one), or four nickel-iron ingots
    and one carbon stock. It holds six units and refuses ice, regolith, gangue,
    scrap and anything stacked, with the reason.
 4. On the panel choose **Start**. The refinery binds the exact charge in the
@@ -98,7 +107,8 @@ What you gain is material aboard, away from stations.
 
 A water charge waits until the linked vessel can take its whole yield; the
 panel says why (no vessel, full, damaged, held, catch chamber, out of reach)
-and rechecks every few seconds. The tray must have room for every product or
+and rechecks every few seconds. The salt crust also waits, with the reason,
+until its ammonia store is linked, intact and has room for the ammonia. The tray must have room for every product or
 the charge waits with that reason. Empty the tray by hand.
 
 ## The electrolysis cell
@@ -168,15 +178,17 @@ held gas, made products and progress; Cancel forfeits only the cycle's energy.
 Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large
 (4 x 4). A bigger store holds more for less per kilogram of capacity. Pick the
 gas by colour: olive methane, dark grey hydrogen cylinders, green oxygen, blue
-nitrogen and pale grey carbon dioxide, like the game's own canisters.
+nitrogen and pale grey carbon dioxide, like the game's own canisters, and amber
+ammonia.
 
 | Gas | Filled by | Used by |
 | --- | --- | --- |
 | Hydrogen (H) | an X2 | a K2, the RCS through a P1 |
-| Methane (M) | a K2 | the RCS through a P1 |
+| Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | the RCS through a P1 |
 | Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
 | Nitrogen (N) | Bulk supplies | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
 | Carbon dioxide (C) | Bulk supplies | a K2 (set the store as its CO2 source), an L2, the RCS |
+| Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | the RCS through a P1 |
 
 Each store's panel shows the kilograms held and every machine linked to it.
 
@@ -257,7 +269,7 @@ working after a reload, like the game's own air pumps.
 
 ## RCS propellant
 
-Your RCS thrusters can burn the gas in your hydrogen and methane stores. The
+Your RCS thrusters can burn the gas in any of your gas stores. The
 game's thrusters push the same per kilogram whatever gas they get; Phobos
 Framework gives each gas its real cold-gas worth instead:
 
@@ -265,6 +277,7 @@ Framework gives each gas its real cold-gas worth instead:
 | --- | --- | --- |
 | Hydrogen (H2 store) | about 3.7 | 24 kg, as good as about 88 kg of nitrogen |
 | Methane (M2 store) | about 1.45 | 160 kg, as good as about 232 kg of nitrogen |
+| Ammonia (Q2 store) | about 1.41 | 380 kg, as good as about 535 kg of nitrogen |
 | Nitrogen (the game's canister) | 1 | 375 kg |
 | Oxygen, carbon dioxide (the game's canisters) | 0.94, 0.90 | slightly less than nitrogen |
 
@@ -329,6 +342,15 @@ releases it.
   store leaks about 2, 3 or 4 kg an hour by size until repaired. Oxygen makes
   any fire worse, nitrogen thins the air without warning, and carbon dioxide
   poisons. A destroyed store releases everything it held into the room.
+- **Ammonia poisons.** A damaged ammonia store leaks about 2, 3 or 4 kg an
+  hour by size of the game's own ammonia into its room until repaired, and a
+  destroyed one releases everything it held. The game's ammonia poisoning
+  applies: repair the store, get the crew clear and vent or scrub the room.
+  The V4 never lets its ammonia into the room: the salt crust waits for its
+  store instead.
+- **Baking salt crust breathes carbon dioxide.** Each charge puts 1.235 kg of
+  CO2 into the V4's room, as the carbon charge does. Run a CO2 scrubber there;
+  its canister can then feed a K2.
 - **A damaged reactor dumps its gas.** The CO2 and methane in a K2's hold go
   into the room; its hydrogen burns by the rule below if it can, otherwise it
   escapes. The water stays in the reactor until you repair it.
@@ -363,6 +385,12 @@ releases it.
   methane-oxygen thrusters. Distant, unloaded ships keep the game's nitrogen
   model. Up to about two seconds of propellant draws can be lost on a crash.
 - The clay hydrates chunk uses the game's hydrate artwork until it has its own.
+- The salt crust's mix (30% ammonium chloride, 30% sodium carbonate, the rest clay) is
+  authored from what NASA's Dawn mission saw on Ceres; no sample has been
+  measured. The ammonia store keeps it liquid in the same vessel as the other
+  gases; only its capacity treats it as a liquid.
+- No station sells ammonia, and nothing yet turns it into nitrogen or
+  fertiliser; for now it is RCS propellant.
 - Offline checks are not gameplay validation; see the owner checks below.
 
 ## Owner checks (game closed, `scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing`)
@@ -416,6 +444,15 @@ a crew member with the Haul duty carries them to the rack and starts it, that a
 bottle in a worn suit is left alone, and, with a destination locker chosen in
 the Crew panel, that charged bottles go there. Choose it again to stop.
 
+Salt crust and ammonia (0.9.0): mine C-class deposits and confirm a salt crust
+turns up about one pull in twenty. Install a Q2 within one tile of a V4, link it
+under Send ammonia to, load the crust and Start. Confirm it waits with the
+reason while no store is linked or the store is full, then that about 0.96 kg
+of ammonia, 0.5 kg of water, a spent salt cake and CO2 in the room come out
+after 15 minutes. Link the Q2 to a P1 and watch the RCS readings rise by about
+1.41 times its mass. Damage the store and watch the room's ammonia and the
+crew's poisoning.
+
 Cabin air regulator (0.5.0): install an A2 in a sealed room with an O2 store
 and an N2 store linked, set 21 kPa and 101 kPa and switch it on. Let the
 scrubbers and crew draw the oxygen down and watch the A2 top it up, and the
@@ -426,7 +463,7 @@ oxygen share never passes 30%. Save and reload and confirm it keeps working.
 ## Sources
 
 The chemistry, energies, hazard rules and their primary sources (NIST, NASA,
-the OSIRIS-REx science team, iron-meteorite mineralogy) are in
+the Dawn and OSIRIS-REx science teams, iron-meteorite mineralogy) are in
 [the refinery record](development/manufacturing-refinery-and-chemistry.md).
 Yields are rounded to item units and labelled as authored; the sources inform
 the design and do not endorse it.

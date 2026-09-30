@@ -270,6 +270,20 @@ into nitrogen for cabin make-up and RCS, and hydrogen for the H2 store.
 - Prerequisites: A1 policy; a cracker (new machine or a K2-family mode, owner
   choice); nitrogen output to the P1 path is already supported via the N2 store.
 
+**Implemented differently (Manufacturing 0.9.0): an ammonium salt crust, not
+clay.** Reading the measured values ruled the clay out: Bennu samples carry about
+0.23 to 0.25 wt% nitrogen and about 13.6 micromoles of ammonia per gram (Glavin
+et al. 2025), so a 10 kg clay chunk holds about 24 g of nitrogen in any form and
+about 2 g of free ammonia. The concentrated source is the ammonium chloride NASA's
+Dawn mission found with sodium carbonate in Ceres' Occator faculae (Raponi et al.
+2019; De Sanctis et al. 2024). `PhobosAmmoniumSaltCrust` (10 kg) carves 0.05 of
+the C-class roll from silicates; the V4 heats it (2 NH4Cl + Na2CO3 -> 2 NH3 + CO2
++ H2O + 2 NaCl) to 0.955 kg ammonia for a new Fennmark Q2/Q3/Q4 ammonia store,
+0.505 kg water, 1.235 kg CO2 into the room and a 7.305 kg terminal salt cake. The
+V4 gained stored-gas outputs for it. The owner chose to let the P1 burn ammonia in
+the RCS (player flexibility). The **cracker is still pending** (next round). Full
+record: [the refinery chemistry](manufacturing-refinery-and-chemistry.md#the-ammonium-salt-crust-090).
+
 #### B2. Evaporite salt crust: potassium, phosphorus, sulfur and CO2
 
 A chunk (proposed `PhobosEvaporiteCrust`) found in C-class material, leached into

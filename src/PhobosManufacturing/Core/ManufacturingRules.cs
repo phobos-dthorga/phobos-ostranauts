@@ -10,7 +10,7 @@ public static class ManufacturingRules
     public const string Working = "PhobosManufacturingWorking", Electrolysing = "PhobosManufacturingElectrolysing", Reacting = "PhobosManufacturingReacting", Filling = "PhobosManufacturingFilling",
         Content = "PhobosManufacturingContent";
     /// <summary>The commodity every registered water vessel holds (Shipbreaker's S3, Agriculture's R3) and ours.</summary>
-    public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane", Oxygen = "oxygen", Nitrogen = "nitrogen", CarbonDioxide = "carbon dioxide";
+    public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane", Oxygen = "oxygen", Nitrogen = "nitrogen", CarbonDioxide = "carbon dioxide", Ammonia = "ammonia";
     public const double LocalAccessTiles = 2.5, ConsoleAccessTiles = 2.5;
     public const double VesselRecheckSeconds = 5;
     /// <summary>Two square footprints lie within one tile of each other: the distance between centres, on the

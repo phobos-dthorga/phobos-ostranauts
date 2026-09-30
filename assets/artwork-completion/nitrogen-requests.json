@@ -1,0 +1,161 @@
+{
+  "date": "2026-09-30",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "mod": "PhobosManufacturing",
+  "allowanceBefore": 1768,
+  "allowanceAfter": 1764,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "The init image for the second passes is the approved Phobos anhydrous residue master (source/anhydrous-residue.png), sent base64; no game or third-party imagery.",
+  "initImageHashes": {
+    "source/anhydrous-residue.png": "62c2633dff42239c713b1cb912de28c51ae5db2f296ddbca2d7abb42a1f6d036"
+  },
+  "derived": {
+    "q2/q3/q4 ammonia stores": {
+      "from": [
+        "source/n2-nitrogen-store.png",
+        "source/n3-nitrogen-store.png",
+        "source/n4-nitrogen-store.png"
+      ],
+      "to": [
+        "source/q2-ammonia-store.png",
+        "source/q3-ammonia-store.png",
+        "source/q4-ammonia-store.png"
+      ],
+      "method": "Pixels with hue 190-250 degrees, saturation >= 0.35 and value >= 0.35 (the nitrogen domes) are mapped by luminance onto a sulphur-yellow ramp; frame, clamps, band, hub and alpha unchanged. Sulphur yellow follows the gas-cylinder convention for toxic gases.",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          1.1,
+          85
+        ],
+        "g": [
+          0.95,
+          62
+        ],
+        "b": [
+          0.25,
+          0
+        ]
+      }
+    },
+    "spent-salt-cake": {
+      "from": "source/anhydrous-residue.png",
+      "to": "source/spent-salt-cake.png",
+      "method": "per-pixel luminance map onto a cool grey-white salt ramp; alpha and pixel placement unchanged (the cake is the crust's clay fused with salt, so it shares the residue's silhouette)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.92,
+          40
+        ],
+        "g": [
+          0.93,
+          42
+        ],
+        "b": [
+          0.95,
+          46
+        ]
+      }
+    }
+  },
+  "attempts": [
+    {
+      "key": "ammonium-salt-crust",
+      "operation": "create_image_pixflux",
+      "jobId": "78f06330-15b9-46f3-9a40-7f5816a3b25d",
+      "assetId": "0f0888a0-434a-590f-adcd-82645ade036a",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one chunk of pale mineral salt crust seen from directly above: a single irregular angular lump of chalky off-white and pale cream crystalline salt, with a faint warm yellowish tint in places, small glinting white crystal facets, a few thin dark grey clay streaks and specks through it, a slightly brighter upper-left region and a greyer lower-right edge. Clearly a mined salt mineral, not ice, not food, not sugar, not bread. Original coarse pixel art, three-tone shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins. No text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9301501,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail"
+      },
+      "decision": "rejected",
+      "review": "A pinkish rounded pebble with a dark lower band that reads as a side face.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/ammonium-salt-crust-rejected-pebble.png"
+    },
+    {
+      "key": "ammonium-salt-crust",
+      "operation": "create_image_pixflux",
+      "jobId": "f0493c32-02c6-424b-b8e1-7e809cd6ec74",
+      "assetId": "b5b1265c-757a-50d8-b77d-473410ab08d4",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces. The same overhead lump layout, repainted as a chunk of pale mineral salt crust: chalky off-white and pale cream crystalline salt with a faint warm yellowish tint, a few tiny white crystal glints, two or three thin dark grey clay streaks across the top, a darker grey outline. Flat top-down read like the reference, lit from the upper left. Clearly a mined salt mineral, not ice, not food, not bread. Original coarse pixel art, three-tone shading, transparent background. No text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9301502,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail",
+        "init_image_strength": 110
+      },
+      "initImage": "source/anhydrous-residue.png",
+      "decision": "selected",
+      "review": "Overhead cream salt lump with dark clay streaks; distinct from the tan residue and the grey cake at 16 px.",
+      "sourceSHA256": "eb1fd9804c82b44bd4c3e1f81c0522753e7c705af03454c189d523d3a5791d51"
+    },
+    {
+      "key": "spent-salt-cake",
+      "operation": "create_image_pixflux",
+      "jobId": "4bfd78fa-8940-4bd3-bc69-34bb3eab1edd",
+      "assetId": "50ff953d-6477-5eed-87fe-37bd69bd0714",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one slab of spent baked salt cake seen from directly above: a single flat roughly rectangular dull grey-white cake of table salt fused with grey clay, a dusty matte top with shallow cracks and a few grey-brown clay patches, slightly lighter upper-left and darker lower-right edges, a few loose crumbs at its edge. Clearly dry spent industrial waste, not ice, not food, not bread, not ore. Original coarse pixel art, three-tone shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins. No text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9301601,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail"
+      },
+      "decision": "rejected",
+      "review": "An isometric slab with visible front and side faces (projection failure).",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/spent-salt-cake-rejected-isometric.png"
+    },
+    {
+      "key": "spent-salt-cake",
+      "operation": "create_image_pixflux",
+      "jobId": "7307ebc4-a4f8-49ed-bdda-e890961b2022",
+      "assetId": "cd89aff0-13db-5ee3-94af-8edd83f5a544",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces. The same overhead lump layout, repainted as a cake of spent baked salt: dull chalky grey-white table salt fused with grey clay, a dusty matte top with two shallow cracks and a few grey-brown clay patches, a darker grey outline. Flat top-down read like the reference, lit from the upper left. Clearly dry spent industrial waste, not ice, not food, not bread. Original coarse pixel art, three-tone shading, transparent background. No text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9301602,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail",
+        "init_image_strength": 110
+      },
+      "initImage": "source/anhydrous-residue.png",
+      "decision": "rejected",
+      "review": "Overhead but kept the residue's tan colours: indistinguishable from the anhydrous residue. Replaced by the recorded grey-white derivation.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/be830af99c9c6698fa1d849e805569babcb3c3d4/assets/artwork-completion/source/spent-salt-cake-rejected-residue-copy.png"
+    }
+  ],
+  "rejectedArchive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "be830af99c9c6698fa1d849e805569babcb3c3d4"
+  }
+}
