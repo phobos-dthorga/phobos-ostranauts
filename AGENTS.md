@@ -360,9 +360,10 @@
   finds). Keep stock lots and availability floors as the stock memoranda set
   them; price is the gate. Only machinery is late-game priced (owner correction,
   same day): ingots, carbon, ore, reagents and remainders keep ordinary
-  raw-material prices, capped by the vanilla ore they come from because every
-  charge must lose value; see
-  `docs/equipment-economy.md` and the refinery record.
+  raw-material prices; see `docs/equipment-economy.md` and the refinery record.
+  Their old ceiling (below the vanilla ore they come from, so every charge lost
+  value) came from the refining value-loss rule the owner retired on 2026-09-30;
+  see "Refining value" below.
 - Owner decisions (2026-09-29), Manufacturing 0.2.0: the Sabatier stage is a
   separate Fennmark K2 reactor (not an X2 mode), and its methane goes to a new
   Fennmark M2 methane store rather than overboard. This is an explicit owner
@@ -1028,7 +1029,9 @@
   change, conflicting evidence or an actual fault warrants it; do not turn reuse
   into another prerequisite research or testing phase.
 - Equipment dismantling should lose monetary value against selling the whole
-  item (owner clarification, 2026-09-24). Audit actual native material prices,
+  item (owner clarification, 2026-09-24). This covers breaking whole equipment or
+  parts into materials; refining raw materials is no longer held to a loss (see
+  "Refining value", 2026-09-30). Audit actual native material prices,
   damaged definitions and wear tiers; show combined output value alongside whole
   value rather than presenting material counts alone. Distinguish definition
   value from merchant quotes and do not claim every regional market is identical.
@@ -1153,7 +1156,7 @@
 ## Materials and chemistry direction (2026-09-29)
 
 - Owner direction, recorded from the scrap-and-silos review: **no custom gas species.** H2, H2O and He2 have no native conditions, `AddGasMols` ignores them and `GasContainer.Run` indexes a fixed list, so chemicals the game lacks live as bulk silo commodities in kilograms; only native species (CH4, CO, CO2, H2SO4, N2, NH3, O2, Smoke) are ever vented into or drawn from a room or canister.
-- **Budgets, not native yields.** The game's Dismantle tables are fixed rewards that create or destroy mass; never copy them. Every Phobos recipe conserves mass, uses native identities for everything recoverable, and loses value against selling the part whole (the dismantling rule). New identities are added only for terminal remainders (one per feed family, technical minimum price, never re-processed, never `ItmScrapTrash`) and for Manufacturing raw stock with a real consumer; the owner has approved custom ingots as that stock. No refined metals, glass, wire or plate without a consumer. Shipbreaker 0.38.0 implements the approved ingots: the F6 has an immutable recipe catalog (`Core/FurnaceRecipes.cs`; revision 1 is the unchanged housing, 2 aluminium ingots, 3 steel ingots) with per-recipe thermal profiles through the same lining, sink, radiator and rating; a batch stays bound to the revision it was sealed with, saved batches before 0.38.0 load as housings, the chamber admits aluminium and steel at the game level and the selected recipe decides, and the hot-pressure interlock scales with the profile target. Ingots (`PhobosAluminiumIngot`, `PhobosSteelIngot`, 4 kg, stack ten, priced above their four scraps) are Manufacturing raw stock sold at the general markets; table recovery to four scraps loses value; `PhobosSteelMeltRemainder` is terminal. Shipbreaker 0.36.0 implements the feed families (`docs/development/feed-families.md`): identity by definition base, mass on a declared step, one immutable catalog per accepted mass; heavy families wait for stacked product delivery.
+- **Budgets, not native yields.** The game's Dismantle tables are fixed rewards that create or destroy mass; never copy them. Every Phobos recipe conserves mass and uses native identities for everything recoverable; a recipe that breaks a whole part into materials loses value against selling the part whole (the dismantling rule). Refining is not bound by that rule since 2026-09-30 (see "Refining value"). New identities are added only for terminal remainders (one per feed family, technical minimum price, never re-processed, never `ItmScrapTrash`) and for Manufacturing raw stock with a real consumer; the owner has approved custom ingots as that stock. No refined metals, glass, wire or plate without a consumer. Shipbreaker 0.38.0 implements the approved ingots: the F6 has an immutable recipe catalog (`Core/FurnaceRecipes.cs`; revision 1 is the unchanged housing, 2 aluminium ingots, 3 steel ingots) with per-recipe thermal profiles through the same lining, sink, radiator and rating; a batch stays bound to the revision it was sealed with, saved batches before 0.38.0 load as housings, the chamber admits aluminium and steel at the game level and the selected recipe decides, and the hot-pressure interlock scales with the profile target. Ingots (`PhobosAluminiumIngot`, `PhobosSteelIngot`, 4 kg, stack ten, priced above their four scraps) are Manufacturing raw stock sold at the general markets; table recovery to four scraps loses value; `PhobosSteelMeltRemainder` is terminal. Shipbreaker 0.36.0 implements the feed families (`docs/development/feed-families.md`): identity by definition base, mass on a declared step, one immutable catalog per accepted mass; heavy families wait for stacked product delivery.
 - **Ship's Water: reclaim, do not join.** Process water may be drawn from its potable tanks and deposited into its waste tanks so its own recycler returns potable water with its own loss; a Phobos vessel never joins its potable pool (`IsVesselWater`) and never takes over its kiosk row. The adapter stays optional and version-pinned; no source reuse, only data tags and Harmony patches on public members.
 
 ## Bulk silos direction (2026-09-29)
@@ -1175,7 +1178,8 @@
   first). Round to item units and state the rounding; record each recipe's
   reaction, mass balance, energy and a primary source beside the claim, and label
   authored percentages as ours. The owner is an applied chemist; do not present
-  fixed-reward yields, mass-creating recipes or money-printing conversions.
+  fixed-reward yields, mass-creating recipes or loops that create value while
+  consuming nothing (see "Refining value" for what may legitimately gain value).
 - **Hazards use only the game's own machinery** and are welcome where a reaction
   goes bad, a store is damaged or a machine off-gasses: native fire (`SysFire`),
   explosions (`Explosion,<name>` objects from a mod `data/explosions` folder),
@@ -1188,6 +1192,32 @@
   `RoomHeat`, `RoomGas`, `NativeGasCanister`, `NativeExplosions`,
   `ConsoleAuthority`, `ApplianceDefinitions.AddFeedBin/SetPowerOverride` and the
   bulk-vessel `DamagePolicy.Leak`; content owns thresholds, recipes and balance.
+
+## Refining value (2026-09-30)
+
+- Owner direction: the rule that **every refining charge must lose value** belonged
+  to an earlier stage and is retired. Refining and chemical processing may give
+  better value than their inputs where the work is real. Re-examine which current
+  and planned operations should gain value, rather than defending the old ceilings.
+- Unchanged: mass conservation, realistic yields and sourced chemistry, terminal
+  remainders, and the separate dismantling rule for breaking whole equipment or
+  parts into materials. Reverse steps that undo a refinement (table recovery of an
+  ingot into scrap) still lose value, so no refine-and-recover loop pays.
+- Working guardrails until the review settles them (agent proposal, not yet owner
+  decisions): a gain should reflect a real input (scarce mined feed, energy, time,
+  machine wear, crew work); no closed loop that returns its own inputs may gain
+  value; inputs bought at a station deserve the most scrutiny, because they make a
+  repeatable trade loop; prices stay plausible beside the game's own economy.
+- Review candidates: V4 charges and their stock prices (nickel-iron ingot and carbon
+  ceilings in the constants catalogue), F6 ingot casting, the T2 thaw and the
+  methane ice price correction ($20 to $250, made only to satisfy the old rule;
+  vanilla precedence favours restoring the native price), the salt crust, and the
+  K2/AX-2 stored-gas conversions. The old rule is still enforced by
+  `ManufacturingNativeChecks` (every charge), `RefineryChecks` (carburising),
+  `SiloNativeChecks` (thaw) and the catalogue review notes; replace those checks
+  with the new guardrails in the same change that moves a price, and update the
+  economy docs (equipment economy, refinery record, economy coverage and
+  vanilla-precedence audits) alongside. Existing prices stay until then.
 
 ## Documentation audiences
 
