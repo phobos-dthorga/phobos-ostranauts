@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.60.0",
+      "value": "0.61.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -2393,6 +2393,23 @@
       ],
       "review": [
         "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserHighKilowatts": {
+      "type": "number",
+      "value": "48",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored ML-2 high power setting, in kW, available while a paired cooling assembly is ready; captured on each started job.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bHighKW\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. The heat share of this draw must stay within what one cooling assembly sheds below its limit; a started laser job keeps the draw it captured."
       ]
     }
   }

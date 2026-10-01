@@ -693,3 +693,13 @@ existing per-site appearance view; whole-machine install sites gain the same
 bounded view (at most ten checks a real second per site). INSTALL retirement and
 table-offer removal run once at content confirmation. No performance capture or
 measured FPS claim accompanies this change.
+
+## 1 October: the laser's radiator link (L13)
+
+L13 — Static review of Shipbreaker 0.61.0. A started laser now checks its paired
+cooling assembly once a game second in its existing step (one saved-link read,
+one object lookup, the assembly's own mounting test) and keeps the result for
+the power steps, which only read the assembly's room. The assembly's store is
+written through the furnace service's existing settlement cadence. The panel
+reads the same check when it is shown. No performance capture or measured FPS
+claim accompanies this change.

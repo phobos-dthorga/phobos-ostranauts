@@ -453,3 +453,16 @@ added; the player guide, economy guide, item reference, indexes and the
 Shipbreaker Workshop page follow. The Workshop page lost its sentence about
 furnace record settlement and its example of a full name to stay within its
 size limit. Unity wording is unverified.
+
+## Mining laser radiator link (Shipbreaker 0.61.0), 1 October 2026
+
+Shipbreaker 0.61.0 lets the ML-2 mining laser shed its heat into a touching F6
+cooling assembly and adds a Power setting. Twenty-two new entries cover the
+Cooling and Power choices, the link and unlink confirmations, the reasons a
+linked assembly is not taking heat (gone, damaged, no longer touching, at its
+limit), and the status lines that say where the heat is going. Each refusal
+says what to do: pause the laser, let the assembly cool to 50 C, choose an
+assembly that touches the laser. The limits a player needs stay in the text
+(50 C to change a pairing, one tile). The player guide gains a radiator section
+with both settings side by side; the item reference, changelog and Workshop
+page follow. Unity wording is unverified.

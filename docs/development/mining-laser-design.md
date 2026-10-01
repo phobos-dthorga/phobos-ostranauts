@@ -163,14 +163,50 @@ Not yet seen in the game: whether the light-sprite pass draws the beam as
 bright as intended, the quad's pivot, how the beam looks over tiles hidden from
 view, and whether starting and stopping the sheet repeatedly stays smooth.
 
-## Second phase: radiator link (planned)
+## Second phase: radiator link (Shipbreaker 0.61.0)
 
-The F6's radiator model is furnace-specific code in Shipbreaker today. With the
-laser as a second consumer, the radiator node (area, emissivity, store, limit),
-its mounting checks and a one-consumer link move into Framework, the F6 keeps
-its records and port id, and the ML-2 gains a link to its own F6-R (touching, or
-through F6-C conduit) with a higher power setting while linked. Version numbers
-follow whatever is free when that work starts.
+Built on Shipbreaker 0.60.0, prepared 1 October 2026. Framework is unchanged.
+
+**What it does.** A head may be paired with one of the F6's cooling assemblies
+(the F6-R radiator or the F6-P port) that touches it. The pairing is the shared
+one-to-one port link on the assembly's own single cooling port, so an assembly
+serves one furnace or one laser and the furnace's pairing code needs no change.
+While the paired assembly is installed, undamaged, properly mounted, readable
+and has room for a whole power step's heat, that heat is paid into its saved
+store; otherwise the step falls back to the room rule. The assembly radiates as
+it always did, every quarter second whether paired or not, with its own limit.
+
+**The high setting.** A job is a fixed amount of energy (a rock wall 0.3 kWh, a
+panel 0.4 kWh). A job started while the high setting is chosen and a paired
+assembly is ready captures 48 kW, so it takes half the time. The power info
+still asks for the standard draw and the power step scales the request, as the
+G4 scales its cutter. One assembly at its 250 C limit sheds about 42 kW, more
+than the high setting's 28.8 kW of heat, and settles near 203 C; at the
+standard setting it settles near 130 C. These follow from the furnace's
+existing authored radiator figures (12 square metres, emissivity 0.85, a 200 K
+background), not from any new measurement.
+
+**Rules kept.** Vacuum is still not cooling: only a real cooling assembly, with
+its finite store, takes heat. Pairing and unpairing need a paused laser and an
+assembly at 50 C or below, the furnace's own rule. A cut already started keeps
+the draw it captured.
+
+**Where this differs from the plan the owner approved.**
+
+- *The radiator node did not move to Framework.* Both users of the assembly are
+  Shipbreaker machines, and the assembly itself is Shipbreaker equipment. A
+  second mod could only use it by depending on Shipbreaker, or after the F6-R
+  itself moves to Framework as the water silos did, which is a save-touching
+  migration that deserves its own change. So this release adds a narrow
+  Shipbreaker surface (`RadiatorSink.cs`: problem, temperature, room left,
+  deposit) and leaves the furnace's thermal code and records exactly as they
+  were. The Framework lift stays open for the owner to call.
+- *No conduit link.* The plan allowed a link through F6-C conduit. The
+  conduit's coolant is kept in the furnace as its reservoir, the route checks
+  admit one furnace and one radiator, and the owner's rule is one circuit, one
+  furnace, one radiator. A circuit for a laser needs decisions about where its
+  coolant lives and what pumps it, so it is left for the owner. Touching
+  satisfies the rule that links run through touching equipment or a line.
 
 ## Later ideas, not planned
 

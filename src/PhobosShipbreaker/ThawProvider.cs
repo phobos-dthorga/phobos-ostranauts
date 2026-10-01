@@ -22,6 +22,16 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Laser.filter_field"), Text.Get("Laser.filter_" + LaserRules.FilterId(filter)),
                 new[] { LaserFilter.Rock, LaserFilter.Walls, LaserFilter.Both }.Select(f => ("filter:" + LaserRules.FilterId(f), Text.Get("Laser.filter_" + LaserRules.FilterId(f)))),
                 "filter:" + LaserRules.FilterId(filter));
+            // The radiator link (0.61.0): a touching cooling assembly, or the room behind the mount.
+            string cooling = LaserService.CoolingPeer(co);
+            yield return new(Text.Get("Laser.cooling_field"), cooling.Length == 0 ? Text.Get("Laser.cooling_room") : ObjectPresentation.Name(cooling),
+                LaserService.RadiatorCandidates(co).Select(r => ("cooling:" + r.strID, r.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(r.strID) + "]"))
+                    .Concat(new[] { ("cooling:none", Text.Get("Laser.cooling_room")) }),
+                "cooling:" + (cooling.Length == 0 ? "none" : cooling));
+            bool high = LaserService.HighPower(co);
+            yield return new(Text.Get("Laser.power_field"), LaserService.PowerLabel(high),
+                new[] { false, true }.Select(h => ("power:" + (h ? LaserRules.PowerHigh : LaserRules.PowerStandard), LaserService.PowerLabel(h))),
+                "power:" + (high ? LaserRules.PowerHigh : LaserRules.PowerStandard));
             yield break;
         }
         if (!ThawRules.IsFamily(co.strCODef)) yield break;
@@ -37,10 +47,11 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
                 "methane-link:" + (methane.Length == 0 ? "none" : methane));
     }
     public bool IsConfiguration(string action) => action.StartsWith("link:", StringComparison.Ordinal) || action.StartsWith("methane-link:", StringComparison.Ordinal) ||
-        action.StartsWith("filter:", StringComparison.Ordinal);
-    // The laser's stamp covers only its saved choice, not the sweep record that changes with every powered second.
+        action.StartsWith("filter:", StringComparison.Ordinal) || action.StartsWith("cooling:", StringComparison.Ordinal) || action.StartsWith("power:", StringComparison.Ordinal);
+    // The laser's stamp covers only its saved choices and its cooling link, not the sweep record that changes with
+    // every powered second.
     public string ConfigurationStamp(CondOwner co) => LaserRules.IsFamily(co.strCODef)
-        ? Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosState." + LaserService.FilterStoreName })
+        ? Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosState." + LaserService.FilterStoreName, "PhobosState." + LaserService.PowerStoreName, "PhobosMaterialPort." })
         : Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order" });
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
