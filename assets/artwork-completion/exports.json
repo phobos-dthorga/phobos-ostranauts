@@ -3059,5 +3059,82 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "ml2-mining-laser",
+    "sourceSHA256": "65b5813b074d21fb6154c2e107094680ac8a4f9593a4e6d40f6a7e53b4f7d1b9",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMiningLaser.png": "9292ae84279ddfab39346f7413c11166aab5f0d3257cde9c1082cb1543f8c409",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMiningLaserNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "ml2-mining-laser-firing",
+    "sourceSHA256": "e6c14ac5f09a919cdd8f044a647f616400819a0e18ac86a50ee1dbadfddec625",
+    "nativeSize": [
+      128,
+      64
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      512,
+      256
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMiningLaserSheet.png": "a3776b5b2859944d93e115f04d9c1666efda1f4cfacf9eefba84151c7edaba17",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMiningLaserSheetNormal.png": "1946fe8a47ae34c614ef2dfd2383e1d72160820aa1a9713b4eda7d42f8824ebb"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "laser-beam",
+    "sourceSHA256": "f074fd543f1484a812b0b4a2d63008ebe96f131e8b0020cb96f9f7ce8b9f949b",
+    "nativeSize": [
+      32,
+      8
+    ],
+    "pivot": [
+      16,
+      4
+    ],
+    "sourceBounds": [
+      4,
+      4,
+      124,
+      28
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosLaserBeam.png": "1a62bf6e56633d7bac59fdf5a2805a5a2eb95a8098e33621f862c92c50f85538",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosLaserBeamNormal.png": "fdabe814320094342e397082d39f1f860b4d92cb197bddc1d9f1e5cb721598ff"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

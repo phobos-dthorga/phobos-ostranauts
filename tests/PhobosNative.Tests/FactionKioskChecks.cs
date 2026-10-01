@@ -100,7 +100,8 @@ internal static class FactionKioskChecks
         string? Offered(NativeDefinitions d, string item) => d.LootBranches[Kiosks[0]].Where(b => b.StartsWith("PhobosFaction_", StringComparison.Ordinal))
             .Where(b => d.Loot[b].aCOs.Single().StartsWith(item + "=", StringComparison.Ordinal)).Select(MarkOf).FirstOrDefault();
         check(Offered(packs[1].Definitions, "PhobosFurnaceLoose") == "IsPhobosFactionTierTrusted", "F6 asks Trusted");
-        check(Offered(packs[1].Definitions, "PhobosFurnaceSection") == "IsPhobosFactionTierTrusted", "F6 sections ask what the F6 asks");
+        check(!packs[1].Definitions.LootBranches[Kiosks[0]].Any(b => b.StartsWith("PhobosFaction_", StringComparison.Ordinal) &&
+            packs[1].Definitions.Loot[b].aCOs.Single().StartsWith("PhobosFurnaceSection=", StringComparison.Ordinal)), "Retired F6 sections are not at the kiosks");
         check(Offered(packs[1].Definitions, "PhobosSteelIngot") == null, "Ingots are Neutral");
         check(Offered(packs[2].Definitions, "PhobosNavModFireControl") == "IsPhobosFactionTierFriendly", "N3 asks Friendly");
         check(Offered(packs[3].Definitions, "PhobosVolatilesRefinery" + "Loose") == "IsPhobosFactionTierTrusted", "V4 asks Trusted");

@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.65.0**, Shipbreaker **0.58.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.67.0**, Shipbreaker **0.60.0**, Auto Nav
 **0.31.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -49,12 +49,12 @@ phobosnav status
 
 ## Obtain the equipment
 
-Buy equipment at its normal merchants, or make sections and smaller equipment at an installed **Bar Table or Dining Table** (supported workbenches are optional). Final D4/R4/F6 assembly takes place at a **construction site**: choose **Install** on a section or the machine in **INSTALL > APPS**. Crew can deliver the bulky sections one at a time. Mortorq and soldering tools are reusable requirements. See [assembly and maintenance](section-assembly-and-maintenance.md).
+Buy equipment at its normal merchants, or make smaller equipment at an installed **Bar Table or Dining Table** (supported workbenches are optional). The D4, R4 and F6 come **whole**: buy one or find one in salvage, then choose **Install** on it or pick it in **INSTALL > APPS**, and a crew member hauls it in and fits it. Mortorq and soldering tools are reusable requirements. See [installing machines and maintenance](section-assembly-and-maintenance.md).
 
 | Equipment | Unmodified assembly work | Ordinary acquisition |
 | --- | ---: | --- |
-| Dismantling fixture | Two sections at 60 min each, then 48 min site assembly including mounting | Broken stock at K-Leg/VORB scrap suppliers; occasional usable stock at K-Leg's fixer; new at San Diego's Halvorson |
-| Scrap reclaimer | Two sections at 75 min each, then 66.6 min site assembly including mounting | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson; [reclaimer guide](scrap-reclaimer.md) |
+| Dismantling fixture | Not built: bought or found whole | Broken stock at K-Leg/VORB scrap suppliers; occasional usable stock at K-Leg's fixer; new at San Diego's Halvorson |
+| Scrap reclaimer | Not built: bought or found whole | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson; [reclaimer guide](scrap-reclaimer.md) |
 | Exterior grabber | 60 min | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson |
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
@@ -218,6 +218,10 @@ Since 0.43.0 the Y2, Y3 and Y4 [material bins](shipbreaker-material-bins.md)
 store what the crew mine (ore, regolith, gangue, ice and mined chunks) in an
 ordinary inventory grid that crew orders can fetch from and fill.
 
+The Ablatine ML-2 [mining laser](shipbreaker-mining-laser.md) is a hull-mounted
+head that breaks rock on a tethered asteroid and cuts wall panels loose on a
+hull the G4 has captured. It leaves what falls for the crew to fetch.
+
 ## Interruptions and settings
 
 Pause retains panel work. Cancel resets work on panels already inside the
@@ -308,7 +312,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.58.0 requires Framework 0.64.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.60.0 requires Framework 0.67.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 
@@ -326,6 +330,6 @@ retain priority. Live handling still needs owner playtesting.
 
 Secured two-ship towing is supported for ordinary flight, FCS and Combat; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or industrial close work.
 
-### Moving equipment and assembly sections
+### Moving equipment
 
-Loose machines and bulky assembly sections use the native drag slot. The game may label the action Pick Up; this does not mean the item fits in a hand or ordinary container. Installed equipment must be uninstalled first. D4-S, R4-S and F6-S are unfinished sections. Choose Assembly information for instructions, then Install on a section or the completed machine in INSTALL > APPS to place a construction site. Deliver two D4-S, two R4-S or three F6-S separately; final assembly no longer happens at a table. Sections have no operating-machine controls. Existing saved cargo stays in place; put any previously held heavy section down once to use corrected handling. See the [item handling audit](development/item-handling-audit.md).
+Loose machines use the native drag slot. The game may label the action Pick Up; this does not mean the item fits in a hand or ordinary container. Installed equipment must be uninstalled first. The old D4-S, R4-S and F6-S assembly sections are retired: saves that still hold them are sorted out automatically aboard your own ships, complete sets into whole machines and leftovers into scrap and parts (see [installing machines](section-assembly-and-maintenance.md)). Existing saved cargo stays in place; put any previously held heavy item down once to use corrected handling. See the [item handling audit](development/item-handling-audit.md).

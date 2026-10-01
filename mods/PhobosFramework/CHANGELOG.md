@@ -22,6 +22,32 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.67.0] - 2026-10-01 - Draft
+
+### Added
+
+- Legacy item conversions: retired loose parts that cannot simply be renamed are converted on the player's own loaded ships. Complete sets become one whole item and leftovers their exact materials, dropped through the game's own deck placement where the part, or whatever held it, lay. Saved section build sites that can no longer finish are cancelled through the game's own cancellation first; complete ones are left to the crew. Every output is mass-checked before anything moves, a failed placement puts the parts back, and one crew-log notice summarises each sweep.
+- Construction stages can follow a whole machine's own Install site, so content can keep its construction artwork when it stops using sections.
+- Content can read back a copy of a registered recipe, to derive a related rule from the same published bill.
+
+### Changed
+
+- Section build jobs are retired from new work: INSTALL lists each machine's own whole-machine job, and a section no longer offers Install. The jobs stay registered so saved sites load, finish and cancel unchanged. The previous menu preference for section sites is removed; Shipbreaker 0.60.0 was its only user.
+
+### Compatibility and limits
+
+- Nothing saved changes until a content mod registers a conversion. Offline checks are not gameplay validation.
+
+## [0.66.0] - 2026-10-01 - Draft
+
+### Added
+
+- Shared helpers for content mods, first used by Shipbreaker's ML-2 mining laser: applying damage through the game's own destructible chain, deck geometry for an arc swept from a fixed emitter over the one ship moored to yours, playing a sprite sheet on an installed item with the game's own frame animation, and a beam drawn from an item to a point on the deck.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself. The beam and animation are presentation only and are never saved. Phobos Shipbreaker 0.59.0 needs this version. Offline checks are not gameplay validation.
+
 ## [0.65.0] - 2026-10-01 - Draft
 
 ### Added

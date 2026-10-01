@@ -7,7 +7,10 @@ using Phobos.Ostranauts.Framework.Registration;
 
 namespace Phobos.Ostranauts.Framework.Construction;
 
-/// <summary>Finite section bills on native placeholders: native hauling, lots, cancellation and saves.</summary>
+/// <summary>Finite section bills on native placeholders: native hauling, lots, cancellation and saves. Since Framework
+/// 0.67.0 (owner direction, 1 October 2026: machines come whole, never from several identical sections) section jobs
+/// stay registered only so saved sites load, finish or cancel; <see cref="RetireFromMenu"/> hands INSTALL back to the
+/// whole machine's own job, and the construction stages follow that job instead (<see cref="SetWholeAppearance"/>).</summary>
 public static class SectionAssembly
 {
     private sealed class Contract
@@ -25,19 +28,56 @@ public static class SectionAssembly
         contract.Appearance = appearance ?? throw new ArgumentNullException(nameof(appearance));
     }
 
+    /// <summary>The same construction stages on a whole machine's own Install site (Framework 0.67.0): early until the
+    /// loose machine is delivered and work has started, intermediate after. Appearance only: the native job, its input
+    /// and its completion are untouched.</summary>
+    public static void SetWholeAppearance(string jobId, string whole, string installed, SectionAssemblyAppearance appearance)
+    {
+        if (string.IsNullOrEmpty(jobId) || string.IsNullOrEmpty(whole) || string.IsNullOrEmpty(installed) || Jobs.ContainsKey(jobId))
+            throw new ArgumentException("Invalid whole-machine construction appearance: " + jobId);
+        Wholes[jobId] = new Contract { Section = whole, Output = installed, Count = 1,
+            Appearance = appearance ?? throw new ArgumentNullException(nameof(appearance)) };
+    }
+
     internal static bool TryAppearance(Placeholder marker, out SectionAssemblyAppearance? appearance, out bool intermediate)
     {
         appearance = null;
         intermediate = false;
-        if (marker == null || marker.strInstallIA == null || !marker.strInstallIA.StartsWith("ACT", StringComparison.Ordinal) ||
-            !Jobs.TryGetValue(marker.strInstallIA.Substring(3), out var contract) ||
-            marker.strInstalledCO != contract.Output || contract.Appearance == null) return false;
+        if (marker == null || marker.strInstallIA == null || !marker.strInstallIA.StartsWith("ACT", StringComparison.Ordinal)) return false;
+        string jobId = marker.strInstallIA.Substring(3);
+        bool whole = !Jobs.TryGetValue(jobId, out var contract);
+        if (whole && !Wholes.TryGetValue(jobId, out contract)) return false;
+        if (marker.strInstalledCO != contract!.Output || contract.Appearance == null) return false;
         var site = marker.GetComponent<CondOwner>();
         if (site == null || site.bDestroyed || site.Item == null || !site.Item.bPlaceholder) return false;
         appearance = contract.Appearance;
         // The native lot and work conditions survive reload. Do not save a parallel visual state.
         double progress = site.GetCondAmount("StatInstallProgress");
-        intermediate = progress > 0 && !double.IsNaN(progress) && !double.IsInfinity(progress) && HasCompleteBill(contract, site);
+        intermediate = progress > 0 && !double.IsNaN(progress) && !double.IsInfinity(progress) &&
+            (whole ? WholeDelivered(contract, site) : HasCompleteBill(contract, site));
+        return true;
+    }
+
+    // A whole machine may carry its own inventory; only its identity and intact loose form matter to the stage.
+    private static bool WholeDelivered(Contract contract, CondOwner site)
+    {
+        var parts = site.GetLotCOs(false);
+        if (parts.Count != 1) return false;
+        var part = parts[0];
+        return part != null && !part.bDestroyed && part.objCOParent == site && part.strCODef == contract.Section &&
+            !part.HasCond("IsInstalled") && !part.HasCond("IsDamaged");
+    }
+
+    /// <summary>Whether a construction site is a saved section site, and whether it can still finish: its full, valid
+    /// bill is delivered. The legacy-item sweep leaves complete sites to the crew and cancels the rest.</summary>
+    internal static bool IsSectionSite(CondOwner site, out bool complete)
+    {
+        complete = false;
+        if (site == null || site.bDestroyed || site.Item == null || !site.Item.bPlaceholder) return false;
+        var marker = site.GetComponent<Placeholder>();
+        if (marker == null || marker.strInstallIA == null || !marker.strInstallIA.StartsWith("ACT", StringComparison.Ordinal) ||
+            !Jobs.TryGetValue(marker.strInstallIA.Substring(3), out var contract) || marker.strInstalledCO != contract.Output) return false;
+        complete = HasCompleteBill(contract, site);
         return true;
     }
 
@@ -54,12 +94,13 @@ public static class SectionAssembly
         return site.GetCOsSafe(true).Count == 0;
     }
     private static readonly Dictionary<string, Contract> Jobs = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string, Contract> Wholes = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Contract> Selectors = new(StringComparer.Ordinal);
     private static ConditionalWeakTable<Interaction, CompletionGate> finishes = new();
     /// <summary>Raised when the selector table changes; the shared trigger hook rebuilds its table from it. A
     /// delegate rather than a direct call keeps this file compilable against the test doubles on its own.</summary>
     internal static Action SelectorsChanged = () => { };
-    internal static void Reset() { Jobs.Clear(); Selectors.Clear(); finishes = new(); SelectorsChanged(); }
+    internal static void Reset() { Jobs.Clear(); Wholes.Clear(); Selectors.Clear(); finishes = new(); SelectorsChanged(); }
     /// <summary>Our assembly selectors, for the shared trigger hook: a true native result stands only for a valid unit.</summary>
     internal static void AddRefinements(Dictionary<string, Func<CondOwner?, bool>> into)
     {
@@ -94,14 +135,25 @@ public static class SectionAssembly
         };
     }
 
-    /// <summary>Choose assembly in INSTALL deterministically; a whole machine keeps its direct Install action.</summary>
-    public static void PreferAssemblyMenu()
+    /// <summary>Retires every section job from new work (Framework 0.67.0): INSTALL lists the whole machine's own job
+    /// for the same installed form, whatever the generation order, and a section no longer offers Install. The job and
+    /// its interactions stay registered, so saved sites load, finish and cancel exactly as before.</summary>
+    public static void RetireFromMenu()
     {
         foreach (var pair in Jobs)
         {
             if (!DataHandler.dictInstallables.TryGetValue(pair.Key, out var job)) continue;
-            Installables.dictJobBuildOptions[job.strBuildType][job.strStartInstall] = job;
-            Installables.dictJobBuildOptionsListed[job.strBuildType][job.strStartInstall] = job;
+            var whole = DataHandler.dictInstallables.Values.Where(j => j != null && j.strName != pair.Key && !Jobs.ContainsKey(j.strName) &&
+                j.strStartInstall == job.strStartInstall && j.strBuildType == job.strBuildType)
+                .OrderBy(j => j.strName, StringComparer.Ordinal).FirstOrDefault();
+            foreach (var menu in new[] { Installables.dictJobBuildOptions, Installables.dictJobBuildOptionsListed })
+            {
+                if (menu == null || job.strBuildType == null || !menu.TryGetValue(job.strBuildType, out var tab) || tab == null) continue;
+                if (whole != null) tab[job.strStartInstall] = whole;
+                else if (tab.TryGetValue(job.strStartInstall, out var listed) && listed?.strName == pair.Key) tab.Remove(job.strStartInstall);
+            }
+            if (DataHandler.dictCOs.TryGetValue(pair.Value.Section, out var section) && section.aInteractions != null)
+                section.aInteractions = section.aInteractions.Where(a => a != "ACT" + pair.Key).ToArray();
         }
     }
     /// <summary>Retain saved table actions and their exact old contracts, but retire new menu offers.</summary>
@@ -126,8 +178,10 @@ public static class SectionAssembly
         item.GetLotCOs(true).Count == 0 && item.coStackHead == null && item.aStack.Count == 0;
     internal static void Initialize(Placeholder? placeholder)
     {
-        if (placeholder == null || placeholder.strInstallIA == null || !placeholder.strInstallIA.StartsWith("ACT", StringComparison.Ordinal) ||
-            !Jobs.TryGetValue(placeholder.strInstallIA.Substring(3), out var c)) return;
+        if (placeholder == null || placeholder.strInstallIA == null || !placeholder.strInstallIA.StartsWith("ACT", StringComparison.Ordinal)) return;
+        // A whole machine's site keeps its native work target; it only gains the construction stages.
+        if (Wholes.ContainsKey(placeholder.strInstallIA.Substring(3))) { SectionAssemblyView.Attach(placeholder); return; }
+        if (!Jobs.TryGetValue(placeholder.strInstallIA.Substring(3), out var c)) return;
         // An old section may have no install-max condition. Change only its new native placeholder.
         var site = placeholder.GetComponent<CondOwner>();
         if (site == null) return;

@@ -34,8 +34,16 @@ verify all registered image dimensions and actual installed API boundaries.
 Missing artwork, invalid/removed/damaged parts, reload, reused markers, unchanged
 updates and cleanup are covered. Ten-per-second per-site refreshes replace no
 simulation cadence and perform no global scan. See the short
-[owner checklist](../section-assembly-and-maintenance.md#owner-visual-check).
+[owner checklist](../section-assembly-and-maintenance.md#owner-check).
 Live lighting, rotation, highlights and construction transitions remain unverified.
+
+**Whole-machine follow-up, Framework 0.67.0 / Shipbreaker 0.60.0 (1 October
+2026):** the owner retired section assembly; the D4, R4 and F6 now come whole.
+`SectionAssembly.SetWholeAppearance` binds the same early/intermediate images to
+each machine's own Install site, so the art stays in ordinary play: early until the
+exact loose machine is in the site's lot and work has started. This supersedes the
+exclusion of whole loose-machine installation above. Saved section sites keep their
+own binding. The F6-S section image remains only on its retired definition.
 
 ## Evidence and scope
 

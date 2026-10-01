@@ -7,7 +7,7 @@ is still pending.
 
 | Mod | Tab | Equipment |
 | --- | --- | --- |
-| Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace and T2 ice thaw unit |
+| Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace, T2 ice thaw unit and Ablatine ML-2 mining laser |
 | Phobos Shipbreaker | HVAC | F6-R exterior radiator, F6-P underside cooling head and F6-C coolant conduit |
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
 | Phobos Shipbreaker | FURN | Y2, Y3 and Y4 material bins (beside the game's own Storage Bay) |
@@ -20,7 +20,7 @@ is still pending.
 | Phobos Framework | APPS | Rivetline S2, S3, S4 and S5 process water silos (the S3 to S5 moved from Shipbreaker in Framework 0.58.0) |
 
 The native coverage checks include every implemented intact/damaged placement family. The silos have no fabrication recipe: buy the loose hardware before installation. Recorded exception: Agriculture's retired R3, R4 and R5 reservoirs (Agriculture 0.31.0) convert to the S3, S4 and S5 on load and are no longer offered in INSTALL; their definitions and jobs remain only for jobs saved against them.
-D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;
+Since Shipbreaker 0.60.0 the D4, R4 and F6 entries consume the whole loose machine, like every other entry (owner direction, 1 October 2026); their section jobs remain registered only for build sites saved by earlier versions. Damaged placement keeps its existing loose input. All entries retain their work, placement and access requirements. See [installing machines](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;
 selecting a catalogue entry does not create a free machine or replace the
 [construction recipes and equipment economy](../equipment-economy.md). Pipe entries
 use native placement; continuous drag-laying behaviour has not been verified.
@@ -33,7 +33,7 @@ floor-installed form and are deliberately absent from this placement catalogue.
 Framework adds shared services and, since 0.57.0, the two shared lines listed above. Manufacturing's machines and stores are
 purchase-only APPS entries (the P1, L2 and A2 are HVAC); its proposed M4 machining centre must receive a
 catalogue entry when it becomes operational. Supplies (including Framework's drain canisters), produce, ore, ingots,
-castings and waste remain cargo. Assembly sections are also cargo, but their Install action starts construction of the complete machine rather than installing a section as furniture.
+castings and waste remain cargo. The retired assembly sections are cargo with no Install action; saved copies convert automatically.
 
 ## Implementation evidence and maintenance
 

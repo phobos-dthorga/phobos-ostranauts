@@ -5,7 +5,7 @@ using PhobosShipbreaker.Core;
 namespace PhobosShipbreaker;
 
 /// <summary>Which Shipbreaker service, if any, owns a powered object.</summary>
-internal enum PowerKind { None, Processor, Reclaimer, Grabber, Collector, Furnace, Thaw }
+internal enum PowerKind { None, Processor, Reclaimer, Grabber, Collector, Furnace, Thaw, Laser }
 
 /// <summary>One classification per definition id for the power hooks, which the game calls for every powered
 /// object in the world once per game second (once per frame at fast-forward). The answer is remembered per
@@ -17,7 +17,7 @@ internal static class PowerKinds
     {
         if (id == null) return PowerKind.None;
         if (kinds.TryGetValue(id, out var known)) return known;
-        var kind = FurnaceRules.Machine(id) ? PowerKind.Furnace : ThawRules.IsFamily(id) ? PowerKind.Thaw :
+        var kind = FurnaceRules.Machine(id) ? PowerKind.Furnace : ThawRules.IsFamily(id) ? PowerKind.Thaw : id == LaserRules.Installed ? PowerKind.Laser :
             id == IntakeRules.Grabber + "Installed" ? PowerKind.Grabber : CollectorRules.IsFamily(id) ? PowerKind.Collector :
             ReclaimerRules.IsFamily(id) ? PowerKind.Reclaimer : Content.IsMachine(id) ? PowerKind.Processor : PowerKind.None;
         if (kinds.Count < 65536) kinds[id] = kind;

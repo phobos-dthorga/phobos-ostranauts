@@ -140,6 +140,7 @@ internal static class Content
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
         ThawDefinitions.Add(prepared);
+        LaserDefinitions.Add(prepared);
         BinDefinitions.Add(prepared);
         // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
         foreach (var reject in FeedFamilies.RejectKg)
@@ -173,7 +174,7 @@ internal static class Content
     internal static void ConfirmRecipes(Action<string> log)
     {
         if (!definitionsRegistered) return;
-        AssemblyDefinitions.FinishRegistration();
+        AssemblyDefinitions.FinishRegistration(log);
         var missing = DependencyContract.MissingRecipes(id => DataHandler.dictInteractions?.ContainsKey(id) == true);
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
         Status = Ready ? Text.Get("Content.shipbreaker_definitions_ready") :

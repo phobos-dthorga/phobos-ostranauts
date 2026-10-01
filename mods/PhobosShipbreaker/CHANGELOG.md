@@ -25,6 +25,47 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.60.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The D4 dismantling fixture, R4 scrap reclaimer and F6 electric furnace now come whole: buy one from a trader or find one in salvage, then choose Install on it or pick it in INSTALL, APPS, and a crew member hauls it in and fits it with a Mortorq. They are no longer built from two D4-S, two R4-S or three F6-S assembly sections, which the owner found arbitrary and confusing.
+- The assembly sections and their table recipes, including the cast-housing versions, are retired. No trader, faction kiosk or salvage table offers a section, tables no longer offer to make one, and the Assembly information action is gone.
+- The F6 joins the D4 and R4 with a refurbished offer at the K-Leg fixer.
+- Installing a D4, R4 or F6 now shows the construction stages on its site: an early stage until the machine arrives and work starts, then a part-built stage. The D4-S and R4-S section images live on as the D4 and R4 early stages.
+- A finished aluminium housing from the F6 has no construction use now that the section recipes it fed are retired. It can still be cut back into aluminium scrap at a table, at a loss; the F6 ingot recipes are the useful castings.
+
+### Save compatibility
+
+- Automatic: aboard your own ships, any two D4-S, two R4-S or three F6-S become one whole loose machine on the deck where the first of them lay, and a leftover section becomes its recipe's steel scrap, aluminium scrap, small mechanisms and small electronics where it lay. Mass is kept exactly, and a crew-log notice reports what was converted.
+- Automatic: a section build site with every section delivered still finishes as before, with its saved work. A site still waiting for sections can never finish, so it is cancelled the way the game cancels any build site; its sections drop beside it and then convert.
+- Sections in a trader's stock or aboard another ship are left alone until they come aboard. An old table order for a whole machine can no longer find its sections: cancel it. An old single-section order still finishes, and its section then converts.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.67.0 or newer. Offline checks are not gameplay validation; the conversion has not been run against the owner's save yet.
+
+## [0.59.0] - 2026-10-01 - Draft
+
+### Added
+
+- Phobos' Ablatine ML-2 Mining Laser: a 2 x 2 laser head for the outside of the hull, installed from INSTALL, APPS against two sound hull walls. It works the one ship moored to yours inside a 60 degree arc, 24 tiles deep: a tethered asteroid, or a hull the G4 has captured.
+- On rock it does the game's own mining damage, one stage at a time, so rock walls, ice walls and cores break exactly as they do under a crew drill and the game rolls what falls out, Phobos mined chunks included. A rock wall takes 45 seconds and 0.3 kWh at full power. Opened ore deposits stay a crew job, and rock that can only leave gangue is left alone.
+- On a captured hull you own it frees ordinary wall panels with the game's own uninstall, 60 seconds and 0.4 kWh each. The panel stays where it hung. The crew fetch panels and ore; the laser collects nothing.
+- Control Panel, C1 console and F3: Start / resume cutting, Pause cutting, Stop, and Set to cut (rock, wall panels or both). The head's lens pulses while it cuts and a beam is drawn from it to the cut in hand; the ShowBeam setting turns both off.
+- Sold where other Shipbreaker machinery is sold at 9,600 credits, and at the CCRE and GalCon faction kiosks at Friendly standing. Purchase-only, with Repair, Restore and dismantling like its siblings.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.66.0 or newer.
+- The laser only reaches a ship moored to yours, and exactly one. It never fires through your own hull, near the mooring anchors, at the wall the G4 holds by, or while anyone stands within a tile of the beam.
+- It draws 24 kW while cutting and puts about 14.4 kW of that into the room behind its mount. That room needs at least 10 kPa and must stay under 40 C; the laser waits for it to cool. Vacuum is not cooling. A radiator link is planned and not in this version.
+- Every figure is authored for play; the game's damage points are not a unit of energy. Offline checks are not gameplay validation, and the look of the animation and beam awaits the owner's review.
+
+### Save compatibility
+
+- Automatic. The laser adds its own saved records and changes no existing one. After a load it is paused; Start carries on, and a cut that was mid-way is looked at again, never repeated for nothing.
+
 ## [0.58.0] - 2026-10-01 - Draft
 
 ### Changed

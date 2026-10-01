@@ -12,7 +12,6 @@ internal static class StockQuantities
     internal static double Chance(string item, double original) => EconomyStock.Chance(ShipbreakerEconomy.Pack, item, original);
 
     internal static int Machines => ShipbreakerEconomy.Pack.Lot(EconomySchema.Equipment, EconomyStock.DefaultLot);
-    internal static int Sections => ShipbreakerEconomy.Pack.Lot(EconomySchema.Section, EconomyStock.DefaultLot);
     internal static int Pipes => ShipbreakerEconomy.Pack.Lot(EconomySchema.Supplies, EconomyStock.DefaultLot);
     internal static int Coolant => ShipbreakerEconomy.Pack.Lot("coolant", EconomyStock.DefaultLot);
     internal static int Ingots => ShipbreakerEconomy.Pack.Lot("ingots", EconomyStock.DefaultLot);

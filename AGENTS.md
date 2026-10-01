@@ -1155,7 +1155,7 @@
 ## Native item actions and handling (2026-09-27)
 
 - Audit direct actions, native maintenance jobs, carrying slots and conditions together. Use Framework `ItemHandling.Apply` after preparing owned definitions; content explicitly declares bulky sections/housings through `ItemHandling.Cumbersome`. Keep ordinary small supplies portable and installed equipment out of carrying slots. Internal compartments are not loose cargo.
-- Reuse native pickup/drop and stack actions where valid; native Pick Up can use the drag slot for cumbersome cargo. Do not add operating-machine controls to unfinished assembly sections. Owner-approved follow-up (2026-09-28): sections now offer Assembly information and native Install for the completed D4/R4/F6 at a construction site; this supersedes the previous blanket exclusion of section installation. Native hauling stages matching parts separately. Keep direct Install on complete loose machinery, saved table actions, delivered lots, cancellation and saved progress. See docs/section-assembly-and-maintenance.md. Retain native food, module, repair, restore and dismantle behaviour.
+- Reuse native pickup/drop and stack actions where valid; native Pick Up can use the drag slot for cumbersome cargo. Do not add operating-machine controls to unfinished assembly sections. Owner direction (2026-10-01), superseding the 2026-09-28 section-site follow-up: no machine is assembled from several identical sections, which the owner found arbitrary and confusing. The D4, R4 and F6 are bought or found whole and installed through their own Install job (Framework `SectionAssembly.RetireFromMenu`, construction stages through `SetWholeAppearance`); saved sections convert automatically through Framework `LegacyItemConversions`, complete sets into the whole machine and leftovers into their recipe bill, and saved section sites with a full bill may still finish (Framework 0.67.0, Shipbreaker 0.60.0). Do not design new equipment around multiple identical parts. Keep direct Install on complete loose machinery, saved table actions, delivered lots, cancellation and saved progress. See docs/section-assembly-and-maintenance.md. Retain native food, module, repair, restore and dismantle behaviour.
 - Preserve saved cargo and placement. Correct handling on detached load data, allowing a previously saved hand slot only until successful native release; never silently relocate or destroy an item to enforce a new classification.
 - Maintain the complete [handling ledger](docs/development/item-handling-audit.md) through the item-reference exporter and `scripts/audit-item-handling.py`. Add regression coverage for changes, including existing saves; definition checks do not establish live context-menu or Unity approval.
 
@@ -1373,6 +1373,33 @@
     30 September prices and checks stand, but do not mark a design down for passing
     the 1.5 x guardrail. That record also ranks the reactor interdependency ideas
     (owner request, same day: anything goes, vanilla consumables included).
+
+## Mining laser direction (2026-10-01)
+
+- Owner request: a ship-mounted mining laser for Shipbreaker, animated like the
+  game's heater, with a beam drawn from the sprite across a 60 degree arc, to
+  mine asteroids and take derelicts apart; a heavy electrical consumer, with a
+  chemical laser as a later alternative. Owner decisions on the plan: it reaches
+  **attached targets only** (a tethered asteroid or a G4-captured hull, never a
+  free-flight range model); it carries the new **Ablatine** brand as the ML-2;
+  it draws 24 kW with room heat now and gains a **radiator link** as a second
+  phase; and **freed panels drop where they are for the crew to haul**.
+- This supersedes "do not add a second mining system" for this machine only, and
+  keeps its intent: the laser drives the game's own mining damage and uninstall,
+  so the game's loot tables stay the only source of ore. Never spawn ore or copy
+  a native table. Opened ore deposits stay crew work.
+- Shipbreaker 0.59.0 with Framework 0.66.0 implement it. Framework owns
+  `Hazards.NativeDamage`, `Observations.BeamGeometry` and `AttachedTiles`, and
+  `Effects.SpriteAnimation`, `WorldBeam` and `BeamTransform`; Shipbreaker owns
+  the head, its figures, filter and panel. Follow
+  `docs/shipbreaker-mining-laser.md` and `docs/development/mining-laser-design.md`.
+  Animated sprites use the game's own frame animation through `Item.SetAlt` with
+  the frame step detached before each change; never the cosmetic overlay route,
+  which replaces the object. Sheets are derived mechanically from a selected
+  master and checked against it by the exporter. Presentation is never saved and
+  a rendering fault never reaches the work. Owner gameplay checks are pending.
+- The chemical laser is an idea only. It needs sourced chemistry and feeds the
+  mods do not store yet; do not add consumer-less commodities for it.
 
 ## Documentation audiences
 

@@ -1,6 +1,6 @@
 # Phobos economy across the vanilla solar system
 
-Current availability: [27 September expansion](development/merchant-stock.md) supersedes the historical probability examples below: 85% equipment/sections/boards and 95% supplies/food minimum before configuration. General local stock gaps and engineering loot are expanded.
+Current availability: [27 September expansion](development/merchant-stock.md) supersedes the historical probability examples below: 85% equipment/boards and 95% supplies/food minimum before configuration. General local stock gaps and engineering loot are expanded. Since Shipbreaker 0.60.0 the D4, R4 and F6 assembly sections are retired: no trader or salvage offers them, and the machines come whole.
 
 Historical regional baseline and current stock quantities: [bulk merchant lots](development/merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
 
@@ -16,8 +16,8 @@ kiosks serving 14 additional vanilla settlements and the Flotilla scrap kiosk.
 Existing K-Leg, Venus Orbital and San Diego specialist offers remain available
 on their previous terms. No new world locations or shops are created.
 
-Shipbreaker offers its nine machinery families, three assembly sections, coolant
-pipe and finite coolant charge. Agriculture offers the rack, cooker, W2 supply,
+Shipbreaker offers its nine machinery families (whole; its three assembly sections
+are retired since 0.60.0), coolant pipe and finite coolant charge. Agriculture offers the rack, cooker, W2 supply,
 B2 workup bench, both planting stocks, nutrients, root-water charge, treatment
 cartridge, nutrient makeup and irrigation pipe. Auto Nav offers N1, N2 and N3.
 The Flotilla sells refurbished machinery/modules; consumable inputs remain fresh.
@@ -80,7 +80,7 @@ settlement still depends on the game's world/save and travel mechanics.
 |---|---:|
 | Shipbreaker major machinery | 20% per family |
 | Shipbreaker chute/collector | 30% per family |
-| Shipbreaker assembly sections | 30% per section type |
+| Shipbreaker assembly sections | Retired in 0.60.0 (historically 30% per section type) |
 | Coolant pipe/charge | 65% per type |
 | Agriculture machinery | 25% per family |
 | Agriculture supplies/irrigation pipe | 65% per type |
@@ -113,7 +113,7 @@ negotiation, pristine status and wear remain additional native factors.
 
 | Phobos goods | Native category / treatment |
 |---|---|
-| Intact loose machinery, assembly sections, pipes | Industrial Products |
+| Intact loose machinery, retired assembly sections still held, pipes | Industrial Products |
 | N1/N2/N3 loose modules | Control Systems, inherited from the native motherboard |
 | Potatoes, lettuce and prepared food | Food |
 | Seeds, nutrients, root-water charges, treatment cartridges, nutrient makeup, clean coolant charges | Industrial Products: packaged operating inputs |

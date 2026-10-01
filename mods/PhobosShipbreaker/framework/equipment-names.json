@@ -195,6 +195,10 @@
     "brand": "Rivetline",
     "model": "T2"
   },
+  "Laser.name": {
+    "brand": "Ablatine",
+    "model": "ML-2"
+  },
   "Furnace.aluminium_ingot_name": {
     "brand": "Rivetline",
     "model": ""

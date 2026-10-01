@@ -18,6 +18,14 @@ early image. Early remains until the complete valid section bill is delivered an
 native work has started; intermediate remains until native completion replaces the
 marker with a finished machine. These thresholds are code policy, not painted information.
 
+Since Framework 0.67.0 / Shipbreaker 0.60.0 (owner direction, 1 October 2026) the
+D4, R4 and F6 come whole and are no longer assembled from sections. The same four
+images and the D4/R4 section sprites now show on each machine's own Install site:
+early until the loose machine is delivered and work starts, then intermediate.
+They still also serve saved section sites. The retired F6-S section sprite stays on
+its legacy definition only; at 64 px it cannot stand in for the 96 px furnace
+footprint. No image changed.
+
 ## Review and registration
 
 [New sprites at 2× and native size](previews/new-assets.png) and the

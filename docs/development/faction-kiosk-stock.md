@@ -64,9 +64,9 @@ Value and usefulness together, anchored on those rows:
 | Honored | Nothing (owner rule) | Missiles |
 
 A family's band is judged on its base size. Other store, silo, bin and hopper
-sizes share that tier, because a bigger tank is not a new capability. Assembly
-sections share their machine's tier; otherwise three F6 sections would bypass the
-F6's gate. Agriculture machines are cheap but keep a crew fed indefinitely, so
+sizes share that tier, because a bigger tank is not a new capability. Until
+Shipbreaker 0.60.0 retired them, assembly sections shared their machine's tier so
+that three F6 sections could not bypass the F6's gate; they are no longer sold. Agriculture machines are cheap but keep a crew fed indefinitely, so
 they ask Warm rather than Neutral.
 
 ## Prices
@@ -84,9 +84,10 @@ are base values; the kiosk's own factors apply on top.
 | Neutral | Steel and aluminium ingots; coolant charge; F6-C conduit | 3 to 25 | 0.15 to 1.25 |
 | Warm | H4 chute, C2 collector, Y2/Y3/Y4 bins, T2 thaw unit, C1 console, F6-R radiator, F6-P port | 1,800 to 7,200 | 90 to 360 |
 | Friendly | G4 grabber | 6,400 | 320 |
-| Friendly | D4 fixture and D4-S section | 12,000 / 4,800 | 600 / 240 |
-| Friendly | R4 reclaimer and R4-S section | 14,800 / 6,000 | 740 / 300 |
-| Trusted | F6 furnace and F6-S section | 24,000 / 6,500 | 1,200 / 325 |
+| Friendly | ML-2 mining laser (it cuts other hulls, like the G4) | 9,600 | 480 |
+| Friendly | D4 fixture | 12,000 | 600 |
+| Friendly | R4 reclaimer | 14,800 | 740 |
+| Trusted | F6 furnace | 24,000 | 1,200 |
 
 ### Agriculture
 
@@ -158,13 +159,13 @@ Framework 0.57.0 owns the shared lines; the gas line keeps the tier it had under
   every sold item, the vanilla anchors keep their tiers, and each mark files both
   a control-systems board and ordinary stock exactly at its tier.
 - Revisit a tier when an item's price crosses a band or its role changes. Keep
-  sections with their machine and larger sizes with their family.
+  larger sizes with their family.
 
 ## Limits
 
 - Kiosks already stocked keep their stock until their normal restock. Nothing is
   refilled, and no save is edited.
-- The lots are the usual Phobos lots (eight machines, 24 sections, 16 boards,
+- The lots are the usual Phobos lots (eight machines, 16 boards,
   up to 128 pipes). Kiosk stock drops into the kiosk's trade zones and overflows
   into the kiosk itself, as with any restock, so native space can limit what
   appears.

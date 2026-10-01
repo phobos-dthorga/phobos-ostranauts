@@ -281,3 +281,35 @@ Withdrawn (Shipbreaker 0.49.0, 30 September 2026): the rule it served is retired
 longer amends the definition. Vanilla precedence favoured this from the start.
 Neither thaw product has a sell route, so the gain is water and methane aboard,
 not money. Blocks priced 250 in an existing save keep that price.
+
+## Mining laser (Shipbreaker 0.59.0, 1 October 2026)
+
+The owner asked for a ship-mounted mining laser. The game has no ship-mounted
+miner: crew mine with hand tools, and what falls is rolled by the game's own
+tables when a rock's `Destructable` reaches its limit.
+
+- **Mining stays the game's.** The ML-2 asks the game's own Mine rule
+  (`TIsMineableDestructableNotDeposit`) which objects are rock, then applies the
+  damage a stage has left through Framework `NativeDamage.Apply`, which mirrors
+  one hit of the game's `DamageSystem.DamageRay`: add to `StatDamage` no more
+  than is left, run the object's `Destructable` check, end its turn. The damaged
+  form, the destruction and the ore roll are the game's. Nothing is spawned and
+  no loot table is copied. Verdict: uses the native chain.
+- **Ore deposits stay crew work.** The game gives deposit ore to the crew member
+  drilling, so the laser does not touch an opened deposit.
+- **Hull panels** are freed by the same forced native uninstall the G4 uses, on
+  the same wall identity, and are left on the target deck. Verdict: unchanged
+  native action.
+- **No native definition is amended or republished** for the laser. Its own
+  definitions use the shared machine family, an exterior fixture socket and two
+  required hull walls, as the G4 does. It carries no ship-weapon condition, so
+  the game's weapon systems never see it.
+- **Animation** uses the game's own frame animation through `Item.SetAlt`. The
+  game never detaches an item's frame step when its art changes and adds another
+  on each start; Framework `SpriteAnimation` removes the item's own step before
+  each change and touches nothing else on the shared event. The game's cosmetic
+  overlay route is not used, because it replaces the object and its definition
+  name.
+- **Never blocks.** Refusals happen before work starts (no moored target, a
+  pressurised hull, a person by the beam, a room that cannot take the heat).
+  Native destruction, mode switches and uninstalls are never intercepted.

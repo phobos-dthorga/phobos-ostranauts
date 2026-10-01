@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.65.0",
+      "value": "0.67.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.58.0",
+      "value": "0.60.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -514,28 +514,6 @@
         "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
       ]
     },
-    "Shipbreaker.stockSections": {
-      "type": "integer",
-      "value": "24",
-      "min": 1,
-      "max": 256,
-      "description": "Shipbreaker sections quantity per successful merchant offer, including regional suppliers (economy data pack).",
-      "targets": [
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/lots/section"
-        },
-        {
-          "path": "docs/development/merchant-stock.md",
-          "pattern": "^\\| Shipbreaker\\ assembly\\ sections \\| (?P<value>[0-9]+) \\|\\r?$",
-          "count": 1
-        }
-      ],
-      "review": [
-        "Run native stock-quantity and regional checks, then affected builds.",
-        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
-      ]
-    },
     "Shipbreaker.stockPipes": {
       "type": "integer",
       "value": "128",
@@ -631,7 +609,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.64.0",
+      "value": "0.67.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1168,30 +1146,6 @@
       ],
       "review": [
         "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
-      ]
-    },
-    "Shipbreaker.sectionSalvageChance": {
-      "type": "number",
-      "value": ".05",
-      "min": 0,
-      "max": 0.333,
-      "description": "Authored chance per eligible engineering loot roll; finite single-item choice (economy data pack; one value per section).",
-      "targets": [
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosShipbreakerSection"
-        },
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosScrapReclaimerSection"
-        },
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosFurnaceSection"
-        }
-      ],
-      "review": [
-        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
       ]
     },
     "Shipbreaker.machinerySalvageChance": {
@@ -2287,6 +2241,158 @@
       ],
       "review": [
         "Run the native checks and regenerate item references. Existing deposits already rolled are unchanged; the iron share (0.20) must cover the carve."
+      ]
+    },
+    "Shipbreaker.laserPrice": {
+      "type": "number",
+      "value": "9600",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored ML-2 mining laser base price (broken form is one quarter) (economy data pack).",
+      "targets": [
+        {
+          "path": "mods/PhobosShipbreaker/framework/economy.json",
+          "pointer": "/equipment/PhobosMiningLaser/price"
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserKilowatts": {
+      "type": "number",
+      "value": "24",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored ML-2 working electrical demand, in kW, captured on each started job.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bWorkingKW\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserIdleKilowatts": {
+      "type": "number",
+      "value": "0.1",
+      "min": 0.01,
+      "max": 5,
+      "description": "Authored ML-2 idle electrical demand, in kW.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bIdleKW\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserWasteHeatFraction": {
+      "type": "number",
+      "value": "0.6",
+      "min": 0,
+      "max": 1,
+      "description": "Authored share of the ML-2 delivered electricity that warms the room behind its mount.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bWasteHeatFraction\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserPointsPerSecond": {
+      "type": "number",
+      "value": "1",
+      "min": 0.01,
+      "max": 100,
+      "description": "Authored native damage points the ML-2 buys per second at its working draw.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bPointsPerSecond\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserWallSeconds": {
+      "type": "number",
+      "value": "60",
+      "min": 1,
+      "max": 3600,
+      "description": "Authored seconds at the working draw for the ML-2 to free one wall panel.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bWallSeconds\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserMaximumPoints": {
+      "type": "number",
+      "value": "150",
+      "min": 1,
+      "max": 10000,
+      "description": "Largest native damage stage the ML-2 takes on; rubble forms above it are left.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bMaximumPoints\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserRangeTiles": {
+      "type": "number",
+      "value": "24",
+      "min": 1,
+      "max": 64,
+      "description": "Authored ML-2 reach from its emitter, in deck tiles.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bRangeTiles\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
+      ]
+    },
+    "Shipbreaker.laserArcDegrees": {
+      "type": "number",
+      "value": "60",
+      "min": 1,
+      "max": 180,
+      "description": "Authored ML-2 arc, in degrees, centred on its outward direction.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
+          "pattern": "\\bArcDegrees\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. A started laser job keeps the duration and draw it captured; the damage a rock takes and what falls out of it are the game's own."
       ]
     }
   }

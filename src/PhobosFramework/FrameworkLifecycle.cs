@@ -39,6 +39,7 @@ public static class FrameworkLifecycle
         Registration.MaintenanceSafety.Actions.Clear();
         Registration.EquipmentSaveUpgrade.BeginLoad();
         Persistence.DefinitionMigrations.Reset();
+        Persistence.LegacyItemConversions.Reset();
         Registration.LineJoints.Reset();
         Inventory.BeltCarriers.ClearAll();
         Registration.LineJobFilter.Reset();

@@ -120,3 +120,21 @@ palette swaps of the potassium sulfate sack (white with a teal band, pale grey
 with an amber band), and `source/olivine-leach-cake.png` is a pale grey-green
 luminance ramp of the anhydrous residue. The mappings are in
 [round-three-requests.json](round-three-requests.json) under `derived`.
+
+## Mining laser pass, 1 October 2026
+
+Shipbreaker 0.59.0 adds three selected entries for the Ablatine ML-2 mining
+laser: `source/ml2-mining-laser.png` (the head, full footprint, world sprite as
+portrait), `source/ml2-mining-laser-sheet.png` (eight firing frames, four across
+and two down) and `source/laser-beam.png` (the beam glow). One Pixflux
+generation made the head from the original start drawing in
+`references/ml2-laser-start.png`; the frames, the sheet and the beam are drawn
+or derived mechanically by `scripts/derive-laser-art.py` and cost nothing. The
+exporter checks that every frame equals the still image outside the declared
+animated regions, so the head never shifts while it plays. The sheet and beam
+entries carry a `binding` (`animation`, `effect`): they are not an item's base
+image. Every request, seed, setting, hash and derivation is in
+[mining-laser-requests.json](mining-laser-requests.json). The allowance
+decreased from 1,739 to 1,738 with $0 credit and no purchases. Only the original
+Phobos drawing was uploaded. Nothing was rejected. The design record is
+[the mining laser design](../../docs/development/mining-laser-design.md).

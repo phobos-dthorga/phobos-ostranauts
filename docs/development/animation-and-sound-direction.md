@@ -11,6 +11,12 @@ procedural audio. It is not installed or gameplay/listening-validated by this ch
 Animation remains future work. Recommendations below are design proposals, not additional
 requirements attributed to the owner or measured usability results.
 
+The first animated equipment sprite arrived by a separate owner request (1
+October 2026): Shipbreaker 0.59.0's Ablatine ML-2 mining laser plays a firing
+sheet through the game's own item animation. Its frames were derived
+mechanically from one selected master, not generated as an animation; see the
+[mining laser design record](mining-laser-design.md).
+
 ## PixelLab animation: retained for future use
 
 PixelLab's [official MCP guide](https://api.pixellab.ai/mcp/docs#create_vocal_animation),

@@ -93,7 +93,7 @@
           ],
           "function": "Processes detached structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows) into native scrap and parts; a wall also returns the identified residue packet, a lighter part a terminal reject.",
           "use": "Install on cabin flooring and supply power. Put detached structural parts (ordinary walls of any make at 14 to 48 kg, floor grates, DuraWal, Whipple and aero panels, windows) in its Part Feed through the Control Panel, switch on Load feed by crew so crew keep it loaded from anywhere aboard, or use the G4/H4 intake; then enable processing once and the queue waits for more. Products appear in the normal machine inventory. To move ordinary products out automatically, choose a storage container on the Routing page and Start unloading to storage; see [storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products). Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
-          "find": "Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "find": "Buy loose or damaged equipment; it comes whole. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Install the loose machine with Install or through INSTALL > APPS. It is no longer built from assembly sections; saved sections convert automatically. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "It does not cut attached hull walls. Doors, hatches, conduit, furniture and machinery are refused. Fresh wall jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing and storage unloading pause on reload.",
           "guide": "development/shipbreaker-first-build.md",
           "internal": false,
@@ -161,7 +161,7 @@
           ],
           "function": "Reclaims identified R2 panel residue into steel, aluminium and terminal rejects.",
           "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally, switch on Load feed by crew or enable a paired intake, then start processing. Set residue, aluminium and steel storage outputs independently; see [storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products). Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
-          "find": "Buy machinery or assemble two R4-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "find": "Buy machinery; it comes whole. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Install the loose machine with Install or through INSTALL > APPS. It is no longer built from assembly sections; saved sections convert automatically. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving, processing and storage unloading pause on reload.",
           "guide": "scrap-reclaimer.md",
           "internal": false,
@@ -178,7 +178,7 @@
           ],
           "function": "Electrically heats an exact aluminium charge to cast a rough machinery housing.",
           "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load (or Load feed by crew for single aluminium pieces), seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide, or choose [Repeat batches](furnace-player-guide.md#repeat-batches) to seal, run, equalize and release each full charge automatically. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
-          "find": "Buy machinery or assemble three F6-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
+          "find": "Buy machinery; it comes whole. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Install the loose machine with Install or through INSTALL > APPS. It is no longer built from assembly sections; saved sections convert automatically. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
           "notes": "Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release; only an explicitly started repeat run does, and it pauses on any manoeuvre, interruption, manual control or reload. Hot machinery retains heat across saves.",
           "guide": "furnace-player-guide.md",
           "internal": false,
@@ -295,15 +295,32 @@
           "labels": {}
         },
         {
+          "key": "ml2",
+          "title": "ML-2 Mining Laser",
+          "ids": [
+            "PhobosMiningLaserLoose",
+            "PhobosMiningLaserLooseDmg",
+            "PhobosMiningLaserInstalled",
+            "PhobosMiningLaserInstalledDmg"
+          ],
+          "function": "A hull-mounted laser head that works the one ship moored to yours inside a 60 degree arc, 24 tiles deep. On a tethered asteroid it breaks rock walls, ice walls and cores with the game's own mining damage, so the game decides what falls out. On a hull the G4 has captured it cuts ordinary wall panels loose. It collects nothing: the crew fetch what falls.",
+          "use": "Install through APPS on the outside of the hull against two sound hull walls, connect power, and keep at least 10 kPa of air in the room behind it. Tether an asteroid or capture a hull with the G4, choose Set to cut on its panel or the C1, then Start / resume cutting. 24 kW while cutting, about 14.4 kW of it warming the room behind the mount; it waits while that room is near 40 C. A rock wall takes 45 s and 0.3 kWh, a wall panel 60 s and 0.4 kWh. See [the mining laser guide](shipbreaker-mining-laser.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "It only reaches a ship moored to yours, and exactly one. It never fires through its own ship, near the mooring anchors or while anyone stands within a tile of the beam. Opened ore deposits stay a crew job, and bare rock floor, ice floor and rubble are left because they only give gangue. Reload pauses it; Start carries on. The firing animation and beam are drawn only.",
+          "guide": "shipbreaker-mining-laser.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "d4-section",
           "title": "D4-S assembly section",
           "ids": [
             "PhobosShipbreakerSection"
           ],
-          "function": "A heavy, unpowered construction component, not a functional machine.",
-          "use": "Choose Assembly information on the section for instructions. Choose Install on it, or D4 in INSTALL > APPS, and place the construction site. Native hauling delivers two matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
-          "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
+          "function": "A retired assembly section from the old way of building the D4. It does nothing on its own.",
+          "use": "None: the D4 now comes whole. Aboard your own ship, any two of these become one whole loose D4 by themselves; a leftover goes back to its recipe's scrap and parts on the deck where it lay. See [installing machines](section-assembly-and-maintenance.md).",
+          "find": "No longer made, sold or found since Shipbreaker 0.60.0. Only copies already in a save remain, and they convert once aboard your own ship.",
+          "notes": "A section build site with every section delivered can still be finished; one still waiting for sections is cancelled and its sections convert. Sections in a trader's stock or on another ship are left alone until they come aboard. The D4's installation site uses this section's artwork as its early stage.",
           "guide": "equipment-economy.md",
           "internal": false,
           "labels": {}
@@ -314,10 +331,10 @@
           "ids": [
             "PhobosScrapReclaimerSection"
           ],
-          "function": "A heavy, unpowered construction component, not a functional machine.",
-          "use": "Choose Assembly information on the section for instructions. Choose Install on it, or R4 in INSTALL > APPS, and place the construction site. Native hauling delivers two matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
-          "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
+          "function": "A retired assembly section from the old way of building the R4. It does nothing on its own.",
+          "use": "None: the R4 now comes whole. Aboard your own ship, any two of these become one whole loose R4 by themselves; a leftover goes back to its recipe's scrap and parts on the deck where it lay. See [installing machines](section-assembly-and-maintenance.md).",
+          "find": "No longer made, sold or found since Shipbreaker 0.60.0. Only copies already in a save remain, and they convert once aboard your own ship.",
+          "notes": "A section build site with every section delivered can still be finished; one still waiting for sections is cancelled and its sections convert. Sections in a trader's stock or on another ship are left alone until they come aboard. The R4's installation site uses this section's artwork as its early stage.",
           "guide": "scrap-reclaimer.md",
           "internal": false,
           "labels": {}
@@ -328,10 +345,10 @@
           "ids": [
             "PhobosFurnaceSection"
           ],
-          "function": "A heavy, unpowered construction component, not a functional machine.",
-          "use": "Choose Assembly information on the section for instructions. Choose Install on it, or F6 in INSTALL > APPS, and place the construction site. Native hauling delivers three matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
-          "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
+          "function": "A retired assembly section from the old way of building the F6. It does nothing on its own.",
+          "use": "None: the F6 now comes whole. Aboard your own ship, any three of these become one whole loose F6 by themselves; a leftover goes back to its recipe's scrap and parts on the deck where it lay. See [installing machines](section-assembly-and-maintenance.md).",
+          "find": "No longer made, sold or found since Shipbreaker 0.60.0. Only copies already in a save remain, and they convert once aboard your own ship.",
+          "notes": "A section build site with every section delivered can still be finished; one still waiting for sections is cancelled and its sections convert. Sections in a trader's stock or on another ship are left alone until they come aboard. The F6 installation site has its own 6 x 6 stage artwork; this 4 x 4 section image stays on the retired item.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}
@@ -356,8 +373,8 @@
           "ids": [
             "PhobosFurnaceHousing"
           ],
-          "function": "A finished construction input for optional D4-S and R4-S casting-based recipes.",
-          "use": "Use the listed section recipes; alternatively cut it back into aluminium using the explicit recovery recipe.",
+          "function": "A finished aluminium casting. Since Shipbreaker 0.60.0 it has no construction use: the D4-S and R4-S section recipes that took one are retired.",
+          "use": "Cut it back into aluminium scrap with the explicit recovery recipe, at a loss. For useful castings choose the F6 ingot recipes instead.",
           "find": "Finish a rough F6 housing at a supported table.",
           "notes": "This is cargo, not a fixture. Recovery preserves mass but yields much less base value than the whole housing.",
           "guide": "furnace-player-guide.md",

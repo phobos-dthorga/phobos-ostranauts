@@ -661,3 +661,35 @@ tanks (one trigger check) and, on a run that wants water, sums the ship's
 drinking tanks from the existing two-second tank list. A W2 branch step reads
 each run segment once to find old feed; a flush writes only while old feed
 remains. No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: the mining laser (L12)
+
+L12 — Static review of Framework 0.66.0 with Shipbreaker 0.59.0 (the Ablatine
+ML-2 mining laser). The power hooks classify the laser by definition id through
+the existing per-definition cache; a laser with no session costs one dictionary
+probe and one condition test a power step. A started laser steps once a game
+second. While a cut is in hand it resolves one object by id, re-checks one line
+of sight (at most 48 tile samples) and tests the people aboard both ships
+against the beam path. It scans the moored ship's objects, and both ships for
+mooring ports, only when it looks for the next cut: once per finished cut. The
+gangue rule is cached per damage-loot name. The sweep record is written when it
+changes, which while cutting is once a powered second, as the G4's is. The beam
+is one quad per firing head, repositioned each frame while visible; the firing
+sheet uses the game's own per-frame step. A new operation metric,
+shipbreaker.laser.update, covers the step. No performance capture or measured
+FPS claim accompanies this change.
+
+## 1 October: retired section assembly and the legacy sweep (L13)
+
+L13 - Static review of Framework 0.67.0 with Shipbreaker 0.60.0 (the D4, R4 and
+F6 come whole; saved sections convert). The legacy-item sweep is polled from
+Framework's update and does nothing until a content mod registers a rule. Then,
+once every 15 real seconds, it lists each loaded player-owned ship's objects
+(including contained ones) once, tests each for a placeholder site or a retired
+definition id, and collects live site lots into one set. Conversion work happens
+only when a retired part is found, so after the first sweep of a converted save
+the pass is one object listing per ship per 15 seconds. Section sites keep their
+existing per-site appearance view; whole-machine install sites gain the same
+bounded view (at most ten checks a real second per site). INSTALL retirement and
+table-offer removal run once at content confirmation. No performance capture or
+measured FPS claim accompanies this change.

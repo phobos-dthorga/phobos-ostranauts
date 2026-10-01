@@ -23,7 +23,7 @@ public static class ShipbreakerEconomy
         (FurnaceRules.Prefix, FurnaceRules.MachineKg), (FurnaceRules.Radiator, FurnaceRules.RadiatorKg), (FurnaceRules.ThermalPort, FurnaceRules.RadiatorKg),
         (IndustrialRules.Prefix, IndustrialRules.MassKg), (ProcessRules.Prefix, ProcessRules.MachineKg), (IntakeRules.Grabber, IntakeRules.GrabberKg),
         (IntakeRules.Chute, IntakeRules.ChuteKg), (ReclaimerRules.Prefix, ReclaimerRules.MachineKg), (CollectorRules.Prefix, CollectorRules.MachineKg),
-        (ThawRules.Prefix, ThawRules.MachineKg), (BinRules.Prefix, 0)
+        (ThawRules.Prefix, ThawRules.MachineKg), (LaserRules.Prefix, LaserRules.MachineKg), (BinRules.Prefix, 0)
     };
     /// <summary>The assembly sections, sold whole and dismantled to their own mass.</summary>
     public static readonly IReadOnlyList<(string Id, double MassKg)> Sections = new[]

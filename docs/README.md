@@ -10,7 +10,7 @@ common failures and useful reports.
 
 - [Flight Hub controls](control-panel-guide.md), [docking](auto-nav-docking.md), [Combat](auto-nav-combat.md), [towing](auto-nav-towing.md) and [sensors](auto-nav-sensors.md).
 - [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md), [automatic routing](automatic-material-routing.md) and the [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
-- [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [section assembly and maintenance](section-assembly-and-maintenance.md).
+- [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [installing machines and maintenance](section-assembly-and-maintenance.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Editing the Phobos data files](editing-data-files.md): prices, work and merchant odds in files you can override.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
@@ -63,10 +63,11 @@ common failures and useful reports.
 - [Current player guide](player-guide.md)
 - [Residue Collector](residue-collector.md)
 - [Scrap reclaimer — prepared 0.9.0 candidate](scrap-reclaimer.md)
-- [Section assembly and maintenance](section-assembly-and-maintenance.md)
+- [Installing machines and maintenance](section-assembly-and-maintenance.md)
 - [Quiet completion cues across Phobos mods](shared-completion-cues.md)
 - [Process water silo and ice thaw unit](shipbreaker-bulk-silos.md)
 - [Material bins](shipbreaker-material-bins.md)
+- [Mining laser](shipbreaker-mining-laser.md)
 - [Hull chute and exterior grabber](shipbreaker-hull-intake.md)
 - [Phobos Shipbreaker: equipment and item reference](shipbreaker-item-reference.md)
 - [Shipbreaker outputs: existing maintenance and construction uses](shipbreaker-material-uses.md)

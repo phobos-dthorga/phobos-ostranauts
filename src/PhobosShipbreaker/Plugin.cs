@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.58.0";
+    public const string Version = "0.60.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -49,15 +49,15 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("IndustrialProcessing",Text.Get("Crew.skill"),Id,Phobos.Ostranauts.Framework.Crew.CrewRole.Industry));
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
-    private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); }
+    private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); LaserService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { PowerKinds.Reset(); ReclamationService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { PowerKinds.Reset(); ReclamationService.Reset(); LaserService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
     {
         PhobosAutoNav.IndustrialNavigation.ManualTakeover -= ReclamationService.ManualTakeover;
-        ReclamationService.Reset(); CaptureService.Shutdown();
+        ReclamationService.Reset(); LaserService.Reset(); CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
         Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id);
@@ -70,7 +70,7 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal PowerKind Kind; internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; }
+    internal sealed class PowerState { internal PowerKind Kind; internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; internal LaserService.PowerTransfer? Laser; internal bool Lasing; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
         __state = null;
@@ -87,6 +87,9 @@ internal static class PowerPatch
             case PowerKind.Thaw:
                 try { return ThawService.BeginPower(__instance, __0, ref __1, out state.Thaw); }
                 catch (Exception ex) { ThawService.Fault(__0, ex); return false; }
+            case PowerKind.Laser:
+                try { return LaserService.BeginPower(__instance, __0, ref __1, out state.Laser, out state.Lasing); }
+                catch (Exception ex) { LaserService.Fault(__0, ex); return false; }
             case PowerKind.Grabber:
                 state.Working = __0.HasCond(Core.IntakeRules.Working);
                 try { return ReclamationService.BeginPower(__instance,__0,ref __1,out state.Cutter,out state.Cutting); }
@@ -112,6 +115,13 @@ internal static class PowerPatch
             try { ReclamationService.FinishPower(__instance,__0,__state.Cutter); }
             catch(Exception ex) { ReclamationService.Fault(__0,ex); }
             finally { __state.Finished=true; }
+            return;
+        }
+        if (__state.Kind == PowerKind.Laser)
+        {
+            try { LaserService.FinishPower(__instance, __0, __state.Laser); }
+            catch (Exception ex) { LaserService.Fault(__0, ex); }
+            finally { __state.Finished = true; }
             return;
         }
         if (__state.Kind == PowerKind.Thaw)
@@ -155,6 +165,7 @@ internal static class PowerPatch
                 if (__state.Kind == PowerKind.Furnace)
                 { FurnaceService.FinishPower(__instance, __0, __state.Furnace); FurnaceService.Get(__0).State.Batch.Armed = false; }
                 else if (__state.Cutting) { ReclamationService.FinishPower(__instance,__0,__state.Cutter); ReclamationService.Fault(__0,new InvalidOperationException("Interrupted cutter power delivery.")); }
+                else if (__state.Lasing) { LaserService.FinishPower(__instance, __0, __state.Laser); LaserService.Fault(__0, new InvalidOperationException("Interrupted laser power delivery.")); }
                 else if (__state.Kind == PowerKind.Thaw) ThawService.FinishPower(__instance, __0, __state.Thaw);
                 else if (__state.Kind == PowerKind.Reclaimer) ReclaimerHeat.Finish(__instance, __0, __state.Heat);
             }
@@ -187,6 +198,10 @@ internal static class PowerDemandPatch
             case PowerKind.Thaw:
                 try { ThawService.BeforePower(machine); }
                 catch (Exception ex) { ThawService.Fault(machine, ex); }
+                return;
+            case PowerKind.Laser:
+                try { LaserService.PreparePower(machine); }
+                catch (Exception ex) { LaserService.Fault(machine, ex); }
                 return;
         }
         try

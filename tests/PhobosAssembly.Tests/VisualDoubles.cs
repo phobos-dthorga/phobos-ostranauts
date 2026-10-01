@@ -10,6 +10,9 @@ public class GameObject {
  public T AddComponent<T>() where T:MonoBehaviour,new(){var x=new T{gameObject=this};components[typeof(T)]=x;return x;}
 }
 public static class Time {public static float unscaledTime;}
+public struct Vector2 {public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}}
+public struct Vector3 {public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}}
+public class Transform {public Vector3 position;}
 public enum FilterMode {Point}
 public class Texture2D {public int width=64,height=64;public FilterMode filterMode;}
 public class Material:Object {

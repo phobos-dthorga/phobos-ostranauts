@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "economy",
-  "notes": "Phobos Shipbreaker economy (Shipbreaker 0.48.0): Rivetline machinery prices, work-progress targets, repair bills, mass-balanced salvage (steel, aluminium, mechanical and electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items), assembly sections, the coolant conduit, merchant offers, regional factors, lots and world finds. Balance record: docs/equipment-economy.md. Salvage must weigh what the machine weighs; larger silo and bin sizes follow their small entry through the Framework ladder.",
+  "notes": "Phobos Shipbreaker economy (Shipbreaker 0.48.0): Rivetline machinery prices, work-progress targets, repair bills, mass-balanced salvage (steel, aluminium, mechanical and electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items), retired assembly sections (price and dismantling only), the coolant conduit, merchant offers, regional factors, lots and world finds. Balance record: docs/equipment-economy.md. Salvage must weigh what the machine weighs; larger silo and bin sizes follow their small entry through the Framework ladder.",
   "equipment": {
     "PhobosFurnace": {
       "notes": "Rivetline F6 Electric Furnace, 6 x 6, 240 kg.",
@@ -315,6 +315,37 @@
       "salvageValueHigh": false,
       "internalBin": "PhobosIceThawInputBin"
     },
+    "PhobosMiningLaser": {
+      "notes": "Ablatine ML-2 Mining Laser, 2 x 2, 120 kg.",
+      "price": 9600,
+      "work": {
+        "install": 1000,
+        "uninstall": 800,
+        "repair": 2400,
+        "dismantle": 650
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 2,
+        "ItmPartsElecSmall01": 6
+      },
+      "salvage": {
+        "ItmScrapSteel": 56,
+        "ItmScrapAluminum": 26,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 24,
+        "ItmScrapTrash": 16
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 34,
+        "ItmScrapAluminum": 14,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 68
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    },
     "PhobosMaterialBin": {
       "notes": "Rivetline Y2 Material Bin, 2 x 2, 60 kg; the Y3 and Y4 follow through the ladder.",
       "price": 2400,
@@ -345,9 +376,10 @@
       "salvageValueHigh": false
     },
     "PhobosShipbreakerSection": {
-      "notes": "D4 assembly section, 80 kg; two build the fixture at a construction site.",
+      "notes": "Retired D4 assembly section, 80 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole D4s or their section materials. Price and dismantling stay for copies still held.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 4800,
       "work": {
         "dismantle": 400
@@ -360,13 +392,13 @@
         "ItmScrapTrash": 9
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     },
     "PhobosScrapReclaimerSection": {
-      "notes": "R4 assembly section, 90 kg; two build the reclaimer.",
+      "notes": "Retired R4 assembly section, 90 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole R4s or their section materials.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 6000,
       "work": {
         "dismantle": 500
@@ -379,13 +411,13 @@
         "ItmScrapTrash": 10
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     },
     "PhobosFurnaceSection": {
-      "notes": "F6 assembly section, 80 kg; three build the furnace.",
+      "notes": "Retired F6 assembly section, 80 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole F6s or their section materials.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 6500,
       "work": {
         "dismantle": 600
@@ -398,8 +430,7 @@
         "ItmScrapTrash": 8
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     }
   },
   "supplies": {
@@ -457,18 +488,6 @@
     }
   ],
   "offers": {
-    "PhobosStock_Section_ItmOKLGSupplyKioskInv_PhobosShipbreakerSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosShipbreakerSection",
-      "condition": "Refurbished",
-      "chance": 0.3
-    },
-    "PhobosStock_Section_ItmTraderSanDiegoHalvorsonInv_PhobosShipbreakerSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosShipbreakerSection",
-      "condition": "Refurbished",
-      "chance": 0.5
-    },
     "PhobosStock_Refurb_ItmOKLGFixer_PhobosShipbreakerLoose": {
       "notes": "Modest repaired D4 stock at K-Leg: a usable path without a journey to a specific system.",
       "merchant": "ItmOKLGFixer",
@@ -476,35 +495,18 @@
       "condition": "Refurbished",
       "chance": 0.1
     },
-    "PhobosStock_ReclaimSection_ItmOKLGSupplyKioskInv_PhobosScrapReclaimerSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosScrapReclaimerSection",
-      "condition": "Refurbished",
-      "chance": 0.2
-    },
-    "PhobosStock_ReclaimSection_ItmTraderSanDiegoHalvorsonInv_PhobosScrapReclaimerSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosScrapReclaimerSection",
-      "condition": "Refurbished",
-      "chance": 0.4
-    },
     "PhobosStock_ReclaimRefurb_ItmOKLGFixer_PhobosScrapReclaimerLoose": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosScrapReclaimerLoose",
       "condition": "Refurbished",
       "chance": 0.1
     },
-    "PhobosStock_FurnaceSection_ItmOKLGSupplyKioskInv_PhobosFurnaceSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosFurnaceSection",
+    "PhobosStock_FurnaceRefurb_ItmOKLGFixer_PhobosFurnaceLoose": {
+      "notes": "Shipbreaker 0.60.0: the F6 is bought or found whole, so it joins the D4 and R4 at K-Leg.",
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosFurnaceLoose",
       "condition": "Refurbished",
-      "chance": 0.15
-    },
-    "PhobosStock_FurnaceSection_ItmTraderSanDiegoHalvorsonInv_PhobosFurnaceSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosFurnaceSection",
-      "condition": "Refurbished",
-      "chance": 0.3
+      "chance": 0.1
     },
     "PhobosCoolantStock_ItmOKLGSupplyKioskInv": {
       "merchant": "ItmOKLGSupplyKioskInv",
@@ -591,7 +593,7 @@
     "VNCA": 1.25
   },
   "regional": {
-    "notes": "Every region offers the machines at the base chance times its factor (small parts half again as often), sections at 0.3, the conduit at 0.65, coolant charges and ingots as listed; OFLT sells refurbished machinery. The four expanded merchants carry everything at the floor chance.",
+    "notes": "Every region offers the machines at the base chance times its factor (small parts half again as often), the conduit at 0.65, coolant charges and ingots as listed; OFLT sells refurbished machinery. The four expanded merchants carry everything at the floor chance.",
     "baseChance": 0.2,
     "refurbished": [
       "OFLT"
@@ -621,7 +623,6 @@
   },
   "lots": {
     "equipment": 8,
-    "section": 24,
     "supplies": 128,
     "coolant": 64,
     "ingots": 32
@@ -655,20 +656,10 @@
         "PhobosAluminiumIngot": 0.06,
         "PhobosSteelIngot": 0.04
       }
-    },
-    {
-      "notes": "At most one assembly section per roll, never dismantling yields.",
-      "table": "ItmLootSpawnEngineering",
-      "branch": "PhobosEngineeringSectionSalvage",
-      "items": {
-        "PhobosShipbreakerSection": 0.05,
-        "PhobosScrapReclaimerSection": 0.05,
-        "PhobosFurnaceSection": 0.05
-      }
     }
   ],
   "factionKiosks": {
-    "notes": "Rivetline equipment, sections and supplies at the CCRE and GalCon faction kiosks for scrip, every silo and bin size with its family. The G4 grabber captures and cuts other hulls, so it asks Friendly despite its price; the F6 radiator and thermal port are useless without an F6 and stay Warm. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
+    "notes": "Rivetline equipment, sections and supplies at the CCRE and GalCon faction kiosks for scrip, every silo and bin size with its family. The G4 grabber captures and cuts other hulls and the Ablatine ML-2 mining laser cuts them too, so both ask Friendly despite their price; the F6 radiator and thermal port are useless without an F6 and stay Warm. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
     "merchants": [
       "ItmFactionKioskBCRSInv",
       "ItmFactionKioskBCERInv",
@@ -677,16 +668,14 @@
     "chance": 1,
     "tiers": {
       "PhobosFurnace": "Trusted",
-      "PhobosFurnaceSection": "Trusted",
       "PhobosScrapReclaimer": "Friendly",
-      "PhobosScrapReclaimerSection": "Friendly",
       "PhobosShipbreaker": "Friendly",
-      "PhobosShipbreakerSection": "Friendly",
       "PhobosExteriorGrabber": "Friendly",
       "PhobosFurnaceRadiator": "Warm",
       "PhobosFurnaceThermalPort": "Warm",
       "PhobosIndustrialConsole": "Warm",
       "PhobosIceThaw": "Warm",
+      "PhobosMiningLaser": "Friendly",
       "PhobosMaterialBin": "Warm",
       "PhobosResidueCollector": "Warm",
       "PhobosHullChute": "Warm",

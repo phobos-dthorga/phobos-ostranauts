@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     manifest = json.loads((ASSETS / 'manifest.json').read_text(encoding='utf-8'))
-    outputs, records, previews, selected = {}, [], [], {}
+    outputs, records, previews, selected, sheets = {}, [], [], {}, []
     for entry in manifest['assets']:
         if entry['status'] != 'selected':
             continue
@@ -109,6 +109,29 @@ def main():
                         'patches': entry.get('patches'), **({'fullFootprint': True} if full else {})})
         previews.append((entry['key'], pixels))
         selected[entry['key']] = pixels
+        if entry.get('sheet'):
+            sheets.append(entry)
+    # A frame sheet for the game's own item animation (the ML-2 firing sheet, Shipbreaker 0.59.0). The game sizes
+    # an animated item from one cell, so each cell must be exactly the item's native image; and so the fixture
+    # never shifts between frames, every frame must equal the still image outside the declared animated regions.
+    for entry in sheets:
+        sheet, pixels = entry['sheet'], selected[entry['key']]
+        cell_width, cell_height = sheet['cell']
+        if pixels.size != (cell_width * sheet['columns'], cell_height * sheet['rows']) or not 0 < sheet['frames'] <= sheet['columns'] * sheet['rows']:
+            raise ValueError(f'Frame sheet does not match its cell grid: {entry["key"]}')
+        still = selected.get(sheet['still'])
+        if still is None or still.size != (cell_width, cell_height):
+            raise ValueError(f'Frame sheet has no matching still image: {entry["key"]}')
+        regions = sheet.get('animated', [])
+        for index in range(sheet['frames']):
+            x0, y0 = (index % sheet['columns']) * cell_width, (index // sheet['columns']) * cell_height
+            frame = pixels.crop((x0, y0, x0 + cell_width, y0 + cell_height))
+            for y in range(cell_height):
+                for x in range(cell_width):
+                    if any(r[0] <= x <= r[2] and r[1] <= y <= r[3] for r in regions):
+                        continue
+                    if frame.getpixel((x, y)) != still.getpixel((x, y)):
+                        raise ValueError(f'Frame {index} of {entry["key"]} moves the fixture at ({x}, {y})')
     # Keep saved crop-stage imagery when the installed chassis is damaged.
     if 'rack-damaged' in selected:
         layout = json.loads((ROOT / 'assets/phobos-agriculture/layers.json').read_text())

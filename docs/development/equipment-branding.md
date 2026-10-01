@@ -45,14 +45,16 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline F6 Electric Furnace | Six-by-six electrical casting furnace |
 | Phobos' Rivetline F6-R Exterior Radiator | Separate six-by-four heat rejection equipment |
 | Phobos' Rivetline F6-P Thermal Exhaust Port | One-tile sealed deck fitting and complete underside radiator assembly |
-| Phobos' Rivetline F6-S Furnace Assembly Section | Eighty-kilogram construction section |
+| Phobos' Rivetline F6-S Furnace Assembly Section | Retired construction section (Shipbreaker 0.60.0); saved copies convert |
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
 | Phobos' Rivetline S2, S3, S4 and S5 Process Water Silos | Passive water silos in four sizes; the model digit is the footprint (S4 and S5 from Shipbreaker 0.40.0; Framework's since 0.58.0, which added the S2). Rivetline stays the maker although Framework now owns them: they are the same product line |
 | Phobos' Rivetline Conveyor Belt | 1 x 1 belt segments that join item routes (Framework 0.61.0); Rivetline because it carries Shipbreaker's material, and like the lines no model number |
 | Phobos' Rivetline D20 Drain Canister | Portable 20 litre can for draining lines (Framework 0.63.0); Rivetline beside the silos it pours into, D for drain and 20 for its litres |
+| Phobos' Rivetline T2 Ice Thaw Unit | Two-by-two thaw unit for water ice and methane ice (Shipbreaker 0.37.0); T for thaw, 2 for the footprint |
+| Phobos' Ablatine ML-2 Mining Laser | Two-by-two hull-mounted laser head for moored asteroids and captured hulls (Shipbreaker 0.59.0); ML for mining laser, 2 for the footprint |
 | Phobos' Rivetline Y2, Y3 and Y4 Material Bins | Solid mined-material stores in three sizes (Shipbreaker 0.43.0); Y (yard stock) is unused by every other brand, and the digit is the footprint as for the silos |
-| Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
-| Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
+| Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Retired construction section (Shipbreaker 0.60.0); saved copies convert |
+| Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Retired construction section (Shipbreaker 0.60.0); saved copies convert |
 | Phobos' Verdemorrow Firstlight-4 Cultivation Rack | Four-by-four finite cultivation rack |
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | Two-by-two portion cooker |
 | Phobos' Fennmark V4 Volatiles Refinery | Four-by-four electric hearth and drying retort (Manufacturing) |
@@ -80,6 +82,15 @@ line: deep teal frames, cool enamel lids and signal-yellow corner brackets, kept
 visibly apart from Fennmark's graphite and burnt orange. Its model names are two
 letters for the job, a hyphen and the footprint width (AX-2). The ammonia stores
 stay Fennmark beside the other gas stores.
+
+**Ablatine** is Shipbreaker's second fictional manufacturer (owner choice, 1
+October 2026), for directed-energy tooling, so that Rivetline's long salvage and
+material-handling line is not crowded further. The name comes from ablation, the
+removal of material from a surface by a beam; no company, brand or laser product
+of that name was found in a web search on 1 October 2026. Its colours are
+off-white enamel base plates, gunmetal housings, black optics and one signal-red
+collar, apart from Rivetline's greys and blues. Models follow the Tolvane
+pattern: two letters for the job, a hyphen and the footprint width (ML-2).
 
 **Lixivar** is Manufacturing's third fictional manufacturer (owner approval, 30
 September 2026), for hydrometallurgy: leaching, crystallisation and, later, the

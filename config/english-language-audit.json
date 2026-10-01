@@ -17639,16 +17639,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Content.an_unpowered_kg_x_assembly_section_combine",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/Content.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "An unpowered {0} kg, {1} x {1} assembly section. Combine two at an installed table or supported workbench to finish one powered dismantling fixture. Not ordinary scrap; cannot process panels by itself.",
-      "after": "Unpowered {0} kg, {1} x {1} assembly section. Choose Install to place a construction site, then deliver two matching sections with Mortorq and soldering tools. Use Assembly information for instructions. Cannot process panels by itself."
+      "after": "Retired {0} kg, {1} x {1} assembly section from the old way of building a D4. The D4 now comes whole from traders and salvage. Aboard your own ship, any two of these turn into one whole D4 by themselves; a single leftover goes back to its scrap and parts on the deck where it lies. It does nothing on its own."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19910,16 +19909,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Reclaimer.section_description",
       "category": "description",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/ReclaimerDefinitions.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "Unpowered {0} kg, 4 x 4 construction section. Combine two into a {1} kg scrap reclaimer.",
-      "after": "Unpowered {0} kg, 4 x 4 construction section. Choose Install to assemble two at a construction site into a {1} kg scrap reclaimer. Assembly information explains the tools and hauling."
+      "after": "Retired {0} kg assembly section from the old way of building an R4. The {1} kg R4 now comes whole from traders and salvage. Aboard your own ship, any two of these turn into one whole R4 by themselves; a single leftover goes back to its scrap and parts on the deck where it lies."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -25944,16 +25942,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.section_description",
       "category": "description",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "80 kg unpowered assembly stock. Join three sections into the complete 240 kg F6 furnace.",
-      "after": "80 kg unpowered assembly section. Choose Install to build the 240 kg F6 furnace from three matching sections at its final location. Assembly information explains the tools and hauling."
+      "after": "Retired 80 kg assembly section from the old way of building an F6. The 240 kg F6 now comes whole from traders and salvage. Aboard your own ship, any three of these turn into one whole F6 by themselves; leftovers go back to their scrap and parts on the deck where they lie."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -35263,36 +35260,6 @@
       "references": [
         "src/PhobosFramework/Registration/MaintenanceSafety.cs",
         "src/PhobosFramework/Registration/MaintenanceInformation.cs"
-      ]
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Assembly.title",
-      "category": "help/settings",
-      "decision": "new",
-      "before": "Assembly information",
-      "after": "Assembly information",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
-      "trace": "maintained runtime lookup",
-      "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
-      ]
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Assembly.instructions",
-      "category": "help/settings",
-      "decision": "new",
-      "before": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
-      "after": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
-      "trace": "maintained runtime lookup",
-      "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
       ]
     },
     {
@@ -53118,6 +53085,882 @@
       ],
       "before": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish.",
       "after": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.group_laser",
+      "category": "label",
+      "decision": "add",
+      "reason": "New ML-2 mining laser name, description and labels: keeps the Phobos prefix, the Ablatine brand and a recognisable equipment type; the description says what it does, what it needs and that the crew fetch what falls.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:188"
+      ],
+      "before": "Mining lasers",
+      "after": "Mining lasers"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New ML-2 mining laser name, description and labels: keeps the Phobos prefix, the Ablatine brand and a recognisable equipment type; the description says what it does, what it needs and that the crew fetch what falls.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserDefinitions.cs:26"
+      ],
+      "before": "Mining Laser",
+      "after": "Mining Laser"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.working_condition",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New ML-2 mining laser name, description and labels: keeps the Phobos prefix, the Ablatine brand and a recognisable equipment type; the description says what it does, what it needs and that the crew fetch what falls.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserDefinitions.cs:20"
+      ],
+      "before": "Mining laser cutting",
+      "after": "Mining laser cutting"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New ML-2 mining laser name, description and labels: keeps the Phobos prefix, the Ablatine brand and a recognisable equipment type; the description says what it does, what it needs and that the crew fetch what falls.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserDefinitions.cs:27"
+      ],
+      "before": "A 2 x 2 laser head for the outside of the hull, {0:F0} kg. Bolt it against two sound hull walls, run power to it and give it a moored target: a tethered asteroid, or a hull your G4 has hold of. It works a {1:G} degree arc out to {2:G} tiles, breaking rock the way a drill does or cutting wall panels loose, and leaves what falls for the crew to fetch. Draws {3:G} kW while cutting and puts about {4:G} kW of that into the room behind it as heat, so that room needs air.",
+      "after": "A 2 x 2 laser head for the outside of the hull, {0:F0} kg. Bolt it against two sound hull walls, run power to it and give it a moored target: a tethered asteroid, or a hull your G4 has hold of. It works a {1:G} degree arc out to {2:G} tiles, breaking rock the way a drill does or cutting wall panels loose, and leaves what falls for the crew to fetch. Draws {3:G} kW while cutting and puts about {4:G} kW of that into the room behind it as heat, so that room needs air."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:303"
+      ],
+      "before": "Not started. Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Set to cut: {0}.",
+      "after": "Not started. Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Set to cut: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "{0}\nSweep: {1} | Set to cut: {2}\nRock broken: {3:F0} | Panels freed: {4:F0} | Left in the arc: {5}",
+      "after": "{0}\nSweep: {1} | Set to cut: {2}\nRock broken: {3:F0} | Panels freed: {4:F0} | Left in the arc: {5}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.work",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:307"
+      ],
+      "before": "In hand: {0}, {1:F0} of {2:F0} s at {3:G} kW.",
+      "after": "In hand: {0}, {1:F0} of {2:F0} s at {3:G} kW."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.kind_rock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:307"
+      ],
+      "before": "rock",
+      "after": "rock"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.kind_wall",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:307"
+      ],
+      "before": "wall panel",
+      "after": "wall panel"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:300"
+      ],
+      "before": "Cutting draw: {0:G} kW, about {1:G} kW of it warming the room behind the mount. Arc: {2:G} degrees, {3:G} tiles.",
+      "after": "Cutting draw: {0:G} kW, about {1:G} kW of it warming the room behind the mount. Arc: {2:G} degrees, {3:G} tiles."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.phase_Seeking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "looking for the next cut",
+      "after": "looking for the next cut"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.phase_Working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "cutting",
+      "after": "cutting"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.phase_DamagePending",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "waiting for the rock to give way",
+      "after": "waiting for the rock to give way"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.phase_UninstallPending",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "waiting for the panel to come loose",
+      "after": "waiting for the panel to come loose"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.phase_Exhausted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "nothing left in the arc",
+      "after": "nothing left in the arc"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:304"
+      ],
+      "before": "not counted yet",
+      "after": "not counted yet"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.resume_required",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:305"
+      ],
+      "before": "Paused. Start to carry on; work so far is kept.",
+      "after": "Paused. Start to carry on; work so far is kept."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.seeking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:104"
+      ],
+      "before": "Looking for the next cut.",
+      "after": "Looking for the next cut."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cutting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:50",
+        "src/PhobosShipbreaker/LaserService.cs:192"
+      ],
+      "before": "Cutting.",
+      "after": "Cutting."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:50"
+      ],
+      "before": "Waiting for power. Work so far is kept.",
+      "after": "Waiting for power. Work so far is kept."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.native_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:231",
+        "src/PhobosShipbreaker/LaserService.cs:248"
+      ],
+      "before": "Cut made. Waiting for it to give way.",
+      "after": "Cut made. Waiting for it to give way."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_freed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:242"
+      ],
+      "before": "Panel loose. It is lying where it fell.",
+      "after": "Panel loose. It is lying where it fell."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.rock_broken",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:242"
+      ],
+      "before": "Rock broken. Whatever was in it is lying where it fell.",
+      "after": "Rock broken. Whatever was in it is lying where it fell."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.rock_cracked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:242"
+      ],
+      "before": "Rock cracked. Going back in to finish it.",
+      "after": "Rock cracked. Going back in to finish it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.target_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:205"
+      ],
+      "before": "That one changed or went out of view. Moving on; the work spent on it is lost.",
+      "after": "That one changed or went out of view. Moving on; the work spent on it is lost."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.exhausted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:170",
+        "src/PhobosShipbreaker/LaserService.cs:187"
+      ],
+      "before": "Nothing left to cut in the arc. Move the ship or change what the laser cuts, then Start again.",
+      "after": "Nothing left to cut in the arc. Move the ship or change what the laser cuts, then Start again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.exhausted_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:186"
+      ],
+      "before": "{0}: nothing left to cut in its arc.",
+      "after": "{0}: nothing left to cut in its arc."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.blocked_by_own_hull",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:187"
+      ],
+      "before": "Your own hull or equipment is in the way of everything left in the arc. The laser will not fire through its own ship.",
+      "after": "Your own hull or equipment is in the way of everything left in the arc. The laser will not fire through its own ship."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.crew_in_beam",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:216"
+      ],
+      "before": "Holding fire: someone is standing within a tile of the beam. It carries on when they move.",
+      "after": "Holding fire: someone is standing within a tile of the beam. It carries on when they move."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.crew_in_beam_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:215"
+      ],
+      "before": "The mining laser is holding fire: {0} is standing by the beam.",
+      "after": "The mining laser is holding fire: {0} is standing by the beam."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.crew_in_beam_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:215"
+      ],
+      "before": "MINING LASER HOLDING: CREW BY BEAM",
+      "after": "MINING LASER HOLDING: CREW BY BEAM"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:32"
+      ],
+      "before": "Waiting for the room behind the mount to cool: {0:F0} C at {1:F0} kPa. It cuts again while that room stays below 40 C; nothing is drawn while it waits.",
+      "after": "Waiting for the room behind the mount to cool: {0:F0} C at {1:F0} kPa. It cuts again while that room stays below 40 C; nothing is drawn while it waits."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_block",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:32"
+      ],
+      "before": "The room behind the mount has no air to carry the heat away; it needs at least 10 kPa. Pressurise it. Vacuum is not cooling.",
+      "after": "The room behind the mount has no air to carry the heat away; it needs at least 10 kPa. Pressurise it. Vacuum is not cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.no_attachment",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserGeometry.cs:80",
+        "src/PhobosShipbreaker/LaserService.cs:92",
+        "src/PhobosShipbreaker/LaserService.cs:144",
+        "src/PhobosShipbreaker/LaserService.cs:165"
+      ],
+      "before": "Nothing to cut. The laser only reaches a ship moored to yours: tether an asteroid, or capture a hull with the G4. It needs exactly one, and a station dock does not count.",
+      "after": "Nothing to cut. The laser only reaches a ship moored to yours: tether an asteroid, or capture a hull with the G4. It needs exactly one, and a station dock does not count."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.geometry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserGeometry.cs:81",
+        "src/PhobosShipbreaker/LaserService.cs:93",
+        "src/PhobosShipbreaker/LaserService.cs:166"
+      ],
+      "before": "Waiting for the moored ship's layout to settle.",
+      "after": "Waiting for the moored ship's layout to settle."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.moved",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:142"
+      ],
+      "before": "The laser was moved or turned since this sweep began. Start again for a fresh sweep.",
+      "after": "The laser was moved or turned since this sweep began. Start again for a fresh sweep."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.attachment_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:145"
+      ],
+      "before": "The moored ship changed. Start again for a fresh sweep.",
+      "after": "The moored ship changed. Start again for a fresh sweep."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.uncertain",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:247"
+      ],
+      "before": "The last cut has not given way. Stopped to be safe. Start has another look; if it has to cut again, that cut is paid for again.",
+      "after": "The last cut has not given way. Stopped to be safe. Start has another look; if it has to cut again, that cut is paid for again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:67",
+        "src/PhobosShipbreaker/LaserService.cs:83",
+        "src/PhobosShipbreaker/LaserService.cs:270"
+      ],
+      "before": "Laser fault. Stopped; check the log.",
+      "after": "Laser fault. Stopped; check the log."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.save",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:52",
+        "src/PhobosShipbreaker/LaserService.cs:49",
+        "src/PhobosShipbreaker/LaserService.cs:98",
+        "src/PhobosShipbreaker/LaserService.cs:106",
+        "src/PhobosShipbreaker/LaserService.cs:193",
+        "src/PhobosShipbreaker/LaserService.cs:206",
+        "src/PhobosShipbreaker/LaserService.cs:223",
+        "src/PhobosShipbreaker/LaserService.cs:243"
+      ],
+      "before": "The laser's saved work could not be read or written, so it has been left alone. Check the log.",
+      "after": "The laser's saved work could not be read or written, so it has been left alone. Check the log."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:128",
+        "src/PhobosShipbreaker/LaserService.cs:274"
+      ],
+      "before": "Paused. Work so far is kept.",
+      "after": "Paused. Work so far is kept."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.stopped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status text: says what the laser is doing or has just done in the crew voice, without implementation terms.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:128"
+      ],
+      "before": "Stopped. The cut in hand was dropped; the sweep and the counts are kept.",
+      "after": "Stopped. The cut in hand was dropped; the sweep and the counts are kept."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:57",
+        "src/PhobosShipbreaker/LaserService.cs:59"
+      ],
+      "before": "Install the undamaged laser on the hull first.",
+      "after": "Install the undamaged laser on the hull first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:58"
+      ],
+      "before": "Repair the laser first.",
+      "after": "Repair the laser first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:61"
+      ],
+      "before": "The laser is switched off.",
+      "after": "The laser is switched off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:22"
+      ],
+      "before": "Set to cut",
+      "after": "Set to cut"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_rock",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:48",
+        "src/PhobosShipbreaker/LaserService.cs:50",
+        "src/PhobosShipbreaker/LaserService.cs:299",
+        "src/PhobosShipbreaker/ThawProvider.cs:22",
+        "src/PhobosShipbreaker/ThawProvider.cs:23"
+      ],
+      "before": "Rock only",
+      "after": "Rock only"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_walls",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:48",
+        "src/PhobosShipbreaker/LaserService.cs:50",
+        "src/PhobosShipbreaker/LaserService.cs:299",
+        "src/PhobosShipbreaker/ThawProvider.cs:22",
+        "src/PhobosShipbreaker/ThawProvider.cs:23"
+      ],
+      "before": "Wall panels only",
+      "after": "Wall panels only"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_both",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:48",
+        "src/PhobosShipbreaker/LaserService.cs:50",
+        "src/PhobosShipbreaker/LaserService.cs:299",
+        "src/PhobosShipbreaker/ThawProvider.cs:22",
+        "src/PhobosShipbreaker/ThawProvider.cs:23"
+      ],
+      "before": "Rock and wall panels",
+      "after": "Rock and wall panels"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:50"
+      ],
+      "before": "Set to cut: {0}.",
+      "after": "Set to cut: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.filter_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:48"
+      ],
+      "before": "Pause the laser before changing what it cuts.",
+      "after": "Pause the laser before changing what it cuts."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.action_start",
+      "category": "control",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:55"
+      ],
+      "before": "Start / resume cutting",
+      "after": "Start / resume cutting"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.action_pause",
+      "category": "control",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:55"
+      ],
+      "before": "Pause cutting",
+      "after": "Pause cutting"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.action_stop",
+      "category": "control",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:55"
+      ],
+      "before": "Stop; drop the cut in hand",
+      "after": "Stop; drop the cut in hand"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.setting_effects",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New ML-2 controls and setting: each label says exactly what it does, and Stop states the progress that is lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/Settings.cs:57"
+      ],
+      "before": "Show the mining laser's firing animation and beam. Turning this off changes nothing about the work.",
+      "after": "Show the mining laser's firing animation and beam. Turning this off changes nothing about the work."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.recipe_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer log text for a failed conversion registration; says the saved sections stay as they are.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
+      ],
+      "before": "Section recipe {0} is not registered.",
+      "after": "Section recipe {0} is not registered."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.conversion_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer log text for a failed conversion registration; says the saved sections stay as they are.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
+      ],
+      "before": "Saved {0} sections cannot be converted automatically this session ({1}); they stay as they are.",
+      "after": "Saved {0} sections cannot be converted automatically this session ({1}); they stay as they are."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New crew-log notice after a conversion: what happened, where the results are and why; no further action needed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Old assembly sections aboard were sorted out: {0} complete set(s) became whole machines and {1} leftover section(s) were broken back into their materials, left on the deck where they lay. Machines now come whole from traders and salvage.",
+      "after": "Old assembly sections aboard were sorted out: {0} complete set(s) became whole machines and {1} leftover section(s) were broken back into their materials, left on the deck where they lay. Machines now come whole from traders and salvage."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.notice_sites",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New crew-log addition: an unfinishable build site was cancelled the game's way and its sections counted in.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "{0} unfinished section build site(s) that could no longer be completed were cancelled first, and their delivered sections were counted in.",
+      "after": "{0} unfinished section build site(s) that could no longer be completed were cancelled first, and their delivered sections were counted in."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text: conversion failed, nothing changed, the next sweep tries again.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Ship {0}: retired parts could not be converted ({1}); they stay as they were and the next sweep tries again.",
+      "after": "Ship {0}: retired parts could not be converted ({1}); they stay as they were and the next sweep tries again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.site_cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text naming the cancelled site and where its parts went.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Cancelled unfinished section site {0} aboard {1}; its delivered parts went to the deck through the game's own cancellation.",
+      "after": "Cancelled unfinished section site {0} aboard {1}; its delivered parts went to the deck through the game's own cancellation."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.whole",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text for one complete set converted.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Converted {0} x {1} into one {2} aboard {3}.",
+      "after": "Converted {0} x {1} into one {2} aboard {3}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.materials",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text for one leftover part converted to materials.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Converted leftover {1} {0} into its materials aboard {2}.",
+      "after": "Converted leftover {1} {0} into its materials aboard {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer diagnostic: a conversion output definition is missing.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Conversion output definition {0} is missing.",
+      "after": "Conversion output definition {0} is missing."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.mass_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer diagnostic: conversion masses no longer match the registration.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Conversion masses for {0} no longer match its registration.",
+      "after": "Conversion masses for {0} no longer match its registration."
     }
   ],
   "documents": [
@@ -53125,8 +53968,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "52b1c24d69727b81d2d13c8d5dbf6c1d2e5b612618ecd026033d1ba37bdc3556",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "365a332612f88aba4e3525d55fbbc36e5764714d34446714aeebe6d7b96a61a6",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "SUPPORT.md",
@@ -53139,8 +53982,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "5e4c34516a6df2866917a41ca2266e02301bb6f1c018c2dc6033e8a4d7f0b402",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "c5c30026f640f1e76f40e202b0df40914812518a4bd0917056543e4def2207f1",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -53285,8 +54128,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fcb8bfa2e10490e560d2626266bd943d4823d36155f9e8d83d9e6e594a6f72a4",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "78d98ab16324662463279a3beff233237071acb898d1846b98be516e61bff128",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53299,8 +54142,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "e8e142907b8bf824d4a2e73fa1ce7f0fe082cdf2ef723ecc378172e5feb0c1b1",
-      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
+      "sha256": "9968ba4b88bd8cde8d008766b6f39d7389bac3a40ed8cd1c9196d0771fc895f3",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -53403,8 +54246,8 @@
       "path": "docs/development/animation-and-sound-direction.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "3ab4b47c8408518370c23ab9b25464da57c5e3848949805a6dfdd1d5af74f526",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "373c31e9e762adc8a873374688afe7e642c884a61f1a489220c11e097bd256ef",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "docs/development/artwork-completion.md",
@@ -53525,8 +54368,8 @@
       "path": "docs/development/construction-artwork-audit.md",
       "scope": "developer-facing construction appearance audit",
       "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
-      "sha256": "845e23548b51be023a8c2d3d7cad2eb2d00b0b85ea69a492d1f997781fa53326",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "b1eddac322a896e25343ebd8f9a5575f28f81199ee000ec55ed9a351c3068092",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/dependency-contingencies.md",
@@ -53545,22 +54388,22 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "8fb62906dab3c5dfc8475ffb52c22f908f7b045aba298e7284524d1d6332ce96",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "308222b427b11a36a19577b1a3d4d32dd96d221d605f4e00ab4162b58a2ebc35",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f3395bfe98a70a2a416d37b5454f98986a293045dd051c1f678bae3ec3913938",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "efa0d75f0decbf11251276a4b2f892a6e88fc00ffab87b684c37955f36c2e40c",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4d09e6480fa0e63952611d6095523dcd068410647747d2c63925991454f76834",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "ce7ee9655159f6510800de9cb29ffaee82524d8902791faf865b4d91600d8e1e",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -53586,8 +54429,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2bd4202ef14502663874cf3abf10f4883f3ab030a2c18d4dc5bbf3753fb81e56",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "a8aeec0077fbcc94be19c0b93a9a0ff5859289ba7b223ef914e6e109f5589cd3",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53670,15 +54513,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a5e271759be36f2f8b83ae0d78356a6b10dff4e623ee26d11214d57e602b241a",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "f7c1af82c47c6706f83095fbe16e32ef5c834bfec9d79077f620631f084dbd0b",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "8ba1eea56410d12b1a5e03aa57754aeb6360ab505636f14481c14bb8a8df8481",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "65b530e287830ad2f406416c3a86a3b19c2397a3d707ffc17ebc2b9ce178a0ec",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53782,8 +54625,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "49b0eff7c224de6f7a8ab0bdcdc5939da1128dfb6605360fd7213c6efa8035f0",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "9220bc58209cdaec10130f8c72a5045a20d8efd8974fcebe664088c55de9057b",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -53808,8 +54651,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3fb81deba297682add3fd62dc2fcb83d2ed65192225f7d384500ac98e69f2906",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "2e433e50ba23e97612e6479c72c96af166d6fe04bb7ccd964635350588ebe178",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53985,8 +54828,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "6b36676a20704e13c29f9948311e01a9b2d32ecbb0976d1b36a7186b8a1455ed",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "9a586710c3feda0bdce85e33110b120863cd0b1afe977bf11d2fbd73938e005e",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -54006,8 +54849,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "f5d3ff4a59b7cde986f8836108d40e6e917349420300e8ad90fae881a94039ef",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "9042845623fc8aa6d18646c2b9bb4a4c666b32501c29d56b06f9785b8ea2fb75",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -54020,8 +54863,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7883b610a49218b745fae9db1a9e0dee22ffd587a21bd2e2ce70a116bfce3e18",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "71ad6c50e067b0b49cb12c3b36cdadc1433f799085558f601845641b837aea2c",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -54041,8 +54884,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c663eb839ff56a6bec0a85fe15c1c4f89de43627d4f6cba5e0e34b1e00049ca0",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "af9c0eccb7f5013a1942a4de9c4dce0f4232cd309b4b9de3af22b1cfb67db5e2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/getting-started.md",
@@ -54076,15 +54919,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "806622a1948860984d2d88d73cb8198909ac8aa610fafe284a1452e6f7d75d10",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "3f0c547f68d5669acf3a2de7ed33d4abec8c9dec91afa0affbadd460115013c2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2670da2a018a9502d07399877cf98175fbeea8aea3ae9bb2eb13f27372dfbb1e",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "78dc52bd14b1822fd25099d417237664b46239ea2a68e4a97689ad159079b728",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/item-references.md",
@@ -54125,8 +54968,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "48f560f8371ba4aaeb4ba338f8f6ef40414f44804ac8e320a9574135d3b0f5fb",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "0c10683b9ce3c352494bcb5c67ade13d49a1924f9de2e2cf2b4c3620ae4ab0ae",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/residue-collector.md",
@@ -54139,15 +54982,15 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d9ebf1e0923e2b377707506b7f17e16119d9614d27fb1b92140769130abb6d31",
-      "review": "2026-09-29: Load feed by crew as the alternative to the panel feed."
+      "sha256": "28ef15053b8e77511df374011b28fc2432f0153af9011bd2df6da43f96216e74",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
       "scope": "current player guide and native implementation evidence",
       "decision": "new reviewed assembly/recovery guide",
-      "sha256": "e1bcfb696a613a31ea307baa32ab8d5378ac69115a5536aadc9713c908eb6068",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "47e51b25c6b760718d27d5cc56c5043351bb1d5a03b9a3e2c47179c5d26ed580",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/shared-completion-cues.md",
@@ -54174,8 +55017,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6a0c988de753c5f1e43aa073555754c0fcafa1d3ba9d6d950dd1c73c5e3d5998",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "0b28988d990d2741de80eb59fb61453b3e502c9b57da95beb587db7a8f1c65d2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -54195,8 +55038,8 @@
       "path": "docs/solar-system-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a12dfa672086c6ce646433cf7853b06b626a2e85ca9eb1bb03a27f1371f1afae",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "3d1c0c10b00db280abc2d5509fc568d237e98b48261961f000210b1844f4d051",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -54216,8 +55059,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "466122d988fa8fa1e4e1f4e272c333b0abd6bfd7e93c99a872773b1dc95d7a37",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "25b7d7199ccce55cf607cdfe57f105f959fb50f770dec5d11505df316c9c8cfa",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -54230,8 +55073,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "13bcb0039604dd27445d6a6b5719ed77c63daa7530d5236f1318c8f443f3a294",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "fe2d594ce41f80574c52f50949ebd8d36d35fcca4bb8abace6d8659fee2d7b32",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -54293,8 +55136,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "ce26a337ec82e9b6816cf335c7c647e48d6086043213e2d5a43fc24443660e88",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "3566a3ba599cffac8a14a2911a5fe525a68d92146454175bedc5a2ef54739d46",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -54307,8 +55150,8 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "66311c5bd83aacb49ebe4a3a98b5801b7869fd05ec9dc4c428c58daa223bf199",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "dc8db78a69be3221a28a5d7a23e76c4bfea10a93bb5d7e24cb33718af07fc564",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/conveyor-design.md",
@@ -54337,14 +55180,28 @@
       "decision": "Development design record; not player-facing.",
       "sha256": "d72a55b9a7463f1107317f8428c7bb9fa42b1495533020898d05e1b0c9c5e805",
       "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
+    },
+    {
+      "path": "docs/shipbreaker-mining-laser.md",
+      "scope": "current player operating guide",
+      "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
+      "sha256": "9954b3ebc9e88a314bc452bc5564b1de984c8f720d55544b3887e44c5e8e427b",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+    },
+    {
+      "path": "docs/development/mining-laser-design.md",
+      "scope": "developer design record",
+      "decision": "Development design record; player text limited to names and the link to the player guide.",
+      "sha256": "d952b4819cdcf6daeb9bec30b2ce439f17c1aeb84a7fd809d2b0a95f04964cc4",
+      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f536a10429d8e8de4b8252114524daf44f742fcade6cca8e049dcaeb3c89de8a",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "c7fe05f970b07fbee9843908c9202fdb06c68d7b523f5eb5e09813e2585193d6",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -54393,8 +55250,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "51a3c6589e7424b29ecf13f526f229e3990ab3af7e4d9eeba74d84f1b14c242f",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "302e20b23ba1f70197842ce07ffa1f5c6fba37905654504d916da1e207595551",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -54405,8 +55262,8 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1b61213dff0601471229864c94086b50bbd90643a7a261ec44f3887cf0974e94",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "944f4c90c1e233420e8c79f7e3074f88b76ad45da1eff6a79f4d8eaff06e9934",
+      "review": "2026-10-01 (Shipbreaker 0.59.0, Framework 0.66.0): Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
@@ -54417,8 +55274,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a121af0e94ff01b66eb0cf35fdb8a6400a1f19a23e2887a9c9ce04c39b43fd09",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "e03078e9f0175a9505627003f41a6929bcc1346fe764264d7489851173b979d3",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

@@ -6,9 +6,9 @@ Framework and Shipbreaker **0.9.0**, built against the installed Ostranauts
 1.0.1.5 baseline. The reclaimer was introduced in 0.8.0. This is implemented and checked offline, not yet tested in a
 game session. Auto Nav remains 0.3.0 and is optional for this processing chain.
 
-Current assembly follow-up: Shipbreaker 0.31.0 replaces new final table assembly with a native construction site. Build or obtain two R4-S sections, then use INSTALL > APPS; native hauling delivers them separately. Site work combines the historical 45-minute final assembly below with 21.6 minutes of mounting. See [current assembly instructions](section-assembly-and-maintenance.md). The original 0.9.0 record below is historical.
+Current acquisition (Shipbreaker 0.60.0): the R4 comes whole from traders or salvage. Choose Install on the loose machine, or pick it in INSTALL > APPS. It is no longer built from R4-S sections; saves that still hold them are sorted out automatically. See [installing machines](section-assembly-and-maintenance.md).
 
-## Buying and building
+## Buying
 
 The **Phobos' Rivetline R4 Scrap Reclaimer** has a $14,800 refurbished base value; broken
 equipment is $3,700. A pristine offer has the native 25% premium ($18,500), and
@@ -17,9 +17,9 @@ also depend on market and trading modifiers.
 
 | Seller | Per-restock offers |
 | --- | --- |
-| K-Leg scrap supplies | 20% chance of one broken machine; independent 20% chance of one assembly section |
+| K-Leg scrap supplies | 20% chance of one broken machine |
 | K-Leg fixer | 10% worn and independent 10% refurbished machine |
-| San Diego Halvorson industrial trader | 40% pristine machine; independent 40% assembly section |
+| San Diego Halvorson industrial trader | 40% pristine machine |
 | Venus orbital scrap kiosk | 15% broken machine |
 
 These are normal additive stock entries. Existing merchant inventory is not
@@ -27,21 +27,11 @@ replaced when loading a save. Stock space, normal restocking and Framework's
 availability setting still apply. Arriving at a station does not guarantee a
 unit is for sale. Existing Shipbreaker equipment retains its offers.
 
-Construction uses an installed Bar/Dining Table, or a supported optional
-workbench, with a Mortorq tool and soldering tool. Build two **90 kg reclaimer
-assembly sections**, then assemble the **180 kg machine**.
-
-| One section's bill | Quantity | Mass |
-| --- | ---: | ---: |
-| Steel scrap | 56 | 56 kg |
-| Aluminium scrap | 26 | 26 kg |
-| Small mechanical parts | 12 | 6 kg |
-| Small electronic parts | 4 | 2 kg |
-| **Total** | | **90 kg** |
-
-Each section takes 75 minutes of configured assembly work; final assembly takes
-45 minutes: **195 minutes** before fetching, skills and interruptions. Sections
-cost $6,000 each at base value. Final assembly adds no hidden materials.
+The R4 is not built from parts. Install the whole **180 kg machine** with a
+Mortorq; a crew member hauls it to the site in the drag slot. Until Shipbreaker
+0.60.0 it was assembled from two 90 kg R4-S sections (56 steel scrap, 26 aluminium
+scrap, 12 small mechanical and 4 small electronic parts each). Saved sections now
+convert automatically: two become one whole R4, and a leftover returns that bill.
 
 ## Installation and use
 
@@ -161,12 +151,10 @@ Tools are reused. Native Repair's remaining wear still requires Restore.
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | Functional machine | 104 | 42 | 20 | 8 | 20 | 180 kg / $637.60 |
 | Broken machine | 92 | 34 | 10 | 2 | 48 | 180 kg / $450.00 |
-| Section | 52 | 21 | 10 | 4 | 10 | 90 kg / $318.80 |
 
 Part units are 0.5 kg; scrap/trash units are 1 kg. Recovery loses monetary value
 against selling the complete equipment, including tested native worn/broken
-tiers. Both sections' raw material bill is $696.40, greater than the machine's
-$637.60 dismantling yield. The [native value audit](development/equipment-value-audit.md)
+tiers. The [native value audit](development/equipment-value-audit.md)
 checks these comparisons. Empty both feed and output before dismantling.
 
 ## Framework, assets and verification
@@ -180,8 +168,9 @@ machine definitions, thermal adapter, art, prices and recipe identities.
 The original Imagegen master and exact prompt are under `assets/phobos-reclaimer`.
 The new machine uses a 64 x 64 sprite, neutral normal map and 256 x 256 portrait.
 Closed installed/transport forms share that sprite and native damage tint; separate
-state artwork and sculpted normals remain visual refinements. Packets and sections
-reuse our existing original art, with distinct names and IDs. No game art is bundled.
+state artwork and sculpted normals remain visual refinements. Packets and the retired
+R4-S section reuse our existing original art, with distinct names and IDs; the R4-S
+image now serves as the R4's early installation stage. No game art is bundled.
 
 Offline checks cover native construction/maintenance and stock eligibility, gross
 and constituent budgets, legacy continuation, native job-save round trips,
