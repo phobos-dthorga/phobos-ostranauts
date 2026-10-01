@@ -47,6 +47,7 @@ internal static class MachineDefinitions
             strContainerCT = P + "TFeed", nStackLimit = 1, bSlotLocked = true,
             nContainerWidth = 4, nContainerHeight = 4, aInteractions = Array.Empty<string>(),
             aStartingConds = new[] { "IsContainer=1.0x1", "IsSystem=1.0x1" }, mapSlotEffects = new[] { P + "Input", "Blank" } });
+        EquipmentInventory.Declare(d.Objects[P + "InputBin"], InventorySpec.Feed(4, 4, P + "TFeed"));
         d.Slots.Add(P + "Input", new JsonSlot { strName = P + "Input", strNameFriendly = Text.Get("MachineDefinitions.wall_panel_feed"),
             strHitboxImage = "blank", nItems = 1, nDepth = 15, bCarried = true });
         d.Loot.Add(P + "Compartments", ItemLoot(P + "Compartments", P + "InputBin"));

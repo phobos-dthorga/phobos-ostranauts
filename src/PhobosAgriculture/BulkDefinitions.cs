@@ -63,6 +63,8 @@ internal static class BulkDefinitions
     internal static double[] ReserveChoices(double capacityKg)=>new[]{0,1/24d,1/12d,1/6d,1/3d,2/3d,1}.Select(f=>Math.Round(capacityKg*f)).ToArray();
     internal static readonly string[] Work={"bulk-load","bulk-recover","bulk-drain"};
     internal static string WorkId(string action)=>"PhobosAgriculture_"+action;
+    /// <summary>The service rack of a kilogram-record vessel (retired reservoirs and nutrient hoppers): a few cells for hand work.</summary>
+    internal static readonly InventorySpec Rack=InventorySpec.ServiceRack(8,8);
     internal static void Add(NativeDefinitions d)
     {
         foreach(var size in Sizes)BulkVessels.Register(size.Spec);
@@ -76,6 +78,7 @@ internal static class BulkDefinitions
         {
             string p=size.Prefix;int step=size.Footprint-3;bool small=size.Size==VesselSize.Small;
             ApplianceDefinitions.Add(d,p,Text.Get(size.NameKey),Text.Get("bulk_tank_details",size.CapacityKg,size.Footprint,size.DryKg),size.Footprint,size.DryKg,size.Price,size.Image,Controls,0);
+            EquipmentInventory.Apply(d,p,Rack);
             d.Power.Remove(p+"Power");d.Interactions.Remove(p+"PowerChange");
             foreach(var form in new[]{"Installed","Loose","InstalledDmg","LooseDmg"})
             {

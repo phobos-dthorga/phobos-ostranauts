@@ -64,6 +64,7 @@ internal static class Definitions
         d.Triggers[spec.FeedTrigger] = new CondTrigger { strName = spec.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
         ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));
+        EquipmentInventory.Apply(d, p, InventorySpec.ProductTray(ChargeTrayCells, ChargeTrayCells));
         d.Objects[spec.InputBin].strDesc = Text.Get(spec.Text("feed_description"), shape.feedCells);
         // Only Power points are electrical inputs; line ports and use points never are.
         ApplianceDefinitions.SetPowerOverride(d, p, shape.idleKW, shape.workingKW, spec.WorkingCondition, shape.points.Keys.Where(k => k.StartsWith("Power", StringComparison.Ordinal)).ToArray());
@@ -215,6 +216,7 @@ internal static class Definitions
         ApplianceDefinitions.Add(d, p, Text.Get("Regulator.name"), Text.Get("Regulator.description", RegulatorRules.MachineKg, RegulatorRules.WorkingKW,
                 RegulatorRules.OxygenKgPerHour, RegulatorRules.NitrogenKgPerHour, RegulatorRules.MinRoomKPa, RegulatorRules.MaxOxygenFraction * 100),
             RegulatorRules.Footprint, RegulatorRules.MachineKg, Economy.Price(RegulatorRules.Prefix), ImagePath + RegulatorArt, Controls, RegulatorRules.WorkingKW, InstallMenu.Hvac);
+        EquipmentInventory.Apply(d, p, RegulatorInventory);
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
@@ -288,6 +290,10 @@ internal static class Definitions
         Machine(CrackerRules.Prefix, CrackerRules.Footprint, usesWater: false);
     }
 
+    /// <summary>The V4, LC-3 and SA-3 product trays, in cells a side.</summary>
+    internal const int ChargeTrayCells = 8;
+    /// <summary>The A2 stores nothing; this is the general grid every appliance had before Framework 0.70.0.</summary>
+    internal static readonly InventorySpec RegulatorInventory = InventorySpec.ProductTray(8, 8);
     private static void StripContainer(JsonCondOwner co)
     {
         co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>(); co.strContainerCT = null;

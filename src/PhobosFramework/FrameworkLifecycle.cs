@@ -40,6 +40,8 @@ public static class FrameworkLifecycle
         Registration.EquipmentSaveUpgrade.BeginLoad();
         Persistence.DefinitionMigrations.Reset();
         Persistence.LegacyItemConversions.Reset();
+        Registration.EquipmentInventory.Reset();
+        Persistence.ContainerFit.Reset();
         Registration.LineJoints.Reset();
         Inventory.BeltCarriers.ClearAll();
         Registration.LineJobFilter.Reset();

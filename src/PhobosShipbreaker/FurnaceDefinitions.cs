@@ -27,7 +27,7 @@ internal static class FurnaceDefinitions
             co.strDesc = Text.Get(furnace ? "Furnace.description" : port ? "Furnace.port_description" : "Furnace.radiator_description");
             Content.SetStat(co, "StatMass", furnace ? FurnaceRules.MachineKg : FurnaceRules.RadiatorKg);
             co.inventoryWidth = item.nCols = width; co.inventoryHeight = height;
-            co.nContainerWidth = co.nContainerHeight = furnace ? 8 : 0;
+            if (furnace) EquipmentInventory.Declare(co, InventorySpec.ProductTray(8, 8));
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
             co.mapPoints = new[] { "use,0,-56", "PowerA,-40,-40", "PowerB,40,-40" };
             if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96", "MaterialIn,-40,-40", "MaterialOut,40,-40" }).ToArray();
@@ -37,8 +37,7 @@ internal static class FurnaceDefinitions
             {
                 // Keep a reject-all receptacle solely to restore legacy saved cargo.
                 // Removing it would strand children during native Ship.SpawnItems.
-                co.strContainerCT = CoolingCargo.RejectAll;
-                co.nContainerWidth = co.nContainerHeight = 8;
+                EquipmentInventory.Declare(co, InventorySpec.LegacyReceptacle(8, 8, CoolingCargo.RejectAll));
                 co.aStartingConds = co.aStartingConds.Where(c => !c.StartsWith("IsContainer=")).ToArray();
                 co.aSlotsWeHave = Array.Empty<string>(); co.strLoot = "Blank";
                 co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
@@ -60,7 +59,7 @@ internal static class FurnaceDefinitions
         d.Loot[portForbids.strName] = portForbids;
         var bin = d.Objects[FurnaceRules.Feed];
         bin.strNameFriendly = bin.strNameShort = Text.Get("Furnace.feed_name"); bin.strDesc = Text.Get("Furnace.feed_description");
-        bin.nContainerWidth = 10; bin.nContainerHeight = 8;
+        EquipmentInventory.Declare(bin, InventorySpec.Feed(FurnaceRules.ChamberWidth, FurnaceRules.ChamberHeight, bin.strContainerCT));
         d.Slots[FurnaceRules.Slot].bHide = true; d.Slots[FurnaceRules.Slot].strNameFriendly = bin.strNameFriendly;
         // A one-kW clock coefficient; the checked service substitutes each interval's
         // real bounded demand before native UsePower. No free IsPowered receipt.

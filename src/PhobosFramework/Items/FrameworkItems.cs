@@ -14,6 +14,8 @@ public static class FrameworkItems
     public static NativeDefinitions Prepare()
     {
         var d = new NativeDefinitions();
+        // The trigger behind hidden legacy receptacles (Framework 0.70.0), before any content mod names it.
+        EquipmentInventory.AddTrigger(d);
         ItemVessels.Load();
         ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         // Lines hold their contents (Framework 0.63.0): the crew actions, the drain canister and the two pipes' hold-ups.

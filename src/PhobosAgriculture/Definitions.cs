@@ -13,6 +13,8 @@ internal static class Definitions
 {
     internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
     internal const double RackKg = 80, CookerKg = 12;
+    // What each inventory is for (Framework 0.70.0): the rack and the cooker hold their supplies and products.
+    internal static readonly InventorySpec RackInventory = InventorySpec.ProductTray(8, 8, Rack + "Supplies"), CookerInventory = InventorySpec.ProductTray(8, 8);
     /// <summary>Masses the crop model is written for; the materials pack is bound to them.</summary>
     internal const double IrrigationKg = 5, NutrientKg = .04;
     internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
@@ -74,6 +76,8 @@ internal static class Definitions
         d.Triggers[Rack + "Supplies"] = new CondTrigger { strName = Rack + "Supplies", fChance = 1, fCount = 1, bAND = false,
             aReqs = Array.Empty<string>(), aForbids = new[] { "IsInstalled", "IsCumbersome", "IsOversized" }, aTriggers = new[] { "TIsFitContainerSolid", "TIsWater" } };
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack, StringComparison.Ordinal))) co.strContainerCT = Rack + "Supplies";
+        EquipmentInventory.Apply(d, Rack, RackInventory);
+        EquipmentInventory.Apply(d, Cooker, CookerInventory);
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution" && a!="recover-crop" && a!="formulate-nutrients").Select(WorkId)).ToArray();
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);

@@ -115,7 +115,11 @@ public static class WaterTanks
             item.strImg = ImagePath + tank.Art; item.strImgNorm = item.strImg + "Normal"; item.strImgDamaged = item.strImg;
             co.strPortraitImg = item.strImg;
         }
+        EquipmentInventory.Apply(d, p, Rack);
     }
+    /// <summary>A tank's inventory: a service rack for hand work (an irrigation charge, a drain canister), the same
+    /// at every size (Framework 0.70.0).</summary>
+    public static readonly InventorySpec Rack = InventorySpec.ServiceRack(8, 8);
     public static string Kg(double value) => value.ToString("R", CultureInfo.InvariantCulture);
 }
 

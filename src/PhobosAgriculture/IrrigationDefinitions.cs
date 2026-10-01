@@ -18,6 +18,8 @@ internal static class IrrigationDefinitions
     internal const double RateKgPerSecond = .05, EnergyKWhPerKg = .001;
     internal const double PumpKW = RateKgPerSecond * EnergyKWhPerKg * 3600;
     internal static bool IsSupply(CondOwner co) => co.strCODef.StartsWith(Supply, StringComparison.Ordinal);
+    /// <summary>The W2's supply rack: packets, charges, a cartridge, a drain canister and recovered solution.</summary>
+    internal static readonly InventorySpec SupplyInventory = InventorySpec.ServiceRack(8, 8, Definitions.Rack + "Supplies");
     internal static void Add(NativeDefinitions d)
     {
         ApplianceDefinitions.Add(d, Supply, Text.Get("water_supply"), Text.Get("water_supply_desc"), 2, DryKg, AgricultureEconomy.Price(Supply), "phobos/agriculture/WaterSupply", Definitions.Controls, .02);
@@ -28,6 +30,7 @@ internal static class IrrigationDefinitions
             co.strContainerCT = Definitions.Rack + "Supplies";
             if (form == "Installed") co.aInteractions = co.aInteractions.Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" }.Select(Definitions.WorkId)).ToArray();
         }
+        EquipmentInventory.Apply(d, Supply, SupplyInventory);
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Definitions.Rack, StringComparison.Ordinal)))
             co.mapPoints = co.mapPoints.Concat(new[] { Inlet + "," + LinePorts.Water(RackFootprint).X + "," + LinePorts.Water(RackFootprint).Y }).ToArray();
 

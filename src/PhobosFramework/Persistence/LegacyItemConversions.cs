@@ -152,7 +152,7 @@ public static class LegacyItemConversions
         return true;
     }
 
-    private static Vector2 Anchor(CondOwner co)
+    internal static Vector2 Anchor(CondOwner co)
     {
         var root = co;
         while (root.objCOParent != null) root = root.objCOParent;
@@ -206,7 +206,7 @@ public static class LegacyItemConversions
 
     // The game's own deck drop (as its construction cancellation uses): nearby free tiles, stacking where it can, and
     // whatever does not fit is added where it stands.
-    private static void Drop(Ship ship, CondOwner co, Vector2 anchor)
+    internal static void Drop(Ship ship, CondOwner co, Vector2 anchor)
     {
         co.tf.position = new Vector3(anchor.x, anchor.y, co.tf.position.z);
         var rest = ship.DropCO(co, anchor);

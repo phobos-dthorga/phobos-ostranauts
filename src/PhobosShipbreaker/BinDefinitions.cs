@@ -35,7 +35,7 @@ internal static class BinDefinitions
             co.strDesc = Text.Get("Bin.description", size.DryKg, size.Grid, footprint);
             // An ordinary store: its own grid and admission rule, no hidden feed compartment, no electricity.
             co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>();
-            co.strContainerCT = BinRules.Trigger; co.nContainerWidth = co.nContainerHeight = size.Grid;
+            EquipmentInventory.Declare(co, InventorySpec.Storage(size.Grid, size.Grid, BinRules.Trigger));
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             co.aInteractions = new[] { "Inventory" };
             co.inventoryWidth = co.inventoryHeight = footprint;

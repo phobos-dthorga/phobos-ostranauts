@@ -24,7 +24,7 @@ internal static class ReclaimerDefinitions
             Content.SetStat(co, "StatMass", ReclaimerRules.MachineKg);
             co.mapPoints = source.mapPoints.ToArray();
             co.dictSlotsLayout = new System.Collections.Generic.Dictionary<string, UnityEngine.Vector3> { ["self"] = UnityEngine.Vector3.zero };
-            co.nContainerWidth = co.nContainerHeight = ReclaimerRules.OutputSize;
+            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ReclaimerRules.OutputSize, ReclaimerRules.OutputSize));
             co.inventoryWidth = co.inventoryHeight = ReclaimerRules.Footprint;
             co.aInteractions = state.StartsWith("Installed") ? new[] { "Inventory", ReclaimerRules.Controls } : new[] { "Inventory" };
             item.nCols = ReclaimerRules.Footprint;
@@ -36,7 +36,7 @@ internal static class ReclaimerDefinitions
         feed.strNameFriendly = feed.strNameShort = Text.Get("Reclaimer.feed");
         feed.strDesc = Text.Get("Reclaimer.feed_description", ReclaimerRules.FeedCapacity, ReclaimerRules.InputKg);
         // Four one-cell packets. FeedPatch also enforces exact ID, mass and emptiness.
-        feed.nContainerWidth = feed.nContainerHeight = 2;
+        EquipmentInventory.Declare(feed, InventorySpec.Feed(2, 2, feed.strContainerCT));
         d.Slots[ReclaimerRules.InputSlot].bHide = true;
         d.Slots[ReclaimerRules.InputSlot].strNameFriendly = feed.strNameFriendly;
         var power = d.Power[p + "Power"];

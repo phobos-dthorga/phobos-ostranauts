@@ -8,7 +8,9 @@ namespace Phobos.Ostranauts.Framework.Registration;
 /// four forms (Installed, Loose, InstalledDmg, LooseDmg), a family condition, per-form triggers, mode-switch damage and
 /// the native installables, each under the ids every saved machine and in-progress job already names. Moved from
 /// Shipbreaker into Framework (0.58.0) so equipment that changes owner (the water tanks) keeps those ids exactly; the
-/// output is byte-for-byte what Shipbreaker generated. Content sets names, art, stats and economy afterwards.</summary>
+/// output is byte-for-byte what Shipbreaker generated. Content sets names, art, stats and economy afterwards, and
+/// since Framework 0.70.0 declares what the family's inventory is for through <see cref="EquipmentInventory.Apply"/>
+/// (the 8 x 8 grid here is only the starting point every saved family had).</summary>
 public static class MachineFamilies
 {
     public static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };

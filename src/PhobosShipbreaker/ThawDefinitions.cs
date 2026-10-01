@@ -44,7 +44,7 @@ internal static class ThawDefinitions
                 ThawRules.MethaneIceKg, ThawRules.ClathrateWaterKg, ThawRules.MethaneKg, ThawRules.MethaneCycleSeconds / 60);
             Content.SetStat(co, "StatMass", ThawRules.MachineKg);
             // The gangue tray is the ordinary Inventory; the ice feed opens as its own titled window.
-            co.nContainerWidth = ThawRules.TrayCells; co.nContainerHeight = 1;
+            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ThawRules.TrayCells, 1));
             co.inventoryWidth = co.inventoryHeight = ThawRules.Footprint;
             co.dictSlotsLayout = new Dictionary<string, UnityEngine.Vector3> { ["self"] = UnityEngine.Vector3.zero };
             co.mapPoints = new[] { "use,0,-24", "PowerA,0,8" };
@@ -61,7 +61,7 @@ internal static class ThawDefinitions
         feed.strNameFriendly = feed.strNameShort = Text.Get("Thaw.feed_name");
         feed.strDesc = Text.Get("Thaw.feed_description", ThawRules.FeedCapacity, ThawRules.IceKg, ThawRules.MethaneIceKg);
         // Two one-cell blocks. FeedPatch also enforces the exact identity, mass and count.
-        feed.nContainerWidth = ThawRules.FeedCapacity; feed.nContainerHeight = 1;
+        EquipmentInventory.Declare(feed, InventorySpec.Feed(ThawRules.FeedCapacity, 1, feed.strContainerCT));
         d.Slots[ThawRules.InputSlot].bHide = true;
         d.Slots[ThawRules.InputSlot].strNameFriendly = feed.strNameFriendly;
         var power = d.Power[p + "Power"];

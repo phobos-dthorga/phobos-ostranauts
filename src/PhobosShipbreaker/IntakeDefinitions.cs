@@ -33,7 +33,9 @@ internal static class IntakeDefinitions
                 co.aInteractions = grabber ? new[] { "Inventory" } : Array.Empty<string>();
                 co.mapGUIPropMaps = grabber ? new[] { "GUIInv", "Inventory" } : Array.Empty<string>();
                 co.strContainerCT = grabber ? "TIsFitContainerSolidCumbersome" : null;
-                co.nContainerWidth = co.nContainerHeight = grabber ? 4 : 0;
+                co.nContainerWidth = co.nContainerHeight = 0;
+                // The grabber holds the panels it has freed; they are 1 x 3, so four of them need twelve of its sixteen cells.
+                if (grabber) EquipmentInventory.Declare(co, InventorySpec.ServiceRack(4, 4, "TIsFitContainerSolidCumbersome"));
                 co.inventoryWidth = 4; co.inventoryHeight = depth;
                 Content.SetStat(co, "StatMass", grabber ? IntakeRules.GrabberKg : IntakeRules.ChuteKg);
                 Content.SetStat(co, "StatBasePrice", (grabber ? 800 : 400) / (damaged ? 4 : 1));

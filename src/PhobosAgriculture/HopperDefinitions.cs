@@ -66,6 +66,8 @@ internal static class HopperDefinitions
             string p = size.Prefix;
             ApplianceDefinitions.Add(d, p, Text.Get(size.NameKey), Text.Get("hopper_details", size.CapacityKg, size.Footprint, size.DryKg), size.Footprint, size.DryKg, size.Price, size.Image,
                 BulkDefinitions.Controls, 0);
+            // A hopper's contents are a record in kilograms; its rack only takes the charges it bags by hand.
+            EquipmentInventory.Apply(d, p, BulkDefinitions.Rack);
             d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
             foreach (var form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
             {

@@ -34,6 +34,7 @@ public static class ApplianceDefinitions
             aInteractions = Array.Empty<string>(), aStartingConds = new[] { "IsContainer=1x1", "IsSystem=1x1" }, mapSlotEffects = new[] { slot, "Blank" } };
         d.Slots[slot] = new JsonSlot { strName = slot, strNameFriendly = name, strHitboxImage = "blank", nItems = 1, nDepth = 15, bCarried = true, bHide = true };
         d.Loot[loot] = new Loot { strName = loot, strType = "item", aCOs = new[] { bin + "=1x1" }, aLoots = Array.Empty<string>() };
+        EquipmentInventory.Declare(d.Objects[bin], InventorySpec.Feed(cells, 1, containerTrigger));
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             var co = d.Objects[prefix + form];
@@ -49,14 +50,8 @@ public static class ApplianceDefinitions
     public static void SetRack(NativeDefinitions d, string prefix, string containerTrigger, int width, int height)
     {
         if (width < 1 || height < 1 || string.IsNullOrWhiteSpace(containerTrigger)) throw new ArgumentException("A rack needs a trigger and at least one cell.");
-        foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
-        {
-            var co = d.Objects[prefix + form];
-            co.strContainerCT = containerTrigger; co.nContainerWidth = width; co.nContainerHeight = height;
-            if (!co.aStartingConds.Any(s => s.StartsWith("IsContainer=", StringComparison.Ordinal))) co.aStartingConds = co.aStartingConds.Concat(new[] { "IsContainer=1x1" }).ToArray();
-            if (!co.aInteractions.Contains("Inventory")) co.aInteractions = new[] { "Inventory" }.Concat(co.aInteractions).ToArray();
-            co.mapGUIPropMaps = new[] { "GUIInv", "Inventory" };
-        }
+        // Since Framework 0.70.0 a rack is one of the declared inventory roles.
+        EquipmentInventory.Apply(d, prefix, InventorySpec.ServiceRack(width, height, containerTrigger));
     }
 
     /// <summary>Idle and working electrical demand on the family's power info: the working amount applies while

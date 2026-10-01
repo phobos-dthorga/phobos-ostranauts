@@ -31,9 +31,8 @@ internal static class CollectorDefinitions
             co.strNameFriendly = co.strNameShort = Text.Get("CollectorDefinitions.phobos_residue_collector", (damaged ? Text.Get("CollectorDefinitions.damaged") : ""));
             co.strDesc = Text.Get("CollectorDefinitions.wide_x_deep_kg_mount_over_two", CollectorRules.Width, CollectorRules.Depth, CollectorRules.MachineKg, CollectorRules.Capacity, CollectorRules.PayloadKg);
             co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>();
-            co.nContainerWidth = co.nContainerHeight = CollectorRules.StorageSide;
             co.inventoryWidth = CollectorRules.Width; co.inventoryHeight = CollectorRules.Depth;
-            co.strContainerCT = "TIsFitContainerSolid";
+            EquipmentInventory.Declare(co, InventorySpec.Storage(CollectorRules.StorageSide, CollectorRules.StorageSide, EquipmentInventory.Solid));
             co.aInteractions = installed ? new[] { "Inventory", CollectorRules.Controls } : new[] { "Inventory" };
             co.mapPoints = new[] { "use,0,-16", "PowerA,-8,0", "PowerB,8,0" };
             Content.SetStat(co, "StatMass", CollectorRules.MachineKg);
