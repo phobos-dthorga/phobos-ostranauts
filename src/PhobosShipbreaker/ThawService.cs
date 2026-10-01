@@ -303,22 +303,31 @@ internal static class ThawService
         {
             if (gangue == null || !ProcessRules.MassMatches(gangue.GetTotalMass(), gangueKg) || gangue.coStackHead != null || gangue.aStack.Count != 0 || gangue.GetCOsSafe(true).Count != 0)
                 throw new InvalidOperationException(Text.Get("Thaw.output_definition_changed"));
-            if (co.objContainer == null || !co.objContainer.AllowedCO(gangue) || !co.objContainer.CanAddSimple(gangue, out var cell))
-            { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.tray_full"); return false; }
+            // The gangue joins a gangue stack already in the tray, or takes a free cell (Shipbreaker 0.65.0).
+            var delivery = co.objContainer == null || !co.objContainer.AllowedCO(gangue) ? null : TrayDelivery.Plan(co.objContainer, new[] { gangue });
+            if (delivery == null)
+            {
+                // The unplaced gangue is never left behind while the unit waits and checks again.
+                gangue.Destroy();
+                s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.tray_full"); return false;
+            }
             var state = BulkVessel.Read(vessel);
             var methaneState = methaneStore == null ? null : BulkVessel.Read(methaneStore);
             BulkVessel.BeginConversion(vessel, input.strID, state.TotalKg);
             if (methaneStore != null) BulkVessel.BeginConversion(methaneStore, input.strID, methaneState!.TotalKg);
             void EndConversions() { BulkVessel.EndConversion(vessel); if (methaneStore != null) BulkVessel.EndConversion(methaneStore); }
-            co.objContainer.AddCOSimple(gangue, cell);
-            if (gangue.objCOParent != co || !co.objContainer.ContainedCOs.Contains(gangue)) throw new InvalidOperationException(Text.Get("Thaw.output_placement_failed"));
+            try { delivery.Place(); }
+            catch { delivery.Rollback(); EndConversions(); throw; }
+            if (!StackUnits.Inside(gangue, co)) throw new InvalidOperationException(Text.Get("Thaw.output_placement_failed"));
             published = true;
             bool retired;
             try { input.RemoveFromCurrentHome(bForce: true); }
             finally { retired = input.objCOParent == null && input.ship == null; }
             if (!retired)
             {
-                gangue.RemoveFromCurrentHome(bForce: true); gangue.Destroy(); published = false;
+                delivery.Rollback();
+                if (gangue.objCOParent != null || gangue.ship != null) gangue.RemoveFromCurrentHome(bForce: true);
+                gangue.Destroy(); published = false;
                 EndConversions();
                 throw new InvalidOperationException(Text.Get("Thaw.input_not_removed"));
             }
@@ -326,7 +335,7 @@ internal static class ThawService
             state.SetService(state.ServiceKg + waterKg); BulkVessel.Save(vessel, state);
             if (methaneStore != null) { methaneState!.SetService(methaneState.ServiceKg + methaneKg); BulkVessel.Save(methaneStore, methaneState); }
             EndConversions();
-            co.objContainer.Redraw(); Feed(co)?.objContainer?.Redraw();
+            co.objContainer!.Redraw(); Feed(co)?.objContainer?.Redraw();
         }
         catch { if (gangue != null && !published && gangue.objCOParent == null && !gangue.bDestroyed) gangue.Destroy(); throw; }
         Plugin.Log(methaneStore == null ? Text.Get("Thaw.completed_log", job.InputId, waterKg, vessel.strID, gangueKg)

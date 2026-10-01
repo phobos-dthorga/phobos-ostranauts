@@ -27,7 +27,7 @@ internal static class FurnaceDefinitions
             co.strDesc = Text.Get(furnace ? "Furnace.description" : port ? "Furnace.port_description" : "Furnace.radiator_description");
             Content.SetStat(co, "StatMass", furnace ? FurnaceRules.MachineKg : FurnaceRules.RadiatorKg);
             co.inventoryWidth = item.nCols = width; co.inventoryHeight = height;
-            if (furnace) EquipmentInventory.Declare(co, InventorySpec.ProductTray(8, 8));
+            if (furnace) EquipmentInventory.Declare(co, InventorySpec.ProductTray(FurnaceRules.TrayWidth, FurnaceRules.TrayHeight));
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
             co.mapPoints = new[] { "use,0,-56", "PowerA,-40,-40", "PowerB,40,-40" };
             if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96", "MaterialIn,-40,-40", "MaterialOut,40,-40" }).ToArray();

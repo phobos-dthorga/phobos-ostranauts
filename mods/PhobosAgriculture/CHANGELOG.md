@@ -6,6 +6,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.37.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The Firstlight-4 rack's inventory is 4 x 3 cells and the Hearth-2's is 2 x 2, where each was 8 x 8 (owner direction, 1 October 2026: size every inventory to its job). Harvests now arrive as stacks, ten portions to a cell, so two harvests, their seed and residue and about six kinds of supply fit the rack.
+- Bagging from a nutrient hopper stacks full bags, three to a cell, so its four-cell rack holds twelve bags (6 kg) before it needs emptying.
+
+### Save compatibility
+
+- Automatic. An inventory saved with more than fits re-packs into stacks when the save loads, and anything that still has no place is put on the deck beside the machine, with one line in the crew log. The cooker's portion in hand keeps its place first.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. Recorded products (residue, process solution, mixtures) never stack. Offline checks are not gameplay validation.
+
 ## [0.36.0] - 2026-10-01 - Draft
 
 ### Changed

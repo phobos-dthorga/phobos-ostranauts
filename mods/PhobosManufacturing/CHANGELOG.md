@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The V4, LC-3 and SA-3 product trays are 4 x 3 cells, where each was 8 x 8 (owner direction, 1 October 2026: size every inventory to its job). Products now arrive as stacks: ingots ten to a cell, salts twenty, the 39 makeup packets of a formulation in two cells. Each tray holds two charges of every recipe, except that the LC-3 holds one evaporite leach (its two residues are 2 x 2 each) and waits for room before the next.
+
+### Save compatibility
+
+- Automatic. A tray saved with more than fits re-packs into stacks when the save loads, and anything that still has no place is put on the deck beside the machine, with one line in the crew log. Charges in progress finish with the same products.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. Residues, cakes and calcines never stack: empty them between charges, by hand or with a crew output store. Offline checks are not gameplay validation.
+
 ## [0.29.0] - 2026-10-01 - Draft
 
 ### Changed

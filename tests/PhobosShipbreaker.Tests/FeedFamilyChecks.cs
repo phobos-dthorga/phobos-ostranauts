@@ -28,7 +28,7 @@ internal static class FeedFamilyChecks
                 check(ProcessRules.Balanced(kg, catalog.Current.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count))), $"{family.Key} {kg} kg budget conserves the whole part");
                 check(catalog.Current.Products.Select(p => p.Id).Distinct().Count() == catalog.Current.Products.Count, $"{family.Key} {kg} kg products are distinct identities");
                 check(ReferenceEquals(catalog, family.Catalog(kg)), $"{family.Key} {kg} kg: one catalog per accepted mass");
-                check(catalog.Current.Products.Sum(p => p.Count) <= 64, $"{family.Key} {kg} kg batch fits an empty 8 x 8 tray unstacked");
+                check(catalog.Current.Products.Sum(p => p.Count) <= 64, $"{family.Key} {kg} kg batch is a bounded number of products");
                 if (family.Key != "wall")
                 {
                     check(catalog.Current.Products.Count(p => FeedFamilies.IsReject(p.Id)) <= 1 && catalog.Current.Products.All(p => !p.Id.StartsWith("Phobos", StringComparison.Ordinal) || FeedFamilies.IsReject(p.Id)),

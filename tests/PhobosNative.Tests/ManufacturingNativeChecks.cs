@@ -26,7 +26,7 @@ internal static class ManufacturingNativeChecks
             bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
             var refinery = d.Objects[RefineryRules.Prefix + state]; var refineryItem = d.Items[refinery.strItemDef];
             check(refineryItem.nCols == 4 && refineryItem.aSocketAdds.Length == 16 && refinery.inventoryWidth == 4 && refinery.inventoryHeight == 4, "V4 occupies four by four native tiles: " + state);
-            check(refinery.nContainerWidth == 8 && refinery.nContainerHeight == 8 && refinery.aSlotsWeHave.Contains(RefineryRules.InputSlot) && Stat(refinery, "StatMass") == RefineryRules.MachineKg, "V4 has an eight by eight tray, its charge feed and weighs 180 kg: " + state);
+            check(refinery.nContainerWidth == 4 && refinery.nContainerHeight == 3 && refinery.aSlotsWeHave.Contains(RefineryRules.InputSlot) && Stat(refinery, "StatMass") == RefineryRules.MachineKg, "V4 has an eight by eight tray, its charge feed and weighs 180 kg: " + state);
             check(refinery.strNameFriendly.StartsWith("Phobos' Fennmark V4 ", StringComparison.Ordinal), "V4 carries the Fennmark V4 name: " + state);
             check(Stat(refinery, "StatBasePrice") == (damaged ? Economy.Price(RefineryRules.Prefix) / 4 : Economy.Price(RefineryRules.Prefix)), "V4 authored prices: " + state);
             check((refinery.jsonPI == RefineryRules.Prefix + "Power") == (installed && !damaged), "V4 draws power only when installed and intact: " + state);
@@ -107,7 +107,7 @@ internal static class ManufacturingNativeChecks
             var leach = d.Objects[LeachRules.Prefix + state]; var leachItem = d.Items[leach.strItemDef];
             check(leachItem.nCols == 3 && leachItem.aSocketAdds.Length == 9 && leach.inventoryWidth == 3 && leach.inventoryHeight == 3 && Stat(leach, "StatMass") == LeachRules.MachineKg,
                 "LC-3 occupies three by three native tiles and weighs 220 kg: " + state);
-            check(leach.nContainerWidth == 8 && leach.nContainerHeight == 8 && leach.aSlotsWeHave.Contains(LeachRules.Prefix + "Input"), "LC-3 has an eight by eight tray and its charge feed: " + state);
+            check(leach.nContainerWidth == 4 && leach.nContainerHeight == 3 && leach.aSlotsWeHave.Contains(LeachRules.Prefix + "Input"), "LC-3 has a four by three tray and its charge feed: " + state);
             check(leach.strNameFriendly.StartsWith("Phobos' Lixivar LC-3 Leach and Crystallise Unit", StringComparison.Ordinal), "LC-3 carries the Lixivar LC-3 name: " + state);
             check(Stat(leach, "StatBasePrice") == (damaged ? (int)Economy.Price(LeachRules.Prefix) / 4 : (int)Economy.Price(LeachRules.Prefix)) && Has(leach, EquipmentEconomy.HighSalvageMark),
                 "LC-3 carries its late-game price and the high-salvage mark: " + state);

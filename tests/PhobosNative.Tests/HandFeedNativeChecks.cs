@@ -54,8 +54,9 @@ internal static class HandFeedNativeChecks
             "DuraWal carries IsWall1x1 too, so identity is the base definition, not the condition");
         check(WallIdentity.Base("NoSuchDefinition") == "NoSuchDefinition" && WallIdentity.Base(null) == null, "An unknown or missing definition is its own base");
         var heavy = ProcessingService.OutputSizes(ProcessRecipes.ForWallMass(ProcessRules.MaximumWallKg).Current);
-        check(heavy != null && BatchPlacement.Plan(new bool[ProcessRules.OutputSize, ProcessRules.OutputSize], heavy) != null,
-            "The heaviest wall's products fit an empty 8 x 8 product tray");
+        // Whether two batches fit the fitted tray, delivered into stacks, is proved by TrayFitNativeChecks.
+        check(heavy != null && heavy.Count == ProcessRecipes.ForWallMass(ProcessRules.MaximumWallKg).Current.Products.Sum(p => p.Count),
+            "The heaviest wall's products all have a size in the game");
         // Hand loading of the F6 relies on the game's own right-click placement of one unit off a stack.
         check(typeof(CondOwner).GetMethod("PopHeadFromStack", flags)?.ReturnType == typeof(CondOwner), "The game pops one unit off a stack for right-click placement");
         // The game's own persistent loading job: PDA LOAD paints ACTReloadItem<rule>, searched ship-wide, never removed on completion.

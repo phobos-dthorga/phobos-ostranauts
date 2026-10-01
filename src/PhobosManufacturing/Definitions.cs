@@ -64,7 +64,7 @@ internal static class Definitions
         d.Triggers[spec.FeedTrigger] = new CondTrigger { strName = spec.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
         ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));
-        EquipmentInventory.Apply(d, p, InventorySpec.ProductTray(ChargeTrayCells, ChargeTrayCells));
+        EquipmentInventory.Apply(d, p, InventorySpec.ProductTray(ChargeTrayWidth, ChargeTrayHeight));
         d.Objects[spec.InputBin].strDesc = Text.Get(spec.Text("feed_description"), shape.feedCells);
         // Only Power points are electrical inputs; line ports and use points never are.
         ApplianceDefinitions.SetPowerOverride(d, p, shape.idleKW, shape.workingKW, spec.WorkingCondition, shape.points.Keys.Where(k => k.StartsWith("Power", StringComparison.Ordinal)).ToArray());
@@ -290,8 +290,9 @@ internal static class Definitions
         Machine(CrackerRules.Prefix, CrackerRules.Footprint, usesWater: false);
     }
 
-    /// <summary>The V4, LC-3 and SA-3 product trays, in cells a side.</summary>
-    internal const int ChargeTrayCells = 8;
+    /// <summary>The V4, LC-3 and SA-3 product trays in cells (Manufacturing 0.30.0; they were 8 x 8): two charges of any
+    /// recipe delivered into stacks, including two of the 2 x 2 residues side by side.</summary>
+    internal const int ChargeTrayWidth = 4, ChargeTrayHeight = 3;
     /// <summary>The A2 stores nothing. It keeps a hidden grid of its old size that admits nothing, so anything a save
     /// left in it loads attached and is put on the deck (Framework ContainerFit); it has no Inventory action.</summary>
     internal static readonly InventorySpec RegulatorInventory = InventorySpec.LegacyReceptacle(8, 8);

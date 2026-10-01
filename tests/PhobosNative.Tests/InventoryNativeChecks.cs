@@ -49,9 +49,5 @@ internal static class InventoryNativeChecks
     }
     /// <summary>Families still at the general 8 x 8 grid of earlier versions although it is roomier than storage of their
     /// footprint, to be sized in turn. A family leaves this list when it is given its fitted size; none may be added.</summary>
-    private static readonly HashSet<string> Oversized = new(StringComparer.Ordinal)
-    {
-        // Product trays that wait for stacked delivery before they can shrink.
-        "PhobosAcidPlant", "PhobosLeachUnit", "PhobosVerdemorrowHearth2"
-    };
+    private static readonly HashSet<string> Oversized = new(StringComparer.Ordinal);
 }

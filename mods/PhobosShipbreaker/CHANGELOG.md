@@ -25,6 +25,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.65.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Product trays are sized to the job (owner direction, 1 October 2026). The D4 tray is 4 x 3 cells, the R4 tray 3 x 2 and the F6 product tray 4 x 3, where each was 8 x 8. Products now arrive as stacks: the heaviest wall's thirty-seven products take six cells, a full four-packet R4 feed takes six, and two F6 releases fit with cells to spare.
+- The T2's two-cell gangue tray now stacks gangue, ten to a cell, so it no longer fills after two blocks.
+- The C1 console counts stored items by unit, not by stack.
+
+### Fixed
+
+- A T2 waiting on a full gangue tray no longer makes and abandons a gangue item every few seconds while it waits.
+
+### Save compatibility
+
+- Automatic. A tray saved with more than fits re-packs into stacks when the save loads, and anything that still has no place is put on the deck beside the machine, with one line in the crew log. Batches in progress finish with the same products.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. The grabber, the collector, the Y bins and the feed bins keep their sizes. Offline checks are not gameplay validation.
+
 ## [0.64.0] - 2026-10-01 - Draft
 
 ### Changed

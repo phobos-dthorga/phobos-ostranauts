@@ -24,7 +24,7 @@ internal static class ReclaimerDefinitions
             Content.SetStat(co, "StatMass", ReclaimerRules.MachineKg);
             co.mapPoints = source.mapPoints.ToArray();
             co.dictSlotsLayout = new System.Collections.Generic.Dictionary<string, UnityEngine.Vector3> { ["self"] = UnityEngine.Vector3.zero };
-            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ReclaimerRules.OutputSize, ReclaimerRules.OutputSize));
+            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ReclaimerRules.TrayWidth, ReclaimerRules.TrayHeight));
             co.inventoryWidth = co.inventoryHeight = ReclaimerRules.Footprint;
             co.aInteractions = state.StartsWith("Installed") ? new[] { "Inventory", ReclaimerRules.Controls } : new[] { "Inventory" };
             item.nCols = ReclaimerRules.Footprint;

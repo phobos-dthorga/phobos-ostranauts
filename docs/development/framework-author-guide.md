@@ -1369,6 +1369,21 @@ piped, and joins chain across the ship.
   ship. Register `ContainerFit.KeepFirst(prefix, named)` for items a saved job names,
   so they keep a place before the rest. A locked container, or one with its window
   open, waits for a later pass.
+- **Stacked delivery (0.71.0).** Deliver a batch's products with
+  `Inventory.TrayDelivery`: `Plan(tray, products)` (null when there is no room),
+  `Place()`, and `Rollback()` before destroying the products when the commit fails;
+  `Fits(tray, (definition, count)...)` is the same question before the products exist.
+  Units of one `StackUnits.Kind` share a stack: plain units (the definition's own mass,
+  no Phobos record) by definition id, recorded units only when mass and records are
+  identical. A batch tops up the stacks of its kind already in the tray, then forms new
+  stacks up to the game's stack limit, larger pieces taking their cells first
+  (`BatchPlacement.PlanStacked`, pure). A new stack is built with the game's
+  `CondOwner.StackFromList` and placed with `Container.AddCOSimple`, as a saved stack
+  is restored; a stack that takes more units is taken out, rebuilt with its head still
+  on top, and put back at its cell, as the game pops a stack's head. Check placement
+  with `StackUnits.Inside(product, machine)`, never by parent alone, and count stored
+  items with `StackUnits.All`. `ContainerFit` uses the same delivery to give units
+  without a cell to stacks of their kind before anything goes to the deck.
 - **Any touching pipe joins (0.69.0; owner decision, 1 October 2026).** A port no
   longer says where the pipe must lie. It marks the equipment as a participant of the
   family and places the drawn joint. `FluidRouteCache` gives each participant its own

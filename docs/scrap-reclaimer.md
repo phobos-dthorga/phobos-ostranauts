@@ -37,7 +37,8 @@ convert automatically: two become one whole R4, and a leftover returns that bill
 
 Install on **4 x 4 interior floor tiles**, with the lower feed/service edge
 accessible. Build electrical conduit separately. It has one active packet within
-a **four-packet / 52 kg feed**, and a separate **8 x 8 output inventory**.
+a **four-packet / 52 kg feed**, and a separate **3 x 2 product tray** (since
+Shipbreaker 0.65.0; products arrive as stacks, so a full feed's output fits).
 
 1. Right-click the reclaimer and choose **Control Panel**.
 2. Choose **Reclaimer feed** and load separate, empty **Identified panel residue

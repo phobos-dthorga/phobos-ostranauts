@@ -759,3 +759,18 @@ in a container's cells and contents, bounded by the old 8 x 8 grids (at most 64
 items against 64 cells, once). The full-rack message in Agriculture reads one grid
 after a failed crew action. No per-frame work is added. No performance capture or
 measured FPS claim accompanies this change.
+
+## 1 October: products delivered into stacks (L18)
+
+L18 — Static review of Framework 0.71.0, Shipbreaker 0.65.0, Manufacturing 0.30.0
+and Agriculture 0.37.0. A delivery now reads the tray's stacks once (one kind test
+per stack and member: a few condition lookups and, for recorded units only, a string
+built from their records) and plans in one pass over the batch. It runs when a batch
+finishes, never per frame, and replaces a plan that reserved one cell per product.
+Fewer objects sit in trays as heads, so the tray window, crew searches and the
+container scans that enumerate heads handle fewer entries. The fit pre-check a
+machine makes while it waits for tray room reads definitions only and creates no
+objects. A T2 waiting on a full tray no longer creates a gangue object every five
+seconds and leaves it unreferenced: it destroys the unplaced one (a real leak, found
+in this review). The load-time fit merges units without a cell one at a time, once
+per ship load. No performance capture or measured FPS claim accompanies this change.

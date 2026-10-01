@@ -22,6 +22,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.71.0] - 2026-10-01 - Draft
+
+### Added
+
+- Products are delivered into stacks. A machine's products now top up the stacks of the same item already in its tray, then form new stacks up to the game's own stack limit, where each product used to take a cell of its own. Items the game does not stack, and items that carry a record of their own that differs, keep their own cells as before.
+- When a save loads, items that no longer have a cell in a smaller tray first join stacks of their own kind inside it; only what still finds no place goes to the deck. A tray saved full of single items re-packs into stacks.
+- For mod authors: BatchPlacement.PlanStacked, TrayDelivery (plan, fits, place, rollback) and StackUnits.Kind, Room and Detach. New stacks are built and placed the way the game restores a saved stack; a stack that takes more units is taken out, rebuilt with its head still on top and put back at its cell.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes format. Jobs in progress finish with the same products, counts and masses; only where they sit in the tray differs.
+
+### Compatibility and limits
+
+- Stacking follows the game's own stack limits (fifteen scrap, ten ingots, twenty salts to a cell). Offline checks prove the plans and the game's call signatures; how the stacks look and behave in play is for the owner's check.
+
 ## [0.70.0] - 2026-10-01 - Draft
 
 ### Changed

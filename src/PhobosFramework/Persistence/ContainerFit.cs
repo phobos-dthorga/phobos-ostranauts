@@ -121,15 +121,61 @@ public static class ContainerFit
             report.Moved++;
         }
         if (overflow.Count == 0) return;
-        var anchor = LegacyItemConversions.Anchor(co);
+        // Units with no cell left join stacks of their own kind inside the grid first (Framework 0.71.0): a tray saved
+        // full of single items, as trays were before products were delivered into stacks, re-packs instead of spilling.
+        var leaving = new List<CondOwner>();
         foreach (var head in overflow)
         {
-            head.RemoveFromCurrentHome(true);
+            if (spec.Role == InventoryRole.LegacyReceptacle) { leaving.Add(head); continue; }
+            leaving.AddRange(Absorb(container, head, out int absorbed));
+            report.Moved += absorbed;
+        }
+        if (leaving.Count == 0) return;
+        var anchor = LegacyItemConversions.Anchor(co);
+        foreach (var head in leaving)
+        {
+            if (head.objCOParent != null || head.ship != null) head.RemoveFromCurrentHome(true);
             try { LegacyItemConversions.Drop(ship, head, anchor); }
             catch { if (!head.bDestroyed && head.ship == null) ship.AddCO(head, true); throw; }
             report.OnDeck += Math.Max(1, head.StackCount);
         }
         report.Equipment.Add(Controls.ObjectPresentation.Name(Root(co)));
+    }
+
+    // Takes a stack that has no cell out of the container and gives its units, one at a time, to the stacks of their
+    // kind that have room and to any free cell. Returns what found no place, re-stacked, for the deck. A stack of
+    // mixed or recorded-unlike units is returned untouched.
+    private static List<CondOwner> Absorb(Container container, CondOwner head, out int absorbed)
+    {
+        absorbed = 0;
+        var units = head.StackAsList;
+        string? kind = StackUnits.Kind(head);
+        if (!container.bAllowStacking || kind == null || units.Any(u => StackUnits.Kind(u) != kind)) return new List<CondOwner> { head };
+        head.RemoveFromCurrentHome(true);
+        if (head.objCOParent != null) return new List<CondOwner> { head };
+        foreach (var unit in units) { unit.aStack.Clear(); unit.coStackHead = null; unit.tf.SetParent(null, true); }
+        var left = new List<CondOwner>();
+        foreach (var unit in units)
+        {
+            TrayDelivery? delivery = null;
+            try
+            {
+                delivery = TrayDelivery.Plan(container, new[] { unit });
+                if (delivery != null) { delivery.Place(); absorbed++; continue; }
+            }
+            catch (Exception e) { delivery?.Rollback(); FrameworkLifecycle.Log(e.Message); }
+            left.Add(unit);
+        }
+        var stacks = new List<CondOwner>();
+        int limit = Math.Max(1, head.nStackLimit);
+        for (int i = 0; i < left.Count; i += limit)
+        {
+            var chunk = left.GetRange(i, Math.Min(limit, left.Count - i));
+            var top = chunk.Count == 1 ? chunk[0] : CondOwner.StackFromList(chunk);
+            top.Visible = true;
+            stacks.Add(top);
+        }
+        return stacks;
     }
 
     // Only the item's cell changes: it stays contained, so mass, parent and identity are untouched.

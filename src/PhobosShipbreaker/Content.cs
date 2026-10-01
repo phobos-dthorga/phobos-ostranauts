@@ -91,7 +91,7 @@ internal static class Content
             var co = prepared.Objects[variant];
             co.strNameFriendly = co.strNameShort = Text.Get("Content.phobos_powered_dismantling_fixture", (variant.EndsWith("Dmg", StringComparison.Ordinal) ? Text.Get("Content.damaged") : ""));
             co.strDesc = Text.Get("Content.x_industrial_fixture_kg_feed_up_to", controlsKey, cycleSeconds, workingKW, ProcessRules.Footprint, ProcessRules.MachineKg, ProcessRules.FeedCapacity, ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg, ReclaimerRules.InputKg);
-            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ProcessRules.OutputSize, ProcessRules.OutputSize));
+            EquipmentInventory.Declare(co, InventorySpec.ProductTray(ProcessRules.TrayWidth, ProcessRules.TrayHeight));
             co.inventoryWidth = co.inventoryHeight = ProcessRules.Footprint;
             co.nStackLimit = 1;
             SetStat(co, "StatMass", ProcessRules.MachineKg);

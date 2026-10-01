@@ -13,8 +13,10 @@ internal static class Definitions
 {
     internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
     internal const double RackKg = 80, CookerKg = 12;
-    // What each inventory is for (Framework 0.70.0): the rack and the cooker hold their supplies and products.
-    internal static readonly InventorySpec RackInventory = InventorySpec.ProductTray(8, 8, Rack + "Supplies"), CookerInventory = InventorySpec.ProductTray(8, 8);
+    // What each inventory is for (Framework 0.70.0), fitted in Agriculture 0.37.0 now that harvests arrive as stacks: the
+    // rack holds two harvests (ten portions to a cell), its seed and residue, and about six kinds of supply; the cooker a
+    // stack of raw portions, a stack of meals and two cells to spare. Both were 8 x 8.
+    internal static readonly InventorySpec RackInventory = InventorySpec.ProductTray(4, 3, Rack + "Supplies"), CookerInventory = InventorySpec.ProductTray(2, 2);
     /// <summary>Masses the crop model is written for; the materials pack is bound to them.</summary>
     internal const double IrrigationKg = 5, NutrientKg = .04;
     internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";

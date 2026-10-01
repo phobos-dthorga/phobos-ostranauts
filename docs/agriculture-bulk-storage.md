@@ -89,7 +89,8 @@ cannot dose or be filled until it is repaired and a crew member chooses
 **Recover trapped nutrients after repair**. To empty a hopper before moving or
 dismantling it, choose **Bag up to 500 g as a bulk nutrient charge**: each job
 packs up to 500 g into an ordinary bulk charge in the hopper's four-cell rack, at
-the same value per kilogram. When the rack is full the crew log says so: take the
+the same value per kilogram. Full bags stack three to a cell (since Agriculture
+0.37.0), so the rack holds twelve. When it is full the crew log says so: take the
 charges out of its Inventory and carry on. A hopper that still holds nutrients refuses to be moved or
 dismantled. The contents are the crop model's single aggregate nutrient figure,
 the same as every charge and packet.

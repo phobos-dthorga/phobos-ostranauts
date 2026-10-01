@@ -173,14 +173,17 @@ internal static partial class Service
     {
         if(!Definitions.Ready||Access(hopper,null,actor)!=null||!HopperService.Ready(hopper)||hopper.objContainer==null||hopper.objContainer.Locked)return false;
         var state=HopperService.Read(hopper);double kg=Math.Min(BulkDefinitions.NutrientKg,state.AvailableKg);if(kg<=1e-6)return false;
-        CondOwner? product=null;bool published=false;
+        CondOwner? product=null;bool published=false;Phobos.Ostranauts.Framework.Inventory.TrayDelivery? delivery=null;
         try
         {
             product=DataHandler.GetCondOwner(BulkDefinitions.Nutrients);WriteCharge(product,new NutrientCharge(kg,kg));
-            if(!hopper.objContainer.AllowedCO(product)||!hopper.objContainer.CanAddSimple(product,out var cell))return false;
+            // A full bag joins a stack of identical full bags in the rack (three to a cell), or takes a free cell (Agriculture 0.37.0).
+            delivery=hopper.objContainer.AllowedCO(product)?Phobos.Ostranauts.Framework.Inventory.TrayDelivery.Plan(hopper.objContainer,new[]{product}):null;
+            if(delivery==null)return false;
             Phobos.Ostranauts.Framework.Liquids.BulkVessel.BeginConversion(hopper,product.strID,state.TotalKg);
-            hopper.objContainer.AddCOSimple(product,cell);
-            if(product.objCOParent!=hopper)throw new InvalidOperationException("Hopper bag placement failed");published=true;
+            try{delivery.Place();}
+            catch{delivery.Rollback();Phobos.Ostranauts.Framework.Liquids.BulkVessel.EndConversion(hopper);throw;}
+            if(!Phobos.Ostranauts.Framework.Inventory.StackUnits.Inside(product,hopper))throw new InvalidOperationException("Hopper bag placement failed");published=true;
             state.SetService(state.ServiceKg-kg);Phobos.Ostranauts.Framework.Liquids.BulkVessel.Save(hopper,state);
             Phobos.Ostranauts.Framework.Liquids.BulkVessel.EndConversion(hopper);hopper.objContainer.Redraw();return true;
         }

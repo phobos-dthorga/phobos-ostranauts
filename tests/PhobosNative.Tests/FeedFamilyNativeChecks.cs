@@ -63,8 +63,8 @@ internal static class FeedFamilyNativeChecks
         foreach (double kg in new[] { family.MinKg, family.MaxKg })
         {
             var sizes = ProcessingService.OutputSizes(family.Catalog(kg).Current);
-            check(sizes != null && Phobos.Ostranauts.Framework.Inventory.BatchPlacement.Plan(new bool[ProcessRules.OutputSize, ProcessRules.OutputSize], sizes) != null,
-                $"{family.Key} {kg} kg products fit an empty 8 x 8 tray");
+            // Whether two batches fit the fitted tray, delivered into stacks, is proved by TrayFitNativeChecks.
+            check(sizes != null && sizes.Count == family.Catalog(kg).Current.Products.Sum(p => p.Count), $"{family.Key} {kg} kg products all have a size in the game");
         }
         foreach (var reject in FeedFamilies.RejectKg)
         {

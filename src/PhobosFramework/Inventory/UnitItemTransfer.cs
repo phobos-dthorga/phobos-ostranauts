@@ -58,9 +58,7 @@ public sealed class UnitItemTransfer : IPhysicalTransfer
     }
     public void Detach()
     {
-        if (item.coStackHead != null) { remainder = item.coStackHead; remainder.RemoveCO(item); }
-        else if (item.aStack.Count > 0) remainder = item.PopHeadFromStack();
-        else item.RemoveFromCurrentHome(true);
+        remainder = StackUnits.Detach(item);
     }
     public void Place()
     {

@@ -107,7 +107,8 @@ flowchart TD
 4. Keep water, nutrients, CO₂, power and cabin conditions available. You can leave
    the panel closed. Pausing lamps does **not** freeze respiration or stress.
 5. At readiness, choose **Harvest and retain stock**. Thirty minutes of crew work
-   produces physical cargo only if the complete output fits the rack inventory.
+   produces physical cargo only if the complete output fits the rack inventory
+   (4 x 3 cells since Agriculture 0.37.0; portions arrive as stacks of ten).
    Remove cargo and replant. Full storage keeps the crop intact; harvest again
    after making room.
 

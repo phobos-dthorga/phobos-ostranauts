@@ -364,19 +364,17 @@ internal sealed partial class ProcessingService
         return sizes;
     }
 
-    private static bool CanFitBatch(CondOwner machine, ProcessRecipe recipe)
-    {
-        var sizes = OutputSizes(recipe);
-        return machine.objContainer != null && sizes != null &&
-            BatchPlacement.Plan(Occupancy(machine.objContainer), sizes) != null;
-    }
+    // Products go into the tray as stacks since Shipbreaker 0.65.0 (Framework TrayDelivery): the batch tops up the
+    // plain stacks already there and forms new ones, so the fit is judged the same way.
+    private static bool CanFitBatch(CondOwner machine, ProcessRecipe recipe) =>
+        TrayDelivery.Fits(machine.objContainer, recipe.Products.Select(p => (p.Id, p.Count)));
 
     private sealed class NativeDelivery : IBatchDelivery
     {
         private readonly CondOwner machine, input;
         private readonly ProcessJob job;
         private readonly List<CondOwner> products = new List<CondOwner>();
-        private Position[]? plan;
+        private TrayDelivery? plan;
         private bool retired;
         internal NativeDelivery(CondOwner machine, CondOwner input, ProcessJob job)
         { this.machine = machine; this.input = input; this.job = job; }
@@ -398,22 +396,16 @@ internal sealed partial class ProcessingService
             }
             if (!ProcessRules.Balanced(input.GetTotalMass(), products.Select(p => p.GetTotalMass())))
                 throw new InvalidOperationException(Text.Get("ProcessingService.batch_would_violate_material_balance"));
-            var sizes = products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p))
-                .Select(s => new ItemSize(s.x, s.y)).ToArray();
-            plan = BatchPlacement.Plan(Occupancy(machine.objContainer), sizes);
+            plan = TrayDelivery.Plan(machine.objContainer, products);
             return plan != null;
         }
 
         public void PlaceProducts()
         {
             if (plan == null) throw new InvalidOperationException(Text.Get("ProcessingService.unprepared_batch"));
-            for (int i = 0; i < products.Count; i++)
-            {
-                var p = products[i];
-                machine.objContainer.AddCOSimple(p, new PairXY(plan[i].X, plan[i].Y));
-                if (p.objCOParent != machine || !machine.objContainer.ContainedCOs.Contains(p))
-                    throw new InvalidOperationException(Text.Get("ProcessingService.output_placement_failed"));
-            }
+            plan.Place();
+            if (products.Any(p => !StackUnits.Inside(p, machine)))
+                throw new InvalidOperationException(Text.Get("ProcessingService.output_placement_failed"));
         }
 
         public void ConsumeInput()
@@ -437,6 +429,8 @@ internal sealed partial class ProcessingService
 
         public void RollbackProducts()
         {
+            // Stacked products come out one unit at a time first; stacks that were in the tray before stay as they were.
+            plan?.Rollback();
             foreach (var product in products)
             {
                 if (product == null || product.bDestroyed) continue;

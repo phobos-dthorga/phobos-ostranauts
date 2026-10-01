@@ -18,7 +18,7 @@ internal static class ReclaimerNativeChecks
         check(typeof(Powered).GetMethod("UsePower", flags, null, new[] { typeof(CondOwner), typeof(double) }, null) != null,
             "Native electrical receipt and heat preflight hook remain available");
         var machine = d.Objects[ReclaimerRules.Installed]; var item = d.Items[machine.strItemDef];
-        check(item.nCols == 4 && item.aSocketAdds.Length == 16 && machine.nContainerWidth == 8 && machine.nContainerHeight == 8,
+        check(item.nCols == 4 && item.aSocketAdds.Length == 16 && machine.nContainerWidth == ReclaimerRules.TrayWidth && machine.nContainerHeight == ReclaimerRules.TrayHeight,
             "Reclaimer starts with full 4x4 footprint and separate 8x8 output");
         check(machine.aInteractions.Contains(IndustrialRules.LocalControls) && machine.aSlotsWeHave.Contains(ReclaimerRules.InputSlot), "Reclaimer has ordinary control panel and private feed");
         var feed = d.Objects[ReclaimerRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
@@ -29,7 +29,8 @@ internal static class ReclaimerNativeChecks
         foreach (var recipe in ProcessRecipes.WallPanels.Recipes.Concat(ReclaimerRules.Recipes.Recipes))
         {
             var sizes = ProcessingService.OutputSizes(recipe);
-            check(sizes != null && BatchPlacement.Plan(new bool[8,8], sizes) != null, "Actual complete output batch fits product inventory");
+            // An unstacked batch is five cells (wall panels thirteen); the fitted trays hold them as stacks (TrayFitNativeChecks).
+            check(sizes != null && BatchPlacement.Plan(new bool[4,4], sizes) != null, "Actual complete output batch has a placement");
             check(BatchPlacement.Plan(new bool[1,1], sizes!) == null, "Whole output batch cannot reuse one available cell");
             check(recipe.Products.All(p => ProcessMaterial.MassMatches(new DataCO(DataHandler.dictCOs[p.Id]).GetCondAmount("StatMass"), p.Kg)), "Product mass agrees with native definitions");
         }

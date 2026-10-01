@@ -254,7 +254,9 @@ A water charge waits until the linked vessel can take its whole yield; the
 panel says why (no vessel, full, damaged, held, catch chamber, out of reach)
 and rechecks every few seconds. The salt crust also waits, with the reason,
 until its ammonia store is linked, intact and has room for the ammonia. The tray must have room for every product or
-the charge waits with that reason. Empty the tray by hand.
+the charge waits with that reason. Empty the tray by hand. Since Manufacturing 0.30.0 the V4, LC-3 and SA-3
+trays are 4 x 3 cells and products arrive as stacks (ingots ten to a cell, salts twenty), so a tray holds two
+charges of every recipe except the LC-3's evaporite leach, whose two 2 x 2 residues leave room for one.
 
 ## The electrolysis cell
 

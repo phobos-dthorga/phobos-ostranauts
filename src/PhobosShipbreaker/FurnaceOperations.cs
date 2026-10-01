@@ -184,7 +184,7 @@ internal static partial class FurnaceService
         if (b.Qualified)
         {
             var products = new List<CondOwner>(); var specs = new List<ProductSpec>();
-            bool committing = false;
+            bool committing = false; TrayDelivery? delivery = null;
             try
             {
                 foreach (var spec in Recipe(s).Products)
@@ -194,13 +194,11 @@ internal static partial class FurnaceService
                 }
                 if (products.Where((p, i) => !ProcessRules.MassMatches(p.GetTotalMass(), specs[i].Kg)).Any() ||
                     products.Any(p => p.coStackHead != null || p.aStack.Count != 0 || p.GetCOsSafe(true).Count != 0 || !co.objContainer.AllowedCO(p))) return false;
-                var plan = BatchPlacement.Plan(ProcessingService.Occupancy(co.objContainer), products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p)).Select(p => new ItemSize(p.x, p.y)).ToArray());
-                if (plan == null) return false;
-                for (int i = 0; i < products.Count; i++)
-                {
-                    co.objContainer.AddCOSimple(products[i], new PairXY(plan[i].X, plan[i].Y));
-                    if (products[i].objCOParent != co || !co.objContainer.ContainedCOs.Contains(products[i])) throw new InvalidOperationException("Furnace output placement failed.");
-                }
+                // Ingots and scrap gates go into the tray as stacks since Shipbreaker 0.65.0 (Framework TrayDelivery).
+                delivery = TrayDelivery.Plan(co.objContainer, products);
+                if (delivery == null) return false;
+                delivery.Place();
+                if (products.Any(p => !StackUnits.Inside(p, co))) throw new InvalidOperationException("Furnace output placement failed.");
                 // Synchronous native commit, with a persisted no-retry marker. If native
                 // destruction fails midway, retain all evidence and require recovery;
                 // never replay twenty inputs into another pair of products on reload.
@@ -212,7 +210,10 @@ internal static partial class FurnaceService
             finally
             {
                 if (!committing)
+                {
+                    delivery?.Rollback();
                     foreach (var p in products) if (p != null && !p.bDestroyed) { if (p.objCOParent != null || p.ship != null) p.RemoveFromCurrentHome(true); p.Destroy(); }
+                }
             }
         }
         // Released stock starts at the model's reference temperature. Its residual

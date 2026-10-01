@@ -433,7 +433,7 @@ internal sealed class ChargeMachine
     private sealed class ChargeDelivery : IBatchDelivery
     {
         private readonly ChargeMachine owner; private readonly CondOwner machine; private readonly List<CondOwner> units; private readonly IReadOnlyList<ProductSpec> specs; private readonly double solidsKg;
-        private readonly List<CondOwner> products = new(); private Position[]? plan; private bool retired;
+        private readonly List<CondOwner> products = new(); private TrayDelivery? plan; private bool retired;
         internal ChargeDelivery(ChargeMachine owner, CondOwner machine, List<CondOwner> units, IReadOnlyList<ProductSpec> specs, double solidsKg)
         { this.owner = owner; this.machine = machine; this.units = units; this.specs = specs; this.solidsKg = solidsKg; }
         public bool InputConsumed => retired || units.All(u => u.bDestroyed);
@@ -450,18 +450,15 @@ internal sealed class ChargeMachine
                 if (!machine.objContainer.AllowedCO(product)) return false;
             }
             if (!ProcessMaterial.Balanced(solidsKg, products.Select(p => p.GetTotalMass()))) throw new InvalidOperationException(owner.T("unbalanced"));
-            var sizes = products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p)).Select(v => new ItemSize(v.x, v.y)).ToArray();
-            plan = BatchPlacement.Plan(Occupancy(machine.objContainer), sizes);
+            // Products go into the tray as stacks since Manufacturing 0.30.0 (Framework TrayDelivery).
+            plan = TrayDelivery.Plan(machine.objContainer, products);
             return plan != null;
         }
         public void PlaceProducts()
         {
             if (plan == null) throw new InvalidOperationException(owner.T("unprepared"));
-            for (int i = 0; i < products.Count; i++)
-            {
-                machine.objContainer.AddCOSimple(products[i], new PairXY(plan[i].X, plan[i].Y));
-                if (products[i].objCOParent != machine || !machine.objContainer.ContainedCOs.Contains(products[i])) throw new InvalidOperationException(owner.T("output_placement_failed"));
-            }
+            plan.Place();
+            if (products.Any(p => !StackUnits.Inside(p, machine))) throw new InvalidOperationException(owner.T("output_placement_failed"));
         }
         public void ConsumeInput()
         {
@@ -479,6 +476,7 @@ internal sealed class ChargeMachine
         }
         public void RollbackProducts()
         {
+            plan?.Rollback();
             foreach (var product in products)
             {
                 if (product == null || product.bDestroyed) continue;
@@ -487,15 +485,6 @@ internal sealed class ChargeMachine
             }
             products.Clear();
             machine.objContainer.Redraw();
-        }
-        private static bool[,] Occupancy(Container tray)
-        {
-            var grid = tray.gridLayout;
-            var result = new bool[grid.gridMaxX, grid.gridMaxY];
-            for (int x = 0; x < grid.gridMaxX; x++)
-            for (int y = 0; y < grid.gridMaxY; y++)
-                result[x, y] = grid.gridID[x, y] != null || grid.gridInventoryItem[x, y] != null;
-            return result;
         }
     }
 

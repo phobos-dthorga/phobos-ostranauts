@@ -113,7 +113,7 @@ internal static partial class Service
     }
     private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
     {
-        var products = new List<CondOwner>(); bool committed = false;
+        var products = new List<CondOwner>(); bool committed = false; TrayDelivery? delivery = null;
         try
         {
             if (s.Object.objContainer == null || s.Object.objContainer.Locked) return false;
@@ -128,13 +128,13 @@ internal static partial class Service
                 initialize?.Invoke(product,spec.Id);
                 if (Math.Abs(product.GetTotalMass() - spec.Kg) > 1e-7 || !s.Object.objContainer.AllowedCO(product)) throw new InvalidOperationException("Invalid agriculture product.");
             }
-            var grid = s.Object.objContainer.gridLayout; var cells = new bool[grid.gridMaxX, grid.gridMaxY];
-            for (int x = 0; x < grid.gridMaxX; x++) for (int y = 0; y < grid.gridMaxY; y++) cells[x, y] = grid.gridID[x, y] != null || grid.gridInventoryItem[x, y] != null;
-            var plan = BatchPlacement.Plan(cells, products.Select(p => { var size = GUIInventoryItem.GetWidthHeightForCO(p); return new ItemSize(size.x, size.y); }).ToArray());
-            if (plan == null) { s.Notice = Text.Get("full"); return false; }
+            // Portions and seed go into the inventory as stacks since Agriculture 0.37.0 (Framework TrayDelivery); recorded
+            // products (residue, solution, mixtures) keep their own cells.
+            delivery = TrayDelivery.Plan(s.Object.objContainer, products);
+            if (delivery == null) { s.Notice = Text.Get("full"); return false; }
             if (!DeliveryStore(s.Object).TryWrite(new Dictionary<string,string>{["state"]="pending"})) throw new InvalidOperationException("Protected material delivery.");
-            for (int n = 0; n < products.Count; n++)
-            { s.Object.objContainer.AddCOSimple(products[n], new PairXY(plan[n].X, plan[n].Y)); if (products[n].objCOParent != s.Object) throw new InvalidOperationException("Agriculture placement failed."); }
+            delivery.Place();
+            if (products.Any(p => !StackUnits.Inside(p, s.Object))) throw new InvalidOperationException("Agriculture placement failed.");
             if (input != null)
             {
                 input.RemoveFromCurrentHome(true);
@@ -151,8 +151,12 @@ internal static partial class Service
         }
         finally
         {
-            if (!committed) foreach (var p in products)
-            { if (p == null || p.bDestroyed) continue; if (p.ship != null || p.objCOParent != null) p.RemoveFromCurrentHome(true); p.Destroy(); }
+            if (!committed)
+            {
+                delivery?.Rollback();
+                foreach (var p in products)
+                { if (p == null || p.bDestroyed) continue; if (p.ship != null || p.objCOParent != null) p.RemoveFromCurrentHome(true); p.Destroy(); }
+            }
         }
     }
 }

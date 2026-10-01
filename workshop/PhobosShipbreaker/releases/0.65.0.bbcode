@@ -1,0 +1,28 @@
+[h1]Phobos Shipbreaker 0.65.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Product trays are sized to the job (owner direction, 1 October 2026). The D4 tray is 4 x 3 cells, the R4 tray 3 x 2 and the F6 product tray 4 x 3, where each was 8 x 8. Products now arrive as stacks: the heaviest wall's thirty-seven products take six cells, a full four-packet R4 feed takes six, and two F6 releases fit with cells to spare.
+[*]The T2's two-cell gangue tray now stacks gangue, ten to a cell, so it no longer fills after two blocks.
+[*]The C1 console counts stored items by unit, not by stack.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]A T2 waiting on a full gangue tray no longer makes and abandons a gangue item every few seconds while it waits.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. A tray saved with more than fits re-packs into stacks when the save loads, and anything that still has no place is put on the deck beside the machine, with one line in the crew log. Batches in progress finish with the same products.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.71.0 or newer. The grabber, the collector, the Y bins and the feed bins keep their sizes. Offline checks are not gameplay validation.
+[/list]

@@ -63,7 +63,7 @@ internal static class IndustryService
             if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co) + "\n\n" + ReclamationService.Describe(co);
             double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
             if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
-            if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
+            if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", Phobos.Ostranauts.Framework.Inventory.StackUnits.All(co).Count(), co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
             if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
             if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
             if (StorageService.Supported(co)) detail += "\n\n" + Plugin.Storage.Describe(co);

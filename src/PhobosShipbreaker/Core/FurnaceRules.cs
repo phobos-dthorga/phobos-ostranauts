@@ -13,6 +13,9 @@ public static class FurnaceRules
     /// <summary>The charge chamber's grid in cells: exactly the twenty one-cell pieces of a charge (it was 10 x 8
     /// before Shipbreaker 0.64.0; pieces saved beyond the smaller grid are moved inside it when the save loads).</summary>
     public const int ChamberWidth = 5, ChamberHeight = 4;
+    /// <summary>The F6 product tray in cells (Shipbreaker 0.65.0; it was 8 x 8): two releases of any recipe, with
+    /// cells to spare for a coolant charge or a drain canister.</summary>
+    public const int TrayWidth = 4, TrayHeight = 3;
     public const double FeedUnitKg = 1, RemainderKg = 1, BlankKg = ChargeUnits * FeedUnitKg - RemainderKg;
     public const double RatingKg = 50, MachineKg = 240, RadiatorKg = 100, SectionKg = 80;
     public const double ReferenceK = 298.15, MeltK = 933.45, TargetK = 973.15, ReleaseK = 323.15;

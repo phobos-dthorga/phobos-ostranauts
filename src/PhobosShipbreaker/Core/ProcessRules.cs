@@ -26,7 +26,9 @@ public static class ProcessRules
     public const double IdleKW = 0.12;
     public const int FeedCapacity = 4;
     public const int Footprint = 4;
-    public const int OutputSize = 8;
+    /// <summary>The D4 product tray in cells (Shipbreaker 0.65.0; it was 8 x 8): two of the heaviest wall's batches, or a
+    /// full four-panel feed of standard walls, delivered into stacks.</summary>
+    public const int TrayWidth = 4, TrayHeight = 3;
     public const double MachineKg = 160;
     /// <summary>The D4 definition prefix (Content.Prefix), named here for the economy pack.</summary>
     public const string Prefix = "PhobosShipbreaker";

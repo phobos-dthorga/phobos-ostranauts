@@ -36,7 +36,7 @@ Keep the existing fixture's identity, installed footprint and four-panel feed.
 Orient its loading mouth toward the chute; retain usable crew access alongside
 the machine. The illustration rotates its existing sprite, not its saved objects.
 The chute and grabber add distinct hardware, construction mass and power needs.
-Do not reinterpret the fixture's 8 x 8 inventory grid as an eight-tile world object.
+Do not reinterpret the fixture's inventory grid (4 x 3 cells since Shipbreaker 0.65.0) as a world footprint.
 The earlier 2 x 2 underfloor parts-port concepts remain separate possible endpoints;
 they are not silently enlarged or repurposed into this full-panel hull connection.
 
@@ -110,7 +110,8 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
   moved: ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows.
   Unsupported cargo remains untouched, with a reason in the status panel.
 - **Chute:** no user inventory. It is the connection between the two machines.
-- **Processor Inventory:** 8 x 8 products tray. Its four-panel internal feed
+- **Processor Inventory:** 4 x 3 products tray (since Shipbreaker 0.65.0; products
+  arrive as stacks, so a full four-panel feed's output fits). Its four-panel internal feed
   remains saved and opens through the Control Panel's **Open feed inventory** or
   `phobosshipbreaker feed`; ordinary Inventory no longer opens the second grid.
   **Load feed by crew** keeps it loaded without the grabber; see the

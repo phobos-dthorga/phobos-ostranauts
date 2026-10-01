@@ -38,6 +38,45 @@ internal static class GridFitChecks
         bool refused = false; try { GridFit.Fit(2, 2, new[] { One("a", 0, 0), One("a", 1, 0) }); } catch (ArgumentException) { refused = true; }
         check(refused, "Two items with one id are refused");
 
+        // Framework 0.71.0 stacked placement: a batch tops up the stacks of its kind already in the tray, then forms new
+        // stacks up to the stack limit; what never stacks takes its own cells.
+        var one = new ItemSize(1, 1);
+        StackItem[] Batch(params (string? Kind, int Count, int Limit)[] parts) => parts.SelectMany(p => Enumerable.Repeat(new StackItem(p.Kind, one, p.Limit), p.Count)).ToArray();
+        // Applies a plan to a model tray (occupied cells and stack counts by kind) and returns the cells in use.
+        int Deliver(bool[,] cells, List<(string Kind, int Count, int Limit)> stacks, StackItem[] batch, out bool fits)
+        {
+            var room = stacks.Select(s => new StackRoom(s.Kind, s.Limit - s.Count)).ToArray();
+            var plan = BatchPlacement.PlanStacked(cells, room, batch); fits = plan != null;
+            if (plan == null) return cells.Cast<bool>().Count(c => c);
+            for (int i = 0; i < batch.Length; i++) if (plan.Existing[i] >= 0) { var s = stacks[plan.Existing[i]]; stacks[plan.Existing[i]] = (s.Kind, s.Count + 1, s.Limit); }
+            for (int n = 0; n < plan.NewStacks; n++)
+            {
+                cells[plan.Positions[n].X, plan.Positions[n].Y] = true;
+                int count = Enumerable.Range(0, batch.Length).Count(i => plan.New[i] == n); var first = batch[Array.IndexOf(plan.New, n)];
+                if (first.Stacks) stacks.Add((first.Kind!, count, first.Limit));
+            }
+            return cells.Cast<bool>().Count(c => c);
+        }
+        // The R4's packet (three steel, one aluminium, one reject that never stacks) four times over into 3 x 2 cells.
+        var trayCells = new bool[3, 2]; var trayStacks = new List<(string, int, int)>(); bool ok = true; int used = 0;
+        for (int packet = 0; packet < 4 && ok; packet++) used = Deliver(trayCells, trayStacks, Batch(("steel", 3, 15), ("aluminium", 1, 15), (null, 1, 1)), out ok);
+        check(ok && used == 6 && trayStacks.Count == 2 && trayStacks[0] == ("steel", 12, 15) && trayStacks[1] == ("aluminium", 4, 15),
+            "Four reclaimer packets fill a six-cell tray: one steel stack, one aluminium stack and four rejects");
+        Deliver(trayCells, trayStacks, Batch(("steel", 3, 15), ("aluminium", 1, 15), (null, 1, 1)), out bool fifth);
+        check(!fifth && trayStacks[0] == ("steel", 12, 15), "A fifth packet waits: its reject has no cell, and nothing of it is placed");
+        // The heaviest wall's thirty-seven products twice over into 4 x 3 cells.
+        var wall = Batch(("steel", 30, 15), ("aluminium", 4, 15), ("parts", 2, 20), (null, 1, 1));
+        var d4 = new bool[4, 3]; var d4Stacks = new List<(string, int, int)>();
+        int firstWall = Deliver(d4, d4Stacks, wall, out bool wallOne), secondWall = Deliver(d4, d4Stacks, wall, out bool wallTwo);
+        check(wallOne && firstWall == 5 && wallTwo && secondWall == 8, "Thirty-seven products take five cells, and a second batch tops up the open stacks before taking three more");
+        var unstacked = BatchPlacement.PlanStacked(new bool[2, 1], Array.Empty<StackRoom>(), Batch((null, 2, 15)));
+        check(unstacked != null && unstacked.NewStacks == 2 && unstacked.Existing.All(e => e < 0), "Products without a kind never share a cell");
+        check(BatchPlacement.PlanStacked(new bool[1, 1], new[] { new StackRoom("steel", 2) }, Batch(("steel", 2, 15))) is { NewStacks: 0 } &&
+              BatchPlacement.PlanStacked(new bool[0, 0], new[] { new StackRoom("steel", 1) }, Batch(("steel", 2, 15))) == null,
+            "A batch that fits wholly into open stacks needs no free cell; one unit over needs one");
+        check(BatchPlacement.PlanStacked(new bool[2, 2], new[] { new StackRoom("aluminium", 9) }, Batch(("steel", 16, 15))) is { NewStacks: 2 },
+            "Room in a stack of another kind is never used, and a stack never exceeds its limit");
+
         // Roles: a role needs a grid and a trigger; none has neither.
         var tray = InventorySpec.ProductTray(4, 3);
         check(tray.Cells == 12 && tray.Trigger == EquipmentInventory.Solid && tray.Sized(2, 2).Role == InventoryRole.ProductTray && tray.Sized(2, 2).Cells == 4,

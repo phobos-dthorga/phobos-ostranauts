@@ -55158,8 +55158,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a74f9d1cf11e8b260498607f223d9c980337e8979136833d7c4b03084eb30828",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "ebe40189c74f44b621056952f4d75e27135861684a948ec450ac23607c7cee36",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "SUPPORT.md",
@@ -55179,15 +55179,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "eed1c0a9f1df0d104627aa41fd2ac6d39b741e8650a9bd4206c37091044aa646",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "24c272065468c45f0170fdbe89b91523c6de4402ff4216eb1452d64156a762be",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "acb285bd8a7482061d57ccf6eca5627bf9f29314649129eea84fec0bc3fbbe34",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "936f31e41c3b39fbed783cfe6028d25eedc3fcb81301b857dbe91525dff7772e",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -55207,8 +55207,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d19a0ca503207cc1c30ebffd3eadfb2066df2c190694cf6a60c31692c2646170",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "f7049c0401677254c33f49f10ec4785ad89d524d7fc7882668e18b7c14cb42bc",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -55318,8 +55318,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "adb1e8a528e6285b9f13a4f9311a78174c05936f4b4a0c24f01e5b199ac8fed2",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "cbbda50437e64f355c1a0a3af67f559009db63440eeb374c1a266062c16931ba",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55346,8 +55346,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "f3388ab7d6298576ce2f62c21fc9064d52a7f1acaad23762821d4ac2958f6cfa",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "99dd339e8bd751dfd805c241655fecd776c33443c0e9a07deaa81be7c06dc14a",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -55619,8 +55619,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b47ce73b092b11dd8a6f761654fd28e039edc5f42995f5407f536cc07a2af694",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "b4844db5aad99235d0d397b2781a99217981beda7feb67642761452f0ac17462",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -55841,8 +55841,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "9fd2c590a4efacbfb5ce6cb5d9746ba369cd46d0d4454dd35ccca32053594916",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "ef17b8a8c18433b4fa9824a01d2fe4be3420a19d31b8adeead1cf5bfe4b1121c",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56053,8 +56053,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e1428aaae348f68fecd440e649c87f13d843f176915ba08711442a4dfb69e8ba",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "d1e9381c7753d01263b8d926b203bdba133b392da8c31f69c9f9eb1f0cb255f7",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56109,15 +56109,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b05b8274db681feed1162609d0d84df92c700921488338cc85d0acfeb676111a",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "a0d96d7382ced931281d322dd5a34c15b487a6d9af8e7292b689db4c9564229f",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0066ef05fce06774b36edcdfdc9faa8c2713c85d8b6b9d8f6b1d9a14d1554869",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "c770f1318c462a761babc21a379491cb980962d263922458c70bf28038051594",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/item-references.md",
@@ -56130,15 +56130,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "940c861f2ee3269a65cd37df3c749f32da88ab3111e1c4d538cba2f366177454",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "a92537e89c5bbc119bfafb0a5b5ba57bfda3378c8ea3953aea76bfedf1f29503",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "ea622132acd01f0910e9bbd0b83709a4d54fc0ef614084dbc21f97022e170a7c",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "ea39446f19d03d117c0c255cdda4c0b33cae34fd4a7875b5337eef093c67e3c4",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -56158,8 +56158,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6a68db1b771eeae39eedaf10a468c822a8ad8b3ce582babc09e98f794a5351e2",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "9d54dbfa1f93ceb07cc936eff057536a9d3e9649d6405cfed5277e7f4018c8be",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56172,8 +56172,8 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "28ef15053b8e77511df374011b28fc2432f0153af9011bd2df6da43f96216e74",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "7f4b8abd07221ac0739331d92063f4fd55ff3a847ba41ff807e821a34233c906",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -56200,15 +56200,15 @@
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "f37d8819c293887760a5771395aedea45852a8a6b677d4b78a909704c33042e5",
-      "review": "2026-09-29: grabber moves every accepted family; accounting for the part's own mass."
+      "sha256": "56062fe7f0f43013c20318d0c60c3d45bd2a5947822c3c61ad5d861c78048694",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "076a5c218a34d48bcd05e2a8abb1ceb25eaa69a676a244f57ea9d10252c9f6bc",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "cd026ed5b78e8bc3da7224a5d6e82bc63e121df64850b0b0031f273001220bec",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56235,8 +56235,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1077de7791c7b93460a7c59bef7a61875a5ed95c5c4e8ecdcd1df707c4ba1efa",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "3aab806ee21cc0041c23bec75f29d40e8593ca2698b51e19a043075c452a2061",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -56249,22 +56249,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "05d15bf54f680ab4c0af654adde9e6ef7c91d386a9f186c546607e8f20fc0b5f",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "48e36c4303ac60e12624592898411f35dd7db435ffa328416705710f19796c63",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "58f2c8d0a1600bfa5e2b7410033f7e2181528cdc5f6a79149fabf3a420426be8",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "ef102e59a6d3c1d4a408e9450cc7d7e846e8594aca255c5479989a320a479347",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "abe6c8fa212f756fb4b19ac29c2a10dabb0d8111f20208716fc7441b2e97abe5",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "2d0291abadeb76fdaea0cdec0a1c2b7fced462f1bd478e1fd5bc12b349458f54",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56407,8 +56407,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "752e0967714c47d23c511cff80482a85cd9bfb635dffdc8e664979285fb29d68",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "aefe8179134d205227da7d1713334c4bbc171a8ee87e0d84e49f349b3c60d605",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -56440,14 +56440,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2019e7bf709a70d37c3c26f3203bfb233838ea1c75243f48073aea1fddb65ef6",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "5563bddad2c5334a341657f3a1f09e412008a3d986a4956080a4e3bca545e8bd",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "45b925b487f3575e7efba34783ce576bf02a7497b877e433067bd3ff5128ee7e",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "043908f3c8ad8824518ff35085c914e3049273f457dae813427f914debe67b4f",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56464,8 +56464,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d823f0584ad456b6432577e5dc5e1479b3d611c00fc8b205c7a50196e3697eec",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "9e41529ad0e941ea419b99141073fbb624e47734124708f6633add436bbbfcdc",
+      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
