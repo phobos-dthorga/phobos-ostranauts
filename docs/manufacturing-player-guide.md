@@ -5,7 +5,7 @@ Phobos Framework is required at the version listed there. Implemented and checke
 gameplay checks are pending, including how the artwork looks in play.
 Shipbreaker 0.38.0 or newer is optional: it adds the steel charge and its S3
 water silo. Phobos Agriculture is optional too: with it, the leach unit can make
-Groundwork makeup salts.
+Groundwork makeup salts and, with a nutrient hopper, complete crop nutrients.
 
 ## Equipment
 
@@ -413,10 +413,10 @@ ammonia.
 | --- | --- | --- |
 | Hydrogen (H) | an X2, an AX-2 | a K2, the RCS through a P1 |
 | Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | the RCS through a P1 |
-| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
-| Nitrogen (N) | Bulk supplies, an AX-2 | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
-| Carbon dioxide (C) | Bulk supplies | a K2 (set the store as its CO2 source), an L2, the RCS |
-| Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), the RCS through a P1 |
+| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
+| Nitrogen (N) | Bulk supplies, an AX-2, an L2 decanting canisters | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
+| Carbon dioxide (C) | Bulk supplies, a V4 calcining leached residue, an L2 decanting canisters | a K2 (set the store as its CO2 source), an L2, the RCS |
+| Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), an LC-3 making struvite or crop nutrients, the RCS through a P1 |
 
 Each store's panel shows the kilograms held and every machine linked to it.
 
@@ -633,8 +633,8 @@ releases it.
   authored from what NASA's Dawn mission saw on Ceres; no sample has been
   measured. The ammonia store keeps it liquid in the same vessel as the other
   gases; only its capacity treats it as a liquid.
-- No station sells ammonia. It becomes RCS propellant or, through the AX-2,
-  nitrogen and hydrogen; nothing turns it into fertiliser yet.
+- No station sells ammonia. It becomes RCS propellant, nitrogen and hydrogen
+  through the AX-2, or fertiliser through the LC-3 (struvite and crop nutrients).
 - The cracker converts all of its ammonia each cycle; a real cracker leaves a
   trace. That is an authored simplification.
 - Offline checks are not gameplay validation; see the owner checks below.

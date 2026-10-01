@@ -1359,6 +1359,20 @@
   sellable products within 1.5 x inputs, a quarter when every input is bought
   stock, stock priced between scrap steel (3.6 cr/kg) and its ore (22.5 cr/kg).
   Price new refined products against these; do not reintroduce a loss requirement.
+- Owner direction (2026-10-01): **refining is to be a reasonably profitable business
+  venture from now on, retroactively.** Owner decisions the same day:
+  - Target: about double. Finished products sell for roughly 1.5 to 2.5 times the raw
+    ore at base prices, before power, time and machine cost.
+  - Sales route: the refuelling kiosk buys bulk back from the ship's stores at a set
+    share of its selling price, so buy-and-resell never pays; hydrogen, methane and
+    ammonia gain prices. No trade-good packing.
+  - Measure: each product chain is profitable overall; low-yield survival charges
+    (hydrates to water) stay supply.
+  - Prices change only after the owner approves the table in
+    `docs/development/refining-business-and-interdependencies.md`. Until then the
+    30 September prices and checks stand, but do not mark a design down for passing
+    the 1.5 x guardrail. That record also ranks the reactor interdependency ideas
+    (owner request, same day: anything goes, vanilla consumables included).
 
 ## Documentation audiences
 

@@ -8,6 +8,13 @@ research behind every item is in [asteroid feedstocks: gaps and possibilities](a
 the chemistry is in [the refinery record](manufacturing-refinery-and-chemistry.md).
 Nothing here is gameplay-validated; owner in-game checks are listed per guide.
 
+**Follow-up, 1 October 2026:** the owner directed that refining become a
+reasonably profitable business, retroactively, and asked for interdependencies
+between the reactors. The proposed prices, the kiosk buy-back and the ranked ideas
+(several build on rounds four and five below) are in
+[refining as a business](refining-business-and-interdependencies.md). The 1.5 x
+guardrails in Stage A below stand only until the owner approves that price table.
+
 ## Delivered
 
 | Commit | Version | What it delivered |

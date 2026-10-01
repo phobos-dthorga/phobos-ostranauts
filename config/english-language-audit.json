@@ -53299,8 +53299,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "d13d7bedff9ce22e04fc54308ba26c5da3d785b064e4be4cff39a72f9e5730cc",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "e8e142907b8bf824d4a2e73fa1ce7f0fe082cdf2ef723ecc378172e5feb0c1b1",
+      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -54104,8 +54104,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "19d525b37067f1f44fec50c3af64542a6b91fa585bb7ed23366863d3179a718d",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "1af9e0b0656172969a2b93300d93a8941909a1256f664f5ab3b55079baf1b40c",
+      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -54279,8 +54279,8 @@
       "path": "docs/development/asteroid-feedstock-programme-status.md",
       "scope": "developer status record",
       "decision": "new",
-      "sha256": "de31c6917b3e9a2e83eceba7df568e25f178a7a54899818a6908c099f79cda5f",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "71586695438b9f32f0232b811f4e3a5ab7683f5ae0bc530db8e87e270129ba9d",
+      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
     },
     {
       "path": "docs/development/schema-separation-audit.md",
@@ -54330,6 +54330,13 @@
       "decision": "New player guide written to the crew voice: situation, action and limits first.",
       "sha256": "48fbe00170f71357d22b4e76ab1624b0ce3759de799c4cd3c0d24d904c3799aa",
       "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+    },
+    {
+      "path": "docs/development/refining-business-and-interdependencies.md",
+      "scope": "development",
+      "decision": "Development design record; not player-facing.",
+      "sha256": "d72a55b9a7463f1107317f8428c7bb9fa42b1495533020898d05e1b0c9c5e805",
+      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
     }
   ],
   "surfaces": [
