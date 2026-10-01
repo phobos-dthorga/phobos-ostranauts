@@ -68,7 +68,7 @@ internal static class EconomyChecks
         foreach (var offer in repeat.Loot.Values.Where(l => l.strName.StartsWith("PhobosStock_")))
             check(offer.aCOs.Length == 1 && int.Parse(offer.aCOs[0].Split('x').Last()) > 1, "Each merchant offer requests a bulk lot");
         check(DataHandler.dictLoot["CONDUndamageProgress"].aCOs.Single() == "TDnStatDamage=1x0.00625", "Native restoration remains unchanged for other equipment");
-        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section}))
+        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose"))
         {
             var item = new DataCO(DataHandler.dictCOs[id]);
             check(DataHandler.dictCTs["TIsBarterSanDiegoHalvorsonSell"].TriggeredDataCO(item,false), "Industrial seller permits the stocked equipment: " + id);
@@ -83,15 +83,12 @@ internal static class EconomyChecks
         Content.Prepare().Publish();
         check(ReferenceEquals(DataHandler.dictLoot["ItmLootSpawnEngineering"], engineering) && engineering.aLoots.SequenceEqual(linked), "Repeated engineering salvage registration is idempotent and keeps the game's table object");
         check(engineering.aLoots.Contains("ItmRandomEngineeringLoot=0.8x1|ItmScrapTrash=0.1x1-2"), "Engineering salvage retains native choice");
-        check(engineering.aLoots.Count(s => s == "PhobosEngineeringSectionSalvage=1x1") == 1, "Exactly one section-salvage link in the native engineering table");
-        var sectionChoice = repeat.Loot["PhobosEngineeringSectionSalvage"];
-        check(sectionChoice.aCOs.Length == 1 && sectionChoice.aCOs[0].Split('|').Length == 3 &&
-            sectionChoice.aCOs[0].Split('|').All(s => s.EndsWith("=0.05x1")), "Engineering roll adds at most one section at fifteen percent total");
-        var parsedChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
-            .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
-            .GetValue(sectionChoice)!).Single();
-        check(parsedChoice.Count == 3 && parsedChoice.All(u => u.fMin == 1 && u.fMax == 1) &&
-            Math.Abs(parsedChoice.Sum(u => u.fChance) - .15) < 1e-7, "Native parser retains one fifteen-percent cumulative section choice");
+        // Shipbreaker 0.60.0: assembly sections are retired; no merchant offer, regional stock or world find names one.
+        string[] sections = { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section };
+        check(!engineering.aLoots.Any(s => s.StartsWith("PhobosEngineeringSectionSalvage", StringComparison.Ordinal)) &&
+            !repeat.Loot.ContainsKey("PhobosEngineeringSectionSalvage"), "No section-salvage link in the native engineering table");
+        check(!repeat.Loot.Values.Any(l => l.aCOs != null && l.aCOs.Any(c => c.Split('|').Any(u => sections.Contains(u.Split('=')[0])))),
+            "No merchant, regional or salvage table offers a retired section");
         var machineryChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
             .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
             .GetValue(repeat.Loot["PhobosShipbreakerMachinerySalvage"])!).Single();
@@ -109,8 +106,9 @@ internal static class EconomyChecks
         foreach (string remainder in RegionalEconomy.TerminalRemainders)
             check(Stat(remainder, "IsCategoryTrash") == 1 && Stat(remainder, "StatBasePrice") == .01,
                 "Terminal remainder is native trash at the technical minimum price: " + remainder);
-        foreach (string merchantId in new[] { "ItmOKLGSupplyKioskInv", "ItmTraderSanDiegoHalvorsonInv" })
-            check(repeat.Loot.ContainsKey("PhobosStock_FurnaceSection_" + merchantId + "_" + FurnaceRules.Section), "F6 section has explicit stock: " + merchantId);
+        foreach (string machine in new[] { Content.Loose, ReclaimerRules.Prefix + "Loose", FurnaceRules.Prefix + "Loose" })
+            check(repeat.Loot.Keys.Any(k => k.StartsWith("PhobosStock_", StringComparison.Ordinal) && k.EndsWith("_ItmOKLGFixer_" + machine, StringComparison.Ordinal)),
+                "Each whole machine has an explicit refurbished K-Leg offer: " + machine);
         foreach (double probability in new[] { 0, -1, double.NaN, 1.1 })
             throws(() => MarketStock.Add(new NativeDefinitions(), merchant, "PhobosInvalidOffer", Content.Loose, probability, StockCondition.Worn), "Invalid stock chance rejected");
 

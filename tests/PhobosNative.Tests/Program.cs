@@ -245,6 +245,7 @@ frameworkText.Select("fr", "{\"ConstructionRegistry.ready\":\"Prêt\",\"Construc
 ConstructionRegistry.RegisterPack(Plugin.Id, filePath);
 FrameworkLifecycle.Complete();
 Check(ConstructionRegistry.Ready(Plugin.Id), ConstructionRegistry.Status(Plugin.Id));
+AssemblyNativeChecks.Conversions(Check);
 Check(ConstructionRegistry.Status(Plugin.Id) == "Prêt", "Translated construction status cannot change readiness logic");
 frameworkText.Select("en");
 foreach (var recipe in ConstructionRegistry.Recipes.Values)

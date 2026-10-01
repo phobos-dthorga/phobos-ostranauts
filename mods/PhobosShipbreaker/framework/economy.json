@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "economy",
-  "notes": "Phobos Shipbreaker economy (Shipbreaker 0.48.0): Rivetline machinery prices, work-progress targets, repair bills, mass-balanced salvage (steel, aluminium, mechanical and electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items), assembly sections, the coolant conduit, merchant offers, regional factors, lots and world finds. Balance record: docs/equipment-economy.md. Salvage must weigh what the machine weighs; larger silo and bin sizes follow their small entry through the Framework ladder.",
+  "notes": "Phobos Shipbreaker economy (Shipbreaker 0.48.0): Rivetline machinery prices, work-progress targets, repair bills, mass-balanced salvage (steel, aluminium, mechanical and electronic parts, retained trash: 1, 1, 0.5, 0.5 and 1 kg units, the game's own items), retired assembly sections (price and dismantling only), the coolant conduit, merchant offers, regional factors, lots and world finds. Balance record: docs/equipment-economy.md. Salvage must weigh what the machine weighs; larger silo and bin sizes follow their small entry through the Framework ladder.",
   "equipment": {
     "PhobosFurnace": {
       "notes": "Rivetline F6 Electric Furnace, 6 x 6, 240 kg.",
@@ -376,9 +376,10 @@
       "salvageValueHigh": false
     },
     "PhobosShipbreakerSection": {
-      "notes": "D4 assembly section, 80 kg; two build the fixture at a construction site.",
+      "notes": "Retired D4 assembly section, 80 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole D4s or their section materials. Price and dismantling stay for copies still held.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 4800,
       "work": {
         "dismantle": 400
@@ -391,13 +392,13 @@
         "ItmScrapTrash": 9
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     },
     "PhobosScrapReclaimerSection": {
-      "notes": "R4 assembly section, 90 kg; two build the reclaimer.",
+      "notes": "Retired R4 assembly section, 90 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole R4s or their section materials.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 6000,
       "work": {
         "dismantle": 500
@@ -410,13 +411,13 @@
         "ItmScrapTrash": 10
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     },
     "PhobosFurnaceSection": {
-      "notes": "F6 assembly section, 80 kg; three build the furnace.",
+      "notes": "Retired F6 assembly section, 80 kg (Shipbreaker 0.60.0): never sold or found; saved copies convert into whole F6s or their section materials.",
       "kind": "section",
       "forms": "single",
+      "lot": "equipment",
       "price": 6500,
       "work": {
         "dismantle": 600
@@ -429,8 +430,7 @@
         "ItmScrapTrash": 8
       },
       "loot": false,
-      "offers": false,
-      "regionalChance": 0.3
+      "offers": false
     }
   },
   "supplies": {
@@ -488,18 +488,6 @@
     }
   ],
   "offers": {
-    "PhobosStock_Section_ItmOKLGSupplyKioskInv_PhobosShipbreakerSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosShipbreakerSection",
-      "condition": "Refurbished",
-      "chance": 0.3
-    },
-    "PhobosStock_Section_ItmTraderSanDiegoHalvorsonInv_PhobosShipbreakerSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosShipbreakerSection",
-      "condition": "Refurbished",
-      "chance": 0.5
-    },
     "PhobosStock_Refurb_ItmOKLGFixer_PhobosShipbreakerLoose": {
       "notes": "Modest repaired D4 stock at K-Leg: a usable path without a journey to a specific system.",
       "merchant": "ItmOKLGFixer",
@@ -507,35 +495,18 @@
       "condition": "Refurbished",
       "chance": 0.1
     },
-    "PhobosStock_ReclaimSection_ItmOKLGSupplyKioskInv_PhobosScrapReclaimerSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosScrapReclaimerSection",
-      "condition": "Refurbished",
-      "chance": 0.2
-    },
-    "PhobosStock_ReclaimSection_ItmTraderSanDiegoHalvorsonInv_PhobosScrapReclaimerSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosScrapReclaimerSection",
-      "condition": "Refurbished",
-      "chance": 0.4
-    },
     "PhobosStock_ReclaimRefurb_ItmOKLGFixer_PhobosScrapReclaimerLoose": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosScrapReclaimerLoose",
       "condition": "Refurbished",
       "chance": 0.1
     },
-    "PhobosStock_FurnaceSection_ItmOKLGSupplyKioskInv_PhobosFurnaceSection": {
-      "merchant": "ItmOKLGSupplyKioskInv",
-      "item": "PhobosFurnaceSection",
+    "PhobosStock_FurnaceRefurb_ItmOKLGFixer_PhobosFurnaceLoose": {
+      "notes": "Shipbreaker 0.60.0: the F6 is bought or found whole, so it joins the D4 and R4 at K-Leg.",
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosFurnaceLoose",
       "condition": "Refurbished",
-      "chance": 0.15
-    },
-    "PhobosStock_FurnaceSection_ItmTraderSanDiegoHalvorsonInv_PhobosFurnaceSection": {
-      "merchant": "ItmTraderSanDiegoHalvorsonInv",
-      "item": "PhobosFurnaceSection",
-      "condition": "Refurbished",
-      "chance": 0.3
+      "chance": 0.1
     },
     "PhobosCoolantStock_ItmOKLGSupplyKioskInv": {
       "merchant": "ItmOKLGSupplyKioskInv",
@@ -622,7 +593,7 @@
     "VNCA": 1.25
   },
   "regional": {
-    "notes": "Every region offers the machines at the base chance times its factor (small parts half again as often), sections at 0.3, the conduit at 0.65, coolant charges and ingots as listed; OFLT sells refurbished machinery. The four expanded merchants carry everything at the floor chance.",
+    "notes": "Every region offers the machines at the base chance times its factor (small parts half again as often), the conduit at 0.65, coolant charges and ingots as listed; OFLT sells refurbished machinery. The four expanded merchants carry everything at the floor chance.",
     "baseChance": 0.2,
     "refurbished": [
       "OFLT"
@@ -652,7 +623,6 @@
   },
   "lots": {
     "equipment": 8,
-    "section": 24,
     "supplies": 128,
     "coolant": 64,
     "ingots": 32
@@ -686,16 +656,6 @@
         "PhobosAluminiumIngot": 0.06,
         "PhobosSteelIngot": 0.04
       }
-    },
-    {
-      "notes": "At most one assembly section per roll, never dismantling yields.",
-      "table": "ItmLootSpawnEngineering",
-      "branch": "PhobosEngineeringSectionSalvage",
-      "items": {
-        "PhobosShipbreakerSection": 0.05,
-        "PhobosScrapReclaimerSection": 0.05,
-        "PhobosFurnaceSection": 0.05
-      }
     }
   ],
   "factionKiosks": {
@@ -708,11 +668,8 @@
     "chance": 1,
     "tiers": {
       "PhobosFurnace": "Trusted",
-      "PhobosFurnaceSection": "Trusted",
       "PhobosScrapReclaimer": "Friendly",
-      "PhobosScrapReclaimerSection": "Friendly",
       "PhobosShipbreaker": "Friendly",
-      "PhobosShipbreakerSection": "Friendly",
       "PhobosExteriorGrabber": "Friendly",
       "PhobosFurnaceRadiator": "Warm",
       "PhobosFurnaceThermalPort": "Warm",

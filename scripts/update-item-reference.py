@@ -113,8 +113,8 @@ def render(mod, notes, config):
         assembly_inputs = [j for i in covered for j in i['jobs'] if j['id'].endswith('SectionAssembly')]
         assembly_outputs = [j for i in mod['items'] for j in i['jobs'] if j['id'].endswith('SectionAssembly')
                             and any(o['id'] in group['ids'] for o in j['outputs'])]
-        out += ['**Placement:** ' + ('Choose Install on this section or the completed machine in INSTALL → APPS. This starts a construction site; deliver the full section bill separately.' if assembly_inputs else
-                'INSTALL → APPS starts assembly from matching sections. A complete loose machine keeps its own direct Install action; damaged forms retain their existing placement path.' if assembly_outputs else
+        out += ['**Placement:** ' + ('Retired: a section no longer starts a build site. Saved copies convert aboard your own ship; see [installing machines](section-assembly-and-maintenance.md).' if assembly_inputs else
+                'INSTALL → APPS installs the whole loose machine; obtain it first, the menu does not manufacture it. Damaged forms retain their existing placement path.' if assembly_outputs else
                 'INSTALL → ' + ', '.join(tabs) + '. Obtain the loose item first; the menu does not manufacture it.' if tabs else
                 'Built into its parent machine; not separately installable.' if group['internal'] else
                 'Inventory/module-slot item; no standalone INSTALL entry.'), '']
@@ -177,9 +177,10 @@ def render(mod, notes, config):
             out += ['No direct added merchant/loot offer; use the production or historical route described above.', '']
     assemblies = [(item, job) for item in mod['items'] for job in item['jobs'] if job['id'].endswith('SectionAssembly')]
     if assemblies:
-        out += ['## Construction-site assembly', '',
-                'Choose Install on a section or the completed machine in INSTALL > APPS. Native hauling delivers the matching sections separately. '
-                'A complete loose machine retains its direct Install action. See [assembly and maintenance](section-assembly-and-maintenance.md). '
+        out += ['## Retired section build sites', '',
+                'Since Shipbreaker 0.60.0 these machines come whole and are installed with their own Install action or INSTALL > APPS. '
+                'The section jobs below remain only so build sites saved by earlier versions can finish or cancel; saved sections convert automatically. '
+                'See [installing machines](section-assembly-and-maintenance.md). '
                 'Work below includes mounting at unit skill/tool multipliers, before hauling and interruptions.', '']
         out += table(['Consumed sections', 'Installed result', 'Site work (min)', 'Reusable tools'], [(
             '; '.join(material(x, config) for x in job['inputs']),
@@ -193,8 +194,8 @@ def render(mod, notes, config):
             names = mod['recipeItemNames']
             out += [f'### {recipe["name"]}', '']
             if recipe.get('retiredFromMenus'):
-                out += ['**Legacy saved-job contract:** no longer offered for new table work. Use the construction-site route above. '
-                        'This record preserves the old inputs, outputs and duration; it is not a second current assembly method.', '']
+                out += ['**Legacy saved-job contract:** no longer offered for new table work. '
+                        'This record preserves the old inputs, outputs and duration for saved orders; it is not a current construction method.', '']
             out += table(['Consumed inputs', 'Physical outputs', 'Work (min)', 'Tools'], [(
                 '; '.join(f'{i["count"]} × {names[i["item"]]}' for i in recipe['ingredients']),
                 '; '.join(f'{i["count"]} × {names[i["item"]]}' for i in recipe['outputs']),

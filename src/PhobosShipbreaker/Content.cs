@@ -174,7 +174,7 @@ internal static class Content
     internal static void ConfirmRecipes(Action<string> log)
     {
         if (!definitionsRegistered) return;
-        AssemblyDefinitions.FinishRegistration();
+        AssemblyDefinitions.FinishRegistration(log);
         var missing = DependencyContract.MissingRecipes(id => DataHandler.dictInteractions?.ContainsKey(id) == true);
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
         Status = Ready ? Text.Get("Content.shipbreaker_definitions_ready") :

@@ -150,9 +150,9 @@ Repair restores functionality, not the pristine designation.
 | Exterior panel grabber | 80 kg | $6,400 | $8,000 | $4,800 | $1,600 |
 | Hull chute | 40 kg | $1,800 | $2,250 | $1,350 | $450 |
 | Residue collector | 20 kg | $2,400 | $3,000 | $1,800 | $600 |
-| Fixture assembly section | 80 kg | $4,800 | — | — | — |
+| Fixture assembly section (retired 0.60.0) | 80 kg | $4,800 | — | — | — |
 | Scrap reclaimer | 180 kg | $14,800 | $18,500 | $11,100 | $3,700 |
-| Reclaimer assembly section | 90 kg | $6,000 | — | — | — |
+| Reclaimer assembly section (retired 0.60.0) | 90 kg | $6,000 | — | — | — |
 | Auto Nav module | 0.4 kg | $3,600 | $4,500 | $2,700 | $900 |
 | Process water silo (0.37.0) | 240 kg empty | $4,800 | $6,000 | $3,600 | $1,200 |
 | Ice thaw unit (0.37.0) | 120 kg | $3,200 | $4,000 | $2,400 | $800 |
@@ -162,7 +162,8 @@ Repair restores functionality, not the pristine designation.
 
 Installed and loose forms have the same base price. Uninstall before trading.
 Sections are unfinished construction stock with no separate wear/broken family.
-The processor's two sections cost $9,600 before assembly labour adds value.
+Since Shipbreaker 0.60.0 they are retired: never sold or found, and the D4, R4 and
+F6 come whole. The rows remain for copies still held, which convert automatically.
 
 Mixed panel residue (13 kg), spent service parts (0.5 kg), Auto Nav board residue
 (0.4 kg), and Auto Nav assembly offcuts (0.6 kg) each have a nominal **$0.01** base
@@ -243,8 +244,8 @@ you earn by selling them mining output.
 | --- | --- |
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
-| Friendly (50) | D4 and R4 with their sections, G4 grabber, ML-2 mining laser; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
-| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4, LC-3 and SA-3 |
+| Friendly (50) | D4 and R4, G4 grabber, ML-2 mining laser; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
+| Trusted (75) | F6 furnace; X2, AX-2, K2, V4, LC-3 and SA-3 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
 faction a little, as it does for vanilla goods. Stock arrives in the usual lots
@@ -254,7 +255,7 @@ full table, vanilla comparisons and reasoning are in the
 
 ## Construction, repair and restoration
 
-Section fabrication and smaller equipment recipes use an installed native Bar/Dining Table or a supported optional workbench. Since Shipbreaker 0.31.0, final D4/R4/F6 assembly uses native construction sites instead; [the site workflow](section-assembly-and-maintenance.md) combines the former final-assembly work with the existing installation work target. Whole loose machines keep their direct Install action. A Mortorq tool and soldering tool are required through native
+Smaller equipment recipes use an installed native Bar/Dining Table or a supported optional workbench. Since Shipbreaker 0.60.0 the D4, R4 and F6 are not built at all: they are bought or found whole and installed directly (see [installing machines](section-assembly-and-maintenance.md)). A Mortorq tool and soldering tool are required through native
 tool selection/fetching. Tools are used, not consumed as ingredients. Skills,
 tool condition, travel, materials fetching and interruptions can alter observed
 job duration. Construction work below is the configured action duration; install,
@@ -262,8 +263,8 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 
 | Equipment | Assembly work | Install / uninstall | Repair broken | Dismantle |
 |---|---:|---:|---:|---:|
-| Assembly section | 60 min | n/a | n/a | 24 min |
-| Processor | 48 min site assembly including mounting; **168 min including two sections** | 18 / 12 min | 43.2 min | 60 min |
+| Assembly section (retired 0.60.0) | n/a | n/a | n/a | 24 min |
+| Processor | Not built (bought or found whole) | 18 / 12 min | 43.2 min | 60 min |
 | Grabber | 60 min | 12 / 9.6 min | 28.8 min | 39 min |
 | Chute | 30 min | 6 / 6 min | 18 min | 18 min |
 | Collector | 40 min | 7.2 / 6 min | 21.6 min | 21 min |
@@ -324,8 +325,8 @@ The existing Shipbreaker construction bills remain unchanged:
 
 | Output | Steel, 1 kg units | Aluminium, 1 kg units | Mechanical parts, 0.5 kg units | Electronic parts, 0.5 kg units |
 |---|---:|---:|---:|---:|
-| One 80 kg section | 50 | 24 | 10 | 2 |
-| 160 kg processor | Two complete sections | — | — | — |
+| One 80 kg section (retired 0.60.0; a leftover converts back to this bill) | 50 | 24 | 10 | 2 |
+| 160 kg processor | Not built since 0.60.0 (bought or found whole) | — | — | — |
 | 80 kg grabber | 50 | 20 | 16 | 4 |
 | 40 kg chute | 24 | 10 | 10 | 2 |
 | 20 kg collector | 12 | 4 | 6 | 2 |

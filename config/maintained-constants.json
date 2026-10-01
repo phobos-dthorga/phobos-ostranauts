@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.66.0",
+      "value": "0.67.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.59.0",
+      "value": "0.60.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -514,28 +514,6 @@
         "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
       ]
     },
-    "Shipbreaker.stockSections": {
-      "type": "integer",
-      "value": "24",
-      "min": 1,
-      "max": 256,
-      "description": "Shipbreaker sections quantity per successful merchant offer, including regional suppliers (economy data pack).",
-      "targets": [
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/lots/section"
-        },
-        {
-          "path": "docs/development/merchant-stock.md",
-          "pattern": "^\\| Shipbreaker\\ assembly\\ sections \\| (?P<value>[0-9]+) \\|\\r?$",
-          "count": 1
-        }
-      ],
-      "review": [
-        "Run native stock-quantity and regional checks, then affected builds.",
-        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
-      ]
-    },
     "Shipbreaker.stockPipes": {
       "type": "integer",
       "value": "128",
@@ -631,7 +609,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.66.0",
+      "value": "0.67.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1168,30 +1146,6 @@
       ],
       "review": [
         "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
-      ]
-    },
-    "Shipbreaker.sectionSalvageChance": {
-      "type": "number",
-      "value": ".05",
-      "min": 0,
-      "max": 0.333,
-      "description": "Authored chance per eligible engineering loot roll; finite single-item choice (economy data pack; one value per section).",
-      "targets": [
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosShipbreakerSection"
-        },
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosScrapReclaimerSection"
-        },
-        {
-          "path": "mods/PhobosShipbreaker/framework/economy.json",
-          "pointer": "/worldLoot/3/items/PhobosFurnaceSection"
-        }
-      ],
-      "review": [
-        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
       ]
     },
     "Shipbreaker.machinerySalvageChance": {

@@ -12,26 +12,24 @@ development builds; the full casting cycle still needs owner playtesting.
 
 ## Get the furnace aboard
 
-- **Starting with sections:** obtain three F6-S sections, 80 kg each. Choose
-  **Assembly information** for the bill, then **Install** on a section or the
-  furnace in **INSTALL > APPS**. Place the outline on suitable flooring. Crew
-  bring the sections separately; final assembly needs Mortorq and soldering tools.
-  Tables still make individual sections. They no longer assemble the whole F6.
-- **Starting with a complete loose furnace:** use its own **Install** action.
-  You do not need to break it into sections first.
+- **Get a whole furnace.** The F6 comes whole from traders or salvage; it is not
+  built from parts. Choose **Install** on the loose furnace, or pick it in
+  **INSTALL > APPS**, and place the outline on suitable flooring. A crew member
+  hauls it in and fits it with a Mortorq.
 - Choose one cooling assembly below. Buy it or build it at a supported table,
   install it, then pair it with the furnace. A powered furnace with no usable
   cooling will not heat a batch.
 
-The site keeps delivered parts and progress after saving. Cancel the site's
-construction order to release its delivered parts. For hauling, old table orders
-and the D4/R4 equivalents, see [assembly and maintenance](section-assembly-and-maintenance.md).
+Older versions built the F6 from three F6-S sections. Saves that still hold them
+are sorted out automatically: three sections aboard one ship become a whole loose
+furnace, and leftovers go back to scrap and parts. See
+[installing machines](section-assembly-and-maintenance.md).
 
 ## Installation: choose one cooling assembly
 
 **Phobos' Rivetline F6 Electric Furnace** occupies **6 x 6 tiles**, weighs 240 kg
 empty and is rated for a 50 kg charge. The first supported recipe uses exactly
-20 kg; the rating does not enable arbitrary alloys or larger recipes. Three 80 kg sections make one complete furnace.
+20 kg; the rating does not enable arbitrary alloys or larger recipes.
 
 **Phobos' Rivetline F6-R Exterior Radiator** is separate **6 x 4**, 100 kg
 equipment. Both can appear in the existing industrial/fixer/scrap stock routes,
@@ -197,19 +195,13 @@ flowchart TD
 
 Finish the rough housing at a Bar/Dining Table, using Mortorq and welding tools:
 **19 kg -> 18 kg finished housing + 1 kg native aluminium offcut**, 600 native
-work-progress seconds. The optional D4 and R4 section recipes each consume one
-housing, retaining their mechanisms, electronics and other material inputs.
-The remainder has no recycling route. Nothing reclassifies historic residue.
+work-progress seconds. The remainder has no recycling route. Nothing
+reclassifies historic residue.
 
-| Optional section | Other ingredients | Output | Native work target |
-|---|---|---|---|
-| D4-S | 50 steel, 6 aluminium, 10 small mechanisms, 2 small electronics | 80 kg section | 2,400 s |
-| R4-S | 56 steel, 8 aluminium, 12 small mechanisms, 4 small electronics | 90 kg section | 3,000 s |
-
-Steel/aluminium units weigh 1 kg; small mechanisms/electronics weigh 0.5 kg.
-These are labour-saving alternative construction routes, not precision parts or
-native repair-recipe replacements. The 240 kg furnace and 100 kg radiator remain
-substantial infrastructure for sustained independent maintenance.
+Since Shipbreaker 0.60.0 a finished housing has no construction use: the D4-S
+and R4-S section recipes that took one are retired along with the sections. A
+housing can still be cut back into 18 kg of aluminium scrap at a table, at a loss.
+For useful castings, choose the ingot recipes below.
 
 ## Recipes: housings and ingots
 

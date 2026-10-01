@@ -38,7 +38,7 @@ internal static class EquipmentEconomy
     private static Spec[]? machines; private static EquipmentSale[]? sales; private static EconomyPack? builtFrom;
     /// <summary>Every machine family and size in application order: the small entries, then the S4 and S5, then the Y3 and Y4.</summary>
     internal static IReadOnlyList<Spec> Machines => machines != null && ReferenceEquals(builtFrom, ShipbreakerEconomy.Pack) ? machines : Build().Machines;
-    /// <summary>Every saleable machine size and section, for offers, regional stock and world finds.</summary>
+    /// <summary>Every saleable machine size, for offers, regional stock and world finds.</summary>
     internal static IReadOnlyList<EquipmentSale> Sales => sales != null && ReferenceEquals(builtFrom, ShipbreakerEconomy.Pack) ? sales : Build().Sales;
     internal static double MachinerySalvageChance => ShipbreakerEconomy.Pack.worldLoot.First(l => l.items == null).chance;
     internal static double AluminiumIngotSalvageChance => IngotSalvageChance(FurnaceRecipes.AluminiumIngot);
@@ -60,7 +60,7 @@ internal static class EquipmentEconomy
             list.Add(LadderSpec(size.Prefix, size.Footprint - BinRules.Footprint, size.DryKg, BinRules.DryKg, size.Price, bin, 300, 200, 500, 150, 5));
             saleList.Add(EquipmentSale.Size(size.Prefix, bin));
         }
-        foreach (var section in ShipbreakerEconomy.Sections) saleList.Add(EquipmentSale.Of(section.Id, pack.equipment[section.Id]));
+        // Sections are retired (Shipbreaker 0.60.0): never offered or found; held copies keep price and dismantling.
         machines = list.ToArray(); sales = saleList.ToArray();
         return (machines, sales);
     }

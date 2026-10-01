@@ -11526,7 +11526,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.66.0",
+      "version": "0.67.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -39001,7 +39001,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.59.0",
+      "version": "0.60.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -41294,7 +41294,6 @@
           "actions": [
             "DropItem",
             "PickupItem",
-            "PhobosFurnaceAssemblyInformation",
             "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -46705,7 +46704,6 @@
           "actions": [
             "DropItem",
             "PickupItem",
-            "PhobosScrapReclaimerAssemblyInformation",
             "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -47401,7 +47399,6 @@
           "actions": [
             "DropItem",
             "PickupItem",
-            "PhobosShipbreakerAssemblyInformation",
             "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -47642,13 +47639,6 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine, Trusted standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosScrapReclaimerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -47656,24 +47646,10 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosShipbreakerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
           "count": 8
-        },
-        {
-          "table": "ItmFactionKioskBCERInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
         },
         {
           "table": "ItmFactionKioskBCERInv",
@@ -47789,13 +47765,6 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine, Trusted standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosScrapReclaimerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -47803,24 +47772,10 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosShipbreakerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
           "count": 8
-        },
-        {
-          "table": "ItmFactionKioskBCRSInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
         },
         {
           "table": "ItmFactionKioskBCRSInv",
@@ -47936,13 +47891,6 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine, Trusted standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosScrapReclaimerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -47950,24 +47898,10 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
-        },
-        {
-          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosShipbreakerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
           "count": 8
-        },
-        {
-          "table": "ItmFactionKioskMTRSInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine, Friendly standing",
-          "chance": 1.0,
-          "count": 24
         },
         {
           "table": "ItmFactionKioskMTRSInv",
@@ -48171,27 +48105,6 @@
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmFlotillaScrapKioskInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmFlotillaScrapKioskInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmFlotillaScrapKioskInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
@@ -48418,27 +48331,6 @@
           "count": 1
         },
         {
-          "table": "ItmLootSpawnEngineering",
-          "item": "PhobosFurnaceSection",
-          "condition": "Loot",
-          "chance": 0.05,
-          "count": 1
-        },
-        {
-          "table": "ItmLootSpawnEngineering",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Loot",
-          "chance": 0.05,
-          "count": 1
-        },
-        {
-          "table": "ItmLootSpawnEngineering",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Loot",
-          "chance": 0.05,
-          "count": 1
-        },
-        {
           "table": "ItmOKLGFixer",
           "item": "PhobosFurnaceLoose",
           "condition": "Worn",
@@ -48552,6 +48444,13 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosFurnaceLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosRivetlineCoolantCharge",
           "condition": "Pristine",
           "chance": 1.0,
@@ -48577,27 +48476,6 @@
           "condition": "Pristine",
           "chance": 1.0,
           "count": 128
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmOKLGFixer",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -48699,27 +48577,6 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosRivetlineCoolantCharge",
           "condition": "Pristine",
           "chance": 1.0,
@@ -48944,27 +48801,6 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCERInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCERInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -49091,27 +48927,6 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCRSInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCRSInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -49238,27 +49053,6 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskEJDRInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskEJDRInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -49382,27 +49176,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmSupplyKioskHQCHInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskHQCHInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskHQCHInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
@@ -49532,27 +49305,6 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskJATLInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskJATLInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -49676,27 +49428,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmSupplyKioskJFTSInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskJFTSInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskJFTSInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
@@ -49826,27 +49557,6 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMHNGInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMHNGInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -49973,27 +49683,6 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMSUZInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMSUZInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -50117,27 +49806,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmSupplyKioskMTRSInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMTRSInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMTRSInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
@@ -50267,27 +49935,6 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMVOLInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMVOLInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.9750000000000001,
@@ -50414,27 +50061,6 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskSVIRInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskSVIRInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -50558,27 +50184,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmSupplyKioskVCBRInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVCBRInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVCBRInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
@@ -50708,27 +50313,6 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVENCInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVENCInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -50855,27 +50439,6 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVNCAInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVNCAInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Pristine",
           "chance": 0.95,
@@ -50999,27 +50562,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmTraderSanDiegoHalvorsonInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Refurbished",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
@@ -51258,27 +50800,6 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosShipbreakerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosScrapReclaimerSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
-        },
-        {
-          "table": "ItmVORBScrapKioskInv",
-          "item": "PhobosFurnaceSection",
-          "condition": "Pristine",
-          "chance": 0.85,
-          "count": 24
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -51352,7 +50873,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSection.name",
           "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description",
-          "retiredFromMenus": false
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildShipbreaker",
@@ -51614,7 +51135,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSection.name",
           "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description",
-          "retiredFromMenus": false
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildReclaimer",
@@ -51814,7 +51335,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSectionCast.name",
           "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description",
-          "retiredFromMenus": false
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildReclaimerSectionCast",
@@ -51876,7 +51397,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSectionCast.name",
           "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description",
-          "retiredFromMenus": false
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildFurnaceSection",
@@ -51931,7 +51452,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceSection.name",
           "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description",
-          "retiredFromMenus": false
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildFurnace",
@@ -52299,7 +51820,7 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "cffbe3b5a9533d52b8ec1146adfe75e52e1d5179350c54bee1a38e68d054f548",
+    "mods/PhobosFramework/mod_info.json": "302e20b23ba1f70197842ce07ffa1f5c6fba37905654504d916da1e207595551",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
@@ -52313,14 +51834,14 @@
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
-    "mods/PhobosShipbreaker/framework/economy.json": "6fac77d8ce8960d9090ad62f1a54603b4538b5a697f332a9dadf348ce6296a4d",
+    "mods/PhobosShipbreaker/framework/economy.json": "62a77af1034e37bbf93376fefa506b830849f44deaf14866e6bd2a3d31c225f0",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "944f4c90c1e233420e8c79f7e3074f88b76ad45da1eff6a79f4d8eaff06e9934",
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "d55e75f78fb7ee1f56e588e3f0d1d00e50f5f0337e082894fb1011b1e2abdfbf",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "d85e7b3961a4909ea3a9e5f108a0b559880340c7d942816e9189196716c68c82",
+    "mods/PhobosShipbreaker/mod_info.json": "e03078e9f0175a9505627003f41a6929bcc1346fe764264d7489851173b979d3",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -52444,10 +51965,10 @@
     "src/PhobosFramework/Audio/CompletionWatch.cs": "460deb0d5e2e284c0c18a54ba768072eadb8c8a1c8354c1b8986288653fa854c",
     "src/PhobosFramework/Cadence.cs": "0a3183bd70a653b930a65cf719dfac4cd12da692e50ba2dfccc1f3a9a279568b",
     "src/PhobosFramework/Construction/ConstructionHooks.cs": "ec55cf0c6326b06db20ab9981a80df4f9f27525a83df73e91aa2fe86695e9117",
-    "src/PhobosFramework/Construction/ConstructionRegistry.cs": "f052947ede088b54b3dd056b79b47031c5ec9024ea7fce9e6787c8f3bc72ce6f",
+    "src/PhobosFramework/Construction/ConstructionRegistry.cs": "b465303caf618adb8b6e36c5e8e87cb49888f5dbafd06aaebba607df13cd7c0c",
     "src/PhobosFramework/Construction/NativePlaceholders.cs": "931edae95205549a657aec39c6c4b430b28dc48aae6d00415cc83a24a1c8b2a5",
     "src/PhobosFramework/Construction/Recipe.cs": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
-    "src/PhobosFramework/Construction/SectionAssembly.cs": "2e35d0944e81da33191f6329a5b7954fe8916c63ea445276bd11104f1d9c37c9",
+    "src/PhobosFramework/Construction/SectionAssembly.cs": "d6cbadc295dface9d7a1f96f6382d79c9f51bcb01a6b2a3451034b8cbc7c635a",
     "src/PhobosFramework/Construction/SectionAssemblyAppearance.cs": "1c409615db913c1479655fe62b0ca0a2c003e008dda5d9a9d6f951e3179dbc2c",
     "src/PhobosFramework/Construction/TriggerRefinements.cs": "5b3237817323d9ec9bc9bcb4e1a586369761ec49653deda00ee0a8422cefd29c",
     "src/PhobosFramework/Controls/CompactText.cs": "db07f9c3094de46881933ed2ab07156d59007cbeee0d862ffc4f9b2ad558111e",
@@ -52508,7 +52029,7 @@
     "src/PhobosFramework/Effects/SpriteAnimation.cs": "173b6721df76ce0883d5e7d18f6a32e06110c8c46ca81a52a23476d86163c475",
     "src/PhobosFramework/Effects/WorldBeam.cs": "bc3c08d033cbb81a50fd533a70f6e308685ad72516edfeba6f49a27f6dc2b331",
     "src/PhobosFramework/FrameworkConsole.cs": "2aa7ab03b0b5c23b2ba575bf860a8cc92c961ab8e6df1a9b78f8e697b0c85a70",
-    "src/PhobosFramework/FrameworkLifecycle.cs": "badaa9d243797a55d3db388afb4f20b1317c7ee6a71419dcc5e20506174a08b2",
+    "src/PhobosFramework/FrameworkLifecycle.cs": "5f67c7a57e55766be7b91d8231d20266b93dcf6038e5a01a17ff6d6c060b58d4",
     "src/PhobosFramework/Hazards/NativeDamage.cs": "76c1920884e44c84a4c9d7354a63d409b75f72c6f28761cbbeed1e887a3c656f",
     "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2717d661636337f41b782aef9f3307dae27fa9b1ce3c403230ae8a7deff2bbcb",
@@ -52571,6 +52092,7 @@
     "src/PhobosFramework/Observations/NativeRoomAlarms.cs": "9e6a19664b3da3e0684f74ceac2b1ba64397b92d1bc9bc8df0e7cf9889945184",
     "src/PhobosFramework/Observations/Observation.cs": "a7e18264f2898f7f50199ac789f4863d94a70f01bc37f1a42fbf6cd4623ab399",
     "src/PhobosFramework/Persistence/DefinitionMigrations.cs": "7cba4f40a30bae72bddff34773e1728f5bf9ba696bdbfbbb3d3258ccea8faa5f",
+    "src/PhobosFramework/Persistence/LegacyItemConversions.cs": "f0ed7cd5b0c747ed9016e627d0751d10d1ec1431eab9942b6b1dfa7bcd6ef230",
     "src/PhobosFramework/Persistence/ObjectStateStore.cs": "e52a67be3b2f4a74625191d2fbe4f9a48ac6d02d0c6280673446e55805c9269a",
     "src/PhobosFramework/Persistence/PlaceholderHealthLoad.cs": "a93304c9830550983ddd83a64dd7ea562c1de32d4ddc849bf7b5f61ea34764b3",
     "src/PhobosFramework/Persistence/SaveBoundary.cs": "d7fcf83559fc5f7c11c4b28bfe92dfb5bf66d4450d2eb8e9fff679a4ebe67b8b",
@@ -52578,8 +52100,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "46722630a4863a2cab857f874c4dbba7a55bac4e966d43544e465f038d99bea8",
-    "src/PhobosFramework/Plugin.cs": "dfaf23b55be3a77a15e2c47a57d304f306fd70097f0a11bbe7867e4878a90242",
+    "src/PhobosFramework/PhobosFramework.csproj": "6bfce57bac8488015d2937c05776fd7ceb1483ac156a7dd93b8c4c5b700db2a7",
+    "src/PhobosFramework/Plugin.cs": "609a01ea525e63939e07152725d1fd4eb6256b0bd780b9996a8a1ce0c9f50b42",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -52671,7 +52193,7 @@
     "src/PhobosManufacturing/ShipbreakerStock.cs": "7b473bf1a7f38c3c40b7d630d543fba05f2670e5607c28f27d1d13a1d7f9f100",
     "src/PhobosManufacturing/StoreService.cs": "79d03d49b2973951d12ac48b1a218442ec379eeeb2151bae9f3d0645964e74cb",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
-    "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
+    "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/BinDefinitions.cs": "14990e054792fb1cbbcb9a8bd803f24b46dcffa14e29766ac3fa91c98a7c1e28",
     "src/PhobosShipbreaker/CaptureGeometry.cs": "98a0f045fb1146aebef4f204e4a7566667d48c3e8ed755ce1b1cff280f937c37",
@@ -52684,7 +52206,7 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "2940af9fa4db992d8e7f1da03760ae82c002694f07afbadd2c426c5616a63446",
     "src/PhobosShipbreaker/CollectorService.cs": "ec12964952fba28094ea5321d5bd417dd5d7c5f2b34baf2df688bddafa46068d",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "612cc46d2efe6c70d9d7be89756f5c692326ca1c51824bc1cb315e57decce054",
+    "src/PhobosShipbreaker/Content.cs": "ea001d9a44d6051130a6e2ff6be89d4c143ed4638dc17fcb1be17acb2a9274f0",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
     "src/PhobosShipbreaker/CoolantService.cs": "431d4c5602e4a0ebc087f23f6480d33a4dfe1fcb174f1efa5e0ba1b506097c01",
     "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
@@ -52695,7 +52217,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "06b7106fc9d42c080b5f9fefddc3d35ad1f43bacb74a60649ba456a12b5178b2",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "bcd7dd83d6d19c8253daf18f044c63e7926191bf7a26ebded589643f14dfb8ab",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "49e9850a72c02e2beb41675e4073687718a703ed81dc1c0945c72cca55ae1407",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "22b79c5498c069b0448657a3ba0f66d62b6e175a461697182604c33619c48ea2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -52721,7 +52243,7 @@
     "src/PhobosShipbreaker/Core/VesselData.cs": "4f9d228133ec6b458e06d801c6fad314d31a327ec6a563d29c6c54b757413fec",
     "src/PhobosShipbreaker/CrewProvider.cs": "8a47595e558c49609b3f7c7057797ab78c5264d9a122dc224e9706ab4067b332",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "222b9f20008f94e2901667511c10aa5e8348f4428fc32211fdd7dc867bf20387",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "5b23d4a88cead665c01d64255b7daa467072385ac698baed12676ce6f10bc8ef",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
@@ -52752,9 +52274,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "386f9dee56dd0491faf68f35ab01f94265bd8160c22b1300db93e19fb1ad81cc",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "cf77fff0da46c9c11b172be1a51977cf9ff087b2e90d4585d4c98a8fdc7c36db",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "c9584e3dd69dad3a234cac3eea4aeb8c8041d457cef410b8824a4d2c92ef10ba",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "1647064d39240ecd14a015bd5ee9704a46f1344da5d7ed9ec4318431ada0db70",
+    "src/PhobosShipbreaker/Plugin.cs": "e16eee997755e0ebfe4088f5a0a8ec9dc21316f3cafe68ba0d66eca7a0998272",
     "src/PhobosShipbreaker/PowerKinds.cs": "c0409cb8e737a45dc9a61da9b00594d346fabff1b16454f17a910a68a0a436b8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -52767,7 +52289,7 @@
     "src/PhobosShipbreaker/RegionalEconomy.cs": "3e0fc14a05f908faa8754e280204ac24b8db413c4af9193624bbe869b9195388",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "3aac86d2e112775f4a9c36efe4554b44deff55f1655a9b632f604b20c5ec30ab",
-    "src/PhobosShipbreaker/StockQuantities.cs": "737284b15c7b91066ab6071df2ce8021fa38e50f217560f787e26bf3f3080726",
+    "src/PhobosShipbreaker/StockQuantities.cs": "841dfc03eefdd7ac018f03625ed19eb59118bed68237268f427eb7c74c067625",
     "src/PhobosShipbreaker/StorageService.cs": "2aa231d1cf2b1db53dba619fbc6e08833e70b58d28ea0b830a99de6a76532d43",
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
@@ -52788,13 +52310,13 @@
     "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "7be1995998713001a106085263a77f39a5a67cea5e85dc52cee132b5bec6bfc4",
-    "tests/PhobosNative.Tests/Program.cs": "bf26a51859b9c201004026b0a71f39f65d4bbd294ef279cd94440be3f79bc1ca",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "9543900eaf3da6d07f23cd66197d68f9245243545dda5edb8a835a5a7a398c9f",
+    "tests/PhobosNative.Tests/Program.cs": "96a9eb2e883e7da98fbf66bd1e8b924a9a3b74472cbc5d6564ae3b93763c8b94",
     "translations/PhobosAgriculture/en.json": "35a9ad12f0e66d4cc0296c09b6e5f19d04659acb007920c260296ccb5449f0c9",
     "translations/PhobosAutoNav/en.json": "b0c49c7d7038de85a2ebce025b7f987ac54cb5c5e77ebf18e5097cbdfd2e4cff",
-    "translations/PhobosFramework/en.json": "6ccdddbfcc09258b5476ff156fc0d439cde323f08e52a6a7e61e958c69d2d340",
+    "translations/PhobosFramework/en.json": "52aeaa8164ca002c9238a5589186ed811908a5e787b468fa8d82743cbb4db3e7",
     "translations/PhobosManufacturing/en.json": "fccfb16dec510f4b34b28dd7deba854f817f93b29b1d6004c304e18f406c83b4",
-    "translations/PhobosShipbreaker/en.json": "23d3bcd487e0c33ecf4613f23dc89b9e8459a1c1ca7778afb7f5f34585f1bc0f",
+    "translations/PhobosShipbreaker/en.json": "8b180232a2e2ffaa418012ec2577bfc7d66e4138d44675152a91ead3943912ac",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }
 }

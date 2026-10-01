@@ -143,7 +143,7 @@ internal static class ItemReferenceExport
             string recipesPath = Path.Combine(repo, "mods", mod, "framework/recipes.json");
             var recipes = File.Exists(recipesPath) ? JObject.Parse(File.ReadAllText(recipesPath))["recipes"]! : new JArray();
             foreach (var recipe in recipes)
-                recipe["retiredFromMenus"] = mod == "PhobosShipbreaker" && PhobosShipbreaker.AssemblyDefinitions.Legacy.Contains((string)recipe["id"]!);
+                recipe["retiredFromMenus"] = mod == "PhobosShipbreaker" && PhobosShipbreaker.AssemblyDefinitions.Legacy.Concat(PhobosShipbreaker.AssemblyDefinitions.RetiredSectionRecipes).Contains((string)recipe["id"]!);
             var names = new Dictionary<string, string>();
             foreach (string id in recipes.SelectMany(r => r["ingredients"]!.Concat(r["outputs"]!)).Select(i => (string)i["item"]!).Distinct())
                 names[id] = Resolve(id).strNameFriendly;

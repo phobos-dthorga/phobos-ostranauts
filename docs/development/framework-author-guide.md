@@ -1066,9 +1066,9 @@ The explicit bulky registry also corrects saved condition copies. A saved hand s
 `Construction.SectionAssembly.Add` registers a finite section bill through native
 installables before publication. Content supplies the section trigger, installed
 output, count/mass, tools and native work target. Only separate, empty, matching
-sections qualify; the finish revalidates the actual native site lot. Call
-`PreferAssemblyMenu` after native generation to resolve an intentional shared
-placement target deterministically. Whole-machine direct actions remain valid.
+sections qualify; the finish revalidates the actual native site lot. Since 0.67.0
+section jobs are retired from new work: see below. Whole-machine direct actions
+remain valid.
 `RetireTableOffers` removes only named new offers, preserving old action definitions
 and saved queues. Native placeholders own hauling, cancellation and serialization.
 
@@ -1484,3 +1484,41 @@ record is [line contents](line-contents-design.md).
   and `DrawForLine(ship, tanks, kg, reserveKg)`. They keep the reserve across every
   drinking tank aboard and skip a tank whose transfer journal is open; Framework's own
   pass uses the `WaterTanks` `CrewWaterReserveKg` setting.
+
+## Whole machines and retired parts (0.67.0)
+
+Owner direction, 1 October 2026: a machine is never assembled from several identical
+sections. Shipbreaker's D4, R4 and F6 come whole; saved sections convert on load.
+
+- **`Construction.SectionAssembly.RetireFromMenu()`** (replaces `PreferAssemblyMenu`).
+  Call after native generation. For each registered section job, INSTALL lists the
+  other job that installs the same form in the same tab (the whole machine's own
+  `<Prefix>LooseInstall`), whatever the generation order; with none, the section job
+  simply leaves the menu. The section loses its own Install offer. The job and its
+  interactions stay registered so saved sites load, finish and cancel unchanged.
+- **`SectionAssembly.SetWholeAppearance(jobId, wholeId, installedId, appearance)`**
+  shows the construction stages on a whole machine's own Install site: early until
+  the loose machine is in the site's lot and work has started, then intermediate.
+  Appearance only; the native job, its input, work target and completion are the
+  game's. A job id cannot be both a section job and a whole-machine site.
+- **`Persistence.LegacyItemConversions.Register(retiredId, unitKg, setSize, wholeId,
+  wholeKg, materials...)`** converts retired loose parts that cannot be renamed one to
+  one. Registration refuses any rule whose set does not weigh the whole item or whose
+  materials do not weigh the part. Every 15 real seconds, on each loaded ship the
+  player owns:
+  1. saved section sites whose bill is incomplete are cancelled through the game's
+     `Placeholder.Cancel` (complete sites are left to finish);
+  2. free parts (not installed, stacked, reserved by or inside a construction site)
+     are taken in ID order. Each complete set becomes one whole item and each
+     leftover its materials, dropped with the game's `Ship.DropCO` where the part, or
+     whatever held it, lay.
+
+  Outputs are created and mass-checked before any part moves. A failed placement puts
+  the parts back and removes the outputs. One crew-log notice summarises each sweep.
+  Merchant stock and other ships are untouched until the parts come aboard. Register
+  in your content's confirmation step, after recipes are published, so the materials
+  can come from the retired recipe itself (`ConstructionRegistry.Find(recipeId)`
+  returns a copy of a registered recipe).
+- **When to use which.** One old definition to one new definition: use
+  `DefinitionMigrations`, which edits the data the game is about to spawn. Several
+  parts to one whole, or one part to many materials: use `LegacyItemConversions`.

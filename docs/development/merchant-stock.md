@@ -16,7 +16,6 @@ shop inventories or a scientific/economic claim.
 | Agriculture nutrient hoppers | 4 |
 | Agriculture 500 g nutrient charges | 8 |
 | Shipbreaker equipment | 8 |
-| Shipbreaker assembly sections | 24 |
 | Shipbreaker coolant pipes | 128 |
 | Shipbreaker coolant charges | 64 |
 | Shipbreaker ingots | 32 |
@@ -55,12 +54,12 @@ These changes apply to future normal merchant generation/restocks after updating
 and restarting the game. Already-generated shop inventories are retained; there
 is no forced refill, save edit or replacement of another mod's stock. An update
 or reload alone does not guarantee that an existing shop restocks immediately.
-World salvage uses separate single-item choices; see the current expansion below. Agriculture fridge/crate supply odds are unchanged.
+The D4, R4 and F6 assembly sections are retired since Shipbreaker 0.60.0: no trader, kiosk or salvage table offers them, and their former 24-unit lot is gone. World salvage uses separate single-item choices; see the current expansion below. Agriculture fridge/crate supply odds are unchanged.
 
 ## Maintenance and evidence
 
 Use the constants updater keys `Agriculture.stockMachines`, `Agriculture.stockPipes`,
-`Agriculture.stockSupplies`, `Shipbreaker.stockMachines`, `Shipbreaker.stockSections`,
+`Agriculture.stockSupplies`, `Shipbreaker.stockMachines`,
 `Shipbreaker.stockPipes`, `Shipbreaker.stockCoolant` and `AutoNav.stockBoards`.
 Their catalogue entries update the owning source constants and this table
 together. Then run the shop stock checks, affected builds and
@@ -111,7 +110,7 @@ materials, waste and Manufacturing's unimplemented designs remain excluded.
 | Native pool | Added choice | Total default chance per roll |
 | --- | --- | ---: |
 | Engineering equipment | One of nine Shipbreaker machines, intact or damaged | 40% |
-| Engineering equipment | One D4/R4/F6 assembly section | 15% |
+| Engineering equipment | One D4/R4/F6 assembly section (retired in Shipbreaker 0.60.0; no longer found) | 0% |
 | Engineering equipment | One coolant pipe or clean coolant charge | 20% |
 | Engineering equipment | One aluminium (6%) or steel (4%) ingot, since Shipbreaker 0.39.0 | 10% |
 | Engineering equipment | One of five Agriculture machines, intact or damaged | 30% |

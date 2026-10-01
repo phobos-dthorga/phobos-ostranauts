@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Construction;
+using Phobos.Ostranauts.Framework.Persistence;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosShipbreaker;
 int checks=0;
@@ -39,9 +40,22 @@ var reloaded=new CondOwner();reloaded.marker=new(){owner=reloaded,strInstalledCO
 foreach(var part in site.lot){var copy=Part(part.strCODef);copy.objCOParent=reloaded;reloaded.lot.Add(copy);}
 Check(SectionAssembly.Finish(new(){strName="MSPhobosAssembly",objUs=reloaded},false),"Reloaded site uses same action and retained bill");
 Check(SectionAssembly.Finish(new(){strName="MSForeign"},false),"Other native completions unchanged");
+// Framework 0.67.0: machines come whole. INSTALL lists the whole machine's own job; the section job serves saved sites only.
 DataHandler.dictInstallables=d.Installables;Installables.dictJobBuildOptions["APPS"]=new();Installables.dictJobBuildOptionsListed["APPS"]=new();
-var whole=new JsonInstallable{strName="WholeMachine"};Installables.dictJobBuildOptionsListed["APPS"]["Machine"]=whole;
-SectionAssembly.PreferAssemblyMenu();Check(Installables.dictJobBuildOptionsListed["APPS"]["Machine"].strName=="PhobosAssembly","Menu selection does not depend on generation order");
+d.Installables["WholeMachine"]=new JsonInstallable{strName="WholeMachine",strStartInstall="Machine",strBuildType="APPS",strActionCO="MachineLoose"};
+d.Installables["OtherTab"]=new JsonInstallable{strName="OtherTab",strStartInstall="Machine",strBuildType="FURN"};
+var foreignEntry=new JsonInstallable{strName="ForeignJob",strStartInstall="Foreign",strBuildType="APPS"};
+foreach(var menu in new[]{Installables.dictJobBuildOptions,Installables.dictJobBuildOptionsListed}){menu["APPS"]["Machine"]=d.Installables["PhobosAssembly"];menu["APPS"]["Foreign"]=foreignEntry;}
+DataHandler.dictCOs["Section"]=new(){aInteractions=new[]{"ACTPhobosAssembly","Foreign"}};
+SectionAssembly.RetireFromMenu();
+Check(Installables.dictJobBuildOptionsListed["APPS"]["Machine"].strName=="WholeMachine"&&Installables.dictJobBuildOptions["APPS"]["Machine"].strName=="WholeMachine","INSTALL lists the whole machine, not the section site, whatever the generation order");
+Check(Installables.dictJobBuildOptionsListed["APPS"]["Foreign"]==foreignEntry,"Other providers' menu entries untouched");
+Check(DataHandler.dictCOs["Section"].aInteractions.SequenceEqual(new[]{"Foreign"}),"A section no longer offers to start a site");
+Check(d.Installables.ContainsKey("PhobosAssembly"),"The section job stays registered for saved sites");
+SectionAssembly.RetireFromMenu();Check(Installables.dictJobBuildOptionsListed["APPS"]["Machine"].strName=="WholeMachine","Retirement is idempotent");
+d.Installables.Remove("WholeMachine");Installables.dictJobBuildOptionsListed["APPS"]["Machine"]=d.Installables["PhobosAssembly"];
+SectionAssembly.RetireFromMenu();Check(!Installables.dictJobBuildOptionsListed["APPS"].ContainsKey("Machine"),"Without a whole job, the section site still leaves the menu");
+d.Installables.Remove("OtherTab");
 DataHandler.dictCOs["Table"]=new(){aInteractions=new[]{"Foreign","PhobosCraft_Legacy","OtherPhobos"}};
 SectionAssembly.RetireTableOffers("Legacy");Check(DataHandler.dictCOs["Table"].aInteractions.SequenceEqual(new[]{"Foreign","OtherPhobos"}),"Only superseded table offer removed");
 
@@ -132,5 +146,90 @@ var pair=VisualSite();Deliver(pair);pair.SetCondAmount("StatInstallProgress",50)
 Deliver(pair);Check(Middle(pair),"Two-section jobs advance with work and their full bill");
 SectionAssembly.Initialize(pair.marker);var pairView=pair.marker!.GetComponent<SectionAssemblyView>()!;var pairMaterial=pair.Item!.rend.sharedMaterial;
 pair.bDestroyed=true;pairView.Refresh(3);Check(pairMaterial.destroyed,"Destroyed or cancelled sites release their private material");
+// Framework 0.67.0: the whole machine's own Install site shows the same stages from its one loose machine.
+SectionAssembly.SetWholeAppearance("WholeInstall","MachineLoose","Machine",appearance);
+CondOwner WholeSite(){var co=new CondOwner{Item=new()};co.marker=new(){owner=co,strInstalledCO="Machine",strInstallIA="ACTWholeInstall"};return co;}
+bool WholeMid(CondOwner co){Check(SectionAssembly.TryAppearance(co.marker!,out var a,out var mid)&&a==appearance,"Whole-machine site resolves its appearance");return mid;}
+var wholeSite=WholeSite();Check(!WholeMid(wholeSite),"An empty whole-machine site is unfinished");
+wholeSite.SetCondAmount("StatInstallProgress",10);Check(!WholeMid(wholeSite),"Work cannot stand in for the undelivered machine");
+var loose=new CondOwner{strCODef="MachineLoose",objCOParent=wholeSite};wholeSite.lot.Add(loose);Check(WholeMid(wholeSite),"A delivered machine under work shows the intermediate stage");
+wholeSite.SetCondAmount("StatInstallProgress",0);Check(!WholeMid(wholeSite),"A delivered machine waits for work to start");wholeSite.SetCondAmount("StatInstallProgress",10);
+loose.children.Add(Part("Cargo"));Check(WholeMid(wholeSite),"The machine's own cargo does not hold the stage back");loose.children.Clear();
+loose.SetCondAmount("IsDamaged",1);Check(!WholeMid(wholeSite),"A damaged machine is not this job's input");loose.ZeroCondAmount("IsDamaged");
+var stranger=Part("Foreign");stranger.objCOParent=wholeSite;wholeSite.lot[0]=stranger;Check(!WholeMid(wholeSite),"Another item in the lot is not the machine");wholeSite.lot[0]=loose;
+wholeSite.lot.Add(Part());Check(!WholeMid(wholeSite),"An extra lot entry is not this job's bill");wholeSite.lot.RemoveAt(1);
+wholeSite.SetCondAmount("StatInstallProgressMax",777);SectionAssembly.Initialize(wholeSite.marker);
+Check(wholeSite.GetCondAmount("StatInstallProgressMax")==777&&wholeSite.marker!.GetComponent<SectionAssemblyView>()!=null,"A whole site gains the stages without its native work target changing");
+Check(SectionAssembly.Finish(new(){strName="MSWholeInstall",objUs=wholeSite},false),"Whole-machine completion stays the game's own");
+Check(!SectionAssembly.IsSectionSite(wholeSite,out _),"A whole-machine site is never a legacy section site");
+bool refused=false;try{SectionAssembly.SetWholeAppearance("PhobosAssembly","MachineLoose","Machine",appearance);}catch(ArgumentException){refused=true;}
+Check(refused,"A section job cannot also be registered as a whole-machine site");
 SectionAssembly.Reset();
-Console.WriteLine($"PASS: {checks} production assembly/recovery checks with native adapters doubled; Unity hauling and inventory interaction remain unverified.");
+// Framework 0.67.0 legacy sweep: saved sections become whole machines or their exact materials aboard the player's ships.
+bool Throws(Action action){try{action();return false;}catch(ArgumentException){return true;}}
+var steel=new LegacyItemConversions.Material("Steel",50,1);var alu=new LegacyItemConversions.Material("Alu",24,1);
+var mech=new LegacyItemConversions.Material("Mech",10,.5);var elec=new LegacyItemConversions.Material("Elec",2,.5);
+Check(Throws(()=>LegacyItemConversions.Register("Section",80,2,"MachineLoose",150,steel,alu,mech,elec)),"A set that does not weigh the whole machine is refused");
+Check(Throws(()=>LegacyItemConversions.Register("Section",80,2,"MachineLoose",160,steel,alu,mech)),"Materials that do not weigh the part are refused");
+Check(Throws(()=>LegacyItemConversions.Register("Section",80,2,"Section",160,steel,alu,mech,elec)),"A part cannot convert into itself");
+Check(Throws(()=>new LegacyItemConversions.Material("Steel",0,1)),"A material needs a real count");
+var grouped=LegacyItemConversions.Group(new[]{1,2,3,4,5},2);
+Check(grouped.Sets.Count==2&&grouped.Sets[0].SequenceEqual(new[]{1,2})&&grouped.Sets[1].SequenceEqual(new[]{3,4})&&grouped.Leftovers.SequenceEqual(new[]{5}),"Ordered parts split into complete sets and leftovers");
+Check(LegacyItemConversions.Group(new[]{1,2,3},3).Leftovers.Count==0&&LegacyItemConversions.Group(new[]{1},3).Sets.Count==0,"Exact sets and lone parts both group cleanly");
+var masses=new System.Collections.Generic.Dictionary<string,double>{["MachineLoose"]=160,["Steel"]=1,["Alu"]=1,["Mech"]=.5,["Elec"]=.5};
+int spawned=0;
+DataHandler.factory=id=>{if(!masses.TryGetValue(id,out double kg))return null;spawned++;var c=new CondOwner{strCODef=id,strID=id+spawned,ship=null};c.SetCondAmount("StatMass",kg);return c;};
+var ship=new Ship{strRegID="PLAYER"};
+CondOwner Aboard(string id,string uid,float x=0){var c=Part();c.strCODef=id;c.strID=uid;c.ship=ship;c.tf.position=new UnityEngine.Vector3(x,0,0);ship.objects.Add(c);return c;}
+SectionAssembly.Add(d,"PhobosAssembly","Section","SectionTrigger","Machine",2,80,5000,Array.Empty<string>());
+LegacyItemConversions.Register("Section",80,2,"MachineLoose",160,steel,alu,mech,elec);
+CondOwner Site(string uid){var co=new CondOwner{Item=new(),strID=uid,ship=ship};co.marker=new(){owner=co,strInstalledCO="Machine",strInstallIA="ACTPhobosAssembly"};ship.objects.Add(co);return co;}
+void Deliver2(CondOwner site,string uid){var p=Part();p.strID=uid;p.ship=ship;p.objCOParent=site;site.lot.Add(p);ship.objects.Add(p);}
+var s1=Aboard("Section","s1",1);var s2=Aboard("Section","s2",2);var s3=Aboard("Section","s3",3);var s4=Aboard("Section","s4",4);
+var crate=new CondOwner{strCODef="Crate",strID="crate",ship=ship};crate.tf.position=new UnityEngine.Vector3(9,9,0);ship.objects.Add(crate);
+var held=Aboard("Section","a0");held.objCOParent=crate;crate.children.Add(held);
+var fixedPart=Aboard("Section","fitted");fixedPart.SetCondAmount("IsInstalled",1);
+var complete=Site("complete");Deliver2(complete,"c1");Deliver2(complete,"c2");complete.SetCondAmount("StatInstallProgress",40);
+var unfinished=Site("unfinished");Deliver2(unfinished,"i1");
+var inside=Aboard("Section","inside");inside.objCOParent=complete;
+var foreignShip=new Ship{strRegID="OTHER"};var visiting=Aboard("Section","visit");visiting.ship=foreignShip;
+Check(SectionAssembly.IsSectionSite(complete,out bool full)&&full&&SectionAssembly.IsSectionSite(unfinished,out bool partialBill)&&!partialBill,"Saved section sites are told apart by their delivered bill");
+var report=LegacyItemConversions.Sweep(ship);
+Check(report.SitesCancelled==1&&unfinished.bDestroyed&&!complete.bDestroyed,"An unfinishable site is cancelled through the game; a complete one is left to the crew");
+Check(complete.lot.Count==2&&complete.lot.All(p=>!p.bDestroyed&&p.objCOParent==complete)&&complete.GetCondAmount("StatInstallProgress")==40,"A complete site keeps its delivered sections and work");
+// Free: a0 (in a crate), i1 (returned by the cancelled site), s1-s4. In ID order: a0+i1, s1+s2, s3+s4.
+Check(report.WholeItems==3&&report.PartsBrokenDown==0,"Six free sections make three whole machines");
+Check(crate.children.Count==0&&!crate.bDestroyed,"A section leaves its container; the container stays");
+foreach(var gone in new[]{s1,s2,s3,s4,held})Check(gone.bDestroyed,"A converted section is retired: "+gone.strID);
+Check(!fixedPart.bDestroyed&&!inside.bDestroyed&&!visiting.bDestroyed,"Installed, site-held and other ships' sections are untouched");
+var machines=ship.objects.Where(c=>c.strCODef=="MachineLoose").ToList();
+Check(machines.Count==3&&machines.All(m=>m.ship==ship&&!m.bDestroyed),"Each machine is aboard the same ship");
+Check(machines.Any(m=>m.tf.position.x==1)&&machines.Any(m=>m.tf.position.x==3),"A machine lies where the first section of its set lay");
+Check(machines.Any(m=>m.tf.position.x==9&&m.tf.position.y==9),"A set led by a contained section lands beside its container");
+Check(Math.Abs(machines.Sum(m=>m.GetCondAmount("StatMass"))-6*80)<1e-9,"Whole machines conserve every kilogram");
+var again=LegacyItemConversions.Sweep(ship);Check(!again.Any,"A second sweep changes nothing");
+var leftover=Aboard("Section","z9",7);var lone=LegacyItemConversions.Sweep(ship);
+var materials=ship.objects.Where(c=>masses.ContainsKey(c.strCODef)&&c.strCODef!="MachineLoose").ToList();
+Check(lone.PartsBrokenDown==1&&leftover.bDestroyed&&materials.Count==86,"A lone section returns its whole bill as separate native items");
+Check(Math.Abs(materials.Sum(c=>c.GetCondAmount("StatMass"))-80)<1e-9&&materials.All(c=>c.tf.position.x==7),"Materials weigh the section and lie where it lay");
+ship.overflow=true;var spill=Aboard("Section","z8",8);var spillPair=Aboard("Section","z7",8);LegacyItemConversions.Sweep(ship);
+Check(ship.forced.Count==1&&ship.forced[0].strCODef=="MachineLoose"&&ship.forced[0].ship==ship,"Whatever the deck drop cannot fit is added where it stands");ship.overflow=false;
+masses.Remove("MachineLoose");var keepA=Aboard("Section","k1");var keepB=Aboard("Section","k2");int before=ship.objects.Count;
+Check(Throws2(()=>LegacyItemConversions.Sweep(ship))&&!keepA.bDestroyed&&!keepB.bDestroyed&&keepA.ship==ship&&ship.objects.Count==before,"A missing output definition converts nothing");
+masses["MachineLoose"]=150;Check(Throws2(()=>LegacyItemConversions.Sweep(ship))&&!keepA.bDestroyed&&ship.objects.Count==before,"An output whose mass changed converts nothing");
+masses["MachineLoose"]=160;ship.dropsBeforeFailure=0;
+Check(Throws2(()=>LegacyItemConversions.Sweep(ship))&&!keepA.bDestroyed&&!keepB.bDestroyed&&keepA.ship==ship&&keepB.ship==ship&&
+    ship.objects.Count(c=>c.strCODef=="MachineLoose")==machines.Count+1,"A failed placement puts the sections back and removes the new machine");
+ship.dropsBeforeFailure=-1;
+// The live poll covers only the player's own loaded ships, then tells the player once.
+CrewSim.objInstance=new();CrewSim.coPlayer=new CondOwner{strID="player"};CrewSim.system=new(){owner="player"};CrewSim.system.dictShips["PLAYER"]=ship;
+LegacyItemConversions.Reset();LegacyItemConversions.Register("Section",80,2,"MachineLoose",160,steel,alu,mech,elec);
+Phobos.Ostranauts.Framework.Notices.PlayerNotices.posted.Clear();LegacyItemConversions.Poll();
+Check(keepA.bDestroyed&&keepB.bDestroyed&&Phobos.Ostranauts.Framework.Notices.PlayerNotices.posted.Count==1,"The poll converts the player's ship and posts one notice");
+var later=Aboard("Section","late");LegacyItemConversions.Poll();Check(!later.bDestroyed,"The poll waits for its cadence");
+CrewSim.system.owner="someone";LegacyItemConversions.Reset();LegacyItemConversions.Register("Section",80,2,"MachineLoose",160,steel,alu,mech,elec);
+LegacyItemConversions.Poll();Check(!later.bDestroyed,"Ships the player does not own are never swept");
+LegacyItemConversions.Reset();Check(LegacyItemConversions.Rules.Count==0,"A new data load clears registrations");
+SectionAssembly.Reset();
+bool Throws2(Action action){try{action();return false;}catch(InvalidOperationException){return true;}}
+Console.WriteLine($"PASS: {checks} production assembly/recovery/conversion checks with native adapters doubled; Unity hauling and inventory interaction remain unverified.");

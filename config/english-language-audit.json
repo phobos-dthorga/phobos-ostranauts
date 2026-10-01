@@ -17639,16 +17639,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Content.an_unpowered_kg_x_assembly_section_combine",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/Content.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "An unpowered {0} kg, {1} x {1} assembly section. Combine two at an installed table or supported workbench to finish one powered dismantling fixture. Not ordinary scrap; cannot process panels by itself.",
-      "after": "Unpowered {0} kg, {1} x {1} assembly section. Choose Install to place a construction site, then deliver two matching sections with Mortorq and soldering tools. Use Assembly information for instructions. Cannot process panels by itself."
+      "after": "Retired {0} kg, {1} x {1} assembly section from the old way of building a D4. The D4 now comes whole from traders and salvage. Aboard your own ship, any two of these turn into one whole D4 by themselves; a single leftover goes back to its scrap and parts on the deck where it lies. It does nothing on its own."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19910,16 +19909,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Reclaimer.section_description",
       "category": "description",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/ReclaimerDefinitions.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "Unpowered {0} kg, 4 x 4 construction section. Combine two into a {1} kg scrap reclaimer.",
-      "after": "Unpowered {0} kg, 4 x 4 construction section. Choose Install to assemble two at a construction site into a {1} kg scrap reclaimer. Assembly information explains the tools and hauling."
+      "after": "Retired {0} kg assembly section from the old way of building an R4. The {1} kg R4 now comes whole from traders and salvage. Aboard your own ship, any two of these turn into one whole R4 by themselves; a single leftover goes back to its scrap and parts on the deck where it lies."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -25944,16 +25942,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.section_description",
       "category": "description",
-      "decision": "retain",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "decision": "rewrite",
+      "reason": "2026-10-01: owner retired section assembly. Says the machine now comes whole and exactly what happens to a saved section aboard the player's own ship; no promised use beyond the implemented conversion.",
       "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs",
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
       ],
       "before": "80 kg unpowered assembly stock. Join three sections into the complete 240 kg F6 furnace.",
-      "after": "80 kg unpowered assembly section. Choose Install to build the 240 kg F6 furnace from three matching sections at its final location. Assembly information explains the tools and hauling."
+      "after": "Retired 80 kg assembly section from the old way of building an F6. The 240 kg F6 now comes whole from traders and salvage. Aboard your own ship, any three of these turn into one whole F6 by themselves; leftovers go back to their scrap and parts on the deck where they lie."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -35263,36 +35260,6 @@
       "references": [
         "src/PhobosFramework/Registration/MaintenanceSafety.cs",
         "src/PhobosFramework/Registration/MaintenanceInformation.cs"
-      ]
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Assembly.title",
-      "category": "help/settings",
-      "decision": "new",
-      "before": "Assembly information",
-      "after": "Assembly information",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
-      "trace": "maintained runtime lookup",
-      "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
-      ]
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Assembly.instructions",
-      "category": "help/settings",
-      "decision": "new",
-      "before": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
-      "after": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
-      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
-      "trace": "maintained runtime lookup",
-      "references": [
-        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
-        "src/PhobosShipbreaker/CoolingCargo.cs",
-        "src/PhobosShipbreaker/FurnaceOperations.cs"
       ]
     },
     {
@@ -53864,6 +53831,136 @@
       ],
       "before": "Show the mining laser's firing animation and beam. Turning this off changes nothing about the work.",
       "after": "Show the mining laser's firing animation and beam. Turning this off changes nothing about the work."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.recipe_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer log text for a failed conversion registration; says the saved sections stay as they are.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
+      ],
+      "before": "Section recipe {0} is not registered.",
+      "after": "Section recipe {0} is not registered."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.conversion_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer log text for a failed conversion registration; says the saved sections stay as they are.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs"
+      ],
+      "before": "Saved {0} sections cannot be converted automatically this session ({1}); they stay as they are.",
+      "after": "Saved {0} sections cannot be converted automatically this session ({1}); they stay as they are."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New crew-log notice after a conversion: what happened, where the results are and why; no further action needed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Old assembly sections aboard were sorted out: {0} complete set(s) became whole machines and {1} leftover section(s) were broken back into their materials, left on the deck where they lay. Machines now come whole from traders and salvage.",
+      "after": "Old assembly sections aboard were sorted out: {0} complete set(s) became whole machines and {1} leftover section(s) were broken back into their materials, left on the deck where they lay. Machines now come whole from traders and salvage."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.notice_sites",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New crew-log addition: an unfinishable build site was cancelled the game's way and its sections counted in.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "{0} unfinished section build site(s) that could no longer be completed were cancelled first, and their delivered sections were counted in.",
+      "after": "{0} unfinished section build site(s) that could no longer be completed were cancelled first, and their delivered sections were counted in."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text: conversion failed, nothing changed, the next sweep tries again.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Ship {0}: retired parts could not be converted ({1}); they stay as they were and the next sweep tries again.",
+      "after": "Ship {0}: retired parts could not be converted ({1}); they stay as they were and the next sweep tries again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.site_cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text naming the cancelled site and where its parts went.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Cancelled unfinished section site {0} aboard {1}; its delivered parts went to the deck through the game's own cancellation.",
+      "after": "Cancelled unfinished section site {0} aboard {1}; its delivered parts went to the deck through the game's own cancellation."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.whole",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text for one complete set converted.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Converted {0} x {1} into one {2} aboard {3}.",
+      "after": "Converted {0} x {1} into one {2} aboard {3}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.materials",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New log text for one leftover part converted to materials.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Converted leftover {1} {0} into its materials aboard {2}.",
+      "after": "Converted leftover {1} {0} into its materials aboard {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer diagnostic: a conversion output definition is missing.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Conversion output definition {0} is missing.",
+      "after": "Conversion output definition {0} is missing."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.mass_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New developer diagnostic: conversion masses no longer match the registration.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs"
+      ],
+      "before": "Conversion masses for {0} no longer match its registration.",
+      "after": "Conversion masses for {0} no longer match its registration."
     }
   ],
   "documents": [
@@ -53871,8 +53968,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2b9a697d39ce9157678e15da5d25026e1f22f8def1e86008caaaf8cfdf2e1d99",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "365a332612f88aba4e3525d55fbbc36e5764714d34446714aeebe6d7b96a61a6",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "SUPPORT.md",
@@ -53885,8 +53982,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7a71d2ab4ffe1469646dc3421ed4d9623056a17dda8799f1c9fc310f078cd621",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "c5c30026f640f1e76f40e202b0df40914812518a4bd0917056543e4def2207f1",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -54031,8 +54128,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "eb0e409ac55a9e72a28159dd24bc020bb61fb465a56468380be72f13f1e16037",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "78d98ab16324662463279a3beff233237071acb898d1846b98be516e61bff128",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/crew-automation.md",
@@ -54271,8 +54368,8 @@
       "path": "docs/development/construction-artwork-audit.md",
       "scope": "developer-facing construction appearance audit",
       "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
-      "sha256": "845e23548b51be023a8c2d3d7cad2eb2d00b0b85ea69a492d1f997781fa53326",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "b1eddac322a896e25343ebd8f9a5575f28f81199ee000ec55ed9a351c3068092",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/dependency-contingencies.md",
@@ -54298,8 +54395,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "0100599ff9b6bf448669b11bd45c659abf913a92b598970468b2ff3f5c365425",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "efa0d75f0decbf11251276a4b2f892a6e88fc00ffab87b684c37955f36c2e40c",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -54332,8 +54429,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2bd4202ef14502663874cf3abf10f4883f3ab030a2c18d4dc5bbf3753fb81e56",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "a8aeec0077fbcc94be19c0b93a9a0ff5859289ba7b223ef914e6e109f5589cd3",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -54416,15 +54513,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "e73c719637d9889a0c4c851451891847137fcca4592fc42dcf1e465c295e8dbb",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "f7c1af82c47c6706f83095fbe16e32ef5c834bfec9d79077f620631f084dbd0b",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "83b0ee683222f9177539348975cdc60c789ca79f0ef0140e5e148c28f768a221",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "65b530e287830ad2f406416c3a86a3b19c2397a3d707ffc17ebc2b9ce178a0ec",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -54528,8 +54625,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "49b0eff7c224de6f7a8ab0bdcdc5939da1128dfb6605360fd7213c6efa8035f0",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "9220bc58209cdaec10130f8c72a5045a20d8efd8974fcebe664088c55de9057b",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -54554,8 +54651,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "ad85fa6b19de5b4c8544679c5f05d3929b8a254384c368e8bdca3b8724682138",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "2e433e50ba23e97612e6479c72c96af166d6fe04bb7ccd964635350588ebe178",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -54752,8 +54849,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "cae124adeb266b9bafde86597e84d315853c915420e4de10603643fc678f6869",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "9042845623fc8aa6d18646c2b9bb4a4c666b32501c29d56b06f9785b8ea2fb75",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -54766,8 +54863,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "afc89b6cce20ac331d32349c98238f1295dd84e13617b9191c95b3a2dfcc564a",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "71ad6c50e067b0b49cb12c3b36cdadc1433f799085558f601845641b837aea2c",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -54787,8 +54884,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c663eb839ff56a6bec0a85fe15c1c4f89de43627d4f6cba5e0e34b1e00049ca0",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "af9c0eccb7f5013a1942a4de9c4dce0f4232cd309b4b9de3af22b1cfb67db5e2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/getting-started.md",
@@ -54822,15 +54919,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e8e67849c3231b55f53cc856f4e9100c711f2d71f506e3bf650e9bb9d01526a0",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "3f0c547f68d5669acf3a2de7ed33d4abec8c9dec91afa0affbadd460115013c2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "10a7a215fb58615900c2d08be118af3530848091f0aea57ee8f13e6a9d7c3789",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "78dc52bd14b1822fd25099d417237664b46239ea2a68e4a97689ad159079b728",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/item-references.md",
@@ -54871,8 +54968,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c700f6e0f95ac7c6d46dd01aa5b9fce1e8a45c8896887b74f68bc536ff2acfb9",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "0c10683b9ce3c352494bcb5c67ade13d49a1924f9de2e2cf2b4c3620ae4ab0ae",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/residue-collector.md",
@@ -54885,15 +54982,15 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d9ebf1e0923e2b377707506b7f17e16119d9614d27fb1b92140769130abb6d31",
-      "review": "2026-09-29: Load feed by crew as the alternative to the panel feed."
+      "sha256": "28ef15053b8e77511df374011b28fc2432f0153af9011bd2df6da43f96216e74",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
       "scope": "current player guide and native implementation evidence",
       "decision": "new reviewed assembly/recovery guide",
-      "sha256": "e1bcfb696a613a31ea307baa32ab8d5378ac69115a5536aadc9713c908eb6068",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "47e51b25c6b760718d27d5cc56c5043351bb1d5a03b9a3e2c47179c5d26ed580",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/shared-completion-cues.md",
@@ -54920,8 +55017,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "3fb2ceb94d8b31fb50f71fa7d3baa275b2cdebe2a55a800c8417753a85523592",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "0b28988d990d2741de80eb59fb61453b3e502c9b57da95beb587db7a8f1c65d2",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -54941,8 +55038,8 @@
       "path": "docs/solar-system-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a12dfa672086c6ce646433cf7853b06b626a2e85ca9eb1bb03a27f1371f1afae",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "3d1c0c10b00db280abc2d5509fc568d237e98b48261961f000210b1844f4d051",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -54962,8 +55059,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "56097417db564e80d5f337e9ca33f4a182f304045a63ff1d4ff929c35ab8a288",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "25b7d7199ccce55cf607cdfe57f105f959fb50f770dec5d11505df316c9c8cfa",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -54976,8 +55073,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e19996368308d58f55ea3ba861a77072994db08ad6c309da7e3c10e47dc5ed49",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "fe2d594ce41f80574c52f50949ebd8d36d35fcca4bb8abace6d8659fee2d7b32",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -55039,8 +55136,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "ce26a337ec82e9b6816cf335c7c647e48d6086043213e2d5a43fc24443660e88",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "3566a3ba599cffac8a14a2911a5fe525a68d92146454175bedc5a2ef54739d46",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -55053,8 +55150,8 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "c1736a2e8149ce9f2937ff639cff961319e91559bb16d4ee5b6f9a8854deb894",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "dc8db78a69be3221a28a5d7a23e76c4bfea10a93bb5d7e24cb33718af07fc564",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "docs/development/conveyor-design.md",
@@ -55103,8 +55200,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e0ef4f86c6baaa37bbce75787c75f1031b494d775f3870eba022f5eabf40e097",
-      "review": "2026-10-01 (Shipbreaker 0.59.0, Framework 0.66.0): Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "c7fe05f970b07fbee9843908c9202fdb06c68d7b523f5eb5e09813e2585193d6",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -55153,8 +55250,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cffbe3b5a9533d52b8ec1146adfe75e52e1d5179350c54bee1a38e68d054f548",
-      "review": "2026-10-01 (Shipbreaker 0.59.0, Framework 0.66.0): Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "302e20b23ba1f70197842ce07ffa1f5c6fba37905654504d916da1e207595551",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -55177,8 +55274,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d85e7b3961a4909ea3a9e5f108a0b559880340c7d942816e9189196716c68c82",
-      "review": "2026-10-01 (Shipbreaker 0.59.0, Framework 0.66.0): Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "e03078e9f0175a9505627003f41a6929bcc1346fe764264d7489851173b979d3",
+      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

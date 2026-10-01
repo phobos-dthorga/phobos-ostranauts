@@ -1,60 +1,69 @@
-# Section assembly and maintenance
+# Installing machines and maintenance
 
-Build the D4, R4 and F6 where they will operate, using separate matching sections.
-For current versions and dependencies, see the [player guide](player-guide.md).
-Manufacturing remains held and uninstalled.
+The D4, R4 and F6 come whole: buy one from a trader or find one in salvage, then
+install it where it will work. For current versions and dependencies, see the
+[player guide](player-guide.md). Manufacturing remains held and uninstalled.
 
-## Assemble where the machine will operate
+## Install a D4, R4 or F6
 
-The D4-S in the screenshot is a section, not a working dismantling fixture.
-Choose **Assembly information** on it for the bill and instructions. Final
-assembly now uses a native construction site, so a crew member can deliver the
-heavy sections one at a time using the drag slot.
+| Machine | Whole loose machine | Footprint |
+|---|---|---|
+| D4 dismantling fixture | 160 kg | 4 × 4 |
+| R4 scrap reclaimer | 180 kg | 4 × 4 |
+| F6 electric furnace | 240 kg | 6 × 6 |
 
-| Machine | Matching sections | Result | Unmodified site work, including mounting |
-|---|---|---|---|
-| D4 dismantling fixture | 2 × 80 kg D4-S | 160 kg, 4 × 4 installed fixture | 48 minutes |
-| R4 scrap reclaimer | 2 × 90 kg R4-S | 180 kg, 4 × 4 installed reclaimer | 66.6 minutes |
-| F6 electric furnace | 3 × 80 kg F6-S | 240 kg, 6 × 6 installed furnace | about 68.8 minutes |
+1. Get the whole machine. Traders that carry Rivetline gear sell it, and salvage
+   occasionally turns one up. See [where to buy](equipment-economy.md).
+2. Choose **Install** on the loose machine, or pick it in **INSTALL > APPS**.
+   Place and rotate its outline on suitable flooring, leaving room for crew and
+   bulky deliveries. Installation needs a Mortorq.
+3. A crew member hauls the machine to the site in the drag slot and fits it.
+   You do not need to carry it there yourself.
+4. Once it is installed, connect power and any supporting equipment it needs,
+   then open **Control Panel**.
 
-1. Obtain matching sections and reusable Mortorq and soldering tools. Sections
-   can still be made at a supported Bar/Dining Table or workbench, bought or found.
-2. Choose **Install** on a section, or select the completed machine in
-   **INSTALL > APPS**. Place and rotate its outline on suitable flooring, leaving
-   room for crew and bulky deliveries.
-3. Let native construction/hauling bring the sections to the site and complete
-   the work. You do not need to carry all sections together or assemble the final
-   machine on a table. Materials and tools must remain reachable.
-4. Once installed, connect power and any required supporting equipment, then
-   open **Control Panel**. Dismantling a section produces salvage; it does not
-   assemble the machine.
+While a crew member works, the site shows the machine part-built: an early stage
+until the machine arrives and work starts, then a half-fitted stage. The finished
+machine appears only when installation completes. Pausing keeps the
+current stage. The picture is worked out again from the site after a reload; it
+never changes what the job needs.
 
-The placed construction site now shows an unfinished frame while parts arrive.
-Once all matching sections are present and work starts, it shows the open,
-partly assembled machine. The finished form appears only when construction
-completes. Pausing work keeps the current stage; removing a required part returns
-the site to its early appearance. A complete-looking work counter alone cannot
-finish a machine without its parts.
+A damaged machine keeps its own placement and repair path.
 
-The appearance is reconstructed from delivered parts and saved work on reload.
-The placement cursor still uses the native finished-machine outline so you can
-check its footprint. Complete loose-machine installation and older table jobs
-keep their existing appearance. Missing image files fall back to the native
-marker; artwork never changes what parts or tools the job requires.
+## Old assembly sections in your save
 
-A complete loose machine keeps its ordinary direct **Install** action. Damaged
-machinery keeps its existing placement and repair path. Final assembly uses the
-same section quantities and masses as before. The work target combines the old
-final-assembly duration with mounting, using native five-unit, 0.001-hour work
-ticks. Skills, tool condition, hauling and interruptions affect elapsed time.
-These are authored gameplay work budgets, not engineering labour estimates.
+Earlier versions built these machines from two D4-S, two R4-S or three F6-S
+assembly sections. That is gone: sections are no longer made, sold or found.
+Saves that still hold sections are sorted out automatically aboard your own
+ships, and the crew log reports what happened.
 
-Native sites retain delivered materials and progress across saves. Use the
-site's native cancellation action to recover its delivered parts. Merely
-stopping a worker is not the same as cancelling the construction site. Existing
-table action IDs and their old physical contracts remain for saved queues, but
-new final-assembly offers are removed from tables. Cancel an old blocked table
-order and start a construction site; no save is rewritten to convert it.
+- **Complete sets become whole machines.** Any two D4-S, two R4-S or three F6-S
+  aboard the same ship turn into one loose D4, R4 or F6, on the deck where the
+  first of them lay. The machine weighs exactly what its sections did.
+- **Leftover sections go back to materials.** A section without a full set
+  becomes the scrap and parts its recipe used, on the deck where it lay:
+
+  | Section | Steel scrap | Aluminium scrap | Small mechanisms | Small electronics |
+  |---|---|---|---|---|
+  | D4-S, 80 kg | 50 | 24 | 10 | 2 |
+  | R4-S, 90 kg | 56 | 26 | 12 | 4 |
+  | F6-S, 80 kg | 48 | 22 | 12 | 8 |
+
+  A section made by the old cast-housing route returns the same bill; the
+  housing's share comes back as aluminium scrap.
+- **Build sites.** A section build site that already has every section delivered
+  stays as it is: the crew can still finish it, and its saved work is kept. A site
+  that is still waiting for sections can never finish now, so it is cancelled the
+  way the game cancels any build site. Its delivered sections drop beside it and
+  are then sorted out as above.
+- **Not aboard your ship.** Sections in a trader's stock or on another ship are
+  left alone. If you buy or bring one aboard, it is sorted out within about
+  15 seconds.
+
+A section someone is carrying is sorted out too, and the result lands at their
+feet. An old table order for a whole machine can no longer find its sections;
+cancel it from the table. An old order for a single section still finishes, and
+that section is then sorted out like any other, so cancel it to save the work.
 
 ## Recover cargo from older cooling units
 
@@ -99,53 +108,51 @@ all existing offer and completion checks remain authoritative.
 
 ## Implementation evidence and checks
 
+Owner direction, 1 October 2026: building a machine from several identical
+sections was arbitrary and confusing, so the D4, R4 and F6 are bought or found
+whole and saved sections convert automatically (Framework 0.67.0, Shipbreaker
+0.60.0). Framework `LegacyItemConversions` runs the conversion on the live
+objects of the player's own loaded ships; Framework `SectionAssembly` keeps the
+old section jobs only for saved sites, hands INSTALL back to each machine's own
+Install job and shows the construction stages on it. Shipbreaker owns the
+section counts, and the leftover bill comes from its registered section recipes.
+
 Primary implementation evidence is **Blue Bottle Games' Ostranauts 1.0.1.5**,
-inspected locally: native `FusionReactorCore01Install` requires four physical
-sections; `Installables.Create` creates input lots and work actions;
-`Placeholder.Cancel` releases staged lots; native placeholder records save the
-exact source/action/installed identities. [Blue Bottle Games' game page](https://bluebottlegames.com/games/ostranauts)
+inspected locally: `Installables.Create` creates input lots and work actions;
+`Placeholder.Cancel(CondOwner)` releases staged lots through the game's own drop
+and destroys the marker; `Ship.DropCO(CondOwner, Vector2)` places items on nearby
+free tiles, stacking where it can, and returns anything that did not fit; native
+placeholder records save the exact source, action and installed identities.
+[Blue Bottle Games' game page](https://bluebottlegames.com/games/ostranauts)
 identifies the game, not a published copy of those internal methods. Proprietary
 code and save files remain outside the repository.
 
-Framework owns the reusable section contract, completion guard and read-only
-information panel. Shipbreaker owns section quantities, native work budgets and
-cooling recovery. Agriculture owns its removal explanations. The historical
-table integration retains its attribution to [Ostranauts Crafting Framework](../mods/PhobosFramework/licenses/CraftingFramework-MIT.md).
-The original assembly update introduced no new artwork. The construction-appearance
-follow-up uses four original PixelLab variants with retained Phobos frames; see
-the [artwork record](../assets/construction-stages/README.md). It adds no industrial
-process, merchant refresh or save schema. The earlier null-key filter fix remains
-in place; unnamed native conditions still keep their original result.
+The historical table integration retains its attribution to
+[Ostranauts Crafting Framework](../mods/PhobosFramework/licenses/CraftingFramework-MIT.md).
+The construction stages use four original PixelLab images with retained Phobos
+frames and the existing D4-S and R4-S section sprites; see the
+[artwork record](../assets/construction-stages/README.md). No new artwork was made
+for this change.
 
-## Owner visual check
+Offline coverage: production conversion code runs against doubled native ships,
+sites and spawns (complete sets, leftovers, mass balance, container and deck
+anchors, overflow placement, missing or changed definitions, failed placement
+rollback, complete and incomplete saved sites, other ships, idempotent repeats,
+the poll's cadence and ownership). The native suite checks INSTALL, APPS against
+the game's own `Installables.Create`, the retired table offers, the binding of the
+game's cancellation and drop, and the conversion bills against the live
+definitions and registered recipes. None of this runs Unity, native crew
+pathfinding or the owner's save.
 
-The owner previously completed an R4 assembly successfully. That observation
-predates these explicit appearance stages. Offline checks do not establish the
-new Unity appearance or lighting.
+## Owner check
 
-- Place a D4, R4 or F6 construction site, rotate it and check its early frame.
-- Deliver the full section bill and start work; check the intermediate stage.
-- Save/reload partway through, then pause/resume work and finish the machine.
-- Cancel another partial site and check that delivered parts return normally.
-- Check selection highlighting and that neighbouring finished machines look unchanged.
-
-Offline coverage includes real native action generation, input/output and tool
-contracts, menu selection, foreign-entry preservation, rejection of new cooling
-deposits and native load/cancel signatures. Production adapter tests cover staged
-partial/full bills, wrong/missing/destroyed/contained sections, duplicate references,
-cancellation, retained progress, reload-equivalent objects, completion replay,
-recovery access/heat/lot restrictions, stack identity and scoped damage transfers.
-They do not run Unity physics, native crew pathfinding or the owner's save live.
-
-## Short owner check
-
-- On the existing D4-S, open Assembly information and place its construction site.
-  Supply the second section; watch separate hauling, interrupt a worker, then
-  resume. Confirm the finished fixture has Control Panel and the expected mass.
-- Save and reload a partly delivered site. Check the same parts and progress.
-  Cancel one spare site and check that its delivered sections return without loss.
-- Use direct Install on an existing whole loose machine. Confirm that path still
-  works and does not demand sections.
+- Load a save that holds loose D4-S, R4-S or F6-S sections and, if possible, a
+  partly built section site. Read the crew-log notice; check that complete sets
+  became whole machines and leftovers became scrap and parts where they lay.
+- Check that a section site with every section delivered can still be finished.
+- Choose a D4, R4 or F6 in INSTALL > APPS: it should ask for the whole loose
+  machine. Watch the early and part-built stages while the crew installs it, and
+  save/reload partway through.
 - On the affected F6-P, choose Recover stored cargo. Check quantities and stacks,
   unload everything, and confirm new deposits fail. Reopen Maintenance information
   to see any remaining coolant, temperature or paired-equipment restriction.

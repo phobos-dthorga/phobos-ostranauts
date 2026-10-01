@@ -678,3 +678,18 @@ is one quad per firing head, repositioned each frame while visible; the firing
 sheet uses the game's own per-frame step. A new operation metric,
 shipbreaker.laser.update, covers the step. No performance capture or measured
 FPS claim accompanies this change.
+
+## 1 October: retired section assembly and the legacy sweep (L13)
+
+L13 - Static review of Framework 0.67.0 with Shipbreaker 0.60.0 (the D4, R4 and
+F6 come whole; saved sections convert). The legacy-item sweep is polled from
+Framework's update and does nothing until a content mod registers a rule. Then,
+once every 15 real seconds, it lists each loaded player-owned ship's objects
+(including contained ones) once, tests each for a placeholder site or a retired
+definition id, and collects live site lots into one set. Conversion work happens
+only when a retired part is found, so after the first sweep of a converted save
+the pass is one object listing per ship per 15 seconds. Section sites keep their
+existing per-site appearance view; whole-machine install sites gain the same
+bounded view (at most ten checks a real second per site). INSTALL retirement and
+table-offer removal run once at content confirmation. No performance capture or
+measured FPS claim accompanies this change.

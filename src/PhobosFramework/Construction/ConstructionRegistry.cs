@@ -43,6 +43,10 @@ public static class ConstructionRegistry
     }
     public static bool Ready(string owner) => complete && ReadyOwners.Contains(owner);
     public static string ResolveAction(string id) => id != null && Aliases.TryGetValue(id, out var target) ? target : id!;
+    /// <summary>A copy of a registered recipe, by recipe id, for content that derives a related rule from the same
+    /// published bill (Framework 0.67.0); null when it is not registered.</summary>
+    public static Recipe? Find(string recipeId) => recipeId != null && Recipes.TryGetValue(RecipeRules.ActionId(recipeId), out var entry)
+        ? JsonConvert.DeserializeObject<Recipe>(JsonConvert.SerializeObject(entry.Recipe), JsonSettings) : null;
 
     internal static void BeginLoad()
     {

@@ -115,7 +115,9 @@ keeps the recipe revision it started with.
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
 kilogram, so you edit the listed size and the rest follow. Assembly sections and
-navigation boards are entries too: a section has a price, dismantle work and salvage;
+navigation boards are entries too: a section has a price, dismantle work and salvage
+(the three Shipbreaker sections are retired since 0.60.0 and are never sold, but the
+entries stay for copies still held);
 a board has a price, a broken price, repair and dismantle work. Every entry names
 the `lot` it ships in and the `floor` its offers never fall below, from the pack's
 own `lots` and `chanceFloors` tables.

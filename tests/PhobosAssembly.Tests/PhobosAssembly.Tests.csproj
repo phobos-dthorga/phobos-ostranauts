@@ -4,6 +4,8 @@
     <Compile Include="../../src/PhobosFramework/Construction/SectionAssembly.cs" Link="SectionAssembly.cs" />
     <Compile Include="../../src/PhobosFramework/Construction/SectionAssemblyAppearance.cs" Link="SectionAssemblyAppearance.cs" />
     <Compile Include="../../src/PhobosFramework/Construction/Recipe.cs" Link="Recipe.cs" />
+    <Compile Include="../../src/PhobosFramework/Persistence/LegacyItemConversions.cs" Link="LegacyItemConversions.cs" />
+    <Compile Include="../../src/PhobosFramework/Cadence.cs" Link="Cadence.cs" />
     <Compile Include="../../src/PhobosShipbreaker/CoolingCargo.cs" Link="CoolingCargo.cs" />
   </ItemGroup>
 </Project>
