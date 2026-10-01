@@ -18,7 +18,8 @@ public static class RoutingRules
     // The service separately requires healthy installed endpoints before linking/running.
     private static string? Family(string? id) => FurnaceRules.Machine(id) ? FurnaceRules.Prefix : ReclaimerRules.IsFamily(id) ? ReclaimerRules.Installed :
         CollectorRules.IsFamily(id) ? CollectorRules.Installed :
-        new[] { Processor, Processor + "Dmg", "PhobosShipbreakerLoose", "PhobosShipbreakerLooseDmg" }.Contains(id) ? Processor : null;
+        id == Processor || id == ProcessorDamaged || id == "PhobosShipbreakerLoose" || id == "PhobosShipbreakerLooseDmg" ? Processor : null;
+    private const string ProcessorDamaged = Processor + "Dmg";
     public static bool IsSender(string? id) => Family(id) != null;
     public static bool IsProcessorFamily(string? id) => Family(id) == Processor;
     public static bool IsReceiver(string? id) => FurnaceRules.Machine(id) || Family(id) == CollectorRules.Installed || Family(id) == ReclaimerRules.Installed;

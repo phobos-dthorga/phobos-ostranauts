@@ -337,8 +337,12 @@ internal static partial class FurnaceService
         double.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out double cycle) && cycle > 0);
     internal static void FlightCommand(Ship ship)
     {
-        foreach (var s in sessions.Values.Where(s => s.Object.ship == ship && FurnaceRules.Machine(s.Object.strCODef) && (s.State.Batch.Armed || s.RepeatAuthorized || Plugin.Collectors.ReceivingEnabled(s.Object))))
+        // Called for every ship's every nonzero manoeuvre and burn: nothing is allocated, and with no furnace
+        // sessions it returns at once.
+        if (sessions.Count == 0) return;
+        foreach (var s in sessions.Values)
         {
+            if (s.Object.ship != ship || !FurnaceRules.Machine(s.Object.strCODef) || !(s.State.Batch.Armed || s.RepeatAuthorized || Plugin.Collectors.ReceivingEnabled(s.Object))) continue;
             Plugin.Collectors.Interrupt(s.Object, Text.Get("Furnace.flight")); s.State.Batch.Armed = false; s.State.Batch.Hold = 0; s.Notice = Text.Get("Furnace.flight"); Save(s);
             // The run never re-arms on the next guidance pulse; the player resumes it after manoeuvring.
             SuspendRepeat(s, Text.Get("Furnace.flight"), true);

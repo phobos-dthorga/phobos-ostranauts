@@ -156,12 +156,19 @@ public sealed class FluidTopology
         for (int k = 0; k < participantComponent.Length; k++) if (participantComponent[k] == id) yield return k;
     }
     /// <summary>The bounded cardinal route between two cells, or null; identical to the former per-call search.</summary>
+    /// <remarks>A route is remembered for the life of this snapshot (Framework 0.72.0): the layout cannot change until
+    /// the next rebuild, and a pump asks for the same route on every power step. Callers only read the cells.</remarks>
     public int[]? Path(int startCell, int goalCell, int visitLimit = GridRoute.DefaultVisitLimit)
     {
         if (!Connected(startCell, goalCell)) return null;
+        var key = (startCell, goalCell, visitLimit);
+        if (pathMemo.TryGetValue(key, out var known)) return known;
         start[0] = startCell; goal.Clear(); goal.Add(goalCell);
-        return GridRoute.Find(Columns, Rows, start, goal, Allowed, visitLimit);
+        var path = GridRoute.Find(Columns, Rows, start, goal, Allowed, visitLimit);
+        if (pathMemo.Count < 4096) pathMemo[key] = path;
+        return path;
     }
+    private readonly Dictionary<(int Start, int Goal, int Limit), int[]?> pathMemo = new();
     /// <summary>Steps between two participants over the network (segment cells and touching participants each count
     /// one), or -1 when they share no network. One search per source participant per snapshot, remembered.</summary>
     public int Hops(int from, int to)

@@ -156,7 +156,11 @@ internal static class CaptureService
     }
     internal static void Update()
     {
-        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
+        if (sessions.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
+        // Nothing is copied on a frame with no approach in progress.
+        bool approaching = false;
+        foreach (var s in sessions.Values) if (s.Record.Phase == CapturePhase.Approaching) { approaching = true; break; }
+        if (!approaching) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Capture);
         foreach (var s in sessions.Values.ToArray())
         {

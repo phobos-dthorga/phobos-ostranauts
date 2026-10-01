@@ -17,14 +17,14 @@ public static class CrewSpecialities
     public static void RegisterPractical(string interaction, string skill) => practical[interaction] = skill;
     public static void CreditPractical(Interaction interaction)
     {
-        if(!interaction.bCancel && practical.TryGetValue(interaction.strName,out var skill) && ClaimCredit(interaction))
+        if(!interaction.bCancel && interaction.strName != null && practical.TryGetValue(interaction.strName,out var skill) && ClaimCredit(interaction))
             Credit(interaction.objUs,skill,interaction.fDurationOrig*3600,false);
     }
     internal static bool ClaimCredit(Interaction interaction)
     { if(credited.TryGetValue(interaction,out _))return false; credited.Add(interaction,new object()); return true; }
     internal static void Adjust(CondOwner actor,Interaction interaction)
     {
-        if(!practical.TryGetValue(interaction.strName,out var skill) || !Skilled(actor,skill) ||
+        if(interaction.strName == null || !practical.TryGetValue(interaction.strName,out var skill) || !Skilled(actor,skill) ||
             !DataHandler.dictInteractions.TryGetValue(interaction.strName,out var definition)) return;
         // A restored, already shortened interaction must not receive the bonus twice.
         if(Math.Abs(interaction.fDurationOrig-definition.fDuration)<1e-10)

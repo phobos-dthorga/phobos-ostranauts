@@ -181,7 +181,11 @@ public static class GasStores
     public static GasStore Methane => MethaneFamily.Small;
     public static GasStore? For(string? definition) => index.Get(definition);
     public static bool IsFamily(string? definition) => For(definition) != null;
-    public static GasFamily? FamilyOf(string? commodity) => Families.FirstOrDefault(f => f.Commodity == commodity);
+    public static GasFamily? FamilyOf(string? commodity)
+    {
+        for (int i = 0; i < Families.Count; i++) if (Families[i].Commodity == commodity) return Families[i];
+        return null;
+    }
     /// <summary>Whether a definition is any size of the store family holding <paramref name="commodity"/>.</summary>
     public static bool Holds(string? definition, string commodity) => For(definition)?.Commodity == commodity;
     public static string SizeFor(double energyKJ) => energyKJ < SmallKJ ? "Small" : energyKJ < MediumKJ ? "Medium" : "Large";

@@ -6,6 +6,28 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.31.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Performance pass, first round (owner request, 1 October 2026). None of this changes what the equipment does, except the L2 fix below.
+- The feed hooks that run for every container in the game allocate nothing now, and a running V4, LC-3 or SA-3 no longer rebuilds its recipe lists on every power step.
+- The K2 and AX-2 read each linked store once per check instead of twice.
+- A damaged fuel store looks for an ignition source in one pass over its ship, and only when the room has the oxygen to burn; it made three passes every two seconds before.
+- The RCS reserve the game asks for every frame is summed without allocating.
+
+### Fixed
+
+- An L2 filling station that could move nothing (a full target, an empty source) searched for work on every power step at working power. It now stands down and looks again every five seconds, as intended.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. Static review only; settling machine records every two seconds instead of every step is left for the owner's decision and a measurement.
+
 ## [0.30.0] - 2026-10-01 - Draft
 
 ### Changed

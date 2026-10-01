@@ -197,6 +197,10 @@ internal sealed partial class NavigationService
             if (!dispatch && fireConsole == null && FireModule(OpenConsole) != null) fireConsole = OpenConsole;
             if (fireConsole == null) return;
             var co = fireConsole; var ship = co.ship;
+            // Bound but idle (Auto Nav 0.31.3): the station is closed and nothing is aimed, permitted, targeted, in
+            // combat or held by fire control. The binding is kept; nothing is read, observed or dispatched until one
+            // of those is true again. Before, a station opened once kept reading every weapon on every physics step.
+            if (!Fire.Permitted && !autoAim && !combatActive && fireTargetId == null && Fire.Idle && OpenConsole != co) return;
             var hardwareProblem = FireHardwareProblem(co);
             if (!Plugin.Enabled.Value || hardwareProblem != null || !FirePreferences(co, out int group, out _, out _))
             { FireFault(hardwareProblem ?? "FCS.unavailable"); return; }

@@ -41,9 +41,15 @@ internal sealed partial class ProcessingService
     private static ProcessRecipeCatalog Recipes(CondOwner machine, CondOwner input) => IsReclaimer(machine) ? ReclaimerRules.Recipes :
         (FeedIdentity.Family(input) ?? throw new ArgumentException(FeedIdentity.Problem(input))).Catalog(input.GetTotalMass());
     private double Cycle(CondOwner machine) => IsReclaimer(machine) ? options.ReclaimerSeconds : options.CycleSeconds;
-    internal static CondOwner? Feed(CondOwner machine) => machine.compSlots?
-        .GetCOs(IsReclaimer(machine) ? ReclaimerRules.InputSlot : Content.InputSlot, true, null)?
-        .FirstOrDefault(c => c != null && c.strCODef == (IsReclaimer(machine) ? ReclaimerRules.InputBin : Content.InputBin));
+    internal static CondOwner? Feed(CondOwner machine)
+    {
+        bool reclaimer = IsReclaimer(machine);
+        var held = machine.compSlots?.GetCOs(reclaimer ? ReclaimerRules.InputSlot : Content.InputSlot, true, null);
+        if (held == null) return null;
+        string bin = reclaimer ? ReclaimerRules.InputBin : Content.InputBin;
+        foreach (var c in held) if (c != null && c.strCODef == bin) return c;
+        return null;
+    }
     private static bool ValidInput(CondOwner? input, string id, double kg) => input != null && !input.bDestroyed &&
         input.strCODef == id && !input.HasCond("IsInstalled") && input.coStackHead == null &&
         (input.aStack == null || input.aStack.Count == 0) && input.GetCOsSafe(true).Count == 0 &&
@@ -74,9 +80,10 @@ internal sealed partial class ProcessingService
             !machine.HasCond("IsInstalled")) return Text.Get("ProcessingService.install_the_undamaged_fixture_first");
         if (machine.HasCond("IsDamaged")) return Text.Get("ProcessingService.repair_the_fixture_first");
         if (machine.ship == null || (int)machine.ship.LoadState < 2) return Text.Get("ProcessingService.ship_is_not_loaded");
-        if (machine.HasCond("IsLocked") || Feed(machine)?.HasCond("IsLocked") == true || machine.objContainer?.Locked == true || Feed(machine)?.objContainer?.Locked == true) return Text.Get("ProcessingService.unlock_the_fixture_and_feed");
+        var feed = Feed(machine);
+        if (machine.HasCond("IsLocked") || feed?.HasCond("IsLocked") == true || machine.objContainer?.Locked == true || feed?.objContainer?.Locked == true) return Text.Get("ProcessingService.unlock_the_fixture_and_feed");
         if (machine.HasCond("IsOverrideOff") || machine.HasCond("IsSignalOff")) return Text.Get("ProcessingService.fixture_is_switched_off");
-        if (machine.objContainer == null || Feed(machine)?.objContainer == null) return Text.Get("ProcessingService.missing_feed_or_output_tray");
+        if (machine.objContainer == null || feed?.objContainer == null) return Text.Get("ProcessingService.missing_feed_or_output_tray");
         return null;
     }
 

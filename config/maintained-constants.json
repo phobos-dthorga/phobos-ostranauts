@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.71.0",
+      "value": "0.72.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.65.0",
+      "value": "0.66.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.31.2",
+      "value": "0.31.3",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.37.0",
+      "value": "0.38.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.0",
+      "value": "0.31.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {

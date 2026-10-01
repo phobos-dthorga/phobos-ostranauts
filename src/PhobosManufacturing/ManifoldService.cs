@@ -120,10 +120,21 @@ internal sealed class ManifoldService : IRcsPropellantFeed
         }
         return Math.Max(0, equivalentKg - Math.Max(0, remaining));
     }
-    public double ReserveEquivalentKg(CondOwner feed) =>
-        !Feeding(feed, out var s) ? 0 : s.Ready.Sum(store => ManifoldRules.EquivalentKg(BulkVessels.Of(store)?.Commodity, BufferedDrains.AvailableKg(store)));
-    public double CapacityEquivalentKg(CondOwner feed) =>
-        !Feeding(feed, out var s) ? 0 : s.Ready.Sum(store => { var spec = BulkVessels.Of(store); return spec == null ? 0 : ManifoldRules.EquivalentKg(spec.Commodity, spec.CapacityKg); });
+    // The game asks for the RCS reserve every frame for every ship: plain loops, no closures (Manufacturing 0.31.0).
+    public double ReserveEquivalentKg(CondOwner feed)
+    {
+        if (!Feeding(feed, out var s)) return 0;
+        double kg = 0;
+        foreach (var store in s.Ready) kg += ManifoldRules.EquivalentKg(BulkVessels.Of(store)?.Commodity, BufferedDrains.AvailableKg(store));
+        return kg;
+    }
+    public double CapacityEquivalentKg(CondOwner feed)
+    {
+        if (!Feeding(feed, out var s)) return 0;
+        double kg = 0;
+        foreach (var store in s.Ready) { var spec = BulkVessels.Of(store); if (spec != null) kg += ManifoldRules.EquivalentKg(spec.Commodity, spec.CapacityKg); }
+        return kg;
+    }
 
     // --- Presentation and commands --------------------------------------------------------------------------------
     internal static EquipmentState State(CondOwner co)

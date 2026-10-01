@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.38.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Performance pass, first round (owner request, 1 October 2026): the recovery record of every rack, cooker, bench and W2 is written only when it changes, instead of on every save of the machine. Nothing else changes.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. Static review only; the larger findings (several saves per power step, conduit reads) are listed in the performance record for a measurement first.
+
 ## [0.37.0] - 2026-10-01 - Draft
 
 ### Changed

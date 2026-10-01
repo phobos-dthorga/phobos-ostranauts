@@ -234,7 +234,28 @@ internal static class StoreService
     private static bool Ignites(CondOwner co, out RoomHeat.Air? air)
     {
         air = RoomHeat.Read(co);
-        return air != null && GasStores.Fate(air.Room.GetCondAmount("StatGasPpO2"), FireInRoom(co, air), HearthWorking(co, air), SparkingDevice(co, air)) == HydrogenFate.Deflagrate;
+        if (air == null) return false;
+        double oxygen = air.Room.GetCondAmount("StatGasPpO2");
+        // Without the oxygen nothing lights, whatever is in the room: no search then. With it, one pass over the ship
+        // that stops at the first ignition source (Manufacturing 0.31.0; it used to make three full passes every time).
+        if (GasStores.Fate(oxygen, true, true, true) != HydrogenFate.Deflagrate) return false;
+        return GasStores.Fate(oxygen, IgnitionSource(co, air), false, false) == HydrogenFate.Deflagrate;
+    }
+    /// <summary>A fire in the room, a working refinery hearth there, or a powered device sparking at the game's own
+    /// half-damage rule.</summary>
+    private static bool IgnitionSource(CondOwner co, RoomHeat.Air air)
+    {
+        var objects = co.ship?.GetCOs(null, false, false, true);
+        if (objects == null) return false;
+        foreach (var c in objects)
+        {
+            if (c == null || c.bDestroyed || c == co) continue;
+            bool lights = c.HasCond("IsFire") && !c.HasCond("IsExtinguished") ||
+                ChargeMachines.For(c.strCODef) is ChargeMachine charge && charge.Igniting(c) ||
+                c.HasCond("IsPowered") && c.GetCondAmount("StatDamageMax") > 0 && c.GetCondAmount("StatDamage") >= .5 * c.GetCondAmount("StatDamageMax");
+            if (lights && SameRoom(c, air)) return true;
+        }
+        return false;
     }
     /// <summary>The room loses the burned oxygen and gains the burn's native products; heat goes into its air up to
     /// the industrial ceiling and the rest is carried by the game's own explosion.</summary>
@@ -248,10 +269,4 @@ internal static class StoreService
         NativeExplosions.Spawn(co.ship, co.tf.position, GasStores.DeflagrationDefinition(burn));
     }
     private static bool SameRoom(CondOwner c, RoomHeat.Air air) => c.ship?.GetRoomAtWorldCoords1(c.GetPos(), false)?.CO == air.Room;
-    private static IEnumerable<CondOwner> Nearby(CondOwner co) => co.ship?.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c != co) ?? Enumerable.Empty<CondOwner>();
-    private static bool FireInRoom(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => c.HasCond("IsFire") && !c.HasCond("IsExtinguished") && SameRoom(c, air));
-    private static bool HearthWorking(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => ChargeMachines.For(c.strCODef) is ChargeMachine charge && charge.Igniting(c) && SameRoom(c, air));
-    /// <summary>The game's own spark rule: a powered device at half its damage or more throws sparks.</summary>
-    private static bool SparkingDevice(CondOwner co, RoomHeat.Air air) => Nearby(co).Any(c => c.HasCond("IsPowered") && c.GetCondAmount("StatDamageMax") > 0 &&
-        c.GetCondAmount("StatDamage") >= .5 * c.GetCondAmount("StatDamageMax") && SameRoom(c, air));
 }

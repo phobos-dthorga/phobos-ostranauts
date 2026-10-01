@@ -22,7 +22,13 @@ internal static class ChargeMachines
         if (byDefinition.Count < 65536) byDefinition[id] = machine;
         return machine;
     }
-    internal static ChargeMachine? ForBin(string? binId) => binId == null ? null : All.FirstOrDefault(m => m.Spec.InputBin == binId);
+    // Called for every container admission and stack test in the game: three string comparisons, no allocation.
+    internal static ChargeMachine? ForBin(string? binId)
+    {
+        if (binId == null) return null;
+        for (int i = 0; i < All.Count; i++) if (All[i].Spec.InputBin == binId) return All[i];
+        return null;
+    }
     internal static bool IsBin(string? id) => ForBin(id) != null;
     internal static void Reset() { byDefinition.Clear(); foreach (var machine in All) machine.Reset(); }
 

@@ -92,7 +92,11 @@ public static class LiquidStores
     private static DefinitionIndex<LiquidStore> BuildIndex() { var i = new DefinitionIndex<LiquidStore>(); foreach (var store in All) i.Add(store.Prefix, store); return i; }
     public static LiquidStore? For(string? definition) => index.Get(definition);
     public static bool IsFamily(string? definition) => For(definition) != null;
-    public static LiquidFamily? FamilyOf(string? commodity) => Families.FirstOrDefault(f => f.Commodity == commodity);
+    public static LiquidFamily? FamilyOf(string? commodity)
+    {
+        for (int i = 0; i < Families.Count; i++) if (Families[i].Commodity == commodity) return Families[i];
+        return null;
+    }
     public static bool Holds(string? definition, string commodity) => For(definition)?.Commodity == commodity;
     /// <summary>The capacity the density and fill imply for the vessel, before the authored rounding.</summary>
     public static double AcidCapacityKg => AcidDensityKgPerM3 * VesselVolumeM3 * FillFraction;

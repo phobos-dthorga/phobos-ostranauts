@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.31.2";
+    public const string Version = "0.31.3";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;

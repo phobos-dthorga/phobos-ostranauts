@@ -52,11 +52,17 @@ internal sealed class ChargeLinkSpec
 /// whether it can ignite a leaking store, and its commodity links. The engine (<see cref="ChargeMachine"/>) is shared.</summary>
 internal sealed class ChargeMachineSpec
 {
-    internal string Prefix { get; set; } = "";
-    internal string Installed => Prefix + "Installed";
-    internal string InputBin => Prefix + "InputBin";
-    internal string InputSlot => Prefix + "Input";
-    internal string FeedTrigger => Prefix + "TFeed";
+    // The derived ids are built once: the feed hooks compare InputBin for every container admission in the game.
+    private string prefix = "", installed = "Installed", inputBin = "InputBin", inputSlot = "Input", feedTrigger = "TFeed";
+    internal string Prefix
+    {
+        get => prefix;
+        set { prefix = value; installed = value + "Installed"; inputBin = value + "InputBin"; inputSlot = value + "Input"; feedTrigger = value + "TFeed"; }
+    }
+    internal string Installed => installed;
+    internal string InputBin => inputBin;
+    internal string InputSlot => inputSlot;
+    internal string FeedTrigger => feedTrigger;
     /// <summary>The game-level stock trigger the feed bin admits besides native ore (the V4 keeps its original name).</summary>
     internal string StockTrigger { get; set; } = "";
     /// <summary>Own stock identities the feed admits at the game level (each carries an <c>&lt;id&gt;Identity</c> condition).</summary>

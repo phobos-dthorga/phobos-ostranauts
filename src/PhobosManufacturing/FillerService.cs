@@ -55,9 +55,11 @@ internal static class FillerService
         sessions.Add(co, s);
         return s;
     }
-    private static bool Save(CondOwner co, Session s)
+    // A changed setting is looked at again at once; a power step's own save keeps the back-off it has just set
+    // (Manufacturing 0.31.0: the reset used to cancel it, so a station that could move nothing searched every step).
+    private static bool Save(CondOwner co, Session s, bool recheck = true)
     {
-        if (Store(co).TryWrite(s.State.Save())) { s.NextCheck = 0; return true; }
+        if (Store(co).TryWriteIfChanged(s.State.Save())) { if (recheck) s.NextCheck = 0; return true; }
         s.Protected = true; s.Status = Text.Get("Filler.protected"); return false;
     }
     internal static bool Protected(CondOwner co) => Get(co).Protected;
@@ -162,7 +164,8 @@ internal static class FillerService
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Filler.switched_off");
         return null;
     }
-    private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ManufacturingRules.Filling, value ? 1 : 0);
+    // Written only when it changes: an idle machine reaches this on every power step.
+    private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Filling) != value) co.SetCondAmount(ManufacturingRules.Filling, value ? 1 : 0); }
     internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
     {
         var s = Get(co);
@@ -249,18 +252,23 @@ internal static class FillerService
         // One job is chosen per step and kept while it still has room and its source still gives; the next
         // vessel is looked for only when this one is done or its source fell short.
         var job = NextJob(co, s, out _, out _);
+        Job? last = null;
         for (int i = 0; i < 8 && work > 1e-12 && job != null; i++)
         {
             double kg = FillerRules.KgFor(work, job.KWhPerKg, job.WantedKg);
             double moved = kg <= 0 ? 0 : Move(job, kg);
-            if (moved <= 1e-9) { s.NextCheck = Cadence.RealTime + FillerRules.RecheckSeconds; break; }
+            // Nothing moved: stand down and look again after the recheck interval, instead of searching every step
+            // at working power.
+            if (moved <= 1e-9) { s.NextCheck = Cadence.RealTime + FillerRules.RecheckSeconds; SetWorking(co, false); break; }
             work -= moved * job.KWhPerKg;
             if (job.Decant) s.State.DecantedKg += moved; else s.State.FilledKg += moved;
-            s.Status = Text.Get(job.Decant ? "Filler.decanting" : "Filler.filling", ObjectPresentation.Name(job.Vessel), Gas(job.Species), ObjectPresentation.Name(job.Other));
+            last = job;
             job.WantedKg -= moved;
             if (job.WantedKg <= 1e-9 || moved < kg - 1e-9) job = NextJob(co, s, out _, out _);
         }
-        Save(co, s);
+        // The status names the last vessel worked this step; it is written once, not once per move.
+        if (last != null) s.Status = Text.Get(last.Decant ? "Filler.decanting" : "Filler.filling", ObjectPresentation.Name(last.Vessel), Gas(last.Species), ObjectPresentation.Name(last.Other));
+        Save(co, s, recheck: false);
     }
     internal static void Forget(Powered power) { pending.Remove(power); NativeEnergyReceipts.Forget(power); }
 

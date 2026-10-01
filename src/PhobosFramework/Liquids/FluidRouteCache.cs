@@ -119,6 +119,12 @@ public static class FluidRouteCache
     /// <summary>The segment behind each cell that carries fluid in the current snapshot (Framework 0.63.0): intact,
     /// installed, open and over sound floor.</summary>
     public static IReadOnlyDictionary<int, CondOwner> Segments(Ship ship, FluidSegmentFamily family) => Snapshot(ship, family, GridRoute.DefaultVisitLimit).Segments;
+    /// <summary>Whether the ship's cached layout, if it has one, shows no working open segment of a family (Framework
+    /// 0.72.0). Never rebuilds: the two-second top-up asks this first, so a ship without lines is not scanned every two
+    /// seconds for them. A segment that appears, is repaired or returns to service drops the cached layout through
+    /// the hooks below and the line actions, and the next top-up then reads the ship afresh.</summary>
+    internal static bool KnownEmpty(Ship ship, FluidSegmentFamily family) =>
+        ship != null && snapshots.TryGetValue(ship, out var s) && s.Built && s.Families.TryGetValue(family.Id, out var f) && f.Segments.Count == 0;
     /// <summary>What lies on a participant's join cells in the current snapshot (Framework 0.69.0), for explaining a
     /// link that is not offered: an open segment that carries fluid, and a closed (drained) one. Both false for an
     /// object that is not a ready participant of the family.</summary>
@@ -158,19 +164,21 @@ public static class FluidRouteCache
     {
         s.Families.Clear();
         if (registered.Count == 0) return;
+        // The scope covers the whole rebuild, scan and topology build together (it used to time the scan alone).
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteFind);
         var collectors = registered.Values.Select(f => new Collector(f)).ToArray();
         Scan(ship, collectors);
         foreach (var c in collectors) s.Families[c.Family.Id] = Finish(ship, c, GridRoute.DefaultVisitLimit);
     }
     private static FamilySnapshot BuildOne(Ship ship, FluidSegmentFamily family, int visitLimit)
     {
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteFind);
         var collector = new Collector(family);
         Scan(ship, new[] { collector });
         return Finish(ship, collector, visitLimit);
     }
     private static void Scan(Ship ship, Collector[] collectors)
     {
-        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteFind);
         Rebuilds++;
         var objects = ship.GetCOs(null, false, false, true);
         Diagnostics.Performance.Increment(Diagnostics.Performance.FluidRouteObjects, objects.Count);
@@ -220,8 +228,16 @@ public static class FluidRouteCache
         for (int k = 0; k < c.Participants.Count; k++) snapshot.Participants[c.Participants[k]] = k;
         return snapshot;
     }
-    /// <summary>Forgets one ship's snapshots (an object joined or left it) or every snapshot.</summary>
-    public static void Invalidate(Ship? ship) { if (ship != null) snapshots.Remove(ship); }
+    /// <summary>Forgets one ship's snapshots (a relevant object joined, left or changed on it) or every snapshot.</summary>
+    public static void Invalidate(Ship? ship)
+    {
+        if (ship != null && snapshots.Remove(ship)) Diagnostics.Performance.Increment(Diagnostics.Performance.FluidRouteInvalidations);
+    }
+    // A cached layout is dropped only for a ship that has one, and only by an object that can change it.
+    private static void Changed(Ship? ship, CondOwner? co)
+    {
+        if (ship != null && snapshots.Count > 0 && snapshots.ContainsKey(ship) && Relevant(co)) Invalidate(ship);
+    }
     public static void InvalidateAll() => snapshots.Clear();
     /// <summary>Whether a mode switch of this object can change a route: a segment, a participant, a floor or a wall.</summary>
     internal static bool Relevant(CondOwner? co)
@@ -235,27 +251,34 @@ public static class FluidRouteCache
     // Mode switches (damage, repair, installation), destruction and objects joining or leaving a ship can all change
     // the pipe layout; the layout is then read again on the next route request. Relevance is tested before and after
     // the switch: an intact segment that becomes damaged is a segment before, a repaired one after.
+    //
+    // Framework 0.72.0 (1 October 2026 performance pass): every hook tests relevance. The destroy, add and remove
+    // hooks used to drop the ship's layout for any object at all, and the game destroys the old half of every mode
+    // switch and adds and removes an object for every item picked up, dropped or eaten, so a door cycle or a snack
+    // forced a full rebuild on the next power step. The mode-switch postfix also tested the old object twice and
+    // never the new one. Anything these tests miss is still seen by the two-second recheck.
     [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
     private static class ModeSwitchPatch
     {
         private static void Prefix(CondOwner __instance, out (Ship? Ship, bool Relevant) __state) =>
             __state = (__instance?.ship, snapshots.Count > 0 && Relevant(__instance));
-        private static void Postfix(CondOwner __instance, (Ship? Ship, bool Relevant) __state)
+        private static void Postfix(CondOwner __instance, CondOwner coNew, (Ship? Ship, bool Relevant) __state)
         {
             if (snapshots.Count == 0) return;
-            if (__state.Relevant || Relevant(__instance)) { Invalidate(__state.Ship); Invalidate(__instance?.ship); }
+            if (__state.Relevant || Relevant(coNew)) { Invalidate(__state.Ship); Invalidate(__instance?.ship); Invalidate(coNew?.ship); }
         }
     }
     [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.Destroy))]
-    private static class DestroyPatch { private static void Prefix(CondOwner __instance) { if (snapshots.Count > 0) Invalidate(__instance?.ship); } }
+    private static class DestroyPatch { private static void Prefix(CondOwner __instance) => Changed(__instance?.ship, __instance); }
     // Ship.AddCO has two overloads; each is named by its parameter types or Harmony cannot resolve the patch and
-    // aborts the whole plugin's PatchAll (PatchResolutionChecks in the native suite resolves every patch).
+    // aborts the whole plugin's PatchAll (PatchResolutionChecks in the native suite resolves every patch). The object
+    // is the first argument of each (taken by position, whatever the game names it).
     [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool))]
-    private static class AddPatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
+    private static class AddPatch { private static void Postfix(Ship __instance, CondOwner __0) => Changed(__instance, __0); }
     [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool), typeof(bool))]
-    private static class AddSkipPatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
+    private static class AddSkipPatch { private static void Postfix(Ship __instance, CondOwner __0) => Changed(__instance, __0); }
     [HarmonyPatch(typeof(Ship), nameof(Ship.RemoveCO))]
-    private static class RemovePatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
+    private static class RemovePatch { private static void Postfix(Ship __instance, CondOwner __0) => Changed(__instance, __0); }
     [HarmonyPatch]
     private static class ReloadPatch
     {

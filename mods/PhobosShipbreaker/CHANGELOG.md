@@ -25,6 +25,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.66.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Performance pass, first round (owner request, 1 October 2026). None of this changes what the equipment does.
+- Removed three empty drawing calls that ran on every interface event of every frame.
+- The furnace and reclamation hooks on every ship's manoeuvres and burns no longer allocate, and return at once when no furnace or mission is involved.
+- The capture, reclamation and laser updates copy nothing on a frame with nothing to do.
+- The D4, R4 and T2 look up their feed bin once per check instead of four times, and a routed F6 finds the other furnace parts on its coolant circuit through the shared world sweep instead of scanning its ship four times a second.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.71.0 or newer. Static review only; findings that need a measurement (mission window selection, per-step record writes) are listed in the performance record.
+
 ## [0.65.0] - 2026-10-01 - Draft
 
 ### Changed

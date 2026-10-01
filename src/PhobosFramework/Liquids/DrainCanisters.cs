@@ -98,21 +98,31 @@ public static class DrainCanisters
     }
     /// <summary>Pours every filled canister in an installed store's inventory into that store when it holds the same
     /// liquid, and into a registered receiver machine when it accepts it.</summary>
-    internal static void Pour(Ship ship)
+    internal static void Pour(Ship ship, IReadOnlyList<CondOwner> canisters)
     {
-        foreach (var holder in ship.GetCOs(null, false, false, true))
+        for (int i = 0; i < canisters.Count; i++)
         {
-            if (holder?.objContainer == null || holder.ship != ship || holder.objContainer.ContainedCOs.Count == 0 || !holder.HasCond("IsInstalled") || holder.HasCond("IsDamaged")) continue;
+            var canister = canisters[i];
+            var holder = canister?.objCOParent;
+            if (holder?.objContainer == null || holder.ship != ship || !Is(canister) || !holder.HasCond("IsInstalled") || holder.HasCond("IsDamaged")) continue;
             var spec = BulkVessels.Of(holder);
-            var receiver = spec == null ? receivers.FirstOrDefault(r => r.Handles(holder)) : null;
+            ICanisterReceiver? receiver = null;
+            if (spec == null) { foreach (var r in receivers) if (r.Handles(holder)) { receiver = r; break; } }
             if (spec == null && receiver == null) continue;
-            foreach (var canister in holder.objContainer.ContainedCOs.Where(Is).ToArray())
-            {
-                if (Contents(canister) is not { Kg: > LineMixture.Tolerance } c) continue;
-                if (spec != null) { if (c.Commodity == spec.Commodity) PourInto(holder, spec, canister, c.Kg); }
-                else PourInto(holder, receiver!, canister, c.Commodity, c.Kg);
-            }
+            if (Contents(canister!) is not { Kg: > LineMixture.Tolerance } c) continue;
+            if (spec != null) { if (c.Commodity == spec.Commodity) PourInto(holder, spec, canister!, c.Kg); }
+            else PourInto(holder, receiver!, canister!, c.Commodity, c.Kg);
         }
+    }
+    // Every drain canister in the world, from the shared sweep (a new one is seen within a cycle or two).
+    private static readonly Discovery.WorldFamily family = Discovery.WorldFamilies.Register(FrameworkInfo.PluginId + ".drain-canisters", id => id == DrainCanisterRules.Id);
+    private static readonly List<CondOwner> stowed = new();
+    /// <summary>The drain canisters that sit inside something, read once per top-up pass for every ship.</summary>
+    internal static IReadOnlyList<CondOwner> Stowed()
+    {
+        family.Members(stowed);
+        stowed.RemoveAll(c => c == null || c.objCOParent == null);
+        return stowed;
     }
     private static void PourInto(CondOwner holder, ICanisterReceiver receiver, CondOwner canister, string commodity, double kg)
     {

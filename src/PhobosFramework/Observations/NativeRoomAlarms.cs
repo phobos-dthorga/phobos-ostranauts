@@ -39,6 +39,7 @@ public static class NativeRoomAlarms
     }
 
     /// <summary>Also checks the dock-inclusive query used by native gas alarms; ambiguous geometry fails closed.</summary>
+    private static readonly List<CondOwner> neighbours = new();
     public static CondOwner? MonitoredRoom(CondOwner source, string point, bool checkNeighbours)
     {
         var ship = source.ship;
@@ -47,9 +48,11 @@ public static class NativeRoomAlarms
         if (room == null || room.ship != ship) return null;
         if (checkNeighbours)
         {
-            var objects = new List<CondOwner>();
-            ship.GetCOsAtWorldCoords1(source.GetPos(point), null, true, false, objects);
-            if (objects.Any(c => c != null && c.ship != null && c.ship != ship)) return null;
+            // One reused buffer and a plain loop: this runs for every alarm sensor in the world on each of its runs.
+            neighbours.Clear();
+            ship.GetCOsAtWorldCoords1(source.GetPos(point), null, true, false, neighbours);
+            foreach (var c in neighbours) if (c != null && c.ship != null && c.ship != ship) { neighbours.Clear(); return null; }
+            neighbours.Clear();
         }
         return room;
     }

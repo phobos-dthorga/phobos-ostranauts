@@ -152,6 +152,10 @@ internal static partial class LaserService
     internal static void Update()
     {
         if (sessions.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
+        // Nothing is copied on a frame with no laser at work and none to forget.
+        bool due = false;
+        foreach (var session in sessions.Values) if (session.Authorized || session.Laser == null || session.Laser.bDestroyed) { due = true; break; }
+        if (!due) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Laser);
         foreach (var pair in sessions.ToArray())
         {

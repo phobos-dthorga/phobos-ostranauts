@@ -100,9 +100,10 @@ internal static class ThawService
         if (co == null || co.bDestroyed || co.strCODef != ThawRules.Installed || !co.HasCond("IsInstalled")) return Text.Get("Thaw.install_first");
         if (co.HasCond("IsDamaged")) return Text.Get("Thaw.repair_first");
         if (co.ship == null || (int)co.ship.LoadState < 2) return Text.Get("ProcessingService.ship_is_not_loaded");
-        if (co.HasCond("IsLocked") || Feed(co)?.HasCond("IsLocked") == true || co.objContainer?.Locked == true || Feed(co)?.objContainer?.Locked == true) return Text.Get("Thaw.unlock");
+        var feed = Feed(co);
+        if (co.HasCond("IsLocked") || feed?.HasCond("IsLocked") == true || co.objContainer?.Locked == true || feed?.objContainer?.Locked == true) return Text.Get("Thaw.unlock");
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Thaw.switched_off");
-        if (co.objContainer == null || Feed(co)?.objContainer == null) return Text.Get("Thaw.missing_feed");
+        if (co.objContainer == null || feed?.objContainer == null) return Text.Get("Thaw.missing_feed");
         return null;
     }
     private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ProcessRules.Working, value ? 1 : 0);

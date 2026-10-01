@@ -1,0 +1,24 @@
+[h1]Phobos Shipbreaker 0.66.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, first round (owner request, 1 October 2026). None of this changes what the equipment does.
+[*]Removed three empty drawing calls that ran on every interface event of every frame.
+[*]The furnace and reclamation hooks on every ship's manoeuvres and burns no longer allocate, and return at once when no furnace or mission is involved.
+[*]The capture, reclamation and laser updates copy nothing on a frame with nothing to do.
+[*]The D4, R4 and T2 look up their feed bin once per check instead of four times, and a routed F6 finds the other furnace parts on its coolant circuit through the shared world sweep instead of scanning its ship four times a second.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.71.0 or newer. Static review only; findings that need a measurement (mission window selection, per-step record writes) are listed in the performance record.
+[/list]

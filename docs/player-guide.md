@@ -17,8 +17,8 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.71.0**, Shipbreaker **0.65.0**, Auto Nav
-**0.31.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.72.0**, Shipbreaker **0.66.0**, Auto Nav
+**0.31.3**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -312,7 +312,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.65.0 requires Framework 0.71.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.66.0 requires Framework 0.71.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

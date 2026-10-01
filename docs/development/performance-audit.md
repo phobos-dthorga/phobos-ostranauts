@@ -774,3 +774,81 @@ objects. A T2 waiting on a full tray no longer creates a gangue object every fiv
 seconds and leaves it unreferenced: it destroys the unplaced one (a real leak, found
 in this review). The load-time fit merges units without a cell one at a time, once
 per ship load. No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: static optimisation pass, first round (L19)
+
+L19 — Owner request (1 October 2026): a performance optimisation of every Phobos
+Ostranauts mod. This round is a static review of all six mods, with only the
+changes that are safe from reading the code. No capture was taken (the owner was
+away); the last valid captures are still stages 8 and 9 (Framework 0.46.0 and
+0.47.0), taken before L1 to L18 added lines, links, belts and the load-time sweeps.
+Framework 0.72.0, Shipbreaker 0.66.0, Manufacturing 0.31.0, Agriculture 0.38.0 and
+Auto Nav 0.31.3.
+
+### Changed in this round
+
+| Where | What it cost | Now |
+| --- | --- | --- |
+| Framework `FluidRouteCache` destroy, add and remove hooks | A ship's line layout was dropped for any object (a door cycle, an item picked up, dropped or eaten); the next power step paid a full ship scan and topology build. L1's relevance filter covered only the mode-switch hook, and that hook tested the old object twice | Every hook tests relevance (segment, participant, floor, wall) and that the ship has a layout. The mode-switch postfix tests the new object. New counter `framework.fluid_route.invalidations`; the `framework.fluid_route.find` scope now covers the whole rebuild |
+| Framework `LineContents.Maintain` | Rebuilt every owned ship's layout every two seconds before checking it had segments | Asks `FluidRouteCache.KnownEmpty` first; a ship without working segments is not read again until something changes it |
+| Framework `DrainCanisters.Pour` | Walked every object of every owned ship every two seconds | Canisters come from the shared world sweep, once per pass |
+| Framework `PortPairing`, `MaterialPort` | LINQ over id characters, a string concatenation and a closure on every port read (three or more per linked machine per power step) | Loops, the map key built once, shared immutable answers for unlinked and invalid |
+| Framework `FluidTopology.Path` | A fresh search (delegate, dictionary, queue, list) for the same route on every power step | Remembered per snapshot |
+| Framework hooks | `NativeRoomAlarms.MonitoredRoom` allocated a list and a closure per alarm sensor run; `WaterTanks.For` and `LineHoldUpFamily.IsForm` used LINQ closures; the legacy-finish hook hashed a key with an empty table | Reused buffer and loops; an early exit |
+| Shipbreaker `Plugin.OnGUI` | Three empty immediate-mode GUI calls on every GUI event of every frame | Removed |
+| Shipbreaker `FurnaceService.FlightCommand`, `ReclamationService.ManualTakeover` | A closure, and an array for the takeover, on every ship's every nonzero manoeuvre or burn | No allocation; an immediate return with no sessions |
+| Shipbreaker capture, reclamation and laser `Update` | `ToArray` every frame | Nothing copied on a frame with nothing to do |
+| Shipbreaker `MachineProblem` (D4, R4, T2), `Feed` | The feed bin fetched four or five times per check, with a closure each | Once, by loop |
+| Shipbreaker `CoolantRouteNow` | A full ship object list four times a second and on every power-step frame per routed F6 | Furnace-family parts from the shared world sweep |
+| Shipbreaker `FeedPatch`, `FurnaceFeedStackPatch`, `RoutingRules.Family` | Repeated container dereferences; an array and LINQ per family test | One read; plain comparisons |
+| Manufacturing `ChargeMachines.ForBin`, `ChargeMachineSpec` | A closure, an enumerator and up to three string concatenations for every container admission and stack test in the game | Cached ids and a loop |
+| Manufacturing `ChargeRecipe`, `ChargeMachine.FeedKg` | Recipe lists rebuilt with LINQ on every read; the available-recipe set rebuilt per bound unit per step | Derived once in the constructor; a feed table rebuilt only when a requirement gate changes |
+| Manufacturing `SabatierService`, `CrackerService` `Linked` | Two vessel snapshots per check (about three record reads each) | One, handed back to the caller |
+| Manufacturing `FillerService` | Its save reset the five-second back-off, so a station that could move nothing searched every step at working power; status text formatted per move | The back-off holds and the station stands down; one status per step; changed-only record writes |
+| Manufacturing `StoreService.Ignites` | Three full ship passes every two seconds per damaged fuel store, even without oxygen | One pass that stops at the first source, only with enough oxygen |
+| Manufacturing `ManifoldService` reserve and capacity | A LINQ closure every frame per ship | Loops |
+| Agriculture `RecoveryService.SaveRecovery` | Rewritten on every save of every machine | Changed-only |
+| Auto Nav `TickFire` | After the station was opened once, every physics step read hardware, preferences, the contact and every weapon, with the station closed and no target | An idle exit while nothing is aimed, permitted, targeted, held or in combat and the station is closed |
+
+Checked and left alone: `SetCondAmount` with no change is one lookup and an early
+return in the game's code, so guarding an idle machine's working flag gains
+nothing (the Manufacturing guards added here cost the same and are harmless).
+Caching `DockingAdapter`'s reflection lookups was tried and withdrawn: the docking
+checks require a member that goes missing to refuse the clamp at once, and the
+lookups run only on a ready approach.
+
+### Found, not changed: needs a capture or an owner decision
+
+| Finding | Why it waits |
+| --- | --- |
+| Manufacturing machine records are written with a full rebuild on every powered step (`ChargeMachine`, `ProcessorService`, `SabatierService`, `CrackerService`); Agriculture `Service.Save` runs several times per step; the laser and reclamation records likewise. The trade-off list above says these settle every two seconds, but only the furnace and Auto Nav do | Settling changes what a crash can lose (up to two seconds of progress), and a ship serialised without a save does not raise `SaveBoundary`. Owner decision, then a capture |
+| Shipbreaker reclamation window selection: per window, a target-ship scan, a contact read of every ship in the system and two full grids, up to 64 windows in one step | Mission flight code; hoisting is safe in principle but the path has never been captured (R3). Capture `shipbreaker.reclamation.update` during a mission first |
+| Shipbreaker and Auto Nav binding checks about four times per frame during capture, egress and transit (`CaptureService.BindingProblem`, `IndustrialProblem`) | A per-frame memo is low risk, but it is flight authority code; measure with a mission capture |
+| Framework crew task filter: saved-record reads per task per crew member per search (`CrewSpecialities.Allowed`, `Skilled`, `CrewRoster.Members`) | Measured 1.5 to 1.8 ms/s in stage 9; a per-frame memo needs capture C3 |
+| Framework world sweep, about 7 ms/s in stage 9 | A longer cycle delays discovery of new machines; capture C4 and an owner decision |
+| Framework room-alarm recording on every sensor run, read only by the C1 console | Recording only for sensors lately read changes the first console open; needs a counter first |
+| Framework legacy-item sweep every 15 s on every owned ship | It is how retired parts convert when they come aboard; gating it must keep the unfinished-site step |
+| Running D4 and R4 jobs re-plan the tray fit on every power step; waiting collector and storage routes evaluate twice per step | A change-only recheck is a trade-off; measure |
+| Agriculture conduit reads two or three times per branch per step; the W2 destination list built twice per step; hopper record read six to nine times per dosing step | Per-step memos are likely safe; measure the W2 with several racks first |
+| War Declared rewrites its whole ledger for each destroyed part | Dirty-flag saves trade crash safety for the frame of a large explosion; capture one |
+| Auto Nav panel reads at 10 Hz, the body-motion loop while idle, change-only canvas writes | Recorded as P2 and R2; measure before changing |
+
+### Captures to take
+
+Three matched 30 s summary runs per side (`phobosframework perf start summary 30
+20000`, then `phobosframework perf export`), same save and scene, speed 8, nav
+station closed; check the BepInEx log and `Player.log` show every plugin starting.
+Compare with `python scripts/compare-performance.py --before <3> --after <3>`.
+
+| Capture | Scene | Reads |
+| --- | --- | --- |
+| C1 | A crewed ship with Phobos machines on lines, crew walking through doors | `framework.fluid_route.find` calls per second (expect about 0.5 per ship with a layout), `framework.fluid_route.invalidations`, frame percentiles |
+| C2 | The usual save with several owned ships and little Phobos equipment | `framework.line_contents.maintain` |
+| C3 | Several crew standing orders enabled, crew idle | `framework.crew.task_filter`, `framework.crew.path_checks` |
+| C4 | Any of the above | `framework.world.sweep`, `framework.world.sweep_objects` |
+| C5 | A capture or reclamation mission under way | `shipbreaker.reclamation.update`, `shipbreaker.capture.update`, `autonav.guard.update` |
+| C6 | Several Manufacturing reactors and a V4 running, C1 console closed then open | `framework.state.write`, `framework.state.writes_skipped`, frame percentiles |
+
+A before side needs the builds of commit 4fd18ee (Framework 0.71.0); the after
+side is this round. No performance capture or measured FPS claim accompanies
+this change.

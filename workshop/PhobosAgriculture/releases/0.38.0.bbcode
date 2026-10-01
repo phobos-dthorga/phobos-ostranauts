@@ -1,0 +1,20 @@
+[h1]Phobos Agriculture 0.38.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, first round (owner request, 1 October 2026): the recovery record of every rack, cooker, bench and W2 is written only when it changes, instead of on every save of the machine. Nothing else changes.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.71.0 or newer. Static review only; the larger findings (several saves per power step, conduit reads) are listed in the performance record for a measurement first.
+[/list]

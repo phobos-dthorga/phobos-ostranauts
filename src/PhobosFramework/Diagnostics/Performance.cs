@@ -37,6 +37,8 @@ public static class Performance
     internal static PerformanceMetric? WorldSweep = null, WorldSweepObjects = null;
     // Framework 0.63.0: lines that hold their contents (the two-second top-up and canister pours).
     internal static PerformanceMetric? LineContentsMaintain = null;
+    // Framework 0.72.0: how often a ship's cached line layout is actually thrown away.
+    internal static PerformanceMetric? FluidRouteInvalidations = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

@@ -45,6 +45,8 @@ internal static class LegacyMaintenanceFinishPatch
     [HarmonyPriority(Priority.First)]
     private static void Prefix(Interaction __instance)
     {
+        // Runs for every completed interaction in the game: nothing registered, or no name, is the common case.
+        if (MaintenanceSafety.LegacyFinishes.Count == 0 || __instance.strName == null) return;
         var item = __instance.objUs;
         if (item == null) return;
         string replacement = MaintenanceSafety.ResolveFinish(item.strCODef, __instance.strName);
@@ -60,7 +62,8 @@ internal static class RepairRemainderPatch
 {
     private static bool Prefix(Interaction __instance)
     {
-        if (!MaintenanceSafety.Repairs.TryGetValue(__instance.strName, out var output)) return true;
+        // A dictionary lookup with a null key throws; some of the game's interactions carry no name.
+        if (__instance.strName == null || !MaintenanceSafety.Repairs.TryGetValue(__instance.strName, out var output)) return true;
         var item = __instance.objUs;
         if (item == null) return false;
         if (item.bDestroyed) return NativeEffects.Refuse(__instance, Text.Get("MaintenanceInfo.gone"));
@@ -85,7 +88,7 @@ internal static class DismantleEligibilityPatch
 {
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     {
-        if (!__result || !MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return;
+        if (!__result || __instance.strName == null || !MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return;
         var item = __instance.strName.StartsWith("MS", StringComparison.Ordinal) ? objUs : objThem;
         if (MaintenanceSafety.Empty(item, bin)) return;
         __instance.AddFailReason("main", MaintenanceSafety.Reason(item, bin) ?? Text.Get("MaintenanceSafety.empty_the_equipment_its_feed_and_any"));
@@ -101,7 +104,7 @@ internal static class DismantleCompletionPatch
 {
     private static bool Prefix(Interaction __instance)
     {
-        if (!MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return true;
+        if (__instance.strName == null || !MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return true;
         bool finish = __instance.strName.StartsWith("MS", StringComparison.Ordinal);
         var item = finish ? __instance.objUs : __instance.objThem;
         if (!MaintenanceSafety.Empty(item, bin))

@@ -66,7 +66,7 @@ internal static partial class Service
     }
     private static void SaveRecovery(Session s)
     {
-        if(!RecoveryStore(s.Object).TryWrite(RecoveryWork.Save(s.RecoveryInput,s.RecoveryFilter,s.RecoveryEnergy,s.RecoveryMetered))) throw new InvalidOperationException("Protected recovery state.");
+        if(!RecoveryStore(s.Object).TryWriteIfChanged(RecoveryWork.Save(s.RecoveryInput,s.RecoveryFilter,s.RecoveryEnergy,s.RecoveryMetered))) throw new InvalidOperationException("Protected recovery state.");
     }
     private static bool QueueRecovery(Session s)
     {

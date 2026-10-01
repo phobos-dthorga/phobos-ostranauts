@@ -65,7 +65,13 @@ public static class WaterTanks
     {
         new WaterTank("S2", -1, "Compact"), new WaterTank("S3", 0, ""), new WaterTank("S4", 1, "Medium"), new WaterTank("S5", 2, "Large")
     };
-    public static WaterTank? For(string? id) => id == null ? null : All.FirstOrDefault(t => t.IsFamily(id));
+    // Asked by offer and completion hooks for every interaction in the game: a loop, no closure.
+    public static WaterTank? For(string? id)
+    {
+        if (id == null) return null;
+        for (int i = 0; i < All.Count; i++) if (All[i].IsFamily(id)) return All[i];
+        return null;
+    }
     public static bool IsTank(string? id) => For(id) != null;
     public static bool IsTank(CondOwner? co) => co != null && IsTank(co.strCODef);
     /// <summary>Reserve steps for a tank of any size: none, a tenth, a quarter, a half and all of it.</summary>

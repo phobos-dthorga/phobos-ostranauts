@@ -71,6 +71,7 @@ internal static partial class FurnaceService
         if (!routes.TryGet(step, (furnace, endpoint), out cells)) { cells = CoolantRouteNow(furnace, endpoint); routes.Set(step, (furnace, endpoint), cells); }
         return cells > 0;
     }
+    private static readonly List<CondOwner> circuitOthers = new();
     private static int CoolantRouteNow(CondOwner furnace, CondOwner endpoint)
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.FurnaceRoute);
@@ -81,7 +82,10 @@ internal static partial class FurnaceService
         // A shared circuit cannot multiply pumping or radiator capacity. Include even
         // damaged/idle endpoints; no unpaired machine may silently share this loop.
         var outlet = CoolantPoint(furnace, side);
-        foreach (var other in furnace.ship.GetCOs(null, false, false, true))
+        // The other furnace-family parts come from the shared world sweep (a mode switch offers a replacement at once),
+        // not from a walk over every object of the ship four times a second and on every power-step frame.
+        family.Members(circuitOthers);
+        foreach (var other in circuitOthers)
         {
             if (other == furnace || other == endpoint || !IsEquipmentDefinition(other.strCODef) || FurnaceRules.Underside(other.strCODef) ||
                 other.ship != furnace.ship || !NativeFluidRoute.EndpointReady(other, true, true)) continue;

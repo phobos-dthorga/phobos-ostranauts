@@ -29,6 +29,7 @@ internal sealed class FireControlController
     internal void Invalidate() { SampleEpoch = double.NaN; }
     internal bool Authorize(Ship ship, string target, int group, int volleys) { Permitted = true; Remaining = volleys; State = FireState.Armed; return true; }
     internal void SetOwnership(string console, Ship ship, int group, bool hold) { OwnershipRevision++; if (hold) leases.Add(console); else leases.Remove(console); }
+    internal bool Idle => leases.Count == 0;
     internal bool Owns(string console) => leases.Contains(console);
     internal bool OtherOwner(string console) => leases.Any(id => id != console);
     internal void Observe(Ship ship, TargetRef? target, int group, double dt) { SampleEpoch = StarSystem.fEpoch; }

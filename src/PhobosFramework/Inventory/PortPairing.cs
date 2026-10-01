@@ -12,7 +12,8 @@ public sealed class MaterialPort
 {
     internal const string Prefix = "PhobosMaterialPort.";
     internal Dictionary<string, Dictionary<string, string>> Maps { get; }
-    internal string MapKey => Prefix + PortId;
+    // Built once: a linked machine reads its ports on every power step.
+    internal string MapKey { get; }
     public string ObjectId { get; }
     public string PortId { get; }
     public MaterialPort(string objectId, string portId, Dictionary<string, Dictionary<string, string>> propertyMaps)
@@ -21,12 +22,22 @@ public sealed class MaterialPort
         if (!SafePortId(portId))
             throw new ArgumentException(Text.Get("PortPairing.use_a_stable_namespaced_port_id_containing"), nameof(portId));
         ObjectId = objectId; PortId = portId; Maps = propertyMaps ?? throw new ArgumentNullException(nameof(propertyMaps));
+        MapKey = Prefix + portId;
     }
-    // Keep identities usable in console commands and native property-change strings too.
-    internal static bool SafeValue(string? value) => !string.IsNullOrWhiteSpace(value) && value!.Length <= 200 &&
-        !value.Any(c => char.IsControl(c) || char.IsWhiteSpace(c) || c == ',' || c == '=');
-    internal static bool SafePortId(string? value) => !string.IsNullOrEmpty(value) && value!.Length <= 100 &&
-        value.All(c => char.IsLetterOrDigit(c) || c == '.' || c == '_' || c == '-');
+    // Keep identities usable in console commands and native property-change strings too. Plain loops: these run for
+    // every port a machine reads on every power step.
+    internal static bool SafeValue(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value!.Length > 200) return false;
+        for (int i = 0; i < value.Length; i++) { char c = value[i]; if (char.IsControl(c) || char.IsWhiteSpace(c) || c == ',' || c == '=') return false; }
+        return true;
+    }
+    internal static bool SafePortId(string? value)
+    {
+        if (string.IsNullOrEmpty(value) || value!.Length > 100) return false;
+        for (int i = 0; i < value.Length; i++) { char c = value[i]; if (!char.IsLetterOrDigit(c) && c != '.' && c != '_' && c != '-') return false; }
+        return true;
+    }
 }
 
 /// <summary>An immutable snapshot. Invalid/future data is occupied until explicitly unlinked.</summary>
@@ -50,15 +61,18 @@ public static class PortPairing
 {
     public static PortLink Read(MaterialPort port)
     {
-        if (!port.Maps.TryGetValue(port.MapKey, out var map)) return new PortLink(PortLinkState.Unlinked);
-        if (map == null) return new PortLink(PortLinkState.Invalid);
-        string Value(string key) => map.TryGetValue(key, out var value) ? value : "";
-        string role = Value("role"), peer = Value("peer"), peerPort = Value("peerPort"), pair = Value("pair");
-        if (Value("schema") != "1" || Value("owner") != port.ObjectId || Value("port") != port.PortId ||
+        if (!port.Maps.TryGetValue(port.MapKey, out var map)) return Unlinked;
+        if (map == null) return Invalid;
+        string role = Value(map, "role"), peer = Value(map, "peer"), peerPort = Value(map, "peerPort"), pair = Value(map, "pair");
+        if (Value(map, "schema") != "1" || Value(map, "owner") != port.ObjectId || Value(map, "port") != port.PortId ||
             (role != "send" && role != "receive") || !MaterialPort.SafeValue(peer) || peer == port.ObjectId ||
-            !MaterialPort.SafePortId(peerPort) || !Guid.TryParseExact(pair, "N", out _)) return new PortLink(PortLinkState.Invalid);
+            !MaterialPort.SafePortId(peerPort) || !Guid.TryParseExact(pair, "N", out _)) return Invalid;
         return new PortLink(PortLinkState.Linked, role == "send" ? PortRole.Sender : PortRole.Receiver, pair, peer, peerPort);
     }
+
+    // The two answers without a peer are immutable, so one instance of each serves every read.
+    private static readonly PortLink Unlinked = new(PortLinkState.Unlinked), Invalid = new(PortLinkState.Invalid);
+    private static string Value(Dictionary<string, string> map, string key) => map.TryGetValue(key, out var value) ? value : "";
 
     public static bool Matches(MaterialPort sender, MaterialPort receiver)
     {

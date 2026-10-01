@@ -61,7 +61,7 @@ public static class MarketStock
     public static double WearFraction(StockCondition condition) => condition == StockCondition.Worn ? .15 : 0;
     internal static void Generated(string loot, List<CondOwner> items)
     {
-        if (!Offers.TryGetValue(loot, out var offer)) return;
+        if (loot == null || !Offers.TryGetValue(loot, out var offer)) return;
         foreach (var item in items)
         {
             if (item == null || item.bDestroyed || item.strCODef != offer.Item) continue;

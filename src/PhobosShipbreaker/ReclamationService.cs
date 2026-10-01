@@ -121,7 +121,11 @@ internal static partial class ReclamationService
     }
     internal static void Update()
     {
-        if(CrewSim.objInstance==null||!CrewSim.objInstance.FinishedLoading||CrewSim.Paused) return;
+        if(sessions.Count==0||CrewSim.objInstance==null||!CrewSim.objInstance.FinishedLoading||CrewSim.Paused) return;
+        // Nothing is copied on a frame with no authorised mission.
+        bool active=false;
+        foreach(var s in sessions.Values) if(s.Authorized){active=true;break;}
+        if(!active) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Reclamation);
         foreach(var s in sessions.Values.ToArray())
         {
@@ -276,7 +280,14 @@ internal static partial class ReclamationService
         Plugin.Service.StopMission(s.Grabber,s.Record["processor"]);Save(s);
     }
     internal static void ManualTakeover(Ship own)
-    { foreach(var s in sessions.Values.Where(s=>s.Authorized&&s.Grabber.ship==own).ToArray()) Suspend(s,Text.Get("Reclamation.manual")); }
+    {
+        // Called for every ship's every nonzero manoeuvre: nothing is allocated unless a mission of this ship is running.
+        if(sessions.Count==0) return;
+        bool any=false;
+        foreach(var s in sessions.Values) if(s.Authorized&&s.Grabber.ship==own){any=true;break;}
+        if(!any) return;
+        foreach(var s in sessions.Values.Where(s=>s.Authorized&&s.Grabber.ship==own).ToArray()) Suspend(s,Text.Get("Reclamation.manual"));
+    }
     internal static void Fault(CondOwner g,Exception ex)
     { Plugin.Log(ex.ToString());if(sessions.TryGetValue(g.strID,out var s)) Suspend(s,Text.Get("Reclamation.uncertain")); }
     internal static void Reset() { foreach(var s in sessions.Values.ToArray()) if(s.Authorized) Suspend(s,Text.Get("Reclamation.suspended"));sessions.Clear(); }

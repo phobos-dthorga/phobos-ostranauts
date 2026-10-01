@@ -53,22 +53,22 @@ public sealed class ChargeRecipe
     public IReadOnlyList<int> Supersedes { get; }
     public bool NeedsSteelStock => Requires.Contains(ChargeCatalog.SteelStockRequirement);
     /// <summary>Every input kilogram, items and drawn commodities together (the mass balance's input side).</summary>
-    public double ChargeKg => Inputs.Sum(i => i.Count * i.Kg);
-    public double OffGasKg => OffGas.Values.Sum();
+    public double ChargeKg { get; }
+    public double OffGasKg { get; }
     public double EnergyKWh => Equipment.WorkingKW(Machine) * Seconds / 3600;
     /// <summary>Inputs that are items in the feed bin.</summary>
-    public IReadOnlyList<ChargeInput> ItemInputs => Inputs.Where(i => !ChargeCommodities.Is(i.Id)).ToArray();
+    public IReadOnlyList<ChargeInput> ItemInputs { get; }
     /// <summary>Inputs drawn from linked vessels at settlement.</summary>
-    public IReadOnlyList<ChargeInput> Draws => Inputs.Where(i => ChargeCommodities.Is(i.Id)).ToArray();
+    public IReadOnlyList<ChargeInput> Draws { get; }
     /// <summary>Products that go to linked vessels at settlement (water, stored gases).</summary>
-    public IReadOnlyList<ProductSpec> Deposits => Products.Where(p => ChargeCommodities.Is(p.Id)).ToArray();
-    public bool NeedsVessel => Products.Any(p => p.Id == ManufacturingRules.Water);
+    public IReadOnlyList<ProductSpec> Deposits { get; }
+    public bool NeedsVessel { get; }
     /// <summary>Products that go to a gas store: any Manufacturing gas commodity (ammonia). Never vented.</summary>
-    public IReadOnlyList<ProductSpec> StoredGases => Products.Where(p => GasStores.FamilyOf(p.Id) != null).ToArray();
+    public IReadOnlyList<ProductSpec> StoredGases { get; }
     /// <summary>Products that are items in the tray: everything that is not a commodity.</summary>
     public IEnumerable<ProductSpec> Solids(IEnumerable<ProductSpec> products) => products.Where(p => !ChargeCommodities.Is(p.Id));
     /// <summary>Item units the charge binds from the feed bin.</summary>
-    public int Units => ItemInputs.Sum(i => i.Count);
+    public int Units { get; }
     /// <summary>A V4 refinery recipe (the original signature).</summary>
     public ChargeRecipe(string id, int revision, IEnumerable<ChargeInput> inputs, IEnumerable<ProductSpec> products, IReadOnlyDictionary<string, double>? offGas, double seconds, bool melt, bool needsSteelStock)
         : this(ChargeCatalog.Refinery, id, revision, inputs, products, offGas, seconds, melt, needsSteelStock ? new[] { ChargeCatalog.SteelStockRequirement } : Array.Empty<string>(), null, 0) { }
@@ -95,6 +95,14 @@ public sealed class ChargeRecipe
         Machine = machine; Inputs = Array.AsReadOnly(ins); Products = Array.AsReadOnly(outs); OffGas = gas; Circulates = loop; ReactionKWh = reactionKWh;
         Seconds = seconds; Melt = melt; Requires = Array.AsReadOnly((requires ?? Array.Empty<string>()).ToArray());
         Id = id; Revision = revision;
+        // Derived once (Manufacturing 0.31.0): a running machine reads these every power step, and the recipe never changes.
+        ChargeKg = Inputs.Sum(i => i.Count * i.Kg); OffGasKg = OffGas.Values.Sum();
+        ItemInputs = Array.AsReadOnly(Inputs.Where(i => !ChargeCommodities.Is(i.Id)).ToArray());
+        Draws = Array.AsReadOnly(Inputs.Where(i => ChargeCommodities.Is(i.Id)).ToArray());
+        Deposits = Array.AsReadOnly(Products.Where(p => ChargeCommodities.Is(p.Id)).ToArray());
+        StoredGases = Array.AsReadOnly(Products.Where(p => GasStores.FamilyOf(p.Id) != null).ToArray());
+        NeedsVessel = Products.Any(p => p.Id == ManufacturingRules.Water);
+        Units = ItemInputs.Sum(i => i.Count);
         if (!ProcessMaterial.Balanced(ChargeKg, Products.Select(p => p.Kg * p.Count).Concat(OffGas.Values))) throw new ArgumentException("Charge recipe does not conserve mass: " + id);
     }
     /// <summary>Off-gas due at a progress fraction, given what the job has already released: never more than the

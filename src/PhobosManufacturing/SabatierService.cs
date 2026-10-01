@@ -92,12 +92,16 @@ internal static class SabatierService
 
     /// <summary>A linked vessel ready for this transfer, or null with the reason.</summary>
     // Runs every power step while the reactor works: reasons are formatted only on the way out, the vessel read once.
-    private static CondOwner? Linked(CondOwner co, VesselLink link, string keyPrefix, out string reason)
+    private static CondOwner? Linked(CondOwner co, VesselLink link, string keyPrefix, out string reason) => Linked(co, link, keyPrefix, out reason, out _);
+    // The snapshot taken for the readiness test is handed back, so a caller that also needs the quantities reads the
+    // vessel once (Manufacturing 0.31.0).
+    private static CondOwner? Linked(CondOwner co, VesselLink link, string keyPrefix, out string reason, out BulkVesselSnapshot? snapshot)
     {
+        snapshot = null;
         var vessel = CrewWork.Resolve(link.PeerId(co));
         if (vessel == null || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != link.Commodity) { reason = Text.Get(keyPrefix + "_none"); return null; }
         if (!link.Connected(co, vessel)) { reason = Text.Get(keyPrefix + "_not_ready"); return null; }
-        var snapshot = BulkVessel.Snapshot(vessel);
+        snapshot = BulkVessel.Snapshot(vessel);
         if (snapshot.Protected || CommodityReservations.Held(vessel.strID)) { reason = Text.Get("Sabatier.vessel_protected"); return null; }
         if (snapshot.CatchKg > 1e-8) { reason = Text.Get("Sabatier.vessel_catch"); return null; }
         reason = ""; return vessel;
@@ -112,17 +116,16 @@ internal static class SabatierService
     }
     private static CondOwner? HydrogenSource(CondOwner co, double needKg, out string reason)
     {
-        var store = Linked(co, HydrogenLink, "Sabatier.hydrogen", out reason);
-        if (store == null) return null;
-        var s = BulkVessel.Snapshot(store);
+        var store = Linked(co, HydrogenLink, "Sabatier.hydrogen", out reason, out var s);
+        if (store == null || s == null) return null;
         if (s.AvailableKg + 1e-9 < needKg) { reason = Text.Get("Sabatier.hydrogen_short", s.AvailableKg, needKg); return null; }
         return store;
     }
     private static CondOwner? Destination(CondOwner co, bool water, double kg, out string reason)
     {
-        var vessel = water ? Linked(co, WaterLink, "Sabatier.water", out reason) : Linked(co, MethaneLink, "Sabatier.methane", out reason);
-        if (vessel == null) return null;
-        var s = BulkVessel.Snapshot(vessel);
+        BulkVesselSnapshot? s;
+        var vessel = water ? Linked(co, WaterLink, "Sabatier.water", out reason, out s) : Linked(co, MethaneLink, "Sabatier.methane", out reason, out s);
+        if (vessel == null || s == null) return null;
         if (s.HeadroomKg + 1e-9 < kg) { reason = Text.Get(water ? "Sabatier.water_full" : "Sabatier.methane_full", s.HeadroomKg, kg); return null; }
         return vessel;
     }
@@ -161,7 +164,8 @@ internal static class SabatierService
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Sabatier.switched_off");
         return null;
     }
-    private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ManufacturingRules.Reacting, value ? 1 : 0);
+    // Written only when it changes: an idle machine reaches this on every power step.
+    private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Reacting) != value) co.SetCondAmount(ManufacturingRules.Reacting, value ? 1 : 0); }
 
     internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
     {

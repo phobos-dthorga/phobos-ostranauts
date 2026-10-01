@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.65.0";
+    public const string Version = "0.66.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -52,7 +52,6 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); LaserService.Update(); }
-    private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
     internal static void ResetServices() { PowerKinds.Reset(); ReclamationService.Reset(); LaserService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
@@ -227,12 +226,15 @@ internal static class FeedPatch
 {
     private static void Postfix(Container __instance, CondOwner coIn, ref bool __result)
     {
-        if (__result && __instance.CO?.strCODef == Core.FurnaceRules.Feed) __result = FurnaceService.CanFeed(__instance.CO, coIn);
-        if (__result && __instance.CO?.strCODef == Core.ThawRules.InputBin) __result = ThawService.CanFeed(__instance.CO, coIn);
-        if (__result && __instance.CO != null && (__instance.CO.strCODef == Content.InputBin || __instance.CO.strCODef == Core.ReclaimerRules.InputBin))
-            __result = ProcessingService.CanFeed(__instance.CO, coIn);
-        if (__result && __instance.CO != null && Core.CollectorRules.IsFamily(__instance.CO.strCODef))
-            __result = CollectorService.CanAccept(__instance.CO, coIn);
+        // Runs for every container admission in the game: the container and its id are read once, and a container
+        // that is none of ours leaves after a few string comparisons.
+        if (!__result) return;
+        var bin = __instance.CO; string? id = bin?.strCODef;
+        if (id == null) return;
+        if (id == Core.FurnaceRules.Feed) __result = FurnaceService.CanFeed(bin!, coIn);
+        else if (id == Core.ThawRules.InputBin) __result = ThawService.CanFeed(bin!, coIn);
+        else if (id == Content.InputBin || id == Core.ReclaimerRules.InputBin) __result = ProcessingService.CanFeed(bin!, coIn);
+        else if (Core.CollectorRules.IsFamily(id)) __result = CollectorService.CanAccept(bin!, coIn);
     }
 }
 
@@ -244,7 +246,7 @@ internal static class FurnaceFeedStackPatch
     private static bool FeedBin(string? id) => id == Core.FurnaceRules.Feed || id == Content.InputBin || id == Core.ReclaimerRules.InputBin || id == Core.ThawRules.InputBin;
     private static void Postfix(CondOwner __instance, CondOwner objIncoming, ref int __result)
     {
-        if (FeedBin(__instance.objCOParent?.strCODef) || FeedBin(objIncoming?.objCOParent?.strCODef)) __result = 0;
+        if (__result != 0 && (FeedBin(__instance.objCOParent?.strCODef) || FeedBin(objIncoming?.objCOParent?.strCODef))) __result = 0;
     }
 }
 

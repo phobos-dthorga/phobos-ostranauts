@@ -43,7 +43,7 @@ internal sealed class ChargeMachine
     private readonly Dictionary<string, string> workingText = new(StringComparer.Ordinal);
     private IReadOnlyList<ChargeLinkSpec>? links; private object? linksFrom;
     internal ChargeMachine(ChargeMachineSpec spec) { Spec = spec ?? throw new ArgumentNullException(nameof(spec)); }
-    internal void Reset() { sessions = new(); links = null; workingText.Clear(); }
+    internal void Reset() { sessions = new(); links = null; workingText.Clear(); feedView = null; feedGates = Array.Empty<string>(); feedGateAnswers = Array.Empty<bool>(); feedKg.Clear(); }
     private string T(string key, params object[] args) => Text.Get(Spec.Text(key), args);
     private ChargeRecipeView Catalog => ChargeCatalog.For(Spec.MachineKey);
     internal IReadOnlyList<ChargeLinkSpec> Links
@@ -95,7 +95,30 @@ internal sealed class ChargeMachine
             var selected = SelectedRecipe(machine);
             return selected == null ? null : Catalog.FeedKg(id, Spec.Met, selected);
         }
-        return Catalog.FeedKg(id, Spec.Met);
+        return AutomaticFeedKg(id);
+    }
+    // What Catalog.FeedKg(id, Spec.Met) answers, remembered (Manufacturing 0.31.0): a running machine asks it for every
+    // bound unit on every power step, and the feed hook for every item offered to the bin. The table is rebuilt when
+    // the catalog view changes or any requirement gate answers differently, so it never outlives what it was built from.
+    private ChargeRecipeView? feedView; private string[] feedGates = Array.Empty<string>(); private bool[] feedGateAnswers = Array.Empty<bool>();
+    private readonly Dictionary<string, double> feedKg = new(StringComparer.Ordinal);
+    private double? AutomaticFeedKg(string? id)
+    {
+        if (id == null) return null;
+        var view = Catalog;
+        bool current = ReferenceEquals(feedView, view);
+        for (int i = 0; current && i < feedGates.Length; i++) current = Spec.Met(feedGates[i]) == feedGateAnswers[i];
+        if (!current)
+        {
+            feedView = view;
+            feedGates = view.All.SelectMany(r => r.Requires).Distinct(StringComparer.Ordinal).ToArray();
+            feedGateAnswers = feedGates.Select(Spec.Met).ToArray();
+            feedKg.Clear();
+            foreach (var recipe in view.Available(Spec.Met))
+                foreach (var input in recipe.ItemInputs)
+                    if (!feedKg.ContainsKey(input.Id)) feedKg[input.Id] = input.Kg;
+        }
+        return feedKg.TryGetValue(id, out double kg) ? kg : (double?)null;
     }
     private CondOwner? MachineOf(CondOwner? bin) => bin?.objCOParent;
     internal bool ValidFeed(CondOwner? input, CondOwner? machine) => input != null && !input.bDestroyed && input.Crew == null &&
@@ -176,7 +199,8 @@ internal sealed class ChargeMachine
         if (!workingText.TryGetValue(key, out var text)) workingText[key] = text = T("working", Text.Get("Recipe." + recipe.Id));
         return text;
     }
-    private void SetWorking(CondOwner co, bool value) => co.SetCondAmount(Spec.WorkingCondition, value ? 1 : 0);
+    // Written only when it changes: an idle machine reaches this on every power step.
+    private void SetWorking(CondOwner co, bool value) { if (co.HasCond(Spec.WorkingCondition) != value) co.SetCondAmount(Spec.WorkingCondition, value ? 1 : 0); }
     private ChargeRecipe? Recipe(Session s) => s.State.Bound ? Catalog.ByRevision(s.State.Revision) : null;
     private bool Available(ChargeRecipe recipe) => recipe.Requires.All(Spec.Met);
     /// <summary>The bound units, when every one of them still sits in the feed bin and is still valid feed.</summary>
@@ -187,7 +211,8 @@ internal sealed class ChargeMachine
         var items = new List<CondOwner>();
         foreach (string id in s.State.Charge)
         {
-            var item = bin.FirstOrDefault(c => c.strID == id);
+            CondOwner? item = null;
+            foreach (var c in bin) if (c.strID == id) { item = c; break; }
             if (item == null || !ValidFeed(item, co)) return null;
             items.Add(item);
         }

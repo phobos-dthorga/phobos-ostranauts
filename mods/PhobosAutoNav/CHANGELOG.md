@@ -21,6 +21,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.31.3] - 2026-10-01 - Draft
+
+### Changed
+
+- Performance pass, first round (owner request, 1 October 2026). Fire control no longer reads every weapon on every physics step once the nav station has been opened: with the station closed and nothing aimed, permitted, targeted, held or in combat, it does nothing until one of those is true again.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Static review only. Flight, docking and firing rules are unchanged; the mission-flight findings are listed in the performance record for a measurement first.
+
 ## [0.31.2] - 2026-10-01 - Draft
 
 ### Fixed

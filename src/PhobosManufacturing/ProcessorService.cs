@@ -152,7 +152,8 @@ internal static class ProcessorService
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Processor.switched_off");
         return null;
     }
-    private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ManufacturingRules.Electrolysing, value ? 1 : 0);
+    // Written only when it changes: an idle machine reaches this on every power step.
+    private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Electrolysing) != value) co.SetCondAmount(ManufacturingRules.Electrolysing, value ? 1 : 0); }
 
     internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
     {

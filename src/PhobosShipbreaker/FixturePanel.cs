@@ -12,5 +12,4 @@ internal sealed class FixturePanel
         var machine=ProcessingService.FindMachines().Where(c=>ProcessingService.AccessProblem(c)==null).OrderBy(c=>TileUtils.TileRange(CrewSim.GetSelectedCrew().GetPos(),c.GetPos("use"))).FirstOrDefault();
         if(machine!=null)IndustrialPanel.Open(machine);
     }
-    internal void Draw() { }
 }

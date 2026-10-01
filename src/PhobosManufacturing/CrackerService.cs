@@ -92,30 +92,31 @@ internal static class CrackerService
 
     /// <summary>A linked store ready for this transfer, or null with the reason.</summary>
     // Runs every power step while the cracker works: reasons are formatted only on the way out, the store read once.
-    private static CondOwner? Linked(CondOwner co, Link link, out string reason)
+    private static CondOwner? Linked(CondOwner co, Link link, out string reason) => Linked(co, link, out reason, out _);
+    // The snapshot taken for the readiness test is handed back, so a caller that also needs the quantities reads the
+    // store once, and the text key is built only when a reason is given (Manufacturing 0.31.0).
+    private static CondOwner? Linked(CondOwner co, Link link, out string reason, out BulkVesselSnapshot? snapshot)
     {
-        string key = "Cracker." + Kind(link);
+        snapshot = null;
         var store = CrewWork.Resolve(Peer(co, link));
-        if (store == null || !GasStores.Holds(store.strCODef, Commodity(link))) { reason = Text.Get(key + "_none"); return null; }
-        if (!LinkOf(link).Connected(co, store)) { reason = Text.Get(key + "_not_ready"); return null; }
-        var snapshot = BulkVessel.Snapshot(store);
+        if (store == null || !GasStores.Holds(store.strCODef, Commodity(link))) { reason = Text.Get("Cracker." + Kind(link) + "_none"); return null; }
+        if (!LinkOf(link).Connected(co, store)) { reason = Text.Get("Cracker." + Kind(link) + "_not_ready"); return null; }
+        snapshot = BulkVessel.Snapshot(store);
         if (snapshot.Protected || CommodityReservations.Held(store.strID)) { reason = Text.Get("Cracker.store_protected"); return null; }
         if (snapshot.CatchKg > 1e-8) { reason = Text.Get("Cracker.store_catch"); return null; }
         reason = ""; return store;
     }
     private static CondOwner? AmmoniaSource(CondOwner co, double needKg, out string reason)
     {
-        var store = Linked(co, Link.Ammonia, out reason);
-        if (store == null) return null;
-        var s = BulkVessel.Snapshot(store);
+        var store = Linked(co, Link.Ammonia, out reason, out var s);
+        if (store == null || s == null) return null;
         if (s.AvailableKg + 1e-9 < needKg) { reason = Text.Get("Cracker.ammonia_short", s.AvailableKg, needKg); return null; }
         return store;
     }
     private static CondOwner? Destination(CondOwner co, Link link, double kg, out string reason)
     {
-        var store = Linked(co, link, out reason);
-        if (store == null) return null;
-        var s = BulkVessel.Snapshot(store);
+        var store = Linked(co, link, out reason, out var s);
+        if (store == null || s == null) return null;
         if (s.HeadroomKg + 1e-9 < kg) { reason = Text.Get("Cracker." + Kind(link) + "_full", s.HeadroomKg, kg); return null; }
         return store;
     }
@@ -130,7 +131,8 @@ internal static class CrackerService
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Cracker.switched_off");
         return null;
     }
-    private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ManufacturingRules.Reacting, value ? 1 : 0);
+    // Written only when it changes: an idle machine reaches this on every power step.
+    private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Reacting) != value) co.SetCondAmount(ManufacturingRules.Reacting, value ? 1 : 0); }
 
     internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
     {

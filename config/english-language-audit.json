@@ -55158,8 +55158,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ebe40189c74f44b621056952f4d75e27135861684a948ec450ac23607c7cee36",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "14744c2268c96b2f206597d937259cb58b72af8dcfa2246aaa1521cc15969326",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "SUPPORT.md",
@@ -55186,8 +55186,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "936f31e41c3b39fbed783cfe6028d25eedc3fcb81301b857dbe91525dff7772e",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "1a38e9a7d9d7b03ad261ce630c6f1913df92dbd45a0d432154a2f7beb494d815",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -55269,8 +55269,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "977ec1c31c546e7c67ac915e50b366663b01087cd5f8e2d9e1d6bb1001987e7e",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "dd94ad890de99d52b3be5d44f238979f76369ce55b226a3eed7ec2b174de3855",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -55318,8 +55318,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cbbda50437e64f355c1a0a3af67f559009db63440eeb374c1a266062c16931ba",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "287b52affdfd099ae817253081dd563efa9e3370f87faec4674232ba3c2f5b53",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55841,8 +55841,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "ef17b8a8c18433b4fa9824a01d2fe4be3420a19d31b8adeead1cf5bfe4b1121c",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "62a6d3d1da69d87f97a579dbe0be3a816318b4b584e17ced458ed04e04447742",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56053,8 +56053,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d1e9381c7753d01263b8d926b203bdba133b392da8c31f69c9f9eb1f0cb255f7",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "6b0ae0f3db84a63a6531cc6656988d1bda49aeed7d10679a948558cba155b732",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56109,8 +56109,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a0d96d7382ced931281d322dd5a34c15b487a6d9af8e7292b689db4c9564229f",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "14c9b4dc522cbed79436d210ffd08a001e08f749ae21f4d65d1496b0539551e8",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "docs/installing-mods.md",
@@ -56130,8 +56130,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "a92537e89c5bbc119bfafb0a5b5ba57bfda3378c8ea3953aea76bfedf1f29503",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "7acb8390d905e5ad49ca624aad1926f9e05e4f5f7fc055377398440fef207792",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -56158,8 +56158,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9d54dbfa1f93ceb07cc936eff057536a9d3e9649d6405cfed5277e7f4018c8be",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "1e93bf758e7dd708ab34428287fd93472bf15cda27f5dcb154e1e17cb7a83439",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56207,8 +56207,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cd026ed5b78e8bc3da7224a5d6e82bc63e121df64850b0b0031f273001220bec",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "0c25f391f5ef9ba5a7a2eda4dbc62cb94c2ca627a46764073b57316851501d36",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56235,36 +56235,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3aab806ee21cc0041c23bec75f29d40e8593ca2698b51e19a043075c452a2061",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "28a9d3ad06812e42dc90910c4bb0f629789ed6db8cc7ed921cd54fd4ff093b52",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6b8546f63848188574b8ab67b174844e89c062e10bbcfcc9c56f607859f753cf",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "044224e40316ee0b45e98bb74c6daa56f4df36c55ca82633f3bb30e45d42ce74",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "48e36c4303ac60e12624592898411f35dd7db435ffa328416705710f19796c63",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "70958921645a902d8ea64d604928ee7139cac32d82ec5194f9d93a25464f3478",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ef102e59a6d3c1d4a408e9450cc7d7e846e8594aca255c5479989a320a479347",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "b6ca97ef432e56c82fe338ca9ba05012c01b0fca18a843e4294bcf37ac8602e9",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2d0291abadeb76fdaea0cdec0a1c2b7fced462f1bd478e1fd5bc12b349458f54",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "1dff53921a731e875557d3f6ffff38ce71f6812151d2587530141af739655ca3",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56407,8 +56407,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "aefe8179134d205227da7d1713334c4bbc171a8ee87e0d84e49f349b3c60d605",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "b7c8cb49a4eab827a3ccc6b77a555e38e1f795c620f3f299bebba5f2e944467e",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -56428,8 +56428,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e6bdffcc194759f8b77070e9c75d88d16fda6109a29d4816b3430d29a0066a68",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "54cd5a2c6a8bb0e6bd7f5b10cf03f2fbdec485f783fa3481bc9910b7072342bc",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -56440,14 +56440,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5563bddad2c5334a341657f3a1f09e412008a3d986a4956080a4e3bca545e8bd",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "8064ebcc84de84a9f5ac94f55465e1263df3a9f0f5b62c394c99d29927556dbf",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "043908f3c8ad8824518ff35085c914e3049273f457dae813427f914debe67b4f",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "f06ea43080b1bb2e486345f54d0aaf766b20c208e8a748ff74c60270e3667dac",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56464,8 +56464,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9e41529ad0e941ea419b99141073fbb624e47734124708f6633add436bbbfcdc",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "3dbbfe59568c20ff38bf5dcda31b586696a205a2103d2b47c2e81b1860d63210",
+      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

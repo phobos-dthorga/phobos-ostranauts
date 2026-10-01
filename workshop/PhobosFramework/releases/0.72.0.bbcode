@@ -1,0 +1,30 @@
+[h1]Phobos Framework 0.72.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, first round (owner request, 1 October 2026). None of this changes what the equipment does.
+[*]A ship's line layout is no longer read afresh every time something is picked up, dropped, eaten, destroyed or a door cycles. Only pipes, the equipment they join, floors and walls drop the remembered layout now; anything else is still caught by the two-second recheck.
+[*]A ship with no lines is no longer scanned every two seconds for lines to top up, and drain canisters are found through the shared world sweep instead of a walk over every object of every owned ship.
+[*]Machine-to-store link checks, which run on every power step, allocate far less, and a route between the same two points is worked out once per layout instead of on every step.
+[*]Several hooks that run for every interaction or sensor in the game do less before deciding the object is not ours.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Four hooks no longer look up an interaction's name without checking that it has one; a nameless game interaction could have thrown there.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Static review only: no capture was taken for this round. The performance record lists the captures the owner can take to measure it, and the findings left for a measurement or a decision. A new recorder counter, framework.fluid_route.invalidations, counts how often a ship's line layout is actually thrown away.
+[/list]

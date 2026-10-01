@@ -36,8 +36,8 @@ public sealed class LineHoldUpFamily
         commodities[c.Name] = c;
     }
     public LineCommodity? Of(string? name) => name != null && commodities.TryGetValue(name, out var c) ? c : null;
-    public bool IsForm(string? definition) => definition != null && definition.StartsWith(Prefix, StringComparison.Ordinal) &&
-        LineDefinitions.Forms.Any(f => definition.Length == Prefix.Length + f.Length && definition.EndsWith(f, StringComparison.Ordinal));
+    // The four forms of the family, by the shared identity rule (no closure: destroy and offer hooks ask this often).
+    public bool IsForm(string? definition) => EquipmentIdentity.IsFamily(definition, Prefix);
 }
 
 /// <summary>Lines that hold their contents until drained (Framework 0.63.0; owner decisions, 1 October 2026). Each
@@ -114,13 +114,16 @@ public static class LineContents
     {
         if (families.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.system?.dictShips == null || !cadence.Due()) return;
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.LineContentsMaintain);
+        // Canisters come from the shared world sweep, once for every ship (Framework 0.72.0), instead of a walk over
+        // every object of every owned ship every two seconds.
+        var canisters = DrainCanisters.Stowed();
         foreach (var ship in CrewSim.system.dictShips.Values.ToArray())
         {
             if (ship == null || (int)ship.LoadState < 2 || CrewSim.system.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) continue;
             try
             {
                 foreach (var family in families) Maintain(ship, family);
-                DrainCanisters.Pour(ship);
+                if (canisters.Count > 0) DrainCanisters.Pour(ship, canisters);
             }
             catch (Exception e) { FrameworkLifecycle.Log(Text.Get("LineContents.failed", ship.strRegID, e.Message)); }
         }
@@ -129,6 +132,8 @@ public static class LineContents
     internal static void Maintain(Ship ship, LineHoldUpFamily family)
     {
         if (!family.StoreFilled || ship.nCols < 1 || ship.nRows < 1) return;
+        // A ship already known to have no working segment of this line is not read again until something changes it.
+        if (FluidRouteCache.KnownEmpty(ship, family.Family)) return;
         var topology = FluidRouteCache.Topology(ship, family.Family);
         if (topology.Overflow) return;
         var segments = FluidRouteCache.Segments(ship, family.Family);

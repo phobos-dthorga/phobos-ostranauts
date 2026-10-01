@@ -11,7 +11,6 @@ internal sealed class ReclaimerPanel
 {
     internal void Reset() { }
     internal bool Show(CondOwner machine)=>ReclaimerRules.IsFamily(machine.strCODef)&&ProcessingService.AccessProblem(machine)==null&&IndustrialPanel.Open(machine);
-    internal void Draw() { }
     internal static bool Command(string input, out bool result, out string response)
     {
         result = false; response = "";
