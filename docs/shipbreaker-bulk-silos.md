@@ -24,8 +24,9 @@ and empty weight are in Framework's framework/vessels.json and can be overridden
 (see [editing the data files](editing-data-files.md)); the other sizes follow. The S2's
 sprite is a recorded reduction of the S3's until a dedicated one is drawn.
 
-Each silo has a general **Inventory** (like the reservoirs had) and its own
-**Control Panel** (Framework's): usable water, trapped water, Keep in reserve,
+Each silo has a small **Inventory**, a four-cell service rack for hand work (an
+irrigation charge, a drain canister), the same at every size since Framework
+0.70.0, and its own **Control Panel** (Framework's): usable water, trapped water, Keep in reserve,
 Ship's Water transfers and the list of every machine linked to it. With Phobos
 Agriculture, crew can also load 5 kg irrigation charges from its inventory,
 recover trapped water, drain it, or keep it topped up by standing order under

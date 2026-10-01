@@ -1349,6 +1349,26 @@ piped, and joins chain across the ship.
   joint. `LineDefinitions.AddPort` records the port against the spec's `Family`, and
   `LinePorts.Points(family, definition)` feeds the family's participant test. Only
   `Power` points should ever become electrical inputs.
+- **Inventory roles and the load-time fit (0.70.0; owner direction, 1 October 2026:
+  size every inventory to its job).** `MachineFamilies.Add` and
+  `ApplianceDefinitions.Add` still start a family with the general 8 x 8 grid every
+  saved family had; right after them, say what the inventory is for with
+  `EquipmentInventory.Apply(d, prefix, spec)`: `InventorySpec.ProductTray(w, h)` (about
+  one to two batches of the largest recipe), `ServiceRack(w, h)` (a few cells for hand
+  work on a vessel whose contents are a record), `Storage(w, h, trigger)` (declared
+  storage only), or `LegacyReceptacle(w, h)` for equipment that used to have an
+  inventory and no longer does (a hidden grid that admits nothing; never a null
+  container, because the game leaves the saved contents of a removed container
+  unattached). `EquipmentInventory.Declare(co, spec)` records a container whose access
+  the content builds by hand (a hidden `Feed` bin, a family with its own recovery
+  action). `ApplianceDefinitions.SetRack` and `AddFeedBin` record their roles
+  themselves. Changing a size needs no migration entry: `Persistence.ContainerFit`
+  checks every declared container on the player's loaded ships against its live grid,
+  moves saved items to free cells in place (`Inventory.GridFit`, pure), and puts what
+  finds none on the deck through the game's own drop, with one crew-log notice per
+  ship. Register `ContainerFit.KeepFirst(prefix, named)` for items a saved job names,
+  so they keep a place before the rest. A locked container, or one with its window
+  open, waits for a later pass.
 - **Any touching pipe joins (0.69.0; owner decision, 1 October 2026).** A port no
   longer says where the pipe must lie. It marks the equipment as a participant of the
   family and places the drawn joint. `FluidRouteCache` gives each participant its own

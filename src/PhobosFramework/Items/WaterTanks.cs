@@ -98,8 +98,9 @@ public static class WaterTanks
             var co = d.Objects[p + state]; var item = d.Items[p + state];
             co.strNameFriendly = co.strNameShort = Text.Get(tank.NameKey) + (damaged ? Text.Get("SharedLines.damaged") : "");
             co.strDesc = Text.Get("WaterTanks.description", tank.DryKg, tank.CapacityKg, footprint);
-            // A passive vessel: no feed, no electricity, no tickers. Its water is a saved record; the general inventory
-            // holds loose supplies for manual work (Agriculture's charges) and reservoir cargo carried over on conversion.
+            // A passive vessel: no feed, no electricity, no tickers. Its water is a saved record; the service rack holds
+            // loose supplies for manual work (Agriculture's charges, a drain canister). Cargo a converted reservoir or an
+            // older, larger grid held beyond the rack goes to the deck when the save loads (ContainerFit).
             co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>();
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             // Installed forms keep the panel when damaged, as Shipbreaker's silos did: it shows the trapped water.
@@ -117,9 +118,10 @@ public static class WaterTanks
         }
         EquipmentInventory.Apply(d, p, Rack);
     }
-    /// <summary>A tank's inventory: a service rack for hand work (an irrigation charge, a drain canister), the same
-    /// at every size (Framework 0.70.0).</summary>
-    public static readonly InventorySpec Rack = InventorySpec.ServiceRack(8, 8);
+    /// <summary>A tank's inventory: a four-cell service rack for hand work (an irrigation charge, a drain canister, a
+    /// drained-solution item), the same at every size (Framework 0.70.0; it was a general 8 x 8 grid before). The water
+    /// itself is a record in kilograms and never takes a cell.</summary>
+    public static readonly InventorySpec Rack = InventorySpec.ServiceRack(DrainCanisterDefinitions.RackWidth, DrainCanisterDefinitions.RackHeight);
     public static string Kg(double value) => value.ToString("R", CultureInfo.InvariantCulture);
 }
 

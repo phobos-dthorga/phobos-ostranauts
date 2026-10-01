@@ -67,6 +67,7 @@
   "done": "Done. Supplies and results have been accounted for.",
   "not_ready": "Crop is not ready to harvest.",
   "full": "No room for the results. Contents have been kept.",
+  "rack_full": "{0}: its rack is full. Take something out of its inventory, then try again.",
   "panel_help": "Put supplies in Inventory and collect results there. Crew do the planting, loading and harvesting. Pausing the controls doesn't stop plants breathing.",
   "close": "Close",
   "build_rack": "Build Cultivation Rack",

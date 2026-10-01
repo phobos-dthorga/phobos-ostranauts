@@ -779,9 +779,21 @@
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.
-- Build machinery at its intended physical footprint and storage capacity from the
-  first usable implementation. Shipbreaker's current baseline is 4 x 4 tiles,
-  one active panel, a four-panel feed and a separate 8 x 8 output tray.
+- Build machinery at its intended physical footprint from the first usable
+  implementation, and **size every inventory to its job** (owner direction,
+  2026-10-01, after finding inventories far too large across the board): a product
+  tray holds about one to two batches of the machine's largest recipe; a vessel whose
+  contents are a record in kilograms gets a small service rack; equipment that stores
+  nothing has no inventory; only declared storage (the Rivetline Y bins) is sized as
+  storage. Declare the role through Framework `InventorySpec` / `EquipmentInventory`
+  (0.70.0); the native checks refuse a container without a role and list the families
+  still at the old general 8 x 8 grid. Shrinking or removing a grid needs no migration
+  entry: Framework `ContainerFit` re-packs saved contents on load and puts what no
+  longer fits on the deck with a crew-log notice. Equipment that had an inventory in a
+  save and loses it keeps a hidden `LegacyReceptacle`, never a null container (the
+  game leaves the saved contents of a removed container unattached). Shipbreaker's D4
+  is 4 x 4 tiles with one active panel and a four-panel feed; its 8 x 8 product tray,
+  and the other product trays, shrink once products are delivered into stacks.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

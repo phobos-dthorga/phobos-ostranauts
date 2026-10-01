@@ -69,6 +69,17 @@ internal static partial class Service
         }
     }
     internal static CondOwner? Resolve(string id) => DataHandler.mapCOs != null && DataHandler.mapCOs.TryGetValue(id, out var c) && !c.bDestroyed ? c : null;
+    /// <summary>Whether a saved job on the machine names this item (a dose in hand, a recovery input or its filter, a
+    /// workup input or supplement, the cooker's portion), so a fitted inventory keeps it inside before anything else.</summary>
+    internal static bool NamedByJob(CondOwner machine, CondOwner item)
+    {
+        try
+        {
+            var s = Get(machine); string id = item.strID;
+            return id == s.DoseId || id == s.RecoveryInput || id == s.RecoveryFilter || id == s.Workup.Input || id == s.Workup.Supplement || id == s.State.CookerInput;
+        }
+        catch { return false; }
+    }
     internal static Session Get(CondOwner co)
     {
         if (sessions.TryGetValue(co.strID, out var found) && found.Object == co) return found;

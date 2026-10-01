@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.64.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The F6 charge chamber is 5 x 4 cells, exactly the twenty one-cell pieces of a charge, where it was 10 x 8 (owner direction, 1 October 2026: size every inventory to its job). The charge, the recipes and the twenty-piece limit are unchanged.
+- Every Shipbreaker inventory now declares what it is for. The D4, R4 and F6 product trays keep their present size until products can be delivered into stacks.
+
+### Save compatibility
+
+- Automatic. Pieces saved in the far cells of the old chamber are moved inside the smaller one when the save loads; a full charge of twenty always fits. A sealed or running batch keeps every piece.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.70.0 or newer. Offline checks are not gameplay validation.
+
 ## [0.63.0] - 2026-10-01 - Draft
 
 ### Fixed

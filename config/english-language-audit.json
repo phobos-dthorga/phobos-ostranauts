@@ -53373,6 +53373,19 @@
       "after": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "rack_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says a four-cell rack is full and what to do, where the work used to fail silently.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/BulkHooks.cs:35"
+      ],
+      "before": "{0}: its rack is full. Take something out of its inventory, then try again.",
+      "after": "{0}: its rack is full. Take something out of its inventory, then try again."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -54774,6 +54787,58 @@
       "after": "Revision {0} is superseded by more than one recipe."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "ContainerFit.notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew-log notice: stored items that no longer fit a smaller inventory are on the deck, and nothing was lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/ContainerFit.cs:67"
+      ],
+      "before": "Smaller inventories: {0} stored item(s) no longer fit and are on the deck beside {1}. Nothing was lost.",
+      "after": "Smaller inventories: {0} stored item(s) no longer fit and are on the deck beside {1}. Nothing was lost."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ContainerFit.deck_log",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line naming the ship, the count and the equipment.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/ContainerFit.cs:66"
+      ],
+      "before": "Ship {0}: {1} stored item(s) no longer fit their smaller inventory and were put on the deck beside {2}.",
+      "after": "Ship {0}: {1} stored item(s) no longer fit their smaller inventory and were put on the deck beside {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ContainerFit.moved_log",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line for items moved to free cells in place.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/ContainerFit.cs:63"
+      ],
+      "before": "Ship {0}: {1} stored item(s) were moved to free cells inside their smaller inventory.",
+      "after": "Ship {0}: {1} stored item(s) were moved to free cells inside their smaller inventory."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ContainerFit.failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line when the fit could not run; contents stay as loaded.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/ContainerFit.cs:73"
+      ],
+      "before": "Ship {0}: stored items could not be fitted to their smaller inventories ({1}); they stay as they loaded.",
+      "after": "Ship {0}: stored items could not be fitted to their smaller inventories ({1}); they stay as they loaded."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.nickel-steel",
       "category": "name",
@@ -55093,8 +55158,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "271de8574c8bce309f8b26c8cd97e47dad0eba3dfb36b4b43f3d78972ffdabaa",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "a74f9d1cf11e8b260498607f223d9c980337e8979136833d7c4b03084eb30828",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "SUPPORT.md",
@@ -55114,15 +55179,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d6575adec4def4f654b43dc28afbf43e506f48aaf26e4af92a708f9676ef3350",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "eed1c0a9f1df0d104627aa41fd2ac6d39b741e8650a9bd4206c37091044aa646",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cae15b151db859cf03836d534d1b5ba328524f089c3ddcea905a41b0a87a9d73",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "acb285bd8a7482061d57ccf6eca5627bf9f29314649129eea84fec0bc3fbbe34",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -55253,8 +55318,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2d4990b52ec20934c41fd26d2301b3398f0af03fefa40d53f87da40770b31f98",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "adb1e8a528e6285b9f13a4f9311a78174c05936f4b4a0c24f01e5b199ac8fed2",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55281,8 +55346,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ccdce13dd4acaab71a224715b456935103b998c6e338603d029cd962803866da",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "f3388ab7d6298576ce2f62c21fc9064d52a7f1acaad23762821d4ac2958f6cfa",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -55554,8 +55619,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6c5e543b5ead1014864e910ef0d96084299ae2b32d4985ebdff4edab731e5b75",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "b47ce73b092b11dd8a6f761654fd28e039edc5f42995f5407f536cc07a2af694",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -55645,8 +55710,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "4cceb31dea47b6561c6a49b894dc2b9d5b93c708cb0cb6df19e7080fdf173ba8",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "0bf69be4e5261291f534321f2dd3ba5a5117b9d5e38ac0f5f2f77313793abb2d",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -55776,8 +55841,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "48aafd0060caf2c7683ed1f32dc4b5710b6014b93c27a389aa3e3eae9f46fa2b",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "9fd2c590a4efacbfb5ce6cb5d9746ba369cd46d0d4454dd35ccca32053594916",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -55988,8 +56053,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "57c68caf9d1c0098df314b8550f88a257eade89d8fc9438c458023a70e0a4285",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "e1428aaae348f68fecd440e649c87f13d843f176915ba08711442a4dfb69e8ba",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56044,15 +56109,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bf47010cabdba9f1ee4d378f66bfb386d8aadf06cdd6385c2d2e2bc6e100ffc7",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "b05b8274db681feed1162609d0d84df92c700921488338cc85d0acfeb676111a",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "578e3ecf84ef5fe97ce497755093d7a59bee7690aa5c9f119f7441d228ef7fe9",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "0066ef05fce06774b36edcdfdc9faa8c2713c85d8b6b9d8f6b1d9a14d1554869",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/item-references.md",
@@ -56065,8 +56130,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "8d11d178c6f7c8fcd2916d884fdbcf74742f6d2ea790e2fb1174f132bf664673",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "940c861f2ee3269a65cd37df3c749f32da88ab3111e1c4d538cba2f366177454",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -56093,8 +56158,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "261b3080bd46a170fba137edbf3c9abe309b93453e14b724b8fc2c13bc98720b",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "6a68db1b771eeae39eedaf10a468c822a8ad8b3ce582babc09e98f794a5351e2",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56128,8 +56193,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "12189cf59c0eb6e83e6f2357944c37a24eb26de4286574ed67525f7eedc7f78c",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "baf86214b6849192e65c8cce4203081e8be19a489177b0f6707bb0bb22e04822",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -56142,8 +56207,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "30f19db5e90d26a4aa0ebf149ff2842644927b5e7750dee8660bb347dfddc864",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "076a5c218a34d48bcd05e2a8abb1ceb25eaa69a676a244f57ea9d10252c9f6bc",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56170,8 +56235,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b40072f2efe33ac166274a61b88ac40311b95cc286575b9997b5ecb18a9418ea",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "1077de7791c7b93460a7c59bef7a61875a5ed95c5c4e8ecdcd1df707c4ba1efa",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -56184,22 +56249,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "967019df7aaf08cf8eda5d566329a7809ced389f76ab4578cb7ac993f2417dcc",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "05d15bf54f680ab4c0af654adde9e6ef7c91d386a9f186c546607e8f20fc0b5f",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5849f3e0784c6eb560c3ec118599a3f3a22c095f0efea8c334b4d1af8ea4a231",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "58f2c8d0a1600bfa5e2b7410033f7e2181528cdc5f6a79149fabf3a420426be8",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "21d0e01061b0317cb08e8c846a14a7f79df3a4d1d40b58aefc66a4524f0448df",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "abe6c8fa212f756fb4b19ac29c2a10dabb0d8111f20208716fc7441b2e97abe5",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56325,8 +56390,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d61f675e7fa0f6bf88a44fe5b1fbdda41cb118cf75b3cad0420ba54a54ac4f77",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "1b3f55c869eb16df8fed52c25b2f877ab161d3663c9f0467fb1fc6d92253b06c",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -56342,8 +56407,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2235f16b1ced8594f88aa912a35251b2e2ba04626b8d2a912bf02d0a88b2a26d",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "752e0967714c47d23c511cff80482a85cd9bfb635dffdc8e664979285fb29d68",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -56375,14 +56440,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4c370f43dd92d458d0562fe8774f90d63c2b469247d92d76f80aab51f9a3d220",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "2019e7bf709a70d37c3c26f3203bfb233838ea1c75243f48073aea1fddb65ef6",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "42f6cb3b269e6ae88b5f8a029b8201a40e56a6cda0bdb693db78524637a44b1e",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "45b925b487f3575e7efba34783ce576bf02a7497b877e433067bd3ff5128ee7e",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56399,8 +56464,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5541205a3b880a2e10b5989db49fad9e2254af08a42f9f2ff1aa8b3f73e5ec9f",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "d823f0584ad456b6432577e5dc5e1479b3d611c00fc8b205c7a50196e3697eec",
+      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

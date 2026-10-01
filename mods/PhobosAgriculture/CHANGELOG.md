@@ -6,6 +6,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.36.0] - 2026-10-01 - Draft
+
+### Changed
+
+- Inventories are sized to what the equipment does (owner direction, 1 October 2026). The W2 has eight cells (4 x 2), where it had sixty-four: one for each kind of supply it handles and two for drained or treated solution. The B2 workup bench has six (3 x 2): a job's residue and supplement, its two products and two to spare. A nutrient hopper has a four-cell rack for the charges it bags.
+- Bagging from a hopper, or draining a tank into its rack, now says in the crew log when the rack is full instead of doing nothing.
+
+### Save compatibility
+
+- Automatic. Items stored beyond a smaller inventory are moved to free cells inside it when the save loads, and what finds no cell is put on the deck beside the machine, as ordinary cargo; the crew log says so once per ship. An item a saved job names (a selected charge, a recovery input and its cartridge, a workup input) keeps its place inside first.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.70.0 or newer. Bagged hopper charges do not yet merge into one stack, so a hopper holds four bagged charges at a time; take them out to bag more. The Firstlight-4 rack and the Hearth-2 keep their present size for now. Offline checks are not gameplay validation.
+
 ## [0.35.0] - 2026-10-01 - Draft
 
 ### Fixed

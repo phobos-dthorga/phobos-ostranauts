@@ -11,7 +11,9 @@ def findings(item):
     result = []
     container = item["container"]
     recovery = container["trigger"] == "PhobosCoolingNoNewCargo" and "PhobosCoolingRecoverCargo" in item.get("actions", [])
-    if container["trigger"] is not None and not container["inventoryAction"] and not recovery and "IsSystem" not in item["handlingFlags"]:
+    # A Framework legacy receptacle admits nothing and is emptied onto the deck when a save loads (ContainerFit).
+    emptied = container["trigger"] == "PhobosFrameworkNoNewCargo"
+    if container["trigger"] is not None and not container["inventoryAction"] and not recovery and not emptied and "IsSystem" not in item["handlingFlags"]:
         result.append("H01: inaccessible container")
     if item["stackLimit"] > 1 and any(j["kind"] == "dismantle" for j in item["jobs"]):
         result.append("H02: split stack before dismantling")

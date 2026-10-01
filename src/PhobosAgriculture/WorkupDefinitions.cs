@@ -14,8 +14,9 @@ internal static class WorkupDefinitions
     internal const double DryKg = 20;
     internal static bool IsBench(CondOwner co) => co.strCODef.StartsWith(Bench, StringComparison.Ordinal);
     internal static readonly string[] Actions = { "recover-crop", "formulate-nutrients", "start", "pause", "cancel-workup" };
-    /// <summary>The B2's tray: one job's inputs and its two products.</summary>
-    internal static readonly InventorySpec BenchInventory = InventorySpec.ProductTray(8, 8);
+    /// <summary>The B2's tray: one job's residue and supplement, its two unstackable products, and two cells to spare
+    /// (six cells, where it had sixty-four).</summary>
+    internal static readonly InventorySpec BenchInventory = InventorySpec.ProductTray(3, 2);
     internal static void Add(NativeDefinitions d)
     {
         ApplianceDefinitions.Add(d, Bench, Text.Get("workup_bench"), Text.Get("workup_bench_desc"), 2, DryKg, AgricultureEconomy.Price(Bench), "phobos/agriculture/Workup", Definitions.Controls, .02);

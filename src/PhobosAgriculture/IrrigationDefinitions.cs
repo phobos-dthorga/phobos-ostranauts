@@ -19,7 +19,9 @@ internal static class IrrigationDefinitions
     internal const double PumpKW = RateKgPerSecond * EnergyKWhPerKg * 3600;
     internal static bool IsSupply(CondOwner co) => co.strCODef.StartsWith(Supply, StringComparison.Ordinal);
     /// <summary>The W2's supply rack: packets, charges, a cartridge, a drain canister and recovered solution.</summary>
-    internal static readonly InventorySpec SupplyInventory = InventorySpec.ServiceRack(8, 8, Definitions.Rack + "Supplies");
+    /// One cell for each kind it handles (nutrient packets, a bulk charge, a mixture, irrigation charges, a cartridge, a
+    /// drain canister) and two for drained or treated solution: eight cells, where it had sixty-four.
+    internal static readonly InventorySpec SupplyInventory = InventorySpec.ServiceRack(4, 2, Definitions.Rack + "Supplies");
     internal static void Add(NativeDefinitions d)
     {
         ApplianceDefinitions.Add(d, Supply, Text.Get("water_supply"), Text.Get("water_supply_desc"), 2, DryKg, AgricultureEconomy.Price(Supply), "phobos/agriculture/WaterSupply", Definitions.Controls, .02);

@@ -27,8 +27,8 @@ internal static class SiloNativeChecks
                 var co = framework.Objects[tank.Prefix + state]; var item = framework.Items[co.strItemDef];
                 check(item.nCols == tank.Footprint && item.aSocketAdds.Length == tank.Footprint * tank.Footprint && co.inventoryWidth == tank.Footprint && co.jsonPI == null && co.aTickers.Length == 0,
                     "Each tank is an unpowered vessel of its own footprint: " + tank.Prefix + state);
-                check(co.nContainerWidth == 8 && co.nContainerHeight == 8 && co.strContainerCT == "TIsFitContainerSolid" && co.aStartingConds.Any(s => s.StartsWith("IsContainer=", StringComparison.Ordinal)) &&
-                    co.aSlotsWeHave.Length == 0, "Each tank has the reservoirs' general inventory and no feed: " + tank.Prefix + state);
+                check(co.nContainerWidth == 2 && co.nContainerHeight == 2 && co.strContainerCT == "TIsFitContainerSolid" && co.aStartingConds.Any(s => s.StartsWith("IsContainer=", StringComparison.Ordinal)) &&
+                    co.aSlotsWeHave.Length == 0, "Each tank has a four-cell service rack at every size and no feed: " + tank.Prefix + state);
                 check(Stat(co, "StatMass") == tank.DryKg && Stat(co, "StatBasePrice") == (state.EndsWith("Dmg", StringComparison.Ordinal) ? (int)tank.Price / 4 : (int)tank.Price),
                     "Each tank begins empty at its dry mass and carries its price: " + tank.Prefix + state);
                 check(co.strNameFriendly.StartsWith("Phobos' Rivetline " + tank.Model + " ", StringComparison.Ordinal), "Each tank carries its Rivetline model name: " + tank.Prefix + state);

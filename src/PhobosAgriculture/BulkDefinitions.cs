@@ -64,7 +64,7 @@ internal static class BulkDefinitions
     internal static readonly string[] Work={"bulk-load","bulk-recover","bulk-drain"};
     internal static string WorkId(string action)=>"PhobosAgriculture_"+action;
     /// <summary>The service rack of a kilogram-record vessel (retired reservoirs and nutrient hoppers): a few cells for hand work.</summary>
-    internal static readonly InventorySpec Rack=InventorySpec.ServiceRack(8,8);
+    internal static readonly InventorySpec Rack=InventorySpec.ServiceRack(2,2);
     internal static void Add(NativeDefinitions d)
     {
         foreach(var size in Sizes)BulkVessels.Register(size.Spec);

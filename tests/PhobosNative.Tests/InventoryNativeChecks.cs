@@ -51,8 +51,7 @@ internal static class InventoryNativeChecks
     /// footprint, to be sized in turn. A family leaves this list when it is given its fitted size; none may be added.</summary>
     private static readonly HashSet<string> Oversized = new(StringComparer.Ordinal)
     {
-        "PhobosAcidPlant", "PhobosCabinAirRegulator", "PhobosLeachUnit", "PhobosProcessSilo", "PhobosProcessSiloCompact",
-        "PhobosVerdemorrowGroundworkB2", "PhobosVerdemorrowGroundworkE2", "PhobosVerdemorrowGroundworkE2Medium", "PhobosVerdemorrowGroundworkR3",
-        "PhobosVerdemorrowGroundworkW2", "PhobosVerdemorrowHearth2"
+        // Product trays that wait for stacked delivery before they can shrink.
+        "PhobosAcidPlant", "PhobosLeachUnit", "PhobosVerdemorrowHearth2"
     };
 }

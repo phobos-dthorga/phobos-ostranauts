@@ -6,6 +6,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The A2 cabin air regulator no longer has an inventory (owner direction, 1 October 2026: size every inventory to its job). It never stored anything; the grid was a leftover.
+- Every Manufacturing inventory now declares what it is for. The V4, LC-3 and SA-3 product trays keep their present size until products can be delivered into stacks.
+
+### Save compatibility
+
+- Automatic. Anything a save left inside an A2 is put on the deck beside it when the save loads, as ordinary cargo, and the crew log says so. Nothing is destroyed.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.70.0 or newer. Offline checks are not gameplay validation.
+
 ## [0.28.0] - 2026-10-01 - Draft
 
 ### Fixed

@@ -744,3 +744,18 @@ fields is drawn. The Details line is built when that page is shown. Fields that
 now appear whenever a vessel of their cargo is aboard add one ship scan per field
 when a panel page is drawn. The T2 and ML-2 panels change host only. No
 performance capture or measured FPS claim accompanies this change.
+
+## 1 October: inventories sized to the job (L17)
+
+L17 — Static review of Framework 0.70.0, Shipbreaker 0.64.0, Manufacturing 0.29.0
+and Agriculture 0.36.0. Inventory roles are recorded once per content load, one
+dictionary entry per definition. The load-time fit (`ContainerFit`) is polled on a
+fifteen-second real-time cadence, and each of the player's ships is swept once after
+it loads: one object scan, one dictionary probe per object, and a planner pass only
+for declared containers that hold something. A ship is swept again only while a
+container on it was deferred (locked, or its window open). After that the poll costs
+one weak-table probe per owned ship every fifteen seconds. The planner is quadratic
+in a container's cells and contents, bounded by the old 8 x 8 grids (at most 64
+items against 64 cells, once). The full-rack message in Agriculture reads one grid
+after a failed crew action. No per-frame work is added. No performance capture or
+measured FPS claim accompanies this change.

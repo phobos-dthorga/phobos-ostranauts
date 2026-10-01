@@ -1,0 +1,27 @@
+[h1]Phobos Framework 0.70.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Inventories are sized to what the equipment does (owner direction, 1 October 2026). A Rivetline water silo's inventory is now a four-cell service rack at every size, for an irrigation charge, a drain canister or a drained-solution item, where it was a general 8 x 8 grid. The water itself is a record in kilograms and never took a cell.
+[/list]
+
+[h2]Added[/h2]
+
+[list]
+[*]Saved contents follow a smaller inventory by themselves. When a save loads, items stored beyond a smaller grid are moved to free cells inside it; whatever finds no cell is put on the deck beside the equipment as ordinary cargo, and the crew log says so once per ship. Nothing is destroyed or hidden.
+[*]For mod authors: inventory roles (product tray, service rack, storage, feed, legacy receptacle) through InventorySpec and EquipmentInventory, the GridFit planner and ContainerFit, with a keep-first rule for items a saved job names. The native checks require a role on every Phobos container.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. A silo that held more than four stacks of cargo, or cargo carried over from a converted reservoir, loads with the first stacks in its rack and the rest on the deck beside it. Water, links and reserves are untouched.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A locked container, or one whose inventory window is open, is fitted on a later pass. Offline checks are not gameplay validation.
+[/list]

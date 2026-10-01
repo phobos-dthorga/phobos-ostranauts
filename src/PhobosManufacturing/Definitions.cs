@@ -292,8 +292,9 @@ internal static class Definitions
 
     /// <summary>The V4, LC-3 and SA-3 product trays, in cells a side.</summary>
     internal const int ChargeTrayCells = 8;
-    /// <summary>The A2 stores nothing; this is the general grid every appliance had before Framework 0.70.0.</summary>
-    internal static readonly InventorySpec RegulatorInventory = InventorySpec.ProductTray(8, 8);
+    /// <summary>The A2 stores nothing. It keeps a hidden grid of its old size that admits nothing, so anything a save
+    /// left in it loads attached and is put on the deck (Framework ContainerFit); it has no Inventory action.</summary>
+    internal static readonly InventorySpec RegulatorInventory = InventorySpec.LegacyReceptacle(8, 8);
     private static void StripContainer(JsonCondOwner co)
     {
         co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>(); co.strContainerCT = null;
