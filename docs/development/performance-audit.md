@@ -661,3 +661,20 @@ tanks (one trigger check) and, on a run that wants water, sums the ship's
 drinking tanks from the existing two-second tank list. A W2 branch step reads
 each run segment once to find old feed; a flush writes only while old feed
 remains. No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: the mining laser (L12)
+
+L12 — Static review of Framework 0.66.0 with Shipbreaker 0.59.0 (the Ablatine
+ML-2 mining laser). The power hooks classify the laser by definition id through
+the existing per-definition cache; a laser with no session costs one dictionary
+probe and one condition test a power step. A started laser steps once a game
+second. While a cut is in hand it resolves one object by id, re-checks one line
+of sight (at most 48 tile samples) and tests the people aboard both ships
+against the beam path. It scans the moored ship's objects, and both ships for
+mooring ports, only when it looks for the next cut: once per finished cut. The
+gangue rule is cached per damage-loot name. The sweep record is written when it
+changes, which while cutting is once a powered second, as the G4's is. The beam
+is one quad per firing head, repositioned each frame while visible; the firing
+sheet uses the game's own per-frame step. A new operation metric,
+shipbreaker.laser.update, covers the step. No performance capture or measured
+FPS claim accompanies this change.

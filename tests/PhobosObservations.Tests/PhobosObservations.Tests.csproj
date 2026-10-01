@@ -2,8 +2,8 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
   <ItemGroup>
     <Compile Include="../Support/PerformanceDisabled.cs" Link="PerformanceDisabled.cs" />
-    <!-- NativeCombat reads live game ships; this suite runs without the game assemblies. -->
-    <Compile Include="../../src/PhobosFramework/Observations/*.cs" Exclude="../../src/PhobosFramework/Observations/NativeCombat.cs" Link="%(Filename)%(Extension)" />
+    <!-- NativeCombat and AttachedTiles read live game ships and tiles; this suite runs without the game assemblies. -->
+    <Compile Include="../../src/PhobosFramework/Observations/*.cs" Exclude="../../src/PhobosFramework/Observations/NativeCombat.cs;../../src/PhobosFramework/Observations/AttachedTiles.cs" Link="%(Filename)%(Extension)" />
     <Compile Include="../../src/PhobosFramework/Controls/ConsoleBinding.cs" Link="ConsoleBinding.cs" />
     <Compile Include="../../src/PhobosShipbreaker/IndustryObservations.cs" Link="IndustryObservations.cs" />
     <Compile Include="../../src/PhobosShipbreaker/ControlAuthority.cs" Link="ControlAuthority.cs" />

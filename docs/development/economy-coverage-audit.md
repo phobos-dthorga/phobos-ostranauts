@@ -92,6 +92,9 @@ input whole; the table is in [the refinery record](manufacturing-refinery-and-ch
   Construction of anything beyond semi-advanced equipment waits for Phobos
   Manufacturing. The Framework recipe limit of 100 input units would have required
   ingots or new assembly sections for the 240 kg S3 and 120 kg T2 anyway.
+  The 120 kg Ablatine ML-2 mining laser (Shipbreaker 0.59.0) is purchase-only on
+  the same decision, with the same merchant, loot, Repair, Restore and dismantle
+  coverage as the G4.
 - **S3 and T2 dismantling returns 15–17% of whole value**, against 3–9% for other
   machines, because they are mostly steel. Every row still loses value against
   selling the machine whole, conserves mass, and passes the native Venus
@@ -115,7 +118,7 @@ input whole; the table is in [the refinery record](manufacturing-refinery-and-ch
 
 | Family | Used / refurbished / broken offers | Engineering or module salvage | Repair, Restore, dismantle |
 | --- | --- | --- | --- |
-| Shipbreaker machines (11, including S3 and T2) | All three | Intact and damaged | All present |
+| Shipbreaker machines (12, including S3, T2 and the ML-2) | All three | Intact and damaged | All present |
 | Agriculture machines (5, including R3) | All three | Intact and damaged | All present |
 | Auto Nav boards (N1, N2, N3) | All three | Intact and damaged | All present |
 | Ingots | New at every general market | Single ingot, 10% | Table recovery to scrap (loses value) |

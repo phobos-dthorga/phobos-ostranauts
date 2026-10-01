@@ -434,6 +434,12 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.47.0') { 'framework/vessels.json' }
             # 0.48.0 moves prices, work, bills, salvage, offers and loot into a data pack.
             if ($version -ge [version]'0.48.0') { 'framework/economy.json' }
+            # 0.59.0 adds the Ablatine ML-2 mining laser: its head, firing sheet and beam.
+            if ($version -ge [version]'0.59.0') {
+                foreach ($image in @('PhobosMiningLaser', 'PhobosMiningLaserSheet', 'PhobosLaserBeam')) {
+                    "images/phobos/shipbreaker/$image.png"; "images/phobos/shipbreaker/${image}Normal.png"
+                }
+            }
             # 0.43.0 adds the Y2, Y3 and Y4 material bins.
             if ($version -ge [version]'0.43.0') {
                 foreach ($image in @('PhobosMaterialBin', 'PhobosMaterialBinMedium', 'PhobosMaterialBinLarge')) {

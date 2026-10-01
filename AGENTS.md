@@ -1374,6 +1374,33 @@
     the 1.5 x guardrail. That record also ranks the reactor interdependency ideas
     (owner request, same day: anything goes, vanilla consumables included).
 
+## Mining laser direction (2026-10-01)
+
+- Owner request: a ship-mounted mining laser for Shipbreaker, animated like the
+  game's heater, with a beam drawn from the sprite across a 60 degree arc, to
+  mine asteroids and take derelicts apart; a heavy electrical consumer, with a
+  chemical laser as a later alternative. Owner decisions on the plan: it reaches
+  **attached targets only** (a tethered asteroid or a G4-captured hull, never a
+  free-flight range model); it carries the new **Ablatine** brand as the ML-2;
+  it draws 24 kW with room heat now and gains a **radiator link** as a second
+  phase; and **freed panels drop where they are for the crew to haul**.
+- This supersedes "do not add a second mining system" for this machine only, and
+  keeps its intent: the laser drives the game's own mining damage and uninstall,
+  so the game's loot tables stay the only source of ore. Never spawn ore or copy
+  a native table. Opened ore deposits stay crew work.
+- Shipbreaker 0.59.0 with Framework 0.66.0 implement it. Framework owns
+  `Hazards.NativeDamage`, `Observations.BeamGeometry` and `AttachedTiles`, and
+  `Effects.SpriteAnimation`, `WorldBeam` and `BeamTransform`; Shipbreaker owns
+  the head, its figures, filter and panel. Follow
+  `docs/shipbreaker-mining-laser.md` and `docs/development/mining-laser-design.md`.
+  Animated sprites use the game's own frame animation through `Item.SetAlt` with
+  the frame step detached before each change; never the cosmetic overlay route,
+  which replaces the object. Sheets are derived mechanically from a selected
+  master and checked against it by the exporter. Presentation is never saved and
+  a rendering fault never reaches the work. Owner gameplay checks are pending.
+- The chemical laser is an idea only. It needs sourced chemistry and feeds the
+  mods do not store yet; do not add consumer-less commodities for it.
+
 ## Documentation audiences
 
 - Keep current player operating guides and item references in `docs/`. Put contributor instructions, implementation details, research, design proposals and audit reports in `docs/development/`, with separate indexes. Mixed operating guides may retain necessary limits and direct research credits; link detailed evidence rather than burying the next player action.

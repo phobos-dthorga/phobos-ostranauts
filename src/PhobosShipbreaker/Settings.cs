@@ -24,6 +24,8 @@ internal sealed class Settings
     internal bool SpawnIceFields { get; }
     internal bool ExtraDepositIce { get; }
     internal KeyCode ControlsKey { get; }
+    /// <summary>Whether the ML-2 shows its firing animation and beam. The work is the same either way.</summary>
+    internal bool LaserEffects { get; }
 
     internal Settings(ConfigFile config)
     {
@@ -52,6 +54,7 @@ internal sealed class Settings
         // adopts the value set here the first time it reads its own entry.
         SpawnIceFields = config.Bind("Mining", "SpawnIceFields", true, Text.Get("Settings.spawn_ice_fields")).Value;
         ExtraDepositIce = config.Bind("Mining", "ExtraDepositIce", true, Text.Get("Settings.extra_deposit_ice")).Value;
+        LaserEffects = config.Bind("Laser", "ShowBeam", true, Text.Get("Laser.setting_effects")).Value;
         ControlsKey = config.Bind("Controls", "WindowKey", KeyCode.F9,
             Text.Get("Settings.key_to_open_the_fixture_controls_while")).Value;
     }

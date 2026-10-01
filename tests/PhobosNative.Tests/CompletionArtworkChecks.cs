@@ -25,7 +25,9 @@ internal static class CompletionArtworkChecks
             check(hash == (string)entry.Value!, "Direct/composed runtime image matches reviewed export: " + entry.Name);
         }
         var manifest = JObject.Parse(File.ReadAllText(Path.Combine(repo, "assets/artwork-completion/manifest.json")));
-        foreach (var entry in manifest["assets"]!.Where(e => (string)e["mod"]! == mod && (string)e["status"]! == "selected"))
+        // An entry with a binding (an animation sheet, an effect texture) is not an item's base image; its own
+        // machine's native checks cover it.
+        foreach (var entry in manifest["assets"]!.Where(e => (string)e["mod"]! == mod && (string)e["status"]! == "selected" && e["binding"] == null))
         {
             string id = (string)entry["definition"]!, path = (string)entry["runtime"]!;
             var owner = definitions.Objects[id];

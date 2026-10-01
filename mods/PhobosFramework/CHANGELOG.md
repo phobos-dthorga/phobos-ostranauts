@@ -22,6 +22,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.66.0] - 2026-10-01 - Draft
+
+### Added
+
+- Shared helpers for content mods, first used by Shipbreaker's ML-2 mining laser: applying damage through the game's own destructible chain, deck geometry for an arc swept from a fixed emitter over the one ship moored to yours, playing a sprite sheet on an installed item with the game's own frame animation, and a beam drawn from an item to a point on the deck.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself. The beam and animation are presentation only and are never saved. Phobos Shipbreaker 0.59.0 needs this version. Offline checks are not gameplay validation.
+
 ## [0.65.0] - 2026-10-01 - Draft
 
 ### Added

@@ -25,6 +25,27 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.59.0] - 2026-10-01 - Draft
+
+### Added
+
+- Phobos' Ablatine ML-2 Mining Laser: a 2 x 2 laser head for the outside of the hull, installed from INSTALL, APPS against two sound hull walls. It works the one ship moored to yours inside a 60 degree arc, 24 tiles deep: a tethered asteroid, or a hull the G4 has captured.
+- On rock it does the game's own mining damage, one stage at a time, so rock walls, ice walls and cores break exactly as they do under a crew drill and the game rolls what falls out, Phobos mined chunks included. A rock wall takes 45 seconds and 0.3 kWh at full power. Opened ore deposits stay a crew job, and rock that can only leave gangue is left alone.
+- On a captured hull you own it frees ordinary wall panels with the game's own uninstall, 60 seconds and 0.4 kWh each. The panel stays where it hung. The crew fetch panels and ore; the laser collects nothing.
+- Control Panel, C1 console and F3: Start / resume cutting, Pause cutting, Stop, and Set to cut (rock, wall panels or both). The head's lens pulses while it cuts and a beam is drawn from it to the cut in hand; the ShowBeam setting turns both off.
+- Sold where other Shipbreaker machinery is sold at 9,600 credits, and at the CCRE and GalCon faction kiosks at Friendly standing. Purchase-only, with Repair, Restore and dismantling like its siblings.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.66.0 or newer.
+- The laser only reaches a ship moored to yours, and exactly one. It never fires through your own hull, near the mooring anchors, at the wall the G4 holds by, or while anyone stands within a tile of the beam.
+- It draws 24 kW while cutting and puts about 14.4 kW of that into the room behind its mount. That room needs at least 10 kPa and must stay under 40 C; the laser waits for it to cool. Vacuum is not cooling. A radiator link is planned and not in this version.
+- Every figure is authored for play; the game's damage points are not a unit of energy. Offline checks are not gameplay validation, and the look of the animation and beam awaits the owner's review.
+
+### Save compatibility
+
+- Automatic. The laser adds its own saved records and changes no existing one. After a load it is paused; Start carries on, and a cut that was mid-way is looked at again, never repeated for nothing.
+
 ## [0.58.0] - 2026-10-01 - Draft
 
 ### Changed

@@ -295,6 +295,23 @@
           "labels": {}
         },
         {
+          "key": "ml2",
+          "title": "ML-2 Mining Laser",
+          "ids": [
+            "PhobosMiningLaserLoose",
+            "PhobosMiningLaserLooseDmg",
+            "PhobosMiningLaserInstalled",
+            "PhobosMiningLaserInstalledDmg"
+          ],
+          "function": "A hull-mounted laser head that works the one ship moored to yours inside a 60 degree arc, 24 tiles deep. On a tethered asteroid it breaks rock walls, ice walls and cores with the game's own mining damage, so the game decides what falls out. On a hull the G4 has captured it cuts ordinary wall panels loose. It collects nothing: the crew fetch what falls.",
+          "use": "Install through APPS on the outside of the hull against two sound hull walls, connect power, and keep at least 10 kPa of air in the room behind it. Tether an asteroid or capture a hull with the G4, choose Set to cut on its panel or the C1, then Start / resume cutting. 24 kW while cutting, about 14.4 kW of it warming the room behind the mount; it waits while that room is near 40 C. A rock wall takes 45 s and 0.3 kWh, a wall panel 60 s and 0.4 kWh. See [the mining laser guide](shipbreaker-mining-laser.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "It only reaches a ship moored to yours, and exactly one. It never fires through its own ship, near the mooring anchors or while anyone stands within a tile of the beam. Opened ore deposits stay a crew job, and bare rock floor, ice floor and rubble are left because they only give gangue. Reload pauses it; Start carries on. The firing animation and beam are drawn only.",
+          "guide": "shipbreaker-mining-laser.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "d4-section",
           "title": "D4-S assembly section",
           "ids": [

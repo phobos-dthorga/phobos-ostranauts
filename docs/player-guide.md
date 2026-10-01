@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.65.0**, Shipbreaker **0.58.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.66.0**, Shipbreaker **0.59.0**, Auto Nav
 **0.31.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -218,6 +218,10 @@ Since 0.43.0 the Y2, Y3 and Y4 [material bins](shipbreaker-material-bins.md)
 store what the crew mine (ore, regolith, gangue, ice and mined chunks) in an
 ordinary inventory grid that crew orders can fetch from and fill.
 
+The Ablatine ML-2 [mining laser](shipbreaker-mining-laser.md) is a hull-mounted
+head that breaks rock on a tethered asteroid and cuts wall panels loose on a
+hull the G4 has captured. It leaves what falls for the crew to fetch.
+
 ## Interruptions and settings
 
 Pause retains panel work. Cancel resets work on panels already inside the
@@ -308,7 +312,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.58.0 requires Framework 0.64.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.59.0 requires Framework 0.66.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

@@ -119,6 +119,7 @@ CrewOrderChecks.Run(Check);
 FeedFamilyChecks.Run(Check, Throws);
 ReclaimerChecks.Run(Check, Throws);
 SiloChecks.Run(Check, Throws);
+LaserChecks.Run(Check, Throws);
 BinChecks.Run(Check);
 
 var empty = new bool[8, 8];

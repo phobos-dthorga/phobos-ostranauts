@@ -140,6 +140,7 @@ internal static class Content
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
         ThawDefinitions.Add(prepared);
+        LaserDefinitions.Add(prepared);
         BinDefinitions.Add(prepared);
         // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
         foreach (var reject in FeedFamilies.RejectKg)

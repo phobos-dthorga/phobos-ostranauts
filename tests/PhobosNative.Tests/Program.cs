@@ -126,6 +126,7 @@ ObservationNativeChecks.Run(Check);
 FurnaceCoolingNativeChecks.Run(prepared, repo, Check);
 FurnaceMaterialNativeChecks.Run(prepared, Check);
 SiloNativeChecks.Run(prepared, framework, agriculture, repo, Check);
+LaserNativeChecks.Run(prepared, repo, Check);
 // Manufacturing prepares after Shipbreaker has published, as the soft dependency orders it in the game.
 var manufacturing = PhobosManufacturing.Content.Prepare(true);
 foreach (var equipment in manufacturing.Objects.Values)
@@ -159,7 +160,8 @@ Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
 // The S3 to S5 water tanks (12 forms, 36 jobs) moved to Framework in 0.58.0.
-Check(prepared.Objects.Count == 81 && prepared.Installables.Count == 174, $"Ten machine families, three material bin sizes, coolant conduit, charge chamber, ice feed, preserved/new material identities, two ingots, the steel remainder and five feed-family rejects ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
+// The ML-2 mining laser (0.59.0) adds one family: four forms and twelve jobs.
+Check(prepared.Objects.Count == 85 && prepared.Installables.Count == 186, $"Eleven machine families, three material bin sizes, coolant conduit, charge chamber, ice feed, preserved/new material identities, two ingots, the steel remainder and five feed-family rejects ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
 var furnaceItem = prepared.Items[FurnaceRules.Prefix + "Installed"];
 var furnaceFeed = DataHandler.dictCTs[prepared.Objects[FurnaceRules.Feed].strContainerCT];
 Check(furnaceItem.nCols == 6 && furnaceItem.aSocketAdds.Length == 36 && furnaceItem.aSocketReqs.Length == 64, "F6 occupies six by six native tiles");

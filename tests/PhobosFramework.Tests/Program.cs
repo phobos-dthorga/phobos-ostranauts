@@ -38,6 +38,7 @@ RoomHeatChecks.Run(Check);
 GasCanisterChecks.Run(Check);
 PropellantChecks.Run(Check);
 VesselSizeChecks.Run(Check);
+BeamGeometryChecks.Run(Check);
 LootCarveChecks.Run(Check);
 DataPackChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
 SettlementChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });

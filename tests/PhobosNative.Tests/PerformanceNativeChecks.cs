@@ -32,6 +32,7 @@ internal static class PerformanceNativeChecks
             (PhobosShipbreaker.Core.CollectorRules.Installed, PhobosShipbreaker.PowerKind.Collector),
             (PhobosShipbreaker.Core.FurnaceRules.Prefix + "Installed", PhobosShipbreaker.PowerKind.Furnace), (PhobosShipbreaker.Core.FurnaceRules.Prefix + "InstalledDmg", PhobosShipbreaker.PowerKind.Furnace),
             (PhobosShipbreaker.Core.ThawRules.Installed, PhobosShipbreaker.PowerKind.Thaw),
+            (PhobosShipbreaker.Core.LaserRules.Installed, PhobosShipbreaker.PowerKind.Laser), (PhobosShipbreaker.Core.LaserRules.Installed + "Dmg", PhobosShipbreaker.PowerKind.None),
             (PhobosShipbreaker.Core.FurnaceRules.Radiator + "Installed", PhobosShipbreaker.PowerKind.None),
             ("ItmWall1x1", PhobosShipbreaker.PowerKind.None), ("ItmAirPumpInstalled", PhobosShipbreaker.PowerKind.None), (null!, PhobosShipbreaker.PowerKind.None) })
             check(PhobosShipbreaker.PowerKinds.Classify(id) == kind, "Power hook classification: " + (id ?? "null") + " -> " + kind);

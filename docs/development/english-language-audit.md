@@ -438,3 +438,18 @@ placeholders (the old fixed wording is retired), the pairing message states the
 one-tile rule, and the station offer names the Groundwork reservoirs. The storage
 guide, item reference, economy guide and Workshop page follow. Unity wording is
 unverified.
+
+## Mining laser (Shipbreaker 0.59.0, Framework 0.66.0), 1 October 2026
+
+Shipbreaker 0.59.0 adds the Ablatine ML-2 mining laser. Fifty-five new entries
+cover its name and description, its three controls and the Set to cut choice,
+its status lines, and its waits and refusals. Each wait says what the laser is
+waiting for and what the player can do: give the room behind the mount air, let
+it cool, move the crew member, moor a target. Stop says the cut in hand is
+dropped. The beam and animation setting says that turning it off changes nothing
+about the work. The limits a player needs are kept in the text (10 kPa, 40 C,
+one tile from the beam). A new player guide and a development design record are
+added; the player guide, economy guide, item reference, indexes and the
+Shipbreaker Workshop page follow. The Workshop page lost its sentence about
+furnace record settlement and its example of a full name to stay within its
+size limit. Unity wording is unverified.

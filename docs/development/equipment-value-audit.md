@@ -26,6 +26,8 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos' Rivetline C2 Residue Collector (Damaged) | $600.00 | $150.00 | $41.45 | 6.91% | $60.00 / $20.72 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $3,200.00 | $800.00 | $495.00 | 15.47% | $320.00 / $247.50 |
 | Phobos' Rivetline T2 Ice Thaw Unit (Damaged) | $800.00 | $200.00 | $140.80 | 17.60% | $80.00 / $70.40 |
+| Phobos' Ablatine ML-2 Mining Laser | $9,600.00 | $2,400.00 | $679.00 | 7.07% | $960.00 / $339.50 |
+| Phobos' Ablatine ML-2 Mining Laser (Damaged) | $2,400.00 | $600.00 | $181.20 | 7.55% | $240.00 / $90.60 |
 | Phobos' Rivetline Y2 Material Bin | $2,400.00 | $600.00 | $193.20 | 8.05% | $240.00 / $96.60 |
 | Phobos' Rivetline Y2 Material Bin (Damaged) | $600.00 | $150.00 | $58.70 | 9.78% | $60.00 / $29.35 |
 | Phobos' Rivetline Y3 Material Bin | $3,900.00 | $975.00 | $342.80 | 8.79% | $390.00 / $171.40 |
@@ -88,6 +90,7 @@ The processor's final assembly consumes two priced sections. Raw materials for b
 | Phobos' Rivetline R4 Scrap Reclaimer | $104.60 |
 | Phobos' Rivetline C2 Residue Collector | $40.10 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $58.40 |
+| Phobos' Ablatine ML-2 Mining Laser | $106.40 |
 | Phobos' Rivetline Y2 Material Bin | $14.70 |
 | Phobos' Rivetline Y3 Material Bin | $29.40 |
 | Phobos' Rivetline Y4 Material Bin | $44.10 |

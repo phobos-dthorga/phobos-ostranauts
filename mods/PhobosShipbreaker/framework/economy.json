@@ -315,6 +315,37 @@
       "salvageValueHigh": false,
       "internalBin": "PhobosIceThawInputBin"
     },
+    "PhobosMiningLaser": {
+      "notes": "Ablatine ML-2 Mining Laser, 2 x 2, 120 kg.",
+      "price": 9600,
+      "work": {
+        "install": 1000,
+        "uninstall": 800,
+        "repair": 2400,
+        "dismantle": 650
+      },
+      "repairBill": {
+        "ItmScrapSteel": 2,
+        "ItmScrapAluminum": 2,
+        "ItmPartsMechSmall01": 2,
+        "ItmPartsElecSmall01": 6
+      },
+      "salvage": {
+        "ItmScrapSteel": 56,
+        "ItmScrapAluminum": 26,
+        "ItmPartsMechSmall01": 20,
+        "ItmPartsElecSmall01": 24,
+        "ItmScrapTrash": 16
+      },
+      "brokenSalvage": {
+        "ItmScrapSteel": 34,
+        "ItmScrapAluminum": 14,
+        "ItmPartsMechSmall01": 8,
+        "ItmScrapTrash": 68
+      },
+      "restoreMinutes": 30,
+      "salvageValueHigh": false
+    },
     "PhobosMaterialBin": {
       "notes": "Rivetline Y2 Material Bin, 2 x 2, 60 kg; the Y3 and Y4 follow through the ladder.",
       "price": 2400,
@@ -668,7 +699,7 @@
     }
   ],
   "factionKiosks": {
-    "notes": "Rivetline equipment, sections and supplies at the CCRE and GalCon faction kiosks for scrip, every silo and bin size with its family. The G4 grabber captures and cuts other hulls, so it asks Friendly despite its price; the F6 radiator and thermal port are useless without an F6 and stay Warm. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
+    "notes": "Rivetline equipment, sections and supplies at the CCRE and GalCon faction kiosks for scrip, every silo and bin size with its family. The G4 grabber captures and cuts other hulls and the Ablatine ML-2 mining laser cuts them too, so both ask Friendly despite their price; the F6 radiator and thermal port are useless without an F6 and stay Warm. Tier rule (docs/development/faction-kiosk-stock.md): supplies, materials and food Neutral, like the game's tools, batteries, ammunition and cladding; equipment under 10,000 credits and control boards Warm, like its nav modules and branded gear; equipment from 10,000 credits, hull-capture tools and combat-adjacent boards Friendly, like its railgun; equipment from 30,000 credits and the F6 centrepiece Trusted, like its PDCs; sections share their machine's tier; nothing at Honored.",
     "merchants": [
       "ItmFactionKioskBCRSInv",
       "ItmFactionKioskBCERInv",
@@ -687,6 +718,7 @@
       "PhobosFurnaceThermalPort": "Warm",
       "PhobosIndustrialConsole": "Warm",
       "PhobosIceThaw": "Warm",
+      "PhobosMiningLaser": "Friendly",
       "PhobosMaterialBin": "Warm",
       "PhobosResidueCollector": "Warm",
       "PhobosHullChute": "Warm",

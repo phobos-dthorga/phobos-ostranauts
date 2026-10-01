@@ -1,0 +1,196 @@
+{
+  "date": "2026-10-01",
+  "provider": "PixelLab",
+  "owner request": "An animated mining laser for Shipbreaker with a beam drawn from the sprite (1 October 2026).",
+  "operation": "create_image_pixflux",
+  "allowanceBefore": 1739,
+  "allowanceAfter": 1738,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "The start image is an original Phobos procedural drawing (32 x 32 enlarged four times by nearest neighbour); no game or third-party imagery uploaded. It was sent base64; its file and hash are listed here.",
+  "initImageHashes": {
+    "references/ml2-laser-start.png": "f3372501a9292289dace01bcd9c1a22776d565f0b6dc9ca9f8c96e282da103bd"
+  },
+  "derived": {
+    "ml2-mining-laser-firing": {
+      "from": "source/ml2-mining-laser.png",
+      "script": "scripts/derive-laser-art.py",
+      "method": "Eight copies of the selected master with whole native pixels (4 x 4 master pixels) repainted in the listed regions only; tiled four across and two down, top row first.",
+      "regions (native, inclusive)": {
+        "lens port": [
+          14,
+          1,
+          17,
+          3
+        ],
+        "lens core": [
+          15,
+          2,
+          16,
+          2
+        ],
+        "collar": [
+          13,
+          5,
+          18,
+          5
+        ],
+        "fin pixels": [
+          [
+            5,
+            24,
+            8,
+            24
+          ],
+          [
+            23,
+            24,
+            26,
+            24
+          ]
+        ]
+      },
+      "lens colours by frame": [
+        [
+          40,
+          10,
+          12
+        ],
+        [
+          120,
+          24,
+          20
+        ],
+        [
+          210,
+          60,
+          30
+        ],
+        [
+          255,
+          150,
+          60
+        ],
+        [
+          255,
+          236,
+          200
+        ],
+        [
+          255,
+          150,
+          60
+        ],
+        [
+          210,
+          60,
+          30
+        ],
+        [
+          120,
+          24,
+          20
+        ]
+      ],
+      "lens core": "lens colour plus 30 on each channel, clamped",
+      "collar colours": {
+        "3": [
+          230,
+          80,
+          60
+        ],
+        "4": [
+          255,
+          120,
+          90
+        ],
+        "5": [
+          230,
+          80,
+          60
+        ]
+      },
+      "fin pixels": "(150, 110, 100) on alternate pixels: columns 5 and 7 (23 and 25) on even frames, 6 and 8 (24 and 26) on odd frames",
+      "frames": "source/ml2-mining-laser-frames/0.png to 7.png",
+      "sheetSHA256": "e6c14ac5f09a919cdd8f044a647f616400819a0e18ac86a50ee1dbadfddec625"
+    },
+    "laser-beam": {
+      "script": "scripts/derive-laser-art.py",
+      "method": "Drawn, not generated: native 32 x 8, brightness across the beam 0, 0.25, 0.7, 1, 1, 0.7, 0.25, 0, fading over three pixels at each end; colour and alpha carry the same fade.",
+      "colours by row": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          255,
+          96,
+          40
+        ],
+        [
+          255,
+          170,
+          70
+        ],
+        [
+          255,
+          244,
+          220
+        ],
+        [
+          255,
+          244,
+          220
+        ],
+        [
+          255,
+          170,
+          70
+        ],
+        [
+          255,
+          96,
+          40
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "sha256": "f074fd543f1484a812b0b4a2d63008ebe96f131e8b0020cb96f9f7ce8b9f949b"
+    }
+  },
+  "attempts": [
+    {
+      "key": "ml2-mining-laser",
+      "operation": "create_image_pixflux",
+      "jobId": "6ba20265-6209-4c03-b74a-5cd53544829b",
+      "assetId": "9adee377-804e-5165-8886-3bc79a3e8141",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a hull-mounted spacecraft mining laser head, same layout as the start image: an off-white enamel steel base plate filling the canvas edge to edge with four flush corner bolts and a little wear; a round gunmetal turret ring in the middle; a short rectangular gunmetal emitter barrel running from the ring to the top edge, with a thin signal-red collar and a dark lens port at its muzzle; two small dark radiator fin blocks at the lower left and lower right; one brass cable gland at the middle of the bottom edge. Utilitarian retro spaceship equipment lit from the upper left: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details. No perspective, no ground shadow, no beam, no glow, no text, numbers, gauges, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 20261011,
+        "init_image_strength": 110,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/ml2-laser-start.png",
+      "returnedSize": [
+        128,
+        128
+      ],
+      "decision": "selected",
+      "projectionReview": "Overhead: the base plate fills the canvas, the barrel lies flat to the outer edge, no front or side faces, no diamond footprint.",
+      "review": "Kept the start layout and gave it the family's blue-grey metal and soft shading. Reads at 32 px: ring, barrel, red collar, dark lens port, fins, gland. One generation; no correction needed.",
+      "sha256": "65b5813b074d21fb6154c2e107094680ac8a4f9593a4e6d40f6a7e53b4f7d1b9"
+    }
+  ],
+  "rejectedArchive": "No rejected output in this pass."
+}

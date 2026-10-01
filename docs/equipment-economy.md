@@ -156,6 +156,7 @@ Repair restores functionality, not the pristine designation.
 | Auto Nav module | 0.4 kg | $3,600 | $4,500 | $2,700 | $900 |
 | Process water silo (0.37.0) | 240 kg empty | $4,800 | $6,000 | $3,600 | $1,200 |
 | Ice thaw unit (0.37.0) | 120 kg | $3,200 | $4,000 | $2,400 | $800 |
+| ML-2 mining laser (0.59.0) | 120 kg | $9,600 | $12,000 | $7,200 | $2,400 |
 | Aluminium ingot (0.38.0) | 4 kg | $12 | $15 | $9 | — |
 | Steel ingot (0.38.0) | 4 kg | $25 | $31.25 | $18.75 | — |
 
@@ -242,7 +243,7 @@ you earn by selling them mining output.
 | --- | --- |
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
-| Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
+| Friendly (50) | D4 and R4 with their sections, G4 grabber, ML-2 mining laser; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
 | Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4, LC-3 and SA-3 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
@@ -269,11 +270,13 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 | Auto Nav | 30 min | native module placement | 10.8 min | 6 min |
 | Process water silo | purchase only | 14.4 / 10.8 min | 28.8 min | 48 min |
 | Ice thaw unit | purchase only | 9.6 / 7.2 min | 24 min | 30 min |
+| ML-2 mining laser | purchase only | 12 / 9.6 min | 28.8 min | 39 min |
 
 The S3 and T2 stay purchase-only by owner decision (29 September 2026):
 construction of anything beyond semi-advanced equipment waits for the Phobos
 Manufacturing mod to decide where and when it belongs. The S2 to S5 silos, now
-Framework's, are likewise sold, not built.
+Framework's, are likewise sold, not built. The Ablatine ML-2 mining laser
+(Shipbreaker 0.59.0) is purchase-only on the same decision.
 
 Native work ticks are 0.001 hours (3.6 seconds). Install/uninstall/repair apply
 five progress units per unmodified tick; dismantle applies one. Chosen progress
@@ -299,6 +302,7 @@ Auto Nav remain unchanged. These are authored labour choices, not measured playt
 | C2 collector | 15 min | 13.5 min | 35.1 min |
 | S3 silo | 30 min | 27 min | 55.8 min |
 | T2 thaw unit | 25 min | 22.5 min | 46.5 min |
+| ML-2 mining laser | 30 min | 27 min | 55.8 min |
 
 Figures use unit multipliers and exclude fetching, interruptions and tick rounding.
 A full wear bar is a rate comparison, not a functional item at destruction threshold.
@@ -341,6 +345,7 @@ Repair replacement bills:
 | F6-R radiator / F6-P port | 2 | 4 | 4 | 0 | 8 kg |
 | S3 silo | 2 | 2 | 4 | 0 | 6 kg |
 | T2 thaw unit | 2 | 2 | 4 | 2 | 7 kg |
+| ML-2 mining laser | 2 | 2 | 2 | 6 | 8 kg |
 | Auto Nav | 0 | 0 | 0 | 2 | 1 kg |
 
 Repair leaves equipment mass unchanged and returns the replaced mass as separate
@@ -380,6 +385,8 @@ No money, lost material or unspawned abstract output completes the mass balance.
 | S3 silo broken | 40 | 10 | 4 | 0 | 188 | 240 kg |
 | T2 thaw unit intact | 70 | 24 | 20 | 8 | 12 | 120 kg |
 | T2 thaw unit broken | 30 | 8 | 4 | 0 | 80 | 120 kg |
+| ML-2 mining laser intact | 56 | 26 | 20 | 24 | 16 | 120 kg |
+| ML-2 mining laser broken | 34 | 14 | 8 | 0 | 68 | 120 kg |
 | Assembly section | 46 | 20 | 8 | 2 | 9 | 80 kg |
 | R4-S assembly section | 52 | 21 | 10 | 4 | 10 | 90 kg |
 | F6-S assembly section | 44 | 20 | 12 | 4 | 8 | 80 kg |

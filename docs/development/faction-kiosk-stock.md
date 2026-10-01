@@ -84,6 +84,7 @@ are base values; the kiosk's own factors apply on top.
 | Neutral | Steel and aluminium ingots; coolant charge; F6-C conduit | 3 to 25 | 0.15 to 1.25 |
 | Warm | H4 chute, C2 collector, Y2/Y3/Y4 bins, T2 thaw unit, C1 console, F6-R radiator, F6-P port | 1,800 to 7,200 | 90 to 360 |
 | Friendly | G4 grabber | 6,400 | 320 |
+| Friendly | ML-2 mining laser (it cuts other hulls, like the G4) | 9,600 | 480 |
 | Friendly | D4 fixture and D4-S section | 12,000 / 4,800 | 600 / 240 |
 | Friendly | R4 reclaimer and R4-S section | 14,800 / 6,000 | 740 / 300 |
 | Trusted | F6 furnace and F6-S section | 24,000 / 6,500 | 1,200 / 325 |
