@@ -106,7 +106,7 @@ public sealed class Panel : GUIData
         C.Button(shell.Actions,C.Text("stop"),()=>Execute(co,recycler?"capture-pause":"pause"));
         C.Button(shell.Actions,C.Text("details"),()=>{tab="details";Page(co);});C.Button(shell.Actions,C.Text("close"),shell.Close);Refresh(co);
     }
-    private void BulkField(CondOwner co) => C.Field(shell.Detail,Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),()=>ConfigurationSheet.Objects(shell,Text.Get("bulk_connection"),BulkService.Peer(co),PanelConfiguration.Stamp(co),()=>BulkService.Candidates(co),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,"bulk-link:"+value,out reason)),()=>ObjectPicker.Locate(shell,Service.Resolve(BulkService.Peer(co))),()=>Setting(co,"bulk-link:none"),Service.Resolve(BulkService.Peer(co))!=null,BulkService.HasLink(co));
+    private void BulkField(CondOwner co) => C.Field(shell.Detail,Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),()=>ConfigurationSheet.Objects(shell,Text.Get("bulk_connection"),BulkService.Peer(co),PanelConfiguration.Stamp(co),()=>BulkService.Candidates(co),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,"bulk-link:"+value,out reason),true,()=>BulkService.LinkNote(co)),()=>ObjectPicker.Locate(shell,Service.Resolve(BulkService.Peer(co))),()=>Setting(co,"bulk-link:none"),Service.Resolve(BulkService.Peer(co))!=null,BulkService.HasLink(co));
     /// <summary>The nutrient hopper: what it holds, accepting a protected record, and recovering the catch chamber.</summary>
     private void HopperPage(CondOwner co)
     {

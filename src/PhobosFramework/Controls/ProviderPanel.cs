@@ -91,7 +91,14 @@ public sealed class ProviderPanel : GUIData
     private void Page(CondOwner co)
     {
         W.Clear(shell.Detail); W.Clear(shell.Actions); shell.Page(true); readout = C.Label(shell.Detail, "");
-        if (tab == "details") { C.Label(shell.Detail, spec.Text("help")); C.Label(shell.Detail, co.strCODef + "\n" + co.strID); }
+        if (tab == "details")
+        {
+            C.Label(shell.Detail, spec.Text("help"));
+            // What it is joined to through each line it takes part in, by pipe or by touching (Framework 0.69.0).
+            string joined = LinkChoices.NetworkSummary(co);
+            if (joined.Length > 0) C.Label(shell.Detail, joined);
+            C.Label(shell.Detail, co.strCODef + "\n" + co.strID);
+        }
         else if (tab == "connections")
         {
             var fields = Fields?.Fields(co).ToArray() ?? Array.Empty<EquipmentField>();
@@ -99,7 +106,7 @@ public sealed class ProviderPanel : GUIData
             {
                 var f = field;
                 C.Button(shell.Detail, f.Label + ": " + f.Value, () => ConfigurationSheet.Choices(shell, f.Label, f.Current, Fields!.ConfigurationStamp(co), f.Choices,
-                    (string expected, string value, out string reason) => Fields!.ApplyConfiguration(co, null, expected, value, out reason)));
+                    (string expected, string value, out string reason) => Fields!.ApplyConfiguration(co, null, expected, value, out reason), f.Note));
             }
             if (fields.Length == 0) C.Label(shell.Detail, spec.Text("no_connections"));
         }

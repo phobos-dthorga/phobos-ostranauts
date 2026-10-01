@@ -32,6 +32,23 @@ public static class NativeFluidRoute
         var tile = ship.GetTileByIndex(i);
         return tile != null && Math.Abs(tile.tf.position.x - point.x) < .01 && Math.Abs(tile.tf.position.y - point.y) < .01 ? i : -1;
     }
+    /// <summary>Every tile an installed object covers, as grid cells (Framework 0.69.0). The game swaps an item's width
+    /// and height itself when it is rotated, so the live values are used as they are. A tile off the grid, or an
+    /// object not sitting squarely on the tiles, gives no cell.</summary>
+    internal static int[] FootprintCells(CondOwner co)
+    {
+        var ship = co?.ship; var item = co?.Item;
+        if (ship == null || item == null) return Array.Empty<int>();
+        int w = Math.Max(1, item.nWidthInTiles), h = Math.Max(1, item.nHeightInTiles);
+        var centre = co!.GetPos(); var cells = new List<int>(w * h);
+        for (int i = 0; i < w; i++)
+            for (int j = 0; j < h; j++)
+            {
+                int cell = CellAt(ship, centre + new UnityEngine.Vector2(i - (w - 1) / 2f, j - (h - 1) / 2f));
+                if (cell >= 0 && !cells.Contains(cell)) cells.Add(cell);
+            }
+        return cells.ToArray();
+    }
     /// <summary>Sound structural floor under a segment cell: a floor tile that is not a wall, flex floor or EVA tile,
     /// with an intact installed floor object on it. <paramref name="buffer"/> is reused between calls.</summary>
     internal static bool SoundFloor(Ship ship, int cell, List<CondOwner> buffer)

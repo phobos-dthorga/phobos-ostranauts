@@ -39,12 +39,15 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
 1. Install a silo on intact floor. It needs no electricity.
 2. Install the T2 within one tile of the silo (touching or with one tile between
    them, on any side; diagonal placement counts), or anywhere aboard with
-   Framework's **process-water line** laid between their water ports. Each water
-   port is the tile beside the middle of the equipment's left-hand side, turning
-   with it. Connect the T2's power point.
-3. Right-click the T2, choose **Control Panel**, then **Deliver water to** and
-   pick the silo. The list says how each is reached and marks a full one. Apply.
-   The C1 console offers the same choice. Pause the T2 before changing the link.
+   Framework's **process-water line** laid so it runs under or right beside both
+   (any side; a tile that only meets a corner does not count). Connect the T2's
+   power point.
+3. Right-click the T2, choose **Control Panel**, open **Connections**, then
+   **Deliver water to** and pick the silo. The list says how each is reached and
+   marks a full one; under it, **Aboard, but not offered** names any silo left
+   out and what to fix (loose, damaged, locked, no working line touching it).
+   Apply. The C1 console offers the same choice. Pause the T2 before changing
+   the link.
 4. Right-click the T2 and choose **Inventory**. The gangue tray opens, and the
    **Ice Feed** opens as its own window. Put one block of water ice in at a
    time (right-click a stack to place one); the feed holds two. Gangue and
@@ -75,13 +78,13 @@ can pin an input store and an output store for the gangue. A
 Since Shipbreaker 0.45.0 the T2 also breaks down the game's **methane ice**
 (24.84 kg a block). It needs somewhere to put the methane: a Phobos
 Manufacturing methane store (M2, M3 or M4) within one tile of the T2, or joined
-to it by Framework's **gas line** (the T2's gas port is the tile beside the
-middle of its right-hand side).
+to it by Framework's **gas line** running under or right beside both.
 
-1. Install the methane store within one tile of the T2, or lay gas line between
-   their gas ports.
-2. On the T2's **Control Panel**, choose **Send methane to** and pick the store.
-   The field appears once a methane store is in reach.
+1. Install the methane store within one tile of the T2, or lay gas line so it
+   runs under or beside both.
+2. On the T2's **Control Panel**, open **Connections**, choose **Send methane
+   to** and pick the store. The field appears once a methane store is aboard;
+   its sheet says why one is not offered.
 3. Load methane ice like water ice and start. Each block takes 50 minutes at
    6 kW: 19.89 kg of water goes to the linked silo, 2.95 kg of
    methane to the store, and 2 kg of ice gangue to the tray.
@@ -162,8 +165,7 @@ flowchart LR
 - **From Ship's Water (optional, 0.16.1 only):** the silo's panel and the C1 offer
   **Draw from the drinking-water tanks** (50, 100, 250 or 500 kg) and **Send to
   the waste tanks**. Only tanks that touch the silo (within one tile) or share its
-  process-water line take part; each Ship's Water tank's water port is the tile
-  beside the middle of its left-hand side, and the silo's status counts the tanks
+  process-water line take part (the line joins a tank it runs under or beside), and the silo's status counts the tanks
   in reach (since Framework 0.59.0). Drawing leaves the crew reserve in the tanks (Framework's
   setting `WaterTanks/CrewWaterReserveKg`, default 50 kg; it took over the value
   set under Shipbreaker's `Silo` section). Sending fills installed waste tanks

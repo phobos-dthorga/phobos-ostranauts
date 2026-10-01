@@ -137,10 +137,10 @@ one. These values, yields and accelerated growth are gameplay choices.
 With **Valtora's [Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
 0.16.1** loaded, Enable optional ship-water supply draws finite potable water from
 installed tanks that touch the rack or W2 (within one tile) or share its
-process-water line. Each Ship's Water tank has a water port by the shared rule, the
-tile beside the middle of its left-hand side; the rack's port shares the tile with
-its irrigation inlet. A tank elsewhere aboard does not count (since Agriculture
-0.32.0): lay process-water line between the ports or move the tank, and the machine
+process-water line. The line joins a tank, a rack or a W2 when it runs under it or
+right beside it, on any side (since Framework 0.69.0). A tank elsewhere aboard does
+not count (since Agriculture 0.32.0): lay process-water line so it touches both, or
+move the tank, and the machine
 says so while none is in reach. Powered pumping preserves the configured crew
 reserve (10 L by default), counted over every drinking tank aboard. Docked ships are separate.
 Other provider versions fall back to manual supply pending contract review.

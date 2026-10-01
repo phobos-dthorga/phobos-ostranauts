@@ -20,4 +20,8 @@ public static class IndustrialRules
         ThawRules.IsFamily(id) ? "thaw" : LaserRules.IsFamily(id) ? "laser" :
         id == "PhobosShipbreakerInstalled" || id == "PhobosShipbreakerInstalledDmg" ? "fixture" : "";
     public static bool Equipment(string? id) => Group(id) != "" && !Console(id);
+    /// <summary>Equipment whose own Control Panel is Framework's shared panel (0.63.0): the T2 thaw unit and the ML-2
+    /// laser, which are presented entirely by their provider. Everything else keeps the industrial panel, with its
+    /// routing, furnace and capture pages.</summary>
+    public static bool SharedPanel(string? id) => ThawRules.IsFamily(id) || LaserRules.IsFamily(id);
 }

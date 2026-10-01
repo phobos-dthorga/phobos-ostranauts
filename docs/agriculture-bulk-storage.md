@@ -38,9 +38,8 @@ aggregate formulation and value per kilogram as the other selected charges.
 
 1. Install the silo on intact floor and put the W2 within one tile of it
    (touching or with one tile between them, on any side, diagonals included),
-   or anywhere aboard with Framework's **process-water line** laid between the
-   silo's water port and the W2's intake. Each port is the tile beside the
-   middle of the equipment's left-hand side, turning with it.
+   or anywhere aboard with Framework's **process-water line** laid so it runs
+   under or right beside both the silo and the W2, on any side.
 2. Pause W2 operation and receiving. On the W2's Supplies page choose **Water
    silo connection**, pick the silo and Apply. The list says how each silo is
    reached and marks empty ones. One silo can feed several W2s and other

@@ -121,6 +121,11 @@ public static class BulkVessels
     public static IEnumerable<CondOwner> Aboard(Ship? ship, string commodity) => ship == null ? Enumerable.Empty<CondOwner>() :
         ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == ship && Of(c)?.Commodity == commodity &&
             c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c)).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    /// <summary>Every vessel of one commodity standing on a ship in any state (loose, damaged, locked), so a link
+    /// picker can say why one is not offered (Framework 0.69.0). Never a list of usable vessels: that is <see cref="Aboard"/>.</summary>
+    public static IEnumerable<CondOwner> AboardAnyState(Ship? ship, string commodity) => ship == null ? Enumerable.Empty<CondOwner>() :
+        ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == ship && c.objCOParent == null && Of(c)?.Commodity == commodity)
+            .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
 }
 
 /// <summary>Custody of one registered vessel: the saved record, its journals and guard, the native mass

@@ -30,7 +30,7 @@ fetch it.
    [G4 grabber](shipbreaker-reclamation.md). The laser needs exactly one moored
    ship. A station dock does not count.
 4. **Choose what it cuts.** Right-click the laser and open its **Control Panel**
-   with a crew member standing by the wall behind it, or use the
+   with a crew member standing by the wall behind it, then **Settings**; or use the
    [C1 console](industrial-console-player-guide.md). **Set to cut** offers Rock
    only, Wall panels only, or Rock and wall panels. An asteroid is always rock.
 5. **Start / resume cutting.** The laser sweeps its arc from one side to the
@@ -100,7 +100,7 @@ place of the cabin: an F6-R exterior radiator or an F6-P thermal exhaust port.
    An F6-R goes outside on the hull beside the head. An F6-P goes on sealed deck
    just inside the wall behind it. Each has its own mounting rules; see the
    [furnace guide](furnace-player-guide.md).
-2. **Pause the laser**, open its Control Panel and choose **Cooling**. Pick the
+2. **Pause the laser**, open its Control Panel, then **Settings**, and choose **Cooling**. Pick the
    assembly. It must be at 50 C or below, undamaged, properly mounted and not
    paired with a furnace or another laser.
 3. If you want it, choose **Power**: **High, 48 kW**. It needs the linked

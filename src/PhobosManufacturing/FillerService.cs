@@ -73,10 +73,9 @@ internal static class FillerService
             NativeGasVessel.TryRead(c, out var r) && FillerRules.Species.Contains(r.Species) && ProcessorService.Adjacent(co, c))
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     /// <summary>Oxygen, nitrogen and carbon dioxide stores of any size touching the station or on its gas line.</summary>
-    internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && GasStores.For(c.strCODef) is GasStore g &&
-            FillerRules.Species.Contains(g.Family.Species) && GasLine.Connection(co, c) != null)
-        .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => GasLine.Stores(co, Fills);
+    /// <summary>A store of a gas the station handles.</summary>
+    internal static bool Fills(CondOwner c) => GasStores.For(c.strCODef) is GasStore g && FillerRules.Species.Contains(g.Family.Species);
     private static bool CanisterReady(CondOwner co, CondOwner c) => !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && ProcessorService.Adjacent(co, c) && NativeGasVessel.TryRead(c, out _);
     private static bool StoreReady(CondOwner co, Session s, CondOwner store)
     {

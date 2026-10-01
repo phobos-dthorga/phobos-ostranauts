@@ -3110,13 +3110,13 @@
       "key": "bulk_pair",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "The reservoirs retired into silos; says the process-water line also links them.",
+      "reason": "Recovery wording follows the 0.69.0 rule: lay the line under or right beside both.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/BulkService.cs:63"
       ],
       "before": "Place an intact water reservoir or silo within one tile of the W2 (touching or one tile apart, diagonals count), on the same ship.",
-      "after": "Place an intact water silo within one tile of the W2 (touching or one tile apart, diagonals count), or lay a process-water line between their water ports."
+      "after": "Place an intact water silo within one tile of the W2 (touching or one tile apart, diagonals count), or lay a process-water line so it runs under or right beside both."
     },
     {
       "mod": "PhobosAgriculture",
@@ -38011,13 +38011,13 @@
       "key": "Thaw.link_missing",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
+      "reason": "Says how a silo comes into reach under the 0.69.0 rule: within one tile, or a shared water line that runs under or beside both.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:328"
       ],
       "before": "Choose an installed silo or reservoir within one tile of the thaw unit, on this ship.",
-      "after": "Choose an installed water silo touching the thaw unit or on its water line, on this ship."
+      "after": "Choose an installed water silo on this ship that stands within one tile of the thaw unit, or that shares a water line with it. The line joins whatever it runs under or right beside."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -41749,13 +41749,13 @@
       "key": "Manifold.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
+      "reason": "The P1 no longer needs its line port turned away; a gas line under or right beside it joins.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:155"
       ],
       "before": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link hydrogen or methane stores within one tile or along a propellant line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off.",
-      "after": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link gas stores within one tile or along a gas line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off."
+      "after": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles. Link gas stores within one tile, or along a gas line that runs under or right beside both, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off."
     },
     {
       "mod": "PhobosManufacturing",
@@ -45822,6 +45822,71 @@
       "after": "Thawed methane ice {0}: {1:G} kg of water into {2}, {3:G} kg of methane into {4}, {5:G} kg of gangue to the tray."
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.panel_operation",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel, as the other shared panels have it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Operation",
+      "after": "Operation"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.panel_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel: the T2 links a water silo and a methane store here.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Connections",
+      "after": "Connections"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.panel_details",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel, as the other shared panels have it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Details",
+      "after": "Details"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.panel_help",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Operating essentials for the T2, each matching implemented behaviour: single blocks, linked silo, methane store, the 0.69.0 link rule, Pause, Cancel, gangue tray.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Load single blocks of water ice or methane ice into the feed, link a water silo under Connections, then Start. Methane ice also needs a linked methane store. A silo or store links when it stands within one tile of the unit, or when a line of its kind runs under or right beside both. Pause keeps the progress; Cancel keeps the ice but loses the energy already spent. Gangue drops into the tray, and a full tray makes the unit wait.",
+      "after": "Load single blocks of water ice or methane ice into the feed, link a water silo under Connections, then Start. Methane ice also needs a linked methane store. A silo or store links when it stands within one tile of the unit, or when a line of its kind runs under or right beside both. Pause keeps the progress; Cancel keeps the ice but loses the energy already spent. Gangue drops into the tray, and a full tray makes the unit wait."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.panel_no_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Shown only if the T2 offered no link fields.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "This thaw unit has no connections to set.",
+      "after": "This thaw unit has no connections to set."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.ammonium",
       "category": "name",
@@ -49570,14 +49635,14 @@
       "key": "Acid.details",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
+      "reason": "Acid line wording follows the 0.69.0 rule: under or right beside both, no acid port.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:158",
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
       "before": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it; an LC-3 draws from it; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air.",
-      "after": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it and an LC-3 draws from it, touching it or through the acid line from its acid port; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air."
+      "after": "A bunded {3} x {3} tank, {0:F0} kg empty, for {1:F0} kg of concentrated sulfuric acid. An SA-3 acid plant fills it and an LC-3 draws from it, touching it or through an acid line that runs under or right beside both; stations sell acid into it under Bulk supplies. Damaged, the bund holds the acid but a little mist gets out: the room's air turns poisonous. It has no gas line and never feeds thrusters, filling stations or cabin air."
     },
     {
       "mod": "PhobosManufacturing",
@@ -51619,10 +51684,244 @@
       "reason": "Lists the machines a shared store serves.",
       "trace": "literal reference",
       "references": [
-        "src/PhobosFramework/Controls/LinkChoices.cs:38"
+        "src/PhobosFramework/Controls/LinkChoices.cs:99"
       ],
       "before": "Linked machines: {0}",
       "after": "Linked machines: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.not_offered",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Heads the list of stores aboard that a link sheet does not offer.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:53"
+      ],
+      "before": "Aboard, but not offered:",
+      "after": "Aboard, but not offered:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.not_offered_line",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "One store and its reason, in a link sheet.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:51"
+      ],
+      "before": "{0}: {1}",
+      "after": "{0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.none_aboard",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says no store of the kind is aboard at all.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:44"
+      ],
+      "before": "Nothing of this kind is aboard.",
+      "after": "Nothing of this kind is aboard."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.a_line",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Fallback word for a line family that has no name of its own.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:61"
+      ],
+      "before": "line",
+      "after": "line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The machine itself cannot link yet; says what it needs.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:64"
+      ],
+      "before": "this machine has to be installed, undamaged and unlocked before it can link.",
+      "after": "this machine has to be installed, undamaged and unlocked before it can link."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_loose",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A loose store cannot link; says to install it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:65"
+      ],
+      "before": "loose. Install it first.",
+      "after": "loose. Install it first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A damaged store cannot link; says to repair it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:66"
+      ],
+      "before": "damaged. Repair it first.",
+      "after": "damaged. Repair it first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_locked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A locked store cannot link; says to unlock it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:67"
+      ],
+      "before": "locked. Unlock it first.",
+      "after": "locked. Unlock it first."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A store that is not on the player-owned ship cannot link.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:68"
+      ],
+      "before": "not ready. It has to be installed on your own ship.",
+      "after": "not ready. It has to be installed on your own ship."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_touch_only",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Cargo no line carries links by touching only; says to move it within one tile.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:69"
+      ],
+      "before": "too far away. No line carries this cargo, so it has to stand within one tile of this machine.",
+      "after": "too far away. No line carries this cargo, so it has to stand within one tile of this machine."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_too_large",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The line layout is too large to trace; says to shorten or split it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:70"
+      ],
+      "before": "the {0} layout is too large to trace. Shorten it or split it.",
+      "after": "the {0} layout is too large to trace. Shorten it or split it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_no_pipe_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "No working line touches the store; says where to lay it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:71"
+      ],
+      "before": "no working {0} touches it. Lay {0} under it or right beside it, or move it within one tile of this machine.",
+      "after": "no working {0} touches it. Lay {0} under it or right beside it, or move it within one tile of this machine."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_drained_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The line at the store is drained; names the real right-click action that reopens it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:72"
+      ],
+      "before": "the {0} at it is drained. Right-click the line and choose Return line to service.",
+      "after": "the {0} at it is drained. Right-click the line and choose Return line to service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_no_pipe_machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "No working line touches the machine; says where to lay it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:73"
+      ],
+      "before": "no working {0} touches this machine. Lay {0} under this machine or right beside it.",
+      "after": "no working {0} touches this machine. Lay {0} under this machine or right beside it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_drained_machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The line at the machine is drained; names the real right-click action that reopens it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:74"
+      ],
+      "before": "the {0} at this machine is drained. Right-click the line and choose Return line to service.",
+      "after": "the {0} at this machine is drained. Right-click the line and choose Return line to service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_separate",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Both ends have line but the runs do not meet; says what to look for.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:75"
+      ],
+      "before": "its {0} does not join this machine's. Look for a gap, a damaged or drained section, or a section with no sound floor under it.",
+      "after": "its {0} does not join this machine's. Look for a gap, a damaged or drained section, or a section with no sound floor under it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.network_members",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Details page: what the object is joined to through a line or by touching.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:91"
+      ],
+      "before": "Joined through the {0} or by touching: {1}.",
+      "after": "Joined through the {0} or by touching: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.network_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Details page: nothing is joined through this line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs:91"
+      ],
+      "before": "Nothing is joined to it through the {0}.",
+      "after": "Nothing is joined to it through the {0}."
     },
     {
       "mod": "PhobosFramework",
@@ -51680,14 +51979,14 @@
       "mod": "PhobosFramework",
       "key": "SharedLines.gas_description",
       "category": "item description",
-      "decision": "add",
-      "reason": "Says what the gas line joins and how to lay it.",
+      "decision": "rewrite",
+      "reason": "Lay-it rule: a line joins what it runs under or right beside (Framework 0.69.0), no longer one port tile.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/SharedLines.cs:19"
       ],
       "before": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Holds no gas between transfers.",
-      "after": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a store it fills with a few grams of gas a tile and keeps it; vent the line before taking it up."
+      "after": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor until it runs under or right beside each gas store and each machine that uses one; everything of that sort it touches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a store it fills with a few grams of gas a tile and keeps it; vent the line before taking it up."
     },
     {
       "mod": "PhobosFramework",
@@ -51719,14 +52018,14 @@
       "mod": "PhobosFramework",
       "key": "SharedLines.water_description",
       "category": "item description",
-      "decision": "add",
-      "reason": "Says what the water line joins, how to lay it and that it never joins drinking water.",
+      "decision": "rewrite",
+      "reason": "Lay-it rule: a line joins what it runs under or right beside (Framework 0.69.0), no longer one port tile.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/SharedLines.cs:19"
       ],
       "before": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Holds no water between transfers.",
-      "after": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Once joined to a tank it fills with about half a kilogram of water a tile and keeps it; drain it into a canister before taking it up."
+      "after": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor until it runs under or right beside each water tank and each machine that uses one; everything of that sort it touches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Once joined to a tank it fills with about half a kilogram of water a tile and keeps it; drain it into a canister before taking it up."
     },
     {
       "mod": "PhobosFramework",
@@ -52417,27 +52716,27 @@
       "mod": "PhobosFramework",
       "key": "WaterTanks.no_tank_in_reach",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Says why nothing was drawn and the two ways to reach a tank.",
+      "decision": "rewrite",
+      "reason": "Recovery wording follows the 0.69.0 rule: lay the line under or right beside both.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/WaterTankService.cs:90"
       ],
       "before": "No Ship's Water drinking tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports.",
-      "after": "No Ship's Water drinking tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports."
+      "after": "No Ship's Water drinking tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line so it runs under or right beside both."
     },
     {
       "mod": "PhobosFramework",
       "key": "WaterTanks.no_waste_in_reach",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Says why nothing was sent and the two ways to reach a waste tank.",
+      "decision": "rewrite",
+      "reason": "Recovery wording follows the 0.69.0 rule: lay the line under or right beside both.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Items/WaterTankService.cs:97"
       ],
       "before": "No Ship's Water waste tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports.",
-      "after": "No Ship's Water waste tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line between their water ports."
+      "after": "No Ship's Water waste tank touches this silo or shares its water line. Place one within a tile of it, or lay process-water line so it runs under or right beside both."
     },
     {
       "mod": "PhobosFramework",
@@ -52456,15 +52755,15 @@
       "mod": "PhobosAgriculture",
       "key": "shipswater_unreached",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Rack or W2 notice: no Ship's Water tank in reach, and what to do.",
+      "decision": "rewrite",
+      "reason": "Recovery wording follows the 0.69.0 rule: lay the line under or right beside both.",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:183",
         "src/PhobosAgriculture/Service.cs:187"
       ],
       "before": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports.",
-      "after": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line between their water ports."
+      "after": "No Ship's Water tank touches this machine or shares its water line, so it draws no drinking water. Place a tank within a tile of it, or lay process-water line so it runs under or right beside both."
     },
     {
       "mod": "PhobosManufacturing",
@@ -52496,14 +52795,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidLine.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "What the acid line joins, how to lay it, and what a wet line does when damaged.",
+      "decision": "rewrite",
+      "reason": "Lay-it rule: a line joins what it runs under or right beside (Framework 0.69.0), no longer one port tile.",
       "trace": "literal reference",
       "references": [
         "src/PhobosManufacturing/AcidLine.cs:24"
       ],
       "before": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. While it joins a tank to a machine linked to that tank it is wet: damage it and about a kilogram of acid spills, a trace of it as mist into the room, the rest caught by the tank's bund.",
-      "after": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a tank it fills with about 0.9 kg of acid a tile and keeps it. Damage lets a trace of it into the room as mist, so keep the crew clear; drain it into a canister before repair or taking it up."
+      "after": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor until it runs under or right beside each acid tank and each machine that uses one; everything of that sort it touches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a tank it fills with about 0.9 kg of acid a tile and keeps it. Damage lets a trace of it into the room as mist, so keep the crew clear; drain it into a canister before repair or taking it up."
     },
     {
       "mod": "PhobosManufacturing",
@@ -54241,6 +54540,71 @@
       "after": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles."
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_operation",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel, as the other shared panels have it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Operation",
+      "after": "Operation"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel: Settings, because what the ML-2 cuts, its cooling and its power are not connections.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Settings",
+      "after": "Settings"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_details",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Page name on the shared Control Panel, as the other shared panels have it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Details",
+      "after": "Details"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_help",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Operating essentials for the ML-2, each matching implemented behaviour: moor a target, Start, Pause, Stop, the three settings and when they may change.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Pause keeps the work so far; Stop drops the cut in hand and keeps the sweep and the counts. Settings choose what the laser cuts, where its heat goes and its power. Pause it before changing what it cuts or its cooling.",
+      "after": "Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Pause keeps the work so far; Stop drops the cut in hand and keeps the sweep and the counts. Settings choose what the laser cuts, where its heat goes and its power. Pause it before changing what it cuts or its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.panel_no_connections",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Shown only if the ML-2 offered no settings.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosShipbreaker/VesselPanel.cs:25"
+      ],
+      "before": "This laser has no settings to change.",
+      "after": "This laser has no settings to change."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Bulk.sell_heading",
       "category": "control label",
@@ -54729,8 +55093,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ac83985c2df0db71c35a5d86b0673ec837a0c1d3e0e8e96f40043979118fb024",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "271de8574c8bce309f8b26c8cd97e47dad0eba3dfb36b4b43f3d78972ffdabaa",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "SUPPORT.md",
@@ -54750,15 +55114,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5bfb82fad38e1435d7bb18dfefac53a69d56974b7795ceee068e5ace8c098bef",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "d6575adec4def4f654b43dc28afbf43e506f48aaf26e4af92a708f9676ef3350",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1c9dafe3e20c04dd366536ebb8ea38aa3edadf9b87c4dff86bfa8357254fdaab",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "cae15b151db859cf03836d534d1b5ba328524f089c3ddcea905a41b0a87a9d73",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -54778,8 +55142,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ed22ef618ef5d3a907e8e8e15b1cd6536da0e4f51a1f102d34337d8cfaa1bc0c",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "d19a0ca503207cc1c30ebffd3eadfb2066df2c190694cf6a60c31692c2646170",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -54791,8 +55155,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c864ca9b031ae24ace98bcada1d16d565c353fe6bb8a30b78c4560f68bb710c6",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "3459cc00ddc5d830a05d9a2f71c2c9b3bc11a31da9a03d9146af2349dfcc8d62",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -54889,8 +55253,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5e0ec56d3500db4a2840c67a180931f77711272667035db2329e966ad86e8713",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "2d4990b52ec20934c41fd26d2301b3398f0af03fefa40d53f87da40770b31f98",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55190,8 +55554,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dad7d218570e0ffbd6c33bbeca2bb3cc60a59e6d7110f25a6cf5f03a9ae85f68",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "6c5e543b5ead1014864e910ef0d96084299ae2b32d4985ebdff4edab731e5b75",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -55412,8 +55776,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "0e35daef5992a56d9b1c2b1602a27cb2069b0c5ee34edd95c5474319df0ce654",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "48aafd0060caf2c7683ed1f32dc4b5710b6014b93c27a389aa3e3eae9f46fa2b",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -55624,8 +55988,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d31236aa54390e350aa4de1700052517711ecc9ac672a3b780abf55415c6ca79",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "57c68caf9d1c0098df314b8550f88a257eade89d8fc9438c458023a70e0a4285",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -55680,15 +56044,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9065952db5d2d55010854ea40c5ccd53dc73516316cc88c470cde53ce5958ba5",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "bf47010cabdba9f1ee4d378f66bfb386d8aadf06cdd6385c2d2e2bc6e100ffc7",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f5437396b8e79910976f219082157e8fe5449b9fdac073d4fa724050fe444392",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "578e3ecf84ef5fe97ce497755093d7a59bee7690aa5c9f119f7441d228ef7fe9",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/item-references.md",
@@ -55701,15 +56065,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "ca0a46e59cdc3544fcb29f10f32252767620333f2df8adbaf50a011924fddc84",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "8d11d178c6f7c8fcd2916d884fdbcf74742f6d2ea790e2fb1174f132bf664673",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "3b599421477e92f7593c967e6929eccca364b0219e784e6f73cea04b4e36cd05",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "ea622132acd01f0910e9bbd0b83709a4d54fc0ef614084dbc21f97022e170a7c",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -55729,8 +56093,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "25323424bae2a7dbf5156981f69f124124f1d6df445bb10304eecd08105edf1c",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "261b3080bd46a170fba137edbf3c9abe309b93453e14b724b8fc2c13bc98720b",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/residue-collector.md",
@@ -55764,8 +56128,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "9196ff621c11a37e0e06c0b71a22891c5053f170f762493bde1f8e98e9180c52",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "12189cf59c0eb6e83e6f2357944c37a24eb26de4286574ed67525f7eedc7f78c",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -55778,8 +56142,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "f883fee0b416c82c22a7ca979e306be2e612cd724f39c1e4fc92ec606d404158",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "30f19db5e90d26a4aa0ebf149ff2842644927b5e7750dee8660bb347dfddc864",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -55806,8 +56170,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fdd0db2826bb9f8f30ae26c1cc23959b3423316e6b5853b98aa491d5c0f3d0a5",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "b40072f2efe33ac166274a61b88ac40311b95cc286575b9997b5ecb18a9418ea",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -55820,22 +56184,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "596cd1edee34b85877eb19c4e1af51ee9cb234d18135d61f2ceb6abec23e1a8f",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "967019df7aaf08cf8eda5d566329a7809ced389f76ab4578cb7ac993f2417dcc",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8646e4c3570b18b83e6394154102f953f9a3638adc607b2ab66e3bb36c8495ad",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "5849f3e0784c6eb560c3ec118599a3f3a22c095f0efea8c334b4d1af8ea4a231",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "16d8158465ece71a4bfc85dae77564d1ba4efd0d451f4d26d819add2e3536424",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "21d0e01061b0317cb08e8c846a14a7f79df3a4d1d40b58aefc66a4524f0448df",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -55925,8 +56289,8 @@
       "path": "docs/development/line-contents-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "5785df0dbec5f1b4e8145b929f3fcaee6dd6d4020b7e46781a51b7916aecc717",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "99bf98b7af6516f15f2bb44460e279851186baaf7a60cf85af95ce0767e73a95",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/lines-and-draining.md",
@@ -55946,8 +56310,8 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "e24d3f23f4f78d27f89934943290bc132126dbcc70288dd3d29947196af0d211",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "f6548c6c5d45845038db3343ce199494e5060deb947e42c51ed153584d7c4da5",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "docs/development/mining-laser-design.md",
@@ -55961,8 +56325,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a196d75ea2d2acad75db7cb51c8ef695c1512b724aa7a639ac739b5c74eb8943",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "d61f675e7fa0f6bf88a44fe5b1fbdda41cb118cf75b3cad0420ba54a54ac4f77",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -55978,8 +56342,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "86fb00b070fdf6a957a1b700cf4e2899a00f8de0d9692778959a37f6d4c32580",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "2235f16b1ced8594f88aa912a35251b2e2ba04626b8d2a912bf02d0a88b2a26d",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -56011,14 +56375,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1c8e129db55d1f0d403e72e9bfc30c57ede4575d443533d908881f4cd851eec4",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "4c370f43dd92d458d0562fe8774f90d63c2b469247d92d76f80aab51f9a3d220",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2c1c0679196f0bb97fee1d8f49e0be0eba55ea6c554574a468f328f35e261ff1",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "42f6cb3b269e6ae88b5f8a029b8201a40e56a6cda0bdb693db78524637a44b1e",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56035,8 +56399,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "36282894556858bef93de82d935c18b10a97a746048127b651cce4e4531098e9",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "5541205a3b880a2e10b5989db49fad9e2254af08a42f9f2ff1aa8b3f73e5ec9f",
+      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

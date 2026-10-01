@@ -16,8 +16,53 @@ internal static class NetworkChecks
         var piped = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports);
         check(piped.ParticipantCount == 4 && piped.ParticipantsConnected(1, 2), "Two participants with ports on one run of pipe share a network");
         check(piped.Hops(1, 2) == 4 && piped.Hops(2, 1) == 4, "Network steps count the pipe cells between the ports");
-        check(!piped.ParticipantsConnected(0, 1) && !piped.ParticipantsConnected(3, 1), "A port beside the pipe, or far from it, joins nothing");
+        check(!piped.ParticipantsConnected(0, 1) && !piped.ParticipantsConnected(3, 1), "A participant whose join cells miss the pipe joins nothing");
         check(piped.Hops(0, 1) == -1, "No network, no steps");
+
+        // Framework 0.69.0 (owner decision, 1 October 2026): any pipe under or beside equipment joins it. The adapter
+        // gives each participant its own cells and the cells north, south, east and west of them.
+        check(FluidTopology.OnOrBeside(6, 3, new[] { 7 }).SequenceEqual(new[] { 7, 6, 8, 1, 13 }), "A tile's join cells are itself and its four neighbours, never the corners");
+        check(FluidTopology.OnOrBeside(6, 3, new[] { 5 }).SequenceEqual(new[] { 5, 4, 11 }) && FluidTopology.OnOrBeside(6, 3, new[] { 6 }).SequenceEqual(new[] { 6, 7, 0, 12 }),
+            "Join cells stop at the grid edge and never wrap from one row to the next");
+        check(FluidTopology.OnOrBeside(6, 3, new[] { 0, 1 }).SequenceEqual(new[] { 0, 1, 6, 2, 7 }), "Join cells of a wider footprint list each cell once");
+        check(FluidTopology.OnOrBeside(6, 3, new[] { -1, 18 }).Length == 0 && FluidTopology.OnOrBeside(0, 3, new[] { 1 }).Length == 0, "Cells off the grid, or no grid, give no join cells");
+        IReadOnlyList<IReadOnlyList<int>> beside = new IReadOnlyList<int>[] { FluidTopology.OnOrBeside(6, 3, new[] { 7 }), new[] { 10 } };
+        var touching = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, beside);
+        check(touching.ParticipantsConnected(0, 1), "A one-tile participant beside the end of a pipe joins it");
+
+        // The owner's layout of 1 October 2026 on a 12 x 10 grid (column = x + 12, row = y - 18): a 3 x 3 silo over
+        // x -10..-8, y 23..25, a 2 x 2 machine over x -11..-10, y 19..20, and water pipe at (-9, 22), (-9, 23), (-9, 24),
+        // which runs into the middle of the silo and stops short of the machine.
+        int Cell(int x, int y) => (y - 18) * 12 + x + 12;
+        int[] Tiles(int x0, int x1, int y0, int y1) => Enumerable.Range(x0, x1 - x0 + 1).SelectMany(x => Enumerable.Range(y0, y1 - y0 + 1).Select(y => Cell(x, y))).ToArray();
+        int[] silo = Tiles(-10, -8, 23, 25), machine = Tiles(-11, -10, 19, 20);
+        int[] laid = { Cell(-9, 22), Cell(-9, 23), Cell(-9, 24) };
+        IReadOnlyList<IReadOnlyList<int>> oldPorts = new IReadOnlyList<int>[] { new[] { Cell(-11, 24) }, new[] { Cell(-9, 19) } };
+        var before = FluidTopology.Build(12, 10, laid.Length, laid, 4096, oldPorts);
+        check(!before.ParticipantsConnected(0, 1) && !before.ParticipantsOn(laid[0]).Any(), "Under the single-port rule the owner's pipe joined neither the silo nor the machine");
+        IReadOnlyList<IReadOnlyList<int>> joinCells = new IReadOnlyList<int>[] { FluidTopology.OnOrBeside(12, 10, silo), FluidTopology.OnOrBeside(12, 10, machine) };
+        var after = FluidTopology.Build(12, 10, laid.Length, laid, 4096, joinCells);
+        check(after.ParticipantsOn(laid[0]).SequenceEqual(new[] { 0 }) && !after.ParticipantsConnected(0, 1), "A pipe laid under the silo joins it; a machine two tiles from the pipe's end is not joined");
+        int[] diagonal = laid.Concat(new[] { Cell(-9, 21) }).ToArray();
+        check(!FluidTopology.Build(12, 10, diagonal.Length, diagonal, 4096, joinCells).ParticipantsConnected(0, 1), "A pipe ending on the machine's corner tile does not join it");
+        int[] reaching = diagonal.Concat(new[] { Cell(-9, 20) }).ToArray();
+        var linked = FluidTopology.Build(12, 10, reaching.Length, reaching, 4096, joinCells);
+        check(linked.ParticipantsConnected(0, 1) && linked.Hops(1, 0) == 4, "A pipe that ends beside the machine joins it to the silo");
+        check(joinCells[0].Contains(Cell(-11, 24)) && joinCells[1].Contains(Cell(-9, 19)), "The old port tile is one of the join cells, so every layout that joined before still does");
+
+        // Why a picker does not offer a store: the store's own state first, then the pipe at each end, then the run between.
+        var ok = new ReachFacts { MachineReady = true, Installed = true, Ready = true, Network = true, StoreOpenPipe = true, MachineOpenPipe = true };
+        ReachProblem Why(Func<ReachFacts, ReachFacts> change) => LinkDiagnosis.Classify(change(ok));
+        check(Why(f => { f.Reached = true; return f; }) == ReachProblem.None && Why(f => f) == ReachProblem.SeparateRuns, "A reached store has no problem; two piped ends that do not meet are separate runs");
+        check(Why(f => { f.MachineReady = false; return f; }) == ReachProblem.MachineNotReady && Why(f => { f.Installed = false; f.Ready = false; f.Damaged = true; return f; }) == ReachProblem.NotInstalled,
+            "The machine's own state comes first, then a loose store before any other fault");
+        check(Why(f => { f.Damaged = true; f.Ready = false; f.Reached = true; return f; }) == ReachProblem.Damaged && Why(f => { f.Locked = true; f.Ready = false; return f; }) == ReachProblem.Locked &&
+            Why(f => { f.Ready = false; return f; }) == ReachProblem.NotReady, "A damaged or locked store is named even when it touches the machine");
+        check(Why(f => { f.Network = false; return f; }) == ReachProblem.TouchOnly && Why(f => { f.Overflow = true; return f; }) == ReachProblem.LayoutTooLarge, "Cargo no line carries must touch; an overflowing layout says so");
+        check(Why(f => { f.StoreOpenPipe = false; return f; }) == ReachProblem.NoPipeAtStore && Why(f => { f.StoreOpenPipe = false; f.StoreClosedPipe = true; return f; }) == ReachProblem.DrainedAtStore,
+            "No pipe at the store, or only a drained one");
+        check(Why(f => { f.MachineOpenPipe = false; return f; }) == ReachProblem.NoPipeAtMachine && Why(f => { f.MachineOpenPipe = false; f.MachineClosedPipe = true; return f; }) == ReachProblem.DrainedAtMachine &&
+            Why(f => { f.StoreOpenPipe = false; f.MachineOpenPipe = false; return f; }) == ReachProblem.NoPipeAtStore, "The machine's end is checked after the store's");
 
         var joined = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports, new[] { (0, 1) });
         check(joined.ParticipantsConnected(0, 2) && joined.Hops(0, 2) == 5, "Touching joins as if piped, and joins chain through the network");

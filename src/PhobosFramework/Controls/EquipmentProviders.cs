@@ -24,9 +24,13 @@ public sealed class EquipmentField
     /// <summary>The choice id matching the current setting, so a configuration sheet opens with it marked; empty when
     /// the provider does not say (the sheet then marks nothing, as before).</summary>
     public readonly string Current;
+    /// <summary>Text shown under the choices when the setting's sheet opens (Framework 0.69.0): why something aboard is
+    /// not offered. Read only then, so a page of fields costs no ship scan; null or empty shows nothing.</summary>
+    public readonly Func<string>? Note;
     public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices):this(label,value,choices,""){}
     public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices,string? current)
     {Label=label;Value=value;Choices=Array.AsReadOnly(choices.ToArray());Current=current??"";}
+    public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices,string? current,Func<string>? note):this(label,value,choices,current){Note=note;}
 }
 
 public sealed class EquipmentAction

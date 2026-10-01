@@ -189,14 +189,22 @@ exception is the station refuelling kiosk's Bulk supplies view.
   and the matching line works as well. Touching also chains: a tank touching a V4 that touches an X2 serves the X2.
 - **Lines** are Framework's process-water line (blue) and gas line (amber),
   and the Lixivar acid line (violet), bought and laid tile by tile through
-  INSTALL > HVAC. Every machine and store
-  has its **water port** on the tile beside the middle of its left-hand side
-  and its **gas port** on the tile beside the middle of its right-hand side
-  (the upper of the two middle rows on an even size). The LC-3, the SA-3 and
-  the acid tanks also have an **acid port** on the tile beside their right-hand
-  side, one row below the gas port. Ports turn with the equipment. Lay the line so it reaches both ports; every machine and store
-  whose port a line reaches is on the same network, and so is anything touching
-  them. Different lines can share a tile.
+  INSTALL > HVAC. A line joins a machine, tank or store when it runs **under it
+  or right beside it**, on any side (since Framework 0.69.0; a tile that only
+  meets a corner does not count). Lay the line until it touches both; everything
+  of the right kind that a line touches is on the same network, and so is
+  anything touching them. Water line joins what uses water, gas line what uses
+  gas, acid line the LC-3, the SA-3 and the acid tanks. Different lines can
+  share a tile. One tile under each machine refuses its own kind of line: the
+  edge tile where that line's joint is drawn (left side for water, right side
+  for gas, one row lower for acid, turning with the equipment). Before
+  Framework 0.69.0 a line had to end on the single tile beside that joint;
+  such layouts still work.
+- **If a store is missing from a list,** open the setting anyway. Under the
+  choices, **Aboard, but not offered** names each silo, tank or store that is
+  left out and the first thing to fix: loose, damaged, locked, no working line
+  touching it, a drained line, or two lines that do not meet. A machine's
+  **Details** page names what it is joined to through each line.
 - **Sharing:** one store serves up to eight machines of each kind. An H2 store
   filled by an X2 can feed a K2 and a P1 at the same time, and one water tank can
   serve every machine on its line.
@@ -223,14 +231,14 @@ exception is the station refuelling kiosk's Bulk supplies view.
 1. Install the V4 on intact floor and connect both power points. Give it a
    room with a scrubber if you will roast carbon ore or bake salt crust.
 2. For the water charges, install a water vessel within one tile of the V4, or
-   lay process-water line between their water ports: a Shipbreaker S3 to S5
+   lay process-water line so it runs under or beside both: a Shipbreaker S3 to S5
    process water silo (Framework's Rivetline S2 to S5). Right-click the V4, choose
    **Control Panel**, open **Connections** and pick the vessel under **Water
    vessel**. Apply. The C1 console offers the same field.
    For the salt crust, also install an ammonia store (any size) within one
    tile and pick it under **Send ammonia to**; for a leached residue, a carbon
    dioxide store under **Send carbon dioxide to**. Each field appears once a
-   store is in reach.
+   store of that gas is aboard; its sheet says why one is not offered.
 3. Right-click the V4 and choose **Inventory**. The tray opens, and the
    **Refinery charge** feed opens as its own window. Put one ore block, clay
    chunk, salt crust or leached residue in it (right-click a stack to place one), or four nickel-iron ingots
@@ -468,7 +476,7 @@ station; the LC-3 draws from it. To move acid, open a tank's panel and **Pour
 acid into** another acid tank it touches or shares an acid line with; the list
 says how each is reached. A tank holding acid refuses to be moved or dismantled.
 
-**The acid line** joins the SA-3, the LC-3 and the tanks port to port, so the
+**The acid line** joins the SA-3, the LC-3 and the tanks it runs under or beside, so the
 tank room need not sit beside the plant. Since 0.25.0 it holds its acid, about
 0.9 kg a tile (a metre of 25 mm bore of 98% acid, our authored figure), filled
 from the tanks on it. To take it up, right-click it and choose **Drain line into
@@ -594,10 +602,9 @@ Framework gives each gas its real cold-gas worth instead:
 | Oxygen, carbon dioxide (the game's canisters) | 0.94, 0.90 | slightly less than nitrogen |
 
 1. Install a **P1 RCS Propellant Manifold** where a gas canister would go: on
-   one of an RCS Intake Regulator's gas-input tiles. Rotate it so its line port
-   (the amber stub) faces away from the regulator.
-2. Put a gas store of any size within one tile of it, or lay **gas line** from
-   the store's line port to the manifold's. The line is its own family; it
+   one of an RCS Intake Regulator's gas-input tiles.
+2. Put a gas store of any size within one tile of it, or lay **gas line** so it
+   runs under or right beside both the store and the manifold. The line is its own family; it
    never joins coolant or irrigation lines, but it can share their tiles: each
    kind of line draws in its own lane. The PDA's Conduits filter selects lines,
    and painting jobs on Equipment leaves them alone.
@@ -813,7 +820,7 @@ the tank, the flask and the calcine. Buy acid at a station's Bulk supplies and
 pour it into a second tank. Damage a tank holding acid, watch the room's
 sulfuric acid and the crew's poisoning, repair it and recover the acid.
 
-Acid line (0.24.0): lay acid line from an AT-2's acid port to an LC-3's, link
+Acid line (0.24.0): lay acid line so it runs under or beside both an AT-2 and an LC-3, link
 them and run an acid recipe. Confirm the line shares a tile with a gas line in its
 own lane, that uninstalling a segment is refused while linked, and that damaging
 one puts about a kilogram into the tank's bund, a trace of mist in the room and

@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.62.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.63.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -64,7 +64,10 @@ aluminium outlet and F6 receiving controls; see [furnace material routing](furna
 These do not start or release a casting batch. Arbitrary item routing remains unsupported.
 
 Every installed equipment family also has a local **Control Panel** action using
-the same shared faceplate and command service. Inventory buttons on those local
+the same command service. The D4, R4, F6, G4, C2 and cooling assemblies open the
+industrial faceplate; since Shipbreaker 0.63.0 the T2 thaw unit and the ML-2 mining
+laser open the shared panel the water silos and Manufacturing machines use, and
+still appear in the C1's list. Inventory buttons on those local
 panels close the controls and open the real inventory. Loading, collecting and
 maintenance still need local crew access. A chute is passive; its panel explains
 the connected intake. The grabber panel can lead to its linked fixture. Existing

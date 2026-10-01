@@ -1288,6 +1288,20 @@
   New machine or store links go through
   `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
   water is stored only in `WaterTanks`, and new mods add work to them by amendment.
+- Owner decision (2026-10-01), after no water, nitrogen or CO2 store would link in
+  play: **any touching pipe joins.** A water, gas or acid line joins equipment when
+  it runs under it or directly beside it on any side, as a belt does; the 0.57.0
+  single port tile is retired as a requirement (it only marks who takes part and
+  where the joint is drawn). Framework 0.69.0 with Shipbreaker 0.63.0, Manufacturing
+  0.28.0 and Agriculture 0.35.0 implement it, with no saved change. Every link
+  picker must say why something aboard is not offered (`LinkChoices.Note`,
+  `LineReach.Problem`): show the field whenever a vessel of its cargo is aboard, and
+  never leave a player with an empty list and no reason. The irrigation conduit and
+  the F6-C coolant conduit keep their exact points until the owner decides otherwise.
+- Owner decision (2026-10-01): the T2 thaw unit and the ML-2 mining laser open
+  Framework's shared `ProviderPanel` (Shipbreaker 0.63.0), like the water silos and
+  Manufacturing's machines. The D4, R4, F6, G4, C2 and cooling assemblies keep the
+  industrial panel. New provider-driven equipment uses the shared panel.
 
 ## Lines hold their contents (2026-10-01)
 

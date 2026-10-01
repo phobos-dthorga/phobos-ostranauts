@@ -815,7 +815,7 @@
   "Thaw.link_none": "No vessel",
   "Thaw.linked": "Linked. Water from each block goes to this vessel.",
   "Thaw.unlinked": "Link cleared.",
-  "Thaw.link_missing": "Choose an installed water silo touching the thaw unit or on its water line, on this ship.",
+  "Thaw.link_missing": "Choose an installed water silo on this ship that stands within one tile of the thaw unit, or that shares a water line with it. The line joins whatever it runs under or right beside.",
   "Thaw.link_busy": "Pause the thaw unit before changing where it delivers.",
   "Thaw.install_first": "Install the undamaged thaw unit first.",
   "Thaw.repair_first": "Repair the thaw unit first.",
@@ -956,5 +956,15 @@
   "Laser.power_line": "Power setting: {0}.",
   "Laser.power_set": "Power set: {0}. It applies from the next cut.",
   "Laser.power_needs_radiator": "The high setting needs a linked cooling assembly that is ready: {0}.",
-  "Laser.demand_radiator": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles."
+  "Laser.demand_radiator": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles.",
+  "Thaw.panel_operation": "Operation",
+  "Thaw.panel_connections": "Connections",
+  "Thaw.panel_details": "Details",
+  "Thaw.panel_help": "Load single blocks of water ice or methane ice into the feed, link a water silo under Connections, then Start. Methane ice also needs a linked methane store. A silo or store links when it stands within one tile of the unit, or when a line of its kind runs under or right beside both. Pause keeps the progress; Cancel keeps the ice but loses the energy already spent. Gangue drops into the tray, and a full tray makes the unit wait.",
+  "Thaw.panel_no_connections": "This thaw unit has no connections to set.",
+  "Laser.panel_operation": "Operation",
+  "Laser.panel_connections": "Settings",
+  "Laser.panel_details": "Details",
+  "Laser.panel_help": "Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Pause keeps the work so far; Stop drops the cut in hand and keeps the sweep and the counts. Settings choose what the laser cuts, where its heat goes and its power. Pause it before changing what it cuts or its cooling.",
+  "Laser.panel_no_connections": "This laser has no settings to change."
 }

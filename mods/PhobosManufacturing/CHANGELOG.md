@@ -6,6 +6,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-10-01 - Draft
+
+### Fixed
+
+- Machines link to water silos and to nitrogen, carbon dioxide and other gas stores along a line laid under or right beside both, on any side (Phobos Framework 0.69.0; owner report, 1 October 2026). Before, the line had to end on one particular tile beside each, so the X2 found no water silo and the K2 found no carbon dioxide store unless they stood within one tile.
+
+### Added
+
+- Every link choice on the V4, LC-3, SA-3, X2, K2, AX-2, A2, L2, P1, the gas stores and the acid tanks says why a silo, tank or store aboard is not offered: loose, damaged, locked, no working line touching it, a drained line, or two lines that do not meet.
+- A store's transfer choice and an acid tank's pour choice now show whenever another store or tank of the same contents is aboard, in reach or not, so the sheet can say what keeps it out. The V4, LC-3 and SA-3 do the same for their optional links.
+
+### Changed
+
+- The A2, L2 and P1 no longer offer a damaged or locked store that merely touches them, matching every other machine. A link already saved to such a store is kept.
+
+### Save compatibility
+
+- Automatic. No saved record changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.69.0 or newer. The A2 still adds nothing to a room below 10 kPa. Offline checks are not gameplay validation.
+
 ## [0.27.0] - 2026-10-01 - Draft
 
 ### Added

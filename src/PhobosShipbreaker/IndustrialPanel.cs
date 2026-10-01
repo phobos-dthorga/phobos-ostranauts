@@ -45,6 +45,9 @@ public sealed class IndustrialPanel : GUIData
         if (target == null || target.bDestroyed || target.ship == null || (int)target.ship.LoadState < 2 || !target.HasCond("IsInstalled") ||
             CrewSim.goIntUIPanel == null || CrewSim.objInstance.coConnectMode != null || CrewSim.bUILock ||
             GUIInventory.instance?.Selected != null || CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
+        // The T2 and the ML-2 open Framework's shared panel (0.63.0). This one redirect covers the right-click action,
+        // a panel saved open under the industrial key, and every other local open.
+        if (IndustrialRules.SharedPanel(target.strCODef)) return VesselPanel.Show(target);
         ConsoleBinding? context = null;
         string? problem;
         if (IndustrialRules.Console(target.strCODef))
@@ -194,7 +197,13 @@ public sealed class IndustrialPanel : GUIData
         shell.SelectionOrigin=target;
         if (target == null || tab == "overview" && Central) { Layout(); return; }
         var identity=C.Row(details,72);ObjectPresentation.Picture(identity,target,64);C.Label(identity,ObjectPresentation.Location(target));
-        if(tab=="details"){Layout();return;}
+        if(tab=="details")
+        {
+            // What it is joined to through each line it takes part in, by pipe or by touching (Framework 0.69.0).
+            string joined=LinkChoices.NetworkSummary(target);
+            if(joined.Length>0)W.Label(details,joined);
+            Layout();return;
+        }
         var actions = W.Rect(details, "Commands");
         var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>(); layout.spacing = W.Gap;
         layout.childControlHeight = layout.childControlWidth = true; layout.childForceExpandHeight = false;
@@ -207,7 +216,7 @@ public sealed class IndustrialPanel : GUIData
             {
                 var selected=field;
                 PolarisWidgets.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,selected.Current,fields.ConfigurationStamp(target),selected.Choices,
-                    (string expected,string chosen,out string reason)=>fields.ApplyConfiguration(target,binding,expected,chosen,out reason)));
+                    (string expected,string chosen,out string reason)=>fields.ApplyConfiguration(target,binding,expected,chosen,out reason),selected.Note));
             }
         if (provider != null)
             foreach (var command in provider.Snapshot(target).Actions)

@@ -64,6 +64,10 @@ internal static class BulkService
     internal static bool Geometry(CondOwner tank,CondOwner w2)=>tank.ship!=null&&w2.ship==tank.ship&&IsWaterVessel(tank)&&IrrigationDefinitions.IsSupply(w2)&&
         NativeFluidRoute.EndpointReady(tank)&&NativeFluidRoute.EndpointReady(w2)&&WaterLink.Reach(w2,tank)!=LineReachKind.None;
     internal static IEnumerable<CondOwner> Candidates(CondOwner co)=>co.ship?.GetCOs(null,false,false,true).Where(c=>VesselSide(co)?IrrigationDefinitions.IsSupply(c)&&Geometry(co,c):IsWaterVessel(c)&&Geometry(c,co)).OrderBy(c=>c.strID,StringComparer.Ordinal)??Enumerable.Empty<CondOwner>();
+    /// <summary>Why a water tank aboard is not offered to a W2 (Agriculture 0.35.0): loose, damaged, or no water line
+    /// touching it. Empty for the tank side and when every tank aboard is offered.</summary>
+    internal static string LinkNote(CondOwner co)=>co.ship==null||VesselSide(co)?"":
+        Phobos.Ostranauts.Framework.Controls.LinkChoices.Note(co,LineFamilies.ProcessWater,BulkVessels.AboardAnyState(co.ship,LineFamilies.Water),Candidates(co));
     internal static bool Link(CondOwner co,string id,ConsoleBinding? binding,out string reason)
     {
         reason=Text.Get("protected");if(!Definitions.Ready)return false;

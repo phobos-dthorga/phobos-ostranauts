@@ -53,10 +53,7 @@ internal static class RegulatorService
     internal static bool Protected(CondOwner co) => Get(co).Protected;
 
     /// <summary>Oxygen, nitrogen or carbon dioxide stores of any size touching the regulator or on its gas line.</summary>
-    internal static IEnumerable<CondOwner> Candidates(CondOwner co, string commodity) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && GasStores.Holds(c.strCODef, commodity) &&
-            GasLine.Connection(co, c) != null)
-        .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    internal static IEnumerable<CondOwner> Candidates(CondOwner co, string commodity) => GasLine.Stores(co, c => GasStores.Holds(c.strCODef, commodity));
     private static CondOwner? Source(CondOwner co, string id, string commodity, out string why)
     {
         why = Text.Get("Regulator.no_store");

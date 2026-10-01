@@ -1,0 +1,35 @@
+[h1]Phobos Framework 0.69.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Pipes now join the equipment they touch (owner report, 1 October 2026). A process-water, gas or acid line joins a machine, tank or store when it runs under it or right beside it on any side, the way a conveyor belt already does. Before, a line had to end on one particular tile beside the equipment; a line laid under or into a machine looked joined and was not, so link choices stayed empty. Every layout that already worked still works.
+[/list]
+
+[h2]Added[/h2]
+
+[list]
+[*]Link choices say why something is missing. When a silo, tank or store aboard is not offered, the setting's sheet lists it with the first thing to fix: loose, damaged, locked, no working line touching it, a drained line, or two lines that do not meet.
+[*]A machine's Details page names what it is joined to through each line, by pipe or by touching.
+[*]For mod authors: FluidTopology.OnOrBeside for join cells, LineReach.Problem and LinkDiagnosis for one plain reason, LinkChoices.Note and NetworkSummary for panels, a note on EquipmentField and on the ConfigurationSheet forms, and BulkVessels.AboardAnyState. A line port now marks who takes part in a line and where the joint is drawn, not where the pipe must lie.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Because lines join what they touch, an open run now fills from every tank or store on it: about half a kilogram of water a tile, a few grams of gas a tile. Ship's Water drinking tanks beside a water line fill it too, above the crew reserve. The oxygen-and-fuel caution can appear where oxygen and fuel stores now share a gas line.
+[*]One tile under each machine still refuses its own kind of pipe: the edge tile where that line's joint is drawn. Every other tile under it takes pipe.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes; lines and equipment are read as they stand when the save loads.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]The irrigation conduit and the F6-C coolant conduit keep their own connection points. Reasons shown in a link sheet can be up to two seconds old. Offline checks are not gameplay validation.
+[/list]

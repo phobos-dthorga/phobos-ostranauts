@@ -11,9 +11,11 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 /// reaches the goal, so <see cref="Path"/> gives the same cells as <see cref="GridRoute.Find"/> did.
 ///
 /// A network family (Framework 0.56.0) also has participants: machines and vessels with a port of the family. A
-/// participant joins the component of the segment at each of its ports, and, where the family allows it, the
+/// participant joins the component of every segment on one of its join cells, and, where the family allows it, the
 /// component of every participant it touches (the owner's rule of 30 September 2026: touching equipment joins as if
-/// piped, and joins chain). Participants are indices 0..P-1 in the order the adapter gave them.</summary>
+/// piped, and joins chain). Since Framework 0.69.0 the adapter gives each participant the cells it covers and the
+/// cells beside them (<see cref="OnOrBeside"/>; owner decision, 1 October 2026: any pipe under or beside equipment
+/// joins it), not one port cell. Participants are indices 0..P-1 in the order the adapter gave them.</summary>
 public sealed class FluidTopology
 {
     public int Columns { get; }
@@ -125,14 +127,25 @@ public sealed class FluidTopology
     }
     private IEnumerable<int> ComponentsNear(IEnumerable<int> cells)
     {
-        int count = Columns * Rows;
+        foreach (int c in OnOrBeside(Columns, Rows, cells))
+            if (component.TryGetValue(c, out int id)) yield return id;
+    }
+    /// <summary>The given cells and the cells north, south, east and west of each (Framework 0.69.0): where a pipe or a
+    /// belt must lie to join the equipment covering <paramref name="cells"/>. Bounded by the grid, never wrapping from
+    /// the end of one row to the start of the next, corners excluded, each cell once, in first-seen order.</summary>
+    public static int[] OnOrBeside(int columns, int rows, IEnumerable<int> cells)
+    {
+        var found = new List<int>(); var seen = new HashSet<int>();
+        if (columns <= 0 || rows <= 0 || cells == null) return found.ToArray();
+        int count = columns * rows;
         foreach (int cell in cells)
         {
             if (cell < 0 || cell >= count) continue;
-            int column = cell % Columns;
-            foreach (int c in new[] { cell, column > 0 ? cell - 1 : -1, column + 1 < Columns ? cell + 1 : -1, cell - Columns, cell + Columns })
-                if (c >= 0 && c < count && component.TryGetValue(c, out int id)) yield return id;
+            int column = cell % columns;
+            foreach (int c in new[] { cell, column > 0 ? cell - 1 : -1, column + 1 < columns ? cell + 1 : -1, cell - columns, cell + columns })
+                if (c >= 0 && c < count && seen.Add(c)) found.Add(c);
         }
+        return found.ToArray();
     }
     /// <summary>Every participant on the network that runs through a segment cell (Framework 0.60.0), in index order;
     /// none when the cell carries no fluid or the snapshot overflowed.</summary>

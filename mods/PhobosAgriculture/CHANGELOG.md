@@ -6,6 +6,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-10-01 - Draft
+
+### Fixed
+
+- The W2 links to a water silo along a process-water line laid under or right beside both, on any side (Phobos Framework 0.69.0). Before, the line had to end on one particular tile beside each. Ship's Water tanks join a water line the same way.
+
+### Added
+
+- The W2's water tank choice says why a silo aboard is not offered: loose, damaged, locked, or no working line touching it.
+
+### Save compatibility
+
+- Automatic. No saved record changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.69.0 or newer. The irrigation conduit between a W2 and its racks keeps its own connection points. Offline checks are not gameplay validation.
+
 ## [0.34.0] - 2026-10-01 - Draft
 
 ### Changed

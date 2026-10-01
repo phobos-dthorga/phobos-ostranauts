@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.65.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.69.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.34.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.35.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -119,7 +119,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if(!BulkDefinitions.IsTank(co)&&!IrrigationDefinitions.IsSupply(co))yield break;
         string peer=BulkService.Peer(co);
         yield return new(Text.Get("bulk_connection"),ObjectPresentation.Name(peer),BulkService.Candidates(co).Select(c=>("bulk-link:"+c.strID,LinkChoices.Label(co,c,Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWater,false))).Concat(new[]{("bulk-link:none",Text.Get("bulk-link:none"))}),
-            "bulk-link:"+(peer.Length==0?"none":peer));
+            "bulk-link:"+(peer.Length==0?"none":peer),()=>BulkService.LinkNote(co));
         if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),BulkDefinitions.ReserveChoices(BulkDefinitions.CapacityOf(co)).Select(n=>("bulk-reserve:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
         if(IrrigationDefinitions.IsSupply(co))yield return new(Text.Get("bulk_target"),BulkService.TryTarget(co,out double target)?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
     }

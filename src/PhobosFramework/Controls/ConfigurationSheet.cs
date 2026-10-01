@@ -13,8 +13,25 @@ public static class ConfigurationSheet
         =>Show(shell,title,current,expected,(body,get,set)=>ConsoleWidgets.Field(body,title,ObjectPresentation.Name(get()),
             ()=>ObjectPicker.Show(shell,title,candidates,co=>set(co.strID)),()=>ObjectPicker.Locate(shell,Crew.CrewWork.Resolve(get())),allowClear?()=>set("none"):null,
             Crew.CrewWork.Resolve(get())!=null,!string.IsNullOrEmpty(get())&&get()!="none"),apply);
+    /// <summary>The object form with a note under the field (Framework 0.69.0): why something aboard is not offered.</summary>
+    public static void Objects(ConsoleShell shell,string title,string current,string expected,Func<IEnumerable<CondOwner>> candidates,ConfigurationApply apply,bool allowClear,Func<string>? note)
+    {
+        string text=Read(note);
+        Show(shell,title,current,expected,(body,get,set)=>{ConsoleWidgets.Field(body,title,ObjectPresentation.Name(get()),
+            ()=>ObjectPicker.Show(shell,title,candidates,co=>set(co.strID)),()=>ObjectPicker.Locate(shell,Crew.CrewWork.Resolve(get())),allowClear?()=>set("none"):null,
+            Crew.CrewWork.Resolve(get())!=null,!string.IsNullOrEmpty(get())&&get()!="none");if(text.Length>0)ConsoleWidgets.Label(body,text);},apply);
+    }
     public static void Choices(ConsoleShell shell,string title,string current,string expected,IEnumerable<(string Value,string Label)> options,ConfigurationApply apply)
-        =>Show(shell,title,current,expected,(body,get,set)=>{foreach(var o in options){var option=o;ConsoleWidgets.Button(body,(get()==option.Value?"[x] ":"[ ] ")+option.Label,()=>set(option.Value));}},apply);
+        =>Choices(shell,title,current,expected,options,apply,null);
+    /// <summary>The choice form with a note under the choices (Framework 0.69.0). The note is read once, as the sheet opens.</summary>
+    public static void Choices(ConsoleShell shell,string title,string current,string expected,IEnumerable<(string Value,string Label)> options,ConfigurationApply apply,Func<string>? note)
+    {
+        string text=Read(note);
+        Show(shell,title,current,expected,(body,get,set)=>{foreach(var o in options){var option=o;ConsoleWidgets.Button(body,(get()==option.Value?"[x] ":"[ ] ")+option.Label,()=>set(option.Value));}
+            if(text.Length>0)ConsoleWidgets.Label(body,text);},apply);
+    }
+    // A note is presentation only: a fault in it must never keep the sheet from opening.
+    private static string Read(Func<string>? note){try{return note?.Invoke()??"";}catch(Exception e){FrameworkLifecycle.Log(e.ToString());return "";}}
     /// <summary>The notice after a successful Apply: the provider's own words (for example "Hydrogen store linked.")
     /// followed by the shared reminder, or the reminder alone.</summary>
     public static string AppliedNotice(string? providerMessage)

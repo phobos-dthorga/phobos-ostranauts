@@ -41,7 +41,12 @@ public sealed class FluidSegmentFamily
 /// Framework 0.56.0: one object scan builds every registered family for a ship; a new snapshot's recheck starts
 /// consumed (one build per change, not two); a mode switch invalidates only its own ship, and only when the object
 /// is a segment, a participant, a floor or a wall before or after the switch (doors, crew faces and most equipment
-/// no longer flush every ship). Network families record their participants for <see cref="LineReach"/>.</summary>
+/// no longer flush every ship). Network families record their participants for <see cref="LineReach"/>.
+///
+/// Framework 0.69.0 (owner decision, 1 October 2026): a participant joins every open segment under it or directly
+/// beside it, on any side, the way a conveyor belt joins equipment. The single port tile of 0.57.0 lies inside that
+/// ring, so every layout that joined before still does; the port points now only mark who takes part in a family
+/// and where the joint is drawn.</summary>
 public static class FluidRouteCache
 {
     public const double RecheckSeconds = 2;
@@ -51,6 +56,8 @@ public static class FluidRouteCache
         internal readonly Dictionary<CondOwner, int> Participants = new();
         internal CondOwner[] ParticipantObjects = Array.Empty<CondOwner>();
         internal IReadOnlyDictionary<int, CondOwner> Segments = new Dictionary<int, CondOwner>();
+        internal HashSet<int> Closed = new();
+        internal int[][] JoinCells = Array.Empty<int[]>();
     }
     private sealed class ShipSnapshot { internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds); internal bool Built; }
     private static readonly Dictionary<Ship, ShipSnapshot> snapshots = new();
@@ -112,6 +119,18 @@ public static class FluidRouteCache
     /// <summary>The segment behind each cell that carries fluid in the current snapshot (Framework 0.63.0): intact,
     /// installed, open and over sound floor.</summary>
     public static IReadOnlyDictionary<int, CondOwner> Segments(Ship ship, FluidSegmentFamily family) => Snapshot(ship, family, GridRoute.DefaultVisitLimit).Segments;
+    /// <summary>What lies on a participant's join cells in the current snapshot (Framework 0.69.0), for explaining a
+    /// link that is not offered: an open segment that carries fluid, and a closed (drained) one. Both false for an
+    /// object that is not a ready participant of the family.</summary>
+    public static (bool Open, bool Closed) Touches(Ship ship, FluidSegmentFamily family, CondOwner co)
+    {
+        if (ship == null || family == null || co == null || !family.IsNetwork || ship.nCols < 1 || ship.nRows < 1) return (false, false);
+        var snapshot = Snapshot(ship, family, GridRoute.DefaultVisitLimit);
+        if (!snapshot.Participants.TryGetValue(co, out int k) || k >= snapshot.JoinCells.Length) return (false, false);
+        bool open = false, closed = false;
+        foreach (int cell in snapshot.JoinCells[k]) { open |= snapshot.Topology.Allowed(cell); closed |= snapshot.Closed.Contains(cell); }
+        return (open, closed);
+    }
 
     private static FamilySnapshot Snapshot(Ship ship, FluidSegmentFamily family, int visitLimit)
     {
@@ -131,6 +150,7 @@ public static class FluidRouteCache
     {
         internal readonly FluidSegmentFamily Family; internal int Segments; internal readonly List<int> Allowed = new();
         internal readonly Dictionary<int, CondOwner> SegmentObjects = new();
+        internal readonly HashSet<int> Closed = new();
         internal readonly List<CondOwner> Participants = new(); internal readonly List<IReadOnlyList<int>> Ports = new();
         internal Collector(FluidSegmentFamily family) { Family = family; }
     }
@@ -159,6 +179,10 @@ public static class FluidRouteCache
             if (co == null || co.ship != ship) continue;
             int ready = 0; // 0 unknown, 1 ready and aligned, -1 not
             bool Ready() { if (ready == 0) ready = NativeFluidRoute.EndpointReady(co) && NativeFluidRoute.Aligned(co) ? 1 : -1; return ready > 0; }
+            // Any pipe under or beside the equipment joins it (owner decision, 1 October 2026): its own tiles and the
+            // tiles north, south, east and west of them, read once and shared by every family it has a port for.
+            int[]? join = null;
+            int[] Join() => join ??= FluidTopology.OnOrBeside(ship.nCols, ship.nRows, NativeFluidRoute.FootprintCells(co));
             foreach (var c in collectors)
             {
                 // The cheap definition tests first; the endpoint checks cost several conditions and an ownership lookup.
@@ -169,13 +193,13 @@ public static class FluidRouteCache
                     if (cell < 0) continue;
                     c.Segments++;
                     // A closed (drained) segment carries nothing and joins nothing until its run returns to service.
-                    if (!LineContents.IsClosed(co) && NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) { c.Allowed.Add(cell); c.SegmentObjects[cell] = co; }
+                    if (LineContents.IsClosed(co)) c.Closed.Add(cell);
+                    else if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) { c.Allowed.Add(cell); c.SegmentObjects[cell] = co; }
                 }
-                else if (c.Family.Ports?.Invoke(co) is { Count: > 0 } points && Ready())
+                // A port of the family makes the object a participant; where the pipe may meet it is its whole edge.
+                else if (c.Family.Ports?.Invoke(co) is { Count: > 0 } && Ready())
                 {
-                    var cells = new List<int>(points.Count);
-                    foreach (string point in points) { int cell = NativeFluidRoute.CellAt(ship, co.GetPos(point)); if (cell >= 0) cells.Add(cell); }
-                    c.Participants.Add(co); c.Ports.Add(cells);
+                    c.Participants.Add(co); c.Ports.Add(Join());
                 }
             }
         }
@@ -190,7 +214,8 @@ public static class FluidRouteCache
         var snapshot = new FamilySnapshot
         {
             Topology = FluidTopology.Build(ship.nCols, ship.nRows, c.Segments, c.Allowed, visitLimit, c.Ports, joins),
-            VisitLimit = visitLimit, ParticipantObjects = c.Participants.ToArray(), Segments = c.SegmentObjects
+            VisitLimit = visitLimit, ParticipantObjects = c.Participants.ToArray(), Segments = c.SegmentObjects,
+            Closed = c.Closed, JoinCells = c.Ports.Select(p => p.ToArray()).ToArray()
         };
         for (int k = 0; k < c.Participants.Count; k++) snapshot.Participants[c.Participants[k]] = k;
         return snapshot;

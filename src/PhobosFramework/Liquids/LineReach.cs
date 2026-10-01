@@ -10,8 +10,8 @@ public enum LineReachKind { None, Adjacent, Line }
 /// touching equipment (footprints touching or one tile apart, <see cref="BulkVessels.WithinOneTile"/>) or a line
 /// network, never across open floor. The station refuelling kiosk is the only exception and does not use this.
 /// Touching is tested first and needs no topology, so every placement that worked before still does. A network
-/// family joins participants through the segments at their ports and, where it allows, through touching
-/// participants, chaining across the ship; the verdict comes from the per-ship topology snapshot
+/// family joins participants through the segments under or beside them (any side, Framework 0.69.0) and, where it
+/// allows, through touching participants, chaining across the ship; the verdict comes from the per-ship topology snapshot
 /// (<see cref="FluidRouteCache"/>, reread every two real seconds or when a relevant part changes), and both ends are
 /// checked fresh on every call. A participant bridging two others that became locked or damaged since the last
 /// rebuild keeps bridging until the snapshot is reread (at most two seconds).</summary>
@@ -68,13 +68,41 @@ public static class LineReach
         var objects = FluidRouteCache.Participants(ship, family);
         return Enumerable.Range(0, objects.Count).Where(i => i != k && topology.ParticipantsConnected(k, i)).Select(i => objects[i]).ToArray();
     }
-    /// <summary>A named-point route (the gas line's first form, kept for the P1, L2, A2 and store transfers until they
-    /// join the network): touching, or a bounded segment route from the vessel's point to the machine's.</summary>
+    /// <summary>A named-point route (the gas line's first form): touching, or a bounded segment route from the
+    /// vessel's point to the machine's. Nothing in the Phobos mods calls it since the P1, L2, A2 and store transfers
+    /// joined the network rule; it stays only for binary compatibility.</summary>
+    [Obsolete("Use LineReach.Of(a, b, family): every link follows the network rule.")]
     public static LineReachKind Of(CondOwner machine, string machinePoint, CondOwner vessel, string vesselPoint, FluidSegmentFamily family, int tileLimit)
     {
         if (BulkVessels.Adjacent(machine, vessel)) return LineReachKind.Adjacent;
         var path = FluidRouteCache.Find(vessel, vesselPoint, machine, machinePoint, family);
         return path != null && path.Length <= tileLimit ? LineReachKind.Line : LineReachKind.None;
+    }
+    /// <summary>Why <paramref name="machine"/> does not reach <paramref name="store"/> through
+    /// <paramref name="family"/> (null: touching only), or <see cref="ReachProblem.None"/> when it does
+    /// (Framework 0.69.0). Read-only; the pipe facts come from the cached snapshot, at most two seconds old.</summary>
+    public static ReachProblem Problem(CondOwner? machine, CondOwner? store, FluidSegmentFamily? family)
+    {
+        if (machine == null || store == null || machine == store || machine.ship == null) return ReachProblem.NotReady;
+        var facts = new ReachFacts
+        {
+            Reached = Of(machine, store, family) != LineReachKind.None,
+            MachineReady = NativeFluidRoute.EndpointReady(machine),
+            Installed = !store.bDestroyed && store.ship == machine.ship && store.objCOParent == null && store.HasCond("IsInstalled"),
+            Damaged = store.HasCond("IsDamaged"),
+            Locked = store.HasCond("IsLocked") || store.objContainer?.Locked == true,
+            Ready = NativeFluidRoute.EndpointReady(store)
+        };
+        var ship = machine.ship;
+        if (family != null && family.IsNetwork && ship.nCols > 0 && ship.nRows > 0 && facts.MachineReady && facts.Ready &&
+            family.Ports!(machine) is { Count: > 0 } && family.Ports(store) is { Count: > 0 })
+        {
+            facts.Network = true;
+            facts.Overflow = FluidRouteCache.Topology(ship, family).Overflow;
+            (facts.StoreOpenPipe, facts.StoreClosedPipe) = FluidRouteCache.Touches(ship, family, store);
+            (facts.MachineOpenPipe, facts.MachineClosedPipe) = FluidRouteCache.Touches(ship, family, machine);
+        }
+        return LinkDiagnosis.Classify(facts);
     }
     private static bool OnNetwork(CondOwner a, CondOwner b, FluidSegmentFamily? family)
     {

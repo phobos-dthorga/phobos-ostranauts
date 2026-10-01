@@ -63,6 +63,13 @@ internal static class LineNativeChecks
                 if (!id.Contains("Installed")) continue;
                 var item = Item(id);
                 check(item.aSocketAdds.Any(s => FindLoot(s)?.aCOs?.Any(c => c.StartsWith(presence + "=", StringComparison.Ordinal)) == true), "Installed equipment draws the joint beside its port: " + id);
+                // Framework 0.69.0: a pipe under or beside the equipment joins it, read from the square footprint the
+                // touching rule also uses. Only the joint tiles carry the family's presence, so only they refuse that
+                // family's pipe under installed equipment; every other tile under it takes pipe.
+                check(item.nCols > 0 && item.aSocketAdds.Length == item.nCols * item.nCols && co.inventoryWidth == item.nCols,
+                    "Ported equipment has a square footprint that matches its touching size: " + id);
+                check(item.aSocketAdds.Count(s => FindLoot(s)?.aCOs?.Any(c => c.StartsWith(presence + "=", StringComparison.Ordinal)) == true) ==
+                      Phobos.Ostranauts.Framework.Liquids.LinePorts.Points(family, id).Count, "Only the joint tile refuses its own family's pipe: " + id);
             }
         }
         Loot? FindLoot(string id) => sets.Select(d => d.Loot.TryGetValue(id, out var loot) ? loot : null).FirstOrDefault(l => l != null) ??

@@ -121,6 +121,31 @@ when it finishes. A finished action reports its amounts to the worker's log.
 | Irrigation parcels (`AgricultureLine`, seven keys, at the rack) | Automatic: a non-empty parcel is delivered into its rack on the W2's next powered run, whatever the route now is (it was on its way there and matches the rack's profile, as the load check requires); the empty record then stays harmlessly. Until then it keeps counting in the rack's mass and relink gates |
 | Irrigation conduit already laid | Automatic: starts empty; the W2 fills it when it runs, about 0.2 kg a tile from its reservoir |
 
+## Any touching pipe joins (Framework 0.69.0)
+
+Owner decision, 1 October 2026, after a play session in which no water, nitrogen or
+carbon dioxide store would link: a network line joins a participant when a segment
+lies under it or directly beside it on any side, not only on its one port tile.
+
+- **What changed.** `FluidRouteCache` gives each participant its footprint cells and
+  the cells north, south, east and west of them. `FluidTopology.Build` is unchanged.
+- **Effect on contents.** No accounting changes: stores are still debited first and
+  a segment is credited only with what a store gave. More stores now sit on a run,
+  so runs that were dead fill (about 0.49 kg of water or 0.9 kg of acid a tile,
+  grams of gas), Ship's Water drinking tanks beside a water line fill it above the
+  crew reserve, and the oxygen and fuel caution can appear on gas runs that newly
+  join. A machine a pipe passes under gives nothing; only bulk vessels and drinking
+  tanks are sources.
+- **Bridging.** A participant under which two separate runs pass joins them into
+  one network, as touching participants already could. Drain, vent and return to
+  service still act on the physical run of segments.
+- **Not changed.** The irrigation conduit and the F6-C coolant conduit are not
+  network families; their endpoints keep their named points, because those carry
+  meaning (coolant sides, one W2 per circuit, path-length priming). They have the
+  same "looks joined" trap; widening them is a separate owner decision.
+- **Save migration.** None. Nothing saved changes; the snapshot is rebuilt from
+  what stands on the ship.
+
 ## Pumped circuits (Framework 0.64.0, Shipbreaker 0.58.0)
 
 - **Content-filled families.** A holding family need not be a network: one without

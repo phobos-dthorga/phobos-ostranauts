@@ -726,3 +726,21 @@ finished charge), not per power step. The V4 lists five gas links instead of two
 on its panel, built when the panel is shown. The A2's carbon dioxide feed adds one
 room-gas read and, when dosing, one store draw to its existing two-second tick.
 No performance capture or measured FPS claim accompanies this change.
+
+## 1 October: any touching pipe joins (L16)
+
+L16 — Static review of Framework 0.69.0, Shipbreaker 0.63.0, Manufacturing 0.28.0
+and Agriculture 0.35.0. The topology scan now gives each line participant its
+footprint cells and their four neighbours instead of one port cell: at most 25
+tile lookups and 45 join cells for a 5 x 5 tank, computed once per object per
+rebuild and shared by every family it has a port for. The rebuild cadence is
+unchanged (every two real seconds, or when a segment, participant, floor or wall
+changes), and the union-find is linear in those cells. More stores can sit on one
+run, so the line top-up pass, on its existing two-second cadence, may fill runs
+that were dead before; it stops when they are full. The "not offered" note is a
+function read only when a setting's sheet opens: one ship object scan and a few
+snapshot lookups per vessel aboard, never per frame and never while a page of
+fields is drawn. The Details line is built when that page is shown. Fields that
+now appear whenever a vessel of their cargo is aboard add one ship scan per field
+when a panel page is drawn. The T2 and ML-2 panels change host only. No
+performance capture or measured FPS claim accompanies this change.

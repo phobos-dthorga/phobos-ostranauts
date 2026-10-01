@@ -66,6 +66,13 @@ internal static class SiloChecks
         throws(() => ProcessJob.CreateOrResume(ThawRules.Recipes, "ice-1", 100, 1, 0, 2400), "A thaw job without a saved duration is not guessed");
         check(IndustrialRules.Group("PhobosProcessSiloInstalled") == "" && IndustrialRules.Group(ThawRules.Installed + "Dmg") == "thaw" && IndustrialRules.Equipment(ThawRules.Installed),
             "Thaw units are industrial equipment with their own console group; the silos are Framework's tanks now");
+        // Shipbreaker 0.63.0 (owner decision, 1 October 2026): the T2 and the ML-2 open Framework's shared Control Panel;
+        // the machines with routing, furnace or capture pages keep the industrial panel.
+        check(new[] { ThawRules.Installed, ThawRules.Installed + "Dmg", LaserRules.Installed, LaserRules.Installed + "Dmg" }.All(IndustrialRules.SharedPanel),
+            "The thaw unit and the mining laser open the shared Control Panel, damaged or not");
+        check(new[] { "PhobosShipbreakerInstalled", ReclaimerRules.Installed, FurnaceRules.Prefix + "Installed", IntakeRules.Grabber + "Installed", CollectorRules.Installed,
+                FurnaceRules.Radiator + "Installed", IndustrialRules.Prefix + "Installed", "PhobosProcessSiloInstalled", "", null! }.All(id => !IndustrialRules.SharedPanel(id)),
+            "The D4, R4, F6, G4, C2, the radiator and the C1 keep the industrial panel");
         check(ThawRules.OutPort != ThawRules.VesselPort && ThawRules.OutPort.StartsWith("PhobosShipbreaker.", StringComparison.Ordinal), "The thaw outlet and the vessel inlet are distinct namespaced ports");
     }
 }

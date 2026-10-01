@@ -533,8 +533,11 @@ internal sealed class ChargeMachine
         {
             var vessels = Candidates(co, link).ToArray();
             string peer = Peer(co, link);
-            if (!link.AlwaysShow && vessels.Length == 0 && peer.Length == 0) continue;
-            yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels.Select(v => (v, LinkChoices.Label(co, v, link.Vessel, link.Deposit))));
+            // A link with a vessel of its cargo aboard is shown even when none is in reach, so its sheet can say why.
+            var cargo = link.Vessel;
+            if (!link.AlwaysShow && vessels.Length == 0 && peer.Length == 0 && !BulkVessels.AboardAnyState(co.ship, cargo.Commodity).Any(v => v != co)) continue;
+            yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels.Select(v => (v, LinkChoices.Label(co, v, cargo, link.Deposit))),
+                () => LinkChoices.Note(co, cargo, vessels));
         }
         if (Spec.Selection == RecipeSelection.Explicit)
         {

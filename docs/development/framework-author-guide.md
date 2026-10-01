@@ -1290,8 +1290,8 @@ piped, and joins chain across the ship.
 - **`Liquids.LineReach`.** `Of(a, b, family)` returns `Adjacent`, `Line` or `None`
   (touching first, then the same network; null family: touching only). `Hops`,
   `Reachable` (for candidate lists) and `Members` (a participant's network). The
-  named-point overload keeps the gas line's first form (bounded route from a store
-  outlet to a machine point). A bridging participant that became locked keeps
+  named-point overload (the gas line's first form) is obsolete since 0.69.0: nothing
+  calls it. A bridging participant that became locked keeps
   bridging until the snapshot is reread (two seconds at most).
 - **`Inventory.SharedPorts` and `PortBank` roles.** A vessel-side port becomes a bank
   of `SharedPorts.Slots` (eight); slot zero keeps the old port id, so every saved link
@@ -1349,6 +1349,27 @@ piped, and joins chain across the ship.
   joint. `LineDefinitions.AddPort` records the port against the spec's `Family`, and
   `LinePorts.Points(family, definition)` feeds the family's participant test. Only
   `Power` points should ever become electrical inputs.
+- **Any touching pipe joins (0.69.0; owner decision, 1 October 2026).** A port no
+  longer says where the pipe must lie. It marks the equipment as a participant of the
+  family and places the drawn joint. `FluidRouteCache` gives each participant its own
+  tiles and the tiles north, south, east and west of them
+  (`NativeFluidRoute.FootprintCells`, `FluidTopology.OnOrBeside`), so a segment under
+  the equipment or beside any edge joins it, as a conveyor belt does. The old port
+  tile is one of those cells, so earlier layouts still join. The one footprint tile
+  that carries a family's joint still refuses that family's segment, because a
+  segment forbids its own presence on its centre tile. Irrigation and coolant
+  families are not networks and keep their named points.
+- **Why a link is not offered (0.69.0).** `LineReach.Problem(machine, store, family)`
+  returns one `ReachProblem` (loose, damaged, locked, no pipe at the store or the
+  machine, a drained run, separate runs), classified by the pure
+  `LinkDiagnosis.Classify`. `LinkChoices.Note(machine, link, offered)` turns the
+  vessels of a link's commodity aboard in any state (`BulkVessels.AboardAnyState`)
+  into the text a sheet shows under its choices; pass it as `EquipmentField.Note`
+  (read only when the sheet opens) or to the `ConfigurationSheet.Choices`/`Objects`
+  overloads that take a note. `LinkChoices.NetworkSummary(co)` lists what an object
+  is joined to through each line, for a Details page. Show a link field whenever a
+  vessel of its cargo is aboard, not only when one is in reach, so the note can be
+  read.
 - **`Liquids.VesselLink`.** One machine-to-vessel link: machine port, vessel-side
   bank primary, commodity and pairing direction (`machineSends`; a vessel that feeds
   a machine, like Agriculture's tank feeding a W2, is the sender). `Candidates`,

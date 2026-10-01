@@ -36,15 +36,17 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
         }
         if (!ThawRules.IsFamily(co.strCODef)) yield break;
         string water = ThawService.Peer(co), methane = ThawService.MethanePeer(co);
+        // Each sheet says why a vessel aboard is not offered (loose, damaged, no line touching it): Framework 0.69.0.
         yield return new(Text.Get("Thaw.vessel_field"), ObjectPresentation.Name(water),
             ThawService.Candidates(co).Select(v => ("link:" + v.strID, LinkChoices.Label(co, v, ThawService.WaterLink, true))).Concat(new[] { ("link:none", Text.Get("Thaw.link_none")) }),
-            "link:" + (water.Length == 0 ? "none" : water));
-        // Methane ice needs a methane store (Phobos Manufacturing); the field appears once one is in reach or linked.
+            "link:" + (water.Length == 0 ? "none" : water), () => LinkChoices.Note(co, ThawService.WaterLink, ThawService.Candidates(co)));
+        // Methane ice needs a methane store (Phobos Manufacturing); the field appears once one is aboard or linked,
+        // in reach or not, so the sheet can say what keeps it from linking.
         var stores = ThawService.MethaneCandidates(co).ToArray();
-        if (stores.Length > 0 || methane.Length > 0)
+        if (stores.Length > 0 || methane.Length > 0 || Phobos.Ostranauts.Framework.Liquids.BulkVessels.AboardAnyState(co.ship, ThawService.MethaneLink.Commodity).Any())
             yield return new(Text.Get("Thaw.methane_field"), ObjectPresentation.Name(methane),
                 stores.Select(v => ("methane-link:" + v.strID, LinkChoices.Label(co, v, ThawService.MethaneLink, true))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }),
-                "methane-link:" + (methane.Length == 0 ? "none" : methane));
+                "methane-link:" + (methane.Length == 0 ? "none" : methane), () => LinkChoices.Note(co, ThawService.MethaneLink, ThawService.MethaneCandidates(co)));
     }
     public bool IsConfiguration(string action) => action.StartsWith("link:", StringComparison.Ordinal) || action.StartsWith("methane-link:", StringComparison.Ordinal) ||
         action.StartsWith("filter:", StringComparison.Ordinal) || action.StartsWith("cooling:", StringComparison.Ordinal) || action.StartsWith("power:", StringComparison.Ordinal);

@@ -71,9 +71,7 @@ internal sealed class ManifoldService : IRcsPropellantFeed
         return false;
     }
     /// <summary>Fuel stores this manifold could draw from: on the same ship, within one tile or on a propellant line.</summary>
-    internal static IEnumerable<CondOwner> Candidates(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && GasStores.IsFamily(c.strCODef) && c.HasCond("IsInstalled") && Connection(co, c) != null)
-        .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    internal static IEnumerable<CondOwner> Candidates(CondOwner co) => GasLine.Stores(co, _ => true);
     /// <summary>How a store reaches the manifold: "adjacent", "line", or null when it does not.</summary>
     private static string? Connection(CondOwner manifold, CondOwner store) => GasLine.Connection(manifold, store);
     /// <summary>Refreshes the cached list of switched-on stores that can feed right now, with a reason for each that cannot.</summary>

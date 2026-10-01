@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.62.0";
+    public const string Version = "0.63.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -45,7 +45,9 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += LoadContent;
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new IndustrialCrewProvider());
-        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(new VesselProvider());
+        var vessels = new VesselProvider();
+        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(vessels);
+        VesselPanel.Register(vessels);
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("IndustrialProcessing",Text.Get("Crew.skill"),Id,Phobos.Ostranauts.Framework.Crew.CrewRole.Industry));
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
@@ -60,7 +62,9 @@ public sealed class Plugin : BaseUnityPlugin
         ReclamationService.Reset(); LaserService.Reset(); CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
-        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id);
+        // Shipbreaker registers no bulk vessels since 0.54.0: the water silos are Framework's, under this mod's id, and
+        // unregistering by that id here would take Framework's tanks away.
+        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
         Service?.Reset(); Collectors?.Reset(); Storage?.Reset(); ThawService.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
     }
 }

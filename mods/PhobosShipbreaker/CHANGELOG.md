@@ -25,6 +25,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.63.0] - 2026-10-01 - Draft
+
+### Fixed
+
+- The T2 ice thaw unit links to a water silo or a methane store along a line laid under or right beside both, on any side (Phobos Framework 0.69.0). Before, the line had to end on one particular tile beside each, and the choice stayed empty.
+- Closing the game no longer removes Framework's water silo registration under Shipbreaker's name. Nothing changes in play.
+
+### Changed
+
+- The T2 ice thaw unit and the ML-2 mining laser open the same Control Panel as the water silos and the Manufacturing machines (owner decision, 1 October 2026): Operation, then Connections on the T2 or Settings on the ML-2, then Details. Their choices and commands are the same as before. The seated C1 console still lists both.
+- The T2's water and methane choices say why a silo or store aboard is not offered: loose, damaged, locked, or no working line touching it. The methane choice now shows whenever a methane store is aboard, in reach or not.
+
+### Save compatibility
+
+- Automatic. Links, loaded ice, progress and laser settings are kept. A panel left open on a T2 or an ML-2 reopens as the new panel.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.69.0 or newer. The D4, R4, F6, G4, C2 and the cooling assemblies keep the industrial panel, with its routing, furnace and capture pages. The ML-2 panel no longer shows a Standing orders button, which had no orders behind it. Offline checks are not gameplay validation.
+
 ## [0.62.0] - 2026-10-01 - Draft
 
 ### Changed

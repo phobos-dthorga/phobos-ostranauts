@@ -7,9 +7,12 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 /// ports. One rule for every machine and store, so players learn it once: the process-water port is the neighbouring
 /// tile on the local -X side, the gas port the neighbouring tile on the local +X side, both in the middle row (the
 /// upper of the two middle rows on an even footprint), and the acid port on the +X side one row below the gas port.
-/// Ports rotate with the equipment. A pipe of the family laid on the port tile joins it; the footprint tile beside
-/// the port draws the pipe's joint. Content registers ports through <c>LineDefinitions.AddPort</c>; points are
-/// rebuilt from definitions when a save loads, so equipment saved before a port existed gains it with no rewrite.</summary>
+/// Ports rotate with the equipment. The footprint tile beside the port draws the pipe's joint. Since Framework
+/// 0.69.0 (owner decision, 1 October 2026) a port no longer says where the pipe must lie: it marks the equipment as
+/// taking part in the family, and a pipe of the family under the equipment or directly beside it on any side joins
+/// it (<see cref="FluidRouteCache"/>). The port tile is one of those tiles, so older layouts keep working. Content
+/// registers ports through <c>LineDefinitions.AddPort</c>; points are rebuilt from definitions when a save loads,
+/// so equipment saved before a port existed gains it with no rewrite.</summary>
 public static class LinePorts
 {
     public const string WaterPoint = "PhobosWaterPort", GasPoint = "PhobosGasPort", AcidPoint = "PhobosAcidPort";
