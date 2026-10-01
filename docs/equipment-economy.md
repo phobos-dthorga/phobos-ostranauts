@@ -541,18 +541,19 @@ $23,944. These are authored balance choices, not measured gameplay outcomes.
 | Fennmark P1 RCS propellant manifold (0.3.0) | 10 kg | $24,000 | $30,000 | $18,000 | $6,000 |
 | Fennmark gas line (0.3.0, ordinary supply; Framework's since Framework 0.57.0) | 1 kg | $3 | — | — | — |
 | Process water line (Framework 0.57.0, ordinary supply) | 1 kg | $3 | — | — | — |
-| Nickel-iron ingot | 4 kg | $20 (0.15.0; $24 from 0.1.1 to 0.14.0) | — | — | — |
-| Carbon stock | 1 kg | $10 | — | — | — |
+| Nickel-iron ingot | 4 kg | $220 (0.26.0; $20 from 0.15.0, $24 from 0.1.1 to 0.14.0) | — | — | — |
+| Carbon stock | 1 kg | $38 (0.26.0; $10 before) | — | — | — |
+| Nickel steel ingot (0.26.0) | 4 kg | $260 | — | — | — |
 
 San Diego's traders add their own markup (sell 2–3×, per the
 [vanilla audit](development/vanilla-economy-audit.md#merchant-multipliers)).
-Only the machinery is late-game priced (owner correction, 29 September 2026);
-ingots, carbon, ore and remainders keep ordinary raw-material prices. Since the
-refining value review (30 September 2026) a charge may gain value where the
-work is real, within guardrails the native checks verify from live definitions:
-sellable products within half again the inputs, a quarter at most when every
-input is bought stock, and stock priced between scrap steel and its ore per
-kilogram (see [the refinery record](development/manufacturing-refinery-and-chemistry.md)).
+Only the machinery is late-game priced (owner correction, 29 September 2026).
+Since Manufacturing 0.26.0 refining is a business (owner decision, 1 October
+2026): a charge from mined ore earns 1.5 to 2.5 times the ore at base prices, and
+the native checks verify it from live definitions. See
+[Refining as a business](#refining-as-a-business-framework-0680-manufacturing-0260-shipbreaker-0620)
+below; the 30 September guardrails (half again the inputs, stock below its ore)
+are superseded.
 
 **Where to buy and sell.** The same routes as the Shipbreaker S3/T2, in lots of
 eight: K-Leg supplies (broken), the K-Leg fixer (worn), San Diego Halvorson
@@ -651,7 +652,8 @@ mechanical parts and 68 kg of trash.
 
 Bulk oxygen, nitrogen and carbon dioxide are sold into installed stores through
 the station Bulk supplies view at the game's own gas price per kilogram, in steps
-of 10 kg. Nothing sells back.
+of 10 kg. Since Framework 0.68.0 the kiosk buys any stored gas back at 45% of
+that price.
 
 ## Shipbreaker 0.40.0: S4 and S5 silos
 
@@ -747,16 +749,16 @@ retained trash (220 kg). It is sold on the other Manufacturing machines' routes 
 at the faction kiosks for Trusted standing, carries the high-salvage mark and
 shares their one-in-twenty engineering find.
 
-Its products are never sold by merchants: potassium sulfate 42 cr (0.70 kg),
-struvite 17 cr (0.43 kg), phosphate concentrate 12 cr (0.25 kg), and the leached
+Its products are never sold by merchants: potassium sulfate 190 cr (0.70 kg),
+struvite 125 cr (0.43 kg), phosphate concentrate 110 cr (0.25 kg), and the leached
 residue, brine salt cake, caustic remainder and calcined residue at the technical
-minimum. The evaporite crust is ore (mined, never sold; the government kiosks buy
-it at 150 cr). Leaching one earns about 54 cr of salts, a loss taken for what the
-ship can use; struvite stays within half again its concentrate and reagents under
-the refining guardrails. The makeup formulation is the owner's exception (30
-September 2026): its 39 packets carry Agriculture's own 30 cr price, 1,170 cr from
-about 76 cr of salts, because formulation is where a finished nutrient's value is
-made and no merchant sells the salts, so no trade loop pays.
+minimum (prices from Manufacturing 0.26.0; 42, 17 and 12 cr before). The evaporite
+crust is ore (mined, never sold; the government kiosks buy it at 150 cr). Leaching
+one earns 300 cr of salts, twice the crust; struvite gains a little on its
+concentrate. The makeup formulation is the owner's exception (30 September 2026,
+reaffirmed 1 October because fertiliser is rare in the game's world): its 39
+packets carry Agriculture's own 30 cr price, 1,170 cr from about 440 cr of salts,
+and no merchant sells the salts, so no trade loop pays.
 
 ## Agriculture 0.27.0: Groundwork nutrient hoppers
 
@@ -790,8 +792,9 @@ aluminium, 12 mechanical and 3 electronic parts, a mainboard and 22 kg of trash,
 240 kg); the AT-3 and AT-4 follow the store size ladder, purchase-only. Both carry
 the high-salvage mark and share the other machines' routes, the SA-3 at Trusted
 and the tanks at Friendly faction-kiosk standing. Stations sell sulfuric acid into
-a tank at the game's own 3.1 cr/kg; nothing sells back. The phosphoric acid flask
-is 30 cr and the roasted calcine is trash; neither is sold by merchants.
+a tank at the game's own 3.1 cr/kg, and since Framework 0.68.0 buy it back at
+45% of that. The phosphoric acid flask is 300 cr (30 cr before Manufacturing
+0.26.0) and the roasted calcine is trash; neither is sold by merchants.
 
 ## Manufacturing 0.20.0: the LC-3's acid recipes
 
@@ -800,14 +803,14 @@ merchants:
 
 | Material | Unit | Base price | Per kg |
 |---|---:|---:|---:|
-| Epsom salt | 0.432 kg | $7 | about $16 |
-| Ammonium sulfate | 0.232 kg | $8 | about $35 |
+| Epsom salt | 0.432 kg | $13 (0.26.0; $7 before) | about $30 |
+| Ammonium sulfate | 0.232 kg | $20 (0.26.0; $8 before) | about $86 |
 | Olivine leach cake (terminal) | 14.33 kg | $0.01 | trash |
 
-The olivine charge's 32 Epsom salt ($224) stay within half again its inputs (the
-$180 ore, $26.80 of acid and $95.20 of water at station prices); the acid-route
-struvite's three struvite and three ammonium sulfate ($75) stay within half again
-the $30 flask and three Epsom salt ($51). Crop nutrients made aboard go straight
+The olivine charge's 32 Epsom salt ($416) earn 2.3 times the $180 ore, with
+$26.80 of acid and $95.20 of water at station prices besides; the acid-route
+struvite's three struvite and three ammonium sulfate ($435) gain about 28% on the
+$300 flask and three Epsom salt ($339). Crop nutrients made aboard go straight
 into a hopper at Agriculture's own 1,500 cr/kg (the owner's formulation
 decision). Bagged into bulk charges they sell like any other; every salt in the
 blend is made aboard from mined feed, so bought stock alone never pays. At about
@@ -875,3 +878,36 @@ of 16, and for scrip at the faction kiosks at any standing. It never stacks, sin
 each canister records the liquid it holds. What it holds is the line's own water
 or acid, carried back to a tank, so it creates no value. See
 [draining and venting](lines-and-draining.md).
+
+## Refining as a business (Framework 0.68.0, Manufacturing 0.26.0, Shipbreaker 0.62.0)
+
+Owner decision, 1 October 2026: refining is to be a reasonably profitable
+business, retroactively. The rules and the worked chains are in
+[the design record](development/refining-business-and-interdependencies.md).
+
+| Chain | Ore | Products | Ratio to ore |
+|---|---:|---:|---:|
+| Meteoric iron to nickel-iron ingots | $450 | $882 | 1.96 |
+| Iron and carbon ore to nickel steel | $470 | $1,042 | 2.22 |
+| Carbon ore to carbon stock | $99 | $202 | 2.04 |
+| Evaporite crust to salts | $150 | $300 | 2.00 |
+| Olivine to Epsom salt (plus $122 of acid and water) | $180 | $416 | 2.31 |
+| Sulfide nodule to acid and a flask (plus $99 of oxygen and water) | $150 | $324 | 2.16 |
+| Methane ice thawed in a T2 | $100 | $205 | 2.05 |
+
+- Water ice, hydrates, clay and the salt crust's gases stay supply: their bulk is
+  worth less than the ore, at the game's gas prices and our 10 cr/kg water.
+- Fertiliser (makeup packets, crop nutrients) stays above the band because it is
+  rare in the game's world.
+- The refuelling kiosk buys bulk back from installed stores (every Manufacturing
+  gas store, the acid tanks and Framework's water silos) at 45% of its own
+  selling price, inside the game's own 0.4 to 0.5 kiosk range. Hopper nutrients
+  are not bought back. Buying and selling straight back loses 55%.
+- A conversion fed only by bought stock earns at most 1.25 times its inputs; no
+  current charge is fed that way.
+- The game's methane ice is corrected in place from 20 to 100 cr.
+- Saved materials and methane ice take their current prices when a save loads
+  (Framework's load-time price refresh); nothing else in a save changes.
+- Payback is long for the small chains: a machine's price divided by its gain per
+  charge is 112 to 742 charges, 99 to 742 hours of running. The owner will judge
+  this in play.

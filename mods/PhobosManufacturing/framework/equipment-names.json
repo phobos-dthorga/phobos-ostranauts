@@ -26,6 +26,7 @@
   "Filler.name": { "brand": "Fennmark", "model": "L2" },
   "Regulator.name": { "brand": "Fennmark", "model": "A2" },
   "Material.PhobosNickelIronIngot": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosNickelSteelIngot": { "brand": "Fennmark", "model": "" },
   "Material.PhobosCarbonStock": { "brand": "Fennmark", "model": "" },
   "Material.PhobosRefinerySlag": { "brand": "Fennmark", "model": "" },
   "Material.PhobosAnhydrousResidue": { "brand": "Fennmark", "model": "" },

@@ -1599,6 +1599,31 @@
     "patches": null
   },
   {
+    "key": "nickel-steel-ingot",
+    "sourceSHA256": "39ddf6dbb13ef73877ac145efe005ddb2211e1928e0faa0baa15c15e3fe53d20",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      2,
+      16,
+      62,
+      47
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockNickelSteelIngot.png": "d80c48363bb49f21b125208b2941a200afd69181e26e2d76336537739f362629",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockNickelSteelIngotNormal.png": "c84c390798df799791a412c25aeee2e1a864033bcd117ce2a699bc758a19c186"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "carbon-stock",
     "sourceSHA256": "d139ff0d5c3dac235f29740c9068fde836e7348d8c8668f3aa9a0cbc3167a07d",
     "nativeSize": [

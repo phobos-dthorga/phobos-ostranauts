@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.67.0";
+    public const string Version = "0.68.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -68,6 +68,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         // The item seen riding a conveyor belt (0.62.0): presentation only, on by default.
         Inventory.BeltCarriers.Enabled = Config.Bind("Belts", "ShowMovingItems", true, Text.Get("BeltCarriers.setting")).Value;
         Trading.BulkSupplies.Register(Items.WaterTankService.Supplies);
+        Trading.BulkSupplies.RegisterBuyback(Items.WaterTankService.Buyback);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
     private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); }

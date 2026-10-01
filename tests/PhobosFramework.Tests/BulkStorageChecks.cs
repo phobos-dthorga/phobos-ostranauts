@@ -61,6 +61,41 @@ internal static class BulkStorageChecks
             double cash=target.Balance,cargo=target.Cargo;
             check(!BulkSettlement.Buy(Quote(),target,journal).Success&&target.Balance==cash&&target.Cargo==cargo,"Uncertain journal writes cannot repeat payment/delivery: "+phase);
         }
+
+        // Selling back (Framework 0.68.0): the station pays its share of its own price for what was measurably withdrawn.
+        check(BulkSupplies.BuybackShare>=.4&&BulkSupplies.BuybackShare<=.5&&Math.Abs(BulkSupplies.BuybackPrice(10)-10*BulkSupplies.BuybackShare)<1e-12,
+            "The kiosk pays a share of its selling price inside the game's own 0.4 to 0.5 kiosk range, so buying and selling back loses");
+        BulkPurchaseQuote Sale()=>new("crew","station","ship","tank","water.sell","revision",10,BulkSupplies.BuybackPrice(2));
+        var seller=new Seller();journal=Store();var sale=Sale();
+        result=BulkSettlement.Sell(sale,seller,journal);
+        check(result.Success&&result.Delivered==10&&Math.Abs(result.Paid-9)<1e-9&&Math.Abs(seller.Balance-109)<1e-9&&seller.Held==10&&Math.Abs(seller.Ledger-9)<1e-9,"A measured sale withdraws once and pays once");
+        check(!BulkSettlement.Sell(sale,seller,journal).Success&&seller.Held==10&&Math.Abs(seller.Balance-109)<1e-9,"A replayed sale cannot withdraw or pay again");
+        seller=new Seller{Stock=4};result=BulkSettlement.Sell(Sale(),seller,Store());
+        check(result.Success&&result.Delivered==4&&Math.Abs(result.Paid-3.6)<1e-9&&Math.Abs(seller.Balance-103.6)<1e-9,"A store holding less than quoted is paid only for what left it");
+        seller=new Seller{Stock=0};result=BulkSettlement.Sell(Sale(),seller,Store());
+        check(!result.Success&&!result.Protected&&seller.Balance==100&&seller.Ledger==0,"An empty store sells nothing and is paid nothing");
+        seller=new Seller{Valid=false};result=BulkSettlement.Sell(Sale(),seller,Store());check(!result.Success&&seller.Balance==100&&seller.Held==0,"A stale sale is refused before anything leaves the store");
+        foreach(string fault in new[]{"withdraw-before","withdraw-after","credit-before","credit-after","ledger-before","ledger-after","unknown-receipt"})
+        {
+            seller=new Seller{Fault=fault};journal=Store();result=BulkSettlement.Sell(Sale(),seller,journal);
+            check(result.Protected&&BulkSettlement.Protected(journal),"An interrupted sale keeps its evidence: "+fault);
+            double cash=seller.Balance,held=seller.Held;
+            check(!BulkSettlement.Sell(Sale(),seller,journal).Success&&seller.Balance==cash&&seller.Held==held,"A retry cannot invent a second sale: "+fault);
+            check(!CommodityReservations.Held("tank")&&!CommodityReservations.Held("crew"),"A failed sale releases its reservations: "+fault);
+        }
+        CommodityReservations.TryAcquire("competing","tank");seller=new();result=BulkSettlement.Sell(Sale(),seller,Store());
+        check(!result.Success&&seller.Held==0&&CommodityReservations.Held("tank"),"A sale does not take a store another transfer holds");CommodityReservations.Release("competing");
+    }
+    private sealed class Seller:IBulkSaleTarget
+    {
+        public double Balance=100,Held,Ledger,Stock=10;
+        public bool Valid=true;
+        public string Fault="";
+        void Fail(string phase){if(Fault==phase)throw new InvalidOperationException(phase);}
+        public bool Validate(BulkPurchaseQuote q,out string reason){reason="stale";return Valid;}
+        public double Withdraw(BulkPurchaseQuote q){Fail("withdraw-before");double amount=Math.Min(Stock,q.Quantity);Stock-=amount;Held+=amount;Fail("withdraw-after");return Fault=="unknown-receipt"?double.NaN:amount;}
+        public void Credit(double amount){Fail("credit-before");Balance+=amount;Fail("credit-after");}
+        public void RecordPaid(BulkPurchaseQuote q,double sold,double paid){Fail("ledger-before");Ledger+=paid;Fail("ledger-after");}
     }
     private sealed class Target:IBulkSettlementTarget
     {

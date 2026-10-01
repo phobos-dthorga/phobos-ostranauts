@@ -26,7 +26,8 @@ internal static class ChargeMachines
     internal static bool IsBin(string? id) => ForBin(id) != null;
     internal static void Reset() { byDefinition.Clear(); foreach (var machine in All) machine.Reset(); }
 
-    /// <summary>The V4: automatic best-match charges, the steel recipe gated on Shipbreaker's stock, melts that freeze to
+    /// <summary>The V4: automatic best-match charges (nickel steel supersedes the plain steel charge from 0.26.0, which stays
+    /// gated on Shipbreaker's stock so a charge already bound to it settles), melts that freeze to
     /// slag, a hearth that can ignite a leaking store, water and stored-gas outlets. Keys, ports and texts are the
     /// ones every saved V4 already carries.</summary>
     private static ChargeMachineSpec RefinerySpec() => new()
@@ -36,7 +37,6 @@ internal static class ChargeMachines
         Selection = RecipeSelection.Automatic, IgnitionSource = true,
         Met = key => key == ChargeCatalog.SteelStockRequirement && ShipbreakerStock.Available,
         Spoiled = RefineryRecipes.Spoiled, SpoiledProducts = RefineryRecipes.SpoiledProducts,
-        ExtraStatus = _ => ShipbreakerStock.Available ? null : Text.Get("Refinery.no_steel"),
         Links = () => new[] { RefineryWater() }.Concat(RefineryRules.StoredGasFamilies.Select(RefineryGas)).ToArray()
     };
     private static ChargeLinkSpec RefineryWater() => new(ManufacturingRules.Water, "link:", RefineryRules.OutPort, RefineryRules.VesselPort, _ => true,

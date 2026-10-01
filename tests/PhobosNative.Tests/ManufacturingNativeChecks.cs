@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
@@ -312,37 +313,39 @@ internal static class ManufacturingNativeChecks
 
         // With and without Shipbreaker: the same definitions, a different available catalog.
         check(AcidPlantRecipes.All.Count == 1 && AcidPlantRecipes.Match(new[] { Materials.SulfideNodule }) == AcidPlantRecipes.Roast, "The SA-3 has its one roast recipe");
-        check(RefineryRecipes.Available(true).Count() == 7 && RefineryRecipes.Available(false).Count() == 6 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
+        check(RefineryRecipes.Available(true).Count() == 7 && RefineryRecipes.Available(false).Count() == 7 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker never changes the definitions, and nickel steel is offered with or without it");
         check(AgricultureStock.Definitions(), "Agriculture's makeup packet is published at the 40 g the formulation expects");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
-        // Refining value guardrails (agent proposal under the owner's 30 September 2026 direction, in place of the
-        // retired every-charge-loses-value rule), at live prices with Shipbreaker's steel ingot included:
-        // 1. sellable products of any charge are worth at most one and a half times its inputs (a gain reflects real
-        //    work, never a windfall); 2. a charge whose inputs are all station-bought stock gains at most a quarter
-        //    at base prices, well inside the game's buy/sell spread, so no repeatable trade loop pays; 3. commodity
-        //    records (water, stored gases) are valued at the station price for information only, because they have
-        //    no sell route. Off-gas has no value.
+        // Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md,
+        // "The rules now in force"), at live prices with Shipbreaker's steel ingot included. Products are valued as the
+        // station values them: items at their price, water at the station price, stored gases and acid at the game's gas price.
+        // 1. A charge fed by mined ore whose products include a finished item earns 1.5 to 2.5 times that ore.
+        // 2. A step inside a chain (fed only by stock made aboard) never loses and gains at most half again.
+        // 3. A supply or disposal charge (no finished item: only gangue, terminal remainders and bulk) makes no profit claim.
+        // 4. Fertiliser formulations carry Agriculture's own price: the owner's exception, as fertiliser is rare in the game's world.
+        // 5. A superseded revision is kept only so a bound job settles; it is never offered and not priced.
+        // 6. A charge fed only from bought stock earns at most 1.25 times its inputs. Off-gas has no value.
         double Price(string id) => id == ManufacturingRules.Water ? Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg
             : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
-        // Stored gases (ammonia) are valued at the game's own gas price per kilogram, read from its GasPrices table (the
-        // table GasContainer.GetGasPrice reads in a running game).
+        // Stored gases are valued at the game's own gas price per kilogram, read from its GasPrices table (the table
+        // GasContainer.GetGasPrice reads in a running game).
         double GasPrice(string species) => double.Parse(DataHandler.dictLoot["GasPrices"].aCOs.Single(e => e.StartsWith(species + "=", StringComparison.Ordinal)).Split('x')[1],
             System.Globalization.CultureInfo.InvariantCulture);
-        // One valuation for inputs and products alike: a commodity by the kilogram (water at the station price, a stored
-        // gas at the game's gas price), an item by the unit.
         double UnitValue(string id, int count, double kg) => id == ManufacturingRules.Water ? count * kg * Price(id) :
             GasStores.FamilyOf(id) is GasFamily gas ? count * kg * GasPrice(gas.Species) :
             LiquidStores.FamilyOf(id) is LiquidFamily liquid ? count * kg * GasPrice(liquid.MistSpecies) : count * Price(id);
-        bool Sellable(string id) => !ChargeCommodities.Is(id);
+        bool Mined(string id) => Materials.ById(id)?.Mined == true || !d.Objects.ContainsKey(id) && DataHandler.dictCOs.TryGetValue(id, out var native) && new DataCO(native).HasCond("IsOre");
+        bool Finished(string id) => !ChargeCommodities.Is(id) && !Materials.IsTerminal(id) && id != RefineryRules.Gangue;
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
+        var superseded = new HashSet<(string, int)>(ChargeCatalog.All.SelectMany(r => r.Supersedes.Select(e => (r.Machine, e))));
+        int business = 0, steps = 0;
         foreach (var recipe in ChargeCatalog.All)
         {
-            // The owner's exception (30 September 2026): formulating the LC-3's salts into Agriculture's makeup packets
-            // is where the value is made, capped at Agriculture's own packet price. No loop pays: no merchant sells the salts.
-            // The same decision for the complete formulation (Manufacturing 0.20.0): crop nutrients go into a hopper at
-            // Agriculture's own kiosk price (bagged into bulk charges they sell). Every salt is made aboard from mined feed.
+            if (superseded.Contains((recipe.Machine, recipe.Revision))) continue;
+            // The owner's exception (30 September 2026, reaffirmed 1 October): the formulations into Agriculture's makeup
+            // packets and crop nutrients carry Agriculture's own price, from salts no merchant sells.
             if (recipe.Requires.Contains(ChargeCatalog.CropNutrientsRequirement))
             {
                 check(recipe.Products.All(p => p.Id == ManufacturingRules.CropNutrients) && !recipe.ItemInputs.Any(i => Bought(i.Id)) && recipe.Solids(recipe.Products).Count() == 0,
@@ -356,13 +359,32 @@ internal static class ManufacturingNativeChecks
                 continue;
             }
             double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
-            double sellable = recipe.Products.Where(p => Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
-            double commodities = recipe.Products.Where(p => !Sellable(p.Id)).Sum(p => UnitValue(p.Id, p.Count, p.Kg));
-            check(sellable <= 1.5 * inValue, $"The {recipe.Machine} {recipe.Id} charge's sellable products stay within half again its inputs: {sellable:F2} out of {inValue:F2} in ({commodities:F2} of commodities aside)");
+            double outValue = recipe.Products.Sum(p => UnitValue(p.Id, p.Count, p.Kg));
             if (recipe.ItemInputs.All(i => Bought(i.Id)))
-                check(sellable <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, gains at most a quarter at base prices: {sellable:F2} out of {inValue:F2}");
+                check(outValue <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, earns at most a quarter more at base prices: {outValue:F2} out of {inValue:F2}");
+            if (!recipe.Products.Any(p => Finished(p.Id))) continue;
+            if (recipe.ItemInputs.Any(i => Mined(i.Id)))
+            {
+                double ore = recipe.ItemInputs.Where(i => Mined(i.Id)).Sum(i => UnitValue(i.Id, i.Count, i.Kg));
+                check(outValue >= 1.5 * ore && outValue <= 2.5 * ore, $"The {recipe.Machine} {recipe.Id} charge earns 1.5 to 2.5 times its ore: {outValue:F2} from {ore:F2} of ore ({inValue - ore:F2} of reagents)");
+                business++;
+            }
+            else
+            {
+                check(outValue >= inValue && outValue <= 1.5 * inValue, $"The {recipe.Machine} {recipe.Id} step neither loses nor gains more than half again: {outValue:F2} out of {inValue:F2}");
+                steps++;
+            }
         }
-        check(!ChargeCatalog.All.SelectMany(r => r.Inputs).Any(i => Bought(i.Id)), "No V4 or LC-3 charge is fed from bought stock: ores and chunks are mined, and nickel-iron ingots and carbon come only from the V4 (the bought-stock guardrail is ready for a future charge)");
+        check(business == 5 && steps == 3, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide) and three steps (struvite twice, nickel steel) are priced: {business} and {steps}");
+        // The whole iron chain: a meteoric iron block and a fifth of a carbon ore block end as four nickel steel ingots.
+        double ironChain = 4 * Price(Materials.NickelSteelIngot), ironOre = Price(RefineryRules.Iron) + Price(RefineryRules.Carbides) / RefineryRecipes.Carbon.Products.Single(p => p.Id == Materials.CarbonStock).Count;
+        check(ironChain >= 1.5 * ironOre && ironChain <= 2.5 * ironOre, $"Meteoric iron and carbon ore end as nickel steel worth 1.5 to 2.5 times the ores: {ironChain:F2} from {ironOre:F2}");
+        check(Price(Materials.NickelSteelIngot) > 2 * Price(RefineryRules.SteelIngot), "Nickel steel is the mined chain's own product, kept apart from Shipbreaker's plain steel ingot cast from scrap");
+        check(!ChargeCatalog.All.Where(r => !superseded.Contains((r.Machine, r.Revision))).SelectMany(r => r.Inputs).Any(i => Bought(i.Id)),
+            "No V4, LC-3 or SA-3 charge is fed from bought stock: ores and chunks are mined, and every intermediate is made aboard");
+        // The kiosk buys bulk back at its share of its own selling price, so a buy-and-sell loop always loses.
+        check(Phobos.Ostranauts.Framework.Trading.BulkSupplies.BuybackShare >= .4 && Phobos.Ostranauts.Framework.Trading.BulkSupplies.BuybackShare <= .5,
+            "The kiosk's buy-back share sits inside the game's own kiosk buying range, below its selling price");
         check(GasPrice("NH3") > 0 && RefineryRecipes.Ammonium.StoredGases.All(p => GasStores.FamilyOf(p.Id) != null),
             "The game prices ammonia, and the salt crust charge's ammonia goes to a store family");
 

@@ -326,6 +326,9 @@ internal static class Definitions
             d.Objects[m.Id] = co; d.Items[m.Id] = item;
             d.Loot[m.Id] = new Loot { strName = m.Id, strType = "item", aCOs = new[] { m.Id + "=1x1" }, aLoots = Array.Empty<string>() };
             EquipmentSaveUpgrade.Register(d, m.Id, m.Id);
+            // Refining as a business (Manufacturing 0.26.0, owner decision of 1 October 2026): saved stock takes the
+            // pack's current price on every load, so the retroactive prices reach ingots and salts already aboard.
+            EquipmentSaveUpgrade.FollowPrice(m.Id);
         }
     }
     internal static string[] Border(int side, string interior)

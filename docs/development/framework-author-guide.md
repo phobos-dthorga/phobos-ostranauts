@@ -232,6 +232,15 @@ into the room over the charge (negative when absorbed), bounded by
 `RecipeSchema.MaximumReactionKWh`. Entries without either field hash exactly as
 before, so frozen revisions are unaffected.
 
+`RecipeEntry.supersedes` (0.68.0) lists earlier revisions of the same machine the
+recipe replaces for new charges. A frozen revision can never change or disappear,
+so this is how a recipe is retired: the owner's catalog leaves a superseded
+revision out of what it offers, and a saved job bound to it still resolves by
+revision. The schema refuses a revision that is not earlier, does not exist on the
+same machine, or is superseded twice. Manufacturing's `ChargeRecipeView.Available`
+is the reference consumer; a superseded recipe returns when its replacement's
+requirements are not met.
+
 `Liquids.CommoditySettlement` settles a finished charge's commodities against bulk
 vessels. `SettlementPlan.Build(legs)` nets the draw, deposit and circulate legs per
 vessel (a vessel drawn from and deposited into changes by the difference);
@@ -721,6 +730,15 @@ save DTOs, refreshes price/missing work limits and preserves busy progress limit
 it never opens save files. Use it only for coordinated migrations with known old
 thresholds. It is not a generic save-recovery or arbitrary-version migration API.
 
+`EquipmentSaveUpgrade.FollowPrice(definitionId)` (0.68.0) registers a definition
+whose saved items take the live definition's `StatBasePrice` on every load. It is
+markerless and idempotent, so a later price change reaches saved items too; a
+DEFAULT-compressed save without its own price term is left alone because it
+already reads the definition. It reads the live definition at load, so it also
+serves a native definition amended in place (Shipbreaker's methane ice). Use it
+for materials whose price is a balance decision; never for equipment with wear
+tiers or saved work, which keep `Register`.
+
 Recipe schema 1 optionally accepts `toolTriggers`, up to eight distinct native
 tool selectors. They are reusable tools fetched through native `Use` handling,
 not mass-bearing ingredients. Existing packs omitting the field still work.
@@ -1191,6 +1209,20 @@ consumer that changes a record directly.
 
 `Trading.VesselSupplyProvider` also takes one offer per commodity naming several
 families, so a single station line fills every size.
+
+Selling back (0.68.0): `Trading.IBulkBuybackProvider` is the other side of the
+kiosk's Bulk supplies view, registered with `BulkSupplies.RegisterBuyback` and
+removed by the same `Unregister(id)`. Its offers carry the price the station pays.
+`Trading.VesselBuybackProvider` takes the same lines as a `VesselSupplyProvider`
+(the offer carrying the station's own selling price) and pays
+`BulkSupplies.BuybackShare` (0.45, the owner's decision of 1 October 2026) of it;
+a source is an installed, ready, unprotected vessel of those families with an
+empty catch chamber, and what may be sold is the service contents above its
+reserve. `BulkSettlement.Sell(quote, IBulkSaleTarget, journal)` withdraws first,
+pays exactly for the measured withdrawal and keeps the purchase journal's states
+and protection, in its own `BulkSale` journal. Never register a buy-back for a
+commodity whose bought price would let a loop gain, such as nutrients priced by
+another mod.
 `Registration.ApplianceDefinitions.SetRack(d, prefix, trigger, width, height)`
 turns an appliance's tray into a restricted rack behind the game's own Inventory
 window.

@@ -15931,7 +15931,7 @@
         "src/PhobosFramework/Trading/BulkSupplies.cs:38"
       ],
       "before": "Choose a commodity. Native fuel and potable-water services remain on the previous screen.",
-      "after": "Choose a supply. Fuel and drinking-water services are on the previous screen."
+      "after": "Choose a supply to buy, or a store to sell from. Fuel and drinking-water services are on the previous screen."
     },
     {
       "mod": "PhobosFramework",
@@ -16035,7 +16035,7 @@
         "src/PhobosFramework/Trading/BulkSupplies.cs:38"
       ],
       "before": "Purchase needs reconciliation. Saved custody/payment evidence is retained; automatic retry is blocked. Native services remain available.",
-      "after": "Purchase could not be confirmed. Payment and delivery records are kept; automatic retry is blocked. Other station services still work."
+      "after": "A purchase or sale could not be confirmed. Payment and delivery records are kept; automatic retry is blocked. Other station services still work."
     },
     {
       "mod": "PhobosFramework",
@@ -38608,7 +38608,7 @@
         "src/PhobosManufacturing/Plugin.cs:32"
       ],
       "before": "with Shipbreaker's steel stock available",
-      "after": "with Shipbreaker's steel stock available"
+      "after": "with Shipbreaker loaded, so saved plain-steel charges can finish"
     },
     {
       "mod": "PhobosManufacturing",
@@ -38621,7 +38621,7 @@
         "src/PhobosManufacturing/Plugin.cs:32"
       ],
       "before": "without Shipbreaker (no carburised steel charge)",
-      "after": "without Shipbreaker (no carburised steel charge)"
+      "after": "without Shipbreaker; the refinery makes nickel steel either way"
     },
     {
       "mod": "PhobosManufacturing",
@@ -38660,7 +38660,7 @@
         "src/PhobosManufacturing/Content.cs:28"
       ],
       "before": "Manufacturing ready. Shipbreaker is not loaded, so the refinery cannot make steel.",
-      "after": "Manufacturing ready. Shipbreaker is not loaded, so the refinery cannot make steel."
+      "after": "Manufacturing ready."
     },
     {
       "mod": "PhobosManufacturing",
@@ -38673,7 +38673,7 @@
         "src/PhobosManufacturing/Content.cs:28"
       ],
       "before": "Manufacturing ready, with Shipbreaker's steel stock.",
-      "after": "Manufacturing ready, with Shipbreaker's steel stock."
+      "after": "Manufacturing ready, with Shipbreaker loaded."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39008,7 +39008,7 @@
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
       "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each within one tile. A melt left waiting for a cool room too long freezes into slag.",
-      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked water silo, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each touching the refinery or on its water or gas line. A melt left waiting for a cool room too long freezes into slag."
+      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for nickel steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked water silo, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each touching the refinery or on its water or gas line. A melt left waiting for a cool room too long freezes into slag."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39361,19 +39361,6 @@
       ],
       "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
       "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Refinery.no_steel",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachines.cs:37"
-      ],
-      "before": "Shipbreaker is not loaded: no carburised steel charge.",
-      "after": "Shipbreaker is not loaded: no carburised steel charge."
     },
     {
       "mod": "PhobosManufacturing",
@@ -40757,7 +40744,7 @@
         "src/PhobosManufacturing/Definitions.cs:115"
       ],
       "before": "A 4 kg ingot cast from meteoric iron as it comes: iron with a few percent of nickel and a trace of cobalt. Sound structural stock for machining, and the feed for carburised steel. Not steel by itself.",
-      "after": "A 4 kg ingot cast from meteoric iron as it comes: iron with a few percent of nickel and a trace of cobalt. Sound structural stock for machining, and the feed for carburised steel. Not steel by itself."
+      "after": "A 4 kg ingot cast from meteoric iron as it comes: iron with a few percent of nickel and a trace of cobalt. Sound structural stock for machining, and the feed for nickel steel. Not steel by itself."
     },
     {
       "mod": "PhobosManufacturing",
@@ -40809,7 +40796,7 @@
         "src/PhobosManufacturing/Definitions.cs:115"
       ],
       "before": "A kilogram of sulfide, phosphide and oxide slag skimmed from a cast, or a frozen melt broken out of the hearth. Nothing recovers it.",
-      "after": "A kilogram of sulfide, phosphide and oxide slag skimmed from a cast, or a frozen melt broken out of the hearth. Nothing recovers it."
+      "after": "A kilogram of sulfide, phosphide and oxide slag skimmed from a cast, carbon dross from a steel melt, or a frozen melt broken out of the hearth. Nothing recovers it."
     },
     {
       "mod": "PhobosManufacturing",
@@ -54252,6 +54239,253 @@
       ],
       "before": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles.",
       "after": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sell_heading",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Kiosk list heading above the sale lines, with the share the station pays.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:109"
+      ],
+      "before": "Sell to the station ({0:P0} of its price)",
+      "after": "Sell to the station ({0:P0} of its price)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sell_entry",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Kiosk sale line and detail heading: Sell, then the commodity.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:110"
+      ],
+      "before": "Sell: {0}",
+      "after": "Sell: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.source",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Field naming the store the sale withdraws from.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:129"
+      ],
+      "before": "Sell from",
+      "after": "Sell from"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.choose_source",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Prompt until a store and quantity are chosen for a sale.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:136"
+      ],
+      "before": "Choose a store to sell from and a quantity.",
+      "after": "Choose a store to sell from and a quantity."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sell_available",
+      "category": "control",
+      "decision": "add",
+      "reason": "Button pricing everything the chosen store can sell.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:134"
+      ],
+      "before": "Price everything this store can sell",
+      "after": "Price everything this store can sell"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.nothing_to_sell",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a sale cannot be priced: less than one step above the reserve, and what to do.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:138"
+      ],
+      "before": "This store has less than one quantity step above its reserve. Choose another store.",
+      "after": "This store has less than one quantity step above its reserve. Choose another store."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sale_quote",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Sale quote: quantity, payment and what the store can sell.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:150"
+      ],
+      "before": "Sell {0:G} {1}\nPaid to you: {2:F2} cr\nThis store can sell: {3:G}",
+      "after": "Sell {0:G} {1}\nPaid to you: {2:F2} cr\nThis store can sell: {3:G}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sell",
+      "category": "control",
+      "decision": "add",
+      "reason": "Button confirming the quoted sale.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:141"
+      ],
+      "before": "Sell quoted quantity",
+      "after": "Sell quoted quantity"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sold",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Receipt after a sale.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSettlement.cs:104"
+      ],
+      "before": "Sold {0:G}; received {1:F2} cr.",
+      "after": "Sold {0:G}; received {1:F2} cr."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sold_partial",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Receipt when the store held less than quoted, saying only that much was paid.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSettlement.cs:104"
+      ],
+      "before": "Sold {0:G}; received {1:F2} cr. The store held less than quoted, so only that much was paid.",
+      "after": "Sold {0:G}; received {1:F2} cr. The store held less than quoted, so only that much was paid."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Bulk.sale_ledger",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Ledger line recording a sale.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Trading/BulkSupplies.cs:202"
+      ],
+      "before": "Bulk sale: {0}, quantity {1:G}",
+      "after": "Bulk sale: {0}, quantity {1:G}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.supersedes",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Data pack refusal: supersedes names a revision that is not an earlier one of the same machine.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:128"
+      ],
+      "before": "Recipe {0}: supersedes must name an earlier revision of the same machine, not {1}.",
+      "after": "Recipe {0}: supersedes must name an earlier revision of the same machine, not {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RecipeSchema.supersedes_twice",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Data pack refusal: one revision superseded by two recipes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/RecipePack.cs:95"
+      ],
+      "before": "Revision {0} is superseded by more than one recipe.",
+      "after": "Revision {0} is superseded by more than one recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.nickel-steel",
+      "category": "name",
+      "decision": "add",
+      "reason": "Refinery recipe name for the nickel steel charge.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:173"
+      ],
+      "before": "nickel steel",
+      "after": "nickel steel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosNickelSteelIngot",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New V4 product: the nickel steel ingot.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "Nickel Steel Ingot",
+      "after": "Nickel Steel Ingot"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosNickelSteelIngot_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What the nickel steel ingot is and where it comes from.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "A 4 kg ingot of nickel steel, carburised in the refinery from four nickel-iron ingots and a kilogram of carbon. Tougher than plain steel and worth more: the best thing a lump of meteoric iron can become aboard.",
+      "after": "A 4 kg ingot of nickel steel, carburised in the refinery from four nickel-iron ingots and a kilogram of carbon. Tougher than plain steel and worth more: the best thing a lump of meteoric iron can become aboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Kiosk sale line for hydrogen stores.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:47"
+      ],
+      "before": "Bulk hydrogen (Fennmark H-series stores)",
+      "after": "Bulk hydrogen (Fennmark H-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Kiosk sale line for methane stores.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:47"
+      ],
+      "before": "Bulk methane (Fennmark M-series stores)",
+      "after": "Bulk methane (Fennmark M-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ammonia.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Kiosk sale line for ammonia stores.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:47"
+      ],
+      "before": "Bulk ammonia (Fennmark Q-series stores)",
+      "after": "Bulk ammonia (Fennmark Q-series stores)"
     }
   ],
   "documents": [
@@ -54259,8 +54493,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bed8da474dd9c7095c9f9068a5bbe844cd472f241e290424b2313c9dba33c438",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "99f4542f3e47e980be1bf2f0cf391fa719aa2b53c2468aa013d76f408a0780d7",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "SUPPORT.md",
@@ -54419,8 +54653,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4a72eeefa9111c399d4a20f18b474e8f03ad8d84f014b24a65310c88ca10759d",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "5e0ec56d3500db4a2840c67a180931f77711272667035db2329e966ad86e8713",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/crew-automation.md",
@@ -54720,8 +54954,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a8aeec0077fbcc94be19c0b93a9a0ff5859289ba7b223ef914e6e109f5589cd3",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "dad7d218570e0ffbd6c33bbeca2bb3cc60a59e6d7110f25a6cf5f03a9ae85f68",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -54811,8 +55045,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "65b530e287830ad2f406416c3a86a3b19c2397a3d707ffc17ebc2b9ce178a0ec",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "ad6052487f2c1a11c5b06e95345eb93a359bcec8b493bde4bb00adf357127c56",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -54870,8 +55104,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "ad67a697f9eafd5523c2b8158aed04dd3d65783f59441c1f4f0cb4dd789fe93f",
-      "review": "Reviewed 2026-09-30 for Manufacturing 0.20.0 (the LC-3's acid recipes: Epsom salt from olivine, acid-route struvite and crop nutrients into a hopper): new link, recipe and material wording, the guides and records that describe them, and the corrected note that bagged crop nutrients sell; direct player text."
+      "sha256": "d4f6211c7062603d69a42c10d755cf19f0d98d580ef71509d70e6766b515caa7",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -54942,8 +55176,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2dabab5cb7ee5a436092d6e64ff9fd29516033d0c15b0e1d437f8717a8e766bf",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "3d84b827059a23f6ca752c6e3f438d0911e10c9d00653ded6eec5ce11102b655",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -55119,8 +55353,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "9a586710c3feda0bdce85e33110b120863cd0b1afe977bf11d2fbd73938e005e",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "557c1bd10440112d8588335b1270c13a425c83796c1dbda570b8a7accf0c661c",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -55140,8 +55374,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9042845623fc8aa6d18646c2b9bb4a4c666b32501c29d56b06f9785b8ea2fb75",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "3369ce964082066b26b59df19fde69eb7e4efa6f66457c8af7e4669d48cf93c5",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -55154,8 +55388,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "71ad6c50e067b0b49cb12c3b36cdadc1433f799085558f601845641b837aea2c",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "d31236aa54390e350aa4de1700052517711ecc9ac672a3b780abf55415c6ca79",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -55210,15 +55444,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c5f79ae4b35f3a468026cd6f383056dfc4983d6c4a5e71276fd6a5909dbecf90",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "9065952db5d2d55010854ea40c5ccd53dc73516316cc88c470cde53ce5958ba5",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "78dc52bd14b1822fd25099d417237664b46239ea2a68e4a97689ad159079b728",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "f5437396b8e79910976f219082157e8fe5449b9fdac073d4fa724050fe444392",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/item-references.md",
@@ -55231,15 +55465,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "199b0a547f143caf7b597a9281bf04dc94b72cb379ed45a244e6697dc30e97c1",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "60e68fb13380ac6b29c1ec6023c721e37165b7821cd2154f8351a6170c8321df",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "1af9e0b0656172969a2b93300d93a8941909a1256f664f5ab3b55079baf1b40c",
-      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
+      "sha256": "4a2a104d345883da981f0af9df2679ac10987f9abb89e1c4f783320de8b1e28d",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -55259,8 +55493,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6fa0a17c4ec02af3584fce9ade40ddd3fb8366cab82b5974849bb629a9558a4a",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "25323424bae2a7dbf5156981f69f124124f1d6df445bb10304eecd08105edf1c",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/residue-collector.md",
@@ -55294,8 +55528,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "67043b03c6db8f8fc9454e8adf14a555b00d0c008184f385fd48d3da05a3816c",
-      "review": "Reviewed 1 October 2026 for Framework 0.59.0: Ship's Water tanks reach Phobos equipment only by touching it or through the process-water line, with the manual step stated."
+      "sha256": "9196ff621c11a37e0e06c0b71a22891c5053f170f762493bde1f8e98e9180c52",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -55308,8 +55542,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b992c7ddf6384ff2d4182cacf7889be9455eb0160deabdd34223a61b7de5ddf4",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "f883fee0b416c82c22a7ca979e306be2e612cd724f39c1e4fc92ec606d404158",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -55350,22 +55584,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "25b7d7199ccce55cf607cdfe57f105f959fb50f770dec5d11505df316c9c8cfa",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "596cd1edee34b85877eb19c4e1af51ee9cb234d18135d61f2ceb6abec23e1a8f",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2f383ae54d96e24e3d684cee0f97e82f5165254554f0f513394abfe62f351bf5",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "b66f5c2e94a447197bde33809abe534c839a8eb4b7367daaca9edd20ba1e4275",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3dc61579312007d5ae045373f4cf3d8b8ec74df908c18e9d70b4ac4fecfa1f9f",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "16d8158465ece71a4bfc85dae77564d1ba4efd0d451f4d26d819add2e3536424",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -55427,8 +55661,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "3566a3ba599cffac8a14a2911a5fe525a68d92146454175bedc5a2ef54739d46",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "22e92bee82512a9be393f7322f2877bcd5a5a03dedae25219f7d9e6ecabe28f6",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -55469,8 +55703,8 @@
       "path": "docs/development/refining-business-and-interdependencies.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "d72a55b9a7463f1107317f8428c7bb9fa42b1495533020898d05e1b0c9c5e805",
-      "review": "Reviewed 1 October 2026: refining-as-a-business proposals and reactor interdependency ideas; guide store table and fertiliser wording corrected."
+      "sha256": "49ce2a6390af4cecff15adcb4733099e293fe8710a7788e66ef96536b12847bb",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "docs/shipbreaker-mining-laser.md",
@@ -55491,8 +55725,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0fb581bd698e8c96fd3351bc7e9a604113ff6bf43046d9af97408dddeaf8a55a",
-      "review": "2026-10-01 (Shipbreaker 0.61.0): Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "7f578b48c1d1f69a6eecedd9c6ccde279b952b07e962dfc3723f63913ba841dd",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -55541,14 +55775,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "302e20b23ba1f70197842ce07ffa1f5c6fba37905654504d916da1e207595551",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "1c8e129db55d1f0d403e72e9bfc30c57ede4575d443533d908881f4cd851eec4",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e709bcd33f3a54adb0b22783f7e7b64808f56cde21d6e2314c364fa5cbaa6615",
-      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+      "sha256": "522d19597071af1c48b342f3ee9cd486296461e3cd25c2855f6ab8a41f7575df",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -55565,8 +55799,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4f00ab759669ad17cfb6a340e4f9523d41cf8e79b4b2a706a35dc95fe9b66a9e",
-      "review": "2026-10-01 (Shipbreaker 0.61.0): Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "36282894556858bef93de82d935c18b10a97a746048127b651cce4e4531098e9",
+      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

@@ -106,10 +106,12 @@ research below and our own choices:
   Thermodynamics* 18](https://www.sciencedirect.com/science/article/abs/pii/0021961486901497)).
   With our warming allowance a block needs about 4.1 kWh; the 50-minute cycle
   delivers 4.25 kWh to it after the room's share.
-- **Price.** The game values methane ice at 20 cr, and since Shipbreaker 0.49.0
-  that price stands (0.45.0 to 0.48 raised it to 250 cr). Thawing gains water and
-  methane aboard, and nothing buys either back, so no trade loop pays. Blocks a
-  save already priced at 250 keep that price.
+- **Price.** The game values methane ice at 20 cr, less than the 199 cr of water
+  inside it. Since Shipbreaker 0.62.0 it is worth 100 cr (owner decision, 1 October
+  2026), so a thawed block gives about twice its worth in water and methane
+  (0.45.0 to 0.48.0 set 250 cr and 0.49.0 to 0.61.0 left the game's 20). Blocks
+  already in a save take 100 cr when it loads. The station buys water and methane
+  back at 45% of its price since Framework 0.68.0.
 
 None of these institutions endorses the mod; the gangue share and the warming
 allowance are ours.
@@ -154,6 +156,9 @@ flowchart LR
   **Process water (Rivetline S-series silos)**. Water costs 10 cr/kg in 10 kg
   steps; one quote can fill any empty silo. The usual quote, destination and payment checks apply
   (see [station purchasing](agriculture-bulk-storage.md#station-purchasing)).
+- **Selling water (Framework 0.68.0):** the same view lists **Sell: Process water**
+  below the supplies. Choose a silo and a quantity; the station pays 4.50 cr/kg,
+  45% of its price, for what leaves the silo. The silo's reserve is never sold.
 - **From Ship's Water (optional, 0.16.1 only):** the silo's panel and the C1 offer
   **Draw from the drinking-water tanks** (50, 100, 250 or 500 kg) and **Send to
   the waste tanks**. Only tanks that touch the silo (within one tile) or share its

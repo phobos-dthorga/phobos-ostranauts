@@ -65,6 +65,16 @@
       "seconds": 450,
       "reactionKWh": -0.19
     },
+    "nickel-steel": {
+      "notes": "Carburised nickel steel as the V4's own product (Manufacturing 0.26.0; owner decision of 1 October 2026 that the mined iron chain ends in its own product). The same melt as the steel charge: four nickel-iron ingots with one kilogram of carbon in excess, of which steel takes 0.02 to 2 percent (ASM Handbook Vol. 1); the unabsorbed carbon and the iron oxide it meets leave as a kilogram of refinery slag. Our rounding: the carbon the steel picks up and the iron lost to the dross are taken as equal, so the ingots keep the 16 kg they came in with. Supersedes the steel charge for new charges; a charge already bound to revision 5 still settles as steel. Needs no other mod.",
+      "machine": "refinery",
+      "revision": 8,
+      "inputs": [ { "id": "PhobosNickelIronIngot", "count": 4, "kg": 4 }, { "id": "PhobosCarbonStock", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "PhobosNickelSteelIngot", "count": 4, "kg": 4 }, { "id": "PhobosRefinerySlag", "count": 1, "kg": 1 } ],
+      "seconds": 2000,
+      "melt": true,
+      "supersedes": [ 5 ]
+    },
     "evaporite-leach": {
       "notes": "Leach and glaserite-route crystallisation of the evaporite crust in 20 kg of circulating water: 2 KCl + Na2SO4 -> K2SO4 + 2 NaCl, KCl limiting at 8.048 mol (route: US patents 4,215,100 and 6,143,271). Potassium sulfate 0.701 kg; the Na,Mg phosphate (0.250 kg) is wet-separated; halite, the NaCl made, the leftover thenardite, trona and villiaumite leave as the terminal brine salt cake (2.248 kg); the clay matrix and magnesite leave as the leached residue for the V4. Rounded to item units, the gram of rounding to the cake. The water is condensed and returned. 12 kWh authored: a closed crystalliser with condensate recovery, about a quarter of open-pan evaporation at 2.26 MJ/kg (NIST). Crust minerals after McCoy et al. 2025 (NASA OSIRIS-REx Bennu samples); the proportions are authored.",
       "machine": "leach",

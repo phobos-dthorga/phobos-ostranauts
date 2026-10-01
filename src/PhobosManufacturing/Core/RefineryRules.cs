@@ -73,7 +73,11 @@ public static class RefineryRecipes
     public static ChargeRecipe Clay => ById("clay")!;
     public static ChargeRecipe Carbon => ById("carbon")!;
     public static ChargeRecipe NickelIron => ById("nickel-iron")!;
+    /// <summary>The plain steel charge (revision 5), superseded for new charges by <see cref="NickelSteel"/>; kept so a
+    /// charge bound to it settles.</summary>
     public static ChargeRecipe Steel => ById("steel")!;
+    /// <summary>Nickel steel (revision 8, Manufacturing 0.26.0): the mined iron chain's own end product, needing no other mod.</summary>
+    public static ChargeRecipe NickelSteel => ById("nickel-steel")!;
     public static ChargeRecipe Ammonium => ById("ammonium")!;
     /// <summary>Calcining the LC-3's leached residue: its magnesite's CO2 to a linked carbon dioxide store (Manufacturing 0.18.0).</summary>
     public static ChargeRecipe Calcine => ById("calcine")!;
@@ -81,7 +85,8 @@ public static class RefineryRecipes
     public static double CrustAmmoniaKg => Ammonium.Products.Single(p => p.Id == ManufacturingRules.Ammonia).Kg;
     public static ChargeRecipe? ByRevision(int revision) => View.ByRevision(revision);
     public static ChargeRecipe? ById(string? id) => View.ById(id);
-    /// <summary>Recipes available now: the steel recipe needs Shipbreaker's stock identities.</summary>
+    /// <summary>Recipes available now, less superseded ones: the plain steel recipe needs Shipbreaker's stock identities and
+    /// is superseded by nickel steel, so new charges never bind it.</summary>
     public static IEnumerable<ChargeRecipe> Available(bool steelStock) => View.Available(Met(steelStock));
     /// <summary>The recipe whose whole charge is present among the feed identities, preferring the largest charge,
     /// or null. The caller binds the exact units.</summary>

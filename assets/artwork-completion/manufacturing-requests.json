@@ -39,6 +39,25 @@
           22
         ]
       }
+    },
+    "nickel-steel-ingot": {
+      "from": "source/aluminium-ingot.png",
+      "method": "per-pixel luminance map onto a pale nickel-steel ramp; alpha and pixel placement unchanged (Manufacturing 0.26.0, 1 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.66,
+          34
+        ],
+        "g": [
+          0.64,
+          30
+        ],
+        "b": [
+          0.56,
+          18
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",

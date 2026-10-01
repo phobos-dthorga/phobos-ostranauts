@@ -25,6 +25,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.62.0] - 2026-10-01 - Draft
+
+### Changed
+
+- The game's methane ice is worth 100 cr instead of 20, by owner decision of 1 October 2026. Its water alone is worth about 199 cr at the station, so the game's own price sold it short; now thawing a block in a T2 earns about twice the block in water and methane. The game's definition is corrected in place, never replaced.
+
+### Save compatibility
+
+- Automatic. Methane ice already in a save takes the new price when it loads, including blocks priced 250 by Shipbreaker 0.45.0 to 0.48.0.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.68.0 or newer. Offline checks are not gameplay validation.
+
 ## [0.61.0] - 2026-10-01 - Draft
 
 ### Added

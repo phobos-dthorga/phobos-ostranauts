@@ -171,6 +171,14 @@
               "minimum": -1000,
               "maximum": 1000,
               "description": "Reaction heat released into the room over the charge (negative when absorbed)."
+            },
+            "supersedes": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "description": "Earlier revisions of the same machine this recipe replaces for new charges; bound jobs still settle by them."
             }
           },
           "required": [

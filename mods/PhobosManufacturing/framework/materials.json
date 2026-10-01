@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
   "schema": "materials",
-  "notes": "Phobos Manufacturing materials: raw stock with real consumers, terminal remainders at the technical minimum price, and mined chunks that clone the game's hydrates. Owner decisions of 29 September 2026; the recovery and pricing rules are in docs/development/manufacturing-refinery-and-chemistry.md. Kinds: stock clones the game's scrap steel, mined clones its hydrates. A material's kg is bound to the recipes that use it: change both or neither.",
+  "notes": "Phobos Manufacturing materials: raw stock with real consumers, terminal remainders at the technical minimum price, and mined chunks that clone the game's hydrates. Owner decisions of 29 September 2026; the recovery rules are in docs/development/manufacturing-refinery-and-chemistry.md, and the prices follow the refining business rules the owner approved on 1 October 2026 (docs/development/refining-business-and-interdependencies.md). Kinds: stock clones the game's scrap steel, mined clones its hydrates. A material's kg is bound to the recipes that use it: change both or neither.",
   "materials": {
     "PhobosNickelIronIngot": {
-      "notes": "Cast nickel-iron, Manufacturing raw stock: 5 cr/kg, above scrap steel and far below the ore (refining value review, 30 September 2026); four plus one carbon carburise into four 25 cr steel ingots.",
+      "notes": "Cast nickel-iron, Manufacturing raw stock: 55 cr/kg, so the meteoric iron charge earns about twice its ore (refining as a business, owner approval 1 October 2026); four plus one carbon stock carburise into four nickel steel ingots.",
       "kind": "stock",
       "kg": 4,
-      "price": 20,
+      "price": 220,
       "stack": 10,
       "side": 1,
       "category": "IsCategoryMetals",
       "art": "StockNickelIronIngot"
     },
     "PhobosCarbonStock": {
-      "notes": "Carbon stock from the carbides charge.",
+      "notes": "Carbon stock from the carbides charge: 38 cr, so the carbon ore charge earns about twice its ore (1 October 2026).",
       "kind": "stock",
       "kg": 1,
-      "price": 10,
+      "price": 38,
       "stack": 10,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
       "art": "StockCarbon"
     },
     "PhobosRefinerySlag": {
-      "notes": "Terminal: sulfide, phosphide and oxide skimmings or a frozen melt.",
+      "notes": "Terminal: sulfide, phosphide and oxide skimmings, a carburising melt's carbon dross, or a frozen melt.",
       "kind": "stock",
       "kg": 1,
       "price": 0.01,
@@ -86,20 +86,20 @@
       "art": "StockEvaporiteCrust"
     },
     "PhobosPotassiumSulfate": {
-      "notes": "LC-3 product, 60 cr/kg: fertiliser-grade potassium sulfate. Never sold by merchants.",
+      "notes": "LC-3 product, about 271 cr/kg: fertiliser-grade potassium sulfate; with the phosphate concentrate the evaporite charge earns twice its crust (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.7,
-      "price": 42,
+      "price": 190,
       "stack": 20,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
       "art": "StockPotassiumSulfate"
     },
     "PhobosPhosphateConcentrate": {
-      "notes": "LC-3 intermediate, 48 cr/kg: the crust's wet-separated Na,Mg phosphate, feed for struvite. Priced so the struvite step stays within half again its inputs. Never sold by merchants.",
+      "notes": "LC-3 intermediate, 440 cr/kg: the crust's wet-separated Na,Mg phosphate, feed for struvite. Phosphorus is the scarce crop nutrient (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.25,
-      "price": 12,
+      "price": 110,
       "stack": 20,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -116,10 +116,10 @@
       "art": "StockLeachedResidue"
     },
     "PhobosStruvite": {
-      "notes": "LC-3 product, about 40 cr/kg: slow-release magnesium ammonium phosphate fertiliser. Never sold by merchants.",
+      "notes": "LC-3 product, about 291 cr/kg: slow-release magnesium ammonium phosphate fertiliser, a small gain on its concentrate (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.43,
-      "price": 17,
+      "price": 125,
       "stack": 20,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -169,10 +169,10 @@
       "art": "StockSulfideNodule"
     },
     "PhobosPhosphoricAcidFlask": {
-      "notes": "SA-3 product: 0.515 kg of phosphoric acid in a sealed flask, the phosphorus of three struvite units, feed for the LC-3's acid-route struvite. Never sold by merchants.",
+      "notes": "SA-3 product: 0.515 kg of phosphoric acid in a sealed flask, the phosphorus of three struvite units, feed for the LC-3's acid-route struvite. 300 cr, so the nodule charge earns about twice its ore (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.515,
-      "price": 30,
+      "price": 300,
       "stack": 10,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -190,20 +190,20 @@
       "art": "StockRoastedCalcine"
     },
     "PhobosEpsomSalt": {
-      "notes": "LC-3 product, about 16 cr/kg: magnesium sulfate heptahydrate from olivine leached in sulfuric acid, 0.432 kg (1.753 mol) so one unit carries the magnesium of one struvite unit. Never sold by merchants.",
+      "notes": "LC-3 product, about 30 cr/kg: magnesium sulfate heptahydrate from olivine leached in sulfuric acid, 0.432 kg (1.753 mol) so one unit carries the magnesium of one struvite unit. Priced so the olivine charge earns about 2.3 times its ore (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.432,
-      "price": 7,
+      "price": 13,
       "stack": 20,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
       "art": "StockEpsomSalt"
     },
     "PhobosAmmoniumSulfate": {
-      "notes": "LC-3 product, about 35 cr/kg: the acid-route struvite's ammonium sulfate, 0.232 kg (1.756 mol), one unit beside each struvite unit. Priced so the acid route stays within half again its inputs. Never sold by merchants.",
+      "notes": "LC-3 product, about 86 cr/kg: the acid-route struvite's ammonium sulfate, 0.232 kg (1.756 mol), one unit beside each struvite unit. Keeps the acid-route step at about 1.3 times its inputs (1 October 2026). Never sold by merchants.",
       "kind": "stock",
       "kg": 0.232,
-      "price": 8,
+      "price": 20,
       "stack": 20,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -219,6 +219,16 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockOlivineLeachCake"
+    },
+    "PhobosNickelSteelIngot": {
+      "notes": "V4 product (Manufacturing 0.26.0): nickel steel carburised from four nickel-iron ingots and one carbon stock, the mined iron chain's own end product, 65 cr/kg so the chain earns about 2.2 times its ores (owner decision, 1 October 2026). Separate from Shipbreaker's plain steel ingot, which keeps its price and its F6 source.",
+      "kind": "stock",
+      "kg": 4,
+      "price": 260,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryMetals",
+      "art": "StockNickelSteelIngot"
     }
   }
 }

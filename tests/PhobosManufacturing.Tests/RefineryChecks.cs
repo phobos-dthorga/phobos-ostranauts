@@ -18,7 +18,7 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 7, "Seven distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 8, "Eight distinct revisions");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,
@@ -38,6 +38,10 @@ internal static class RefineryChecks
         check(s.Inputs.Count == 2 && s.Inputs.Single(i => i.Id == Materials.NickelIronIngot).Count == 4 && s.Inputs.Single(i => i.Id == Materials.CarbonStock).Count == 1 &&
             s.Products.Single(p => p.Id == "PhobosSteelIngot").Count == 4 && s.Products.Single(p => p.Id == "PhobosSteelMeltRemainder").Kg == 1 && s.Melt && s.NeedsSteelStock,
             "Steel: four nickel-iron and one carbon give four steel ingots and Shipbreaker's remainder; a melt needing Shipbreaker");
+        var ns = RefineryRecipes.NickelSteel;
+        check(ns.Inputs.Select(i => (i.Id, i.Count, i.Kg)).SequenceEqual(s.Inputs.Select(i => (i.Id, i.Count, i.Kg))) && ns.Products.Single(p => p.Id == Materials.NickelSteelIngot).Count == 4 &&
+              ns.Products.Single(p => p.Id == Materials.RefinerySlag).Kg == 1 && ns.Melt && !ns.NeedsSteelStock && ns.Seconds == s.Seconds && ns.Supersedes.SequenceEqual(new[] { s.Revision }),
+            "Nickel steel takes the steel charge's exact items, gives four nickel steel ingots and a kilogram of slag, needs no other mod and supersedes the steel charge");
         check(Math.Abs(n.EnergyKWh - 16) < 1e-9 && Math.Abs(h.EnergyKWh - 4) < 1e-9 && Math.Abs(k.EnergyKWh - 12) < 1e-9, "Energy per charge follows 24 kW and the duration");
         check(Math.Abs(RefineryRules.RoomHeatKW(true) - 3.6) < 1e-9 && RefineryRules.RoomHeatKW(false) == RefineryRules.IdleKW, "Fifteen percent of 24 kW warms the room while working");
         throws(() => new ChargeRecipe("bad", 9, new[] { new ChargeInput("x", 1, 10) }, new[] { new ProductSpec("y", 1, 9) }, null, 600, false, false), "An unbalanced recipe is refused");
@@ -48,19 +52,20 @@ internal static class RefineryChecks
         check(RefineryRecipes.Match(new[] { "ItmMineral11" }, false) == h && RefineryRecipes.Match(new[] { "ItmMineral11", "ItmMineral11" }, false) == h, "One or two hydrate blocks match the hydrate charge");
         check(RefineryRecipes.Match(new[] { Materials.ClayHydrates }, false) == c && RefineryRecipes.Match(new[] { "ItmMineral03" }, false) == k && RefineryRecipes.Match(new[] { "ItmMineral01" }, false) == n, "Clay, carbide and iron blocks match their charges");
         var steelCharge = Enumerable.Repeat(Materials.NickelIronIngot, 4).Concat(new[] { Materials.CarbonStock });
-        check(RefineryRecipes.Match(steelCharge, true) == s && RefineryRecipes.Match(steelCharge, false) == null, "The steel charge matches only with Shipbreaker's stock");
+        check(RefineryRecipes.Match(steelCharge, true) == ns && RefineryRecipes.Match(steelCharge, false) == ns, "New charges of four nickel-iron and one carbon make nickel steel, with or without Shipbreaker");
+        check(RefineryRecipes.ByRevision(s.Revision) == s && !RefineryRecipes.Available(true).Contains(s), "The superseded steel charge still resolves by its revision for a bound job, but is never offered");
         check(RefineryRecipes.Match(Enumerable.Repeat(Materials.NickelIronIngot, 4), true) == null && RefineryRecipes.Match(Enumerable.Repeat(Materials.NickelIronIngot, 3).Concat(new[] { Materials.CarbonStock }), true) == null,
             "Four ingots without carbon, or three with, is no charge");
-        check(RefineryRecipes.Match(steelCharge.Concat(new[] { "ItmMineral11" }), true) == s, "With a hydrate block beside it the larger steel charge is preferred");
+        check(RefineryRecipes.Match(steelCharge.Concat(new[] { "ItmMineral11" }), true) == ns, "With a hydrate block beside it the larger nickel steel charge is preferred");
         foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", "ItmMineral02", "ItmMiningTrash", "ItmScrapSteel", Materials.RefinerySlag })
             check(RefineryRecipes.Match(new[] { outside }, true) == null, "Never a charge: " + outside);
-        check(RefineryRecipes.Available(false).Count() == 6 && RefineryRecipes.Available(true).Count() == 7, "Without Shipbreaker six recipes are available; with it seven");
+        check(RefineryRecipes.Available(false).Count() == 7 && RefineryRecipes.Available(true).Count() == 7, "Seven recipes are available with or without Shipbreaker: nickel steel replaces the plain steel charge");
 
         // Feed admission is exact.
         check(RefineryRules.ValidFeed("ItmMineral11", 10, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral01", 20, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral03", 10, true, true, true, false),
             "The three native ores enter at their unit masses");
         check(RefineryRules.ValidFeed(Materials.ClayHydrates, 10, true, true, true, false), "The clay chunk enters");
-        check(RefineryRules.ValidFeed(Materials.NickelIronIngot, 4, true, true, true, true) && !RefineryRules.ValidFeed(Materials.NickelIronIngot, 4, true, true, true, false), "Nickel-iron enters only when steel can be made");
+        check(RefineryRules.ValidFeed(Materials.NickelIronIngot, 4, true, true, true, true) && RefineryRules.ValidFeed(Materials.NickelIronIngot, 4, true, true, true, false), "Nickel-iron enters with or without Shipbreaker, for nickel steel");
         check(!RefineryRules.ValidFeed("ItmMineral11", 9.9, true, true, true, true) && !RefineryRules.ValidFeed("ItmMineral01", 20.5, true, true, true, true), "A wrong mass is refused");
         check(!RefineryRules.ValidFeed("ItmMineral11", 10, false, true, true, true) && !RefineryRules.ValidFeed("ItmMineral11", 10, true, false, true, true) && !RefineryRules.ValidFeed("ItmMineral11", 10, true, true, false, true),
             "Installed, loaded or stacked units are refused");
@@ -79,6 +84,8 @@ internal static class RefineryChecks
         check(spoiledIron.Sum(p => p.Kg * p.Count) == 20 && spoiledIron.Single(p => p.Id == Materials.RefinerySlag).Count == 17 && spoiledIron.Single(p => p.Id == "ItmMiningTrash").Count == 1, "A frozen iron melt is 17 kg of slag and its rock");
         var spoiledSteel = RefineryRecipes.SpoiledProducts(s);
         check(spoiledSteel.Sum(p => p.Kg * p.Count) == 17 && spoiledSteel.Single().Count == 17, "A frozen steel melt is 17 kg of slag");
+        var spoiledNickelSteel = RefineryRecipes.SpoiledProducts(ns);
+        check(spoiledNickelSteel.Sum(p => p.Kg * p.Count) == 17 && spoiledNickelSteel.Single().Count == 17, "A frozen nickel steel melt is 17 kg of slag");
         throws(() => RefineryRecipes.SpoiledProducts(h), "Drying cannot spoil");
 
         // Ammonium salt crust: 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl on an authored 3.000 kg of NH4Cl.
@@ -115,14 +122,14 @@ internal static class RefineryChecks
         check(RefineryRules.ValidFeed(Materials.LeachedResidue, 6.8, true, true, true, false) && RefineryRecipes.Match(new[] { Materials.LeachedResidue }, false) == cal && Materials.IsTerminal(Materials.CalcinedResidue) && !Materials.IsTerminal(Materials.LeachedResidue),
             "The leached residue enters and matches the calcine; the calcined residue is terminal");
 
-        // Refining value (owner, 30 September 2026): stock prices stay plausible beside the game's own metals, above
-        // scrap steel (3.6 cr/kg) and below the ore they come from (22.5 cr/kg); remainders are trash; the clay chunk sells like hydrates.
-        check(Materials.Ingot.Price / Materials.IngotKg > 3.6 && Materials.Ingot.Price / Materials.IngotKg < 22.5 && Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180,
-            "A nickel-iron ingot is priced between scrap steel and meteoric iron ore per kilogram; remainders are trash; the clay chunk sells like hydrates");
-        // Shipbreaker's steel ingot is $25; carburising may gain (alloying is real work) and stays within a quarter at base prices,
-        // the bound for bought stock, although nickel-iron and carbon are only ever refined from mined ore. The native checks repeat this.
-        check(4 * 25 > 4 * Materials.Ingot.Price + Materials.Carbon.Price && 4 * 25 <= 1.25 * (4 * Materials.Ingot.Price + Materials.Carbon.Price),
-            "Carburising gains value within a quarter: four steel ingots against four nickel-iron ingots and one carbon");
+        // Refining as a business (owner approval, 1 October 2026): a chain from mined ore to finished items earns 1.5 to 2.5
+        // times the ore at base prices; remainders are trash; the clay chunk sells like hydrates. The native checks repeat
+        // this at live prices with the game's own ore and gangue values.
+        check(Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180, "Remainders are trash; the clay chunk sells like hydrates");
+        double nickelSteel = Materials.ById(Materials.NickelSteelIngot)!.Price;
+        check(4 * nickelSteel > 4 * Materials.Ingot.Price + Materials.Carbon.Price && 4 * nickelSteel <= 1.5 * (4 * Materials.Ingot.Price + Materials.Carbon.Price),
+            "Carburising into nickel steel gains a little on its four ingots and carbon, as a step inside the iron chain");
+        check(4 * nickelSteel > 4 * 25 * 2, "Nickel steel is worth well over Shipbreaker's plain steel ingot, which the F6 casts from scrap");
         check(Materials.IsTerminal(Materials.RefinerySlag) && Materials.IsTerminal(Materials.AnhydrousResidue) && !Materials.IsTerminal(Materials.CarbonStock) && Materials.IsStock(Materials.NickelIronIngot), "Terminal and stock identities are distinct");
 
         // The saved record.

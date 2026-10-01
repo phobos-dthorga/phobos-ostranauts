@@ -703,3 +703,16 @@ the power steps, which only read the assembly's room. The assembly's store is
 written through the furnace service's existing settlement cadence. The panel
 reads the same check when it is shown. No performance capture or measured FPS
 claim accompanies this change.
+
+## 1 October: refining as a business (L14)
+
+L14 — Static review of Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker
+0.62.0. The kiosk buy-back runs only while the player has the Bulk supplies view
+open, enumerating sale lines and eligible stores on demand like the purchase side;
+a sale is one journalled record write. The load-time price refresh adds one set
+lookup to each object's `CondOwner.SetData` and clones a save DTO only for a
+registered material or methane ice whose saved price differs, once. The V4's
+recipe availability now builds a small set of superseded revisions per call (eight
+recipes); it runs where feed admission and charge matching already enumerated the
+catalog. No per-frame work is added. No performance capture or measured FPS claim
+accompanies this change.

@@ -6,6 +6,27 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-10-01 - Draft
+
+### Added
+
+- Phobos' Fennmark nickel steel ingots: 4 kg, 260 cr, stack ten. The V4 makes four from four nickel-iron ingots and one carbon stock, with or without Shipbreaker. This is the end of the mined iron chain, separate from Shipbreaker's plain steel ingot.
+- The station buys back from every Fennmark gas store (hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia) and from Lixivar acid tanks, at 45% of the game's own price for that gas. Look for the Sell lines under Bulk supplies at a refuelling kiosk.
+
+### Changed
+
+- Refining is now a paying business, by owner decision of 1 October 2026: a charge from mined ore earns roughly 1.5 to 2.5 times the ore at base prices. New prices: nickel-iron ingot 220 cr (was 20), carbon stock 38 (10), potassium sulfate 190 (42), phosphate concentrate 110 (12), struvite 125 (17), Epsom salt 13 (7), ammonium sulfate 20 (8), phosphoric acid flask 300 (30).
+- The V4 makes nickel steel from nickel-iron and carbon; the plain steel charge is no longer offered for new charges. Nickel-iron ingots and carbon stock now enter the V4 feed without Shipbreaker.
+- Fertiliser stays above the band by owner decision, because fertiliser is rare in the game's world. Crop nutrients in a hopper are not bought back by the station.
+
+### Save compatibility
+
+- Automatic. Ingots, carbon, salts and flasks already aboard take their new prices when the save loads. A V4 already working a plain steel charge finishes it as steel, and still needs Shipbreaker for that.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.68.0 or newer. The prices are authored balance, accepted by the owner pending gameplay testing; payback on the smaller machines is long, from 300 to 740 hours of running. The nickel steel ingot uses a recoloured ingot sprite. Offline checks are not gameplay validation.
+
 ## [0.25.0] - 2026-10-01 - Draft
 
 ### Changed

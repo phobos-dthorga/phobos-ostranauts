@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.25.0";
-    public const string MinimumFrameworkVersion = "0.63.0";
+    public const string Version = "0.26.0";
+    public const string MinimumFrameworkVersion = "0.68.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -37,6 +37,7 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.Supplies);
+        Phobos.Ostranauts.Framework.Trading.BulkSupplies.RegisterBuyback(StoreService.Buyback);
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }

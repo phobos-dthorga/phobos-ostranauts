@@ -128,5 +128,8 @@ because a new footprint or connection would move a machine already placed in
 your save. Recipes may also say how much of a commodity a machine needs on hand
 but gives back (`circulates`, such as wash water) and how much heat the reaction
 itself gives off into the room over the charge (`reactionKWh`, negative when it
-draws heat in). More packs (loot) follow as the tables move over; this page lists
+draws heat in). A recipe can also name earlier revisions of its own machine that
+it replaces (`supersedes`, a list of revision numbers): the machine then offers
+the new recipe for new charges, while a charge already bound to the old revision
+still finishes by it. Only one recipe may supersede a given revision. More packs (loot) follow as the tables move over; this page lists
 them as they land.

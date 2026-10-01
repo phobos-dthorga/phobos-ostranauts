@@ -18,6 +18,11 @@ internal static class IceSupply
         }
         else if (fields) Plugin.Log?.Invoke(Text.Get("Ice.missing_cluster", IceSupplyRules.IceCluster));
         Carve(d, IceSupplyRules.DepositTable, IceSupplyRules.DepositDonor, IceSupplyRules.WaterIce, deposits ? IceSupplyRules.DepositIceShare : 0);
+        // Refining as a business (Shipbreaker 0.62.0, owner decision of 1 October 2026): the game's methane ice is worth
+        // less than the water inside it. Its price is corrected in place (never republished), and blocks already in a
+        // save take the corrected price when it loads.
+        d.Amend(() => { if (DataHandler.dictCOs != null && DataHandler.dictCOs.TryGetValue(ThawRules.MethaneIce, out var ice)) Content.SetStat(ice, "StatBasePrice", ThawRules.MethaneIcePrice); });
+        EquipmentSaveUpgrade.FollowPrice(ThawRules.MethaneIce);
     }
 
     private static void Carve(NativeDefinitions d, string table, string donor, string choice, double share)

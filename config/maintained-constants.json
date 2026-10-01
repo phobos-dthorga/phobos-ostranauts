@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.67.0",
+      "value": "0.68.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.61.0",
+      "value": "0.62.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.25.0",
+      "value": "0.26.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -609,7 +609,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.67.0",
+      "value": "0.68.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1245,6 +1245,24 @@
         "Run Framework native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. A price change applies to new quotes only."
       ]
     },
+    "Framework.bulkBuybackShare": {
+      "type": "number",
+      "value": "0.45",
+      "min": 0.05,
+      "max": 0.95,
+      "description": "Share of its own selling price the refuelling kiosk pays for bulk it buys back from installed stores (inside the game's 0.4 to 0.5 kiosk range).",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Trading/BulkSupplies.cs",
+          "pattern": "\\bBuybackShare=(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Must stay below 1 so buying and selling back always loses; the loop audit in docs/development/refining-business-and-interdependencies.md assumes 0.45.",
+        "Run Framework core checks and review docs/equipment-economy.md."
+      ]
+    },
     "Framework.tankSalvageChance": {
       "type": "number",
       "value": "0.03333",
@@ -1345,6 +1363,25 @@
         "Run Shipbreaker core and native checks (value audit: an ingot must stay worth more than its four scraps) and regenerate item references."
       ]
     },
+    "Shipbreaker.methaneIcePrice": {
+      "type": "number",
+      "value": "100",
+      "min": 1,
+      "max": 100000,
+      "description": "Base price the game's methane ice (ItmIce02) is corrected to in place; thawing a block earns about 2 x the block.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
+          "pattern": "\\bMethaneIcePrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "A native definition amended in place, never republished; saved blocks follow the price on load (Framework EquipmentSaveUpgrade.FollowPrice).",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices.",
+        "Run Shipbreaker core and native checks (SiloChecks, SiloNativeChecks) and regenerate item references."
+      ]
+    },
     "Shipbreaker.stackIngots": {
       "type": "integer",
       "min": 1,
@@ -1391,7 +1428,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.63.0",
+      "value": "0.68.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1585,10 +1622,10 @@
     },
     "Manufacturing.nickelIronIngotPrice": {
       "type": "number",
-      "value": "20",
+      "value": "220",
       "min": 0.01,
-      "max": 89,
-      "description": "Authored base price of one 4 kg nickel-iron ingot.",
+      "max": 1000,
+      "description": "Authored base price of one 4 kg nickel-iron ingot (the meteoric iron charge earns about 2 x its ore).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -1596,17 +1633,16 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices; stock is priced between scrap steel (3.6 cr/kg) and the ore it comes from (22.5 cr/kg). The native and pure checks prove these at live prices.",
-        "Run scripts/build-manufacturing.ps1 and regenerate item references. Existing ingots keep their identity; prices are definition values."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.carbonStockPrice": {
       "type": "number",
-      "value": "10",
+      "value": "38",
       "min": 0.01,
-      "max": 40,
-      "description": "Authored base price of one 1 kg carbon stock.",
+      "max": 1000,
+      "description": "Authored base price of one 1 kg carbon stock (the carbon ore charge earns about 2 x its ore).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -1614,9 +1650,26 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices; stock is priced between scrap steel (3.6 cr/kg) and the ore it comes from (22.5 cr/kg). The native and pure checks prove these at live prices.",
-        "Run scripts/build-manufacturing.ps1 and regenerate item references."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
+      ]
+    },
+    "Manufacturing.nickelSteelIngotPrice": {
+      "type": "number",
+      "value": "260",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 4 kg nickel steel ingot, the mined iron chain's own end product (about 2.2 x the iron and carbon ores).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosNickelSteelIngot/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices.",
+        "Keep it separate from Shipbreaker's plain steel ingot, which the F6 casts from bought scrap."
       ]
     },
     "Manufacturing.machinerySalvageChance": {
@@ -2077,10 +2130,10 @@
     },
     "Manufacturing.potassiumSulfatePrice": {
       "type": "number",
-      "value": "42",
+      "value": "190",
       "min": 0.01,
       "max": 1000,
-      "description": "Authored base price of one 0.70 kg potassium sulfate unit (60 cr/kg).",
+      "description": "Authored base price of one 0.70 kg potassium sulfate unit (with the concentrate, the evaporite charge earns about 2 x its crust).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -2088,16 +2141,16 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.struvitePrice": {
       "type": "number",
-      "value": "17",
+      "value": "125",
       "min": 0.01,
       "max": 1000,
-      "description": "Authored base price of one 0.43 kg struvite unit (about 40 cr/kg).",
+      "description": "Authored base price of one 0.43 kg struvite unit (a small gain on its phosphate concentrate).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -2105,16 +2158,16 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.epsomSaltPrice": {
       "type": "number",
-      "value": "7",
+      "value": "13",
       "min": 0.01,
       "max": 1000,
-      "description": "Authored base price of one 0.432 kg Epsom salt unit (about 16 cr/kg); the olivine charge and the acid-route struvite must stay inside the refining guardrails.",
+      "description": "Authored base price of one 0.432 kg Epsom salt unit (the olivine charge earns about 2.3 x its ore).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -2122,16 +2175,16 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.ammoniumSulfatePrice": {
       "type": "number",
-      "value": "8",
+      "value": "20",
       "min": 0.01,
       "max": 1000,
-      "description": "Authored base price of one 0.232 kg ammonium sulfate unit (about 35 cr/kg), set so the acid-route struvite stays within half again its inputs.",
+      "description": "Authored base price of one 0.232 kg ammonium sulfate unit (keeps the acid-route struvite step at about 1.3 x its inputs).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -2139,16 +2192,16 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup and crop nutrient formulations are the owner's exception (30 September 2026): they carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.phosphateConcentratePrice": {
       "type": "number",
-      "value": "12",
+      "value": "110",
       "min": 0.01,
       "max": 1000,
-      "description": "Authored base price of one 0.25 kg phosphate concentrate unit, set so struvite precipitation stays within half again its inputs.",
+      "description": "Authored base price of one 0.25 kg phosphate concentrate unit (phosphorus is the scarce crop nutrient).",
       "targets": [
         {
           "path": "mods/PhobosManufacturing/framework/materials.json",
@@ -2156,8 +2209,25 @@
         }
       ],
       "review": [
-        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
-        "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
+      ]
+    },
+    "Manufacturing.phosphoricAcidFlaskPrice": {
+      "type": "number",
+      "value": "300",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 0.515 kg phosphoric acid flask (carries the sulfide nodule chain).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosPhosphoricAcidFlask/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices."
       ]
     },
     "Manufacturing.acidPlantPrice": {

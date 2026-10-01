@@ -58,6 +58,10 @@ public sealed class RecipeEntry
     /// <summary>Heat the reaction itself releases into the room over the charge, in kWh (negative when it absorbs
     /// heat from the machine's own electricity). Absent means none is modelled.</summary>
     public double? reactionKWh;
+    /// <summary>Earlier revisions of the same machine this recipe replaces for new charges (Framework 0.68.0). A frozen
+    /// revision can never change or disappear, so a replacement names it here instead; jobs already bound to the old
+    /// revision still settle by it. Absent means none.</summary>
+    public List<int> supersedes = new();
     public double InputKg => inputs.Sum(i => i.count * i.kg);
     public double ProductKg => products.Sum(p => p.count * p.kg);
     public double OffGasKg => offGas.Values.Sum();
@@ -86,6 +90,9 @@ public static class RecipeSchema
         if (pack == null) throw new ArgumentNullException(nameof(pack));
         if (context == null) throw new ArgumentNullException(nameof(context));
         if (pack.recipes.Count == 0) throw new ArgumentException(Text.Get("RecipeSchema.empty"));
+        // One replacement per revision: two recipes superseding the same one would leave the choice ambiguous.
+        foreach (var twice in pack.recipes.SelectMany(p => p.Value.supersedes.Select(e => p.Value.machine + "@" + e)).GroupBy(k => k, StringComparer.Ordinal).Where(g => g.Count() > 1))
+            throw new ArgumentException(Text.Get("RecipeSchema.supersedes_twice", twice.Key));
         var revisions = new HashSet<string>(StringComparer.Ordinal);
         foreach (var pair in pack.recipes)
         {
@@ -117,6 +124,8 @@ public static class RecipeSchema
             if (Math.Abs(inKg - outKg) > context.MassToleranceKg) throw new ArgumentException(Text.Get("RecipeSchema.mass", id, inKg, outKg));
             foreach (var (label, value) in new[] { ("seconds", r.seconds), ("legacySeconds", r.legacySeconds) })
                 if (value is double s && (!Finite(s) || s < ProcessJob.MinSeconds || s > ProcessJob.MaxSeconds)) throw new ArgumentException(Text.Get("RecipeSchema.seconds", id, label, ProcessJob.MinSeconds, ProcessJob.MaxSeconds));
+            foreach (int earlier in r.supersedes)
+                if (earlier < 1 || earlier >= r.revision || !pack.recipes.Values.Any(o => o.machine == r.machine && o.revision == earlier)) throw new ArgumentException(Text.Get("RecipeSchema.supersedes", id, earlier));
             foreach (string requirement in r.requires)
                 if (string.IsNullOrWhiteSpace(requirement) || (context.Requirements != null && !context.Requirements.Contains(requirement))) throw new ArgumentException(Text.Get("RecipeSchema.requirement", id, requirement));
             if (r.thermal is ThermalEntry t)

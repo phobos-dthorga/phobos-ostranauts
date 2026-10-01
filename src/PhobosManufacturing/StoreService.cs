@@ -27,13 +27,19 @@ internal static class StoreService
     internal static void Reset() => sessions = new();
     /// <summary>Station Bulk supplies: oxygen, nitrogen and carbon dioxide into any size of their stores, and (Manufacturing
     /// 0.19.0) sulfuric acid into any size of acid tank, at the game's own price per kilogram (its GasPrices table, as
-    /// the refuelling kiosk charges; the game prices H2SO4 there). Nothing sells back.</summary>
+    /// the refuelling kiosk charges; the game prices H2SO4 there).</summary>
     internal const double GasPurchaseStepKg = 10;
-    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ? GasOffers() :
+    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ?
+        GasOffers(new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily }) :
         Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
-    private static IEnumerable<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer Offer, IReadOnlyList<string> Families)> GasOffers()
+    /// <summary>The kiosk buys back from every gas store, hydrogen, methane and ammonia included, and from the acid tanks,
+    /// at the Framework share of the game's own price for that gas (Manufacturing 0.26.0; owner decision, 1 October
+    /// 2026). A store's reserve is never sold.</summary>
+    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselBuybackProvider Buyback = new(Plugin.Id, () => Content.Ready ? GasOffers(GasStores.Families) :
+        Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
+    private static IEnumerable<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer Offer, IReadOnlyList<string> Families)> GasOffers(IEnumerable<GasFamily> gases)
     {
-        foreach (var family in new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily })
+        foreach (var family in gases)
         {
             double price = NativeGasVessel.PricePerKg(family.Species);
             if (!(price > 0)) continue;

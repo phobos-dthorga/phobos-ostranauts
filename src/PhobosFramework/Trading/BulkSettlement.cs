@@ -25,6 +25,15 @@ public interface IBulkSettlementTarget
     double Deliver(BulkPurchaseQuote quote);
     void RecordPaid(BulkPurchaseQuote quote,double delivered,double paid);
 }
+/// <summary>The other side of a station sale (Framework 0.68.0): the quote's destination is the store that gives.</summary>
+public interface IBulkSaleTarget
+{
+    bool Validate(BulkPurchaseQuote quote,out string reason);
+    // Return measured withdrawn units. Throw for unknown custody; never infer from a wallet delta.
+    double Withdraw(BulkPurchaseQuote quote);
+    void Credit(double amount);
+    void RecordPaid(BulkPurchaseQuote quote,double sold,double paid);
+}
 public readonly struct BulkPurchaseReceipt
 {
     public readonly bool Success,Protected;
@@ -67,6 +76,36 @@ public static class BulkSettlement
         catch{return new(false,true,delivered,paid,"protected");}
         finally{CommodityReservations.Release(q.Operation);}
         void Write(string state){evidence["state"]=state;if(!journal.TryWrite(evidence))throw new InvalidOperationException("Protected purchase journal");}
+    }
+    /// <summary>Independent measured sale back to the station: the withdrawal is measured first, then exactly that much
+    /// is paid at the quoted price. The same journal states and the same protection as a purchase; a sale that
+    /// withdrew nothing completes and pays nothing.</summary>
+    public static BulkPurchaseReceipt Sell(BulkPurchaseQuote q,IBulkSaleTarget target,ObjectStateStore journal)
+    {
+        if(Protected(journal))return new(false,true,0,0,"protected");
+        journal.Read(out var previous);
+        if(previous.TryGetValue("operation",out var prior)&&prior==q.Operation)return new(false,false,0,0,"already_settled");
+        if(!target.Validate(q,out var reason))return new(false,false,0,0,reason);
+        if(!CommodityReservations.TryAcquire(q.Operation,q.Actor,q.Destination))return new(false,false,0,0,"reserved");
+        var evidence=new Dictionary<string,string>{["state"]="pending",["operation"]=q.Operation,["actor"]=q.Actor,["station"]=q.Station,["ship"]=q.Ship,["source"]=q.Destination,["offer"]=q.Offer,["revision"]=q.Revision,["quantity"]=N(q.Quantity),["price"]=N(q.UnitPrice)};
+        double sold=0,paid=0;
+        try
+        {
+            if(!target.Validate(q,out reason))return new(false,false,0,0,reason);
+            Write("pending");
+            sold=target.Withdraw(q);
+            if(!BulkPurchaseQuote.Finite(sold)||sold<0||sold>q.Quantity+1e-8)throw new InvalidOperationException("Unknown sale receipt");
+            evidence["withdrawn"]=N(sold);Write("withdrawn");
+            paid=sold*q.UnitPrice;
+            if(paid>0)target.Credit(paid);
+            evidence["paid"]=N(paid);Write("credited");
+            if(paid>0)target.RecordPaid(q,sold,paid);
+            Write("complete");
+            return sold<=0?new(false,false,0,0,"nothing_to_sell"):new(true,false,sold,paid,sold<q.Quantity?"sold_partial":"sold");
+        }
+        catch{return new(false,true,sold,paid,"protected");}
+        finally{CommodityReservations.Release(q.Operation);}
+        void Write(string state){evidence["state"]=state;if(!journal.TryWrite(evidence))throw new InvalidOperationException("Protected sale journal");}
     }
     private static string N(double x)=>x.ToString("R",CultureInfo.InvariantCulture);
 }

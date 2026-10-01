@@ -248,7 +248,7 @@ def process_recipes(pack, where):
         w = f'{where}/recipes/{key}'
         if not key or any(not (c.isalnum() or c == '-') for c in key):
             raise Problem(f'{w}: ids are letters, digits and hyphens')
-        fields(r, {'notes', 'machine', 'revision', 'inputs', 'products', 'offGas', 'seconds', 'legacySeconds', 'melt', 'requires', 'thermal', 'circulates', 'reactionKWh'}, w)
+        fields(r, {'notes', 'machine', 'revision', 'inputs', 'products', 'offGas', 'seconds', 'legacySeconds', 'melt', 'requires', 'thermal', 'circulates', 'reactionKWh', 'supersedes'}, w)
         for commodity, kg in r.get('circulates', {}).items():
             if not commodity:
                 raise Problem(f'{w}/circulates: commodity needed')
@@ -289,6 +289,19 @@ def process_recipes(pack, where):
                 number(thermal.get(name), f'{w}/thermal/{name}', 0, None, exclusive_low=True)
             if thermal['targetK'] <= thermal['meltK']:
                 raise Problem(f'{w}/thermal: targetK must be above meltK')
+    # Supersession (Framework 0.68.0): an earlier revision of the same machine, replaced by one recipe only.
+    replaced = set()
+    for key, r in recipes.items():
+        w = f'{where}/recipes/{key}'
+        earlier = r.get('supersedes', [])
+        if not isinstance(earlier, list):
+            raise Problem(f'{w}/supersedes: expected a list of revisions')
+        for e in earlier:
+            if not isinstance(e, int) or isinstance(e, bool) or e < 1 or e >= r['revision'] or (r['machine'], e) not in seen:
+                raise Problem(f'{w}/supersedes: {e!r} is not an earlier revision of {r["machine"]}')
+            if (r['machine'], e) in replaced:
+                raise Problem(f'{w}/supersedes: {r["machine"]} revision {e} is already superseded')
+            replaced.add((r['machine'], e))
 
 
 def materials(pack, where):

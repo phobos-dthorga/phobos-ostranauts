@@ -39,8 +39,10 @@ internal static class SiloChecks
         check(!clathrate.Products.Any(p => ThawRules.IsFeed(p.Id)) && ThawRules.RecipesFor("ItmIce02") == ThawRules.MethaneRecipes && ThawRules.RecipesFor("ItmIce01") == ThawRules.Recipes &&
             ThawRules.CycleSecondsFor("ItmIce02") == 3000 && ThawRules.CycleSecondsFor("ItmIce01") == ThawRules.CycleSeconds, "Each feed identity reads its own recipe catalog and cycle");
         check(ThawRules.MethaneOutPort != ThawRules.OutPort && ThawRules.MethaneInPort != ThawRules.VesselPort, "Methane has its own port pair, apart from water's");
-        // Refining value (30 September 2026): the game's 20 cr block yields water and methane worth more at station prices; nothing sells them back.
-        check(ThawRules.ClathrateWaterKg * Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg + ThawRules.MethaneKg * 2.2 > 20, "Thawing methane ice gains water and methane aboard against the game's own 20 cr block");
+        // Refining as a business (1 October 2026): the re-priced 100 cr block yields water and methane worth about twice it,
+        // at the station water price and the game's 2.2 cr/kg methane (the native checks use the live price).
+        double thawed = ThawRules.ClathrateWaterKg * Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg + ThawRules.MethaneKg * 2.2;
+        check(thawed >= 1.5 * ThawRules.MethaneIcePrice && thawed <= 2.5 * ThawRules.MethaneIcePrice, "Thawing a methane ice block earns 1.5 to 2.5 times the re-priced block");
         check(!ThawRules.ValidIce("ItmIceTrash01", 2, true, true, true), "Ice gangue is not feed");
         check(!ThawRules.ValidIce("ItmIce01", 24, true, true, true) && !ThawRules.ValidIce("ItmIce01", 24.7, false, true, true) &&
             !ThawRules.ValidIce("ItmIce01", 24.7, true, false, true) && !ThawRules.ValidIce("ItmIce01", 24.7, true, true, false), "Wrong mass, installed, loaded or stacked blocks are refused");

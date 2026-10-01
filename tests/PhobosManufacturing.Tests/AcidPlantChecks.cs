@@ -29,8 +29,8 @@ internal static class AcidPlantChecks
             "The SA-3 draws 4 kWh a charge over its one-hour roast");
         check(Materials.ById(Materials.SulfideNodule)!.Mined && Materials.IsTerminal(Materials.RoastedCalcine) && !Materials.IsTerminal(Materials.PhosphoricAcidFlask),
             "The nodule is mined, the calcine terminal, the flask feed");
-        check(Materials.ById(Materials.PhosphoricAcidFlask)!.Price + Materials.ById(Materials.RoastedCalcine)!.Price <= 1.5 * Materials.ById(Materials.SulfideNodule)!.Price,
-            "The roast's sellable products stay within half again the nodule, before the oxygen and water");
+        double roast = Materials.ById(Materials.PhosphoricAcidFlask)!.Price + Materials.ById(Materials.RoastedCalcine)!.Price, nodule = Materials.ById(Materials.SulfideNodule)!.Price;
+        check(roast >= 1.5 * nodule && roast <= 2.5 * nodule, "The roast's flask alone earns 1.5 to 2.5 times the nodule (refining as a business, 1 October 2026), before the acid and the reagents");
         check(ChargeCommodities.Is(LiquidStores.SulfuricAcid) && LiquidStores.FamilyOf(LiquidStores.SulfuricAcid) == LiquidStores.AcidFamily && GasStores.FamilyOf(LiquidStores.SulfuricAcid) == null,
             "Sulfuric acid is a charge commodity in a liquid store, never a gas store");
         check(LiquidStores.All.Count == 3 && LiquidStores.All.All(s => s.Spec.DamagePolicy == Phobos.Ostranauts.Framework.Liquids.VesselDamagePolicy.Isolate) &&

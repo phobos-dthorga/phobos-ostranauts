@@ -37,7 +37,8 @@ charge keeps its captured products through later balance changes.
 | Carbon extraction (3), 1,800 s | 1 x carbon/carbides block, 10 kg (`ItmMineral03`) | 5 x carbon stock, 1 kg (`PhobosCarbonStock`, new); 1 kg water; 1 x gangue; 1.0 kg off-gas into the room: 0.6 kg CO2, 0.3 kg CO, 0.1 kg smoke | The game's own text calls the item carbon or carbides, "often hydrated". Authored 50% carbon, 10% water, 30% silicate, 10% pyrolysis gas. The gas split is authored (incomplete combustion of volatiles); the game's molar masses convert kg to moles |
 | Nickel-iron casting (4), 2,400 s | 1 x meteoric iron block, 20 kg (`ItmMineral01`) | 4 x nickel-iron ingot, 4 kg (`PhobosNickelIronIngot`, new); 1 x gangue; 1 x refinery slag, 1 kg (`PhobosRefinerySlag`, new terminal) | Iron meteorites are Fe-Ni metal (kamacite and taenite, roughly 5 to 10% Ni, with cobalt) carrying troilite, schreibersite and oxide inclusions and adhering rock (Buchwald 1975); the game calls the item "iron-nickel alloy" with iron oxide. Authored 80% metal, 15% rock, 5% slag. The ingot is nickel-iron, not steel |
 | Ammonium salt crust (6), 900 s, Manufacturing 0.9.0 | 1 x ammonium salt crust, 10 kg (`PhobosAmmoniumSaltCrust`, new) | 0.955 kg ammonia to a linked ammonia store; 0.505 kg water; 1.235 kg CO2 into the room; 1 x spent salt cake, 7.305 kg (`PhobosSpentSaltCake`, new terminal) | 2 NH4Cl + Na2CO3 -> 2 NH3 + CO2 + H2O + 2 NaCl. See [the salt crust](#the-ammonium-salt-crust-090) below |
-| Carburised steel (5), 2,000 s, Shipbreaker present | 4 x nickel-iron ingot (16 kg) + 1 x carbon stock (1 kg) | 4 x Rivetline steel ingot, 4 kg (`PhobosSteelIngot`); 1 x steel melt remainder, 1 kg (`PhobosSteelMeltRemainder`) | Steel is iron with 0.02 to about 2 wt% carbon (ASM Handbook Vol. 1); 16 kg of melt absorbs 0.03 to 0.3 kg. The remainder holds the unreacted carbon and skimmed oxide. The product is nickel steel, labelled as Shipbreaker's steel ingot so one identity serves both providers |
+| Carburised steel (5), 2,000 s, Shipbreaker present | 4 x nickel-iron ingot (16 kg) + 1 x carbon stock (1 kg) | 4 x Rivetline steel ingot, 4 kg (`PhobosSteelIngot`); 1 x steel melt remainder, 1 kg (`PhobosSteelMeltRemainder`) | Steel is iron with 0.02 to about 2 wt% carbon (ASM Handbook Vol. 1); 16 kg of melt absorbs 0.03 to 0.3 kg. The remainder holds the unreacted carbon and skimmed oxide. The product is nickel steel, labelled as Shipbreaker's steel ingot so one identity serves both providers. Superseded by revision 8 for new charges since 0.26.0; a bound charge still settles as steel |
+| Nickel steel (8), 2,000 s, Manufacturing 0.26.0 | 4 x nickel-iron ingot (16 kg) + 1 x carbon stock (1 kg) | 4 x nickel steel ingot, 4 kg (`PhobosNickelSteelIngot`, new); 1 x refinery slag, 1 kg | The same melt and chemistry as revision 5, ending in Manufacturing's own product (owner decision, 1 October 2026: the mined iron chain ends in its own product, so the scrap-cast steel ingot keeps its price). Our rounding: the carbon the steel picks up and the iron lost to the dross are taken as equal, so the ingots keep 16 kg. Supersedes revision 5; needs no other mod |
 
 Energies: 24 kW for the durations above gives 4, 6, 12, 16 and 13.3 kWh. The
 casting minimum is sensible plus latent heat for 20 kg of iron (about 0.45 kJ/kg
@@ -47,16 +48,34 @@ against 2.26 MJ/kg for water evaporation (NIST, below) plus heating the rock.
 Fifteen percent of the working power warms the room under the same 10 kPa /
 40 C bounds as Shipbreaker's R4 (`RoomHeat`, Framework 0.41.0).
 
-**Refining value (review of 30 September 2026).** The rule that every charge must
-lose value is retired (owner direction; AGENTS.md "Refining value"). What replaces
-it, as an agent proposal the owner may revise, is checked at live prices by the
+**Refining as a business (owner approval, 1 October 2026; Manufacturing 0.26.0).**
+The rules in force are in [the design record](refining-business-and-interdependencies.md#the-rules-now-in-force)
+and are checked at live prices by the native and pure suites: a charge fed by mined
+ore that yields a finished item earns 1.5 to 2.5 times the ore at base prices,
+products valued as the station values them (items at their price, water at 10
+cr/kg, stored gases and acid at the game's gas price, which the kiosk now buys
+back at 45%); a step inside a chain neither loses nor gains more than half again;
+supply charges (hydrates, clay, the salt crust) make no profit claim; fertiliser
+formulations carry Agriculture's price; a charge fed only from bought stock earns
+at most a quarter more. At 0.26.0 prices: 450 cr of meteoric iron becomes 880 cr
+of ingots, 2 cr of gangue and a slag (1.96 times); 99 cr of carbides becomes 190 cr
+of carbon, 10 cr of water and 2 cr of gangue (2.04); four nickel-iron ingots and
+a carbon (918 cr) become 1,040 cr of nickel steel (1.13, a step); the evaporite
+crust 2.00, olivine 2.31 and the sulfide nodule 2.16 times their ore.
+
+The 30 September review below is history, kept for its reasoning: it set
+guardrails of half again the inputs and stock priced below its ore, which the
+owner's decision of 1 October supersedes.
+
+**Refining value (review of 30 September 2026, superseded).** The rule that every charge must
+lose value is retired (owner direction; AGENTS.md "Refining value"). What replaced
+it then, as an agent proposal, was checked at live prices by the
 native and pure suites: the sellable products of a charge stay within one and a
-half times its inputs (a gain reflects real work, never a windfall); a charge fed
-only from bought stock gains at most a quarter at base prices, well inside the
-game's buy/sell spread, so no repeatable trade loop pays; commodity records
+half times its inputs; a charge fed
+only from bought stock gains at most a quarter at base prices; commodity records
 (water, stored gases) are valued at the station price for information only, since
-nothing sells them back; and stock stays plausible beside the game's own metals,
-between scrap steel (3.6 cr/kg) and the ore it comes from (22.5 cr/kg).
+nothing sold them back then; and stock stays between scrap steel (3.6 cr/kg) and
+the ore it comes from (22.5 cr/kg).
 
 At 0.15.0 prices with water at the station's 10 cr/kg bulk price: 450 cr of
 meteoric iron becomes 80 cr of ingots and 2 cr of gangue (the game prices ore far
@@ -69,11 +88,11 @@ eleven percent gain for a 250 kW melt; 150 cr of salt crust becomes 3.25 cr of a
 game's own 3.40 cr/kg), 5.05 cr of water and a 0.01 cr cake, for the nitrogen,
 not the money.
 
-Stock is ordinary-priced raw material (owner correction, 29 September 2026:
-only the machinery is late-game priced). The nickel-iron ingot returns to the
+Stock was ordinary-priced raw material (owner correction, 29 September 2026:
+only the machinery is late-game priced). The nickel-iron ingot returned to the
 0.1.0 price of 20 cr (5 cr/kg) in 0.15.0; 0.1.1 had raised it to 24 cr only so
-the steel charge would lose value under the retired rule. Carbon stays at
-10 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
+the steel charge would lose value under the retired rule. Carbon stayed at
+10 cr. Since 0.26.0 they are 220 and 38 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
 
 ## The ammonium salt crust (0.9.0)
 

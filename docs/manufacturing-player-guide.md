@@ -3,8 +3,8 @@
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
 gameplay checks are pending, including how the artwork looks in play.
-Shipbreaker 0.38.0 or newer is optional: it adds the steel charge and its S3
-water silo. Phobos Agriculture is optional too: with it, the leach unit can make
+Shipbreaker is optional; a V4 that was already working a plain steel charge
+needs it to finish that charge. Phobos Agriculture is optional too: with it, the leach unit can make
 Groundwork makeup salts and, with a nutrient hopper, complete crop nutrients.
 
 ## Equipment
@@ -56,8 +56,9 @@ one. To see a table as the game rolls it now, open the console (F3) and type
 Stations also sell sulfuric acid into an acid tank through **Bulk supplies**, at
 the game's own 3.1 cr/kg. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
-installed store of that gas, at the kiosk's own price per kilogram. Nothing
-sells back. No station sells ammonia: the salt crust is its only source.
+installed store of that gas, at the kiosk's own price per kilogram. No station
+sells ammonia, hydrogen or methane: you make them. See
+[Selling what you make](#selling-what-you-make) for what the station buys back.
 
 ## What the refinery makes
 
@@ -71,14 +72,14 @@ what went in, sorted.
 | 1 ammonium salt crust (10 kg, mined; new) | 0.955 kg of ammonia into the linked ammonia store; 0.505 kg of water; 1 spent salt cake (7.305 kg); **1.235 kg of carbon dioxide breathed into the room** | 15 min |
 | 1 carbon/carbides block (10 kg, mined) | 5 carbon stock (1 kg each); 1 kg of water; 1 gangue; **1 kg of pyrolysis gas breathed into the room** (CO2, CO and smoke) | 30 min |
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
-| 4 nickel-iron ingots + 1 carbon stock (Shipbreaker only) | 4 Rivetline steel ingots (4 kg each); 1 steel melt remainder (1 kg) | 33 min |
+| 4 nickel-iron ingots + 1 carbon stock | 4 Fennmark nickel steel ingots (4 kg each); 1 refinery slag (1 kg) | 33 min |
 | 1 leached residue (6.8 kg, from the LC-3; new) | 0.26 kg of carbon dioxide into the linked carbon dioxide store; 1 calcined residue (6.54 kg) | 7.5 min |
 
 Every charge sorts into up to five places: solids to the tray, water to the
 linked vessel, ammonia to the linked ammonia store, the leached residue's carbon
 dioxide to the linked carbon dioxide store and, for carbon ore and the salt crust,
 gas into the room. Ammonia and the residue's carbon dioxide are never let into the
-room on purpose. Tray products can go back in as the steel charge. An L2 filling
+room on purpose. Tray products can go back in as the nickel steel charge. An L2 filling
 station can bottle the stored carbon dioxide into a CO2 canister for the K2.
 
 ```mermaid
@@ -90,15 +91,48 @@ flowchart LR
     V4 -->|leached residue only, 0.26 kg carbon dioxide| C2["Linked C2, C3 or C4 carbon dioxide store"]
     V4 -->|carbon ore and salt crust: pyrolysis gas or CO2| Room["Room air"]
     Store -->|through a P1, if you switch it on| RCS["RCS thrusters"]
-    Tray -->|4 nickel-iron ingots and 1 carbon stock, with Shipbreaker| Feed
+    Tray -->|4 nickel-iron ingots and 1 carbon stock, for nickel steel| Feed
 ```
 
-Refining iron loses money against selling the ore whole (four ingots are worth
-80 cr; the iron block 450 cr). Carburising gains a little: four steel ingots are
-worth 100 cr, the four nickel-iron ingots and carbon that make them 90 cr.
-Only the machines are late-game priced; ingots, carbon, ore and remainders keep
-ordinary raw-material prices.
-What you gain is material aboard, away from stations.
+Refining pays. Four nickel-iron ingots are worth 880 cr against 450 cr for the
+iron block; five carbon stock and their water 200 cr against 99 cr for the
+carbon ore. Carburising adds a little more: four nickel steel ingots are worth
+1,040 cr, the four nickel-iron ingots and carbon that make them 918 cr. Nickel
+steel is not Shipbreaker's plain steel ingot, which the F6 casts from scrap.
+Hydrates, clay and the salt crust are worth more as ore than as water and gas;
+you refine those for what the ship needs.
+
+## Selling what you make
+
+Refining is a business (owner decision, 1 October 2026): what you refine from
+mined ore sells for roughly 1.5 to 2.5 times the ore it came from.
+
+- **Items** (ingots, carbon, salts, flasks) sell at any general buyer like other
+  goods. Ingots, carbon, salts and flasks already aboard took the new prices when
+  your save loaded.
+- **Bulk** sells at a refuelling kiosk. Open **Bulk supplies**; below the supplies
+  are **Sell** lines for every gas store (hydrogen, methane, oxygen, nitrogen,
+  carbon dioxide, ammonia), the acid tanks and Framework's water silos. Choose the
+  store and a quantity; the station pays 45% of its own price for that gas, and
+  only for what actually leaves the store. A store's reserve is never sold.
+- Buying bulk and selling it straight back always loses more than half.
+- Crop nutrients in a hopper are not bought back; bag them into bulk charges.
+
+| Product | Price |
+| --- | --- |
+| Nickel-iron ingot (4 kg) | 220 cr |
+| Nickel steel ingot (4 kg) | 260 cr |
+| Carbon stock (1 kg) | 38 cr |
+| Potassium sulfate (0.7 kg) | 190 cr |
+| Phosphate concentrate (0.25 kg) | 110 cr |
+| Struvite (0.43 kg) | 125 cr |
+| Epsom salt (0.432 kg) | 13 cr |
+| Ammonium sulfate (0.232 kg) | 20 cr |
+| Phosphoric acid flask (0.515 kg) | 300 cr |
+
+The machines are expensive, so they pay for themselves slowly: hundreds of hours
+of running for the LC-3 and SA-3. These prices are authored balance, to be
+judged in play.
 
 ## Linking machines and stores
 
@@ -156,7 +190,7 @@ exception is the station refuelling kiosk's Bulk supplies view.
 3. Right-click the V4 and choose **Inventory**. The tray opens, and the
    **Refinery charge** feed opens as its own window. Put one ore block, clay
    chunk, salt crust or leached residue in it (right-click a stack to place one), or four nickel-iron ingots
-   and one carbon stock. It holds six units and refuses ice, regolith, gangue,
+   and one carbon stock for nickel steel. It holds six units and refuses ice, regolith, gangue,
    scrap and anything stacked, with the reason.
 4. On the panel choose **Start**. The refinery binds the exact charge in the
    feed, works for the time above, then puts the solids in its tray and the
@@ -350,12 +384,12 @@ the vessel and the ammonia store hold what it takes; the acid recipes wait for
 the acid, and crop nutrients wait until the hopper has room. The panel gives the
 reason. A charge that needs no vessel (the makeup formulation) runs without one.
 
-Leaching a crust earns less than selling it (the salts are worth about 54 cr, the
-crust 150 cr); you leach it for what the ship can use. Olivine is much the same:
-32 Epsom salt are worth 224 cr, against 180 cr for the ore and about 120 cr of
-acid and water. Makeup
+Leaching pays: a crust's potassium sulfate and phosphate are worth 300 cr
+against 150 cr for the crust, and 32 Epsom salt 416 cr against 180 cr for the
+olivine and about 120 cr of acid and water. Makeup
 salts made aboard are worth Agriculture's own 30 cr a packet, and crop nutrients
-Agriculture's 1,500 cr/kg; bag a hopper's nutrients into bulk charges to sell them. Sodium harms crops, so the
+Agriculture's 1,500 cr/kg, well above any other product because fertiliser is
+rare out here; bag a hopper's nutrients into bulk charges to sell them. Sodium harms crops, so the
 sodium salts leave as the brine salt cake, and nothing recovers it or the other
 remainders.
 
@@ -541,9 +575,9 @@ to space.
 The V4, X2, K2, AX-2 and L2 pause after every reload and keep their bound charge,
 holds, links and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
 products it has made; it delivers waiting products first and starts a new cycle
-only once they have gone to their vessels. A bound steel charge on a ship whose
-Shipbreaker has been removed is kept and reported, never overwritten; Cancel
-releases it.
+only once they have gone to their vessels. A plain steel charge bound before
+Manufacturing 0.26.0 finishes as steel; on a ship whose Shipbreaker has been
+removed it is kept and reported, never overwritten, and Cancel releases it.
 
 ## Dangers
 
@@ -644,12 +678,13 @@ releases it.
 Buy and install a V4, X2 and H2 store, link an S3 within one tile; mine a dark
 (C-class) deposit and confirm a clay chunk appears about one pull in eleven; run each charge and read
 the products and vessel levels; carburise four nickel-iron ingots with one
-carbon; start the X2 with an installed O2 canister adjacent and watch its
+carbon into nickel steel, with and without Shipbreaker; sell a store's contents back at
+a refuelling kiosk and check the 45% payment and the ledger; start the X2 with an installed O2 canister adjacent and watch its
 pressure and the hydrogen store rise; vent hydrogen; save and reload mid-cycle
 and confirm the pause until Start with progress kept; fill the canister and
 the store and confirm the waits; heat wait in a small room; C1 listing with
-Shipbreaker; a copy without Shipbreaker keeps a saved steel charge and refuses
-a new one. Hazards: roast carbon in a sealed room without scrubbers and watch
+Shipbreaker; a save with a plain steel charge already bound finishes it as steel,
+and saved ingots and salts show their new prices. Hazards: roast carbon in a sealed room without scrubbers and watch
 the alarms, then with scrubbers; run the X2 without a canister and watch cabin
 oxygen; damage the store once with a fire in the room and once without
 (deflagration against leak; repair stops the leak); interrupt a casting charge

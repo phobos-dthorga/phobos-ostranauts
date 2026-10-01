@@ -146,6 +146,14 @@ internal static class DataPackChecks
         BadRecipe(p => p.recipes["bake"].circulates["ItmOre"] = 1, "Only a commodity can circulate");
         BadRecipe(p => p.recipes["bake"].circulates["water"] = 0, "A circulating volume is above zero");
         BadRecipe(p => p.recipes["bake"].reactionKWh = 5000, "Reaction heat is bounded");
+        // Supersession (Framework 0.68.0): a later revision may replace an earlier one of the same machine, once.
+        RecipePack Replaced() { var pack = Recipes(); var later = Recipes().recipes["bake"]; later.revision = 2; later.supersedes.Add(1); pack.recipes["bake2"] = later; return pack; }
+        RecipeSchema.Validate(Replaced(), recipeContext); check(true, "A later revision may supersede an earlier one of its machine");
+        void BadReplacement(Action<RecipePack> mutate, string message) { var pack = Replaced(); mutate(pack); throws(() => RecipeSchema.Validate(pack, recipeContext), message); }
+        BadReplacement(p => p.recipes["bake2"].supersedes[0] = 2, "A recipe cannot supersede itself");
+        BadReplacement(p => p.recipes["bake2"].supersedes[0] = 3, "A recipe supersedes only a revision that exists and is earlier");
+        BadReplacement(p => p.recipes["bake"].supersedes.Add(2), "An earlier revision cannot supersede a later one");
+        BadReplacement(p => { var third = Recipes().recipes["bake"]; third.revision = 3; third.supersedes.Add(1); p.recipes["bake3"] = third; }, "One revision is superseded by one recipe only");
 
         // The freeze: the same canonical text and digest as scripts/freeze-recipes.py (tests/test_data_packs.py holds the twin).
         var sample = Newtonsoft.Json.Linq.JObject.Parse("{\"notes\":\"x\",\"machine\":\"test\",\"revision\":1,\"inputs\":[{\"id\":\"A\",\"count\":2,\"kg\":1.5}],\"products\":[{\"id\":\"B\",\"count\":1,\"kg\":3}],\"melt\":false}");

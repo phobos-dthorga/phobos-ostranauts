@@ -1612,6 +1612,30 @@
       "derivedFrom": "source/aluminium-ingot.png"
     },
     {
+      "key": "nickel-steel-ingot",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosNickelSteelIngot",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockNickelSteelIngot",
+      "status": "selected",
+      "source": "source/nickel-steel-ingot.png",
+      "sourceSHA256": "39ddf6dbb13ef73877ac145efe005ddb2211e1928e0faa0baa15c15e3fe53d20",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected overhead aluminium ingot (map in manufacturing-requests.json); a pale champagne tone keeps nickel steel distinct from the nickel-iron, steel and aluminium ingots. Owner in-game review pending.",
+      "derivedFrom": "source/aluminium-ingot.png"
+    },
+    {
       "key": "carbon-stock",
       "mod": "PhobosManufacturing",
       "definition": "PhobosCarbonStock",

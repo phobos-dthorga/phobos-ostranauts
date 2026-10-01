@@ -16,7 +16,8 @@ public static class EquipmentSaveUpgrade
         internal double LegacyMount, LegacyRepair;
     }
     private static readonly Dictionary<string, Rule> Rules = new Dictionary<string, Rule>(StringComparer.Ordinal);
-    internal static void BeginLoad() => Rules.Clear();
+    private static readonly HashSet<string> Prices = new HashSet<string>(StringComparer.Ordinal);
+    internal static void BeginLoad() { Rules.Clear(); Prices.Clear(); }
     public static void Register(NativeDefinitions d, string savedId, string definitionId, double legacyMount = 100, double legacyRepair = 100)
     {
         d.Conditions[Marker] = new JsonCond { strName = Marker, strNameFriendly = Text.Get("EquipmentSaveUpgrade.equipment_economy_revision"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
@@ -25,9 +26,38 @@ public static class EquipmentSaveUpgrade
         Rules[savedId] = new Rule { Definition = definition, LegacyMount = legacyMount, LegacyRepair = legacyRepair };
     }
 
+    /// <summary>Saved items of this definition take its current price on every load (Framework 0.68.0, for the owner's
+    /// retroactive refining prices of 1 October 2026): materials whose price is a balance decision, not a property of
+    /// the item. Idempotent and markerless, so a later price change reaches saved items too. Works for a native
+    /// definition amended in place, because the live definition is read at load.</summary>
+    public static void FollowPrice(string definitionId)
+    {
+        if (string.IsNullOrWhiteSpace(definitionId)) throw new ArgumentException("A definition id is required.");
+        Prices.Add(definitionId);
+    }
+
     internal static JsonCondOwnerSave Upgrade(JsonCondOwnerSave saved)
     {
-        if (saved?.strCODef == null || !Rules.TryGetValue(saved.strCODef, out var rule)) return saved!;
+        if (saved?.strCODef == null) return saved!;
+        if (Rules.TryGetValue(saved.strCODef, out var rule)) saved = Economy(saved, rule);
+        return Prices.Contains(saved.strCODef) ? CurrentPrice(saved) : saved;
+    }
+    private static JsonCondOwnerSave CurrentPrice(JsonCondOwnerSave saved)
+    {
+        if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(saved.strCODef, out var definition)) return saved;
+        double price = Amount(definition.aStartingConds ?? Array.Empty<string>(), "StatBasePrice");
+        var old = saved.aConds ?? Array.Empty<string>();
+        bool written = old.Any(s => s.StartsWith("StatBasePrice=", StringComparison.Ordinal));
+        // A DEFAULT-compressed save without its own price term already reads the definition's.
+        if (price <= 0 || !written && old.Contains("DEFAULT") || written && Math.Abs(Amount(old, "StatBasePrice") - price) < 1e-9) return saved;
+        var copy = NativeDefinitions.Clone(saved);
+        var values = old.ToList();
+        Replace(values, "StatBasePrice", price);
+        copy.aConds = values.ToArray(); copy.aCondReveals = null;
+        return copy;
+    }
+    private static JsonCondOwnerSave Economy(JsonCondOwnerSave saved, Rule rule)
+    {
         var old = saved.aConds ?? Array.Empty<string>();
         if (Amount(old, Marker) >= 1) return saved;
         var copy = NativeDefinitions.Clone(saved);

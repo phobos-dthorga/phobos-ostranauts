@@ -1368,11 +1368,27 @@
     ammonia gain prices. No trade-good packing.
   - Measure: each product chain is profitable overall; low-yield survival charges
     (hydrates to water) stay supply.
-  - Prices change only after the owner approves the table in
-    `docs/development/refining-business-and-interdependencies.md`. Until then the
-    30 September prices and checks stand, but do not mark a design down for passing
-    the 1.5 x guardrail. That record also ranks the reactor interdependency ideas
-    (owner request, same day: anything goes, vanilla consumables included).
+  - That record also ranks the reactor interdependency ideas (owner request, same
+    day: anything goes, vanilla consumables included).
+- Owner approval (2026-10-01) of the record's Part 1: **the 30 September guardrails
+  above (1.5 x inputs, stock below its ore) are superseded.** The rules now in force
+  are in "The rules now in force" of
+  `docs/development/refining-business-and-interdependencies.md`: business chains
+  1.5 to 2.5 x the ore at base prices; supply chains (water ice, hydrates, clay, the
+  salt crust's gases) keep native gas prices; fertiliser may exceed the band because
+  it is rare in the game's world; the kiosk buys bulk back from installed stores at
+  45%, never hopper nutrients; bought stock at most 1.25 x; no gaining loop; shared
+  products priced so no chain leaves the band, or split. The price table is
+  accepted provisionally, pending the owner's gameplay feel; methane ice is
+  re-priced to 100; the mined iron chain ends in a new nickel-alloy ingot while the
+  steel ingot keeps its price and F6 source. Decisions 6 to 10 follow the record's
+  recommendations (scrap loops left, reactivation at 25% loss with EVA filters,
+  magnesia terminal, a minimal supersession mechanism, first slice ideas 1 to 3).
+  Price every new refined product against these rules and prove it in the native
+  value checks. Framework 0.68.0 (kiosk buy-back `IBulkBuybackProvider`/`VesselBuybackProvider`,
+  recipe `supersedes`, `EquipmentSaveUpgrade.FollowPrice`), Manufacturing 0.26.0 (the
+  price table, the nickel steel ingot as V4 revision 8 superseding the plain steel
+  charge) and Shipbreaker 0.62.0 (methane ice at 100) implement Part 1.
 
 ## Mining laser direction (2026-10-01)
 

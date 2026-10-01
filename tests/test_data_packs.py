@@ -73,6 +73,19 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.process_recipes(pack, 'test')
 
+    def test_validator_checks_supersession(self):
+        # Framework 0.68.0: a later revision may replace one earlier revision of its own machine, and only one recipe may.
+        def pack(*supersedes):
+            unit = {'inputs': [{'id': 'a', 'count': 1, 'kg': 1}], 'products': [{'id': 'b', 'count': 1, 'kg': 1}]}
+            recipes = {'old': {'machine': 'm', 'revision': 1, **unit}}
+            for i, earlier in enumerate(supersedes):
+                recipes[f'new{i}'] = {'machine': 'm', 'revision': 2 + i, 'supersedes': earlier, **unit}
+            return {'schemaVersion': 1, 'schema': 'process-recipes', 'recipes': recipes}
+        validate.process_recipes(pack([1]), 'test')
+        for bad in (pack([2]), pack([3]), pack([0]), pack([1], [1]), pack('1')):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.process_recipes(bad, 'test')
+
     def test_faction_kiosks_sell_everything_below_honored(self):
         # Owner direction (30 September 2026): every sold Phobos item is also at the faction kiosks, never at Honored.
         for path in sorted((ROOT / 'mods').glob('*/framework/economy.json')):

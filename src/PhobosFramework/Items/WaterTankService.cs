@@ -22,10 +22,14 @@ public static class WaterTankService
     public static Action<string> Log { get; set; } = _ => { };
     /// <summary>The station Bulk supplies offer: process water into any installed tank at the authored price; a
     /// quote is bounded by the chosen tank's room and the largest tank's steps.</summary>
-    public static readonly VesselSupplyProvider Supplies = new(Owner, () => FrameworkItems.Ready ?
+    public static readonly VesselSupplyProvider Supplies = new(Owner, Lines);
+    /// <summary>The kiosk buys process water back from any installed tank at its share of the same price (Framework
+    /// 0.68.0); a tank's reserve is never sold.</summary>
+    public static readonly VesselBuybackProvider Buyback = new(Owner, Lines);
+    private static IEnumerable<(BulkSupplyOffer Offer, IReadOnlyList<string> Families)> Lines() => FrameworkItems.Ready ?
         new[] { (new BulkSupplyOffer("framework.water", Text.Get("WaterTanks.offer"), Text.Get("WaterTanks.unit_kg"), WaterTanks.WaterPricePerKg, WaterTanks.PurchaseStepKg,
             (int)Math.Ceiling(WaterTanks.All.Max(t => t.CapacityKg) / WaterTanks.PurchaseStepKg)), (IReadOnlyList<string>)WaterTanks.All.Select(t => t.Prefix).ToArray()) } :
-        Array.Empty<(BulkSupplyOffer, IReadOnlyList<string>)>());
+        Array.Empty<(BulkSupplyOffer, IReadOnlyList<string>)>();
 
     public static string? Access(CondOwner co, ConsoleBinding? binding)
     {

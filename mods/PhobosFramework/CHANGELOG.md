@@ -22,6 +22,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.68.0] - 2026-10-01 - Draft
+
+### Added
+
+- Sell bulk back to the station. At a refuelling kiosk, Bulk supplies now lists Sell lines below the supplies: choose an installed store or water silo on your docked ship and a quantity, and the station pays 45% of its own selling price for what actually leaves the store. A reserve kept for the crew is never sold, and neither is anything in a catch chamber. Process water from a Rivetline water silo sells at 4.50 cr/kg.
+- Sales use the same protection as purchases: a sale is measured, paid once and recorded in the ledger, and an interrupted sale blocks a retry instead of paying twice.
+- For mod authors: a buy-back provider interface and a ready-made one over bulk vessel families; a recipe field that lets a later revision supersede an earlier one for new charges while jobs bound to the old revision still settle by it; and a load-time price refresh that brings saved items to their definition's current price.
+
+### Save compatibility
+
+- Automatic. Nothing in a save changes until you sell. Items a content mod registers for the price refresh take their current price when the save loads; their identity, mass and stacks are untouched, and the save file itself is never edited.
+
+### Compatibility and limits
+
+- The 45% share is our choice, inside the 40 to 50% the game's own kiosks pay. It follows the refining rules the owner approved on 1 October 2026. Offline checks are not gameplay validation.
+
 ## [0.67.0] - 2026-10-01 - Draft
 
 ### Added

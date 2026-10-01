@@ -1,8 +1,9 @@
 # Refining as a business, and reactors that depend on each other
 
-Design record, **1 October 2026**. Proposals only: no price, recipe or code has
-changed. The owner approves the price table and picks which ideas to build.
-Nothing here is gameplay-validated.
+Design record, **1 October 2026**. Written as proposals; the owner approved Part 1
+and the first slice of Part 2 the same day (see [Owner decisions](#owner-decisions-1-october-2026)).
+The rule in Part 1 is now the economy rule for every Phobos refining chain.
+Nothing here is gameplay-validated; the owner will judge the values in play.
 
 ## Owner directions this record answers
 
@@ -173,7 +174,16 @@ price by owner decision), every remainder, every native ore.
 - No proposed price opens a new loop: every re-priced item starts from a mined
   feed that no merchant sells.
 
-## What the retroactive change would touch (later, after approval)
+## What the retroactive change touches
+
+Implemented in Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0 (1 October
+2026): the price table as proposed, the nickel steel ingot (the record's nickel-alloy
+ingot) as V4 revision 8 superseding revision 5 through a new recipe `supersedes`
+field, methane ice at 100, the 45% buy-back for every gas store, acid tank and water
+silo (never hopper nutrients), a load-time price refresh for saved materials and
+methane ice, and native checks that prove the band at live prices. The list below
+was the plan.
+
 
 - **Data packs:** the Manufacturing and Shipbreaker `materials.json` prices; one
   new material and one new V4 revision for the alloy ingot.
@@ -433,21 +443,59 @@ native repair bills need one ([repair castings](furnace-repair-castings.md),
 | 10 | Fuel-cell stack | L | Native spike |
 | 11 | Ammonia synthesis | L | New machine |
 
-# Decisions for the owner
+# Owner decisions (1 October 2026)
 
-1. **The price table, the 45% buy-back and the band.** In particular: is the
-   payback of the small chains (300 to 740 machine-hours) acceptable?
-2. **Fertiliser above the band:** accept it, and keep hopper nutrients out of
-   the kiosk buy-back?
-3. **Water ice, hydrates, clay and salt crust as supply:** agreed?
-4. **Methane ice at 100 cr:** agreed?
-5. **The nickel-alloy ingot** as the mined iron chain's own product?
-6. **The two existing scrap loops:** leave or trim?
-7. **Cartridge reactivation:** the wording, the 25% loss and the EVA filter.
-8. **Magnesia:** terminal remainder, or a furnace refractory?
-9. **Build the supersession mechanism?** Ideas 7 and 8, and the alloy ingot,
-   depend on it.
-10. **Which slice to build first,** and whether it waits for the recipe schema.
+The questions as asked, and the answers. Decisions 1 to 5 are the owner's own
+words in substance; 6 to 10 were left to the record's recommendation ("let's
+proceed with Part 1 then Part 2"), so the recommendation stands until the owner
+says otherwise.
+
+1. **The price table, the 45% buy-back and the band:** accepted for now. The
+   owner will judge the values, including the 300 to 740 machine-hour payback of
+   the small chains, in gameplay testing.
+2. **Fertiliser above the band:** accepted. Fertiliser is rarely met in space, or
+   at least in this game's world, so the end of a four-machine chain may earn
+   well above the band. Hopper nutrients stay out of the kiosk buy-back.
+3. **Water ice, hydrates, clay and salt crust:** supply chains, as recommended.
+4. **Methane ice at 100 cr:** as recommended.
+5. **The nickel-alloy ingot:** the mined iron chain ends in its own product; the
+   plain steel ingot keeps its price and its F6 source. Acceptable for now.
+6. **The two scrap loops:** left as they are (recommendation). The F6 mostly melts
+   salvage, and the loops earn about 30 to 40 cr a furnace charge.
+7. **Cartridge reactivation:** worded as reactivation, a quarter lost each pass,
+   EVA filter included (recommendation).
+8. **Magnesia:** a terminal remainder until a consumer is chosen (recommendation).
+9. **Supersession:** built now, as small as the alloy ingot needs, because a new
+   V4 revision with the same items as the steel charge would otherwise never be
+   chosen (recommendation).
+10. **First slice:** ideas 1 to 3, after Part 1, without waiting for the recipe
+    schema (recommendation).
+
+## The rules now in force
+
+These replace the 30 September working guardrails ("sellable products within
+1.5 x inputs") for every Phobos refining and chemical chain, current and future:
+
+- **Business chains** (mined feed to finished items): items worth **1.5 to 2.5 x**
+  the ore at base prices. Price new refined items so their chain lands in the band.
+- **Supply chains** (ending in bulk water or gas): the game's own gas prices and
+  our process water price; no profit claim. Water ice, hydrates, clay and the salt
+  crust's gases are supply; methane ice thawing reaches the band through its
+  re-price.
+- **Above-band exception:** fertiliser (Agriculture's makeup packets and crop
+  nutrients), because it is rare in the game's world. No other chain may exceed
+  2.5 x without an owner decision.
+- **Kiosk buy-back:** the refuelling kiosk buys bulk from installed stores at **45%**
+  of its selling price. Never hopper nutrients.
+- **Bought stock:** a conversion fed only by station-bought inputs earns at most
+  **1.25 x** those inputs.
+- **No free loops:** reverse steps (ingot to scrap) and dismantling lose value; no
+  closed loop that returns its own inputs gains.
+- **Shared products:** a product two chains make is priced so neither leaves the
+  band, or the chains get separate products (the nickel-alloy ingot is the first).
+- **Unchanged:** mass conservation, realistic sourced chemistry, native gas species
+  only, terminal remainders, frozen recipe revisions, the dismantling rule, links
+  by touching or line, hazards through the game's own machinery.
 
 ## Sources and their status
 

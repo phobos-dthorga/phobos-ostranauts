@@ -49,13 +49,16 @@ public static class Materials
     /// <summary>The acid consumers (Manufacturing 0.20.0): Epsom salt from olivine, the acid-route struvite's ammonium
     /// sulfate and the olivine's terminal leach cake.</summary>
     public const string EpsomSalt = "PhobosEpsomSalt", AmmoniumSulfate = "PhobosAmmoniumSulfate", OlivineLeachCake = "PhobosOlivineLeachCake";
+    /// <summary>The mined iron chain's own end product (Manufacturing 0.26.0; owner decision, 1 October 2026): nickel steel
+    /// from the V4, separate from Shipbreaker's plain steel ingot.</summary>
+    public const string NickelSteelIngot = "PhobosNickelSteelIngot";
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
     /// <summary>Every material, in definition order.</summary>
     public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
         EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue,
-        SulfideNodule, PhosphoricAcidFlask, RoastedCalcine, EpsomSalt, AmmoniumSulfate, OlivineLeachCake };
+        SulfideNodule, PhosphoricAcidFlask, RoastedCalcine, EpsomSalt, AmmoniumSulfate, OlivineLeachCake, NickelSteelIngot };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();

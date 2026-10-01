@@ -90,7 +90,8 @@ internal static class LeachChecks
             "Acid route: 0.269 kg of ammonia gives three struvite, three ammonium sulfate and 94 g of water back to the vessel");
         check(ab.Units == 4 && Math.Abs(ab.EnergyKWh - 2) < 1e-9 && ab.Solids(ab.Products).All(p => !Materials.IsTerminal(p.Id)), "Acid route: four units, 2 kWh, no remainder");
         double abIn = Materials.ById(Materials.PhosphoricAcidFlask)!.Price + 3 * Materials.ById(Materials.EpsomSalt)!.Price;
-        check(ab.Solids(ab.Products).Sum(p => p.Count * Materials.ById(p.Id)!.Price) <= 1.5 * abIn, "The acid route's salts stay within half again the flask and Epsom salt, before the ammonia");
+        double abOut = ab.Solids(ab.Products).Sum(p => p.Count * Materials.ById(p.Id)!.Price);
+        check(abOut > abIn && abOut <= 1.5 * abIn, "The acid route, a step inside the nodule and olivine chains, gains a little on the flask and Epsom salt, before the ammonia");
 
         // The complete formulation: one of each salt, with ammonia neutralised by acid in the mixer to top up nitrogen.
         var cn = LeachRecipes.CropNutrients;
@@ -113,10 +114,13 @@ internal static class LeachChecks
               !LeachRules.StockFeed.Contains(LeachRules.Olivine),
             "The feed rule names exactly the LC-3's feed identities; the olivine comes in by the game's ore rule");
 
-        // Materials and prices: the salts lose value against the crust, struvite stays within half again its inputs.
+        // Materials and prices (refining as a business, owner approval 1 October 2026): the crust's salts are worth 1.5 to 2.5
+        // times the crust at base prices; struvite gains a little on its concentrate.
         check(Materials.ById(Materials.EvaporiteCrust)!.Mined && Materials.ById(Materials.EvaporiteCrust)!.Price == 150, "The crust is mined and sells like the salt crust");
-        check(leach.Solids(leach.Products).Sum(p => p.Count * Materials.ById(p.Id)!.Price) < Materials.ById(Materials.EvaporiteCrust)!.Price, "Leaching a crust loses value, as the salt crust does for its nitrogen");
-        check(Materials.ById(Materials.Struvite)!.Price <= 1.5 * Materials.ById(Materials.PhosphateConcentrate)!.Price, "Struvite stays within half again its concentrate, before the reagents' value");
+        double salts = leach.Solids(leach.Products).Sum(p => p.Count * Materials.ById(p.Id)!.Price), crust = Materials.ById(Materials.EvaporiteCrust)!.Price;
+        check(salts >= 1.5 * crust && salts <= 2.5 * crust, "Leaching a crust earns 1.5 to 2.5 times the crust: " + salts / crust);
+        check(Materials.ById(Materials.Struvite)!.Price > Materials.ById(Materials.PhosphateConcentrate)!.Price && Materials.ById(Materials.Struvite)!.Price <= 1.5 * Materials.ById(Materials.PhosphateConcentrate)!.Price,
+            "Struvite gains a little on its concentrate, before the reagents' value");
         foreach (string id in new[] { Materials.BrineSaltCake, Materials.CausticRemainder, Materials.CalcinedResidue, Materials.OlivineLeachCake })
             check(Materials.IsTerminal(id) && Materials.ById(id)!.Price == Materials.TerminalPrice, "Terminal at the technical minimum: " + id);
         check(!Materials.IsTerminal(Materials.PhosphateConcentrate) && !Materials.IsTerminal(Materials.LeachedResidue), "Intermediates are feed, not terminal");

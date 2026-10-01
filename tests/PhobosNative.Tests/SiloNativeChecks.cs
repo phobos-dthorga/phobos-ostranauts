@@ -68,9 +68,25 @@ internal static class SiloNativeChecks
             check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false) == new DataCO(DataHandler.dictCOs[outside]).HasCond("IsIce"), "Only ice enters the thaw feed at the game level: " + outside);
         check(ThawRules.ValidIce(methane.strName, Stat(methane, "StatMass"), true, true, true) && Stat(methane, "StatMass") == ThawRules.MethaneIceKg,
             "Methane ice is accepted at the game's own 24.84 kg");
-        // Refining value (owner, 30 September 2026): the game's own methane ice price stands; the thaw gains value from a
-        // mined feed and five kilowatt-hours, and neither product has a sell route, so there is no trade loop to guard.
-        check(Stat(methane, "StatBasePrice") == 20, "The game's methane ice price is left as the game set it (the 0.45.0 correction is withdrawn)");
+        // Refining as a business (owner approval, 1 October 2026): the game prices methane ice at 20, below the water inside
+        // it; corrected in place to 100, the thaw earns about twice the block at the station water and game methane prices.
+        check(Stat(methane, "StatBasePrice") == ThawRules.MethaneIcePrice && ThawRules.MethaneIcePrice == 100, "The game's methane ice is re-priced in place, the definition never republished");
+        double thawed = ThawRules.ClathrateWaterKg * Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg + ThawRules.MethaneKg *
+            double.Parse(DataHandler.dictLoot["GasPrices"].aCOs.Single(e => e.StartsWith("CH4=", StringComparison.Ordinal)).Split('x')[1], System.Globalization.CultureInfo.InvariantCulture);
+        check(thawed >= 1.5 * ThawRules.MethaneIcePrice && thawed <= 2.5 * ThawRules.MethaneIcePrice, "Thawing a methane ice block earns 1.5 to 2.5 times the block at live prices: " + thawed);
+        // Saved blocks follow the corrected price on load: an explicit old price (the game's 20 or 0.45.0's 250) is refreshed,
+        // a compressed save already reads the definition, and a refreshed block is left alone.
+        foreach (double old in new[] { 20.0, 250.0 })
+        {
+            var saved = new JsonCondOwnerSave { strCODef = ThawRules.MethaneIce, strID = "saved-ice", aConds = new[] { "StatMass=1.0x24.84", "StatBasePrice=1.0x" + old.ToString(System.Globalization.CultureInfo.InvariantCulture) } };
+            var loaded = Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.Upgrade(saved);
+            check(Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.Amount(loaded.aConds, "StatBasePrice") == ThawRules.MethaneIcePrice && loaded.strID == saved.strID &&
+                  Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.Amount(loaded.aConds, "StatMass") == 24.84 && saved.aConds[1].EndsWith("x" + old.ToString(System.Globalization.CultureInfo.InvariantCulture), StringComparison.Ordinal),
+                "A saved methane ice block priced " + old + " loads at the corrected price, keeping its identity and mass, without editing the save's own copy");
+            check(ReferenceEquals(Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.Upgrade(loaded), loaded), "The price refresh is idempotent");
+        }
+        var compressed = new JsonCondOwnerSave { strCODef = ThawRules.MethaneIce, strID = "compressed-ice", aConds = new[] { "DEFAULT" } };
+        check(ReferenceEquals(Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.Upgrade(compressed), compressed), "A compressed saved block already reads the corrected definition");
         check(Stat(gangue, "StatBasePrice") == 0, "Ice gangue stays worthless");
         var gangueItem = DataHandler.dictItemDefs[gangue.strItemDef];
         check(gangueItem.nCols == 1 && gangueItem.aSocketAdds.Length == 1, "Native gangue is a one-cell item that fits the tray");

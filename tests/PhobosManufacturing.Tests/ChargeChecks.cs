@@ -27,9 +27,9 @@ internal static class ChargeChecks
             [Materials.ClayHydrates] = Materials.ClayKg, [Materials.AmmoniumSaltCrust] = Materials.CrustKg };
         foreach (var pair in expected)
             check(RefineryRules.FeedKg(pair.Key, false) == pair.Value && RefineryRules.FeedKg(pair.Key, true) == pair.Value, "Feed unit mass from the recipes: " + pair.Key);
-        check(RefineryRules.FeedKg(Materials.NickelIronIngot, false) == null && RefineryRules.FeedKg(Materials.NickelIronIngot, true) == Materials.IngotKg &&
-              RefineryRules.FeedKg(Materials.CarbonStock, false) == null && RefineryRules.FeedKg(Materials.CarbonStock, true) == Materials.CarbonKg,
-            "Steel-bound stock enters the feed only with Shipbreaker's stock, as before");
+        check(RefineryRules.FeedKg(Materials.NickelIronIngot, false) == Materials.IngotKg && RefineryRules.FeedKg(Materials.NickelIronIngot, true) == Materials.IngotKg &&
+              RefineryRules.FeedKg(Materials.CarbonStock, false) == Materials.CarbonKg && RefineryRules.FeedKg(Materials.CarbonStock, true) == Materials.CarbonKg,
+            "Nickel-iron and carbon stock enter the feed with or without Shipbreaker, for nickel steel (Manufacturing 0.26.0)");
         check(RefineryRules.FeedKg(RefineryRules.Gangue, true) == null && RefineryRules.FeedKg("ItmScrapSteel", true) == null && RefineryRules.FeedKg(null, true) == null, "Products and foreign items are not feed");
 
         // The equipment pack holds the V4's shape exactly as the old constants did.

@@ -48,6 +48,9 @@ public sealed class ChargeRecipe
     /// <summary>A melt: a long interruption freezes it and the charge is lost to slag.</summary>
     public bool Melt { get; }
     public IReadOnlyList<string> Requires { get; }
+    /// <summary>Earlier revisions of this machine the recipe replaces for new charges (Manufacturing 0.26.0); jobs bound
+    /// to them still settle by them.</summary>
+    public IReadOnlyList<int> Supersedes { get; }
     public bool NeedsSteelStock => Requires.Contains(ChargeCatalog.SteelStockRequirement);
     /// <summary>Every input kilogram, items and drawn commodities together (the mass balance's input side).</summary>
     public double ChargeKg => Inputs.Sum(i => i.Count * i.Kg);
@@ -71,7 +74,13 @@ public sealed class ChargeRecipe
         : this(ChargeCatalog.Refinery, id, revision, inputs, products, offGas, seconds, melt, needsSteelStock ? new[] { ChargeCatalog.SteelStockRequirement } : Array.Empty<string>(), null, 0) { }
     public ChargeRecipe(string machine, string id, int revision, IEnumerable<ChargeInput> inputs, IEnumerable<ProductSpec> products, IReadOnlyDictionary<string, double>? offGas,
         double seconds, bool melt, IEnumerable<string>? requires, IReadOnlyDictionary<string, double>? circulates, double reactionKWh)
+        : this(machine, id, revision, inputs, products, offGas, seconds, melt, requires, circulates, reactionKWh, null) { }
+    public ChargeRecipe(string machine, string id, int revision, IEnumerable<ChargeInput> inputs, IEnumerable<ProductSpec> products, IReadOnlyDictionary<string, double>? offGas,
+        double seconds, bool melt, IEnumerable<string>? requires, IReadOnlyDictionary<string, double>? circulates, double reactionKWh, IEnumerable<int>? supersedes)
     {
+        var replaced = (supersedes ?? Array.Empty<int>()).ToArray();
+        if (replaced.Any(r => r < 1 || r >= revision)) throw new ArgumentException("A recipe supersedes only earlier revisions.");
+        Supersedes = Array.AsReadOnly(replaced);
         var ins = inputs.ToArray(); var outs = products.ToArray(); var gas = new Dictionary<string, double>(offGas ?? new Dictionary<string, double>(), StringComparer.Ordinal);
         var loop = new Dictionary<string, double>(circulates ?? new Dictionary<string, double>(), StringComparer.Ordinal);
         if (string.IsNullOrWhiteSpace(machine) || string.IsNullOrWhiteSpace(id) || revision < 1 || ins.Length == 0 || outs.Length == 0 || !ManufacturingRules.Finite(seconds) ||

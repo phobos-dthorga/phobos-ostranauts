@@ -282,6 +282,15 @@ longer amends the definition. Vanilla precedence favoured this from the start.
 Neither thaw product has a sell route, so the gain is water and methane aboard,
 not money. Blocks priced 250 in an existing save keep that price.
 
+Restored at 100 (Shipbreaker 0.62.0, 1 October 2026): the owner made refining a
+business and approved a price table in which methane ice is worth 100, so a thawed
+block earns about twice the block, and the station now buys water and methane
+back. The correction is again made in place on the live definition, never
+republished, and saved blocks take the live price on load through Framework
+`EquipmentSaveUpgrade.FollowPrice`, which edits only the save DTO copy the
+game hands to `CondOwner.SetData`. Verdict: the same minimal in-place
+correction, now with the load refresh the owner's retroactive direction asks for.
+
 ## Mining laser (Shipbreaker 0.59.0, 1 October 2026)
 
 The owner asked for a ship-mounted mining laser. The game has no ship-mounted

@@ -56,7 +56,7 @@ public static class ChargeCatalog
     private static IReadOnlyList<ChargeRecipe> Build(RecipePack source) => Array.AsReadOnly(source.recipes
         .OrderBy(p => p.Value.machine, StringComparer.Ordinal).ThenBy(p => p.Value.revision)
         .Select(p => new ChargeRecipe(p.Value.machine, p.Key, p.Value.revision, p.Value.inputs.Select(u => new ChargeInput(u.id, u.count, u.kg)),
-            p.Value.products.Select(u => new ProductSpec(u.id, u.count, u.kg)), p.Value.offGas, p.Value.seconds ?? 0, p.Value.melt, p.Value.requires, p.Value.circulates, p.Value.reactionKWh ?? 0))
+            p.Value.products.Select(u => new ProductSpec(u.id, u.count, u.kg)), p.Value.offGas, p.Value.seconds ?? 0, p.Value.melt, p.Value.requires, p.Value.circulates, p.Value.reactionKWh ?? 0, p.Value.supersedes))
         .ToArray());
     /// <summary>The machines' own rules over a whole catalog: one unit mass per feed identity per machine, and every
     /// charge fits its machine's feed bin.</summary>
@@ -100,8 +100,15 @@ public sealed class ChargeRecipeView
     public ChargeRecipeView(string machine, IReadOnlyList<ChargeRecipe> recipes) { Machine = machine; All = recipes; }
     public ChargeRecipe? ByRevision(int revision) => All.FirstOrDefault(r => r.Revision == revision);
     public ChargeRecipe? ById(string? id) => id == null ? null : All.FirstOrDefault(r => r.Id == id);
-    /// <summary>Recipes whose every requirement is met.</summary>
-    public IEnumerable<ChargeRecipe> Available(Func<string, bool> met) => All.Where(r => r.Requires.All(met));
+    /// <summary>Recipes whose every requirement is met, less any revision a recipe that is itself available supersedes
+    /// (Manufacturing 0.26.0): the replacement is offered for new charges, and a saved job keeps its own revision
+    /// through <see cref="ByRevision"/>. A superseded recipe returns when its replacement's requirements are not met.</summary>
+    public IEnumerable<ChargeRecipe> Available(Func<string, bool> met)
+    {
+        var ready = All.Where(r => r.Requires.All(met)).ToArray();
+        var replaced = new HashSet<int>(ready.SelectMany(r => r.Supersedes));
+        return ready.Where(r => !replaced.Contains(r.Revision));
+    }
     /// <summary>The available recipe whose whole item charge is present among the feed identities, preferring the
     /// largest charge, then the lowest revision; or null. The caller binds the exact units.</summary>
     public ChargeRecipe? Match(IEnumerable<string> feedIds, Func<string, bool> met)

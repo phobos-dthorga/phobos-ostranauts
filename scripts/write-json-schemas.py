@@ -142,6 +142,7 @@ def recipes():
         'requires': {'type': 'array', 'items': string()}, 'thermal': thermal,
         'circulates': named(num(0, exclusive_minimum=0), 'Working volume of a commodity present during the charge and returned; not in the mass balance.'),
         'reactionKWh': num(-1000, 1000, description='Reaction heat released into the room over the charge (negative when absorbed).'),
+        'supersedes': {'type': 'array', 'items': num(1, integer=True), 'description': 'Earlier revisions of the same machine this recipe replaces for new charges; bound jobs still settle by them.'},
     }, ['machine', 'revision', 'inputs', 'products'])
     return obj({**header('process-recipes'), 'recipes': named(recipe, 'Recipes by id; published revisions are frozen by hash.', '^[a-z0-9-]+$')},
                ['schemaVersion', 'schema', 'recipes'], 'Fixed process recipes: mass-conserving inputs, products and native off-gas.')
