@@ -1539,16 +1539,17 @@
         },
         {
           "key": "stock",
-          "title": "Raw stock and nickel steel",
+          "title": "Raw stock, nickel steel and carbon black",
           "ids": [
             "PhobosNickelIronIngot",
             "PhobosCarbonStock",
-            "PhobosNickelSteelIngot"
+            "PhobosNickelSteelIngot",
+            "PhobosCarbonBlack"
           ],
-          "function": "Nickel-iron ingots (4 kg, cast meteoric iron: iron with a few percent of nickel), carbon stock (1 kg) and nickel steel ingots (4 kg) are the refinery's products. Four nickel-iron ingots with one carbon stock become four nickel steel ingots in the V4, with or without Shipbreaker; the coming machining centre consumes ingots.",
-          "use": "Made in the V4. Carry, stack (ten per stack) and sell at any general buyer, or feed four nickel-iron ingots and one carbon stock back into the V4 for nickel steel.",
+          "function": "Nickel-iron ingots (4 kg, cast meteoric iron: iron with a few percent of nickel), carbon stock (1 kg) and nickel steel ingots (4 kg) are the refinery's products. Four nickel-iron ingots with one carbon stock become four nickel steel ingots in the V4, with or without Shipbreaker; the coming machining centre consumes ingots. Carbon black (1 kg, Manufacturing 0.27.0) is cracked out of methane on a carbon stock bed, with hydrogen as the by-product; the V4 burns it with stored oxygen into carbon dioxide for grow rooms.",
+          "use": "Made in the V4. Carry, stack (ten per stack) and sell at any general buyer, or feed four nickel-iron ingots and one carbon stock back into the V4 for nickel steel. With a methane store and a hydrogen store linked to the V4, one carbon stock alone is a methane-cracking charge; with an oxygen store and a carbon dioxide store linked, one carbon black is a burning charge.",
           "find": "Made in the V4 from meteoric iron and carbon ore. Never sold in shops.",
-          "notes": "Refining pays (owner decision, 1 October 2026): four nickel-iron ingots ($880) are worth about twice the $450 meteoric iron block, five carbon stock ($190) with its water about twice the $99 carbon ore, and four nickel steel ingots ($1,040) about 2.2 times the iron and carbon ore behind them. Nickel steel is not Shipbreaker's plain steel ingot ($25), which the F6 casts from scrap. Ingots and carbon already aboard take the new prices when a save loads. Scrap kiosks do not buy them, so they are never furnace or processor feed.",
+          "notes": "Refining pays (owner decision, 1 October 2026): four nickel-iron ingots ($880) are worth about twice the $450 meteoric iron block, five carbon stock ($190) with its water about twice the $99 carbon ore, and four nickel steel ingots ($1,040) about 2.2 times the iron and carbon ore behind them. Nickel steel is not Shipbreaker's plain steel ingot ($25), which the F6 casts from scrap. Ingots and carbon already aboard take the new prices when a save loads. Scrap kiosks do not buy them, so they are never furnace or processor feed. Carbon black is worth 12 cr, kept low so methane made from bought water and carbon dioxide never pays its way back as soot.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1597,9 +1598,10 @@
             "PhobosCausticRemainder",
             "PhobosCalcinedResidue",
             "PhobosRoastedCalcine",
-            "PhobosOlivineLeachCake"
+            "PhobosOlivineLeachCake",
+            "PhobosExhaustedSorbent"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3) and olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3). Trash at the technical minimum price; nothing recovers them.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3) and exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back). Trash at the technical minimum price; nothing recovers them.",
           "use": "Carry them out of the tray and sell or discard them.",
           "find": "Left in the V4, LC-3 or SA-3 tray by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",

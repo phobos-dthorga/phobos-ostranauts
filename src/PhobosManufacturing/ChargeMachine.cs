@@ -115,6 +115,9 @@ internal sealed class ChargeMachine
     internal string Peer(CondOwner co, ChargeLinkSpec link) => link.Vessel.PeerId(co);
     internal IEnumerable<CondOwner> Candidates(CondOwner co, ChargeLinkSpec link) => link.Vessel.Candidates(co, link.Accepts);
     private ChargeLinkSpec? LinkFor(string commodity) => Links.FirstOrDefault(l => l.Commodity == commodity);
+    /// <summary>Whether every commodity the recipe draws has a linked vessel on this machine (an automatic machine only
+    /// chooses such a recipe; whether the vessel holds enough is the settlement check's business).</summary>
+    private bool Drawable(CondOwner co, ChargeRecipe recipe) => recipe.Draws.All(d => LinkFor(d.Id) is ChargeLinkSpec link && Peer(co, link).Length > 0);
     /// <summary>The linked vessel when it can settle this commodity's need now; otherwise null with the reason.</summary>
     private CondOwner? Endpoint(CondOwner co, ChargeLinkSpec link, SettlementNeed need, out string reason)
     {
@@ -233,7 +236,7 @@ internal sealed class ChargeMachine
         }
         else
         {
-            recipe = Catalog.Match(valid.Select(c => c.strCODef), Spec.Met);
+            recipe = Catalog.Match(valid.Select(c => c.strCODef), Spec.Met, r => Drawable(co, r));
             if (recipe == null) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
         }
         var units = new List<CondOwner>();

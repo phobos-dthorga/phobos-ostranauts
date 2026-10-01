@@ -716,3 +716,13 @@ recipe availability now builds a small set of superseded revisions per call (eig
 recipes); it runs where feed admission and charge matching already enumerated the
 catalog. No per-frame work is added. No performance capture or measured FPS claim
 accompanies this change.
+
+## 1 October: reactors that feed each other (L15)
+
+L15 — Static review of Manufacturing 0.27.0. The V4's automatic match now asks,
+per candidate recipe, whether each gas it draws has a linked store: one saved-link
+read per drawn gas, only when the machine binds a charge (on Start or after a
+finished charge), not per power step. The V4 lists five gas links instead of two
+on its panel, built when the panel is shown. The A2's carbon dioxide feed adds one
+room-gas read and, when dosing, one store draw to its existing two-second tick.
+No performance capture or measured FPS claim accompanies this change.

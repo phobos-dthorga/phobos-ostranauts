@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.26.0",
+      "value": "0.27.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1670,6 +1670,24 @@
         "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
         "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices.",
         "Keep it separate from Shipbreaker's plain steel ingot, which the F6 casts from bought scrap."
+      ]
+    },
+    "Manufacturing.carbonBlackPrice": {
+      "type": "number",
+      "value": "12",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 1 kg carbon black from methane pyrolysis (kept low so a loop through bought water and CO2 never pays).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosCarbonBlack/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references. Saved items follow the new price on load.",
+        "Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md, The rules now in force): a chain from a mined feed to finished items earns 1.5 to 2.5 x the ore at base prices; supply chains keep native gas prices; fertiliser may exceed the band; a conversion of bought stock earns at most 1.25 x; no gaining loop. The Manufacturing native checks prove the band at live prices.",
+        "The methane pyrolysis step must stay between 1.0 and 1.5 times its carbon stock and methane at base prices; the native value checks prove it."
       ]
     },
     "Manufacturing.machinerySalvageChance": {

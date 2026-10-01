@@ -263,6 +263,26 @@ Solid arrows exist today. Dotted arrows are proposals, numbered as below.
 
 ## First slice (no new machine, one shared enabling change)
 
+Implemented in Manufacturing 0.27.0 (1 October 2026), with these choices made in
+the build:
+
+- **Enabling change.** The V4 links a store for every gas a charge stores or
+  draws, and an automatic machine chooses a charge that draws a gas only when that
+  store is linked. The V4's game-level feed rule admits the game's CO2 filters
+  (`IsFilterCO2`); the exact identity rule then takes only spent ones.
+- **Idea 1** is revision 9. The carbon stock seed is consumed: carbon catalyses
+  the cracking and the carbon made deposits on it, so the whole bed leaves as four
+  units of a new **carbon black** (12 cr) rather than carbon stock. Selling the
+  product as carbon stock (38 cr) would have let methane made from bought water
+  and CO2 through the X2 and K2 repay its purchase; the native checks now prove
+  that loop loses.
+- **Idea 2** is revisions 11 and 12, with a new terminal **exhausted sorbent**.
+  The value checks treat it as a service on the game's own items: it may not gain.
+- **Idea 3** is revision 10 (the burner takes carbon black, its consumer) and the
+  A2's carbon dioxide set points (0.05, 0.10, 0.20 kPa, capped at 0.25 kPa, 1 kg
+  an hour), with a record reader that accepts the seven-field record of earlier
+  versions.
+
 **Enabling change:** V4 links for gases it draws, and a feed list that admits a
 native condition. Cost S.
 

@@ -1624,6 +1624,56 @@
     "patches": null
   },
   {
+    "key": "carbon-black",
+    "sourceSHA256": "7ef3da40f76c1289a4dc28a13cbd644a1390279180a4b427d87e8eae4e43a4bb",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockCarbonBlack.png": "a059eb6142ca6ece114bcb381433c5659009133b9c1853987daf3c8b7fe9bd52",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockCarbonBlackNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "exhausted-sorbent",
+    "sourceSHA256": "0e6eb0f1228790ec31a47c28554edd4317d68747339d573004862174930c7cc3",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      18,
+      18,
+      47,
+      47
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockExhaustedSorbent.png": "a71d3e114938b18212c413e3e45bd8499489b04e5f96cabaa31aa4505d868dd3",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockExhaustedSorbentNormal.png": "4d763e427aa00c3700f59425d917383d9907605cef2ce583ee2eecff5a61aed7"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "carbon-stock",
     "sourceSHA256": "d139ff0d5c3dac235f29740c9068fde836e7348d8c8668f3aa9a0cbc3167a07d",
     "nativeSize": [

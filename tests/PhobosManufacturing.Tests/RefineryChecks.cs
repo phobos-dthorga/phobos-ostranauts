@@ -18,7 +18,7 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 8, "Eight distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 12, "Twelve distinct revisions");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,
@@ -54,12 +54,15 @@ internal static class RefineryChecks
         var steelCharge = Enumerable.Repeat(Materials.NickelIronIngot, 4).Concat(new[] { Materials.CarbonStock });
         check(RefineryRecipes.Match(steelCharge, true) == ns && RefineryRecipes.Match(steelCharge, false) == ns, "New charges of four nickel-iron and one carbon make nickel steel, with or without Shipbreaker");
         check(RefineryRecipes.ByRevision(s.Revision) == s && !RefineryRecipes.Available(true).Contains(s), "The superseded steel charge still resolves by its revision for a bound job, but is never offered");
-        check(RefineryRecipes.Match(Enumerable.Repeat(Materials.NickelIronIngot, 4), true) == null && RefineryRecipes.Match(Enumerable.Repeat(Materials.NickelIronIngot, 3).Concat(new[] { Materials.CarbonStock }), true) == null,
-            "Four ingots without carbon, or three with, is no charge");
+        check(RefineryRecipes.Match(Enumerable.Repeat(Materials.NickelIronIngot, 4), true) == null, "Four ingots without carbon is no charge");
+        var bed = RefineryRecipes.ById("methane-pyrolysis")!;
+        var threeAndCarbon = Enumerable.Repeat(Materials.NickelIronIngot, 3).Concat(new[] { Materials.CarbonStock }).ToArray();
+        check(RefineryRecipes.Match(threeAndCarbon, true) == bed && ChargeCatalog.For(ChargeCatalog.Refinery).Match(threeAndCarbon, RefineryRecipes.Met(true), r => r.Draws.Count == 0) == null,
+            "Three ingots and a carbon offer only the carbon as a methane-cracking bed, which a machine binds only with a methane store linked");
         check(RefineryRecipes.Match(steelCharge.Concat(new[] { "ItmMineral11" }), true) == ns, "With a hydrate block beside it the larger nickel steel charge is preferred");
         foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", "ItmMineral02", "ItmMiningTrash", "ItmScrapSteel", Materials.RefinerySlag })
             check(RefineryRecipes.Match(new[] { outside }, true) == null, "Never a charge: " + outside);
-        check(RefineryRecipes.Available(false).Count() == 7 && RefineryRecipes.Available(true).Count() == 7, "Seven recipes are available with or without Shipbreaker: nickel steel replaces the plain steel charge");
+        check(RefineryRecipes.Available(false).Count() == 11 && RefineryRecipes.Available(true).Count() == 11, "Eleven recipes are available with or without Shipbreaker: nickel steel replaces the plain steel charge");
 
         // Feed admission is exact.
         check(RefineryRules.ValidFeed("ItmMineral11", 10, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral01", 20, true, true, true, false) && RefineryRules.ValidFeed("ItmMineral03", 10, true, true, true, false),
@@ -118,7 +121,34 @@ internal static class RefineryChecks
         double calcineKJ = -601.6 + -393.5 - -1113.3;
         check(Math.Abs(cal.ReactionKWh + magnesite * calcineKJ / 3600) < .01 && cal.ReactionKWh < 0 && Math.Abs(cal.EnergyKWh - 3) < 1e-9 && !cal.Melt,
             "The calcine absorbs its reaction heat (about 118 kJ per mole) within a 3 kWh charge; not a melt");
-        check(RefineryRules.StoredGasFamilies.Count() == 2 && RefineryRules.StoredGasFamilies.Contains(GasStores.CarbonDioxideFamily), "The V4 links an ammonia store and a carbon dioxide store");
+        check(RefineryRules.StoredGasFamilies.Count() == 3 && RefineryRules.StoredGasFamilies.Contains(GasStores.CarbonDioxideFamily) && RefineryRules.StoredGasFamilies.Contains(GasStores.HydrogenFamily),
+            "The V4 sends ammonia, carbon dioxide and hydrogen to stores");
+        check(RefineryRules.GasFamilies.Count() == 5 && RefineryRules.GasFamilies.Contains(GasStores.MethaneFamily) && RefineryRules.GasFamilies.Contains(GasStores.OxygenFamily) &&
+              !RefineryRules.Stores(GasStores.MethaneFamily) && RefineryRules.Stores(GasStores.HydrogenFamily),
+            "The V4 links five gas stores: methane and oxygen it draws from, ammonia, carbon dioxide and hydrogen it fills");
+
+        // The interdependency first slice (Manufacturing 0.27.0), with IUPAC 2013 molar masses.
+        const double C = 0.012011, H2 = 0.002016, CH4 = 0.016043, O2 = 0.031998, CO2 = 0.044009;
+        double cracked = 3.0 / C;
+        check(Math.Abs(bed.Draws.Single(i => i.Id == ManufacturingRules.Methane).Kg - cracked * CH4) < .001 && Math.Abs(bed.Deposits.Single(p => p.Id == ManufacturingRules.Hydrogen).Kg - cracked * 2 * H2) < .001 &&
+              bed.Products.Single(p => p.Id == Materials.CarbonBlack).Count == 4 && bed.ItemInputs.Single().Id == Materials.CarbonStock && Math.Abs(bed.ChargeKg - Sum(bed)) < 1e-9 && !bed.Melt,
+            "Methane cracking: CH4 -> C + 2 H2 on 249.77 mol; the carbon stock bed and the 3 kg of new carbon leave as four carbon black");
+        check(Math.Abs(bed.ReactionKWh + cracked * 74.87 / 3600) < .01 && bed.ReactionKWh < 0 && bed.EnergyKWh > -bed.ReactionKWh,
+            "Methane cracking absorbs 74.87 kJ a mole, 5.19 kWh, within the charge's electricity");
+        var burn = RefineryRecipes.ById("carbon-burn")!;
+        double burned = 1.0 / C;
+        check(Math.Abs(burn.Draws.Single(i => i.Id == ManufacturingRules.Oxygen).Kg - burned * O2) < .001 && Math.Abs(burn.Deposits.Single(p => p.Id == ManufacturingRules.CarbonDioxide).Kg - burned * CO2) < .001 &&
+              burn.ItemInputs.Single().Id == Materials.CarbonBlack && burn.OffGasKg == 0 && Math.Abs(burn.ReactionKWh - burned * 393.51 / 3600) < .01,
+            "Carbon burning: C + O2 -> CO2 on 83.26 mol, all of it to a store, releasing 9.10 kWh");
+        foreach (var (id, spent, ready) in new[] { ("scrubber-reactivation", "ItmFilterCO201Dmg", "ItmFilterCO201"), ("eva-filter-reactivation", "ItmFilterCO202Dmg", "ItmFilterCO202") })
+        {
+            var r = RefineryRecipes.ById(id)!;
+            check(r.ItemInputs.Single().Id == spent && r.ItemInputs.Single().Count == 4 && r.Products.Single(p => p.Id == ready).Count == 3 &&
+                  r.Products.Single(p => p.Id == Materials.ExhaustedSorbent).Count == 1 && r.OffGasKg == 0 && r.Draws.Count == 0 && Math.Abs(r.ChargeKg - Sum(r)) < 1e-9,
+                "Reactivation: four spent give three ready and one exhausted sorbent, nothing into the air: " + id);
+        }
+        check(Materials.IsTerminal(Materials.ExhaustedSorbent) && !Materials.IsTerminal(Materials.CarbonBlack) && RefineryRules.FeedConditions.Contains("IsFilterCO2") && RefineryRules.StockFeed.Contains(Materials.CarbonBlack),
+            "The sorbent is terminal; carbon black and the game's CO2 filters enter the V4's feed");
         check(RefineryRules.ValidFeed(Materials.LeachedResidue, 6.8, true, true, true, false) && RefineryRecipes.Match(new[] { Materials.LeachedResidue }, false) == cal && Materials.IsTerminal(Materials.CalcinedResidue) && !Materials.IsTerminal(Materials.LeachedResidue),
             "The leached residue enters and matches the calcine; the calcined residue is terminal");
 

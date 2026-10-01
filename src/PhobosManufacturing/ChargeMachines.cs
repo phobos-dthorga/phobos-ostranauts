@@ -32,12 +32,12 @@ internal static class ChargeMachines
     /// ones every saved V4 already carries.</summary>
     private static ChargeMachineSpec RefinerySpec() => new()
     {
-        Prefix = RefineryRules.Prefix, StockTrigger = RefineryRules.StockTrigger, StockFeed = RefineryRules.StockFeed, AdmitsOre = true,
+        Prefix = RefineryRules.Prefix, StockTrigger = RefineryRules.StockTrigger, StockFeed = RefineryRules.StockFeed, AdmitsOre = true, FeedConditions = RefineryRules.FeedConditions,
         Record = RefineryRules.Record, MachineKey = ChargeCatalog.Refinery, TextPrefix = "Refinery", SnapshotKind = "refinery", Art = Definitions.RefineryArt,
         Selection = RecipeSelection.Automatic, IgnitionSource = true,
         Met = key => key == ChargeCatalog.SteelStockRequirement && ShipbreakerStock.Available,
         Spoiled = RefineryRecipes.Spoiled, SpoiledProducts = RefineryRecipes.SpoiledProducts,
-        Links = () => new[] { RefineryWater() }.Concat(RefineryRules.StoredGasFamilies.Select(RefineryGas)).ToArray()
+        Links = () => new[] { RefineryWater() }.Concat(RefineryRules.GasFamilies.Select(RefineryGas)).ToArray()
     };
     private static ChargeLinkSpec RefineryWater() => new(ManufacturingRules.Water, "link:", RefineryRules.OutPort, RefineryRules.VesselPort, _ => true,
         () => Text.Get("Provider.vessel_field"), alwaysShow: true,
@@ -50,20 +50,24 @@ internal static class ChargeMachines
             _ => Text.Get("Refinery.vessel_full", have, need)
         },
         () => Text.Get("Refinery.linked"), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.link_missing"), deposit: true);
+    /// <summary>One link per gas family a charge stores or (Manufacturing 0.27.0) draws: methane and oxygen come from
+    /// their stores the way ammonia and carbon dioxide go into theirs.</summary>
     private static ChargeLinkSpec RefineryGas(GasFamily family)
     {
         string Gas() => Text.Get(family.TextPrefix + ".gas");
+        bool deposit = RefineryRules.Stores(family);
         return new(family.Commodity, "gas-link:" + family.SmallPrefix + ":", RefineryRules.GasOutPort(family), RefineryRules.GasInPort,
-            v => GasStores.Holds(v.strCODef, family.Commodity), () => Text.Get("Provider.gas_field", Gas()), alwaysShow: false,
+            v => GasStores.Holds(v.strCODef, family.Commodity), () => Text.Get(deposit ? "Provider.gas_field" : "Provider.gas_source_field", Gas()), alwaysShow: false,
             (problem, have, need) => problem switch
             {
                 LinkProblem.None => Text.Get("Refinery.no_store", Gas()),
                 LinkProblem.NotReady => Text.Get("Refinery.store_not_ready", Gas()),
                 LinkProblem.Protected or LinkProblem.Busy => Text.Get("Refinery.store_protected", Gas()),
                 LinkProblem.Catch => Text.Get("Refinery.store_catch", Gas()),
+                LinkProblem.Short => Text.Get("Refinery.store_short", Gas(), have, need),
                 _ => Text.Get("Refinery.store_full", Gas(), have, need)
             },
-            () => Text.Get("Refinery.store_linked", Gas()), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.store_link_missing", Gas()), deposit: true);
+            () => Text.Get(deposit ? "Refinery.store_linked" : "Refinery.source_linked", Gas()), () => Text.Get("Refinery.unlinked"), () => Text.Get("Refinery.store_link_missing", Gas()), deposit: deposit);
     }
 
     /// <summary>The Lixivar LC-3 (Manufacturing 0.18.0): the crew selects the recipe; nothing melts or spoils and it

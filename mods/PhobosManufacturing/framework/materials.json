@@ -229,6 +229,27 @@
       "side": 1,
       "category": "IsCategoryMetals",
       "art": "StockNickelSteelIngot"
+    },
+    "PhobosCarbonBlack": {
+      "notes": "V4 product (Manufacturing 0.27.0): pyrolytic carbon black from methane cracked on a carbon bed, 12 cr/kg. Feed for the V4's carbon burner. Priced low on purpose: methane can be made from bought water and carbon dioxide through the X2 and K2, and at this price that route never pays (refining business rules, bought stock).",
+      "kind": "stock",
+      "kg": 1,
+      "price": 12,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockCarbonBlack"
+    },
+    "PhobosExhaustedSorbent": {
+      "notes": "Terminal (Manufacturing 0.27.0): the quarter of a batch of CO2 scrubber or EVA filter cartridges that reactivation cannot recover, shell and spent sorbent together.",
+      "kind": "stock",
+      "kg": 2.5,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockExhaustedSorbent"
     }
   }
 }

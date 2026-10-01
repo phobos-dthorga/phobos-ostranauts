@@ -60,7 +60,7 @@ internal static class Definitions
         // Feed at the game level: native ore (where the machine takes it) or our own stock; the container patch then
         // applies the exact identity, mass and count rule.
         d.Triggers[spec.StockTrigger] = new CondTrigger { strName = spec.StockTrigger, fChance = 1, fCount = 1, bAND = false,
-            aReqs = (spec.AdmitsOre ? new[] { "IsOre" } : Array.Empty<string>()).Concat(spec.StockFeed.Select(id => id + "Identity")).ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+            aReqs = (spec.AdmitsOre ? new[] { "IsOre" } : Array.Empty<string>()).Concat(spec.FeedConditions).Concat(spec.StockFeed.Select(id => id + "Identity")).ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
         d.Triggers[spec.FeedTrigger] = new CondTrigger { strName = spec.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
         ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));

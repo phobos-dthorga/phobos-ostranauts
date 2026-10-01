@@ -1388,7 +1388,11 @@
   value checks. Framework 0.68.0 (kiosk buy-back `IBulkBuybackProvider`/`VesselBuybackProvider`,
   recipe `supersedes`, `EquipmentSaveUpgrade.FollowPrice`), Manufacturing 0.26.0 (the
   price table, the nickel steel ingot as V4 revision 8 superseding the plain steel
-  charge) and Shipbreaker 0.62.0 (methane ice at 100) implement Part 1.
+  charge) and Shipbreaker 0.62.0 (methane ice at 100) implement Part 1. Manufacturing
+  0.27.0 implements Part 2's first slice: V4 gas draws (a drawing charge binds only
+  when its store is linked), methane cracking into a new low-priced carbon black
+  (kept below the bought-water loop), a carbon burner, CO2 filter reactivation as a
+  non-gaining service, and A2 carbon dioxide dosing for grow rooms.
 
 ## Mining laser direction (2026-10-01)
 

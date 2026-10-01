@@ -58,6 +58,44 @@
           18
         ]
       }
+    },
+    "carbon-black": {
+      "from": "source/calcined-residue.png",
+      "method": "per-pixel luminance map onto a near-black soot ramp; alpha and pixel placement unchanged (Manufacturing 0.27.0, 1 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.3,
+          6
+        ],
+        "g": [
+          0.3,
+          6
+        ],
+        "b": [
+          0.32,
+          9
+        ]
+      }
+    },
+    "exhausted-sorbent": {
+      "from": "source/caustic-remainder.png",
+      "method": "per-pixel luminance map onto a dull used-beige ramp; alpha and pixel placement unchanged (Manufacturing 0.27.0, 1 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.55,
+          58
+        ],
+        "g": [
+          0.52,
+          52
+        ],
+        "b": [
+          0.45,
+          40
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",

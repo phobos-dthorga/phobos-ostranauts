@@ -39008,7 +39008,7 @@
         "src/PhobosManufacturing/Definitions.cs:38"
       ],
       "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each within one tile. A melt left waiting for a cool room too long freezes into slag.",
-      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for nickel steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked water silo, ammonia to a linked ammonia store and the leached residue's carbon dioxide to a linked carbon dioxide store, each touching the refinery or on its water or gas line. A melt left waiting for a cool room too long freezes into slag."
+      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, an ammonium salt crust, a leached residue from a Lixivar LC-3, a block of meteoric iron, four nickel-iron ingots with one carbon stock for nickel steel, one carbon stock to crack methane into carbon black and hydrogen, one carbon black to burn with oxygen into carbon dioxide, or four spent CO2 scrubber cartridges or EVA filters to reactivate three of them. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas and the salt crust's carbon dioxide into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked water silo and each gas to or from a linked store of that gas, touching the refinery or on its water or gas line. A charge that needs a gas from a store waits until that store is linked. A melt left waiting for a cool room too long freezes into slag."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39034,7 +39034,7 @@
         "src/PhobosManufacturing/Definitions.cs:47"
       ],
       "before": "Up to {0} loose units: ore blocks at their full mass, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time.",
-      "after": "Up to {0} loose units: ore blocks at their full mass, a leached residue, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time."
+      "after": "Up to {0} loose units: ore blocks at their full mass, a leached residue, nickel-iron ingots and carbon stock, carbon black, or spent CO2 scrubber cartridges and EVA filters. The refinery binds one exact charge at a time."
     },
     {
       "mod": "PhobosManufacturing",
@@ -40770,7 +40770,7 @@
         "src/PhobosManufacturing/Definitions.cs:115"
       ],
       "before": "One kilogram of carbon driven out of carbon ore in the refinery. Melted in excess with four nickel-iron ingots it makes nickel steel.",
-      "after": "One kilogram of carbon driven out of carbon ore in the refinery. Melted in excess with four nickel-iron ingots it makes nickel steel."
+      "after": "One kilogram of carbon driven out of carbon ore in the refinery. Melted in excess with four nickel-iron ingots it makes nickel steel; alone, with a methane store linked, it is the bed that cracks methane into carbon black and hydrogen."
     },
     {
       "mod": "PhobosManufacturing",
@@ -44769,7 +44769,7 @@
         "src/PhobosManufacturing/Definitions.cs:155"
       ],
       "before": "A {0:F0} kg valve and sensor unit, {1:F1} kW, that keeps its room breathable from bulk stores. It adds oxygen from a linked oxygen store up to the set point (up to {2:F0} kg an hour), then, if asked, nitrogen from a linked nitrogen store up to the set pressure (up to {3:F0} kg an hour). It only adds gas: it never vents, scrubs carbon dioxide or cools. It stops feeding a room below {4:F0} kPa, because that room is open to space, and never lets oxygen pass {5:F0}% of the air, because rich air makes any fire worse. Link stores within one tile or along a gas line in the Control Panel, then switch it on.",
-      "after": "A {0:F0} kg valve and sensor unit, {1:F1} kW, that keeps its room breathable from bulk stores. It adds oxygen from a linked oxygen store up to the set point (up to {2:F0} kg an hour), then, if asked, nitrogen from a linked nitrogen store up to the set pressure (up to {3:F0} kg an hour). It only adds gas: it never vents, scrubs carbon dioxide or cools. It stops feeding a room below {4:F0} kPa, because that room is open to space, and never lets oxygen pass {5:F0}% of the air, because rich air makes any fire worse. Link stores within one tile or along a gas line in the Control Panel, then switch it on."
+      "after": "A {0:F0} kg valve and sensor unit, {1:F1} kW, that keeps its room breathable from bulk stores. It adds oxygen from a linked oxygen store up to the set point (up to {2:F0} kg an hour), then, if asked, nitrogen from a linked nitrogen store up to the set pressure (up to {3:F0} kg an hour). It only adds gas: it never vents, scrubs carbon dioxide or cools. It stops feeding a room below {4:F0} kPa, because that room is open to space, and never lets oxygen pass {5:F0}% of the air, because rich air makes any fire worse. For a grow room it can also hold a trace of carbon dioxide from a linked carbon dioxide store, always below the level that troubles the crew, so crops keep growing where the air is scrubbed. Link stores within one tile or along a gas line in the Control Panel, then switch it on."
     },
     {
       "mod": "PhobosManufacturing",
@@ -54486,6 +54486,242 @@
       ],
       "before": "Bulk ammonia (Fennmark Q-series stores)",
       "after": "Bulk ammonia (Fennmark Q-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.methane-pyrolysis",
+      "category": "name",
+      "decision": "add",
+      "reason": "Refinery recipe name: cracking methane on a carbon bed.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176"
+      ],
+      "before": "methane cracking",
+      "after": "methane cracking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.carbon-burn",
+      "category": "name",
+      "decision": "add",
+      "reason": "Refinery recipe name: burning carbon black into carbon dioxide.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176"
+      ],
+      "before": "carbon burning",
+      "after": "carbon burning"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.scrubber-reactivation",
+      "category": "name",
+      "decision": "add",
+      "reason": "Refinery recipe name: reactivating spent scrubber cartridges.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176"
+      ],
+      "before": "scrubber cartridge reactivation",
+      "after": "scrubber cartridge reactivation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.eva-filter-reactivation",
+      "category": "name",
+      "decision": "add",
+      "reason": "Refinery recipe name: reactivating spent EVA filters.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs:176"
+      ],
+      "before": "EVA filter reactivation",
+      "after": "EVA filter reactivation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCarbonBlack",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New V4 product: carbon black.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "Carbon Black",
+      "after": "Carbon Black"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCarbonBlack_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What carbon black is for and that it is worth little.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "A kilogram of fine soot-black carbon, cracked out of methane in the refinery. Burn it there with stored oxygen for carbon dioxide your crops can use, or sell it; it is worth little.",
+      "after": "A kilogram of fine soot-black carbon, cracked out of methane in the refinery. Burn it there with stored oxygen for carbon dioxide your crops can use, or sell it; it is worth little."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosExhaustedSorbent",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New terminal remainder of cartridge reactivation.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "Exhausted Sorbent",
+      "after": "Exhausted Sorbent"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosExhaustedSorbent_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What the exhausted sorbent is; nothing recovers it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:310"
+      ],
+      "before": "A worn-out scrubber cartridge shell and the sorbent nothing will bring back: the one in four that reactivation loses. Nothing recovers it.",
+      "after": "A worn-out scrubber cartridge shell and the sorbent nothing will bring back: the one in four that reactivation loses. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.gas_source_field",
+      "category": "control label",
+      "decision": "add",
+      "reason": "V4 panel field for a store the refinery draws a gas from.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:60"
+      ],
+      "before": "{0} from",
+      "after": "{0} from"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.store_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a charge waits: the linked store holds less gas than the charge draws.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:67"
+      ],
+      "before": "the linked {0} store holds {1:F2} kg and the charge needs {2:F3} kg",
+      "after": "the linked {0} store holds {1:F2} kg and the charge needs {2:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.source_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirmation after linking a store the refinery draws from.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:70"
+      ],
+      "before": "Linked the {0} store. The refinery draws from it only for a charge that needs it.",
+      "after": "Linked the {0} store. The refinery draws from it only for a charge that needs it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.gas",
+      "category": "name",
+      "decision": "add",
+      "reason": "Gas name used in V4 link texts: hydrogen.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:57"
+      ],
+      "before": "hydrogen",
+      "after": "hydrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.gas",
+      "category": "name",
+      "decision": "add",
+      "reason": "Gas name used in V4 link texts: methane.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:57"
+      ],
+      "before": "methane",
+      "after": "methane"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.gas",
+      "category": "name",
+      "decision": "add",
+      "reason": "Gas name used in V4 link texts: oxygen.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs:57"
+      ],
+      "before": "oxygen",
+      "after": "oxygen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.co2_target_field",
+      "category": "control label",
+      "decision": "add",
+      "reason": "A2 panel field: carbon dioxide set point for crops.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:107"
+      ],
+      "before": "Carbon dioxide for crops",
+      "after": "Carbon dioxide for crops"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.co2_store_field",
+      "category": "control label",
+      "decision": "add",
+      "reason": "A2 panel field: the carbon dioxide store it doses from.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:109"
+      ],
+      "before": "Carbon dioxide store",
+      "after": "Carbon dioxide store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.co2_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A2 status line: carbon dioxide set point, store, total added and the room level.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:154"
+      ],
+      "before": "Carbon dioxide for crops: {0}, from {1}; added {2:F2} kg so far. Room now {3:F2} kPa.",
+      "after": "Carbon dioxide for crops: {0}, from {1}; added {2:F2} kg so far. Room now {3:F2} kPa."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.co2_kpa",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Carbon dioxide set point value in kPa, two decimals.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:107",
+        "src/PhobosManufacturing/Provider.cs:108",
+        "src/PhobosManufacturing/RegulatorService.cs:154"
+      ],
+      "before": "{0:F2} kPa",
+      "after": "{0:F2} kPa"
     }
   ],
   "documents": [
@@ -54493,8 +54729,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "99f4542f3e47e980be1bf2f0cf391fa719aa2b53c2468aa013d76f408a0780d7",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "ac83985c2df0db71c35a5d86b0673ec837a0c1d3e0e8e96f40043979118fb024",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "SUPPORT.md",
@@ -55045,8 +55281,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "ad6052487f2c1a11c5b06e95345eb93a359bcec8b493bde4bb00adf357127c56",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "4cceb31dea47b6561c6a49b894dc2b9d5b93c708cb0cb6df19e7080fdf173ba8",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -55104,8 +55340,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "d4f6211c7062603d69a42c10d755cf19f0d98d580ef71509d70e6766b515caa7",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "a5f7cb7ce1bafdf59be559158dddf626b5369cf99cf9375fa75afc22abddcc7a",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -55176,8 +55412,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3d84b827059a23f6ca752c6e3f438d0911e10c9d00653ded6eec5ce11102b655",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "0e35daef5992a56d9b1c2b1602a27cb2069b0c5ee34edd95c5474319df0ce654",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -55465,15 +55701,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "60e68fb13380ac6b29c1ec6023c721e37165b7821cd2154f8351a6170c8321df",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "ca0a46e59cdc3544fcb29f10f32252767620333f2df8adbaf50a011924fddc84",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "4a2a104d345883da981f0af9df2679ac10987f9abb89e1c4f783320de8b1e28d",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "3b599421477e92f7593c967e6929eccca364b0219e784e6f73cea04b4e36cd05",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -55591,8 +55827,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b66f5c2e94a447197bde33809abe534c839a8eb4b7367daaca9edd20ba1e4275",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "8646e4c3570b18b83e6394154102f953f9a3638adc607b2ab66e3bb36c8495ad",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -55703,8 +55939,8 @@
       "path": "docs/development/refining-business-and-interdependencies.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "49ce2a6390af4cecff15adcb4733099e293fe8710a7788e66ef96536b12847bb",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "ec8de2c8e7fd6a75421f3d43aab91961a840e44979963d3aba813b1101259ffe",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "docs/shipbreaker-mining-laser.md",
@@ -55725,8 +55961,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7f578b48c1d1f69a6eecedd9c6ccde279b952b07e962dfc3723f63913ba841dd",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "a196d75ea2d2acad75db7cb51c8ef695c1512b724aa7a639ac739b5c74eb8943",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -55781,8 +56017,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "522d19597071af1c48b342f3ee9cd486296461e3cd25c2855f6ab8a41f7575df",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "2c1c0679196f0bb97fee1d8f49e0be0eba55ea6c554574a468f328f35e261ff1",
+      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

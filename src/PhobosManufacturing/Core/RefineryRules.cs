@@ -23,6 +23,14 @@ public static class RefineryRules
     public static string GasOutPort(GasFamily family) => "PhobosManufacturing.RefineryGasOut." + family.SmallPrefix;
     /// <summary>The gas families any charge keeps in a store, for the V4's links.</summary>
     public static IEnumerable<GasFamily> StoredGasFamilies => RefineryRecipes.All.SelectMany(r => r.StoredGases).Select(p => GasStores.FamilyOf(p.Id)!).Distinct();
+    /// <summary>Every gas family a charge stores or draws (Manufacturing 0.27.0: methane and oxygen are drawn), one V4 link each.</summary>
+    public static IEnumerable<GasFamily> GasFamilies => RefineryRecipes.All.SelectMany(r => r.StoredGases.Select(p => p.Id).Concat(r.Draws.Select(i => i.Id)))
+        .Select(GasStores.FamilyOf).Where(f => f != null).Select(f => f!).Distinct();
+    /// <summary>Whether any charge deposits this gas (the panel then shows the store's room; otherwise what it holds).</summary>
+    public static bool Stores(GasFamily family) => StoredGasFamilies.Contains(family);
+    /// <summary>Native conditions the feed admits at the game level besides ore and our stock (Manufacturing 0.27.0): the
+    /// game's CO2 filters, so spent scrubber and EVA cartridges can be reactivated. The exact identity rule then applies.</summary>
+    public static readonly string[] FeedConditions = { "IsFilterCO2" };
     /// <summary>Native feed identities and their masses (items_mining.json): hydrates 10 kg, meteoric iron 20 kg,
     /// carbon/carbides 10 kg, gangue 3 kg. Steel identities are Shipbreaker's, named as strings only.</summary>
     public const string Hydrates = "ItmMineral11", Iron = "ItmMineral01", Carbides = "ItmMineral03", Gangue = "ItmMiningTrash";
@@ -50,7 +58,7 @@ public static class RefineryRules
     /// <summary>The unit mass a feed identity must carry, or null when it is not feed: from the available recipes.</summary>
     public static double? FeedKg(string? id, bool steelStock) => ChargeCatalog.For(ChargeCatalog.Refinery).FeedKg(id, RefineryRecipes.Met(steelStock));
     /// <summary>Feed identities the bin admits at the game level beyond the native TIsOre rule: our own stock.</summary>
-    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue };
+    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue, Materials.CarbonBlack };
 }
 
 /// <summary>The V4 catalog (owner chemistry decisions, 29 September 2026; sources in the refinery design record): the

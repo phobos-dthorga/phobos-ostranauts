@@ -63,6 +63,8 @@ internal sealed class ChargeMachineSpec
     internal IReadOnlyList<string> StockFeed { get; set; } = Array.Empty<string>();
     /// <summary>Whether the game-level feed rule also admits native ore (the V4's TIsOre rule).</summary>
     internal bool AdmitsOre { get; set; }
+    /// <summary>Further native conditions the game-level feed rule admits (the V4's CO2 filters, Manufacturing 0.27.0).</summary>
+    internal IReadOnlyList<string> FeedConditions { get; set; } = Array.Empty<string>();
     internal string Record { get; set; } = "";
     /// <summary>The catalog key of this machine's recipes (<c>refinery</c>).</summary>
     internal string MachineKey { get; set; } = "";

@@ -32,6 +32,13 @@ public static class RegulatorRules
     /// Document, NASA/TP-2015-218570, March 2015; the exact table value was not rechecked), so this refills a room far
     /// faster than the crew use it.</summary>
     public const double OxygenKgPerHour = 6, NitrogenKgPerHour = 12;
+    /// <summary>Carbon dioxide set points for grow rooms in kPa (Manufacturing 0.27.0; 0 leaves it alone). Crops stop growing
+    /// when their room has none; more than a trace does not raise yield in Agriculture's model. Every choice sits below the
+    /// game's own 0.3 kPa carbon dioxide warning band, and the regulator never doses past <see cref="MaxCarbonDioxideKPa"/>.</summary>
+    public static readonly IReadOnlyList<double> CarbonDioxideTargets = new[] { 0d, 0.05d, 0.1d, 0.2d };
+    public const double MaxCarbonDioxideKPa = 0.25;
+    /// <summary>Carbon dioxide valve flow (authored): a potato crop draws about 13 g an hour, so this keeps many racks fed.</summary>
+    public const double CarbonDioxideKgPerHour = 1;
     public const double TickSeconds = 2;
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
 
@@ -46,6 +53,13 @@ public static class RegulatorRules
         double capped = Math.Max(0, (MaxOxygenFraction * totalMoles - oxygenMoles) / (1 - MaxOxygenFraction));
         return Math.Min(wanted, capped);
     }
+    /// <summary>Moles of carbon dioxide that bring the room to <paramref name="targetKPa"/>, never past
+    /// <see cref="MaxCarbonDioxideKPa"/>: x = target N / P - n_CO2, as for oxygen.</summary>
+    public static double CarbonDioxideMoles(double totalMoles, double pressureKPa, double carbonDioxideMoles, double targetKPa)
+    {
+        if (!Valid(totalMoles, pressureKPa, carbonDioxideMoles, targetKPa) || targetKPa <= 0 || pressureKPa < MinRoomKPa || totalMoles <= 0) return 0;
+        return Math.Max(0, Math.Min(targetKPa, MaxCarbonDioxideKPa) * totalMoles / pressureKPa - carbonDioxideMoles);
+    }
     /// <summary>Moles of nitrogen that bring total pressure to <paramref name="targetKPa"/>: P' = P (N + x) / N.</summary>
     public static double NitrogenMoles(double totalMoles, double pressureKPa, double targetKPa)
     {
@@ -59,7 +73,8 @@ public static class RegulatorRules
     }
 }
 
-/// <summary>The A2's saved choices. It keeps working after a reload, like the game's own air pumps.</summary>
+/// <summary>The A2's saved choices. It keeps working after a reload, like the game's own air pumps. The carbon dioxide
+/// fields arrived in Manufacturing 0.27.0: a record saved before then (seven fields) reads with them unset.</summary>
 public sealed class RegulatorState
 {
     public bool On { get; set; }
@@ -69,20 +84,28 @@ public sealed class RegulatorState
     public string NitrogenStore { get; set; } = "";
     public double AddedOxygenKg { get; set; }
     public double AddedNitrogenKg { get; set; }
+    public double CarbonDioxideKPa { get; set; }
+    public string CarbonDioxideStore { get; set; } = "";
+    public double AddedCarbonDioxideKg { get; set; }
+    public const int LegacyFields = 7, Fields = 10;
     public Dictionary<string, string> Save() => new()
     {
         ["on"] = On ? "1" : "0", ["o2"] = N(OxygenKPa), ["pressure"] = N(PressureKPa), ["o2store"] = OxygenStore, ["n2store"] = NitrogenStore,
-        ["o2kg"] = N(AddedOxygenKg), ["n2kg"] = N(AddedNitrogenKg)
+        ["o2kg"] = N(AddedOxygenKg), ["n2kg"] = N(AddedNitrogenKg), ["co2"] = N(CarbonDioxideKPa), ["co2store"] = CarbonDioxideStore, ["co2kg"] = N(AddedCarbonDioxideKg)
     };
     public static RegulatorState Read(IReadOnlyDictionary<string, string> f)
     {
-        if (f.Count != 7) throw new FormatException("Invalid regulator record.");
+        // Exactly the seven original fields, or the ten since 0.27.0; anything else is not ours to guess at.
+        bool current = f.Count == Fields && f.ContainsKey("co2") && f.ContainsKey("co2store") && f.ContainsKey("co2kg");
+        if (f.Count != LegacyFields && !current) throw new FormatException("Invalid regulator record.");
         var s = new RegulatorState
         {
             On = Flag(f, "on"), OxygenKPa = Amount(f, "o2"), PressureKPa = Amount(f, "pressure"), OxygenStore = Id(f, "o2store"), NitrogenStore = Id(f, "n2store"),
             AddedOxygenKg = Amount(f, "o2kg"), AddedNitrogenKg = Amount(f, "n2kg")
         };
-        if (s.OxygenKPa > RegulatorRules.MaxOxygenKPa || s.PressureKPa > RegulatorRules.MaxPressureKPa) throw new FormatException("Regulator set point out of range.");
+        if (current) { s.CarbonDioxideKPa = Amount(f, "co2"); s.CarbonDioxideStore = Id(f, "co2store"); s.AddedCarbonDioxideKg = Amount(f, "co2kg"); }
+        if (s.OxygenKPa > RegulatorRules.MaxOxygenKPa || s.PressureKPa > RegulatorRules.MaxPressureKPa || s.CarbonDioxideKPa > RegulatorRules.MaxCarbonDioxideKPa)
+            throw new FormatException("Regulator set point out of range.");
         return s;
     }
     private static string N(double v) => v.ToString("R", CultureInfo.InvariantCulture);

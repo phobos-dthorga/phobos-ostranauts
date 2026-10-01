@@ -74,6 +74,10 @@ what went in, sorted.
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
 | 4 nickel-iron ingots + 1 carbon stock | 4 Fennmark nickel steel ingots (4 kg each); 1 refinery slag (1 kg) | 33 min |
 | 1 leached residue (6.8 kg, from the LC-3; new) | 0.26 kg of carbon dioxide into the linked carbon dioxide store; 1 calcined residue (6.54 kg) | 7.5 min |
+| 1 carbon stock, with a linked methane store (0.27.0) | draws 4.007 kg of methane; 4 carbon black (1 kg each); 1.007 kg of hydrogen into the linked hydrogen store | 30 min |
+| 1 carbon black, with a linked oxygen store (0.27.0) | draws 2.664 kg of oxygen; 3.664 kg of carbon dioxide into the linked carbon dioxide store; about 9 kWh of heat into the room | 30 min |
+| 4 spent CO2 scrubber cartridges (0.27.0) | 3 ready scrubber cartridges; 1 exhausted sorbent (2.5 kg) | 30 min |
+| 4 spent EVA CO2 filters (0.27.0) | 3 ready EVA filters; 1 exhausted sorbent (2.5 kg) | 30 min |
 
 Every charge sorts into up to five places: solids to the tray, water to the
 linked vessel, ammonia to the linked ammonia store, the leached residue's carbon
@@ -102,6 +106,45 @@ steel is not Shipbreaker's plain steel ingot, which the F6 casts from scrap.
 Hydrates, clay and the salt crust are worth more as ore than as water and gas;
 you refine those for what the ship needs.
 
+## Reactors that feed each other
+
+Since 0.27.0 the refinery also works with the gas stores the other machines
+fill, so their products have somewhere to go:
+
+- **Cracking methane.** Link a methane store and a hydrogen store to the V4 and
+  load one carbon stock. The V4 cracks 4 kg of methane on the carbon into four
+  carbon black and 1 kg of hydrogen. With a K2 this closes the loop the ISS
+  closes by other means: the Sabatier's methane comes back as hydrogen for the
+  next cycle, and the carbon leaves as a solid. Carbon black is worth little.
+- **Carbon dioxide for crops.** Link an oxygen store and a carbon dioxide store
+  and load one carbon black: the V4 burns it into 3.7 kg of carbon dioxide, and
+  an A2 doses a grow room from that store (see [Cabin air regulator](#cabin-air-regulator)).
+  Crops stop growing in a room with no carbon dioxide, which a well-scrubbed
+  room can be.
+- **Reactivating cartridges.** Spent CO2 scrubber cartridges and EVA filters go
+  into the V4's feed four at a time; three come back ready and the fourth is an
+  exhausted sorbent remainder. They are the ship's largest recurring purchase,
+  so this cuts that by three quarters. The game's scrubber pumps the carbon
+  dioxide it catches into a canister, so a spent cartridge releases none; the
+  reactivation is our simplification, not real lithium chemistry.
+
+A charge that draws a gas is chosen only once that store is linked, so a carbon
+stock waiting for a nickel steel charge is never cracked by surprise.
+
+```mermaid
+flowchart LR
+    K2["K2 Sabatier"] --> M["Methane store"]
+    T2["T2 methane ice"] --> M
+    M --> V4["V4 refinery"]
+    V4 -->|hydrogen| H["Hydrogen store"]
+    H --> K2
+    V4 -->|carbon black| V4
+    O["Oxygen store"] --> V4
+    V4 -->|carbon dioxide| C["CO2 store"]
+    C --> A2["A2 regulator"] --> Racks["Grow room"]
+    Spent["Spent cartridges"] --> V4 -->|3 in 4| Ready["Ready cartridges"]
+```
+
 ## Selling what you make
 
 Refining is a business (owner decision, 1 October 2026): what you refine from
@@ -123,6 +166,7 @@ mined ore sells for roughly 1.5 to 2.5 times the ore it came from.
 | Nickel-iron ingot (4 kg) | 220 cr |
 | Nickel steel ingot (4 kg) | 260 cr |
 | Carbon stock (1 kg) | 38 cr |
+| Carbon black (1 kg, 0.27.0) | 12 cr |
 | Potassium sulfate (0.7 kg) | 190 cr |
 | Phosphate concentrate (0.25 kg) | 110 cr |
 | Struvite (0.43 kg) | 125 cr |
@@ -445,11 +489,11 @@ ammonia.
 
 | Gas | Filled by | Used by |
 | --- | --- | --- |
-| Hydrogen (H) | an X2, an AX-2 | a K2, the RCS through a P1 |
-| Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | the RCS through a P1 |
-| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
+| Hydrogen (H) | an X2, an AX-2, a V4 cracking methane | a K2, the RCS through a P1 |
+| Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | a V4 cracking methane, the RCS through a P1 |
+| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, a V4 burning carbon black, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
 | Nitrogen (N) | Bulk supplies, an AX-2, an L2 decanting canisters | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
-| Carbon dioxide (C) | Bulk supplies, a V4 calcining leached residue, an L2 decanting canisters | a K2 (set the store as its CO2 source), an L2, the RCS |
+| Carbon dioxide (C) | Bulk supplies, a V4 calcining leached residue or burning carbon black, an L2 decanting canisters | a K2 (set the store as its CO2 source), an A2 dosing a grow room, an L2, the RCS |
 | Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), an LC-3 making struvite or crop nutrients, the RCS through a P1 |
 
 Each store's panel shows the kilograms held and every machine linked to it.
@@ -515,19 +559,25 @@ a station reaches the crew without a canister or an air pump in between.
 3. Choose the **Oxygen set point** (19, 21 or 23 kPa; the game counts 20 kPa
    and above as good air) and the **Pressure set point** (80, 90 or 101 kPa, or
    **leave alone**). Press **Switch on**.
+4. For a grow room (0.27.0), also choose a **Carbon dioxide store** and **Carbon
+   dioxide for crops**: 0.05, 0.10 or 0.20 kPa, or **leave alone**.
 
 Every couple of seconds it adds oxygen until the room reaches its set point,
-then nitrogen until the room reaches its pressure: up to 6 kg of oxygen and
-12 kg of nitrogen an hour. It only adds gas. It never vents, never scrubs
-carbon dioxide and never cools, so keep the game's scrubbers running. It keeps
+then carbon dioxide if asked, then nitrogen until the room reaches its pressure:
+up to 6 kg of oxygen, 1 kg of carbon dioxide and 12 kg of nitrogen an hour. It
+only adds gas. It never vents, never scrubs carbon dioxide and never cools, so
+keep the game's scrubbers running. Its carbon dioxide never passes 0.25 kPa, below
+the 0.3 kPa where the game starts to warn the crew; that is plenty for crops,
+which only need some. It keeps
 working after a reload, like the game's own air pumps.
 
 - It stops feeding a room below **10 kPa**: that room is open to space, and
   the crew log says so once. Seal it and the regulator carries on.
 - It never lets oxygen pass **30%** of the room's air, because rich air makes
   any fire worse.
-- The panel shows the room's oxygen and pressure, both stores and how much it
-  has added so far.
+- The panel shows the room's oxygen and pressure, its stores and how much it
+  has added so far, and the room's carbon dioxide when it doses it.
+- A regulator saved before 0.27.0 loads with carbon dioxide left alone.
 
 ## RCS propellant
 

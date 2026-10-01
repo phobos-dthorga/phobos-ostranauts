@@ -111,10 +111,14 @@ public sealed class ChargeRecipeView
     }
     /// <summary>The available recipe whose whole item charge is present among the feed identities, preferring the
     /// largest charge, then the lowest revision; or null. The caller binds the exact units.</summary>
-    public ChargeRecipe? Match(IEnumerable<string> feedIds, Func<string, bool> met)
+    public ChargeRecipe? Match(IEnumerable<string> feedIds, Func<string, bool> met) => Match(feedIds, met, _ => true);
+    /// <summary>As <see cref="Match(IEnumerable{string}, Func{string, bool})"/>, among the recipes this machine can use now
+    /// (Manufacturing 0.27.0: a charge that draws a gas is chosen only when that store is linked, so a lone carbon stock
+    /// never binds a pyrolysis charge on a refinery without a methane store).</summary>
+    public ChargeRecipe? Match(IEnumerable<string> feedIds, Func<string, bool> met, Func<ChargeRecipe, bool> usable)
     {
         var counts = feedIds.GroupBy(id => id, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
-        return Available(met).OrderByDescending(r => r.Units).ThenBy(r => r.Revision)
+        return Available(met).Where(usable).OrderByDescending(r => r.Units).ThenBy(r => r.Revision)
             .FirstOrDefault(r => r.ItemInputs.All(i => counts.TryGetValue(i.Id, out int n) && n >= i.Count));
     }
     /// <summary>The unit mass a feed identity must carry among the available recipes (or only <paramref name="selected"/>,

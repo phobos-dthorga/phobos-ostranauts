@@ -15,6 +15,7 @@ namespace PhobosManufacturing;
 
 /// <summary>The A2 cabin air regulator. Every couple of seconds while switched on, installed, intact and powered, it
 /// reads its room, adds oxygen from its linked oxygen store up to the set point (never past the oxygen-fraction cap),
+/// carbon dioxide for crops from a linked carbon dioxide store up to its own small set point (Manufacturing 0.27.0),
 /// then nitrogen from its linked nitrogen store up to the pressure set point, each within its valve flow limit for the
 /// time that passed. Gas leaves the store's record and enters the room as the game's own species. A room below
 /// 10 kPa is treated as breached and is never fed. Its switches and links are saved and it keeps working after a
@@ -51,7 +52,7 @@ internal static class RegulatorService
     internal static RegulatorState StateOf(CondOwner co) => Get(co).State;
     internal static bool Protected(CondOwner co) => Get(co).Protected;
 
-    /// <summary>Oxygen or nitrogen stores of any size touching the regulator or on its gas line.</summary>
+    /// <summary>Oxygen, nitrogen or carbon dioxide stores of any size touching the regulator or on its gas line.</summary>
     internal static IEnumerable<CondOwner> Candidates(CondOwner co, string commodity) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && GasStores.Holds(c.strCODef, commodity) &&
             GasLine.Connection(co, c) != null)
@@ -94,10 +95,18 @@ internal static class RegulatorService
             double o2 = Feed(co, s, air, "O2", ManufacturingRules.Oxygen, s.State.OxygenStore,
                 RegulatorRules.OxygenMoles(air.Mols, air.PressureKPa, NativeGasCanister.Moles("O2", RoomGas.HeldKg(air, "O2")), s.State.OxygenKPa), RegulatorRules.OxygenKgPerHour * hours, lines);
             s.State.AddedOxygenKg += o2;
+            double co2 = 0;
+            if (s.State.CarbonDioxideKPa > 0)
+            {
+                co2 = Feed(co, s, air, "CO2", ManufacturingRules.CarbonDioxide, s.State.CarbonDioxideStore,
+                    RegulatorRules.CarbonDioxideMoles(air.Mols, air.PressureKPa, NativeGasCanister.Moles("CO2", RoomGas.HeldKg(air, "CO2")), s.State.CarbonDioxideKPa),
+                    RegulatorRules.CarbonDioxideKgPerHour * hours, lines);
+                s.State.AddedCarbonDioxideKg += co2;
+            }
             if (s.State.PressureKPa > 0)
             {
-                // Oxygen just added is still pending in the room's gas, so it counts against the nitrogen shortfall.
-                double shortfall = Math.Max(0, RegulatorRules.NitrogenMoles(air.Mols, air.PressureKPa, s.State.PressureKPa) - NativeGasCanister.Moles("O2", o2));
+                // Oxygen and carbon dioxide just added are still pending in the room's gas, so they count against the nitrogen shortfall.
+                double shortfall = Math.Max(0, RegulatorRules.NitrogenMoles(air.Mols, air.PressureKPa, s.State.PressureKPa) - NativeGasCanister.Moles("O2", o2) - NativeGasCanister.Moles("CO2", co2));
                 double n2 = Feed(co, s, air, "N2", ManufacturingRules.Nitrogen, s.State.NitrogenStore, shortfall, RegulatorRules.NitrogenKgPerHour * hours, lines);
                 s.State.AddedNitrogenKg += n2;
             }
@@ -142,6 +151,8 @@ internal static class RegulatorService
             Text.Get("Regulator.targets", s.State.OxygenKPa, s.State.PressureKPa > 0 ? Text.Get("Regulator.kpa", s.State.PressureKPa) : Text.Get("Regulator.pressure_off")),
             Text.Get("Regulator.stores", Store(s.State.OxygenStore), Store(s.State.NitrogenStore)),
             Text.Get("Regulator.totals", s.State.AddedOxygenKg, s.State.AddedNitrogenKg),
+            Text.Get("Regulator.co2_line", s.State.CarbonDioxideKPa > 0 ? Text.Get("Regulator.co2_kpa", s.State.CarbonDioxideKPa) : Text.Get("Regulator.pressure_off"),
+                Store(s.State.CarbonDioxideStore), s.State.AddedCarbonDioxideKg, air == null ? 0 : air.Room.GetCondAmount("StatGasPpCO2")),
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power")
         });
     }
@@ -172,15 +183,20 @@ internal static class RegulatorService
                 if (!double.TryParse(arg, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double o2) || !RegulatorRules.OxygenTargets.Contains(o2))
                 { message = Text.Get("Regulator.invalid_target"); return false; }
                 s.State.OxygenKPa = o2; message = Text.Get("Regulator.target_set"); break;
+            case "co2":
+                if (!double.TryParse(arg, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double c) || !RegulatorRules.CarbonDioxideTargets.Contains(c))
+                { message = Text.Get("Regulator.invalid_target"); return false; }
+                s.State.CarbonDioxideKPa = c; message = Text.Get("Regulator.target_set"); break;
             case "pressure":
                 if (!double.TryParse(arg, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double p) || !RegulatorRules.PressureTargets.Contains(p))
                 { message = Text.Get("Regulator.invalid_target"); return false; }
                 s.State.PressureKPa = p; message = Text.Get("Regulator.target_set"); break;
-            case "oxygen": case "nitrogen":
+            case "oxygen": case "nitrogen": case "carbon-dioxide":
             {
-                string commodity = verb == "oxygen" ? ManufacturingRules.Oxygen : ManufacturingRules.Nitrogen;
+                string commodity = verb == "oxygen" ? ManufacturingRules.Oxygen : verb == "nitrogen" ? ManufacturingRules.Nitrogen : ManufacturingRules.CarbonDioxide;
                 if (arg != "none" && !Candidates(co, commodity).Any(c => c.strID == arg)) { message = Text.Get("Regulator.link_missing"); return false; }
-                if (verb == "oxygen") s.State.OxygenStore = arg == "none" ? "" : arg; else s.State.NitrogenStore = arg == "none" ? "" : arg;
+                string id = arg == "none" ? "" : arg;
+                if (verb == "oxygen") s.State.OxygenStore = id; else if (verb == "nitrogen") s.State.NitrogenStore = id; else s.State.CarbonDioxideStore = id;
                 message = Text.Get(arg == "none" ? "Regulator.unlinked" : "Regulator.linked"); break;
             }
             default: message = Text.Get("Content.unsupported_action"); return false;

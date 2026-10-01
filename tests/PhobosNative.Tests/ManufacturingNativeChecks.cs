@@ -313,7 +313,7 @@ internal static class ManufacturingNativeChecks
 
         // With and without Shipbreaker: the same definitions, a different available catalog.
         check(AcidPlantRecipes.All.Count == 1 && AcidPlantRecipes.Match(new[] { Materials.SulfideNodule }) == AcidPlantRecipes.Roast, "The SA-3 has its one roast recipe");
-        check(RefineryRecipes.Available(true).Count() == 7 && RefineryRecipes.Available(false).Count() == 7 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker never changes the definitions, and nickel steel is offered with or without it");
+        check(RefineryRecipes.Available(true).Count() == 11 && RefineryRecipes.Available(false).Count() == 11 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker never changes the definitions, and nickel steel is offered with or without it");
         check(AgricultureStock.Definitions(), "Agriculture's makeup packet is published at the 40 g the formulation expects");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
@@ -326,6 +326,8 @@ internal static class ManufacturingNativeChecks
         // 4. Fertiliser formulations carry Agriculture's own price: the owner's exception, as fertiliser is rare in the game's world.
         // 5. A superseded revision is kept only so a bound job settles; it is never offered and not priced.
         // 6. A charge fed only from bought stock earns at most 1.25 times its inputs. Off-gas has no value.
+        // 7. A service charge on the game's own consumables (reactivating spent CO2 filters, Manufacturing 0.27.0) never gains:
+        //    the game prices spent and ready cartridges alike, so it saves purchases rather than making money.
         double Price(string id) => id == ManufacturingRules.Water ? Phobos.Ostranauts.Framework.Items.WaterTanks.WaterPricePerKg
             : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
         // Stored gases are valued at the game's own gas price per kilogram, read from its GasPrices table (the table
@@ -340,7 +342,8 @@ internal static class ManufacturingNativeChecks
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
         var superseded = new HashSet<(string, int)>(ChargeCatalog.All.SelectMany(r => r.Supersedes.Select(e => (r.Machine, e))));
-        int business = 0, steps = 0;
+        int business = 0, steps = 0, services = 0;
+        bool NativeItem(string id) => !ChargeCommodities.Is(id) && !Mined(id) && !d.Objects.ContainsKey(id) && Materials.ById(id) == null && id.StartsWith("Itm", StringComparison.Ordinal);
         foreach (var recipe in ChargeCatalog.All)
         {
             if (superseded.Contains((recipe.Machine, recipe.Revision))) continue;
@@ -363,6 +366,12 @@ internal static class ManufacturingNativeChecks
             if (recipe.ItemInputs.All(i => Bought(i.Id)))
                 check(outValue <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, earns at most a quarter more at base prices: {outValue:F2} out of {inValue:F2}");
             if (!recipe.Products.Any(p => Finished(p.Id))) continue;
+            if (recipe.ItemInputs.All(i => NativeItem(i.Id)))
+            {
+                check(outValue <= inValue, $"The {recipe.Machine} {recipe.Id} service charge never gains on the game's own items: {outValue:F2} out of {inValue:F2}");
+                services++;
+                continue;
+            }
             if (recipe.ItemInputs.Any(i => Mined(i.Id)))
             {
                 double ore = recipe.ItemInputs.Where(i => Mined(i.Id)).Sum(i => UnitValue(i.Id, i.Count, i.Kg));
@@ -375,7 +384,22 @@ internal static class ManufacturingNativeChecks
                 steps++;
             }
         }
-        check(business == 5 && steps == 3, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide) and three steps (struvite twice, nickel steel) are priced: {business} and {steps}");
+        check(business == 5 && steps == 4 && services == 2, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide), four steps (struvite twice, nickel steel, methane cracking) and two reactivation services are priced: {business}, {steps} and {services}");
+        // Methane cracking from bought stock: water and CO2 through the X2 and K2 make the methane; selling the oxygen and water
+        // back at the kiosk's share and the carbon black at a generous 1.2 times its price must not repay what was bought.
+        var crackBed = RefineryRecipes.ById("methane-pyrolysis")!;
+        double methaneMol = crackBed.Draws.Single(i => i.Id == ManufacturingRules.Methane).Kg / 0.016043, hydrogenNeeded = methaneMol * 4 * 0.002016;
+        double cycles = hydrogenNeeded / ProcessorRules.HydrogenKgPerCycle, boughtWater = cycles * ProcessorRules.WaterKgPerCycle, boughtCO2 = methaneMol * 0.044009;
+        double bought = boughtWater * Price(ManufacturingRules.Water) + boughtCO2 * GasPrice("CO2") + Price(Materials.CarbonStock);
+        double buyback = Phobos.Ostranauts.Framework.Trading.BulkSupplies.BuybackShare;
+        double sold = buyback * (cycles * ProcessorRules.OxygenKgPerCycle * GasPrice("O2") + methaneMol * 2 * 0.018015 * Price(ManufacturingRules.Water) + crackBed.Deposits.Single().Kg * GasPrice("H2")) +
+            1.2 * crackBed.Products.Where(p => !ChargeCommodities.Is(p.Id)).Sum(p => p.Count * Price(p.Id));
+        check(sold < bought, $"Cracking methane made from bought water and CO2 never repays the purchase: {sold:F2} back from {bought:F2}");
+        // The game's own CO2 filters enter the V4's feed at the game level, spent or ready; the exact rule then takes only spent ones.
+        var feedTrigger = DataHandler.dictCTs[RefineryRules.FeedTrigger];
+        foreach (string filter in new[] { "ItmFilterCO201Dmg", "ItmFilterCO202Dmg" })
+            check(feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[filter]), false) && Stat(DataHandler.dictCOs[filter], "StatMass") == 2.5, "A spent CO2 filter passes the V4 feed's game-level rule at 2.5 kg: " + filter);
+        check(RefineryRules.FeedKg("ItmFilterCO201", true) == null && RefineryRules.FeedKg("ItmFilterCO201Dmg", true) == 2.5, "Only spent cartridges are feed; ready ones are refused by the exact rule");
         // The whole iron chain: a meteoric iron block and a fifth of a carbon ore block end as four nickel steel ingots.
         double ironChain = 4 * Price(Materials.NickelSteelIngot), ironOre = Price(RefineryRules.Iron) + Price(RefineryRules.Carbides) / RefineryRecipes.Carbon.Products.Single(p => p.Id == Materials.CarbonStock).Count;
         check(ironChain >= 1.5 * ironOre && ironChain <= 2.5 * ironOre, $"Meteoric iron and carbon ore end as nickel steel worth 1.5 to 2.5 times the ores: {ironChain:F2} from {ironOre:F2}");

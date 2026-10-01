@@ -6,6 +6,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-10-01 - Draft
+
+### Added
+
+- The V4 cracks methane: link a methane store and a hydrogen store, load one carbon stock, and it turns 4 kg of methane into four carbon black (1 kg each, 12 cr) and 1 kg of hydrogen. With a K2 this returns the Sabatier's methane as hydrogen and leaves the carbon as a solid, as NASA's Bosch work for the ISS set out to do.
+- The V4 burns carbon black: link an oxygen store and a carbon dioxide store, load one carbon black, and it makes 3.7 kg of carbon dioxide for a store, warming the room by about 9 kWh.
+- The V4 reactivates the game's spent CO2 scrubber cartridges and EVA filters, four at a time: three come back ready and the fourth is an exhausted sorbent remainder. This is our simplification, not real lithium chemistry; the game's scrubber has already sent the carbon dioxide to a canister.
+- The A2 cabin air regulator can dose a grow room with carbon dioxide from a linked carbon dioxide store: 0.05, 0.10 or 0.20 kPa, up to 1 kg an hour, never past 0.25 kPa, below the 0.3 kPa where the game starts to warn the crew. Crops stop growing in a room with none.
+- New materials: Phobos' Fennmark carbon black and exhausted sorbent, with recoloured sprites of existing masters.
+
+### Changed
+
+- The V4 links stores for gases it draws (methane, oxygen) as well as those it fills (ammonia, carbon dioxide and now hydrogen). A charge that draws a gas is chosen only when that store is linked, so a carbon stock waiting for a nickel steel charge is never cracked by surprise.
+- The V4's feed now takes spent CO2 filters and carbon black.
+
+### Save compatibility
+
+- Automatic. Refineries keep their links and any bound charge. A2 regulators saved before 0.27.0 load with carbon dioxide left alone; their records gain the three new fields on the next save.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.68.0 or newer. Downgrading to 0.26.0 or older after a save marks A2 records as needing Accept on their panel. Carbon black is priced low on purpose, so methane made from bought water and carbon dioxide never pays its way back. Reactivating cartridges saves purchases; it makes no money, because the game prices spent and ready cartridges alike. The carbon-on-carbon cracking route is cited from memory and marked to check. Offline checks are not gameplay validation.
+
 ## [0.26.0] - 2026-10-01 - Draft
 
 ### Added

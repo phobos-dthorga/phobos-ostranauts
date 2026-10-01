@@ -27,6 +27,8 @@
   "Regulator.name": { "brand": "Fennmark", "model": "A2" },
   "Material.PhobosNickelIronIngot": { "brand": "Fennmark", "model": "" },
   "Material.PhobosNickelSteelIngot": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosCarbonBlack": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosExhaustedSorbent": { "brand": "Fennmark", "model": "" },
   "Material.PhobosCarbonStock": { "brand": "Fennmark", "model": "" },
   "Material.PhobosRefinerySlag": { "brand": "Fennmark", "model": "" },
   "Material.PhobosAnhydrousResidue": { "brand": "Fennmark", "model": "" },

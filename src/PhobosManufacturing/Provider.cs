@@ -103,6 +103,10 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
                 RegulatorRules.PressureTargets.Select(v => ("pressure:" + N(v), v > 0 ? Text.Get("Regulator.kpa", v) : Text.Get("Regulator.pressure_off"))), "pressure:" + N(state.PressureKPa));
             yield return LinkField(Text.Get("Provider.oxygen_store_field"), "oxygen:", state.OxygenStore, RegulatorService.Candidates(co, ManufacturingRules.Oxygen));
             yield return LinkField(Text.Get("Provider.nitrogen_store_field"), "nitrogen:", state.NitrogenStore, RegulatorService.Candidates(co, ManufacturingRules.Nitrogen));
+            // Carbon dioxide for grow rooms (Manufacturing 0.27.0).
+            yield return new(Text.Get("Provider.co2_target_field"), state.CarbonDioxideKPa > 0 ? Text.Get("Regulator.co2_kpa", state.CarbonDioxideKPa) : Text.Get("Regulator.pressure_off"),
+                RegulatorRules.CarbonDioxideTargets.Select(v => ("co2:" + N(v), v > 0 ? Text.Get("Regulator.co2_kpa", v) : Text.Get("Regulator.pressure_off"))), "co2:" + N(state.CarbonDioxideKPa));
+            yield return LinkField(Text.Get("Provider.co2_store_field"), "carbon-dioxide:", state.CarbonDioxideStore, RegulatorService.Candidates(co, ManufacturingRules.CarbonDioxide));
         }
         else if (LiquidStores.IsFamily(co.strCODef) && !BulkVessel.Protected(co))
         {

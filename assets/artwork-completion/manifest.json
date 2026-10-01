@@ -1636,6 +1636,54 @@
       "derivedFrom": "source/aluminium-ingot.png"
     },
     {
+      "key": "carbon-black",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonBlack",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockCarbonBlack",
+      "status": "selected",
+      "source": "source/carbon-black.png",
+      "sourceSHA256": "7ef3da40f76c1289a4dc28a13cbd644a1390279180a4b427d87e8eae4e43a4bb",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected calcined residue lump (map in manufacturing-requests.json); near-black so carbon black reads apart from the carbon stock block. Owner in-game review pending.",
+      "derivedFrom": "source/calcined-residue.png"
+    },
+    {
+      "key": "exhausted-sorbent",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosExhaustedSorbent",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockExhaustedSorbent",
+      "status": "selected",
+      "source": "source/exhausted-sorbent.png",
+      "sourceSHA256": "0e6eb0f1228790ec31a47c28554edd4317d68747339d573004862174930c7cc3",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected caustic remainder disc, read as a worn cartridge end (map in manufacturing-requests.json). Owner in-game review pending.",
+      "derivedFrom": "source/caustic-remainder.png"
+    },
+    {
       "key": "carbon-stock",
       "mod": "PhobosManufacturing",
       "definition": "PhobosCarbonStock",

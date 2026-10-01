@@ -41,5 +41,24 @@ internal static class RegulatorChecks
         throws(() => RegulatorState.Read(new Dictionary<string, string>(saved) { ["o2kg"] = "-1" }), "A negative total is refused");
         var extra = new Dictionary<string, string>(saved) { ["extra"] = "1" };
         throws(() => RegulatorState.Read(extra), "A record with unknown fields is refused");
+
+        // Carbon dioxide for grow rooms (Manufacturing 0.27.0): the same Dalton arithmetic, below the game's warning band.
+        check(Near(RegulatorRules.CarbonDioxideMoles(1000, 100, 0.2, 0.1), 0.8), "Carbon dioxide to add is target x N / P minus what is there: 0.1 x 1000 / 100 - 0.2 = 0.8 mol");
+        check(RegulatorRules.CarbonDioxideMoles(1000, 100, 0, 0) == 0 && RegulatorRules.CarbonDioxideMoles(1000, 100, 5, 0.2) == 0 && RegulatorRules.CarbonDioxideMoles(1000, 5, 0, 0.2) == 0,
+            "Left alone, already above its set point, or in a breached room, a room gets no carbon dioxide");
+        check(Near(RegulatorRules.CarbonDioxideMoles(1000, 100, 0, 3), RegulatorRules.MaxCarbonDioxideKPa * 10) && RegulatorRules.MaxCarbonDioxideKPa < 0.3 &&
+              RegulatorRules.CarbonDioxideTargets.All(t => t <= RegulatorRules.MaxCarbonDioxideKPa) && RegulatorRules.CarbonDioxideTargets.Contains(0),
+            "Carbon dioxide set points, and any clamped request, stay under the game's 0.3 kPa warning band; 0 leaves it alone");
+        var dosing = new RegulatorState { On = true, CarbonDioxideKPa = 0.1, CarbonDioxideStore = "c-1", AddedCarbonDioxideKg = 0.5 };
+        var dosed = RegulatorState.Read(dosing.Save());
+        check(dosing.Save().Count == RegulatorState.Fields && dosed.CarbonDioxideKPa == 0.1 && dosed.CarbonDioxideStore == "c-1" && dosed.AddedCarbonDioxideKg == 0.5,
+            "The carbon dioxide set point, store and total survive a save and load");
+        var legacy = new Dictionary<string, string>(saved); legacy.Remove("co2"); legacy.Remove("co2store"); legacy.Remove("co2kg");
+        var old = RegulatorState.Read(legacy);
+        check(legacy.Count == RegulatorState.LegacyFields && old.OxygenKPa == 23 && old.CarbonDioxideKPa == 0 && old.CarbonDioxideStore == "" && old.AddedCarbonDioxideKg == 0,
+            "A regulator record saved before 0.27.0 reads with carbon dioxide left alone");
+        var partial = new Dictionary<string, string>(saved); partial.Remove("co2kg");
+        throws(() => RegulatorState.Read(partial), "A record with only part of the carbon dioxide fields is refused");
+        throws(() => RegulatorState.Read(new Dictionary<string, string>(saved) { ["co2"] = "1" }), "A carbon dioxide set point above the maximum is refused");
     }
 }
