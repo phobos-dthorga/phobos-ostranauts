@@ -25,6 +25,28 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.61.0] - 2026-10-01 - Draft
+
+### Added
+
+- The ML-2 mining laser can be paired with a cooling assembly: an F6-R radiator or F6-P port that touches it or stands one tile away, chosen under Cooling on its Control Panel or the C1 console. While the assembly is intact, properly mounted and has room, the laser's heat goes there and the room behind the mount is left alone.
+- A Power setting on the laser. Standard is 24 kW. High is 48 kW and needs a linked cooling assembly that is ready; each cut then takes half the time for the same electricity. At the high setting one assembly settles near 203 C, under its 250 C limit.
+
+### Changed
+
+- The laser's panel now says where its heat is going, how hot the cooling assembly is and how much more it can take.
+
+### Compatibility and limits
+
+- A cooling assembly serves one furnace or one laser, never both and never two lasers. Pairing and unpairing need a paused laser and an assembly at 50 C or below.
+- If the assembly is damaged, moved, uninstalled or at its limit, the heat goes to the room behind the mount under the earlier rule. A cut already started keeps the draw it started with.
+- The link is by touching only. Cooling the laser through F6-C conduit is not in this version: the conduit's coolant is kept in the furnace, and a second kind of circuit needs its own design.
+- The cooling assembly code stays in Shipbreaker; Framework is unchanged. Offline checks are not gameplay validation.
+
+### Save compatibility
+
+- Automatic. The laser gains two saved choices, its cooling link and its power setting; without them it uses the room and Standard, as before. Radiator and furnace records are unchanged.
+
 ## [0.60.0] - 2026-10-01 - Draft
 
 ### Changed

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-01",
-  "baselineCommit": "5538f6bd0adda6bc73912b1f1ab0886da33379e6",
+  "baselineCommit": "5582b2a2aff17775106bd026ea44ae4c4be88156",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -7452,16 +7452,17 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/LaserRules.cs",
-      "sha256": "fb851b89b4aab8e721c23d5fe0ed868a0661d3c26ea0a3320b63ecabf9341ee1",
+      "sha256": "54a8bde77520084cd8c114c3150c21a966ba357a977ce81861c828e5909c0b53",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L12"
+        "L12",
+        "L13"
       ],
       "indicators": {
         "collection": [
-          85
+          115
         ]
       },
       "reviewed": "2026-10-01"
@@ -8186,6 +8187,28 @@
       "reviewed": "2026-09-29"
     },
     {
+      "path": "src/PhobosShipbreaker/LaserCooling.cs",
+      "sha256": "d748aa97f880890c96e2a9be9f98eb0ad64b79d899e232556853f6f32183c160",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L13"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          19,
+          20,
+          24,
+          106
+        ],
+        "collection": [
+          65
+        ]
+      },
+      "reviewed": "2026-10-01"
+    },
+    {
       "path": "src/PhobosShipbreaker/LaserDefinitions.cs",
       "sha256": "3acb11863aa8ae8dbb371451f9f1400404473daf24df0f1a89936b08b2099f2e",
       "role": "industrial service, native boundary or process policy",
@@ -8233,12 +8256,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/LaserPower.cs",
-      "sha256": "254700cc5133609fb7c0ab669cc01e75c36c251ee00df97ec3ee37ae9449bcaf",
+      "sha256": "50e794d3a26c7265444ab34d5ca7c39e22e7626ab35d1a91e863b6193b99bb96",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L12"
+        "L12",
+        "L13"
       ],
       "indicators": {},
       "reviewed": "2026-10-01"
@@ -8262,37 +8286,38 @@
     },
     {
       "path": "src/PhobosShipbreaker/LaserService.cs",
-      "sha256": "9aba01f28e99d2aef102e45bef45ca8da5f73830b33b2bed305613de0545ecf2",
+      "sha256": "62ca2b97924e32343d31e06466b456e9c2042018e1181de2287a990c8b30710d",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L12"
+        "L12",
+        "L13"
       ],
       "indicators": {
         "persistence_or_io": [
-          34,
-          35,
-          38,
-          42,
-          49,
-          95,
-          133,
-          265,
-          269
+          36,
+          37,
+          40,
+          44,
+          51,
+          99,
+          137,
+          271,
+          275
         ],
         "runtime_hook": [
-          148
+          152
         ],
         "profiling": [
-          151
+          155
         ],
         "collection": [
-          152,
-          274
+          156,
+          280
         ],
         "discovery": [
-          200
+          206
         ]
       },
       "reviewed": "2026-10-01"
@@ -8378,7 +8403,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "e16eee997755e0ebfe4088f5a0a8ec9dc21316f3cafe68ba0d66eca7a0998272",
+      "sha256": "df8e39b259dee472c64adaf676dd544d0c23146c8b4ab7fbb95660044fd3b9ef",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -8494,6 +8519,18 @@
         ]
       },
       "reviewed": "2026-09-29"
+    },
+    {
+      "path": "src/PhobosShipbreaker/RadiatorSink.cs",
+      "sha256": "6b68054fc0bed05541594a447a27a79f88f6aad7adaa8b0afe4922e478ea0e71",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L13"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-01"
     },
     {
       "path": "src/PhobosShipbreaker/ReclaimerDefinitions.cs",
@@ -8771,20 +8808,23 @@
     },
     {
       "path": "src/PhobosShipbreaker/ThawProvider.cs",
-      "sha256": "7ee4fe8250522712d5e69b6c88f97f9e6a382275923af387dddc08e5a54734e8",
+      "sha256": "4a3ee0cede70e76d2a8ce46412dc25980fbbbd5a5bdaea60f2268bc67a943a28",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
       "findings": [
         "L3",
-        "L12"
+        "L12",
+        "L13"
       ],
       "indicators": {
         "collection": [
           23,
-          30,
+          28,
           33,
-          36
+          40,
+          43,
+          46
         ]
       },
       "reviewed": "2026-10-01"

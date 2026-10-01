@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Inventory;
 using Phobos.Ostranauts.Framework.Processing;
 using PhobosShipbreaker.Core;
 
@@ -94,6 +96,49 @@ internal static class LaserChecks
         check(!RoomHeat.Budget(1000, 313.14, 0, 100, heat, 1, out _), "A room at the ceiling takes no more laser heat");
         check(RoomHeat.Budget(800, 293.15, 0, 100, heat, 1, out double rise) && Math.Abs(rise - 14.4 * 1000 / (800 * RoomHeat.GasHeatCapacityJPerMolK)) < 1e-9 && rise > .8 && rise < .9,
             "About 800 mol of room air warms a little under 0.9 K for each second of cutting");
+
+        // The radiator link (0.61.0): the high setting, energy-defined jobs and where each step's heat goes.
+        check(LaserRules.JobKW(false, false) == LaserRules.WorkingKW && LaserRules.JobKW(false, true) == LaserRules.WorkingKW &&
+            LaserRules.JobKW(true, false) == LaserRules.WorkingKW && LaserRules.JobKW(true, true) == LaserRules.HighKW && LaserRules.HighKW == 2 * LaserRules.WorkingKW,
+            "The high setting only counts while a paired cooling assembly is ready; otherwise jobs start at the standard draw");
+        var fast = Bound(); fast.Begin("rock-9", LaserRules.Rock, "ItmWallRock011x1", 15, 0, LaserRules.HighKW);
+        check(fast.Valid && fast.Number("kw") == LaserRules.HighKW && fast.Number("seconds") == 7.5 &&
+            Math.Abs(fast.Number("seconds") * fast.Number("kw") - 15 * LaserRules.WorkingKW) < 1e-9, "A job is a fixed amount of energy: twice the draw, half the time");
+        fast.Credit(LaserRules.HighKW * 7.5 / 3600); check(fast.Paid, "A high-setting job is paid by the same energy as a standard one");
+        var panel = Bound(); panel.Begin("wall-9", LaserRules.Wall, "ItmWall1x1", 0, 0, LaserRules.HighKW);
+        check(panel.Number("seconds") == LaserRules.WallSeconds / 2, "A wall panel at the high setting takes half the time and the same 0.4 kWh");
+        throws(() => Bound().Begin("x", LaserRules.Rock, "stage", 15, 0, 0), "A job cannot start with no draw");
+        throws(() => Bound().Begin("x", LaserRules.Rock, "stage", 15, 0, double.NaN), "A job cannot start with an unknown draw");
+        check(LaserRules.ParsePower("standard", out bool highSetting) && !highSetting && LaserRules.ParsePower("high", out highSetting) && highSetting &&
+            !LaserRules.ParsePower("High", out _) && !LaserRules.ParsePower(null, out _), "Power settings are the two exact lower-case names");
+        check(LaserRules.HeatToRadiator(true, 100, 100) && LaserRules.HeatToRadiator(true, 100, 0) && !LaserRules.HeatToRadiator(true, 99.9, 100) &&
+            !LaserRules.HeatToRadiator(false, 1000, 1) && !LaserRules.HeatToRadiator(true, double.NaN, 1) && !LaserRules.HeatToRadiator(true, 100, -1),
+            "A step's heat goes to the cooling assembly only when it is ready and has room for all of it; otherwise the room rule applies");
+        // One cooling assembly at its 250 C limit sheds more than the high setting's heat share, so the setting is sustainable.
+        double highHeat = LaserRules.HeatKW(LaserRules.HighKW);
+        check(Math.Abs(highHeat - 28.8) < 1e-9 && FurnaceRules.Radiation(FurnaceRules.SinkMaxK) > highHeat && FurnaceRules.Radiation(FurnaceRules.ReleaseK) < LaserRules.HeatKW(LaserRules.WorkingKW),
+            "The assembly sheds the high setting's 28.8 kW below its limit, and warms well above 50 C doing it");
+        double settle = 400; for (int i = 0; i < 60; i++) settle -= (FurnaceRules.Radiation(settle) - highHeat) / (4 * FurnaceRules.Radiation(settle) / settle);
+        check(settle > 470 && settle < 482 && settle < FurnaceRules.SinkMaxK, "At the high setting the assembly settles near 203 C, under its 250 C limit");
+        // Touching: footprints that touch or stand one tile apart, never overlapping; a 6 x 4 radiator beside a 2 x 2 head.
+        check(LaserRules.Touching(0, 0, 2, 2, 4, 0, 6, 4) && LaserRules.Touching(0, 0, 2, 2, 5, 0, 6, 4) && !LaserRules.Touching(0, 0, 2, 2, 6, 0, 6, 4),
+            "A radiator edge to edge with the head, or one tile from it, is touching; two tiles away is not");
+        check(LaserRules.Touching(0, 0, 2, 2, 0, 3, 6, 4) && LaserRules.Touching(0, 0, 2, 2, 4, 4, 6, 4) && !LaserRules.Touching(0, 0, 2, 2, 1, 1, 6, 4) && !LaserRules.Touching(0, 0, 2, 2, 0, 0, 1, 1),
+            "Touching works along either axis and across a corner, and overlapping footprints are not a link");
+        check(LaserRules.Touching(0, 0, 2, 2, 0.5, -2.5, 1, 1) && !LaserRules.Touching(0, 0, 2, 2, double.NaN, 0, 1, 1) && !LaserRules.Touching(0, 0, 2, 2, 3, 0, 0, 1),
+            "A one-tile port behind the hull wall is within one tile; unknown positions and empty footprints are refused");
+        check(LaserRules.CoolingPort != "PhobosFurnace.Cooling" && LaserRules.CoolingPort.StartsWith("PhobosShipbreaker.", StringComparison.Ordinal), "The head has its own port id; the assembly keeps its single cooling port");
+        // The saved link is the shared one-to-one port pairing on the assembly's own port: one assembly, one machine.
+        Dictionary<string, Dictionary<string, string>> Maps() => new(StringComparer.Ordinal);
+        var laserA = new MaterialPort("laser-a", LaserRules.CoolingPort, Maps()); var laserB = new MaterialPort("laser-b", LaserRules.CoolingPort, Maps());
+        var furnace = new MaterialPort("furnace-1", "PhobosFurnace.Cooling", Maps()); var radiator = new MaterialPort("radiator-1", "PhobosFurnace.Cooling", Maps());
+        check(PortPairing.TryLink(laserA, radiator, out _) && PortPairing.Matches(laserA, radiator) && PortPairing.Read(laserA).PeerObjectId == "radiator-1",
+            "A head pairs with a cooling assembly through the assembly's own port");
+        check(!PortPairing.TryLink(laserB, radiator, out _) && !PortPairing.TryLink(furnace, radiator, out _) && !PortPairing.Matches(furnace, radiator),
+            "An assembly paired with one head cannot be paired with another head or with a furnace");
+        PortPairing.Unlink(laserA, radiator);
+        check(PortPairing.Read(laserA).State == PortLinkState.Unlinked && PortPairing.Read(radiator).State == PortLinkState.Unlinked && PortPairing.TryLink(furnace, radiator, out _) &&
+            !PortPairing.TryLink(laserA, radiator, out _), "Clearing the link frees the assembly, and a furnace's pairing then keeps the head out");
 
         // Presentation constants the art and the game's frame animation depend on.
         check(LaserRules.SheetFrames <= LaserRules.SheetColumns * LaserRules.SheetRows && int.TryParse(LaserRules.SheetFrameRate, out int fps) && fps > 0 && !LaserRules.SheetFrameRate.Contains("-"),

@@ -27,6 +27,8 @@ internal static partial class LaserService
         internal int Remaining = -1;
         internal Vector3? Aim;
         internal LaserGeometry.Anchors? Anchors;
+        // The paired cooling assembly as last checked by the one-second step; power steps recheck only its room.
+        internal CondOwner? Radiator;
         internal string Notice = "";
     }
     internal const string FilterStoreName = "Shipbreaker.LaserFilter";
@@ -67,6 +69,8 @@ internal static partial class LaserService
         message = Text.Get("Laser.fault");
         if (!Content.Ready) { message = Content.Status; return false; }
         if (action.StartsWith("filter:", StringComparison.Ordinal)) return SetFilter(co, binding, action.Substring(7), out message);
+        if (action.StartsWith("cooling:", StringComparison.Ordinal)) return SetCooling(co, binding, action.Substring(8), out message);
+        if (action.StartsWith("power:", StringComparison.Ordinal)) return SetPower(co, binding, action.Substring(6), out message);
         if (action == "status") { message = Describe(co); return true; }
         message = ProcessingService.AccessProblem(co, binding) ?? "";
         if (message.Length != 0) return false;
@@ -164,6 +168,7 @@ internal static partial class LaserService
         string? problem = Problem(s, out var target);
         if (problem != null || target == null) { Suspend(s, problem ?? Text.Get("Laser.no_attachment")); return; }
         if (target.bCheckRooms) { s.Notice = Text.Get("Laser.geometry"); return; }
+        s.Radiator = Radiator(s.Laser, out _);
         var filter = Filter(s.Laser);
         switch (s.Record.Phase)
         {
@@ -188,7 +193,8 @@ internal static partial class LaserService
             return;
         }
         var next = candidates[0];
-        r.Begin(next.Object.strID, next.Kind, next.Object.strCODef, next.Points, next.Bearing);
+        // The job captures its draw now: the high setting only while a paired cooling assembly is ready.
+        r.Begin(next.Object.strID, next.Kind, next.Object.strCODef, next.Points, next.Bearing, LaserRules.JobKW(HighPower(co), s.Radiator != null));
         s.Aim = next.Object.GetPos(); s.Notice = Text.Get("Laser.cutting");
         if (!Save(s)) Suspend(s, Text.Get("Laser.save"));
     }
@@ -297,7 +303,10 @@ internal static partial class LaserService
     internal static string Describe(CondOwner co)
     {
         string filter = Text.Get("Laser.filter_" + LaserRules.FilterId(Filter(co)));
-        string demand = Text.Get("Laser.demand", LaserRules.WorkingKW, LaserRules.HeatKW(LaserRules.WorkingKW), LaserRules.ArcDegrees, LaserRules.RangeTiles);
+        bool cooled = Radiator(co, out _) != null, high = HighPower(co);
+        double kw = LaserRules.JobKW(high, cooled);
+        string demand = Text.Get(cooled ? "Laser.demand_radiator" : "Laser.demand", kw, LaserRules.HeatKW(kw), LaserRules.ArcDegrees, LaserRules.RangeTiles) +
+            "\n" + Text.Get("Laser.power_line", PowerLabel(high)) + "\n" + CoolingStatus(co);
         sessions.TryGetValue(co.strID, out var s);
         if (!Read(co, out var r))
             return (s != null && s.Notice.Length > 0 ? s.Notice + "\n" : "") + Text.Get("Laser.help", filter) + "\n" + demand;

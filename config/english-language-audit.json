@@ -53961,6 +53961,297 @@
       ],
       "before": "Conversion masses for {0} no longer match its registration.",
       "after": "Conversion masses for {0} no longer match its registration."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 Cooling and Power choices: each label names the choice plainly, and High states that it needs a linked cooling assembly.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:27"
+      ],
+      "before": "Cooling",
+      "after": "Cooling"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_room",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 Cooling and Power choices: each label names the choice plainly, and High states that it needs a linked cooling assembly.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:27",
+        "src/PhobosShipbreaker/ThawProvider.cs:29"
+      ],
+      "before": "Room behind the mount",
+      "after": "Room behind the mount"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:79",
+        "src/PhobosShipbreaker/LaserCooling.cs:95"
+      ],
+      "before": "Linked. The laser's heat now goes to {0}.",
+      "after": "Linked. The laser's heat now goes to {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:88"
+      ],
+      "before": "Link cleared. The laser's heat goes to the room behind the mount.",
+      "after": "Link cleared. The laser's heat goes to the room behind the mount."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:74"
+      ],
+      "before": "Pause the laser before changing its cooling.",
+      "after": "Pause the laser before changing its cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_choose",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:90"
+      ],
+      "before": "Choose an installed F6-R radiator or F6-P port that touches the laser, or stands one tile from it, and is not paired with anything else.",
+      "after": "Choose an installed F6-R radiator or F6-P port that touches the laser, or stands one tile from it, and is not paired with anything else."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_hot",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:84",
+        "src/PhobosShipbreaker/LaserCooling.cs:93"
+      ],
+      "before": "Let the cooling assembly cool to 50 C or below before changing what it is paired with.",
+      "after": "Let the cooling assembly cool to 50 C or below before changing what it is paired with."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:46"
+      ],
+      "before": "no cooling assembly is linked",
+      "after": "no cooling assembly is linked"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:49",
+        "src/PhobosShipbreaker/RadiatorSink.cs:21",
+        "src/PhobosShipbreaker/RadiatorSink.cs:22"
+      ],
+      "before": "the linked cooling assembly is gone, uninstalled or paired with something else",
+      "after": "the linked cooling assembly is gone, uninstalled or paired with something else"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/RadiatorSink.cs:23"
+      ],
+      "before": "the linked cooling assembly is damaged",
+      "after": "the linked cooling assembly is damaged"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_apart",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:52"
+      ],
+      "before": "the linked cooling assembly no longer touches the laser",
+      "after": "the linked cooling assembly no longer touches the laser"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:42"
+      ],
+      "before": "The cooling assembly is at its limit, so this heat goes to the room behind the mount.",
+      "after": "The cooling assembly is at its limit, so this heat goes to the room behind the mount."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_status_radiator",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:117"
+      ],
+      "before": "Heat goes to {0}: {1:F0} C, room for {2:F1} MJ more.",
+      "after": "Heat goes to {0}: {1:F0} C, room for {2:F1} MJ more."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_status_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:120"
+      ],
+      "before": "Heat goes to the room behind the mount.",
+      "after": "Heat goes to the room behind the mount."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.cooling_status_fallback",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:120"
+      ],
+      "before": "Heat goes to the room behind the mount: {0}.",
+      "after": "Heat goes to the room behind the mount: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 Cooling and Power choices: each label names the choice plainly, and High states that it needs a linked cooling assembly.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:32"
+      ],
+      "before": "Power",
+      "after": "Power"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_standard",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 Cooling and Power choices: each label names the choice plainly, and High states that it needs a linked cooling assembly.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:110"
+      ],
+      "before": "Standard, {0:G} kW",
+      "after": "Standard, {0:G} kW"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_high",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New ML-2 Cooling and Power choices: each label names the choice plainly, and High states that it needs a linked cooling assembly.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:110"
+      ],
+      "before": "High, {0:G} kW (needs a linked cooling assembly)",
+      "after": "High, {0:G} kW (needs a linked cooling assembly)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:309"
+      ],
+      "before": "Power setting: {0}.",
+      "after": "Power setting: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:107"
+      ],
+      "before": "Power set: {0}. It applies from the next cut.",
+      "after": "Power set: {0}. It applies from the next cut."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.power_needs_radiator",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 radiator-link refusals and reasons: each says why the assembly is not taking heat or cannot be changed and what to do, with the 50 C and one-tile limits kept.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserCooling.cs:105"
+      ],
+      "before": "The high setting needs a linked cooling assembly that is ready: {0}.",
+      "after": "The high setting needs a linked cooling assembly that is ready: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.demand_radiator",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New ML-2 status and confirmation text for the radiator link: says where the heat goes, how hot the assembly is and when a new setting applies.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:308"
+      ],
+      "before": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles.",
+      "after": "Cutting draw: {0:G} kW, about {1:G} kW of it going to the cooling assembly. Arc: {2:G} degrees, {3:G} tiles."
     }
   ],
   "documents": [
@@ -53968,8 +54259,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "365a332612f88aba4e3525d55fbbc36e5764714d34446714aeebe6d7b96a61a6",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "bed8da474dd9c7095c9f9068a5bbe844cd472f241e290424b2313c9dba33c438",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "SUPPORT.md",
@@ -54128,8 +54419,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "78d98ab16324662463279a3beff233237071acb898d1846b98be516e61bff128",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "4a72eeefa9111c399d4a20f18b474e8f03ad8d84f014b24a65310c88ca10759d",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/crew-automation.md",
@@ -54651,8 +54942,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2e433e50ba23e97612e6479c72c96af166d6fe04bb7ccd964635350588ebe178",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "2dabab5cb7ee5a436092d6e64ff9fd29516033d0c15b0e1d437f8717a8e766bf",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -54919,8 +55210,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3f0c547f68d5669acf3a2de7ed33d4abec8c9dec91afa0affbadd460115013c2",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "c5f79ae4b35f3a468026cd6f383056dfc4983d6c4a5e71276fd6a5909dbecf90",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/installing-mods.md",
@@ -54968,8 +55259,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0c10683b9ce3c352494bcb5c67ade13d49a1924f9de2e2cf2b4c3620ae4ab0ae",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "6fa0a17c4ec02af3584fce9ade40ddd3fb8366cab82b5974849bb629a9558a4a",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/residue-collector.md",
@@ -55017,8 +55308,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0b28988d990d2741de80eb59fb61453b3e502c9b57da95beb587db7a8f1c65d2",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "b992c7ddf6384ff2d4182cacf7889be9455eb0160deabdd34223a61b7de5ddf4",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -55073,8 +55364,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe2d594ce41f80574c52f50949ebd8d36d35fcca4bb8abace6d8659fee2d7b32",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "3dc61579312007d5ae045373f4cf3d8b8ec74df908c18e9d70b4ac4fecfa1f9f",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -55185,23 +55476,23 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "9954b3ebc9e88a314bc452bc5564b1de984c8f720d55544b3887e44c5e8e427b",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "e24d3f23f4f78d27f89934943290bc132126dbcc70288dd3d29947196af0d211",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "docs/development/mining-laser-design.md",
       "scope": "developer design record",
       "decision": "Development design record; player text limited to names and the link to the player guide.",
-      "sha256": "d952b4819cdcf6daeb9bec30b2ce439f17c1aeb84a7fd809d2b0a95f04964cc4",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "1866bcdc8fba29d5ec2ad5d042dcd7b2165d9192ecb967f7adc5fa46b6036807",
+      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c7fe05f970b07fbee9843908c9202fdb06c68d7b523f5eb5e09813e2585193d6",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "0fb581bd698e8c96fd3351bc7e9a604113ff6bf43046d9af97408dddeaf8a55a",
+      "review": "2026-10-01 (Shipbreaker 0.61.0): Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -55274,8 +55565,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e03078e9f0175a9505627003f41a6929bcc1346fe764264d7489851173b979d3",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "4f00ab759669ad17cfb6a340e4f9523d41cf8e79b4b2a706a35dc95fe9b66a9e",
+      "review": "2026-10-01 (Shipbreaker 0.61.0): Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

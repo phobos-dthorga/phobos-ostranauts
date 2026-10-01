@@ -1,0 +1,30 @@
+[h1]Phobos Shipbreaker 0.61.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]The ML-2 mining laser can be paired with a cooling assembly: an F6-R radiator or F6-P port that touches it or stands one tile away, chosen under Cooling on its Control Panel or the C1 console. While the assembly is intact, properly mounted and has room, the laser's heat goes there and the room behind the mount is left alone.
+[*]A Power setting on the laser. Standard is 24 kW. High is 48 kW and needs a linked cooling assembly that is ready; each cut then takes half the time for the same electricity. At the high setting one assembly settles near 203 C, under its 250 C limit.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The laser's panel now says where its heat is going, how hot the cooling assembly is and how much more it can take.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A cooling assembly serves one furnace or one laser, never both and never two lasers. Pairing and unpairing need a paused laser and an assembly at 50 C or below.
+[*]If the assembly is damaged, moved, uninstalled or at its limit, the heat goes to the room behind the mount under the earlier rule. A cut already started keeps the draw it started with.
+[*]The link is by touching only. Cooling the laser through F6-C conduit is not in this version: the conduit's coolant is kept in the furnace, and a second kind of circuit needs its own design.
+[*]The cooling assembly code stays in Shipbreaker; Framework is unchanged. Offline checks are not gameplay validation.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. The laser gains two saved choices, its cooling link and its power setting; without them it uses the room and Standard, as before. Radiator and furnace records are unchanged.
+[/list]

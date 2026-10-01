@@ -59,6 +59,36 @@ public static class LaserRules
 
     public const string Rock = "rock", Wall = "wall";
 
+    // The radiator link (Shipbreaker 0.61.0). A head touching one of the F6's cooling assemblies may be paired with
+    // it; its heat then goes to that assembly's finite store, not the room, and the high setting becomes available.
+    /// <summary>The head's side of the link; the cooling assembly keeps its own single port, so one assembly serves
+    /// one furnace or one laser, never both.</summary>
+    public const string CoolingPort = "PhobosShipbreaker.LaserCooling";
+    /// <summary>The high setting's draw. Its heat share is within what one cooling assembly sheds below its limit.</summary>
+    public const double HighKW = 48;
+    public const string PowerStandard = "standard", PowerHigh = "high";
+    public static bool ParsePower(string? text, out bool high)
+    {
+        high = text == PowerHigh;
+        return high || text == PowerStandard;
+    }
+    /// <summary>The draw a new job captures: the high setting only counts while a paired assembly is ready.</summary>
+    public static double JobKW(bool high, bool radiatorReady) => high && radiatorReady ? HighKW : WorkingKW;
+    /// <summary>A job is a fixed amount of energy, so a higher draw finishes it sooner.</summary>
+    public static double JobSeconds(double secondsAtWorkingDraw, double kw) => secondsAtWorkingDraw * WorkingKW / kw;
+    /// <summary>Whether this step's heat goes to the paired assembly: it must be ready and have room for all of it.</summary>
+    public static bool HeatToRadiator(bool radiatorReady, double headroomKJ, double stepHeatKJ) =>
+        radiatorReady && Finite(headroomKJ) && Finite(stepHeatKJ) && stepHeatKJ >= 0 && headroomKJ >= stepHeatKJ;
+    /// <summary>Two installed footprints, as centres and sizes in tiles, that touch or stand one tile apart and do
+    /// not overlap: the same rule as the shared equipment links, for footprints that are not square.</summary>
+    public static bool Touching(double ax, double ay, double aw, double ah, double bx, double by, double bw, double bh)
+    {
+        foreach (double v in new[] { ax, ay, aw, ah, bx, by, bw, bh }) if (!Finite(v)) return false;
+        if (aw <= 0 || ah <= 0 || bw <= 0 || bh <= 0) return false;
+        double gap = Math.Max(Math.Abs(ax - bx) - (aw + bw) / 2, Math.Abs(ay - by) - (ah + bh) / 2);
+        return gap >= -1e-6 && gap <= 1 + 1e-6;
+    }
+
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     public static bool Finite(double n) => !double.IsNaN(n) && !double.IsInfinity(n);
     public static bool AdmitRock(double pointsLeft) => Finite(pointsLeft) && pointsLeft > 0 && pointsLeft <= MaximumPoints;
@@ -135,12 +165,13 @@ internal sealed class LaserRecord
         Phase = LaserPhase.Seeking;
     }
     /// <summary>One paid job on one object, at the figures in force when it starts.</summary>
-    internal void Begin(string id, string kind, string stage, double points, double bearing)
+    internal void Begin(string id, string kind, string stage, double points, double bearing, double kw = LaserRules.WorkingKW)
     {
         if (HasJob) throw new InvalidOperationException("A laser job is already in hand.");
+        if (!LaserRules.Finite(kw) || kw <= 0) throw new ArgumentOutOfRangeException(nameof(kw));
         this["object"] = id; this["kind"] = kind; this["stage"] = stage; Number("points", points);
-        Number("seconds", kind == LaserRules.Rock ? LaserRules.RockSeconds(points) : LaserRules.WallSeconds);
-        Number("kw", LaserRules.WorkingKW); Number("progress", 0); Number("bearing", bearing);
+        Number("seconds", LaserRules.JobSeconds(kind == LaserRules.Rock ? LaserRules.RockSeconds(points) : LaserRules.WallSeconds, kw));
+        Number("kw", kw); Number("progress", 0); Number("bearing", bearing);
         Phase = LaserPhase.Working;
     }
     internal void Credit(double suppliedKWh)

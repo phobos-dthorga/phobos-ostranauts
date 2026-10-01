@@ -1,6 +1,7 @@
 # Mining laser
 
-Shipbreaker 0.59.0 with Framework 0.66.0. Implemented and checked offline; owner
+Shipbreaker 0.61.0 (the laser arrived in 0.59.0, its radiator link in 0.61.0).
+Implemented and checked offline; owner
 gameplay checks are pending, including how the firing animation and the beam
 look in play. Use the [current dependency requirements](installing-mods.md).
 
@@ -8,7 +9,7 @@ look in play. Use the [current dependency requirements](installing-mods.md).
 
 | Item | Size and mass | Power | Base price | Where |
 | --- | --- | --- | --- | --- |
-| Phobos' Ablatine ML-2 Mining Laser | 2 x 2 tiles on the outside of the hull; 120 kg | 0.1 kW idle, 24 kW while cutting | 9,600 cr, broken 2,400 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; CCRE and GalCon faction kiosks at Friendly standing; INSTALL > APPS. Also rare engineering salvage. |
+| Phobos' Ablatine ML-2 Mining Laser | 2 x 2 tiles on the outside of the hull; 120 kg | 0.1 kW idle, 24 kW while cutting (48 kW at the high setting) | 9,600 cr, broken 2,400 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; CCRE and GalCon faction kiosks at Friendly standing; INSTALL > APPS. Also rare engineering salvage. |
 
 No fabrication recipe. The ML-2 is a laser head that bolts to the outside of
 your hull and works whatever ship is moored to yours: it breaks asteroid rock
@@ -90,6 +91,43 @@ uninstall does, so the whole panel comes away intact for the D4.
 These figures are authored for play. The game's damage points are not a unit of
 energy, and no real laser was measured for them.
 
+## Radiator link and the high setting
+
+The laser can shed its heat into one of the F6 furnace's cooling assemblies in
+place of the cabin: an F6-R exterior radiator or an F6-P thermal exhaust port.
+
+1. **Fit the assembly where it touches the laser**, or stands one tile from it.
+   An F6-R goes outside on the hull beside the head. An F6-P goes on sealed deck
+   just inside the wall behind it. Each has its own mounting rules; see the
+   [furnace guide](furnace-player-guide.md).
+2. **Pause the laser**, open its Control Panel and choose **Cooling**. Pick the
+   assembly. It must be at 50 C or below, undamaged, properly mounted and not
+   paired with a furnace or another laser.
+3. If you want it, choose **Power**: **High, 48 kW**. It needs the linked
+   assembly to be ready, and it applies from the next cut.
+
+While the assembly is ready and has room, all of the laser's heat goes there and
+the room behind the mount is left alone, so the laser no longer stops for the
+cabin. The panel shows where the heat is going, how hot the assembly is and how
+much more it can take.
+
+| Setting | Draw | Heat to shed | Rock wall | Wall panel | One assembly settles near |
+| --- | --- | --- | --- | --- | --- |
+| Standard | 24 kW | 14.4 kW | 45 s | 60 s | 130 C |
+| High | 48 kW | 28.8 kW | 22.5 s | 30 s | 203 C |
+
+The electricity for each cut is the same at either setting; High only does it
+sooner. An assembly's limit is 250 C.
+
+- One assembly serves one machine: a furnace, or one laser.
+- If the assembly is damaged, moved away, uninstalled or at its limit, the heat
+  goes to the room behind the mount instead, under the room rule above. A cut
+  that started at 48 kW keeps that draw, so expect it to wait on the room.
+- To unpair, pause the laser, let the assembly cool to 50 C or below and choose
+  **Cooling: Room behind the mount**.
+- The link is by touching only. The laser cannot be cooled through F6-C conduit
+  in this version.
+
 ## Safety
 
 - The laser holds fire while anyone, yours or not, stands within a tile of the
@@ -108,7 +146,9 @@ energy, and no real laser was measured for them.
   not take, it is paid for again; it is never repeated for nothing.
 - Moving or turning the laser, or mooring something else, starts a fresh sweep.
   The totals are kept.
-- A new save record on the laser only. Nothing else aboard changes.
+- New save records on the laser only: its sweep, what it is set to cut, its
+  cooling link and its power setting. The cooling assembly's own record is
+  unchanged.
 
 ## Settings
 
@@ -123,8 +163,7 @@ off changes nothing about the work.
   game keeps free-flying ships hundreds of metres apart.
 - One moored ship at a time, and no station docks.
 - It does not gather, haul or feed. The crew do.
-- A radiator link, for cutting harder without warming the cabin, is planned and
-  not in this version.
+- The radiator link is by touching only; there is no piped cooling for the laser.
 - Offline checks are not gameplay validation. How the beam and animation look,
   how long the bursts feel and how the sweep order reads still need checking in
   play.

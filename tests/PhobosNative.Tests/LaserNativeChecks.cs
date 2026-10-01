@@ -137,5 +137,13 @@ internal static class LaserNativeChecks
             "The game's mooring port, which the laser keeps clear of, is the definition it names");
         check(DataHandler.dictLoot["TILExtFixtureAdds"].aCOs.Any(s => s.StartsWith("IsFixtureExt=", StringComparison.Ordinal)), "Exterior fixtures mark their tiles, so our own are seen as in the way");
         // Freed panels use the same native uninstall contract as the G4; the reclamation checks verify that chain.
+        // The radiator link (0.61.0): the F6's cooling assemblies are what a head pairs with.
+        var radiatorItem = d.Items[d.Objects[FurnaceRules.Radiator + "Installed"].strItemDef]; var portItem = d.Items[d.Objects[FurnaceRules.ThermalPort + "Installed"].strItemDef];
+        check(radiatorItem.nCols == 6 && radiatorItem.aSocketAdds.Length == 24 && portItem.nCols == 1 && portItem.aSocketAdds.Length == 1,
+            "The cooling assemblies keep the footprints the touching rule reads: six by four and one tile");
+        check(FurnaceRules.Cooling(FurnaceRules.Radiator + "Installed") && FurnaceRules.Cooling(FurnaceRules.ThermalPort + "InstalledDmg") && !FurnaceRules.Cooling(LaserRules.Installed) &&
+            !FurnaceService.IsEquipmentDefinition(LaserRules.Installed), "A head pairs with the furnace family's cooling assemblies and is not one of that family itself");
+        check(Math.Abs(power.fOverrideAmount * Units.SecondsPerHour - LaserRules.WorkingKW) < 1e-9 && LaserRules.HighKW > LaserRules.WorkingKW,
+            "The power info still asks for the standard draw; the high setting is scaled from it in the power step, as the G4 scales its cutter");
     }
 }

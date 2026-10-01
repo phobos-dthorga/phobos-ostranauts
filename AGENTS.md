@@ -1398,6 +1398,14 @@
   which replaces the object. Sheets are derived mechanically from a selected
   master and checked against it by the exporter. Presentation is never saved and
   a rendering fault never reaches the work. Owner gameplay checks are pending.
+- Shipbreaker 0.61.0 adds the radiator link by touching: a head pairs with one
+  F6-R or F6-P through the assembly's own cooling port (one assembly, one
+  machine), its heat goes to that assembly's store while it is ready and has
+  room, and a High setting (48 kW) applies to jobs started then. Two parts of
+  the approved plan were left for the owner and are not to be assumed done: the
+  radiator node stays in Shipbreaker (`RadiatorSink.cs`) and was not lifted into
+  Framework, and there is no F6-C conduit link for the laser. See the design
+  record for the reasons.
 - The chemical laser is an idea only. It needs sourced chemistry and feeds the
   mods do not store yet; do not add consumer-less commodities for it.
 
