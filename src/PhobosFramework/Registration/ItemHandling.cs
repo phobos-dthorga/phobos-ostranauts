@@ -10,14 +10,28 @@ namespace Phobos.Ostranauts.Framework.Registration;
 public static class ItemHandling
 {
     private static readonly HashSet<string> Bulky = new(StringComparer.Ordinal);
+    private static readonly HashSet<string> Fixtures = new(StringComparer.Ordinal);
     private static ConditionalWeakTable<CondOwner, object> LegacyHands = new();
     private static readonly string[] Transport = { "PickupItem", "PickupItemStack", "DropItem", "DropItemStack" };
-    internal static void BeginLoad() { Bulky.Clear(); LegacyHands = new(); }
+    internal static void BeginLoad() { Bulky.Clear(); Fixtures.Clear(); LegacyHands = new(); }
     public static void Cumbersome(NativeDefinitions definitions, string id)
     {
         MaintenanceDefinitions.SetStat(definitions.Objects[id], "IsCumbersome", 1);
         Bulky.Add(id);
     }
+    /// <summary>An installed fixture kept out of inventory windows, as the game's own installed power conduit is: hidden
+    /// from the ground inventory and never pocketable (Framework 0.73.0). Before, installed pipe segments showed in the
+    /// ground inventory and could be dragged out of a line there, past the Uninstall job and the drain-first guard.
+    /// Saved objects are corrected as they load, like bulky ones; nothing else about them changes.</summary>
+    public static void Fixture(NativeDefinitions definitions, string id)
+    {
+        var co = definitions.Objects[id];
+        co.aStartingConds = WithoutFlags(co.aStartingConds, "IsPocketable", "IsHiddenInv").Concat(new[] { "IsHiddenInv=1x1" }).ToArray();
+        Fixtures.Add(id);
+    }
+    public static bool IsFixture(string? id) => id != null && Fixtures.Contains(id);
+    private static IEnumerable<string> WithoutFlags(IEnumerable<string>? conds, params string[] names) =>
+        (conds ?? Array.Empty<string>()).Where(s => !names.Any(n => s.StartsWith(n + "=", StringComparison.Ordinal)));
     public static void Apply(NativeDefinitions definitions)
     {
         foreach (var co in definitions.Objects.Values)
@@ -45,12 +59,19 @@ public static class ItemHandling
     // contents, wear, recipe/progress, value or mass is rewritten.
     internal static JsonCondOwnerSave Upgrade(JsonCondOwnerSave saved)
     {
-        if (saved == null || !Bulky.Contains(saved.strCODef) ||
-            EquipmentSaveUpgrade.Amount(saved.aConds ?? Array.Empty<string>(), "IsCumbersome") > 0) return saved!;
+        if (saved == null) return saved!;
+        var conds = saved.aConds ?? Array.Empty<string>();
+        bool bulky = Bulky.Contains(saved.strCODef) && EquipmentSaveUpgrade.Amount(conds, "IsCumbersome") <= 0;
+        // A compressed save (DEFAULT) takes the current definition's flags as it loads; only a listed old flag needs help.
+        bool fixture = Fixtures.Contains(saved.strCODef) && (EquipmentSaveUpgrade.Amount(conds, "IsPocketable") > 0 ||
+            EquipmentSaveUpgrade.Amount(conds, "IsHiddenInv") <= 0 && !conds.Contains("DEFAULT"));
+        if (!bulky && !fixture) return saved;
         var copy = NativeDefinitions.Clone(saved);
-        copy.aConds = (copy.aConds ?? Array.Empty<string>()).Where(s => !s.StartsWith("IsCumbersome=", StringComparison.Ordinal))
-            .Concat(new[] { "IsCumbersome=1x1" }).ToArray();
-        copy.aCondZeroes = copy.aCondZeroes?.Where(s => s != "IsCumbersome").ToArray();
+        IEnumerable<string> next = copy.aConds ?? Array.Empty<string>();
+        if (bulky) next = WithoutFlags(next, "IsCumbersome").Concat(new[] { "IsCumbersome=1x1" });
+        if (fixture) next = WithoutFlags(next, "IsPocketable", "IsHiddenInv").Concat(new[] { "IsHiddenInv=1x1" });
+        copy.aConds = next.ToArray();
+        copy.aCondZeroes = copy.aCondZeroes?.Where(s => !(bulky && s == "IsCumbersome") && !(fixture && s == "IsHiddenInv")).ToArray();
         copy.aCondReveals = null;
         return copy;
     }

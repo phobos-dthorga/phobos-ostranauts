@@ -322,3 +322,40 @@ tables when a rock's `Destructable` reaches its limit.
 - **Never blocks.** Refusals happen before work starts (no moored target, a
   pressurised hull, a person by the beam, a room that cannot take the heat).
   Native destruction, mode switches and uninstalls are never intercepted.
+
+## Floor identity and laid fixtures (Framework 0.73.0, Shipbreaker 0.67.0, 3 October 2026)
+
+Found while investigating the owner's report that no machine would link to a water,
+nitrogen or carbon dioxide store by pipe (1 and 3 October 2026; save `pg8`, ship H-5YJG).
+
+- **Floor identity.** In the game, `IsFloor` is a tile property. The tile gets it from
+  the socket loot of the object installed on it (`TILFloor`, `TILFloorFixture`). The
+  floor object itself never carries it: floor grates carry `IsFloorGrate` (the game finds
+  a tile's floor object with a trigger on that mark), and the 4 x 4 aero grate and
+  asteroid rock floors carry neither. Every floor object in the owner's save had
+  `IsFloorGrate` and no `IsFloor`.
+- **What it broke.** `NativeFluidRoute.SoundFloor` (since Framework 0.18.0) asked the
+  floor object for `IsFloor`, so no pipe segment ever counted as laid on floor: no water,
+  gas or acid line, irrigation conduit or F6-C conduit ever carried anything, and no saved
+  segment in any of the owner's saves held contents. Shipbreaker's G4 reclamation floor
+  test, its capture-support check and capture planning asked the same of objects and
+  data definitions, so no wall could be cut. The F6-P underside check already accepted
+  `IsFloorGrate` and was unaffected.
+- **Verdict.** Follow the game's own data: Framework `Construction.NativeFloors` treats an
+  object as floor when its definition gives its tiles `IsFloor` (read through
+  `NativePlaceholders.TileConditions`), or when it carries `IsFloorGrate` or `IsFloor`
+  itself. Tile checks keep reading `IsFloor` on the tile. `LineNativeChecks` proves the
+  rule on every native object that makes floor, and that floor labels, walls and pipes
+  are not floors.
+- **Laid fixtures.** The game's installed power conduit (`ItmConduit00`) carries
+  `IsHiddenInv` and is not pocketable. Our laid segments were pocketable and visible in
+  the ground inventory, where the owner could drag them out of a line, skipping the
+  Uninstall job and the drain-first refusal. Framework `ItemHandling.Fixture` now gives
+  laid segments the conduit's flags; saved segments are corrected on load through the
+  existing detached-save upgrade, and a compressed (`DEFAULT`) save takes them from the
+  definition.
+- **Unloading.** The game marks a ship destroyed before it destroys the ship's objects on
+  a reload, while still reporting itself loaded. Destroy hooks that release, vent or log
+  contents (bulk vessels, line contents, Manufacturing stores and reactors) now skip an
+  object whose ship is being unloaded (`FrameworkLifecycle.Unloading`); the save keeps
+  what it held. Native destruction itself is never blocked.

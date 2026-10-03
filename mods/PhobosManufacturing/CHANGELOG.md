@@ -6,6 +6,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-10-03 - Draft
+
+### Fixed
+
+- Reloading or quitting no longer treats every gas store, K2 and cracker as destroyed in play, which could vent its gas into a ship that was only being unloaded and log a loss. The save keeps what they hold.
+
+### What to expect
+
+- With Phobos Framework 0.73.0, gas, water and acid lines now link stores and machines as laid, including the C4 carbon dioxide and nitrogen stores that never linked by pipe before. A store that is still loose must be installed first.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.73.0 or newer. Owner gameplay checks remain pending.
+
 ## [0.31.0] - 2026-10-01 - Draft
 
 ### Changed

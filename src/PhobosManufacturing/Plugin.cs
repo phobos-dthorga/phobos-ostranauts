@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.31.0";
-    public const string MinimumFrameworkVersion = "0.71.0";
+    public const string Version = "0.32.0";
+    public const string MinimumFrameworkVersion = "0.73.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -292,7 +292,9 @@ internal static class StoreDestroyPatch
 {
     private static void Prefix(CondOwner __instance)
     {
-        if (__instance == null) return;
+        // A ship being unloaded is not destroyed in play: the save keeps what its stores and reactors held, so nothing
+        // is vented or logged as lost on a reload (Manufacturing 0.32.0).
+        if (__instance == null || Phobos.Ostranauts.Framework.FrameworkLifecycle.Unloading(__instance)) return;
         if (GasStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
         else if (LiquidStores.IsFamily(__instance.strCODef) && !__instance.HasCond("IsModeSwitching", false)) LiquidStoreService.Mist(__instance, "destroyed_log");
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);

@@ -512,6 +512,7 @@ internal static class LineContentsDestroy
     {
         if (LineContents.Families.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || __instance == null ||
             __instance.HasCond("IsModeSwitching", false) || !LineContents.IsSegment(__instance)) return;
+        if (FrameworkLifecycle.Unloading(__instance)) return; // the save keeps what it held (Framework 0.73.0)
         try { LineContents.BeforeDestroy(__instance); } catch (Exception e) { FrameworkLifecycle.Log(e.ToString()); }
     }
 }

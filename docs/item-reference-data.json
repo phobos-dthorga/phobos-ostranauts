@@ -5966,8 +5966,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -6068,8 +6067,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -11526,7 +11524,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.72.0",
+      "version": "0.73.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -11547,8 +11545,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 4.0,
@@ -11647,8 +11644,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 4.0,
@@ -14144,8 +14140,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -14246,8 +14241,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -14611,8 +14605,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -14713,8 +14706,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -16054,7 +16046,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.31.0",
+      "version": "0.32.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -16077,8 +16069,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -16179,8 +16170,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -39094,7 +39084,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.66.0",
+      "version": "0.67.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -39772,8 +39762,7 @@
             "loot": null
           },
           "handlingFlags": [
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -39874,8 +39863,7 @@
           },
           "handlingFlags": [
             "IsDamaged",
-            "IsInstalled",
-            "IsPocketable"
+            "IsInstalled"
           ],
           "slots": [],
           "massKg": 1.0,
@@ -51913,7 +51901,7 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "8064ebcc84de84a9f5ac94f55465e1263df3a9f0f5b62c394c99d29927556dbf",
+    "mods/PhobosFramework/mod_info.json": "7f91e782e33d07734a854514770b2deddd56a5fa3842ddee40e37fd18daf5ec3",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
@@ -51923,7 +51911,7 @@
     "mods/PhobosManufacturing/framework/materials.json": "1a39669b9a52aa34c74837aef1af7ab59e130312734eea9212a58d861cb87834",
     "mods/PhobosManufacturing/framework/process-recipes.json": "0a0de6673c31d46614d9b408b70eb11ff810a3e46ed37609f315748f1e55352e",
     "mods/PhobosManufacturing/framework/vessels.json": "38f780dd14722199d5fddf7c68baa000e2b57d507ea5773c0b6bbbd6bec6aec2",
-    "mods/PhobosManufacturing/mod_info.json": "f06ea43080b1bb2e486345f54d0aaf766b20c208e8a748ff74c60270e3667dac",
+    "mods/PhobosManufacturing/mod_info.json": "bab3660ced28c936ee73a4d0a31f584eb93ab68a58db676e82f8a157fbf39ddb",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -51934,7 +51922,7 @@
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "d55e75f78fb7ee1f56e588e3f0d1d00e50f5f0337e082894fb1011b1e2abdfbf",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "3dbbfe59568c20ff38bf5dcda31b586696a205a2103d2b47c2e81b1860d63210",
+    "mods/PhobosShipbreaker/mod_info.json": "88c43a48180e5cea579327aae2bb2440277142daf0457054cdd8c09a4e1d5bd7",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -52059,6 +52047,7 @@
     "src/PhobosFramework/Cadence.cs": "0a3183bd70a653b930a65cf719dfac4cd12da692e50ba2dfccc1f3a9a279568b",
     "src/PhobosFramework/Construction/ConstructionHooks.cs": "ec55cf0c6326b06db20ab9981a80df4f9f27525a83df73e91aa2fe86695e9117",
     "src/PhobosFramework/Construction/ConstructionRegistry.cs": "b465303caf618adb8b6e36c5e8e87cb49888f5dbafd06aaebba607df13cd7c0c",
+    "src/PhobosFramework/Construction/NativeFloors.cs": "e5a010ebbcb3ef53ba3515544d0b230d209c7dd4e308e83eaa8874fa4d1ec898",
     "src/PhobosFramework/Construction/NativePlaceholders.cs": "931edae95205549a657aec39c6c4b430b28dc48aae6d00415cc83a24a1c8b2a5",
     "src/PhobosFramework/Construction/Recipe.cs": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
     "src/PhobosFramework/Construction/SectionAssembly.cs": "d6cbadc295dface9d7a1f96f6382d79c9f51bcb01a6b2a3451034b8cbc7c635a",
@@ -52122,7 +52111,7 @@
     "src/PhobosFramework/Effects/SpriteAnimation.cs": "173b6721df76ce0883d5e7d18f6a32e06110c8c46ca81a52a23476d86163c475",
     "src/PhobosFramework/Effects/WorldBeam.cs": "bc3c08d033cbb81a50fd533a70f6e308685ad72516edfeba6f49a27f6dc2b331",
     "src/PhobosFramework/FrameworkConsole.cs": "2aa7ab03b0b5c23b2ba575bf860a8cc92c961ab8e6df1a9b78f8e697b0c85a70",
-    "src/PhobosFramework/FrameworkLifecycle.cs": "52bfa8326d870935fe6bd434352f5fafc120a7a105e9f4cf41b3f9197ff7f3d1",
+    "src/PhobosFramework/FrameworkLifecycle.cs": "0ac9cab0cfa77c4004047318522edddbed246a549b17378c017655d39ff1a1cc",
     "src/PhobosFramework/Hazards/NativeDamage.cs": "76c1920884e44c84a4c9d7354a63d409b75f72c6f28761cbbeed1e887a3c656f",
     "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2bfa016dead88bff203718680ebe13a372a44a38f38332f7afbe59b61d6f13e8",
@@ -52151,18 +52140,18 @@
     "src/PhobosFramework/Items/WaterTankService.cs": "10998fe365b1fa7c30d6c97cbb5b3387818d30e22e72fcebe4df3caa73a71a5d",
     "src/PhobosFramework/Items/WaterTankSettings.cs": "c9cc09962816a7676b0002f4174a20497ed6533c9c328011f108bdaad0a41df5",
     "src/PhobosFramework/Liquids/BufferedDrains.cs": "dba7ec7e6e6fe67019127d3db7de5f8a54bfc85c12d70f552819e81598bcd843",
-    "src/PhobosFramework/Liquids/BulkVessel.cs": "78ed36e56a66aa2f83827dff7017ac0bbc0e42e86eabe730c24b6c136d83bdb9",
+    "src/PhobosFramework/Liquids/BulkVessel.cs": "337a85972bf5d2c335ca1ef585f2720d2719e631d7fbdd90ff16d0af7bbaa585",
     "src/PhobosFramework/Liquids/BulkVesselSizes.cs": "147c82bc1645f6dd40e1c8f0cba355d8a5b9d4ed9a63109c206f1b0dd06352f1",
     "src/PhobosFramework/Liquids/CommoditySettlement.cs": "832ab7ddc97089016550970d61af4a50e2ce7ec737947147263d395f09ef4417",
     "src/PhobosFramework/Liquids/DrainCanisters.cs": "f80272186c48d9555e465c2550a092c8d2491e044f7b895aaf3d13c4d09b208f",
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
-    "src/PhobosFramework/Liquids/FluidRouteCache.cs": "8bee09986f4782eefc6b4bb11d8e173bf39d1dc5d5137d7cf246e547598bc3fe",
+    "src/PhobosFramework/Liquids/FluidRouteCache.cs": "e7c8e749edddd50ee077301eb583288a579447a2336600943075d1718b63d3d9",
     "src/PhobosFramework/Liquids/FluidTopology.cs": "8b5e935c8738eaae5d65ec27a1fecf0b34ea5c88aa27df8983a303c21ba17119",
     "src/PhobosFramework/Liquids/GasNetworkSafety.cs": "8f65a912bc8033c73d24d0324fbb7dd1b16a7cde374eb32e92640ee00b188044",
     "src/PhobosFramework/Liquids/GasTransfers.cs": "22cc09d49830aeb238cd904e60f5822baa80d1aba21e56ce5b0789e9669a9b2c",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
-    "src/PhobosFramework/Liquids/LineContents.cs": "b0ed33a7a760c03027616861833e16780e15f3b01ca601afe7bca8f05ce57567",
+    "src/PhobosFramework/Liquids/LineContents.cs": "7d29d96face2497723b7cba61e1e78f813b21bf3df01b142212add151331ea0f",
     "src/PhobosFramework/Liquids/LineFamilies.cs": "79d9b4d9b17d2eabce6b1d130dbd886aef612338bb83989b5945d38cc403fe99",
     "src/PhobosFramework/Liquids/LineHoldUp.cs": "48a8f522c14fb8f6491f62d1ad9413b28698f4a625a63498f711756daa6f9830",
     "src/PhobosFramework/Liquids/LinePorts.cs": "6dcbef02f4989d6a3cb9ae9e16d11b19be6cdca5500f467984f15d97981653a2",
@@ -52171,7 +52160,7 @@
     "src/PhobosFramework/Liquids/LiquidDeliveryBudget.cs": "5ddee4a9290d4d6c7c7e5346bd0c8e786ee943e9563732e97b651dc7621b0c74",
     "src/PhobosFramework/Liquids/LiquidTransferGuard.cs": "05a0e7cf72224a76f84a8c030aa96dedf24e98dc8f9c650704b17583bcf69c02",
     "src/PhobosFramework/Liquids/MixtureTransfer.cs": "ce5752c0f7a578e409bfb75cf211cf47f5a1904629e17d51aca9f881f45c423b",
-    "src/PhobosFramework/Liquids/NativeFluidRoute.cs": "e437e820e8e9fa3e3d6b2028ddf400e97a5834ed2144c65f18631cd687183238",
+    "src/PhobosFramework/Liquids/NativeFluidRoute.cs": "5e9225a28be1f16d5e5600821919896617a39fc700fd583450809c6e40a1a208",
     "src/PhobosFramework/Liquids/ShipsWaterPorts.cs": "3dc618c59119bd6c48e85cf5d16de0df7664a2f752a750cfbadcb08fd47ad8cb",
     "src/PhobosFramework/Liquids/ShipsWaterRejects.cs": "2583e4ddb5ce356923125067991b583ef0939e4f497635ad8160643aae78c090",
     "src/PhobosFramework/Liquids/ShipsWaterSupply.cs": "17be9de0c58b6053a2e9e5f166fa1c3c16698c0c62b273abda98850d1d30b7c0",
@@ -52197,8 +52186,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "bb0683a03227900691cbf4eab4317d72bde70ad061e3421f546912e6f122ca52",
-    "src/PhobosFramework/Plugin.cs": "ae4177a49d95a402feaa75ca24e61737d30c785b4a1fa4d597663d9d7f458098",
+    "src/PhobosFramework/PhobosFramework.csproj": "da6daba0e1e3890006be50fe3e15e693a00ff763a3e228382351ae7ce5dc7d7e",
+    "src/PhobosFramework/Plugin.cs": "bb6bf65002db76da95c6c560e678e43bf2dfb5a01012d3ec827ceb481b60d773",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -52221,8 +52210,8 @@
     "src/PhobosFramework/Registration/EquipmentSaveUpgrade.cs": "0b71a8fab25b089eb4426fd86b7913f6cc226a84030547974091a4f8c7b6edf1",
     "src/PhobosFramework/Registration/InstallMenu.cs": "1876a1222a5e766afe46380ccd0530e99246912d6b47bdb55399c87feaa1cdf2",
     "src/PhobosFramework/Registration/InventorySpec.cs": "4eb4590dc12c26d0ef5915f6a9050bf316ad8d268a956a9a5f610abb6510535f",
-    "src/PhobosFramework/Registration/ItemHandling.cs": "e006b31c6f34e348e6415a705638e35ecda9608086bfbd93f2e5c4f374a4de77",
-    "src/PhobosFramework/Registration/LineDefinitions.cs": "0bf0be24745b21371a9e98c9e995fe878c741bfe855f2fc9d5c845e8d9c814f6",
+    "src/PhobosFramework/Registration/ItemHandling.cs": "2183fb3143003f9b2cc5e2069c4801286a9931c3ad0ddcecbb3b40de1167bd24",
+    "src/PhobosFramework/Registration/LineDefinitions.cs": "e974afb87799f3db14b529e7ecf08191b5694d7eea72610d989a11f22d168871",
     "src/PhobosFramework/Registration/LineJoints.cs": "872532acbced07b92534306cb6e5e1ff32ea168bddf8326b98fe1b221be68745",
     "src/PhobosFramework/Registration/LootCarves.cs": "47b225dca907ba0bba096a9b4d7f67d21be39b5dbf4c2e99981d11e2a1ea28ff",
     "src/PhobosFramework/Registration/MachineFamilies.cs": "d503d92533e8d35ec60f0346e09e93fed2b38330c77f87f9d5a6c80a55558779",
@@ -52282,8 +52271,8 @@
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "0c28fceb6fe0997721f6736069c5df2b43f69c7653c1f2c8e5d59982c8958eff",
-    "src/PhobosManufacturing/Plugin.cs": "85d8c12cb8a7f6cdab07d415a8c74d8efe27fb75e6d856824ed719f7bea9e8a5",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "c178536eb4802aa4a108e5a9835f5e21f83c0fb686c46499944ecdbb92eed636",
+    "src/PhobosManufacturing/Plugin.cs": "aff37276c3c0535ea5a2aa9c7998824b5e1d401b90b3af01aadc326a4437e18c",
     "src/PhobosManufacturing/ProcessorService.cs": "72a5b4564bd1607b52e7be37b1a460dc78ce929426d00e96c2a5ecb6c486abfc",
     "src/PhobosManufacturing/Provider.cs": "9802e0c693aeea8b214e1084c33927d4e906704bc0e02b887ccdb1b03a222c58",
     "src/PhobosManufacturing/RegulatorService.cs": "d6254fa6d5b46ba81dba03841679fe694bb78ac7553359819c2ab0d585527d10",
@@ -52294,7 +52283,7 @@
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/BinDefinitions.cs": "75d6e4e094154a49548c7313dbcb60331f82519b03c3eefd6ca4440d50784fa0",
-    "src/PhobosShipbreaker/CaptureGeometry.cs": "98a0f045fb1146aebef4f204e4a7566667d48c3e8ed755ce1b1cff280f937c37",
+    "src/PhobosShipbreaker/CaptureGeometry.cs": "dde8164349c59f7edf803a3ea04f3cc4440e1bbcae8779011d1dc24ca41fd862",
     "src/PhobosShipbreaker/CaptureService.cs": "04da0b0f31232f3f8254eab1aafd781efd48069bd249a3d039ccb9f1e49958db",
     "src/PhobosShipbreaker/CollectorCommands.cs": "f12e22a0d651637c95f0fe3510deedbe56c73963f74efef45860a52350183878",
     "src/PhobosShipbreaker/CollectorDefinitions.cs": "d2bffc1aeb6cf5b993c3ff6e0bb1dc9a4bb73bf16e064d6f22219668467d2d63",
@@ -52315,7 +52304,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "06b7106fc9d42c080b5f9fefddc3d35ad1f43bacb74a60649ba456a12b5178b2",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "b60021435f8bac408dbeb0394ac52d55a1cd75757e9a6c63ee601568ffb48034",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "11ce9b012f5d720aedda4bedef367e0b16f66992df10b04edde0181c4ee39450",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "22b79c5498c069b0448657a3ba0f66d62b6e175a461697182604c33619c48ea2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -52354,7 +52343,7 @@
     "src/PhobosShipbreaker/FurnaceMaterials.cs": "fe19939b84ebcd802dec3055e3730c1131facd4337ebcb78a66b0d0b5967c7be",
     "src/PhobosShipbreaker/FurnaceOperations.cs": "69243fd648b7b27d7600a8e431a37650c55a2cc37adaa0208b2e86c503f10425",
     "src/PhobosShipbreaker/FurnaceRepeat.cs": "514bc487ea9c9c94beacf04ad17ee794b2168f1e2f7546f8b5a05e2c35493768",
-    "src/PhobosShipbreaker/FurnaceService.cs": "efa9b5d056f568a4bb18d8a666e6c6f11d8292f428120fa79c668c21f14a5bc8",
+    "src/PhobosShipbreaker/FurnaceService.cs": "90501824407ffa44572d229bee761722ca9ed230937c03fd2da8e737b78680a7",
     "src/PhobosShipbreaker/IceSupply.cs": "46a41ae099974bc9b32999bd889f747b0c261763553cbdd512681317d43a26fa",
     "src/PhobosShipbreaker/IndustrialDefinitions.cs": "ce4fe3f4c522c46d71da18e1f275d1f846d501b59183f4a2fc05d9696d97c8d9",
     "src/PhobosShipbreaker/IndustrialPanel.cs": "8a43af4f28db8aff93e9547493531fadb8966b0ed7bb67484e20e792b0b5a048",
@@ -52365,7 +52354,7 @@
     "src/PhobosShipbreaker/IntakeService.cs": "ce42cce7f2b1ffe64a66b37c9152cb7b152f77606ff9b8d08b300743715987f2",
     "src/PhobosShipbreaker/LaserCooling.cs": "d748aa97f880890c96e2a9be9f98eb0ad64b79d899e232556853f6f32183c160",
     "src/PhobosShipbreaker/LaserDefinitions.cs": "3acb11863aa8ae8dbb371451f9f1400404473daf24df0f1a89936b08b2099f2e",
-    "src/PhobosShipbreaker/LaserGeometry.cs": "77bc98c84848620dc08e237726fcd43b630d7adfd2e0a83f2e6f633334268f28",
+    "src/PhobosShipbreaker/LaserGeometry.cs": "2ae4ac934a2385882047d5cbcb567de7507301ecbdaf5bc760bece1d3d1e2980",
     "src/PhobosShipbreaker/LaserPower.cs": "50e794d3a26c7265444ab34d5ca7c39e22e7626ab35d1a91e863b6193b99bb96",
     "src/PhobosShipbreaker/LaserPresentation.cs": "a2154058e8872c5a47d5560928f53d1e3ba83689b27c3c248b49c51eea1210ef",
     "src/PhobosShipbreaker/LaserService.cs": "ea4aa25e8fd21823eae29a43a5dc7e8e4f3042bf025a9f2088247e2657e9964a",
@@ -52373,9 +52362,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "386f9dee56dd0491faf68f35ab01f94265bd8160c22b1300db93e19fb1ad81cc",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "008197fc06918fd629e7eab00eb07c360ea488f7223e2d88255497a168489970",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "f1f03d605e01afa2db998322f6988c44e43e17c060e9fdb6d697251a18070e5d",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "74d3fb25fcbef0e24c9fa72fb3948ff706f3c79fe3cb9efe240c592c8dbfae3a",
+    "src/PhobosShipbreaker/Plugin.cs": "d70dfcbaec84c5e527bacf254940fd2c533969f3fd9a7f994645954ec9f38611",
     "src/PhobosShipbreaker/PowerKinds.cs": "c0409cb8e737a45dc9a61da9b00594d346fabff1b16454f17a910a68a0a436b8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "876f27e69f3c1a335c0b347ceff33fa27933bf34556a2a94c69e08f0c17a34d2",
@@ -52383,7 +52372,7 @@
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "0935114a9ebfee860242555afc4703868ee739465d2ea35d591b5a33fbc61a76",
     "src/PhobosShipbreaker/ReclaimerHeat.cs": "ed84f005c78f85b63096c253a115cfce6d79b2f4df2fd94fe532ebcf8e7939b7",
     "src/PhobosShipbreaker/ReclaimerPanel.cs": "69c316ff09b02b83684881efa674da099ca8919fb84c1ec542382f008eee7e16",
-    "src/PhobosShipbreaker/ReclamationGeometry.cs": "438d1c8a621efd7c6d00391eba81285e83ee6b87f9b3c207b16990f04d71ffa1",
+    "src/PhobosShipbreaker/ReclamationGeometry.cs": "eca940a94852c906d6f13432afb13800d7f98557c1b93bb5da0c5c15f41feef4",
     "src/PhobosShipbreaker/ReclamationPower.cs": "39c03c78a1d5c91d739e7a9c85aabe7c4e1dc167ce3fe39bf73d22fb730c7ca0",
     "src/PhobosShipbreaker/ReclamationService.cs": "5649d7e6b162d3adf9f1bb9f0ed09f6331c0d3597c20a71a68db264027ec7f9c",
     "src/PhobosShipbreaker/RegionalEconomy.cs": "3e0fc14a05f908faa8754e280204ac24b8db413c4af9193624bbe869b9195388",

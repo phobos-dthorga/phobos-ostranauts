@@ -852,3 +852,17 @@ Compare with `python scripts/compare-performance.py --before <3> --after <3>`.
 A before side needs the builds of commit 4fd18ee (Framework 0.71.0); the after
 side is this round. No performance capture or measured FPS claim accompanies
 this change.
+
+## 3 October: empty-layout shortcut bounded (L20)
+
+L20 — Correction to L19. `FluidRouteCache.KnownEmpty` (Framework 0.72.0) trusted a ship's
+cached "no working segment" answer until a hook dropped the layout, without the
+two-second recheck that every other read honours. A layout first read before the
+ship's segments were ready (during loading) could leave that ship unfilled for good.
+Framework 0.73.0 trusts an empty layout for at most 30 s (`EmptyTrustSeconds`), so a
+ship without lines is still read about once every 30 s instead of every 2 s, and a
+missed change is caught within that bound. The same release makes pipe segments count
+over the game's floors for the first time (see the vanilla-precedence audit), so
+`framework.line_contents.maintain` and `framework.fluid_route.find` will now do real
+work on ships with lines; captures C1 and C2 of L19 should be taken on Framework 0.73.0
+or later. No capture accompanies this change.

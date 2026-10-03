@@ -78,7 +78,10 @@ public static class LineDefinitions
             co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
             co.mapPoints = new[] { "use,0,-16" };
             co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=", StringComparison.Ordinal) && !x.StartsWith("IsCumbersome=", StringComparison.Ordinal))
-                .Concat(new[] { "IsPocketable=1x1" }).ToArray();
+                .Concat(installed ? Array.Empty<string>() : new[] { "IsPocketable=1x1" }).ToArray();
+            // A laid segment is a fixture like the game's power conduit (Framework 0.73.0): out of the ground inventory,
+            // never pocketable; loose sections stay pocketable supplies.
+            if (installed) ItemHandling.Fixture(d, s.Prefix + form);
             co.nContainerWidth = co.nContainerHeight = 0; co.mapGUIPropMaps = Array.Empty<string>(); co.strContainerCT = null;
             item.fZScale = s.Layer;
             if (!installed) continue;

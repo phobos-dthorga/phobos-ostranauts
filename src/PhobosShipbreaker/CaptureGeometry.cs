@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using Ostranauts.Utils;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Construction;
 using GridPoint = Ostranauts.Pathing.Vector2Int;
 
 namespace PhobosShipbreaker;
@@ -70,10 +71,10 @@ internal static class CaptureGeometry
                     var support = parts.Where(c => c.strID != selected.Wall && DataHandler.GetDataCO(c.strName)?.HasCond("IsWall")==true &&
                         DataHandler.GetDataCO(c.strName)?.HasCond("IsDamaged")!=true && Math.Abs(c.fX-selected.TargetPort.fX)+Math.Abs(c.fY-selected.TargetPort.fY)>=2)
                         .OrderBy(c=>Math.Abs(c.fX-selected.TargetPort.fX)+Math.Abs(c.fY-selected.TargetPort.fY)).ThenBy(c=>c.strID,StringComparer.Ordinal)
-                        .FirstOrDefault(c=>parts.Any(f=>DataHandler.GetDataCO(f.strName)?.HasCond("IsFloor")==true &&
+                        .FirstOrDefault(c=>parts.Any(f=>NativeFloors.IsFloorDefinition(f.strName) &&
                             DataHandler.GetDataCO(f.strName)?.HasCond("IsDamaged")!=true && IntakeRules.Near(c.fX,c.fY,f.fX,f.fY)));
                     if(support==null) { plan=null;continue; }
-                    var floor=parts.First(f=>DataHandler.GetDataCO(f.strName)?.HasCond("IsFloor")==true&&IntakeRules.Near(support.fX,support.fY,f.fX,f.fY));
+                    var floor=parts.First(f=>NativeFloors.IsFloorDefinition(f.strName)&&IntakeRules.Near(support.fX,support.fY,f.fX,f.fY));
                     var delta=IntakeRules.Rotate(support.fX-plan.TargetPort.fX,support.fY-plan.TargetPort.fY,rotation);
                     plan.OwnPort.fX+=(float)delta.X;plan.OwnPort.fY+=(float)delta.Y;
                     plan.TargetPort.fX=support.fX;plan.TargetPort.fY=support.fY;

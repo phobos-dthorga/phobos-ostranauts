@@ -25,6 +25,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.67.0] - 2026-10-03 - Draft
+
+### Fixed
+
+- G4 reclamation could never cut a wall. Its check for the floor beside a wall asked for a mark that only the tile carries, never the floor itself, so no floor was ever found. The same check kept capture planning from finding the support wall and floor for a reclamation hold, and counted a floor on a wall's tile as an obstruction for G4 and ML-2 cutting. All of them now use the game's own floor identity through Phobos Framework.
+
+### What to expect
+
+- With Phobos Framework 0.73.0, process water lines now join the S3 silos, the T2 thaw unit and the machines that draw from them as laid, and the F6-C coolant conduit carries coolant.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.73.0 or newer. Reclamation cutting has not run in the game before this fix; owner gameplay checks remain pending.
+
 ## [0.66.0] - 2026-10-01 - Draft
 
 ### Changed

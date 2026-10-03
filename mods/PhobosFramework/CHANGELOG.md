@@ -22,6 +22,28 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.73.0] - 2026-10-03 - Draft
+
+### Fixed
+
+- Pipes now carry what they are for. Since the first irrigation conduit, a pipe segment only counted when the floor object under it carried a mark the game gives to the tile, never to the floor itself. So no segment ever counted as laid on floor, whatever the layout: water, gas and acid lines, irrigation conduits and the F6-C coolant conduit joined nothing, never filled and never delivered. Only equipment standing right against its store ever linked, which is why hydrogen, ammonia and methane worked and water, nitrogen and carbon dioxide never did. A segment now counts over any installed, undamaged floor the game itself treats as floor: grates, the 4 x 4 aero grate and asteroid rock.
+- Laid pipe segments are kept out of the ground inventory and out of pockets, like the game's own power conduit. They used to show in the ground inventory, where one could be dragged out of a line, skipping the Uninstall job and the drain-first guard. Loose sections stay pocketable.
+- Reloading or quitting no longer reports water tanks and silos as destroyed with their water lost, and no longer warns about pipe contents. Nothing was lost: the save keeps it.
+- A ship read as having no pipes is read again within 30 seconds. Since 0.72.0 a ship whose pipes were not ready when it was first read could stay unfilled for good.
+
+### What to expect
+
+- Lines that never worked start working on load. Each run fills from the stores it joins, so store levels drop by the water or gas the pipes hold, and a gas line holds a mix of the gases of every store on it. Irrigation conduits deliver to their racks, and the F6-C circuit primes from the furnace charge.
+- Link pickers now offer stores along a line as well as stores touching the machine.
+
+### Save compatibility
+
+- Automatic. Laid segments in a save stop being pocketable and stay out of the ground inventory as they load; their position, wear and mass are unchanged. Pipes in older saves hold nothing yet and fill on the first top-up after loading.
+
+### Compatibility and limits
+
+- Checked offline against the game's own floor data (every object that makes a tile floor is recognised; floor labels, walls and pipes are not). Not yet seen in the game: the owner's checks of the water, nitrogen and carbon dioxide links remain.
+
 ## [0.72.0] - 2026-10-01 - Draft
 
 ### Changed

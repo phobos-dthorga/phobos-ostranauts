@@ -4,6 +4,7 @@ using System.Linq;
 using Phobos.Ostranauts.Framework.Controls;
 using Phobos.Ostranauts.Framework.Hazards;
 using Phobos.Ostranauts.Framework.Observations;
+using Phobos.Ostranauts.Framework.Construction;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosShipbreaker.Core;
 using UnityEngine;
@@ -104,7 +105,7 @@ internal static class LaserGeometry
         if (!ProcessRules.AcceptedWallKg(wall.GetTotalMass()) || wall.GetCOsSafe(true).Count != 0 || wall.coStackHead != null || wall.aStack.Count != 0) return false;
         if (!started && wall.GetCondAmount("StatUninstallProgress") != 0) return false;
         var onTile = new List<CondOwner>(); target.GetCOsAtWorldCoords1(wall.GetPos(), null, false, true, onTile);
-        if (onTile.Any(c => c != wall && !c.bDestroyed && !c.HasCond("IsFloor"))) return false;
+        if (onTile.Any(c => c != wall && !c.bDestroyed && !NativeFloors.IsFloorObject(c))) return false;
         return wall.GetCondAmount("StatUninstallProgressMax") > 0 &&
             wall.GetComponent<Destructable>()?.GetDmgLoot("StatUninstallProgress") == "MSWall1x1Uninstall";
     }

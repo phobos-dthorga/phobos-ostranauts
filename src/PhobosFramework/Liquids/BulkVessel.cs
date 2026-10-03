@@ -305,6 +305,7 @@ internal static class BulkVesselDestroy
     private static void Prefix(CondOwner __instance)
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || !BulkVessels.IsVessel(__instance) || __instance.HasCond("IsModeSwitching", false)) return;
+        if (FrameworkLifecycle.Unloading(__instance)) return; // the save keeps it (Framework 0.73.0)
         try { var s = BulkVessel.Read(__instance); if (s.TotalKg > 1e-8) FrameworkLifecycle.Log(Text.Get("BulkVessel.lost", __instance.strID, s.Commodity, s.TotalKg)); } catch { }
     }
 }

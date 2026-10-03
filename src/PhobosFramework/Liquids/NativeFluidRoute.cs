@@ -58,8 +58,10 @@ public static class NativeFluidRoute
             props.HasCond("IsFloorFlex") || props.HasCond("IsEVATile")) return false;
         buffer.Clear();
         ship.GetCOsAtWorldCoords1(tile!.tf.position, null, false, true, buffer);
+        // The floor object carries IsFloorGrate; IsFloor is only on the tile (Framework 0.73.0: the object test asked
+        // for IsFloor before, which no floor has, so no segment ever counted as laid on floor).
         foreach (var c in buffer)
-            if (c.ship == ship && !c.bDestroyed && c.HasCond("IsFloor") && c.HasCond("IsInstalled") && !c.HasCond("IsDamaged")) return true;
+            if (c.ship == ship && Construction.NativeFloors.IsSoundFloorObject(c)) return true;
         return false;
     }
     private static readonly List<CondOwner> cellObjects = new();

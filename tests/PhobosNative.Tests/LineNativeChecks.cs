@@ -96,5 +96,46 @@ internal static class LineNativeChecks
             check(conduits.TriggeredDataCO(pipe, false) && !conduits.TriggeredDataCO(machine, false), "Conduit painting takes our lines as well as power conduit, and no machine");
         }
         finally { foreach (var t in added) DataHandler.dictCTs.Remove(t.strName); }
+
+        // Framework 0.73.0: a segment counts only over an installed floor object, and the lines, the cache and G4
+        // reclamation all recognise that object through NativeFloors. Judged on the game's own data: until 0.72.0 the
+        // object test asked for IsFloor, which only the tile carries, and no segment ever counted.
+        var floorsFound = Phobos.Ostranauts.Framework.Construction.NativeFloors.IsFloorDefinition;
+        var installed = DataHandler.dictCOs.Values.Where(x => (x.aStartingConds ?? Array.Empty<string>()).Any(c => c.StartsWith("IsInstalled=", StringComparison.Ordinal))).ToArray();
+        var makesFloor = installed.Where(x => Phobos.Ostranauts.Framework.Construction.NativePlaceholders.TileConditions(x.strName)?.Contains("IsFloor") == true).ToArray();
+        check(makesFloor.Length > 20, "The game ships objects that make their tiles floor (" + makesFloor.Length + ")");
+        check(makesFloor.All(x => floorsFound(x.strName)), "Every native object that makes floor is a floor object for the lines");
+        check(makesFloor.All(x => !new DataCO(x).HasCond(Phobos.Ostranauts.Framework.Construction.NativeFloors.TileMark)),
+            "Native floor objects do not carry the tile's IsFloor mark, so an object test must not ask for it");
+        foreach (string id in new[] { "ItmFloorGrate01", "ItmFloorMSSLFWhite01", "ItmFloorCAYL01", "ItmFloorGrate4x401", "ItmFloorRock02" })
+            check(!DataHandler.dictCOs.ContainsKey(id) || floorsFound(id), "A native floor the lines sit on: " + id);
+        foreach (string id in new[] { "ItmFloorLabelArrow01", PhobosShipbreaker.Core.ProcessRules.Wall, "PhobosPropellantLineInstalled" })
+            check(!floorsFound(id), "Not a floor: " + id);
+        check(DataHandler.dictLoot["TILFloor"].aCOs.Any(c => c.StartsWith("IsFloor=", StringComparison.Ordinal)), "The tile gets IsFloor from the game's floor socket loot");
+
+        // Framework 0.73.0: a laid segment is a fixture like the game's installed power conduit, hidden from the ground
+        // inventory and never pocketable; loose sections stay pocketable. Saved segments are corrected as they load.
+        var conduit = DataHandler.dictCOs["ItmConduit00"].aStartingConds.Select(c => c.Split('=')[0]).ToArray();
+        check(conduit.Contains("IsHiddenInv") && !conduit.Contains("IsPocketable"), "The game's installed power conduit is hidden from inventories and not pocketable");
+        foreach (var (prefix, _, _) in Families)
+            foreach (string form in LineDefinitions.Forms)
+            {
+                var co = Object(prefix + form)!;
+                var flags = co.aStartingConds.Select(c => c.Split('=')[0]).ToArray();
+                bool laid = form.StartsWith("Installed", StringComparison.Ordinal);
+                check(laid ? flags.Contains("IsHiddenInv") && !flags.Contains("IsPocketable") && ItemHandling.IsFixture(prefix + form)
+                           : flags.Contains("IsPocketable") && !flags.Contains("IsHiddenInv"), "Segment handling matches the game's conduit: " + prefix + form);
+            }
+        var savedSegment = new JsonCondOwnerSave { strID = "segment", strCODef = "PhobosPropellantLineInstalled",
+            aConds = new[] { "IsInstalled=1.0x1", "StatMass=1.0x1", "IsPocketable=1.0x1", "StatDamage=1.0x0.003" } };
+        var upgraded = ItemHandling.Upgrade(savedSegment);
+        check(upgraded != savedSegment && EquipmentSaveUpgrade.Amount(upgraded.aConds, "IsPocketable") == 0 && EquipmentSaveUpgrade.Amount(upgraded.aConds, "IsHiddenInv") == 1 &&
+              upgraded.aConds.Contains("StatDamage=1.0x0.003") && upgraded.aConds.Contains("StatMass=1.0x1") && upgraded.strID == "segment",
+            "A saved pocketable segment loads hidden, with its identity, wear and mass unchanged");
+        check(savedSegment.aConds.Contains("IsPocketable=1.0x1") && ReferenceEquals(upgraded, ItemHandling.Upgrade(upgraded)), "The save record is untouched and the correction is idempotent");
+        var compressed = new JsonCondOwnerSave { strCODef = "PhobosPropellantLineInstalled", aConds = new[] { "DEFAULT", "StatDamage=1.0x0.1" } };
+        check(ReferenceEquals(compressed, ItemHandling.Upgrade(compressed)), "A compressed saved segment takes the new flags from its definition, unchanged");
+        var looseSegment = new JsonCondOwnerSave { strCODef = "PhobosPropellantLineLoose", aConds = new[] { "IsPocketable=1.0x1" } };
+        check(ReferenceEquals(looseSegment, ItemHandling.Upgrade(looseSegment)), "A loose section keeps its pocketable flag");
     }
 }

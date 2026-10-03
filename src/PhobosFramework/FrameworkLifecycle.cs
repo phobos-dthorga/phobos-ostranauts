@@ -12,6 +12,11 @@ public static class FrameworkLifecycle
     internal static Action<string> Log = _ => { };
     /// <summary>Routine bookkeeping lines (settled draws) at BepInEx's Debug level, which its disk log leaves out by default.</summary>
     internal static Action<string> LogDebug = _ => { };
+    /// <summary>Whether an object is going because its whole ship is being unloaded (a reload, a return to the menu, a
+    /// despawn) rather than destroyed in play (Framework 0.73.0). The game marks the ship destroyed before its objects
+    /// go, and the game still reports itself loaded meanwhile. The save keeps what such objects held, so a destroy hook
+    /// must not release, vent or announce it as lost.</summary>
+    public static bool Unloading(CondOwner? co) => co?.ship != null && co.ship.bDestroyed;
 
     private static void Notify(Action? handlers)
     {
@@ -42,6 +47,7 @@ public static class FrameworkLifecycle
         Persistence.LegacyItemConversions.Reset();
         Registration.EquipmentInventory.Reset();
         Persistence.ContainerFit.Reset();
+        Construction.NativeFloors.Reset();
         Inventory.StackUnits.Reset();
         Registration.LineJoints.Reset();
         Inventory.BeltCarriers.ClearAll();

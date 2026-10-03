@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Ostranauts.Trading;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Construction;
 
 namespace PhobosShipbreaker;
 
@@ -14,8 +15,10 @@ internal static class ReclamationGeometry
         c!=null && !c.bDestroyed && c.ship==target && c.objCOParent==null ? c : null;
     internal static bool Reach(CondOwner g,CondOwner wall) => wall.objCOParent==null &&
         CaptureRules.InContact(g.GetPos().x,g.GetPos().y,g.Item.TF.eulerAngles.z,wall.GetPos().x,wall.GetPos().y);
-    internal static bool Floor(Ship target,CondOwner wall) => target.GetCOs(null,false,false,true).Any(c=>c.HasCond("IsFloor")&&
-        c.HasCond("IsInstalled")&&!c.HasCond("IsDamaged")&&IntakeRules.Near(c.GetPos().x,c.GetPos().y,wall.GetPos().x,wall.GetPos().y));
+    // Floor objects carry IsFloorGrate, not IsFloor (Shipbreaker 0.67.0): the old test never found the floor beside a wall,
+    // so no wall could be cut.
+    internal static bool Floor(Ship target,CondOwner wall) => target.GetCOs(null,false,false,true).Any(c=>NativeFloors.IsSoundFloorObject(c)&&
+        IntakeRules.Near(c.GetPos().x,c.GetPos().y,wall.GetPos().x,wall.GetPos().y));
     internal static IEnumerable<int> Exposed(Ship target,CondOwner wall)
     {
         foreach(int angle in new[]{0,90,180,270})
@@ -64,7 +67,7 @@ internal static class ReclamationGeometry
                 capture!=null&&(wall.strID==capture["support"]||wall.strID==capture["floor"]||wall.strID==capture["targetPort"]))) return false;
         if(!started && wall.GetCondAmount("StatUninstallProgress")!=0) return false;
         var onTile=new List<CondOwner>(); target.GetCOsAtWorldCoords1(wall.GetPos(),null,false,true,onTile);
-        if(onTile.Any(c=>c!=wall && !c.bDestroyed && !c.HasCond("IsFloor"))) return false;
+        if(onTile.Any(c=>c!=wall && !c.bDestroyed && !NativeFloors.IsFloorObject(c))) return false;
         // Native uninstallation owns mode replacement. A changed definition must be reviewed.
         return wall.GetCondAmount("StatUninstallProgressMax")>0 &&
             wall.GetComponent<Destructable>()?.GetDmgLoot("StatUninstallProgress")=="MSWall1x1Uninstall";
@@ -72,8 +75,8 @@ internal static class ReclamationGeometry
     internal static bool Support(Ship target,CaptureRecord r)
     {
         var wall=Resolve(target,r["support"]); var floor=Resolve(target,r["floor"]); var port=Resolve(target,r["targetPort"]);
-        return wall!=null&&floor!=null&&port!=null&&wall.HasCond("IsWall")&&floor.HasCond("IsFloor")&&
-            wall.HasCond("IsInstalled")&&floor.HasCond("IsInstalled")&&!wall.HasCond("IsDamaged")&&!floor.HasCond("IsDamaged")&&
+        return wall!=null&&floor!=null&&port!=null&&wall.HasCond("IsWall")&&NativeFloors.IsSoundFloorObject(floor)&&
+            wall.HasCond("IsInstalled")&&!wall.HasCond("IsDamaged")&&
             IntakeRules.Near(wall.GetPos().x,wall.GetPos().y,floor.GetPos().x,floor.GetPos().y)&&
             IntakeRules.Near(port.GetPos().x,port.GetPos().y,floor.GetPos().x,floor.GetPos().y);
     }

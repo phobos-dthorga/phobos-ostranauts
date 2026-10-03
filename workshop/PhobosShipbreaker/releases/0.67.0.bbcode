@@ -1,0 +1,26 @@
+[h1]Phobos Shipbreaker 0.67.0[/h1]
+[b]Draft - not published | 2026-10-03[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]G4 reclamation could never cut a wall. Its check for the floor beside a wall asked for a mark that only the tile carries, never the floor itself, so no floor was ever found. The same check kept capture planning from finding the support wall and floor for a reclamation hold, and counted a floor on a wall's tile as an obstruction for G4 and ML-2 cutting. All of them now use the game's own floor identity through Phobos Framework.
+[/list]
+
+[h2]What to expect[/h2]
+
+[list]
+[*]With Phobos Framework 0.73.0, process water lines now join the S3 silos, the T2 thaw unit and the machines that draw from them as laid, and the F6-C coolant conduit carries coolant.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.73.0 or newer. Reclamation cutting has not run in the game before this fix; owner gameplay checks remain pending.
+[/list]

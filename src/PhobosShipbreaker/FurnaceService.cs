@@ -182,7 +182,7 @@ internal static partial class FurnaceService
         port.ship.GetCOsAtWorldCoords1(pos, null, false, true, floors);
         return FurnaceCooling.FloorSupport(props?.HasCond("IsFloor") == true, props?.HasCond("IsFloorSealed") == true,
             props?.HasCond("IsWall") == true, props?.HasCond("IsEVATile") == true,
-            floors.Any(f => !f.bDestroyed && f.ship == port.ship && (f.HasCond("IsFloorGrate") || f.HasCond("IsFloor")) && f.HasCond("IsInstalled") && !f.HasCond("IsDamaged")));
+            floors.Any(f => f.ship == port.ship && Phobos.Ostranauts.Framework.Construction.NativeFloors.IsSoundFloorObject(f)));
     }
     private static bool CoolingMounted(CondOwner endpoint) => FurnaceRules.Underside(endpoint.strCODef) ? PortSupported(endpoint) : Exterior(endpoint);
     private static bool CanRadiate(CondOwner endpoint) => FurnaceRules.Underside(endpoint.strCODef) ? PortSupported(endpoint) : Exposed(endpoint);

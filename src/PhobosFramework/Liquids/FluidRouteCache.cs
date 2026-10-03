@@ -59,7 +59,15 @@ public static class FluidRouteCache
         internal HashSet<int> Closed = new();
         internal int[][] JoinCells = Array.Empty<int[]>();
     }
-    private sealed class ShipSnapshot { internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds); internal bool Built; }
+    private sealed class ShipSnapshot
+    {
+        internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds);
+        internal bool Built; internal double BuiltAt;
+    }
+    /// <summary>How long a layout that showed no working segment of a family is trusted without a fresh read (Framework
+    /// 0.73.0). The hooks drop a layout when a segment is laid, repaired or removed; this bound catches what they cannot
+    /// see, such as segments that were not yet ready when the layout was first read during loading.</summary>
+    public const double EmptyTrustSeconds = 30;
     private static readonly Dictionary<Ship, ShipSnapshot> snapshots = new();
     private static readonly Dictionary<string, FluidSegmentFamily> registered = new(StringComparer.Ordinal);
     private static readonly List<CondOwner> cellObjects = new();
@@ -124,7 +132,8 @@ public static class FluidRouteCache
     /// seconds for them. A segment that appears, is repaired or returns to service drops the cached layout through
     /// the hooks below and the line actions, and the next top-up then reads the ship afresh.</summary>
     internal static bool KnownEmpty(Ship ship, FluidSegmentFamily family) =>
-        ship != null && snapshots.TryGetValue(ship, out var s) && s.Built && s.Families.TryGetValue(family.Id, out var f) && f.Segments.Count == 0;
+        ship != null && snapshots.TryGetValue(ship, out var s) && s.Built && Cadence.RealTime - s.BuiltAt < EmptyTrustSeconds &&
+        s.Families.TryGetValue(family.Id, out var f) && f.Segments.Count == 0;
     /// <summary>What lies on a participant's join cells in the current snapshot (Framework 0.69.0), for explaining a
     /// link that is not offered: an open segment that carries fluid, and a closed (drained) one. Both false for an
     /// object that is not a ready participant of the family.</summary>
@@ -146,7 +155,7 @@ public static class FluidRouteCache
         if (!s.Built || s.Cadence.Due())
         {
             BuildAll(ship, s);
-            s.Built = true; s.Cadence.Invalidate(); s.Cadence.Due(); // the recheck starts consumed: one build per change
+            s.Built = true; s.BuiltAt = Cadence.RealTime; s.Cadence.Invalidate(); s.Cadence.Due(); // the recheck starts consumed: one build per change
         }
         if (!s.Families.TryGetValue(family.Id, out var f) || f.VisitLimit != visitLimit)
             s.Families[family.Id] = f = BuildOne(ship, family, visitLimit);
@@ -245,7 +254,7 @@ public static class FluidRouteCache
         if (co == null) return false;
         foreach (var family in registered.Values)
             if (family.Compatible(co) || family.Ports?.Invoke(co) is { Count: > 0 }) return true;
-        return co.HasCond("IsFloor") || co.HasCond("IsWall");
+        return Construction.NativeFloors.IsFloorObject(co) || co.HasCond("IsWall");
     }
 
     // Mode switches (damage, repair, installation), destruction and objects joining or leaving a ship can all change
