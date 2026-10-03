@@ -6,6 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Redraw the Ablatine ML-2 mining laser with a ribbed emitter, a distinct bearing and cradle, rear cooling fins and a clearer service connection. Keep its eight-frame firing pulse aligned with the head. Retain high-resolution Imagegen originals, previous PixelLab artwork and repeatable native-size exports. The owner approved the design on 4 October; in-game lighting, beam and animation checks remain pending. Gameplay and saves are unchanged.
+
 ### Documentation
 
 - Prepare four construction sprites: D4 and R4 intermediate stages, plus early and intermediate F6 stages. Retain original frames, source images and repeatable exports. At preparation time these assets were not yet connected to construction progress or included in game packages; Framework 0.32.0 and Shipbreaker 0.32.0 below bind them to D4, R4 and F6 assembly stages.

@@ -138,3 +138,35 @@ image. Every request, seed, setting, hash and derivation is in
 decreased from 1,739 to 1,738 with $0 credit and no purchases. Only the original
 Phobos drawing was uploaded. Nothing was rejected. The design record is
 [the mining laser design](../../docs/development/mining-laser-design.md).
+
+## Mining laser revision — 4 October 2026
+
+At the owner's request, built-in ChatGPT Imagegen replaces the selected ML-2 head.
+Two calls produced the detailed first pass and one simplification for native-scale
+readability. The owner approved the revised image on 4 October 2026. In-game
+lighting and animation checks remain pending. The first pass remains in `references/ml2-v2-detail-input.png` because
+it is the selected result's input; the untouched selected 1254 x 1254 source is
+`source/ml2-mining-laser-v2-original.png`. Only original Phobos imagery and text
+were submitted. No game textures, screenshots or PixelLab assets were uploaded.
+The tool did not return billing details or a model name; no API key or PixelLab
+credit purchase was used.
+
+`scripts/derive-laser-art.py` samples that source to the registered 128 x 128
+working master, `source/ml2-mining-laser-v2.png`, then derives the eight frames
+and `source/ml2-mining-laser-v2-sheet.png`. The manifest selects those working
+sources; `productionSource`, dimensions and SHA-256 also preserve and verify the
+larger original. Native exports remain 32 x 32 for the head and 128 x 64 for the
+4 x 2 firing sheet. They retain the existing top-centre beam anchor, neutral
+normal maps, shared loose/damaged appearance and authored pulse regions. The beam
+texture is unchanged. Previous used PixelLab sources and frames remain at their
+original paths with [their historical record](mining-laser-requests.json).
+
+Both prompts, returned dimensions, hashes and review limits are in
+[the new provenance record](mining-laser-v2-requests.json).
+The repeatable [comparison](ml2-v2-comparison.png),
+[native enlargement](ml2-v2-native-preview.png) and
+[firing preview](ml2-v2-firing-preview.gif) show the 32-pixel derivative enlarged
+without smoothing. The GIF approximates 12 fps using 80 ms frames; it is not a
+game input or evidence of Unity playback. Actual lighting, beam blending and
+rotated appearance remain owner-run checks. AI artwork provenance and code
+licensing remain separate; see [the notices](../../THIRD_PARTY_NOTICES.md#mining-laser-artwork).

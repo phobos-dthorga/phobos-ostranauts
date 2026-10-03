@@ -1,6 +1,7 @@
 """Derives the Ablatine ML-2 firing frames, their sheet and the beam texture; never calls a provider.
 
-The eight frames are the selected overhead master with three small regions repainted in whole native pixels
+The retained Imagegen original is sampled to a registered 128 x 128 working master. The eight frames are that
+working master with three small regions repainted in whole native pixels
 (4 x 4 master pixels each): the lens port pulses from ember to white-hot and back, the collar behind it warms at
 the peak, and two pixels on each radiator fin alternate. Nothing else moves, so the head never shifts between
 frames. The sheet is the frames tiled four across and two down, top row first, which is the order the game's
@@ -12,15 +13,20 @@ for the native exports.
 from pathlib import Path
 import argparse
 import io
-from PIL import Image
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'assets/artwork-completion/source'
-MASTER = SOURCE / 'ml2-mining-laser.png'
-FRAMES = SOURCE / 'ml2-mining-laser-frames'
-SHEET = SOURCE / 'ml2-mining-laser-sheet.png'
+ORIGINAL = SOURCE / 'ml2-mining-laser-v2-original.png'
+MASTER = SOURCE / 'ml2-mining-laser-v2.png'
+FRAMES = SOURCE / 'ml2-mining-laser-v2-frames'
+SHEET = SOURCE / 'ml2-mining-laser-v2-sheet.png'
 BEAM = SOURCE / 'laser-beam.png'
+PREVIEW = SOURCE.parent / 'ml2-v2-native-preview.png'
+COMPARISON = SOURCE.parent / 'ml2-v2-comparison.png'
+ANIMATION = SOURCE.parent / 'ml2-v2-firing-preview.gif'
 SCALE, NATIVE, COLUMNS, ROWS = 4, 32, 4, 2
+PREVIEW_SCALE, PREVIEW_FRAME_MS = 16, 80
 
 # Native-pixel regions, inclusive, on the 32 x 32 head. The exporter verifies that nothing outside them changes.
 LENS = (14, 1, 17, 3)
@@ -76,17 +82,41 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
-    with Image.open(MASTER) as image:
-        master = image.convert('RGBA')
-    if master.size != (NATIVE * SCALE, NATIVE * SCALE) or master.getchannel('A').getextrema() != (255, 255):
-        raise ValueError('The ML-2 master must be an opaque 128 x 128 image.')
+    with Image.open(ORIGINAL) as image:
+        original = image.convert('RGBA')
+    if original.width != original.height or original.width < NATIVE * SCALE or original.getchannel('A').getextrema() != (255, 255):
+        raise ValueError('The ML-2 original must be an opaque square at least 128 x 128.')
+    # Preserve the untouched provider original. A common registration sample makes the still and all eight frames
+    # identical outside the authored pulse regions even when the provider returns a non-integer native multiple.
+    master = original.resize((NATIVE * SCALE, NATIVE * SCALE), Image.Resampling.NEAREST)
     frames = [frame(master, index) for index in range(COLUMNS * ROWS)]
     sheet = Image.new('RGBA', (NATIVE * SCALE * COLUMNS, NATIVE * SCALE * ROWS))
     for index, image in enumerate(frames):
         sheet.paste(image, ((index % COLUMNS) * NATIVE * SCALE, (index // COLUMNS) * NATIVE * SCALE))
-    outputs = {FRAMES / f'{index}.png': png_bytes(image) for index, image in enumerate(frames)}
+    outputs = {MASTER: png_bytes(master)}
+    outputs.update({FRAMES / f'{index}.png': png_bytes(image) for index, image in enumerate(frames)})
     outputs[SHEET] = png_bytes(sheet)
     outputs[BEAM] = png_bytes(beam())
+    native = master.resize((NATIVE, NATIVE), Image.Resampling.NEAREST)
+    enlarged = native.resize((NATIVE * PREVIEW_SCALE, NATIVE * PREVIEW_SCALE), Image.Resampling.NEAREST)
+    outputs[PREVIEW] = png_bytes(enlarged)
+    with Image.open(SOURCE / 'ml2-mining-laser.png') as image:
+        previous = image.convert('RGBA').resize((NATIVE, NATIVE), Image.Resampling.NEAREST)
+    comparison = Image.new('RGB', (1088, 576), (28, 30, 34))
+    draw = ImageDraw.Draw(comparison)
+    draw.text((16, 12), 'Previous PixelLab sprite - 32 x 32, enlarged 16x', fill='white')
+    draw.text((560, 12), 'Revised Imagegen sprite - 32 x 32, enlarged 16x', fill='white')
+    comparison.paste(previous.resize(enlarged.size, Image.Resampling.NEAREST), (16, 40))
+    comparison.paste(enlarged, (560, 40))
+    outputs[COMPARISON] = png_bytes(comparison)
+    animation = [image.resize((NATIVE, NATIVE), Image.Resampling.NEAREST).resize(enlarged.size, Image.Resampling.NEAREST)
+                 for image in frames]
+    stream = io.BytesIO()
+    # GIF delays have 10 ms precision; 80 ms approximates the unchanged native 12 fps. This is a preview, not a
+    # runtime animation input, and is not evidence of Unity playback or the independently rendered beam.
+    animation[0].save(stream, format='GIF', save_all=True, append_images=animation[1:],
+                      duration=PREVIEW_FRAME_MS, loop=0, disposal=2)
+    outputs[ANIMATION] = stream.getvalue()
     stale = []
     for path, payload in outputs.items():
         if args.check:
@@ -97,7 +127,7 @@ def main():
             path.write_bytes(payload)
     if stale:
         raise SystemExit('Missing/stale laser art: ' + ', '.join(stale))
-    print(f'{"Verified" if args.check else "Derived"} {len(frames)} firing frames, the sheet and the beam texture.')
+    print(f'{"Verified" if args.check else "Derived"} the working master, {len(frames)} firing frames, sheet, beam and previews.')
 
 
 if __name__ == '__main__':

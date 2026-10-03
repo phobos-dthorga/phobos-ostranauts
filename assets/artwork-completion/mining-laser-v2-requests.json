@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-04",
+  "provider": "OpenAI built-in Imagegen",
+  "model": "Not disclosed by the built-in tool",
+  "ownerRequest": "Read Shipbreaker's mining laser specifications and design, then generate improved artwork because the PixelLab graphics are unsatisfactory.",
+  "scope": "Revised original Ablatine ML-2 chassis and registered firing frames; existing beam texture, equipment identities, footprint, anchors, gameplay and shared damage tint preserved.",
+  "inputProvenance": "Text and original Phobos imagery only. No game, screenshot, third-party or PixelLab imagery was submitted to Imagegen. The second request used only the first original Imagegen result.",
+  "usage": {
+    "builtInCalls": 2,
+    "billing": "Not returned by the built-in tool; no API key, PixelLab generation or credit purchase used."
+  },
+  "attempts": [
+    {
+      "operation": "image_gen.imagegen",
+      "generatedFile": "exec-565e7bcb-73e6-48cd-ac01-feff7734c827.png",
+      "source": "references/ml2-v2-detail-input.png",
+      "prompt": "Use case: stylized-concept\nAsset type: production master for a top-down Ostranauts equipment sprite, original Phobos' Ablatine ML-2 ship-mounted electric mining laser.\nPrimary request: Replace a bland box-and-circle pixel sprite with a convincing, beautifully designed industrial laser assembly, strongly readable as machinery at 32 by 32 pixels. Generate ONE still, inactive machine, no sheet.\nCamera: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at TOP SURFACES ONLY. All rectangular edges horizontal and vertical. Absolutely no visible vertical front/side faces, no isometric perspective.\nCanvas: square 1024 by 1024. The entire canvas is a square pale warm-grey metal mounting plate, opaque edge to edge, no outside background. Four recessed dark mounting bolts near the corners. This is the machine's own baseplate, not floor tiles.\nSubject/layout: compact 2 x 2 exterior spacecraft fixture. A substantial dark charcoal circular azimuth bearing centred near (50%,53%), with two broad pale steel cradle cheeks holding a long ribbed rectangular gunmetal optical emitter that runs up the vertical centreline to the TOP edge. The barrel's aperture is a dark rectangular top-facing recessed port centred at (50%,8%), occupying roughly x44-56%, y3-12%; its forward optical face meets the top centre edge. Thin restrained burnt-red optical collar behind the muzzle at y17%. Barrel has a clear central spine and large readable transverse ribs, with no glowing light when inactive. Two separate graphite heat-exchanger fin blocks on the lower left and lower right near x22% and x78%, y76%; show real parallel fins, no gauges. A small amber brass power/cooling service gland on the bottom centre edge, short internal cable or tubing only within the plate, no separate conduit network or detached radiator. Mechanical bearing locks and service covers concentrate detail around joints; leave broad quiet pale plate regions.\nStyle: polished original coarse pixel-art game equipment, utilitarian worn-in spacecraft machinery; strong functional silhouette, big purposeful pixel clusters, stepped outlines, restrained 3-tone shading per material, subtle handling wear at edges, readable metal contrast. Draw on a coherent logical 32x32 pixel grid with each logical pixel represented by a sharp 32x32 block on the 1024 canvas; concentrate on shape rather than tiny decorations. NO blur, NO smooth 3D product-render finish, NO dithering, NO excessive microdetail. More convincing mechanics and stronger barrel than a generic turret icon. Upper-left restrained surface shading only; no external cast shadow.\nConstraints: baseplate square and edge-to-edge; pointing UP; fixed aperture anchor top-centre so an independently rendered beam can begin there; all mechanisms stay within the plate. No text, logos, numbers, UI, state lights, live readings, beam, arc, particles, environment, workers, guns with ammunition feeds, ammo, research insignia or watermark. Electric industrial tool, not a chemical laser. No institutional endorsement imagery.",
+      "decision": "Retained as the input of the selected edit",
+      "review": "Correct overhead projection and emitter/cooling layout. Fine seams and ribs lost contrast in the 32 px preview; targeted simplification required.",
+      "sha256": "e4950970de941279fefe5876d40ade8422c873acb668b2cbcfb032120c82f396",
+      "returnedSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "operation": "image_gen.imagegen",
+      "generatedFile": "exec-d86baf28-0b37-4731-b162-70da65de4b62.png",
+      "source": "source/ml2-mining-laser-v2-original.png",
+      "input": "references/ml2-v2-detail-input.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: final pixel-art game sprite master for a machine displayed at ONLY 32 x 32 native pixels.\nEdit target: the supplied original Phobos' Ablatine ML-2 mining laser. Preserve its exact straight overhead projection, square edge-to-edge pale baseplate, upward emitter position at top centre, red collar, central dark bearing, two pale cradle cheeks, two rear fin blocks and brass bottom gland. Preserve all outer geometry, facing and attachment anchors.\nRequired correction: radically SIMPLIFY AND PIXELATE this artwork for a TRUE 32 x 32 logical pixel sprite. Deliver the sprite enlarged to the full square canvas with NEAREST NEIGHBOUR, so a single logical pixel spans about one thirty-second of each canvas side. The resulting image should visibly look like an extremely coarse 32x32 videogame sprite, with only 1024 logical blocks, not a detailed illustration. Absolutely NO subpixel texture, little bolts, thin seams, tiny ribs, dither, scratches, smooth shading or high-resolution details within those blocks. All boundaries must be large stepped squares.\nMake the working components READABLE at 32 pixels: strong dark outline; bright pale 2-pixel-wide cradle arms around a dark bearing with 1-pixel steel edge; barrel 6 logical pixels wide and 11 logical pixels long from the top edge to the bearing, using only THREE broad transverse rib highlights; dark 4x3-pixel lens opening in logical pixels x14-17, y1-3; red collar x13-18, y5; two distinct fin blocks each 6 pixels wide by 6 pixels tall near the rear corners, with just THREE broad alternating light/dark rows. Corner mounting bolts 2x2 pixels. Bottom brass gland 2x2 pixels. Wide quiet pale baseplate regions.\nUse a small palette: warm off-white enamel, two warm grey plate shades, near-black optics, dark charcoal mechanism, medium gunmetal, bright steel highlights, muted oxide red collar, brass gland. THREE tones per material maximum. Big purposeful clusters, readable structural contrast, restrained utilitarian Ostranauts machine aesthetic. The source's fine surface treatment must disappear; KEEP the equipment layout.\nOpaque canvas completely filled by square baseplate. No transparency, outside background, perspective, visible side faces, text, beam, arc, logos, readouts or external shadows. Output only one idle sprite, no explanatory sheet.",
+      "decision": "Selected for source-checkout integration; owner approved the artwork 4 October 2026; actual in-game visual and gameplay checks remain pending",
+      "review": "Overhead with no vertical side faces; opaque full footprint; more distinct bearing, cradle, ribbed emitter and rear heat exchangers. Generator did not deliver a literal 32 px grid: exact nearest-neighbour export supplies the final coarse pixels. Inspected the actual 32 px derivative and 16x enlargement; no further paid generation needed.",
+      "sha256": "745423675762d3b9d1001615bca4289eeedb9ef6057294f43e5daf531b9e6c1a",
+      "returnedSize": [
+        1254,
+        1254
+      ]
+    }
+  ],
+  "registration": {
+    "intendedNative": [
+      32,
+      32
+    ],
+    "minimumProduction": [
+      128,
+      128
+    ],
+    "workingMaster": [
+      128,
+      128
+    ],
+    "workingMasterPath": "source/ml2-mining-laser-v2.png",
+    "method": "Untouched square provider original -> 128 x 128 nearest-neighbour working master -> native 32 x 32 nearest-neighbour export. The common working master guarantees registration with the 8 firing frames. Original resolution is retained separately; resampling does not create new detail.",
+    "pivot": [
+      16,
+      16
+    ],
+    "emitterNativeGamePixels": [
+      0,
+      16
+    ],
+    "emitterImageEdge": "Top centre",
+    "normal": "Unchanged neutral tangent normal; no authored surface relief"
+  },
+  "derivation": {
+    "script": "scripts/derive-laser-art.py",
+    "sheet": "source/ml2-mining-laser-v2-sheet.png",
+    "frames": "source/ml2-mining-laser-v2-frames/0.png through 7.png",
+    "animation": {
+      "nativeCell": [
+        32,
+        32
+      ],
+      "columns": 4,
+      "rows": 2,
+      "frames": 8,
+      "frameRate": 12,
+      "regionsNativeInclusive": [
+        [
+          14,
+          1,
+          17,
+          3
+        ],
+        [
+          13,
+          5,
+          18,
+          5
+        ],
+        [
+          5,
+          24,
+          8,
+          24
+        ],
+        [
+          23,
+          24,
+          26,
+          24
+        ]
+      ]
+    },
+    "pulse": "Retains the original authored lens/core, collar and alternating fin-pixel policy. No housing movement.",
+    "beam": "The existing deterministic laser-beam.png is unchanged.",
+    "preview": "Comparison and 16x nearest-neighbour preview; GIF 80 ms/frame due to GIF's 10 ms precision, versus runtime 12 fps."
+  },
+  "history": {
+    "previousRequest": "mining-laser-requests.json",
+    "previousSources": [
+      "source/ml2-mining-laser.png",
+      "source/ml2-mining-laser-sheet.png",
+      "source/ml2-mining-laser-frames"
+    ],
+    "preservation": "Previous used PixelLab masters and frames remain at their original paths with their dated provenance. The detailed Imagegen first pass remains because it is an input of the selected result; no unneeded rejected candidate."
+  },
+  "licensing": "Original AI-assisted project artwork. Provider provenance is separate from code licensing; this record does not claim exclusive copyright, legal clearance, scientific validation or institutional endorsement.",
+  "limitations": [
+    "Actual Unity lighting, live beam blending, rotations and native 12 fps playback remain owner-run checks.",
+    "Loose and damaged forms retain the existing shared chassis and native damage tint.",
+    "32 px native rendering cannot display all detail in the retained high-resolution source. No render-scale changes were introduced."
+  ],
+  "hashes": {
+    "source/ml2-mining-laser-v2.png": "e986140f2bdea6d9b5e42be9802095883b28d7c7d06deab8c9e75937d05ea655",
+    "source/ml2-mining-laser-v2-sheet.png": "3ac0e04414063c11b46b0041f6ea1ca16838b2a3ace2444907b9313e45a82c30",
+    "source/ml2-mining-laser-v2-frames/0.png": "40f25efc6f5650d22315d3213466b17595896f31b2dd015a2b6ad6e3bb7022a9",
+    "source/ml2-mining-laser-v2-frames/1.png": "0018d2902bcf551cece103a7d923486766c67b486def756e2e0aa47241325de6",
+    "source/ml2-mining-laser-v2-frames/2.png": "89ed408361cf342af55903cd3bad6193ce031f53f2242deee2f72edb8109b65f",
+    "source/ml2-mining-laser-v2-frames/3.png": "7f2d52f44a703c53175fa8d8e2811b66737043a46bbcdf3776174f37e0de8fc4",
+    "source/ml2-mining-laser-v2-frames/4.png": "280cff6c796a3f57bee82647008a6633245217b1853a503bce2b1bb303aa2f2c",
+    "source/ml2-mining-laser-v2-frames/5.png": "7f2d52f44a703c53175fa8d8e2811b66737043a46bbcdf3776174f37e0de8fc4",
+    "source/ml2-mining-laser-v2-frames/6.png": "89ed408361cf342af55903cd3bad6193ce031f53f2242deee2f72edb8109b65f",
+    "source/ml2-mining-laser-v2-frames/7.png": "0018d2902bcf551cece103a7d923486766c67b486def756e2e0aa47241325de6",
+    "ml2-v2-native-preview.png": "55565b5351d7d7d01d9f2d45573f2224915bda77190b516c93e4cece81a7438d",
+    "ml2-v2-comparison.png": "96d4edf8836c59d51845e5caaef12026373df6015cef32c0cc483c69510c68c9",
+    "ml2-v2-firing-preview.gif": "7f3eb8be1f4ae6dc65160200d8bef4ebb4dddce05009655bbfcea1891020a71a"
+  }
+}

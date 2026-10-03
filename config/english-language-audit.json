@@ -56315,8 +56315,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2683c8fdbbcfdb0ef006205081005afdb90e0ab53e07280d61e5d7a970125538",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "8a7173ef6fdbeff50d3baaf2781b0044ac7a266fa68c6d75502f56aff72ceee0",
+      "review": "Reviewed 4 October 2026: preserve the current power instructions and add concise Imagegen attribution for the revised ML-2 artwork; no controls or gameplay claims changed."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56434,8 +56434,8 @@
       "path": "docs/development/mining-laser-design.md",
       "scope": "developer design record",
       "decision": "Development design record; player text limited to names and the link to the player guide.",
-      "sha256": "1866bcdc8fba29d5ec2ad5d042dcd7b2165d9192ecb967f7adc5fa46b6036807",
-      "review": "Reviewed 1 October 2026 for Shipbreaker 0.61.0: the ML-2 mining laser's radiator link and power setting."
+      "sha256": "d098213a7959c5f18a1489036bf3013886995a18c83775f064cb95d0273957ea",
+      "review": "Reviewed 4 October 2026: label the initial PixelLab pass as history and record the Imagegen visual revision, original sources, native-scale limitation and owner-run visual checks; no new scientific findings claimed."
     }
   ],
   "surfaces": [

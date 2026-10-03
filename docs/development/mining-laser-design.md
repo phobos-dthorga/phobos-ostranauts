@@ -149,15 +149,37 @@ energy.
 
 ## Artwork
 
-One PixelLab generation (`create_image_pixflux`, 128 x 128, overhead settings,
-from an original procedural start drawing) gave the selected head. The eight
-firing frames and the beam texture are derived mechanically by
-`scripts/derive-laser-art.py`: the lens port pulses, the collar behind it warms
+The initial 1 October artwork used one PixelLab generation (`create_image_pixflux`,
+128 x 128, overhead settings, from an original procedural start drawing) for the
+selected head. The eight firing frames and the beam texture were derived
+mechanically by `scripts/derive-laser-art.py`: the lens port pulses, the collar behind it warms
 at the peak and two pixels on each fin alternate; the exporter verifies that no
 other pixel differs from the still image. Requests, seeds, hashes and the
 derivation are in `assets/artwork-completion/mining-laser-requests.json`. No
 level gauge or other reading is painted; the pulse is the head's physical
 state.
+
+**4 October visual revision.** The owner requested improved graphics after finding
+the PixelLab head unsatisfactory. Built-in ChatGPT Imagegen produced an original
+overhead chassis, then a targeted simplification of that chassis for the existing
+32 x 32 native sprite. The revised head has a ribbed emitter, a separate bearing
+and cradle, rear heat-exchanger blocks and a brass service connection. These
+fictional details describe the equipment; they are not a new measured laser model.
+No scientific or game artwork was submitted to the generator.
+
+The untouched 1254 x 1254 result is retained alongside a nearest-neighbour
+128 x 128 working master. All eight firing frames are derived from that common
+master, and the exporter checks that only the declared lens, collar and fin
+regions change. The existing beam texture, neutral normals, 2 x 2 footprint,
+top-centre emitter anchor, shared damage tint and gameplay are unchanged. A larger
+source does not make the world sprite larger or reveal all its detail at 32 pixels.
+
+The [revised request record](../../assets/artwork-completion/mining-laser-v2-requests.json)
+contains both exact prompts, source hashes and the native-scale review.
+The [comparison](../../assets/artwork-completion/ml2-v2-comparison.png) and
+[firing preview](../../assets/artwork-completion/ml2-v2-firing-preview.gif) are
+offline previews; the GIF uses 80 ms frames, approximating the unchanged native
+12 fps. The previous used PixelLab sources and their historical records remain.
 
 Not yet seen in the game: whether the light-sprite pass draws the beam as
 bright as intended, the quad's pivot, how the beam looks over tiles hidden from

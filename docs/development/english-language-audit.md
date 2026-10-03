@@ -8,6 +8,12 @@ age/gender demographics.
 
 ## Coverage and decisions
 
+The 4 October 2026 ML-2 artwork revision reviewed its Unreleased changelog text,
+Workshop artwork credit and current design/provenance explanation against the
+crew-language rules. No translation entries, operating controls or reference
+instructions changed. Keep the fictional mechanics and offline visual review
+separate from scientific findings and gameplay validation.
+
 The [review ledger](../../config/english-language-audit.json) accounts for all
 **1,722 original catalogue entries** across Agriculture (226), Auto Nav (490), Framework
 (313), Manufacturing (1) and Shipbreaker (692), plus one new furnace warning

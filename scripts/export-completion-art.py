@@ -42,6 +42,13 @@ def main():
         derived = entry.get('reduction')
         if master.size != tuple(entry['masterSize']) or (not derived and any(a < b * factor for a, b in zip(master.size, native))):
             raise ValueError(f'Insufficient/unexpected master dimensions: {source}')
+        if entry.get('productionSource'):
+            original = ASSETS / entry['productionSource']
+            if hashlib.sha256(original.read_bytes()).hexdigest() != entry['productionSHA256']:
+                raise ValueError(f'Changed retained production original: {original}')
+            with Image.open(original) as image:
+                if image.size != tuple(entry['productionSize']) or any(a < b * factor for a, b in zip(image.size, native)):
+                    raise ValueError(f'Insufficient/unexpected production original dimensions: {original}')
         bounds = master.getchannel('A').getbbox()
         # A full-footprint fixture (a deck-mounted tank or cabinet, like the game's own square-deck machinery)
         # deliberately covers its whole tile square: it must be opaque edge to edge rather than padded.

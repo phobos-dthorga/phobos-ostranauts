@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "118 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "121 selected masters; native export review complete; owner gameplay checks pending; ML-2 design approved 4 October 2026, in-game visual checks pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -3099,16 +3099,22 @@
       ],
       "runtime": "phobos/shipbreaker/PhobosMiningLaser",
       "status": "selected",
-      "source": "source/ml2-mining-laser.png",
-      "sourceSHA256": "65b5813b074d21fb6154c2e107094680ac8a4f9593a4e6d40f6a7e53b4f7d1b9",
-      "requestRecord": "mining-laser-requests.json",
-      "review": "Overhead and native-scale export inspected: base plate edge to edge, barrel to the outer edge, no side faces. Ablatine colours (off-white enamel, gunmetal, signal-red collar) kept apart from Rivetline. Owner in-game review pending.",
+      "source": "source/ml2-mining-laser-v2.png",
+      "sourceSHA256": "e986140f2bdea6d9b5e42be9802095883b28d7c7d06deab8c9e75937d05ea655",
+      "requestRecord": "mining-laser-v2-requests.json",
+      "review": "Revised overhead ML-2 chassis; actual native 32 px export and 16x enlargement inspected. Untouched 1254 px Imagegen source retained; 128 px registered working master. Eight frames change only declared lens/collar/fin regions. Neutral normals and native bounds preserved. Owner approved the design 4 October; gameplay and in-game visual checks remain pending.",
       "fullFootprint": true,
       "emitter": [
         0,
         16
       ],
-      "jobId": "6ba20265-6209-4c03-b74a-5cd53544829b"
+      "provider": "OpenAI built-in Imagegen; mechanical animation/export",
+      "productionSource": "source/ml2-mining-laser-v2-original.png",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "productionSHA256": "745423675762d3b9d1001615bca4289eeedb9ef6057294f43e5daf531b9e6c1a"
     },
     {
       "key": "ml2-mining-laser-firing",
@@ -3129,10 +3135,10 @@
       ],
       "runtime": "phobos/shipbreaker/PhobosMiningLaserSheet",
       "status": "selected",
-      "source": "source/ml2-mining-laser-sheet.png",
-      "sourceSHA256": "e6c14ac5f09a919cdd8f044a647f616400819a0e18ac86a50ee1dbadfddec625",
-      "requestRecord": "mining-laser-requests.json",
-      "review": "Eight frames derived from the selected master by scripts/derive-laser-art.py: lens pulse, collar and two fin pixels only. Loop inspected at native size; in-game playback awaits owner review.",
+      "source": "source/ml2-mining-laser-v2-sheet.png",
+      "sourceSHA256": "3ac0e04414063c11b46b0041f6ea1ca16838b2a3ace2444907b9313e45a82c30",
+      "requestRecord": "mining-laser-v2-requests.json",
+      "review": "Revised overhead ML-2 chassis; actual native 32 px export and 16x enlargement inspected. Untouched 1254 px Imagegen source retained; 128 px registered working master. Eight frames change only declared lens/collar/fin regions. Neutral normals and native bounds preserved. Owner approved the design 4 October; gameplay and in-game visual checks remain pending.",
       "fullFootprint": true,
       "sheet": {
         "columns": 4,
@@ -3169,7 +3175,8 @@
             24
           ]
         ]
-      }
+      },
+      "provider": "OpenAI built-in Imagegen; mechanical animation/export"
     },
     {
       "key": "laser-beam",
@@ -3893,5 +3900,8 @@
   ],
   "allowanceAfter": 1738,
   "allowanceDelta": 214,
-  "creditBalanceAfterUSD": 0
+  "creditBalanceAfterUSD": 0,
+  "additionalProviderRecords": {
+    "OpenAI built-in Imagegen": "mining-laser-v2-requests.json"
+  }
 }

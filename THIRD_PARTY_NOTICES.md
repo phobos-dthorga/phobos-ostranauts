@@ -90,6 +90,17 @@ the built-in Imagegen tool. The faceplate references our approved Auto Nav art.
 [Prompts, sources and export provenance](assets/phobos-industrial-console/README.md)
 are retained; no extracted game graphics are included.
 
+## Mining laser artwork
+
+The revised Ablatine ML-2 chassis uses original built-in ChatGPT Imagegen artwork,
+with mechanically registered firing frames and native-size exports. Only text and
+the first original Phobos Imagegen result were supplied to the generator; no game
+or third-party imagery was submitted. The previous used PixelLab masters remain
+with their dated records. Exact prompts, source hashes, review limits and the
+provider record are in [mining laser artwork provenance](assets/artwork-completion/mining-laser-v2-requests.json).
+AI artwork provenance remains separate from code licensing; no exclusive copyright,
+third-party clearance or institutional endorsement is claimed by this notice.
+
 ## Agriculture irrigation artwork
 
 Groundwork W2 uses an original ChatGPT/Imagegen overhead chassis; its conduits and
