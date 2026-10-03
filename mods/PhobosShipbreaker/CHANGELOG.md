@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Changed
 
+- Reviewed every English entry. Simplified furnace, capture, cutting and cargo messages. Start / resume pipeline is now Start / resume work; Seal and verify charge is Seal and check charge. Saved work, actions and operating limits stay the same.
+
 - Redraw the Ablatine ML-2 mining laser with a ribbed emitter, a distinct bearing and cradle, rear cooling fins and a clearer service connection. Keep its eight-frame firing pulse aligned with the head. Retain high-resolution Imagegen originals, previous PixelLab artwork and repeatable native-size exports. The owner approved the design on 4 October; in-game lighting, beam and animation checks remain pending. Gameplay and saves are unchanged.
 
 ### Documentation

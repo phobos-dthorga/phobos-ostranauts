@@ -20,7 +20,7 @@ This records source/native inspection and offline tests, not Unity approval.
    alignment/burns take priority over weapon facing and hold offensive dispatch.
 5. **Cease Fire** (or an exhausted volley budget) ends firing and aiming while
    range matching continues. **Leave Combat** or **Disengage** ends Combat.
-   **Return to Native** also ends Combat and releases the offensive hold; native
+   **Return to ship controls** also ends Combat and releases the offensive hold; native
    automatic fire may resume. Use **Resume** explicitly for the previous mission.
 
 Leave Combat before editing movement settings. Changing fire target, aim reference

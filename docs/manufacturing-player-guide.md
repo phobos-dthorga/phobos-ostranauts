@@ -257,7 +257,7 @@ and rechecks every few seconds. The salt crust also waits, with the reason,
 until its ammonia store is linked, intact and has room for the ammonia. The tray must have room for every product or
 the charge waits with that reason. Empty the tray by hand. Since Manufacturing 0.30.0 the V4, LC-3 and SA-3
 trays are 4 x 3 cells and products arrive as stacks (ingots ten to a cell, salts twenty), so a tray holds two
-charges of every recipe except the LC-3's evaporite leach, whose two 2 x 2 residues leave room for one.
+charges of every recipe except the LC-3's salts-from-crust batch, whose two 2 x 2 residues leave room for one.
 
 ## The electrolysis cell
 
@@ -375,7 +375,7 @@ works the recipe you choose, one charge at a time, at 12 kW.
 
 ```mermaid
 flowchart LR
-    Crust["Evaporite crust, mined"] --> Leach["LC-3: evaporite leach"]
+    Crust["Evaporite crust, mined"] --> Leach["LC-3: salts from evaporite crust"]
     Water["Linked water silo"] -->|20 kg on hand, returned| Leach
     Leach --> K["Potassium sulfate"]
     Leach --> P["Phosphate concentrate"]
@@ -387,7 +387,7 @@ flowchart LR
     Q["Linked ammonia store"] -->|30 g ammonia| Stru
     Water -->|0.22 kg water| Stru
     Stru --> S["Struvite"]
-    K --> Form["LC-3: makeup formulation, with Agriculture"]
+    K --> Form["LC-3: mixing makeup salts, with Agriculture"]
     S -->|two| Form
     Form --> Salts["39 Groundwork makeup salts"]
     Salts --> B2["Agriculture B2 nutrient formulation"]
@@ -402,7 +402,7 @@ flowchart LR
     Acid["Linked acid tank"] -->|8.64 kg| Ep
     Ep --> E["32 Epsom salt"]
     Ep --> OC["Olivine leach cake, trash"]
-    Flask["Phosphoric acid flask, from the SA-3"] --> AS["LC-3: acid-route struvite"]
+    Flask["Phosphoric acid flask, from the SA-3"] --> AS["LC-3: struvite from acid"]
     E -->|three| AS
     Q["Linked ammonia store"] -->|0.27 kg| AS
     AS --> S3["3 struvite"]
@@ -437,7 +437,7 @@ flowchart LR
 A leach waits until the linked vessel holds 20 kg of water; struvite waits until
 the vessel and the ammonia store hold what it takes; the acid recipes wait for
 the acid, and crop nutrients wait until the hopper has room. The panel gives the
-reason. A charge that needs no vessel (the makeup formulation) runs without one.
+reason. A batch that needs no tank or store, such as mixing makeup salts, runs without one.
 
 Leaching pays: a crust's potassium sulfate and phosphate are worth 300 cr
 against 150 cr for the crust, and 32 Epsom salt 416 cr against 180 cr for the
@@ -540,7 +540,7 @@ is how suit bottles burst.
 4. Add **oxygen, nitrogen or carbon dioxide stores** under **Add a store**,
    within one tile or along a gas line, and switch each **On**. A linked
    canister set to **Draw from it** can be the source instead.
-5. Choose **Mode**: **Fill**, or **Decant** to empty bottles and canisters back
+5. Choose **Mode**: **Fill**, or **Empty into stores** to empty bottles and canisters back
    into their stores. Press **Start**.
 
 **Keep suit bottles charged** (right-click the installed L2; choose it again to
@@ -577,8 +577,8 @@ a station reaches the crew without a canister or an air pump in between.
    and run conduit to it. It reads the room it stands in.
 2. Put an **oxygen store** within one tile or lay gas line to it, and choose it
    under **Oxygen store**. For pressure, do the same with a **nitrogen store**.
-3. Choose the **Oxygen set point** (19, 21 or 23 kPa; the game counts 20 kPa
-   and above as good air) and the **Pressure set point** (80, 90 or 101 kPa, or
+3. Choose the **Oxygen level** (19, 21 or 23 kPa; the game counts 20 kPa
+   and above as good air) and the **Room pressure** (80, 90 or 101 kPa, or
    **leave alone**). Press **Switch on**.
 4. For a grow room (0.27.0), also choose a **Carbon dioxide store** and **Carbon
    dioxide for crops**: 0.05, 0.10 or 0.20 kPa, or **leave alone**.
@@ -680,7 +680,7 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
   ten-thousandth of it (115 g from a full AT-2) gets into the room as the game's
   own sulfuric acid mist, whose poisoning bands apply; a destroyed tank mists the
   same share and the rest is lost. Get the crew out and ventilate, then repair the
-  tank and choose **Recover acid from the bund** to put it back in service.
+  tank and choose **Recover trapped acid** to put it back in service.
 - **A damaged acid line mists.** A damaged or destroyed segment lets a
   ten-thousandth of the acid it holds, about 0.09 g, into the room as mist. A
   damaged one keeps the rest until drained; a destroyed one loses it. See the acid
@@ -784,7 +784,7 @@ through Bulk supplies; lay gas line to an L2, install an N2 canister beside the
 L2, add both, switch the store on and press Start. Watch the canister rise and
 stop at 99%, even at fast-forward, and the store fall. Put a half-empty suit O2
 bottle in the rack with an O2 store linked and confirm it fills and stops.
-Switch to Decant and empty a canister back into a store. Pour a small store
+Switch to Empty into stores and empty a canister back into a store. Pour a small store
 into a large one. Link a C2 to a K2 as its CO2 source, and an O2 store to an X2
 as its oxygen destination. Damage an O2 store and watch the room's oxygen rise.
 Save and reload mid-fill and confirm the pause until Start.

@@ -6,6 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Reviewed every English entry. Simplified flight, docking and weapon messages. Return to Native is now Return to ship controls, with the same effect: the ship may resume automatic firing. Commands and saved flights stay the same.
+
 ### Documentation
 
 - Correct stale dependency and merchant advice and distinguish the old unscrolled hub from current compact controls, Combat and towing. Documentation only; gameplay and saves are unchanged.

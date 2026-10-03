@@ -29,7 +29,7 @@ groups. The old group returns to native control and **may resume automatic
 firing**. The new group enters **FCS Hold**, with Auto Aim off and no firing
 permission. Back leaves the existing engagement unchanged. Cease Fire remains
 accessible while deciding. Under native control, choosing a group changes the
-selection without taking FCS ownership. **Return to Native** remains separate.
+selection without taking FCS ownership. **Return to ship controls** remains separate.
 
 Left-click **Volleys** to increase the budget; right-click to decrease it. Both
 directions wrap between 1 and 9. Changing the budget cancels existing firing
@@ -133,7 +133,7 @@ minimums and all 80 release records pass their consistency checks.
   Edit, placement and the rescue overlay.
 - Check group 2 identifies the off Artemis and suggests checking power or its control signal. Change groups under native
   control, then cancel and confirm an FCS handoff. Confirm the warning matches
-  the intended old-group return to native control.
+  the intended old-group return to ship controls.
 - Try Volleys in both directions at 1 and 9; verify one step per click and that
   firing needs a fresh Engage. Try Cease Fire while a group dialog is open.
 - Open the industrial console at narrow and wide sizes. Check scrolling,

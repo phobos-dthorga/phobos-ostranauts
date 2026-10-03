@@ -116,7 +116,7 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
   `phobosshipbreaker feed`; ordinary Inventory no longer opens the second grid.
   **Load feed by crew** keeps it loaded without the grabber; see the
   [player guide](player-guide.md#hand-fed-operation-without-the-grabber).
-- **Start / resume pipeline:** validates the layout and arms transfer plus
+- **Start / resume work:** validates the layout and arms transfer plus
   processing. An empty feed waits for panels from the grabber, the feed window
   or a crew order. Start while beside the
   processor; loading the exterior grabber uses the game's ordinary nearby/EVA

@@ -158,7 +158,7 @@ unless [Repeat batches](#repeat-batches) is on; the AUTO sequence runs by itself
 ```mermaid
 flowchart TD
     Pair["Choose and pair one cooling assembly"] --> Load["Load twenty 1 kg pieces into Feed"]
-    Load --> Seal["Choose Seal and verify charge"]
+    Load --> Seal["Choose Seal and check charge"]
     Seal --> Run["Choose Enable / resume sequence"]
     Run --> Auto["AUTO: evacuate, preheat, melt, hold, solidify, cool"]
     Auto --> Cool{"At or below 50 C?"}
@@ -179,11 +179,11 @@ flowchart TD
    piece at a time, or switch on **Load feed by crew** on the furnace so crew
    bring single pieces from anywhere aboard; the hot steps below still need
    the hazardous permission or a repeat run.
-3. **Seal and verify charge**. The cool lining, exact feed, room atmosphere and
+3. **Seal and check charge**. The cool lining, exact feed, room atmosphere and
    finite receiver are checked. The feed chamber closes and holds 80 litres of cabin gas.
 4. **Enable / resume sequence**. AUTO evacuates, preheats, melts and holds at
    700 C for 60 continuous seconds with the required pressure and working probes, then solidifies in its captive mould
-   and cools. STEP waits at the operating transitions; use **Advance next step**.
+   and cools. STEP waits at the operating transitions; use **Run next step**.
 5. At or below **50 C**, return chamber and receiver gas to the adjacent room.
    An absent accepting gas volume or excessive resulting room temperature blocks
    this operation. After compartment reconstruction, return gas locally beside the
@@ -276,7 +276,7 @@ under way still follows the power actually supplied.
 
 | State | Requirement / transition | Retained when interrupted |
 |---|---|---|
-| Load / verify | Cool idle machine, twenty exact physical inputs | Lining/radiator energy from earlier work |
+| Load / check | Cool idle machine, twenty exact physical inputs | Lining/radiator energy from earlier work |
 | Sealed | Captured gas fits receiver; explicit Resume | Locked charge, gas species and energy |
 | Evacuating | 0.05 mol/s maximum; target 0.1 kPa; 200 kPa receiver limit; 180 s timeout | Both finite gas parcels; no room/vacuum vent shortcut |
 | Preheat | Ramp 0.1–5 K/s, delivered heat 1–250 kW, finite cooling headroom | Accounted sensible energy |

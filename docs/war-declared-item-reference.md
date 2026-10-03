@@ -4,7 +4,7 @@
 
 Current source candidate: **0.1.1**. Game target: **1.0.1.5**. Values below come from offline definitions; they do not establish installation, gameplay validation or a live merchant quote.
 
-Phobos' War Has Been Declared adds no items, equipment or recipes. It adds three orders to the game's own navigation stations (Battle stations, Stand down and Lay held build sites) and lays the game's own build sites for parts destroyed in battle, which the crew finish with ordinary replacement parts. See [the player guide](war-declared-player-guide.md).
+Phobos' War Has Been Declared adds no items, equipment or recipes. It adds three orders to the game's own navigation stations (Battle stations, Stand down and Lay postponed build sites) and lays the game's own build sites for parts destroyed in battle, which the crew finish with ordinary replacement parts. See [the player guide](war-declared-player-guide.md).
 
 ## Evidence and upkeep
 

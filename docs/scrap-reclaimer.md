@@ -52,7 +52,7 @@ Shipbreaker 0.65.0; products arrive as stacks, so a full feed's output fits).
 4. Collect products through ordinary **Inventory** or the panel's product button.
    Each packet gives **3 kg steel + 1 kg aluminium + 9 kg terminal rejects**.
 5. Store or haul the rejects, or pair the reclaimer's output to a collector through
-   **Output routing**, and select the collector's **Terminal rejects only** filter. One sender per collector remains the rule.
+   **Output routing**, and select the collector's **Unusable rejects only** filter. One sender per collector remains the rule.
 
 Version 0.9.0 adds [automatic feeding](automatic-material-routing.md) from the
 fixture or a collector buffer, with independent input/output pairs and saved

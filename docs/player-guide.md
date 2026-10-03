@@ -152,7 +152,7 @@ flowchart LR
    loading. The grabber can hold other solids, but that
    does not make them valid processing inputs.
 2. Select awake crew beside the processor, press **F9**, and choose
-   **Start / resume pipeline**. At defaults, intake takes 5 powered seconds and
+   **Start / resume work**. At defaults, intake takes 5 powered seconds and
    processing takes 60 powered seconds per panel. Four panels fit in the feed;
    processing handles one at a time.
 3. Right-click the processor and choose **Inventory** to collect its products:
@@ -294,7 +294,7 @@ other instruments. Keep the native map, sensors, warnings and Comms available.
 - **Fire:** [N3 Fire Control System](auto-nav-fire-control.md) adds independent
   observations, 1–9 volleys, group ownership, guarded Engage and optional RCS
   aiming. N2 no longer grants firing permission. Navigation/offensive targets are
-  separate; Cease Fire retains Follow and offensive hold until Return to Native.
+  separate; Cease Fire retains Follow and offensive hold until Return to ship controls.
 - **Systems:** essential propulsion readings and native torch controls. Manual
   propulsion actions relinquish automation and retain native restrictions.
 - **Details:** diagnostics/help only. Routine controls never require scrolling.

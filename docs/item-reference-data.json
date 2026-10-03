@@ -11389,7 +11389,7 @@
         {
           "id": "PhobosBuildAutoNav",
           "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
-          "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Includes local avoidance of tracked contacts.",
+          "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -11473,7 +11473,7 @@
         {
           "id": "PhobosBuildFireControl",
           "name": "Phobos' Asterel N3 Polaris Fire Control System",
-          "description": "Assemble a 0.4 kg fire control system from 1 kg of electronics and retain 0.6 kg of board offcuts. Explicit limited volleys and optional RCS aiming; native weapon permissions remain required.",
+          "description": "Assemble a 0.4 kg fire control system from 1 kg of electronics and retain 0.6 kg of board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -33648,7 +33648,7 @@
         },
         {
           "id": "SysPhobosDeflagrationLarge",
-          "name": "Gas deflagration",
+          "name": "Gas fire",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -33675,7 +33675,7 @@
         },
         {
           "id": "SysPhobosDeflagrationMedium",
-          "name": "Gas deflagration",
+          "name": "Gas fire",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -33702,7 +33702,7 @@
         },
         {
           "id": "SysPhobosDeflagrationSmall",
-          "name": "Gas deflagration",
+          "name": "Gas fire",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -51260,7 +51260,7 @@
         {
           "id": "PhobosBuildIndustrialConsole",
           "name": "Phobos' Asterel C1 Industrial Control Console",
-          "description": "Build a 40 kg, 3 x 3 seated workstation. Controls installed industrial equipment on its own player-owned ship. Separate 80 W electrical connection required. Inventory handling and maintenance stay local.",
+          "description": "Build a 40 kg, 3 x 3 seated workstation to control installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -51421,7 +51421,7 @@
         {
           "id": "PhobosBuildReclaimerSectionCast",
           "name": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
-          "description": "Optional cast-housing route: one 18 kg housing and native parts produce a 90 kg R4 section. The existing recipe remains available.",
+          "description": "Optional cast-housing route: one 18 kg housing and standard parts produce a 90 kg R4 section. The existing recipe remains available.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -51891,12 +51891,12 @@
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
     "mods/PhobosAgriculture/mod_info.json": "7ab4ac7b1a0dde7a789d1c966953d6934bfa6a287ea55cfca61049eed2d7deca",
-    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
+    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
-    "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "4ada1cc4bf5b17ef48447e504187ab7e44c31efe73dfb177e061262ff4460449",
+    "mods/PhobosAutoNav/framework/recipes.json": "65f464725c735eec47eab278b01780e952b8c3ca4d1440c8281c2525e1635752",
+    "mods/PhobosAutoNav/mod_info.json": "a828bb024cdd897a840f9cba8aaee5e736d8f5c9a589ce45210387adfe06262c",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
@@ -51920,14 +51920,14 @@
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
-    "mods/PhobosShipbreaker/framework/recipes.json": "d55e75f78fb7ee1f56e588e3f0d1d00e50f5f0337e082894fb1011b1e2abdfbf",
+    "mods/PhobosShipbreaker/framework/recipes.json": "3f9869e304a8681d85272346d91e25e8ce30d6f7173576ff13b454571baa49b9",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
     "mods/PhobosShipbreaker/mod_info.json": "d1f00cffb0f5ef063d76c59a77c0cd6d91ab55c4f9c60142604481ba13845e06",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
     "mods/PhobosWarDeclared/schematics/hull-only.json": "59232a88c702c701dabd9aab65b8f014ee77a8120c4424b9ee47e280b19c8946",
-    "mods/PhobosWarDeclared/schematics/safe-walls.json": "3d1fd7b7191dbade977650358276f475cfed3a1f16818bb3bf18383da1e90722",
+    "mods/PhobosWarDeclared/schematics/safe-walls.json": "4a723a50785483939353fe8513b820d61770d9a937ec45169bc647f74619d936",
     "mods/PhobosWarDeclared/schematics/safe.json": "4ee6980986fb18728540f9ddcc71ae58847c5e1cb1236b61b1c84661d0fc6aee",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
@@ -52405,11 +52405,11 @@
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "9543900eaf3da6d07f23cd66197d68f9245243545dda5edb8a835a5a7a398c9f",
     "tests/PhobosNative.Tests/Program.cs": "416b38f5d795fc5b82bde02ddd3581eb1c411ee4b39424de79e39737b622b8dd",
-    "translations/PhobosAgriculture/en.json": "ca20cd23e09f2e0286def62b3e28b991743d67099e2607e5e9bda538e2496a2c",
-    "translations/PhobosAutoNav/en.json": "b0c49c7d7038de85a2ebce025b7f987ac54cb5c5e77ebf18e5097cbdfd2e4cff",
-    "translations/PhobosFramework/en.json": "8d50ca80c5b398f76c8a22b6430cda6f26b90a386b5362d0eac5ef14ce7f3180",
-    "translations/PhobosManufacturing/en.json": "732830e75a380307209b24d08fee9ef0f62fc130289a2c2a925889648e22fcf0",
-    "translations/PhobosShipbreaker/en.json": "9e67f662d5f0c9d33d5cb2f809fe812522608e6f2d6c26c6184c2f18761c28ff",
-    "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
+    "translations/PhobosAgriculture/en.json": "e76e68ee32f76d800d3aa9aa9aadb71fa57c00c5cec39234e92849c833cf45c1",
+    "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
+    "translations/PhobosFramework/en.json": "3a3856556c53bdd2d340f722dd68fca668c4d5aed8f6c66ee1097414302b80af",
+    "translations/PhobosManufacturing/en.json": "0366a416fbdc1fb46896629c3f7a4ee71435440f2091249f453e87fef2f2ed04",
+    "translations/PhobosShipbreaker/en.json": "9c2a063eb74005b210b23cc5bfbd08a1cf31cb9b3caa339e095d1cc2c66580ee",
+    "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }
 }

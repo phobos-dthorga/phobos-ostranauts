@@ -123,7 +123,7 @@
     "strName": "PhobosNavModFireControl",
     "strNameFriendly": "Phobos' Asterel N3 Polaris Fire Control System",
     "strNameShort": "Phobos' Asterel N3 Polaris Fire Control System",
-    "strDesc": "Choose the target and how many volleys to send. N3 handles firing checks and optional RCS Auto Aim. Cease Fire holds offensive fire until Return to Native. Needs a usable sensor track and permitted, ready weapons. Loading a save keeps fire on hold; it never rearms the system.",
+    "strDesc": "Choose the target and how many volleys to send. N3 handles firing checks and optional RCS Auto Aim. Cease Fire holds offensive fire until Return to ship controls. Needs a usable sensor track and permitted, ready weapons. Loading a save keeps fire on hold; it never rearms the system.",
     "strCOBase": "PhobosFireControlBoard",
     "strImg": "navmod/ItmNavMod01",
     "strImgNorm": "navmod/ItmNavMod01n",

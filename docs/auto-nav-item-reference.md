@@ -148,7 +148,7 @@ In-game names: Phobos' Asterel N2 Polaris Pursuit Module; Phobos' Asterel N2 Pol
 
 Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.
 
-**Use:** Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).
+**Use:** Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage permits the chosen volleys. Cease Fire holds offensive fire; Return to ship controls releases it. Switching an FCS-held group asks for confirmation: the old group may resume the ship’s automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).
 
 **Where it appears:** Build at a supported table, buy from the listed dealers, or find an N1/N2/N3 board in eligible native module loot. Damaged finds need repair. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.
 

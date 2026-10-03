@@ -1,6 +1,6 @@
 {
   "title": "Safe plus walls",
-  "description": "Everything Safe lays, plus walls, window walls and temporary seals, so a breached hull closes up. Doors, hatches, docking ports and bulky machines are still held for Lay held build sites. Unbuilt walls block walking until the crew finish them.",
+  "description": "Everything Safe lays, plus walls, window walls and temporary seals, so a breached hull closes up. Doors, hatches, docking ports and bulky machines are still held for Lay postponed build sites. Unbuilt walls block walking until the crew finish them.",
   "default": "hold",
   "rules": [
     { "note": "Hatches are passages: hold them like doors.", "action": "hold", "parts": [ "ItmHatch*" ] },

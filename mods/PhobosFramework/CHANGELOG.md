@@ -6,6 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Reviewed every English entry. Simplified crew orders, trading, storage and shared fault messages. Kept detailed file and developer diagnostics, units and commands.
+
 ### Documentation
 
 - JSON Schema files for the four data packs in the repository's schemas folder, for editor completion of shipped packs and player override files, generated from the same field sets the offline validator uses; the editing guide shows how to point an editor at them. Built packages now carry a manifest the installer checks.

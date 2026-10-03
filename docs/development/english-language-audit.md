@@ -1,4 +1,104 @@
-# English language audit — 27 September 2026
+# English language audits
+
+## Whole-catalogue revision — 4 October 2026
+
+The owner asked for a full pass after technical language had crept back into
+the mods. All **3,277 English entries** in the six translation catalogues were
+read, including short labels, descriptions, settings, commands, compatibility
+entries and diagnostic messages. This round rewrites **440** and retains
+**2,837**. There are no other language catalogues in this checkout.
+
+| Catalogue | Reviewed | Rewritten | Retained |
+| --- | ---: | ---: | ---: |
+| Agriculture | 260 | 43 | 217 |
+| Auto Nav | 576 | 85 | 491 |
+| Framework | 638 | 47 | 591 |
+| Manufacturing | 766 | 145 | 621 |
+| Shipbreaker | 976 | 110 | 866 |
+| War Has Been Declared | 61 | 10 | 51 |
+| Total | 3,277 | 440 | 2,837 |
+
+The [ledger](../../config/english-language-audit.json) records a decision for
+every entry in this round, preserves the previous wording of changed entries,
+and retains the original audit's before-text and source references. This is an
+editorial review, not automatic approval from a jargon search. Clear existing
+instructions, names, units and small readouts stay. File/schema validation,
+initialisation logs and performance diagnostics retain precise technical terms;
+routine machinery messages use supplies, batches, connections and crew actions.
+
+Descriptions now lead with the job the equipment does. Longer refinery,
+chemistry and air-regulator explanations use short paragraphs. Warnings keep
+their consequence and supported action; pause/cancel messages distinguish kept
+supplies from lost work or electricity. Research attribution and chemical
+identities remain distinct from fictional equipment and gameplay choices.
+
+| Previous wording | Current wording |
+| --- | --- |
+| RCS authority | Available RCS acceleration |
+| A charge is bound in the refinery | The refinery has an unfinished batch |
+| Decant | Empty into stores |
+| Return to Native | Return to ship controls |
+| Recover acid from the bund | Recover trapped acid |
+| Lay held build sites | Lay postponed build sites |
+| Start / resume pipeline | Start / resume work |
+| Seal and verify charge | Seal and check charge |
+
+Operating-label changes are reflected in current guides, mod-menu
+notes, recipe/overlay fallbacks and maintained item-reference inputs wherever
+applicable. Ready-alert labels are also consistent across Agriculture,
+Shipbreaker and Framework. Old release entries and dated design snapshots keep
+their historical wording; each owning changelog records this revision under
+Unreleased. No version, recipe revision, saved identity or gameplay rule changes.
+
+### Blue Bottle Games reference material
+
+Read-only inspection used the installed **Ostranauts 1.0.1.5** data authored by
+[Blue Bottle Games](https://store.steampowered.com/app/1022980/Ostranauts/).
+These are local primary-source observations, not a claim that all vanilla prose
+is simple. The Gott mining tool description names the tool and its job; the
+reactor descriptions connect equipment with fuel and use, and the core-liner
+warning puts shutdown before replacement. The manual index separates everyday
+controls, work safety and specialist instructions. Lore tips provide setting
+context. Those patterns informed original wording; no game text or extracted
+assets are shipped with this revision.
+
+The inspected files are relative to `Ostranauts_Data/StreamingAssets/data` in
+the owner's installation (resolved from ignored local installer settings):
+
+| File | Evidence inspected | SHA-256 |
+| --- | --- | --- |
+| `condowners/condowners_mining.json` | `ItmToolDrillMining01`, Gott Mining Tool description | `9dbeadc02a07a30cff7b9b3b1a189f59749281573531338b5c38fe1e9d57a203` |
+| `condowners/condowners_reactor.json` | Core-liner warning, helium tank and fusion-reactor descriptions | `ffdf5910f5c26b73dd0c554f68e208139ca73b6bcef24f68f1c01e1ab1f3fdb4` |
+| `manpages/manpages.json` | Basic Controls, Work Safety, Nav Console, Environmental and Fusion index | `41e2d0f5b1b5a4b77b1a5a6d78d3a785ce1cae20502d73d822755f2179249407` |
+| `tips/tips.json` | Opening lore entries about work and the setting | `38a2d52c0bf6eac4058e5d03d5001155da86f9154038d780fc645d5c5a1b2c7c` |
+
+The [writing guide](player-language.md#keeping-the-voice-plain) now gives concrete
+examples to prevent the same drift in future additions.
+
+### Verification for this round
+
+- All six plugin assemblies built through the native-definition suite: **28,444
+  checks passed**. Framework's **22,860 checks passed**, including catalogue
+  loading, embedded fallbacks, recipe/overlay agreement and formatting contracts.
+- The catalogue inventory, repeated placeholders and format specifications,
+  native grammar tokens and literal numerical values match the pre-edit copies.
+  Five language-audit tests and ten item-reference tests passed. Current item
+  references were regenerated through the native exporter and checked for freshness.
+- Constants and Workshop release records passed their existing checks. All six
+  page drafts remain below 7,500 bytes. Relative document links and diff whitespace
+  checks passed.
+- Inspected an offline type specimen with substituted readouts, a long contact
+  name, machinery paragraphs and changed controls. The 256 x 48 hub button was
+  checked for its longer Return to ship controls caption. This used a system
+  font, not Unity's font, and is not an in-game layout test.
+
+One existing registration test searched for the old phrase “native package”. It
+now checks the expected translation key's result while retaining the same
+exception and no-registration assertions. Production logic is unchanged.
+Game files, installed packages and saves were not changed. Unity text layout and
+the in-game reading experience still need the owner's review.
+
+## Original audit — 27 September 2026
 
 The retrospective rule is now in AGENTS.md and [localization](localization.md).
 [Writing for the crew](player-language.md) contains the source-backed audience

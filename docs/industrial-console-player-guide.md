@@ -20,8 +20,8 @@ The shared cues were introduced in Shipbreaker 0.19.0 with Framework 0.21.0. The
 [shared cue controls](shared-completion-cues.md) cover D4/R4 and optional Agriculture
 equipment through C1, with one suite-wide volume/mute setting.
 
-D4/R4 panels now offer **Notify on next batch completion**, **Cancel completion
-notification** and cue volume/mute. Watching is optional, never starts a job and
+D4/R4 panels offer **Notify me when this batch is ready**, **Cancel ready alert**
+and alert volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 

@@ -53,7 +53,7 @@ Auto Nav 0.22.0 introduced [explicit Combat and coordinated flight](auto-nav-com
    status, delays and the blocking reason. Readiness is separate from inventory.
 3. **Take FCS control** establishes offensive hold without aiming or shooting.
    Engage or Auto Aim also takes control when needed. Release the previous group
-   explicitly with **Return to Native**, or choose another group and confirm the guided handoff. The old group may resume native automatic firing; the new group enters FCS Hold with no firing or aiming permission.
+   explicitly with **Return to ship controls**, or choose another group and confirm the guided handoff. The old group may resume native automatic firing; the new group enters FCS Hold with no firing or aiming permission.
 4. For optional aiming, browse to a weapon and use **Use for aim**, then enable
    **Auto Aim**. With no selected reference, the first eligible loaded weapon with
    a valid solution is selected in stable ID order. Its displayed index remains
@@ -85,7 +85,7 @@ Manual native fire and defensive PDC fire remain available. Native offensive
 queues are filtered by controlled group, including after Cease Fire; unrelated
 groups and native panels are not disabled wholesale. A single service arbitrates
 flight and fire, with one active engagement. A second console cannot silently
-take an already held group. Return to Native is available without a working N3
+take an already held group. Return to ship controls is available without a working N3
 so failed hardware does not make ownership impossible to release.
 
 ## Native restrictions and limits
@@ -140,7 +140,7 @@ phobosnav nativefire
 ```
 
 `volley` cycles the budget; `fireweapon` browses the card; `aimweapon` selects that
-card as the reference. Setting changes revoke permission. The UI group picker includes switched-off and damaged installed weapons, with a reason instead of an empty group. F3 numeric selection retains its explicit Return to Native requirement. All routine controls
+card as the reference. Setting changes revoke permission. The UI group picker includes switched-off and damaged installed weapons, with a reason instead of an empty group. F3 numeric selection retains its explicit Return to ship controls requirement. All routine controls
 remain on Fire, with Cease Fire in the persistent action strip. Short tabs are
 Nav, Track, Fire, Sys, Departure and Info; Details/Info contains explanations only.
 

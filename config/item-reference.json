@@ -42,7 +42,7 @@
             "PhobosFireControlBoardDmg"
           ],
           "function": "Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.",
-          "use": "Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).",
+          "use": "Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage permits the chosen volleys. Cease Fire holds offensive fire; Return to ship controls releases it. Switching an FCS-held group asks for confirmation: the old group may resume the ship’s automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).",
           "find": "Build at a supported table, buy from the listed dealers, or find an N1/N2/N3 board in eligible native module loot. Damaged finds need repair. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Firing permission is not restored from a save. N2 plus N3 combines Follow and firing; flight braking and clearance take priority over aiming.",
           "guide": "auto-nav-fire-control.md",
@@ -1495,8 +1495,8 @@
             "PhobosCanisterFillerInstalled",
             "PhobosCanisterFillerInstalledDmg"
           ],
-          "function": "A powered 2 x 2 booster that tops up standard O2, N2 and CO2 canisters and suit O2 bottles to a safe 99% of their rated pressure and stops, even at fast-forward. Decant mode empties them back into bulk stores.",
-          "use": "Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Decant, then press Start. After a reload it waits for Start. Right-click Keep suit bottles charged to have crew with the Haul duty bring loose bottles below 90% into the rack and start it; choose a destination store in the Crew panel for charged bottles.",
+          "function": "A powered 2 x 2 booster that tops up standard O2, N2 and CO2 canisters and suit O2 bottles to a safe 99% of their rated pressure and stops, even at fast-forward. Empty into stores mode empties them back into bulk stores.",
+          "use": "Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Empty into stores, then press Start. After a reload it waits for Start. Right-click Keep suit bottles charged to have crew with the Haul duty bring loose bottles below 90% into the rack and start it; choose a destination store in the Crew panel for charged bottles.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Draws 3 kW while working; the electricity pays for compressing the gas (about 0.06 kWh per kilogram of oxygen into a canister) and all of it ends as heat in the room. Hydrogen and methane cannot be bottled: the game has no canister for them.",
           "guide": "manufacturing-player-guide.md",
@@ -1565,7 +1565,7 @@
             "PhobosPhosphateConcentrate",
             "PhobosLeachedResidue"
           ],
-          "function": "Potassium sulfate (0.70 kg), struvite (0.43 kg, slow-release magnesium ammonium phosphate), Epsom salt (0.432 kg of magnesium sulfate from olivine) and ammonium sulfate (0.232 kg, from the acid-route struvite) are fertiliser salts; phosphate concentrate (0.25 kg) is struvite's feed; a leached residue (6.8 kg of washed clay and magnesium carbonate) is the V4's calcine feed.",
+          "function": "Potassium sulfate (0.70 kg), struvite (0.43 kg, slow-release magnesium ammonium phosphate), Epsom salt (0.432 kg of magnesium sulfate from olivine) and ammonium sulfate (0.232 kg, from the struvite from acid) are fertiliser salts; phosphate concentrate (0.25 kg) is struvite's feed; a leached residue (6.8 kg of washed clay and magnesium carbonate) is the V4's calcine feed.",
           "use": "Made in the LC-3. Put a phosphate concentrate back in the LC-3 for struvite, or a phosphoric acid flask with three Epsom salt for struvite and ammonium sulfate; blend one potassium sulfate with two struvite for Groundwork makeup salts, or one of each of the four salts into crop nutrients for a nutrient hopper (with Agriculture); calcine a leached residue in the V4 for carbon dioxide. Sell the salts at any general buyer.",
           "find": "Made in the LC-3 from mined evaporite crust, the game's olivine and the SA-3's phosphoric acid. Never sold in shops.",
           "notes": "Refining pays (owner decision, 1 October 2026): potassium sulfate 190 cr, phosphate concentrate 110 cr, struvite 125 cr, Epsom salt 13 cr and ammonium sulfate 20 cr, so leaching a crust earns about twice the crust and an olivine about 2.3 times the ore; the leached residue is priced as trash because the V4 takes it. The makeup salts are worth Agriculture's own 30 cr a packet, and crop nutrients its 1,500 cr/kg (bag a hopper's nutrients into bulk charges to sell them; the station does not buy them back from a hopper). Salts already aboard take the new prices when a save loads.",
@@ -1580,7 +1580,7 @@
             "PhobosPhosphoricAcidFlask"
           ],
           "function": "0.515 kg of phosphoric acid caught from a roasted nodule, in a sealed flask: the phosphorus of three struvite units.",
-          "use": "Made in the SA-3. The LC-3's acid-route struvite takes one with three Epsom salt. Carry, stack (ten per stack) and sell at any general buyer.",
+          "use": "Made in the SA-3. The LC-3's struvite from acid takes one with three Epsom salt. Carry, stack (ten per stack) and sell at any general buyer.",
           "find": "Made in the SA-3 from sulfide nodules. Never sold in shops.",
           "notes": "Priced at 300 cr, so roasting a nodule earns about twice the nodule (owner decision, 1 October 2026). Flasks already aboard take the new price when a save loads.",
           "guide": "manufacturing-player-guide.md",
@@ -1683,7 +1683,7 @@
         },
         {
           "key": "deflagration",
-          "title": "Gas deflagration",
+          "title": "Gas fire",
           "ids": [
             "SysPhobosDeflagrationSmall",
             "SysPhobosDeflagrationMedium",
@@ -1700,7 +1700,7 @@
       ]
     },
     "PhobosWarDeclared": {
-      "intro": "Phobos' War Has Been Declared adds no items, equipment or recipes. It adds three orders to the game's own navigation stations (Battle stations, Stand down and Lay held build sites) and lays the game's own build sites for parts destroyed in battle, which the crew finish with ordinary replacement parts. See [the player guide](war-declared-player-guide.md).",
+      "intro": "Phobos' War Has Been Declared adds no items, equipment or recipes. It adds three orders to the game's own navigation stations (Battle stations, Stand down and Lay postponed build sites) and lays the game's own build sites for parts destroyed in battle, which the crew finish with ordinary replacement parts. See [the player guide](war-declared-player-guide.md).",
       "groups": []
     }
   },

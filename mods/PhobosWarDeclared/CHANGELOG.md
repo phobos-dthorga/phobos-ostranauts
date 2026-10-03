@@ -5,6 +5,10 @@ not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Reviewed every English entry. Lay held build sites is now Lay postponed build sites. Damage reports explain what is waiting and why. Schematics, commands and saved battle records stay the same.
+
 ## [0.1.1] - 2026-09-29 - Draft
 
 ### Changed

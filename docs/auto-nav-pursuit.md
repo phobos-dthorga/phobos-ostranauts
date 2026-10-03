@@ -34,7 +34,7 @@ No extracted native artwork is distributed. UI interaction awaits owner evaluati
    saved arrival-speed preference. Stop the current flight before selecting another.
 3. Optional fire control now requires the separate [N3 Fire Control System](auto-nav-fire-control.md).
    Its Fire page owns target/group selection, limited volleys, Auto Aim and guarded
-   Engage. Cease Fire retains Follow and offensive hold; Return to Native releases
+   Engage. Cease Fire retains Follow and offensive hold; Return to ship controls releases
    that hold. N2 no longer grants firing permission.
 4. **Dock** or **Approach & Dock** remains a separate command after Stop, requiring
    native clearance and compatible assigned ports. Shooting and Follow never dock.

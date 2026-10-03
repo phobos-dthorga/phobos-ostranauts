@@ -6,6 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Changed
+
+- Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
+
 ## [0.39.0] - 2026-10-04 - Draft
 
 ### Added

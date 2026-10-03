@@ -37,7 +37,7 @@ harvest a crop, drain supplies, undock or fire weapons.
 ## Choosing storage, connections and names
 
 **Change** opens a searchable list. Approved stores with relevant
-contents sort first; Include empty / unsuitable makes the other eligible stores
+contents sort first; Show empty / unsuitable stores makes the other eligible stores
 visible. For an input store, **Use anything aboard** chooses the whole ship
 instead of one store: the deck, unlocked stores and other machines' product trays. Missing saved selections are retained and labelled unavailable. Connection
 pickers retain their content mod's candidate rules. Mission targets are limited

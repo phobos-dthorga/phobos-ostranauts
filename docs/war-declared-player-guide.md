@@ -14,7 +14,7 @@ flowchart LR
     BS --> Down["Stand down: your order, or a quiet spell"]
     Down --> Sch{"Rebuild schematic"}
     Sch -->|lay| Site["Build site laid where the part stood"]
-    Sch -->|hold| Held["Held until you choose Lay held build sites"]
+    Sch -->|hold| Held["Held until you choose Lay postponed build sites"]
     Sch -->|ignore| You["Left for you to place by hand"]
     Held -->|Your order| Site
     Site --> Crew["Crew fetch the loose part and build it"]
@@ -39,7 +39,7 @@ flowchart LR
 5. **Read the after-action line** in the crew log: build sites laid, parts held,
    parts left for you, parts the game cannot rebuild, and loose items destroyed.
 6. **Lay the held ones** when the corridors are clear: right-click the navigation
-   station and choose **Lay held build sites**.
+   station and choose **Lay postponed build sites**.
 
 Doors, alarms and machines come back in the state a normal install gives them: a
 door you lost while shut and locked is rebuilt as the ordinary door the INSTALL tab
@@ -56,7 +56,7 @@ sequenceDiagram
     You->>Nav: Stand down (or wait out the quiet spell)
     Log->>Crew: Build sites laid, as the schematic allows
     Crew->>Crew: Fetch loose parts and build
-    You->>Nav: Lay held build sites, when ready
+    You->>Nav: Lay postponed build sites, when ready
     Log->>Crew: Held build sites laid
 ```
 
@@ -79,7 +79,7 @@ flowchart TD
     Fit -->|Yes| Laid["Build site laid"]
     Fit -->|"No: the floor is gone, or something is in the way"| Held
     Fit -->|"The game has no install job for it"| No["Cannot be rebuilt; counted in the after-action line"]
-    Held -->|Lay held build sites| Fit
+    Held -->|Lay postponed build sites| Fit
 ```
 
 ## Battle stations at a glance
@@ -141,7 +141,7 @@ What each shipped schematic does with a destroyed part:
 Choose one in the F3 console with `phoboswar schematic safe-walls`, or set
 `Schematic` under `[Rebuild]` in `BepInEx/config/phobosgekko.ostranauts.wardeclared.cfg`.
 Switching schematic also changes what happens to parts still waiting to be laid.
-**Lay held build sites** always lays every held part, whatever the schematic says.
+**Lay postponed build sites** always lays every held part, whatever the schematic says.
 
 ### Writing your own
 
@@ -206,7 +206,7 @@ Examples of what a rule can say:
 | --- | --- |
 | Navigation station, **Battle stations** | Start battle stations now; they hold until you stand down. |
 | Navigation station, **Stand down** | End battle stations now and lay build sites as the schematic allows. |
-| Navigation station, **Lay held build sites** | Lay every held part now, walls and doors included. |
+| Navigation station, **Lay postponed build sites** | Lay every held part now, walls and doors included. |
 | `phoboswar status` | Battle state, schematic and the parts waiting or held for the selected crew member's ship. |
 | `phoboswar battle` / `phoboswar standdown` / `phoboswar lay` | The same three orders. |
 | `phoboswar schematics` | List schematics, the folder for your own and any file problems. |
@@ -233,8 +233,8 @@ In `BepInEx/config/phobosgekko.ostranauts.wardeclared.cfg` (restart the game aft
 
 | What you see | Likely reason | What to do |
 | --- | --- | --- |
-| Nothing was laid after the fight | Battle stations are still on, or the schematic held or ignored everything. | Type `phoboswar status`. Choose Stand down if you are still at battle stations; use Lay held build sites for held parts. |
-| The held list keeps growing | The schematic holds parts that would block walking. | Lay them with Lay held build sites once the corridors are clear, or pick a schematic that lays them. |
+| Nothing was laid after the fight | Battle stations are still on, or the schematic held or ignored everything. | Type `phoboswar status`. Choose Stand down if you are still at battle stations; use Lay postponed build sites for held parts. |
+| The held list keeps growing | The schematic holds parts that would block walking. | Lay them with Lay postponed build sites once the corridors are clear, or pick a schematic that lays them. |
 | A build site sits there and nobody builds it | Build sites wait for the crew to fetch the matching loose part and have the Construct duty. | Stock the loose part aboard, and check the crew's duties. |
 | A crew member cannot reach a room | An unbuilt wall, door or machine blocks walking. | Cancel that build site the game's usual way, or finish it. `safe` avoids this by holding them. |
 | Battle stations start when nothing is shooting at you | Any hull damage counts, including a collision or a burst canister. | Set `Battle.DamageStartsBattle` to false. |

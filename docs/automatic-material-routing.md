@@ -63,7 +63,7 @@ flowchart LR
     Fixture -->|output to reclaimer input| Reclaimer["Reclaimer"]
     Fixture -.->|or| Buffer["Buffer collector"]
     Buffer -.->|its output| Reclaimer
-    Reclaimer -->|output| Rejects["Collector set to Terminal rejects only"]
+    Reclaimer -->|output| Rejects["Collector set to Unusable rejects only"]
 ```
 
 Alternatively, retain an existing fixture → collector pair and use that collector
@@ -80,7 +80,7 @@ nearest-machine selection.
    armed queue waits for arriving feed. With `Processing/ContinueQueue=true`, it
    keeps processing subsequent arrivals until paused or blocked.
 4. Open **Output routing** and link a collector. At that collector's **Input
-   routing**, choose **Terminal rejects only**, then **Start transfers**.
+   routing**, choose **Unusable rejects only**, then **Start transfers**.
 
 For the buffered variant, use the first collector's **Output routing** to link
 the reclaimer. Start incoming transfers at each receiving machine. The fixture's

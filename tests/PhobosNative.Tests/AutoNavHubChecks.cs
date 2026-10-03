@@ -65,7 +65,7 @@ internal static class AutoNavHubChecks
             check(!EquipmentContent.NativePackageEnabled, "Disabled native package does not create a hub");
             var objects = DataHandler.dictCOs.ToArray(); var loot = DataHandler.dictLoot.ToArray(); var overlays = DataHandler.dictCOOverlays.ToArray();
             try { EquipmentContent.Register(); check(false, "Disabled native package must reject registration"); }
-            catch (InvalidOperationException ex) { check(ex.Message.Contains("native package"), "Native prerequisite is checked before any equipment preparation"); }
+            catch (InvalidOperationException ex) { check(ex.Message == PhobosAutoNav.Text.Get("EquipmentContent.enable_the_matching_phobos_auto_nav_native"), "Native prerequisite is checked before any equipment preparation"); }
             check(objects.Length == DataHandler.dictCOs.Count && objects.All(x => DataHandler.dictCOs[x.Key] == x.Value) &&
                 loot.Length == DataHandler.dictLoot.Count && loot.All(x => DataHandler.dictLoot[x.Key] == x.Value) &&
                 overlays.Length == DataHandler.dictCOOverlays.Count && overlays.All(x => DataHandler.dictCOOverlays[x.Key] == x.Value),

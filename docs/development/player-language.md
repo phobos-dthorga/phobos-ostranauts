@@ -67,7 +67,7 @@ Do not add machine model numbers to ordinary food or materials.
 | RCS | Reaction-control thrusters, used for small manoeuvres and braking. |
 | Relative speed | Total motion relative to the target, including sideways drift. |
 | Closing speed | Motion towards the target; negative when moving apart. |
-| Hold fire | Block automatic offensive fire; explain how Return to Native releases that hold. |
+| Hold fire | Block automatic offensive fire; explain how Return to ship controls releases that hold. |
 | Repair / Restore | Replace failed parts / treat wear. Keep these distinct game actions. |
 | Saved-state fault | Saved contents or settings cannot be checked safely; retain precise details in logs. |
 
@@ -76,6 +76,33 @@ Do not add machine model numbers to ordinary food or materials.
 They normally do not explain a player's next action. “Game setting”, “record”,
 “confirmation”, “release”, “selection”, “gameplay choice” and “control” are often
 clearer, but do not apply a blind substitution where the meaning differs.
+
+## Keeping the voice plain
+
+The owner's 4 October 2026 follow-up calls for whole-catalogue review, not just
+new entries or a list of banned words. Read controls, descriptions and messages
+as a crew member would encounter them. A correct sentence can still be too dense.
+
+- Say what is waiting: a batch, a wall, a tank or a crew member. Avoid “bound
+  charge”, “captured identity” and “endpoint” in routine controls.
+- Say what stays and what is lost: “supplies and progress are kept”, or “Cancel
+  keeps the ice but loses the electricity used”. Do not promise a refund.
+- Explain unfamiliar workshop words at first use: a bund is the outer tank that
+  catches a leak; gangue is leftover rock. Keep material and equipment names so
+  players can find the right item.
+- Use electricity used for kWh and power for kW. Keep pressure, temperature,
+  quantities and operating limits precise even when the surrounding prose is plain.
+- Give equipment descriptions a practical opening, followed by loading,
+  connections and hazards. Break long instructions into short paragraphs.
+- Leave a little character in descriptions. Leave it out of failure messages.
+  A fault needs a clear consequence and a supported next action, not a joke.
+
+Examples: “Available RCS acceleration” rather than “RCS authority”; “Empty into
+stores” rather than “Decant”; “Recover trapped acid” rather than “Recover acid
+from the bund”. A changed label must also change in current operating guides.
+Keep older release entries as historical evidence and record the new label in
+Unreleased. File-validation diagnostics and developer console reports may need
+precise technical terms; that exception does not extend to routine crew panels.
 
 ## Contracts and review
 

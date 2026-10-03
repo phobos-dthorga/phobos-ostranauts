@@ -356,7 +356,7 @@
     {
       "id": "PhobosBuildIndustrialConsole",
       "name": "Phobos' Asterel C1 Industrial Control Console",
-      "description": "Build a 40 kg, 3 x 3 seated workstation. Controls installed industrial equipment on its own player-owned ship. Separate 80 W electrical connection required. Inventory handling and maintenance stay local.",
+      "description": "Build a 40 kg, 3 x 3 seated workstation to control installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"
@@ -514,7 +514,7 @@
     {
       "id": "PhobosBuildReclaimerSectionCast",
       "name": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
-      "description": "Optional cast-housing route: one 18 kg housing and native parts produce a 90 kg R4 section. The existing recipe remains available.",
+      "description": "Optional cast-housing route: one 18 kg housing and standard parts produce a 90 kg R4 section. The existing recipe remains available.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

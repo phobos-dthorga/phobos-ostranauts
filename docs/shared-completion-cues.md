@@ -13,7 +13,7 @@ That is a design judgment, not measured usability; mute or remove unwanted cues.
 
 | Operation | Opt-in | Meaning |
 | --- | --- | --- |
-| Shipbreaker D4 / R4 | Notify on next batch completion, local panel/C1/F9 | One batch's products placed in its output tray; not queue completion or delivery to another machine. |
+| Shipbreaker D4 / R4 | Notify me when this batch is ready, local panel/C1/F9 | One batch's products placed in its output tray; not queue completion or delivery to another machine. |
 | Agriculture Hearth cooker | Start, then Notify me when ready | Meal physically delivered and state saved; blocked output is not success. |
 | Agriculture Firstlight rack | Start a crop, then the same notification action | The whole crop is ready to harvest. No automatic harvest. Includes the lettuce seed crop. |
 | Auto Nav Approach / Rendezvous | Engage, then Details → Notify me on arrival | ARRIVED result saved. Arrival retains configured distance/speed meaning; it is not docking. |
@@ -41,8 +41,8 @@ an exhaustive audio audit or an endorsement by Blue Bottle Games.
 
 ## Shared controls and restraint
 
-**All Phobos completion cues: …%** changes the suite's single level. Agriculture's
-**Completion sound: volume / mute** reports the level in its readout.
+**All Phobos ready alerts: …%** changes the suite's single level. Agriculture's
+**Ready alert: volume / mute** reports the level in its readout.
 Levels cycle through 15%, 35%, 60% and mute. Default 35% scales the already quiet
 sample before native effects volume. Configuration belongs to Framework:
 `[Audio] CompletionCueVolume`, range 0–1. If no shared setting exists, an existing

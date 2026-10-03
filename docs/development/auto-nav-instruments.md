@@ -54,7 +54,7 @@ Five compact tabs use **Nav**, **Track**, **Fire**, **Sys** and **Info**.
 **Resume**, **Disengage** and **Cease Fire** remain available in the bottom strip
 on every page. **Disengage clears commanded thrust and allows coasting; it is not
 an emergency brake.** Cease Fire ends shooting and aiming, retaining offensive hold and
-Follow. Explicit Return to Native releases that hold and may resume native autofire. Changing pages, refreshing displays and loading a save authorize neither
+Follow. Explicit Return to ship controls releases that hold and may resume native autofire. Changing pages, refreshing displays and loading a save authorize neither
 fire nor docking. If the native guarded switch cannot be obtained, panel Engage
 is unavailable; there is no unguarded replacement.
 

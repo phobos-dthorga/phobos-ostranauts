@@ -4,7 +4,7 @@
     {
       "id": "PhobosBuildAutoNav",
       "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
-      "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Includes local avoidance of tracked contacts.",
+      "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"
@@ -86,7 +86,7 @@
     {
       "id": "PhobosBuildFireControl",
       "name": "Phobos' Asterel N3 Polaris Fire Control System",
-      "description": "Assemble a 0.4 kg fire control system from 1 kg of electronics and retain 0.6 kg of board offcuts. Explicit limited volleys and optional RCS aiming; native weapon permissions remain required.",
+      "description": "Assemble a 0.4 kg fire control system from 1 kg of electronics and retain 0.6 kg of board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

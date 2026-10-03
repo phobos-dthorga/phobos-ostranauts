@@ -42,7 +42,7 @@ Phobos Manufacturing refines what the crew mines and runs the first chemistry ab
 - [Evaporite crust](#evaporite-crust)
 - [Sulfide nodule](#sulfide-nodule)
 - [Built-in charge feeds](#compartments)
-- [Gas deflagration](#deflagration)
+- [Gas fire](#deflagration)
 
 <a id="v4"></a>
 
@@ -940,9 +940,9 @@ In-game names: Phobos' Lixivar Acid Line; Phobos' Lixivar Acid Line (Damaged); P
 
 ## L2 Canister Filling Station
 
-A powered 2 x 2 booster that tops up standard O2, N2 and CO2 canisters and suit O2 bottles to a safe 99% of their rated pressure and stops, even at fast-forward. Decant mode empties them back into bulk stores.
+A powered 2 x 2 booster that tops up standard O2, N2 and CO2 canisters and suit O2 bottles to a safe 99% of their rated pressure and stops, even at fast-forward. Empty into stores mode empties them back into bulk stores.
 
-**Use:** Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Decant, then press Start. After a reload it waits for Start. Right-click Keep suit bottles charged to have crew with the Haul duty bring loose bottles below 90% into the rack and start it; choose a destination store in the Crew panel for charged bottles.
+**Use:** Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Empty into stores, then press Start. After a reload it waits for Start. Right-click Keep suit bottles charged to have crew with the Haul duty bring loose bottles below 90% into the rack and start it; choose a destination store in the Crew panel for charged bottles.
 
 **Where it appears:** Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.
 
@@ -1146,7 +1146,7 @@ No direct added merchant/loot offer; use the production or historical route desc
 
 ## Fertiliser salts and intermediates
 
-Potassium sulfate (0.70 kg), struvite (0.43 kg, slow-release magnesium ammonium phosphate), Epsom salt (0.432 kg of magnesium sulfate from olivine) and ammonium sulfate (0.232 kg, from the acid-route struvite) are fertiliser salts; phosphate concentrate (0.25 kg) is struvite's feed; a leached residue (6.8 kg of washed clay and magnesium carbonate) is the V4's calcine feed.
+Potassium sulfate (0.70 kg), struvite (0.43 kg, slow-release magnesium ammonium phosphate), Epsom salt (0.432 kg of magnesium sulfate from olivine) and ammonium sulfate (0.232 kg, from the struvite from acid) are fertiliser salts; phosphate concentrate (0.25 kg) is struvite's feed; a leached residue (6.8 kg of washed clay and magnesium carbonate) is the V4's calcine feed.
 
 **Use:** Made in the LC-3. Put a phosphate concentrate back in the LC-3 for struvite, or a phosphoric acid flask with three Epsom salt for struvite and ammonium sulfate; blend one potassium sulfate with two struvite for Groundwork makeup salts, or one of each of the four salts into crop nutrients for a nutrient hopper (with Agriculture); calcine a leached residue in the V4 for carbon dioxide. Sell the salts at any general buyer.
 
@@ -1179,7 +1179,7 @@ No direct added merchant/loot offer; use the production or historical route desc
 
 0.515 kg of phosphoric acid caught from a roasted nodule, in a sealed flask: the phosphorus of three struvite units.
 
-**Use:** Made in the SA-3. The LC-3's acid-route struvite takes one with three Epsom salt. Carry, stack (ten per stack) and sell at any general buyer.
+**Use:** Made in the SA-3. The LC-3's struvite from acid takes one with three Epsom salt. Carry, stack (ten per stack) and sell at any general buyer.
 
 **Where it appears:** Made in the SA-3 from sulfide nodules. Never sold in shops.
 
@@ -1366,7 +1366,7 @@ Included compartments: Phobos' Fennmark V4 Refinery charge; Phobos' Lixivar LC-3
 
 <a id="deflagration"></a>
 
-## Gas deflagration
+## Gas fire
 
 The game's own explosion objects in three sizes, spawned for a moment when a damaged or destroyed fuel store (hydrogen or methane) or a damaged reactor's hydrogen burns. Not items.
 
@@ -1378,9 +1378,9 @@ The game's own explosion objects in three sizes, spawned for a moment when a dam
 
 Their entries live in the mod's data/explosions file.
 
-Full operating instructions: [Gas deflagration guide](manufacturing-player-guide.md).
+Full operating instructions: [Gas fire guide](manufacturing-player-guide.md).
 
-Included compartments: Gas deflagration; Gas deflagration; Gas deflagration.
+Included compartments: Gas fire; Gas fire; Gas fire.
 
 ## Evidence and upkeep
 
