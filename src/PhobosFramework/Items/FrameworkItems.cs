@@ -23,6 +23,10 @@ public static class FrameworkItems
         Liquids.LineContents.AddActions(d);
         DrainCanisterDefinitions.Add(d);
         SharedLines.Add(d);
+        // Owner direction (3 October 2026): repairs follow the game and leave nothing behind, and the spent parts older
+        // repairs left are removed from saves as their ships load (Framework 0.74.0).
+        Persistence.LegacyItemConversions.Retire(Registration.MaintenanceDefinitions.SpentParts,
+            Text.Get("MaintenanceDefinitions.spent_service_parts_kg"), Text.Get("LegacyItemConversions.spent_parts_reason"));
         // The water tank ladder (Framework 0.58.0): definitions, ports, economy, merchant offers and world finds.
         WaterTanks.Add(d);
         TankEconomy.Apply(d);

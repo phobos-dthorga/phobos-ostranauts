@@ -29,8 +29,8 @@ dependency is added.
 | W2 supply | 8 kg steel, 8 kg aluminium, 4 small mechanical parts and 4 small electrical parts (0.5 kg each) | 30 minutes | 250 cr |
 | Conduit | 1 kg aluminium scrap | 2 minutes | 2 cr |
 
-These are authored material/economic budgets. Repair uses native work and retains
-actual repair waste. Dismantling an intact W2 returns 4 kg steel and 16 kg retained
+These are authored material/economic budgets. Repair uses native work and, as in
+the rest of the game, uses up its parts. Dismantling an intact W2 returns 4 kg steel and 16 kg retained
 housing waste; damaged W2 returns 1 kg steel and 19 kg waste. Each dismantled pipe
 returns 1 kg retained waste. Contents/protected records block supply uninstall
 and dismantle. The native-data checks compare salvage value against whole sale

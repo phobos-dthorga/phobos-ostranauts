@@ -83,7 +83,7 @@ public static class TankEconomy
                 // The first output is the repaired tank; every replaced kilogram then returns as spent parts.
                 repair.aLootCOs = new[] { spec.Prefix + state.Replace("Dmg", "") };
                 repair.aToolCTsUse = new[] { "TIsToolMortorq", "TIsToolSoldering" };
-                MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
+                MaintenanceDefinitions.Repair(d, repair);
             }
             else
             {

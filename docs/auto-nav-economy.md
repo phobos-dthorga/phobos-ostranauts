@@ -72,7 +72,7 @@ an item aboard every derelict. The salvage chance has its own configuration.
 | Action | Materials and result | Baseline work |
 |---|---|---:|
 | Construct | 2 small electronic parts (1 kg) → module (0.4 kg) + offcuts (0.6 kg) | 30 min |
-| Repair broken module | 2 small electronic parts (1 kg) → functional module plus 1 kg of spent service parts | 10.8 min |
+| Repair broken module | 2 small electronic parts (1 kg) → functional module; the parts are used up | 10.8 min |
 | Restore functional module | Reduce wear in place; no replacement materials | Depends on wear; 5.76 min for the lightly worn shop offer |
 | Dismantle either form | 0.4 kg module → 0.4 kg retained board residue | 6 min |
 
@@ -84,9 +84,9 @@ native navigation-station module system, not a large-machine installation job.
 
 Repair follows native behaviour and leaves substantial wear (approximately 90%);
 Restore then improves its condition. At unit multipliers, restoring that much
-wear takes about 35 more minutes. The repair's real gathered-material lot is
-retained as spent parts, including older jobs with different bills. Existing
-repair progress/identity and legacy finish mappings remain protected by Framework.
+wear takes about 35 more minutes. Like the game's own repairs, it uses up its parts
+and leaves nothing else behind (Framework 0.74.0). Existing repair progress/identity
+and legacy finish mappings remain protected by Framework.
 
 Board residue and assembly offcuts have a nominal $0.01 value each and no current
 refining recipe. Zero would invoke the game's mass-based price fallback. A
@@ -108,7 +108,7 @@ is intended, while dismantling for immediate profit is not.
 The refreshed [equipment value audit](development/equipment-value-audit.md) checks both forms,
 wear/pristine tiers, material mass and adverse Venus buyer multipliers. Expanded
 native checks cover Polaris categories, actual buy/sell filters, slotted-stock
-restrictions, additive/idempotent stock, repair waste, Restore and guarded
+restrictions, additive/idempotent stock, repair output, Restore and guarded
 dismantling. These checks do not replace owner testing of shop restocks, actual
 quotes, native service actions or saved modules.
 

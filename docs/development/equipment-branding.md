@@ -160,8 +160,9 @@ Intact, damaged, installed and loose forms retain the same maker/model. Internal
 feeds belong to their parent machine. Shipbreaker residue packets use **Phobos' Rivetline**
 and a descriptive material name; R2 still means recipe revision 2, not a new
 chemical assay. Auto Nav offcuts/residue retain **Phobos' Asterel N1** provenance.
-Shared mixed service waste is **Phobos' Spent Service Parts (0.5 kg)**: it has no
-invented model or single manufacturer because multiple machines produce it.
+The retired shared service waste was **Phobos' Spent Service Parts (0.5 kg)**: it had
+no invented model or single manufacturer. Repairs no longer make it (Framework 0.74.0)
+and saves clear it on load.
 
 ## Framework pattern and localization
 

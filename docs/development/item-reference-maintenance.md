@@ -28,7 +28,7 @@ For maintainers and automated use:
 3. Matches every item definition to a reviewed explanation in
    `config/item-reference.json`. Unknown, duplicated or obsolete entries stop
    generation. Built-in inventories are explicitly covered as compartments;
-   Framework's shared repair waste is documented once in its own guide.
+   Framework's retired spent service parts are documented once, as a legacy identity.
 4. Regenerates [the index](../item-references.md) and all current mod references, with
    economic tables, native INSTALL categories, service bills, dismantle outputs,
    acquisition probabilities and table recipes. Functional and damaged forms

@@ -22,6 +22,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.74.0] - 2026-10-03 - Draft
+
+### Changed
+
+- Repairs now end the way the game's own repairs do (owner direction, 3 October 2026). A repair uses up its parts and gives back only the repaired machine; Restore removes wear and leaves nothing. Until now a Phobos repair also handed back the used parts as Spent Service Parts, half a kilogram each, which piled up on long-running ships with nothing to do with them.
+- Saves are cleared of the Spent Service Parts older repairs left behind (owner request, same day). They go as each ship loads, on any ship, so a crate of them sold to a station goes too.
+- A repair no longer pauses because its parts held cargo or weighed an unusual amount; those checks only existed for the spent parts.
+
+### Save compatibility
+
+- Automatic. Spent Service Parts left by older repairs are removed from each ship as it loads, wherever they lie (deck, containers, machines, pockets), with one crew-log line on your ships saying how many went. Nothing else in the save changes, and repairs already under way finish normally.
+
+### Compatibility and limits
+
+- For mod authors: MaintenanceDefinitions.Repair replaces ReturnRepairMaterials, which stays as an obsolete alias for older builds. LegacyItemConversions.Retire removes a retired item from saves as ships load.
+- Checked offline against the game's data: every one of its repair jobs returns only the repaired item. Not yet seen in the game.
+
 ## [0.73.0] - 2026-10-03 - Draft
 
 ### Fixed

@@ -359,3 +359,25 @@ nitrogen or carbon dioxide store by pipe (1 and 3 October 2026; save `pg8`, ship
   contents (bulk vessels, line contents, Manufacturing stores and reactors) now skip an
   object whose ship is being unloaded (`FrameworkLifecycle.Unloading`); the save keeps
   what it held. Native destruction itself is never blocked.
+
+## Repair and Restore results (Framework 0.74.0, 3 October 2026)
+
+Owner direction: what follows a repair or Restore should be the game's own result.
+
+- **The game.** All 758 native repair jobs (`installables`, `strJobType` repair) were
+  read. Every repair (`ACTRepairTEMP`) consumes its inputs and returns exactly one item,
+  the repaired form; every Restore (`ACTUndamageTEMP`) consumes nothing and returns only
+  the item itself. No native repair or Restore leaves scrap, trash or a byproduct.
+- **What differed.** Framework's `RepairRemainderPatch` (since Framework/Shipbreaker
+  0.6.0) replaced a Phobos repair's finish loot with the repaired item plus the consumed
+  lot's mass as 0.5 kg Spent Service Parts, and refused completion for an unfamiliar lot
+  mass. On the owner's long-running ship that left 56 of them (28 kg) inside a loose V4
+  and on the deck; the owner had them removed from save `pg8` by hand on 3 October.
+- **Verdict.** Removed. `MaintenanceDefinitions.Repair` leaves the native mode switch
+  to consume the lot and return the repaired item. Restore already matched the game and
+  is unchanged. `EconomyChecks` proves the native rule on the game's data, that every
+  Phobos repair returns one item, and that no finish hook rewrites repair output.
+- **Saves.** At the owner's request, `LegacyItemConversions.Retire` removes saved spent
+  parts from every ship as it loads (the definition stays registered so they load
+  first), with one crew-log line on the player's ships. This is an owner-directed
+  exception to "never silently destroy an item"; it is announced, not silent.

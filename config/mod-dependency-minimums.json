@@ -3,11 +3,11 @@
   "minimums": {
     "AutoNav.Framework": {
       "since": "0.21.1",
-      "value": "0.53.0"
+      "value": "0.74.0"
     },
     "Shipbreaker.Framework": {
       "since": "0.29.1",
-      "value": "0.73.0"
+      "value": "0.74.0"
     },
     "Shipbreaker.AutoNav": {
       "since": "0.24.0",
@@ -19,7 +19,7 @@
     },
     "Manufacturing.Framework": {
       "since": "0.1.0",
-      "value": "0.73.0"
+      "value": "0.74.0"
     },
     "WarDeclared.Framework": {
       "since": "0.1.0",

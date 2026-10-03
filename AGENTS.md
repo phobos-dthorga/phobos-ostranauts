@@ -774,8 +774,14 @@
   Framework/Shipbreaker 0.6.0 and Auto Nav 0.2.0 add ordinary merchant acquisition,
   maintenance, tool requirements and save-compatible economy upgrades. Reuse the
   shared additive stock and native maintenance helpers; keep balance in content
-  mods. Follow `docs/equipment-economy.md`; retain actual repair waste mass and
-  protect cargo from dismantling.
+  mods. Follow `docs/equipment-economy.md` and protect cargo from dismantling.
+- Owner direction (2026-10-03): **what follows a repair or Restore is the game's own
+  result.** A repair uses up its parts and returns only the repaired item; Restore
+  removes wear and leaves nothing. This supersedes the earlier rule that repairs
+  retain their consumed mass as Spent Service Parts. Framework 0.74.0 removed that
+  hook (`MaintenanceDefinitions.Repair`), and saved spent parts are removed as each
+  ship loads (`LegacyItemConversions.Retire`, owner request the same day, with a
+  crew-log line). Never reintroduce repair byproducts.
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.

@@ -74,7 +74,7 @@ public static class SharedLines
                     MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", supply.repairWork);
                     var repair = d.Installables[id + "Repair"];
                     repair.aInputs = EconomyStock.RepairInputs(supply.repairBill);
-                    MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
+                    MaintenanceDefinitions.Repair(d, repair);
                 }
                 MaintenanceDefinitions.Dismantle(d, id, supply.dismantleWork, new[] { waste });
                 EquipmentSaveUpgrade.Register(d, id, id);

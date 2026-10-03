@@ -446,7 +446,7 @@ internal static class ManufacturingNativeChecks
         check(spec != null && spec.Commodity == "hydrogen" && spec.CapacityKg == 24 && spec.DryKg == 160 && spec.DamagePolicy == VesselDamagePolicy.Leak && spec.Owner == Plugin.Id, "The H2 store is a registered leaking hydrogen vessel");
         check(BulkVessels.SpecFor("PhobosProcessSiloInstalled")?.Commodity == "water" && BulkVessels.SpecFor(HydrogenRules.Installed) != BulkVessels.SpecFor("PhobosProcessSiloInstalled"), "Shipbreaker's water silo and our hydrogen store coexist in the registry");
 
-        // Economy: mass-balanced salvage that loses value, repair bills in half-kilogram packs, restore rates.
+        // Economy: mass-balanced salvage that loses value, repairs that return only the machine, restore rates.
         foreach (var e in EquipmentEconomy.Machines)
         foreach (string state in Definitions.Forms)
         {
@@ -457,8 +457,9 @@ internal static class ManufacturingNativeChecks
             check(outValue < Stat(d.Objects[id], "StatBasePrice") * .25, "Buying equipment for immediate scrap is not profitable: " + id);
             if (state.EndsWith("Dmg", StringComparison.Ordinal))
             {
-                double inputKg = e.RepairBill.Select((count, i) => count * Stat(DataHandler.dictCOs[EquipmentEconomy.Materials[i]], "StatMass")).Sum();
-                check(MaintenanceSafety.SpentPartUnits(inputKg) * .5 == inputKg, "Repair bill fits retained half-kg service packs: " + id);
+                var repair = d.Installables[id + "Repair"];
+                check(repair.aLootCOs.SequenceEqual(new[] { e.Prefix + state.Replace("Dmg", "") }) && repair.aInputs.Length > 0,
+                    "Repair consumes its bill and returns only the repaired machine, as the game's repairs do: " + id);
             }
             else
             {

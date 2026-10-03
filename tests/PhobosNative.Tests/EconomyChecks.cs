@@ -29,9 +29,8 @@ internal static class EconomyChecks
             if (state.EndsWith("Dmg"))
             {
                 var repair = definitions.Installables[spec.Prefix + state.Replace("Dmg", "") + "Repair"];
-                check(repair.aLootCOs.Length == 1 && MaintenanceSafety.Repairs["MS" + repair.strName] == repair.aLootCOs[0], "Repair returns real replaced mass at finish: " + id);
-                double inputKg = spec.RepairBill.Select((count,i) => count * Stat(EquipmentEconomy.Materials[i], "StatMass")).Sum();
-                check(MaintenanceSafety.SpentPartUnits(inputKg) * .5 == inputKg, "Repair bill fits retained half-kg service packs: " + id);
+                check(repair.aLootCOs.SequenceEqual(new[] { spec.Prefix + state.Replace("Dmg", "") }) && repair.aInputs.Length > 0,
+                    "Repair consumes its bill and returns only the repaired machine, as the game's repairs do: " + id);
             }
             else
             {
@@ -47,10 +46,19 @@ internal static class EconomyChecks
                     "Restore full wear budget matches equipment-specific labour: " + id);
             }
         }
-        foreach (double kg in new[] { 0, .5, 1, 1.5, 3, 4, 6, 10, 100 })
-            check(MaintenanceSafety.SpentPartUnits(kg) * .5 == kg, "Repair retains material including legacy 1.5 kg bill");
-        foreach (double kg in new[] { -.5, .4, 101, double.NaN, double.PositiveInfinity })
-            check(MaintenanceSafety.SpentPartUnits(kg) == -1, "Unrepresentable repair lot is blocked before effects");
+        // Framework 0.74.0 (owner direction, 3 October 2026): what follows a repair or Restore is the game's own result.
+        // Every native repair returns only the repaired item; no Phobos repair adds anything, and no finish hook rewrites
+        // a repair's output. Spent parts from older repairs stay defined so saves load them, and are retired from saves.
+        var nativeRepairs = DataHandler.dictInstallables.Values.Where(j => j.strJobType == "repair" && j.aLootCOs is { Length: > 0 }).ToArray();
+        check(nativeRepairs.Length > 100 && nativeRepairs.All(j => j.aLootCOs.Length == 1), "The game's repairs return only the repaired item");
+        var extraRepairOutput = definitions.Installables.Values.Where(j => j.strJobType == "repair" && j.strProgressStat == "StatRepairProgress" && !(j.aLootCOs?.Length == 1 && j.aLootCOs[0] != MaintenanceDefinitions.SpentParts))
+            .Select(j => j.strName + "=" + string.Join("+", j.aLootCOs ?? Array.Empty<string>())).ToArray();
+        check(extraRepairOutput.Length == 0, "No Shipbreaker repair leaves anything beside the repaired item: " + string.Join(", ", extraRepairOutput.Take(6)));
+        check(typeof(MaintenanceDefinitions).Assembly.GetType("Phobos.Ostranauts.Framework.Registration.RepairRemainderPatch") == null,
+            "No finish hook rewrites a repair's output");
+        check(Phobos.Ostranauts.Framework.Persistence.LegacyItemConversions.RetiredIds.Contains(MaintenanceDefinitions.SpentParts) &&
+              DataHandler.dictCOs.ContainsKey(MaintenanceDefinitions.SpentParts),
+            "Saved spent parts still load, then are removed as their ship loads");
 
         check(Stat(ProcessRules.Residue,"StatBasePrice") == .01, "Panel residue does not invoke native zero-price mass fallback");
         foreach (string reject in FeedFamilies.RejectKg.Keys)
@@ -172,9 +180,6 @@ internal static class EconomyChecks
         var navRepair = nav.Installables[PhobosAutoNav.EquipmentContent.Base + "DmgRepair"];
         check(navRepair.aInputs.SequenceEqual(new[] { "TIsPartsElecSmall=1x2" }) && navRepair.aLootCOs.SequenceEqual(new[] { "PhobosNavModAutoNav" }),
             "Repair consumes the electronics bill and restores the same module family without extra whole-item loot");
-        check(MaintenanceSafety.Repairs["MS" + navRepair.strName] == "PhobosNavModAutoNav"
-            && MaintenanceSafety.SpentPartUnits(2 * Stat("ItmPartsElecSmall01", "StatMass")) * .5 == 1,
-            "Repair returns the actual one-kg bill as spent parts");
         var navRestore = nav.Installables[PhobosAutoNav.EquipmentContent.Base + "Restore"];
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");

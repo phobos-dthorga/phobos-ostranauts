@@ -165,15 +165,22 @@ Sections are unfinished construction stock with no separate wear/broken family.
 Since Shipbreaker 0.60.0 they are retired: never sold or found, and the D4, R4 and
 F6 come whole. The rows remain for copies still held, which convert automatically.
 
-Mixed panel residue (13 kg), spent service parts (0.5 kg), Auto Nav board residue
-(0.4 kg), and Auto Nav assembly offcuts (0.6 kg) each have a nominal **$0.01** base
-value. They are outputs, never retail offers. Zero is deliberately avoided:
-native `GetBasePrice` substitutes mass when the price stat is zero. Terminal
-remainders carry the game's Trash market category: spent parts, board residue,
+Mixed panel residue (13 kg), Auto Nav board residue (0.4 kg), and Auto Nav
+assembly offcuts (0.6 kg) each have a nominal **$0.01** base value. They are
+outputs, never retail offers. Zero is deliberately avoided: native `GetBasePrice`
+substitutes mass when the price stat is zero. Terminal remainders carry the game's
+Trash market category: board residue,
 offcuts, feed-family rejects, retained coolant and, since Shipbreaker 0.39.0, the
 R4 reject and both melt remainders. None is the game's own Trash item, and none
 has a refining recipe yet. Mixed panel residue is R4 feed and stays unclassified.
 Native scrap and useful parts produced by the processor retain native prices.
+
+**Repair and Restore follow the game** (owner direction, 3 October 2026; Framework
+0.74.0). A repair uses up its parts and gives back only the repaired machine, as
+every one of the game's own repairs does; Restore removes wear and leaves nothing
+behind. Older Phobos repairs also returned the used parts as Spent Service Parts
+(0.5 kg each). Those are removed from a save as each ship loads, with one crew-log
+line, and nothing makes new ones.
 The hidden zero-mass feed is an internal system, not an item for sale.
 
 The combined scrap reclaimer is implemented in 0.8.0. Research-only ore and
@@ -442,7 +449,8 @@ and 33% condition; zero price falls back to mass. `Trader.AddNewItems` grants
 pristine to functional stock. `Installables.Create` generates work, tools,
 progress and replacement effects; `CondOwner.ModeSwitch` destroys the attached
 repair lot, preserves the object ID and transfers persistent properties. These
-differences justify the small shared stock-condition and repair-remainder hooks.
+differences justify the small shared stock-condition hook. The repair-remainder hook
+was removed in Framework 0.74.0, so repairs now finish exactly as the game's do.
 No isolated proof test of established power-consumption patterns is requested.
 
 ## Upgrade and verification
@@ -476,8 +484,9 @@ Useful owner checks, during ordinary play:
 
 1. After a normal merchant restock, purchase one available Phobos item. Check the
    displayed condition and that it can be collected and installed normally.
-2. Repair broken equipment; confirm functionality and separate spent parts. Use
-   Restore on worn equipment. Check that stored products and routing survive.
+2. Repair broken equipment; confirm functionality and that nothing but the repaired
+   machine appears. Use Restore on worn equipment. Check that stored products and
+   routing survive.
 3. Dismantle one empty spare item and compare total output mass with this table.
    Confirm a loaded machine refuses dismantling. Reload once around an interrupted
    job to exercise native job/lot integration.

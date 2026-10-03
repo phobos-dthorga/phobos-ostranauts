@@ -93,7 +93,7 @@ def render(mod, notes, config):
            '**Reading prices:** credits per complete object at the stated condition, before shop margins, market effects, negotiation and extra wear. '
            'Pristine retail can cost more. Mass is the empty/dry definition or fresh commodity template; saved contents and variable recovery packets can weigh differently. '
            'Dismantle value is the sum of all listed outputs at base value, excluding labour and tools.', '',
-           '**Repair and Restore:** Repair fixes a damaged form and retains the actual consumed service materials as spent parts. '
+           '**Repair and Restore:** Repair fixes a damaged form and uses up its parts, as the game\'s own repairs do. '
            'Restore reduces wear on functional equipment in place; it does not grant pristine status. '
            'Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.', '',
            '**Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. '
@@ -150,7 +150,6 @@ def render(mod, notes, config):
             for job in item['jobs']:
                 if job['kind'] not in ('repair', 'restore', 'dismantle'): continue
                 result = '; '.join(f'{p["count"]} × {p["name"]}' for p in job['outputs'])
-                if job['kind'] == 'repair': result += '; actual consumed repair materials retained as spent parts'
                 if job['kind'] == 'restore': result = 'Wear reduced in place; same item retained'
                 services.append((job['kind'].capitalize() + ' — ' + state(item),
                                  '; '.join(material(x, config) for x in job['inputs']) or 'No replacement materials',
@@ -220,7 +219,7 @@ def generate(root, data, config):
              'Tables are generated from the current definitions; operating notes are reviewed separately.', '',
              '| Mod | Reference |', '| --- | --- |']
     index += [f'| {m["name"]} | [Items and equipment]({SLUGS[mid]}-item-reference.md) |' for mid, m in mods.items()]
-    index += ['', 'Framework documents the shared gas and process-water lines and shared spent parts.', '',
+    index += ['', 'Framework documents the shared gas and process-water lines and the retired spent service parts.', '',
               'For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).', '']
     outputs[Path('docs/item-references.md')] = '\n'.join(index)
     return outputs

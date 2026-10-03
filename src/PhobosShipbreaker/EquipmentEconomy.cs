@@ -107,11 +107,10 @@ internal static class EquipmentEconomy
                 var repair = d.Installables[spec.Prefix + state.Replace("Dmg", "") + "Repair"];
                 repair.aInputs = spec.RepairBill.Select((count,i) => Triggers[i] + "=1x" + count)
                     .Where((s,i) => spec.RepairBill[i] > 0).ToArray();
-                // First output is the persistent replacement machine. Every replaced
-                // kilogram is then returned as loose spent parts, not deleted matter.
+                // The repaired machine is the only output: the parts are consumed, as in the game's own repairs.
                 repair.aLootCOs = new[] { spec.Prefix + state.Replace("Dmg", "") };
                 repair.aToolCTsUse = new[] { "TIsToolMortorq", "TIsToolSoldering" };
-                MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
+                MaintenanceDefinitions.Repair(d, repair);
             }
             else Restore(d, id, spec);
             MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage), emptyInternalBin: spec.InternalBin);

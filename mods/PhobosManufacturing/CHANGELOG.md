@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-10-03 - Draft
+
+### Changed
+
+- Repairs on Manufacturing equipment and the acid line use up their parts and give back only the repaired machine, as the game's own repairs do. No more Spent Service Parts.
+
+### Save compatibility
+
+- Automatic. Spent Service Parts left by older repairs are removed from each ship as it loads, wherever they lie (deck, containers, machines, pockets), with one crew-log line on your ships saying how many went. Nothing else in the save changes, and repairs already under way finish normally.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.74.0 or newer.
+
 ## [0.32.0] - 2026-10-03 - Draft
 
 ### Fixed

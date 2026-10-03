@@ -1073,7 +1073,7 @@
       ]
     },
     "PhobosFramework": {
-      "intro": "Framework supplies shared services rather than a set of standalone machines. Since 0.57.0 it also owns the two lines every Phobos mod shares, the gas line and the process-water line, so any mod's machines can pipe to any mod's stores. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects. Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
+      "intro": "Framework supplies shared services rather than a set of standalone machines. Since 0.57.0 it also owns the two lines every Phobos mod shares, the gas line and the process-water line, so any mod's machines can pipe to any mod's stores. Repairs on every Phobos machine use up their parts, as the game's own repairs do; the retired spent service parts are listed for older saves. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects. Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
       "groups": [
         {
           "key": "spent-service-parts",
@@ -1081,10 +1081,10 @@
           "ids": [
             "PhobosMaintenanceSpentParts"
           ],
-          "function": "Material physically retained from the actual repair bill after replacing worn or broken components.",
-          "use": "Collect or haul the spent parts after repair; sell only where a buyer accepts the cargo.",
-          "find": "Native Repair jobs on supported Auto Nav, Shipbreaker and Agriculture equipment.",
-          "notes": "The definition below is a template. Live mass follows the real consumed repair lot, including old jobs with different bills. No current refining recipe returns new electronic or mechanical parts.",
+          "function": "Legacy, retired in Framework 0.74.0: worn parts that Phobos repairs used to leave behind. Repairs now use up their parts, as the game's own repairs do.",
+          "use": "Nothing to do: any left in a save are removed when the ship loads, with one crew-log line.",
+          "find": "Only in saves from before Framework 0.74.0. Nothing makes them any more.",
+          "notes": "The definition stays registered only so older saves load them before they are removed.",
           "guide": "equipment-economy.md",
           "internal": false,
           "labels": {}

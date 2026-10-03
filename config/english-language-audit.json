@@ -12665,6 +12665,19 @@
     },
     {
       "mod": "PhobosFramework",
+      "key": "MaintenanceDefinitions.spent_service_parts_legacy",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Description of the retired item, read only in the moment before a loading save removes it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceDefinitions.cs:30"
+      ],
+      "before": "Worn parts that repairs used to leave behind. Repairs now use up their parts, as everywhere else in the game, so no more of these appear. Sell them for next to nothing or drop them.",
+      "after": "Worn parts that repairs used to leave behind. Repairs now use up their parts, as everywhere else in the game, so no more of these appear. Sell them for next to nothing or drop them."
+    },
+    {
+      "mod": "PhobosFramework",
       "key": "MaintenanceSafety.empty_the_equipment_its_feed_and_any",
       "category": "status/warning",
       "decision": "retain",
@@ -12675,32 +12688,6 @@
       ],
       "before": "Empty the equipment, its feed and any unfinished repair materials before dismantling.",
       "after": "Empty the equipment, its feed and any unfinished repair materials before dismantling."
-    },
-    {
-      "mod": "PhobosFramework",
-      "key": "MaintenanceSafety.repair_paused_service_material_contains_cargo_for",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosFramework/Registration/MaintenanceSafety.cs:62"
-      ],
-      "before": "Repair paused: service material contains cargo for {0}",
-      "after": "Repair paused: service material contains cargo for {0}"
-    },
-    {
-      "mod": "PhobosFramework",
-      "key": "MaintenanceSafety.repair_paused_unsupported_service_material_mass_for",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosFramework/Registration/MaintenanceSafety.cs:66"
-      ],
-      "before": "Repair paused: unsupported service-material mass for {0}",
-      "after": "Repair paused: unsupported service-material mass for {0}"
     },
     {
       "mod": "PhobosFramework",
@@ -54262,6 +54249,58 @@
       "after": "Conversion masses for {0} no longer match its registration."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.retired_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew-log notice: how many of an item were cleared from the ship and why, so a removal is never silent.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs:145"
+      ],
+      "before": "Cleared {0} x {1} from this ship. {2}",
+      "after": "Cleared {0} x {1} from this ship. {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.retired_log",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line naming the count, the definition and the ship.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs:142"
+      ],
+      "before": "Removed {0} retired {1} aboard {2}.",
+      "after": "Removed {0} retired {1} aboard {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.retire_failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line when removal could not run; the items stay until the next load.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Persistence/LegacyItemConversions.cs:148"
+      ],
+      "before": "Ship {0}: retired items could not be removed ({1}); they stay until the save is loaded again.",
+      "after": "Ship {0}: retired items could not be removed ({1}); they stay until the save is loaded again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LegacyItemConversions.spent_parts_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The reason given in the crew log: repairs now follow the game and leave nothing.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/FrameworkItems.cs:29"
+      ],
+      "before": "Repairs no longer leave worn parts behind, as in the rest of the game.",
+      "after": "Repairs no longer leave worn parts behind, as in the rest of the game."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Laser.cooling_field",
       "category": "control/name/value",
@@ -55158,8 +55197,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d51dc0fe0d2ad501f00f6642a294f0c548c284cee13476d9f58802dfb737c48c",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "25bc4e2393a05119d0b758eda5d457122074ed4efcb9580228e63d8ac9f15b6f",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "SUPPORT.md",
@@ -55186,8 +55225,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1a38e9a7d9d7b03ad261ce630c6f1913df92dbd45a0d432154a2f7beb494d815",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
+      "sha256": "8443c2dc9bc63b6eb19073998d1cb78fc16c1adbe6d9aa11d53291084c5c96d9",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -55220,8 +55259,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3459cc00ddc5d830a05d9a2f71c2c9b3bc11a31da9a03d9146af2349dfcc8d62",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "4fc5600368ca80e6190f5872edcc31f1f62a0c97fd753a7d99c66f89183acdca",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -55248,8 +55287,8 @@
       "path": "docs/auto-nav-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "064a542ca7a35db8efd0ef3a787f8dcae702854062d453f5790d7bfe468e5659",
-      "review": "2026-09-29: N2/N3 share the N1 second-hand offers since 0.26.0."
+      "sha256": "e3305c154cfe7aebb126a4dc484edc0d61e4f1babf046b1ea4f5bd995225ba33",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/auto-nav-fire-control.md",
@@ -55269,8 +55308,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "dd94ad890de99d52b3be5d44f238979f76369ce55b226a3eed7ec2b174de3855",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): version and changelog wording only."
+      "sha256": "f233ef0a46cd9837ec74377a71a7b8280486631d39ead7778a1ab27b71af0b66",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -55318,8 +55357,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fbde6e18eb579ecb255af0b93ee0cbddbcbd89a1b247833ce9e7eab6f9c9f028",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "c08d237311580d5fee5b4de5bc678e39f96eef6e31cf0758600869288d53fc8b",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55585,8 +55624,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "efa0d75f0decbf11251276a4b2f892a6e88fc00ffab87b684c37955f36c2e40c",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "a8e4e84bb91959b904fc02cabd2e145a92f087c34e735f90cf953a44067edd93",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -55619,8 +55658,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b4844db5aad99235d0d397b2781a99217981beda7feb67642761452f0ac17462",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "7b1ae11f6261dbf1c2e1280e1f9724e2da4b61b6097fe14d05d4e520bcb48e3a",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -55717,8 +55756,8 @@
       "path": "docs/development/item-reference-maintenance.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b52d7b625f4c787d9b40bf0dac7880aabb4f73673b7c80f1f5d1783c312065d1",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "18e62c2db1cc8d67e0605cf999b5bec1350d84217366de8ce9e78fc2563e6ec3",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/development/limited-autopilot.md",
@@ -55841,8 +55880,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f32d277f973e41bf945389760ed74e6100ec0c9dd102190b0e4be6602715db1e",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "e3d40167afff3ac4fa67372bb512cad0d101dadd8ea6b08016b1e4e2f5ee2900",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56018,8 +56057,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "ede9c277e98e578c1cdaed377dd90ccabd1bc809816f7f6463c69ec6e19148f9",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "fb4ab45be125d95e2ccda8f65d2e6523e838a68cf0a171cb13d66344371a2d95",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -56039,8 +56078,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3369ce964082066b26b59df19fde69eb7e4efa6f66457c8af7e4669d48cf93c5",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "ad1c840e69c3b3ea5c970b2606887a2252e96e13789141e36c9dd874be161896",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -56053,8 +56092,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "3fcfa96422ac3b38ffa2031ec9320a184f323dfd048e120e1d6b57baefdae8a6",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "53eb4e081004aff55201825e4dae8d842112edc111c5c1d58e2aa1faacc8006e",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56109,29 +56148,29 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b5b906c386ec22b3e4c5728f81882c5543abc8f1afee1debdcca17f21e890922",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "8bb1440ef46a690bd76526b36e794a6052914bf537273b8881d2a89f2fb3cf5a",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6c18ccfc7690966743ce2c0bea7b92d50bf1a29c0c2844b64c57f5e600c34862",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "3150e3954a740c7b97ef6364c9c46ae9e2f6dfe72451daff9227321d781e39e6",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "ba6ac4cab0152f64e1ff6774973301a136f99db29a9539027b44ea2a0cf5dcab",
-      "review": "Reviewed 2026-10-01 for Framework 0.57.0, Manufacturing 0.23.0, Shipbreaker 0.53.0 and Agriculture 0.30.0: Framework-owned gas and process-water lines, one port rule, the link rule on every machine-to-store link, shared stores, link labels and the oxygen and fuel caution; current versions; direct player text."
+      "sha256": "4f6b67c7b6da98baa96951fd3edc5e0e41ac3359abad33a1f52c191b932e9bf7",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "142029390dea413505953e25f5ac4d7a6b682bce3af8c1bfcd6adff990dca4e7",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "5be673ce52668753e886fa6eb2d26457a48a5db498c8a9438de4440472ff6bbb",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -56158,8 +56197,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3d0216ea962e606233908698d7ad22e03314805e7bd5ac1c4b2e39e96f89279d",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "8a9edc1e5e97aa5570565f308c64613dbcc8dbc18e07a384580a57c04df76ae0",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56207,8 +56246,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "96e8a21e70f092eb5b2756320f5e142bf3b528a2212452bc22491536df110a93",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "adaefe41b59bde038c0104c30e9e48dfced618529ac9b51162036f86144f0384",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56242,29 +56281,29 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "044224e40316ee0b45e98bb74c6daa56f4df36c55ca82633f3bb30e45d42ce74",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
+      "sha256": "ddcd5acefe9814a4e1b7b22ffd7e29035f6d5c0c8cfe6e5abb26694a9b5a9713",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a709134338cddda4f8bf5f973e3601533ade9738e3a1c8b2cc1b55d8b0cf39f5",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "89d3931a76ebed45fff1dabbe3c361be8ddda0549b4a82cff1e1c295a667098f",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ac3b1b002169a623f61f2eb815d392560d2e4d3b28dc99892284a2b6f2ed1918",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "64f3e13bab2728331107d93d1bff6874f7f3176007053c22b4a3668724de654b",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "654cc8a8a6e51bd9d8d43e81d49a83fa33b7f3d12585f42dcc4e73a46a39ba49",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "7aa44e49e22a72123aa1fa144b2f8381e687559f7f99e481e4fe751e6214da78",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56390,8 +56429,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1b3f55c869eb16df8fed52c25b2f877ab161d3663c9f0467fb1fc6d92253b06c",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "d186515455bacd804e5e4c2b3928991d40c14ffa145cdaea4d208d44ff201091",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -56428,8 +56467,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "54cd5a2c6a8bb0e6bd7f5b10cf03f2fbdec485f783fa3481bc9910b7072342bc",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
+      "sha256": "4ada1cc4bf5b17ef48447e504187ab7e44c31efe73dfb177e061262ff4460449",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -56440,14 +56479,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7f91e782e33d07734a854514770b2deddd56a5fa3842ddee40e37fd18daf5ec3",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "7d1b947972d76a2456e883502e671a82d1973021d0dfe8a991796af08dc73b6e",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bab3660ced28c936ee73a4d0a31f584eb93ab68a58db676e82f8a157fbf39ddb",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "4e2035f63ea6c7f0f16b62304cfc4993a0cf538a66dbe6a6614ca835f3384e25",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56464,8 +56503,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "88c43a48180e5cea579327aae2bb2440277142daf0457054cdd8c09a4e1d5bd7",
-      "review": "Reviewed 3 October 2026 with the pipe floor fix (Framework 0.73.0): changelog, version and audit wording."
+      "sha256": "6a43e9d724bd78fc6975a79866c57b36160d571f21a66fa23c074cfa36881595",
+      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

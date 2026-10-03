@@ -8,7 +8,7 @@ Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and mana
 
 **Reading prices:** credits per complete object at the stated condition, before shop margins, market effects, negotiation and extra wear. Pristine retail can cost more. Mass is the empty/dry definition or fresh commodity template; saved contents and variable recovery packets can weigh differently. Dismantle value is the sum of all listed outputs at base value, excluding labour and tools.
 
-**Repair and Restore:** Repair fixes a damaged form and retains the actual consumed service materials as spent parts. Restore reduces wear on functional equipment in place; it does not grant pristine status. Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.
+**Repair and Restore:** Repair fixes a damaged form and uses up its parts, as the game's own repairs do. Restore reduces wear on functional equipment in place; it does not grant pristine status. Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.
 
 **Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. Offers are additive, may be independent, and require normal restocking. Merchant offers request the listed finite lot when successful; separate world-loot branches retain their own listed quantities. Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.
 
@@ -72,7 +72,7 @@ In-game names: Phobos' Verdemorrow Firstlight-4 Cultivation Rack; Phobos' Verdem
 | Dismantle — Functional | No replacement materials | Mortorq tool, soldering tool | 12 × Scrap Steel; 8 × Scrap Aluminum; 2 × Small Mechanical Parts; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Functional | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 4 × Scrap Steel; 2 × Scrap Aluminum; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Firstlight-4 Cultivation Rack; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Firstlight-4 Cultivation Rack |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |
@@ -131,7 +131,7 @@ In-game names: Phobos' Verdemorrow Hearth-2 Galley Cooker; Phobos' Verdemorrow H
 | Dismantle — Functional | No replacement materials | Mortorq tool, soldering tool | 2 × Scrap Steel; 1 × Scrap Aluminum; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Functional | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Scrap Aluminum; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × small mechanical parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Hearth-2 Galley Cooker; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × small mechanical parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Hearth-2 Galley Cooker |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |
@@ -190,7 +190,7 @@ In-game names: Phobos' Verdemorrow Groundwork W2 Water Supply Unit; Phobos' Verd
 | Dismantle — Functional | No replacement materials | Mortorq tool, soldering tool | 4 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Functional | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork W2 Water Supply Unit; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork W2 Water Supply Unit |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |
@@ -249,7 +249,7 @@ In-game names: Phobos' Verdemorrow Groundwork Irrigation Conduit; Phobos' Verdem
 | Dismantle — Functional | No replacement materials | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Functional | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork Irrigation Conduit; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork Irrigation Conduit |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |
@@ -860,7 +860,7 @@ In-game names: Phobos' Verdemorrow Groundwork B2 Workup Bench; Phobos' Verdemorr
 | Dismantle — Functional | No replacement materials | Mortorq tool, soldering tool | 3 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Functional | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork B2 Workup Bench; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork B2 Workup Bench |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |
@@ -1102,15 +1102,15 @@ In-game names: Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir; P
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 4 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir |
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 8 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 2 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir |
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 12 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 3 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 3 × small mechanical parts; 1 × small electronic parts; 3 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 3 × small mechanical parts; 1 × small electronic parts; 3 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir |
 
 No direct added merchant/loot offer; use the production or historical route described above.
 
@@ -1146,15 +1146,15 @@ In-game names: Phobos' Verdemorrow Groundwork E2 Nutrient Hopper; Phobos' Verdem
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 3 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 1 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E2 Nutrient Hopper; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 1 × small mechanical parts; 1 × small electronic parts; 1 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E2 Nutrient Hopper |
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 6 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 2 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E3 Nutrient Hopper; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 2 × small mechanical parts; 1 × small electronic parts; 2 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E3 Nutrient Hopper |
 | Dismantle — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | 9 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
 | Restore — Item / fresh template | No replacement materials | Mortorq tool, soldering tool | Wear reduced in place; same item retained |
 | Dismantle — Damaged | No replacement materials | Mortorq tool, soldering tool | 3 × Scrap Steel; 1 × Phobos' Verdemorrow Agricultural Housing Waste |
-| Repair — Damaged | 3 × small mechanical parts; 1 × small electronic parts; 3 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E4 Nutrient Hopper; actual consumed repair materials retained as spent parts |
+| Repair — Damaged | 3 × small mechanical parts; 1 × small electronic parts; 3 × aluminium scrap | Mortorq tool, soldering tool | 1 × Phobos' Verdemorrow Groundwork E4 Nutrient Hopper |
 
 | Registered source | Offer / form | Chance per roll | Quantity |
 | --- | --- | --- | --- |

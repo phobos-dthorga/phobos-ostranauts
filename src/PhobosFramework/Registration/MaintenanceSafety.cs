@@ -8,16 +8,9 @@ namespace Phobos.Ostranauts.Framework.Registration;
 internal static class MaintenanceSafety
 {
     internal static readonly Dictionary<string, string?> Actions = new Dictionary<string, string?>(StringComparer.Ordinal);
-    internal static readonly Dictionary<string, string> Repairs = new Dictionary<string, string>(StringComparer.Ordinal);
     internal static readonly Dictionary<(string Definition, string Action), string> LegacyFinishes = new Dictionary<(string, string), string>();
     internal static string ResolveFinish(string definition, string action) =>
         LegacyFinishes.TryGetValue((definition, action), out var replacement) ? replacement : action;
-    internal static int SpentPartUnits(double kg)
-    {
-        double units = kg * 2;
-        return double.IsNaN(units) || double.IsInfinity(units) || units < 0 || units > 200 ||
-            Math.Abs(units - Math.Round(units)) > .000001 ? -1 : (int)Math.Round(units);
-    }
     internal static void Register(string id, string? internalBin)
     {
         foreach (string action in new[] { "ACT" + id, "ACT" + id + "Allow", "MS" + id }) Actions[action] = internalBin;
@@ -57,31 +50,8 @@ internal static class LegacyMaintenanceFinishPatch
     }
 }
 
-[HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
-internal static class RepairRemainderPatch
-{
-    private static bool Prefix(Interaction __instance)
-    {
-        // A dictionary lookup with a null key throws; some of the game's interactions carry no name.
-        if (__instance.strName == null || !MaintenanceSafety.Repairs.TryGetValue(__instance.strName, out var output)) return true;
-        var item = __instance.objUs;
-        if (item == null) return false;
-        if (item.bDestroyed) return NativeEffects.Refuse(__instance, Text.Get("MaintenanceInfo.gone"));
-        // Native ModeSwitch destroys the repair lot. Return exactly that mass,
-        // not a guessed bill. Reject unfamiliar fractional/huge lots before effects.
-        var lot = item.GetLotCOs(false);
-        if (lot.Any(co => co == null || co.bDestroyed || !Construction.ConstructionHooks.HasNoContents(co) || co.GetLotCOs(true).Count != 0))
-            return NativeEffects.Refuse(__instance, Text.Get("MaintenanceSafety.repair_paused_service_material_contains_cargo_for", item.strID));
-        double kg = lot.Sum(co => co.GetTotalMass());
-        int units = MaintenanceSafety.SpentPartUnits(kg);
-        if (units < 0)
-            return NativeEffects.Refuse(__instance, Text.Get("MaintenanceSafety.repair_paused_unsupported_service_material_mass_for", item.strID));
-        __instance.objLootModeSwitch = new Loot { strName = "PhobosRepairReturn", strType = "item",
-            aCOs = new[] { output + "=1x1" }.Concat(Enumerable.Repeat(MaintenanceDefinitions.SpentParts + "=1x1", units)).ToArray(),
-            aLoots = Array.Empty<string>() };
-        return true;
-    }
-}
+// Repairs finish the game's way since Framework 0.74.0: the native mode switch consumes the parts and returns the
+// repaired item. The former finish hook that turned the parts into Spent Service Parts is gone.
 
 [HarmonyPatch(typeof(Interaction), "TriggeredInternal")]
 internal static class DismantleEligibilityPatch

@@ -74,7 +74,7 @@ internal static class EquipmentContent
                     repair.aInputs = EconomyStock.RepairInputs(entry.repairBill);
                     repair.aLootCOs = new[] { moduleType };
                     d.Installables.Add(repair.strName, repair);
-                    MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
+                    MaintenanceDefinitions.Repair(d, repair);
                 }
                 else MaintenanceDefinitions.Restore(d, id, "CTRL");
                 MaintenanceDefinitions.Dismantle(d, id, entry.work.dismantle, new[] { Residue }, "CTRL");

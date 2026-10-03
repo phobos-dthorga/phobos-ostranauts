@@ -866,3 +866,12 @@ over the game's floors for the first time (see the vanilla-precedence audit), so
 `framework.line_contents.maintain` and `framework.fluid_route.find` will now do real
 work on ships with lines; captures C1 and C2 of L19 should be taken on Framework 0.73.0
 or later. No capture accompanies this change.
+
+## 3 October: repair hook removed, retired-item sweep (L21)
+
+L21 — Framework 0.74.0 (owner direction: repairs follow the game). `RepairRemainderPatch`,
+a prefix on `Interaction.ApplyEffects` that ran for every completed interaction in the
+game, is removed. `LegacyItemConversions.Retire` adds a check every 2 s (real time) that
+reads the loaded-ship list and skips every ship already cleared; each ship is scanned
+once, with one `GetCOs` pass, the first time it is loaded, then never again until the
+next load. No capture accompanies this change.

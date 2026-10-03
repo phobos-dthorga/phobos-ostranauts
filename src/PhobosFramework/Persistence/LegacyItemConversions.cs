@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Phobos.Ostranauts.Framework.Construction;
 using UnityEngine;
 
@@ -20,7 +21,10 @@ namespace Phobos.Ostranauts.Framework.Persistence;
 /// </list>
 /// Only the player's own ships are swept, so merchant stock and derelict loot stay untouched until they come aboard.
 /// Parts reserved by a live construction site, inside one, stacked or installed are never touched. The sweep is
-/// idempotent and never edits a save file: an interrupted conversion simply repeats from the old save.</summary>
+/// idempotent and never edits a save file: an interrupted conversion simply repeats from the old save.
+///
+/// Framework 0.74.0 adds retirement outright (<see cref="Retire"/>): an item the owner has decided should vanish from
+/// saves, with no material worth keeping, is removed from every ship once that ship has loaded.</summary>
 public static class LegacyItemConversions
 {
     public sealed class Material
@@ -55,12 +59,33 @@ public static class LegacyItemConversions
         public bool Any => SitesCancelled + WholeItems + PartsBrokenDown > 0;
     }
 
-    public const double SweepSeconds = 15;
+    public const double SweepSeconds = 15, RetireSeconds = 2;
     private static readonly Dictionary<string, Rule> rules = new(StringComparer.Ordinal);
-    private static readonly Cadence cadence = new(SweepSeconds);
+    private static readonly Dictionary<string, (string Name, string Reason)> retired = new(StringComparer.Ordinal);
+    private static readonly Cadence cadence = new(SweepSeconds), retireCadence = new(RetireSeconds);
+    // Ships already cleared of retired items since they loaded; a reloaded save makes new ship objects.
+    private static ConditionalWeakTable<Ship, object> cleared = new();
     public static IReadOnlyCollection<Rule> Rules => rules.Values;
+    public static IReadOnlyCollection<string> RetiredIds => retired.Keys;
     /// <summary>A new data load: content registers its rules again.</summary>
-    internal static void Reset() { rules.Clear(); cadence.Invalidate(); }
+    internal static void Reset()
+    {
+        rules.Clear(); retired.Clear(); cadence.Invalidate(); retireCadence.Invalidate();
+        cleared = new ConditionalWeakTable<Ship, object>();
+    }
+
+    /// <summary>Retires an item outright (Framework 0.74.0): every one in a save is removed once its ship has loaded, on
+    /// any ship, wherever it lies (deck, containers, pockets, stacks), and the player's ships say so once in the crew log
+    /// as <paramref name="name"/>, with <paramref name="reason"/>. Keep the definition registered, so the save can load the
+    /// item before it goes.
+    /// Only for items the owner has decided should vanish; anything with material worth keeping takes
+    /// <see cref="Register"/> instead.</summary>
+    public static void Retire(string retiredId, string name, string reason)
+    {
+        if (string.IsNullOrEmpty(retiredId) || rules.ContainsKey(retiredId) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(reason))
+            throw new ArgumentException("Invalid retirement: " + retiredId);
+        retired[retiredId] = (name, reason);
+    }
 
     /// <summary>Registers a retired part: <paramref name="setSize"/> of them make one <paramref name="wholeId"/>, and one
     /// left over becomes <paramref name="materials"/>. Both must weigh exactly what the parts weigh.</summary>
@@ -85,7 +110,9 @@ public static class LegacyItemConversions
 
     internal static void Poll()
     {
-        if (rules.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.system?.dictShips == null || !cadence.Due()) return;
+        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.system?.dictShips == null) return;
+        if (retired.Count > 0 && retireCadence.Due()) ClearRetired(CrewSim.system.dictShips.Values.ToArray());
+        if (rules.Count == 0 || !cadence.Due()) return;
         foreach (var ship in CrewSim.system.dictShips.Values.ToArray())
         {
             if (ship == null || ship.bDestroyed || (int)ship.LoadState < 2 || CrewSim.system.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) continue;
@@ -99,6 +126,44 @@ public static class LegacyItemConversions
             }
             catch (Exception e) { FrameworkLifecycle.Log(Text.Get("LegacyItemConversions.failed", ship.strRegID, e.Message)); }
         }
+    }
+
+    // Each loaded ship once: nothing makes a retired item any more, so a ship that has been cleared stays clear.
+    private static void ClearRetired(Ship[] ships)
+    {
+        foreach (var ship in ships)
+        {
+            if (ship == null || ship.bDestroyed || (int)ship.LoadState < 2 || cleared.TryGetValue(ship, out _)) continue;
+            cleared.Add(ship, new object());
+            try
+            {
+                foreach (var (id, count) in RemoveRetired(ship))
+                {
+                    FrameworkLifecycle.Log(Text.Get("LegacyItemConversions.retired_log", count, id, ship.strRegID));
+                    if (CrewSim.coPlayer != null && CrewSim.system?.GetShipOwner(ship.strRegID) == CrewSim.coPlayer.strID)
+                        Notices.PlayerNotices.Post(ship, "LegacyItemConversions.retired." + id, Notices.NoticeLevel.Info,
+                            Text.Get("LegacyItemConversions.retired_notice", count, retired[id].Name, retired[id].Reason));
+                }
+            }
+            catch (Exception e) { FrameworkLifecycle.Log(Text.Get("LegacyItemConversions.retire_failed", ship.strRegID, e.Message)); }
+        }
+    }
+
+    /// <summary>Removes every retired item aboard one loaded ship and says how many units of each kind went.</summary>
+    internal static List<(string Id, int Count)> RemoveRetired(Ship ship)
+    {
+        var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var co in ship.GetCOs(null, true, false, true).ToArray())
+        {
+            // A stack goes through its head; installed objects are never items to retire.
+            if (co == null || co.bDestroyed || co.coStackHead != null || co.strCODef == null || !retired.ContainsKey(co.strCODef) || co.HasCond("IsInstalled")) continue;
+            var units = co.aStack.Concat(new[] { co }).ToList(); // the game's StackAsList: members, then the head
+            co.RemoveFromCurrentHome(true);
+            int gone = 0;
+            foreach (var unit in units) if (!unit.bDestroyed) { unit.Destroy(); gone++; }
+            counts[co.strCODef] = (counts.TryGetValue(co.strCODef, out int before) ? before : 0) + gone;
+        }
+        return counts.OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => (p.Key, p.Value)).ToList();
     }
 
     /// <summary>Converts every free retired part aboard one loaded ship.</summary>

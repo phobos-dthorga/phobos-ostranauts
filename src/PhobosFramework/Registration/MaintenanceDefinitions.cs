@@ -11,17 +11,29 @@ public static class MaintenanceDefinitions
         (item.aStartingConds ?? Array.Empty<string>()).Where(s => !s.StartsWith(stat + "=", StringComparison.Ordinal))
         .Concat(new[] { stat + "=1.0x" + value.ToString(CultureInfo.InvariantCulture) }).ToArray();
 
+    /// <summary>Legacy: half-kilogram remainders that repairs left before Framework 0.74.0. Still defined so saves that
+    /// hold some load them; nothing makes new ones.</summary>
     public const string SpentParts = "PhobosMaintenanceSpentParts";
     public static void LegacyFinish(string savedDefinition, string oldAction, string newAction) =>
         MaintenanceSafety.LegacyFinishes[(savedDefinition, oldAction)] = newAction;
-    public static void ReturnRepairMaterials(NativeDefinitions d, JsonInstallable repair)
+
+    /// <summary>A repair that finishes the game's way (Framework 0.74.0; owner direction, 3 October 2026: follow the
+    /// game after a repair or Restore). Every one of the game's own repair jobs consumes its parts and returns only the
+    /// repaired item, and its Restore consumes nothing and leaves nothing; so does ours. Until 0.73.0 a Phobos repair
+    /// also returned the consumed parts' whole mass as Spent Service Parts, which piled up on long-running ships.</summary>
+    public static void Repair(NativeDefinitions d, JsonInstallable repair)
     {
-        if (!d.Objects.ContainsKey(SpentParts)) Remainder(d, SpentParts, Text.Get("MaintenanceDefinitions.spent_service_parts_kg"), .5);
-        MaintenanceSafety.Repairs["MS" + repair.strName] = repair.aLootCOs[0];
-        // Material quantity comes from the real repair lot, also for a job begun
-        // under an older material bill. The machine itself keeps its saved ID.
+        // Saved remainders from older repairs still need their definition to load.
+        if (!d.Objects.ContainsKey(SpentParts))
+        {
+            Remainder(d, SpentParts, Text.Get("MaintenanceDefinitions.spent_service_parts_kg"), .5);
+            d.Objects[SpentParts].strDesc = Text.Get("MaintenanceDefinitions.spent_service_parts_legacy");
+        }
+        // The repaired item alone, as the game's repairs return; the machine keeps its saved ID through the mode switch.
         repair.aLootCOs = new[] { repair.aLootCOs[0] };
     }
+    [Obsolete("Repairs no longer return materials; use Repair (Framework 0.74.0).")]
+    public static void ReturnRepairMaterials(NativeDefinitions d, JsonInstallable repair) => Repair(d, repair);
 
     public static void Restore(NativeDefinitions d, string source, string skill = "MISC")
     {

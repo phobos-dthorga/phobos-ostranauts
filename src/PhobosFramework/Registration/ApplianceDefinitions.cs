@@ -119,7 +119,7 @@ public static class ApplianceDefinitions
                 work.aInputs = repair ? new[] { "TIsPartsMechSmall=1x1", "TIsScrapAluminum=1x1" } : install ? new[] { id + "Test=1x1" } : Array.Empty<string>();
                 work.aLootCOs = new[] { output }; work.strAllowLootCTsThem = "COND" + job + "Progressx5"; work.strProgressStat = "Stat" + job + "Progress";
                 d.Installables[work.strName] = work;
-                if (repair) MaintenanceDefinitions.ReturnRepairMaterials(d, work);
+                if (repair) MaintenanceDefinitions.Repair(d, work);
             }
         }
     }

@@ -716,8 +716,11 @@ merchant stock updates normally; registration never forces restocking.
 stat replacement, and a runtime-referenced remainder item helper. Supply your
 own balance and output arrays. Restore reduces wear in place. Dismantling
 registers shared cargo/repair-lot guards; `emptyInternalBin` permits only a named,
-empty, zero-mass system slot, removed at completion. `ReturnRepairMaterials`
-registers a repair finish action to return actual lot mass in 0.5 kg spent packs.
+empty, zero-mass system slot, removed at completion. `Repair` (Framework 0.74.0)
+makes a repair finish the game's way: the parts are used up and only the repaired item
+returns. `ReturnRepairMaterials` is an obsolete alias kept for older builds.
+`Persistence.LegacyItemConversions.Retire` removes a retired item from every ship as it
+loads (the old spent service parts use it); `Register` converts one into materials.
 No new world artwork or game data files are copied. Native finish actions remain
 responsible for replacement, placement and lot consumption.
 `LegacyFinish(savedDefinition, oldAction, newAction)` redirects an explicitly
