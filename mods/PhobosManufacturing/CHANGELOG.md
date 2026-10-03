@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-10-03 - Draft
+
+### Fixed
+
+- The X2, K2, AX-2, L2, V4, LC-3 and SA-3 no longer claim to be waiting for the room to cool when they stand in vacuum. They say they do not work in the vacuum of space and need a room with at least 10 kPa of air; a room that is too warm gives its temperature. The V4 still warns that a waiting melt freezes, and the SA-3 that its roaster gives off far more heat than it draws.
+
+### Save compatibility
+
+- None. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.76.0 or newer.
+
 ## [0.33.0] - 2026-10-03 - Draft
 
 ### Changed

@@ -67,7 +67,8 @@ connected D4's interior service area. This is a simplified game model, not a
 simulated coolant pipe or a scientific measurement of G4 machinery. Received
 energy becomes native room-gas heat. At least **10 kPa** is required, with a
 **40 degrees C ceiling**, including pending heat. Inadequate cooling pauses the
-cut; vacuum is not free cooling. The existing furnace motion interlocks are unchanged.
+cut. Like every Phobos machine, it does not work in vacuum. The existing furnace
+motion interlocks are unchanged.
 
 ## What the mission will remove
 

@@ -84,8 +84,9 @@ There is no processing while the ship is unloaded.
 
 ## Heat and operating cost
 
-This first appliance is **air cooled into the surrounding room**, not vacuum
-cooled. It needs at least **10 kPa** at its service edge and a room with enough
+This first appliance is **air cooled into the surrounding room** and, like every
+Phobos machine, does not work in vacuum (see [No machines in vacuum](manufacturing-player-guide.md#no-machines-in-vacuum)). It needs at
+least **10 kPa** at its service edge and a room with enough
 thermal capacity to accept the next step without reaching **40 °C**. When the
 room cannot take the next step's heat, the reclaimer draws no power that step
 and its status shows the room's temperature, air and pressure against the

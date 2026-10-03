@@ -5,11 +5,53 @@ namespace Phobos.Ostranauts.Framework.Processing;
 /// <summary>Heat a working machine pays into the air of its room, under the shared air-cooled operating
 /// rule: the room must hold gas above 10 kPa and stay below 40 C after the step, and a vacuum is never a
 /// free heat sink. The arithmetic is the reclaimer's (20.7 J per mol K, the game's own Heater constant);
-/// the native <c>GasContainer</c> mixing and cooling follow once the pending temperature is applied.</summary>
+/// the native <c>GasContainer</c> mixing and cooling follow once the pending temperature is applied.
+///
+/// Framework 0.76.0 (owner decision, 3 October 2026): our machines do not work in the vacuum of space, and say so.
+/// Every machine checks through <see cref="Check"/> and words its wait with <see cref="Describe"/>, so a machine in
+/// a compartment open to space no longer claims to be waiting for the room to cool.</summary>
 public static class RoomHeat
 {
     public const double GasHeatCapacityJPerMolK = 20.7, MaxRoomKelvin = 40 + Units.CelsiusToKelvin, MinPressureKPa = 10;
     public const double JoulesPerKilojoule = 1000, JoulesPerKilowattHour = 3600 * 1000;
+
+    /// <summary>Why a step's heat cannot go into the room, if it cannot.</summary>
+    public enum HeatProblem { None, NoAir, RoomTooWarm, Invalid }
+    /// <summary>The outcome of one heat check and the room's figures behind it.</summary>
+    public readonly struct HeatCheck
+    {
+        public HeatProblem Problem { get; }
+        public double PressureKPa { get; }
+        public double RoomCelsius { get; }
+        public bool Admitted => Problem == HeatProblem.None;
+        public HeatCheck(HeatProblem problem, double pressureKPa, double roomCelsius) { Problem = problem; PressureKPa = pressureKPa; RoomCelsius = roomCelsius; }
+    }
+
+    /// <summary>The decision, pure: no air (or under 10 kPa) means the machine does not run; otherwise the 40 C rule.</summary>
+    public static HeatCheck Decide(bool hasAir, double mols, double kelvin, double pendingKelvin, double pressureKPa, double kw, double seconds)
+    {
+        if (double.IsNaN(kw) || double.IsInfinity(kw) || kw <= 0 || double.IsNaN(seconds) || seconds < 0 || seconds > ProcessJob.MaxSeconds)
+            return new HeatCheck(HeatProblem.Invalid, 0, 0);
+        double pressure = hasAir && !double.IsNaN(pressureKPa) && !double.IsInfinity(pressureKPa) ? Math.Max(0, pressureKPa) : 0;
+        if (!hasAir || pressure < MinPressureKPa) return new HeatCheck(HeatProblem.NoAir, pressure, 0);
+        double celsius = kelvin + pendingKelvin - Units.CelsiusToKelvin;
+        if (Budget(mols, kelvin, pendingKelvin, pressureKPa, kw, seconds, out _)) return new HeatCheck(HeatProblem.None, pressure, celsius);
+        bool readable = mols > 0 && kelvin > 0 && !double.IsNaN(mols) && !double.IsNaN(kelvin) && !double.IsNaN(pendingKelvin);
+        return new HeatCheck(readable ? HeatProblem.RoomTooWarm : HeatProblem.Invalid, pressure, celsius);
+    }
+    /// <summary>Checks one step of a machine's heat against its room's air (null: no room, no air).</summary>
+    public static HeatCheck Check(Air? air, double kw, double seconds) => air == null
+        ? Decide(false, 0, 0, 0, 0, kw, seconds)
+        : Decide(true, air.Mols, air.Kelvin, air.PendingKelvin, air.PressureKPa, kw, seconds);
+
+    /// <summary>What a waiting machine tells the player.</summary>
+    public static string Describe(HeatCheck check) => check.Problem switch
+    {
+        HeatProblem.NoAir => Text.Get("RoomHeat.no_air", check.PressureKPa, MinPressureKPa),
+        HeatProblem.RoomTooWarm => Text.Get("RoomHeat.too_warm", check.RoomCelsius, MaxRoomKelvin - Units.CelsiusToKelvin),
+        HeatProblem.Invalid => Text.Get("RoomHeat.invalid"),
+        _ => ""
+    };
 
     /// <summary>Whether a step of <paramref name="kw"/> for <paramref name="seconds"/> keeps the room below the
     /// ceiling, and the temperature rise it would cause. Refuses vacuum, low pressure, invalid inputs and

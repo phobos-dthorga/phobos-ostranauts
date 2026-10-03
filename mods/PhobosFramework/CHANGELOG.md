@@ -22,6 +22,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.76.0] - 2026-10-03 - Draft
+
+### Fixed
+
+- A machine standing in a compartment open to space said it was waiting for the room to cool, even at -270 C. Phobos machines do not work in the vacuum of space (owner decision, 3 October 2026), and now say exactly that, with the room's pressure: each sheds its heat into the room's air and needs at least 10 kPa. A warm room still makes a machine wait, and now gives the room's temperature.
+- Every machine now uses one shared heat check and one set of wait messages, so the reasons read the same everywhere.
+
+### Save compatibility
+
+- None. Nothing saved changes.
+
+### Compatibility and limits
+
+- Unchanged: the 10 kPa floor, the 40 C ceiling, and the F6-R and F6-P radiators' own cooling. Shedding heat by radiation in vacuum was considered and declined.
+
 ## [0.75.0] - 2026-10-03 - Draft
 
 ### Changed

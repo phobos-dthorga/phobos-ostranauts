@@ -28,8 +28,8 @@ internal static class ThawService
     }
     internal sealed class Transfer
     {
-        internal GasContainer Gas = null!;
-        internal double Mols, WorkSeconds, HeatFraction;
+        internal RoomHeat.Air Air = null!;
+        internal double WorkSeconds, HeatFraction;
         internal EnergyReceipt Receipt = null!;
     }
     private static ConditionalWeakTable<CondOwner, Session> sessions = new();
@@ -240,20 +240,18 @@ internal static class ThawService
         bool working = co.HasCond(ProcessRules.Working);
         double demand = working ? ThawRules.WorkingKW : ThawRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand, heatKW = ThawRules.RoomHeatKW(working);
-        var room = co.ship?.GetRoomAtWorldCoords1(co.GetPos("use"), false)?.CO;
-        var gas = room?.GasContainer;
-        double mols = 0;
-        if (gas == null || !gas.mapGasMols1.TryGetValue("StatGasMolTotal", out mols) ||
-            !ReclaimerRules.CoolingBudget(mols, room!.GetCondAmount("StatGasTemp"), gas.fDGasTemp, room.GetCondAmount("StatGasPressure"), heatKW, seconds, out _))
+        var air = RoomHeat.Read(co, "use");
+        var heat = RoomHeat.Check(air, heatKW, seconds);
+        if (!heat.Admitted)
         {
             // Not a stop: no power is drawn this step, the job keeps its permission and progress, and work
             // continues by itself once the room can take the heat.
-            if (sessions.TryGetValue(co, out var s) && s.Job?.Running == true) { s.HeatWait = true; s.Status = ReclaimerHeat.WaitStatus(room, gas, mols); }
+            if (sessions.TryGetValue(co, out var s) && s.Job?.Running == true) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }
             co.ZeroCondAmount("IsPowered");
             return false;
         }
         if (sessions.TryGetValue(co, out var ready)) ready.HeatWait = false;
-        transfer = new Transfer { Gas = gas, Mols = mols, WorkSeconds = seconds, HeatFraction = heatKW / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        transfer = new Transfer { Air = air!, WorkSeconds = seconds, HeatFraction = heatKW / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         pending.Add(power, transfer);
         return true;
     }
@@ -264,7 +262,7 @@ internal static class ThawService
         double supplied = NativeEnergyReceipts.Complete(power, co, transfer.Receipt);
         if (double.IsNaN(supplied) || double.IsInfinity(supplied)) throw new InvalidOperationException("Invalid thaw energy receipt.");
         // The declared share warms the room's air; the rest went into the ice. Native mixing and cooling follow.
-        transfer.Gas.fDGasTemp += supplied * transfer.HeatFraction * Units.SecondsPerHour * ReclaimerRules.JoulesPerKilojoule / (transfer.Mols * ReclaimerRules.GasHeatCapacity);
+        RoomHeat.Deposit(transfer.Air, supplied, transfer.HeatFraction);
     }
     internal static void Forget(Powered power) { pending.Remove(power); NativeEnergyReceipts.Forget(power); }
     internal static void AfterPower(CondOwner co, bool workingRequest, double? poweredSeconds)

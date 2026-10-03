@@ -281,9 +281,10 @@ internal static class SabatierService
         double demand = working ? SabatierRules.WorkingKW : SabatierRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand;
         var air = RoomHeat.Read(co);
-        if (!RoomHeat.Admit(air, SabatierRules.RoomHeatKW(working), seconds, out _))
+        var heat = RoomHeat.Check(air, SabatierRules.RoomHeatKW(working), seconds);
+        if (!heat.Admitted)
         {
-            if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = Text.Get("Sabatier.heat_wait"); }
+            if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }
             co.ZeroCondAmount("IsPowered");
             return false;
         }

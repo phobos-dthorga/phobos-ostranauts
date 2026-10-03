@@ -22,15 +22,8 @@ public static class ReclaimerRules
         id == Prefix + "Loose" || id == Prefix + "LooseDmg";
     /// <summary>The reclaimer catalog from the recipe pack (revision 1: 3 kg steel, 1 kg aluminium, a 9 kg reject).</summary>
     public static ProcessRecipeCatalog Recipes => ShipbreakerRecipes.Catalog(ShipbreakerRecipes.Reclaimer);
+    /// <summary>The air budget: Framework's shared rule, which this used to repeat (Shipbreaker 0.69.0).</summary>
     public static bool CoolingBudget(double mols, double kelvin, double pendingKelvin, double pressure,
-        double kw, double seconds, out double rise)
-    {
-        rise = 0;
-        foreach (double value in new[] { mols, kelvin, pendingKelvin, pressure, kw, seconds })
-            if (double.IsNaN(value) || double.IsInfinity(value)) return false;
-        if (mols <= 0 || pressure < MinPressureKPa || kelvin <= 0 || kelvin + pendingKelvin <= 0 ||
-            kw <= 0 || seconds < 0 || seconds > ProcessJob.MaxSeconds) return false;
-        rise = kw * JoulesPerKilojoule * seconds / (mols * GasHeatCapacity);
-        return kelvin + pendingKelvin + rise < MaxRoomKelvin;
-    }
+        double kw, double seconds, out double rise) =>
+        Phobos.Ostranauts.Framework.Processing.RoomHeat.Budget(mols, kelvin, pendingKelvin, pressure, kw, seconds, out rise);
 }

@@ -24,5 +24,18 @@ internal static class RoomHeatChecks
         Reject(() => RoomHeat.RiseKelvin(0, 1), "A deposit into no gas is refused");
         Reject(() => RoomHeat.RiseKelvin(10000, -1), "A negative deposit is refused");
         Reject(() => RoomHeat.RiseKelvin(10000, double.NaN), "An invalid deposit is refused");
+
+        // Framework 0.76.0 (owner decision, 3 October 2026): our machines do not work in vacuum, and say so.
+        var air = RoomHeat.Decide(true, 10000, 290, 0, 100, 12, 120);
+        check(air.Admitted && air.PressureKPa == 100, "Air of 10 kPa or more under 40 C takes the heat");
+        var warm = RoomHeat.Decide(true, 10000, 310, 0, 100, 12, 120);
+        check(warm.Problem == RoomHeat.HeatProblem.RoomTooWarm && Math.Abs(warm.RoomCelsius - 36.85) < 0.01, "A warm room waits, with its temperature");
+        var vacuum = RoomHeat.Decide(false, 0, 0, 0, 0, 1.0, 60);
+        check(vacuum.Problem == RoomHeat.HeatProblem.NoAir && vacuum.PressureKPa == 0, "No room or vacuum: no air, whatever the load");
+        var thin = RoomHeat.Decide(true, 50, 290, 0, 5, 1.0, 60);
+        check(thin.Problem == RoomHeat.HeatProblem.NoAir && thin.PressureKPa == 5, "Air under 10 kPa counts as no air, with its pressure");
+        check(RoomHeat.Check(null, 1.0, 60).Problem == RoomHeat.HeatProblem.NoAir, "A machine with no room has no air");
+        foreach (double kw in new[] { 0d, -1d, double.NaN })
+            check(RoomHeat.Decide(false, 0, 0, 0, 0, kw, 60).Problem == RoomHeat.HeatProblem.Invalid, "An invalid load is refused");
     }
 }

@@ -37,10 +37,11 @@ internal static partial class LaserService
             return true;
         }
         var air = RoomHeat.Read(co, "use");
-        if (!RoomHeat.Admit(air, LaserRules.HeatKW(kw), amount * Units.SecondsPerHour / kw, out _))
+        var heat = RoomHeat.Check(air, LaserRules.HeatKW(kw), amount * Units.SecondsPerHour / kw);
+        if (!heat.Admitted)
         {
-            s.Notice = (radiator != null ? Text.Get("Laser.radiator_full") + " " : "") +
-                (air == null ? Text.Get("Laser.cooling_block") : Text.Get("Laser.cooling_wait", air.Kelvin - Units.CelsiusToKelvin, air.PressureKPa));
+            s.Notice = (radiator != null ? Text.Get("Laser.radiator_full") + " " : "") + RoomHeat.Describe(heat) +
+                (heat.Problem == RoomHeat.HeatProblem.NoAir ? " " + Text.Get("Laser.radiator_hint") : "");
             co.ZeroCondAmount(LaserRules.Working); Present(s, false);
             return false;
         }

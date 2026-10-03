@@ -153,6 +153,7 @@ internal static class ManufacturingNativeChecks
             {
                 if (key.StartsWith("spoiled", StringComparison.Ordinal) && chargeSpec.Spoiled == null) continue;
                 if ((key.StartsWith("select", StringComparison.Ordinal) || key == "no_selection") && chargeSpec.Selection != RecipeSelection.Explicit) continue;
+                if (key == "heat_note" && !chargeSpec.HeatNote) continue;
                 check(!PhobosManufacturing.Text.Get(chargeSpec.Text(key), 0, 0, 0, 0, 0, 0, 0).StartsWith("[", StringComparison.Ordinal), "Engine message exists: " + chargeSpec.Text(key));
             }
             check(!PhobosManufacturing.Text.Get(chargeSpec.MaintenanceChargeKey).StartsWith("[", StringComparison.Ordinal), "Removal refusal exists: " + chargeSpec.MaintenanceChargeKey);

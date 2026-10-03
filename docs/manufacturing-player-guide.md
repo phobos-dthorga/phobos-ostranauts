@@ -470,7 +470,16 @@ phosphoric acid flask and 9.535 kg of roasted calcine (trash).
 **Heat.** Roasting, converting and absorbing release about 21 kWh a nodule on top
 of the 4 kW the plant draws, all into its room: over an hour that is like a 21 kW
 heater. The plant waits whenever the room would pass 40 C, so give it a large
-room with cooling or it will crawl. Vacuum is not free cooling.
+room with cooling or it will crawl.
+
+### No machines in vacuum
+
+Phobos machines do not work in the vacuum of space. Each one sheds its waste heat
+into the air of its room, so it needs a pressurised room: at least 10 kPa of air,
+staying under 40 C. In a compartment open to space (or with less than 10 kPa) it
+draws nothing and its panel says so, with the room's pressure. A room that is too
+warm makes it wait instead, with the room's temperature; it carries on by itself
+once the room has cooled.
 
 **Acid tanks** are bunded tanks, not gas stores: they have no gas line and never
 feed thrusters, filling stations or cabin air. Fill one from an SA-3 or at a

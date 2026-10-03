@@ -22,8 +22,9 @@ fetch it.
 1. **Install it.** From the INSTALL menu's **APPS** tab, place it outside the
    hull against two sound hull walls. The emitter faces away from those walls.
    Run power conduit to either power point, which sit in the wall row behind it.
-2. **Give the room behind it air.** The laser sheds its heat into the room on
-   the inside of those two walls. That room needs at least 10 kPa.
+2. **Give the room behind it air, or link a radiator.** The laser sheds its heat
+   into the room on the inside of those two walls, which needs at least 10 kPa,
+   unless a linked F6-R or F6-P radiator takes it.
 3. **Moor a target.** Either tether an asteroid with the nav station's mooring
    clamp (the game's own tether: within 2.5 km of the surface and under
    50 m/s), or capture a hull you own with the
@@ -86,7 +87,8 @@ uninstall does, so the whole panel comes away intact for the D4.
   itself once the room has cooled. A small room warms by a little under 1 C for
   every second of cutting, so expect bursts of cutting with pauses between
   them. A bigger room, or better cooling in it, gives longer bursts.
-- A mount with vacuum behind it will not run. Vacuum is not cooling.
+- With vacuum behind it and no linked radiator, the laser does not run, like
+  every Phobos machine in vacuum; the panel says so.
 
 These figures are authored for play. The game's damage points are not a unit of
 energy, and no real laser was measured for them.

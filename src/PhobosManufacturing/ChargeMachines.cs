@@ -39,7 +39,7 @@ internal static class ChargeMachines
     private static ChargeMachineSpec RefinerySpec() => new()
     {
         Prefix = RefineryRules.Prefix, StockTrigger = RefineryRules.StockTrigger, StockFeed = RefineryRules.StockFeed, AdmitsOre = true, FeedConditions = RefineryRules.FeedConditions,
-        Record = RefineryRules.Record, MachineKey = ChargeCatalog.Refinery, TextPrefix = "Refinery", SnapshotKind = "refinery", Art = Definitions.RefineryArt,
+        Record = RefineryRules.Record, MachineKey = ChargeCatalog.Refinery, TextPrefix = "Refinery", HeatNote = true, SnapshotKind = "refinery", Art = Definitions.RefineryArt,
         Selection = RecipeSelection.Automatic, IgnitionSource = true,
         Met = key => key == ChargeCatalog.SteelStockRequirement && ShipbreakerStock.Available,
         Spoiled = RefineryRecipes.Spoiled, SpoiledProducts = RefineryRecipes.SpoiledProducts,
@@ -129,7 +129,7 @@ internal static class ChargeMachines
     private static ChargeMachineSpec AcidPlantSpec() => new()
     {
         Prefix = AcidPlantRules.Prefix, StockTrigger = AcidPlantRules.StockTrigger, StockFeed = AcidPlantRules.StockFeed, AdmitsOre = false,
-        Record = AcidPlantRules.Record, MachineKey = ChargeCatalog.AcidPlant, TextPrefix = "AcidPlant", SnapshotKind = "acid-plant", Art = Definitions.AcidPlantArt,
+        Record = AcidPlantRules.Record, MachineKey = ChargeCatalog.AcidPlant, TextPrefix = "AcidPlant", HeatNote = true, SnapshotKind = "acid-plant", Art = Definitions.AcidPlantArt,
         Selection = RecipeSelection.Automatic, IgnitionSource = false,
         MaintenanceChargeKey = "Maintenance.acid_plant_charge",
         Links = () => new[] { AcidPlantOxygen(), AcidPlantWater(), AcidPlantAcid() }

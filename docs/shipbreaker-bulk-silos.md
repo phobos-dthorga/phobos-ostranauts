@@ -207,7 +207,7 @@ The T2 draws 0.1 kW idle and 6 kW while thawing. About 0.9 kW of that warms the
 room's air (the same rule as the R4: at least 10 kPa of atmosphere and a room
 that stays below 40 C this step); the rest goes into the ice. When the room
 cannot take the heat, no power is drawn and the block waits, then continues by
-itself. Vacuum is not free cooling.
+itself. Like every Phobos machine it does not work in vacuum (see [No machines in vacuum](manufacturing-player-guide.md#no-machines-in-vacuum)).
 
 ## Limits
 

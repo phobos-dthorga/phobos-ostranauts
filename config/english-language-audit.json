@@ -19935,19 +19935,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Reclaimer.cooling_block",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "A heat block now waits and resumes by itself instead of stopping for Resume; the instruction to resume is removed.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ReclaimerHeat.cs:56"
-      ],
-      "before": "Cooling unavailable: needs at least {0} kPa of room atmosphere and enough thermal capacity to stay below {1:F0} °C this step. Cool the room or reduce time acceleration, then resume. Input and work retained.",
-      "after": "Cooling unavailable: needs at least {0} kPa of room atmosphere and enough thermal capacity to stay below {1:F0} °C this step. No power is drawn; work continues by itself once the room can take the heat. Input and work retained."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Reclaimer.cooling_hint",
       "category": "help/settings",
       "decision": "retain",
@@ -34084,6 +34071,19 @@
     },
     {
       "mod": "PhobosShipbreaker",
+      "key": "Reclamation.heat_no_processor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The cutter cannot run without its D4: says so and when it resumes.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ReclamationPower.cs:22"
+      ],
+      "before": "The cutter's D4 is gone, so its heat has nowhere to go. Nothing is drawn until the D4 is back.",
+      "after": "The cutter's D4 is gone, so its heat has nowhere to go. Nothing is drawn until the D4 is back."
+    },
+    {
+      "mod": "PhobosShipbreaker",
       "key": "Crew.skill",
       "category": "control/name/value",
       "decision": "retain",
@@ -37125,19 +37125,6 @@
       "after": "A crop is already planted. Harvest or clear it first."
     },
     {
-      "mod": "PhobosShipbreaker",
-      "key": "Reclaimer.cooling_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Status while a heat-limited machine waits for its room; shows the room's temperature, air and pressure against the limits so the rule can be judged in play.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ReclaimerHeat.cs:57"
-      ],
-      "before": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat.",
-      "after": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat."
-    },
-    {
       "mod": "PhobosAutoNav",
       "key": "NavigationService.step_hold",
       "category": "status/warning",
@@ -39208,19 +39195,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Refinery.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:338"
-      ],
-      "before": "Waiting for the room to cool. A melt that waits longer than its own run freezes.",
-      "after": "Waiting for the room to cool. A melt that waits longer than its own run freezes."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Refinery.waiting_power",
       "category": "status/warning",
       "decision": "add",
@@ -39868,19 +39842,6 @@
       ],
       "before": "The cell stopped on a fault. See the log.",
       "after": "The cell stopped on a fault. See the log."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Processor.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ProcessorService.cs:218"
-      ],
-      "before": "Waiting for the room to cool.",
-      "after": "Waiting for the room to cool."
     },
     {
       "mod": "PhobosManufacturing",
@@ -41027,19 +40988,6 @@
       ],
       "before": "The reactor stopped on a fault. See the log.",
       "after": "The reactor stopped on a fault. See the log."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Sabatier.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/SabatierService.cs:260"
-      ],
-      "before": "Waiting for the room to cool.",
-      "after": "Waiting for the room to cool."
     },
     {
       "mod": "PhobosManufacturing",
@@ -44191,19 +44139,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Filler.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/FillerService.cs:217"
-      ],
-      "before": "Waiting: the room is too hot or too thin to cool the compressor.",
-      "after": "Waiting: the room is too hot or too thin to cool the compressor."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Filler.filling",
       "category": "status/warning",
       "decision": "add",
@@ -46478,19 +46413,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Cracker.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/CrackerService.cs:229"
-      ],
-      "before": "Waiting for the room to cool.",
-      "after": "Waiting for the room to cool."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Cracker.working",
       "category": "status/warning",
       "decision": "add",
@@ -48653,19 +48575,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Leach.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:338"
-      ],
-      "before": "Waiting for the room to cool.",
-      "after": "Waiting for the room to cool."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Leach.waiting_power",
       "category": "status/warning",
       "decision": "add",
@@ -49967,19 +49876,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "AcidPlant.heat_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ChargeMachine.cs:338"
-      ],
-      "before": "Waiting for the room to cool: the roaster puts out far more heat than it draws.",
-      "after": "Waiting for the room to cool: the roaster puts out far more heat than it draws."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "AcidPlant.link_busy",
       "category": "status/warning",
       "decision": "add",
@@ -50874,6 +50770,19 @@
       ],
       "before": "That vessel is not a registered water vessel within one tile of the acid plant.",
       "after": "That is not a water silo touching the acid plant or on its water line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.heat_note",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The SA-3 adds that its roaster gives off more heat than it draws.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs: T(\"heat_note\") with TextPrefix AcidPlant"
+      ],
+      "before": "The roaster gives off far more heat than it draws.",
+      "after": "The roaster gives off far more heat than it draws."
     },
     {
       "mod": "PhobosManufacturing",
@@ -53845,32 +53754,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Laser.cooling_wait",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosShipbreaker/LaserPower.cs:32"
-      ],
-      "before": "Waiting for the room behind the mount to cool: {0:F0} C at {1:F0} kPa. It cuts again while that room stays below 40 C; nothing is drawn while it waits.",
-      "after": "Waiting for the room behind the mount to cool: {0:F0} C at {1:F0} kPa. It cuts again while that room stays below 40 C; nothing is drawn while it waits."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "Laser.cooling_block",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New ML-2 waits, refusals and notices: situation, consequence and the player's next action first, with the operating limits (10 kPa, 40 C, one tile) kept; no recovery is promised that the laser does not perform.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosShipbreaker/LaserPower.cs:32"
-      ],
-      "before": "The room behind the mount has no air to carry the heat away; it needs at least 10 kPa. Pressurise it. Vacuum is not cooling.",
-      "after": "The room behind the mount has no air to carry the heat away; it needs at least 10 kPa. Pressurise it. Vacuum is not cooling."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Laser.no_attachment",
       "category": "status/warning",
       "decision": "add",
@@ -54722,6 +54605,19 @@
       "after": "This laser has no settings to change."
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.radiator_hint",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "In vacuum the ML-2 points to linking a radiator, the one way it can run there.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserPower.cs:44"
+      ],
+      "before": "Or link the head to an F6-R or F6-P radiator by touching it.",
+      "after": "Or link the head to an F6-R or F6-P radiator by touching it."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Bulk.sell_heading",
       "category": "control label",
@@ -54941,6 +54837,45 @@
       ],
       "before": "Ship {0}: stored items could not be fitted to their smaller inventories ({1}); they stay as they loaded.",
       "after": "Ship {0}: stored items could not be fitted to their smaller inventories ({1}); they stay as they loaded."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RoomHeat.no_air",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says plainly that Phobos machines do not work in vacuum, gives the room pressure and what to do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Processing/RoomHeat.cs:50"
+      ],
+      "before": "Phobos machines do not work in the vacuum of space: this room has {0:F1} kPa of air, and at least {1:F0} kPa is needed to carry the heat away. Move the machine into a pressurised room. Nothing is drawn while it waits.",
+      "after": "Phobos machines do not work in the vacuum of space: this room has {0:F1} kPa of air, and at least {1:F0} kPa is needed to carry the heat away. Move the machine into a pressurised room. Nothing is drawn while it waits."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RoomHeat.too_warm",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A warm room: gives its temperature and the ceiling, and that work resumes by itself.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Processing/RoomHeat.cs:51"
+      ],
+      "before": "Waiting for the room to cool: the air is at {0:F0} °C and this work would push it past {1:F0} °C. Nothing is drawn while it waits; work carries on once the room has cooled.",
+      "after": "Waiting for the room to cool: the air is at {0:F0} °C and this work would push it past {1:F0} °C. Nothing is drawn while it waits; work carries on once the room has cooled."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RoomHeat.invalid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Room readings not usable yet; nothing drawn.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Processing/RoomHeat.cs:52"
+      ],
+      "before": "Waiting: the room's air readings are not usable yet. Nothing is drawn while it waits.",
+      "after": "Waiting: the room's air readings are not usable yet. Nothing is drawn while it waits."
     },
     {
       "mod": "PhobosManufacturing",
@@ -55165,6 +55100,19 @@
     },
     {
       "mod": "PhobosManufacturing",
+      "key": "Refinery.heat_note",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The V4 adds that a waiting melt freezes to the shared heat-wait message.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs: T(\"heat_note\") with TextPrefix Refinery"
+      ],
+      "before": "A melt that waits longer than its own run freezes.",
+      "after": "A melt that waits longer than its own run freezes."
+    },
+    {
+      "mod": "PhobosManufacturing",
       "key": "Store.gas",
       "category": "name",
       "decision": "add",
@@ -55262,8 +55210,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c3df033313959194d0f601fa082b544a5d93addeb93f339d8fdfd5768cd486d0",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "59e5acfe5f04bf423bf659db93f8ddb704432b1daa8b582e156e9195d45a5edc",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "SUPPORT.md",
@@ -55422,8 +55370,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a9b69f793e7c6ad2be80f7dbe8343167eb17e4a8c61420ff1677796cca618505",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "29f3ea029f53c70df4bc9aa0eb882969c6ab8f27175d40803c89bef9637a076b",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/crew-automation.md",
@@ -56157,8 +56105,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a1749ff6478255aa2066405d9272cad83df48fd62482f3a11e43c10417b4bd9c",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "a0eab17b4e14792bf7b6ac759eae7c99e6c1a15dc9e1a9c14522e747920ae4b2",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56213,15 +56161,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8bb1440ef46a690bd76526b36e794a6052914bf537273b8881d2a89f2fb3cf5a",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "724ed5d51197de442acf05d579eee5ed254b6a960fb02016b1722ec1d6e0a66e",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3150e3954a740c7b97ef6364c9c46ae9e2f6dfe72451daff9227321d781e39e6",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "7e805065d5fbbb90b01d870458c37542dc558453101eef30eafb5e61ce50d334",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/item-references.md",
@@ -56234,15 +56182,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "5be673ce52668753e886fa6eb2d26457a48a5db498c8a9438de4440472ff6bbb",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "96d9b8412f6623fbd63248cecaf12cdf02c16e239b39bcbea55a2dc8ca2065d3",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "ea39446f19d03d117c0c255cdda4c0b33cae34fd4a7875b5337eef093c67e3c4",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "5b12fdf8b708900830ca2cd7a20e8ee9c657e5b34e74b78322d9907630d1d178",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -56262,8 +56210,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bcec819004a29c1ba29f6a3562adc14215ae18d9ef5e462eb6d94d489ef12680",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "6469a19ccb1e9358feb44fe1fb4e9308f0d2d330d754df91a6b395b2da585228",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56276,8 +56224,8 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7f4b8abd07221ac0739331d92063f4fd55ff3a847ba41ff807e821a34233c906",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "1172daa74e4361021fd94537cf26e38c3f23555ce32efd2195bdb675a26ae61e",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -56297,8 +56245,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "baf86214b6849192e65c8cce4203081e8be19a489177b0f6707bb0bb22e04822",
-      "review": "Reviewed 1 October 2026 for Framework 0.70.0: inventories sized to the job, saved contents re-packed or put on the deck on load, the A2 without an inventory."
+      "sha256": "71b0cd1579513f0b9120afdff16b38c1c9bba79ad58455e9a4c08618e40b4cd0",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -56311,8 +56259,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "adaefe41b59bde038c0104c30e9e48dfced618529ac9b51162036f86144f0384",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "1d7931197f74570fd39d38e79fb3a93af1809ecafd9459d1929df0bcf52f21ee",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56325,8 +56273,8 @@
       "path": "docs/shipbreaker-reclamation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "502691b7f0fe385fcc7b184abf40b4746a6bff47fce80c153a1eed3159ce34cc",
-      "review": "2026-09-29: ordinary walls of any make (14-48 kg) qualify for cutting."
+      "sha256": "5b56be1736a9200a95ea543754898ada39dff9bd3dba26ee72685b963f2b59ac",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/solar-system-economy.md",
@@ -56353,22 +56301,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d2f2703ce7569be2bf2866d2dda41292902ce6f91d3582380095f14d8d1e1bd1",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "2b2eb118deb692dfbc697cae51ea99d15d5d160d2c6b2873be8058d1f69f4610",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "64f3e13bab2728331107d93d1bff6874f7f3176007053c22b4a3668724de654b",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "ac6896a93155b567bb0b41ba906d57d2e3bd7c90e1fcd8fbfeab7b5fb9298458",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7aa44e49e22a72123aa1fa144b2f8381e687559f7f99e481e4fe751e6214da78",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "79bd7b5dc9ab41e5f0b8a1c296184cde316981ab5ed1a5f5c784ece97e2b532b",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56479,8 +56427,8 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "f6548c6c5d45845038db3343ce199494e5060deb947e42c51ed153584d7c4da5",
-      "review": "Reviewed 1 October 2026 for Framework 0.69.0: a line joins what it runs under or beside; link choices say why a store is not offered; the T2 and ML-2 open the shared panel."
+      "sha256": "54b74c8d939ad2e4cbe2836356ce1eb83bf68b003eeb10f6ac35332eb00b1466",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "docs/development/mining-laser-design.md",
@@ -56494,8 +56442,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d186515455bacd804e5e4c2b3928991d40c14ffa145cdaea4d208d44ff201091",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "63f5cf89bc6fd9dfbc67eb636b2062ca2c18bc2a458a637dcd820136d9c4c05d",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -56544,14 +56492,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "28e10d268e6bde1199575fcf2dc681a056d99e4cbf05aa7f1118a40c559ccad4",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "52edb01df7e04f07c88bf43a43d19eba207e3a7c4af1ffe65ac1a2a7319ad162",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4e2035f63ea6c7f0f16b62304cfc4993a0cf538a66dbe6a6614ca835f3384e25",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "23f6dc20b1f69134136fdb936a73558fb0a74e02be3d952748a279769bd3bfbc",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56568,8 +56516,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6a43e9d724bd78fc6975a79866c57b36160d571f21a66fa23c074cfa36881595",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "1e27da0681a905f23bc6bfd61b8545170f0b69efdda9d455e082e1014d48f684",
+      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

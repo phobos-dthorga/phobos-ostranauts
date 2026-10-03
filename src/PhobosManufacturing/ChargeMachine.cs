@@ -353,14 +353,15 @@ internal sealed class ChargeMachine
         double seconds = amount * Units.SecondsPerHour / demand;
         double heatKW = electricHeat + (working && sessions.TryGetValue(co, out var bound) ? ReactionKW(Recipe(bound)) : 0);
         var air = RoomHeat.Read(co);
-        if (!RoomHeat.Admit(air, heatKW, seconds, out _))
+        var heat = RoomHeat.Check(air, heatKW, seconds);
+        if (!heat.Admitted)
         {
             // Not a stop: no power is drawn this step and the charge keeps its permission. A melt that waits
             // too long freezes (see AfterPower); a drying charge simply resumes when the room can take the heat.
             if (sessions.TryGetValue(co, out var s) && s.State.Running)
             {
                 if (!s.HeatWait) { s.HeatWait = true; s.WaitSince = StarSystem.fEpoch; }
-                s.Status = T("heat_wait");
+                s.Status = RoomHeat.Describe(heat) + (Spec.HeatNote ? " " + T("heat_note") : "");
             }
             co.ZeroCondAmount("IsPowered");
             return false;

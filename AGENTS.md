@@ -567,7 +567,10 @@
   Framework now owns shared immutable recipes, saved-job binding and mass checks;
   content owns native keys, identities and balance. Default reclaimer operation
   is 120 seconds / 12 kW, delivering heat into native room gas. Require enough
-  atmosphere/thermal headroom; do not treat vacuum as free cooling. Use explicit
+  atmosphere/thermal headroom; vacuum is not free cooling. Owner decision (2026-10-03):
+  **Phobos machines do not work in the vacuum of space**, and say so plainly (Framework
+  `RoomHeat.Check`/`Describe`, one shared message for every machine); casing radiation
+  was considered and declined. The F6-R/F6-P radiators keep their own model. Use explicit
   paired output collectors. Version 0.9.0 adds automatic reclaimer feed from
   fixtures or collector buffers, independent input/output pairs and saved exact-ID
   filters through Framework. Follow `docs/automatic-material-routing.md`. Keep

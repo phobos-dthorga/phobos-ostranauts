@@ -228,9 +228,10 @@ internal static class FillerService
         double demand = working ? FillerRules.WorkingKW : FillerRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand, heatKW = demand * FillerRules.RoomHeatFraction;
         var air = RoomHeat.Read(co);
-        if (!RoomHeat.Admit(air, heatKW, seconds, out _))
+        var heat = RoomHeat.Check(air, heatKW, seconds);
+        if (!heat.Admitted)
         {
-            if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = Text.Get("Filler.heat_wait"); }
+            if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }
             co.ZeroCondAmount("IsPowered");
             return false;
         }

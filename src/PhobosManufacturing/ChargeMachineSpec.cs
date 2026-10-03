@@ -82,6 +82,8 @@ internal sealed class ChargeMachineSpec
     /// <summary>A working, powered machine is an ignition source for a leaking store beside it (the V4's hearth).</summary>
     internal bool IgnitionSource { get; set; }
     internal string WorkingCondition { get; set; } = ManufacturingRules.Working;
+    /// <summary>The machine adds its own line (<c>heat_note</c>) to the shared heat-wait message.</summary>
+    internal bool HeatNote { get; set; }
     /// <summary>Whether each requirement key a recipe names is met on this installation.</summary>
     internal Func<string, bool> Met { get; set; } = _ => false;
     /// <summary>A melt left waiting longer than this spoils (null: this machine's charges never spoil).</summary>
