@@ -47,6 +47,13 @@ internal static class BulkStorageChecks
         check(result.Protected&&target.Balance==100&&target.Cargo==0,"Unknown/newer purchase journals remain untouched");
         CommodityReservations.TryAcquire("competing","tank");target=new();result=BulkSettlement.Buy(Quote(),target,Store());
         check(!result.Success&&target.Balance==100&&target.Cargo==0&&CommodityReservations.Held("tank"),"Purchase does not steal another worker's reservation");CommodityReservations.Release("competing");
+        // Framework 0.79.0: a destination that refuses while reserved must not count the purchase's own reservation.
+        check(CommodityReservations.TryAcquire("mine","tank")&&!CommodityReservations.HeldByOther("tank","mine")&&CommodityReservations.HeldByOther("tank","theirs")&&!CommodityReservations.HeldByOther("free","mine"),
+            "Only another operation's claim counts as held by another");CommodityReservations.Release("mine");
+        target=new Target{RefuseHeld=true};result=BulkSettlement.Buy(Quote(),target,Store());
+        check(result.Success&&target.Cargo==10&&target.Balance==80,"A purchase is not refused by its own reservation of the destination");
+        CommodityReservations.TryAcquire("competing","tank");target=new Target{RefuseHeld=true};result=BulkSettlement.Buy(Quote(),target,Store());
+        check(!result.Success&&target.Cargo==0&&target.Balance==100,"Another operation's reservation still refuses it");CommodityReservations.Release("competing");
         foreach(string phase in new[]{"validated","debit-after","delivery-after","refund-after","ledger-after"})
         {
             var changingMaps=new Dictionary<string,Dictionary<string,string>>();journal=new(changingMaps,"Purchase","test",1);
@@ -101,11 +108,11 @@ internal static class BulkStorageChecks
     {
         public double Balance{get;set;}=100;
         public double Cargo,Ledger,Limit=10;
-        public bool Valid=true;
+        public bool Valid=true,RefuseHeld;
         public string Fault="";
         public Action<string>? After;
         void Fail(string phase){After?.Invoke(phase);if(Fault==phase)throw new InvalidOperationException(phase);}
-        public bool Validate(BulkPurchaseQuote q,out string reason){reason="stale";After?.Invoke("validated");return Valid;}
+        public bool Validate(BulkPurchaseQuote q,out string reason){reason="stale";After?.Invoke("validated");return Valid&&!(RefuseHeld&&CommodityReservations.HeldByOther(q.Destination,q.Operation));}
         public void Debit(double amount){Fail("debit-before");Balance-=amount;Fail("debit-after");}
         public void Refund(double amount){Fail("refund-before");Balance+=amount;Fail("refund-after");}
         public double Deliver(BulkPurchaseQuote q){Fail("delivery-before");double amount=Math.Min(Limit,q.Quantity);Cargo+=amount;Fail("delivery-after");return Fault=="unknown-receipt"?double.NaN:amount;}

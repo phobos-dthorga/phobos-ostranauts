@@ -42,12 +42,11 @@ public sealed class VesselSupplyProvider : IBulkSupplyProvider
         var spec = Spec(c, offerId);
         return spec != null && NativeFluidRoute.EndpointReady(c) && !BulkVessel.Protected(c) && BulkVessel.Read(c, spec).CatchKg == 0;
     }
-    public string Revision(CondOwner c, BulkSupplyOffer offer)
-    {
-        var spec = Spec(c, offer.Id);
-        return (spec == null ? "none" : ConfigurationStamp.For(c, "PhobosState." + spec.Record, "PhobosMaterialPort.")) + ":" +
-            string.Join(";", c.objContainer?.ContainedCOs.Select(x => x.strID).OrderBy(x => x, StringComparer.Ordinal) ?? Enumerable.Empty<string>());
-    }
+    /// <summary>What a quote is bound to: the destination's family and form. Not its level (Framework 0.79.0): a store on
+    /// a line or feeding a running machine changes every few seconds, and binding the record refused every purchase into
+    /// one. Room is checked again at delivery, and anything that no longer fits is refunded.</summary>
+    public string Revision(CondOwner c, BulkSupplyOffer offer) => Destination(c, Spec(c, offer.Id));
+    internal static string Destination(CondOwner c, BulkVesselSpec? spec) => spec == null ? "none" : spec.Family + ":" + c.strCODef;
     public double Available(CondOwner c, BulkSupplyOffer offer)
     {
         var spec = Spec(c, offer.Id);
@@ -107,12 +106,9 @@ public sealed class VesselBuybackProvider : IBulkBuybackProvider
     public IEnumerable<CondOwner> Sources(Ship ship, BulkSupplyOffer offer) => ship == null ? Enumerable.Empty<CondOwner>() :
         ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == ship && Eligible(c, offer.Id) && Sellable(c, offer) > 0)
             .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
-    public string Revision(CondOwner c, BulkSupplyOffer offer)
-    {
-        var spec = Spec(c, offer.Id);
-        return (spec == null ? "none" : ConfigurationStamp.For(c, "PhobosState." + spec.Record, "PhobosMaterialPort.")) + ":" +
-            string.Join(";", c.objContainer?.ContainedCOs.Select(x => x.strID).OrderBy(x => x, StringComparer.Ordinal) ?? Enumerable.Empty<string>());
-    }
+    /// <summary>As for a purchase: the source's family and form, not its level. What may be sold is checked again at
+    /// withdrawal, and only what is withdrawn is paid.</summary>
+    public string Revision(CondOwner c, BulkSupplyOffer offer) => VesselSupplyProvider.Destination(c, Spec(c, offer.Id));
     /// <summary>The service contents above the store's reserve: a reserve set for the crew is never sold.</summary>
     public double Sellable(CondOwner c, BulkSupplyOffer offer)
     {

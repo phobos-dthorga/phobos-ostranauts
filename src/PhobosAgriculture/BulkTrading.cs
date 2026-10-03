@@ -23,14 +23,17 @@ internal sealed class AgricultureBulkSupplies : IBulkSupplyProvider
         }
     }
     public IEnumerable<CondOwner> Destinations(Ship ship,BulkSupplyOffer offer)=>ship.GetCOs(null,false,false,true).Where(c=>Eligible(c,offer.Id));
-    private static bool Eligible(CondOwner c,string offer)=>Phobos.Ostranauts.Framework.Liquids.NativeFluidRoute.EndpointReady(c)&&
-        (offer==CropNutrients?HopperService.Ready(c):
+    // The quote's own operation is passed while settling: its reservation of the hopper is not a reason to refuse it.
+    private static bool Eligible(CondOwner c,string offer,string? operation=null)=>Phobos.Ostranauts.Framework.Liquids.NativeFluidRoute.EndpointReady(c)&&
+        (offer==CropNutrients?HopperService.Ready(c,operation):
         offer=="agriculture.nutrients"&&IrrigationDefinitions.IsSupply(c)&&!Service.Get(c).Protected&&c.objContainer!=null&&!c.objContainer.Locked);
-    public string Revision(CondOwner c,BulkSupplyOffer offer)=>ConfigurationStamp.For(c,new[]{"PhobosState."+(Phobos.Ostranauts.Framework.Liquids.BulkVessels.Of(c)?.Record??"AgricultureBulk"),"PhobosMaterialPort."})+":"+
-        string.Join(";",c.objContainer?.ContainedCOs.Select(x=>x.strID).OrderBy(x=>x,StringComparer.Ordinal)??Enumerable.Empty<string>());
-    public double Available(CondOwner c,BulkSupplyOffer offer)
+    // A quote is bound to the destination's form, not its level or contents (Agriculture 0.39.0): room is checked again at
+    // delivery, and what does not fit is refunded.
+    public string Revision(CondOwner c,BulkSupplyOffer offer)=>c.strCODef;
+    public double Available(CondOwner c,BulkSupplyOffer offer)=>Room(c,offer,null);
+    private static double Room(CondOwner c,BulkSupplyOffer offer,string? operation)
     {
-        if(!Eligible(c,offer.Id))return 0;
+        if(!Eligible(c,offer.Id,operation))return 0;
         if(offer.Id==CropNutrients)return Phobos.Ostranauts.Framework.Liquids.BulkVessels.Of(c)!.CapacityKg-HopperService.Read(c).TotalKg;
         // The authored charge occupies one slot. This is only a read-only estimate;
         // the native acceptance and exact item bounds are checked again on delivery.
@@ -39,8 +42,8 @@ internal sealed class AgricultureBulkSupplies : IBulkSupplyProvider
     public bool Validate(CondOwner c,BulkPurchaseQuote q,out string reason)
     {
         reason=Text.Get("bulk_quote_changed");var offer=Offers.FirstOrDefault(o=>o.Id==q.Offer);
-        if(offer==null||!Eligible(c,q.Offer)||Revision(c,offer)!=q.Revision||q.UnitPrice!=offer.UnitPrice||q.Quantity>offer.Increment*offer.MaximumSteps||
-            Math.Abs(q.Quantity/offer.Increment-Math.Round(q.Quantity/offer.Increment))>1e-8||Available(c,offer)+1e-8<q.Quantity)return false;
+        if(offer==null||!Eligible(c,q.Offer,q.Operation)||Revision(c,offer)!=q.Revision||q.UnitPrice!=offer.UnitPrice||q.Quantity>offer.Increment*offer.MaximumSteps||
+            Math.Abs(q.Quantity/offer.Increment-Math.Round(q.Quantity/offer.Increment))>1e-8||Room(c,offer,q.Operation)+1e-8<q.Quantity)return false;
         return true;
     }
     public double Deliver(CondOwner c,BulkPurchaseQuote q)

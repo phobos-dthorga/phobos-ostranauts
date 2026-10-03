@@ -42,6 +42,9 @@ public static class CommodityReservations
 {
     private static readonly Dictionary<string,string> owners=new(StringComparer.Ordinal);
     public static bool Held(string endpoint)=>owners.ContainsKey(endpoint);
+    /// <summary>Held by an operation other than <paramref name="operation"/> (Framework 0.79.0). A settlement reserves its
+    /// destination and then checks it once more; that check must not count the settlement's own claim against it.</summary>
+    public static bool HeldByOther(string endpoint,string? operation)=>owners.TryGetValue(endpoint,out var owner)&&owner!=operation;
     public static bool TryAcquire(string operation,params string[] endpoints)
     {
         if(string.IsNullOrWhiteSpace(operation)||endpoints.Length==0)throw new ArgumentException("Missing reservation identity");

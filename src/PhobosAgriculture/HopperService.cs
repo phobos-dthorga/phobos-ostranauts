@@ -16,8 +16,11 @@ internal static class HopperService
     internal static bool Protected(CondOwner co) => BulkVessel.Protected(co);
     internal static StoredCommodity Read(CondOwner co) => BulkVessel.Read(co);
     /// <summary>Whether a hopper can dose now: intact, installed, ready, readable, no catch-chamber contents, not held.</summary>
-    internal static bool Ready(CondOwner hopper) => HopperDefinitions.IsHopper(hopper) && !hopper.HasCond("IsDamaged") && NativeFluidRoute.EndpointReady(hopper) &&
-        !Protected(hopper) && !CommodityReservations.Held(hopper.strID) && Read(hopper).CatchKg <= 1e-8;
+    internal static bool Ready(CondOwner hopper) => Ready(hopper, null);
+    /// <summary>As <see cref="Ready(CondOwner)"/>, not counting a reservation <paramref name="operation"/> holds itself: a station
+    /// purchase reserves the hopper and then checks it once more (Agriculture 0.39.0).</summary>
+    internal static bool Ready(CondOwner hopper, string? operation) => HopperDefinitions.IsHopper(hopper) && !hopper.HasCond("IsDamaged") && NativeFluidRoute.EndpointReady(hopper) &&
+        !Protected(hopper) && !CommodityReservations.HeldByOther(hopper.strID, operation) && Read(hopper).CatchKg <= 1e-8;
     internal static double Available(CondOwner hopper) => Ready(hopper) ? Read(hopper).AvailableKg : 0;
     /// <summary>Whether this hopper can dose this W2 now: same ship, within one tile, both ready, nutrients to give.</summary>
     internal static bool CanDose(CondOwner hopper, CondOwner w2) => hopper.ship != null && hopper.ship == w2.ship && Ready(hopper) && hopper.HasCond("IsInstalled") &&

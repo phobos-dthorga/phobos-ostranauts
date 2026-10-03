@@ -12,6 +12,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Gas stores and acid tanks show what they hold when you right-click them: hydrogen, methane, oxygen, nitrogen, carbon dioxide, ammonia and sulfuric acid, in kilograms, each in the game's own colour for that gas.
 
+### Fixed
+
+- Buying oxygen, nitrogen, carbon dioxide or acid at a station, or selling stored gas back, no longer fails with The destination or its available room changed when the store is on a line or feeding a machine (Framework 0.79.0).
+
 ### Save compatibility
 
 - Automatic. Stores in older saves show their contents once their ship has loaded.

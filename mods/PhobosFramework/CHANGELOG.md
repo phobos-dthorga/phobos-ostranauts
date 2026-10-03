@@ -29,6 +29,11 @@ Dates on Draft entries record preparation, not Steam publication.
 - Tanks show what they hold when you right-click them (owner request, 4 October 2026). Every Phobos tank, silo and store now shows its contents in kilograms on the game's own card, under Wear, the way a Ship's Water tank shows its water. The figure follows filling and draining while the card is open. Contents a damaged vessel trapped in its catch chamber show on a separate Trapped row until recovered.
 - VesselContentsDisplay: content mods declare how their stored commodity reads on the card (its name and one of the game's colours). Framework declares water for the Rivetline water tanks.
 
+### Fixed
+
+- Station bulk purchases and sales no longer fail with The destination or its available room changed. A quote was tied to the tank's exact contents, so any tank on a line, or one a running machine draws from, changed between choosing the quantity and pressing Buy, and the purchase was refused every time. A quote now names the tank; room is checked again on delivery, and anything that no longer fits is refunded, as before.
+- CommodityReservations.HeldByOther: a purchase reserves its tank before checking it a last time, and that check no longer counts the purchase's own reservation against it.
+
 ### Save compatibility
 
 - Automatic. Vessels in older saves show their rows once their ship has loaded. The rows only mirror the saved record; the record, its journals and the vessel's mass are unchanged.

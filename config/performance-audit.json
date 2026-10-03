@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-04",
-  "baselineCommit": "bbb06015969347778697f4436638a5457343eb18",
+  "baselineCommit": "42eae36a1c17e4e87ab0e4410052bda59628826b",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -113,7 +113,7 @@
     },
     {
       "path": "src/PhobosAgriculture/BulkTrading.cs",
-      "sha256": "484702265de41c9de941f3f4963e5bcd13529d6e1be88a05a19c50922251b81d",
+      "sha256": "4897957523bbb11813c17776ab790e773988f1c0f939e9f1a0f42768c662adf9",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -128,11 +128,11 @@
           25
         ],
         "collection": [
-          25,
-          30
+          25
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Core/Crop.cs",
@@ -366,7 +366,7 @@
     },
     {
       "path": "src/PhobosAgriculture/HopperService.cs",
-      "sha256": "2a59380fd5a6ad7b211aab08b07f42b4e7d50f874611559bb0b293980cdccbb3",
+      "sha256": "fc225eb42521fe75c31dafe210f6ee8c7b142e1b063a720ed1f15a5ff5809ab5",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
@@ -375,14 +375,15 @@
       ],
       "indicators": {
         "collection": [
-          28,
-          29
+          31,
+          32
         ],
         "persistence_or_io": [
-          62
+          65
         ]
       },
-      "reviewed": "2026-09-30"
+      "reviewed": "2026-09-30",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/IrrigationDefinitions.cs",
@@ -4698,7 +4699,7 @@
     },
     {
       "path": "src/PhobosFramework/Liquids/StoredCommodity.cs",
-      "sha256": "d6a2a5b3615252e2f6b5f833b36503f2679d6744e0428010e6d35d888390d056",
+      "sha256": "c80747d7489be0326d7f90c0330e528441fb6175f209b10a4cd2397f87acd8c9",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -4708,10 +4709,11 @@
       ],
       "indicators": {
         "collection": [
-          52
+          55
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosFramework/Liquids/VesselContentsDisplay.cs",
@@ -6036,7 +6038,7 @@
     },
     {
       "path": "src/PhobosFramework/Trading/VesselSupplyProvider.cs",
-      "sha256": "dce239dc35817e251bfe16474ca54acd1722679763c53959891be3f9ab02181c",
+      "sha256": "c6a468518c314879c5de240a42febac015f20eb4b672e928124862a74831b951",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -6050,20 +6052,19 @@
           29,
           30,
           39,
-          49,
+          92,
           93,
           94,
-          95,
-          108,
-          109,
-          114
+          107,
+          108
         ],
         "discovery": [
           39,
-          108
+          107
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosFramework/Units.cs",

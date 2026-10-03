@@ -12,6 +12,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Nutrient hoppers show the crop nutrients they hold when you right-click them, in kilograms.
 
+### Fixed
+
+- Buying crop nutrients into a Groundwork hopper at a station works. Every purchase failed with The destination or available capacity changed, because the purchase reserved the hopper and then refused it for being reserved. A quote for a hopper or W2 is also no longer voided by the hopper's level or the W2's inventory changing; room is checked again on delivery, and what does not fit is refunded.
+
 ### Save compatibility
 
 - Automatic. Hoppers in older saves show their contents once their ship has loaded.

@@ -55545,8 +55545,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8443c2dc9bc63b6eb19073998d1cb78fc16c1adbe6d9aa11d53291084c5c96d9",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "a0fdefd7b64f3c5914e60a668b40a75ea1b7a1da6c26901dea817c4f0fdce2ab",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0 and Agriculture 0.39.0: station bulk purchases no longer fail with a stale quote."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -56412,8 +56412,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cf4001480e8e8552375d091bb6acbb472fade7d3eb960a7ca51617040a736612",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "cc7895e2f1132bda9df39869a9268124f168e33d0b59eb6b0c7a98a176e8f0c6",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0 and Agriculture 0.39.0: station bulk purchases no longer fail with a stale quote."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56489,8 +56489,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "1ac18f304881bb98ad226a7f91a86fd5569aca84a11ba032d8cfb2adf46fe5e9",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "e5f847fc00b894836f5f6555373bb685dff9baa775fa895e3b1fb2983dbd1709",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0 and Agriculture 0.39.0: station bulk purchases no longer fail with a stale quote."
     },
     {
       "path": "docs/manufacturing-player-guide.md",

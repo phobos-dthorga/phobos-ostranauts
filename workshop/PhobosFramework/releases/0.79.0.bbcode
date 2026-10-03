@@ -8,6 +8,13 @@
 [*]VesselContentsDisplay: content mods declare how their stored commodity reads on the card (its name and one of the game's colours). Framework declares water for the Rivetline water tanks.
 [/list]
 
+[h2]Fixed[/h2]
+
+[list]
+[*]Station bulk purchases and sales no longer fail with The destination or its available room changed. A quote was tied to the tank's exact contents, so any tank on a line, or one a running machine draws from, changed between choosing the quantity and pressing Buy, and the purchase was refused every time. A quote now names the tank; room is checked again on delivery, and anything that no longer fits is refunded, as before.
+[*]CommodityReservations.HeldByOther: a purchase reserves its tank before checking it a last time, and that check no longer counts the purchase's own reservation against it.
+[/list]
+
 [h2]Save compatibility[/h2]
 
 [list]
