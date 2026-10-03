@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.36.0] - 2026-10-04 - Draft
+
+### Added
+
+- Gas stores and acid tanks show what they hold when you right-click them: hydrogen, methane, oxygen, nitrogen, carbon dioxide, ammonia and sulfuric acid, in kilograms, each in the game's own colour for that gas.
+
+### Save compatibility
+
+- Automatic. Stores in older saves show their contents once their ship has loaded.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+
 ## [0.35.0] - 2026-10-04 - Draft
 
 ### Changed

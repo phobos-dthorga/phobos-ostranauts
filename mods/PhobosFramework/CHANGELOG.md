@@ -22,6 +22,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.79.0] - 2026-10-04 - Draft
+
+### Added
+
+- Tanks show what they hold when you right-click them (owner request, 4 October 2026). Every Phobos tank, silo and store now shows its contents in kilograms on the game's own card, under Wear, the way a Ship's Water tank shows its water. The figure follows filling and draining while the card is open. Contents a damaged vessel trapped in its catch chamber show on a separate Trapped row until recovered.
+- VesselContentsDisplay: content mods declare how their stored commodity reads on the card (its name and one of the game's colours). Framework declares water for the Rivetline water tanks.
+
+### Save compatibility
+
+- Automatic. Vessels in older saves show their rows once their ship has loaded. The rows only mirror the saved record; the record, its journals and the vessel's mass are unchanged.
+
+### Compatibility and limits
+
+- An empty vessel shows no row, as an empty Ship's Water tank shows none. A vessel whose records need checking shows nothing on the card; its panel says why. Checked offline; not yet seen in the game.
+
 ## [0.78.0] - 2026-10-04 - Draft
 
 ### Added

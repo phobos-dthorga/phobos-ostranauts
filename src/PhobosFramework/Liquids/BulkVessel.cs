@@ -178,6 +178,7 @@ public static class BulkVessel
         if (state.Commodity != spec.Commodity) throw new InvalidOperationException("Wrong commodity for this vessel.");
         if (!Store(co, spec).TryWrite(state.Save())) throw new InvalidOperationException("Protected bulk vessel save.");
         co.AddMass(ExpectedMassKg(spec, state, Cargo(co)) - co.GetCondAmount("StatMass"), true);
+        VesselContentsDisplay.Refresh(co, spec, state);
     }
     public static bool Protected(CondOwner co)
     {

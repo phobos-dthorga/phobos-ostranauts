@@ -247,6 +247,7 @@
   "hopper_details": "Holds {0:F0} kg of dry crop nutrients in a passive {1} x {1} hopper, {2:F0} kg empty. Fill it at a station's refuelling kiosk under Bulk supplies; a W2 within one tile doses from it while mixing once you pick it as the W2's nutrient source. Damage traps the nutrients in a catch chamber: repair it, then recover them. Bag the nutrients before moving or dismantling it.",
   "hopper_desc": "A Groundwork nutrient hopper keeps formulated crop nutrients by the kilogram. A W2 within one tile doses from it; pick the hopper as the W2's nutrient source on the W2's Supplies page.",
   "hopper_status": "Nutrients ready: {0:F2} kg | Trapped: {1:F2} kg\nCapacity: {2:F0} kg",
+  "hopper_contents": "Crop nutrients",
   "hopper_catch_wait": "Repair the hopper, then recover the trapped nutrients before it can dose or be filled.",
   "hopper-recover": "Recover trapped nutrients after repair",
   "hopper-bag": "Bag up to 500 g as a bulk nutrient charge",

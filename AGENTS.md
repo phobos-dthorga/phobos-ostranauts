@@ -1222,6 +1222,13 @@
 - Shipbreaker owns the S3 process water silo (3 x 3, 1,000 kg, 240 kg dry, `PhobosProcessSilo*`) and the T2 ice thaw unit (2 x 2, `PhobosIceThaw*`, exact `ItmIce01` 24.7 kg into 22.7 kg water plus the native 2 kg gangue, 6 kW for 40 minutes, 525 kJ/kg authored with NIST fusion attribution, 15% room heat under the R4 rule, no hold vessel: a block finishes only when the linked vessel has room). Pairing is `PortPairing` between `PhobosShipbreaker.ThawOut` and `PhobosShipbreaker.VesselIn` on any registered water vessel within one tile (Chebyshev rule in `ThawRules.Adjacent`). Agriculture's R3 re-points onto the same service with its existing record names; a T2 may deliver into it.
 - Ship's Water stays reclaim-not-join: `ShipsWaterSupply.Refill` draws above a crew reserve, `DepositWaste` fills their waste tanks up to the capacity their own public configuration declares (reflection on `ShipsWater.Plugin`, 0.16.1 pin), never their potable tanks or kiosk row. Station purchase goes through `Trading.VesselSupplyProvider` and the existing Bulk supplies view.
 - Artwork for the S3, T2, both ingots and the steel melt remainder was produced with PixelLab on 29 September 2026 (Shipbreaker 0.38.1) through `docs/development/bulk-silo-art-handoff.md`; the placeholders and their exporter are retired. The selected masters live in `assets/artwork-completion` with requests in `bulk-silo-requests.json`; the S3 and T2 are full-footprint masters (opaque edge to edge) whose world sprite is also the portrait, and the steel ingot is a recorded luminance recolour of the aluminium ingot. Revise them through the existing artwork and provenance rules; never reintroduce placeholder masters as reviewed art.
+- Owner request (2026-10-04), Framework 0.79.0: every bulk vessel shows its contents on
+  the game's right-click card, as Ship's Water's tanks do. `VesselContentsDisplay` keeps
+  one display-only `StatPhobosVessel<Name>` condition per commodity (plus a shared
+  Trapped row), written from the record by `BulkVessel.Save` and once per ship after
+  loading; nothing reads it back. A new vessel commodity declares its row with
+  `VesselContentsDisplay.Declare` beside `BulkVessels.Register`; the native checks
+  refuse an undeclared one.
 - Owner decision (2026-09-29, economy coverage audit): the S3, T2 and Agriculture R3 stay **purchase-only**. Construction of anything beyond semi-advanced equipment waits for Phobos Manufacturing to decide where and when it belongs; do not add ingot- or section-based recipes for them before then. Keep every machine family's merchant, loot, repair, Restore and dismantle coverage at parity with its siblings, checked natively (`docs/development/economy-coverage-audit.md`).
 
 ## Realistic chemistry and hazards (2026-09-29)

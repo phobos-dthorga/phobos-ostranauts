@@ -82,7 +82,8 @@ W2 can mix for many cohorts without a crew member swapping charges.
 3. Pause the W2, open its Supplies page and pick the hopper as its nutrient source
    (the same field as a charge in its inventory). Resume. While mixing, the W2
    takes only what each step needs, through the same guarded transfer it uses for
-   water, and the panel shows how much the hopper still holds.
+   water, and the panel shows how much the hopper still holds. Right-clicking
+   the hopper shows it on its card too.
 
 A damaged hopper traps its nutrients in a catch chamber: nothing leaks, but it
 cannot dose or be filled until it is repaired and a crew member chooses

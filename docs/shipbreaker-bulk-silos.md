@@ -142,6 +142,7 @@ own odds for new rolls.
 
 Water reaches the silo three ways and leaves it by the links you choose. Ice
 gives water and a little gangue; nothing else is made or lost on the way.
+Right-click a silo to see the water it holds, in kilograms, on its card.
 
 ```mermaid
 flowchart LR

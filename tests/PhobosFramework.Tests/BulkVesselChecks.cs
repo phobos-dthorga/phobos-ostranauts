@@ -74,5 +74,21 @@ internal static class BulkVesselChecks
         Reject(() => new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "o", "a", "b", "c", VesselDamagePolicy.Isolate, 2), "An isolating vessel declares no rate");
         Reject(() => new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "o", "a", "b", "c", VesselDamagePolicy.Leak, double.NaN), "An invalid rate is refused");
         Reject(() => tank.LeakKg(-1, 24), "A negative interval is refused");
+
+        // Framework 0.79.0: the right-click card shows the record, never the other way round.
+        check(VesselContentsDisplay.ConditionName("water") == "StatPhobosVesselWater" && VesselContentsDisplay.ConditionName("carbon dioxide") == "StatPhobosVesselCarbonDioxide" &&
+              VesselContentsDisplay.ConditionName("sulfuric acid") == "StatPhobosVesselSulfuricAcid" && VesselContentsDisplay.ConditionName("crop nutrients") == "StatPhobosVesselCropNutrients",
+            "Each commodity's row is Phobos' own condition, named in title case");
+        Reject(() => VesselContentsDisplay.ConditionName(" "), "A row needs a commodity");
+        Reject(() => VesselContentsDisplay.ConditionName("--"), "A row needs a commodity with a letter or digit");
+        var record = new StoredCommodity("water", 1000);
+        check(VesselContentsDisplay.Rows(record) == (0, 0), "An empty vessel shows no row: the game removes a condition at zero");
+        record.SetService(640);
+        check(VesselContentsDisplay.Rows(record) == (640, 0), "A vessel in service shows its contents and no trapped row");
+        record.Contain(140);
+        check(VesselContentsDisplay.Rows(record) == (500, 140), "A spill held in the catch chamber shows on the trapped row");
+        record.Isolate();
+        check(VesselContentsDisplay.Rows(record) == (0, 640), "A damaged isolating vessel shows everything as trapped until it is recovered");
+        check(VesselContentsDisplay.Rows(null) == (0, 0), "An unreadable record shows nothing; the vessel's panel says why");
     }
 }

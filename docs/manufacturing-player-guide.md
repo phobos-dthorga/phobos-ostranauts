@@ -517,6 +517,7 @@ ammonia.
 | Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), an LC-3 making struvite or crop nutrients, the RCS through a P1 |
 
 Each store's panel shows the kilograms held and every machine linked to it.
+Right-clicking a store shows the kilograms held on its card too.
 
 - **Vent overboard** (or `vent <id> <kg>` on the console) discharges gas.
 - **Pour into** moves everything that fits into another store of the same gas,

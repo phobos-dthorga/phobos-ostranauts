@@ -903,3 +903,14 @@ seconds), and only with a setting on; it reads two saved switches, and with haul
 makes one `GetCOs` pass over the moored ship to find what dropped within two tiles.
 `NativeJobs.HasStockpile` is read when a setting is switched on and once per Start when
 jobs are queued with no zone. No capture accompanies this change.
+
+## 4 October: vessel contents on the card (L24)
+
+L24 — Framework 0.79.0 with Manufacturing 0.36.0 and Agriculture 0.39.0: bulk vessels
+show their contents on the right-click card. `BulkVessel.Save` now ends with
+`VesselContentsDisplay.Refresh`, two `GetCondAmount` reads and a `SetCondAmount` only
+when a figure changed, so a line topping up a full store every two seconds writes
+nothing. `VesselContentsDisplay.Poll` runs on a five-second cadence and sweeps each
+loaded ship once (`GetCOs` plus one registry probe per object), then never again until
+the next load. The game's own card re-reads the row twice a second while open. No
+capture accompanies this change.

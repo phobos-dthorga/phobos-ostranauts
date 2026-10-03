@@ -55,6 +55,8 @@ internal static class HopperDefinitions
     internal static void Add(NativeDefinitions d)
     {
         foreach (var size in Sizes) BulkVessels.Register(size.Spec);
+        // What a hopper holds, on the game's right-click card (Framework 0.79.0).
+        VesselContentsDisplay.Declare(d, HopperRules.Commodity, Text.Get("hopper_contents"), "Goodish");
         foreach (string action in Work)
         {
             var work = NativeDefinitions.Clone(d.Interactions[BulkDefinitions.Controls]); work.strName = WorkId(action); work.strTitle = work.strTooltip = Text.Get(action);

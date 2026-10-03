@@ -21,6 +21,11 @@ internal static class Definitions
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold",
         FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
+    /// <summary>The game's named colour for each stored gas's contents row; hydrogen, which the game has no gas for, takes its cryogenic blue.</summary>
+    internal static readonly IReadOnlyDictionary<string, string> ContentsColors = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        ["H2"] = "CryoBlue", ["CH4"] = "CH4BlueGreen", ["O2"] = "O2Green", ["N2"] = "N2Blue", ["CO2"] = "CO2White", ["NH3"] = "NH3Beige"
+    };
     internal static void Add(NativeDefinitions d)
     {
         foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Filling, ManufacturingRules.Content })
@@ -40,6 +45,11 @@ internal static class Definitions
         // Every size of every liquid store (Manufacturing 0.19.0); each size's art is named after its own definition prefix.
         foreach (var store in LiquidStores.All)
             AddLiquidStore(d, store);
+        // What each store holds, on the game's right-click card (Framework 0.79.0), in the game's own gas tints.
+        foreach (var family in GasStores.Families)
+            VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), ContentsColors[family.Species]);
+        foreach (var family in LiquidStores.Families)
+            VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), "H2SO4Yellow");
         AddManifold(d);
         AddFiller(d);
         AddRegulator(d);

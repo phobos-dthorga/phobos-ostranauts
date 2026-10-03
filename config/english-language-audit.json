@@ -53347,6 +53347,19 @@
       "after": "{0}: its rack is full. Take something out of its inventory, then try again."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "hopper_contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the crop nutrients a hopper holds.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/HopperDefinitions.cs:59"
+      ],
+      "before": "Crop nutrients",
+      "after": "Crop nutrients"
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -55009,6 +55022,71 @@
       "after": "Waiting: the room's air readings are not usable yet. Nothing is drawn while it waits."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "VesselContentsDisplay.water",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for water held in a Rivetline tank.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/FrameworkItems.cs:34"
+      ],
+      "before": "Water",
+      "after": "Water"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselContentsDisplay.desc",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Card row hover text: what the figure is and its unit.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/VesselContentsDisplay.cs:67"
+      ],
+      "before": "{0} in [us], in kilograms.",
+      "after": "{0} in [us], in kilograms."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselContentsDisplay.trapped",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for contents held in a damaged vessel; matches the panels and Recover trapped water.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/VesselContentsDisplay.cs:73"
+      ],
+      "before": "Trapped",
+      "after": "Trapped"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselContentsDisplay.trapped_desc",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Card row hover text: what happened and how to get the contents back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/VesselContentsDisplay.cs:73"
+      ],
+      "before": "What [us] trapped in its catch chamber when it was damaged, in kilograms. Repair it, then recover the contents from its panel.",
+      "after": "What [us] trapped in its catch chamber when it was damaged, in kilograms. Repair it, then recover the contents from its panel."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "VesselContentsDisplay.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line: the card could not be updated and the contents are unaffected.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/VesselContentsDisplay.cs:119"
+      ],
+      "before": "Phobos Framework could not show a tank's contents on its card ({0}). The contents themselves are unaffected.",
+      "after": "Phobos Framework could not show a tank's contents on its card ({0}). The contents themselves are unaffected."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.nickel-steel",
       "category": "name",
@@ -55334,6 +55412,104 @@
       ],
       "before": "{0:F2} kPa",
       "after": "{0:F2} kPa"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the hydrogen a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Hydrogen",
+      "after": "Hydrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the methane a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Methane",
+      "after": "Methane"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the oxygen a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Oxygen",
+      "after": "Oxygen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the nitrogen a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Nitrogen",
+      "after": "Nitrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the carbon dioxide a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Carbon dioxide",
+      "after": "Carbon dioxide"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ammonia.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the ammonia a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Ammonia",
+      "after": "Ammonia"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Acid.contents",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Card row name for the sulfuric acid a store holds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:50",
+        "src/PhobosManufacturing/Definitions.cs:52"
+      ],
+      "before": "Sulfuric acid",
+      "after": "Sulfuric acid"
     }
   ],
   "documents": [
@@ -55341,8 +55517,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2eb79dfbce62bfca1a053d63886e1eca55599df66512155e48a186a0cfd8a21e",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "ad4a6db1e93968efa5e1eebf3632cd269e8d69319f807c5d78ea3ae4ab3b6f27",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "SUPPORT.md",
@@ -55362,8 +55538,8 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "24c272065468c45f0170fdbe89b91523c6de4402ff4216eb1452d64156a762be",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "6ea8ac819ce7679697e7d78987a2dbcad5f04cc2686f1572ba6ad4df698c0deb",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/agriculture-item-reference.md",
@@ -55501,8 +55677,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "196866df3c70fd5a6b659b0268d7387bf84c492f3b97365d6e62ffd86829415c",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "df99624f622b73bca1ec654c0117b5dd247a1233ee1d3ccd3fdc720012118815",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/crew-automation.md",
@@ -56024,8 +56200,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "14b11ec08d174c935e733c29da1eba7e75b978ae0a7517c7dce3f2098533deb7",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "c8653dbe695d5f98dcab18cd19ab6a581cc447186d7e7a3f5d68b91beb13177c",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56201,8 +56377,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "e071b7b3131c433ad41a64a8676b766316faa6b38518b8b270e525c2f19dff10",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "48e9127123259fc93fa2b5fc90ec51f096e7ac96b0b7da1218b168ac44fb093a",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -56299,8 +56475,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6d489e27e28bafad7380a7db0197e9975c908825e5775de6d0c2a40480ee9e7a",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "98d336f652d1dafd283d033dc184f153437b81032bb3b661b7518d51f7539ce2",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/item-references.md",
@@ -56320,8 +56496,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "a8d5f057f20b9191eb41c4fd1b3c591846d021a0184108680b6b2b29eca5dd2b",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "3fb526f0f7b2094d349e74afe48e761463ce75f4539dc5adeddf82f6ecc0bf8d",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -56341,8 +56517,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d23c154fab8480a04189270843d99e060b31a43a55616c6493ecae89e82911d4",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "f641d7fdac6963d63cca44685a10ea99882d65c2c7b2c1668093ce79dc314eb5",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56376,8 +56552,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "71b0cd1579513f0b9120afdff16b38c1c9bba79ad58455e9a4c08618e40b4cd0",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "7f844e51ab3eecabde0079a1a09b7b0118a32180c34626fe773a9f5773fb8d31",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -56418,8 +56594,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "28a9d3ad06812e42dc90910c4bb0f629789ed6db8cc7ed921cd54fd4ff093b52",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
+      "sha256": "20ec88a9b6ec822da67a1c52dad742ddd60f968e86f7b941c7d564d914da3dab",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -56432,15 +56608,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c989c5fb5a5298c0d1f1be9da26c7f0ba7f491e6f4be58dc1818267710b86ba9",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "0e94e2a71ed1e8ca07672a6735d9dfd6ed6a4ac74bd6b131341415d59606157f",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "af32e22b9d478203a0dd76017656891a9ddc81d004d1ddc543c5c92bada21753",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "b2dfb987d8f2824f0be1fa007fb3d0361b448c3efbf24a07fb416694007b91c2",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -56590,8 +56766,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b7c8cb49a4eab827a3ccc6b77a555e38e1f795c620f3f299bebba5f2e944467e",
-      "review": "Reviewed 1 October 2026 with the first static performance round (Framework 0.72.0): changelog and performance-record wording only."
+      "sha256": "7ab4ac7b1a0dde7a789d1c966953d6934bfa6a287ea55cfca61049eed2d7deca",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -56623,14 +56799,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f38cecd8adf5008bf882ac57e9f9180090f5bc57d16edc2612f6f525c7c89cb3",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "15feff0fc630f83bff5aeb85be78a23fc3dd2e5c5f7c5eb76591519dbe887f29",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0630c5c35b55ebc4b073287a009e4f435c7801a389976bbfe5bb909a6b4f4386",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "a8330041b89743b1eeed0ed132496a043fe58eacd46b31cd3b6ff6cbb28bc7b2",
+      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

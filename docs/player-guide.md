@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.78.0**, Shipbreaker **0.71.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.79.0**, Shipbreaker **0.71.0**, Auto Nav
 **0.32.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -83,6 +83,16 @@ no wall behind it, run conduit along that row. Exceptions: the F6 furnace keeps 
 two front power points; the G4 grabber and ML-2 laser, mounted outside the hull,
 take power from the wall row on the hull side; the C2 collector, set into the wall,
 from its own tiles.
+
+## What a tank holds
+
+Right-click any Phobos tank, silo, gas store, acid tank or nutrient hopper: the
+card shows what it holds in kilograms, under Wear, as a Ship's Water tank shows
+its water (Framework 0.79.0). The figure follows filling and draining while the
+card is open. An empty vessel shows no row. A damaged vessel that trapped its
+contents in its catch chamber shows them on a separate **Trapped** row until you
+repair it and recover them. A vessel whose records need checking shows nothing
+on the card; open its panel to see why.
 
 ## Install the connected Shipbreaker
 

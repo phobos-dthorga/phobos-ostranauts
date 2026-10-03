@@ -47,6 +47,7 @@ public static class FrameworkLifecycle
         Persistence.LegacyItemConversions.Reset();
         Registration.EquipmentInventory.Reset();
         Persistence.ContainerFit.Reset();
+        Liquids.VesselContentsDisplay.Reset();
         Construction.NativeFloors.Reset();
         Inventory.StackUnits.Reset();
         Registration.LineJoints.Reset();

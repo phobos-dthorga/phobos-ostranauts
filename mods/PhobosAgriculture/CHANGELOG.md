@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-10-04 - Draft
+
+### Added
+
+- Nutrient hoppers show the crop nutrients they hold when you right-click them, in kilograms.
+
+### Save compatibility
+
+- Automatic. Hoppers in older saves show their contents once their ship has loaded.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+
 ## [0.38.0] - 2026-10-01 - Draft
 
 ### Changed

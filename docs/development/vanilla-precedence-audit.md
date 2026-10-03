@@ -409,3 +409,15 @@ queued through `WorkManager.AddTask` with the PDA's task names) instead of a Pho
 hauling order across ships. No native definition is amended; duties, tools, haul zones,
 pathing and the ore reward stay the game's. `LaserNativeChecks` holds the game data the
 jobs rest on.
+
+## Vessel contents on the card (Framework 0.79.0, 4 October 2026)
+
+Owner request: tanks and silos show their contents on right-click, as Ship's Water's
+tanks do. The game's card draws any condition whose definition has `nDisplayType 1`
+(its number module, re-read twice a second), so each commodity gets one
+`StatPhobosVessel<Name>` condition of that kind, plus a shared `StatPhobosVesselTrapped`
+for catch-chamber contents. `BulkVessel.Save` writes them from the record, and a
+once-per-ship pass after loading does so for older saves. They are display mirrors:
+the kilogram record stays the only truth (bulk-silo direction: no native stat that a
+kiosk could fill by tag), nothing reads them back, and the names are Phobos' own.
+`VesselContentsNativeChecks` holds every registered commodity to a declared row.

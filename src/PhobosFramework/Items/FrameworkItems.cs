@@ -29,6 +29,9 @@ public static class FrameworkItems
             Text.Get("MaintenanceDefinitions.spent_service_parts_kg"), Text.Get("LegacyItemConversions.spent_parts_reason"));
         // The water tank ladder (Framework 0.58.0): definitions, ports, economy, merchant offers and world finds.
         WaterTanks.Add(d);
+        // Contents on the right-click card (Framework 0.79.0): the shared held-back row and the water row.
+        Liquids.VesselContentsDisplay.AddTrapped(d);
+        Liquids.VesselContentsDisplay.Declare(d, Liquids.LineCommodities.Water, Text.Get("VesselContentsDisplay.water"), "N2Blue");
         TankEconomy.Apply(d);
         var sales = TankEconomy.Sales;
         EconomyStock.ApplyRegional(d, ItemEconomy.Pack, "Framework", sales);

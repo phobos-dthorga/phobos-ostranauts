@@ -1,5 +1,5 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.35.0
+[b]Version:[/b] 0.36.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock, oxygen and fertiliser, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
@@ -22,13 +22,13 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [h2]Getting started[/h2]
 [list]
 [*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at K-Leg, Venus, San Diego's Halvorson and regional supply kiosks, for scrip at CCRE and GalCon faction kiosks (Friendly or Trusted), or find one in engineering salvage. They install from INSTALL > APPS; none can be built.
-[*]A machine links to a store that touches it or shares its line: Framework's water or gas line, or the Lixivar acid line (INSTALL > HVAC; a line joins what it runs under or beside). One store serves several machines. Water work needs a Rivetline water silo. Lines hold their contents: drain one into a canister before taking it up.
+[*]A machine links to a store that touches it or shares its line: Framework's water or gas line, or the Lixivar acid line (INSTALL > HVAC; a line joins what it runs under or beside). One store serves several machines. Water work needs a Rivetline water silo. Lines hold their contents: drain one before taking it up.
 [*]Right-click a machine and choose Control Panel. Link its vessel, store or canister under Connections, choose the LC-3's recipe, load one charge into the feed window, then choose Start.
 [/list]
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.77.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.79.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [*]Optional: Phobos Agriculture (makeup salts; 0.27.0 or newer for crop nutrients).
 [/list]
@@ -38,15 +38,15 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
 [*]Subscribe to Phobos Manufacturing and the Phobos items listed under Required items.
 [*]Start Ostranauts once so the loader copies the plugins, then restart it. Repeat after each update.
-[*]Check that the mods are enabled in the MODS screen.
+[*]Check the mods are enabled in the MODS screen.
 [*]Used the repository's local installer before? Remove those copies first so only one loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
 [/list]
 
 [h2]Saves and limits[/h2]
 [list]
-[*]Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops.
+[*]Ordinary saves are supported. Keep required mods installed while a save uses them. Updating does not refill existing shops.
 [*]Working machines pause after a reload until Start, keeping charge and progress.
-[*]Stored gases are kilogram records. Empty a store before removing it.
+[*]Stored gases are kilogram records; right-click a store to see them. Empty a store before removing it.
 [*]A damaged hydrogen store leaks to space and, with oxygen and a spark, fire or working refinery, burns through the game's own explosion. A damaged methane store leaks into the room and burns to CO2; a damaged ammonia store leaks poison; a damaged K2 or AX-2 dumps its gas; a damaged acid tank or acid line mists a little acid into the room. Extra cabin oxygen raises the fire risk.
 [*]A metal melt left waiting for a cool room too long freezes into slag. No crew loading orders yet.
 [*]Automated checks pass; in-game checks pending.
