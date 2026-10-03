@@ -55210,8 +55210,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "59e5acfe5f04bf423bf659db93f8ddb704432b1daa8b582e156e9195d45a5edc",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "a8c09636e61ef59f7bad279761dc20ba7af7aeead0ab9f4b2762439b86e2fd5a",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "SUPPORT.md",
@@ -55370,8 +55370,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "29f3ea029f53c70df4bc9aa0eb882969c6ab8f27175d40803c89bef9637a076b",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "b434dc025ebe6e1a8b3b5a0655140faa808d43f95920a5b8ec509bba3d821e73",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/crew-automation.md",
@@ -56070,8 +56070,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "fb4ab45be125d95e2ccda8f65d2e6523e838a68cf0a171cb13d66344371a2d95",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "fe99ce8f440f0a1b018473d3b4b5a23bdcd18aa416e3f4ac8187ca7d4b17e516",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -56105,8 +56105,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a0eab17b4e14792bf7b6ac759eae7c99e6c1a15dc9e1a9c14522e747920ae4b2",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "136cb7f70df0b6b348edaae6881a7bd2c3ccb4c10873949e196f01449b3e2ed7",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56161,15 +56161,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "724ed5d51197de442acf05d579eee5ed254b6a960fb02016b1722ec1d6e0a66e",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "f5b7a16409b35a6431cfd96630d3b0eb4a4af3280f3bb031c13494a6e3b847b9",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7e805065d5fbbb90b01d870458c37542dc558453101eef30eafb5e61ce50d334",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "aceaa8ed80f89d20dc3706ce8d01ae23964ac1c4f475b2e6022edd271b8a04d9",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/item-references.md",
@@ -56182,15 +56182,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "96d9b8412f6623fbd63248cecaf12cdf02c16e239b39bcbea55a2dc8ca2065d3",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "1ac18f304881bb98ad226a7f91a86fd5569aca84a11ba032d8cfb2adf46fe5e9",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "5b12fdf8b708900830ca2cd7a20e8ee9c657e5b34e74b78322d9907630d1d178",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "a8d5f057f20b9191eb41c4fd1b3c591846d021a0184108680b6b2b29eca5dd2b",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -56210,8 +56210,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6469a19ccb1e9358feb44fe1fb4e9308f0d2d330d754df91a6b395b2da585228",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "d552e01f120dca61dab3f9682cc3efed95078d22737b34c688518ae803cdeab8",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56259,8 +56259,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1d7931197f74570fd39d38e79fb3a93af1809ecafd9459d1929df0bcf52f21ee",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "32154255e1b4324bffa4d87b607ceba1c3535bb611841ec76ed543db1a6a18fa",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56301,22 +56301,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2b2eb118deb692dfbc697cae51ea99d15d5d160d2c6b2873be8058d1f69f4610",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "357d0d1a74b43591785e8d7d71f6d8d8c35937839b29651c16fa947d70d2f322",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ac6896a93155b567bb0b41ba906d57d2e3bd7c90e1fcd8fbfeab7b5fb9298458",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "af32e22b9d478203a0dd76017656891a9ddc81d004d1ddc543c5c92bada21753",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "79bd7b5dc9ab41e5f0b8a1c296184cde316981ab5ed1a5f5c784ece97e2b532b",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "2683c8fdbbcfdb0ef006205081005afdb90e0ab53e07280d61e5d7a970125538",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56492,14 +56492,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "52edb01df7e04f07c88bf43a43d19eba207e3a7c4af1ffe65ac1a2a7319ad162",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "1f9f21e1ed2494f4c0f56c862e3787e41ea05a9bddf0e6000c0dd43ee1cc5eae",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "23f6dc20b1f69134136fdb936a73558fb0a74e02be3d952748a279769bd3bfbc",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "0630c5c35b55ebc4b073287a009e4f435c7801a389976bbfe5bb909a6b4f4386",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -56516,8 +56516,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1e27da0681a905f23bc6bfd61b8545170f0b69efdda9d455e082e1014d48f684",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "e743ebb2499e14cd80f793b3e26670d47b0bcee3d2f168269b9279ae31bb0fb9",
+      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

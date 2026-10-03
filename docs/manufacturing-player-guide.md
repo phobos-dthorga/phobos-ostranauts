@@ -228,7 +228,8 @@ exception is the station refuelling kiosk's Bulk supplies view.
 
 ## Set up
 
-1. Install the V4 on intact floor and connect both power points. Give it a
+1. Install the V4 on intact floor and connect both power points, which sit in
+   the row behind it (see [where machines take power](player-guide.md#where-machines-take-power)). Give it a
    room with a scrubber if you will roast carbon ore or bake salt crust.
 2. For the water charges, install a water vessel within one tile of the V4, or
    lay process-water line so it runs under or beside both: a Shipbreaker S3 to S5

@@ -785,6 +785,12 @@
   hook (`MaintenanceDefinitions.Repair`), and saved spent parts are removed as each
   ship loads (`LegacyItemConversions.Retire`, owner request the same day, with a
   crew-log line). Never reintroduce repair byproducts.
+- Owner direction (2026-10-04): **floor machines take power from the tile row directly
+  behind their back edge** (`ApplianceDefinitions.WallRowY`), the wall row where ships
+  carry conduit, as the game's own nav station, EVA charger and battery do; never inside
+  the machine's own tiles. `PowerPointNativeChecks` holds every powered Phobos machine to
+  it; the exceptions are explicit (F6 front points, G4/ML-2 hull mounts on the hull side,
+  the C2 set into the wall).
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.

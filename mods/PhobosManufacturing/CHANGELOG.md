@@ -6,6 +6,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-10-04 - Draft
+
+### Changed
+
+- The X2, K2, AX-2, L2, A2, V4, LC-3 and SA-3 take power from the tile row directly behind them, so set against a wall they reach the electrical conduit in it, like the game's own equipment.
+
+### Save compatibility
+
+- Automatic: installed machines take their new power points as the save loads. Manual step, stated plainly: if you ran conduit under a machine's back row rather than in the wall or row behind it, run it one tile further back; a machine with its back against a powered wall needs nothing.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.77.0 or newer.
+
 ## [0.34.0] - 2026-10-03 - Draft
 
 ### Fixed

@@ -14,7 +14,7 @@
       "feedCells": 6,
       "art": "PhobosVolatilesRefinery",
       "installTab": "APPS",
-      "points": { "use": [ 0, -40 ], "PowerA": [ -24, 24 ], "PowerB": [ 24, 24 ] }
+      "points": { "use": [ 0, -40 ], "PowerA": [ -24, 40 ], "PowerB": [ 24, 40 ] }
     },
     "PhobosLeachUnit": {
       "notes": "Lixivar LC-3 Leach and Crystallise Unit: a heated leach tank and a closed crystalliser with condensate recovery, one selected charge at a time. 12 kW sets every recipe's energy through its seconds.",
@@ -27,7 +27,7 @@
       "feedCells": 4,
       "art": "PhobosLeachUnit",
       "installTab": "APPS",
-      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 16 ] }
+      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 32 ] }
     },
     "PhobosAcidPlant": {
       "notes": "Lixivar SA-3 Sulfuric Acid Plant: a fluidised-bed roaster, a converter bed and an absorption tower, one nodule at a time. Its 4 kW runs the blowers, preheat and pumps; the reactions themselves release about 21.1 kWh a charge into the room.",
@@ -40,7 +40,7 @@
       "feedCells": 2,
       "art": "PhobosAcidPlant",
       "installTab": "APPS",
-      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 16 ] }
+      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 32 ] }
     }
   }
 }

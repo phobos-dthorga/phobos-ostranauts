@@ -91,7 +91,7 @@ internal static class Definitions
             co.strNameFriendly = co.strNameShort = Text.Get("Processor.name") + (damaged ? Text.Get("Content.damaged") : "");
             StripContainer(co);
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
-            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasOut,8,0" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(ProcessorRules.Footprint), "PhobosGasOut,8,0" };
             co.strPortraitImg = item.strImg;
         }
     }
@@ -111,7 +111,7 @@ internal static class Definitions
             co.strNameFriendly = co.strNameShort = Text.Get("Sabatier.name") + (damaged ? Text.Get("Content.damaged") : "");
             StripContainer(co);
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
-            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(SabatierRules.Footprint), "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
             co.strPortraitImg = item.strImg;
         }
     }
@@ -131,7 +131,7 @@ internal static class Definitions
             co.strNameFriendly = co.strNameShort = Text.Get("Cracker.name") + (damaged ? Text.Get("Content.damaged") : "");
             StripContainer(co);
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
-            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(CrackerRules.Footprint), "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
             co.strPortraitImg = item.strImg;
         }
     }
@@ -204,7 +204,7 @@ internal static class Definitions
             co.strNameFriendly = co.strNameShort = Text.Get("Filler.name") + (damaged ? Text.Get("Content.damaged") : "");
             co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
             // Power on the local -X side, the gas line port on the neighbouring tile of the local +X side.
-            co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", FillerRules.Inlet + ",24,8" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,-8," + ApplianceDefinitions.WallRowY(FillerRules.Footprint), FillerRules.Inlet + ",24,8" };
             co.strPortraitImg = item.strImg;
         }
     }
@@ -223,7 +223,7 @@ internal static class Definitions
             bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
             co.strNameFriendly = co.strNameShort = Text.Get("Regulator.name") + (damaged ? Text.Get("Content.damaged") : "");
             co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
-            co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", RegulatorRules.Inlet + ",24,8" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,-8," + ApplianceDefinitions.WallRowY(RegulatorRules.Footprint), RegulatorRules.Inlet + ",24,8" };
             co.strPortraitImg = item.strImg;
         }
     }

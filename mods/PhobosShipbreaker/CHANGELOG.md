@@ -25,6 +25,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.70.0] - 2026-10-04 - Draft
+
+### Changed
+
+- The D4, R4, T2 and C1 console take power from the tile row directly behind them, so set against a wall they reach the electrical conduit in it, like the game's own equipment. The F6 keeps its two front power points; the G4, ML-2 and C2 are unchanged.
+
+### Save compatibility
+
+- Automatic: installed machines take their new power points as the save loads. Manual step, stated plainly: if you ran conduit under a machine's back row rather than in the wall or row behind it, run it one tile further back; a machine with its back against a powered wall needs nothing.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.77.0 or newer.
+
 ## [0.69.0] - 2026-10-03 - Draft
 
 ### Changed

@@ -96,7 +96,7 @@ internal static class Content
             co.nStackLimit = 1;
             SetStat(co, "StatMass", ProcessRules.MachineKg);
             SetStat(co, "StatBasePrice", variant.EndsWith("Dmg", StringComparison.Ordinal) ? 400 : 1600);
-            co.mapPoints = new[] { "use,0,-40", "PowerA,-24,24", "PowerB,24,24" };
+            co.mapPoints = new[] { "use,0,-40", "PowerA,-24," + ApplianceDefinitions.WallRowY(4), "PowerB,24," + ApplianceDefinitions.WallRowY(4) };
             // A positioned child slot loses its native title/tab. Let Inventory open
             // the feed as a named window instead of an unlabeled grid behind the crew.
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };

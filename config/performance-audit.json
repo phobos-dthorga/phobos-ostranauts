@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "date": "2026-10-03",
-  "baselineCommit": "da0f90decc974b703e459a6a8e4f560f0744a3dd",
+  "date": "2026-10-04",
+  "baselineCommit": "c597cc3454822210af7f0dd035d5ae0c9bb606d2",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -5133,7 +5133,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "b7cc229bf47e08ed8051afad5f43c12a737c5a3f58519a889aa78cf2e54fea62",
+      "sha256": "ddca5e3c481a442b5179cbb1ad74aabbeb2646d6de0c9c404067573aa3fe1908",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -5178,7 +5178,7 @@
         ]
       },
       "reviewed": "2026-10-03",
-      "carried": "2026-10-03"
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosFramework/Processing/EnergyReceipt.cs",
@@ -5408,7 +5408,7 @@
     },
     {
       "path": "src/PhobosFramework/Registration/ApplianceDefinitions.cs",
-      "sha256": "6327f78bdce07497b5a8191aaefa77952ac0fffdf81953e2b1120f8b4636e096",
+      "sha256": "a054e398401e300a407e2a526f8af769dfc4d1d0282953ec93f66375260676f9",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -5420,18 +5420,19 @@
       ],
       "indicators": {
         "collection": [
-          85,
           91,
-          98,
-          100,
-          103,
-          104
+          97,
+          104,
+          106,
+          109,
+          110
         ],
         "persistence_or_io": [
-          91
+          97
         ]
       },
-      "reviewed": "2026-10-03"
+      "reviewed": "2026-10-03",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosFramework/Registration/DefinitionAmendments.cs",
@@ -6600,7 +6601,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Definitions.cs",
-      "sha256": "781c46255faefc8cab3d715903b994ab5b6baef7ef08d0a37809a3f293aa20ec",
+      "sha256": "8eedd434c8ee93192ca6bb95b2a70d51874dbfe34c4862b0ec3117340685ab49",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -6643,7 +6644,8 @@
           393
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
@@ -6870,7 +6872,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "0118c0c8834d9b528330140f27009b929aa6be58c631a1bf7e46a7926c767d7a",
+      "sha256": "ac2f80238828c86d1d390a4685dc60bd2b63e3e3cc5e119081679e422ace0fbd",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -6936,7 +6938,7 @@
         ]
       },
       "reviewed": "2026-10-03",
-      "carried": "2026-10-03"
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosManufacturing/ProcessorService.cs",
@@ -7448,7 +7450,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Content.cs",
-      "sha256": "69788bd3307c55d229e8ede6f0d67ad954c0ac916f3716522abceb494caeef0a",
+      "sha256": "08c8b3c6fd54dd96a9f95a13ce0e5694b8242c25398e2ba7633a21b3f2196230",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -7474,7 +7476,8 @@
           239
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/ControlAuthority.cs",
@@ -7620,7 +7623,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "6d0d47122f84d146f3f576480e164594d812f85da1511a84e73b0572541a458d",
+      "sha256": "5dc475ddf43bbc0f90ed1a8dc40d4ed2d750f9ee704617ceecda14deea6eb24d",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -7661,7 +7664,7 @@
         ]
       },
       "reviewed": "2026-10-03",
-      "carried": "2026-10-03"
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/Core/EconomyData.cs",
@@ -8401,7 +8404,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/IndustrialDefinitions.cs",
-      "sha256": "ce4fe3f4c522c46d71da18e1f275d1f846d501b59183f4a2fc05d9696d97c8d9",
+      "sha256": "d69f53e2961bed744676e8823195606ecb0a5e86c65cc0719e75dd457fcd2a74",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
@@ -8424,7 +8427,8 @@
           28
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-29",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/IndustrialPanel.cs",
@@ -8811,7 +8815,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "ca7d82e3a2d42adc4af3a579783665f445bd766f99d87fd2843a37607eaa1212",
+      "sha256": "a01438f68af8b584ede8524805c546249aba0a2c7a308bb69bb593ae40005a44",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -8867,7 +8871,7 @@
         ]
       },
       "reviewed": "2026-10-03",
-      "carried": "2026-10-03"
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/PowerKinds.cs",
@@ -9218,7 +9222,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/ThawDefinitions.cs",
-      "sha256": "3a779c8b1db4f0a44743d647800aa46cf667825ba53cbf8f0c9c5e12c20b773f",
+      "sha256": "a1348fdda74e03e93bd601c589eb108e847efa901283ad335fdf2ddaa49f0b10",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
@@ -9231,7 +9235,8 @@
           52
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-01",
+      "carried": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/ThawProvider.cs",

@@ -22,6 +22,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.77.0] - 2026-10-04 - Draft
+
+### Changed
+
+- Machines take power from the wall behind them (owner direction, 3 October 2026). A floor machine's power points now sit in the tile row directly behind its back edge, where ships run their electrical conduit through the walls, as the game's own consoles and chargers do. Before, they sat inside the machine's own back row, so a machine set against a powered wall stayed dark. This covers every machine built on Framework's shared appliance pattern, including Agriculture's Firstlight-4 rack, W2, B2 and Hearth-2.
+- ApplianceDefinitions.WallRowY gives content mods the same position; a native check now holds every Phobos machine to it.
+
+### Save compatibility
+
+- Automatic: installed machines take their new power points as the save loads. Manual step, stated plainly: if you ran conduit under a machine's back row rather than in the wall or row behind it, run it one tile further back; a machine with its back against a powered wall needs nothing.
+
+### Compatibility and limits
+
+- The F6 furnace keeps its documented front power points; the G4 and ML-2 hull mounts already took power from the wall row on the hull side, and the C2 from its own wall tiles. Checked offline; not yet seen in the game.
+
 ## [0.76.0] - 2026-10-03 - Draft
 
 ### Fixed

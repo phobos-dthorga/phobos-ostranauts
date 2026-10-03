@@ -37,7 +37,7 @@ internal static class ChargeChecks
               RefineryRules.RoomHeatFraction == 0.15, "The V4's shape comes from the equipment pack unchanged");
         var shape = Equipment.Entry(RefineryRules.Prefix);
         check(shape.installTab == "APPS" && shape.art == "PhobosVolatilesRefinery" &&
-              Phobos.Ostranauts.Framework.Data.EquipmentSchema.MapPoints(shape).SequenceEqual(new[] { "use,0,-40", "PowerA,-24,24", "PowerB,24,24" }), "The V4's art, tab and points are unchanged");
+              Phobos.Ostranauts.Framework.Data.EquipmentSchema.MapPoints(shape).SequenceEqual(new[] { "use,0,-40", "PowerA,-24,40", "PowerB,24,40" }), "The V4's art and tab are unchanged; its power points sit in the wall row behind it (Manufacturing 0.35.0)");
 
         // The catalog keeps each machine's own revisions and the machines' load rules.
         var view = ChargeCatalog.For(ChargeCatalog.Refinery);

@@ -114,7 +114,7 @@ internal static class ManufacturingNativeChecks
             check((leach.jsonPI == LeachRules.Prefix + "Power") == (installed && !damaged), "LC-3 draws power only when installed and intact: " + state);
             check(d.Installables.ContainsKey(LeachRules.Prefix + state + "Dismantle") && (damaged ? d.Installables.ContainsKey(LeachRules.Prefix + state + "Repair") : d.Installables.ContainsKey(LeachRules.Prefix + state + "Restore")),
                 "LC-3 has native dismantle, and Repair or Restore: " + state);
-            if (installed) check(leach.aInteractions.Count(i => i == Definitions.Controls) == 1 && leach.mapPoints.Contains("PowerA,0,16"), "Installed LC-3 offers one Control Panel and its power point");
+            if (installed) check(leach.aInteractions.Count(i => i == Definitions.Controls) == 1 && leach.mapPoints.Contains("PowerA,0,32"), "Installed LC-3 offers one Control Panel and its power point, in the wall row behind it");
         }
         var leachFeed = d.Objects[LeachRules.Prefix + "InputBin"]; var leachTrigger = DataHandler.dictCTs[leachFeed.strContainerCT];
         check(leachFeed.nContainerWidth * leachFeed.nContainerHeight == LeachRules.FeedCapacity, "The LC-3 feed holds four units");

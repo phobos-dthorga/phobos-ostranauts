@@ -23,7 +23,7 @@ internal static class IndustrialDefinitions
             co.inventoryWidth = co.inventoryHeight = IndustrialRules.Footprint;
             co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsContainer=")).Concat(new[] { "IsChair=1x1", "IsSignalable=1x1" }).ToArray();
             Content.SetStat(co, "StatMass", IndustrialRules.MassKg);
-            co.mapPoints = new[] { "use,0,-24", "sit,0,-10", "PowerA,0,24" };
+            co.mapPoints = new[] { "use,0,-24", "sit,0,-10", "PowerA,0," + ApplianceDefinitions.WallRowY(3) };
             co.aInteractions = installed ? new[] { IndustrialRules.Controls } : Array.Empty<string>();
             co.mapGUIPropMaps = Array.Empty<string>();
             item.nCols = IndustrialRules.Footprint; item.fZScale = 0.5f;

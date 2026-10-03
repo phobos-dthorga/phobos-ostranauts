@@ -381,3 +381,22 @@ Owner direction: what follows a repair or Restore should be the game's own resul
   parts from every ship as it loads (the definition stays registered so they load
   first), with one crew-log line on the player's ships. This is an owner-directed
   exception to "never silently destroy an item"; it is announced, not silent.
+
+## Power points in the wall row (Framework 0.77.0, 4 October 2026)
+
+Owner direction: power connectors should sit back a tile, like the game's own, so a
+machine set against a wall uses the conduit in it.
+
+- **The game.** Its wall-backed floor equipment puts power points one tile beyond the
+  back edge, opposite the use point: `ItmStationNav` (3 x 3) at (0, 32), `ItmChargerBattEVA`
+  (2 x 2) at (8, 24), `ItmBattery02` (2 x 2) at (-8, 24).
+- **What differed.** Twenty Phobos machines put their points inside their own back row:
+  the shared `ApplianceDefinitions.Add` (8n - 8), Manufacturing's X2, K2, AX-2, L2, A2 and
+  its V4, LC-3 and SA-3 data-pack entries, Shipbreaker's D4/R4, T2 and C1 (the C1 on the
+  edge line itself).
+- **Verdict.** Moved to `ApplianceDefinitions.WallRowY(depth)` = 8 x depth + 8.
+  `PowerPointNativeChecks` checks every powered installed definition. Exceptions kept on
+  purpose: the F6's documented front points, the G4 and ML-2 hull mounts (wall row on
+  their hull side), the C2 set into the wall. Saved machines take the new points from
+  their definition on load; conduit run under a machine's back row instead of behind it
+  is the stated manual step.

@@ -66,6 +66,12 @@ public static class ApplianceDefinitions
         power.fOverrideAmount = workingKW / Units.SecondsPerHour;
     }
 
+    /// <summary>Where a floor machine's power point sits, in pixels from its centre: the middle of the tile row
+    /// directly behind its back edge (Framework 0.77.0; owner direction, 3 October 2026). That is the wall row a
+    /// machine is usually placed against, where ships carry their electrical conduit; the game's own wall-backed
+    /// equipment (the nav station, the EVA battery charger, the battery) puts its power points there too.</summary>
+    public static int WallRowY(int depthTiles) => 8 * depthTiles + 8;
+
     // Preserve the existing public signature for already-compiled content consumers.
     public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw) =>
         Add(d, prefix, name, description, size, kg, price, image, controls, kw, InstallMenu.Appliances);
@@ -89,7 +95,7 @@ public static class ApplianceDefinitions
                 strDesc = description, nStackLimit = 1, nContainerWidth = 8, nContainerHeight = 8, inventoryWidth = size, inventoryHeight = size,
                 strContainerCT = "TIsFitContainerSolid", aInteractions = installed ? new[] { "Inventory", controls } : new[] { "Inventory" },
                 mapGUIPropMaps = new[] { "GUIInv", "Inventory" }, aStartingConds = conds.ToArray(), mapSlotEffects = new[] { "drag", "Blank" },
-                mapPoints = new[] { "use,0," + (-8 * size - 8), "PowerA," + (-8 * size + 8) + "," + (8 * size - 8), "PowerB," + (8 * size - 8) + "," + (8 * size - 8) },
+                mapPoints = new[] { "use,0," + (-8 * size - 8), "PowerA," + (-8 * size + 8) + "," + WallRowY(size), "PowerB," + (8 * size - 8) + "," + WallRowY(size) },
                 jsonPI = installed && !damaged ? prefix + "Power" : null, aTickers = installed && !damaged ? new[] { "Power" } : Array.Empty<string>(),
                 aUpdateCommands = new[] { "Destructable,StatDamage," + (damaged ? "ACTDefaultDestroy" : prefix + "Damage" + form) + ",StatDamageMax,1.0" }, strPortraitImg = image };
             MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", damaged ? price * .2 : price);

@@ -93,7 +93,7 @@ internal static class SiloNativeChecks
         var power = d.Power[ThawRules.Prefix + "Power"];
         check(Math.Abs(power.fAmount - ThawRules.IdleKW / Units.SecondsPerHour) < 1e-12 && power.strOverrideCond == ProcessRules.Working &&
             Math.Abs(power.fOverrideAmount - ThawRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && power.aInputPts.SequenceEqual(new[] { "PowerA" }), "T2 draws 0.1 kW idle and 6 kW thawing through one native input point");
-        check(d.Objects[ThawRules.Installed].mapPoints.Contains("PowerA,0,8") && d.Objects[ThawRules.Installed].jsonPI == ThawRules.Prefix + "Power", "T2 exposes its power point and info");
+        check(d.Objects[ThawRules.Installed].mapPoints.Contains("PowerA,0,24") && d.Objects[ThawRules.Installed].jsonPI == ThawRules.Prefix + "Power", "T2 exposes its power point, in the wall row behind it, and info");
         // The shared registry: Framework's tanks keep the silo record names; Agriculture's retired reservoirs stay registered for conversion.
         var siloSpec = BulkVessels.SpecFor(WaterTanks.BasePrefix + "Installed"); var tankSpec = BulkVessels.SpecFor(PhobosAgriculture.BulkDefinitions.Tank + "Installed");
         check(siloSpec != null && siloSpec.CapacityKg == 1000 && siloSpec.DryKg == 240 && siloSpec.Commodity == "water" && siloSpec.Record == "ShipbreakerSilo", "S3 is a registered water vessel of 1,000 kg under its saved record");

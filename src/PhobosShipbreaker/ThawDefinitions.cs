@@ -47,7 +47,7 @@ internal static class ThawDefinitions
             EquipmentInventory.Declare(co, InventorySpec.ProductTray(ThawRules.TrayCells, 1));
             co.inventoryWidth = co.inventoryHeight = ThawRules.Footprint;
             co.dictSlotsLayout = new Dictionary<string, UnityEngine.Vector3> { ["self"] = UnityEngine.Vector3.zero };
-            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8" };
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(ThawRules.Footprint) };
             item.nCols = ThawRules.Footprint; item.fZScale = 0.5f;
             item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", ThawRules.Footprint * ThawRules.Footprint).ToArray();
             item.aSocketReqs = Border(ThawRules.Footprint, installed ? "TILFloor" : "Blank");
