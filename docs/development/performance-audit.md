@@ -445,8 +445,11 @@ baseline, speed 8, navigation console closed, and record two or three captures:
 
 ```text
 phobosframework perf start summary 30 20000
-phobosframework perf export
+phobosframework perf stop
 ```
+
+(Since Framework 0.75.0 each 30-second window is exported as it ends, until stop;
+for the 29 September protocol, let it run three windows before stopping.)
 
 Then compare: `python scripts/compare-performance.py --before <baseline files>
 --after <new files> --output <report.json>`. The report gives frame percentiles,
@@ -835,8 +838,9 @@ lookups run only on a ready approach.
 
 ### Captures to take
 
-Three matched 30 s summary runs per side (`phobosframework perf start summary 30
-20000`, then `phobosframework perf export`), same save and scene, speed 8, nav
+Three matched 30 s summary windows per side (`phobosframework perf start summary 30
+20000`, wait for three windows, then `phobosframework perf stop`; since Framework 0.75.0
+each window is exported as it ends), same save and scene, speed 8, nav
 station closed; check the BepInEx log and `Player.log` show every plugin starting.
 Compare with `python scripts/compare-performance.py --before <3> --after <3>`.
 
@@ -875,3 +879,17 @@ game, is removed. `LegacyItemConversions.Retire` adds a check every 2 s (real ti
 reads the loaded-ship list and skips every ship already cleared; each ship is scanned
 once, with one `GetCOs` pass, the first time it is loaded, then never again until the
 next load. No capture accompanies this change.
+
+## 3 October: rolling captures (L22)
+
+L22 — Owner request: performance snapshots are exported automatically as they are
+generated, only while recording is on, and `perf stop` ends it. Framework 0.75.0 turns
+`perf start` into rolling windows of the chosen length: `PerformanceSession` exports a
+window the moment it ends (its time limit, which can be reached inside any timing
+call, or a world change) and starts the next with the same options once a world is
+ready. Stop exports the partial window; exit still writes nothing. Exports happen on
+the main thread between windows, so their cost lands in no window; a summary window
+is a small file. A failed automatic export stops recording once and keeps the capture.
+`PhobosPerformance.Tests` covers the world-change wait, roll-over at the time limit and
+inside a timing call, stop, exit and a failed export (60 checks). No in-game capture
+accompanies this change.

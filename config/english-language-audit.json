@@ -13203,14 +13203,14 @@
       "mod": "PhobosFramework",
       "key": "Performance.usage",
       "category": "developer diagnostics",
-      "decision": "retain",
-      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "decision": "rewrite",
+      "reason": "Framework 0.75.0: says that start records in windows until stop, each exported as it ends, instead of stop-then-export.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosFramework/Diagnostics/PerformanceSession.cs:76"
       ],
       "before": "Performance commands: phobosframework perf start [detailed|summary] [seconds:1-3600] [records:1-20000] | status | stop | export | help. Defaults: detailed, 60 seconds, 20000 records. Stop, then export before starting another capture.",
-      "after": "Performance commands: phobosframework perf start [detailed|summary] [seconds:1-3600] [records:1-20000] | status | stop | export | help. Defaults: detailed, 60 seconds, 20000 records. Stop, then export before starting another capture."
+      "after": "Performance commands: phobosframework perf start [detailed|summary] [seconds:1-3600] [records:1-20000] | status | stop | export | help. Defaults: detailed, 60 seconds, 20000 records. Start records in windows of that length until stop; each window is exported to a file as it ends, and stop exports the last, partial one. Export writes the latest window again."
     },
     {
       "mod": "PhobosFramework",
@@ -13245,14 +13245,14 @@
       "mod": "PhobosFramework",
       "key": "Performance.already_active",
       "category": "developer diagnostics",
-      "decision": "retain",
-      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "decision": "rewrite",
+      "reason": "Framework 0.75.0: recording stays on between windows, so it names stop as the way to end it.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosFramework/Diagnostics/PerformanceSession.cs:88"
       ],
       "before": "A capture is already running. Use phobosframework perf status or stop.",
-      "after": "A capture is already running. Use phobosframework perf status or stop."
+      "after": "Recording is already on. Use phobosframework perf status, or stop to end it."
     },
     {
       "mod": "PhobosFramework",
@@ -45452,6 +45452,71 @@
       "after": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "Performance.rolling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status line: recording continues in windows until stop, with the count written so far.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/PerformanceSession.cs:198"
+      ],
+      "before": "Recording continues in windows until phobosframework perf stop; {0} window(s) exported so far.",
+      "after": "Recording continues in windows until phobosframework perf stop; {0} window(s) exported so far."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.rolling_waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status line: recording is on and waits for the world to finish loading.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/PerformanceSession.cs:198"
+      ],
+      "before": "Recording is on and waiting for the world to finish loading; the next window starts then. {0} window(s) exported so far.",
+      "after": "Recording is on and waiting for the world to finish loading; the next window starts then. {0} window(s) exported so far."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.last_export",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status line naming the latest written window file.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/PerformanceSession.cs:199"
+      ],
+      "before": "Latest of {0} exported window(s): {1}",
+      "after": "Latest of {0} exported window(s): {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.rolling_ended",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line: recording stopped because a window ended early, and how to start again.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/PerformanceSession.cs:92"
+      ],
+      "before": "Performance recording stopped: the last window ended early ({0}). That window was exported; use phobosframework perf start to record again.",
+      "after": "Performance recording stopped: the last window ended early ({0}). That window was exported; use phobosframework perf start to record again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.auto_export_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line: a window could not be written; the capture is kept and how to recover it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/PerformanceSession.cs:117"
+      ],
+      "before": "Performance recording stopped: a window could not be exported ({0}). The capture is kept; check access to BepInEx/captures/PhobosScope and use phobosframework perf export.",
+      "after": "Performance recording stopped: a window could not be exported ({0}). The capture is kept; check access to BepInEx/captures/PhobosScope and use phobosframework perf export."
+    },
+    {
       "mod": "PhobosAutoNav",
       "key": "Plugin.physics_held",
       "category": "status",
@@ -55197,8 +55262,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "25bc4e2393a05119d0b758eda5d457122074ed4efcb9580228e63d8ac9f15b6f",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "c3df033313959194d0f601fa082b544a5d93addeb93f339d8fdfd5768cd486d0",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "SUPPORT.md",
@@ -55357,8 +55422,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c08d237311580d5fee5b4de5bc678e39f96eef6e31cf0758600869288d53fc8b",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "a9b69f793e7c6ad2be80f7dbe8343167eb17e4a8c61420ff1677796cca618505",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "docs/crew-automation.md",
@@ -55880,8 +55945,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "e3d40167afff3ac4fa67372bb512cad0d101dadd8ea6b08016b1e4e2f5ee2900",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "6b2b0a2ff027e035236c1011ef5c2e3c112934198c20e61262a8fb374a051644",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56092,8 +56157,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "53eb4e081004aff55201825e4dae8d842112edc111c5c1d58e2aa1faacc8006e",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "a1749ff6478255aa2066405d9272cad83df48fd62482f3a11e43c10417b4bd9c",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56190,15 +56255,15 @@
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dc9efd0ced227b9df304abc341042a3f6d7569ef699d495fecd6f7f47d1e828d",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "698b5240a7d2b518730b80535a632c07c64511f9d128fa669e2ee223b7aaf7ea",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8a9edc1e5e97aa5570565f308c64613dbcc8dbc18e07a384580a57c04df76ae0",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "bcec819004a29c1ba29f6a3562adc14215ae18d9ef5e462eb6d94d489ef12680",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56288,8 +56353,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "89d3931a76ebed45fff1dabbe3c361be8ddda0549b4a82cff1e1c295a667098f",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "d2f2703ce7569be2bf2866d2dda41292902ce6f91d3582380095f14d8d1e1bd1",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -56479,8 +56544,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7d1b947972d76a2456e883502e671a82d1973021d0dfe8a991796af08dc73b6e",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "28e10d268e6bde1199575fcf2dc681a056d99e4cbf05aa7f1118a40c559ccad4",
+      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

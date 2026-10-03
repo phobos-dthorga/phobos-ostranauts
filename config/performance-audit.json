@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-03",
-  "baselineCommit": "6de35982443098aed8aef31dc3d3984bc1ae523e",
+  "baselineCommit": "26e3ff4cb59a9241baef993bef910d1fe6583d33",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3480,21 +3480,22 @@
     },
     {
       "path": "src/PhobosFramework/Diagnostics/PerformanceSession.cs",
-      "sha256": "6d38efe649a4461ccdd977f26fdd01932c399818dc6989e703a04705f243acf4",
+      "sha256": "63bc82499e1a23f52e2918b3887ba5cec8371329dfbc86654519f8789dc98fad",
       "role": "bounded opt-in recording",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Extend bounded opt-in observation without authorising gameplay; disabled-path tests and explicit export/world-change checks apply. No follow-up capture requested.",
+      "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "P7"
+        "P7",
+        "L22"
       ],
       "indicators": {
         "runtime_hook": [
-          45,
-          51,
-          96,
-          98
+          56,
+          64,
+          165
         ]
-      }
+      },
+      "reviewed": "2026-10-03"
     },
     {
       "path": "src/PhobosFramework/Discovery/WorldFamilies.cs",
@@ -5132,7 +5133,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "acec3518344ef8c9eb57e55afc44a1a683bc1528c8cdef1b88e6b1eb7f454cbc",
+      "sha256": "fc983053f5af35d7afd54c0dacc3f9a2aeebba28aa17e200558c81334492fe20",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
       "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
@@ -5165,7 +5166,8 @@
         "L18",
         "L19",
         "L20",
-        "L21"
+        "L21",
+        "L22"
       ],
       "indicators": {
         "collection": [

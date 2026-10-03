@@ -4,8 +4,9 @@ Performance recording was introduced in Framework **0.15.0**, Auto Nav **0.10.1*
 and Shipbreaker **0.11.1**. See the [player guide](player-guide.md) for current
 prepared versions. These integrate [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope).
 Profiling is disabled
-by default. Enable a bounded capture through F3, reproduce a workload, stop and
-export, then analyse outside the game. A Rust process is not needed during play.
+by default. Start recording through F3 and play: each window is written to a file
+as it ends, until you stop. Analyse the files outside the game. A Rust process is
+not needed during play.
 
 ## Install the prepared builds
 
@@ -26,16 +27,24 @@ prepared versions are listed in the player guide.
 Load a world fully, open F3 and enter:
 
 ```text
-phobosframework perf start detailed 30 20000
+phobosframework perf start summary 30 20000
 phobosframework perf status
 phobosframework perf stop
-phobosframework perf export
 ```
+
+Since Framework 0.75.0 recording runs in **windows** of the chosen length (30 seconds
+above) until `perf stop`. Each window is exported to its own file the moment it ends,
+and the next starts straight away with the same settings; nothing waits for a manual
+export. `perf stop` ends recording and exports the partial last window. `perf status`
+shows the current window, how many have been exported and the latest file. `perf export`
+writes the latest window again under a new name.
 
 At fast-forward use summary mode: detailed mode fills its record cap within seconds
 and the capture stops early. The 29 September 2026 pass used
 `phobosframework perf start summary 30 20000` at speed 8 with the navigation console
 closed, and compares captures taken the same way before and after installing.
+One start now gives as many matched windows as you let it run: three 30-second
+windows take a minute and a half, then `perf stop`.
 
 Start options are positional: mode (`detailed` or `summary`), integer real seconds
 (1–3600), retained records (1–20000). Defaults are detailed / 60 seconds / 20000
@@ -44,15 +53,19 @@ paths are rejected. Export prints a new file under
 `BepInEx/captures/PhobosScope/`; no personal path is stored in the capture itself.
 
 Status shows elapsed real time, limits, completed/open/incomplete scopes, drops and
-rejections. Each export gets a new filename. A failed export retains the stopped
-snapshot for retry. Export a stopped capture before starting another, so an error
-cannot accidentally erase your only copy. Keep the process open until exported;
-there is no implicit disk write at shutdown.
+rejections. Each export gets a new filename; with 30-second windows that is about 120
+small files an hour in summary mode, so stop when you have what you need. If a
+window cannot be written (a full disk, a locked folder), recording stops with one
+log line and keeps that window for `perf export` once the folder is fixed; a new
+start is refused until it is exported, so an error cannot erase your only copy.
+Quitting the game writes nothing: use `perf stop` before you quit to keep the
+window in progress.
 
-The real-time duration limit continues during pause. A Framework Update poll stops
-idle captures at that limit. Starting a load or new game stops immediately; losing
-world readiness and content reload also stop. A new world never silently resumes
-recording. Open scopes become incomplete instead of inventing end times.
+The real-time window length continues during pause. Starting a load or a new game
+ends the current window, which is exported; recording stays on and the next window
+begins once the new world has finished loading (status says it is waiting). This
+reverses the earlier rule that a new world never resumed recording: recording is on
+until you stop it. Open scopes become incomplete instead of inventing end times.
 
 Starting profiling does not enable Auto Nav verbose logging, change sensor
 emissions, control flight, run machines, transfer material or write saves.
@@ -129,9 +142,9 @@ are not zero, and a high elapsed duration is not automatically exclusive mod CPU
 For owner-run evaluation, capture a similar workload three ways: ordinary speed,
 fast-forward, and an open industrial console. Where useful, separately capture
 coasting/braking/docking or routes with different candidate counts. Record relevant
-conditions and compare both calls per real second and per-call cost. Verify loading
-another world stops the capture and that export remains available. Retain original
-JSON so it can be reanalysed.
+conditions and compare both calls per real second and per-call cost. Windows that
+span a load are short and end with the world change; leave them out of comparisons.
+Retain original JSON so it can be reanalysed.
 
 ## Build and verification boundaries
 
@@ -172,7 +185,7 @@ collections. `game.allocations.main_thread` is available only when the runtime's
 counter passes an allocation probe. Early baseline captures reported unsupported
 zero totals; do not interpret those as allocation measurements. Metadata now
 records calibration support and assembly build IDs without object/player IDs.
-Memory stays bounded by the existing record cap and export remains explicit.
+Memory stays bounded by the existing record cap: only one window is held at a time.
 
 For a future comparison, `scripts/compare-performance.py --before <captures...>
 --after <captures...>` emits JSON with per-run percentiles, long frames, operation

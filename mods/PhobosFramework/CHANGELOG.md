@@ -22,6 +22,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.75.0] - 2026-10-03 - Draft
+
+### Changed
+
+- Performance recording exports itself (owner request, 3 October 2026). After phobosframework perf start, recording runs in windows of the chosen length (30 seconds in the usual start summary 30 20000) until phobosframework perf stop. Each window is written to its own file under BepInEx/captures/PhobosScope the moment it ends, and the next begins at once with the same settings, so there is no manual export between captures.
+- perf stop ends recording and writes the partial last window. perf status shows how many windows have been written and the latest file. perf export still writes the latest window again.
+- Loading a save or starting a new game ends the current window, which is written; recording stays on and carries on once the new world has finished loading. Before, a world change ended recording for good.
+
+### Save compatibility
+
+- None. Recording never touches saves.
+
+### Compatibility and limits
+
+- Quitting the game writes nothing, as before: stop first to keep the window in progress. If a window cannot be written, recording stops with one log line and keeps it for perf export. With 30-second windows expect about 120 small files an hour in summary mode.
+- Checked offline (60 recorder checks, including real roll-overs). Not yet run in the game.
+
 ## [0.74.0] - 2026-10-03 - Draft
 
 ### Changed
