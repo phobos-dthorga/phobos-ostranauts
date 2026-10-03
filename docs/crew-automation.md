@@ -314,3 +314,10 @@ Gameplay validation remains owner-run. Check these on a copy of an ordinary save
 
 Use the guarded installer and installed-file verification while the game is
 closed. These candidates have not been published to Steam.
+
+## Jobs the ML-2 queues
+
+The mining laser's two crew settings are not Phobos standing orders. They queue the
+game's own Haul and Mine jobs on what the laser leaves on a moored rock or hull, so
+the game's duties (Haul, Demolish), tools and haul zones apply, and the PDA cancels
+them. See [crew jobs](shipbreaker-mining-laser.md#crew-jobs).

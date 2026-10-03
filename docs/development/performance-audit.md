@@ -893,3 +893,13 @@ is a small file. A failed automatic export stops recording once and keeps the ca
 `PhobosPerformance.Tests` covers the world-change wait, roll-over at the time limit and
 inside a timing call, stop, exit and a failed export (60 checks). No in-game capture
 accompanies this change.
+
+## 4 October: laser crew jobs (L23)
+
+L23 — Shipbreaker 0.71.0 with Framework 0.78.0: the ML-2 queues the game's own Haul and
+Mine jobs. Nothing runs per frame or per power step. `LaserService.QueueJobs` runs once
+when a cut finishes (at most one a second per laser, in practice one every 22 to 60
+seconds), and only with a setting on; it reads two saved switches, and with hauling on
+makes one `GetCOs` pass over the moored ship to find what dropped within two tiles.
+`NativeJobs.HasStockpile` is read when a setting is switched on and once per Start when
+jobs are queued with no zone. No capture accompanies this change.

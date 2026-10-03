@@ -54618,6 +54618,137 @@
       "after": "Or link the head to an F6-R or F6-P radiator by touching it."
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.haul_field",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Settings label for queuing Haul jobs on what the laser frees.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:35"
+      ],
+      "before": "Haul jobs for what it frees",
+      "after": "Haul jobs for what it frees"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.deposit_field",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Settings label for queuing Mine jobs on deposits the laser opens.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawProvider.cs:35"
+      ],
+      "before": "Mine jobs for deposits it opens",
+      "after": "Mine jobs for deposits it opens"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.jobs_on",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Switch value.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:34"
+      ],
+      "before": "On",
+      "after": "On"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.jobs_off",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Switch value.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:34"
+      ],
+      "before": "Off",
+      "after": "Off"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.jobs_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status line: both settings and the jobs queued since Start.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserService.cs:317"
+      ],
+      "before": "Crew jobs: haul {0}, mine deposits {1}. Queued since Start: {2} haul, {3} mine.",
+      "after": "Crew jobs: haul {0}, mine deposits {1}. Queued since Start: {2} haul, {3} mine."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.haul_jobs_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the setting, says the jobs are the game's own and what the crew need.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:44"
+      ],
+      "before": "From now on each freed panel and each broken rock's ore and gangue gets the game's own Haul job, as if you had painted it. Crew with the Haul duty bring it to a haul zone on your ship.",
+      "after": "From now on each freed panel and each broken rock's ore and gangue gets the game's own Haul job, as if you had painted it. Crew with the Haul duty bring it to a haul zone on your ship."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.haul_jobs_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the setting is off and that queued jobs stay until cancelled from the PDA.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:43"
+      ],
+      "before": "The laser no longer queues Haul jobs. Jobs already queued stay; cancel them from the PDA.",
+      "after": "The laser no longer queues Haul jobs. Jobs already queued stay; cancel them from the PDA."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.haul_no_zone",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "No haul zone: says what that means and how to mark one.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:44",
+        "src/PhobosShipbreaker/LaserJobs.cs:74"
+      ],
+      "before": "No haul zone is marked on your ship, so the crew have nowhere to bring what the laser frees. Mark one with the PDA's zone tool and tick Haul.",
+      "after": "No haul zone is marked on your ship, so the crew have nowhere to bring what the laser frees. Mark one with the PDA's zone tool and tick Haul."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.deposit_jobs_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the setting, the duty and tool the crew need, and that ore goes to the miner.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:45"
+      ],
+      "before": "From now on each ore deposit the laser opens gets the game's own Mine job. Crew need the Demolish duty and a mining drill; the ore goes to whoever drills, as always.",
+      "after": "From now on each ore deposit the laser opens gets the game's own Mine job. Crew need the Demolish duty and a mining drill; the ore goes to whoever drills, as always."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Laser.deposit_jobs_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the setting is off and that queued jobs stay until cancelled from the PDA.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker/LaserJobs.cs:43"
+      ],
+      "before": "The laser no longer queues Mine jobs. Jobs already queued stay; cancel them from the PDA.",
+      "after": "The laser no longer queues Mine jobs. Jobs already queued stay; cancel them from the PDA."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Bulk.sell_heading",
       "category": "control label",
@@ -55210,8 +55341,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a8c09636e61ef59f7bad279761dc20ba7af7aeead0ab9f4b2762439b86e2fd5a",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "2eb79dfbce62bfca1a053d63886e1eca55599df66512155e48a186a0cfd8a21e",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "SUPPORT.md",
@@ -55370,15 +55501,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b434dc025ebe6e1a8b3b5a0655140faa808d43f95920a5b8ec509bba3d821e73",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "196866df3c70fd5a6b659b0268d7387bf84c492f3b97365d6e62ffd86829415c",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "dfdd58c56600473df2a3c08c46390d50c2ed49324f8b848a7f2ad4270bb1afdc",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "90afe896c93d1737e83f8ef43aa4aaf0a1116ddcc76c62da38695115cdf419da",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/development/README.md",
@@ -55893,8 +56024,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "6b2b0a2ff027e035236c1011ef5c2e3c112934198c20e61262a8fb374a051644",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "14b11ec08d174c935e733c29da1eba7e75b978ae0a7517c7dce3f2098533deb7",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -56070,8 +56201,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "fe99ce8f440f0a1b018473d3b4b5a23bdcd18aa416e3f4ac8187ca7d4b17e516",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "e071b7b3131c433ad41a64a8676b766316faa6b38518b8b270e525c2f19dff10",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -56105,8 +56236,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "136cb7f70df0b6b348edaae6881a7bd2c3ccb4c10873949e196f01449b3e2ed7",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "cf4001480e8e8552375d091bb6acbb472fade7d3eb960a7ca51617040a736612",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -56161,15 +56292,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f5b7a16409b35a6431cfd96630d3b0eb4a4af3280f3bb031c13494a6e3b847b9",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "4a38885c88032110bb3a16fed4ed4800dee21dbae2bae6b269b21a8dac1b855f",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aceaa8ed80f89d20dc3706ce8d01ae23964ac1c4f475b2e6022edd271b8a04d9",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "6d489e27e28bafad7380a7db0197e9975c908825e5775de6d0c2a40480ee9e7a",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/item-references.md",
@@ -56210,8 +56341,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d552e01f120dca61dab3f9682cc3efed95078d22737b34c688518ae803cdeab8",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "d23c154fab8480a04189270843d99e060b31a43a55616c6493ecae89e82911d4",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/residue-collector.md",
@@ -56259,8 +56390,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "32154255e1b4324bffa4d87b607ceba1c3535bb611841ec76ed543db1a6a18fa",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "e609b13e7232a83373b64e486ecf825d830e3c8c28f3e65b682c1341ae9271fd",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -56301,8 +56432,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "357d0d1a74b43591785e8d7d71f6d8d8c35937839b29651c16fa947d70d2f322",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "c989c5fb5a5298c0d1f1be9da26c7f0ba7f491e6f4be58dc1818267710b86ba9",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -56315,8 +56446,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8a7173ef6fdbeff50d3baaf2781b0044ac7a266fa68c6d75502f56aff72ceee0",
-      "review": "Reviewed 4 October 2026: preserve the current power instructions and add concise Imagegen attribution for the revised ML-2 artwork; no controls or gameplay claims changed."
+      "sha256": "7a2834f12aa6bfa73e1747e0227f2f5888709272a98813ad7d81a9ea45107150",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -56427,23 +56558,23 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "54b74c8d939ad2e4cbe2836356ce1eb83bf68b003eeb10f6ac35332eb00b1466",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "41d2024034b0fb5c6d3cd2ce4546b1d61be3cabe62ed04f01ba3194948d9fbc6",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "docs/development/mining-laser-design.md",
       "scope": "developer design record",
       "decision": "Development design record; player text limited to names and the link to the player guide.",
-      "sha256": "d098213a7959c5f18a1489036bf3013886995a18c83775f064cb95d0273957ea",
-      "review": "Reviewed 4 October 2026: label the initial PixelLab pass as history and record the Imagegen visual revision, original sources, native-scale limitation and owner-run visual checks; no new scientific findings claimed."
+      "sha256": "91c49f9b41e8f3dc5c33edd6fd2aa1e9975af3ee8c1cb8d876d60c85e51890d9",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "63f5cf89bc6fd9dfbc67eb636b2062ca2c18bc2a458a637dcd820136d9c4c05d",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "6dbd5d0d36269051b7f0e5e964ef981004f7574c43979da7bd2b9c22fac71d4c",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -56492,8 +56623,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1f9f21e1ed2494f4c0f56c862e3787e41ea05a9bddf0e6000c0dd43ee1cc5eae",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "f38cecd8adf5008bf882ac57e9f9180090f5bc57d16edc2612f6f525c7c89cb3",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -56516,8 +56647,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e743ebb2499e14cd80f793b3e26670d47b0bcee3d2f168269b9279ae31bb0fb9",
-      "review": "Reviewed 4 October 2026 for Framework 0.77.0: machines take power from the tile row behind them."
+      "sha256": "d1f00cffb0f5ef063d76c59a77c0cd6d91ab55c4f9c60142604481ba13845e06",
+      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

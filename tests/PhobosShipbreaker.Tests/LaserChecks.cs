@@ -111,6 +111,12 @@ internal static class LaserChecks
         throws(() => Bound().Begin("x", LaserRules.Rock, "stage", 15, 0, double.NaN), "A job cannot start with an unknown draw");
         check(LaserRules.ParsePower("standard", out bool highSetting) && !highSetting && LaserRules.ParsePower("high", out highSetting) && highSetting &&
             !LaserRules.ParsePower("High", out _) && !LaserRules.ParsePower(null, out _), "Power settings are the two exact lower-case names");
+        // Shipbreaker 0.71.0: the two crew-job switches. Absent or unreadable means off, so older saves queue nothing.
+        check(LaserRules.ParseSwitch("on", out bool jobs) && jobs && LaserRules.ParseSwitch("off", out jobs) && !jobs &&
+            !LaserRules.ParseSwitch("On", out jobs) && !jobs && !LaserRules.ParseSwitch(null, out jobs) && !jobs && !LaserRules.ParseSwitch("", out jobs) && !jobs,
+            "Crew-job switches are the two exact names, and anything else is off");
+        check(LaserRules.HaulJobsKey != LaserRules.DepositJobsKey && LaserRules.HaulJobsKey != "filter" && LaserRules.DepositJobsKey != "filter" && LaserRules.JobSearchTiles == 2,
+            "The switches have their own keys beside the filter, and dropped output is looked for within the game's two-tile drop");
         check(LaserRules.HeatToRadiator(true, 100, 100) && LaserRules.HeatToRadiator(true, 100, 0) && !LaserRules.HeatToRadiator(true, 99.9, 100) &&
             !LaserRules.HeatToRadiator(false, 1000, 1) && !LaserRules.HeatToRadiator(true, double.NaN, 1) && !LaserRules.HeatToRadiator(true, 100, -1),
             "A step's heat goes to the cooling assembly only when it is ready and has room for all of it; otherwise the room rule applies");

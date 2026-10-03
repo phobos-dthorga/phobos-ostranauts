@@ -1469,6 +1469,12 @@
   radiator node stays in Shipbreaker (`RadiatorSink.cs`) and was not lifted into
   Framework, and there is no F6-C conduit link for the laser. See the design
   record for the reasons.
+- Owner decision (2026-10-04), Shipbreaker 0.71.0 with Framework 0.78.0: two laser
+  settings, off by default, queue **the game's own jobs** on what a finished cut
+  leaves: Haul on freed panels, ore and gangue, and Mine on a deposit it opened
+  (Framework `Crew.NativeJobs`, the PDA's own task fields). Phobos crew orders stay
+  same-ship; work on a moored ship goes to the crew this way, never through a
+  cross-ship hauling order. The laser still never cuts a deposit or collects anything.
 - The chemical laser is an idea only. It needs sourced chemistry and feeds the
   mods do not store yet; do not add consumer-less commodities for it.
 

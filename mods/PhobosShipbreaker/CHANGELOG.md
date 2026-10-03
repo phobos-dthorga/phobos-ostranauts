@@ -29,6 +29,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.71.0] - 2026-10-04 - Draft
+
+### Added
+
+- The ML-2 mining laser can hand its leavings to the crew (owner decision, 4 October 2026). Two new settings on its Settings page, both off until you choose them:
+- Haul jobs for what it frees: each freed panel, and the ore and gangue from each broken rock, gets the game's own Haul job, as if you had painted it. Crew with the Haul duty bring it to a haul zone on your ship; with no haul zone marked, the laser tells you once.
+- Mine jobs for deposits it opens: each ore deposit a cut opens gets the game's own Mine job. Crew need the Demolish duty and a mining drill, and the ore goes to whoever drills, as always. The laser still never touches a deposit itself.
+- The panel shows both settings and how many jobs were queued since Start. Jobs are cancelled from the PDA like any painted job.
+
+### Save compatibility
+
+- Automatic. The two settings are new optional entries in the laser's saved settings; a laser from an older save has both off and behaves as before.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.78.0 or newer.
+- Only cuts finished while a setting is on get a job. Whether crew can walk across a mooring to a rock or hull is the game's pathing and has not been checked in play.
+
 ## [0.70.0] - 2026-10-04 - Draft
 
 ### Changed

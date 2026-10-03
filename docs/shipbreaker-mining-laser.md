@@ -40,7 +40,8 @@ fetch it.
    counts.
 6. **Send the crew to fetch.** Ore and gangue lie on the asteroid where the
    rock stood. Freed panels lie on the hull where they hung. Haul them home by
-   hand, into [material bins](shipbreaker-material-bins.md) or to the D4.
+   hand, into [material bins](shipbreaker-material-bins.md) or to the D4, or let
+   the laser queue the jobs for you: see [crew jobs](#crew-jobs).
 
 The panel shows the cut in hand, how much rock has been broken, how many panels
 are free and how much is left in the arc.
@@ -130,6 +131,27 @@ sooner. An assembly's limit is 250 C.
 - The link is by touching only. The laser cannot be cooled through F6-C conduit
   in this version.
 
+## Crew jobs
+
+Two settings on the laser's **Settings** page, both off until you choose them
+(Shipbreaker 0.71.0). They queue the game's own jobs, the same ones you paint with
+the PDA, so the crew follow the game's rules and you can cancel a job from the PDA.
+
+- **Haul jobs for what it frees.** Each freed panel, and the ore and gangue from
+  each broken rock, gets a Haul job. Crew with the **Haul** duty bring it to a
+  **haul zone** on your ship: mark one with the PDA's zone tool and tick Haul.
+  With no haul zone the crew have nowhere to bring it, and the laser tells you
+  once. What the zone accepts is the zone's own category setting. Once panels are
+  aboard, the D4's Load feed order takes them from the deck as usual.
+- **Mine jobs for deposits it opens.** When a cut opens an ore deposit, the deposit
+  gets the game's Mine job. Crew need the **Demolish** duty and a mining drill.
+  The ore goes to whoever drills, as the game always does it; the laser still
+  never touches a deposit itself.
+
+The panel shows both settings and how many jobs were queued since Start. Only
+cuts finished while a setting is on get a job; things already lying about are
+yours to paint. Turning a setting off leaves queued jobs in place.
+
 ## Safety
 
 - The laser holds fire while anyone, yours or not, stands within a tile of the
@@ -164,7 +186,10 @@ off changes nothing about the work.
   wreck you are merely flying beside: deck tiles are 0.32 m across and the
   game keeps free-flying ships hundreds of metres apart.
 - One moored ship at a time, and no station docks.
-- It does not gather, haul or feed. The crew do.
+- It does not gather, haul or feed. The crew do, by hand or through the
+  [crew jobs](#crew-jobs) it can queue.
+- Crew jobs are the game's own. Whether crew can reach the moored rock or hull
+  (suits, airlocks, a walkable way across) is the game's pathing, not the laser's.
 - The radiator link is by touching only; there is no piped cooling for the laser.
 - Offline checks are not gameplay validation. How the beam and animation look,
   how long the bursts feel and how the sweep order reads still need checking in

@@ -67,6 +67,15 @@ public static class LaserRules
     /// <summary>The high setting's draw. Its heat share is within what one cooling assembly sheds below its limit.</summary>
     public const double HighKW = 48;
     public const string PowerStandard = "standard", PowerHigh = "high";
+    // Crew jobs (Shipbreaker 0.71.0): two saved switches beside the filter, off when absent, and how far around a
+    // finished cut the laser looks for what it dropped (the game drops extra outputs within two tiles).
+    public const string HaulJobsKey = "haul", DepositJobsKey = "deposits", SwitchOn = "on", SwitchOff = "off";
+    public const double JobSearchTiles = 2;
+    public static bool ParseSwitch(string? text, out bool on)
+    {
+        on = text == SwitchOn;
+        return on || text == SwitchOff;
+    }
     public static bool ParsePower(string? text, out bool high)
     {
         high = text == PowerHigh;

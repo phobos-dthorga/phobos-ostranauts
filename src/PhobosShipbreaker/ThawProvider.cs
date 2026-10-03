@@ -32,6 +32,10 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Laser.power_field"), LaserService.PowerLabel(high),
                 new[] { false, true }.Select(h => ("power:" + (h ? LaserRules.PowerHigh : LaserRules.PowerStandard), LaserService.PowerLabel(h))),
                 "power:" + (high ? LaserRules.PowerHigh : LaserRules.PowerStandard));
+            foreach (var (action, label, on) in new[] { ("haul:", "Laser.haul_field", LaserService.HaulJobs(co)), ("deposits:", "Laser.deposit_field", LaserService.DepositJobs(co)) })
+                yield return new(Text.Get(label), LaserService.SwitchLabel(on),
+                    new[] { false, true }.Select(v => (action + (v ? LaserRules.SwitchOn : LaserRules.SwitchOff), LaserService.SwitchLabel(v))),
+                    action + (on ? LaserRules.SwitchOn : LaserRules.SwitchOff));
             yield break;
         }
         if (!ThawRules.IsFamily(co.strCODef)) yield break;

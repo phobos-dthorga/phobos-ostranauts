@@ -25,6 +25,12 @@ internal static class RoomHeatChecks
         Reject(() => RoomHeat.RiseKelvin(10000, -1), "A negative deposit is refused");
         Reject(() => RoomHeat.RiseKelvin(10000, double.NaN), "An invalid deposit is refused");
 
+        // Framework 0.78.0: the game's own painted jobs, field for field as the PDA builds them.
+        var haulTask = Phobos.Ostranauts.Framework.Crew.NativeJobs.HaulTask("abc");
+        check(haulTask == ("Haul", "ACTHaulItem", "abc", "HaulJobabc"), "A Haul job is the PDA's: Haul duty, the game's haul action, the item, the PDA's task name");
+        var mineTask = Phobos.Ostranauts.Framework.Crew.NativeJobs.MineDepositTask("abc");
+        check(mineTask == ("Demolish", "ACTMineDeposit", "abc", "MineJobabc"), "A deposit job is the PDA's: Demolish duty, the Mine Deposit action, the deposit, the PDA's task name");
+
         // Framework 0.76.0 (owner decision, 3 October 2026): our machines do not work in vacuum, and say so.
         var air = RoomHeat.Decide(true, 10000, 290, 0, 100, 12, 120);
         check(air.Admitted && air.PressureKPa == 100, "Air of 10 kPa or more under 40 C takes the heat");

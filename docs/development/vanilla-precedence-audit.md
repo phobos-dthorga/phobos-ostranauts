@@ -400,3 +400,12 @@ machine set against a wall uses the conduit in it.
   their hull side), the C2 set into the wall. Saved machines take the new points from
   their definition on load; conduit run under a machine's back row instead of behind it
   is the stated manual step.
+
+## Laser crew jobs (Shipbreaker 0.71.0, Framework 0.78.0, 4 October 2026)
+
+Fetching laser output and drilling opened deposits use the game's own painted jobs
+(Framework `Crew.NativeJobs`: `ACTHaulItem` under Haul, `ACTMineDeposit` under Demolish,
+queued through `WorkManager.AddTask` with the PDA's task names) instead of a Phobos
+hauling order across ships. No native definition is amended; duties, tools, haul zones,
+pathing and the ore reward stay the game's. `LaserNativeChecks` holds the game data the
+jobs rest on.

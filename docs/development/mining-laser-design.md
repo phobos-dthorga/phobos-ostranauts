@@ -241,3 +241,26 @@ the draw it captured.
   sources comes before any design.
 - A machine-side route for ore deposits, which the game reserves for a crew
   member.
+
+## Crew jobs (Shipbreaker 0.71.0, Framework 0.78.0, 4 October 2026)
+
+Owner decision: crew fetch what the laser frees and drill the deposits it opens.
+
+- **Why the game's own jobs.** Phobos crew orders are same-ship (`CrewWork.Eligible`,
+  `CrewLogistics.Deliver`), and laser output lies on the moored ship. The game's tasks
+  are not: `WorkManager.ClaimNextTask` takes targets on every docked or moored ship, and
+  `Task2.AssignHaulZone` reads the hauler's zones with docked ships allowed. So the laser
+  paints what the PDA paints (`CrewSim.PaintOrder`): Haul = duty Haul, `ACTHaulItem`,
+  name `HaulJob<id>`; Mine on a deposit = duty Demolish, `ACTMineDeposit`, name `MineJob<id>`.
+- **Finding the output.** The game's mode switch keeps the cut object's id on its first
+  output (`CondOwner.ModeSwitch`), so the freed panel or what the rock became is resolved
+  by the job's object id before the record forgets it. Further outputs drop within two
+  tiles (`DropCOsNearby`), covered by `NativeJobs.HaulNear` with the game's
+  `TIsMiningOutput` test and the ordinary loose wall identity.
+- **Deposits.** Still never cut: the laser's Mine rule excludes them. A deposit the cut
+  opened carries `IsOreDeposit` and `ACTMineDeposit`; the job gives the ore to the miner
+  through the game's own `addus` loot.
+- **Limits, unverified until played.** Whether crew path across a mooring to an asteroid;
+  how long the game's mining reply chain runs after its opener completes the task. The
+  PDA skips its trigger check for a selected crew member; the laser paints without one.
+- **Later ideas** now shorter: the machine-side deposit route is closed in favour of this.

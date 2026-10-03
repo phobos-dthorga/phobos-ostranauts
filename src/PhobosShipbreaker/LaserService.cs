@@ -30,6 +30,9 @@ internal static partial class LaserService
         // The paired cooling assembly as last checked by the one-second step; power steps recheck only its room.
         internal CondOwner? Radiator;
         internal string Notice = "";
+        // Crew jobs painted since Start (not saved: the tasks themselves are the game's).
+        internal int HaulJobs, DepositJobs;
+        internal bool ZoneWarned;
     }
     internal const string FilterStoreName = "Shipbreaker.LaserFilter";
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
@@ -48,7 +51,7 @@ internal static partial class LaserService
         if (message.Length != 0) return false;
         if (!LaserRules.ParseFilter(id, out var filter)) { message = Text.Get("Industry.unsupported_action"); return false; }
         if (sessions.TryGetValue(co.strID, out var s) && s.Authorized && s.Record.HasJob) { message = Text.Get("Laser.filter_busy"); return false; }
-        if (!FilterStore(co).TryWrite(new Dictionary<string, string> { ["filter"] = LaserRules.FilterId(filter) })) { message = Text.Get("Laser.save"); return false; }
+        if (!WriteChoice(co, "filter", LaserRules.FilterId(filter))) { message = Text.Get("Laser.save"); return false; }
         message = Text.Get("Laser.filter_set", Text.Get("Laser.filter_" + LaserRules.FilterId(filter)));
         return true;
     }
@@ -71,6 +74,8 @@ internal static partial class LaserService
         if (action.StartsWith("filter:", StringComparison.Ordinal)) return SetFilter(co, binding, action.Substring(7), out message);
         if (action.StartsWith("cooling:", StringComparison.Ordinal)) return SetCooling(co, binding, action.Substring(8), out message);
         if (action.StartsWith("power:", StringComparison.Ordinal)) return SetPower(co, binding, action.Substring(6), out message);
+        if (action.StartsWith("haul:", StringComparison.Ordinal)) return SetJobs(co, binding, LaserRules.HaulJobsKey, action.Substring(5), out message);
+        if (action.StartsWith("deposits:", StringComparison.Ordinal)) return SetJobs(co, binding, LaserRules.DepositJobsKey, action.Substring(9), out message);
         if (action == "status") { message = Describe(co); return true; }
         message = ProcessingService.AccessProblem(co, binding) ?? "";
         if (message.Length != 0) return false;
@@ -104,7 +109,7 @@ internal static partial class LaserService
         bool fresh = status == SavedStateStatus.Missing || r["ship"] != co.ship.strRegID || r["mount"] != mount || r["target"] != target.strRegID ||
             r["port"] != port || r.Phase == LaserPhase.Exhausted;
         if (fresh) r.Bind(co.ship.strRegID, co.strID, mount, target.strRegID, port);
-        else if (r.HasJob) Reconcile(target, r);
+        else if (r.HasJob) Reconcile(co, target, r);
         var s = new Session { Laser = co, Record = r, Authorized = true, Notice = Text.Get("Laser.seeking") };
         sessions[co.strID] = s;
         if (!Save(s)) { sessions.Remove(co.strID); message = Text.Get("Laser.save"); return false; }
@@ -115,12 +120,15 @@ internal static partial class LaserService
     /// <summary>A saved job is settled by what can be seen, never by repeating its change: a pending change that
     /// happened is counted, one that did not is given up and paid for again; unpaid work on an object that is still
     /// there carries on.</summary>
-    private static void Reconcile(Ship target, LaserRecord r)
+    private static void Reconcile(CondOwner co, Ship target, LaserRecord r)
     {
         var found = ReclamationGeometry.Resolve(target, r["object"]);
         bool changed = found == null || found.strCODef != r["stage"];
         if (r.Phase == LaserPhase.Working) { if (changed) r.Drop(); return; }
-        if (changed) r.Settle(Finished(r, found)); else r.Drop();
+        if (!changed) { r.Drop(); return; }
+        bool finished = Finished(r, found);
+        if (finished) QueueJobs(co, null, target, r, found, null);
+        r.Settle(finished);
     }
     private static bool Finished(LaserRecord r, CondOwner? found) => r["kind"] == LaserRules.Wall || found == null || !LaserGeometry.Mineable(found);
 
@@ -248,6 +256,7 @@ internal static partial class LaserService
         if (found == null || found.strCODef != r["stage"])
         {
             bool wall = r["kind"] == LaserRules.Wall, finished = Finished(r, found);
+            if (finished) QueueJobs(s.Laser, s, target, r, found, s.Aim);
             r.Settle(finished); s.Aim = null; s.PendingSince = 0;
             s.Notice = Text.Get(wall ? "Laser.panel_freed" : finished ? "Laser.rock_broken" : "Laser.rock_cracked");
             if (!Save(s)) Suspend(s, Text.Get("Laser.save"));
@@ -304,6 +313,8 @@ internal static partial class LaserService
         return co.HasCond(LaserRules.Working) && co.HasCond("IsPowered") ? EquipmentState.Running : EquipmentState.Waiting;
     }
 
+    private static string JobsLine(CondOwner co, Session? s) =>
+        Text.Get("Laser.jobs_line", SwitchLabel(HaulJobs(co)), SwitchLabel(DepositJobs(co)), s?.HaulJobs ?? 0, s?.DepositJobs ?? 0);
     internal static string Describe(CondOwner co)
     {
         string filter = Text.Get("Laser.filter_" + LaserRules.FilterId(Filter(co)));
@@ -313,11 +324,11 @@ internal static partial class LaserService
             "\n" + Text.Get("Laser.power_line", PowerLabel(high)) + "\n" + CoolingStatus(co);
         sessions.TryGetValue(co.strID, out var s);
         if (!Read(co, out var r))
-            return (s != null && s.Notice.Length > 0 ? s.Notice + "\n" : "") + Text.Get("Laser.help", filter) + "\n" + demand;
+            return (s != null && s.Notice.Length > 0 ? s.Notice + "\n" : "") + Text.Get("Laser.help", filter) + "\n" + JobsLine(co, s) + "\n" + demand;
         string remaining = s != null && s.Remaining >= 0 ? s.Remaining.ToString(CultureInfo.InvariantCulture) : Text.Get("Laser.unknown");
         return Text.Get("Laser.status", s != null ? s.Notice : Text.Get("Laser.resume_required"), Text.Get("Laser.phase_" + r.Phase), filter,
                 r.Number("rock"), r.Number("walls"), remaining) +
             (r.HasJob ? "\n" + Text.Get("Laser.work", Text.Get("Laser.kind_" + r["kind"]), r.Number("progress"), r.Number("seconds"), r.Number("kw")) : "") +
-            "\n" + demand;
+            "\n" + JobsLine(co, s) + "\n" + demand;
     }
 }

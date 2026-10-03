@@ -2,7 +2,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Ostranauts.Trading;
 using Phobos.Ostranauts.Framework;
+using Phobos.Ostranauts.Framework.Crew;
 using Phobos.Ostranauts.Framework.Effects;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosShipbreaker;
@@ -145,5 +147,27 @@ internal static class LaserNativeChecks
             !FurnaceService.IsEquipmentDefinition(LaserRules.Installed), "A head pairs with the furnace family's cooling assemblies and is not one of that family itself");
         check(Math.Abs(power.fOverrideAmount * Units.SecondsPerHour - LaserRules.WorkingKW) < 1e-9 && LaserRules.HighKW > LaserRules.WorkingKW,
             "The power info still asks for the standard draw; the high setting is scaled from it in the power step, as the G4 scales its cutter");
+
+        // Shipbreaker 0.71.0 / Framework 0.78.0: the laser paints the game's own Haul and Mine jobs. Everything those
+        // jobs rest on must still exist in the game's data, or the settings would queue nothing.
+        check(DataHandler.dictInteractions.ContainsKey(NativeJobs.HaulInteraction) && DataHandler.dictInteractions.ContainsKey(NativeJobs.MineDepositInteraction),
+            "The game still has its Haul and Mine Deposit actions");
+        check(NativeDefinitions.Trigger(NativeJobs.HaulSourceTrigger) != null && NativeDefinitions.Trigger(BinRules.NativeMiningOutput) != null,
+            "The game still has its haul-source and mining-output tests");
+        check(JsonCompanyRules.aDutiesNew.Contains(NativeJobs.HaulDuty) && JsonCompanyRules.aDutiesNew.Contains(NativeJobs.MineDuty), "Haul and Demolish are still crew duties");
+        var deposits = DataHandler.dictCOs.Values.Where(c => (c.aStartingConds ?? Array.Empty<string>()).Any(x => x.StartsWith(NativeJobs.DepositCondition + "=", StringComparison.Ordinal))).ToArray();
+        check(deposits.Length >= 3 && deposits.All(c => (c.aInteractions ?? Array.Empty<string>()).Contains(NativeJobs.MineDepositInteraction)),
+            "Every ore deposit offers the game's Mine Deposit action (" + deposits.Length + ")");
+        var mineRule = NativeDefinitions.Trigger("TIsMineableDestructableNotDeposit");
+        check(mineRule != null && deposits.All(c => !mineRule.TriggeredDataCO(new DataCO(c), false)), "The laser's own Mine rule still leaves opened deposits to the crew");
+        var haulRule = NativeDefinitions.Trigger(NativeJobs.HaulSourceTrigger)!;
+        check(haulRule.TriggeredDataCO(new DataCO(DataHandler.dictCOs[ProcessRules.Wall]), false) && !haulRule.TriggeredDataCO(new DataCO(DataHandler.dictCOs[ProcessRules.InstalledWall]), false) &&
+              haulRule.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmMiningTrash"]), false),
+            "A freed panel and gangue pass the game's haul test; an installed wall does not");
+        check(typeof(WorkManager).GetMethod("AddTask", new[] { typeof(Task2), typeof(int) })?.ReturnType == typeof(bool) &&
+              new[] { "strDuty", "strInteraction", "strTargetCOID", "strName" }.All(m => typeof(Task2).GetMember(m).Length > 0),
+            "The game's task and its queue keep the shape the PDA uses");
+        check(typeof(Ship).GetMethod("GetZones", new[] { typeof(string), typeof(CondOwner), typeof(bool), typeof(bool) })?.ReturnType == typeof(System.Collections.Generic.List<JsonZone>),
+            "The game's zone lookup keeps its shape for the haul-zone warning");
     }
 }

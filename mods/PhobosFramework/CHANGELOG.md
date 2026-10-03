@@ -22,6 +22,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.78.0] - 2026-10-04 - Draft
+
+### Added
+
+- NativeJobs: equipment can queue the game's own crew jobs, exactly as the PDA paints them: a Haul job on a loose item, and a Mine job on an opened ore deposit. Phobos crew orders work within one ship; the game's own jobs reach a ship moored to yours, so this is how work left on a moored rock or hull gets to the crew. The first user is the ML-2 mining laser.
+
+### Save compatibility
+
+- None. The jobs are the game's own and are saved by the game.
+
+### Compatibility and limits
+
+- Nothing here moves an item or pays ore: duties, tools, haul zones and crew pathing stay the game's. Checked offline against the game's data; not yet seen in the game.
+
 ## [0.77.0] - 2026-10-04 - Draft
 
 ### Changed
