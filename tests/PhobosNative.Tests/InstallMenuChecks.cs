@@ -5,7 +5,7 @@ using PhobosShipbreaker.Core;
 
 internal static class InstallMenuChecks
 {
-    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, NativeDefinitions manufacturing, NativeDefinitions framework, Action<bool,string> check, Action<Action,string> throws)
+    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, NativeDefinitions manufacturing, NativeDefinitions framework, NativeDefinitions medical, Action<bool,string> check, Action<Action,string> throws)
     {
         // Exercise the actual native registration, not a replica of the menu algorithm.
         var foreign = new JsonInstallable { strName = "ForeignInstall", strJobType = "install",
@@ -15,7 +15,8 @@ internal static class InstallMenuChecks
         foreach (var job in farm.Installables.Values) Installables.Create(job);
         foreach (var job in manufacturing.Installables.Values) Installables.Create(job);
         foreach (var job in framework.Installables.Values) Installables.Create(job);
-        foreach (var definitions in new[] { farm, industry, manufacturing, framework })
+        foreach (var job in medical.Installables.Values) Installables.Create(job);
+        foreach (var definitions in new[] { farm, industry, manufacturing, framework, medical })
         {
             InstallMenu.Validate(definitions.Installables.Values);
             foreach (var co in definitions.Objects.Values.Where(c => c.aStartingConds?.Any(s => s.Split('=')[0] == "IsInstalled") == true))
@@ -31,7 +32,7 @@ internal static class InstallMenuChecks
                     co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) || co.strName.StartsWith(PhobosManufacturing.Core.AcidLineRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.EthanolLineRules.Prefix) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.FillerRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.RegulatorRules.Prefix) ? "HVAC" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
-                    BinRules.IsFamily(co.strName) ? "FURN" :
+                    BinRules.IsFamily(co.strName) || PhobosMedical.Core.MedicalRules.IsBed(co.strName) ? "FURN" :
                     co.strName.StartsWith(PhobosAgriculture.IrrigationDefinitions.Pipe) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Inventory.BeltNetwork.Prefix) ? "MISC" : "APPS";
                 check(Installables.dictJobBuildOptionsListed.TryGetValue(expected, out var tab) && tab.ContainsKey(co.strName), "Native INSTALL tab covers intact/damaged fixture: " + co.strName);
                 var job = Installables.dictJobBuildOptionsListed[expected][co.strName];

@@ -41,6 +41,13 @@
         "PhobosFramework"
       ],
       "hold": "Held draft: first release awaiting owner gameplay checks."
+    },
+    "PhobosMedical": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Held draft: first release awaiting owner gameplay checks and the Halewright artwork."
     }
   },
   "externalRequiredItems": [

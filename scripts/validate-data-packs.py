@@ -450,7 +450,44 @@ def crops(pack, where):
                 number(item[name], f'{w}/{name}', 1, 20, integer=True)
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops}
+CARE_STATIONS = ('bed',)
+CARE_MAX_KW = 2
+# The game's fatal or knock-out levels: an admission threshold must sit below them (Phobos Medical 0.1.0).
+CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
+
+
+def care(pack, where):
+    """The care schema (Phobos Medical 0.1.0): station power and the injured and discharge thresholds."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission'}, where)
+    stations = pack.get('stations')
+    if not isinstance(stations, dict):
+        raise Problem(f'{where}/stations: expected station to entry')
+    for key in CARE_STATIONS:
+        if key not in stations:
+            raise Problem(f'{where}/stations: missing {key}')
+    for key, s in stations.items():
+        w = f'{where}/stations/{key}'
+        if key not in CARE_STATIONS:
+            raise Problem(f'{w}: unknown station; the stations are {", ".join(CARE_STATIONS)}')
+        fields(s, {'notes', 'idleKW', 'workingKW'}, w)
+        number(s.get('idleKW'), f'{w}/idleKW', 0, CARE_MAX_KW)
+        number(s.get('workingKW'), f'{w}/workingKW', 0, CARE_MAX_KW, exclusive_low=True)
+        if s['idleKW'] > s['workingKW']:
+            raise Problem(f'{w}: idle power above working power')
+    a = pack.get('admission')
+    if not isinstance(a, dict):
+        raise Problem(f'{where}/admission: expected an object')
+    fields(a, {'notes', 'dischargeShare', *CARE_LIMITS}, f'{where}/admission')
+    for name, below in CARE_LIMITS.items():
+        number(a.get(name), f'{where}/admission/{name}', 0, below, exclusive_low=True)
+        if a[name] >= below:
+            raise Problem(f'{where}/admission/{name}: must be below {below}')
+    number(a.get('dischargeShare'), f'{where}/admission/dischargeShare', 0, 1)
+    if a['dischargeShare'] >= 1:
+        raise Problem(f'{where}/admission/dischargeShare: must be below 1')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}
 
 
 def check_file(path):

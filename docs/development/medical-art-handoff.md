@@ -78,5 +78,7 @@ Inspect at 48 x 80 and at an integer enlargement before anything else is made.
 
 ## Until then
 
-Set 1 builds and tests without artwork, but its package is not ready to play while
-the bed has no sprite. The family references `phobos/medical/PhobosMedicalBed`.
+Medical 0.1.0 shows the vanilla Infirmaway's own images on each Ward-3 form,
+referenced by name at run time (nothing of the game's is copied into the package),
+so the bed is playable now. When the Halewright art is exported, the definitions
+switch to `phobos/medical/PhobosMedicalBed` and the completion manifest binds it.

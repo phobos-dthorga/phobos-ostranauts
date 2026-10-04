@@ -20,7 +20,7 @@ function Copy-PhobosPlayerGuides {
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
         'merchant-stock', 'item-references', 'item-handling-audit', 'section-assembly-and-maintenance', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'manufacturing-item-reference',
-        'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation', 'manufacturing-player-guide', 'manufacturing-refinery-and-chemistry', 'manufacturing-art-handoff', 'war-declared-player-guide', 'war-declared-design',
+        'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation', 'manufacturing-player-guide', 'manufacturing-refinery-and-chemistry', 'manufacturing-art-handoff', 'war-declared-player-guide', 'war-declared-design', 'medical-player-guide', 'medical-bed-design', 'medical-bed-research', 'medical-item-reference',
         'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
         $guideSource = Join-Path $RepoRoot "docs/$name.md"

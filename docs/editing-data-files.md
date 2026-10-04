@@ -63,7 +63,7 @@ The rules:
 ## Editor help
 
 The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
-`process-recipes`, `materials`, `vessels`, `equipment`, `crops`). Point your editor at them and it will
+`process-recipes`, `materials`, `vessels`, `equipment`, `crops`, `care`). Point your editor at them and it will
 complete field names and flag a wrong type or range as you type. In VS Code, add
 to your settings (adjust the path to where you cloned or downloaded the schemas):
 
@@ -118,6 +118,8 @@ as needing attention, until the file is back.
 | Phobos Manufacturing 0.17.0 | `equipment` | The V4 refinery's size, weight, power, heat into the room, feed cells and connection points (read only for now) |
 | Phobos Agriculture 0.40.0 | `crops` | What a Firstlight rack grows: each crop's growth time, power, water, nutrient and carbon budgets, harvest, items, feed and artwork |
 | Phobos Agriculture 0.40.0 | `process-recipes` | What the Hearth-2 cooks: one portion in, one portion out, and the seconds it takes |
+| Phobos Medical 0.1.0 | `care` | The Ward-3 bed's idle and working power, who counts as injured, and when a resting patient gets up |
+| Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -194,3 +196,33 @@ The rules a crop is held to:
 The Hearth-2's recipes work the same way in
 `BepInEx/config/PhobosAgriculture/process-recipes/`: one item in, one item of the
 same mass out, a number of seconds, and no two recipes for the same item.
+
+## Tuning the medical bed
+
+Put a file in `BepInEx/config/PhobosMedical/care/` (Phobos Medical 0.1.0). The
+shipped `care.json` in the mod's `framework` folder is the reference. This file
+lowers the bar for who may rest and lets patients stay in bed longer:
+
+```json
+{
+  "admission": { "pain": 10, "wound": 0.05, "dischargeShare": 0.25 }
+}
+```
+
+What the file holds:
+
+- **`stations.bed`**: `idleKW` with nobody under care and `workingKW` while caring,
+  at most 2 kW, idle no more than working.
+- **`admission`**: a person counts as injured, and may **Rest and recover**, when
+  any figure reaches its threshold, a wound is bleeding or a fracture is unsplinted.
+  The figures are the game's own scales: `bloodLost` (blood lost; the game's shock
+  bands start at 15 and 30, and 40 is fatal), `infection` (35, 65, 95 fatal),
+  `pain` (25, 50, 75 knocks out) and `wound` (the worst wound's cut or blunt damage,
+  0 to 1). Each threshold must sit below the game's fatal or knock-out level.
+- **`dischargeShare`**: a resting patient gets up once every figure is below its
+  threshold times this share and nothing bleeds (0 to just under 1). The gap stops
+  a patient getting up and lying down again.
+
+The healing is the game's own Recuperating and cannot be changed here; a field such
+as `heal` is refused. Nothing in this file is saved with your beds, so a change
+applies to every bed from the next game load.

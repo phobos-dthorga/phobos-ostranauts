@@ -717,6 +717,24 @@ motor and a mainboard. It dismantles to 30 steel, 12 aluminium, 6 mechanical and
 It is sold on the other Fennmark machines' routes, carries the high-salvage mark
 and shares their one-in-twenty engineering find.
 
+## Medical 0.1.0: the Halewright Ward-3 medical bed
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Halewright Ward-3 medical bed | 92 kg | $24,000 | $6,000 | 1300 / 1300 | 2000 | 1500 | 45 min |
+
+Priced above the game's Infirmaway ($18,570) for its powered care, patient handling
+and drawer, with the Infirmaway's own work figures. Its repair bill follows the
+Infirmaway's: 2 steel, 3 aluminium, 3 mechanical and 3 electronic parts, a motor, a
+mainboard and 6 clean scrap cloth for the upholstery. It dismantles to 30 steel, 30
+aluminium, 8 mechanical and 8 electronic parts, 2 motors, 2 mainboards and 18 kg of
+retained trash (92 kg); broken, to 26 steel, 24 aluminium, 4 mechanical and 2
+electronic parts and 39 kg of trash. Sold new at the K-Leg furnishings kiosk (where the
+game sells its own medical bed), worn by the K-Leg fixer, broken at the K-Leg supply
+kiosk, refurbished at the Venus scrap kiosk, at the regional supply kiosks and for scrip
+at Friendly standing; one engineering-loot roll in fifty finds one, usually broken. It
+carries the high-salvage mark. The figures are in `mods/PhobosMedical/framework/economy.json`.
+
 ## Manufacturing 0.9.0: Q2, Q3 and Q4 ammonia stores
 
 The ammonia stores follow the other gas stores exactly: $20,000, $32,530 and

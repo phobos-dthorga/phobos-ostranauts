@@ -12,6 +12,7 @@ folder establishes that a Workshop item has been published.** Follow the
 | Agriculture | [Changelog](../mods/PhobosAgriculture/CHANGELOG.md) | [Page](PhobosAgriculture/page.bbcode) | [Versions](PhobosAgriculture/releases) |
 | Manufacturing — held for owner gameplay checks | [Changelog](../mods/PhobosManufacturing/CHANGELOG.md) | [Page](PhobosManufacturing/page.bbcode) | [Versions](PhobosManufacturing/releases) |
 | War Has Been Declared — held for owner gameplay checks | [Changelog](../mods/PhobosWarDeclared/CHANGELOG.md) | [Page](PhobosWarDeclared/page.bbcode) | [Versions](PhobosWarDeclared/releases) |
+| Medical — held for owner gameplay checks and its own artwork | [Changelog](../mods/PhobosMedical/CHANGELOG.md) | [Page](PhobosMedical/page.bbcode) | [Versions](PhobosMedical/releases) |
 
 Edit each mod's main changelog and page description. Pages stay at or below
 7,500 bytes (Steam allows under 8,000) with no ASCII double quotes or backslashes.

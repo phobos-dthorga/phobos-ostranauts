@@ -136,6 +136,25 @@ class DataPackTests(unittest.TestCase):
             validate.crops(bad, 'test')
         self.assertTrue(schemas.problems(json.loads(writer.render('crops')), bad))
 
+    def test_care_pack_keeps_thresholds_below_the_game_limits(self):
+        # Phobos Medical 0.1.0: the care pack holds station power and admission thresholds; the healing stays the game's.
+        path = ROOT / 'mods/PhobosMedical/framework/care.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        validate.care(pack, 'test')
+        self.assertEqual(schemas.problems(json.loads(writer.render('care')), pack), [])
+        for section, field, value in (('admission', 'bloodLost', 40), ('admission', 'pain', 0), ('admission', 'dischargeShare', 1),
+                                      ('admission', 'wound', 1.5), ('stations', 'bed', {'idleKW': 0.5, 'workingKW': 0.1}),
+                                      ('stations', 'bed', {'idleKW': 0, 'workingKW': 3}), ('stations', 'monitor', {'idleKW': 0, 'workingKW': 0.1})):
+            bad = json.loads(json.dumps(pack))
+            bad[section][field] = value
+            with self.subTest(field=field, value=value), self.assertRaises(validate.Problem):
+                validate.care(bad, 'test')
+        bad = json.loads(json.dumps(pack))
+        bad['admission']['heal'] = 1
+        with self.assertRaises(validate.Problem):
+            validate.care(bad, 'test')
+        self.assertTrue(schemas.problems(json.loads(writer.render('care')), bad))
+
     def test_validator_refuses_unknown_fields(self):
         pack = {'schemaVersion': 1, 'schema': 'materials', 'materials': {'m': {'kg': 1, 'price': 1, 'colour': 'red'}}}
         with self.assertRaises(validate.Problem):

@@ -32,6 +32,9 @@ the wall row behind its head, a small bedside drawer (service rack) for dressing
   plain sleep exactly as the Infirmaway's Off form does.
 - **Loose and damaged forms carry none of these marks**, so the Infirmaway's install
   job (`TIsBedMedical01Uninstalled`) and fixer lists never take a Ward-3.
+- **Stand-in art.** Until the Halewright art exists, each form shows the matching vanilla
+  Infirmaway images, referenced by name, drawn as low as the game's beds so a patient lies
+  on top ([handoff](medical-art-handoff.md)).
 
 ### Patient record
 
@@ -62,16 +65,26 @@ A 2-second service, the Cabin Air Regulator pattern:
 ### Care and honest power
 
 With a patient present and the bed intact, powered and in a pressurised room, the
-service ensures the game's `SleepingMedical` on the patient and the in-use condition
-on the bed, whose higher draw the game takes through `SetPowerOverride`. When power
-fails it removes the care it granted and posts one notice per outage. The bed's
-record says whether care came from the bed (a laid or resting patient) or from the
-game's own lie-down (a sleeper), so the service never strips what the game applied
-and the game's wake still clears it.
+service ensures the patient's care condition and the in-use condition on the bed,
+whose higher draw the game takes through `SetPowerOverride`:
 
-Time skip: every route carries `SleepingMedical`, so all get the game's medical hour.
-The service reconciles afterwards and says if power ran out during the skip. This is
-bounded, not exact: care is kept for the whole skip.
+- a sleeping or unconscious patient gets the game's own `SleepingMedical`, which the
+  game's wake already clears;
+- a patient resting awake gets the bed's own `PhobosMedicalRecovering`, whose effect is
+  exactly the game's `CONDSleepingMedicalPer`. As implemented in 0.1.0 this replaces the
+  earlier idea of giving resters `SleepingMedical`: the game's social tests
+  (`TIsNotSleeping`) would have counted an awake rester as asleep.
+
+When power or air fails, the service removes the care, including the game's
+`SleepingMedical` from a sleeper (a hidden `PhobosMedicalCare` mark records that the bed
+gave care), and posts one notice per outage; care returns with the power. A sweep every
+few passes withdraws care no bed still claims, so a bed destroyed or removed under its
+patient leaves nothing behind.
+
+Time skip: a sleeping or unconscious patient carries `SleepingMedical`, so gets the
+game's medical hour; a rester's rate stats catch up through the game's own tickers but
+without the medical hour's extra amounts. The service reconciles after the skip. This
+is bounded, not exact: care is kept for the whole skip.
 
 ## The `care` data pack
 
@@ -107,8 +120,8 @@ New services land with Phobos Medical as first consumer:
 
 | Set | Service |
 | --- | --- |
-| 1 | `ApplianceDefinitions` width-by-depth overload (square families unchanged); `Health.PatientPlacement` |
-| 2 | `Health.PatientFacts`, `Health.CareGrants`, `Health.WoundGravity` (one hand-applied transpiler on `Wound.Run`; left off with a plain message if the pattern moves) |
+| 1 | `ApplianceDefinitions` width-by-depth overload (square families unchanged); `Health.PatientPlacement`; `Health.PatientFacts` (brought forward from set 2: the admission thresholds need it) |
+| 2 | `Health.CareGrants`, `Health.WoundGravity` (one hand-applied transpiler on `Wound.Run`; left off with a plain message if the pattern moves) |
 | 3 | `Observations.Footprints` (rotation-aware touching, lifted from `LaserRules.Touching`) |
 | 4 | `Health.WoundCare` (slot one unit; apply a checked native condition); `CrewRole.Medical` |
 
@@ -139,8 +152,7 @@ queues (these names stay registered for good, or a saved queue would name nothin
 
 - The rectangular footprint through the appliance builder: placement, rotation,
   walking onto the bed.
-- Awake resters carry `SleepingMedical`, so the game's social triggers treat them as
-  asleep.
+- A rester's loop uses the game's Sleeping pose (there is no lying-awake animation).
 - Re-registering a person released from the drag slot.
 - `IsOccupied` lapses in about 10 game seconds; at high game speed the offer gate is
   what keeps a bed reserved.

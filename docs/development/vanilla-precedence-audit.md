@@ -421,3 +421,29 @@ once-per-ship pass after loading does so for older saves. They are display mirro
 the kilogram record stays the only truth (bulk-silo direction: no native stat that a
 kiosk could fill by tag), nothing reads them back, and the names are Phobos' own.
 `VesselContentsNativeChecks` holds every registered commodity to a declared row.
+
+## The Ward-3 medical bed (Medical 0.1.0, Framework 0.82.0, 4 October 2026)
+
+Owner direction: a new own-brand bed, leaving the game's Infirmaway untouched. No vanilla
+definition is amended or republished. The Ward-3 joins the game's own systems by carrying
+their marks: its installed intact form has `IsBedMedical`, `IsCushion` and `IsSheet`, so the
+game's unchanged `SeekSleepSimple` gives medical sleep in it, the game's time skip gives a
+patient with `SleepingMedical` its medical hour, and room types count it as a bed. Loose and
+damaged forms carry none of these marks, so the Infirmaway's install job (which takes anything
+passing `TIsBedMedical01Uninstalled`) and the fixers' lists never take one.
+
+- **Power follows the game's own rule.** The game expresses an unpowered medical bed as
+  `IsOff`, which `TIsBedMedical` forbids; the bed service mirrors power into `IsOff`, as the
+  Infirmaway's Off form does, and it installs off.
+- **Offers are refused, nothing is blocked.** One `TriggeredInternal` postfix refuses Sleep,
+  Rest and Lay patient here on a Ward-3 someone else lies in (the game's own `IsOccupied` lapses
+  in about ten game seconds, so it cannot hold a bed at high speed), Rest for the uninjured, and
+  Sleep for the uninjured on a bed kept for the injured. It touches no other object.
+- **The rest chain is the game's own pattern.** Rest is cloned from `SeekSleepSimple`, its loop
+  from the chair loop `ACTChairSitAllow`, and a sleepy rester falls asleep through the game's own
+  `SeekSleepSimpleLieDownMedical`, below the free-bed test of its opener. Rest is not an idle
+  opener.
+- **Placement copies the game's Drop Corpse.** Lay patient here releases the dragged body with
+  the game's own calls; the patient's knock-out loop stays as the game made it.
+- **Removal is refused when offered**, never by blocking native destruction: Uninstall and
+  Dismantle are refused while someone lies in the bed.

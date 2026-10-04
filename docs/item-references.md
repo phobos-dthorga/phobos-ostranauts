@@ -8,6 +8,7 @@ Choose your mod for what each object does, how to use it, where it appears, and 
 | Phobos Auto Nav | [Items and equipment](auto-nav-item-reference.md) |
 | Phobos Framework | [Items and equipment](framework-item-reference.md) |
 | Phobos Manufacturing | [Items and equipment](manufacturing-item-reference.md) |
+| Phobos Medical | [Items and equipment](medical-item-reference.md) |
 | Phobos Shipbreaker | [Items and equipment](shipbreaker-item-reference.md) |
 | Phobos' War Has Been Declared | [Items and equipment](war-declared-item-reference.md) |
 

@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/care.schema.json",
+  "title": "Phobos care data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "care"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "stations": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(bed)$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "idleKW": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Demand with nobody under care, kW; no more than workingKW."
+            },
+            "workingKW": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 2,
+              "description": "Demand while giving care, kW."
+            }
+          }
+        }
+      },
+      "description": "Electrical demand by station: bed."
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "bloodLost": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 40,
+          "description": "Blood lost at which a person counts as injured (the game: 40 is fatal); below 40."
+        },
+        "infection": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 95,
+          "description": "Infection at which a person counts as injured (the game: 95 is fatal); below 95."
+        },
+        "pain": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 75,
+          "description": "Pain at which a person counts as injured (the game: 75 knocks out); below 75."
+        },
+        "wound": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "description": "Worst wound cut or blunt damage, 0 to 1, at which a person counts as injured; below 1."
+        },
+        "dischargeShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "A resting patient gets up below every threshold times this share; below 1."
+        }
+      },
+      "description": "Who counts as injured, and when a resting patient has recovered."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "stations",
+    "admission"
+  ],
+  "description": "Phobos Medical care pack: station power and admission thresholds. The healing is the game's own Recuperating."
+}

@@ -12,7 +12,7 @@ SNAPSHOT = Path('docs/item-reference-data.json')
 CONFIG = Path('config/item-reference.json')
 SLUGS = {'PhobosAutoNav': 'auto-nav', 'PhobosShipbreaker': 'shipbreaker',
          'PhobosAgriculture': 'agriculture', 'PhobosFramework': 'framework',
-         'PhobosManufacturing': 'manufacturing', 'PhobosWarDeclared': 'war-declared'}
+         'PhobosManufacturing': 'manufacturing', 'PhobosWarDeclared': 'war-declared', 'PhobosMedical': 'medical'}
 
 
 def source_hashes(root):

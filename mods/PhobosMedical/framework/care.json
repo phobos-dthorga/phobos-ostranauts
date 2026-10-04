@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "schema": "care",
+  "notes": "Phobos Medical care pack (0.1.0): each station's electrical demand and who counts as injured. The healing itself is the game's own Recuperating (CONDSleepingMedicalPer), not these figures. All thresholds are authored gameplay balance on the game's own scales, not clinical values. Player files in BepInEx/config/PhobosMedical/care override entries by name; see docs/editing-data-files.md.",
+  "stations": {
+    "bed": {
+      "notes": "Halewright Ward-3 Medical Bed. Idle is the vanilla Infirmaway's own draw (22.5 W); working adds the bed's care systems while a patient is under care.",
+      "idleKW": 0.0225,
+      "workingKW": 0.15
+    }
+  },
+  "admission": {
+    "notes": "Injured when any figure reaches its threshold, a wound bleeds or a fracture is unsplinted. Blood lost and infection on the game's 0 to 40 and 0 to 95 scales, pain on its 0 to 75 scale, wound as the worst cut or blunt damage 0 to 1. A resting patient gets up once every figure is below threshold times dischargeShare.",
+    "bloodLost": 8,
+    "infection": 20,
+    "pain": 20,
+    "wound": 0.1,
+    "dischargeShare": 0.5
+  }
+}

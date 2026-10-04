@@ -26,6 +26,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.82.0] - 2026-10-04 - Draft
+
+### Added
+
+- Rectangular equipment. A machine family can now be wider than it is deep, or the other way round, with its use point in front and its power point in the wall row behind its back edge. Square machines are built exactly as before. First used by Phobos Medical's three-by-five Ward-3 bed.
+- Putting down a carried person at a chosen spot on a piece of equipment, the way the game's own Drop Corpse releases a body, for content mods that place a patient (Phobos Medical's Lay patient here).
+- A read-only reading of a person's health as the game holds it: blood lost, infection, pain and each wound's cut, blunt, bleeding, dressing and splint state. Reading never changes the person.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.81.0] - 2026-10-04 - Draft
 
 ### Changed

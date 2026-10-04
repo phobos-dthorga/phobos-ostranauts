@@ -201,7 +201,22 @@ def crops():
                'What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop.')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops}
+def care():
+    station = obj({'notes': NOTES, 'idleKW': num(0, 2, description='Demand with nobody under care, kW; no more than workingKW.'),
+                   'workingKW': num(None, 2, exclusive_minimum=0, description='Demand while giving care, kW.')})
+    admission = obj({'notes': NOTES,
+                     'bloodLost': num(None, 40, exclusive_minimum=0, description='Blood lost at which a person counts as injured (the game: 40 is fatal); below 40.'),
+                     'infection': num(None, 95, exclusive_minimum=0, description='Infection at which a person counts as injured (the game: 95 is fatal); below 95.'),
+                     'pain': num(None, 75, exclusive_minimum=0, description='Pain at which a person counts as injured (the game: 75 knocks out); below 75.'),
+                     'wound': num(None, 1, exclusive_minimum=0, description='Worst wound cut or blunt damage, 0 to 1, at which a person counts as injured; below 1.'),
+                     'dischargeShare': num(0, 1, description='A resting patient gets up below every threshold times this share; below 1.')},
+                    description='Who counts as injured, and when a resting patient has recovered.')
+    return obj({**header('care'), 'stations': named(station, 'Electrical demand by station: bed.', '^(bed)$'), 'admission': admission},
+               ['schemaVersion', 'schema', 'stations', 'admission'],
+               'Phobos Medical care pack: station power and admission thresholds. The healing is the game\'s own Recuperating.')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}
 
 
 def render(name):

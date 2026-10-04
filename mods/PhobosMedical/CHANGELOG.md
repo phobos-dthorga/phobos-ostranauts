@@ -1,0 +1,28 @@
+# Phobos Medical changelog
+
+Maintained from 4 October 2026. Dates on Draft entries record preparation,
+not Steam publication.
+
+## [Unreleased]
+
+## [0.1.0] - 2026-10-04 - Draft
+
+### Added
+
+- The Halewright Ward-3 Medical Bed, a three-by-five powered sickbay bed bought whole and installed through INSTALL, FURN. It counts as a medical bed to the game while powered, so sleeping in it gives the game's own Recuperating, the same healing as the vanilla Infirmaway.
+- Lay patient here. Drag an unconscious crew member or passenger to the bed and right-click it to lay them in it. In the vanilla game an unconscious person cannot be put to bed at all.
+- Rest and recover. An injured crew member can lie down in the bed awake and recuperate without being tired. If they become sleepy they fall asleep where they lie; once their injuries have eased they get up. Hunger, thirst and the toilet still get them up.
+- Honest power. While the bed has power and its room has air, its patient recuperates and the bed draws its working power; when power or air fails the care stops, the crew log says so once, and it resumes when they return. Without power the Ward-3 is an ordinary bed.
+- A Control Panel with the patient, how they came to be in the bed, how long they have been under care, a short reading of blood lost, infection, pain, the worst wound and any bleeding, the room and the power. One setting: anyone may sleep in the bed, or keep it for the injured.
+- A bedside drawer, three by two, for dressings, splints and medicines.
+- The care data pack (framework/care.json): the bed's idle and working power and the thresholds that decide who counts as injured and when a resting patient gets up. Players can tune them with a file in BepInEx/config/PhobosMedical/care. The healing itself is the game's own and is not in the pack.
+- Sold new at the K-Leg furnishings kiosk, worn by the K-Leg fixer, broken at the K-Leg supply kiosk and refurbished at the Venus scrap kiosk, in regional supply kiosks, as a rare engineering find, and for scrip at the CCRE and GalCon faction kiosks at Friendly standing. Price 24,000; repair takes a motor, a mainboard, six clean cloth, small parts and scrap, as the Infirmaway's does.
+- F3 console: phobosmedical list, status, use and accept.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.82.0, which adds the shared patient services and rectangular equipment.
+- Until the Halewright artwork is made, the Ward-3 shows the vanilla Infirmaway's own art, referenced by name.
+- The bed does not dress wounds, splint fractures or cure anything by itself. Weightlessness still slows wound healing to a twentieth, in this bed as anywhere. Both are planned.
+- Uninstalling or dismantling is refused while someone is in the bed.
+- Offline checks are not gameplay validation; owner gameplay checks are pending.

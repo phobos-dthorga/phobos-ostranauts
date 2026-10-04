@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.81.0",
+      "version": "0.82.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -45554,6 +45554,747 @@
       "recipeItemNames": {}
     },
     {
+      "id": "PhobosMedical",
+      "name": "Phobos Medical",
+      "version": "0.1.0",
+      "gameTarget": "1.0.1.5",
+      "items": [
+        {
+          "id": "PhobosMedicalBedInstalled",
+          "name": "Phobos' Halewright Ward-3 Medical Bed",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosMedicalControls",
+            "SeekSleepSimple",
+            "PhobosMedicalRest",
+            "PhobosMedicalLay",
+            "PhobosMedicalMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMedicalDrawer",
+            "width": 3,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 92.0,
+          "baseValue": 24000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMedicalBedInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalBedInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 30,
+                  "baseValue": 107.99999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 18,
+                  "baseValue": 0.9000000134110451
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMedicalBedInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMedicalBedInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMedicalBedInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedLoose",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalBedInstalledDmg",
+          "name": "Phobos' Halewright Ward-3 Medical Bed (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosMedicalControls",
+            "PhobosMedicalMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMedicalDrawer",
+            "width": 3,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 92.0,
+          "baseValue": 6000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMedicalBedInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalBedInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 26,
+                  "baseValue": 93.59999752044678
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 24,
+                  "baseValue": 26.40000057220459
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 39,
+                  "baseValue": 1.9500000290572643
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMedicalBedInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x3",
+                "TIsMotor=1x1",
+                "TIsMobo=1x1",
+                "TIsScrapClothClean=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedInstalled",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMedicalBedInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedLooseDmg",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed (Damaged)",
+                  "count": 1,
+                  "baseValue": 6000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalBedLoose",
+          "name": "Phobos' Halewright Ward-3 Medical Bed",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosMedicalMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMedicalDrawer",
+            "width": 3,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 92.0,
+          "baseValue": 24000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMedicalBedLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalBedLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 30,
+                  "baseValue": 107.99999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 18,
+                  "baseValue": 0.9000000134110451
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMedicalBedLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMedicalBedLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedInstalled",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMedicalBedLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalBedLooseDmg",
+          "name": "Phobos' Halewright Ward-3 Medical Bed (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosMedicalMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMedicalDrawer",
+            "width": 3,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 92.0,
+          "baseValue": 6000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMedicalBedLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalBedLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 26,
+                  "baseValue": 93.59999752044678
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 24,
+                  "baseValue": 26.40000057220459
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 39,
+                  "baseValue": 1.9500000290572643
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMedicalBedLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMedicalBedLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedInstalledDmg",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed (Damaged)",
+                  "count": 1,
+                  "baseValue": 6000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalBedLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMedicalBedLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalBedLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x3",
+                "TIsMotor=1x1",
+                "TIsMobo=1x1",
+                "TIsScrapClothClean=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalBedLoose",
+                  "name": "Phobos' Halewright Ward-3 Medical Bed",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        }
+      ],
+      "sources": [
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Loot",
+          "chance": 0.005,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMedicalBedLooseDmg",
+          "condition": "Loot",
+          "chance": 0.015,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFurnishingsKioskInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMedicalBedLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMedicalBedLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        }
+      ],
+      "recipes": [],
+      "recipeItemNames": {}
+    },
+    {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
       "version": "0.71.0",
@@ -58377,7 +59118,7 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "315ecfce8e38357fedcf56807de6e81072939185df323b23281dec72cb0d08b0",
+    "mods/PhobosFramework/mod_info.json": "64e84f26f3b4844d7d622d8d1a309f058795468d7fb1c813b0949baa89e6769f",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "44a8dd08fe0b71583bd521777128226bfc4d0828024a02fccf145c1abb4939af",
@@ -58388,6 +59129,11 @@
     "mods/PhobosManufacturing/framework/process-recipes.json": "6e1a55a5bff5f29b734b320a380d5f3cfb1c0f29482394ffd9e69c7dbbf4404c",
     "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
     "mods/PhobosManufacturing/mod_info.json": "29a69e8c18307e670628d213266a9ed5acabf9558e19fad46ea3964268ccf632",
+    "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
+    "mods/PhobosMedical/framework/care.json": "39416f3f69563d0cbcfbba46fdd518461edce25b4340c8eef192bb244a7ae06b",
+    "mods/PhobosMedical/framework/economy.json": "65b5936b10d3a77645f3a0836707a4b00ecf5e87aa3f158f637a3a975dcb6cbf",
+    "mods/PhobosMedical/framework/equipment-names.json": "95d166c4df929f50618497c0e82cf0e5fed1a48b216df0dc3bb6206bce7144b3",
+    "mods/PhobosMedical/mod_info.json": "5c6514745a977cf063074db78a8c8686273244c8c301b0dafc1da53ce878d963",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -58598,6 +59344,8 @@
     "src/PhobosFramework/FrameworkLifecycle.cs": "14079e75fa2559f6a2e0864d074391215a719f48ee67416d4ff22df5981251a8",
     "src/PhobosFramework/Hazards/NativeDamage.cs": "76c1920884e44c84a4c9d7354a63d409b75f72c6f28761cbbeed1e887a3c656f",
     "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
+    "src/PhobosFramework/Health/PatientFacts.cs": "379da22987d34a687f6e6257ce5d36324293d5fcd9c469dd838688fd21e21663",
+    "src/PhobosFramework/Health/PatientPlacement.cs": "e3a6796642b5b73a5b2b9be09f894e39028a1c1886a6e6a40d386cb2fa23ecbf",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2bfa016dead88bff203718680ebe13a372a44a38f38332f7afbe59b61d6f13e8",
     "src/PhobosFramework/Inventory/BeltCarriers.cs": "0937c7543d1a5e7887af137087683ba4c81e207843b9a4001cbafed882e70099",
     "src/PhobosFramework/Inventory/BeltNetwork.cs": "a743ae2b2827a3df52c2e6217a33cab6c6d1e33647b975514b205f6bc61c31ec",
@@ -58671,8 +59419,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "7363cecbf3e3b0b802d9e9ca99eaa265df31b824d59579c156d23fa7ddf5417d",
-    "src/PhobosFramework/Plugin.cs": "5870cbb3fd8dad2de0997477e25ae54f4c3047e494ed047ec6a474f2caa81369",
+    "src/PhobosFramework/PhobosFramework.csproj": "bed230e4626d5b8597fda1633486117de8336e15b8de9c4d23096b564950f7ad",
+    "src/PhobosFramework/Plugin.cs": "50076a8a1cdb3d7a9189fc1f9e8fbfda75fb517dac1561548c0fae6309ad3c9c",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -58687,7 +59435,7 @@
     "src/PhobosFramework/Propulsion/RcsPropellant.cs": "87e7cb66e17379634d0408c03437ed71bc6a2285ad5b82226f3c4951933dd1b1",
     "src/PhobosFramework/Propulsion/RcsPropellantPatches.cs": "30a4b751af12532193e1d14206f367311e78127f5370da8db41e1ab10ce26211",
     "src/PhobosFramework/Registration/AdditiveLoot.cs": "595543a05a5ed958432155fbd38e3a0654883050c5b0b45493902d75c71b5c2d",
-    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "a054e398401e300a407e2a526f8af769dfc4d1d0282953ec93f66375260676f9",
+    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "532a04da44b6fb0d534dac17a03776a2a2e6abcc92a2881114592d0dcd51c6dd",
     "src/PhobosFramework/Registration/DefinitionAmendments.cs": "af06706f181371dd73669754a331fbeed89d72a2eafdb15ccab5fe7d93d13b74",
     "src/PhobosFramework/Registration/DefinitionIndex.cs": "1654859fa3a94745d13e76b963b8db16a1de3b20b764623d5527371f699c1091",
     "src/PhobosFramework/Registration/DefinitionTransaction.cs": "32b8094092aa4645e4b0a19c0f7a59263c76dfe7f7fe26819232eff46d6cead9",
@@ -58768,6 +59516,21 @@
     "src/PhobosManufacturing/ShipbreakerStock.cs": "f52d5839851ce359dba6c96eddf3df70269eff64020f97e27beab08e8c9848d6",
     "src/PhobosManufacturing/StoreService.cs": "5da3189a6ee90780125c75c55cd774fdd715ce56981917bbb337a309f42de2ac",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
+    "src/PhobosMedical/AssemblyInfo.cs": "83503e9368440eeb7267e71f9657483150ed313f235706953ef26acae2e44303",
+    "src/PhobosMedical/BedService.cs": "49b921f2c3c0ca021b03352689e1d0d0a61eeb7099edb17606b6bee1b94e2d70",
+    "src/PhobosMedical/Content.cs": "07af42a7a3a78420ac4e1b9773ec97b958e4b800f304bf0c389403652a35c230",
+    "src/PhobosMedical/Core/BedRules.cs": "33737488cf80ff9a6a37972da7b84036c0550b92fade0e42b942b06447e7704a",
+    "src/PhobosMedical/Core/CarePack.cs": "daa48bf397b820ceaa022cbc37223f5c139658fed301ddbe03b11bffc4980f09",
+    "src/PhobosMedical/Core/Economy.cs": "ed755aa5103aec51fffd5c11c5c9615975f82b661dfa1cf8de4db63ae0bfb3f4",
+    "src/PhobosMedical/Core/MedicalRules.cs": "6f677d7b9d574470eaf4f86c0055508cb20970f4617e85a4fb8be9c5c2708763",
+    "src/PhobosMedical/Definitions.cs": "1e4469d0632d1df8cfe9794183cdcb9942df3bbd676fff7920b0b7c7b568cf40",
+    "src/PhobosMedical/EquipmentEconomy.cs": "007952bb3e3f2e10d3db7590447571736fb4bcfe2725067242ec2ea2ae9d342d",
+    "src/PhobosMedical/Panel.cs": "b071f5c9b3e8b257066a3425a1d29b4ceae08fd6cd45fde51c3546656dacdba9",
+    "src/PhobosMedical/PerformanceMetrics.cs": "6135015ea8139ebca06a8e3a7d877814e5a91718f054a86704aac13bb4064530",
+    "src/PhobosMedical/PhobosMedical.csproj": "60ba08f4f19e7439f6c44c1c598068b5eb00dac42e03a139006c6cab573f040d",
+    "src/PhobosMedical/Plugin.cs": "05c6b17660e878ef357c8e3786ec81aef77eebcccbcec296090b4cdebe41ddcd",
+    "src/PhobosMedical/Provider.cs": "f7d69e5615413bc7ffc9dcbb9da3d9deadf42d31ad1dfa1b716c89062097296f",
+    "src/PhobosMedical/Text.cs": "6c77a11b4b3765a6ec861115f8c74948cf9fd1db0c33225b7062bb1cf62c3400",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/BinDefinitions.cs": "75d6e4e094154a49548c7313dbcb60331f82519b03c3eefd6ca4440d50784fa0",
@@ -58889,12 +59652,13 @@
     "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "9543900eaf3da6d07f23cd66197d68f9245243545dda5edb8a835a5a7a398c9f",
-    "tests/PhobosNative.Tests/Program.cs": "817aea4b0d30c652783a7ec6d574c576aa89daabad058c3980de1dc8ee71f054",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "81897d819a5f9ce2c36b5da0acd49e90c240d59d3de1c90b58ea84e48a733ae8",
+    "tests/PhobosNative.Tests/Program.cs": "65d1b66696d519cde607eeaa8dd7bb88c04a337cb419f9a4f955054be5967d24",
     "translations/PhobosAgriculture/en.json": "729cdf4bb335f3443f1df8238b01f58b6174d591a944d0286c781061aaaaea2c",
     "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
     "translations/PhobosFramework/en.json": "0ef30f090cf5f5cff51594606250ffb3d845daf9e733117ed85f3306a3852e07",
     "translations/PhobosManufacturing/en.json": "3a5c7c1c67c17ecf792635f94af70b2fa0d3d09e978244af40081567d905a32e",
+    "translations/PhobosMedical/en.json": "c7fe9879aa30849baf7afb6d8ecc42c5d4950e8f6d2251d960f735980feb8c45",
     "translations/PhobosShipbreaker/en.json": "9c2a063eb74005b210b23cc5bfbd08a1cf31cb9b3caa339e095d1cc2c66580ee",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }

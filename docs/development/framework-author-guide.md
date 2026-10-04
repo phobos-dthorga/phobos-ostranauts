@@ -1622,3 +1622,25 @@ sections. Shipbreaker's D4, R4 and F6 come whole; saved sections convert on load
 - **When to use which.** One old definition to one new definition: use
   `DefinitionMigrations`, which edits the data the game is about to spawn. Several
   parts to one whole, or one part to many materials: use `LegacyItemConversions`.
+
+## Rectangular appliances and patient services (0.82.0)
+
+First consumer: Phobos Medical's 3 x 5 Ward-3 bed.
+
+- **Rectangular families.** `ApplianceDefinitions.Add(d, prefix, name, description,
+  width, depth, kg, price, image, controls, kW, tab)` builds the four forms `width`
+  tiles across and `depth` tiles front to back: socket grids `width` columns wide with
+  the one-tile border ring, the use point in front, the power points in the wall row
+  behind the back edge (`WallRowY(depth)`). The square overload calls it with
+  `width == depth` and builds exactly what it built before.
+- **`Health.PatientFacts.Read(person)`** returns a read-only snapshot: blood lost
+  (`StatBlood` counts loss), infection, pain, and each wound's cut, blunt, bleed rate,
+  infection rate, staunched, fractured, splinted and vital state. The game's wound
+  list also walks a dragged body, so only wounds that lead back to the person are
+  kept. Reading never changes anyone; missing figures read as zero, as the game's own
+  lookup does.
+- **`Health.PatientPlacement`** puts down a person someone is dragging at a named point
+  of a piece of equipment, with the game's own Drop Corpse calls (`UnSlotItem("drag")`,
+  `Ship.AddCO(body, true)`, the room at the body's position). `CanPlace(dragger)` says
+  why not (nobody dragged, dead, awake, no ship); `Place` returns the person or null.
+  The person's own queued actions are left as the game made them.

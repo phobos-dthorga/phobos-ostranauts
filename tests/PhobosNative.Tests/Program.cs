@@ -53,6 +53,7 @@ CrewNativeChecks.Run(Check);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosManufacturing/data/conditions"), DataHandler.dictConds, x => x.strName);
+Load(Path.Combine(repo, "mods/PhobosMedical/data/conditions"), DataHandler.dictConds, x => x.strName);
 PlaceholderHealthChecks.Run(Check);
 SavedGridHeaderChecks.Run(Check);
 if (args.Length == 5 && args[2] == "--audit-room-grid")
@@ -135,13 +136,19 @@ foreach (var equipment in manufacturing.Objects.Values)
 manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 AcidLineNativeChecks.Run(manufacturing, Check);
+// Phobos Medical (0.1.0) prepares after the industrial mods; it depends on Framework only.
+var medical = PhobosMedical.Content.Prepare();
+foreach (var equipment in medical.Objects.Values)
+    Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded Medical equipment: " + equipment.strName);
+medical.Publish();
+MedicalNativeChecks.Run(medical, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
-LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
-InventoryNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
+LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
+InventoryNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 VesselContentsNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, game, Check);
-PowerPointNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
-TrayFitNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing }, Check);
+PowerPointNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
+TrayFitNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);
 ShipsWaterPortChecks.Run(agriculture, Check);
 BinNativeChecks.Run(prepared, Check);
 IceSupplyNativeChecks.Run(Check);
@@ -313,7 +320,7 @@ Check(!ConstructionRegistry.Ready("ConflictAfter") && ConstructionRegistry.Statu
 ClearConstruction();
 EconomyChecks.Run(repo, Check, Throws);
 EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
-InstallMenuChecks.Run(agriculture, prepared, manufacturing, framework, Check, Throws);
+InstallMenuChecks.Run(agriculture, prepared, manufacturing, framework, medical, Check, Throws);
 AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
 ShipbreakerGeometryChecks.Run(Check);

@@ -76,8 +76,15 @@ public static class ApplianceDefinitions
     public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw) =>
         Add(d, prefix, name, description, size, kg, price, image, controls, kw, InstallMenu.Appliances);
 
-    public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw, string buildCategory)
+    public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw, string buildCategory) =>
+        Add(d, prefix, name, description, size, size, kg, price, image, controls, kw, buildCategory);
+
+    /// <summary>A rectangular appliance family, <paramref name="width"/> tiles across and <paramref name="depth"/> tiles
+    /// front to back (Framework 0.82.0, first used by Phobos Medical's 3 x 5 bed). The use point stays in front, the
+    /// power points stay in the wall row behind the back edge; a square family is built exactly as before.</summary>
+    public static void Add(NativeDefinitions d, string prefix, string name, string description, int width, int depth, double kg, double price, string image, string controls, double kw, string buildCategory)
     {
+        if (width < 1 || depth < 1) throw new ArgumentException("An appliance needs at least one tile each way.");
         d.Conditions[prefix + "Machine"] = new JsonCond { strName = prefix + "Machine", strNameFriendly = name, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         // The game sets and clears IsPowered only for power info that names a power-on interaction; a
         // self-targeted no-op is the native pattern (see Shipbreaker's machinery), so the appliance's
@@ -92,18 +99,19 @@ public static class ApplianceDefinitions
             conds.Add(installed ? "IsInstalled=1x1" : "IsCumbersome=1x1");
             if (damaged) conds.AddRange(new[] { "IsDamaged=1x1", "StatRepairProgressMax=1x2400" });
             var co = new JsonCondOwner { strName = id, strItemDef = id, strType = "Item", strNameFriendly = name, strNameShort = name,
-                strDesc = description, nStackLimit = 1, nContainerWidth = 8, nContainerHeight = 8, inventoryWidth = size, inventoryHeight = size,
+                strDesc = description, nStackLimit = 1, nContainerWidth = 8, nContainerHeight = 8, inventoryWidth = width, inventoryHeight = depth,
                 strContainerCT = "TIsFitContainerSolid", aInteractions = installed ? new[] { "Inventory", controls } : new[] { "Inventory" },
                 mapGUIPropMaps = new[] { "GUIInv", "Inventory" }, aStartingConds = conds.ToArray(), mapSlotEffects = new[] { "drag", "Blank" },
-                mapPoints = new[] { "use,0," + (-8 * size - 8), "PowerA," + (-8 * size + 8) + "," + WallRowY(size), "PowerB," + (8 * size - 8) + "," + WallRowY(size) },
+                mapPoints = new[] { "use,0," + (-8 * depth - 8), "PowerA," + (-8 * width + 8) + "," + WallRowY(depth), "PowerB," + (8 * width - 8) + "," + WallRowY(depth) },
                 jsonPI = installed && !damaged ? prefix + "Power" : null, aTickers = installed && !damaged ? new[] { "Power" } : Array.Empty<string>(),
                 aUpdateCommands = new[] { "Destructable,StatDamage," + (damaged ? "ACTDefaultDestroy" : prefix + "Damage" + form) + ",StatDamageMax,1.0" }, strPortraitImg = image };
             MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", damaged ? price * .2 : price);
             d.Objects[id] = co;
-            int border = size + 2;
-            string[] Grid(string inside) => Enumerable.Range(0, border * border).Select(i => i % border > 0 && i % border < border - 1 && i / border > 0 && i / border < border - 1 ? inside : "Blank").ToArray();
-            d.Items[id] = new JsonItemDef { strName = id, strImg = image, strImgNorm = image + "Normal", strImgDamaged = "blank", strDmgColor = "DamageTintDefault", fZScale = .5f, nCols = size,
-                aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", size * size).ToArray(), aSocketReqs = Grid(installed ? "TILFloor" : "Blank"), aSocketForbids = Grid(installed ? "TILObstruction" : "TILItemForbids") };
+            // The game reads a socket grid row by row, nCols wide; the border ring is one tile all round.
+            int columns = width + 2, rows = depth + 2;
+            string[] Grid(string inside) => Enumerable.Range(0, columns * rows).Select(i => i % columns > 0 && i % columns < columns - 1 && i / columns > 0 && i / columns < rows - 1 ? inside : "Blank").ToArray();
+            d.Items[id] = new JsonItemDef { strName = id, strImg = image, strImgNorm = image + "Normal", strImgDamaged = "blank", strDmgColor = "DamageTintDefault", fZScale = .5f, nCols = width,
+                aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", width * depth).ToArray(), aSocketReqs = Grid(installed ? "TILFloor" : "Blank"), aSocketForbids = Grid(installed ? "TILObstruction" : "TILItemForbids") };
             d.Loot[id] = new Loot { strName = id, strType = "item", aCOs = new[] { id + "=1x1" }, aLoots = Array.Empty<string>() };
             d.Triggers[id + "Test"] = new CondTrigger { strName = id + "Test", fChance = 1, fCount = 1, bAND = true,
                 aReqs = new[] { prefix + "Machine" }.Concat(installed ? new[] { "IsInstalled" } : Array.Empty<string>()).Concat(damaged ? new[] { "IsDamaged" } : Array.Empty<string>()).ToArray(),

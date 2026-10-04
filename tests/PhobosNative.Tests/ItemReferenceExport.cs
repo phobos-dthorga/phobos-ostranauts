@@ -32,6 +32,8 @@ internal static class ItemReferenceExport
         packs["PhobosManufacturing"] = PhobosManufacturing.Content.Prepare(true);
         // War Has Been Declared adds no items, only orders on the game's navigation stations.
         packs["PhobosWarDeclared"] = PhobosWarDeclared.Content.Prepare();
+        // Phobos Medical (0.1.0): the Halewright Ward-3 bed.
+        packs["PhobosMedical"] = PhobosMedical.Content.Prepare();
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
         packs["PhobosFramework"] = framework;

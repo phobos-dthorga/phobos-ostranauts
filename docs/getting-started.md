@@ -64,6 +64,7 @@ named-test-save requirement for the current suite.
 | Grow food and cook portions | [Agriculture](agriculture-player-guide.md) |
 | Refine ore, split water into oxygen and hydrogen | [Manufacturing](manufacturing-player-guide.md) |
 | Put build sites back where battle damage destroyed parts | [War Has Been Declared](war-declared-player-guide.md) |
+| Nurse the injured back to health in a powered sickbay bed | [Medical](medical-player-guide.md) |
 
 ## What to expect
 
@@ -85,6 +86,9 @@ named-test-save requirement for the current suite.
 - **War Has Been Declared lays build sites, not parts.** The crew still need
   replacement parts and still do the building; unbuilt walls and machines block
   walking, which is why the default schematic holds them. In-game checks are pending.
+- **The Ward-3 heals with the game's own medical rest.** It does not dress wounds
+  or cure anything by itself yet, and it stops caring when its power or air does.
+  Until its own art is made it looks like the vanilla medical bed. In-game checks are pending.
 - **Updating is not uninstalling.** Do not remove a provider from a save that
   contains its equipment, cargo or jobs. There is no general save-cleanup or
   guaranteed downgrade tool; see [dependency contingencies](development/dependency-contingencies.md).

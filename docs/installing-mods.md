@@ -4,6 +4,7 @@ Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.78.0.
 Current prepared Agriculture requires Framework 0.79.0 for shared crew work and controls.
 Current prepared Manufacturing requires Framework 0.80.0 for room heat, native gas and vessel damage services.
 Current prepared War Has Been Declared requires Framework 0.45.1 for the shared build-site and combat-observation services.
+Current prepared Phobos Medical requires Framework 0.82.0 for the shared patient services and rectangular equipment.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with
@@ -127,6 +128,9 @@ directly without interacting with your mouse or opening a launcher window.
 
 # War Has Been Declared (battle-damage build sites) is opt-in and needs only Framework.
 ./scripts/install-mods.ps1 -Mods WarDeclared
+
+# Phobos Medical (the Halewright Ward-3 medical bed) is opt-in and needs only Framework.
+./scripts/install-mods.ps1 -Mods Medical
 
 # Keep an older Manufacturing 0.0.1 scaffold out of the loader without installing 0.1.0.
 ./scripts/install-mods.ps1 -Mods AutoNav,Shipbreaker,Agriculture -HoldManufacturing

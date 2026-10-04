@@ -1992,6 +1992,28 @@
     "PhobosWarDeclared": {
       "intro": "Phobos' War Has Been Declared adds no items, equipment or recipes. It adds three orders to the game's own navigation stations (Battle stations, Stand down and Lay postponed build sites) and lays the game's own build sites for parts destroyed in battle, which the crew finish with ordinary replacement parts. See [the player guide](war-declared-player-guide.md).",
       "groups": []
+    },
+    "PhobosMedical": {
+      "intro": "Phobos Medical adds the Halewright Ward-3 Medical Bed, a powered sickbay bed that takes an unconscious casualty, lets the injured rest awake, and keeps its patient recuperating with the game's own medical-rest healing while it has power and air. See [the player guide](medical-player-guide.md).",
+      "groups": [
+        {
+          "key": "ward3",
+          "title": "Ward-3 Medical Bed",
+          "ids": [
+            "PhobosMedicalBedLoose",
+            "PhobosMedicalBedLooseDmg",
+            "PhobosMedicalBedInstalled",
+            "PhobosMedicalBedInstalledDmg"
+          ],
+          "function": "A 3 x 5 powered medical bed. While installed, intact, powered and in a room with air, its patient recuperates: the game's own medical-rest healing (wound, blood and infection recovery and pain threshold), the same as the vanilla Infirmaway gives a sleeper. Without power or air it is an ordinary bed. A 3 x 2 drawer holds dressings, splints and medicines.",
+          "use": "Install through FURN with its head against a wall carrying power. Drag an unconscious person to it and choose Lay patient here; order an injured crew member to Rest and recover; or Sleep in it when tired. The Control Panel shows the patient and a short health reading, and sets whether anyone may sleep in it or only the injured. 22.5 W idle, 150 W while caring.",
+          "find": "Buy loose hardware from the sellers below: new at the K-Leg furnishings kiosk, worn from the K-Leg fixer, broken at the K-Leg supply kiosk, refurbished at the Venus scrap kiosk, and at the regional supply kiosks. About one engineering-loot roll in fifty yields a Ward-3, usually broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "Shows the vanilla Infirmaway's art until the Halewright art is made. Uninstalling or dismantling is refused while someone is in it. It does not dress wounds or lift the game's weightless healing penalty yet.",
+          "guide": "medical-player-guide.md",
+          "internal": false,
+          "labels": {}
+        }
+      ]
     }
   },
   "sources": {
@@ -2028,7 +2050,8 @@
     "ItmRandomMineralSClass": "S-class asteroid deposit",
     "ItmFactionKioskBCRSInv": "Zhonghuamen Terminal CCRE faction kiosk (scrip)",
     "ItmFactionKioskMTRSInv": "Port Yangshan CCRE faction kiosk (scrip)",
-    "ItmFactionKioskBCERInv": "Port Mojave GalCon faction kiosk (scrip)"
+    "ItmFactionKioskBCERInv": "Port Mojave GalCon faction kiosk (scrip)",
+    "ItmOKLGFurnishingsKioskInv": "K-Leg furnishings kiosk"
   },
   "triggers": {
     "TIsPartsMechSmall": "small mechanical parts",
@@ -2044,6 +2067,7 @@
     "TIsMotor": "motor",
     "TIsMobo": "mainboard",
     "TIsHeatSink": "heat sink",
-    "TIsScreen": "screen"
+    "TIsScreen": "screen",
+    "TIsScrapClothClean": "clean scrap cloth"
   }
 }

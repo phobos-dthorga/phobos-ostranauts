@@ -4,11 +4,11 @@ Reviewed 27 September 2026 and updated 28 September after implementing the appro
 
 ## Coverage and result
 
-All **407 implemented definitions** across 6 mods: PhobosAgriculture: 98; PhobosAutoNav: 8; PhobosFramework: 33; PhobosManufacturing: 184; PhobosShipbreaker: 84; PhobosWarDeclared: 0. PhobosWarDeclared adds no items.
+All **411 implemented definitions** across 7 mods: PhobosAgriculture: 98; PhobosAutoNav: 8; PhobosFramework: 33; PhobosManufacturing: 184; PhobosMedical: 4; PhobosShipbreaker: 84; PhobosWarDeclared: 0. PhobosWarDeclared adds no items.
 
-Handling inventory: 140 installed forms, 137 cumbersome loose forms/sections/housings, 119 portable boards/supplies/materials/foods, and 11 internal feed compartments. Intact and damaged forms are counted separately.
+Handling inventory: 142 installed forms, 139 cumbersome loose forms/sections/housings, 119 portable boards/supplies/materials/foods, and 11 internal feed compartments. Intact and damaged forms are counted separately.
 
-All **858 native service/installation jobs** were run through Blue Bottle Games' actual data-only `Installables.Create` generator, not merely counted in our source. Every resulting action exists and is attached to its object. All direct action IDs resolve. Every maintenance target passes with appropriate wear; the 35 Restore targets correctly fail on pristine definitions and pass with wear. These checks do not run Unity interaction queues or grant the worker tools/access.
+All **870 native service/installation jobs** were run through Blue Bottle Games' actual data-only `Installables.Create` generator, not merely counted in our source. Every resulting action exists and is attached to its object. All direct action IDs resolve. Every maintenance target passes with appropriate wear; the 35 Restore targets correctly fail on pristine definitions and pass with wear. These checks do not run Unity interaction queues or grant the worker tools/access.
 
 ## Ranked findings
 
@@ -385,6 +385,10 @@ Every row was reviewed against its family role, generated jobs, container access
 | PhobosManufacturing | `SysPhobosDeflagrationLarge` | internal; no carry slots | — | — | No additional definition fault found. Internal feed; access through owning machine; intentionally no standalone actions. |
 | PhobosManufacturing | `SysPhobosDeflagrationMedium` | internal; no carry slots | — | — | No additional definition fault found. Internal feed; access through owning machine; intentionally no standalone actions. |
 | PhobosManufacturing | `SysPhobosDeflagrationSmall` | internal; no carry slots | — | — | No additional definition fault found. Internal feed; access through owning machine; intentionally no standalone actions. |
+| PhobosMedical | `PhobosMedicalBedInstalled` | installed; no carry slots | Inventory, PhobosMedicalControls, SeekSleepSimple, PhobosMedicalRest, PhobosMedicalLay, PhobosMedicalMaintenanceInformation | dismantle, restore, uninstall | No additional definition fault found. Dismantle requires no cargo or pending lot (empty internal feed allowed where registered); native placement, tools and condition gates remain. |
+| PhobosMedical | `PhobosMedicalBedInstalledDmg` | installed; no carry slots | Inventory, PhobosMedicalControls, PhobosMedicalMaintenanceInformation | dismantle, repair, uninstall | No additional definition fault found. Dismantle requires no cargo or pending lot (empty internal feed allowed where registered); native placement, tools and condition gates remain. |
+| PhobosMedical | `PhobosMedicalBedLoose` | cumbersome; drag | Inventory, PhobosMedicalMaintenanceInformation, DropItem, PickupItem | dismantle, install, restore | No additional definition fault found. Dismantle requires no cargo or pending lot (empty internal feed allowed where registered); native placement, tools and condition gates remain. |
+| PhobosMedical | `PhobosMedicalBedLooseDmg` | cumbersome; drag | Inventory, PhobosMedicalMaintenanceInformation, DropItem, PickupItem | dismantle, install, repair | No additional definition fault found. Dismantle requires no cargo or pending lot (empty internal feed allowed where registered); native placement, tools and condition gates remain. |
 | PhobosShipbreaker | `PhobosAeroRejectR1` | portable; heldL, heldR | DropItem, PickupItem | — | No additional definition fault found. Portable supply/byproduct or bulky housing; use through owning machine/recipe, not invented local machine actions. |
 | PhobosShipbreaker | `PhobosAluminiumIngot` | portable; heldL, heldR | DropItem, DropItemStack, PickupItem, PickupItemStack | — | No additional definition fault found. Portable supply/byproduct or bulky housing; use through owning machine/recipe, not invented local machine actions. |
 | PhobosShipbreaker | `PhobosDuraWalRejectR1` | portable; heldL, heldR | DropItem, PickupItem | — | No additional definition fault found. Portable supply/byproduct or bulky housing; use through owning machine/recipe, not invented local machine actions. |

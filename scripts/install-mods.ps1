@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -149,6 +149,19 @@ if ('WarDeclared' -in $Mods) {
     if ($minimumPhobosFramework -lt [version]'0.43.0') { $minimumPhobosFramework = [version]'0.43.0' }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
+if ('Medical' -in $Mods) {
+    $needsPhobosFramework = $true
+    $medicalPackage = if ($overrideMod -eq 'Medical') { $PackagePath } else { Join-Path $PackageRoot 'PhobosMedical-P0' }
+    $medicalMetadata = Join-Path $medicalPackage 'Mods/PhobosMedical/mod_info.json'
+    if (Test-Path -LiteralPath $medicalMetadata -PathType Leaf) {
+        $medicalInfo = @(Get-Content -LiteralPath $medicalMetadata -Raw | ConvertFrom-Json)
+        if ($medicalInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosMedical.' }
+        $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Medical.Framework' ([version]$medicalInfo[0].strModVersion) $minimumPhobosFramework
+    }
+    # Every Phobos Medical package needs the patient services and rectangular appliances first shipped in Framework 0.82.0.
+    if ($minimumPhobosFramework -lt [version]'0.82.0') { $minimumPhobosFramework = [version]'0.82.0' }
+    $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -194,7 +207,7 @@ if ($HoldManufacturing) {
 }
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } 'Medical' { 'Medical' } }
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
@@ -353,6 +366,10 @@ foreach ($mod in $Mods) {
                     "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
                 }
             }
+        }
+        'Medical' {
+            # The care, economy and naming packs are embedded in the plugin; the folder copies are the players' reference.
+            'data/conditions/phobos_medical.json'; 'framework/care.json'; 'framework/economy.json'; 'framework/equipment-names.json'
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
@@ -526,7 +543,7 @@ foreach ($mod in $Mods) {
         $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
     }
     $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
-    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing', 'WarDeclared')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
+    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing', 'WarDeclared', 'Medical')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
         ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')
     if ($needsTranslations -and -not (Test-Path -LiteralPath (Join-Path $translationSource 'en.json') -PathType Leaf)) {
         throw "Package is incomplete: $id/translations/en.json"

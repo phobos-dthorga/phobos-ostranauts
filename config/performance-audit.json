@@ -3805,6 +3805,35 @@
       "reviewed": "2026-09-29"
     },
     {
+      "path": "src/PhobosFramework/Health/PatientFacts.cs",
+      "sha256": "379da22987d34a687f6e6257ce5d36324293d5fcd9c469dd838688fd21e21663",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Framework 0.82.0: read-only; walks one person's wounds when a caller asks (a bed's panel or a resting patient's check), never on a per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "collection": [
+          56,
+          59
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosFramework/Health/PatientPlacement.cs",
+      "sha256": "e3a6796642b5b73a5b2b9be09f894e39028a1c1886a6e6a40d386cb2fa23ecbf",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Framework 0.82.0: runs once per Lay patient here action; no polling.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
       "path": "src/PhobosFramework/Inventory/BatchPlacement.cs",
       "sha256": "2bfa016dead88bff203718680ebe13a372a44a38f38332f7afbe59b61d6f13e8",
       "role": "shared accounting, inventory, crew or native boundary",
@@ -5569,10 +5598,10 @@
     },
     {
       "path": "src/PhobosFramework/Registration/ApplianceDefinitions.cs",
-      "sha256": "a054e398401e300a407e2a526f8af769dfc4d1d0282953ec93f66375260676f9",
+      "sha256": "532a04da44b6fb0d534dac17a03776a2a2e6abcc92a2881114592d0dcd51c6dd",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.82.0: rectangular overload at definition time only; square families build exactly as before.",
       "findings": [
         "R4",
         "FF0",
@@ -5581,19 +5610,18 @@
       ],
       "indicators": {
         "collection": [
-          91,
-          97,
+          98,
           104,
-          106,
-          109,
-          110
+          112,
+          114,
+          117,
+          118
         ],
         "persistence_or_io": [
-          97
+          104
         ]
       },
-      "reviewed": "2026-10-03",
-      "carried": "2026-10-04"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosFramework/Registration/DefinitionAmendments.cs",
@@ -7327,6 +7355,234 @@
       ],
       "indicators": {},
       "reviewed": "2026-09-29"
+    },
+    {
+      "path": "src/PhobosMedical/AssemblyInfo.cs",
+      "sha256": "83503e9368440eeb7267e71f9657483150ed313f235706953ef26acae2e44303",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/BedService.cs",
+      "sha256": "49b921f2c3c0ca021b03352689e1d0d0a61eeb7099edb17606b6bee1b94e2d70",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0: per bed, a saved-patient lookup and, only while that patient is gone, one pass over the bed's ship's people; the care sweep over loaded ships' people runs one pass in five and never in the first two after a load. State writes skip unchanged records.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          36,
+          41,
+          42,
+          273,
+          275
+        ],
+        "collection": [
+          240
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Content.cs",
+      "sha256": "07af42a7a3a78420ac4e1b9773ec97b958e4b800f304bf0c389403652a35c230",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Core/BedRules.cs",
+      "sha256": "33737488cf80ff9a6a37972da7b84036c0550b92fade0e42b942b06447e7704a",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Core/CarePack.cs",
+      "sha256": "daa48bf397b820ceaa022cbc37223f5c139658fed301ddbe03b11bffc4980f09",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Core/Economy.cs",
+      "sha256": "ed755aa5103aec51fffd5c11c5c9615975f82b661dfa1cf8de4db63ae0bfb3f4",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "collection": [
+          18
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Core/MedicalRules.cs",
+      "sha256": "6f677d7b9d574470eaf4f86c0055508cb20970f4617e85a4fb8be9c5c2708763",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Definitions.cs",
+      "sha256": "1e4469d0632d1df8cfe9794183cdcb9942df3bbd676fff7920b0b7c7b568cf40",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "collection": [
+          118,
+          119,
+          123,
+          124
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/EquipmentEconomy.cs",
+      "sha256": "007952bb3e3f2e10d3db7590447571736fb4bcfe2725067242ec2ea2ae9d342d",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "collection": [
+          23,
+          25,
+          26,
+          27,
+          40
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Panel.cs",
+      "sha256": "b071f5c9b3e8b257066a3425a1d29b4ceae08fd6cd45fde51c3546656dacdba9",
+      "role": "shared presentation and input",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/PerformanceMetrics.cs",
+      "sha256": "6135015ea8139ebca06a8e3a7d877814e5a91718f054a86704aac13bb4064530",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Plugin.cs",
+      "sha256": "05c6b17660e878ef357c8e3786ec81aef77eebcccbcec296090b4cdebe41ddcd",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0: Ward-3 beds come from Framework's shared world sweep every two real seconds; the offer gate on TriggeredInternal returns after one definition-id comparison for every object that is not an installed Ward-3, then a name check, before any work.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {
+        "persistence_or_io": [
+          38,
+          51,
+          54,
+          85,
+          102
+        ],
+        "runtime_hook": [
+          42,
+          64,
+          74,
+          90,
+          109,
+          119,
+          136
+        ],
+        "discovery": [
+          46,
+          145
+        ],
+        "profiling": [
+          50,
+          53,
+          82
+        ],
+        "collection": [
+          67,
+          145
+        ]
+      },
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Provider.cs",
+      "sha256": "f7d69e5615413bc7ffc9dcbb9da3d9deadf42d31ad1dfa1b716c89062097296f",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosMedical/Text.cs",
+      "sha256": "6c77a11b4b3765a6ec861115f8c74948cf9fd1db0c33225b7062bb1cf62c3400",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
+      "findings": [
+        "FF0"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosShipbreaker/AssemblyDefinitions.cs",

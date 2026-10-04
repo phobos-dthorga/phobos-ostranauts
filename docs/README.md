@@ -58,6 +58,7 @@ common failures and useful reports.
 - [Phobos Manufacturing: equipment and item reference](manufacturing-item-reference.md)
 - [Phobos Manufacturing: refinery, electrolysis, Sabatier reactor, gas stores, canister filling and RCS propellant](manufacturing-player-guide.md)
 - [Phobos' War Has Been Declared: battle stations, build sites and rebuild schematics](war-declared-player-guide.md)
+- [Phobos Medical: the Halewright Ward-3 medical bed](medical-player-guide.md)
 - [Saved material-port pairing](material-port-pairing.md)
 - [Opt-in performance captures](performance-captures.md)
 - [Current player guide](player-guide.md)

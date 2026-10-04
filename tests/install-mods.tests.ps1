@@ -36,7 +36,7 @@ Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
 # The maintained catalogue owns the current floors; check the rule, not a copied number.
 $maintainedMinimums = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable).minimums
-foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework')) {
+foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework', 'Medical.Framework')) {
     $since = [version]$maintainedMinimums[$key].since
     $floor = [version]$maintainedMinimums[$key].value
     Check ($floor -ge [version]'0.30.1') "$key floor never drops below the Polaris fix baseline"
@@ -592,6 +592,18 @@ Check (((ReadOrder $war).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosW
 $warInstalled = InstalledFiles $war
 & $installer @war -Mods WarDeclared | Out-Null
 Check ((InstalledFiles $war) -eq $warInstalled) 'War Has Been Declared repeat install changed files'
+
+# Phobos Medical needs only Framework.
+$medical = Fixture 'medical-only' @('core')
+$medicalBefore = InstalledFiles $medical
+& $installer @medical -Mods Medical -WhatIf | Out-Null
+Check ((InstalledFiles $medical) -eq $medicalBefore) 'Medical preview changed files'
+& $installer @medical -Mods Medical | Out-Null
+Check (((ReadOrder $medical).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosMedical') 'Medical must select Framework and nothing else'
+& $installer @medical -Mods Medical -VerifyOnly | Out-Null
+$medicalInstalled = InstalledFiles $medical
+& $installer @medical -Mods Medical | Out-Null
+Check ((InstalledFiles $medical) -eq $medicalInstalled) 'Medical repeat install changed files'
 
 # Cover-only updates preserve gameplay files and intentionally disabled entries,
 # even when the prepared gameplay package is newer than the installed one.
