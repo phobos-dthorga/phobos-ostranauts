@@ -40,7 +40,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - If a crew member still does not walk to a machine, the game's own log line says it cannot get there; that part is the game's pathfinding, not ours.
-- Checked offline; not yet seen in the game.
+- Owner checked in play on 5 October 2026 (game 1.0.1.5): Control Panel opened as expected so far; longer play will confirm it.
 
 ## [0.95.0] - 2026-10-05 - Draft
 
@@ -59,7 +59,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - The F6 furnace still waits for Resume after loading. Auto Nav flights and docking follow Auto Nav's own setting.
-- Checked offline; not yet seen in the game.
+- Owner checked in play on 5 October 2026 (game 1.0.1.5): machines resumed after a save and load, and the X2 delivered its first hydrogen. Not every machine was checked one by one.
 
 ## [0.94.0] - 2026-10-05 - Draft
 
