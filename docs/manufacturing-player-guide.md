@@ -265,6 +265,11 @@ exception is the station refuelling kiosk's Bulk supplies view.
    and the refinery takes its charges from there too. See
    [feed stores](automatic-material-routing.md#feed-stores-for-the-t2-and-the-manufacturing-machines-optional).
 
+   Also optional: under **Send products to**, choose a crate or locker and the
+   refinery empties its own tray into it, so a full tray does not stop it. The
+   LC-3, SA-3, fermenter-still and bottler offer the same. See
+   [product stores](automatic-material-routing.md#product-stores-for-the-manufacturing-machines-optional).
+
    A running refinery never takes what it has just made. To carburise its own
    ingots, or burn its own carbon, press **Start** again: each press takes one
    such charge.

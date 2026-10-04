@@ -19,7 +19,7 @@
     },
     "Manufacturing.Framework": {
       "since": "0.1.0",
-      "value": "0.95.0"
+      "value": "0.98.0"
     },
     "WarDeclared.Framework": {
       "since": "0.1.0",

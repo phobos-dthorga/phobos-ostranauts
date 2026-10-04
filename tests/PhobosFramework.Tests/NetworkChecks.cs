@@ -77,6 +77,10 @@ internal static class NetworkChecks
         check(LinkDiagnosis.ForeignSegments(ring, "irrigation", lines).SequenceEqual(new[] { "own" }), "Asked from the other side, the process-water line is the foreign one");
 
         // The optional feed store (Framework 0.85.0): the saved choice, and the first thing to fix when it gives nothing.
+        // The product store (Framework 0.98.0) is the feed store's mirror: its own record and action prefix, the same record format.
+        check(StoreDelivery.Key == "PhobosState.StoreDelivery" && StoreDelivery.Key != StoreFeedRecord.Key && StoreDelivery.ActionPrefix == "product-store:" &&
+              StoreDelivery.ActionPrefix != StoreFeed.ActionPrefix && new StoreChoice(StoreDelivery.Record, StoreDelivery.ActionPrefix, "StoreDelivery").Key == StoreDelivery.Key,
+            "A product store is saved apart from the feed store, under its own panel action");
         check(StoreFeedRecord.Read(StoreFeedRecord.Save("abc-123")) == "abc-123" && StoreFeedRecord.Read(new Dictionary<string, string>()) == null &&
               StoreFeedRecord.Read(new Dictionary<string, string> { ["store"] = "a", ["later"] = "b" }) == null, "A feed store choice survives reload; a record with other fields is left alone");
         check(StoreFeedRecord.Classify(false, true, false, false, false, true) == StoreFeedProblem.NotChosen && StoreFeedRecord.Classify(true, false, true, true, true, true) == StoreFeedProblem.Unreadable &&

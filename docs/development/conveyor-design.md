@@ -91,3 +91,19 @@ the shared-segment rules. The route and reload behaviour need owner checks in pl
 lay a belt between a D4 and a collector, confirm the status says *by conveyor belt*,
 cut a segment and see the route stop, save while running and reload, and confirm
 storage unloading takes units from a stacked tray.
+
+## Product stores (Framework 0.98.0, Manufacturing 0.49.0)
+
+Owner question, 5 October 2026, while planning the [regolith programme](regolith-programme.md):
+do belts need reassessing? Feed stores already brought items to the Manufacturing machines;
+nothing took products away, so a machine left running stopped on a full tray. Framework
+`StoreDelivery` is the mirror of `StoreFeed`: one chosen store, touching or on a belt, to which
+a started and powered machine sends its own products one unit at a time. Both now share
+`StoreChoice` (the saved record, the panel field, the link rule and the status line), so the
+two cannot drift apart. Content decides what a product is and when to send. The record is new
+(`PhobosState.StoreDelivery`), so no saved structure changes.
+
+Left for later, deliberately: Shipbreaker's D4 and R4 keep their own powered unloading
+(`StorageService`), which meters each move; moving them onto the shared service is a tidy-up,
+not a need. Material bins admit only the game's mining output, so products need an ordinary
+container; widening the bins is a separate decision.

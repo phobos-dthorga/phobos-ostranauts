@@ -22,6 +22,8 @@ internal static class BottlerService
 {
     private sealed class Session
     {
+        /// <summary>When the next serving may go to the product store (real time).</summary>
+        internal double NextDelivery;
         internal BottlerState State = new();
         internal bool Protected, Running, HeatWait, OutputWait, NeedsAttention;
         internal double NextCheck;
@@ -159,6 +161,14 @@ internal static class BottlerService
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Bottler.protected")); return; }
+        // The optional product store (Manufacturing 0.49.0): a started bottler sends its servings there, one a second,
+        // which is what clears a full tray.
+        if (Cadence.RealTime >= s.NextDelivery)
+        {
+            s.NextDelivery = Cadence.RealTime + ManufacturingRules.DeliverySeconds;
+            try { Phobos.Ostranauts.Framework.Inventory.StoreDelivery.SendOne(co, u => u.strCODef == BottlerRules.Spirit); }
+            catch (Exception ex) { Fault(co, ex); return; }
+        }
         if (s.OutputWait && Cadence.RealTime < s.NextCheck) { SetWorking(co, false); return; }
         s.OutputWait = false;
         try
@@ -276,6 +286,7 @@ internal static class BottlerService
         return Text.Get("Bottler.status", s.Status, ManufacturingRules.PercentDone(s.State.BatchKWh, BottlerRules.BatchKWh), BottlerRules.BatchKWh, s.State.Batches, s.State.Batches * BottlerRules.ServingsPerBatch,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(EthanolLink.PeerId(co)), ObjectPresentation.Name(WaterLink.PeerId(co))) +
             "\n" + Text.Get("Bottler.demand", BottlerRules.WorkingKW, BottlerRules.ServingsPerBatch, BottlerRules.EthanolPerBatchKg * 1000, BottlerRules.WaterPerBatchKg * 1000) +
+            (Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Describe(co) is { Length: > 0 } sent ? "\n" + sent : "") +
             (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     internal static bool Link(CondOwner co, string kind, string id, ConsoleBinding? binding, out string reason)

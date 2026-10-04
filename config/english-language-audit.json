@@ -77085,6 +77085,136 @@
       ],
       "before": "Machines that were working when the game was saved carry on after loading, once their own checks pass. False makes them wait for you to press Start or Resume, as they did before Framework 0.95.0. The F6 furnace always waits. Auto Nav has its own setting for flights.",
       "after": "Machines that were working when the game was saved carry on after loading, once their own checks pass. False makes them wait for you to press Start or Resume, as they did before Framework 0.95.0. The F6 furnace always waits. Auto Nav has its own setting for flights."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Send products to",
+      "after": "Send products to"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "No store (products stay in the tray)",
+      "after": "No store (products stay in the tray)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.chosen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Product store set: {0}. While started and powered, the machine sends what it makes there.",
+      "after": "Product store set: {0}. While started and powered, the machine sends what it makes there."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Product store cleared. Products stay in the tray.",
+      "after": "Product store cleared. Products stay in the tray."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The saved product store could not be read, so it was left alone.",
+      "after": "The saved product store could not be read, so it was left alone."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.unreadable_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Unreadable",
+      "after": "Unreadable"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Products go to: {0}.",
+      "after": "Products go to: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.status_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Product store: waiting for power.",
+      "after": "Product store: waiting for power."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.status_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Product store: no longer touching and no belt joins it. Mend the belt or move the store.",
+      "after": "Product store: no longer touching and no belt joins it. Mend the belt or move the store."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreDelivery.status_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.98.0: the product store choice.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Product store: gone, locked or not a store any more. Choose another under Send products to.",
+      "after": "Product store: gone, locked or not a store any more. Choose another under Send products to."
     }
   ],
   "documents": [
@@ -77092,8 +77222,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "64786d26076a4af1d3dae6d7a548341699a3f70b98f1ce6716301214f0db41bb",
-      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
+      "sha256": "c9ce79bddc4516a5afee5f2192489995c1e27fdd5516cfed403c38f21b391506",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77246,15 +77376,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c44fd9940fd8ed68c0e8a895d46afc4ec169da73b23e03200b01bba4ea804b14",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "f8c6c8a88c5615f5d22027fd7daf4440a75fe749b99fb8d7a247d1b9bd82ab83",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1b872a457588d786ed94f394d9be4d447678d3456cf08ef4b88a8f36d7956775",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "0ca858fcf6ab7888f5d1207158f0b7428aee89c5b6f5d9cdc5cf057fee7c90a4",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77521,8 +77651,8 @@
       "path": "docs/development/conveyor-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "cd51245035c0d3f9379a147d596df04462b032526614b85e2a2062f74c14da8e",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "c3642e80d835ffd8d80b10a7391750b16884513ff4cf54bafebf0ddff377bb2e",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/development/dependency-contingencies.md",
@@ -77854,8 +77984,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "e18f26c7afea5d986317fdc3f300ce1dc99ebcdd79f41508af9244c09ab2a1f6",
-      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded; records refreshed."
+      "sha256": "fa181e5ed6dd7b7da7b5e41f97bdfaaec39f2c44982f6bb95f23b144fcaf6eea",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78094,8 +78224,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "358a78e8865b5a79b9a9a6b961820a32da38762248ddb6642db9506d41ee89f1",
-      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
+      "sha256": "c895ca2eb1436db8bf48159ed29bb2bc5ab3dde05070963b2e489f4e87d434f4",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -78157,8 +78287,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1489ea00c5abed963058e812d28124778ad60452c44f28accf7147d04eca67bc",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "c761a06e771c61998a720a3b111531eccd50e8dd5d1dcdb83d7be20e8448868f",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/item-references.md",
@@ -78178,15 +78308,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "fe129ef531d4226600d554465e0fdacc98a4fef1cabecb1e677d0c02943aed7d",
-      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
+      "sha256": "f8c1536c6e2c2d7dd7afb2182fa07778ca2a0b9842fbfb52eb3d993bedbfc58d",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "8ebf76a7a646ca6a6e250144150a6abd83a5ed6d527db96e62e6c84fb0a86260",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "2390f122cffd762ccf48985910e56b8243dd66d99f69bc2a5459d9d668204152",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -78220,8 +78350,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9ea30cadcbdf856ac9a675aeaceec251a337d5aadc6359bc1660f16facff843e",
-      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
+      "sha256": "9d1ff916755c9d16750933bdffb6735a71e0f4cd5102864ae7943b294fbffd92",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78339,15 +78469,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "037c78fd5356cbdd7cb316328ff13f2976c43f66e9dddc7494f1db86f6eabf5c",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "75566b2fe173fa1bb558a8a4178f0e6905aa35ca3c5db3e568cebf3211441f2e",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9a303eeadd9a80a90d02af155326b36bd597e939b07ffffd9b35a5101acb7e1f",
-      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
+      "sha256": "e2fcbba125692a4516de7f4a436bd36b565cdcc0060908601c0418e087381bbf",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78455,14 +78585,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c4cbbeb843419c5163cbadc3bc82ad3dbda3abbdc586410dd64386c25d319028",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "c0cd0a08830da22261399a0d4ac329f7cea547c5580e6a23f404e6598fb455ff",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a0a79c7ea06eaa60ea31167608ba253dd89551395bfcde545c1109038067bcf5",
-      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
+      "sha256": "a0935c0721351b79b0d4f59d3fc158e2f56f29eb8a33247b2cf3c601d75098b5",
+      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

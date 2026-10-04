@@ -32,6 +32,8 @@ internal sealed class ChargeMachine
         internal double Last, NextVesselCheck, WaitSince;
         // How often an armed, idle machine looks in its own inventory for a charge (real time).
         internal readonly Cadence OwnFeed = new(ManufacturingRules.VesselRecheckSeconds);
+        /// <summary>When the next finished unit may go to the product store (real time).</summary>
+        internal double NextDelivery;
         internal string Status = "";
         internal string? LastStop;
     }
@@ -376,7 +378,17 @@ internal sealed class ChargeMachine
             }
         }
         Step(co);
-        if (sessions.TryGetValue(co, out var s)) Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(co, s.State.Running || s.AwaitingFeed || s.VesselWait);
+        if (!sessions.TryGetValue(co, out var s)) return;
+        bool started = s.State.Running || s.AwaitingFeed || s.VesselWait;
+        Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(co, started);
+        // The optional product store (Manufacturing 0.49.0): a started machine sends what it has made there, a unit at a
+        // time, so its tray does not stop it. Only its own products go; the bound charge is in the feed, out of reach.
+        if (started && Cadence.RealTime >= s.NextDelivery)
+        {
+            s.NextDelivery = Cadence.RealTime + ManufacturingRules.DeliverySeconds;
+            try { StoreDelivery.SendOne(co, u => OwnProduct(u.strCODef)); }
+            catch (Exception ex) { Fault(co, ex); }
+        }
     }
     private void Step(CondOwner co)
     {
@@ -604,7 +616,7 @@ internal sealed class ChargeMachine
         return T("status", s.Status, count, shape.feedCells, charge,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(primary), s.State.Cycles) + selected +
             "\n" + T("demand", shape.workingKW, RoomHeat.Machine(shape.workingKW * shape.roomHeatFraction)) +
-            (extra == null ? "" : "\n" + extra) + (StoreFeed.Describe(co) is { Length: > 0 } fed ? "\n" + fed : "") + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            (extra == null ? "" : "\n" + extra) + (StoreFeed.Describe(co) is { Length: > 0 } fed ? "\n" + fed : "") + (StoreDelivery.Describe(co) is { Length: > 0 } sent ? "\n" + sent : "") + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     /// <summary>The panel's fields: one per commodity link (shown once a vessel is in reach or linked, or always for
     /// the primary one), and the recipe choice on an explicit-selection machine.</summary>
@@ -621,6 +633,7 @@ internal sealed class ChargeMachine
                 () => LinkChoices.Note(co, cargo, vessels));
         }
         yield return StoreFeed.Field(co);
+        yield return StoreDelivery.Field(co);
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             var s = Get(co);

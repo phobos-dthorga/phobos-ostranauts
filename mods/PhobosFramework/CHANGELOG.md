@@ -28,6 +28,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.98.0] - 2026-10-05 - Draft
+
+### Added
+
+- A machine can name one store, touching it or joined by conveyor belt, to send its finished products to. Content mods decide which machines offer it; Phobos Manufacturing 0.49.0 is the first. It is optional, like the feed store it mirrors.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; the choice is a new record on the machine.
+
+### Compatibility and limits
+
+- The version number skips 0.97.0, which was set aside for another change and not used.
+- Checked offline; not yet seen in the game.
+
 ## [0.96.0] - 2026-10-05 - Draft
 
 ### Fixed

@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.49.0] - 2026-10-05 - Draft
+
+### Added
+
+- Send products to: the V4, LC-3, SA-3, fermenter-still and Corker-2 bottler can empty their trays into a crate or locker you choose on the Connections page, touching the machine or joined by conveyor belt. While started and powered a machine sends one finished item a second, so a full tray no longer stops it. Name the same store as another machine's feed store, or an RM-1's, and the chain runs by itself. Optional: collecting by hand works as before.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; the choice is a new record on the machine.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.98.0 or newer.
+- Material bins take only ore, rock and ice, so use an ordinary container for products. A machine sends anything in its tray that it can make, including nickel-iron ingots or carbon stock you loaded by hand; press Start straight after loading those.
+- Checked offline; not yet seen in the game.
+
 ## [0.48.0] - 2026-10-05 - Draft
 
 ### Changed

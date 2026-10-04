@@ -16,6 +16,9 @@ public static class ManufacturingRules
     public const string CropNutrients = "crop nutrients";
     public const double LocalAccessTiles = 2.5, ConsoleAccessTiles = 2.5;
     public const double VesselRecheckSeconds = 5;
+    /// <summary>How often a started machine with a product store sends one finished unit there (real seconds;
+    /// Manufacturing 0.49.0, Framework StoreDelivery).</summary>
+    public const double DeliverySeconds = 1;
     /// <summary>How far through a cycle a machine is, for its panel (Manufacturing 0.48.0; owner request, 5 October 2026:
     /// a meter in kWh read like a consumption countdown). A cycle is a fixed amount of delivered electricity, so the
     /// share delivered is the share done: 0 to 100, never 100 before the cycle has actually finished.</summary>

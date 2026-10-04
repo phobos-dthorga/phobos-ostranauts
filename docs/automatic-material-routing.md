@@ -81,6 +81,41 @@ status line says so and the machine carries on with whatever you load by hand.
 Choose **No store** to clear it. The pull is not metered separately: it rides on
 the machine's own power.
 
+## Product stores for the Manufacturing machines (optional)
+
+Collecting by hand always works. If you would rather not, a V4 refinery, an LC-3,
+an SA-3, a fermenter-still or a Corker-2 bottler can send what it makes to **one
+store you choose** (Manufacturing 0.49.0):
+
+1. Put an ordinary unlocked container (a crate or locker) within one tile of the
+   machine, or join the two with conveyor belt.
+2. Open the machine's **Control Panel** > **Connections** and choose it under
+   **Send products to**. Apply.
+
+```mermaid
+flowchart LR
+    Machine["V4, LC-3, SA-3, fermenter-still or bottler"] -->|Send products to| Store["Crate or locker"]
+    Store -->|Take feed from| Next["Another machine, or the RM-1 for remainders"]
+    Machine --> Tray["Its own tray, collected by hand"]
+```
+
+While it is started and powered, the machine moves finished items from its tray
+to the store, one a second, so a full tray no longer stops it. If the store is
+full, locked, moved or its belt is cut, the items stay in the tray and the status
+line says why. Choose **No store** to clear it.
+
+Three things to know:
+
+- **Material bins take only ore, rock and ice.** Use a crate or locker for
+  products and remainders; a bin will refuse them and they will stay in the tray.
+- **A store can feed the next machine.** Name the same crate under **Take feed
+  from** on another machine, or on an RM-1 feeder to grind remainders into
+  reaction mass, and the chain runs by itself.
+- **It sends anything in its tray that it can make.** A few items are both a
+  product and a feed (nickel-iron ingots and carbon stock in the V4). If you
+  load those by hand while a product store is set, press **Start** straight away
+  or the machine will send them on.
+
 ## Connect the equipment
 
 The simplest chain runs grabber, chute, dismantling fixture, reclaimer, then a

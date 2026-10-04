@@ -62,6 +62,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             // The Corker-2 (Manufacturing 0.40.0): an ethanol cask and a water vessel, each touching it or on its line.
             yield return LinkField(Text.Get("Provider.ethanol_field"), "ethanol:", co, BottlerService.EthanolLink, false, BottlerService.EthanolLink.Candidates(co));
             yield return LinkField(Text.Get("Provider.vessel_field"), "water:", co, BottlerService.WaterLink, false, BottlerService.WaterLink.Candidates(co));
+            yield return Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Field(co);
         }
         else if (SabatierRules.IsFamily(co.strCODef))
         {
@@ -153,9 +154,9 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:", "nutrients:", "ethanol:", "co2:", Phobos.Ostranauts.Framework.Inventory.StoreFeed.ActionPrefix }.Concat(FeederRules.SettingPrefixes)
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:", "nutrients:", "ethanol:", "co2:", Phobos.Ostranauts.Framework.Inventory.StoreFeed.ActionPrefix, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.ActionPrefix }.Concat(FeederRules.SettingPrefixes)
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
-    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order", Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key,
+    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order", Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Key,
         "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
         "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record, "PhobosState." + BottlerRules.Record, "PhobosState." + FeederRules.Record }.Concat(ChargeMachines.All.Select(m => "PhobosState." + m.Spec.Record)).Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).Concat(LiquidStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
@@ -165,6 +166,12 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         bool saved = Command(co, binding, action, out reason);
         if (saved) Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);
         return saved;
+    }
+    private static bool ProductStore(CondOwner co, ConsoleBinding? binding, string action, out string message)
+    {
+        if (ChargeMachines.For(co.strCODef) == null && !BottlerRules.IsFamily(co.strCODef)) { message = Text.Get("Content.unsupported_action"); return false; }
+        message = Content.Access(co, binding) ?? "";
+        return message.Length == 0 && Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Command(co, action, out message);
     }
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
@@ -203,6 +210,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     }
     private static EquipmentAction[] Actions(params string[] ids) => ids.Select(a => new EquipmentAction(a, Text.Get("Provider.action_" + a))).ToArray();
     public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) =>
+        // The optional product store (0.49.0) is the same choice on every machine that offers it.
+        action.StartsWith(Phobos.Ostranauts.Framework.Inventory.StoreDelivery.ActionPrefix, StringComparison.Ordinal) ? ProductStore(co, binding, action, out message) :
         ChargeMachines.For(co.strCODef) is ChargeMachine charge ? charge.Command(co, binding, action, out message) :
         ProcessorRules.IsFamily(co.strCODef) ? ProcessorService.Command(co, binding, action, out message) :
         SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) :
