@@ -15,7 +15,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
     {if(BulkDefinitions.IsWaterTank(co))return BulkService.Protected(co)||co.HasCond("IsDamaged")||co.HasCond("IsLocked")?OrderState.Blocked:OrderState.Waiting;var s=Service.Get(co);return s.Protected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||s.State.Running&&!co.HasCond("IsPowered")?OrderState.Blocked:s.State.Running?OrderState.Running:OrderState.Waiting;}
     public bool Validate(CondOwner co,StandingOrder draft,out string reason){reason="";return true;}
     public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?IsOutput(co,c,draft):
-        BulkDefinitions.IsWaterTank(co)?c.strCODef==Definitions.Irrigation:Definitions.IsCooker(co)?HearthRecipes.IsInput(c.strCODef):WorkupDefinitions.IsBench(co)?
+        BulkDefinitions.IsWaterTank(co)?c.strCODef==Definitions.Irrigation:Definitions.IsCooker(co)?HearthRecipes.IsInput(c.strCODef)||HearthRecipes.IsExtra(c.strCODef):WorkupDefinitions.IsBench(co)?
         c.strCODef==(draft.Recipe=="recover-crop"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate)||c.strCODef==WorkupDefinitions.Makeup:
         c.strCODef==Definitions.Irrigation||c.strCODef=="LiquidWater"||c.strCODef.StartsWith("PhobosVerdemorrow",StringComparison.Ordinal));
     public string Id => Plugin.Id;
@@ -41,9 +41,13 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         if(Definitions.IsCooker(co))
         {
             if(b.Running)return null;
-            // One recipe today; with more, the order cooks whatever cookable portion is in the cooker or its stores.
-            if(HearthRecipes.All.Sum(r=>Stock(co,order,r.Product))>=order.Stock) {reason=Text.Get("crew_stock_met");return null;}
-            if(!HearthRecipes.All.Any(r=>Service.Input(co,r.Input,r.Kg)!=null))return CrewLogistics.Supply(co,order,co,c=>HearthRecipes.IsInput(c.strCODef),role)??Blocked(out reason);
+            // The order cooks whatever cookable portion is in the cooker or its stores, and fetches the supply its
+            // recipe uses (a water ration for bread, keeping the crew's drinking reserve).
+            if(HearthRecipes.All.SelectMany(r=>r.Products.Select(p=>p.Id)).Distinct().Sum(id=>Stock(co,order,id))>=order.Stock) {reason=Text.Get("crew_stock_met");return null;}
+            var ready=HearthRecipes.All.FirstOrDefault(r=>Service.Input(co,r.Input,r.Kg)!=null);
+            if(ready==null)return CrewLogistics.Supply(co,order,co,c=>HearthRecipes.IsInput(c.strCODef),role)??Blocked(out reason);
+            if(ready.Extra is (string extraId,double extraKg)&&Service.Input(co,extraId,extraKg)==null)
+                return Supply(extraId,extraId=="LiquidWater"?(int)Math.Ceiling(Plugin.ReserveLitres.Value/.25):0)??Blocked(out reason);
             return Act("start");
         }
         if(WorkupDefinitions.IsBench(co))

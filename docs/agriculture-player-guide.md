@@ -1,7 +1,7 @@
 # Phobos Agriculture
 
-Grow a meal between salvage runs. Firstlight-4 grows potatoes or lettuce;
-Hearth-2 turns the potatoes into cooked portions. Keep the plants supplied with
+Grow a meal between salvage runs. Firstlight-4 grows potatoes, lettuce or dwarf
+wheat; Hearth-2 turns potatoes into cooked portions and wheat into flatbread. Keep the plants supplied with
 water, nutrients, light and suitable cabin air. Four trays share one crop cycle.
 
 Use the [current package versions](player-guide.md) and [dependency requirements](installing-mods.md). These are development packages;
@@ -23,8 +23,8 @@ keeps the version history and [artwork notes](development/artwork-completion.md)
 ## Equipment and supplies
 
 **Verdemorrow Agronomics** supplies this agricultural family: **Firstlight-4**
-cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes and
-lettuce seeds, and **Groundwork** formulated nutrients. Harvested produce and
+cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes,
+lettuce seeds and seed wheat, and **Groundwork** formulated nutrients. Harvested produce and
 retained materials also carry the Verdemorrow brand. Full names begin with
 `Phobos' Verdemorrow`; the [brand register](development/equipment-branding.md) lists them.
 
@@ -112,13 +112,13 @@ flowchart TD
    Remove cargo and replant. Full storage keeps the crop intact; harvest again
    after making room.
 
-| Ideal complete cycle | Potatoes | Lettuce |
-| --- | --- | --- |
-| Duration | 96 game hours | 48 game hours |
-| Active electrical demand | 0.75 kW | 0.40 kW |
-| Cycle energy | 72 kWh | 19.2 kWh |
-| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g |
-| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues |
+| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat |
+| --- | --- | --- | --- |
+| Duration | 96 game hours | 48 game hours | 84 game hours |
+| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW |
+| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh |
+| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g |
+| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue |
 
 Delays and respiration reduce biomass, and damage reduces edible output. Whole
 portion rounding can reduce a delayed harvest by one portion; the remainder stays
@@ -132,6 +132,26 @@ slows cooking. Removing the selected input suspends the cycle; return that exact
 portion or Cancel before using another. Cancellation discards cooking progress,
 not the food. Cooked potatoes reduce native food debt by five units; lettuce by
 one. These values, yields and accelerated growth are gameplay choices.
+
+## Dwarf wheat and flatbread
+
+Wheat (Agriculture 0.41.0) is the slow, light-hungry crop that keeps. Plant one
+**Continuance 50 g seed wheat** packet with **Plant seed wheat**; the W2's
+**Select wheat feed** mixes its feed. A healthy harvest gives one 0.4 kg portion of
+**wheat grain**, gives your seed packet back, and leaves about 0.95 kg of straw as
+recorded residue for the B2 bench. Grain keeps indefinitely.
+
+To bake, put a grain portion and one 0.25 kg **water ration** in the Hearth-2 and
+choose **Start**. Ten minutes at 2 kW makes one 0.65 kg **flatbread**, which
+relieves hunger like the game's own prepared meals (nine units). If the water ration
+is gone when the baking finishes, the cooker stops with the bread nearly done; add
+water and choose Start to finish it. A crew cooking order fetches grain and a water
+ration, and keeps the crew's drinking reserve.
+
+Wheat's figures follow the ratios NASA Kennedy Space Center's crop chamber found
+against potato: a slightly shorter cycle, the most light, and far less of the plant
+edible. The hours, yields and food values are gameplay choices; see the
+[crop expansion record](development/agriculture-crop-expansion.md) for the sources.
 
 ## Water and central controls
 

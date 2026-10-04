@@ -102,8 +102,16 @@ internal static partial class Service
     private static void Cook(Session s)
     {
         var raw = CookerInput(s); var recipe = HearthRecipes.ForInput(raw?.strCODef); if (raw == null || recipe == null) { s.State.Running = false; return; }
+        // A recipe's supply (bread's water ration) is used up when the cooking finishes. Without it the cooker
+        // stops with the portion and its progress kept, and Start finishes it once the supply is back.
+        CondOwner? extra = null;
+        if (recipe.Extra is (string extraId, double extraKg))
+        {
+            extra = Input(s.Object, extraId, extraKg);
+            if (extra == null) { s.State.Running = false; s.Watch.Cancel(); s.Notice = Text.Get("cooker_supply_missing"); return; }
+        }
         var next = s.State.Copy(); next.CookerProgress = 0; next.CookerInput = ""; next.Running = false;
-        s.MealCommitted = Deliver(s, new List<(string, double)> { (recipe.Product, recipe.Kg) }, raw, next);
+        s.MealCommitted = Deliver(s, recipe.Products.Select(p => (p.Id, p.Kg)).ToList(), raw, next, additionalInput: extra);
         if (!s.MealCommitted) { s.Watch.Cancel(); s.State.Running = false; }
     }
     private static CondOwner? CookerInput(Session s)
@@ -115,8 +123,9 @@ internal static partial class Service
     private static HearthRecipe? CookerRecipe(Session s) => HearthRecipes.ForInput(CookerInput(s)?.strCODef);
     /// <summary>The energy the bound portion takes; with nothing bound, the most any recipe takes.</summary>
     private static double CookerKWh(Session s) => CookerRecipe(s)?.KWh ?? HearthRecipes.MaxKWh;
-    /// <summary>The first portion in the cooker that some recipe takes, in the recipes' order.</summary>
-    private static CondOwner? Cookable(CondOwner co) => HearthRecipes.All.Select(r => Input(co, r.Input, r.Kg)).FirstOrDefault(x => x != null);
+    /// <summary>The first portion in the cooker that some recipe takes and whose supply is there too, in the recipes' order.</summary>
+    internal static CondOwner? Cookable(CondOwner co) => HearthRecipes.All.Where(r => r.Extra is not (string id, double kg) || Input(co, id, kg) != null)
+        .Select(r => Input(co, r.Input, r.Kg)).FirstOrDefault(x => x != null);
     private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
     {
         var products = new List<CondOwner>(); bool committed = false; TrayDelivery? delivery = null;

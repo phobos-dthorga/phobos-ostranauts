@@ -33,6 +33,16 @@
       "category": "IsCategoryIndustrialProducts",
       "art": "lettuce_seed"
     },
+    "PhobosVerdemorrowContinuanceWheat": {
+      "notes": "Continuance seed wheat, a 50 g packet: one planting.",
+      "kind": "stock",
+      "kg": 0.05,
+      "price": 15,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "wheat_seed"
+    },
     "PhobosVerdemorrowGroundworkNutrients": {
       "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
       "kind": "stock",
@@ -70,6 +80,25 @@
       "stack": 10,
       "side": 1,
       "art": "leaves"
+    },
+    "PhobosVerdemorrowWheatGrain": {
+      "notes": "Wheat grain, 0.4 kg; dry, keeps indefinitely; bake it in the Hearth-2 with a water ration. Priced above raw potatoes: about four times the food energy, and it keeps.",
+      "kind": "stock",
+      "kg": 0.4,
+      "price": 30,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryFood",
+      "art": "wheat_grain"
+    },
+    "PhobosVerdemorrowHearthFlatbread": {
+      "notes": "Hearth flatbread, 0.65 kg; eaten directly. Baking it with a bought water ration costs more than the loaf fetches: bread is supply, not trade.",
+      "kind": "food",
+      "kg": 0.65,
+      "price": 90,
+      "stack": 10,
+      "side": 1,
+      "art": "flatbread"
     },
     "PhobosVerdemorrowCropResidue": {
       "notes": "Unrecorded crop residue from older crops: waste.",

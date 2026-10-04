@@ -1055,6 +1055,348 @@
     "normalSHA256": "a42d5669b29567becb36ec7c3d51b37753c1afd235501aae677b478be9f35c7c"
   },
   {
+    "name": "Wheat-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-sprout.png",
+        "sourceSHA256": "3b86f0b0e5f7e6d320ef09059dbffe60fab6773807cc5447056f78bc96531712",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "fa5d8b805252b648956b0bb655c36ac03c52292365e49667da3ba9ecf09a0ef4"
+  },
+  {
+    "name": "Rack-Wheat-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-sprout.png",
+        "sourceSHA256": "3b86f0b0e5f7e6d320ef09059dbffe60fab6773807cc5447056f78bc96531712",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "1f8b9a8fd0ee3e918901f959e052b1dc3bb2d0aed1a1165f0de43e6d5170a6a0",
+    "normalSHA256": "d24326390607e2eb06bec2e2f2dcdeac899bc29163f156dbec192f1baa199aba"
+  },
+  {
+    "name": "Wheat-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-young.png",
+        "sourceSHA256": "a266c0dd6ae74e332e0e8230b4937433e148d2a93f29d4c42edf8a19bfc6d045",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "494c93bfbe138583aa97ca3d9d8c43be3c754879decf4b4049c89e27578f9314"
+  },
+  {
+    "name": "Rack-Wheat-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-young.png",
+        "sourceSHA256": "a266c0dd6ae74e332e0e8230b4937433e148d2a93f29d4c42edf8a19bfc6d045",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "493b1286baaddae8f4d3aa0f6f9cbe9bbf045df0c952434334f6a6e64d255beb",
+    "normalSHA256": "59aed38580a99eb3ce681acc2324c44cb4b5a421ee396b0a37cba29a7d4c5ad8"
+  },
+  {
+    "name": "Wheat-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-mature.png",
+        "sourceSHA256": "f729ad595df6cc9aaf74a3216c01f5381d21c49d12228998e897b073c18d0d06",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "96afa89c57bc83431b6a709d4304214aabd553ad121f95878dc2ea7048128179"
+  },
+  {
+    "name": "Rack-Wheat-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-mature.png",
+        "sourceSHA256": "f729ad595df6cc9aaf74a3216c01f5381d21c49d12228998e897b073c18d0d06",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "f9748d690e04623415a839b441430bdb3cf36008a24e17673800b6ee0af05a81",
+    "normalSHA256": "a4572d22b534497b9ec95b52029c748ffd0672f9791430e8165cb5d788852b27"
+  },
+  {
+    "name": "Wheat-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-harvest.png",
+        "sourceSHA256": "f81c0f6fc522272cd62346fa9fa5b9dff3725fb7ce830a12867add39ef88b51e",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "6238d532765555c07e8cff6c6af03312740fbbe890aae68ec5c266ae66c61641"
+  },
+  {
+    "name": "Rack-Wheat-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-harvest.png",
+        "sourceSHA256": "f81c0f6fc522272cd62346fa9fa5b9dff3725fb7ce830a12867add39ef88b51e",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "5facce037fe39da8cb5c15b5cd02e38a56872e53ef3933f5a6279cbd5ecdcb66",
+    "normalSHA256": "a4572d22b534497b9ec95b52029c748ffd0672f9791430e8165cb5d788852b27"
+  },
+  {
+    "name": "Wheat-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-wilted.png",
+        "sourceSHA256": "00a8002498e731c3031f488e6a74afa753e56406399822686259c07780743b93",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b597159aef4997796fa4e99ad9aeca4ae5af1612cbd2e15d6028efecd5ffc460"
+  },
+  {
+    "name": "Rack-Wheat-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-wilted.png",
+        "sourceSHA256": "00a8002498e731c3031f488e6a74afa753e56406399822686259c07780743b93",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "72f731f04913aff4720b420dea1f4d2cd8cefecfc50874da343f12f3816f55ba",
+    "normalSHA256": "d95e048e0d0dcc94b34e3200e9108b9e365b858e3a1db4259a9d9964334fd3de"
+  },
+  {
+    "name": "Wheat-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/wheat-dead.png",
+        "sourceSHA256": "6224dd3617e536296b6b01ac30022d1365803cb9672574ac91bd21257b95baf4",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "df6083d24d8769b312f93f674990f061f3825b392af2a7f5138d687e8969d6f3"
+  },
+  {
+    "name": "Rack-Wheat-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/wheat-dead.png",
+        "sourceSHA256": "6224dd3617e536296b6b01ac30022d1365803cb9672574ac91bd21257b95baf4",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "c7a59e4242bc7293bb5a47789cad8942a4a9bb4d6c1008ce3aeb314303fd439e",
+    "normalSHA256": "e3ee69f9756b874fca31043f833dfdbc84fc088e1c3f3c9e20e610e20f13cd0b"
+  },
+  {
     "name": "Counter",
     "inputs": [
       {

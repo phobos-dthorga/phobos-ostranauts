@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.40.0",
+      "value": "0.41.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -937,6 +937,22 @@
         "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
       ]
     },
+    "Agriculture.stackSeedWheat": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "25",
+      "description": "Maximum physical objects per native stack for Agriculture.stackSeedWheat (materials data pack).",
+      "targets": [
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowContinuanceWheat/stack"
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
     "Agriculture.stackNutrients": {
       "type": "integer",
       "min": 1,
@@ -1008,7 +1024,7 @@
       "min": 1,
       "max": 100,
       "value": "10",
-      "description": "Maximum raw potato, cooked potato and lettuce portions per native storage stack (materials data pack).",
+      "description": "Maximum raw potato, cooked potato, lettuce, wheat grain and flatbread portions per native storage stack (materials data pack).",
       "targets": [
         {
           "path": "mods/PhobosAgriculture/framework/materials.json",
@@ -1021,6 +1037,14 @@
         {
           "path": "mods/PhobosAgriculture/framework/materials.json",
           "pointer": "/materials/PhobosVerdemorrowLettuce/stack"
+        },
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowWheatGrain/stack"
+        },
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowHearthFlatbread/stack"
         }
       ],
       "review": [

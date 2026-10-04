@@ -1,5 +1,6 @@
 """Independent arithmetic checks for research estimates, not Unity tests."""
 import importlib.util
+import json
 from pathlib import Path
 import unittest
 
@@ -60,7 +61,9 @@ class StorageResearchTests(unittest.TestCase):
 
     def test_coverage_and_saved_report(self):
         report=storage.report()
-        self.assertEqual(len(report["scenarios"]),54)
+        # 18 scenarios per crop (3 rack counts x 2 durations x 3 paces), one row per crop in the crops pack.
+        crops=json.loads((ROOT/"mods/PhobosAgriculture/framework/crops.json").read_text(encoding="utf-8"))["crops"]
+        self.assertEqual(len(report["scenarios"]),18*len(crops))
         self.assertEqual(storage.REPORT.read_text(encoding="utf-8"),storage.markdown(report))
 
 

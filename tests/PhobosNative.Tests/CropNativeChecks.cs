@@ -35,7 +35,15 @@ internal static class CropNativeChecks
             check(agriculture.Loot.ContainsKey(item.Key + "Effects") == food && agriculture.Interactions.ContainsKey(item.Key + "AllowDirect") == food, "Only food carries eating effects: " + item.Key);
         }
         foreach (var recipe in HearthRecipes.All)
-            check(agriculture.Objects.ContainsKey(recipe.Input) && agriculture.Objects.ContainsKey(recipe.Product), "The cooker's recipe names items the mod builds: " + recipe.Id);
+        {
+            check(agriculture.Objects.ContainsKey(recipe.Input) && recipe.Products.All(p => agriculture.Objects.ContainsKey(p.Id)), "The cooker's recipe names items the mod builds: " + recipe.Id);
+            // A supply from the game (the water ration) must still exist there and weigh what the recipe says.
+            if (recipe.Extra is (string extra, double kg) && !agriculture.Objects.ContainsKey(extra))
+                check(DataHandler.dictCOs.TryGetValue(extra, out var native) && Definitions.NativeMass(extra) is double nativeKg && Math.Abs(nativeKg - kg) < 1e-9,
+                    "The cooker's supply is the game's own item at its own mass: " + recipe.Id + " " + extra);
+        }
+        // The cooker's tray holds a recipe's portion, its supply and its product at once.
+        check(HearthRecipes.All.All(r => 1 + (r.Extra == null ? 0 : 1) + r.Products.Select(p => p.Id).Distinct().Count() <= 4), "Each recipe fits the Hearth-2's four cells");
         check(Definitions.MixActions.Length == Crops.All.Count + 1 && Definitions.MixActions.Last() == "water-only", "The W2 offers one feed per crop, then plain water");
     }
 }

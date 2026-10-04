@@ -923,3 +923,10 @@ scan of a one-entry recipe list) on the paths that already called them each powe
 `Crops.All`, `Definitions.MixActions` and `LineService.FeedProfiles` allocate small arrays,
 and are read when a panel is drawn, an order is evaluated or definitions are prepared, not
 per step. The packs load once per content load. No capture accompanies this change.
+
+## 4 October: wheat and a second cooker input (L26)
+
+L26 — Agriculture 0.41.0: wheat is one more crops-pack entry; nothing per step scales with
+crop count except the dictionary probes L25 introduced. The cooker's recipe lookup scans a
+two-entry list; `Cookable` and the crew cooking order scan it once per Start or order
+evaluation, with one inventory probe per recipe supply. No capture accompanies this change.

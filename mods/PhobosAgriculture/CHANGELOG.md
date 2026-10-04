@@ -10,6 +10,31 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.41.0] - 2026-10-04 - Draft
+
+### Added
+
+- Dwarf wheat, the first new crop (owner direction, 4 October 2026). Plant a Continuance 50 g seed wheat packet: 84 hours at 1.2 kW. A healthy harvest gives one 0.4 kg portion of wheat grain, gives the seed packet back, and leaves about 0.95 kg of straw as recorded residue for the B2 bench. The W2 mixes wheat feed. Grain keeps indefinitely.
+- Hearth flatbread: the Hearth-2 bakes one grain portion and one water ration into a 0.65 kg loaf over ten minutes, as filling as the game's own prepared meals. If the water ration is gone when baking finishes, the cooker stops with the bread nearly done; add water and choose Start. The crew cooking order fetches grain and water and keeps the drinking reserve.
+- Seed wheat at the supply kiosk, K-Leg fixer, Halvorson and regional merchants; flatbread at the food carts; seed wheat, grain and flatbread in fridge and crate finds; all three at the faction kiosks at any standing.
+- New artwork: six wheat growth stages in the rack and three item icons.
+
+### Changed
+
+- Fridge and crate finds keep their old totals; the wheat items share them, so potato and lettuce items turn up slightly less often.
+- Cooking recipes may now take one supply beside the portion, used when the cooking finishes.
+
+### Save compatibility
+
+- Automatic. Wheat is a new crop; plantings, feeds and cooking saved by earlier versions load unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- Wheat's figures follow the ratios NASA's crop chamber found against potato; the hours, yields and food values are gameplay choices. Baking moisture loss is not modelled.
+- Tomato and soybean follow after review of the wheat pilot.
+- Checked offline; not yet seen in the game.
+
 ## [0.40.0] - 2026-10-04 - Draft
 
 ### Changed

@@ -62,6 +62,26 @@
       "feed": "lettuce-seed-v1",
       "feedCommodity": "lettuce seed feed",
       "art": "LettuceSeed"
+    },
+    "wheat": {
+      "notes": "Dwarf wheat (Agriculture 0.41.0): one 50 g packet of seed wheat into a 1.4 kg cohort over 84 hours at 1.2 kW. A harvest keeps one packet back for the next planting and gives one 0.4 kg portion of grain; the rest, about 0.95 kg, is straw. Authored in the ratios NASA Kennedy Space Center's Biomass Production Chamber found against potato: a slightly shorter cycle (77 to 86 days against 90 to 105), the most light, about 30 to 40% of the plant edible, and a ripe crop that is mostly dry matter. See docs/development/agriculture-crop-expansion.md; the hours are authored gameplay balance.",
+      "hours": 84,
+      "kw": 1.2,
+      "seedKg": 0.05,
+      "finalKg": 1.4,
+      "carbonKg": 1.1,
+      "nutrientKg": 0.045,
+      "waterKg": 1.165,
+      "vapourKg": 0.3,
+      "seedCarbonKg": 0.044,
+      "edibleKg": 0.46,
+      "keptStockKg": 0.05,
+      "portionKg": 0.4,
+      "stock": "PhobosVerdemorrowContinuanceWheat",
+      "produce": "PhobosVerdemorrowWheatGrain",
+      "feed": "wheat-v1",
+      "feedCommodity": "wheat feed",
+      "art": "Wheat"
     }
   },
   "items": {
@@ -69,6 +89,9 @@
     "PhobosVerdemorrowContinuanceLettuce": { "text": "lettuce_seed" },
     "PhobosVerdemorrowRawPotatoes": { "text": "raw" },
     "PhobosVerdemorrowHearthPotatoes": { "text": "meal", "hunger": 5, "satiety": 3 },
-    "PhobosVerdemorrowLettuce": { "text": "leaves", "hunger": 1, "satiety": 1 }
+    "PhobosVerdemorrowLettuce": { "text": "leaves", "hunger": 1, "satiety": 1 },
+    "PhobosVerdemorrowContinuanceWheat": { "text": "wheat_seed" },
+    "PhobosVerdemorrowWheatGrain": { "text": "wheat_grain" },
+    "PhobosVerdemorrowHearthFlatbread": { "notes": "The game's own prepared-meal values (food 9, satiety 5): a loaf from 0.4 kg of grain is about four potato portions of food energy.", "text": "flatbread", "hunger": 9, "satiety": 5 }
   }
 }

@@ -74,9 +74,12 @@ export('Cooker', counter, [counter_input, stove_input], normal=True)
 
 # Review all stages at the same integer enlargement; never smooth native exports.
 stages = ['sprout', 'young', 'mature', 'harvest', 'wilted', 'dead']
-sheet = Image.new('RGB', (1200, 830), '#252b2e')
+# One row per crop artwork family in the layout, in its order (Agriculture 0.41.0: no fixed crop list).
+crops = list(dict.fromkeys(key.rsplit('-', 1)[0] for key in LAYOUT['plants']))
+machines_y = len(crops) * 220 + 10
+sheet = Image.new('RGB', (1200, machines_y + 160), '#252b2e')
 draw = ImageDraw.Draw(sheet)
-for row, crop in enumerate(['Potato', 'Lettuce', 'LettuceSeed']):
+for row, crop in enumerate(crops):
     for col, stage in enumerate(stages):
         name = crop + '-' + stage
         pixels = Image.open(OUT / ('Rack-' + name + '.png')).convert('RGBA').resize((192, 192), NEAREST)
@@ -86,10 +89,10 @@ for col, name in enumerate(['Rack', 'Counter', 'Stove', 'Cooker']):
     pixels = Image.open(OUT / (name + '.png')).convert('RGBA')
     scale = 2 if pixels.width == 64 else 4 if pixels.width == 32 else 8
     pixels = pixels.resize((pixels.width * scale, pixels.height * scale), NEAREST)
-    sheet.paste(pixels, (col * 200 + 30, 670), pixels)
-    draw.text((col * 200 + 25, 805), name, fill='white')
-draw.text((830, 710), 'Verdemorrow living-ship candidates', fill='white')
-draw.text((830, 732), '4 x 4 rack | 2 x 2 galley', fill='white')
-draw.text((830, 754), 'Separate sources; fixed registration', fill='white')
+    sheet.paste(pixels, (col * 200 + 30, machines_y), pixels)
+    draw.text((col * 200 + 25, machines_y + 135), name, fill='white')
+draw.text((830, machines_y + 40), 'Verdemorrow living-ship candidates', fill='white')
+draw.text((830, machines_y + 62), '4 x 4 rack | 2 x 2 galley', fill='white')
+draw.text((830, machines_y + 84), 'Separate sources; fixed registration', fill='white')
 sheet.save(ASSETS / 'living-visuals-preview.png')
 print(f'Exported {len(records)} registered Agriculture images plus {len(LAYOUT["plants"]) + 2} flat normals; footprints unchanged.')

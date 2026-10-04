@@ -34,7 +34,8 @@ internal static class AgricultureNativeChecks
             string id = (string)entry["definition"]!, key = (string)entry["key"]!;
             var stock = d.Objects[id];
             var image = d.Items[stock.strItemDef];
-            var donorCo = DataHandler.dictCOs[key == "meal" || key == "leaves" ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"];
+            // Food (anything the crops pack says is eaten) clones the game ration; everything else, scrap (Agriculture 0.41.0: read from the pack).
+            var donorCo = DataHandler.dictCOs[PhobosAgriculture.Core.Crops.Items.Any(i => i.Key == id && i.Value.hunger != null) ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"];
             var donor = DataHandler.dictItemDefs[donorCo.strItemDef];
             check(image.strImg == "phobos/agriculture/Stock-" + key && stock.strPortraitImg == image.strImg, "Stock world/portrait resolves its dedicated image: " + id);
             check(image.nCols == donor.nCols && image.aSocketAdds.SequenceEqual(donor.aSocketAdds) && image.aSocketReqs.SequenceEqual(donor.aSocketReqs) && image.aSocketForbids.SequenceEqual(donor.aSocketForbids), "Stock art preserves donor collision/socket geometry: " + id);
@@ -118,10 +119,10 @@ internal static class AgricultureNativeChecks
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"].jsonPI == null, "A pipe cannot draw or distribute electricity");
         // Agriculture 0.33.0: the conduit holds its water or feed, filled by the W2's pump, drained into a canister.
         var irrigationHolding = Phobos.Ostranauts.Framework.Liquids.LineContents.Families.FirstOrDefault(f => f.Prefix == PhobosAgriculture.IrrigationDefinitions.Pipe);
-        check(irrigationHolding != null && !irrigationHolding.StoreFilled && !irrigationHolding.Gas && irrigationHolding.Commodities.Count == 4 &&
+        check(irrigationHolding != null && !irrigationHolding.StoreFilled && !irrigationHolding.Gas && irrigationHolding.Commodities.Count == 1 + PhobosAgriculture.Core.Crops.All.Count && irrigationHolding.Of("wheat feed") != null &&
             irrigationHolding.Commodities.All(c => Math.Abs(c.KgPerTile - .2007) < .001) && irrigationHolding.Of("potato feed") != null && irrigationHolding.Of("water") != null,
-            "The irrigation conduit holds water or one of the three feeds, about 0.2 kg a tile, filled by the W2's pump");
-        check(PhobosAgriculture.Service.FeedProfiles.Select(PhobosAgriculture.Service.FeedCommodity).Distinct().Count() == 4, "Every feed profile has its own stable conduit commodity");
+            "The irrigation conduit holds water or any crop's feed, about 0.2 kg a tile, filled by the W2's pump");
+        check(PhobosAgriculture.Service.FeedProfiles.Select(PhobosAgriculture.Service.FeedCommodity).Distinct().Count() == 1 + PhobosAgriculture.Core.Crops.All.Count, "Every feed profile has its own stable conduit commodity");
         foreach (string form in new[] { "Installed", "InstalledDmg" })
             check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + form].aInteractions.Contains(Phobos.Ostranauts.Framework.Liquids.LineContents.DrainAction), "An installed conduit offers Drain line into canister: " + form);
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Outlet + ",24,8"), "Supply outlet has a rotating native named point");

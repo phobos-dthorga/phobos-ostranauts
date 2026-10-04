@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.40.0",
+      "version": "0.41.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -105,6 +105,41 @@
           ],
           "massKg": 0.2,
           "baseValue": 40.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowContinuanceWheat",
+          "name": "Phobos' Verdemorrow Continuance Seed Wheat (50 g)",
+          "stackLimit": 25,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.05,
+          "baseValue": 15.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -218,6 +253,7 @@
             "PhobosAgricultureWork_plant_potato",
             "PhobosAgricultureWork_plant_lettuce",
             "PhobosAgricultureWork_plant_lettuce_seed",
+            "PhobosAgricultureWork_plant_wheat",
             "PhobosAgricultureWork_load_water",
             "PhobosAgricultureWork_load_irrigation",
             "PhobosAgricultureWork_load_nutrients",
@@ -5638,6 +5674,44 @@
           "aliases": []
         },
         {
+          "id": "PhobosVerdemorrowHearthFlatbread",
+          "name": "Phobos' Verdemorrow Hearth Flatbread (0.65 kg)",
+          "stackLimit": 10,
+          "actions": [
+            "SeekFoodDirect",
+            "SeekFoodDirectGlutton",
+            "SeekFoodDirectLowNeed",
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.65,
+          "baseValue": 90.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosVerdemorrowHearthPotatoes",
           "name": "Phobos' Verdemorrow Hearth Cooked Potatoes (0.4 kg)",
           "stackLimit": 10,
@@ -6410,6 +6484,41 @@
           "installTab": null,
           "jobs": [],
           "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowWheatGrain",
+          "name": "Phobos' Verdemorrow Wheat Grain (0.4 kg)",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 0.4,
+          "baseValue": 30.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
         }
       ],
       "sources": [
@@ -6485,6 +6594,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -6535,6 +6651,20 @@
         {
           "table": "ItmFactionKioskBCERInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
           "count": 64
@@ -6611,6 +6741,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -6661,6 +6798,20 @@
         {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
           "count": 64
@@ -6737,6 +6888,13 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
@@ -6787,6 +6945,20 @@
         {
           "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 64
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
           "count": 64
@@ -6863,6 +7035,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6913,6 +7092,20 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -6920,36 +7113,57 @@
         {
           "table": "ItmFridge01Contents",
           "item": "PhobosVerdemorrowContinuanceLettuce",
-          "condition": "Loot",
-          "chance": 0.04,
-          "count": 1
-        },
-        {
-          "table": "ItmFridge01Contents",
-          "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Loot",
           "chance": 0.03,
           "count": 1
         },
         {
           "table": "ItmFridge01Contents",
+          "item": "PhobosVerdemorrowContinuancePotato",
+          "condition": "Loot",
+          "chance": 0.02,
+          "count": 1
+        },
+        {
+          "table": "ItmFridge01Contents",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Loot",
+          "chance": 0.02,
+          "count": 1
+        },
+        {
+          "table": "ItmFridge01Contents",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Loot",
+          "chance": 0.02,
+          "count": 1
+        },
+        {
+          "table": "ItmFridge01Contents",
           "item": "PhobosVerdemorrowHearthPotatoes",
           "condition": "Loot",
-          "chance": 0.04,
+          "chance": 0.02,
           "count": 1
         },
         {
           "table": "ItmFridge01Contents",
           "item": "PhobosVerdemorrowLettuce",
           "condition": "Loot",
-          "chance": 0.05,
+          "chance": 0.04,
           "count": 1
         },
         {
           "table": "ItmFridge01Contents",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Loot",
-          "chance": 0.06,
+          "chance": 0.05,
+          "count": 1
+        },
+        {
+          "table": "ItmFridge01Contents",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Loot",
+          "chance": 0.02,
           "count": 1
         },
         {
@@ -7101,6 +7315,13 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 1.0,
@@ -7177,6 +7398,20 @@
           "count": 64
         },
         {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
           "table": "ItmOKLGFoodCart01KioskInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
           "condition": "Pristine",
@@ -7184,8 +7419,22 @@
           "count": 64
         },
         {
+          "table": "ItmOKLGFoodCart01KioskInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
           "table": "ItmOKLGFoodCart02KioskInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGFoodCart02KioskInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -7214,6 +7463,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosVerdemorrowContinuanceLettuce",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -7317,17 +7573,38 @@
           "count": 64
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
           "table": "ItmRandomCrateLockedContents",
           "item": "PhobosVerdemorrowContinuanceLettuce",
           "condition": "Loot",
-          "chance": 0.04,
+          "chance": 0.03,
           "count": 1
         },
         {
           "table": "ItmRandomCrateLockedContents",
           "item": "PhobosVerdemorrowContinuancePotato",
           "condition": "Loot",
-          "chance": 0.03,
+          "chance": 0.02,
+          "count": 1
+        },
+        {
+          "table": "ItmRandomCrateLockedContents",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Loot",
+          "chance": 0.02,
           "count": 1
         },
         {
@@ -7430,6 +7707,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7485,6 +7769,20 @@
           "count": 64
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Pristine",
@@ -7556,6 +7854,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7606,6 +7911,20 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -7682,6 +8001,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7732,6 +8058,20 @@
         {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -7808,6 +8148,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7858,6 +8205,20 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -7934,6 +8295,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -7984,6 +8352,20 @@
         {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8060,6 +8442,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8110,6 +8499,20 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8186,6 +8589,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8236,6 +8646,20 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8312,6 +8736,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8362,6 +8793,20 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8438,6 +8883,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.9750000000000001,
@@ -8488,6 +8940,20 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.9750000000000001,
           "count": 64
@@ -8564,6 +9030,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8614,6 +9087,20 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8690,6 +9177,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8740,6 +9234,20 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8816,6 +9324,13 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8866,6 +9381,20 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -8942,6 +9471,13 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -8992,6 +9528,20 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -9068,6 +9618,13 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -9118,6 +9675,20 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -9130,6 +9701,13 @@
           "count": 64
         },
         {
+          "table": "ItmTraderSanDiegoFutureFoodsInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Pristine",
@@ -9153,6 +9731,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVerdemorrowContinuanceLettuce",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -9251,6 +9836,20 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -9376,6 +9975,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowContinuanceWheat",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkNutrients",
           "condition": "Pristine",
           "chance": 0.95,
@@ -9426,6 +10032,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowHearthPotatoes",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowWheatGrain",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 64
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowHearthFlatbread",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 64
@@ -51885,16 +52505,16 @@
     }
   ],
   "sourceHashes": {
-    "mods/PhobosAgriculture/framework/crops.json": "90550e85e4c8f6bb16a721e64521ec7a7ec8c3355b4a19121212e22b1e67fd59",
-    "mods/PhobosAgriculture/framework/economy.json": "0a13f468536e238a748711c26988fe4fb1ae7c39188ed51d6868a48e2865e39d",
-    "mods/PhobosAgriculture/framework/equipment-names.json": "3bf8b964be3d3158d54ef0bd84b3cc282a11b349388ae41f29a0217e18c7cffb",
-    "mods/PhobosAgriculture/framework/frozen-crops.json": "bd2f7f2c5f33802c2edde1f4bb17a66f765335b6698505bcee9d5426176906ee",
-    "mods/PhobosAgriculture/framework/frozen-process-recipes.json": "3a87361ae358f4109d13e288b5b28ce683e8a18d6ab88478831aa088cc30297c",
-    "mods/PhobosAgriculture/framework/materials.json": "aab92c5f7b7feebe753134a9dbb73ca8d02e75ed8ac7d273dc866ff4e5466292",
-    "mods/PhobosAgriculture/framework/process-recipes.json": "3fc3c35f5f712cb87955ed0637eaba0174d30d6344515d1bd14093b6bf51e881",
+    "mods/PhobosAgriculture/framework/crops.json": "c1e1409c485a237ddb929d55904deef87906e3b652356d1319b47f2dee3b9e22",
+    "mods/PhobosAgriculture/framework/economy.json": "aa5e523acbb1edf414f2b8127d236ae7a8e03b6ef7270dc71cf708d3d23b5a64",
+    "mods/PhobosAgriculture/framework/equipment-names.json": "77b9298cc8c39e5a4a0bc7a734b374426389a11dfbd924c8fb2ddf88617f5acf",
+    "mods/PhobosAgriculture/framework/frozen-crops.json": "ce7e4665fddcc8eb25b5a166736a540565eac810fec3641d8e22fd2f61f1ea6f",
+    "mods/PhobosAgriculture/framework/frozen-process-recipes.json": "12e8ae89b96030da43773ae7ce70ad1a67b2b23138b4d22b991b5487a2badbed",
+    "mods/PhobosAgriculture/framework/materials.json": "3da5dd75becfb97848c7c682386e9f0333c3e0ed2eaa1ec46523d67bc68f1b68",
+    "mods/PhobosAgriculture/framework/process-recipes.json": "203fd393a850572698679e0c30b80624bbcaa81417a6179aa70b5a9f3ecd931b",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
-    "mods/PhobosAgriculture/mod_info.json": "cdf63895cdd1f7c412f540104686c28eb379c434e188747544d41ed06681b21d",
+    "mods/PhobosAgriculture/mod_info.json": "98de1966eede65dc510314d062f83328672aec5fa83448d0e3a5b73814957422",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
@@ -51944,14 +52564,14 @@
     "src/PhobosAgriculture/Core/CropPack.cs": "0c7cb5ee2aecf3dd682a2a7ef63d51ab20e2f26aca86aa9add03b9762b2c9723",
     "src/PhobosAgriculture/Core/DosingBinding.cs": "7026d53c466a744f9d68ff027f36486109c8c25f14bc13d30eb731c3cba8de31",
     "src/PhobosAgriculture/Core/DrainageRecovery.cs": "5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047",
-    "src/PhobosAgriculture/Core/HearthRecipes.cs": "c6cb905e27753203e05aa30b163bf601328ceae09e7baf3e0ddb72f2bf8bfbc0",
+    "src/PhobosAgriculture/Core/HearthRecipes.cs": "18c40b6832cdcd9fff0a62a3e0ddf78768ffb6e67b3c0005f949e07d2b51a548",
     "src/PhobosAgriculture/Core/HopperRules.cs": "81d763c802527c1519f29bad8bc92995a9510a5e2c4736e8c404bdaa5decc0a9",
     "src/PhobosAgriculture/Core/NutrientRecovery.cs": "dba4e221480a6c1f366cd5ef088aeafb6baa73fc3c9c03af39df132db2b038f1",
     "src/PhobosAgriculture/Core/NutrientSolution.cs": "960761c2a2d70bf167e70cccd367e9420210194cd904e43c3272b39b918604a7",
     "src/PhobosAgriculture/Core/RecoveryWork.cs": "3f4408e560add255d1f8f0320a8b0ea3814e52892e8d14487bad3b618f484efa",
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
-    "src/PhobosAgriculture/CrewProvider.cs": "0a117bd04db616f580f99419e38c0b4778109aed15b053d058b006b1b9d16bfd",
+    "src/PhobosAgriculture/CrewProvider.cs": "68a0996c81b3a432978ea7cf152afbf1dffc9ad139558d2a9b7c3de627fe69a2",
     "src/PhobosAgriculture/Definitions.cs": "cbb0f8f52f3f10f97feef76d7e7b60f8bb39664b631e76c15bb70c8099303216",
     "src/PhobosAgriculture/EconomyData.cs": "3b15b43e59342e5285fb73f7b7b6c0332ce2581445c2fa12615c540c9d9cbb9a",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "cd003b2bb973afae140f4e26251741a183fb232659a68752d49c5d2f04fc0cd5",
@@ -51962,12 +52582,12 @@
     "src/PhobosAgriculture/LineService.cs": "c1f2f1c1e59d642c88ac28fe917c647f14c133d14df125d982f60f36614ec2fe",
     "src/PhobosAgriculture/LootContent.cs": "b68ca3f0583cf0658691553ae3330d89125e7fb0e356052f10438b68f9aa6a56",
     "src/PhobosAgriculture/MaterialData.cs": "afcba45fab24f8a9e218bf875d5823fd9fab5db8d368f1947e3275a0d6675dca",
-    "src/PhobosAgriculture/MaterialOperations.cs": "44bc3688ae699d833e70c01fa61fff6cb67e7b06d4a42884a5e98246022e821c",
+    "src/PhobosAgriculture/MaterialOperations.cs": "63a2554e88d23ea356c32afec69b8b4c2d3d413455dffca1b73e8601c8fd1344",
     "src/PhobosAgriculture/Panel.cs": "9bf3efc8ae6fb67fbc4a92c792080cad62c0c2e7ae40072117d2000a182daf77",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "cb26c01c81162588d0e90743829eea773beb061137685dbd13010b964b9dc579",
-    "src/PhobosAgriculture/Plugin.cs": "da2ec7696d4687c304cac6aa7072e424a0d038d38988bd88cb01615fd9b73cc5",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "a2f227e048f1b300e595f3ca59f9fc3715a6e82df087811470fd9c545bb5dba9",
+    "src/PhobosAgriculture/Plugin.cs": "0d7df7739f9b96c6927e92d41a6bb8958e428b0e4405d8eb925708ef01207812",
     "src/PhobosAgriculture/RecoveryService.cs": "f66ae610f32c446d77ac90c6eb72c78006f088de90874adfc5f3eaac14df56db",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
@@ -52411,7 +53031,7 @@
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "9543900eaf3da6d07f23cd66197d68f9245243545dda5edb8a835a5a7a398c9f",
     "tests/PhobosNative.Tests/Program.cs": "817aea4b0d30c652783a7ec6d574c576aa89daabad058c3980de1dc8ee71f054",
-    "translations/PhobosAgriculture/en.json": "40c6998bfeb60506f56a73eb5bb9c7327ce6d81253c5db2c3adea685ad2da20c",
+    "translations/PhobosAgriculture/en.json": "2be8f6407e03472573aff1a834cefd51d1a5a136cef53ba1c7e873497ba3191b",
     "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
     "translations/PhobosFramework/en.json": "3a3856556c53bdd2d340f722dd68fca668c4d5aed8f6c66ee1097414302b80af",
     "translations/PhobosManufacturing/en.json": "0366a416fbdc1fb46896629c3f7a4ee71435440f2091249f453e87fef2f2ed04",

@@ -21,7 +21,8 @@ def digest(path):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     records = []
-    sheet = Image.new('RGB', (960, 700), '#252b2e')
+    rows = (len(LAYOUT['items']) + 3) // 4
+    sheet = Image.new('RGB', (960, 36 + rows * 220), '#252b2e')
     draw = ImageDraw.Draw(sheet)
     draw.text((16, 12), 'Verdemorrow supplies - native 16px and 8x inspection', fill='white')
     for index, entry in enumerate(LAYOUT['items']):

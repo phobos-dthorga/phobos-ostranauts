@@ -10,6 +10,14 @@
       "inputs": [ { "id": "PhobosVerdemorrowRawPotatoes", "count": 1, "kg": 0.4 } ],
       "products": [ { "id": "PhobosVerdemorrowHearthPotatoes", "count": 1, "kg": 0.4 } ],
       "seconds": 90
+    },
+    "hearth-flatbread": {
+      "notes": "Hearth revision 2 (Agriculture 0.41.0): one 0.4 kg portion of wheat grain and one 0.25 kg water ration into one 0.65 kg flatbread over ten minutes at 2 kW (0.33 kWh). The dough is about 62% water to grain, an ordinary bread hydration. The Hearth mills and bakes in one step, and the steam a real loaf loses is not modelled, because the game's air has no water vapour to receive it; the loaf keeps the water's mass.",
+      "machine": "hearth",
+      "revision": 2,
+      "inputs": [ { "id": "PhobosVerdemorrowWheatGrain", "count": 1, "kg": 0.4 }, { "id": "LiquidWater", "count": 1, "kg": 0.25 } ],
+      "products": [ { "id": "PhobosVerdemorrowHearthFlatbread", "count": 1, "kg": 0.65 } ],
+      "seconds": 600
     }
   }
 }

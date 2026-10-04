@@ -83,6 +83,24 @@
       "source": "stock-treatment-cartridge.png",
       "label": "Treatment cartridge",
       "definition": "PhobosVerdemorrowGroundworkRecoveryCartridge"
+    },
+    {
+      "key": "wheat_seed",
+      "source": "stock-seed-wheat.png",
+      "label": "Continuance seed wheat",
+      "definition": "PhobosVerdemorrowContinuanceWheat"
+    },
+    {
+      "key": "wheat_grain",
+      "source": "stock-wheat-grain.png",
+      "label": "Wheat grain",
+      "definition": "PhobosVerdemorrowWheatGrain"
+    },
+    {
+      "key": "flatbread",
+      "source": "stock-flatbread.png",
+      "label": "Hearth flatbread",
+      "definition": "PhobosVerdemorrowHearthFlatbread"
     }
   ]
 }

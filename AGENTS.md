@@ -320,7 +320,10 @@
   branch on a crop id in code again. Player files may add a crop from the mod's own
   items and a shipped artwork family, never edit a shipped one. Later phases that add
   machines, brands, commodities or prices each open with a design record and owner
-  decisions.
+  decisions. Agriculture 0.41.0 adds dwarf wheat as the pilot crop (owner go, 4 October
+  2026): seed wheat, grain and Hearth flatbread baked from grain and a water ration
+  (the cooker recipe may take one supply beside its portion). Tomato and soybean
+  artwork waits for the owner's review of the wheat pilot.
 
 ## Manufacturing direction (2026-09-25)
 

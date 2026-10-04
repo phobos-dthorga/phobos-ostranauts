@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-04",
+  "provider": "PixelLab",
+  "status": "Selected candidates inspected at native size in the rack and at 4x; owner review of the wheat pilot pending; no gameplay validation.",
+  "owner": "Owner said go on 4 October 2026 to one pilot crop (wheat) before tomato and soybean artwork.",
+  "inputs": "Text only, and edits of PixelLab's own outputs. No game or third-party images uploaded.",
+  "terms": "As recorded in stock-generation-records.json (PixelLab terms checked 2026-09-25).",
+  "usage": {
+    "allowanceBefore": 1738,
+    "generations": 17,
+    "selected": 9,
+    "rejected": 8,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "derivations": [
+    {
+      "source": "source/wheat-sprout.png",
+      "from": "sprout-v2 (job 16e996d6-8a5c-45b7-8dac-0e75715bb13b, sha256 193a47ac0a0fd39b8ad9e3b78eafb3e6586df19e8c42e17ae697b822a3484f61)",
+      "operation": "Mechanical colour key: every visible pixel whose green channel is not greater than both red and blue was made transparent (274 pixels of a dark soil disc removed, 185 kept). No pixel was drawn or moved."
+    }
+  ],
+  "records": [
+    {
+      "key": "mature-v1",
+      "operation": "create_image_pixflux",
+      "request": { "description": "Single dwarf wheat plant clump seen from directly overhead, orthographic 90-degree bird's-eye view, no side view, no horizon, roots anchored at exact canvas centre (32,32). Mature short dwarf wheat tuft: many narrow straight pointed blade leaves radiating outward from the centre like a star burst, about 7 to 9 upright golden-green grain heads (ears) seen end-on as small oval clusters near the centre. Muted olive-green leaves, pale straw-gold ears. Coarse deliberate pixel clusters, restrained industrial hard science fiction game sprite, modest realistic botanical shape, simple shading with only 3 or 4 tones, no black cartoon outline, no pot, no tray, no soil, no text, no shadow outside silhouette. Transparent background, entire silhouette within the central 52x52 of the 64x64 canvas. Clearly grass-like wheat, not a palm, flower or star. Pixel grid legible at 16x16 game scale.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510041 },
+      "job_id": "a659ceed-e73f-4f15-bab8-42488e257038",
+      "costGenerations": 1,
+      "sha256": "4ab0995a800c269d806a5615d4283c74cf914c164fef907501948526932fc920",
+      "status": "rejected",
+      "reason": "Side view of a single corn-like plant on a soil block: violates the overhead-first rule."
+    },
+    {
+      "key": "mature-v2",
+      "operation": "create_image_pixflux",
+      "request": { "description": "Wheat plant canopy seen from straight above, flat plan view looking vertically down onto the top of the plant, like a drone photo. Dense circular tuft of many thin straight narrow grass blades radiating outward from the centre point (32,32) in all directions, olive and sage green, with about eight small pale straw-gold wheat ears pointing up at the camera, so each ear appears as a short golden oval dash scattered among the inner blades. No stalk visible from the side, no ground, no soil block, no pot, no tray, no shadow. Coarse deliberate pixel clusters, simple 3-tone shading, restrained hard science fiction game sprite. Transparent background, the whole tuft inside the central 52x52 of the 64x64 canvas, readable at 16x16.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "lineless", "seed": 2510042, "text_guidance_scale": 10 },
+      "job_id": "6609cc98-ea6d-4450-9255-6ca6f27c6afd",
+      "costGenerations": 1,
+      "sha256": "a505d8d3197d75c589cf21a0126ed6edf3c98a736addbface0bce502e9c66ced",
+      "status": "rejected",
+      "reason": "Overhead, but a dark spiky ball of thin blades that turns to speckle at 16x16, unlike the chunky shipped lettuce and potato."
+    },
+    {
+      "key": "mature-v3",
+      "operation": "create_image_pixflux",
+      "request": { "description": "Top-down plan view of a small clump of dwarf wheat, looking straight down from above. About twelve BROAD chunky leaf blades, each 3 to 4 pixels wide, fanning outward from the centre (32,32) in a loose round tuft, bright fresh sage green with lighter green highlights. In the middle, a cluster of six plump golden wheat ears seen from above as fat straw-yellow ovals with a few pale awns. Chunky simple pixel art with big clean colour clusters, bold readable silhouette, only four tones, lineless, similar chunkiness to a lettuce sprite. No soil, no pot, no tray, no shadow, no dark centre. Transparent background, whole clump inside the central 44x44 pixels of the 64x64 canvas so it stays readable at 16x16.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510043, "text_guidance_scale": 10 },
+      "job_id": "9f9fbe30-38e1-418c-9b3e-3c7d34cbfb0b",
+      "costGenerations": 1,
+      "sha256": "07aaa5f0ccc45c7d07943db29d84f6945bce8203ba7b763ab069755bbb9741f8",
+      "status": "superseded",
+      "reason": "Good overhead shape, but stray brown soil fragments at the edges; cleaned by the next edit. Kept only on the archive branch."
+    },
+    {
+      "key": "mature",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature-v3 (job 9f9fbe30-38e1-418c-9b3e-3c7d34cbfb0b)", "description": "Remove the brown soil and dark dirt fragments around the lower-right and left edges so only the green leaves and golden wheat ears remain on a fully transparent background. Keep the plant, its leaves, colours, overhead view and position exactly the same.", "no_background": true, "seed": 2510044 },
+      "job_id": "3f102c73-9dd5-4b6b-8756-58a34f6bd8b6",
+      "costGenerations": 1,
+      "source": "source/wheat-mature.png",
+      "sha256": "f729ad595df6cc9aaf74a3216c01f5381d21c49d12228998e897b073c18d0d06",
+      "status": "selected",
+      "reason": "Overhead, chunky, readable at 16x16; green tuft with a golden head, distinct from lettuce and potato. Leaves are broader than real wheat: a stylisation the owner may revise."
+    },
+    {
+      "key": "sprout-v1",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Replace the plant with one very tiny wheat seedling: only three short thin bright green grass blades sprouting from the centre, no ears. The seedling occupies just the central 16x16 pixels of this 64x64 canvas, root exactly at the centre (32,32). Same overhead view, palette and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510045 },
+      "job_id": "41eec73a-a673-4157-a0cb-94673de5f382",
+      "costGenerations": 1,
+      "sha256": "55f82bd0c4e724803983380c97544bc5848271568b9cd3a393f9b1f4b33a9994",
+      "status": "rejected",
+      "reason": "Drawn from the side on a soil mound: violates the overhead-first rule."
+    },
+    {
+      "key": "young-v1",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Make this wheat a young plant before heading: about seven green leaf blades in an open tuft, NO golden ears at all, visibly smaller and sparser than now, occupying the central 32x32 pixels of the 64x64 canvas, centred at (32,32). Same overhead view, green palette and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510046 },
+      "job_id": "a255757d-ceb2-4df8-982e-f96b286cef05",
+      "costGenerations": 1,
+      "sha256": "b747a039f93654a94364c6f4a9e4dfd7d6a5ff17abcbc4fd4f2748cabbba9b09",
+      "status": "rejected",
+      "reason": "Shows golden ears, which a young plant before heading does not have. Used as the base for the sprout and young retries."
+    },
+    {
+      "key": "harvest",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Ripen this wheat for harvest: all the leaves turn dry golden straw yellow and pale tan, and the wheat ears in the centre become fuller, plumper and deeper golden brown. Same shape, size, overhead view, position and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510047 },
+      "job_id": "3393c3d3-6ad3-4018-aa03-6afc40f65ca9",
+      "costGenerations": 1,
+      "source": "source/wheat-harvest.png",
+      "sha256": "f81c0f6fc522272cd62346fa9fa5b9dff3725fb7ce830a12867add39ef88b51e",
+      "status": "selected",
+      "reason": "Unmistakably ripe at native size."
+    },
+    {
+      "key": "wilted-v1",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Make this wheat plant stressed and wilting: leaves droop and curl, dull yellow-green with brown tips, a few leaves collapsed, the ears small and greyish. Same overall size, overhead view, position and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510048 },
+      "job_id": "0d603003-357b-4245-8a85-e5314678c476",
+      "costGenerations": 1,
+      "sha256": "1e05a23e9f925c4d1a4317f667fbdb59dc70dd881d9c83bb537cfe3fee981ddd",
+      "status": "rejected",
+      "reason": "Too close to the healthy mature stage at native size."
+    },
+    {
+      "key": "dead",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Make this wheat plant dead: collapsed brittle grey-brown dead leaves lying flat, no green left, shrivelled dark ears, slightly smaller and flatter than now. Same overhead view, position and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510049 },
+      "job_id": "2cf7826b-878a-440a-9760-d04faa3e6311",
+      "costGenerations": 1,
+      "source": "source/wheat-dead.png",
+      "sha256": "6224dd3617e536296b6b01ac30022d1365803cb9672574ac91bd21257b95baf4",
+      "status": "selected",
+      "reason": "Grey straw, clearly dead."
+    },
+    {
+      "key": "sprout",
+      "operation": "edit_image_pixen",
+      "request": { "image": "young-v1 (job a255757d-ceb2-4df8-982e-f96b286cef05)", "description": "Shrink this to a tiny seedling seen from directly above: just three short narrow bright green leaf tips radiating from the centre point (32,32), the whole seedling about 12 pixels across. Remove every golden ear and every other leaf. Same top-down view, colours and pixel style, transparent background, no soil.", "no_background": true, "seed": 2510050 },
+      "job_id": "16e996d6-8a5c-45b7-8dac-0e75715bb13b",
+      "costGenerations": 1,
+      "sha256": "193a47ac0a0fd39b8ad9e3b78eafb3e6586df19e8c42e17ae697b822a3484f61",
+      "source": "source/wheat-sprout.png (after the recorded colour key)",
+      "sourceSHA256": "3b86f0b0e5f7e6d320ef09059dbffe60fab6773807cc5447056f78bc96531712",
+      "status": "selected",
+      "reason": "Overhead seedling; its dark soil disc removed by the recorded colour key. The unkeyed output is kept only on the archive branch."
+    },
+    {
+      "key": "young",
+      "operation": "edit_image_pixen",
+      "request": { "image": "young-v1", "description": "Remove all the golden yellow wheat ears from the centre and fill the centre with plain green leaf bases instead, so the young plant is entirely green leaves. Keep the size, shape, overhead view, position and pixel style exactly the same, transparent background.", "no_background": true, "seed": 2510051 },
+      "job_id": "2f5bca73-0e88-4deb-ad64-40c1494fa858",
+      "costGenerations": 1,
+      "source": "source/wheat-young.png",
+      "sha256": "a266c0dd6ae74e332e0e8230b4937433e148d2a93f29d4c42edf8a19bfc6d045",
+      "status": "selected",
+      "reason": "All green, smaller than mature."
+    },
+    {
+      "key": "wilted",
+      "operation": "edit_image_pixen",
+      "request": { "image": "mature", "description": "Make this plant clearly sick and wilting: most leaves turn pale sickly yellow and khaki with dark brown dry tips and patches, several leaves shrivel shorter, the whole plant looks limp and faded, the ears turn dull grey-brown. It must look obviously unhealthy, very different from a healthy green plant, but not yet dead grey. Same overhead view, position and pixel style, transparent background.", "no_background": true, "seed": 2510052 },
+      "job_id": "d09bb40a-0c24-44b5-b353-b29cc12c2065",
+      "costGenerations": 1,
+      "source": "source/wheat-wilted.png",
+      "sha256": "00a8002498e731c3031f488e6a74afa753e56406399822686259c07780743b93",
+      "status": "selected",
+      "reason": "Sickly khaki with dark patches: distinct from healthy green, ripe gold and dead grey at native size."
+    },
+    {
+      "key": "wheat_seed",
+      "operation": "create_image_pixflux",
+      "request": { "description": "One original tiny spaceship farming inventory item sprite: a small flat cream foil SEED PACKET of seed wheat lying flat, sage green sealed edges, with a large simple golden wheat-ear pictogram in the centre. Thin horizontal green sealed seam across its top. Original utilitarian spacecraft agriculture stock, Verdemorrow cream, sage and slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510060 },
+      "job_id": "3b2fc9c7-211e-4257-b241-0a91416469a3",
+      "costGenerations": 1,
+      "source": "source/stock-seed-wheat.png",
+      "sha256": "4610687523e009a0ff7390cef2dbebdd5edb4d9168bfbf016fa3805ce7b710e9",
+      "status": "selected",
+      "reason": "Matches the shipped lettuce seed packet and stays distinct from it at 16x16."
+    },
+    {
+      "key": "wheat_grain-v1",
+      "operation": "create_image_pixflux",
+      "request": { "description": "One original tiny spaceship farming inventory item sprite: a small open sealed cream cloth sack of harvested WHEAT GRAIN seen from directly above, the open top showing a heap of plump golden-tan wheat kernels, sage green drawstring band. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and gold palette. STRICT overhead orthographic plan view, no perspective. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510061 },
+      "job_id": "a86718f9-4f48-48e4-b63d-13b47df5efea",
+      "costGenerations": 1,
+      "sha256": "e6160df3eb9f2f9f9baa73a8bbb9a70e3f91731b982f4501887babc86697bd70",
+      "status": "rejected",
+      "reason": "The sack shows its front face in perspective: violates the overhead-first rule."
+    },
+    {
+      "key": "flatbread-v1",
+      "operation": "create_image_pixflux",
+      "request": { "description": "One original tiny spaceship galley food item sprite: a single round golden-brown baked FLATBREAD seen from directly above, with darker toasted blister spots and a lighter floury rim, resting on a small square of plain cream baking paper. Coarse deliberate pixel clusters, three or four shading tones, warm restrained palette. STRICT overhead orthographic plan view, no perspective. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, plate, table, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510062 },
+      "job_id": "db2c585c-e54c-4ce4-a28b-fc1cf6de5a42",
+      "costGenerations": 1,
+      "sha256": "cf02de53d2b28dc8e28267bbf222262a8b4fa00a59150495a3f965d054b0c65e",
+      "status": "rejected",
+      "reason": "Reads as a chocolate-chip cookie."
+    },
+    {
+      "key": "wheat_grain",
+      "operation": "create_image_pixflux",
+      "request": { "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim, completely filled with a heap of plump golden-tan wheat kernels, the kernels shown as small oval golden clusters. Like a flat top-down view into a box, no visible side walls or front face. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and gold palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510063 },
+      "job_id": "48a83a43-60b7-4c5c-ac99-8cfec848cf8e",
+      "costGenerations": 1,
+      "source": "source/stock-wheat-grain.png",
+      "sha256": "f0fd67da65abf68cdd73548d2e89c228167cd7496ee1fa0210b37e78e9b0cf1b",
+      "status": "selected",
+      "reason": "Overhead tray of grain, matching the shipped cooked-potato tray."
+    },
+    {
+      "key": "flatbread",
+      "operation": "create_image_pixflux",
+      "request": { "description": "One original tiny spaceship galley food item sprite seen strictly from directly above: a wide thin round FLATBREAD, pale golden wheat colour, with a few large light-brown toasted scorch patches and a slightly darker baked rim, folded once into a half-moon so it reads as bread. Soft matte surface, no dark spots, no chocolate chips, not a cookie or pizza. Coarse deliberate pixel clusters, three or four warm tones. One centred object filling most of a 64x64 transparent canvas with 6px margins. No plate, paper, words, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.", "width": 64, "height": 64, "no_background": true, "view": "high top-down", "isometric": false, "detail": "low detail", "shading": "basic shading", "outline": "selective outline", "seed": 2510064 },
+      "job_id": "a3aaf48b-8847-4cbb-a555-0f48c0efb2aa",
+      "costGenerations": 1,
+      "source": "source/stock-flatbread.png",
+      "sha256": "673e6d752b7596d8fd152e3bf4759ff729f89b44195e5a4ed31f9ec920279707",
+      "status": "selected",
+      "reason": "Reads as bread at native size. It was not folded as asked; a flat round loaf is acceptable."
+    }
+  ]
+}

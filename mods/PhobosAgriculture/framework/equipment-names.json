@@ -23,6 +23,10 @@
     "brand": "Verdemorrow",
     "model": "Continuance"
   },
+  "wheat_seed": {
+    "brand": "Verdemorrow",
+    "model": "Continuance"
+  },
   "nutrients": {
     "brand": "Verdemorrow",
     "model": "Groundwork"
@@ -38,6 +42,14 @@
   "leaves": {
     "brand": "Verdemorrow",
     "model": ""
+  },
+  "wheat_grain": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "flatbread": {
+    "brand": "Verdemorrow",
+    "model": "Hearth"
   },
   "residue": {
     "brand": "Verdemorrow",

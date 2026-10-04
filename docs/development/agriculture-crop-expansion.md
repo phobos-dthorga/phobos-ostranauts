@@ -27,7 +27,7 @@ Chili, radish and activated char were offered and not chosen.
 | --- | --- | --- | --- |
 | 0 | this record | Sources, per-crop decisions, open questions | Written |
 | 1 | Agriculture 0.40.0 | Crops and Hearth-2 recipes as data packs; no change in play | Built, offline checks only |
-| 2 | Agriculture 0.41.0 | Wheat, tomato (repeat picking), soybean; their foods and artwork | Planned |
+| 2 | Agriculture 0.41.0 | Wheat (pilot), then tomato with repeat picking and soybean | Wheat built, offline checks only; tomato and soybean wait for the owner's review of the wheat pilot |
 | 3 | Agriculture 0.42.0, Manufacturing 0.37.0 | CO2 response; residue charred to carbon stock in the V4; rack vapour overflow to a linked water tank | Planned |
 | 4 | later | Flax: fibre to cloth, linseed; oil press decision | Needs its own design record |
 | 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
@@ -204,18 +204,50 @@ phase 3 may model.
 - **Picking.** Tomato is picked over roughly the last quarter of its cycle. Phase 2
   models that as several picks from one planting; the number of picks is authored.
 
+## Phase 2: the wheat pilot (Agriculture 0.41.0)
+
+Owner, 4 October 2026: go, with wheat as the pilot crop and the proposed flatbread.
+
+| Figure | Wheat | Potato, for scale | Basis |
+| --- | --- | --- | --- |
+| Hours | 84 | 96 | Chamber cycles 77 to 86 days against 90 to 105 |
+| Rack power | 1.2 kW | 0.75 kW | Wheat's best yields came at 67 mol PAR per m2 per day against potato's 42 |
+| Seed | 50 g packet | 0.2 kg tuber | Our choice; one packet kept back each harvest |
+| Final mass | 1.4 kg | 5 kg | Ripe wheat is mostly dry matter; potato is mostly water |
+| Carbon (as CH2O) | 1.1 kg | 0.84 kg | Chamber total biomass per cycle about 1.3 times potato's (derived) |
+| Nutrient | 45 g | 40 g | Chamber nutrient use per cycle about 1.1 times potato's (derived from TM-2003 Table 9) |
+| Edible | 0.46 kg (33%) | 4.2 kg (84%) | Chamber edible dry mass per cycle about half potato's (derived) |
+| Harvest | one 0.4 kg grain portion, the packet back, 0.95 kg straw | ten portions, a seed potato, 0.8 kg | Whole portions; the remainder is residue |
+
+The Hearth-2 bakes one 0.4 kg grain portion and one 0.25 kg water ration into a
+0.65 kg flatbread over ten minutes at 2 kW: about 62% water to grain, an ordinary
+dough. Milling is folded into the step (owner decision: no mill). Baking moisture
+loss is not modelled because the game's air has no water vapour to receive it, so
+the loaf keeps the water's mass. Its food values are the game's own prepared meal
+(nine and five). A loaf from bought water costs more than it fetches: bread is
+supply, not trade.
+
+The cooker recipe schema now allows one supply beside the bound portion; the supply
+is used when the cooking finishes, and the cooker stops and waits if it is gone.
+
+Artwork: 17 PixelLab generations from the subscription, 9 selected and 8 rejected,
+recorded in `assets/phobos-agriculture/wheat-generation-records.json`. Rejected
+outputs are on the archive branch. The selected mature plant has broader leaves
+than real wheat, a stylisation for readability at 16 pixels that the owner may
+revise.
+
+Loot: fridge and crate finds keep their old totals (0.22 and 0.30 per roll); the
+wheat items share them, so potato and lettuce items are slightly rarer than before.
+
 ## Decisions phase 2 still needs
 
 These are ours to propose in the phase 2 change and the owner's to revise:
 
-1. Authored hours, power and yields for the three crops, in the ratios above.
-2. Whether wheat needs milling. The proposal: the Hearth-2 bakes grain and water
-   straight into flatbread, with the simplification stated.
-3. A second cooker input (water), which extends the recipe rule of one item in.
-4. Number of tomato picks and the regrow interval.
-5. Names for the new planting stock and foods under Continuance and Hearth.
-6. Artwork: six growth stages per crop plus item icons from PixelLab. This spends
-   credits, so it starts with one pilot crop for review.
+1. The owner's review of the wheat pilot (artwork, figures, flatbread) before
+   tomato and soybean follow.
+2. Authored hours, power and yields for tomato and soybean, in the ratios above.
+3. Number of tomato picks and the regrow interval (a saved crop field).
+4. Soybean's food: a cooked meal now, oil later.
 
 ## Later phases: starting notes
 

@@ -212,6 +212,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceWheat": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceWheat",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGSupplyKioskInv",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -278,6 +284,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceWheat": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceWheat",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -341,6 +353,12 @@
     "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceLettuce": {
       "merchant": "ItmTraderSanDiegoHalvorsonInv",
       "item": "PhobosVerdemorrowContinuanceLettuce",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceWheat": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceWheat",
       "condition": "Pristine",
       "chance": 0.65
     },
@@ -412,6 +430,33 @@
       "chance": 0.95,
       "lot": "supplies",
       "floor": "supplies"
+    },
+    "PhobosHearthFlatbread_ItmOKLGFoodCart01KioskInv": {
+      "notes": "Hearth flatbread at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart01KioskInv",
+      "item": "PhobosVerdemorrowHearthFlatbread",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthFlatbread_ItmOKLGFoodCart02KioskInv": {
+      "notes": "Hearth flatbread at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart02KioskInv",
+      "item": "PhobosVerdemorrowHearthFlatbread",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthFlatbread_ItmTraderSanDiegoFutureFoodsInv": {
+      "notes": "Hearth flatbread at the food carts, at the supplies floor.",
+      "merchant": "ItmTraderSanDiegoFutureFoodsInv",
+      "item": "PhobosVerdemorrowHearthFlatbread",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
     }
   },
   "regions": {
@@ -450,6 +495,9 @@
       "PhobosVerdemorrowContinuanceLettuce": {
         "chance": 0.65
       },
+      "PhobosVerdemorrowContinuanceWheat": {
+        "chance": 0.65
+      },
       "PhobosVerdemorrowGroundworkNutrients": {
         "chance": 0.65
       },
@@ -475,6 +523,12 @@
       },
       "PhobosVerdemorrowHearthPotatoes": {
         "chance": 0.65
+      },
+      "PhobosVerdemorrowWheatGrain": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowHearthFlatbread": {
+        "chance": 0.65
       }
     }
   },
@@ -491,24 +545,28 @@
   },
   "worldLoot": [
     {
-      "notes": "Stored seeds and produce in fridges; chances per contents roll, scaled by the Loot setting.",
+      "notes": "Stored seeds and produce in fridges; chances per contents roll, scaled by the Loot setting. Agriculture 0.41.0 shares the same 0.22 total with the wheat items.",
       "table": "ItmFridge01Contents",
       "branch": "PhobosAgricultureStoredSeeds",
       "items": {
-        "PhobosVerdemorrowContinuancePotato": 0.03,
-        "PhobosVerdemorrowContinuanceLettuce": 0.04,
-        "PhobosVerdemorrowRawPotatoes": 0.06,
-        "PhobosVerdemorrowLettuce": 0.05,
-        "PhobosVerdemorrowHearthPotatoes": 0.04
+        "PhobosVerdemorrowContinuancePotato": 0.02,
+        "PhobosVerdemorrowContinuanceLettuce": 0.03,
+        "PhobosVerdemorrowContinuanceWheat": 0.02,
+        "PhobosVerdemorrowRawPotatoes": 0.05,
+        "PhobosVerdemorrowLettuce": 0.04,
+        "PhobosVerdemorrowWheatGrain": 0.02,
+        "PhobosVerdemorrowHearthPotatoes": 0.02,
+        "PhobosVerdemorrowHearthFlatbread": 0.02
       }
     },
     {
-      "notes": "Supplies in locked crates.",
+      "notes": "Supplies in locked crates. Agriculture 0.41.0 shares the same 0.30 total with seed wheat.",
       "table": "ItmRandomCrateLockedContents",
       "branch": "PhobosAgricultureCrateSupplies",
       "items": {
-        "PhobosVerdemorrowContinuancePotato": 0.03,
-        "PhobosVerdemorrowContinuanceLettuce": 0.04,
+        "PhobosVerdemorrowContinuancePotato": 0.02,
+        "PhobosVerdemorrowContinuanceLettuce": 0.03,
+        "PhobosVerdemorrowContinuanceWheat": 0.02,
         "PhobosVerdemorrowGroundworkNutrients": 0.08,
         "PhobosVerdemorrowGroundworkIrrigation": 0.06,
         "PhobosVerdemorrowGroundworkRecoveryCartridge": 0.05,
@@ -540,6 +598,7 @@
       "PhobosVerdemorrowWaterConduit": "Neutral",
       "PhobosVerdemorrowContinuancePotato": "Neutral",
       "PhobosVerdemorrowContinuanceLettuce": "Neutral",
+      "PhobosVerdemorrowContinuanceWheat": "Neutral",
       "PhobosVerdemorrowGroundworkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkBulkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkIrrigation": "Neutral",
@@ -547,7 +606,9 @@
       "PhobosVerdemorrowGroundworkMakeup": "Neutral",
       "PhobosVerdemorrowRawPotatoes": "Neutral",
       "PhobosVerdemorrowLettuce": "Neutral",
-      "PhobosVerdemorrowHearthPotatoes": "Neutral"
+      "PhobosVerdemorrowHearthPotatoes": "Neutral",
+      "PhobosVerdemorrowWheatGrain": "Neutral",
+      "PhobosVerdemorrowHearthFlatbread": "Neutral"
     }
   }
 }

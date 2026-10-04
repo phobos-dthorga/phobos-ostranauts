@@ -231,6 +231,60 @@
       "sha256": "d63fbd2a036871ba5c6925e5725b931f0cbcd6b9771f095f72efde482565e9b1",
       "reason": "Steel melt remainder: near copy of the flat start drawing.",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-mature-rejected-side.png",
+      "sha256": "4ab0995a800c269d806a5615d4283c74cf914c164fef907501948526932fc920",
+      "reason": "Wheat pilot: Side view of a single corn-like plant on a soil block: violates the overhead-first rule.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-mature-rejected-side.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-mature-rejected-speckle.png",
+      "sha256": "a505d8d3197d75c589cf21a0126ed6edf3c98a736addbface0bce502e9c66ced",
+      "reason": "Wheat pilot: Overhead, but a dark spiky ball of thin blades that turns to speckle at 16x16, unlike the chunky shipped lettuce and potato.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-mature-rejected-speckle.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-mature-superseded-soil.png",
+      "sha256": "07aaa5f0ccc45c7d07943db29d84f6945bce8203ba7b763ab069755bbb9741f8",
+      "reason": "Wheat pilot: Good overhead shape, but stray brown soil fragments at the edges; cleaned by the next edit. Kept only on the archive branch.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-mature-superseded-soil.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-sprout-rejected-side.png",
+      "sha256": "55f82bd0c4e724803983380c97544bc5848271568b9cd3a393f9b1f4b33a9994",
+      "reason": "Wheat pilot: Drawn from the side on a soil mound: violates the overhead-first rule.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-sprout-rejected-side.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-young-rejected-ears.png",
+      "sha256": "b747a039f93654a94364c6f4a9e4dfd7d6a5ff17abcbc4fd4f2748cabbba9b09",
+      "reason": "Wheat pilot: Shows golden ears, which a young plant before heading does not have. Used as the base for the sprout and young retries.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-young-rejected-ears.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-wilted-rejected-faint.png",
+      "sha256": "1e05a23e9f925c4d1a4317f667fbdb59dc70dd881d9c83bb537cfe3fee981ddd",
+      "reason": "Wheat pilot: Too close to the healthy mature stage at native size.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-wilted-rejected-faint.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-wheat-grain-rejected-sack.png",
+      "sha256": "e6160df3eb9f2f9f9baa73a8bbb9a70e3f91731b982f4501887babc86697bd70",
+      "reason": "Wheat pilot: The sack shows its front face in perspective: violates the overhead-first rule.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/stock-wheat-grain-rejected-sack.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-flatbread-rejected-cookie.png",
+      "sha256": "cf02de53d2b28dc8e28267bbf222262a8b4fa00a59150495a3f965d054b0c65e",
+      "reason": "Wheat pilot: Reads as a chocolate-chip cookie.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/stock-flatbread-rejected-cookie.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/wheat-sprout-unkeyed.png",
+      "sha256": "193a47ac0a0fd39b8ad9e3b78eafb3e6586df19e8c42e17ae697b822a3484f61",
+      "reason": "Wheat pilot: the selected sprout before its recorded colour key removed a dark soil disc.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-sprout-unkeyed.png"
     }
   ],
   "additions": [
@@ -253,6 +307,11 @@
       "commit": "be830af99c9c6698fa1d849e805569babcb3c3d4",
       "date": "2026-09-30",
       "note": "Manufacturing 0.9.0 item pass: rejected salt crust and salt cake outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/nitrogen-requests.json."
+    },
+    {
+      "commit": "0f88244696989feef30218c1e454857be3148695",
+      "date": "2026-10-04",
+      "note": "Agriculture wheat pilot PixelLab pass: rejected and superseded outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/phobos-agriculture/wheat-generation-records.json."
     }
   ]
 }

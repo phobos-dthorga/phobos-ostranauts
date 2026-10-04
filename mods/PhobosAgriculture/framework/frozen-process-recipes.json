@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "revisions": {
-    "hearth@1": "3174117f2848e18c2f6cbccb0fad815e34b5ee7b3997f64e90bd326caf78bd60"
+    "hearth@1": "3174117f2848e18c2f6cbccb0fad815e34b5ee7b3997f64e90bd326caf78bd60",
+    "hearth@2": "e6378fcb4a49d33aff3959d7898984ce71af435e1dcc56deb128885a47dfc523"
   }
 }

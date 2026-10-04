@@ -32,8 +32,11 @@ def source_inputs():
     fields = (("hours", "hours"), ("kw", "kw"), ("seed", "seedKg"), ("final", "finalKg"), ("carbon", "carbonKg"), ("nutrient", "nutrientKg"),
               ("water", "waterKg"), ("vapour", "vapourKg"), ("seed_carbon", "seedCarbonKg"))
     crops = {name: {key: float(entry[field]) for key, field in fields} for name, entry in pack.items()}
-    if set(crops) != {"potato", "lettuce", "lettuce-seed"}:
-        raise ValueError("Crop coverage changed; extend the storage study")
+    # A healthy harvest's residue, as CropState.Harvest partitions it: kept stock and whole portions leave the rest.
+    for name, entry in pack.items():
+        kept = float(entry["keptStockKg"]) if float(entry["edibleKg"]) >= float(entry["keptStockKg"]) > 0 else 0
+        portions = math.floor((float(entry["edibleKg"]) - kept + 1e-8) / float(entry["portionKg"]))
+        crops[name]["residue"] = round(float(entry["finalKg"]) - kept - portions * float(entry["portionKg"]), 9)
 
     def number(path, key):
         match = re.search(r"\b"+key+r"\s*=\s*([\d.]+)\s*[,;]", texts[path])
@@ -104,8 +107,8 @@ def scenario(inputs, crop_id, racks, days, pace=1):
 
 def recovery_case(inputs, crop_id):
     c=inputs["crops"][crop_id]
-    # Healthy authored harvest partition, matching CropState.Harvest.
-    residue={"potato":.8,"lettuce":.2,"lettuce-seed":1.18}[crop_id]
+    # Healthy authored harvest partition, matching CropState.Harvest (computed from the crops pack).
+    residue=c["residue"]
     allocated=c["nutrient"]*residue/c["final"]
     concentrate=allocated*inputs["recovery"]
     spent=residue-concentrate

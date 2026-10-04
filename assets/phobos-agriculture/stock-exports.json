@@ -262,5 +262,71 @@
     "sampling": "nearest; whole canvas; no independent crop",
     "exportSHA256": "1797cfa1529bf992ec659ed14da1fe2bb7abb6bce466e28d0768cdb5938c868f",
     "normalSHA256": "e8e289c73241d11163dd1104a50f330ce7b6b2a13ffc914aa4f47acb5ffcd276"
+  },
+  {
+    "key": "wheat_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-wheat.png",
+    "sourceSHA256": "4610687523e009a0ff7390cef2dbebdd5edb4d9168bfbf016fa3805ce7b710e9",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      9,
+      52,
+      56
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "6b039f47ba910db038e9db168fee7df9d5e8498ee902a5bf62509c54b5ed6980",
+    "normalSHA256": "a07bb743a7593fe82df99fd5f8e8a3ac577fcb5b3c569436eb8b77ab3ac4eb92"
+  },
+  {
+    "key": "wheat_grain",
+    "source": "assets/phobos-agriculture/source/stock-wheat-grain.png",
+    "sourceSHA256": "f0fd67da65abf68cdd73548d2e89c228167cd7496ee1fa0210b37e78e9b0cf1b",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      12,
+      53,
+      53
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "463f59439ad671dd8033f69b68cc520558e6988775aae1ec3bf3b07ae82d5083",
+    "normalSHA256": "c54d5b6b3e11b86d8a36d55f4a4841f1c12eb548d5884f136134948384d83e19"
+  },
+  {
+    "key": "flatbread",
+    "source": "assets/phobos-agriculture/source/stock-flatbread.png",
+    "sourceSHA256": "673e6d752b7596d8fd152e3bf4759ff729f89b44195e5a4ed31f9ec920279707",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      2,
+      2,
+      62,
+      62
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "25428ec718e226a9caf62f322c8c547bd6d70e4a9e9417e33915620c507f0b66",
+    "normalSHA256": "0084964ace8293d9bea15675758c6cf62db2ba7ecda3c5bb93096c72799cd6e5"
   }
 ]

@@ -28,6 +28,12 @@ Loads include initial supply from empty and round up whole 5 kg water / 40 g nut
 | lettuce-seed | 4 | 30 | 40.680 | 0.300 | 9 | 8 | 1 | 2.8 / 11.3 / 36.8 |
 | lettuce-seed | 8 | 7 | 18.984 | 0.140 | 4 | 4 | 1 | 1.3 / 5.3 / 17.3 |
 | lettuce-seed | 8 | 30 | 81.360 | 0.600 | 17 | 15 | 2 | 5.3 / 21.3 / 69.3 |
+| wheat | 1 | 7 | 2.330 | 0.090 | 1 | 3 | 1 | 0.7 / 2.7 / 8.7 |
+| wheat | 1 | 30 | 9.986 | 0.386 | 2 | 10 | 1 | 2.0 / 8.0 / 26.0 |
+| wheat | 4 | 7 | 9.320 | 0.360 | 2 | 9 | 1 | 1.8 / 7.3 / 23.8 |
+| wheat | 4 | 30 | 39.943 | 1.543 | 8 | 39 | 4 | 7.8 / 31.3 / 101.8 |
+| wheat | 8 | 7 | 18.640 | 0.720 | 4 | 18 | 2 | 3.7 / 14.7 / 47.7 |
+| wheat | 8 | 30 | 79.886 | 3.086 | 16 | 78 | 7 | 15.7 / 62.7 / 203.7 |
 
 ## Endurance and space at default pace
 
@@ -44,6 +50,9 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | lettuce-seed | 1 | 115.04 | 469.03 | 200.00 | 20 / 29 | 10.245 | 100 / 125 |
 | lettuce-seed | 4 | 71.90 | 160.40 | 50.00 | 68 / 77 | 40.980 | 340 / 365 |
 | lettuce-seed | 8 | 64.71 | 108.96 | 25.00 | 132 / 141 | 81.960 | 660 / 685 |
+| wheat | 1 | 117.17 | 477.68 | 38.89 | 20 / 29 | 10.371 | 100 / 125 |
+| wheat | 4 | 73.23 | 163.36 | 9.72 | 68 / 77 | 41.486 | 340 / 365 |
+| wheat | 8 | 65.91 | 110.97 | 4.86 | 132 / 141 | 82.971 | 660 / 685 |
 
 ## Growth-pace sensitivity: thirty-day demand
 
@@ -76,6 +85,15 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | lettuce-seed | 8 | 0.5 | 162.720 | 1.200 | 0 / 0 |
 | lettuce-seed | 8 | 1 | 81.360 | 0.600 | 0 / 0 |
 | lettuce-seed | 8 | 2 | 40.680 | 0.300 | 0 / 0 |
+| wheat | 1 | 0.5 | 19.971 | 0.771 | 0 / 0 |
+| wheat | 1 | 1 | 9.986 | 0.386 | 0 / 0 |
+| wheat | 1 | 2 | 4.993 | 0.193 | 0 / 0 |
+| wheat | 4 | 0.5 | 79.886 | 3.086 | 0 / 0 |
+| wheat | 4 | 1 | 39.943 | 1.543 | 0 / 0 |
+| wheat | 4 | 2 | 19.971 | 0.771 | 0 / 0 |
+| wheat | 8 | 0.5 | 159.771 | 6.171 | 0 / 0 |
+| wheat | 8 | 1 | 79.886 | 3.086 | 0 / 0 |
+| wheat | 8 | 2 | 39.943 | 1.543 | 0 / 0 |
 
 ## Recovery per completed healthy cohort
 
@@ -86,6 +104,7 @@ No recovery is credited against horizon totals: completed harvests, B2 setup, co
 | potato | 0.800 | 3.84 | 3.84 | 7.68 | 0.79616 | 0.01700 | 2.040 |
 | lettuce | 0.200 | 0.50 | 0.50 | 1.00 | 0.19950 | 0.00500 | 0.600 |
 | lettuce-seed | 1.180 | 5.90 | 5.90 | 11.80 | 1.17410 | 0.02460 | 2.952 |
+| wheat | 0.950 | 18.32 | 18.32 | 36.64 | 0.93168 | 0.02000 | 2.400 |
 
 One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; consumes 0.0392 kg cartridge medium; recovers 17.550 kg water + 0.080 kg nutrients; retains 2.0092 kg rejects. Needs 0.196 kWh, 23.52 powered minutes plus 15 crew setup minutes. The remaining cartridge has 5.4 kg treatment capacity. Outputs require fresh headroom.
 

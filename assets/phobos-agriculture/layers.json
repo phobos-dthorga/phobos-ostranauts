@@ -1,5 +1,5 @@
 {
-  "revision": 4,
+  "revision": 5,
   "registration": "Top-left pixel coordinates, whole source canvas, centered native pivot; all plant stages retain the same 64x64 source canvas. Four tray pictures represent one rack cohort, not four separately simulated crops.",
   "rack": {
     "source": "firstlight-rack-v2.png",
@@ -71,6 +71,12 @@
     "LettuceSeed-mature": "lettuce-bolting-v2.png",
     "LettuceSeed-harvest": "lettuce-seed-v2.png",
     "LettuceSeed-wilted": "lettuce-wilted-final.png",
-    "LettuceSeed-dead": "lettuce-dead.png"
+    "LettuceSeed-dead": "lettuce-dead.png",
+    "Wheat-sprout": "wheat-sprout.png",
+    "Wheat-young": "wheat-young.png",
+    "Wheat-mature": "wheat-mature.png",
+    "Wheat-harvest": "wheat-harvest.png",
+    "Wheat-wilted": "wheat-wilted.png",
+    "Wheat-dead": "wheat-dead.png"
   }
 }
