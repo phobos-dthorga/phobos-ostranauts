@@ -1073,3 +1073,7 @@ L48 — Manufacturing 0.50.0: four recipes and one outcome table as data, and on
 ## 5 October: regolith in the V4 and the regolith floor (L49)
 
 L49 — Manufacturing 0.51.0: the charge engine's feed table is kept per machine preference (one small dictionary per distinct choice, built on first use), and reading a machine's preference is a session lookup on the paths that already ran. Two recipes, two materials, one floor object and two install jobs are built at content load. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: the Oxsmith EC-4 and ferrosilicon (L50)
+
+L50 — Manufacturing 0.52.0: a fifth charge machine on the shared engine. The per-admission bin test (`ChargeMachines.ForBin`) compares one more string, five in all, with no allocation; the definition memo and the power hooks are unchanged. Three recipes, two materials, one machine family and one more LC-3 link are built at content load. Nothing is added to a frame. No capture accompanies this change.

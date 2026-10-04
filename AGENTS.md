@@ -1598,7 +1598,19 @@
   definition with its own Install and Uninstall jobs; never give the game's tile an
   uninstall, and never let a loose Phobos item carry `IsFloorGrate`. Any charge fed only
   by regolith is held to 1.25 x by the native value check (the paver is 13 cr for that
-  reason). Follow `docs/development/regolith-programme.md` for decisions, order, agent
+  reason). Manufacturing 0.52.0 is set 4: the **Oxsmith EC-4 Electrolysis Cell**
+  (`PhobosElectrolysisCell`, machine `electrolysis-cell`, a fifth charge machine, 4 x 4,
+  60 kW, 96,000 cr as an agent default) melts a regolith lump or a Silicates ore chunk into
+  oxygen for a linked store, ferrosilicon and slag; the LC-3's leach revision 15 turns
+  three ferrosilicon and water into hydrogen for a linked hydrogen store. Follow
+  `docs/development/regolith-oxygen-design.md`. The 3.9 kg yield and the lump's
+  composition are authored; the NASA Kennedy source gives the process, not a yield. The
+  hydrogen recipe keeps its caustic soda as a standing charge in the machine (agent
+  choice, stated wherever the recipe is described): do not present it as the real
+  silicol balance. Both EC-4 charges are **supply**, judged by the native check as loops
+  (bulk at the kiosk's buy-back share, ferrosilicon at 1.2 x, never repaying the rock),
+  which is why ferrosilicon is 2 cr. Set 5 (carbon monoxide stores, the K2's second
+  mode, the CR-4) is next. Follow `docs/development/regolith-programme.md` for decisions, order, agent
   defaults and the list of figures still unverified; never cite those until checked.
   The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
   because the owner's ChatGPT plan is time-limited.

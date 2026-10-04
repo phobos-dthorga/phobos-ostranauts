@@ -166,13 +166,13 @@ internal static class ManufacturingNativeChecks
         foreach (string group in Provider.Groups)
             check(!PhobosManufacturing.Text.Get("Group." + group).StartsWith("[", StringComparison.Ordinal), "Console group name exists: " + group);
         check(!PhobosManufacturing.Text.Get("Store.accept_done").StartsWith("[", StringComparison.Ordinal), "Acid tanks and gas stores share the accept notice");
-        check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia, LiquidStores.SulfuricAcid, ManufacturingRules.CropNutrients }),
-            "The V4 links a carbon dioxide store for the calcine; the LC-3 links water, ammonia, an acid tank and a nutrient hopper");
+        check(ChargeMachines.Refinery.Links.Any(l => l.Commodity == ManufacturingRules.CarbonDioxide) && ChargeMachines.Leach.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.Ammonia, LiquidStores.SulfuricAcid, ManufacturingRules.CropNutrients, ManufacturingRules.Hydrogen }),
+            "The V4 links a carbon dioxide store for the calcine; the LC-3 links water, ammonia, an acid tank, a nutrient hopper and a hydrogen store");
         check(ManufacturingRules.CropNutrients == PhobosAgriculture.Core.HopperRules.Commodity && AgricultureStock.HopperMinimum == new Version(0, 27, 0) &&
               LeachRecipes.CropNutrients.Deposits.Single().Id == PhobosAgriculture.Core.HopperRules.Commodity,
             "The complete formulation deposits exactly the commodity Agriculture's hoppers hold, from the version that has them");
         var leachPorts = ChargeMachines.Leach.Links.Select(l => l.MachinePort).ToArray();
-        check(leachPorts.Distinct().Count() == 4 && ChargeMachines.Leach.Links.All(l => l.PeerPort == LeachRules.VesselPort), "The LC-3's four links have their own ports and one vessel-side port");
+        check(leachPorts.Distinct().Count() == 5 && ChargeMachines.Leach.Links.All(l => l.PeerPort == LeachRules.VesselPort), "The LC-3's five links have their own ports and one vessel-side port");
 
         // The feed at the game level: any ore or our stock through native containment; the exact rule narrows it.
         var feed = d.Objects[RefineryRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
@@ -333,6 +333,31 @@ internal static class ManufacturingNativeChecks
             "The fermenter-still links a water vessel, a CO2 store and an ethanol cask, is an ignition source while working, and finds Agriculture's beets and sugar at their masses");
         var ethanolPort = LinePorts.Ethanol(3);
         check(d.Objects[FermenterRules.Prefix + "Installed"].mapPoints.Contains(LinePorts.EthanolPoint + "," + ethanolPort.X + "," + ethanolPort.Y), "The fermenter-still has an ethanol port");
+        // The Oxsmith EC-4 electrolysis cell and ferrosilicon (Manufacturing 0.52.0).
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var oxsmith = d.Objects[ElectrolysisRules.Prefix + state];
+            check(d.Items[oxsmith.strItemDef].nCols == 4 && Stat(oxsmith, "StatMass") == 420 && oxsmith.strNameFriendly.StartsWith("Phobos' Oxsmith EC-4 Electrolysis Cell", StringComparison.Ordinal),
+                "The electrolysis cell is a 420 kg four by four Oxsmith machine: " + state);
+            check((oxsmith.jsonPI == ElectrolysisRules.Prefix + "Power") == (installed && !damaged) && Stat(oxsmith, "StatBasePrice") == (damaged ? (int)Economy.Price(ElectrolysisRules.Prefix) / 4 : (int)Economy.Price(ElectrolysisRules.Prefix)),
+                "The electrolysis cell draws power only when installed and intact, at its price: " + state);
+        }
+        var cellPower = d.Power[ElectrolysisRules.Prefix + "Power"];
+        check(Math.Abs(cellPower.fOverrideAmount - 60 / Units.SecondsPerHour) < 1e-12 && cellPower.strOverrideCond == ManufacturingRules.Working, "The electrolysis cell draws 60 kW working");
+        var cellTrigger = DataHandler.dictCTs[d.Objects[ElectrolysisRules.Prefix + "InputBin"].strContainerCT];
+        check(cellTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.Regolith]), false) && cellTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[ElectrolysisRules.Silicates]), false) &&
+              !cellTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.Gangue]), false) && !cellTrigger.TriggeredDataCO(new DataCO(d.Objects[Materials.Ferrosilicon]), false),
+            "The electrolysis cell's feed takes loose regolith and ore at the game level, never gangue or its own ferrosilicon");
+        check(Stat(DataHandler.dictCOs[ElectrolysisRules.Silicates], "StatMass") == ElectrolysisRules.SilicatesKg && Stat(DataHandler.dictCOs[RefineryRules.Regolith], "StatMass") == RefineryRules.RegolithKg,
+            "The game's Silicates ore and loose regolith weigh what the charges state");
+        check(ChargeMachines.ElectrolysisCell.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Oxygen, ManufacturingRules.Water }) && ChargeMachines.ElectrolysisCell.Links.All(l => l.Deposit) &&
+              ChargeMachines.ElectrolysisCell.Spec.IgnitionSource && Economy.Pack.factionKiosks?.tiers[ElectrolysisRules.Prefix] == "Trusted" && Economy.Price(ElectrolysisRules.Prefix) > Economy.Price(RefineryRules.Prefix),
+            "The electrolysis cell fills an oxygen store and a water vessel, is an ignition source while working, sells at Trusted and costs more than the V4");
+        var ferrosilicon = d.Objects[Materials.Ferrosilicon]; var spentFerrosilicon = d.Objects[Materials.SpentFerrosilicon];
+        check(Stat(ferrosilicon, "StatMass") == 2.2 && ferrosilicon.strNameFriendly == "Phobos' Oxsmith Ferrosilicon" && Stat(spentFerrosilicon, "StatMass") == 3.095 &&
+              DataHandler.dictCTs[d.Objects[LeachRules.Prefix + "InputBin"].strContainerCT].TriggeredDataCO(new DataCO(ferrosilicon), false),
+            "Ferrosilicon is a 2.2 kg Oxsmith stock the LC-3's feed admits; a spent unit weighs 3.095 kg");
         // The Alembrine Corker-2 bottling unit and its spirit (Manufacturing 0.40.0).
         foreach (string state in Definitions.Forms)
         {
@@ -382,7 +407,7 @@ internal static class ManufacturingNativeChecks
             var co = d.Objects[m.Id];
             check(Stat(co, "StatMass") == m.Kg && Stat(co, "StatBasePrice") == m.Price && co.nStackLimit == m.Stack && Has(co, m.Category) && Has(co, m.Id + "Identity"),
                 "Material carries its mass, price, stack and category: " + m.Id);
-            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Lixivar ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Alembrine ", StringComparison.Ordinal), "Material is branded Fennmark or Lixivar: " + m.Id);
+            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Lixivar ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Alembrine ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Oxsmith ", StringComparison.Ordinal), "Material carries its maker's brand: " + m.Id);
             check(d.Items.ContainsKey(co.strItemDef), "Material item definition exists: " + m.Id);
         }
         var clay = new DataCO(d.Objects[Materials.ClayHydrates]);
@@ -428,7 +453,7 @@ internal static class ManufacturingNativeChecks
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
         var superseded = new HashSet<(string, int)>(ChargeCatalog.All.SelectMany(r => r.Supersedes.Select(e => (r.Machine, e))));
-        int business = 0, steps = 0, services = 0, regolithCharges = 0;
+        int business = 0, steps = 0, services = 0, regolithCharges = 0, oxygenSupply = 0;
         bool NativeItem(string id) => !ChargeCommodities.Is(id) && !Mined(id) && !d.Objects.ContainsKey(id) && Materials.ById(id) == null && id.StartsWith("Itm", StringComparison.Ordinal);
         foreach (var recipe in ChargeCatalog.All)
         {
@@ -469,6 +494,19 @@ internal static class ManufacturingNativeChecks
             }
             double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
             double outValue = recipe.Products.Sum(p => UnitValue(p.Id, p.Count, p.Kg));
+            // Oxygen from rock (0.52.0; the owner's approved plan of 5 October 2026 records both EC-4 charges as supply):
+            // their one finished product is ferrosilicon, a low-priced by-product. Bulk leaves a ship only through the
+            // kiosk's buy-back, so the charge is judged as a loop: the oxygen and water sold back at the kiosk's share and
+            // the ferrosilicon at a generous 1.2 times its price must not repay the rock, which a prospector sells.
+            if (recipe.Machine == ChargeCatalog.ElectrolysisCell)
+            {
+                double share = Phobos.Ostranauts.Framework.Trading.BulkSupplies.BuybackShare;
+                double back = recipe.Products.Sum(p => (ChargeCommodities.Is(p.Id) ? share : 1.2) * UnitValue(p.Id, p.Count, p.Kg));
+                check(back < inValue && recipe.Products.Where(p => Finished(p.Id)).All(p => p.Id == Materials.Ferrosilicon) && recipe.Deposits.Any(p => p.Id == ManufacturingRules.Oxygen),
+                    $"The {recipe.Id} supply charge never repays its rock: {back:F2} back from {inValue:F2}");
+                oxygenSupply++;
+                continue;
+            }
             if (recipe.ItemInputs.All(i => Bought(i.Id)))
                 check(outValue <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, earns at most a quarter more at base prices: {outValue:F2} out of {inValue:F2}");
             if (!recipe.Products.Any(p => Finished(p.Id))) continue;
@@ -499,6 +537,7 @@ internal static class ManufacturingNativeChecks
             }
         }
         check(regolithCharges == 1, "One regolith charge with a finished product (the pavers) is priced: " + regolithCharges);
+        check(oxygenSupply == 2, "Two oxygen supply charges (regolith and Silicates ore on the EC-4) are judged as loops: " + oxygenSupply);
         check(business == 5 && steps == 4 && services == 2, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide), four steps (struvite twice, nickel steel, methane cracking) and two reactivation services are priced: {business}, {steps} and {services}");
         // Methane cracking from bought stock: water and CO2 through the X2 and K2 make the methane; selling the oxygen and water
         // back at the kiosk's share and the carbon black at a generous 1.2 times its price must not repay what was bought.

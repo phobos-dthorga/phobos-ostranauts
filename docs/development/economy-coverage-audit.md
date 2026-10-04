@@ -147,6 +147,11 @@ repair, Restore, mass-balanced dismantling, the high-salvage mark, Trusted and
 Friendly faction tiers). The mined sulfide nodule and the SA-3's flask and calcine
 are never sold.
 
+Later addition (Manufacturing 0.52.0, 5 October 2026): the Oxsmith EC-4 joins the
+Manufacturing machines at parity (routes, lots, engineering salvage, component repair,
+Restore, mass-balanced dismantling, the high-salvage mark, the Trusted faction tier).
+Ferrosilicon and spent ferrosilicon are never sold.
+
 Later addition (Manufacturing 0.20.0, 30 September 2026): no new equipment. The
 LC-3's Epsom salt, ammonium sulfate and olivine leach cake are never sold by
 merchants, and its crop nutrients go only into a hopper; bagged into bulk

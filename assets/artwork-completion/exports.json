@@ -1522,6 +1522,32 @@
     "fullFootprint": true
   },
   {
+    "key": "oxsmith-ec4",
+    "sourceSHA256": "a5cf13cb41b82b851e2619af6ebd12a5cc02edd2e3fb28ece43763486076a05d",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      256,
+      256
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosElectrolysisCell.png": "0a517dc5a007a3382c6cc4f03f318dd7a1d28dd227b4196e86f9cc55cb21d215",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosElectrolysisCellNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "x2-processor",
     "sourceSHA256": "0f51b997f23b882a37566d0c9d495a1dce5bff4cee50507041fff1671bd5395f",
     "nativeSize": [
@@ -3361,6 +3387,56 @@
     "exports": {
       "mods/PhobosManufacturing/images/phobos/manufacturing/StockWashedTailings.png": "ac2ef234665ad6ce8ff8250229c8ac9f9967b6ee840eb91640e546e85c22093f",
       "mods/PhobosManufacturing/images/phobos/manufacturing/StockWashedTailingsNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "ferrosilicon",
+    "sourceSHA256": "c73f93247c7555e3c26615608d7919bfe098a9819752e7d7195451d805bb3af8",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      2,
+      16,
+      62,
+      47
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockFerrosilicon.png": "538a7ad16fb667951d1288a1f5110380ff59a9f406a369a614b2cddd239c0b3b",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockFerrosiliconNormal.png": "c84c390798df799791a412c25aeee2e1a864033bcd117ce2a699bc758a19c186"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "spent-ferrosilicon",
+    "sourceSHA256": "c8736e945239b4dad6e5151c0919113543740943b6bbab7c86a55d853adb8367",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentFerrosilicon.png": "c9734c5557f655e201fb0f5dc80c60ac7d1b3371654dd9808159389d1d186067",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentFerrosiliconNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,

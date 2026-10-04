@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "121 selected masters; native export review complete; owner gameplay checks pending; ML-2 design approved 4 October 2026, in-game visual checks pending",
+  "status": "136 selected masters; native export review complete; owner gameplay checks pending; ML-2 design approved 4 October 2026, in-game visual checks pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -1537,6 +1537,37 @@
       "fullFootprint": true,
       "productionSource": "../phobos-manufacturing/source/v4-refinery-restyle-chatgpt.png",
       "productionSHA256": "46bcaab3f1232fb232fda49668b15f1fe6830bef8d233915a18cb9aa3a074c84",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "provider": "OpenAI built-in Imagegen"
+    },
+    {
+      "key": "oxsmith-ec4",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosElectrolysisCellInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosElectrolysisCell",
+      "status": "selected",
+      "source": "../phobos-manufacturing/registered/oxsmith-ec4.png",
+      "sourceSHA256": "a5cf13cb41b82b851e2619af6ebd12a5cc02edd2e3fb28ece43763486076a05d",
+      "requestRecord": "../phobos-manufacturing/oxsmith-requests.json",
+      "review": "Owner-approved Oxsmith design (5 October 2026). Native 64 x 64 inspected beside the V4, LC-3 and SA-3: oxide-red frame, pale ceramic deck, blackened cell lid with flush electrode caps and one ice-blue oxygen fitting. Full opaque square, correct overhead, no text or painted live instruments. Bound to the EC-4 in Manufacturing 0.52.0; owner in-game review pending.",
+      "fullFootprint": true,
+      "productionSource": "../phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+      "productionSHA256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff",
       "productionSize": [
         1254,
         1254
@@ -3343,6 +3374,54 @@
       "derivedFrom": "source/olivine-leach-cake.png"
     },
     {
+      "key": "ferrosilicon",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosFerrosilicon",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockFerrosilicon",
+      "status": "selected",
+      "source": "source/ferrosilicon.png",
+      "sourceSHA256": "c73f93247c7555e3c26615608d7919bfe098a9819752e7d7195451d805bb3af8",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected aluminium ingot onto a dark blue-grey ferroalloy ramp (map in manufacturing-requests.json): a cast pig from the EC-4. Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/aluminium-ingot.png"
+    },
+    {
+      "key": "spent-ferrosilicon",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosSpentFerrosilicon",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockSpentFerrosilicon",
+      "status": "selected",
+      "source": "source/spent-ferrosilicon.png",
+      "sourceSHA256": "c8736e945239b4dad6e5151c0919113543740943b6bbab7c86a55d853adb8367",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected olivine leach cake onto a pale silica-and-rust ramp (map in manufacturing-requests.json). Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/olivine-leach-cake.png"
+    },
+    {
       "key": "drain-canister",
       "mod": "PhobosFramework",
       "definition": "PhobosLineDrainCanister",
@@ -4255,6 +4334,7 @@
   "creditBalanceAfterUSD": 0,
   "additionalProviderRecords": {
     "OpenAI built-in Imagegen": "mining-laser-v2-requests.json",
-    "OpenAI chemical-reactor restyle": "../phobos-manufacturing/chemical-reactor-requests.json"
+    "OpenAI chemical-reactor restyle": "../phobos-manufacturing/chemical-reactor-requests.json",
+    "OpenAI Oxsmith machines": "../phobos-manufacturing/oxsmith-requests.json"
   }
 }

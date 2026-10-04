@@ -252,7 +252,7 @@ you earn by selling them mining output.
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
 | Friendly (50) | D4 and R4, G4 grabber, ML-2 mining laser; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
-| Trusted (75) | F6 furnace; X2, AX-2, K2, V4, LC-3 and SA-3 |
+| Trusted (75) | F6 furnace; X2, AX-2, K2, V4, LC-3, SA-3 and EC-4 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
 faction a little, as it does for vanilla goods. Stock arrives in the usual lots
@@ -951,3 +951,19 @@ business, retroactively. The rules and the worked chains are in
 - Payback is long for the small chains: a machine's price divided by its gain per
   charge is 112 to 742 charges, 99 to 742 hours of running. The owner will judge
   this in play.
+
+## Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Oxsmith EC-4 electrolysis cell | 420 kg | $96,000 | $24,000 | 2600 / 2000 | 7800 | 2000 | 180 min |
+
+The EC-4 is the dearest Manufacturing machine, half again the V4 (agent default, open to
+owner revision), and billed above it: repair takes 6 steel, 3 aluminium, 8 mechanical and
+10 electronic parts, three motors, two mainboards, four heat sinks and a screen. Intact
+salvage is 260 steel, 60 aluminium, 30 mechanical and 20 electronic parts, four motors, two
+mainboards, six heat sinks, a screen and 49 kg of retained trash (420 kg); broken salvage is
+230 steel, 50 aluminium, 14 mechanical and 6 electronic parts, two motors, two heat sinks and
+122 kg of trash. It carries the high-salvage mark, shares the other machines' routes and
+sells at Trusted faction-kiosk standing. Ferrosilicon is 2 cr a 2.2 kg unit and is not sold
+by any merchant; spent ferrosilicon is a terminal remainder at the technical minimum.

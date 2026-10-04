@@ -73,6 +73,9 @@ public static class Materials
     /// <summary>The regolith programme (Manufacturing 0.51.0): what the V4's volatile bake leaves of a lump (terminal), and
     /// the sintered paver crew lay as the regolith floor.</summary>
     public const string BakedRegolith = "PhobosBakedRegolith", RegolithPaver = "PhobosRegolithPaver";
+    /// <summary>The Oxsmith EC-4 (Manufacturing 0.52.0): ferrosilicon, the reduced metal of molten rock electrolysis, and
+    /// what the LC-3 leaves of it after its silicon has split water into hydrogen (terminal).</summary>
+    public const string Ferrosilicon = "PhobosFerrosilicon", SpentFerrosilicon = "PhobosSpentFerrosilicon";
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
@@ -80,7 +83,7 @@ public static class Materials
     public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
         EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue,
         SulfideNodule, PhosphoricAcidFlask, RoastedCalcine, EpsomSalt, AmmoniumSulfate, OlivineLeachCake, NickelSteelIngot,
-        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash, Spirit, WashedTailings, BakedRegolith, RegolithPaver };
+        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash, Spirit, WashedTailings, BakedRegolith, RegolithPaver, Ferrosilicon, SpentFerrosilicon };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();

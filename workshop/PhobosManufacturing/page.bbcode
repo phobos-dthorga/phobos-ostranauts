@@ -1,28 +1,29 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.51.0
+[b]Version:[/b] 0.52.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines or grows into water, metal stock, oxygen, fertiliser and spirit. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
 
 [h2]What it does[/h2]
 [list]
-[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): water from hydrates and clay hydrates, ammonia from salt crust, carbon stock from carbon ore (run a scrubber for its CO2, CO and smoke), nickel-iron ingots from meteoric iron and nickel steel from those, and CO2 from the LC-3's leached residue. It also cracks methane, burns carbon or straw bales into CO2 for crops, chars bales into carbon and reactivates spent CO2 cartridges.
+[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): water from hydrates and clay hydrates, ammonia from salt crust, carbon stock from carbon ore (run a scrubber for its CO2, CO and smoke), nickel-iron ingots from meteoric iron and nickel steel from those, and CO2 from the LC-3's leached residue. It also cracks methane, burns carbon or straw into CO2 for crops, chars straw and reactivates spent CO2 cartridges.
 [*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): splits 1.125 kg of water an hour into 1 kg of oxygen (a canister or the cabin air) and 0.125 kg of hydrogen.
 [*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 and hydrogen into water and methane. With the X2 it wins back about half the water, as NASA's Sabatier system on the ISS does.
 [*][b]Phobos' Tolvane AX-2 Ammonia Cracker[/b] (2 x 2, 2 kW): stored ammonia into nitrogen for your cabin air and hydrogen, each to its own store.
-[*][b]Phobos' Lixivar LC-3 Leach and Crystallise Unit[/b] (3 x 3, 12 kW): choose a recipe. It leaches evaporite crust and olivine into fertiliser salts, makes struvite, and washes gangue for scrap by chance. With Agriculture it blends makeup salts or crop nutrients for a hopper.
+[*][b]Phobos' Lixivar LC-3 Leach and Crystallise Unit[/b] (3 x 3, 12 kW): choose a recipe. It leaches evaporite crust and olivine into fertiliser salts, makes struvite, washes gangue or regolith for scrap by chance and turns ferrosilicon and water into hydrogen. With Agriculture it blends makeup salts or crop nutrients.
 [*][b]Phobos' Lixivar SA-3 Sulfuric Acid Plant[/b] (3 x 3, 4 kW): roasts a sulfide nodule in stored oxygen into sulfuric acid for an [b]AT-2, AT-3 or AT-4 acid tank[/b] and a flask of phosphoric acid. It heats the room hard.
-[*][b]Gas stores in three sizes[/b] for hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia. Stations sell oxygen, nitrogen and CO2 under Bulk supplies and buy stored gas back at 45%.
-[*][b]Phobos' Alembrine Copperhead-3 Fermenter-Still[/b] (3 x 3, 3 kW): Agriculture beets or sugar into ethanol for Cask tanks (3 sizes, own line). A [b]Corker-2 Bottling Unit[/b] bottles it as spirit; stations buy ethanol back.
+[*][b]Phobos' Oxsmith EC-4 Electrolysis Cell[/b] (4 x 4, 60 kW): melts loose regolith or Silicates ore into oxygen for a store, ferrosilicon and slag.
+[*][b]Gas stores in three sizes[/b] for hydrogen, methane, oxygen, nitrogen, CO2 and ammonia. Stations sell oxygen, nitrogen and CO2 under Bulk supplies and buy stored gas back at 45%.
+[*][b]Phobos' Alembrine Copperhead-3 Fermenter-Still[/b] (3 x 3, 3 kW): Agriculture beets or sugar into ethanol for Cask tanks (3 sizes, own line). A [b]Corker-2 Bottling Unit[/b] bottles it as spirit.
 [*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (INSTALL > HVAC): feeds your thrusters from up to four gas stores, each gas at its real worth. The [b]Slingwright RM-1[/b] grinds slag, cakes and rejects into reaction mass.
-[*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (INSTALL > HVAC): fills suit bottles and canisters to a safe 99% from your stores, or empties them back. Right-click Keep suit bottles charged to have crew top them up.
+[*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (INSTALL > HVAC): fills suit bottles and canisters to a safe 99% from your stores, or empties them back. Crew can keep suit bottles topped up.
 [*][b]Phobos' Fennmark A2 Cabin Air Regulator[/b] (INSTALL > HVAC): holds its room's oxygen and pressure from O2 and N2 stores. It only adds gas, caps oxygen at 30% and can give crops CO2.
-[*]Clay hydrates and both crusts turn up in C-class finds, sulfide nodules in M- and S-class iron. Ores are mined; refined, they sell for double. Stations sell acid by the kilogram.
+[*]Clay hydrates and both crusts turn up in C-class finds, sulfide nodules in M- and S-class iron. Ores are mined; refined, they sell for double.
 [/list]
 
 [h2]Getting started[/h2]
 [list]
-[*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at K-Leg, Venus, San Diego's Halvorson and regional supply kiosks, for scrip at CCRE and GalCon faction kiosks (Friendly or Trusted), or find one in engineering salvage. They install from INSTALL > APPS; none can be built.
+[*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at K-Leg, Venus, San Diego's Halvorson and regional supply kiosks, for scrip at faction kiosks (Friendly or Trusted), or find one in engineering salvage. They install from INSTALL > APPS; none can be built.
 [*]A machine links to a store that touches it or shares its water, gas, acid or ethanol line (INSTALL > HVAC). One store serves several machines. Water work needs a Rivetline water silo. Drain a line before taking it up.
 [*]Right-click a machine for its Control Panel. Link its vessel, store or canister under Connections, pick the LC-3's recipe, put a charge in its Inventory or pick a feed store, then Start.
 [/list]
@@ -55,8 +56,8 @@ Refining and chemistry aboard your ship: turn what the crew mines or grows into 
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; equipment sizes and operating limits are gameplay choices.
-Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA, the Dawn, OSIRIS-REx and Hayabusa science teams and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
-Chemical machines have new art; silos are unchanged. PixelLab/OpenAI art records are separate. Oxsmith machines remain planned.
+Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA (Kennedy's regolith electrolysis included), the Dawn, OSIRIS-REx and Hayabusa science teams and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
+The Oxsmith CR-4 remains planned.
 
 [h2]Guides and support[/h2]
 [list]

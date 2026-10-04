@@ -213,6 +213,44 @@
           52
         ]
       }
+    },
+    "ferrosilicon": {
+      "from": "source/aluminium-ingot.png",
+      "method": "per-pixel luminance map onto a dark blue-grey ferroalloy ramp; alpha and pixel placement unchanged (Manufacturing 0.52.0, 5 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.46,
+          26
+        ],
+        "g": [
+          0.5,
+          32
+        ],
+        "b": [
+          0.58,
+          44
+        ]
+      }
+    },
+    "spent-ferrosilicon": {
+      "from": "source/olivine-leach-cake.png",
+      "method": "per-pixel luminance map onto a pale silica-and-rust ramp; alpha and pixel placement unchanged (Manufacturing 0.52.0, 5 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.74,
+          58
+        ],
+        "g": [
+          0.66,
+          50
+        ],
+        "b": [
+          0.58,
+          44
+        ]
+      }
     }
   },
   "rejectedArchive": "codex/rejected-artwork commit c8058814490820a6600d830e67c5d1aca7c1e404 (corker2-bottling-unit-v1, alembrine-spirit-v1). Every other unselected output is a retained generation input of a selected one.",

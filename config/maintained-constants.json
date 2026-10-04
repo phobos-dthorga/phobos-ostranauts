@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.51.0",
+      "value": "0.52.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2454,6 +2454,55 @@
       ],
       "review": [
         "Run scripts/build-manufacturing.ps1 and regenerate item references; review the room-heat note in docs/development/manufacturing-refinery-and-chemistry.md."
+      ]
+    },
+    "Manufacturing.electrolysisCellPrice": {
+      "type": "number",
+      "value": "96000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored Oxsmith EC-4 electrolysis cell base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosElectrolysisCell/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Update the price in docs/manufacturing-player-guide.md, docs/equipment-economy.md and the faction kiosk record's Trusted range; the native check requires it above the V4."
+      ]
+    },
+    "Manufacturing.electrolysisCellKilowatts": {
+      "type": "number",
+      "value": "60",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored Oxsmith EC-4 working electrical demand, in kW (equipment data pack; read-only to player files). Charge durations are fixed, so this sets each charge's energy; the room share must stay the part the reductions do not absorb.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/equipment.json",
+          "pointer": "/equipment/PhobosElectrolysisCell/workingKW"
+        }
+      ],
+      "review": [
+        "Change roomHeatFraction with it (ElectrolysisChecks ties it to the regolith charge's balance), run scripts/build-manufacturing.ps1, regenerate item references and review docs/development/regolith-oxygen-design.md."
+      ]
+    },
+    "Manufacturing.ferrosiliconPrice": {
+      "type": "number",
+      "value": "2",
+      "min": 0.01,
+      "max": 1000,
+      "description": "Authored base price of one 2.2 kg ferrosilicon unit (kept low so a regolith lump's oxygen, water and ferrosilicon sold back never repay the lump).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/materials.json",
+          "pointer": "/materials/PhobosFerrosilicon/price"
+        }
+      ],
+      "review": [
+        "The native value check judges both EC-4 charges as loops; review the value table in docs/development/regolith-oxygen-design.md and the price in docs/manufacturing-player-guide.md."
       ]
     },
     "Manufacturing.acidTankPrice": {

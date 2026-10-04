@@ -962,3 +962,65 @@ programme record). Both drop the donor's meaning: no ore or mineral marks, no da
 
 **Removal.** A save with the floor laid names a Phobos definition; removing Manufacturing
 leaves those squares without floor. Stated in the player guide and the item reference.
+
+## Oxygen from rock: the EC-4 and ferrosilicon (0.52.0)
+
+Set 4 of the [regolith programme](regolith-programme.md). What was read, what is ours and
+the choices made are in the [design record](regolith-oxygen-design.md); this section is the
+arithmetic. Molar masses are IUPAC 2013; formation enthalpies are NIST-JANAF values at 298 K.
+
+**The process.** Molten regolith electrolysis, demonstrated on lunar material under NASA
+Kennedy Space Center's leadership: molten oxides are separated by direct current into oxygen
+and metal at opposite electrodes, with no consumable reagents, above 1600 C (L. Sibille, S. S.
+Schreiner and J. A. Dominguez, *Advanced Concepts for Molten Regolith Electrolysis*, 2019,
+[abstract](https://www.hou.usra.edu/meetings/lunarisru2019/pdf/5100.pdf)). The source gives no
+yield in kilograms. Applying lunar work to the game's asteroid rock, and to a 4 x 4 shipboard
+machine, is our extrapolation.
+
+**Ferrosilicon.** One unit is 2.2 kg, authored as 1.414 kg of iron (25.32 mol) and 0.786 kg of
+silicon (27.99 mol), 35.7 percent silicon. Iron and silicon are the oxides a molten silicate
+gives up first; magnesia, lime and alumina stay in the slag.
+
+**Regolith electrolysis (electrolysis-cell revision 1).** 1 lump (20 kg) -> 3.9 kg oxygen to a
+linked store + 0.4 kg water to a linked vessel + 0.1 kg CO2 into the room + 3 ferrosilicon
+(6.6 kg) + 9 refinery slag (9 kg).
+
+| Step | Moles | In | Out |
+| --- | ---: | --- | --- |
+| FeO -> Fe + 1/2 O2 | 75.96 | 5.457 kg FeO | 4.242 kg Fe, 1.215 kg O2 |
+| SiO2 -> Si + O2 | 83.96 | 5.045 kg SiO2 | 2.358 kg Si, 2.687 kg O2 |
+
+Oxygen 3.902 kg, stated as 3.9 kg; the slag carries the two grams. The lump's make-up is
+authored: the bake's 0.4 kg of water and 0.1 kg of carbon dioxide, the two oxides above and
+9 kg of oxides the cell does not reduce. 19.5 percent of the lump leaves as oxygen. Energy:
+75.96 x 272.0 + 83.96 x 910.9 kJ = 97,140 kJ = 27.0 kWh absorbed, of the 60 kWh an hour at
+60 kW draws; the other 55 percent warms the room, which is the equipment pack's room share.
+The hour and the 60 kW are authored.
+
+**Silicates electrolysis (revision 2).** 1 Silicates ore (the game's `ItmMineral04`, 10 kg) ->
+2.6 kg oxygen + 2 ferrosilicon (4.4 kg) + 3 slag. Two-thirds of the table above: 50.64 mol of
+FeO and 55.97 mol of silica, 2.601 kg of oxygen stated as 2.6 kg, 18.0 kWh absorbed of 40 kWh
+in forty minutes. The chunk is authored as dry iron-bearing silicate.
+
+**Hydrogen from ferrosilicon (leach revision 15).** 3 ferrosilicon + 3.024 kg water from a
+linked vessel -> 0.339 kg hydrogen to a linked store + 3 spent ferrosilicon (3.095 kg each,
+terminal). Si + 2 H2O -> SiO2 + 2 H2 on 83.96 mol: 3.025 kg of water, 0.3385 kg of hydrogen,
+5.045 kg of silica; with the 4.242 kg of iron, which does not react, 9.287 kg of solids, stated
+as three units of 3.095 kg. It releases 910.9 - 2 x 285.83 = 339.2 kJ per mole of silicon,
+7.9 kWh, into the room. Twenty minutes at 12 kW is authored.
+
+**Our simplification, stated plainly.** The recipe follows the silicol process (E. R. Weaver,
+W. M. Berry, V. L. Bohnson and B. D. Gordon, *The Ferrosilicon Process for the Generation of
+Hydrogen*, NACA Report No. 40, 1920, [NASA NTRS 19930091069](https://ntrs.nasa.gov/citations/19930091069)),
+which consumes sodium hydroxide: Si + 2 NaOH + H2O -> Na2SiO3 + 2 H2. No Phobos mod stores
+caustic soda. The recipe treats the LC-3's caustic liquor as a standing charge regenerated as
+the silicate drops out as silica, so only water is drawn. Agent choice, open to owner revision.
+
+**Value.** Both electrolysis charges are supply (the approved plan). A prospector sells
+regolith and the kiosk buys oxygen back at 45 percent, so the native check judges each charge
+as a loop: oxygen and water at the buy-back share and ferrosilicon at 1.2 times its price must
+not repay the rock. A lump returns 32.17 cr against 35; a Silicates chunk 20.24 cr against 200.
+That fixes ferrosilicon at 2 cr. The hydrogen charge has no finished product.
+
+**Hazards.** The cell is an ignition source while working, like the V4. A waiting cell does
+not spoil. Its heat goes through the shared room-heat rule, so it does not work in vacuum.

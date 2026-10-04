@@ -8,6 +8,7 @@ ChargeChecks.Run(Check, Throws);
 LeachChecks.Run(Check, Throws);
 AcidPlantChecks.Run(Check, Throws);
 FermenterChecks.Run(Check, Throws);
+ElectrolysisChecks.Run(Check);
 BottlerChecks.Run(Check, Throws);
 FeederChecks.Run(Check, Throws);
 GangueChecks.Run(Check, Throws);

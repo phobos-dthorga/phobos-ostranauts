@@ -111,7 +111,9 @@ Run with `--check` for byte-for-byte verification. The
 [family preview](previews/oxsmith-family-review.png) shows native and four-times
 views beside the V4, LC-3 and SA-3; [export hashes](oxsmith-export-hashes.json)
 cover all derivatives. The untouched originals remain larger than the registered
-working masters.
+working masters. Since Manufacturing 0.52.0 the EC-4 master is bound to the machine through
+the shared completion exporter (`assets/artwork-completion/manifest.json`, key `oxsmith-ec4`);
+the CR-4 master waits for its machine.
 
 The EC-4 pilot was inspected before the CR-4 generation, and both passed the
 native-size family review. These are prepared art, with no machine code or runtime

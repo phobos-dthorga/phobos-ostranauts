@@ -59514,13 +59514,13 @@
       "key": "Leach.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:52"
       ],
       "before": "A {2} x {2}, {0:F0} kg leach tank and closed crystalliser. Choose a recipe on its panel, then load that charge. An evaporite crust gives potassium sulfate, phosphate concentrate, a leached residue for the refinery and a salt cake; the concentrate, with a little ammonia and water, gives struvite; the game's olivine ore, with sulfuric acid and water, gives Epsom salt; a phosphoric acid flask and three Epsom salt, with ammonia, give three struvite and three ammonium sulfate. With Phobos Agriculture it blends salts into Groundwork makeup packets, or one each of the four salts, with ammonia and acid, into crop nutrients for a nutrient hopper. It draws {1:F0} kW while working and warms its room. Link a water vessel within one tile, and an ammonia store, an acid tank or a nutrient hopper within one tile when the recipe needs one.",
-      "after": "Wash useful salts out of rock, then mix them into plant feed. This {2} x {2} unit weighs {0:F0} kg, draws {1:F0} kW and warms its room. Choose a recipe and load its supplies.\n\nEvaporite crust gives potassium sulfate, phosphate concentrate, washed residue for the refinery and waste salt cake. Mix the concentrate with ammonia and water for struvite fertiliser. Olivine ore, sulfuric acid and water give Epsom salt. One phosphoric acid flask, three Epsom salt and ammonia give three struvite and three ammonium sulfate. With Phobos Agriculture installed, it also mixes Groundwork makeup salts, or one each of the four salts with ammonia and acid into crop nutrients.\n\nLink the water silo, ammonia store and acid tank your recipe needs, touching the unit or on the matching line. Crop nutrients need a nutrient hopper within one tile.",
+      "after": "Wash useful salts out of rock, then mix them into plant feed. This {2} x {2} unit weighs {0:F0} kg, draws {1:F0} kW and warms its room. Choose a recipe and load its supplies.\n\nEvaporite crust gives potassium sulfate, phosphate concentrate, washed residue for the refinery and waste salt cake. Mix the concentrate with ammonia and water for struvite fertiliser. Olivine ore, sulfuric acid and water give Epsom salt. Three ferrosilicon and water give hydrogen for a linked hydrogen store. One phosphoric acid flask, three Epsom salt and ammonia give three struvite and three ammonium sulfate. With Phobos Agriculture installed, it also mixes Groundwork makeup salts, or one each of the four salts with ammonia and acid into crop nutrients.\n\nLink the water silo, ammonia store, hydrogen store and acid tank your recipe needs, touching the unit or on the matching line. Crop nutrients need a nutrient hopper within one tile.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -73895,6 +73895,1046 @@
       "after": "That choice is not available here: {0}."
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Electrolysis Cell",
+      "after": "Electrolysis Cell"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Oxygen out of plain rock. This {2} x {2} cell weighs {0:F0} kg and draws {1:F0} kW while working, so feed it from a reactor. Load a lump of loose regolith or a chunk of Silicates ore. The cell melts it and splits it with current: oxygen goes to a linked oxygen store, ferrosilicon and slag land in the tray, and a lump's trace of water goes to a linked water silo.\n\nA regolith lump gives 3.9 kg of oxygen in an hour; Silicates ore gives 2.6 kg in 40 minutes. Link an oxygen store and a water silo, touching the cell or on its gas or water line. The room gets warm, and a lump lets a little carbon dioxide into its air. It waits for a cooler room rather than stopping; a waiting cell freezes and melts again with nothing lost.",
+      "after": "Oxygen out of plain rock. This {2} x {2} cell weighs {0:F0} kg and draws {1:F0} kW while working, so feed it from a reactor. Load a lump of loose regolith or a chunk of Silicates ore. The cell melts it and splits it with current: oxygen goes to a linked oxygen store, ferrosilicon and slag land in the tray, and a lump's trace of water goes to a linked water silo.\n\nA regolith lump gives 3.9 kg of oxygen in an hour; Silicates ore gives 2.6 kg in 40 minutes. Link an oxygen store and a water silo, touching the cell or on its gas or water line. The room gets warm, and a lump lets a little carbon dioxide into its air. It waits for a cooler room rather than stopping; a waiting cell freezes and melts again with nothing lost."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.feed_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Electrolysis cell charge",
+      "after": "Electrolysis cell charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.feed_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Up to {0} lumps of loose regolith or chunks of Silicates ore. The cell works one at a time.",
+      "after": "Up to {0} lumps of loose regolith or chunks of Silicates ore. The cell works one at a time."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.no_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No regolith or Silicates ore inside.",
+      "after": "No regolith or Silicates ore inside."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.heat_note",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The cell runs at a white heat and sheds what the rock does not take up.",
+      "after": "The cell runs at a white heat and sheds what the rock does not take up."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Stop the electrolysis cell before changing its links.",
+      "after": "Stop the electrolysis cell before changing its links."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.no_oxygen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no oxygen store linked",
+      "after": "no oxygen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked oxygen store is damaged, locked, moved away or not on this ship",
+      "after": "the linked oxygen store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked oxygen store is protected or busy; accept its contents or wait",
+      "after": "the linked oxygen store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked oxygen store holds contents in its catch chamber; recover them first",
+      "after": "the linked oxygen store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked oxygen store holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked oxygen store holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked oxygen store has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked oxygen store has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Oxygen store linked.",
+      "after": "Oxygen store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Oxygen store unlinked.",
+      "after": "Oxygen store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.oxygen_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not an oxygen store touching the cell or on its gas line.",
+      "after": "That is not an oxygen store touching the cell or on its gas line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge",
+      "after": "Optional charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge: {0}.",
+      "after": "Optional charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No optional charge.",
+      "after": "No optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing the optional charge.",
+      "after": "Finish or Cancel this batch before changing the optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "This electrolysis cell's record could not be read. Repair it, then Accept its contents from the panel.",
+      "after": "This electrolysis cell's record could not be read. Repair it, then Accept its contents from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Batch waiting: {0}. Press Start to resume it.",
+      "after": "Batch waiting: {0}. Press Start to resume it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.retained_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept.",
+      "after": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.charge_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains.",
+      "after": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Nothing to work on. Put loose regolith or Silicates ore in the cell's inventory and press Start.",
+      "after": "Nothing to work on. Put loose regolith or Silicates ore in the cell's inventory and press Start."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Nothing inside belongs to the chosen recipe.",
+      "after": "Nothing inside belongs to the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Waiting: {0}",
+      "after": "Waiting: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Working: {0}.",
+      "after": "Working: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Batch cancelled. Its supplies are back in the inventory; progress is lost.",
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Paused. Supplies and progress are kept.",
+      "after": "Paused. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The electrolysis cell stopped on a fault. See the log.",
+      "after": "The electrolysis cell stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The tray has no room for the products. Clear it.",
+      "after": "The tray has no room for the products. Clear it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} at {1}: charge finished.",
+      "after": "{0} at {1}: charge finished."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finished. The feed is empty.",
+      "after": "Finished. The feed is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.no_charge_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No batch in progress.",
+      "after": "No batch in progress."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
+      "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
+      "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Product definition unavailable: {0}.",
+      "after": "Product definition unavailable: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Product definition changed: {0}.",
+      "after": "Product definition changed: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The charge would not conserve mass; nothing was delivered.",
+      "after": "The charge would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A product could not be placed in the tray.",
+      "after": "A product could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A charge unit could not be removed from the feed.",
+      "after": "A charge unit could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Install the electrolysis cell first.",
+      "after": "Install the electrolysis cell first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Repair the electrolysis cell first.",
+      "after": "Repair the electrolysis cell first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Unlock the electrolysis cell and its feed first.",
+      "after": "Unlock the electrolysis cell and its feed first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The electrolysis cell is switched off at its power control.",
+      "after": "The electrolysis cell is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The electrolysis cell's feed compartment is missing.",
+      "after": "The electrolysis cell's feed compartment is missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no water silo linked",
+      "after": "no water silo linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel is not installed, out of reach or not ready",
+      "after": "the linked water vessel is not installed, out of reach or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked silo is busy or has a saved-contents fault; check its panel",
+      "after": "the linked silo is busy or has a saved-contents fault; check its panel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel holds water in its catch chamber; recover it first",
+      "after": "the linked water vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.vessel_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand",
+      "after": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg",
+      "after": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Water silo linked.",
+      "after": "Water silo linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cell.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a water silo touching the cell or on its water line.",
+      "after": "That is not a water silo touching the cell or on its water line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.cell_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The electrolysis cell has an unfinished batch. Finish or Cancel it first.",
+      "after": "The electrolysis cell has an unfinished batch. Finish or Cancel it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.electrolysis-cell",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Electrolysis cells",
+      "after": "Electrolysis cells"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.regolith-electrolysis",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "oxygen from regolith",
+      "after": "oxygen from regolith"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.silicates-electrolysis",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "oxygen from Silicates ore",
+      "after": "oxygen from Silicates ore"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.ferrosilicon-hydrogen",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "hydrogen from ferrosilicon",
+      "after": "hydrogen from ferrosilicon"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosFerrosilicon",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Ferrosilicon",
+      "after": "Ferrosilicon"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosFerrosilicon_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "2.2 kg of grey iron-silicon metal tapped from an electrolysis cell. Worth little as scrap. An LC-3 leach unit reacts three with water to make hydrogen for a linked store.",
+      "after": "2.2 kg of grey iron-silicon metal tapped from an electrolysis cell. Worth little as scrap. An LC-3 leach unit reacts three with water to make hydrogen for a linked store."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosSpentFerrosilicon",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Spent Ferrosilicon",
+      "after": "Spent Ferrosilicon"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosSpentFerrosilicon_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "3.095 kg of iron fines and white silica: what an LC-3 leaves of a ferrosilicon unit once its silicon has made hydrogen. No recipe wants it, but a reaction mass feeder will grind it into thrust.",
+      "after": "3.095 kg of iron fines and white silica: what an LC-3 leaves of a ferrosilicon unit once its silicon has made hydrogen. No recipe wants it, but a reaction mass feeder will grind it into thrust."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.no_hydrogen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no hydrogen store linked",
+      "after": "no hydrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store is damaged, locked, moved away or not on this ship",
+      "after": "the linked hydrogen store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store is protected or busy; accept its contents or wait",
+      "after": "the linked hydrogen store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store holds contents in its catch chamber; recover them first",
+      "after": "the linked hydrogen store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store holds {0:F3} kg and the charge needs {1:F3} kg",
+      "after": "the linked hydrogen store holds {0:F3} kg and the charge needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store has {0:F3} kg of room and the charge makes {1:F3} kg",
+      "after": "the linked hydrogen store has {0:F3} kg of room and the charge makes {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Hydrogen store linked.",
+      "after": "Hydrogen store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Hydrogen store unlinked.",
+      "after": "Hydrogen store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.hydrogen_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.52.0: the Oxsmith EC-4 electrolysis cell, ferrosilicon and hydrogen from ferrosilicon on the LC-3.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a hydrogen store touching the leach unit or on its gas line.",
+      "after": "That is not a hydrogen store touching the leach unit or on its gas line."
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -77690,8 +78730,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "373d23ae9aad3b669ac193c627ad76d48565377717742afe78ccc498ff115c26",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "fb8215e95016ccf35038c2fc8586420ac2240abb62dd1c508a5a99215a04e0ae",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "SUPPORT.md",
@@ -77844,8 +78884,8 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "f8c6c8a88c5615f5d22027fd7daf4440a75fe749b99fb8d7a247d1b9bd82ab83",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "af688d1cd2022539ef67a717e68d886aa1409403764ec1e8182f0c9da6b20a50",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/control-panel-guide.md",
@@ -77865,8 +78905,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "e3cbccd64796e8596ed1e1ac458f91aae1f3c02d49687a22e6b4b7b404122729",
-      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
+      "sha256": "80326ef951add6e03949e0b75213194b253699a8fc342393ea1a7268aaf24301",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -78139,15 +79179,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "308222b427b11a36a19577b1a3d4d32dd96d221d605f4e00ab4162b58a2ebc35",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "cdc9d96978efa783ff4cdc92763a2474b63b5e13b122f5fd382f044db200637b",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "944b602831bbfb72ebd6402fe45cbe2cda65e1bf6eb407683920dbd6c6cabc3e",
-      "review": "5 October 2026: reviewed the seven replacement chemical-machine designs against established brand assignments. Fennmark graphite/orange, Tolvane teal/yellow, Lixivar sage/slate and Alembrine copper/brass remain distinct. Oxsmith keeps its original oxide-red/ceramic family and planned-machine status. Names, functions and footprints are unchanged."
+      "sha256": "e4aada549c5619f20b7bcf9f946285fc2efa0c022bd4f03763fe362eeedf4d9d",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -78160,8 +79200,8 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "dc8db78a69be3221a28a5d7a23e76c4bfea10a93bb5d7e24cb33718af07fc564",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "4c4200c4a5b42fde3c63a2a975a6978eb52584df1f6721b1ec3d41217202c3ec",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -78278,15 +79318,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "d0e323f617ad28ba3ae886f02bf309043f3a5c434ef5eaab7b99deb9d10b3b62",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "721ae4af71bb841370773e194a176d08c60d07e9957c3a6428e30dd1dc94c481",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "61a7cc33476344632c7acf7d691e3ebb47391478e7666e09617bf8385eab624f",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "3954c035fd1e32a3b9966963ad27fa11aabe006da9c255017271093f04084ebf",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -78352,8 +79392,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "b63a1ca12ec14907827906b0170a628bb650b47838dd6aab836d67f014ef3978",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "613a0066d03a50e018d60365ed902a8e170ddd8b010a7b62413e637612815280",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -78452,8 +79492,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a75311807871e1e17c97d9f2742f8b28c34819b48d29b289cef9d1487561a0f5",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "2d05af52d914851f55377b87c921fb9586847b72c1fcdac77f5256727c4621c5",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78678,8 +79718,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "91314ad8e8140c198a3ed595029ed87c5b10dbf87fdb1f281da9015aaabf7d77",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "c0ae61276d6cbbe10807c757fe58136dac8ff2a6546248155ecf2245db4809a9",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -78776,15 +79816,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "fa3660bbda9569fcc6edbac41246e6320e3ed9f202e94b20c48bf9234c9be5d1",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "63f450392d8ae1318a186a783cc31bf4027e970fc9c6d4d0b3166cec5048448a",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "cc3175b87451bad0a36c62fb85ea44d8d833acd76885856a66966de3565aac3f",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "68bd2054e6c118a33fe4d96417f3f85282574d6df1f82a761fbab80432123877",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -78944,8 +79984,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "903714eebb581a82383f6083ac76d4543234bf15061bc0805fa25aca344fb74d",
-      "review": "5 October 2026: reviewed current controls, requirements, limits and artwork credit. The page identifies the replaced chemical-machine art and unchanged silos; PixelLab/OpenAI artwork records remain separate and Oxsmith machines remain planned. The draft fits the 7500-byte limit without VDF-prohibited quotes or backslashes."
+      "sha256": "53f5eedca035986f84d45f5f62a559567b3cd798fe1253e79710279a57c8e56a",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78986,23 +80026,30 @@
       "path": "docs/development/oxsmith-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "new",
-      "sha256": "4d710e19e9096173609fe487e76eef16dcf4d21efdc852b5ea74e14c536197e5",
-      "review": "5 October 2026: reviewed exact prompts, source hashes, native family preview and repeatable registration. Both designs are owner-approved; their machines remain unimplemented. Before-restyle comparison inputs remain historical snapshots; current chemical-machine review is linked separately. Original owner-run instructions remain history; no game installation or oxygen production is claimed."
+      "sha256": "18e3a1898403e132def8a1cdea58885c0c272bed8df6364fb4fda8afae1fdcdd",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "docs/development/regolith-programme.md",
       "scope": "contributor decision record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "2c6b1ea44c6233cd7698c80fb7a355034a8cc96aa315da36d34df0df4c8ed2ff",
-      "review": "5 October 2026: reviewed the programme record and updated only its artwork status. Prepared Oxsmith sources, 256-pixel working masters and 64-pixel native reviews are linked; machines remain unimplemented. Owner choices, delivered release sets and explicitly unverified scientific figures are preserved."
+      "sha256": "84387b8f5afd456f474ce4458f42be681434cf08db9fb9861f26e6ccce2ece10",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+    },
+    {
+      "path": "docs/development/regolith-oxygen-design.md",
+      "scope": "contributor design record; player steps live in the player guide",
+      "decision": "new",
+      "sha256": "e8ff180cee05eec345c291017bc0ed09ba793f7d1796868397f694f9a1fac04e",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0: sources read are named with what they do and do not say; authored figures and the caustic simplification are labelled as ours."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d6ced69bad063c7dce775bc26ae7204807d8b55223f834df13828649730de3da",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "be18e4572bdfe3a348f727a01b3eade31f48d8a94cdd5dbb46e0f951228e4fc1",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -79059,8 +80106,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bedf178df4cd0d377f7cf86915aee041a1fe1db9e45d21592d0976bf7fd55067",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "5b2d2bddacfd64a67dc7b32ccc5fc490bb6a70a99c4a54b359b2d6e7d2e8001e",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

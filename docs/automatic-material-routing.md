@@ -54,7 +54,7 @@ Processing that was running carries on too (Shipbreaker 0.77.0); see
 ## Feed stores for the T2 and the Manufacturing machines (optional)
 
 Loading by hand always works. If you would rather not, a T2 thaw unit, a V4
-refinery, an LC-3, an SA-3 or a fermenter-still can keep itself fed from **one
+refinery, an LC-3, an SA-3, an EC-4 or a fermenter-still can keep itself fed from **one
 store you choose** (Shipbreaker 0.73.0, Manufacturing 0.42.0):
 
 1. Put a store where the machine can reach it: a Rivetline material bin or any
@@ -67,7 +67,7 @@ store you choose** (Shipbreaker 0.73.0, Manufacturing 0.42.0):
 
 ```mermaid
 flowchart LR
-    Bin["Material bin or other store"] -->|touching, or conveyor belt| Machine["T2, V4, LC-3, SA-3 or fermenter-still"]
+    Bin["Material bin or other store"] -->|touching, or conveyor belt| Machine["T2, V4, LC-3, SA-3, EC-4 or fermenter-still"]
     Hand["By hand, into its Inventory"] --> Machine
     Crew["Load feed by crew (T2)"] --> Machine
 ```
@@ -84,7 +84,7 @@ the machine's own power.
 ## Product stores for the Manufacturing machines (optional)
 
 Collecting by hand always works. If you would rather not, a V4 refinery, an LC-3,
-an SA-3, a fermenter-still or a Corker-2 bottler can send what it makes to **one
+an SA-3, an EC-4, a fermenter-still or a Corker-2 bottler can send what it makes to **one
 store you choose** (Manufacturing 0.49.0):
 
 1. Put an ordinary unlocked container (a crate or locker) within one tile of the
@@ -94,7 +94,7 @@ store you choose** (Manufacturing 0.49.0):
 
 ```mermaid
 flowchart LR
-    Machine["V4, LC-3, SA-3, fermenter-still or bottler"] -->|Send products to| Store["Crate or locker"]
+    Machine["V4, LC-3, SA-3, EC-4, fermenter-still or bottler"] -->|Send products to| Store["Crate or locker"]
     Store -->|Take feed from| Next["Another machine, or the RM-1 for remainders"]
     Machine --> Tray["Its own tray, collected by hand"]
 ```

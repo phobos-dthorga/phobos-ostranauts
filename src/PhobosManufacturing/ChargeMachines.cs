@@ -13,7 +13,8 @@ internal static class ChargeMachines
     internal static readonly ChargeMachine Leach = new(LeachSpec());
     internal static readonly ChargeMachine AcidPlant = new(AcidPlantSpec());
     internal static readonly ChargeMachine Fermenter = new(FermenterSpec());
-    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant, Fermenter };
+    internal static readonly ChargeMachine ElectrolysisCell = new(ElectrolysisCellSpec());
+    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant, Fermenter, ElectrolysisCell };
     private static readonly Dictionary<string, ChargeMachine?> byDefinition = new(StringComparer.Ordinal);
     internal static ChargeMachine? For(string? id)
     {
@@ -23,7 +24,7 @@ internal static class ChargeMachines
         if (byDefinition.Count < 65536) byDefinition[id] = machine;
         return machine;
     }
-    // Called for every container admission and stack test in the game: three string comparisons, no allocation.
+    // Called for every container admission and stack test in the game: one string comparison per charge machine, no allocation.
     internal static ChargeMachine? ForBin(string? binId)
     {
         if (binId == null) return null;
@@ -90,7 +91,7 @@ internal static class ChargeMachines
         Met = key => LeachRecipes.IsMet(key, AgricultureStock.Available, AgricultureStock.Hoppers),
         ExtraStatus = _ => !AgricultureStock.Available ? Text.Get("Leach.no_agriculture") : AgricultureStock.Hoppers ? null : Text.Get("Leach.no_hoppers"),
         MaintenanceChargeKey = "Maintenance.leach_charge",
-        Links = () => new[] { LeachWater(), LeachAmmonia(), LeachAcid(), LeachNutrients() }
+        Links = () => new[] { LeachWater(), LeachAmmonia(), LeachAcid(), LeachNutrients(), LeachHydrogen() }
     };
     private static ChargeLinkSpec LeachWater() => new(ManufacturingRules.Water, "link:", LeachRules.WaterPort, LeachRules.VesselPort, _ => true,
         () => Text.Get("Provider.vessel_field"), alwaysShow: true,
@@ -123,6 +124,30 @@ internal static class ChargeMachines
     private static ChargeLinkSpec LeachNutrients() => new(ManufacturingRules.CropNutrients, "nutrients:", LeachRules.NutrientPort, LeachRules.VesselPort,
         _ => true, () => Text.Get("Provider.nutrients_field"), alwaysShow: false, Reasons("Leach", "nutrients"),
         () => Text.Get("Leach.nutrients_linked"), () => Text.Get("Leach.nutrients_unlinked"), () => Text.Get("Leach.nutrients_link_missing"), deposit: true);
+
+    /// <summary>The ferrosilicon charge's hydrogen goes to a linked hydrogen store (Manufacturing 0.52.0).</summary>
+    private static ChargeLinkSpec LeachHydrogen() => new(ManufacturingRules.Hydrogen, "hydrogen:", LeachRules.HydrogenPort, LeachRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Hydrogen), () => Text.Get("Provider.hydrogen_out_field"), alwaysShow: false, Reasons("Leach", "hydrogen"),
+        () => Text.Get("Leach.hydrogen_linked"), () => Text.Get("Leach.hydrogen_unlinked"), () => Text.Get("Leach.hydrogen_link_missing"), deposit: true);
+
+    /// <summary>The Oxsmith EC-4 (Manufacturing 0.52.0): a lump of regolith or a chunk of Silicates ore, chosen
+    /// automatically from the feed; oxygen to a linked oxygen store, a lump's bound water to a linked water vessel,
+    /// ferrosilicon and slag to the tray. Nothing spoils: a cell left waiting for a cooler room freezes around its
+    /// electrodes and melts again. Its molten pool is an ignition source while it works.</summary>
+    private static ChargeMachineSpec ElectrolysisCellSpec() => new()
+    {
+        Prefix = ElectrolysisRules.Prefix, StockTrigger = ElectrolysisRules.StockTrigger, AdmitsOre = true, FeedConditions = ElectrolysisRules.FeedConditions,
+        Record = ElectrolysisRules.Record, MachineKey = ChargeCatalog.ElectrolysisCell, TextPrefix = "Cell", HeatNote = true, SnapshotKind = "electrolysis-cell", Art = Definitions.ElectrolysisCellArt,
+        Selection = RecipeSelection.Automatic, IgnitionSource = true,
+        MaintenanceChargeKey = "Maintenance.cell_charge",
+        Links = () => new[] { CellOxygen(), CellWater() }
+    };
+    private static ChargeLinkSpec CellOxygen() => new(ManufacturingRules.Oxygen, "oxygen:", ElectrolysisRules.OxygenPort, ElectrolysisRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Oxygen), () => Text.Get("Provider.oxygen_store_field"), alwaysShow: true, Reasons("Cell", "oxygen"),
+        () => Text.Get("Cell.oxygen_linked"), () => Text.Get("Cell.oxygen_unlinked"), () => Text.Get("Cell.oxygen_link_missing"), deposit: true);
+    private static ChargeLinkSpec CellWater() => new(ManufacturingRules.Water, "link:", ElectrolysisRules.WaterPort, ElectrolysisRules.VesselPort, _ => true,
+        () => Text.Get("Provider.vessel_field"), alwaysShow: true, Reasons("Cell", "vessel"),
+        () => Text.Get("Cell.linked"), () => Text.Get("Cell.unlinked"), () => Text.Get("Cell.link_missing"), deposit: true);
 
     /// <summary>The Lixivar SA-3 (Manufacturing 0.19.0): one recipe, chosen automatically; oxygen and water drawn from
     /// linked vessels, sulfuric acid deposited into a linked acid tank, the reactions' heat into the room. Nothing melts

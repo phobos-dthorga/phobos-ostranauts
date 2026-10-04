@@ -73,5 +73,9 @@
   "Material.PhobosWashedTailings": { "brand": "Lixivar", "model": "" },
   "Material.PhobosBakedRegolith": { "brand": "Fennmark", "model": "" },
   "Material.PhobosRegolithPaver": { "brand": "Fennmark", "model": "" },
-  "RegolithFloor.name": { "brand": "Fennmark", "model": "" }
+  "RegolithFloor.name": { "brand": "Fennmark", "model": "" },
+  "Cell.name": { "brand": "Oxsmith", "model": "EC-4" },
+  "Cell.feed_name": { "brand": "Oxsmith", "model": "EC-4" },
+  "Material.PhobosFerrosilicon": { "brand": "Oxsmith", "model": "" },
+  "Material.PhobosSpentFerrosilicon": { "brand": "Lixivar", "model": "" }
 }

@@ -1,4 +1,4 @@
-# Refinery, electrolysis, Sabatier reactor, ammonia cracker, leach unit, acid plant, gas and acid stores, canister filling, cabin air and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, ammonia cracker, leach unit, acid plant, oxygen from rock, gas and acid stores, canister filling, cabin air and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
@@ -21,6 +21,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Tolvane AX-2 Ammonia Cracker | 2 x 2 tiles; 150 kg; one power point; 2 kW working | 42,000 cr, broken 10,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | 3 x 3 tiles; 220 kg; one power point; 12 kW working | 48,000 cr, broken 12,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar SA-3 Sulfuric Acid Plant | 3 x 3 tiles; 260 kg; one power point; 4 kW working, about 21 kWh of reaction heat a nodule | 56,000 cr, broken 14,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Oxsmith EC-4 Electrolysis Cell | 4 x 4 tiles; 420 kg; two power points; 60 kW working | 96,000 cr, broken 24,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 1,150, 2,850 and 5,520 kg of acid | 16,000 cr and up the size ladder | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
@@ -143,6 +144,8 @@ water when heated. A paver is worth less than the floor it becomes, because a
 prospector sells regolith and baking it must not be a way to print money. Until
 the paver has its own picture it shows the game's loose floor plate.
 
+For oxygen from the same lumps, see [the EC-4](#the-ec-4-oxygen-from-rock).
+
 ## Reactors that feed each other
 
 Since 0.27.0 the refinery also works with the gas stores the other machines
@@ -217,6 +220,7 @@ mined ore sells for roughly 1.5 to 2.5 times the ore it came from.
 | Epsom salt (0.432 kg) | 13 cr |
 | Ammonium sulfate (0.232 kg) | 20 cr |
 | Phosphoric acid flask (0.515 kg) | 300 cr |
+| Ferrosilicon (2.2 kg, 0.52.0) | 2 cr |
 
 The machines are expensive, so they pay for themselves slowly: hundreds of hours
 of running for the LC-3 and SA-3. These prices are authored balance, to be
@@ -301,7 +305,7 @@ exception is the station refuelling kiosk's Bulk supplies view.
 
    Also optional: under **Send products to**, choose a crate or locker and the
    refinery empties its own tray into it, so a full tray does not stop it. The
-   LC-3, SA-3, fermenter-still and bottler offer the same. See
+   LC-3, SA-3, EC-4, fermenter-still and bottler offer the same. See
    [product stores](automatic-material-routing.md#product-stores-for-the-manufacturing-machines-optional).
 
    A running refinery never takes what it has just made. To carburise its own
@@ -316,7 +320,7 @@ the charge waits with that reason. Empty the tray by hand. Since Manufacturing 0
 trays are 4 x 3 cells and products arrive as stacks (ingots ten to a cell, salts twenty), so a tray holds two
 charges of every recipe except the LC-3's salts-from-crust batch, whose two 2 x 2 residues leave room for one.
 
-## The electrolysis cell
+## The X2: water electrolysis
 
 Each one-hour cycle at 6 kW splits 1.125 kg of water into 1.000 kg of oxygen
 and 0.125 kg of hydrogen.
@@ -429,6 +433,7 @@ works the recipe you choose, one charge at a time, at 12 kW.
 | Epsom salt from olivine | 1 olivine (the game's 10 kg ore chunk); 8.64 kg of sulfuric acid from the linked acid tank; 9.52 kg of water from the linked vessel | 32 Epsom salt (0.432 kg each); 1 olivine leach cake (14.33 kg, trash). About 5.3 kWh of extra heat goes into the room. | 60 min |
 | Gangue wash | 4 gangue (the game's 3 kg lumps); 1 kg of sulfuric acid from the linked acid tank, with 10 kg of water on hand in the linked vessel | 13 kg in all, by chance: usually washed tailings only; sometimes 2 scrap steel or 2 scrap aluminium, rarely a nickel-iron ingot, with tailings for the rest | 20 min |
 | Regolith leach | 1 loose regolith (the game's 20 kg lump); 1.08 kg of sulfuric acid from the linked acid tank and 1.65 kg of water from the linked vessel | 4 Epsom salt and washed tailings; by chance also 3 scrap steel, a Silicates ore chunk or, rarely, a nickel-iron ingot | 30 min |
+| Hydrogen from ferrosilicon (0.52.0) | 3 ferrosilicon (from an EC-4); 3.02 kg of water from the linked vessel | 0.339 kg of hydrogen into the linked hydrogen store; 3 spent ferrosilicon (3.095 kg each, for the RM-1 feeder). About 7.9 kWh of extra heat goes into the room. | 20 min |
 | Acid-route struvite | 1 phosphoric acid flask (from the SA-3) and 3 Epsom salt; 0.27 kg of ammonia from the linked ammonia store | 3 struvite; 3 ammonium sulfate (0.232 kg each); 94 g of water back into the linked vessel | 10 min |
 | Crop nutrients (Agriculture 0.27.0 or newer) | 1 potassium sulfate, 1 struvite, 1 Epsom salt and 1 ammonium sulfate; 0.25 kg of ammonia and 0.73 kg of sulfuric acid from their links | 2.77 kg of crop nutrients into the linked nutrient hopper | 5 min |
 
@@ -530,6 +535,52 @@ phosphoric acid flask and 9.535 kg of roasted calcine (trash).
 of the 4 kW the plant draws, all into its room: over an hour that is like a 21 kW
 heater. The plant waits whenever the room would pass 40 C, so give it a large
 room with cooling or it will crawl.
+
+## The EC-4: oxygen from rock
+
+The **Oxsmith EC-4 Electrolysis Cell** melts plain rock and splits it with current.
+Oxygen goes to a store, the iron and silicon it leaves come out as ferrosilicon,
+and the rest is slag. It needs no reagents at all, only power: 60 kW while it
+works, two and a half refineries' worth. Fit it on a ship with reactor to spare.
+
+| Load one | Gives | Time |
+| --- | --- | --- |
+| Loose regolith (the game's 20 kg lump) | 3.9 kg of oxygen into the linked store; 0.4 kg of water into the linked silo; 3 ferrosilicon (2.2 kg each) and 9 slag in the tray | 60 min |
+| Silicates ore (the game's 10 kg chunk) | 2.6 kg of oxygen; 2 ferrosilicon and 3 slag | 40 min |
+
+1. Install the EC-4 with its back to the wall row that carries power, touching an
+   oxygen store and a water silo (any sizes), or join each to it with gas or
+   water line.
+2. Open its **Control Panel** > **Connections** and set **Oxygen store** and
+   **Water silo**. Apply.
+3. Put regolith or Silicates ore in its inventory (the feed holds two) and
+   **Start**. It picks the charge from what is loaded, works one at a time and
+   waits with the reason if the store is full.
+
+- **It is not a money machine.** Oxygen sells back at a kiosk for 45% of the
+  station's price, and ferrosilicon is worth 2 cr, so a lump's products never
+  repay the lump. Silicates ore sells for far more raw than its oxygen is worth:
+  run ore through the cell when you need the air, not for profit.
+- **Regolith is the cheap feed.** Material bins hold it, so a bin on **Take feed
+  from** keeps the cell fed, and a crate on **Send products to** keeps its tray
+  clear.
+- **Ferrosilicon has one use.** An LC-3 reacts three with water into hydrogen for
+  a store: the same hydrogen an X2 gets from that water, for about a quarter of
+  the electricity, but with no oxygen. The spent ferrosilicon and the slag go to
+  the RM-1 feeder.
+- **Heat and air.** About half of what the cell draws warms its room, and a lump
+  lets 0.1 kg of carbon dioxide into the air. It waits for a cooler room rather
+  than stopping; a waiting cell freezes and melts again with nothing lost.
+- **It is a fire risk while working.** Like the refinery's hearth, its molten
+  pool can light a leaking hydrogen or methane store, or spilled ethanol, in its
+  room. Keep fuel stores elsewhere, and remember what it makes feeds a fire.
+
+NASA Kennedy Space Center's Swamp Works has demonstrated molten regolith
+electrolysis on lunar material; the lump's make-up, the yield, the hour and the
+60 kW are ours, and so is fitting it into a ship. The LC-3's hydrogen recipe
+follows the silicol process, which really uses up caustic soda; ours keeps its
+caustic in the machine. Details and sources are in
+[the design record](development/regolith-oxygen-design.md).
 
 ### No machines in vacuum
 
@@ -639,9 +690,9 @@ ammonia.
 
 | Gas | Filled by | Used by |
 | --- | --- | --- |
-| Hydrogen (H) | an X2, an AX-2, a V4 cracking methane | a K2, the RCS through a P1 |
+| Hydrogen (H) | an X2, an AX-2, a V4 cracking methane, an LC-3 with ferrosilicon | a K2, the RCS through a P1 |
 | Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | a V4 cracking methane, the RCS through a P1 |
-| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, a V4 burning carbon black, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
+| Oxygen (O) | an X2 (set the store as its oxygen destination), an EC-4 melting regolith or Silicates ore, Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, a V4 burning carbon black, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
 | Nitrogen (N) | Bulk supplies, an AX-2, an L2 decanting canisters | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
 | Carbon dioxide (C) | Bulk supplies, a V4 calcining leached residue or burning carbon black, an L2 decanting canisters | a K2 (set the store as its CO2 source), an A2 dosing a grow room, an L2, the RCS |
 | Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), an LC-3 making struvite or crop nutrients, the RCS through a P1 |
@@ -869,7 +920,7 @@ to space.
 
 ## After a reload
 
-The V4, LC-3, SA-3, fermenter-still, X2, K2, AX-2, L2 and bottler keep their
+The V4, LC-3, SA-3, EC-4, fermenter-still, X2, K2, AX-2, L2 and bottler keep their
 bound charge, holds, links and progress. A machine that was running when you
 saved carries on by itself (since Manufacturing 0.47.0): a charge picks up from
 its saved progress, and a started machine that was waiting for feed goes back to
@@ -1089,11 +1140,22 @@ nutrient hopper, choose Crop nutrients, load one of each salt and confirm 2.77 k
 in the hopper, a wait with the reason when the hopper is full, and a W2 dosing
 from it. Save and reload mid-charge and confirm the charge carries on by itself.
 
+Electrolysis cell and ferrosilicon (0.52.0): install an EC-4 with its back to a
+powered wall row, touching an oxygen store and a water silo; link both. Load one
+loose regolith and Start: after an hour confirm 3.9 kg more oxygen, 0.4 kg more
+water, three ferrosilicon and nine slag, a warmer room and a trace of carbon
+dioxide. Load Silicates ore and confirm 2.6 kg of oxygen, two ferrosilicon and
+three slag in forty minutes. On an LC-3 choose hydrogen from ferrosilicon, link a
+hydrogen store and a water silo, load three ferrosilicon and confirm 0.339 kg of
+hydrogen and three spent ferrosilicon. Save and reload with the cell working and
+confirm it carries on.
+
 ## Sources
 
 The chemistry, energies, hazard rules and their primary sources (NIST, NASA,
 the Dawn, OSIRIS-REx and Hayabusa science teams, iron-meteorite mineralogy,
-olivine leaching and Hoagland's nutrient solution) are in
+olivine leaching, Hoagland's nutrient solution, NASA Kennedy Space Center's molten
+regolith electrolysis work and the 1920 NACA report on the ferrosilicon process) are in
 [the refinery record](development/manufacturing-refinery-and-chemistry.md).
 Yields are rounded to item units and labelled as authored; the sources inform
 the design and do not endorse it.

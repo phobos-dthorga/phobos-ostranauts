@@ -312,6 +312,27 @@
       "stack": 6,
       "side": 1,
       "category": "IsCategoryHull"
+    },
+    "PhobosFerrosilicon": {
+      "notes": "Ferrosilicon (Manufacturing 0.52.0): the reduced metal an Oxsmith EC-4 taps from molten rock, 2.2 kg a unit, authored as 1.414 kg of iron and 0.786 kg of silicon (35.7 percent silicon). Stock with a consumer: the LC-3 splits water with its silicon into hydrogen. Priced at 2 cr, far below scrap steel by weight: a prospector sells regolith and the kiosk buys oxygen back, so a lump's oxygen, water and three units sold must never repay the lump (the no-gaining-loop rule). Not sold by merchants.",
+      "kind": "stock",
+      "kg": 2.2,
+      "price": 2,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryMetals",
+      "art": "StockFerrosilicon"
+    },
+    "PhobosSpentFerrosilicon": {
+      "notes": "Terminal (Manufacturing 0.52.0): what the LC-3 leaves of one ferrosilicon unit once its silicon has split water, 1.414 kg of iron fines and 1.681 kg of silica, 3.095 kg. A declared remainder: the reaction mass feeder grinds it.",
+      "kind": "stock",
+      "kg": 3.095,
+      "price": 0.01,
+      "stack": 6,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockSpentFerrosilicon"
     }
   }
 }

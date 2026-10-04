@@ -19,7 +19,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill", BottlerArt = "PhobosBottlingUnit", FeederArt = "PhobosReactionMassFeeder";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill", BottlerArt = "PhobosBottlingUnit", FeederArt = "PhobosReactionMassFeeder", ElectrolysisCellArt = "PhobosElectrolysisCell";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     /// <summary>The game's named colour for each stored gas's contents row; hydrogen, which the game has no gas for, takes its cryogenic blue.</summary>
     internal static readonly IReadOnlyDictionary<string, string> ContentsColors = new Dictionary<string, string>(StringComparer.Ordinal)

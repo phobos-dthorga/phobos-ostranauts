@@ -54,6 +54,19 @@
       "art": "PhobosFermenterStill",
       "installTab": "APPS",
       "points": { "use": [ 0, -32 ], "PowerA": [ 0, 32 ] }
+    },
+    "PhobosElectrolysisCell": {
+      "notes": "Oxsmith EC-4 Electrolysis Cell (Manufacturing 0.52.0): a cold-walled molten-rock cell, one lump of loose regolith or one chunk of Silicates ore at a time. Its 60 kW melts the charge and drives the current that splits iron and silicon oxides; a regolith charge's reactions absorb 27.0 of its 60 kWh, and the rest, 55 percent, warms the room (before the player's machine heat setting).",
+      "kind": "charge-machine",
+      "footprint": 4,
+      "massKg": 420,
+      "idleKW": 0.2,
+      "workingKW": 60,
+      "roomHeatFraction": 0.55,
+      "feedCells": 2,
+      "art": "PhobosElectrolysisCell",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -40 ], "PowerA": [ -24, 40 ], "PowerB": [ 24, 40 ] }
     }
   }
 }

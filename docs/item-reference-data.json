@@ -18230,7 +18230,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.51.0",
+      "version": "0.52.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -27287,6 +27287,651 @@
           "aliases": []
         },
         {
+          "id": "PhobosElectrolysisCellInputBin",
+          "name": "Phobos' Oxsmith EC-4 Electrolysis cell charge",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosElectrolysisCellTFeed",
+            "width": 2,
+            "height": 1,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [
+            "PhobosElectrolysisCellInput"
+          ],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosElectrolysisCellInstalled",
+          "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosElectrolysisCellInput"
+            ],
+            "loot": "PhobosElectrolysisCellCompartments"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 420.0,
+          "baseValue": 96000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosElectrolysisCellInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosElectrolysisCellInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 260,
+                  "baseValue": 935.9999752044678
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 60,
+                  "baseValue": 66.00000143051147
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 30,
+                  "baseValue": 150.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 20,
+                  "baseValue": 290.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 4,
+                  "baseValue": 150.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 6,
+                  "baseValue": 165.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 49,
+                  "baseValue": 2.450000036507845
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosElectrolysisCellInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosElectrolysisCellInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosElectrolysisCellInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellLoose",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+                  "count": 1,
+                  "baseValue": 96000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosElectrolysisCellInstalledDmg",
+          "name": "Phobos' Oxsmith EC-4 Electrolysis Cell (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosElectrolysisCellInput"
+            ],
+            "loot": "PhobosElectrolysisCellCompartments"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 420.0,
+          "baseValue": 24000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosElectrolysisCellInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosElectrolysisCellInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 230,
+                  "baseValue": 827.9999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 50,
+                  "baseValue": 55.000001192092896
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 14,
+                  "baseValue": 70.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 6,
+                  "baseValue": 87.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 122,
+                  "baseValue": 6.100000090897083
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosElectrolysisCellInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x10",
+                "TIsMotor=1x3",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x4",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 7800.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellInstalled",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+                  "count": 1,
+                  "baseValue": 96000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosElectrolysisCellInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellLooseDmg",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell (Damaged)",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosElectrolysisCellLoose",
+          "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosElectrolysisCellInput"
+            ],
+            "loot": "PhobosElectrolysisCellCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 420.0,
+          "baseValue": 96000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosElectrolysisCellLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosElectrolysisCellLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 260,
+                  "baseValue": 935.9999752044678
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 60,
+                  "baseValue": 66.00000143051147
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 30,
+                  "baseValue": 150.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 20,
+                  "baseValue": 290.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 4,
+                  "baseValue": 150.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 6,
+                  "baseValue": 165.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 49,
+                  "baseValue": 2.450000036507845
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosElectrolysisCellLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosElectrolysisCellLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2600.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellInstalled",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+                  "count": 1,
+                  "baseValue": 96000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosElectrolysisCellLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosElectrolysisCellLooseDmg",
+          "name": "Phobos' Oxsmith EC-4 Electrolysis Cell (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosElectrolysisCellInput"
+            ],
+            "loot": "PhobosElectrolysisCellCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 420.0,
+          "baseValue": 24000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosElectrolysisCellLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosElectrolysisCellLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 230,
+                  "baseValue": 827.9999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 50,
+                  "baseValue": 55.000001192092896
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 14,
+                  "baseValue": 70.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 6,
+                  "baseValue": 87.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 122,
+                  "baseValue": 6.100000090897083
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosElectrolysisCellLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosElectrolysisCellLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2600.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellInstalledDmg",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell (Damaged)",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosElectrolysisCellLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosElectrolysisCellLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosElectrolysisCellLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x10",
+                "TIsMotor=1x3",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x4",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 7800.0,
+              "outputs": [
+                {
+                  "id": "PhobosElectrolysisCellLoose",
+                  "name": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+                  "count": 1,
+                  "baseValue": 96000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosEpsomSalt",
           "name": "Phobos' Lixivar Epsom Salt",
           "stackLimit": 20,
@@ -30068,6 +30713,39 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosFerrosilicon",
+          "name": "Phobos' Oxsmith Ferrosilicon",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 2.2,
+          "baseValue": 2.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         },
         {
@@ -39101,6 +39779,39 @@
           "aliases": []
         },
         {
+          "id": "PhobosSpentFerrosilicon",
+          "name": "Phobos' Lixivar Spent Ferrosilicon",
+          "stackLimit": 6,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 3.095,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosSpentMash",
           "name": "Phobos' Alembrine Spent Mash",
           "stackLimit": 10,
@@ -40036,6 +40747,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosAcidTankLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -40302,6 +41020,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosAcidTankLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -40568,6 +41293,13 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosAcidTankLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -40870,6 +41602,13 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -41046,280 +41785,294 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Loot",
+          "chance": 0.0005952380952380953,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosElectrolysisCellLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosReactionMassFeederLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosReactionMassFeederLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.000625,
+          "chance": 0.0005952380952380953,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0018750000000000004,
+          "chance": 0.0017857142857142859,
           "count": 1
         },
         {
@@ -41402,6 +42155,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -41668,6 +42428,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosReactionMassFeederLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosElectrolysisCellLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -41940,6 +42707,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42192,6 +42966,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42444,6 +43225,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42696,6 +43484,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42948,6 +43743,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43200,6 +44002,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43452,6 +44261,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43704,6 +44520,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43956,6 +44779,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44208,6 +45038,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44460,6 +45297,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44712,6 +45556,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44958,6 +45809,13 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45210,6 +46068,13 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45462,6 +46327,13 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45714,6 +46586,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45986,6 +46865,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosElectrolysisCellLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -46232,6 +47118,13 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosReactionMassFeederLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosElectrolysisCellLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -60745,15 +61638,15 @@
     "mods/PhobosFramework/mod_info.json": "c0cd0a08830da22261399a0d4ac329f7cea547c5580e6a23f404e6598fb455ff",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "99ff9d631c5e538317b327dce6339ad2a978a16a4c37a53f068191567984ed36",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "7297c392787c74efbd1ff851ca9f8fe4a73ae25eecef4e490ca5d8a114436fae",
-    "mods/PhobosManufacturing/framework/equipment.json": "58a2332c3f43011a6c1dcf83b61769bba0101252cdeccb9dfbf7c66ffe3796da",
-    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "ec2aa38a9556bf3f6b594a029c66a84163dab35d76ea19c6a0a33df67d85ac4d",
-    "mods/PhobosManufacturing/framework/materials.json": "8a12d9b43ffb69b68bcb97c017dde96696e4cf76e83b887549cd23274c7d30f4",
+    "mods/PhobosManufacturing/framework/economy.json": "780e6e7267c9bd91b33fde808210bb2fe86bf853d2871b885e02b34216c36daa",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "3faaae3c72a4c7738cb3748fa6a710f646ce61fa66d1e0e871c8a32a58a781c8",
+    "mods/PhobosManufacturing/framework/equipment.json": "f1dfd16244e0925652dca5b8643ce768267be29db2774f54fe559190fb20b9e3",
+    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "56b206992ef93188113d35b658ce8a2b1cbbd52ed47cf4521914adbe34b49353",
+    "mods/PhobosManufacturing/framework/materials.json": "d87c30918d877c366dcbb01295e58de46a9b5f3ee14c9e8c21cd9eeda8c88371",
     "mods/PhobosManufacturing/framework/outcomes.json": "93496fdcf637872c55b59747b12fbbb8a6f6f294558dee69caeeae407d71192e",
-    "mods/PhobosManufacturing/framework/process-recipes.json": "c11a169e1e2d3fed5f2d565fe3bded57cb51bbaff17867e906e09c68519e902f",
+    "mods/PhobosManufacturing/framework/process-recipes.json": "ba30071a869b73da3642b3eaaea50f5426be12bc9edcb5e43624e4192df3d2e8",
     "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
-    "mods/PhobosManufacturing/mod_info.json": "bedf178df4cd0d377f7cf86915aee041a1fe1db9e45d21592d0976bf7fd55067",
+    "mods/PhobosManufacturing/mod_info.json": "5b2d2bddacfd64a67dc7b32ccc5fc490bb6a70a99c4a54b359b2d6e7d2e8001e",
     "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
     "mods/PhobosMedical/framework/care.json": "90ee93bf6f073137282da3dbbd54b343c0f2ac8325a1e82366eeb2afb9b8775a",
     "mods/PhobosMedical/framework/economy.json": "8e95f9579601722de619bde463568c243ec971e1ab2d5f653d5128473929b3c9",
@@ -61101,30 +61994,31 @@
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/BottlerService.cs": "24b596d36ba2614c740d0324200a4bdd80af13b8869b12d3cd4bf4f85896be68",
     "src/PhobosManufacturing/ChargeMachine.cs": "99063919a03802a58883c504acc074e7c2ca208361423f40ad8e6ed14c2e73c1",
-    "src/PhobosManufacturing/ChargeMachines.cs": "527ff3f5dcba101a0f6506a1ef3cfe4da2b8a378f92a58bfe2a0806fffb25dcb",
+    "src/PhobosManufacturing/ChargeMachines.cs": "ec7376756960329d49764b426d57344a52e775b5718c36ed48ff6fa65c2a56e4",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "16f54a97cfaeb9ed157cb68f0058745b98e5bce375af71428d57691c8c90d3f8",
     "src/PhobosManufacturing/Content.cs": "2ce20e3857d628f33c4d1037cfa9ec0d82e396b8887abbdc13073b963275c449",
     "src/PhobosManufacturing/Core/AcidLineRules.cs": "acd58624c130617c9a7e8109763bbb40ee5403552cc5fffbc7772be055de48b4",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/BottlerRules.cs": "e0bd4d5733a6939ea666fc69125d0cc342bd6f19d5591dc789347b0b350c35b1",
-    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "c0b6b8f4875ec4c6c2392b6f29990bd7d83479302efc44bfd05dca3398183d22",
+    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "258b0c5db6ed859dba1ec18f8104b02a055338c38d1e028cae03160a02532cd9",
     "src/PhobosManufacturing/Core/ChargeOutcomes.cs": "baf6ecbc0190a63f6fddf8a816ed01fc51ffe237001ee1e7698f2fe27bf71da3",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "b784f2eac6eb184f20bfa4e523100ed7423a9346b0ccaa494445ba814b3bdc20",
     "src/PhobosManufacturing/Core/ChargeState.cs": "9fc3b4cf88f202d84611a7da85cacfe1b8abbbf257769acb2d741d8b90056508",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "41f232fec961367801b6c1bd76d4ad06ab6e72af5ef2c691b7391dc17394eaf9",
+    "src/PhobosManufacturing/Core/Economy.cs": "ec0ea907cdf9d7f3959719058aa09c90e6d3ee067dd0ade82d7fb7fb01c7808c",
+    "src/PhobosManufacturing/Core/ElectrolysisRules.cs": "fd124d944cf14960b33d79092dafb2b0314ab5ac7a90ab2044848d38485d9602",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
     "src/PhobosManufacturing/Core/FeederRules.cs": "8563d92a118a1ffba2bfb200fa3941307bf5501b95dbfd3ec687b365158ceaf0",
     "src/PhobosManufacturing/Core/FermenterRules.cs": "9331577a9aa896c6a18f10f1b41023a21e57b2979b02345efe9fc21e49dd2061",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "e592d7c62deb05ccbdb08f4c5bc139c7ab0b2fab87c376fbf9d8f03e27aacd4e",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "a5ea5e856cf9803e858eae68f65cb9b64289e88bbf7c438f18b1ae14b1410c84",
-    "src/PhobosManufacturing/Core/LeachRules.cs": "1d6d2f5df9f610dc71aab7ab757b30dd8518cc3bd7aaf507a26e4cfbfe047140",
+    "src/PhobosManufacturing/Core/LeachRules.cs": "5570cf53437f2496fcf57fd890f0c428fafabc77e278ff1477f346b62e8cf883",
     "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "85e2b7ed6d74564b183d74cd858a04ebca6b74557386985da8c91297b5603c93",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
     "src/PhobosManufacturing/Core/ManufacturingRules.cs": "3548f751a2d69d8e7c6adcee4b6ee0b0cbd3c40c5657defb5c2bd53a3216ac01",
-    "src/PhobosManufacturing/Core/Materials.cs": "95c5ef50b8530c47d208801918230e46ee0e5f5d18bd103d3f3a35ec3fab9828",
+    "src/PhobosManufacturing/Core/Materials.cs": "9d6013803d4cc00141de04632038d7314def53ba3a9608e89fa3ce394e974a84",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "31b3433e1ccfe19fc3569f25aedbbd2a778acad9bd3e65f7bdcb41f6b3ed40dd",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
     "src/PhobosManufacturing/Core/RefineryRules.cs": "75f1c8508ac13a90379cd179a09d09ae48bb7f68b1aed1059e426898a97ebd8e",
@@ -61134,7 +62028,7 @@
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "d1fc0bff65332273772ad877a79d0580b7441e0395cc54c5af43a5b1feb059de",
-    "src/PhobosManufacturing/Definitions.cs": "222ed6e6011b1f31cf9847a31cb2efc477d63d16d158aadffeda0558573e7f78",
+    "src/PhobosManufacturing/Definitions.cs": "91db25419909e9f2ac82b8cf3c68ea029d9edbadae64b12c756565905c9c0e7f",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "e7c9a1b80d7b923389d3a2a835245ccaa1e094646d782a1e771f54d491fcf097",
     "src/PhobosManufacturing/FeederService.cs": "deb79e0c5af89eacd085aa3505038439dd2d2de90d64a03a345802146d525ddc",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
@@ -61146,10 +62040,10 @@
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "845cc337aa79711c00b75a5a86fc975ae9a1f5278f003758ad6e6bd367822aff",
-    "src/PhobosManufacturing/Plugin.cs": "f1c42c844d8ad7da377f8e3ca0e8486536d1416156b9f2a6435227a6b0bec123",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "606bfc6884cd7c3455b8f3d678fdffbdf658b43c4ae4cd7c05d1ff27ed02fcf0",
+    "src/PhobosManufacturing/Plugin.cs": "e15d9ce771d0a5eb9ca3b2abc3bbd168a87f4639f9550253e933dc33309be05a",
     "src/PhobosManufacturing/ProcessorService.cs": "b23ec23c7368a7d523a33f05c6e3761a253ca4976185093342353ad7dd215405",
-    "src/PhobosManufacturing/Provider.cs": "e03859b10f821f8cc473bb093f0e4a04bcbd85966f787ca2309f1697c0c25d85",
+    "src/PhobosManufacturing/Provider.cs": "07bc126c21a3dc7ad0d434c0c228ce4d0eedd6cebcdad99130293d4a5f644b63",
     "src/PhobosManufacturing/RegulatorService.cs": "d6254fa6d5b46ba81dba03841679fe694bb78ac7553359819c2ab0d585527d10",
     "src/PhobosManufacturing/SabatierService.cs": "40005f359506b45df05814a12961b298f73d1a7a30550342dce94e95f35ea782",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "f52d5839851ce359dba6c96eddf3df70269eff64020f97e27beab08e8c9848d6",
@@ -61300,7 +62194,7 @@
     "translations/PhobosAgriculture/en.json": "9b5580224156241e5c53f0b593f85fa293100e689c6ec0f1b1fcda3c803cc35b",
     "translations/PhobosAutoNav/en.json": "5fdaca9352a47ecea20bbab20cbf1607fd95a214b178d88d3caffff97883cb72",
     "translations/PhobosFramework/en.json": "99f33f3806054895a51ccea46ca462572d7b3bcfc1f99e1d1f58d56f0ea42680",
-    "translations/PhobosManufacturing/en.json": "74c00a32c6548e74d66bf0a3e521346d44b186d06502c9c4af21418546f08c8f",
+    "translations/PhobosManufacturing/en.json": "ceec175d00b4d2891da5a4583c035a98c0595f1528365c2691ea47ff4ffdadb4",
     "translations/PhobosMedical/en.json": "c35f6c03ef2112b700ab0b9555cb9d087a330b39484cfb771e1d9f0eea5032ac",
     "translations/PhobosShipbreaker/en.json": "9d41ba09d772dd760cff6bdaa6e6f9ba6dbfbb6b1bda7063deac74d90b4fa9b2",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"

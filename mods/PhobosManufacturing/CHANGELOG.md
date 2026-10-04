@@ -15,6 +15,26 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Stores, silos and support equipment are unchanged; production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.52.0] - 2026-10-05 - Draft
+
+### Added
+
+- Phobos' Oxsmith EC-4 Electrolysis Cell: oxygen out of plain rock. A 4 x 4 machine under INSTALL, APPS, 96,000 cr, drawing 60 kW while it works. Load loose regolith or Silicates ore; it melts the rock and splits it with current. A 20 kg regolith lump gives 3.9 kg of oxygen for a linked oxygen store, 0.4 kg of water for a linked water silo, three ferrosilicon and nine slag in an hour. A 10 kg Silicates chunk gives 2.6 kg of oxygen, two ferrosilicon and three slag in 40 minutes. It uses no reagents.
+- Ferrosilicon, the iron and silicon the cell leaves, 2.2 kg a unit. An LC-3 has a new recipe, hydrogen from ferrosilicon: three units and 3.02 kg of water give 0.339 kg of hydrogen for a linked hydrogen store and three spent ferrosilicon for the RM-1 feeder, in 20 minutes.
+- The EC-4 can take its feed from a material bin and send its products to a crate, like the other charge machines, and carries on after a reload.
+
+### Save compatibility
+
+- Automatic. Everything here is new; nothing saved before changes. An LC-3 already installed gains an unset hydrogen store link.
+
+### Compatibility and limits
+
+- The cell is not a way to make money. Oxygen sells back at 45 percent and ferrosilicon is worth 2 cr, so a lump's products never repay the lump; Silicates ore sells for far more raw than its oxygen is worth.
+- About half of what the cell draws warms its room, and a regolith lump lets 0.1 kg of carbon dioxide into the air. While working it can light a leaking fuel store in its room, like the refinery.
+- NASA Kennedy Space Center has demonstrated molten regolith electrolysis on lunar material. The lump's make-up, the 3.9 kg yield, the hour and the 60 kW are our figures. The real ferrosilicon process uses up caustic soda; ours keeps its caustic in the machine.
+- Sources: L. Sibille, S. S. Schreiner and J. A. Dominguez, Advanced Concepts for Molten Regolith Electrolysis, 2019; E. R. Weaver and others, The Ferrosilicon Process for the Generation of Hydrogen, NACA Report No. 40, 1920.
+- Checked offline; not yet seen in the game.
+
 ## [0.51.0] - 2026-10-05 - Draft
 
 ### Added

@@ -18,7 +18,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     /// <summary>Every snapshot group this provider reports; each has a "Group." name in the catalogue, registered with
     /// Framework so consoles that list every mod's equipment show them in our words.</summary>
-    internal static readonly string[] Groups = { "refinery", "leach", "acid-plant", "fermenter", "bottler", "processor", "filler", "regulator", "manifold", "feeder", "reactor", "cracker", "store" };
+    internal static readonly string[] Groups = { "refinery", "leach", "acid-plant", "fermenter", "electrolysis-cell", "bottler", "processor", "filler", "regulator", "manifold", "feeder", "reactor", "cracker", "store" };
     /// <summary>A link field: the linked object's name, every candidate and None, with the current link marked.</summary>
     internal static EquipmentField LinkField(string label, string prefix, string? peer, IEnumerable<CondOwner> candidates, Func<string>? note = null) =>
         LinkField(label, prefix, peer, candidates.Select(v => (v, ObjectPresentation.Name(v))), note);

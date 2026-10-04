@@ -22,6 +22,8 @@ public static class LeachRules
     public const string WaterPort = "PhobosManufacturing.LeachLink.water", AmmoniaPort = "PhobosManufacturing.LeachLink.ammonia", VesselPort = "PhobosManufacturing.LeachIn";
     /// <summary>The acid and hopper links (Manufacturing 0.20.0), on the same vessel-side port.</summary>
     public const string AcidPort = "PhobosManufacturing.LeachLink.acid", NutrientPort = "PhobosManufacturing.LeachLink.nutrients";
+    /// <summary>The hydrogen link (Manufacturing 0.52.0): the ferrosilicon charge sends its hydrogen to a linked store.</summary>
+    public const string HydrogenPort = "PhobosManufacturing.LeachLink.hydrogen";
     /// <summary>The game's own olivine ore (10 kg, 180 cr), the Epsom salt charge's feed.</summary>
     public const string Olivine = "ItmMineral02";
     /// <summary>The game's own gangue (3 kg), the gangue wash's feed (Manufacturing 0.44.0).</summary>
@@ -46,7 +48,7 @@ public static class LeachRules
     /// <summary>Own identities the feed admits at the game level, beside the game's ore rule (for the olivine); the
     /// container rule then admits only the selected recipe's exact feed.</summary>
     public static readonly string[] StockFeed = { Materials.EvaporiteCrust, Materials.PhosphateConcentrate, Materials.PotassiumSulfate, Materials.Struvite,
-        Materials.PhosphoricAcidFlask, Materials.EpsomSalt, Materials.AmmoniumSulfate };
+        Materials.PhosphoricAcidFlask, Materials.EpsomSalt, Materials.AmmoniumSulfate, Materials.Ferrosilicon };
     /// <summary>Every item identity the LC-3's recipes take: its own stock and the game's olivine.</summary>
     public static IEnumerable<string> FeedIds => StockFeed.Concat(new[] { Olivine, Gangue, Regolith });
 }
@@ -68,6 +70,8 @@ public static class LeachRecipes
     public static ChargeRecipe Epsom => ById("olivine-epsom")!;
     public static ChargeRecipe AcidStruvite => ById("struvite-acid")!;
     public static ChargeRecipe CropNutrients => ById("crop-nutrients")!;
+    /// <summary>Hydrogen from ferrosilicon and water (Manufacturing 0.52.0), after the silicol process.</summary>
+    public static ChargeRecipe FerrosiliconHydrogen => ById("ferrosilicon-hydrogen")!;
     public static ChargeRecipe? ByRevision(int revision) => View.ByRevision(revision);
     public static ChargeRecipe? ById(string? id) => View.ById(id);
     public static IEnumerable<ChargeRecipe> Available(bool agriculture, bool hoppers = false) => View.Available(Met(agriculture, hoppers));

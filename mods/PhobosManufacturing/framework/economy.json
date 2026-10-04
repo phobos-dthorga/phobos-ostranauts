@@ -106,6 +106,16 @@
       "restoreMinutes": 120,
       "internalBin": "PhobosFermenterStillInputBin"
     },
+    "PhobosElectrolysisCell": {
+      "notes": "Oxsmith EC-4 Electrolysis Cell (Manufacturing 0.52.0), 4 x 4, 420 kg: the dearest Manufacturing machine, for its cell, busbars and refractory; priced half again above the V4 (agent default, open to owner revision) and billed above it.",
+      "price": 96000,
+      "work": { "install": 2600, "uninstall": 2000, "repair": 7800, "dismantle": 2000 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 3, "ItmPartsMechSmall01": 8, "ItmPartsElecSmall01": 10, "ItmComponentMotor01": 3, "ItmComponentMobo01": 2, "ItmHeatSink01": 4, "ItmPartsScreen01": 1 },
+      "salvage": { "ItmScrapSteel": 260, "ItmScrapAluminum": 60, "ItmPartsMechSmall01": 30, "ItmPartsElecSmall01": 20, "ItmComponentMotor01": 4, "ItmComponentMobo01": 2, "ItmHeatSink01": 6, "ItmPartsScreen01": 1, "ItmScrapTrash": 49 },
+      "brokenSalvage": { "ItmScrapSteel": 230, "ItmScrapAluminum": 50, "ItmPartsMechSmall01": 14, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 2, "ItmHeatSink01": 2, "ItmScrapTrash": 122 },
+      "restoreMinutes": 180,
+      "internalBin": "PhobosElectrolysisCellInputBin"
+    },
     "PhobosBottlingUnit": {
       "notes": "Alembrine Corker-2 Bottling Unit (Manufacturing 0.40.0), 2 x 2, 90 kg: a dosing pump, a chiller and a filler. Priced below the L2 filling station, billed like the A2 regulator.",
       "price": 18000,
@@ -248,6 +258,7 @@
       "PhobosChemicalProcessor": "Trusted",
       "PhobosLeachUnit": "Trusted",
       "PhobosAcidPlant": "Trusted",
+      "PhobosElectrolysisCell": "Trusted",
       "PhobosAcidTank": "Friendly",
       "PhobosAcidLine": "Neutral",
       "PhobosEthanolTank": "Friendly",

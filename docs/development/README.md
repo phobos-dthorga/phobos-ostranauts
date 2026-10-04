@@ -80,6 +80,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Phobos Manufacturing: Fennmark artwork handoff](manufacturing-art-handoff.md)
 - [Oxsmith artwork handoff: EC-4 and CR-4](oxsmith-art-handoff.md)
 - [Uses for regolith: programme record](regolith-programme.md)
+- [Oxygen from rock: the Oxsmith EC-4 and CR-4 design record](regolith-oxygen-design.md)
 - [Phobos Manufacturing: first machining research](manufacturing-research.md)
 - [Phobos' War Has Been Declared: design and implementation record](war-declared-design.md)
 - [Hull disposal port and material routing](material-disposal-port-research.md)

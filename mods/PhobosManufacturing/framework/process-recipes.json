@@ -304,6 +304,34 @@
       "products": [ { "id": "PhobosEpsomSalt", "count": 4, "kg": 0.432 }, { "id": "PhobosNickelIronIngot", "count": 1, "kg": 4 }, { "id": "PhobosWashedTailings", "count": 17, "kg": 1 } ],
       "seconds": 1800,
       "reactionKWh": 0.66
+    },
+    "regolith-electrolysis": {
+      "notes": "Molten regolith electrolysis on the Oxsmith EC-4 (owner request, 5 October 2026; set 4 of the regolith programme). One 20 kg lump of the game's loose regolith is melted and split by direct current: oxygen leaves at the anode, iron and silicon collect as ferrosilicon at the cathode, and the oxides that hold their oxygen harder (magnesia, lime, alumina and the silica left over) stay as slag. NASA Kennedy Space Center's Swamp Works describes the process as the only one-step route to oxygen and metals, using no consumable reagents, at temperatures above 1600 C (L. Sibille, S. S. Schreiner and J. A. Dominguez, Advanced Concepts for Molten Regolith Electrolysis, 2019). The lump's composition is authored, chondrite-like: 0.4 kg of bound water and 0.1 kg of carbon dioxide (as in the V4's bake), then 5.457 kg of iron oxide as FeO and 5.045 kg of the silica reduced, and 9 kg of oxides left. FeO -> Fe + 1/2 O2 on 75.96 mol and SiO2 -> Si + O2 on 83.96 mol: 4.242 kg of iron and 2.358 kg of silicon as three 2.2 kg units of ferrosilicon (35.7 percent silicon), and 3.902 kg of oxygen, stated as 3.9 kg to a linked oxygen store (the slag carries the two grams). 19.5 percent of the lump leaves as oxygen; NASA's lunar work reports more than 20 percent by mass for carbothermal reduction and expects more from electrolysis, so this is a cautious figure for a rock whose composition is ours. The reductions absorb 272.0 and 910.9 kJ per mole (NIST-JANAF formation enthalpies of FeO and quartz at 298 K), 27.0 kWh of the charge's 60 kWh; the rest is the cell's losses and warms the room. One hour at 60 kW is authored. A supply charge: oxygen at the game's gas price, no profit claim.",
+      "machine": "electrolysis-cell",
+      "revision": 1,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 } ],
+      "products": [ { "id": "oxygen", "count": 1, "kg": 3.9 }, { "id": "water", "count": 1, "kg": 0.4 }, { "id": "PhobosFerrosilicon", "count": 3, "kg": 2.2 }, { "id": "PhobosRefinerySlag", "count": 9, "kg": 1 } ],
+      "offGas": { "CO2": 0.1 },
+      "seconds": 3600,
+      "reactionKWh": -27.0
+    },
+    "silicates-electrolysis": {
+      "notes": "Molten electrolysis of the game's Silicates ore on the Oxsmith EC-4 (see regolith-electrolysis for the process and its NASA Kennedy source). One 10 kg chunk, authored as dry iron-bearing silicate: 3.638 kg of iron oxide as FeO and 3.363 kg of silica are reduced, on 50.64 and 55.97 mol, into two 2.2 kg units of ferrosilicon and 2.601 kg of oxygen, stated as 2.6 kg to a linked oxygen store; 3 kg of oxides stay as slag (and carry the gram). The reductions absorb 18.0 kWh of the charge's 40 kWh. Forty minutes at 60 kW is authored. A supply charge: the ore sells for far more raw than its oxygen and ferrosilicon are worth, and the guides say so.",
+      "machine": "electrolysis-cell",
+      "revision": 2,
+      "inputs": [ { "id": "ItmMineral04", "count": 1, "kg": 10 } ],
+      "products": [ { "id": "oxygen", "count": 1, "kg": 2.6 }, { "id": "PhobosFerrosilicon", "count": 2, "kg": 2.2 }, { "id": "PhobosRefinerySlag", "count": 3, "kg": 1 } ],
+      "seconds": 2400,
+      "reactionKWh": -18.0
+    },
+    "ferrosilicon-hydrogen": {
+      "notes": "Hydrogen from ferrosilicon and water on the LC-3 (owner decision, 5 October 2026: ferrosilicon ships with a use), after the silicol process, which filled military balloons from ferrosilicon, sodium hydroxide and water (E. R. Weaver, W. M. Berry, V. L. Bohnson and B. D. Gordon, The Ferrosilicon Process for the Generation of Hydrogen, NACA Report No. 40, 1920). Si + 2 H2O -> SiO2 + 2 H2 on 83.96 mol of silicon in three 2.2 kg units (0.786 kg of silicon each): 3.025 kg of water drawn, stated as 3.024 kg, and 0.3385 kg of hydrogen, stated as 0.339 kg to a linked hydrogen store. The iron does not react in cold caustic; each unit leaves 1.414 kg of iron fines and 1.681 kg of silica as one 3.095 kg spent ferrosilicon, terminal. OUR SIMPLIFICATION, stated plainly: the real process consumes sodium hydroxide (Si + 2 NaOH + H2O -> Na2SiO3 + 2 H2), and no Phobos mod stores caustic soda. The recipe treats the LC-3's caustic liquor as a standing charge that is regenerated as the silicate drops out as silica, so only water is drawn. The reaction releases 339.2 kJ per mole of silicon (NIST-JANAF: quartz -910.9, liquid water -285.83 kJ/mol), 7.9 kWh, into the room. Twenty minutes at 12 kW is authored. A supply charge: the same hydrogen from a kilogram of water as the X2 gives, for about a quarter of the electricity, but the water's oxygen stays locked in the silica.",
+      "machine": "leach",
+      "revision": 15,
+      "inputs": [ { "id": "PhobosFerrosilicon", "count": 3, "kg": 2.2 }, { "id": "water", "count": 1, "kg": 3.024 } ],
+      "products": [ { "id": "hydrogen", "count": 1, "kg": 0.339 }, { "id": "PhobosSpentFerrosilicon", "count": 3, "kg": 3.095 } ],
+      "seconds": 1200,
+      "reactionKWh": 7.9
     }
   }
 }

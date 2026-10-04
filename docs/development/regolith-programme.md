@@ -50,7 +50,7 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 | 1 | Regolith leach on the LC-3, with an outcome table | Done: Manufacturing 0.50.0, odds 72/22/4/2 |
 | 2 | Volatile bake on the V4; baked regolith as a declared remainder | Done: Manufacturing 0.51.0, with set 3 |
 | 3 | Sintered pavers, the V4's regolith choice, the regolith floor twin | Done: Manufacturing 0.51.0. Paver priced 13 cr, not the tile's 21 (bought-stock rule). Paver art still to make: it shows the game's loose floor plate until then |
-| 4 | Oxsmith EC-4, ferrosilicon and its silicol use | Not started; opens with a design record |
+| 4 | Oxsmith EC-4, ferrosilicon and its silicol use | Done: Manufacturing 0.52.0 ([design record](regolith-oxygen-design.md)). Ferrosilicon is 2 cr; the hydrogen recipe keeps its caustic in the machine (agent choice, stated in the record) |
 | 5 | Carbon monoxide stores, the K2's second mode, Oxsmith CR-4 | Not started; opens with a design record |
 
 ## Unverified, and not to be cited until checked
@@ -58,14 +58,16 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 These figures came from memory or from planning notes with no recorded derivation. Each is
 checked against a primary source, or labelled authored, before any player text cites it:
 
-- 3.9 kg of oxygen from a 20 kg lump by molten regolith electrolysis (NASA Kennedy Space
-  Center work is named in the business record as "to cite").
-- The lump's assumed composition (bound water, silica, magnesia, iron oxide, metal grains,
-  sulfide), described as chondrite-like.
+- Settled in the [design record](regolith-oxygen-design.md), 5 October 2026: the 3.9 kg of
+  oxygen from a lump is **authored**, from an authored composition; the NASA Kennedy source
+  was read and gives the process, not a yield. The silicol source (NACA Report No. 40) was
+  read in summary only.
+- The lump's composition for the leach (olivine share, metal grains, sulfide) is still ours
+  and unsourced.
 - The carbothermal extraction share and its loop figures (NASA Carbothermal Reduction
   Demonstration reports are linked in the feedstock gaps record but were not re-read).
-- Sintering temperature, the share of metal grains an acid leach frees, the silicol
-  reaction's yield, and the reaction enthalpies used for energy budgets.
+- Sintering temperature, the share of metal grains an acid leach frees, and the heat
+  capacity used for the bake's energy budget.
 
 ## Known consequences
 

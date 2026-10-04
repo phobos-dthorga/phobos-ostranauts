@@ -28,8 +28,8 @@ internal static class LeachChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(recipe.Solids(recipe.Products).Count(p => Materials.IsTerminal(p.Id)) <= 1, "At most one terminal remainder per feed: " + recipe.Id);
         }
-        check(LeachRecipes.All.Select(r => r.Revision).OrderBy(r => r).SequenceEqual(Enumerable.Range(1, 14)), "Fourteen revisions of its own, 1 to 14 (the gangue wash and its outcomes are 7 to 10, the regolith leach and its outcomes 11 to 14)");
-        check(LeachRecipes.Available(false).Count() == 6 && LeachRecipes.Available(true).Count() == 7 && LeachRecipes.Available(true, true).Count() == 8 &&
+        check(LeachRecipes.All.Select(r => r.Revision).OrderBy(r => r).SequenceEqual(Enumerable.Range(1, 15)), "Fifteen revisions of its own, 1 to 15 (the gangue wash and its outcomes are 7 to 10, the regolith leach and its outcomes 11 to 14, hydrogen from ferrosilicon 15)");
+        check(LeachRecipes.Available(false).Count() == 7 && LeachRecipes.Available(true).Count() == 8 && LeachRecipes.Available(true, true).Count() == 9 &&
               !LeachRecipes.Available(false).Contains(LeachRecipes.Makeup) && !LeachRecipes.Available(true).Contains(LeachRecipes.CropNutrients),
             "Without Agriculture neither formulation is available, and crop nutrients need its hoppers");
 

@@ -1489,8 +1489,8 @@
             "PhobosLeachUnitInstalled",
             "PhobosLeachUnitInstalledDmg"
           ],
-          "function": "A 3 x 3 leach tank and closed crystalliser from Lixivar, a new brand for hydrometallurgy. The crew chooses one of six recipes at 12 kW: an evaporite crust in 20 kg of circulating water to 0.70 kg of potassium sulfate, 0.25 kg of phosphate concentrate, a 6.8 kg leached residue and a 2.25 kg brine salt cake (one hour; the water comes back); a phosphate concentrate with 30 g of ammonia and 0.22 kg of water to 0.43 kg of struvite and 70 g of caustic remainder (five minutes); with Phobos Agriculture, one potassium sulfate and two struvite to 39 Groundwork makeup salts packets (two and a half minutes); one of the game's olivine chunks with 8.64 kg of sulfuric acid and 9.52 kg of water to 32 Epsom salt and a 14.33 kg olivine leach cake (one hour, about 1.3 kWh of reaction heat into the room); one phosphoric acid flask and three Epsom salt with 0.27 kg of ammonia to three struvite, three ammonium sulfate and 94 g of water back to the vessel (ten minutes); and, with Agriculture 0.27.0 or newer, one each of potassium sulfate, struvite, Epsom salt and ammonium sulfate with 0.25 kg of ammonia and 0.73 kg of acid to 2.77 kg of crop nutrients in a linked nutrient hopper (five minutes).",
-          "use": "Install through APPS within one tile of a water vessel (S3 or R3) and, as the recipes need them, an ammonia store, an acid tank and a Groundwork nutrient hopper; connect power; on its panel or C1 link them and choose the recipe; load that recipe's charge into its feed (the Inventory opens the tray and the feed), then Start. It works the next charge of the same recipe when one is in the feed. Change the recipe only while no charge is bound. See [the player guide](manufacturing-player-guide.md).",
+          "function": "A 3 x 3 leach tank and closed crystalliser from Lixivar, a new brand for hydrometallurgy. The crew chooses one of six recipes at 12 kW: an evaporite crust in 20 kg of circulating water to 0.70 kg of potassium sulfate, 0.25 kg of phosphate concentrate, a 6.8 kg leached residue and a 2.25 kg brine salt cake (one hour; the water comes back); a phosphate concentrate with 30 g of ammonia and 0.22 kg of water to 0.43 kg of struvite and 70 g of caustic remainder (five minutes); with Phobos Agriculture, one potassium sulfate and two struvite to 39 Groundwork makeup salts packets (two and a half minutes); one of the game's olivine chunks with 8.64 kg of sulfuric acid and 9.52 kg of water to 32 Epsom salt and a 14.33 kg olivine leach cake (one hour, about 1.3 kWh of reaction heat into the room); one phosphoric acid flask and three Epsom salt with 0.27 kg of ammonia to three struvite, three ammonium sulfate and 94 g of water back to the vessel (ten minutes); and, with Agriculture 0.27.0 or newer, one each of potassium sulfate, struvite, Epsom salt and ammonium sulfate with 0.25 kg of ammonia and 0.73 kg of acid to 2.77 kg of crop nutrients in a linked nutrient hopper (five minutes). Since Manufacturing 0.52.0 it also turns three ferrosilicon and 3.02 kg of water into 0.339 kg of hydrogen for a linked hydrogen store, leaving three spent ferrosilicon (twenty minutes, about 7.9 kWh of reaction heat into the room).",
+          "use": "Install through APPS within one tile of a water vessel (S3 or R3) and, as the recipes need them, an ammonia store, an acid tank, a hydrogen store and a Groundwork nutrient hopper; connect power; on its panel or C1 link them and choose the recipe; load that recipe's charge into its feed (the Inventory opens the tray and the feed), then Start. It works the next charge of the same recipe when one is in the feed. Change the recipe only while no charge is bound. See [the player guide](manufacturing-player-guide.md).",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
           "notes": "A charge that was running carries on after a reload. Nothing melts or spoils in it, and it breathes nothing into the room; 15 percent of its electricity warms the room. The crust's and the olivine's make-up, the Epsom yield, the blend's nitrogen level and the recipes' energies are authored; the reactions and sources are in the refinery design record. Empty the tray by hand.",
           "guide": "manufacturing-player-guide.md",
@@ -1510,6 +1510,23 @@
           "use": "Install through APPS within one tile of an oxygen store, a water vessel and an acid tank; connect power; link all three on its panel or C1; load nodules into its feed (it holds two), then Start. Give it a large, cooled room: it waits whenever the room would pass 40 C. See [the player guide](manufacturing-player-guide.md).",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
           "notes": "A charge that was running carries on after a reload. It breathes nothing into the room, but its heat is real and, like every Phobos machine, it does not work in vacuum. The nodule's make-up and the plant's energy are authored; the reactions and sources are in the refinery design record.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "ec4",
+          "title": "EC-4 Electrolysis Cell",
+          "ids": [
+            "PhobosElectrolysisCellLoose",
+            "PhobosElectrolysisCellLooseDmg",
+            "PhobosElectrolysisCellInstalled",
+            "PhobosElectrolysisCellInstalledDmg"
+          ],
+          "function": "A 4 x 4 molten-rock electrolysis cell from Oxsmith, a new brand for high-temperature oxygen plant. At 60 kW it melts one charge and splits it with current: a 20 kg lump of the game's loose regolith gives 3.9 kg of oxygen for a linked oxygen store, 0.4 kg of water for a linked water vessel, three ferrosilicon and nine refinery slag in an hour; a 10 kg chunk of the game's Silicates ore gives 2.6 kg of oxygen, two ferrosilicon and three slag in forty minutes. It uses no reagents. About half of what it draws warms the room, and a lump lets 0.1 kg of carbon dioxide into the air.",
+          "use": "Install through APPS with its back to a powered wall row, touching an oxygen store and a water vessel or joined to them by gas and water line; link both on its panel or C1; load loose regolith or Silicates ore into its Inventory (the feed holds two), then Start. It chooses the charge from what is loaded. Optional: a material bin under Take feed from, and a crate under Send products to. See [the player guide](manufacturing-player-guide.md).",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
+          "notes": "A charge that was running carries on after a reload. A cell kept waiting for a cooler room freezes and melts again with nothing lost. While working it can light a leaking fuel store in its room, like the refinery, and like every Phobos machine it does not work in vacuum. Not a way to make money: oxygen sells back at 45 percent and ferrosilicon is worth 2 cr, so a lump's products never repay the lump, and Silicates ore sells for far more raw. NASA Kennedy Space Center has demonstrated molten regolith electrolysis on lunar material; the lump's make-up, the yield, the hour and the 60 kW are authored. Sources are in the oxygen-from-rock design record.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1864,6 +1881,20 @@
           "labels": {}
         },
         {
+          "key": "ferrosilicon",
+          "title": "Ferrosilicon",
+          "ids": [
+            "PhobosFerrosilicon"
+          ],
+          "function": "2.2 kg of iron-silicon metal (1.414 kg of iron, 0.786 kg of silicon) tapped from an Oxsmith EC-4: three from a regolith lump, two from a Silicates ore chunk.",
+          "use": "Choose hydrogen from ferrosilicon on an LC-3 with a hydrogen store and a water vessel linked, and load three: 3.02 kg of water becomes 0.339 kg of hydrogen in the store, leaving three spent ferrosilicon. It can also be sold, for very little.",
+          "find": "Made in the EC-4. Never sold in shops.",
+          "notes": "Priced at 2 cr so that a regolith lump's oxygen, water and ferrosilicon sold back never repay the lump a prospector sells. The hydrogen recipe follows the silicol process, which really consumes caustic soda; ours keeps its caustic in the machine, an authored simplification.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "phosphoric-flask",
           "title": "Phosphoric acid flask",
           "ids": [
@@ -1922,11 +1953,12 @@
             "PhobosPlantAsh",
             "PhobosSpentMash",
             "PhobosWashedTailings",
-            "PhobosBakedRegolith"
+            "PhobosBakedRegolith",
+            "PhobosSpentFerrosilicon"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them. Baked regolith (19.5 kg: a regolith lump with its water baked out by the V4) is the newest; it keeps the game's regolith picture.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them. Baked regolith (19.5 kg: a regolith lump with its water baked out by the V4) keeps the game's regolith picture. Spent ferrosilicon (3.095 kg: the iron fines and silica the LC-3 leaves of a ferrosilicon unit once its silicon has made hydrogen) is the newest. The EC-4 also leaves refinery slag.",
           "use": "Feed them to a Slingwright RM-1 reaction mass feeder, which grinds them into thrust for the RCS. They can still be sold or discarded.",
-          "find": "Left in the V4, LC-3, SA-3 or fermenter-still inventory by their charges. Never sold.",
+          "find": "Left in the V4, LC-3, SA-3, EC-4 or fermenter-still inventory by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1995,11 +2027,12 @@
             "PhobosVolatilesRefineryInputBin",
             "PhobosLeachUnitInputBin",
             "PhobosAcidPlantInputBin",
-            "PhobosFermenterStillInputBin"
+            "PhobosFermenterStillInputBin",
+            "PhobosElectrolysisCellInputBin"
           ],
-          "function": "The V4's, the LC-3's, the SA-3's and the fermenter-still's charge feeds, named child inventories built into the machines. Not separate products.",
-          "use": "Put the charge in the machine's Inventory and press Start: the machine takes one exact charge into this compartment and Cancel puts it back. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). The SA-3 takes sulfide nodules only; the fermenter-still takes six sugar beets or six beet sugar packets. Each binds one exact charge at a time.",
-          "find": "Inside the V4, the LC-3, the SA-3 or the fermenter-still; the game does not show it as a window.",
+          "function": "The V4's, the LC-3's, the SA-3's, the fermenter-still's and the EC-4's charge feeds, named child inventories built into the machines. Not separate products.",
+          "use": "Put the charge in the machine's Inventory and press Start: the machine takes one exact charge into this compartment and Cancel puts it back. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). The SA-3 takes sulfide nodules only; the fermenter-still takes six sugar beets or six beet sugar packets. The EC-4 takes one lump of loose regolith or one chunk of Silicates ore. Each binds one exact charge at a time.",
+          "find": "Inside the V4, the LC-3, the SA-3, the fermenter-still or the EC-4; the game does not show it as a window.",
           "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract.",
           "guide": "manufacturing-player-guide.md",
           "internal": true,

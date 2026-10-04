@@ -16,6 +16,8 @@ public static class ChargeCatalog
 {
     public const string Schema = RecipeSchema.Name, Resource = "PhobosManufacturing.process-recipes.json", FrozenResource = "PhobosManufacturing.frozen-process-recipes.json";
     public const string Refinery = "refinery", Leach = "leach", AcidPlant = "acid-plant", Fermenter = "fermenter";
+    /// <summary>The Oxsmith EC-4 (Manufacturing 0.52.0).</summary>
+    public const string ElectrolysisCell = "electrolysis-cell";
     public const string SteelStockRequirement = "shipbreaker-steel-stock", MakeupRequirement = "agriculture-makeup", CropNutrientsRequirement = "agriculture-crop-nutrients";
     /// <summary>The straw-bale charges (Manufacturing 0.37.0) need Agriculture 0.44.0's bale.</summary>
     public const string StrawRequirement = "agriculture-straw";
@@ -27,7 +29,8 @@ public static class ChargeCatalog
         [Refinery] = RefineryRules.Prefix,
         [Leach] = LeachRules.Prefix,
         [AcidPlant] = AcidPlantRules.Prefix,
-        [Fermenter] = FermenterRules.Prefix
+        [Fermenter] = FermenterRules.Prefix,
+        [ElectrolysisCell] = ElectrolysisRules.Prefix
     };
     /// <summary>Feature keys a recipe may require; the owner resolves each at load.</summary>
     /// <summary>Optional recipes (Manufacturing 0.51.0): a recipe that requires <c>chosen-&lt;its own id&gt;</c> is available
