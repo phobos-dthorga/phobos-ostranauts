@@ -77145,8 +77145,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "550b62a0dc954fa3b56ce30c501b1ebfffe5f67797080b789e414d7aa6f1eeef",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "9d28c4e5c1cd6cfda465e9e357357a1f333b319d98f14691ab13b12b77ecceaa",
+      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -78119,8 +78119,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8fca79cd1f60e3208621c85880fce1d4675b792cb63f427a304ff7ee8dd3ed07",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "358a78e8865b5a79b9a9a6b961820a32da38762248ddb6642db9506d41ee89f1",
+      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -78294,8 +78294,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "137c26c267d46f6793d7d0e7437a969816f6c1429c2caf983c4568a995996a2a",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "7b0f8b2d4a209614aeaeb6ee72f0d2c2539743d24aeb9ad1c64bdc071ee317ff",
+      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -78400,13 +78400,6 @@
       "scope": "current player operating guide",
       "decision": "new",
       "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
-    },
-    {
-      "path": "examples/addons/PhobosExampleDocksideExtras/README.md",
-      "scope": "current player operating guide",
-      "decision": "new",
-      "sha256": "f042ed55d64ca2e5ad3a1540dc5b1c0bb3057a301fceac25fd47ca7c8638bdf4",
       "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     }
   ],
@@ -78528,6 +78521,13 @@
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
       "sha256": "ea269a832093709c1cb726b73166376eaaf6280c2d42083bb0946ac6adafd157",
       "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+    },
+    {
+      "path": "examples/addons/PhobosExampleDocksideExtras/README.md",
+      "scope": "add-on example readme (published with the example, outside docs)",
+      "decision": "new",
+      "sha256": "f042ed55d64ca2e5ad3a1540dc5b1c0bb3057a301fceac25fd47ca7c8638bdf4",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     }
   ],
   "hardcodedReview": {
