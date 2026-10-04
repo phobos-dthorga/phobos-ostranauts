@@ -202,8 +202,9 @@ holding water refuses **Dismantle** when the work is offered, and a protected
 silo refuses uninstalling too; send the water away or accept the records first.
 A silo destroyed with water inside loses that water; the log records it.
 
-The T2 keeps each block's progress on the block itself. Reload pauses the
-unit; Start, the C1 or a crew loading order resumes it. Cancel puts the ice
+The T2 keeps each block's progress on the block itself. After a reload, a unit
+that was running when you saved carries on by itself; one that was paused waits
+for Start, the C1 or a crew loading order. Cancel puts the ice
 back in the inventory and forgets its progress.
 
 ## Heat and power

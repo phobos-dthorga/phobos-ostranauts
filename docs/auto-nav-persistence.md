@@ -2,7 +2,8 @@
 
 Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
 N2 instrument, shared predictive guidance and moving-target docking hold. Its
-pursuit modes always suspend after reload; fire authority is never saved. Earlier
+pursuit modes always suspend after reload; fire authority is never saved. A
+docking approach now carries on after a reload like an ordinary flight. Earlier
 version descriptions below remain useful background where not superseded.
 
 Auto Nav 0.10.0 also checks [current braking room](auto-nav-flight-profiles.md)
@@ -17,10 +18,12 @@ budget, and requires explicit Resume after recovery. No saved reading is trusted
 as current; the existing schema and Framework envelope are unchanged.
 
 Auto Nav 0.8.0 additionally saves [docking intent and exact port pairs](auto-nav-docking.md).
-Docking always suspends after reload for explicit Resume, with current clearance
-and port checks. Its new lifecycle names prevent an earlier plugin from treating
-a docking record as an ordinary approach. The automatic restoration described
-below continues to apply to ordinary Fly missions.
+Since Auto Nav 0.33.0 a docking approach (Dock, and Approach & Dock) that was
+running when you saved carries on after a reload, once its current clearance
+and port checks pass; a failed check leaves it suspended for Resume. Its
+lifecycle names prevent an earlier plugin from treating a docking record as an
+ordinary approach. The automatic restoration described below applies to
+ordinary Fly missions and to docking alike.
 
 Prepared against Ostranauts 1.0.1.5 and BepInEx 5.4.23.5, with Phobos Framework
 0.11.0. Builds and automated checks are not in-game validation.
@@ -50,7 +53,7 @@ alignment and legality are recomputed after loading. Reactor save DTOs contain
 idle flight controls and controlled-ship physics omits vAccIn; live state is
 untouched. See [torch persistence and operation](auto-nav-torch.md).
 
-Set `Persistence.ResumeAfterLoad = false` to restore active flights suspended.
+Set `Persistence.ResumeAfterLoad = false` to restore active flights and docking suspended.
 A blocked flight also becomes suspended, with a reason in the panel/status.
 Resolve the reason and choose **Resume** or use `phobosnav resume`. Failed checks
 do not periodically retry and take control later. Multiple active records on one

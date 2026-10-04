@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.50.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Grow racks, the Hearth-2 cooker, the W2 water supply and the B2 bench carry on after loading a save if they were working when it was made: crops keep growing, a portion keeps cooking, and receiving and pumping water continue. A damaged or uninstalled machine stays stopped.
+
+### Save compatibility
+
+- Automatic. A save made before this version holds no record of what was running, so machines wait for Start once more after the first load; from the next save on they carry on.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.95.0 or newer. Turn the behaviour off with ResumeAfterLoad in the Framework configuration file.
+- Collecting a Ship's Water recycler's wet rejects still has to be enabled again after loading.
+- Checked offline; not yet seen in the game.
+
 ## [0.49.0] - 2026-10-05 - Draft
 
 ### Changed

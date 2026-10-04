@@ -166,13 +166,14 @@ internal static class FillerService
     }
     // Written only when it changes: an idle machine reaches this on every power step.
     private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Filling) != value) co.SetCondAmount(ManufacturingRules.Filling, value ? 1 : 0); }
-    internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
+    /// <summary>afterLoad: the one start a machine that was running gets after a reload, where no crew member need stand by.</summary>
+    internal static bool Start(CondOwner co, ConsoleBinding? binding = null, bool afterLoad = false)
     {
         var s = Get(co);
-        string? problem = Content.Access(co, binding) ?? MachineProblem(co);
+        string? problem = (afterLoad ? null : Content.Access(co, binding)) ?? MachineProblem(co);
         if (problem != null) { s.Status = problem; return false; }
         if (s.Protected) { s.Status = Text.Get("Filler.protected"); return false; }
-        s.LastStop = null; s.NeedsAttention = false; s.Running = true; s.NextCheck = 0;
+        s.LastStop = null; s.NeedsAttention = false; s.Running = true; Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, true); s.NextCheck = 0;
         s.Status = Text.Get(s.State.Mode == FillerMode.Decant ? "Filler.armed_decant" : "Filler.armed_fill");
         // A quiet cue when this fill run finishes, for the crew member who started it.
         var actor = CrewWork.Actor ?? CrewSim.GetSelectedCrew();
@@ -191,7 +192,7 @@ internal static class FillerService
     }
     private static void Stop(CondOwner co, Session s, string message, bool needsAttention = true)
     {
-        s.LastStop = message; s.NeedsAttention = needsAttention; s.Running = false; s.HeatWait = false; s.Status = message; SetWorking(co, false);
+        s.LastStop = message; s.NeedsAttention = needsAttention; s.Running = false; Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, false); s.HeatWait = false; s.Status = message; SetWorking(co, false);
         s.Watch.Cancel();
     }
     internal static void Fault(CondOwner co, Exception ex) { var s = Get(co); Stop(co, s, Text.Get("Filler.fault")); Plugin.Log(ex.ToString()); }
@@ -199,7 +200,13 @@ internal static class FillerService
     /// <summary>Before the native power step: work only while there is something to move.</summary>
     internal static void BeforePower(CondOwner co)
     {
-        if (!sessions.TryGetValue(co, out var s) || !s.Running) { SetWorking(co, false); return; }
+        if (!sessions.TryGetValue(co, out var s) || !s.Running)
+        {
+            // Work that was running when the game was saved carries on (Manufacturing 0.47.0), through Start's own checks.
+            if (!Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co)) { SetWorking(co, false); return; }
+            if (!Start(co, null, afterLoad: true)) { Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, false); SetWorking(co, false); return; }
+            s = Get(co); s.Status = Text.Get("Content.resumed");
+        }
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Filler.protected")); return; }

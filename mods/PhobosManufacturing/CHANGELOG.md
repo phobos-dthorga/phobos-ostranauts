@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.47.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The V4, LC-3, SA-3, fermenter-still, X2, K2, AX-2, L2 filling station and Corker-2 bottler carry on after loading a save if they were working when it was made. A bound charge resumes from its saved progress, and a started machine waiting for feed goes back to waiting. A failed check leaves the machine stopped with the reason.
+
+### Save compatibility
+
+- Automatic. A save made before this version holds no record of what was running, so machines wait for Start once more after the first load; from the next save on they carry on.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.95.0 or newer. Turn the behaviour off with ResumeAfterLoad in the Framework configuration file.
+- Checked offline; not yet seen in the game.
+
 ## [0.46.0] - 2026-10-05 - Draft
 
 ### Changed

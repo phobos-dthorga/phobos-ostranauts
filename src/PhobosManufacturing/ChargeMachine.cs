@@ -359,7 +359,26 @@ internal sealed class ChargeMachine
         Plugin.Log(ex.ToString());
     }
 
+    /// <summary>The step before the game's power call. A machine that was started when the game was saved is armed again
+    /// once after the load (Manufacturing 0.47.0; owner decision, 5 October 2026): a retained charge resumes exactly, an
+    /// armed machine goes back to waiting for feed, and a machine whose checks fail stays stopped with the reason. The
+    /// saved mark follows whether the player's Start still stands.</summary>
     internal void BeforePower(CondOwner co)
+    {
+        if (Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co))
+        {
+            var resumed = Get(co);
+            if (!resumed.State.Running && !resumed.AwaitingFeed && !resumed.VesselWait)
+            {
+                string? problem = MachineProblem(co);
+                if (problem != null || resumed.Protected) Stop(co, resumed, problem ?? T("protected"));
+                else { resumed.LastStop = null; resumed.NeedsAttention = false; resumed.AwaitingFeed = true; resumed.Status = Text.Get("Content.resumed"); }
+            }
+        }
+        Step(co);
+        if (sessions.TryGetValue(co, out var s)) Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(co, s.State.Running || s.AwaitingFeed || s.VesselWait);
+    }
+    private void Step(CondOwner co)
     {
         if (!sessions.TryGetValue(co, out var s)) { SetWorking(co, false); return; }
         // Rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.

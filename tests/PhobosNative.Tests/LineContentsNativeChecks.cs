@@ -33,6 +33,9 @@ internal static class LineContentsNativeChecks
                 "A line action is crew work at the line, taking time: " + action);
         }
 
+        // The saved mark of running work (Framework 0.95.0) is a real, hidden condition, so the game saves it with the machine.
+        check(framework.Conditions.TryGetValue(Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Condition, out var resume) && resume.nDisplaySelf == 2 && resume.nDisplayOther == 2,
+            "Framework registers the hidden mark that lets a machine carry on after a reload");
         var co = framework.Objects[DrainCanisterRules.Id]; var item = framework.Items[co.strItemDef];
         check(co.strNameFriendly == "Phobos' Rivetline D20 Drain Canister", "The canister carries the Rivetline D20 name");
         check(co.nStackLimit == 1 && co.aStartingConds.Contains(DrainCanisterDefinitions.Marker + "=1x1") && co.aStartingConds.Contains("IsPocketable=1x1") &&

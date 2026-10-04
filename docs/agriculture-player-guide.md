@@ -215,7 +215,7 @@ F3 uses ordinary access and resource checks.
 ## Interruptions and maintenance
 
 Reload keeps crop identity, health, material, growth, growth rate set at planting and the bound
-cooking portion. **Resume cultivation/cooking and receiving separately.** No growth is added for time outside the running simulation. Loaded, stopped or damaged plants still
+cooking portion. **Cultivation, cooking and receiving that were running when you saved carry on by themselves; anything stopped stays stopped, and a failed check leaves it stopped with the reason shown** (see [machines carry on after a reload](player-guide.md#machines-carry-on-after-a-reload)). No growth is added for time outside the running simulation. Loaded, stopped or damaged plants still
 respire and deteriorate; unloaded ship time is not simulated in this candidate.
 Continuous shortages have a two-hour grace, then progressive stress. Restoring
 conditions stops further stress but does not magically restore lost health.

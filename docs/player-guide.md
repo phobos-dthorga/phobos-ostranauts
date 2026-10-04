@@ -17,8 +17,8 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.94.0**, Shipbreaker **0.76.0**, Auto Nav
-**0.32.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.95.0**, Shipbreaker **0.77.0**, Auto Nav
+**0.33.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -83,6 +83,24 @@ no wall behind it, run conduit along that row. Exceptions: the F6 furnace keeps 
 two front power points; the G4 grabber and ML-2 laser, mounted outside the hull,
 take power from the wall row on the hull side; the C2 collector, set into the wall,
 from its own tiles.
+
+## Machines carry on after a reload
+
+Work that was running when you saved carries on by itself after a reload (since
+Framework 0.95.0). That covers the D4, R4, T2, mining laser and a G4 reclamation
+mission, Manufacturing's refinery, leach unit, acid plant, fermenter-still, X2,
+K2, AX-2, filling station and bottler, and Agriculture's grow racks, cooker, W2
+and B2 bench. Each machine picks up from its saved progress once its usual checks
+pass. If a check fails it stays stopped and says why; fix that and press Start.
+A machine that was paused or stopped when you saved stays stopped.
+
+Two things still wait for you: a hot **F6 furnace** batch always pauses for
+Resume, and Auto Nav's **Rendezvous** and **Follow** suspend after loading.
+
+To have machines wait for Start as before, close the game and set
+`ResumeAfterLoad` to `false` under `[Persistence]` in
+`BepInEx/config/phobosgekko.ostranauts.framework.cfg`. Auto Nav's flights and
+docking follow Auto Nav's own `ResumeAfterLoad` setting instead.
 
 ## Machine heat
 
@@ -262,8 +280,9 @@ hull the G4 has captured. It leaves what falls for the crew to fetch.
 
 Pause retains panel work. Cancel resets work on panels already inside the
 processor without deleting them. On reload, panel recipe, progress and duration remain,
-and the collector keeps its selected partner, but both systems wait for you to
-start them. Short transfer timers reset; their physical cargo stays at the sender.
+and the collector keeps its selected partner. Whatever was running when you saved
+[carries on by itself](#machines-carry-on-after-a-reload); whatever was paused
+waits for you to start it. Short transfer timers reset; their physical cargo stays at the sender.
 Full output waits with cargo retained. Nothing processes while its ship is unloaded.
 
 Change settings with the game closed, then restart. Shipbreaker uses
@@ -321,7 +340,8 @@ protected hull clearance, matches motion, then checks the RCS terminal handoff.
 A failed handoff suspends with its reason and requires Resume. Ordinary Approach
 does not dock. See [docking operation](auto-nav-docking.md).
 
-Pursuit and both docking phases suspend after loading. No fire permission or live
+Pursuit (Rendezvous and Follow) suspends after loading; both docking phases
+carry on like an ordinary flight once their checks pass. No fire permission or live
 thrust is saved; page changes and display refresh cannot authorize actions.
 [Qualified sensor contact](auto-nav-sensors.md) is required throughout. Missing
 measurements are unavailable, not zero. Saved flights keep their exact hardware,
@@ -348,7 +368,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.76.0 requires Framework 0.94.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.77.0 requires Framework 0.95.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

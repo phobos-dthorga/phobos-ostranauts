@@ -38,6 +38,7 @@ BulkVesselChecks.Run(Check);
 CrewWorkChecks.Run(Check);
 ReactorChecks.Run(Check);
 RoomHeatChecks.Run(Check);
+ResumeAfterLoadChecks.Run(Check);
 GasCanisterChecks.Run(Check);
 PropellantChecks.Run(Check);
 VesselSizeChecks.Run(Check);

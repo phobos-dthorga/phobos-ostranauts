@@ -44,7 +44,8 @@ flowchart LR
 5. Remove the products. Each stage needs output space in addition to its retained
    inputs. A full bin pauses with selected inputs and completed work intact. Cancel
    while paused to release a job; cancellation forfeits completed work, never duplicates
-   ingredients. Reload retains the job but requires explicit Resume.
+   ingredients. Reload retains the job; work that was running when you saved
+   carries on, and a paused job stays paused.
 
 Each stage requires 0.02 kWh/kg of its primary input, with a 0.001 kWh minimum.
 Received energy heats the room through the existing Agriculture power path.
@@ -117,7 +118,7 @@ unpaired-circuit rules. Start blending and distribution normally.
 
 Selection stores the full item identity. W2 never silently selects another
 packet after removal or exhaustion. The panel reports grams and percentage
-remaining; choose another charge explicitly. Dosing needs power, water and room for the mixed solution. Pausing or reloading stops consumption.
+remaining; choose another charge explicitly. Dosing needs power, water and room for the mixed solution. Pausing stops consumption; after a reload, a W2 that was running when you saved carries on.
 Existing numeric nutrients and manual whole-packet loading remain supported.
 
 Depletion reduces physical mass and base value. Charge records are separate

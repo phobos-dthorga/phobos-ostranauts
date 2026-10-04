@@ -74,9 +74,11 @@ named-test-save requirement for the current suite.
 - **Stop / Coast is not emergency braking.** Auto Nav clears thrust; the ship
   keeps moving. Fly stops short; Dock is separate. There is no obstacle avoidance
   or continuous position holding.
-- **Processing and receiving are separate permissions.** Both pause after reload.
-  Saved links do not grant permission to restart. Auto Nav has a separate
-  validated flight-restoration policy; docking suspends.
+- **Processing and receiving are separate permissions.** After a reload, whatever
+  was running when you saved carries on by itself and whatever was stopped stays
+  stopped; a hot F6 furnace batch always waits for Resume. Auto Nav flights and
+  docking follow its own setting; Rendezvous and Follow suspend. See
+  [machines carry on after a reload](player-guide.md#machines-carry-on-after-a-reload).
 - **Nothing grants perfect recycling.** Rejects remain, cooling is finite, and
   agriculture consumes inputs. Growth speed, yields and simplified chemistry
   are gameplay choices made for this mod.

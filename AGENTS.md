@@ -852,6 +852,21 @@
   the machine's own tiles. `PowerPointNativeChecks` holds every powered Phobos machine to
   it; the exceptions are explicit (F6 front points, G4/ML-2 hull mounts on the hull side,
   the C2 set into the wall).
+- Owner decision (2026-10-05): **work that was running when the game was saved carries on
+  after a reload.** This supersedes the pause-on-reload rule for processing machines in
+  every mod, the ML-2 laser, G4 reclamation missions and Auto Nav docking approaches, as
+  the 30 September decision did for belt routes. Still explicit: the F6 furnace's hot
+  batch and repeat runs, Auto Nav Rendezvous and Follow, a bare G4 capture approach, the
+  recycler wet-reject capture, and fire authority (never saved). Framework 0.95.0
+  `Persistence.ResumeAfterLoad` keeps one hidden saved condition on the machine while the
+  player's Start stands (`Mark`, or `Sync` each step; `Flags` for a machine with more
+  than one thing to carry on) and offers each marked machine once per load (`Due`), when
+  loading has finished and its ship is loaded. The owner then starts it through its own
+  checks, never by replaying work, and a failed check leaves it stopped with the reason.
+  A crew-access check is not part of a resume. Players turn it off with
+  Persistence/ResumeAfterLoad; Auto Nav keeps its own setting. New machines use this
+  from their first version; older "pauses on reload" wording elsewhere in this file is
+  history where it names one of the machines above.
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.

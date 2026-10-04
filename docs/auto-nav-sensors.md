@@ -198,7 +198,7 @@ interlocks retain their existing stop policies.
 After loading, an ordinary active flight follows `ResumeAfterLoad` only after
 fresh sensing and all other validation succeed. A failed contact check records
 suspension. Flights already suspended remain so even on a later reload with
-good contact. Docking continues to require explicit Resume after every reload.
+good contact. Docking follows the same rule (since Auto Nav 0.33.0).
 No contact reading or burn permission is restored from a save. Existing schema-1
 flight records and item identifiers remain compatible; unsupported records stay
 protected by Framework storage.

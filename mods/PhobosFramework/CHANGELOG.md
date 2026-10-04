@@ -26,6 +26,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.95.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Machines that were working when the game was saved carry on after loading, instead of waiting for you to press Start or Resume. Each one runs its own checks first; if a check fails it stays stopped and says why. A machine that was paused or stopped when you saved stays that way.
+
+### Added
+
+- A setting, ResumeAfterLoad under Persistence in the Framework configuration file. Set it to false to make machines wait for Start after loading, as before.
+
+### Save compatibility
+
+- Automatic. A save made before this version holds no record of what was running, so machines wait for Start once more after the first load; from the next save on they carry on.
+
+### Compatibility and limits
+
+- The F6 furnace still waits for Resume after loading. Auto Nav flights and docking follow Auto Nav's own setting.
+- Checked offline; not yet seen in the game.
+
 ## [0.94.0] - 2026-10-05 - Draft
 
 ### Changed

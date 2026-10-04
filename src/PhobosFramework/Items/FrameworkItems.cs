@@ -22,6 +22,8 @@ public static class FrameworkItems
         SharedLines.DeclareHoldUps();
         Liquids.LineContents.AddActions(d);
         DrainCanisterDefinitions.Add(d);
+        // The saved mark of running work (Framework 0.95.0): machines carry on after a reload.
+        Persistence.ResumeAfterLoad.Add(d);
         SharedLines.Add(d);
         // Owner direction (3 October 2026): repairs follow the game and leave nothing behind, and the spent parts older
         // repairs left are removed from saves as their ships load (Framework 0.74.0).

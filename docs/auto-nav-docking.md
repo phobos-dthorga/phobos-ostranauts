@@ -37,7 +37,8 @@ package; the [handover](development/shipbreaker-autopilot-handover.md) defines t
 
 Changed/revoked clearance, occupied ports or failed handoff suspend combined intent.
 Explicit Resume rechecks it; no port substitution or repeated approach restart is
-allowed. Both phases always suspend after loading. Manual takeover cancels;
+allowed. After loading, both phases carry on by themselves once their checks
+pass, like an ordinary flight (since Auto Nav 0.33.0). Manual takeover cancels;
 contact loss suspends and clears commanded thrust. **Disengage allows coasting,
 not emergency braking.** Ordinary Approach, Rendezvous and Follow never start
 docking implicitly. Terminal attachment follows the preserved contract below.
@@ -88,9 +89,12 @@ for terminal and combined docking states, with `ApproachDock`,
 names. Earlier plugins reject those unknown states and retain the record;
 they cannot reinterpret docking as an ordinary approach on downgrade.
 
-**Docking always suspends after load**, even when ordinary Fly is configured to
-resume automatically. Explicit Resume rechecks hardware, current clearance,
-the original ports, hull fit, motion, throttle, fuel and elapsed budget. It does
+**Docking carries on after a load**, as ordinary Fly does, if it was running when
+you saved. It first rechecks hardware, current clearance, the original ports,
+hull fit, motion, throttle, fuel and elapsed budget; if a check fails it stays
+suspended with the reason shown, and waits for Resume. A docking that was already
+suspended stays suspended. Set `ResumeAfterLoad` to false in Auto Nav's settings
+to have flights and docking wait for Resume after every load. Loading does
 not request fresh clearance on the player's behalf. Stopped and docked missions
 stay completed. Corrupt/future records remain protected until explicitly forgotten.
 Saved physics still omits our actuator commands and retains actual motion.
@@ -151,8 +155,9 @@ After installation, the useful first checks are:
 1. A cleared, slow station approach from approximately 1–2 km hull gap: Dock,
    displayed progress, physical RCS movement and a single successful attachment.
 2. A cleared derelict approach; verify its chosen port and normal access/fees.
-3. Stop during approach and save/reload during another: no unrequested thrust on
-   reload; Resume keeps the same target and ports. Lost/reassigned clearance must
+3. Stop during approach and save/reload during another: the docking carries on
+   by itself with the same target and ports, without a burst of stale thrust; the
+   stopped one stays stopped. Lost/reassigned clearance must
    block it rather than choosing another destination.
 4. Reopen the controls after closing them near arrival; confirm the waiting message
    and final attachment. Report any native docking display or control ownership

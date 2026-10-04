@@ -36,7 +36,8 @@ one W2 to one Firstlight-4 rack. Keep one supply unit per connected circuit.
 The local panel, F3 and optional C1 access call the same checked service. The
 formulation actions are `mix-potato`, `mix-lettuce`, `mix-lettuce-seed` and `water-only`; existing
 pairing, start/pause, receiving and drain actions retain their meanings. Operation
-and receiving remain paused after reload and require explicit resumption.
+and receiving that were running when you saved carry on after a reload; paused
+ends stay paused.
 
 ## Finite quantities and limits
 

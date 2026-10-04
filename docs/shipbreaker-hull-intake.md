@@ -125,8 +125,9 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
   `Intake / TransferSeconds` allows 1–60 seconds after restart. Processing keeps
   its separate default 60 seconds / 30 kW and complete material accounting for
   the part's own mass.
-- Pause/cancel disarms intake. Reload leaves it paused; pending motion loses only
-  its short delay and retains the actual wall in the grabber. Processing progress
+- Pause/cancel disarms intake. After a reload, intake and processing that were
+  running when you saved are armed again by themselves; paused ones stay paused.
+  Pending motion loses only its short delay and retains the actual wall in the grabber. Processing progress
   remains on that wall. Full feed waits; missing/damaged/locked connections stop.
   Native transfer faults pause and log the issue; do not blindly retry an ambiguous
   ownership failure. No frame-interleaved or crash-atomic transaction is promised.
@@ -159,8 +160,9 @@ virtual cargo. Shipbreaker owns layout, timing, eligibility and power.
    using deliberate debug grants, `spawn ItmWall1x1Loose` supplies a comparison. Stand
    beside the processor and Start. The wall should move once, then become 11 kg
    useful products plus one 13 kg residue item in the processor's Inventory.
-4. During ordinary use, check pause/reload leaves material present and waits for
-   Start. Try another hull orientation or disconnect a component only if convenient.
+4. During ordinary use, check that Pause leaves material present and waits for
+   Start, and that a save/reload while running leaves material present and
+   carries on by itself. Try another hull orientation or disconnect a component only if convenient.
    Any rejection, missing sprite or wrong alignment: send a screenshot plus
    `phobosshipbreaker status`. No separate power-consumption proof is required.
 

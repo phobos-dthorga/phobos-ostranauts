@@ -76,7 +76,8 @@ phobosreclaimer start|pause|cancel|feed|products [full machine ID]
 
 Supply a full ID when several reclaimers are present. Pause retains work; Cancel
 retains the input but discards credited work, with no energy or cooling refund.
-Reload retains recipe, duration, input and progress and waits for manual Start.
+Reload retains recipe, duration, input and progress. A reclaimer that was running
+when you saved carries on by itself; one that was paused waits for Start.
 Starting an empty queue waits for arriving feed; processing and transfer Start
 are separate permissions. Full output, changed input or unavailable machinery
 stops without deleting feed.

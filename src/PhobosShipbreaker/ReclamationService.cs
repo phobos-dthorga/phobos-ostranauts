@@ -15,6 +15,9 @@ namespace PhobosShipbreaker;
 internal static partial class ReclamationService
 {
     static partial void CrewManualStop(CondOwner co);
+    // The saved resume mark (Framework ResumeAfterLoad), reached through hooks so the offline checks can stand in for it.
+    static partial void ResumeMark(CondOwner g,bool running);
+    static partial void ResumeDue(CondOwner g,ref bool due);
     private sealed class Session
     {
         internal CondOwner Grabber=null!;
@@ -47,6 +50,13 @@ internal static partial class ReclamationService
     {
         message=ProcessingService.AccessProblem(g,binding)??"";
         if(message.Length!=0) return false;
+        return Run(g,action,out message);
+    }
+    /// <summary>The command itself, after the crew access check: also the path a mission that was running when the
+    /// game was saved takes once after the load (Shipbreaker 0.77.0), with every other check a Resume makes.</summary>
+    private static bool Run(CondOwner g,string action,out string message)
+    {
+        message="";
         try
         {
             if(action=="reclaim-status") { message=Describe(g);return true; }
@@ -93,7 +103,7 @@ internal static partial class ReclamationService
             if(!Save(s)||!Plugin.Service.ArmMission(g,r["processor"],out message)) { Suspend(s,Text.Get("Reclamation.intake"));return false; }
             if(!g.ship.IsDocked()&&!g.ship.IsMoored()&&(r.Phase==ReclamationPhase.Egress||r.Phase==ReclamationPhase.Transit||r.Phase==ReclamationPhase.Approaching))
                 r.Phase=ReclamationPhase.Seeking;
-            Save(s); Step(s);message=Describe(g);return s.Authorized;
+            Save(s); Step(s);message=Describe(g);ResumeMark(g,s.Authorized);return s.Authorized;
         }
         catch(Exception ex) { Fault(g,ex);message=Text.Get("Reclamation.uncertain");return false; }
     }
@@ -273,9 +283,11 @@ internal static partial class ReclamationService
         s.Record.Phase=remaining?ReclamationPhase.Remnants:ReclamationPhase.Exhausted;
         Save(s);Suspend(s,Text.Get("Reclamation.phase_"+s.Record.Phase));
     }
-    private static void Suspend(Session s,string reason)
+    private static void Suspend(Session s,string reason,bool leavingWorld=false)
     {
         s.Authorized=s.Demand=false;s.Notice=reason;
+        // A stop in play ends the player's Start; the world being put away for a load does not.
+        if(!leavingWorld) ResumeMark(s.Grabber,false);
         IndustrialNavigation.Release(s.Record["permission"]);s.Grabber.ZeroCondAmount(IntakeRules.Working);
         Plugin.Service.StopMission(s.Grabber,s.Record["processor"]);Save(s);
     }
@@ -290,10 +302,20 @@ internal static partial class ReclamationService
     }
     internal static void Fault(CondOwner g,Exception ex)
     { Plugin.Log(ex.ToString());if(sessions.TryGetValue(g.strID,out var s)) Suspend(s,Text.Get("Reclamation.uncertain")); }
-    internal static void Reset() { foreach(var s in sessions.Values.ToArray()) if(s.Authorized) Suspend(s,Text.Get("Reclamation.suspended"));sessions.Clear(); }
+    internal static void Reset() { foreach(var s in sessions.Values.ToArray()) if(s.Authorized) Suspend(s,Text.Get("Reclamation.suspended"),leavingWorld:true);sessions.Clear(); }
     internal static bool PreparePower(CondOwner g)
     {
-        if(!sessions.TryGetValue(g.strID,out var s)) return false;
+        // A mission that was running when the game was saved resumes once after the load (owner decision, 5 October
+        // 2026), exactly as the Resume command would: the capture, the attachment and the feed are all checked again,
+        // an interrupted change is settled by what can be seen, and a failed check leaves it suspended with the reason.
+        bool due=false;
+        if(!sessions.TryGetValue(g.strID,out var s)||!s.Authorized) ResumeDue(g,ref due);
+        if(due)
+        {
+            if(!Run(g,"reclaim-resume",out string resumed)) { ResumeMark(g,false);Plugin.Log(Text.Get("Content.resume_failed",g.strID,resumed)); }
+            sessions.TryGetValue(g.strID,out s);
+        }
+        if(s==null) return false;
         s.Demand=false;
         if(!s.Authorized||s.Record.Phase!=ReclamationPhase.Cutting||s.Record.Paid) return false;
         var target=CrewSim.system.GetShipByRegID(s.Record["target"]);var wall=ReclamationGeometry.Resolve(target,s.Record["wall"]);

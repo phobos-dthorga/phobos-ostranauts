@@ -1049,3 +1049,7 @@ L42 — Framework 0.93.0: the GatherPower hook gains a prefix that copies one nu
 ## 5 October: machine heat scale (L43)
 
 L43 — Framework 0.94.0 with Shipbreaker 0.76.0, Manufacturing 0.46.0 and Agriculture 0.49.0: every machine's heat check and deposit multiplies by one stored number. No new hook, lookup or allocation; nothing is added to a frame beyond that multiplication. No capture accompanies this change.
+
+## 5 October: work carries on after a reload (L44)
+
+L44 — Framework 0.95.0 with Shipbreaker 0.77.0, Manufacturing 0.47.0, Agriculture 0.50.0 and Auto Nav 0.33.0: each machine's existing power step asks once whether it carries the saved resume mark (one condition probe for an unmarked machine) and keeps the mark equal to its running state (a write only when it changes). One offer per machine per load; no new hook on the game's power path and no world scan. No capture accompanies this change.

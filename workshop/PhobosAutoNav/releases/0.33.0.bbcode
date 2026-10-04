@@ -1,0 +1,21 @@
+[h1]Phobos Auto Nav 0.33.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]A docking approach that was under way when the game was saved carries on after loading, for both Dock and Approach and Dock, like an ordinary flight. It runs the same hardware, target, port and control checks as Resume, and stays suspended with the reason if one fails.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes; a saved docking approach now resumes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Follows Auto Nav's existing ResumeAfterLoad setting. Rendezvous and Follow still suspend after loading, and fire authority is never saved.
+[*]Checked offline; not yet seen in the game.
+[/list]

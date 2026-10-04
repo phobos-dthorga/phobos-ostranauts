@@ -48,7 +48,8 @@ stays in the sender until it arrives. Turn it off with the Framework setting
 
 **Reload.** A route that was running when you saved resumes by itself after a
 reload, like the crew's standing orders; a route that was paused stays paused.
-Processing keeps its own rule and waits for Start / resume.
+Processing that was running carries on too (Shipbreaker 0.77.0); see
+[machines carry on after a reload](player-guide.md#machines-carry-on-after-a-reload).
 
 ## Feed stores for the T2 and the Manufacturing machines (optional)
 
@@ -74,8 +75,8 @@ flowchart LR
 While it is started and powered, the machine takes what it can use from the
 store when its own inventory holds none: one ice block at a time for the T2, one
 exact charge for the others. Anything it cannot use stays in the store. The
-choice is saved and holds across a reload; the machine itself still waits for
-**Start** after a reload. If the store is moved, locked or its belt is cut, the
+choice is saved and holds across a reload; a machine that was started when you
+saved carries on after a reload. If the store is moved, locked or its belt is cut, the
 status line says so and the machine carries on with whatever you load by hand.
 Choose **No store** to clear it. The pull is not metered separately: it rides on
 the machine's own power.
@@ -236,8 +237,8 @@ These are separate from `Processing/ContinueQueue` and the existing collector
 settings. Pausing processing does not implicitly empty or disable its input
 route; use **Pause** in Input routing when you also want to stop deliveries.
 After reload, saved jobs, pairs, filters and physical cargo survive. Transfer routes
-that were running resume by themselves (0.56.0); processing permission still resets
-to paused. Transfer clocks reset; saved processing work and recipe contracts retain
+that were running resume by themselves (0.56.0), and so does processing that was
+running (0.77.0); paused ones stay paused. Transfer clocks reset; saved processing work and recipe contracts retain
 their meaning.
 
 ```text

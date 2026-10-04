@@ -56,7 +56,8 @@ refill. A 64-tile run holds about 12.8 kg and takes a few minutes to fill the fi
 time. Branches that share a trunk share its contents; the trunk fills once.
 
 The pipes keep their contents through damage, route changes and reload; pumping and
-receiving still pause after reload, and unloaded time grants no movement. To take
+receiving that were running when you saved carry on after a reload (paused ends stay
+paused), and unloaded time grants no movement. To take
 pipe up, right-click it and choose **Drain line into canister** with a Framework drain
 canister carried or within two tiles; the run stays closed until **Return line to
 service**. A canister of water, or of the W2's own feed, put in the W2's inventory

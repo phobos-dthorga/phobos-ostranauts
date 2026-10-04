@@ -57,7 +57,8 @@ are authored gameplay, not university measurements or institutional endorsement.
 
 Existing potato and food-lettuce profile IDs and budgets are unchanged. The new
 `lettuce-seed` cohort and `lettuce-seed-v1` feed use the existing checked saved
-state; reload preserves quantities/progress but pauses operation and receiving.
+state; reload preserves quantities/progress, and operation and receiving that
+were running when you saved carry on (stopped ones stay stopped).
 Do not downgrade a save containing the new profiles to an older Agriculture.
 
 Early and stressed stages reuse the registered lettuce layers; two new PixelLab
@@ -67,6 +68,7 @@ World and panel derive the same stage from saved crop state without changing it.
 
 Offline checks cover complete/manual and mixed-feed cycles, gas/mass/energy,
 health, clearing, repeat harvest prevention, persistence and stage selection.
-Owner checks: plant the seed option; save midway and Resume; try incompatible
+Owner checks: plant the seed option; save midway, reload and confirm the rack
+carries on by itself; try incompatible
 feed and a full output inventory; harvest and replant an actual returned packet;
 compare late stages in the world and panel. These gameplay checks remain pending.

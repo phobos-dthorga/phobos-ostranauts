@@ -96,7 +96,11 @@ internal sealed partial class NavigationService
             savedFlight = snapshot;
             bool resumePermitted=Plugin.ResumeAfterLoad.Value;
             CrewResumePolicy(selected,ref resumePermitted);
-            if (snapshot.Mode == SavedFlightMode.Active && resumePermitted) ResumeSaved(selected);
+            // Owner decision (5 October 2026, Auto Nav 0.33.0): a docking approach that was under way carries on after a
+            // load like an ordinary flight, through the same hardware, target, port and control checks as Resume; a
+            // failed check leaves it suspended. Rendezvous and Follow still wait for Resume.
+            bool carriesOn = snapshot.Mode == SavedFlightMode.Active || snapshot.Mode == SavedFlightMode.Docking || snapshot.Mode == SavedFlightMode.ApproachDock;
+            if (carriesOn && resumePermitted) ResumeSaved(selected);
             else
             {
                 if (snapshot.IsActive) FinishSavedFlight(snapshot.SuspendedMode);

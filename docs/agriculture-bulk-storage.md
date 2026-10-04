@@ -116,8 +116,8 @@ The same W2 pump and resource rules run during supported bounded time-skips.
 Charge loading and charge selection use the existing crew handling and travel
 budget; they grant no elapsed-time pumping or duplicate training. Station
 purchases, manual draining and trapped-water recovery are not automated skipped
-work. Reload keeps identities and contents, but W2 intake stays paused until you
-Resume.
+work. Reload keeps identities and contents, and a W2 that was running when you
+saved carries on; a paused one stays paused.
 
 ## Station purchasing
 

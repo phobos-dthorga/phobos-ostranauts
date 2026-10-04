@@ -134,13 +134,14 @@ internal static class CrackerService
     // Written only when it changes: an idle machine reaches this on every power step.
     private static void SetWorking(CondOwner co, bool value) { if (co.HasCond(ManufacturingRules.Reacting) != value) co.SetCondAmount(ManufacturingRules.Reacting, value ? 1 : 0); }
 
-    internal static bool Start(CondOwner co, ConsoleBinding? binding = null)
+    /// <summary>afterLoad: the one start a machine that was running gets after a reload, where no crew member need stand by.</summary>
+    internal static bool Start(CondOwner co, ConsoleBinding? binding = null, bool afterLoad = false)
     {
         var s = Get(co);
-        string? problem = Content.Access(co, binding) ?? MachineProblem(co);
+        string? problem = (afterLoad ? null : Content.Access(co, binding)) ?? MachineProblem(co);
         if (problem != null) { s.Status = problem; return false; }
         if (s.Protected) { s.Status = Text.Get("Cracker.protected"); return false; }
-        s.LastStop = null; s.NeedsAttention = false; s.Running = true; s.Status = Text.Get("Cracker.armed");
+        s.LastStop = null; s.NeedsAttention = false; s.Running = true; Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, true); s.Status = Text.Get("Cracker.armed");
         return true;
     }
     internal static bool Pause(CondOwner co, bool cancel, ConsoleBinding? binding = null)
@@ -156,7 +157,7 @@ internal static class CrackerService
     }
     private static void Stop(CondOwner co, Session s, string message, bool needsAttention = true)
     {
-        s.LastStop = message; s.NeedsAttention = needsAttention; s.Running = false; s.HeatWait = false; s.OutputWait = false;
+        s.LastStop = message; s.NeedsAttention = needsAttention; s.Running = false; Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, false); s.HeatWait = false; s.OutputWait = false;
         s.Status = message; SetWorking(co, false);
     }
     internal static void Fault(CondOwner co, Exception ex)
@@ -175,7 +176,13 @@ internal static class CrackerService
     /// when this cycle's products will have somewhere to go.</summary>
     internal static void BeforePower(CondOwner co)
     {
-        if (!sessions.TryGetValue(co, out var s) || !s.Running) { SetWorking(co, false); return; }
+        if (!sessions.TryGetValue(co, out var s) || !s.Running)
+        {
+            // Work that was running when the game was saved carries on (Manufacturing 0.47.0), through Start's own checks.
+            if (!Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co)) { SetWorking(co, false); return; }
+            if (!Start(co, null, afterLoad: true)) { Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, false); SetWorking(co, false); return; }
+            s = Get(co); s.Status = Text.Get("Content.resumed");
+        }
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Cracker.protected")); return; }

@@ -178,6 +178,8 @@ internal sealed partial class CollectorService
 internal static partial class ReclamationService
 {
     static partial void CrewManualStop(CondOwner co)=>CrewWork.ManualStop(co);
+    static partial void ResumeMark(CondOwner g,bool running)=>Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(g,running);
+    static partial void ResumeDue(CondOwner g,ref bool due)=>due=Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(g);
     internal static bool CrewActive(CondOwner co)=>sessions.TryGetValue(co.strID,out var s)&&s.Authorized;
     internal static bool CrewHasMission(CondOwner co)=>Read(co,out _);
     internal static void CrewSuspend(CondOwner co){if(sessions.TryGetValue(co.strID,out var s))Suspend(s,Text.Get("Crew.skip_exterior"));}

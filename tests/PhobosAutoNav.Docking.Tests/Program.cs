@@ -88,9 +88,11 @@ f = Setup(); f.Service.Dock(f.Console); AutoNavCore.Busy = true; Tick(f.Service)
 f = Setup(); f.Service.Dock(f.Console); AutoNavCore.ElapsedSeconds = DockingRules.MaximumSeconds; Tick(f.Service); Check(!AutoNavCore.Engaged, "Cumulative timeout cancels");
 f = Setup(); f.Service.Dock(f.Console); CrewSim.Paused = true; Tick(f.Service); Check(AutoNavCore.ElapsedSeconds == 0, "Paused physics does not consume timeout"); CrewSim.Paused = false;
 f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
-Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended, "Load always suspends docking for explicit resume");
-f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged, "Resume revalidates and keeps original docking intent");
-f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Target.Ports.Clear(); f.Service.ResumeSaved(f.Console);
+// Owner decision (5 October 2026, Auto Nav 0.33.0): a docking approach under way carries on after a load, through Resume's checks.
+Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Docking && Read(f.Console).TargetPort == "assigned", "A docking approach that was under way carries on after a load, with its original ports");
+f.Target.Ports.Clear(); f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended && Read(f.Console).TargetPort == "assigned", "A saved port that is gone leaves the docking suspended after a load, without a replacement");
+f.Service.ResumeSaved(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).TargetPort == "assigned", "Unavailable saved port stays suspended without replacement");
 f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 1 && GUIDockSys.instance!.ClampCalls == 1 && AutoNavCore.Engaged, "The clamp is the docking console's own button, pressed once when its geometry admits");
@@ -194,11 +196,18 @@ foreach (string module in new[] { NavigationService.ModuleId, NavigationService.
     bad = combined.Encode(); bad["arrivalMS"] = "1";
     Check(!FlightSnapshot.TryDecode(bad, out _), "Combined approach cannot save an unmatched-motion arrival");
     GUIOrbitDraw.CrossHairTarget = null;
+    // With the setting off, a load leaves the combined mission suspended for Resume, as every load did before Auto Nav 0.33.0.
+    Plugin.ResumeAfterLoad.Value = false;
     f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
     Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended,
-        "Combined mission suspends even with ordinary auto-resume enabled");
+        "With auto-resume off the combined mission waits for Resume after a load");
+    Plugin.ResumeAfterLoad.Value = true;
     f.Service.ResumeSaved(f.Console);
     Check(AutoNavCore.Engaged && Read(f.Console).TargetId == "target", "Resume retains destination without a crosshair");
+    // With it on (the default), a combined mission that was under way carries on after a load, without a crosshair.
+    f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+    Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.ApproachDock && Read(f.Console).TargetId == "target",
+        "A combined approach that was under way carries on after a load");
     f.Target.objSS.vPosy = 1300 * AutoNavCore.M_TO_AU;
     Check(f.Service.FinishApproach() && !AutoNavCore.Engaged, "Arrival queues handoff without steering inside a ship update");
     Check(Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended, "Saving between phases cannot restore thrust");

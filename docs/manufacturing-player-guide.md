@@ -568,7 +568,7 @@ other liquor and which sell to the game's buyers.
 
 It keeps bottling while the cask and silo hold a batch and the tray has room, then
 waits. Take the spirit out of its tray (right-click, **Inventory**). After a reload
-it waits for **Start** again. A serving is worth about 8 cr: a beet rack's harvest
+it carries on if it was bottling when you saved. A serving is worth about 8 cr: a beet rack's harvest
 bottles into about 31 servings, roughly twice what its nutrients and water cost,
 and far more than the 9 cr a kilogram the kiosk pays for the ethanol itself.
 
@@ -798,8 +798,15 @@ to space.
 
 ## After a reload
 
-The V4, X2, K2, AX-2 and L2 pause after every reload and keep their bound charge,
-holds, links and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
+The V4, LC-3, SA-3, fermenter-still, X2, K2, AX-2, L2 and bottler keep their
+bound charge, holds, links and progress. A machine that was running when you
+saved carries on by itself (since Manufacturing 0.47.0): a charge picks up from
+its saved progress, and a started machine that was waiting for feed goes back to
+waiting. One that was paused stays paused, and if a check fails the machine stays
+stopped and says why; press **Start** once that is put right. To have them all
+wait for Start, see
+[machines carry on after a reload](player-guide.md#machines-carry-on-after-a-reload).
+The K2 keeps the gas it holds and any
 products it has made; it delivers waiting products first and starts a new cycle
 only once they have gone to their vessels. A plain steel charge bound before
 Manufacturing 0.26.0 finishes as steel; on a ship whose Shipbreaker has been
@@ -907,7 +914,7 @@ the products and vessel levels; carburise four nickel-iron ingots with one
 carbon into nickel steel, with and without Shipbreaker; sell a store's contents back at
 a refuelling kiosk and check the 45% payment and the ledger; start the X2 with an installed O2 canister adjacent and watch its
 pressure and the hydrogen store rise; vent hydrogen; save and reload mid-cycle
-and confirm the pause until Start with progress kept; fill the canister and
+and confirm the cycle carries on by itself with progress kept; fill the canister and
 the store and confirm the waits; heat wait in a small room; C1 listing with
 Shipbreaker; a save with a plain steel charge already bound finishes it as steel,
 and saved ingots and salts show their new prices. Hazards: roast carbon in a sealed room without scrubbers and watch
@@ -922,7 +929,7 @@ with the game's CO2 scrubber, run an X2 into the same H2 store, and Start the K2
 Watch the hydrogen fall and, each hour, about 0.56 kg of water and 0.25 kg of
 methane arrive. Empty the canister, empty the H2 store, fill the M2 and fill
 the vessel in turn, and confirm each wait gives its reason. Save and reload
-mid-cycle, then confirm the pause until Start and that the products arrive once.
+mid-cycle, then confirm it carries on by itself and that the products arrive once.
 Watch the room warm by about 2.3 kW while it runs. Vent methane from the M2.
 Hazards: damage the M2 once without and once with a fire in the room (methane
 rising in the room against a burn that leaves CO2), and damage a running K2
@@ -943,7 +950,7 @@ bottle in the rack with an O2 store linked and confirm it fills and stops.
 Switch to Empty into stores and empty a canister back into a store. Pour a small store
 into a large one. Link a C2 to a K2 as its CO2 source, and an O2 store to an X2
 as its oxygen destination. Damage an O2 store and watch the room's oxygen rise.
-Save and reload mid-fill and confirm the pause until Start.
+Save and reload mid-fill and confirm the filling carries on by itself.
 
 Crew bottle order (0.5.0): leave two half-empty suit bottles in an unlocked
 locker, link an O2 store to an L2 and choose Keep suit bottles charged. Confirm
@@ -965,7 +972,7 @@ ammonia, an N2 and an H2, link all three and Start. Each hour, watch about 1 kg
 of ammonia leave the Q2, 0.82 kg of nitrogen reach the N2 and 0.18 kg of hydrogen
 reach the H2, and the room warm by about 1.25 kW. Empty the Q2, fill the N2 and
 fill the H2 in turn, and confirm each wait gives its reason. Save and reload
-mid-cycle, then confirm the pause until Start and that the products arrive once.
+mid-cycle, then confirm it carries on by itself and that the products arrive once.
 Damage a running AX-2 and watch the room's ammonia and nitrogen rise and its
 hydrogen burn or escape.
 
@@ -1009,7 +1016,7 @@ struvite with a flask and three Epsom salt and confirm three struvite, three
 ammonium sulfate and the water returned. With Agriculture 0.27.0, link a
 nutrient hopper, choose Crop nutrients, load one of each salt and confirm 2.77 kg
 in the hopper, a wait with the reason when the hopper is full, and a W2 dosing
-from it. Save and reload mid-charge and confirm the pause until Start.
+from it. Save and reload mid-charge and confirm the charge carries on by itself.
 
 ## Sources
 

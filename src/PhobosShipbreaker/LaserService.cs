@@ -115,6 +115,8 @@ internal static partial class LaserService
         if (!Save(s)) { sessions.Remove(co.strID); message = Text.Get("Laser.save"); return false; }
         Step(s);
         message = Describe(co);
+        // The saved mark of a running laser (Shipbreaker 0.77.0): a reload carries its work on.
+        Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, s.Authorized);
         return s.Authorized;
     }
     /// <summary>A saved job is settled by what can be seen, never by repeating its change: a pending change that
@@ -273,11 +275,13 @@ internal static partial class LaserService
         s.Presenting = firing;
         LaserPresentation.Refresh(s.Laser, firing, firing ? s.Aim : null);
     }
-    private static void Suspend(Session s, string reason)
+    private static void Suspend(Session s, string reason, bool leavingWorld = false)
     {
         s.Authorized = s.Demand = s.CrewHold = false; s.Notice = reason; s.Aim = null;
         try
         {
+            // A stop in play ends the player's Start; the world being put away for a load does not.
+            if (!leavingWorld) Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(s.Laser, false);
             if (s.Laser != null && !s.Laser.bDestroyed) { s.Laser.ZeroCondAmount(LaserRules.Working); Present(s, false); }
             Save(s);
         }
@@ -290,7 +294,7 @@ internal static partial class LaserService
     }
     internal static void Reset()
     {
-        foreach (var s in sessions.Values.ToArray()) if (s.Authorized) Suspend(s, Text.Get("Laser.paused"));
+        foreach (var s in sessions.Values.ToArray()) if (s.Authorized) Suspend(s, Text.Get("Laser.paused"), leavingWorld: true);
         sessions.Clear();
         LaserGeometry.Reset();
         LaserPresentation.Reset();
@@ -300,7 +304,15 @@ internal static partial class LaserService
     /// unpaid, its target is in view and nobody stands by the beam.</summary>
     internal static void PreparePower(CondOwner co)
     {
-        if (!sessions.TryGetValue(co.strID, out var s)) { if (co.HasCond(LaserRules.Working)) co.ZeroCondAmount(LaserRules.Working); return; }
+        // A laser that was cutting when the game was saved starts again once after the load (Shipbreaker 0.77.0; owner
+        // decision, 5 October 2026), through Start's own checks: mount, attachment and facing. A saved cut is settled
+        // by what can be seen, as any Start settles it.
+        if ((!sessions.TryGetValue(co.strID, out var s) || !s.Authorized) && Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co))
+        {
+            if (!Start(co, out string resumed)) { Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Mark(co, false); Plugin.Log(Text.Get("Content.resume_failed", co.strNameFriendly, resumed)); }
+            sessions.TryGetValue(co.strID, out s);
+        }
+        if (s == null) { if (co.HasCond(LaserRules.Working)) co.ZeroCondAmount(LaserRules.Working); return; }
         s.Demand = s.Authorized && s.Record.Phase == LaserPhase.Working && !s.Record.Paid && !s.CrewHold && s.Aim.HasValue;
         if (s.Demand) co.SetCondAmount(LaserRules.Working, 1);
         else { co.ZeroCondAmount(LaserRules.Working); Present(s, false); }

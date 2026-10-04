@@ -214,7 +214,26 @@ internal static class ThawService
 
     /// <summary>Before the native power step: feed that arrived while armed starts, a finished block waiting for
     /// vessel room retries, and a running job is re-validated against its saved block.</summary>
+    /// <summary>The step before the game's power call. A unit that was started when the game was saved is armed again once
+    /// after the load (Shipbreaker 0.77.0; owner decision, 5 October 2026), with the machine checks but without asking
+    /// for a crew member beside it; a saved block carries on from its saved progress. The saved mark follows whether
+    /// the player's Start still stands.</summary>
     internal static void BeforePower(CondOwner co)
+    {
+        if (Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co))
+        {
+            var resumed = sessions.GetValue(co, _ => new Session());
+            if (!resumed.AwaitingFeed && !resumed.VesselWait && resumed.Job?.Running != true)
+            {
+                string? problem = MachineProblem(co);
+                if (problem != null) Stop(co, resumed, problem);
+                else { resumed.CrewManaged = false; resumed.NeedsAttention = false; resumed.AwaitingFeed = true; resumed.Status = Text.Get("Content.resumed"); }
+            }
+        }
+        Step(co);
+        if (sessions.TryGetValue(co, out var s)) Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(co, !s.CrewManaged && (s.AwaitingFeed || s.VesselWait || s.Job?.Running == true));
+    }
+    private static void Step(CondOwner co)
     {
         if (!sessions.TryGetValue(co, out var s)) { SetWorking(co, false); return; }
         if (s.VesselWait && StarSystem.fEpoch >= s.NextVesselCheck)

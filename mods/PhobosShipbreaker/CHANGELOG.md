@@ -31,6 +31,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.77.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The D4, R4, T2 thaw unit, ML-2 mining laser and a G4 reclamation mission carry on after loading a save if they were working when it was made. Saved progress is kept, and each runs its usual checks first; a failed check leaves it stopped with the reason. Belt routes and storage unloading already did this.
+
+### Save compatibility
+
+- Automatic. A save made before this version holds no record of what was running, so machines wait for Start once more after the first load; from the next save on they carry on.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.95.0 or newer. Turn the behaviour off with ResumeAfterLoad in the Framework configuration file.
+- The F6 furnace still pauses a hot batch after loading and waits for Resume. A G4 capture approach on its own still waits for Start / Resume, and a mission interrupted in the middle of an uncertain step still suspends.
+- Checked offline; not yet seen in the game.
+
 ## [0.76.0] - 2026-10-05 - Draft
 
 ### Changed

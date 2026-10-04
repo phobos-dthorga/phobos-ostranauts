@@ -162,7 +162,8 @@ In `BepInEx/config/phobosgekko.ostranauts.shipbreaker.cfg`, restart after changi
 | `WorkingKilowatts` | 2 | Total operating draw, 0.05–100 kW; idle stays 0.05 kW. |
 | `ContinueQueue` | true | False collects one packet per Start; true waits for subsequent packets. |
 
-The collector always starts paused after loading. Capacity, footprint, accepted
+After loading, a collection that was running resumes by itself and a paused one
+stays paused. Capacity, footprint, accepted
 definition and mass are fixed. The nominal operating cost per default cycle is
 10 kJ / 0.00278 kWh; native ticker quantization can affect exact metering.
 
@@ -179,8 +180,9 @@ save is required.
 - During ordinary use, let the collector fill or pause it. Residue must remain
   available, with a useful waiting message. Resume after clearing space.
 - Save/reload when convenient. Collected and pending cargo should remain in their
-  respective inventories. The same pair should remain selected and paused; press
-  Collect to restart without relinking.
+  respective inventories. The same pair should remain selected. A collection that
+  was running should resume by itself; a paused one should wait for Collect,
+  without relinking.
 - With another endpoint available, try linking an occupied endpoint: it should
   refuse. Unlink the original pair, link the new one, and confirm only the selected
   receiver collects residue. No basic power-draw proof test is needed.

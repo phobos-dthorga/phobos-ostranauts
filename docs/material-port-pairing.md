@@ -46,9 +46,10 @@ not patch signal routing or write into the native `Electrical` property map.
   This lets the player clear a missing endpoint without breaking another route.
 - Missing, invalid or newer-schema records are retained and block operation until
   explicitly unlinked. No automatic reassignment, repair or nearest-machine fallback.
-- Native save/reload preserves configuration, not permission to resume work.
-  Shipbreaker resets collection time and remains paused; cargo remains in its
-  actual inventory. Resuming resolves full IDs and validates placement, ship,
+- Native save/reload preserves configuration and cargo, which remains in its
+  actual inventory. Shipbreaker resets collection time; a collection that was
+  running when saved resumes by itself (0.56.0), and a paused one stays
+  paused. Resuming resolves full IDs and validates placement, ship,
   floors, locks, filter, capacity and power through the existing service.
 
 The namespaced maps are `PhobosMaterialPort.<logical-port-ID>` with schema `1`.

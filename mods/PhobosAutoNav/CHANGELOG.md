@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.33.0] - 2026-10-05 - Draft
+
+### Changed
+
+- A docking approach that was under way when the game was saved carries on after loading, for both Dock and Approach and Dock, like an ordinary flight. It runs the same hardware, target, port and control checks as Resume, and stays suspended with the reason if one fails.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; a saved docking approach now resumes.
+
+### Compatibility and limits
+
+- Follows Auto Nav's existing ResumeAfterLoad setting. Rendezvous and Follow still suspend after loading, and fire authority is never saved.
+- Checked offline; not yet seen in the game.
+
 ## [0.32.0] - 2026-10-03 - Draft
 
 ### Changed

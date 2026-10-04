@@ -163,8 +163,12 @@ yours to paint. Turning a setting off leaves queued jobs in place.
 
 ## Saves and changes
 
-- After loading a save the laser is paused. **Start / resume cutting** carries
-  on with the sweep, the counts and any work already paid into the cut in hand.
+- After loading a save, a laser that was cutting when you saved starts again by
+  itself once its usual Start checks pass (its mount, what is moored and which
+  way it faces). It carries on with the sweep, the counts and any work already
+  paid into the cut in hand. If a check fails it stays paused and says why; a
+  laser that was paused when you saved stays paused until **Start / resume
+  cutting**.
 - If the game was saved in the moment between a cut being made and the rock or
   panel giving way, the laser looks at what actually happened. If the cut did
   not take, it is paid for again; it is never repeated for nothing.

@@ -103,8 +103,9 @@ Full object IDs and a distinct `PhobosAgriculture.Water` logical port use
 Framework's existing reciprocal one-to-one pairing. Furnace/material port keys
 and saves are unchanged. Separate versioned mode records preserve old racks'
 direct/manual default. Selecting pipe-fed mode is explicit and paused; unpairing
-does **not** silently restore the direct provider bypass. All pumping and receiving
-permissions pause on reload. The previous contents and bindings remain.
+does **not** silently restore the direct provider bypass. Pumping and receiving
+that were running when you saved carry on after a reload; paused ends stay
+paused. The previous contents and bindings remain.
 
 Framework's `LiquidTransferGuard` writes pending evidence at both endpoints before
 any debit. It clears that evidence only after a measured receipt reconciles.
@@ -164,7 +165,8 @@ links also passed. No installed mods or owner saves were changed.
 
 Owner checks: install a small route; try all four equipment rotations and a
 pipe/electrical overlap; break/repair/remove a pipe or its supporting floor;
-fill the rack; pause each end; save/reload; and verify continued local nutrient
+fill the rack; pause each end; save/reload with the pump running and confirm it
+carries on by itself; and verify continued local nutrient
 loading. Check partial power and room warming, standalone manual operation and,
 if present, Valtora 0.16.1 reserve protection. Two joined source circuits must
 block delivery. These are the remaining gameplay checks, not completed results.

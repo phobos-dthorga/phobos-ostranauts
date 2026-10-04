@@ -2,7 +2,8 @@
 
 Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
 N2 instrument, shared predictive guidance and moving-target docking hold. Its
-pursuit modes always suspend after reload; fire authority is never saved. Earlier
+pursuit modes always suspend after reload; fire authority is never saved. A
+docking approach now carries on after a reload like an ordinary flight. Earlier
 version descriptions below remain useful background where not superseded.
 
 Prepared against Ostranauts **1.0.1.5**, BepInEx **5.4.23.5** and Phobos

@@ -207,6 +207,29 @@ internal sealed partial class ProcessingService
     {
         if (!IsProcessor(machine.strCODef)) return false;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessCheck);
+        // A machine that was started when the game was saved is armed again once after the load (Shipbreaker 0.77.0;
+        // owner decision, 5 October 2026), with the machine checks but without asking for a crew member beside it. A
+        // saved panel carries on from its saved progress; the grabber's feed is armed as Start arms it.
+        if (Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(machine))
+        {
+            var resumed = sessions.GetValue(machine, _ => new Session());
+            if (!resumed.AwaitingFeed && resumed.Job?.Running != true)
+            {
+                string? fault = MachineProblem(machine);
+                if (fault != null) Stop(machine, resumed, fault);
+                else
+                {
+                    resumed.CrewManaged = false; resumed.NeedsAttention = false; resumed.AwaitingFeed = true; resumed.Status = Text.Get("Content.resumed");
+                    if (!IsReclaimer(machine)) ArmIntake(machine, out _);
+                }
+            }
+        }
+        bool verdict = Check(machine);
+        if (sessions.TryGetValue(machine, out var marked)) Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(machine, !marked.CrewManaged && (marked.AwaitingFeed || marked.Job?.Running == true));
+        return verdict;
+    }
+    private bool Check(CondOwner machine)
+    {
         FeedArrived(machine);
         if(sessions.TryGetValue(machine,out var waiting)&&waiting.CapacityWait&&waiting.Intake?.Mission==true&&waiting.Intake.Armed)
         {

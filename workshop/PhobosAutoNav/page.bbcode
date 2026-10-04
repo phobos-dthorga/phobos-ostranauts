@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.32.0
+[b]Version:[/b] 0.33.0
 [b]Publication status:[/b] Not published - development candidate
 
 Give Polaris the long approach while you keep an eye on the ship. Asterel boards plug into the Polaris navigation station and fly, dock, pursue and aim using the ship's own thrusters, torch, sensors and weapons.
@@ -45,7 +45,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel boards
 [list]
 [*][b]Disengage and Stop are not a brake.[/b] They remove thrust and the ship keeps coasting. Leave braking room.
 [*]No guaranteed collision-free flight, successful hit or intact capture. Losing track of the target or a hazard releases thrust and waits for Resume. A one-off failure in the game's own ship update is ridden out; repeated failures suspend the flight for Resume.
-[*]Docking needs clearance and the docking console open for the final clamp. Departure, docking and pursuit pause after loading, and Combat never restarts on reload.
+[*]Docking needs clearance and the docking console open for the final clamp. Departure and pursuit pause after loading, docking carries on, and Combat never restarts on reload.
 [*]Ordinary saves are supported; saved flights keep their settings. Since 0.28.0 flight progress settles every two real seconds and before every save. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
 [*]Automated checks pass; in-game checks of torch and station-cluster approaches are still in progress.
 [/list]

@@ -3094,13 +3094,13 @@
       "key": "workup_queued",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/WorkupService.cs:84"
       ],
       "before": "Workup inputs bound. Start when ready; leave room for every output. Reload pauses the job.",
-      "after": "Supplies set aside. Start when ready and leave room for all results. Loading a save pauses the job.",
+      "after": "Supplies set aside. Start when ready and leave room for all results. A job that was running carries on after loading a save.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -4508,13 +4508,13 @@
       "key": "Docking.details",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationInstruments.cs:99"
       ],
       "before": "DOCKING / RCS\nTarget: {0}\nLast event: {1}\n{2}\n{3}\n{4}\nNative clamp range; ordinary stopping-distance dial does not apply. Docking always requires explicit Resume after reload.",
-      "after": "DOCKING / RCS\nTarget: {0}\nLast event: {1}\n{2}\n{3}\n{4}\nUses docking clamp range, not the stopping-distance dial. After loading, choose Resume to continue docking.",
+      "after": "DOCKING / RCS\nTarget: {0}\nLast event: {1}\n{2}\n{3}\n{4}\nUses docking clamp range, not the stopping-distance dial. Docking carries on after loading the game, once its checks pass.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -8688,14 +8688,14 @@
       "mod": "PhobosAutoNav",
       "key": "Persistence.resume_setting",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/Plugin.cs:65"
       ],
       "before": "Resume a saved active flight after loading, once hardware, target and control checks pass. False restores it suspended for explicit Resume. No thrust is issued while loading or paused.",
-      "after": "Resume a saved active flight after loading, once hardware, target and control checks pass. False restores it suspended for explicit Resume. No thrust is issued while loading or paused.",
+      "after": "Resume a saved active flight or docking approach after loading, once hardware, target and control checks pass. False restores it suspended for explicit Resume. No thrust is issued while loading or paused.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -23177,14 +23177,14 @@
       "mod": "PhobosShipbreaker",
       "key": "IntakeService.intake_connected_paused_after_loading",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeService.cs:223"
       ],
       "before": "Intake connected; paused after loading.",
-      "after": "Intake connected; paused after loading.",
+      "after": "Intake connected; not running. Press Start on the D4.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -24872,14 +24872,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Settings.continue_collecting_residue_after_each_transfer_false",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Settings.cs:42"
       ],
       "before": "Continue collecting residue after each transfer. False collects one packet per Start. Always paused after reload. Restart after editing.",
-      "after": "Continue collecting residue after each transfer. False collects one packet per Start. Always paused after reload. Restart after editing.",
+      "after": "Continue collecting residue after each transfer. False collects one packet per Start. A route that was running carries on after loading a save. Restart after editing.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -24924,14 +24924,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Settings.powered_seconds_per_residue_packet_pausing_retains",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Settings.cs:38"
       ],
       "before": "Powered seconds per residue packet. Pausing retains this short clock in-session; reload resets the clock and pauses; saved endpoint links remain. Restart after editing.",
-      "after": "Powered seconds to move one residue packet. Pausing keeps the time worked; loading a save resets this short timer and pauses transfers. Machine links are kept. Restart after editing.",
+      "after": "Powered seconds to move one residue packet. Pausing keeps the time worked; loading a save resets this short timer, and a route that was running then carries on. Machine links are kept. Restart after editing.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
@@ -25802,14 +25802,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.setting_seconds",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Settings.cs:28"
       ],
       "before": "Powered seconds to move one identified residue packet into a reclaimer. Reload resets the short transfer timer and pauses routing.",
-      "after": "Powered seconds to move one identified residue packet into a reclaimer. Reload resets the short transfer timer and pauses routing.",
+      "after": "Powered seconds to move one identified residue packet into a reclaimer. Loading a save resets the short transfer timer; a route that was running then carries on.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -25836,14 +25836,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.setting_continue",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Settings.cs:30"
       ],
       "before": "Keep receiving compatible packets after each transfer. Does not start processing or resume after reload.",
-      "after": "Keep receiving compatible packets after each transfer. Does not start processing or resume after reload.",
+      "after": "Keep receiving compatible packets after each transfer. Does not start processing.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -26413,8 +26413,8 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.queue_hint",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosShipbreaker/CollectorLinks.cs:32",
@@ -26465,7 +26465,7 @@
         "src/PhobosShipbreaker/Settings.cs:30"
       ],
       "before": "Start transfers in Input routing, then Start reclaimer to process arriving feed. These permissions are separate and pause after reload.",
-      "after": "Choose Start transfers in Input routing, then Start reclaimer to process what arrives. These are separate controls; both pause after loading a save.",
+      "after": "Choose Start transfers in Input routing, then Start reclaimer to process what arrives. These are separate controls; each carries on after loading a save if it was running.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
@@ -47320,13 +47320,13 @@
       "key": "Panel.help",
       "category": "control/help",
       "decision": "rewrite",
-      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
+      "reason": "Added or reworded with the resume-after-reload change.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Panel.cs:59"
       ],
       "before": "Start binds a charge or arms the machine. Pause keeps the work; Cancel forfeits it. Connections link water vessels, hydrogen and methane stores, and oxygen or CO2 canisters within one tile. After a reload, press Start to resume.",
-      "after": "Start begins a batch or switches the machine on. Pause keeps your progress; Cancel loses it. On Connections, link water silos and gas stores that touch the machine or share its line, and oxygen or CO2 canisters within one tile. After loading a save, press Start to resume.",
+      "after": "Start begins a batch or switches the machine on. Pause keeps your progress; Cancel loses it. On Connections, link water silos and gas stores that touch the machine or share its line, and oxygen or CO2 canisters within one tile. After loading a save, a machine that was working carries on by itself.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -67721,6 +67721,19 @@
       "after": "Extract sugar from beets"
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "resumed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added or reworded with the resume-after-reload change.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Carried on after loading the game.",
+      "after": "Carried on after loading the game."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -69559,6 +69572,32 @@
       ],
       "before": "{0}: a material a file adds is of kind stock, and the mod's own materials keep their kinds.",
       "after": "{0}: a material a file adds is of kind stock, and the mod's own materials keep their kinds."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Content.resumed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added or reworded with the resume-after-reload change.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Carried on after loading the game.",
+      "after": "Carried on after loading the game."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Content.resume_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added or reworded with the resume-after-reload change.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0} was working when the game was saved but could not carry on: {1}",
+      "after": "{0} was working when the game was saved but could not carry on: {1}"
     },
     {
       "mod": "PhobosFramework",
@@ -73400,6 +73439,19 @@
       "after": "A kilogram of grey grit and sulfate crust: what the acid leaves of washed gangue. No recipe wants it, but a reaction mass feeder will grind it into thrust."
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Content.resumed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added or reworded with the resume-after-reload change.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carried on after loading the game.",
+      "after": "Carried on after loading the game."
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -77045,6 +77097,19 @@
       ],
       "before": "How much of their heat Phobos machines give off, from 0.05 to 1. 0.25, the default, means a quarter of the heat they gave before Framework 0.94.0; 1 restores it. It covers the heat machines put into their room and the mining laser's heat into a cooling assembly. Fires and explosions are not affected.",
       "after": "How much of their heat Phobos machines give off, from 0.05 to 1. 0.25, the default, means a quarter of the heat they gave before Framework 0.94.0; 1 restores it. It covers the heat machines put into their room and the mining laser's heat into a cooling assembly. Fires and explosions are not affected."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ResumeAfterLoad.setting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added or reworded with the resume-after-reload change.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Machines that were working when the game was saved carry on after loading, once their own checks pass. False makes them wait for you to press Start or Resume, as they did before Framework 0.95.0. The F6 furnace always waits. Auto Nav has its own setting for flights.",
+      "after": "Machines that were working when the game was saved carry on after loading, once their own checks pass. False makes them wait for you to press Start or Resume, as they did before Framework 0.95.0. The F6 furnace always waits. Auto Nav has its own setting for flights."
     }
   ],
   "documents": [
@@ -77052,8 +77117,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6200a370949bd8f6963a77c2189a228dd4aa783d388e4bcc347618359a28e026",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "a8e3d1445ac0bf156f2c69e27eeec739de25aad2a82b777ff6d0eb82d0ffa06d",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77073,49 +77138,50 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6ea8ac819ce7679697e7d78987a2dbcad5f04cc2686f1572ba6ad4df698c0deb",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "8e73a57ae589638b1aa36de07686343bea61470b48de46bd75f52c18d2e481ad",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4359f7038c6f0e75f50d20def7d51ba5db7a917c8de943a2952337b4da1a8c84",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "550b62a0dc954fa3b56ce30c501b1ebfffe5f67797080b789e414d7aa6f1eeef",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "10dac97ce88a71d412749bf01ffb548fb5957a0e3b8ee64738eae146b2eb761b",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "2b9fe2d49e1350abdd69381bf45cd816d9f0e082998e36a25d90cc6b06bbf7e5",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c4d349c6ff6f567bab4c846ec759b4ccbecb82390dcc012e7d538a309310beab",
-      "review": "Reviewed 1 October 2026 for Agriculture 0.33.0: the irrigation conduit holds its water or feed; canisters pour into the W2."
+      "sha256": "013681752967b3f812ecb181185e944999ded529b8da5891e83d899cbbc63c97",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "27d7db2077f14f5fd30f7c7b6e153577472e14d428a550d6dd4cf0d679280451",
-      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
+      "sha256": "34cfac639b4eff6fcc1df96375f2fe34b511cd71882f3c62dce3ebf3b86772a6",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-seed-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d2b0ffa8205ba3f7041b74b94f78297580f0124e05f96672e11267e34b9d207b"
+      "sha256": "bbfb7cf8db29834768ca709a7778aebab34da29e62b13ece9f2f3975a2c29a72",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4fc5600368ca80e6190f5872edcc31f1f62a0c97fd753a7d99c66f89183acdca",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "79e3d9cf1c605572b4ddeba84cefada85423f039a1c611a6e8faa5aeedf608b9",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -77135,8 +77201,8 @@
       "path": "docs/auto-nav-docking.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "84fea89143ecd5b28156806e94bd469b08ad5b5560202122b1c3d24772abf29c",
-      "review": "2026-09-28: no target-spin gate; the clamp as the game's own button with the alignment wait; docking with an open port while attached."
+      "sha256": "7f7bd621bba75c8461ae9d32fd803e7198568dd035e6f7e0ea5b53acc032e778",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-economy.md",
@@ -77156,22 +77222,22 @@
       "path": "docs/auto-nav-flight-profiles.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "e0cddb6f63f17f71b8c5512e8390a2dcc60685c2509d3d2f14c73ecd5f80fdd8",
-      "review": "2026-09-29: the game slider curve, the authority readout and turn planning on the granted authority."
+      "sha256": "8802db3eab44c0befa21698212ca1ac44d07215d2b0719d6c7ece78f1eb9b7ae",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fd2bc1fb06928129958d001052a9c90d0916df00b2ca39fba6d49b0055f81e94",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "cfeb0ac0e2510c7fd345787c36d4c4851bc94a093d38d2e589efbd1ac7ad0f71",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-persistence.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "9b47c454cb64b976b3ce3412557a82ec39d3c928cefbd9ca527cf43ae0b39784",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "6d190c4f620d3e5f71a66e4667147c4dbc7c5f9098c16679c3fc9757f736fcf7",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-pursuit.md",
@@ -77184,15 +77250,15 @@
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "d5862cb14dbe56eb8d7388cc295eb704fa6f761705f40c137baa07a309e65aed",
-      "review": "2026-09-28: any sensor or power refresh is a short hold; ships the nav station always shows count as tracked."
+      "sha256": "3e9f345485913d21b23c453e453148b97f2923139a7dd07dc26ce9f22c54787d",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-torch.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c11b4ad91952eaa74b85be9bca232ba78768904d5a5419fc5059ea0ab831cadf",
-      "review": "2026-09-29: reactor Flow and Cycle section (course-plot rules, startup wait, safe-band stop) and the 0.27.0 ignition note."
+      "sha256": "e0428af3d3b044d939764aee6a94f389780c56e52b852e87b1ba713b12901f38",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/auto-nav-towing.md",
@@ -77205,15 +77271,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7052474d06c2f122303dcfce7c602003a0687000db592503480e00e788a8d284",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "c44fd9940fd8ed68c0e8a895d46afc4ec169da73b23e03200b01bba4ea804b14",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c6baa07c3d917c1f45c879446bac45b390b120834612aec457b533c12094ef45",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "478086bf4a138e0b085baf68346ee04d4999fcf3a43783af489920ce60f5e16e",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77813,8 +77879,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "102a4b533b84e516dd907bf6b1d631abcf407b0d4965cd478ea177ebb459ff4f",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "9010ef90d32f0323bd39493654792edca376ab250792b01c20f182de3d4da8fb",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78046,15 +78112,15 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e9ed4b97b281c7f18331ab1680157eed9027126a8a9deceaf7673e6707d325cd",
-      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
+      "sha256": "5b0c81ff7fdc5c031bde70aea02e374aab05fd9fa24d4df9ed527105664f8514",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d0367c78e4ea3a98f9715639dfb710bb717c4f3606a8b0e46cfd10cd843c046b",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "8fca79cd1f60e3208621c85880fce1d4675b792cb63f427a304ff7ee8dd3ed07",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -78081,8 +78147,8 @@
       "path": "docs/getting-started.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "aba3d731db222ed8e8c19c409ec24b73069832603d770392bbf57efc06954959",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "a8bee79388d82eac6acbc230c47c12ac984ebfc39718104354b24adedea7982d",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/health-chronic-and-traits.md",
@@ -78109,15 +78175,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fc573857026e6c601c2396c155b1a5a3af730610963e9d78baf584945b575b33",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "8a476d67fd28a65fda246d3a459f477f3f89454aa87e6a3162210b1e69898931",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "174cb335acaeec010d96c36f12023aa3cadff1a496e2a9099a45e9d0b096c14e",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "faeb18b636032ca7a141ae5df9a4627e4a4d8c06a25d9a4e19eab1d76a7f0b31",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/item-references.md",
@@ -78137,22 +78203,22 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "ff3a35d08b1cde03a1b4daf797dda0e0c6de813677e589e79ccd8765d17e8a55",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "2244cc2a7675870d5a79fbc6dcf656a961e598785738e9f7ca9f4afaa03353da",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "e81ae6036ed26ae4223039a9b3606d1f7f87ecaa4a205aa71a4e26c67afb047c",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "8ebf76a7a646ca6a6e250144150a6abd83a5ed6d527db96e62e6c84fb0a86260",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/material-port-pairing.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "cb68c03ef691ea14731b322f7e03d29439f6e3b8ffd13685dea458e6ad66c079",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "0e9413240f49a527d65b8ed78976cff6d356de032a4ab8c669055b3c739ad468",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/medical-item-reference.md",
@@ -78179,22 +78245,22 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6200a4f04b986415ed28bd9814b9debec9a0f2d819ba21632f6ab07efa41069d",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "19f0f54c208bdbefa956202347a08a075646624b4307ebdc0c558c286ced0e24",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e884e094ce56f2d1ea70409295c211d6ee305facdbe45ad911352d136315e382",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "5ca8b9c7d787f8830fbecc137a8cf31332f8aeb39cbd484d8e75b3f197d2951b",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3954b0ce71605eb7258219564bf1506040e0a679c3d774000ea230e826d05676",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "ac73c3b853b01f6c0cbfaac881de08fb1f723e2e93b38c4975e331b580196a3a",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -78214,22 +78280,22 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "142512eddf4dbbdd95b2e2616b86067ed94bbb78e3d82607801daba310afb7a2",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "f55e0b5a5730707875cfe35287c36bd6a9565e7b8c7b40a1c96f449055674107",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "31f465a95dc712c3ff0e122b4b80812f14cde090adcbbe528bb173e4dc61b5c5",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "ec45589bfbb914c6f1c98d240bf1b4b8f08dd74857ad081a3d564328c2eac861",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c2db22a1b99d98a2649eb5dff07926731205411ff1187831c75e6d5ad8ad1acc",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "137c26c267d46f6793d7d0e7437a969816f6c1429c2caf983c4568a995996a2a",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -78249,15 +78315,15 @@
       "path": "docs/shipbreaker-mining-laser.md",
       "scope": "current player operating guide",
       "decision": "New player guide written to the crew voice: equipment, the steps to use it, what it reaches and cuts, heat, safety and limits.",
-      "sha256": "41d2024034b0fb5c6d3cd2ce4546b1d61be3cabe62ed04f01ba3194948d9fbc6",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "a5efbfc9d22c04f2438037b0fae68354764bd92669ab03ef55b95102a6e300fa",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-reclamation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5b56be1736a9200a95ea543754898ada39dff9bd3dba26ee72685b963f2b59ac",
-      "review": "Reviewed 3 October 2026 for Framework 0.76.0: Phobos machines do not work in vacuum and say so with one shared message."
+      "sha256": "811154037e679fe74464f5cf1b1a18586e9e1c4d637961b75b19e160cbc1826b",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "docs/solar-system-economy.md",
@@ -78284,29 +78350,29 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ae7e5a2f7e42edbfddee6ee7ef150abac5ae1ddf6ac91d352eb5cccf13b8f5cb",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "b624288b58ccdb1cfd8275ce5766f8f04b8e755c8b7fea5f18784028cc98f59d",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1ebe9001fee92a96033bf590ad3e6a627e7d4167a4ee87a3c7f6724deb7bdd7f",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "4e8ba00d23fe59e56ee855c40824393238849b94dc7a65e1a4878dc0bb28dd10",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "02b6211694631323e7c35eefe5555adfc61f2ce78ec0f79afa11bb4c0392092e",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "fb6582f8162996f3763b754756d042b3e1026dd177e516a1bbd0f66181b11cf1",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "06f3a69505fa9f7c187a401abb8cc541d13ecf506f231f384dd70cbd6f3bbdb4",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "ebdce7b3b1988a9ab625d16c9c69b0eddd7810b9a144497fe27d76bfcafe93f4",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78319,8 +78385,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "93b524c34448440bc20a162242488f2b610f85a91a5ab45a0892b18ed293dd4f",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "3237c24c7b2f3d4fd03a61487dfffe045a6c6e862f36d75396d07cf3a9c7ff8e",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -78348,8 +78414,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2dfdcf580403753abe08fad35d7f8f6cd697b03431ca88a0eaef328839b198c0",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "914742093cad211c5f5beea786d4a91740209975ec27c8176eaf12d51c5b871c",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -78365,8 +78431,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "efc9738cdaf0fb0e6fc12f6d524f2974c85c8d83ae93bf1af5a102e48e4be524",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "1a7fbaa3ebe7efbd1890387840eec6f7fe780b7438ebb9d2f7641ac208374ddc",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -78388,8 +78454,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a828bb024cdd897a840f9cba8aaee5e736d8f5c9a589ce45210387adfe06262c",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "ac678c2759fb0466a8367a499b7dbd5a17cb9d97a2013a698a733ef4e0c90442",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -78400,14 +78466,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3eafc3611107cd67441e7af4ce302d5a75a7331e4889d4bec2479dec47c34824",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "52987eaf6a85beea955013034d103a95a760f1d0047c1137d29d794fed75b606",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0e79ab8902ed9be16c974818e3ce2d24c0d8a60b7ab0e7fd65ecbffbaeae2b6a",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "c7ce8c6716dc0ddecc411cfc561254f87737429ccd0f7568aa0fa4de35c70c11",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -78424,8 +78490,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bf0b04a5416bc39a13200a85751940da42d6c4576084b8391b8b775bdcc39523",
-      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
+      "sha256": "f51bf59a6d9596271073f0cd4a3dae58af629e5280b0f402e4be47756638e461",
+      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

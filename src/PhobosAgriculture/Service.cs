@@ -168,6 +168,8 @@ internal static partial class Service
         return gas != null && room!.GetCondAmount("StatGasPressure") >= 20 && Moles(gas, "StatGasMolTotal") > 1 &&
             room.GetCondAmount("StatGasTemp") + gas.fDGasTemp < 318.15;
     }
+    /// <summary>The flags of the saved resume mark: working (growing, cooking, pumping, bench work) and receiving water.</summary>
+    private const int WasRunning = 1, WasReceiving = 2;
     internal static void BeginRun(CondOwner co) { var s = Get(co); s.Received = 0; }
     /// <summary>The definition's own idle draw. Every installed appliance keeps it, so the game's power state
     /// (IsPowered) follows the real connection even when nothing runs or the machine is protected.</summary>
@@ -185,6 +187,20 @@ internal static partial class Service
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Tick);
         var s = Get(co); double elapsed = StarSystem.fEpoch - s.Last; s.Last = StarSystem.fEpoch;
         if (s.Protected || co.ship == null || (int)co.ship.LoadState < 2) return;
+        // Work that was going when the game was saved carries on once after the load (Agriculture 0.50.0; owner decision,
+        // 5 October 2026): a growing crop, a cooking portion, a working bench or pump, and receiving water. The saved
+        // mark holds two flags and follows the machine's state; a machine that is damaged or not installed stays stopped.
+        if (Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Due(co))
+        {
+            int was = Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Flags(co);
+            if (co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
+            {
+                if ((was & WasRunning) != 0 && !s.State.Running && (!Definitions.IsCooker(co) || CookerInput(s) != null)) s.State.Running = true;
+                if ((was & WasReceiving) != 0 && !Definitions.IsCooker(co)) s.State.Receiving = true;
+                if (s.State.Running || s.State.Receiving) s.Notice = Text.Get("resumed");
+            }
+        }
+        Phobos.Ostranauts.Framework.Persistence.ResumeAfterLoad.Sync(co, (s.State.Running ? WasRunning : 0) | (s.State.Receiving ? WasReceiving : 0));
         try
         {
             bool wasReady = s.State.Ready; s.MealCommitted = false;

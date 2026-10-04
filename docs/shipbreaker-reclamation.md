@@ -45,8 +45,11 @@ F3 uses the existing `phobosindustry` equipment selector with actions
 `reclaim-status`. See the [console guide](industrial-console-player-guide.md)
 for selector syntax. Panel buttons make the same checks.
 
-Manual movement, sensor loss, changed bindings and loading suspend the mission.
+Manual movement, sensor loss and changed bindings suspend the mission.
 Reacquisition of a contact does not grant permission to restart. Resume is explicit.
+After loading, a mission that was running when you saved resumes by itself, exactly
+as Resume would and with every check; a step that was interrupted with an uncertain
+result still suspends it, and a paused or suspended mission stays as it was.
 Stop does not unexpectedly disconnect an attached ship.
 
 ## Cutting and cooling
@@ -92,7 +95,7 @@ unchanged; only this bound-target adapter crosses the capture.
 D4/R4 use their existing recipes and material budgets. Full G4/feed/output capacity
 stops further acquisition; a cleared destination can continue while this same
 mission remains authorized. A D4 storage output or crew hauling keeps the product
-tray clear; without either, the tray fills after a handful of walls. Manual pause, faults and reload revoke that permission.
+tray clear; without either, the tray fills after a handful of walls. Manual pause and faults revoke that permission; a mission that was running when you saved takes it up again after a reload.
 
 ## Traversal and completion
 

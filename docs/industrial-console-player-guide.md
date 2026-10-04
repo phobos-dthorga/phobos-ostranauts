@@ -25,7 +25,7 @@ and alert volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.76.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.77.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -45,8 +45,9 @@ other ship's equipment, even when both ships belong to the player. Unknown,
 leased and foreign ownership does not grant remote control. Moving/uninstalling
 the console or changing selected crew ends the open session. Losing power or
 ownership disables commands. Closing a screen or losing console power does not
-cancel autonomous machinery work. Work still pauses after reload; a belt route that
-was running resumes by itself (Shipbreaker 0.56.0).
+cancel autonomous machinery work. After a reload, work and belt routes that were
+running when you saved carry on by themselves; a hot F6 furnace batch still waits
+for Resume. See [machines carry on after a reload](player-guide.md#machines-carry-on-after-a-reload).
 
 Use **Overview**, **Equipment**, **Routing**, **Observations** and **Attention**. Equipment groups
 collapse by type; search accepts a name or full object ID. **Change status filter**
@@ -141,8 +142,9 @@ same access and machinery rules.
    player does not own must refuse access.
 3. Browse multiple machines; try search, status, Attention and routing, scrolling
    at your usual UI scale. Close/Escape and resume movement without stuck input.
-4. Save/reload: existing cargo/jobs/pairs/filters survive, while work and receiving
-   remain paused. Console power loss must block commands without erasing jobs.
+4. Save/reload: existing cargo/jobs/pairs/filters survive; work and receiving that
+   were running carry on by themselves, paused ones stay paused, and a hot F6 batch
+   waits for Resume. Console power loss must block commands without erasing jobs.
 
 These are checks of the new UI/access integration, not another basic power test.
 
