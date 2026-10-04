@@ -1,5 +1,15 @@
 # Rejected artwork archive
 
+## Medical monitor size revision, 4 October 2026
+
+The original one-tile Vigil-1 master, native colour/normal and preview were
+verified byte for byte in local commit `6110645617acfb16a53fe37647ecd24296f57ec7`
+on `codex/rejected-artwork`. The commit has not been pushed. The owner requested
+larger sizing; the current planned Vigil-2 is a two-by-two cart, with a 32 x 32
+native pilot and 128 x 128 master. Its untouched 1254 x 1254 source remains on main,
+along with the exact initial prompt, revised registration and hashes in
+[the request record](phobos-medical/requests.json). No runtime art was removed.
+
 ## Ward-3 superseded direction, 4 October 2026
 
 Five Medical artwork binaries (the initial hospital-bed source, PixelLab fitting,

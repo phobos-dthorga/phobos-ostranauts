@@ -212,7 +212,9 @@ def care():
                      'dischargeShare': num(0, 1, description='A resting patient gets up below every threshold times this share; below 1.')},
                     description='Who counts as injured, and when a resting patient has recovered.')
     level = obj({'notes': NOTES, 'weightlessHealing': num(0.05, 1, description="Share of normal wound healing a weightless patient keeps under care: 0.05 is the game's own, 1 removes the penalty.")})
-    return obj({**header('care'), 'stations': named(station, 'Electrical demand by station: bed.', '^(bed)$'), 'admission': admission,
+    return obj({**header('care'), 'stations': named(station, 'Electrical demand by station: bed, monitor.', '^(bed|monitor)$'), 'admission': admission,
+                'alerts': obj({'notes': NOTES, 'bloodLost': num(None, 40, exclusive_minimum=0), 'infection': num(None, 95, exclusive_minimum=0),
+                               'pain': num(None, 75, exclusive_minimum=0)}, description='When a Vigil-2 posts a caution (Medical 0.3.0); a bleeding wound always alerts.'),
                 'levels': named(level, "What a station adds to the game's own care (Medical 0.2.0).", '^(bed)$')},
                ['schemaVersion', 'schema', 'stations', 'admission'],
                'Phobos Medical care pack: station power and admission thresholds. The healing is the game\'s own Recuperating.')

@@ -1658,3 +1658,9 @@ First consumer: Phobos Medical's 3 x 5 Ward-3 bed.
 - **`CrewWork.Crew()`** returns the player's loaded crew from the company roster the game's
   time skip uses.
 
+## Touching footprints (0.86.0)
+
+`Observations.Footprints.Touching(a, b)` says whether two installed objects on one ship touch:
+side by side or one tile apart without overlapping, from each item's width and depth turned by
+its rotation (`OnDeck`). The pure `Touching(ax, ay, aw, ah, bx, by, bw, bh)` takes centres and
+sizes in tiles. First used by Phobos Medical's Vigil-2 to find its bed.

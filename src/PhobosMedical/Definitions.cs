@@ -18,6 +18,7 @@ internal static class Definitions
         AddConditions(d);
         AddInteractions(d);
         AddBed(d);
+        AddMonitor(d);
     }
 
     private static void Condition(NativeDefinitions d, string name, string color, int display, string[]? per = null) =>
@@ -27,6 +28,7 @@ internal static class Definitions
     private static void AddConditions(NativeDefinitions d)
     {
         Condition(d, MedicalRules.InUse, "Neutral", 2);
+        Condition(d, MedicalRules.Watching, "Neutral", 2);
         Condition(d, MedicalRules.Resting, "Neutral", 2);
         Condition(d, MedicalRules.Rested, "Neutral", 0);
         Condition(d, MedicalRules.CareMark, "Neutral", 0);
@@ -133,6 +135,30 @@ internal static class Definitions
             // The Halewright art (Medical 0.1.1) on every form, drawn as low as the game's own beds so a patient
             // lies on top of it; damaged forms take the game's damage tint over the same image.
             item.fZScale = MedicalRules.BedZScale;
+            co.strPortraitImg = item.strImg;
+        }
+    }
+
+    /// <summary>The Halewright Vigil-2 patient monitor (Medical 0.3.0): a powered 2 x 2 cart that watches the patient of
+    /// the Ward-3 it touches and reports on its panel. It stores nothing, so it has no inventory, and it never changes
+    /// the patient. Power from the wall row behind it, as every Phobos floor machine.</summary>
+    private static void AddMonitor(NativeDefinitions d)
+    {
+        string p = MedicalRules.MonitorPrefix;
+        var station = Care.Station(CareSchema.Monitor);
+        string name = Text.Get("Monitor.name");
+        ApplianceDefinitions.Add(d, p, name, Text.Get("Monitor.description", MedicalRules.MonitorKg, station.workingKW),
+            MedicalRules.MonitorFootprint, MedicalRules.MonitorKg, Economy.Price(p), ImagePath + "PhobosMedicalMonitor", MedicalRules.Controls, station.idleKW, InstallMenu.Appliances);
+        ApplianceDefinitions.SetPowerOverride(d, p, station.idleKW, station.workingKW, MedicalRules.Watching, "PowerA");
+        EquipmentInventory.Apply(d, p, InventorySpec.None);
+        foreach (string form in MedicalRules.Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = name + (damaged ? Text.Get("Content.damaged") : "");
+            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsCategoryIndustrialProducts=", StringComparison.Ordinal))
+                .Concat(new[] { "IsCategoryMedical=1x1" }).ToArray();
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(MedicalRules.MonitorFootprint) };
             co.strPortraitImg = item.strImg;
         }
     }

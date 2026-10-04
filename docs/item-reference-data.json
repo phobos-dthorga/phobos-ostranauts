@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.85.0",
+      "version": "0.86.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -45556,7 +45556,7 @@
     {
       "id": "PhobosMedical",
       "name": "Phobos Medical",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -46120,6 +46120,556 @@
             }
           ],
           "aliases": []
+        },
+        {
+          "id": "PhobosMedicalMonitorInstalled",
+          "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosMedicalControls",
+            "PhobosMedicalMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 34.0,
+          "baseValue": 9500.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosMedicalMonitorInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalMonitorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 10,
+                  "baseValue": 35.999999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 1,
+                  "baseValue": 0.05000000074505806
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMedicalMonitorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMedicalMonitorInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMedicalMonitorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorLoose",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+                  "count": 1,
+                  "baseValue": 9500.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalMonitorInstalledDmg",
+          "name": "Phobos' Halewright Vigil-2 Patient Monitor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosMedicalControls",
+            "PhobosMedicalMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 34.0,
+          "baseValue": 2375.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosMedicalMonitorInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalMonitorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 10,
+                  "baseValue": 35.999999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 8,
+                  "baseValue": 8.800000190734863
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMedicalMonitorInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorInstalled",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+                  "count": 1,
+                  "baseValue": 9500.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMedicalMonitorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorLooseDmg",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor (Damaged)",
+                  "count": 1,
+                  "baseValue": 2375.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalMonitorLoose",
+          "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosMedicalMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 34.0,
+          "baseValue": 9500.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMedicalMonitorLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalMonitorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 10,
+                  "baseValue": 35.999999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 1,
+                  "baseValue": 0.05000000074505806
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMedicalMonitorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMedicalMonitorLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorInstalled",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+                  "count": 1,
+                  "baseValue": 9500.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMedicalMonitorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMedicalMonitorLooseDmg",
+          "name": "Phobos' Halewright Vigil-2 Patient Monitor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosMedicalMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 34.0,
+          "baseValue": 2375.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMedicalMonitorLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMedicalMonitorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 10,
+                  "baseValue": 35.999999046325684
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 8,
+                  "baseValue": 8.800000190734863
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMedicalMonitorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMedicalMonitorLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorInstalledDmg",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor (Damaged)",
+                  "count": 1,
+                  "baseValue": 2375.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMedicalMonitorLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMedicalMonitorLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMedicalMonitorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosMedicalMonitorLoose",
+                  "name": "Phobos' Halewright Vigil-2 Patient Monitor",
+                  "count": 1,
+                  "baseValue": 9500.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
         }
       ],
       "sources": [
@@ -46131,9 +46681,23 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosMedicalBedLoose",
           "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine, Warm standing",
           "chance": 1.0,
           "count": 8
         },
@@ -46145,8 +46709,22 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine, Warm standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -46155,19 +46733,40 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMedicalBedLoose",
           "condition": "Loot",
-          "chance": 0.005,
+          "chance": 0.0025,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMedicalBedLooseDmg",
           "condition": "Loot",
-          "chance": 0.015,
+          "chance": 0.0075,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Loot",
+          "chance": 0.0025,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMedicalMonitorLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0075,
           "count": 1
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -46180,8 +46779,22 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGFurnishingsKioskInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosMedicalBedLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMedicalMonitorLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -46194,8 +46807,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46208,8 +46835,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46222,8 +46863,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46236,8 +46891,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46250,8 +46919,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46264,8 +46947,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46278,6 +46975,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosMedicalBedLoose",
           "condition": "Pristine",
@@ -46285,8 +46989,22 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMedicalMonitorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosMedicalBedLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMedicalMonitorLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -59119,7 +59837,7 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "51b3ed582948585340a1d9c8fa545e1d4cb64c23153ac542a1d1df49dcc899ca",
+    "mods/PhobosFramework/mod_info.json": "ef0862f417388c03abd3de106db6aa9a29e35339240f113a4dba001afeba861d",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "44a8dd08fe0b71583bd521777128226bfc4d0828024a02fccf145c1abb4939af",
@@ -59131,10 +59849,10 @@
     "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
     "mods/PhobosManufacturing/mod_info.json": "e6bf61a08194ddc8525b40f84a9126b72a48a386accef76ea9940c0f7ffc26e0",
     "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
-    "mods/PhobosMedical/framework/care.json": "4e109e0427a359ed6aaee94df1e8c5626545d8d44fe49ac4d4e028c275991995",
-    "mods/PhobosMedical/framework/economy.json": "65b5936b10d3a77645f3a0836707a4b00ecf5e87aa3f158f637a3a975dcb6cbf",
-    "mods/PhobosMedical/framework/equipment-names.json": "95d166c4df929f50618497c0e82cf0e5fed1a48b216df0dc3bb6206bce7144b3",
-    "mods/PhobosMedical/mod_info.json": "34fcd96a509a9f325454eaf006bc440bb5a40281aa7be2de641b0194b31e7375",
+    "mods/PhobosMedical/framework/care.json": "1b11187022fa705bd35b42141d3075cbed2ec57c1c625bf06bdf9ba2b3d9cbc6",
+    "mods/PhobosMedical/framework/economy.json": "8e95f9579601722de619bde463568c243ec971e1ab2d5f653d5128473929b3c9",
+    "mods/PhobosMedical/framework/equipment-names.json": "38730bef918eb4dbaad2aa84f92a1c61f90fcecbde9f3a260bff272ad3e574aa",
+    "mods/PhobosMedical/mod_info.json": "95dc6dcbae9bcb120027c4f349d0948f06af347b933914528d41f4c3c609d727",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -59410,6 +60128,7 @@
     "src/PhobosFramework/Notices/PlayerNotices.cs": "8523123efb59abf46e61c3458303ed2b6cafb4480de799061430d660d36bd364",
     "src/PhobosFramework/Observations/AttachedTiles.cs": "66b6215bf12f7c74fa9f678c7e608ade8c96ca74244a4653f9bcf9f7f7a14df2",
     "src/PhobosFramework/Observations/BeamGeometry.cs": "ad81df101fe02e9f0654c6e70e7095d540cabb32fbe6585faa29155dc25c3ca3",
+    "src/PhobosFramework/Observations/Footprints.cs": "428f2b05951e4085ed4cd05065ab83aec1ed812d60364a86b63e2a97502d039f",
     "src/PhobosFramework/Observations/NativeCombat.cs": "b92e3c5eeffe0a94b50a4daef23dfc289f82409089232d1d4229fba5140d731c",
     "src/PhobosFramework/Observations/NativeRoomAlarms.cs": "5ebfc578d928304c569203697920e5c5bc4ddfa1b301c3b16484b5ee2bb15374",
     "src/PhobosFramework/Observations/Observation.cs": "a7e18264f2898f7f50199ac789f4863d94a70f01bc37f1a42fbf6cd4623ab399",
@@ -59423,8 +60142,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "cf8dd9035a19f4a5326913762920431f5479bf69802c18198f158e28f348b351",
-    "src/PhobosFramework/Plugin.cs": "bf456120ae0695b7db437ae7cdb46ac431ba7feb83833fa023097b11f6579c4a",
+    "src/PhobosFramework/PhobosFramework.csproj": "bf800bf77f53387e144801eec9b9732e7da10bef97515c1782feb6c981fc5ca5",
+    "src/PhobosFramework/Plugin.cs": "96da19efd2a474ccd866a04f604c2e1b1dc2cb9754fadb83e71fae04c65fa346",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -59522,18 +60241,20 @@
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosMedical/AssemblyInfo.cs": "83503e9368440eeb7267e71f9657483150ed313f235706953ef26acae2e44303",
     "src/PhobosMedical/BedService.cs": "080fb6fc471fb5f3daaec8494b9d9d0098be7c017933ccaf3eda5f56c3c1852b",
-    "src/PhobosMedical/Content.cs": "07af42a7a3a78420ac4e1b9773ec97b958e4b800f304bf0c389403652a35c230",
+    "src/PhobosMedical/Content.cs": "fc8e99d212f542d614d692bec8bb38816323b86f3d5d41a908b7741b82fa9932",
     "src/PhobosMedical/Core/BedRules.cs": "dad7fe64233d70728cdc166584c0c9005b3b177392f2e5eb8875cc68b88551b1",
-    "src/PhobosMedical/Core/CarePack.cs": "dfbf5fc785ebbd45fd9d165f142a099b53c17e4becd5c25e56b1de192f20bb0c",
-    "src/PhobosMedical/Core/Economy.cs": "ed755aa5103aec51fffd5c11c5c9615975f82b661dfa1cf8de4db63ae0bfb3f4",
-    "src/PhobosMedical/Core/MedicalRules.cs": "0228447708f507baa74dd9782b65784dae933d38b3f0699db69e7961d62f01df",
-    "src/PhobosMedical/Definitions.cs": "e0b3b31b79ee684cacae0f7f0f80de0ae430634c40bdafa0d3da7fee53265bfb",
+    "src/PhobosMedical/Core/CarePack.cs": "0dfe005b45bec1fd677f5e7367b3d5676e361fb1a1e2481b8975139f0d770d56",
+    "src/PhobosMedical/Core/Economy.cs": "66a245ac03ebe6058348bb10112b5e7ac5bae9199df5331a355adf2e0dc6af5b",
+    "src/PhobosMedical/Core/MedicalRules.cs": "f07093699e6a2d065e1174901fa34030aead10962db4d6671c4a3f3941272498",
+    "src/PhobosMedical/Core/MonitorRules.cs": "64cc843c24f2c9d62ec652030666444a774d007b3695d228d86bb9f0f481af65",
+    "src/PhobosMedical/Definitions.cs": "656de398a6a53a6dac4a5be069b42a8fedde3f9782bef8b0aeeb11688d8e47f8",
     "src/PhobosMedical/EquipmentEconomy.cs": "007952bb3e3f2e10d3db7590447571736fb4bcfe2725067242ec2ea2ae9d342d",
+    "src/PhobosMedical/MonitorService.cs": "bc68fab4893fe73e7e4193111bd14ee9a8121e8b590e81bde2c8f6a1c59bb877",
     "src/PhobosMedical/Panel.cs": "b071f5c9b3e8b257066a3425a1d29b4ceae08fd6cd45fde51c3546656dacdba9",
     "src/PhobosMedical/PerformanceMetrics.cs": "6135015ea8139ebca06a8e3a7d877814e5a91718f054a86704aac13bb4064530",
-    "src/PhobosMedical/PhobosMedical.csproj": "bead9759cf251d16ef621bc83b3a4f43508be312f33f2b97fc02a93a01688557",
-    "src/PhobosMedical/Plugin.cs": "6e5b6814a900f3e94ed696b5df5dac7648794587a57d747666132f3bf94556fe",
-    "src/PhobosMedical/Provider.cs": "559f797e18c1c1133df6a1ce066d6fc39de1c2b69bd2ef0de75adcee72306136",
+    "src/PhobosMedical/PhobosMedical.csproj": "051adde42375fb6934757b9b946eabd3887fea9c9f8a670a56ca389153eadb1e",
+    "src/PhobosMedical/Plugin.cs": "d6366004d529b859c35818f18d845be7adf32b61bcda90bab23aff369d2adb3c",
+    "src/PhobosMedical/Provider.cs": "b1090f900b3c65f40d39fa916a309bde1d06652a68584ad8e4807eefeef4bf2b",
     "src/PhobosMedical/Text.cs": "6c77a11b4b3765a6ec861115f8c74948cf9fd1db0c33225b7062bb1cf62c3400",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -59662,7 +60383,7 @@
     "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
     "translations/PhobosFramework/en.json": "82d081858cc2b392a32700cf9cda9a0f4229b0120fc4a7da03804fe3373ab654",
     "translations/PhobosManufacturing/en.json": "90d36d95022ff915e5c410f57fca6b15eaded78091dce8e30332fbb5da8c65e1",
-    "translations/PhobosMedical/en.json": "aec08e6069fb3df77a00a8dadde604de15c2efd680f838ba3e09dbc683d7e714",
+    "translations/PhobosMedical/en.json": "c1dfcc58a4c5ce2cff7895d13b2e20363011bbab4e15bef332b2741348a584f8",
     "translations/PhobosShipbreaker/en.json": "d7dd56cbe3ae456215a5ce7042a704a0ce6a9a6015a4b4b5c6da983fe863bb97",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }

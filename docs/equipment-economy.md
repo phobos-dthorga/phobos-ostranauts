@@ -735,6 +735,19 @@ kiosk, refurbished at the Venus scrap kiosk, at the regional supply kiosks and f
 at Friendly standing; one engineering-loot roll in fifty finds one, usually broken. It
 carries the high-salvage mark. The figures are in `mods/PhobosMedical/framework/economy.json`.
 
+## Medical 0.3.0: the Halewright Vigil-2 patient monitor
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Halewright Vigil-2 patient monitor | 34 kg | $9,500 | $2,375 | 600 / 600 | 1200 | 600 | 30 min |
+
+A bedside instrument cart priced under the bed and under 10,000 credits, so Warm at the
+faction kiosks. Its repair bill is 1 aluminium, 2 mechanical and 3 electronic parts, a
+mainboard and a screen. It dismantles to 10 steel, 10 aluminium, 4 mechanical and 8
+electronic parts, 2 mainboards, a screen and 1 kg of trash (34 kg); broken, to 10 steel,
+8 aluminium, 2 mechanical and 4 electronic parts and 13 kg of trash. Sold on the Ward-3's
+routes and shares its rare engineering find.
+
 ## Manufacturing 0.9.0: Q2, Q3 and Q4 ammonia stores
 
 The ammonia stores follow the other gas stores exactly: $20,000, $32,530 and

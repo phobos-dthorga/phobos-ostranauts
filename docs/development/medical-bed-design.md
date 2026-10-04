@@ -133,7 +133,7 @@ New services land with Phobos Medical as first consumer:
 | 0 | records only | This record, the research record, the art handoff, the brand, the AGENTS.md direction |
 | 1 | Framework 0.82.0, Medical 0.1.0 | Ward-3: sleep, rest awake, lay a casualty, honest power, drawer, status panel, `care` pack |
 | 2 | Framework 0.84.0, Medical 0.2.0 | Injured-crew order; weightless care (done; Framework 0.83.0 went to another change) |
-| 3 | Framework 0.84.0, Medical 0.3.0 | Vigil-1 patient monitor: pairs by touching, readout and alerts only, never heals |
+| 3 | Framework 0.86.0, Medical 0.3.0 (done) | Vigil-2 patient monitor: planned 2 x 2 cart, pairs by touching, readout and alerts only, never heals; revised from the one-tile Vigil-1 after the owner's size direction ([art handoff](medical-art-handoff.md)) |
 | 4 | Framework 0.85.0, Medical 0.4.0 | Treatments in the pack; medic order stocking the drawer |
 | 5 | Medical 0.5.0 | Attend-2 autodoc: no rack of its own, progress by measured energy |
 | 6 | Medical 0.6.0 | Nanite course cartridge applying the game's `NanoFirstAid` |
@@ -188,3 +188,21 @@ Owner go, 4 October 2026 ("proceed with what's next").
   (`QueueInteraction`, never `AIIssueOrder`, which cancels everything). A bed waits up to
   90 real seconds for the person it sent. One crew-log line names them.
 
+## Set 3 as built (Medical 0.3.0, Framework 0.86.0)
+
+Owner go, 4 October 2026, after the larger monitor art.
+
+- **Vigil-2**, family `PhobosMedicalMonitor`, 2 x 2, APPS, 34 kg, no inventory (it stores
+  nothing), power from the wall row behind it with a working draw while it watches.
+- **Pairing by touching.** Framework `Observations.Footprints.Touching` (rotation-aware
+  rectangles, the shared one-tile rule; Shipbreaker's `LaserRules.Touching` is the same rule
+  and can move there when Shipbreaker next changes). The monitor watches its saved choice if
+  that bed still touches it, otherwise the first touching Ward-3; nothing is paired on the
+  bed's side, so moving either ends the watch.
+- **Readings** come from Framework `PatientFacts` through the bed's own patient record. An
+  hour's trend is kept in memory (a sample every ten game minutes) and restarts after a load.
+- **Alerts** (`MonitorRules.Fire`): a figure reaching the care pack's `alerts` level fires
+  once and re-arms below four fifths of it; a newly bleeding wound fires until nothing
+  bleeds. One `PlayerNotices` caution per firing, switchable per monitor.
+- **Saved record** `PhobosState.MedicalMonitor` version 1: watched bed (or none) and alerts.
+- It never changes the patient.

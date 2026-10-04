@@ -379,6 +379,38 @@
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
       "archiveStatus": "Local archive commit; not pushed",
       "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/vigil1-monitor-master.png",
+      "sha256": "62a1896cf6ba7b6936acf1625262e53c42905e83eb7d84f0fcd59c9b1f01b6ea",
+      "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+      "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/vigil1-monitor-native.png",
+      "sha256": "b76ff69a9bec3f6230751dbc9f2868d74063dc5fd3fe659b13e07209dc683ecd",
+      "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+      "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/vigil1-monitor-nativeNormal.png",
+      "sha256": "88788d9558194af99919c2e8f089ba55b66292b4a5c7d7e15f9f9ca474076f6d",
+      "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+      "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/vigil1-monitor-preview.png",
+      "sha256": "1b01f435e47b9933c60510866054b919393fcfe2ae5153ee0b406a7f6625e817",
+      "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+      "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
     }
   ],
   "additions": [
@@ -431,6 +463,13 @@
       "commit": "c8058814490820a6600d830e67c5d1aca7c1e404",
       "date": "2026-10-04",
       "note": "Manufacturing Alembrine PixelLab pass: the rejected first Corker-2 bottling unit (side-on bottles, lamp-like details) and the rejected angled spirit bottle, never committed to main, archived directly. Requests, seeds, hashes and reasons: assets/artwork-completion/manufacturing-requests.json."
+    }
+  ],
+  "additionalArchives": [
+    {
+      "commit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+      "date": "2026-10-04",
+      "note": "Initial one-tile Medical monitor master, native colour/normal and preview, never selected or committed to main. Source retained for the revised Vigil-2; exact initial prompt and registration are in assets/phobos-medical/requests.json. Local archive; not pushed."
     }
   ]
 }

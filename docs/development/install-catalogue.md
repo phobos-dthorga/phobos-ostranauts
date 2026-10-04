@@ -19,6 +19,7 @@ is still pending.
 | Phobos Framework | MISC | Rivetline conveyor belt (Framework 0.61.0) |
 | Phobos Framework | APPS | Rivetline S2, S3, S4 and S5 process water silos (the S3 to S5 moved from Shipbreaker in Framework 0.58.0) |
 | Phobos Medical | FURN | Halewright Ward-3 medical bed (0.1.0), beside the game's own beds and medical bed |
+| Phobos Medical | APPS | Halewright Vigil-2 patient monitor (0.3.0) |
 
 The native coverage checks include every implemented intact/damaged placement family. The silos have no fabrication recipe: buy the loose hardware before installation. Recorded exception: Agriculture's retired R3, R4 and R5 reservoirs (Agriculture 0.31.0) convert to the S3, S4 and S5 on load and are no longer offered in INSTALL; their definitions and jobs remain only for jobs saved against them.
 Since Shipbreaker 0.60.0 the D4, R4 and F6 entries consume the whole loose machine, like every other entry (owner direction, 1 October 2026); their section jobs remain registered only for build sites saved by earlier versions. Damaged placement keeps its existing loose input. All entries retain their work, placement and access requirements. See [installing machines](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;

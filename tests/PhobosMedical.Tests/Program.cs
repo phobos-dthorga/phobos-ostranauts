@@ -25,7 +25,7 @@ Throws(() => Load(Edited(o => o["admission"]!["bloodLost"] = 40)), "an admission
 Throws(() => Load(Edited(o => o["admission"]!["dischargeShare"] = 1)), "a discharge share of one is refused");
 Throws(() => Load(Edited(o => o["stations"]!["bed"]!["idleKW"] = 1)), "idle above working is refused");
 Throws(() => Load(Edited(o => o["stations"]!["bed"]!["workingKW"] = 5)), "a station above the power cap is refused");
-Throws(() => Load(Edited(o => o["stations"]!["monitor"] = new JObject { ["idleKW"] = 0, ["workingKW"] = 0.1 })), "a station the code does not know is refused");
+Throws(() => Load(Edited(o => o["stations"]!["autodoc"] = new JObject { ["idleKW"] = 0, ["workingKW"] = 0.1 })), "a station the code does not know is refused");
 Throws(() => Load(Edited(o => ((JObject)o["stations"]!).Remove("bed"))), "a missing bed station is refused");
 Throws(() => Load(Edited(o => o["admission"]!["heal"] = 2)), "an unknown field is refused (no authored healing)");
 Check(Math.Abs(Care.WeightlessHealing(CareSchema.Bed) - 1) < 1e-12, "the shipped bed lifts the weightless healing penalty fully");
@@ -85,4 +85,37 @@ Throws(() => BedState.Read(new Dictionary<string, string>(state.Save()) { ["rout
 Throws(() => BedState.Read(new Dictionary<string, string>(state.Save()) { ["since"] = "-1" }), "a negative time is refused");
 Throws(() => BedState.Read(new Dictionary<string, string>(state.Save()) { ["reserved"] = "yes" }), "a malformed flag is refused");
 
-Console.WriteLine($"PASS: {checks} care-pack, bed-decision and record checks. No game session was run.");
+// ---- The Vigil-2 monitor (0.3.0) ----------------------------------------------------------------------------
+var alerts = Care.Alerts;
+Check(alerts.bloodLost < CareSchema.FatalBloodLost && alerts.infection < CareSchema.FatalInfection && alerts.pain < CareSchema.KnockoutPain, "shipped alert levels sit below the game's fatal and knock-out levels");
+Check(Care.Station(CareSchema.Monitor).workingKW > Care.Station(CareSchema.Monitor).idleKW, "the monitor draws more while watching");
+Throws(() => Load(Edited(o => o["alerts"]!["pain"] = 75)), "an alert at the knock-out level is refused");
+Throws(() => Load(Edited(o => ((JObject)o["stations"]!).Remove("monitor"))), "a missing monitor station is refused");
+var announced = new HashSet<MonitorAlert>();
+Check(MonitorRules.Fire(Facts(blood: alerts.bloodLost - 1), alerts, announced).Count == 0, "below every threshold nothing fires");
+var first = MonitorRules.Fire(Facts(blood: alerts.bloodLost), alerts, announced);
+Check(first.Count == 1 && first[0] == MonitorAlert.BloodLost, "blood loss reaching its threshold fires once");
+Check(MonitorRules.Fire(Facts(blood: alerts.bloodLost + 5), alerts, announced).Count == 0, "it does not fire again while still high");
+MonitorRules.Fire(Facts(blood: alerts.bloodLost * MonitorRules.Rearm - 0.1), alerts, announced);
+Check(MonitorRules.Fire(Facts(blood: alerts.bloodLost), alerts, announced).Count == 1, "it fires again after falling below four fifths and rising");
+var bleed = MonitorRules.Fire(Facts(bleeding: true), alerts, new HashSet<MonitorAlert>());
+Check(bleed.Contains(MonitorAlert.Bleeding), "a wound starting to bleed fires");
+var samples = new List<MonitorSample>();
+for (int minute = 0; minute <= 90; minute += 5) MonitorRules.Record(samples, new MonitorSample(minute * 60.0, minute / 10.0, 0, 0, 0));
+var trend = MonitorRules.Trend(samples, new MonitorSample(90 * 60.0, 9, 0, 0, 0));
+Check(trend != null && trend.Value.Hours >= 1 && trend.Value.Hours <= 1 + MonitorRules.SampleSeconds / 3600 + 1e-9 && trend.Value.Change.BloodLost > 5, "the trend spans about the last hour");
+Check(MonitorRules.Trend(new List<MonitorSample> { new(0, 1, 0, 0, 0) }, new MonitorSample(60, 2, 0, 0, 0)) == null, "no trend before one sampling step");
+var mstate = MonitorState.Read(new MonitorState { Bed = "bed-7", Alerts = false }.Save());
+Check(mstate.Bed == "bed-7" && !mstate.Alerts, "the monitor record round-trips");
+Check(MonitorState.Read(new MonitorState().Save()).Bed == "" && new MonitorState().Alerts, "a new monitor watches any touching bed, alerts on");
+Throws(() => MonitorState.Read(new Dictionary<string, string> { ["bed"] = "none" }), "a monitor record missing a field is refused");
+
+// ---- Touching footprints (Framework 0.86.0) ----------------------------------------------------------------
+Check(Phobos.Ostranauts.Framework.Observations.Footprints.Touching(0, 0, 3, 5, 2.5, 0, 2, 2), "a 2 x 2 monitor flush against a 3 x 5 bed touches it");
+Check(Phobos.Ostranauts.Framework.Observations.Footprints.Touching(0, 0, 3, 5, 3.5, 0, 2, 2), "one tile apart still counts");
+Check(!Phobos.Ostranauts.Framework.Observations.Footprints.Touching(0, 0, 3, 5, 4.5, 0, 2, 2), "two tiles apart does not");
+Check(!Phobos.Ostranauts.Framework.Observations.Footprints.Touching(0, 0, 3, 5, 1, 0, 2, 2), "overlapping is not touching");
+Check(Phobos.Ostranauts.Framework.Observations.Footprints.OnDeck(3, 5, 90) == (5, 3) && Phobos.Ostranauts.Framework.Observations.Footprints.OnDeck(3, 5, 180) == (3, 5),
+    "a quarter turn swaps width and depth; a half turn does not");
+
+Console.WriteLine($"PASS: {checks} care-pack, bed-decision, monitor and record checks. No game session was run.");

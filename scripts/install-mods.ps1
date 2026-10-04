@@ -372,6 +372,8 @@ foreach ($mod in $Mods) {
             'data/conditions/phobos_medical.json'; 'framework/care.json'; 'framework/economy.json'; 'framework/equipment-names.json'
             # 0.1.1 replaces the vanilla bed stand-in with the Halewright art.
             if ($version -ge [version]'0.1.1') { 'images/phobos/medical/PhobosMedicalBed.png'; 'images/phobos/medical/PhobosMedicalBedNormal.png' }
+            # 0.3.0 adds the Vigil-2 patient monitor.
+            if ($version -ge [version]'0.3.0') { 'images/phobos/medical/PhobosMedicalMonitor.png'; 'images/phobos/medical/PhobosMedicalMonitorNormal.png' }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.

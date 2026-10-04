@@ -35,7 +35,7 @@ internal static class Content
         Economy.Load(Content.NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         Definitions.Add(d);
         EquipmentEconomy.Apply(d);
-        MaintenanceInformation.Register(d, "PhobosMedicalMaintenanceInformation", co => BedService.MaintenanceReason(co) ?? "");
+        MaintenanceInformation.Register(d, "PhobosMedicalMaintenanceInformation", co => BedService.MaintenanceReason(co) ?? MonitorMaintenance(co) ?? "");
         ItemHandling.Apply(d);
         return d;
     }
@@ -52,7 +52,9 @@ internal static class Content
         return null;
     }
     internal static CondOwner? Resolve(string? id) => CrewWork.Resolve(id);
-    internal static bool Machine(CondOwner? co) => co != null && MedicalRules.IsBed(co.strCODef);
+    internal static bool Machine(CondOwner? co) => co != null && (MedicalRules.IsBed(co.strCODef) || MedicalRules.IsMonitor(co.strCODef));
+    /// <summary>A monitor's removal is refused only while its saved record cannot be read; it holds nothing else.</summary>
+    internal static string? MonitorMaintenance(CondOwner? co) => co != null && MedicalRules.IsMonitor(co.strCODef) && MonitorService.Protected(co) ? Text.Get("Maintenance.protected") : null;
     /// <summary>Null when the acting crew member may use this bed's panel locally or through a bound console.</summary>
     internal static string? Access(CondOwner co, ConsoleBinding? binding = null)
     {

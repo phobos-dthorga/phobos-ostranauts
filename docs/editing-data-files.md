@@ -223,6 +223,10 @@ What the file holds:
   threshold times this share and nothing bleeds (0 to just under 1). The gap stops
   a patient getting up and lying down again.
 
+- **`stations.monitor`** (Medical 0.3.0): the Vigil-2's power, as for the bed.
+- **`alerts`** (Medical 0.3.0): `bloodLost`, `infection` and `pain` at which a Vigil-2
+  posts a caution, each below the game's fatal or knock-out level. A bleeding wound
+  always alerts.
 - **`levels.bed.weightlessHealing`** (Medical 0.2.0): the share of normal wound
   healing a weightless patient keeps under care, from 0.05 (the game's own, no help)
   to 1 (no weightless penalty, the shipped value).

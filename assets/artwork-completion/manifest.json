@@ -3428,6 +3428,40 @@
         1619
       ],
       "productionSHA256": "1e38c5c746c7bb847291cf99fdfe7218e731e3ecd73f98229d6e78724f63c768"
+    },
+    {
+      "key": "vigil2-patient-monitor",
+      "mod": "PhobosMedical",
+      "definition": "PhobosMedicalMonitorInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/medical/PhobosMedicalMonitor",
+      "status": "selected",
+      "source": "../phobos-medical/vigil2-monitor-master.png",
+      "sourceSHA256": "7befc3ce86d9f05b97f32ec86a17fd0a1357b48319b661adaf0192257a0f73e6",
+      "sampleOffset": [
+        1,
+        1
+      ],
+      "requestRecord": "../phobos-medical/requests.json",
+      "review": "Owner-requested larger Vigil-2 (2 x 2) in the Ward-3's Halewright style, OpenAI built-in Imagegen with the Ward-3 concept as style reference. Registered by assets/phobos-medical/register-vigil2.py (128 x 128 master, 112 x 112 body, 96 colours). Every nearest phase was compared at 32 x 32; phase (1, 1) keeps the vent dark and the handle, folded arm and caster locks distinct. No screen, numbers or lamps: readings stay live text. Owner in-game review pending.",
+      "provider": "OpenAI built-in Imagegen; mechanical registration and export",
+      "productionSource": "../phobos-medical/source/vigil1-monitor-chatgpt.png",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "productionSHA256": "06e109cd1f4b717bb751ce5fe827ff08fc874a16dcde4df87efc5d3260e60ebd"
     }
   ],
   "records": [

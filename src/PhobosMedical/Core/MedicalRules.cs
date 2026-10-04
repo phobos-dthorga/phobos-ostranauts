@@ -29,6 +29,13 @@ public static class MedicalRules
     public const string Controls = "PhobosMedicalControls";
     public const string Rest = "PhobosMedicalRest", RestLoop = "PhobosMedicalRestLoop", RestSleep = "PhobosMedicalRestSleep",
         RestEnd = "PhobosMedicalRestEnd", RestCancel = "PhobosMedicalRestCancel", Lay = "PhobosMedicalLay";
+    /// <summary>The Halewright Vigil-2 patient monitor (Medical 0.3.0): 2 x 2, pairs with the Ward-3 it touches.</summary>
+    public const string MonitorPrefix = "PhobosMedicalMonitor", MonitorInstalled = MonitorPrefix + "Installed", MonitorRecord = "MedicalMonitor";
+    /// <summary>On the monitor while it watches a patient: the game then draws its working power.</summary>
+    public const string Watching = "PhobosMedicalMonitorWatching";
+    public const int MonitorFootprint = 2;
+    public const double MonitorKg = 34;
+    public static bool IsMonitor(string? id) => EquipmentIdentity.IsFamily(id, MonitorPrefix);
     /// <summary>The right-click toggle for Send injured crew here (Medical 0.2.0).</summary>
     public const string Send = "PhobosMedicalSend";
     public const string RestStartLoot = "PhobosMedicalRestStartUs", RestStopLoot = "PhobosMedicalRestStopUs";

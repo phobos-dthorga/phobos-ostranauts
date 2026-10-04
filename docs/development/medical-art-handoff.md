@@ -3,6 +3,20 @@
 Prepared 4 October 2026 for Phobos Medical 0.1.0. The initial handoff below is
 retained as history; the owner changed the art direction later the same day.
 
+## Shared Halewright styling
+
+Owner clarification, **4 October 2026**: beyond the technical instructions, keep
+Medical equipment styled like the selected
+[Ward-3 infirmary bed](../../assets/phobos-medical/source/ward3-nanomedical-chatgpt.png).
+That original Phobos source is the visual reference for companion equipment.
+Use its off-white enamel, mid-grey structural trim, dark recessed mechanisms,
+quiet blue-teal accents and pale mint-grey upholstery where the equipment needs
+it. Match the folded mechanisms, serviceable fittings, restrained wear and coarse
+pixel treatment of its practical 2075 sickbay design. Give each machine a clear
+functional shape within that family; technical footprints, projection, ports,
+clearance and readable native-size exports still govern the result. Readings
+remain live text rather than painted instruments.
+
 ## Current direction: 2075 nanomedical bed concept
 
 The owner requested an original infirmary bed in Blue Bottle Games' Ostranauts
@@ -37,23 +51,54 @@ PixelLab fitting were superseded before composition. Their originals are verifie
 in local archive commit `fd98de450ee10d346a041cfea4a928737b848ffc` on
 `codex/rejected-artwork`; that commit has not been pushed.
 
-## Vigil-1 patient monitor (set 3, owner-run ChatGPT request)
+## Vigil-2 patient monitor (set 3 artwork pilot)
 
 Prepared 4 October 2026 for Medical 0.3.0. The monitor stands beside a Ward-3, pairs
 with the bed it touches, and shows readings and alerts on its panel. It never heals.
 Readings stay live text on the panel and consoles, so the sprite carries no screen,
 numbers or lamps (the owner's 29 September ruling on painted instruments).
 
+**Artwork prepared, 4 October 2026.** At the owner's request, this session's
+built-in Imagegen used the exact prompt below and the original Ward-3 source as
+its style reference. The [untouched 1254 x 1254 source](../../assets/phobos-medical/source/vigil1-monitor-chatgpt.png)
+matches the bed's casing and folded-arm design. The
+[registration script](../../assets/phobos-medical/register-vigil2.py) prepares a
+128 x 128 transparent master and 32 x 32 native pilot with matching neutral normal,
+using the Ward-3's edge-only white removal and 96-colour palette reduction without
+dithering. [Native and 8x previews](../../assets/phobos-medical/vigil2-monitor-preview.png)
+and a comparison beside the Ward-3 were inspected. Exact prompt, reference, hashes and mechanical steps are in the
+[request record](../../assets/phobos-medical/requests.json). One built-in image
+call was used; no additional PixelLab generation was made.
+
+**Bound in Medical 0.3.0.** The completion manifest (key `vigil2-patient-monitor`)
+exports the 32 x 32 runtime image from the 128 x 128 master at sample phase (1, 1):
+every nearest phase was compared at native size, and this one keeps the vent dark and
+the handle, folded arm and caster locks distinct. `register-vigil2.py` samples the same
+phase, so its native pilot equals the runtime image. Owner in-game review pending.
+
+**Size revision, 4 October 2026.** The owner considered the first size too small
+and delegated the sizing decision. The agent chose a 2 x 2 cart with a 32 x 32
+native sprite and a 128 x 128 working master: the folded arm, handle and stowed
+lead remain distinct beside the 48 x 80 bed. Its body occupies 28 x 28 native
+pixels, with a two-pixel margin. The larger 1254 x 1254 original is retained
+unchanged. The planned model is now **Vigil-2**, following Halewright's footprint
+width convention; the initial Vigil-1 name and 16-pixel instructions remain in
+the exact historical prompt below. No implemented identity or saved item changes.
+The earlier one-tile derivatives are retained in the rejected-artwork archive.
+
 | | Value |
 | --- | --- |
-| Footprint | 1 x 1 tile (agent choice, open to revision): a floor cart at the bed's side |
-| Native world sprite | 16 x 16 px |
-| Registered master | 64 x 64 px (4x; the short side is 16) |
+| Footprint | 2 x 2 tiles (agent choice following owner size direction): a floor cart at the bed's side |
+| Native world sprite | 32 x 32 px, 16 pixels per tile |
+| Registered master | 128 x 128 px (4x; the short side is 32) |
 | ChatGPT source | square canvas, 1024 x 1024 or larger |
 | Orientation | back edge at the **top**: it takes power from the wall row behind it; its sensor arm reaches toward the patient on the **left** |
 
-Attach the selected Ward-3 concept, `assets/phobos-medical/source/ward3-nanomedical-chatgpt.png`,
-as a style reference (original Phobos art, so it may be uploaded), then paste exactly:
+### Exact generation request (initial one-tile plan; superseded sizing)
+
+The selected Ward-3 concept, `assets/phobos-medical/source/ward3-nanomedical-chatgpt.png`,
+was attached as the sole style reference. This is the exact prompt used; its
+original one-tile size is historical, rather than the current export specification:
 
 > ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight
 > down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and
@@ -85,10 +130,10 @@ as a style reference (original Phobos art, so it may be uploaded), then paste ex
 > readouts, people, cables leaving the tile, floor, backdrop, drop shadow, isometric
 > projection, perspective or visible side faces. White background.
 
-Save the untouched output as `assets/phobos-medical/source/vigil1-monitor-chatgpt.png`
-and tell the agent the date; the agent records the prompt and hashes in
-`assets/phobos-medical/requests.json`, registers it to 64 x 64 the way the Ward-3 was
-registered, inspects it at 16 x 16 and exports it.
+The untouched output remains `assets/phobos-medical/source/vigil1-monitor-chatgpt.png`;
+the filename preserves the original request identity. The exact prompt, date and
+hash are recorded in `assets/phobos-medical/requests.json`.
+`register-vigil2.py` now prepares the 128 x 128 master and 32 x 32 pilot from it.
 
 ## Initial handoff (superseded)
 

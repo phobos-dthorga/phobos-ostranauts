@@ -78,6 +78,18 @@ internal static class MedicalNativeChecks
         check(DataHandler.dictConds.ContainsKey(Phobos.Ostranauts.Framework.Health.WoundGravity.FactorStat), "Framework's weightless-healing stat is a registered condition");
         WoundGravityChecks(check);
 
+        // Medical 0.3.0: the Vigil-2 monitor, a 2 x 2 powered cart that stores nothing.
+        foreach (string form in MedicalRules.Forms)
+        {
+            var co = medical.Objects[MedicalRules.MonitorPrefix + form]; var item = medical.Items[MedicalRules.MonitorPrefix + form];
+            check(item.nCols == 2 && item.aSocketAdds.Length == 4 && item.aSocketReqs.Length == 16, "Vigil-2 is two by two with the native border ring: " + form);
+            check(co.strContainerCT == null && !co.aInteractions.Contains("Inventory") && EquipmentInventory.Of(co.strName)?.Role == InventoryRole.None, "Vigil-2 stores nothing: " + form);
+            check(co.strNameFriendly.StartsWith("Phobos' Halewright Vigil-2 Patient Monitor", StringComparison.Ordinal), "Vigil-2 carries its full brand name: " + form);
+            check(item.strImg == "phobos/medical/PhobosMedicalMonitor" && co.strPortraitImg == item.strImg, "Vigil-2 shows its own art: " + form);
+            check(!(co.aStartingConds ?? Array.Empty<string>()).Any(c => c.StartsWith("IsBedMedical=") || c.StartsWith("IsCushion=")), "Vigil-2 is never a bed to the game: " + form);
+        }
+        check(medical.Objects[MedicalRules.MonitorInstalled].aInteractions.Contains(MedicalRules.Controls), "The installed Vigil-2 opens its Control Panel");
+
         // The vanilla shapes the bed relies on.
         check(DataHandler.dictCTs["TIsBedMedical"].aForbids.Contains("IsOff"), "The game's medical-bed test refuses an Off bed (power mirrors into IsOff)");
         check(DataHandler.dictCTs["TIsBedFree"].aForbids.Contains("IsOccupied"), "The game's free-bed test refuses an occupied bed");

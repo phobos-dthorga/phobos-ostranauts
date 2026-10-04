@@ -20,6 +20,7 @@ import hashlib
 import io
 from pathlib import Path
 from PIL import Image
+from registration import registered, png
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "assets/phobos-medical/source/ward3-nanomedical-chatgpt.png"
@@ -29,38 +30,12 @@ SIZE, BODY, TOP = (96, 160), (88, 156), 2
 TOLERANCE, COLOURS = 28, 96
 
 
-def cutout(image):
-    rgb = image.convert("RGB")
-    w, h = rgb.size
-    px = rgb.load()
-    outside = bytearray(w * h)
-    stack = [(x, 0) for x in range(w)] + [(x, h - 1) for x in range(w)] + [(0, y) for y in range(h)] + [(w - 1, y) for y in range(h)]
-    while stack:
-        x, y = stack.pop()
-        i = y * w + x
-        if outside[i] or min(px[x, y]) < 255 - TOLERANCE:
-            continue
-        outside[i] = 1
-        stack.extend(p for p in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)) if 0 <= p[0] < w and 0 <= p[1] < h)
-    alpha = Image.frombytes("L", (w, h), bytes(0 if v else 255 for v in outside))
-    rgba = rgb.convert("RGBA")
-    rgba.putalpha(alpha)
-    return rgba.crop(alpha.getbbox())
-
-
 def build():
     data = SOURCE.read_bytes()
     if hashlib.sha256(data).hexdigest() != SOURCE_SHA256:
         raise SystemExit(f"Changed retained concept: {SOURCE}")
-    body = cutout(Image.open(io.BytesIO(data))).resize(BODY, Image.Resampling.BOX)
-    alpha = body.getchannel("A").point(lambda v: 255 if v >= 128 else 0)
-    colours = body.convert("RGB").quantize(colors=COLOURS, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGBA")
-    colours.putalpha(alpha)
-    canvas = Image.new("RGBA", SIZE, (0, 0, 0, 0))
-    canvas.alpha_composite(colours, ((SIZE[0] - BODY[0]) // 2, TOP))
-    stream = io.BytesIO()
-    canvas.save(stream, format="PNG")
-    return stream.getvalue()
+    return png(registered(Image.open(io.BytesIO(data)), SIZE, BODY,
+                          ((SIZE[0] - BODY[0]) // 2, TOP), COLOURS, TOLERANCE))
 
 
 if __name__ == "__main__":

@@ -21,7 +21,7 @@
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^(bed)$": {
+        "^(bed|monitor)$": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -44,7 +44,7 @@
           }
         }
       },
-      "description": "Electrical demand by station: bed."
+      "description": "Electrical demand by station: bed, monitor."
     },
     "admission": {
       "type": "object",
@@ -86,6 +86,32 @@
         }
       },
       "description": "Who counts as injured, and when a resting patient has recovered."
+    },
+    "alerts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "bloodLost": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 40
+        },
+        "infection": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 95
+        },
+        "pain": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 75
+        }
+      },
+      "description": "When a Vigil-2 posts a caution (Medical 0.3.0); a bleeding wound always alerts."
     },
     "levels": {
       "type": "object",

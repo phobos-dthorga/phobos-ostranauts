@@ -450,7 +450,8 @@ def crops(pack, where):
                 number(item[name], f'{w}/{name}', 1, 20, integer=True)
 
 
-CARE_STATIONS = ('bed',)
+CARE_STATIONS = ('bed', 'monitor')
+CARE_LEVELS = ('bed',)
 CARE_MAX_KW = 2
 # The game's fatal or knock-out levels: an admission threshold must sit below them (Phobos Medical 0.1.0).
 CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
@@ -458,7 +459,7 @@ CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
 
 def care(pack, where):
     """The care schema (Phobos Medical 0.1.0): station power and the injured and discharge thresholds."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission', 'levels'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission', 'levels', 'alerts'}, where)
     stations = pack.get('stations')
     if not isinstance(stations, dict):
         raise Problem(f'{where}/stations: expected station to entry')
@@ -491,10 +492,18 @@ def care(pack, where):
         raise Problem(f'{where}/levels: expected station to entry')
     for key, level in levels.items():
         w = f'{where}/levels/{key}'
-        if key not in CARE_STATIONS:
-            raise Problem(f'{w}: unknown level; the levels are {", ".join(CARE_STATIONS)}')
+        if key not in CARE_LEVELS:
+            raise Problem(f'{w}: unknown level; the levels are {", ".join(CARE_LEVELS)}')
         fields(level, {'notes', 'weightlessHealing'}, w)
         number(level.get('weightlessHealing'), f'{w}/weightlessHealing', 0.05, 1)
+    # Medical 0.3.0: when a Vigil-2 warns; optional, every figure below the game's fatal or knock-out level.
+    alerts = pack.get('alerts')
+    if alerts is not None:
+        fields(alerts, {'notes', 'bloodLost', 'infection', 'pain'}, f'{where}/alerts')
+        for name in ('bloodLost', 'infection', 'pain'):
+            number(alerts.get(name), f'{where}/alerts/{name}', 0, CARE_LIMITS[name], exclusive_low=True)
+            if alerts[name] >= CARE_LIMITS[name]:
+                raise Problem(f'{where}/alerts/{name}: must be below {CARE_LIMITS[name]}')
 
 
 SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}

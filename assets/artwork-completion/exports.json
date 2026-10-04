@@ -3441,5 +3441,30 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "vigil2-patient-monitor",
+    "sourceSHA256": "7befc3ce86d9f05b97f32ec86a17fd0a1357b48319b661adaf0192257a0f73e6",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      8,
+      8,
+      120,
+      120
+    ],
+    "exports": {
+      "mods/PhobosMedical/images/phobos/medical/PhobosMedicalMonitor.png": "f03ff22d5f94bf86638f1fb7482e9b254e4abd0e7ee26469491db1dc869602d9",
+      "mods/PhobosMedical/images/phobos/medical/PhobosMedicalMonitorNormal.png": "302231fded78593df284edf66cb1b3cc062974913edb628b7415da11d43f008d"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

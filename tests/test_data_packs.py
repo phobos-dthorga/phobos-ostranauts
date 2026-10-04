@@ -144,7 +144,7 @@ class DataPackTests(unittest.TestCase):
         self.assertEqual(schemas.problems(json.loads(writer.render('care')), pack), [])
         for section, field, value in (('admission', 'bloodLost', 40), ('admission', 'pain', 0), ('admission', 'dischargeShare', 1),
                                       ('admission', 'wound', 1.5), ('stations', 'bed', {'idleKW': 0.5, 'workingKW': 0.1}),
-                                      ('stations', 'bed', {'idleKW': 0, 'workingKW': 3}), ('stations', 'monitor', {'idleKW': 0, 'workingKW': 0.1})):
+                                      ('stations', 'bed', {'idleKW': 0, 'workingKW': 3}), ('stations', 'autodoc', {'idleKW': 0, 'workingKW': 0.1})):
             bad = json.loads(json.dumps(pack))
             bad[section][field] = value
             with self.subTest(field=field, value=value), self.assertRaises(validate.Problem):
@@ -154,7 +154,10 @@ class DataPackTests(unittest.TestCase):
             bad['levels']['bed']['weightlessHealing'] = value
             with self.subTest(weightless=value), self.assertRaises(validate.Problem):
                 validate.care(bad, 'test')
-        legacy = json.loads(json.dumps(pack)); del legacy['levels']
+        bad = json.loads(json.dumps(pack)); bad['alerts']['pain'] = 75
+        with self.assertRaises(validate.Problem):
+            validate.care(bad, 'test')
+        legacy = json.loads(json.dumps(pack)); del legacy['levels']; del legacy['alerts']
         validate.care(legacy, 'test')
         bad = json.loads(json.dumps(pack))
         bad['admission']['heal'] = 1

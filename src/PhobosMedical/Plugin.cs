@@ -16,15 +16,15 @@ namespace PhobosMedical;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = MedicalRules.Owner;
-    public const string Version = "0.2.0";
-    public const string MinimumFrameworkVersion = "0.84.0";
+    public const string Version = "0.3.0";
+    public const string MinimumFrameworkVersion = "0.86.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
     private readonly List<CondOwner> members = new();
     // Ward-3 beds come from Framework's shared world sweep, not a pass over every world object.
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily beds =
-        Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Id + ".beds", MedicalRules.IsBed);
+        Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Id + ".beds", id => MedicalRules.IsBed(id) || MedicalRules.IsMonitor(id));
 
     private void Awake()
     {
@@ -34,10 +34,11 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
         EquipmentProviders.RegisterGroup(Provider.Group, () => Text.Get("Group.bed"));
+        EquipmentProviders.RegisterGroup(Provider.MonitorGroup, () => Text.Get("Group.monitor"));
         Panel.Register();
         Log(Text.Get("Plugin.loaded", Version));
     }
-    private static void Load() { BedService.Reset(); Content.Register(Log); }
+    private static void Load() { BedService.Reset(); MonitorService.Reset(); Content.Register(Log); }
 
     private void Update()
     {
@@ -48,7 +49,7 @@ public sealed class Plugin : BaseUnityPlugin
         foreach (var bed in members)
         {
             using var tick = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.BedTick);
-            try { BedService.Tick(bed); } catch (Exception ex) { Log(ex.ToString()); }
+            try { if (MedicalRules.IsMonitor(bed.strCODef)) MonitorService.Tick(bed); else BedService.Tick(bed); } catch (Exception ex) { Log(ex.ToString()); }
         }
         using var sweep = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.CareSweep);
         try { BedService.AfterPass(); } catch (Exception ex) { Log(ex.ToString()); }
@@ -57,7 +58,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         FrameworkLifecycle.ContentLoading -= Load;
         EquipmentProviders.Unregister(Id);
-        BedService.Reset(); harmony?.UnpatchSelf();
+        BedService.Reset(); MonitorService.Reset(); harmony?.UnpatchSelf();
     }
 }
 
@@ -65,7 +66,7 @@ public sealed class Plugin : BaseUnityPlugin
 internal static class ReloadPatch
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
-    private static void Prefix() => BedService.Reset();
+    private static void Prefix() { BedService.Reset(); MonitorService.Reset(); }
 }
 
 // Sleep, Rest and Lay are offered on a Ward-3 only when they make sense: never into a bed someone else lies in, Rest
@@ -131,7 +132,7 @@ internal static class MaintenanceFinish
         var bed = Content.Machine(us) ? us : Content.Machine(them) ? them : null;
         if (bed == null || action == null) return null;
         bool removal = action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0;
-        return removal ? BedService.MaintenanceReason(bed) : null;
+        return removal ? BedService.MaintenanceReason(bed) ?? Content.MonitorMaintenance(bed) : null;
     }
     private static bool Prefix(Interaction __instance)
     {
@@ -154,8 +155,8 @@ internal static class ConsolePatch
         }
         var bed = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
-        string action = parts.Length == 4 && (parts[1] == "use" || parts[1] == "send") ? parts[1] + ":" + parts[3] : parts[1];
-        __result = Content.Machine(bed) && BedService.Command(bed!, null, action, out message);
+        string action = parts.Length == 4 && (parts[1] == "use" || parts[1] == "send" || parts[1] == "alerts" || parts[1] == "bed") ? parts[1] + ":" + parts[3] : parts[1];
+        __result = Content.Machine(bed) && new Provider().Command(bed!, null, action, out message);
         strInput += "\n" + message; return false;
     }
 }

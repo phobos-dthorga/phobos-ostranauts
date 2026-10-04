@@ -14,7 +14,7 @@ public static class Economy
     public static EconomyPack Pack => pack ??= Load();
     public static DataPackSource Source => new(MedicalRules.Owner, MedicalRules.ModFolder, Schema, typeof(Economy).Assembly, Resource);
     /// <summary>The equipment families, in application order, with the mass their salvage must weigh.</summary>
-    public static readonly IReadOnlyList<(string Prefix, double MassKg)> Machines = new[] { (MedicalRules.BedPrefix, MedicalRules.MachineKg) };
+    public static readonly IReadOnlyList<(string Prefix, double MassKg)> Machines = new[] { (MedicalRules.BedPrefix, MedicalRules.MachineKg), (MedicalRules.MonitorPrefix, MedicalRules.MonitorKg) };
     public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).ToArray();
 
     public static EconomyPack Load(Func<string, double?>? materialMassOf = null, Func<string, bool>? merchantExists = null)

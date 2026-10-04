@@ -89,6 +89,30 @@ says who is coming.
   fighting, or someone already on the way to a bed.
 - Who counts as injured is the same rule as for **Rest and recover**.
 
+## The Vigil-2 patient monitor
+
+The Phobos' Halewright Vigil-2 Patient Monitor is a two-by-two cart you stand beside a
+Ward-3, touching it or one tile away. Install it through **INSTALL, APPS** with its back
+against a wall carrying power. Its **Control Panel** shows:
+
+- the patient, awake or unconscious;
+- blood lost, infection, pain and the worst wound, each with its change over the last
+  hour (the trend starts after ten minutes and again after a reload);
+- every open wound by place: cut and blunt damage, and whether it is bleeding,
+  dressed, fractured, splinted or infected.
+
+When blood loss, infection or pain rises to its alert level, or a wound starts
+bleeding, it posts one caution to the crew log (and the navigation screen if open).
+It warns again only once the figure has eased and risen again.
+
+| Setting | Choices |
+| --- | --- |
+| **Watch** | *Whichever bed touches it* (the default), or one touching bed by name when two touch it |
+| **Alerts** | *On* (the default) or *Off* |
+
+It only watches: it never treats, heals or moves anyone. With no bed touching, no
+power or a damaged monitor, its panel says so instead of showing readings.
+
 ## The drawer
 
 A three-by-two drawer at the head takes dressings (clean or dirty scrap cloth),
@@ -107,7 +131,9 @@ The healing itself is the game's own and is not in that file.
 - Uninstalling or dismantling is refused while someone is in the bed.
 - F3 console: `phobosmedical list` names the beds on your ship; `phobosmedical
   status <id>` shows one; `phobosmedical use <id> anyone` or `injured` sets the
-  Use choice; `phobosmedical send <id> on` or `off` sets Send injured crew here.
+  Use choice; `phobosmedical send <id> on` or `off` sets Send injured crew here;
+  `phobosmedical alerts <id> on` or `off` and `phobosmedical bed <id> <bed id>` or
+  `auto` set a monitor.
 
 ## Saves
 
@@ -123,6 +149,7 @@ says so and offers **Accept** to start it afresh.
 | **Rest and recover** is refused | That crew member is not injured enough | Let them sleep instead, or tune the thresholds. |
 | The patient is not recuperating | No power, no air, or the bed is damaged | Check the panel: it names the reason. |
 | Healing is very slow | The patient is weightless but not under care (no power, no air), or the panel says this game version's wound code has changed | Restore power and air; otherwise spin up the ship. |
+| The monitor says no Ward-3 is touching | It stands more than one tile from the bed, or the bed is loose | Move it beside the installed bed. |
 | Nobody comes when Send injured crew here is on | Nobody aboard counts as injured, everyone injured is under your control or busy fighting, or the bed has no power or air | Check the panel; order someone to Rest and recover yourself. |
 
 More: [design record](development/medical-bed-design.md),

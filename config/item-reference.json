@@ -1994,7 +1994,7 @@
       "groups": []
     },
     "PhobosMedical": {
-      "intro": "Phobos Medical adds the Halewright Ward-3 Medical Bed, a powered sickbay bed that takes an unconscious casualty, lets the injured rest awake, and keeps its patient recuperating with the game's own medical-rest healing while it has power and air. See [the player guide](medical-player-guide.md).",
+      "intro": "Phobos Medical adds the Halewright Ward-3 Medical Bed, a powered sickbay bed that takes an unconscious casualty, lets the injured rest awake, and keeps its patient recuperating with the game's own medical-rest healing while it has power and air. The Halewright Vigil-2 Patient Monitor stands beside a Ward-3 and shows its patient's readings and alerts. See [the player guide](medical-player-guide.md).",
       "groups": [
         {
           "key": "ward3",
@@ -2009,6 +2009,23 @@
           "use": "Install through FURN with its head against a wall carrying power. Drag an unconscious person to it and choose Lay patient here; order an injured crew member to Rest and recover; or Sleep in it when tired. Switch on Send injured crew here and a free bed calls the worst-off injured crew member. The Control Panel shows the patient and a short health reading, and sets whether anyone may sleep in it or only the injured. 22.5 W idle, 150 W while caring.",
           "find": "Buy loose hardware from the sellers below: new at the K-Leg furnishings kiosk, worn from the K-Leg fixer, broken at the K-Leg supply kiosk, refurbished at the Venus scrap kiosk, and at the regional supply kiosks. About one engineering-loot roll in fifty yields a Ward-3, usually broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Its treatment cartridges and folded arms are 2075 styling; the healing is the game's own medical rest. Uninstalling or dismantling is refused while someone is in it. Under its care a weightless patient heals at the normal rate (the game otherwise slows it to a twentieth). It does not dress wounds yet.",
+          "guide": "medical-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "vigil2",
+          "title": "Vigil-2 Patient Monitor",
+          "ids": [
+            "PhobosMedicalMonitorLoose",
+            "PhobosMedicalMonitorLooseDmg",
+            "PhobosMedicalMonitorInstalled",
+            "PhobosMedicalMonitorInstalledDmg"
+          ],
+          "function": "A 2 x 2 bedside monitor cart. It watches the patient of the Ward-3 it touches and shows blood lost, infection, pain and every wound with the change over the last hour, and posts a caution when a figure rises to its alert level or a wound starts bleeding. It never treats or heals. It stores nothing.",
+          "use": "Install through APPS beside a Ward-3, touching it or one tile away, with its back against a wall carrying power. Open its Control Panel for the readings; set which touching bed it watches and whether it posts alerts. 10 W idle, 60 W while watching.",
+          "find": "Buy loose hardware from the sellers below, on the Ward-3's routes. A rare engineering-loot find, usually broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
+          "notes": "Its hour's trend is kept in memory and starts again after a reload. Readings it cannot take say so rather than showing zero.",
           "guide": "medical-player-guide.md",
           "internal": false,
           "labels": {}

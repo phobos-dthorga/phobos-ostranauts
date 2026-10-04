@@ -17,6 +17,16 @@ public sealed class CarePack : DataPack
     public AdmissionEntry admission = new();
     /// <summary>What each station adds to the game's own care (Medical 0.2.0); absent means nothing added.</summary>
     public Dictionary<string, LevelEntry>? levels;
+    /// <summary>When the Vigil-2 warns (Medical 0.3.0); absent means the shipped defaults.</summary>
+    public AlertEntry? alerts;
+}
+
+/// <summary>The figures at which a Vigil-2 posts an alert, on the same scales as admission. Each must sit below the
+/// game's fatal or knock-out level. A wound that starts bleeding always alerts.</summary>
+public sealed class AlertEntry
+{
+    public string? notes;
+    public double bloodLost = 15, infection = 35, pain = 50;
 }
 
 /// <summary>The bed's additions to the game's Recuperating.</summary>
@@ -50,7 +60,8 @@ public static class CareSchema
 {
     public const string Name = "care";
     public const string Bed = "bed";
-    public static readonly IReadOnlyList<string> Stations = new[] { Bed };
+    public const string Monitor = "monitor";
+    public static readonly IReadOnlyList<string> Stations = new[] { Bed, Monitor };
     public const double MaxKW = 2;
     /// <summary>Stations that can add to the game's care: the bed (Medical 0.2.0).</summary>
     public static readonly IReadOnlyList<string> Levels = new[] { Bed };
@@ -78,6 +89,12 @@ public static class CareSchema
         Between(a.pain, KnockoutPain, "pain");
         Between(a.wound, 1, "wound");
         if (!Finite(a.dischargeShare) || a.dischargeShare < 0 || a.dischargeShare >= 1) throw new ArgumentException(Text.Get("care_discharge"));
+        if (pack.alerts is { } alerts)
+        {
+            Between(alerts.bloodLost, FatalBloodLost, "alerts/bloodLost");
+            Between(alerts.infection, FatalInfection, "alerts/infection");
+            Between(alerts.pain, KnockoutPain, "alerts/pain");
+        }
         foreach (var pair in pack.levels ?? new Dictionary<string, LevelEntry>())
         {
             if (!Levels.Contains(pair.Key)) throw new ArgumentException(Text.Get("care_level_unknown", pair.Key, string.Join(", ", Levels)));
@@ -106,5 +123,6 @@ public static class Care
     public static StationEntry Station(string station) => Pack.stations.TryGetValue(station, out var s) ? s : throw new InvalidOperationException("No care station " + station);
     public static AdmissionEntry Admission => Pack.admission;
     /// <summary>The share of normal healing a weightless patient keeps in this station's care; the game's own 0.05 when the pack says nothing.</summary>
+    public static AlertEntry Alerts => Pack.alerts ?? new AlertEntry();
     public static double WeightlessHealing(string station) => Pack.levels != null && Pack.levels.TryGetValue(station, out var l) ? l.weightlessHealing : CareSchema.MinWeightless;
 }

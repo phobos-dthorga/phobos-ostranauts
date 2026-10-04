@@ -1552,11 +1552,27 @@
 
 ## Medical direction (2026-10-04)
 
+- Owner styling clarification (4 October 2026): use the owner-selected Ward-3
+  infirmary bed as the visual baseline for Medical equipment, including the
+  Vigil-2. Preserve its original Halewright family: off-white enamel, pale
+  mint-grey upholstery where appropriate, mid-grey structural trim, dark recesses,
+  quiet muted blue-teal accents, practical folded mechanisms and restrained wear.
+  Match its coarse Ostranauts pixel treatment and overhead projection while
+  keeping each device's function recognizable. Use the original Phobos Ward-3
+  source as the image reference; retain the current handoff's technical requirements and
+  no painted live-state instruments. See `docs/development/medical-art-handoff.md`.
+- Owner size direction (4 October 2026): the original monitor image was too small;
+  choose a size suited to Ostranauts and the other mods. Agent choice: 2 x 2 cart,
+  32 x 32 native, 128 x 128 working master, keeping the untouched 1254 x 1254 source.
+  The planned monitor is now Vigil-2 under the width-based naming convention.
+  The exact original Vigil-1 prompt remains historical; no monitor runtime IDs
+  or saved equipment exist yet.
+
 - Owner request: a new mod expanding on the vanilla Van Buren Infirmaway medical bed,
   whose only real function is a stronger healing sleep (the game's `SleepingMedical`;
   see `docs/development/medical-bed-research.md`). Owner decisions the same day: a new
   content mod **Phobos Medical** (`PhobosMedical`, Framework required) under the new
-  brand **Halewright** (models a word plus the footprint width: Ward-3, Vigil-1,
+  brand **Halewright** (models a word plus the footprint width: Ward-3, initially Vigil-1,
   Attend-2); **a new own-brand bed with companion equipment, leaving the Infirmaway
   untouched**; all four directions (any patient in the bed, a working autodoc, a
   bedside monitor and medic care, honest power and weightless care); authored tables
@@ -1570,7 +1586,9 @@
   placement and gravity services belong in Framework with Medical as first consumer.
   Delivered: Medical 0.1.x (Ward-3 bed, care pack, owner-selected 2075 art) and 0.2.0 with
   Framework 0.84.0 (Send injured crew here; weightless care through one hand-applied
-  `Wound.Run` transpiler, `levels.bed.weightlessHealing` default 1 as an agent default).
+  `Wound.Run` transpiler, `levels.bed.weightlessHealing` default 1 as an agent default),
+  and 0.3.0 with Framework 0.86.0 (Vigil-2 2 x 2 patient monitor, pairing by touching through
+  `Observations.Footprints`, readings, hour trend and alerts; it never heals).
   Owner gameplay checks remain pending.
 
 ## Documentation audiences

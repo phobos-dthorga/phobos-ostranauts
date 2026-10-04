@@ -1,12 +1,12 @@
 {
  "schemaVersion": 1,
  "date": "2026-10-04",
- "status": "Nanomedical concept selected by the owner on 4 October 2026 and exported for Phobos Medical 0.1.1.",
+ "status": "Ward-3 selected and exported for Medical 0.1.1; matching Vigil-1 artwork pilot prepared 4 October 2026, with no monitor runtime binding.",
  "ownerDirection": "A 2075 infirmary bed in Ostranauts' vanilla art style, fictionally able to repair moderate to somewhat severe wounds using nanomachines.",
- "inputProvenance": "Original text only supplied to Imagegen. Blue Bottle Games' native Infirmaway and local equipment study were inspected locally for style; no game texture or screenshot was supplied to a generation provider. PixelLab received only an original Phobos palette.",
+ "inputProvenance": "Ward-3 used original text; the monitor received only the original Phobos Ward-3 source as its style reference. Blue Bottle Games' native Infirmaway and local equipment study were inspected locally for style; no game texture or screenshot was supplied to a generation provider. PixelLab received only an original Phobos palette.",
  "scope": "Artwork only. No healing rules, equipment identities or placements changed; the runtime image of every Ward-3 form changed in 0.1.1.",
  "usage": {
-  "openaiBuiltInCalls": 2,
+  "openaiBuiltInCalls": 3,
   "openaiCost": "Not disclosed by the built-in tool",
   "pixellabCalls": 1,
   "pixellabQuotedCostGenerations": 1,
@@ -95,6 +95,153 @@
     "palette": "24-colour median-cut, no dithering",
     "sampling": "Nearest-neighbour, whole original canvas; no silhouette registration"
    }
+  },
+  {
+   "key": "vigil1-patient-monitor",
+   "date": "2026-10-04",
+   "provider": "OpenAI built-in Imagegen",
+   "operation": "image_gen.imagegen",
+   "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight\ndown at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and\nvertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game equipment sprite concept for Phobos' Halewright Vigil-1: a\ncompact bedside patient-monitoring cart for a spacecraft sickbay in 2075, made by the\nsame maker as the attached Ward-3 medical bed and matching it exactly in style:\noff-white enamel housing, mid-grey structural trim, dark grey recesses, a few visible\nfasteners and one quiet muted blue-teal accent. Art direction informed by Ostranauts'\nvanilla ship-equipment sprites: coarse deliberate pixel clusters, practical industrial\nmodules, muted material colours, sparse mechanical detail, very restrained flat shading.\n\nSquare canvas, one square floor tile seen from directly above, the cart filling almost\nthe whole square with a small margin. Show only its top: a squared enamel lid with a\nvent grille and a recessed carry handle near the top edge; a short folded articulated\nsensor arm parked along the LEFT edge, ending in a small round sensor head with a\nteal ring; a neat coiled lead stowed in a shallow recess; two small locking caster\ncovers at the bottom corners. The display faces sideways toward the bed and is NOT\nvisible from above.\n\nPIXEL ART, not a photograph or smooth illustration. Design the image to read as a\ncoarse 16 x 16 logical pixel sprite enlarged cleanly, with crisp square pixel\nclusters, stepped outlines, a restricted palette of about 16 colours, no\nanti-aliasing and no gradients, so the shapes stay readable when reduced to 16 x 16.\nFlat diffuse illumination, minimal local shading only.\n\nNo screen, numbers, waveforms, text, logos, medical crosses, gauges, status lights,\nreadouts, people, cables leaving the tile, floor, backdrop, drop shadow, isometric\nprojection, perspective or visible side faces. White background.",
+   "generatedFile": "exec-5247aa39-5f51-4c80-ac5b-3a643020899f.png",
+   "source": "source/vigil1-monitor-chatgpt.png",
+   "returnedSize": [
+    1254,
+    1254
+   ],
+   "sha256": "06e109cd1f4b717bb751ce5fe827ff08fc874a16dcde4df87efc5d3260e60ebd",
+   "reference": {
+    "source": "source/ward3-nanomedical-chatgpt.png",
+    "role": "Owner-selected Halewright design and styling reference; original Phobos art only",
+    "sha256": "1e38c5c746c7bb847291cf99fdfe7218e731e3ecd73f98229d6e78724f63c768"
+   },
+   "ownerDirection": "Beyond technical instructions, retain the styling of the previously generated infirmary bed.",
+   "decision": "Prepared artwork pilot for planned Vigil-2; owner review pending. No runtime definition or binding added.",
+   "review": "Overhead top surfaces, left folded sensor arm, no visible display/readouts, original Ward-3 family casing and muted teal treatment. Inspected at 32 x 32, 8x enlargement and beside the Ward-3 at matching scale. The initial explicit 16-colour palette made the casing muddy; 32/64/96-colour median-cut variants were compared. Selected the same 96-colour treatment as Ward-3 for enamel edges and subdued teal, without further generation.",
+   "registration": {
+    "script": "register-vigil2.py",
+    "sharedHelper": "registration.py",
+    "master": "vigil2-monitor-master.png",
+    "masterSize": [
+     128,
+     128
+    ],
+    "native": "vigil2-monitor-native.png",
+    "nativeSize": [
+     32,
+     32
+    ],
+    "normal": "vigil2-monitor-nativeNormal.png",
+    "preview": "vigil2-monitor-preview.png",
+    "bodySize": [
+     112,
+     112
+    ],
+    "origin": [
+     8,
+     8
+    ],
+    "background": "Edge-connected white removed only, tolerance 28/255",
+    "reduction": "Box to master, threshold alpha at 128, 96-colour median-cut without dithering, nearest-neighbour to native",
+    "footprintTiles": [
+     2,
+     2
+    ],
+    "paletteColours": 96,
+    "sha256": {
+     "vigil2-monitor-master.png": "7befc3ce86d9f05b97f32ec86a17fd0a1357b48319b661adaf0192257a0f73e6",
+     "vigil2-monitor-native.png": "f1f68d30a5e748effe551ac141edd739e3729f32af0ff4f378bd9a3c587ac825",
+     "vigil2-monitor-nativeNormal.png": "48468f0679758e570208fbdad7bff2275192953080f61badc6c7a444cc9da948",
+     "vigil2-monitor-preview.png": "4bf6a681a869cf1367d0302a86bb2cfa97dfd02f7eeadf625a478667add34321"
+    }
+   },
+   "calls": 1,
+   "cost": "Not disclosed by built-in tool; no PixelLab generation or paid credit used",
+   "initialRegistration": {
+    "script": "register-vigil1.py",
+    "sharedHelper": "registration.py",
+    "master": "vigil1-monitor-master.png",
+    "masterSize": [
+     64,
+     64
+    ],
+    "native": "vigil1-monitor-native.png",
+    "nativeSize": [
+     16,
+     16
+    ],
+    "normal": "vigil1-monitor-nativeNormal.png",
+    "preview": "vigil1-monitor-preview.png",
+    "bodySize": [
+     56,
+     56
+    ],
+    "origin": [
+     4,
+     4
+    ],
+    "background": "Edge-connected white removed only, tolerance 28/255",
+    "reduction": "Box to master, threshold alpha at 128, explicit 16-colour palette without dithering, nearest-neighbour to native",
+    "palette": [
+     "#eee6d7",
+     "#d9d2c3",
+     "#c6c2b6",
+     "#b5b3a9",
+     "#9c9d94",
+     "#7f827b",
+     "#646964",
+     "#4b504b",
+     "#373c38",
+     "#282d2b",
+     "#1a211f",
+     "#91a197",
+     "#72999d",
+     "#60848a",
+     "#3e6c73",
+     "#255057"
+    ],
+    "archive": {
+     "branch": "codex/rejected-artwork",
+     "commit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+     "status": "Local; not pushed",
+     "assets": [
+      {
+       "path": "assets/phobos-medical/vigil1-monitor-master.png",
+       "sha256": "62a1896cf6ba7b6936acf1625262e53c42905e83eb7d84f0fcd59c9b1f01b6ea",
+       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+       "archiveStatus": "Local archive commit; not pushed",
+       "archiveURL": null
+      },
+      {
+       "path": "assets/phobos-medical/vigil1-monitor-native.png",
+       "sha256": "b76ff69a9bec3f6230751dbc9f2868d74063dc5fd3fe659b13e07209dc683ecd",
+       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+       "archiveStatus": "Local archive commit; not pushed",
+       "archiveURL": null
+      },
+      {
+       "path": "assets/phobos-medical/vigil1-monitor-nativeNormal.png",
+       "sha256": "88788d9558194af99919c2e8f089ba55b66292b4a5c7d7e15f9f9ca474076f6d",
+       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+       "archiveStatus": "Local archive commit; not pushed",
+       "archiveURL": null
+      },
+      {
+       "path": "assets/phobos-medical/vigil1-monitor-preview.png",
+       "sha256": "1b01f435e47b9933c60510866054b919393fcfe2ae5153ee0b406a7f6625e817",
+       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
+       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
+       "archiveStatus": "Local archive commit; not pushed",
+       "archiveURL": null
+      }
+     ]
+    }
+   },
+   "plannedModel": "Vigil-2",
+   "ownerSizeDirection": "I think Claude specified the image size too small. Go with what you know best about Ostranauts and our mods.",
+   "sizeDecision": "Agent choice following owner direction: two-by-two floor cart, 32 x 32 native, 128 x 128 working master. Rename proposed model Vigil-2 to follow Halewright footprint-width convention. Untouched 1254 x 1254 source retained; no new generation."
   }
  ],
  "licensing": {

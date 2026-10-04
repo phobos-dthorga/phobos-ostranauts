@@ -7,6 +7,11 @@
       "notes": "Halewright Ward-3 Medical Bed. Idle is the vanilla Infirmaway's own draw (22.5 W); working adds the bed's care systems while a patient is under care.",
       "idleKW": 0.0225,
       "workingKW": 0.15
+    },
+    "monitor": {
+      "notes": "Halewright Vigil-2 Patient Monitor (0.3.0): a small draw while switched on, more while it watches a patient.",
+      "idleKW": 0.01,
+      "workingKW": 0.06
     }
   },
   "admission": {
@@ -16,6 +21,12 @@
     "pain": 20,
     "wound": 0.1,
     "dischargeShare": 0.5
+  },
+  "alerts": {
+    "notes": "When a Vigil-2 posts a caution to the crew log (0.3.0): when a figure rises to its threshold, on the same scales as admission. It warns again once the figure has fallen below four fifths of its threshold and risen again. A wound that starts bleeding always alerts. The game's own shock bands start at blood lost 15 and 30, infection 35 and 65, pain 50 and 75.",
+    "bloodLost": 15,
+    "infection": 35,
+    "pain": 50
   },
   "levels": {
     "bed": {
