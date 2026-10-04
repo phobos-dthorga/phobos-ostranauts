@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "idPrefix": "richergangue",
   "requires": {
-    "PhobosFramework": "0.90.0",
+    "PhobosFramework": "0.91.0",
     "PhobosManufacturing": "0.44.0"
   },
   "notes": "Kept in the Phobos Ostranauts repository as the worked example for docs/publishing-an-add-on.md, and loaded by its checks."

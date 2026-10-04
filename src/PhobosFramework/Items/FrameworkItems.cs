@@ -46,6 +46,8 @@ public static class FrameworkItems
         Ready = false;
         // A new content load reads the game's mod list afresh, before any pack is loaded (add-ons, Framework 0.90.0).
         Data.AddOns.Reset();
+        // The game's mod list is known now, so translations and names from add-ons load (Framework 0.91.0).
+        Localization.Translations.Reload();
         try { Prepare().Publish(); Ready = true; }
         catch (Exception e) { log(Text.Get("FrameworkItems.failed", e)); }
     }

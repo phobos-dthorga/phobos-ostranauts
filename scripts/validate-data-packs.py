@@ -663,9 +663,18 @@ def check_addon(folder):
     for mod_dir in sorted(p for p in root.iterdir() if p.is_dir()) if root.exists() else []:
         if mod_dir.name == 'translations':
             for path in sorted(mod_dir.rglob('*.json')):
+                rel = path.relative_to(folder).as_posix()
                 catalog = json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=no_duplicates)
-                if not isinstance(catalog, dict) or any(not isinstance(v, str) for v in catalog.values()):
-                    raise Problem(f'{path.relative_to(folder).as_posix()}: a translation file is one object of text by key')
+                if not isinstance(catalog, dict) or any(not isinstance(v, str) or not v.strip() for v in catalog.values()):
+                    raise Problem(f'{rel}: a translation file is one object of text by key')
+                # A key is one of the mod's own (a translation) or names something of the add-on's (its prefix).
+                english = ROOT / 'translations' / path.parent.name / 'en.json'
+                if not english.exists():
+                    raise Problem(f'{rel}: there is no Phobos mod folder called {path.parent.name}')
+                known = json.loads(english.read_text(encoding='utf-8-sig'))
+                for key in catalog:
+                    if key not in known and not any(part.lower().startswith(prefix) for part in key.split('.')):
+                        raise Problem(f'{rel}: {key} is not one of the mod\'s keys and does not carry the id prefix {manifest["idPrefix"]}')
                 checked.append(path.relative_to(folder).as_posix())
             continue
         shipped_dir = ROOT / 'mods' / mod_dir.name / 'framework'

@@ -33,6 +33,15 @@ file loads before the user's override. Thus `pt-BR` can inherit missing entries
 from `pt`. An invalid entry retains the previous valid fallback and logs a
 diagnostic. Unknown keys are ignored.
 
+Since Framework 0.91.0 enabled add-ons supply a third source, read between the
+packaged file and the user's override at each language level:
+`<add-on>/phobos/translations/<Mod folder>/<language>.json`. An add-on's file may
+also add keys of its own, to name the recipes and items that add-on adds; such a
+key must carry the add-on's id prefix in one of its dot-separated parts. Keys added
+this way exist only while the add-on is enabled. See
+[publishing an add-on](../publishing-an-add-on.md). Catalogs are read again when a
+game loads, because the game's mod list is not known when the plugins start.
+
 Preserve numbered placeholders such as `{0}` and `{1:F1}`; they may be reordered
 to suit grammar. Preserve native tokens such as `[us]`, `[them]`, `[crafts]` and
 `[checks]`, and keep command names, configuration keys and identifiers unchanged.

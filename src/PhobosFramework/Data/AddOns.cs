@@ -138,6 +138,33 @@ public static class AddOns
         }
     }
 
+    public const string TranslationsFolder = "translations";
+    /// <summary>The mod folder name a translation owner's files sit under: <c>phobosgekko.ostranauts.manufacturing</c>
+    /// is <c>PhobosManufacturing</c>, compared without regard to case.</summary>
+    public static bool IsFolderOf(string folder, string owner)
+    {
+        int dot = (owner ?? "").LastIndexOf('.');
+        return dot >= 0 && string.Equals(folder, "phobos" + owner!.Substring(dot + 1), StringComparison.OrdinalIgnoreCase);
+    }
+    /// <summary>Whether a text key names something of the add-on's own: one of its dot-separated parts starts with the
+    /// add-on's id prefix (<c>Recipe.myaddon-rich-seam</c>, <c>Material.MyaddonAlloy_description</c>).</summary>
+    public static bool OwnsKey(AddOnManifest manifest, string key) => (key ?? "").Split('.').Any(part => Owns(manifest, part));
+    /// <summary>Each add-on's translation folder for one owner (<c>phobos/translations/&lt;Mod&gt;/</c>), in load order, with
+    /// the keys it may add.</summary>
+    public static IEnumerable<(string Directory, Func<string, bool> MayAdd)> TranslationFolders(string owner)
+    {
+        foreach (var addOn in Current)
+        {
+            string root = Path.Combine(addOn.Directory, Folder, TranslationsFolder);
+            string[] folders;
+            try { folders = System.IO.Directory.Exists(root) ? System.IO.Directory.GetDirectories(root) : Array.Empty<string>(); }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException) { continue; }
+            var manifest = addOn.Manifest;
+            foreach (string folder in folders.Where(f => IsFolderOf(Path.GetFileName(f), owner)))
+                yield return (folder, key => OwnsKey(manifest, key));
+        }
+    }
+
     /// <summary>Console text: each add-on with its author and version, then what was refused.</summary>
     public static string Describe()
     {

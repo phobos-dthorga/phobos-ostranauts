@@ -26,6 +26,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.91.0] - 2026-10-04 - Draft
+
+### Added
+
+- Add-ons can carry text: a translation of any Phobos mod into another language, and names for the recipes and other things the add-on adds. Files go in phobos/translations in the add-on, one per language. A player's own translation file still has the last word.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- An add-on's own names exist only while it is enabled.
+- Checked offline; not yet seen in the game.
+
 ## [0.90.0] - 2026-10-04 - Draft
 
 ### Added

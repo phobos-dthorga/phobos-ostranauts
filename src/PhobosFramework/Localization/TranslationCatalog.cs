@@ -10,6 +10,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Phobos.Ostranauts.Framework.Localization;
 
+/// <summary>One translation file's text, and which keys beyond the catalog's own it may add (Framework 0.91.0): an
+/// add-on's file may name the things that add-on adds, under its own id prefix, and nothing else new.</summary>
+public sealed class TranslationOverlay
+{
+    public string Json { get; }
+    public Func<string, bool>? MayAdd { get; }
+    public TranslationOverlay(string json, Func<string, bool>? mayAdd = null) { Json = json ?? ""; MayAdd = mayAdd; }
+}
+
 /// <summary>Content-owned JSON messages with an embedded English safety fallback.</summary>
 public sealed class TranslationCatalog
 {
@@ -18,11 +27,13 @@ public sealed class TranslationCatalog
     public const int MaxArguments = 64, MaxAlignment = 1024, MaxNumericPrecision = 100;
     private readonly Dictionary<string, string> english;
     private readonly Dictionary<string, string> selected = new Dictionary<string, string>(StringComparer.Ordinal);
+    // Keys add-ons add for the things they add; the last language level loaded wins, as for ordinary keys.
+    private readonly Dictionary<string, string> added = new Dictionary<string, string>(StringComparer.Ordinal);
     private readonly HashSet<string> reported = new HashSet<string>(StringComparer.Ordinal);
     private readonly Action<string> log;
     private readonly EquipmentNames? equipment;
     public CultureInfo Culture { get; private set; } = CultureInfo.GetCultureInfo("en");
-    public bool Contains(string key) => english.ContainsKey(key);
+    public bool Contains(string key) => english.ContainsKey(key) || added.ContainsKey(key);
 
     public TranslationCatalog(string englishJson, Action<string>? log = null) : this(englishJson, log, null) { }
 
@@ -88,21 +99,32 @@ public sealed class TranslationCatalog
         public string ToString(string? format, IFormatProvider? provider) => "value";
     }
 
-    public void Select(string language, params string[] overlays)
+    public void Select(string language, params string[] overlays) => Select(language, overlays.Select(json => new TranslationOverlay(json)));
+
+    public void Select(string language, IEnumerable<TranslationOverlay> overlays)
     {
-        selected.Clear(); reported.Clear();
+        selected.Clear(); added.Clear(); reported.Clear();
         try { Culture = CultureInfo.GetCultureInfo(language); }
         catch (CultureNotFoundException) { Culture = CultureInfo.GetCultureInfo("en"); }
-        foreach (string json in overlays)
+        foreach (var overlay in overlays)
         {
             Dictionary<string, string> entries;
-            try { entries = Parse(json); }
+            try { entries = Parse(overlay.Json); }
             catch (Exception ex) when (ex is JsonException || ex is FormatException)
             { Warn("file:" + ex.Message, "Invalid translation file; retaining fallback: " + ex.Message); continue; }
             foreach (var entry in entries)
             {
                 if (!english.TryGetValue(entry.Key, out string original))
-                { Warn(entry.Key, "Unknown translation key: " + entry.Key); continue; }
+                {
+                    // A new key is taken only from a file allowed to add it (an add-on naming its own additions).
+                    if (overlay.MayAdd?.Invoke(entry.Key) == true)
+                    {
+                        try { Signature(entry.Value); added[entry.Key] = entry.Value; }
+                        catch (FormatException ex) { Warn(entry.Key, "Invalid added text " + entry.Key + ": " + ex.Message); }
+                    }
+                    else Warn(entry.Key, "Unknown translation key: " + entry.Key);
+                    continue;
+                }
                 try
                 {
                     if (Signature(original) != Signature(entry.Value)) throw new FormatException("Argument set differs.");
@@ -121,7 +143,14 @@ public sealed class TranslationCatalog
     public string Get(string key, params object[] args)
     {
         if (!english.TryGetValue(key, out string original))
-        { Warn(key, "Missing English translation key: " + key); return "[" + key + "]"; }
+        {
+            if (added.TryGetValue(key, out var extra))
+            {
+                try { return string.Format(Culture, extra, args); }
+                catch (FormatException) { return extra; }
+            }
+            Warn(key, "Missing English translation key: " + key); return "[" + key + "]";
+        }
         string format = selected.TryGetValue(key, out var translated) ? translated : original;
         string Name(string value) => equipment?.Format(key, value) ?? value;
         try { return Name(string.Format(Culture, format, args)); }
@@ -144,6 +173,11 @@ public static class Translations
     public static string Language { get; private set; } = "en";
     public static Action<string> Log { get; set; } = _ => { };
     public static string? UserDirectory { get; set; }
+    /// <summary>Translation folders from enabled add-ons for one owner, in load order, each with the keys that add-on
+    /// may add (Framework 0.91.0). Null means none. Read between the packaged catalog and the player's own folder.</summary>
+    public static Func<string, IEnumerable<(string Directory, Func<string, bool> MayAdd)>>? AddOnDirectories { get; set; }
+    /// <summary>Reads every catalog's files again: called when the game's mod list is known, so add-on translations load.</summary>
+    public static void Reload() { foreach (var pair in catalogs) Load(pair.Key, pair.Value); }
 
     public static TranslationCatalog Register(string owner, Assembly assembly, string resource)
         => Register(owner, assembly, resource, null);
@@ -185,21 +219,25 @@ public static class Translations
         string neutral = Language.Split('-')[0];
         if (!names.Contains(neutral, StringComparer.OrdinalIgnoreCase)) names.Add(neutral);
         if (!names.Contains(Language, StringComparer.OrdinalIgnoreCase)) names.Add(Language);
-        var overlays = new List<string>();
+        // At each language level: the packaged file, then add-ons in load order, then the player's own file.
+        var sources = new List<(string Directory, Func<string, bool>? MayAdd)> { (directories[owner], null) };
+        try { if (AddOnDirectories != null) foreach (var source in AddOnDirectories(owner)) sources.Add((source.Directory, source.MayAdd)); }
+        catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is ArgumentException) { Log(owner + ": cannot read add-on translations: " + ex.Message); }
+        if (!string.IsNullOrEmpty(UserDirectory)) sources.Add((Path.Combine(UserDirectory!, owner), null));
+        var overlays = new List<TranslationOverlay>();
         foreach (string name in names)
-        foreach (string directory in string.IsNullOrEmpty(UserDirectory) ? new[] { directories[owner] } :
-            new[] { directories[owner], Path.Combine(UserDirectory!, owner) })
+        foreach (var source in sources)
         {
-            string path = Path.Combine(directory, name + ".json");
+            string path = Path.Combine(source.Directory, name + ".json");
             try
             {
                 if (!File.Exists(path)) continue;
                 if (new FileInfo(path).Length > TranslationCatalog.MaxFileBytes) throw new IOException("Translation exceeds 1 MiB.");
-                overlays.Add(File.ReadAllText(path));
+                overlays.Add(new TranslationOverlay(File.ReadAllText(path), source.MayAdd));
             }
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
             { Log(owner + ": cannot read translation " + name + ": " + ex.Message); }
         }
-        catalog.Select(Language, overlays.ToArray());
+        catalog.Select(Language, overlays);
     }
 }

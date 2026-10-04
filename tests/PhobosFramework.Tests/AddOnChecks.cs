@@ -27,6 +27,24 @@ internal static class AddOnChecks
         check(AddOns.AtLeast("0.44.0.0", "0.44.0") && AddOns.AtLeast("0.45.1", "0.44.0") && !AddOns.AtLeast("0.43.9", "0.44.0") && !AddOns.AtLeast("unknown", "0.1.0"), "Requirements compare versions, not text");
         check(AddOns.Owns(ok, "myaddon-steel") && AddOns.Owns(ok, "MyAddonSteel") && !AddOns.Owns(ok, "gangue-wash"), "An id belongs to an add-on when it starts with its prefix, in any case");
 
+        // Translations and names from add-ons (Framework 0.91.0).
+        check(AddOns.IsFolderOf("PhobosManufacturing", "phobosgekko.ostranauts.manufacturing") && AddOns.IsFolderOf("phobosframework", "phobosgekko.ostranauts.framework") &&
+              !AddOns.IsFolderOf("PhobosAgriculture", "phobosgekko.ostranauts.manufacturing"), "A translation folder is named after the mod folder, in any case");
+        check(AddOns.OwnsKey(ok, "Recipe.myaddon-rich-seam") && AddOns.OwnsKey(ok, "Material.MyaddonAlloy_description") && !AddOns.OwnsKey(ok, "Recipe.gangue-wash") && !AddOns.OwnsKey(ok, "Refinery.name"),
+            "A text key is an add-on's own when one of its parts starts with the add-on's prefix");
+        var catalog = new Phobos.Ostranauts.Framework.Localization.TranslationCatalog("{\"plain\":\"Ready\",\"count\":\"{0} items\"}");
+        catalog.Select("en", new[]
+        {
+            new Phobos.Ostranauts.Framework.Localization.TranslationOverlay("{\"plain\":\"All set\",\"Recipe.myaddon-rich-seam\":\"Rich seam\",\"Recipe.other-thing\":\"Other\",\"Recipe.myaddon-count\":\"{0} seams\"}", key => AddOns.OwnsKey(ok, key)),
+            new Phobos.Ostranauts.Framework.Localization.TranslationOverlay("{\"Recipe.myaddon-local\":\"Local\"}")
+        });
+        check(catalog.Get("plain") == "All set" && catalog.Get("Recipe.myaddon-rich-seam") == "Rich seam" && catalog.Get("Recipe.myaddon-count", 3) == "3 seams" && catalog.Contains("Recipe.myaddon-rich-seam"),
+            "An add-on's file retunes our text and names its own additions");
+        check(!catalog.Contains("Recipe.other-thing") && !catalog.Contains("Recipe.myaddon-local") && catalog.Get("Recipe.other-thing") == "[Recipe.other-thing]",
+            "A new key outside the add-on's prefix, or from a plain file, is still ignored");
+        catalog.Select("en");
+        check(!catalog.Contains("Recipe.myaddon-rich-seam") && catalog.Get("plain") == "Ready", "Without the add-on its text is gone and ours is back");
+
         // The same numbers scripts/validate-data-packs.py derives, so the game and the offline checker agree.
         check(Outcomes.Hash(new[] { "a1", "b2" }) == 1848931155u && RecipeSchema.DerivedRevision("richergangue-steel-seam") == 843336921, "The stable hash and a derived revision match the offline checker's");
         check(RecipeSchema.DerivedRevision("x") >= RecipeSchema.DerivedRevisionFloor && RecipeSchema.DerivedRevision("x") == RecipeSchema.DerivedRevision("x") &&

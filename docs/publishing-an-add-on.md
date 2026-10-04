@@ -5,14 +5,15 @@ mod that other players can subscribe to on Steam Workshop. It is data only: text
 files, and no code. If you can [edit the data files](editing-data-files.md) for
 yourself, you can publish them.
 
-What an add-on can do today (Phobos Framework 0.90.0):
+What an add-on can do today (Phobos Framework 0.91.0):
 
 - Retune anything a local file can: prices, power, work, odds, thresholds.
 - Add recipes, outcome tables and crops, under your own id prefix.
+- Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
 
-Names for the things you add, translations, and new items with their own artwork
-are being added next; this page will say when they work.
+New items with their own artwork are being added next; this page will say when
+they work.
 
 ## 1. Get it working for yourself first
 
@@ -37,6 +38,9 @@ MyAddon/
       process-recipes/my-recipes.json
     PhobosWarDeclared/
       schematics/my-schematic.json
+    translations/
+      PhobosManufacturing/en.json
+      PhobosManufacturing/fr.json
 ```
 
 Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
@@ -82,7 +86,28 @@ Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
 - **A bad file is skipped, never fatal.** The player sees a notice in the crew log
   and the reason under `phobosframework addons`; your other files still apply.
 
-## 5. The order files apply in
+## 5. Names and translations
+
+Text lives in `phobos/translations/<Mod>/<language>.json`, one flat object of text
+by key, named after the language (`en.json`, `fr.json`, `pt-BR.json`).
+
+- **Name what you add.** A recipe you add shows its name from the key
+  `Recipe.<your recipe id>`. Put it in `en.json`, so every player has it, and in
+  any language you can write:
+
+  ```json
+  { "Recipe.myaddon-rich-seam": "Gangue wash, rich seam" }
+  ```
+
+  A file may add only keys that carry your `idPrefix` in one of their parts.
+- **Translate the Phobos mods.** Copy keys from the mod's own
+  `translations/<Mod>/en.json` and translate the values. Keep the numbered
+  placeholders such as `{0}` and `{1:F1}`; you may reorder them. The rules are the
+  same as for a player's own translation file.
+- A player's own file in `BepInEx/config/PhobosTranslations` still has the last
+  word. Text has no `priority`.
+
+## 6. The order files apply in
 
 ```mermaid
 flowchart LR
@@ -105,7 +130,7 @@ Use it sparingly: a fix that must win over other add-ons, or over a player's old
 local tweak, raises its priority. A player who wants the last word back raises
 theirs higher.
 
-## 6. Check it
+## 7. Check it
 
 With Python installed and a copy of the Phobos repository:
 
@@ -125,7 +150,7 @@ For editor help while you write, point your editor at the schema files in the
 repository's [schemas folder](../schemas), including `addon.schema.json` for the
 manifest.
 
-## 7. Publish it
+## 8. Publish it
 
 The game uploads a mod folder itself.
 

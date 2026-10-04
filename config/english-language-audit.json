@@ -76974,8 +76974,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "232ec3f4d5348536769560758053956d89472cef67368cfd8372aa829bbc0c85",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "a47c8fc8cf2458adc6a880920e8b0065667bfbf94707868fa51d1ad8d1c270d2",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "SUPPORT.md",
@@ -77134,8 +77134,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "46b6f708d713ce74d925492727290075d37c140aa463da0018dbd154cd5c4aa6",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "305d3fe5ec7a66e9ac9905a855df1218501d609502d2f3fe75eee0acfee3048f",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77595,7 +77595,8 @@
       "path": "docs/development/localization.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "rewrite",
-      "sha256": "461f8e69ddeb34dfab259ee5de6b40f23a564a8dee0dab286bc1490c105a5803"
+      "sha256": "ec3a0ad1ab50cf40547c4d1d3608e4248c078cd27a9d0d63239cc01420b6cb62",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "docs/development/locator-next-steps.md",
@@ -77802,8 +77803,8 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "733fb98b27ec1543edc66e5b7ed1526d4748f195c2b49ab273ad0eb0abfe91e5",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "4569a5c3555f5e215fc96a92b1b81620641dcb916769797f7bd1e9c9ba911013",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -78100,8 +78101,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8d7f9d7bd128d96912a943b5403f35ea3774a26c4583214b8c2d13a19e7aac4d",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "d534ddd02ca0e547cb2bf7c42a30af40eb0b0e9fa1337f767863284ecbb761a0",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78219,8 +78220,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "06e7c6c8d35806cf7b3b3c71174342e9e8b1007aefc703d10a5e316cba31ebd1",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "9eb24b052a413772f2a67d0ad62fe97ea07f6bce739fe862c8641b51b048403a",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -78254,8 +78255,8 @@
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "09daf14da6995b471d40a3efe3bb6905dd1767b03874222d17864bcd20555134",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "b05a61f2b5c516814e218c54c3f370f9b5c8660083881a60ea0e22e987627037",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     }
   ],
   "surfaces": [
@@ -78314,8 +78315,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "fa7634e28d125986f2919d8608e4642e6bd357417a031595f9171ba9042d45e2",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "8503ee8fe040cd081dc8d46936441bd09fe73c4f6e68b9625123dc1cc1dd70ea",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

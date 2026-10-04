@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.90.0";
+    public const string Version = "0.91.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -42,6 +42,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Data.DataPacks.Log = message => Logger.LogWarning(message);
         // Add-ons players publish (0.90.0): every enabled game mod folder, in the game's own order, may hold one.
         Data.AddOns.Log = message => Logger.LogWarning(message);
+        Translations.AddOnDirectories = Data.AddOns.TranslationFolders;
         Data.AddOns.EnabledModDirectories = () => DataHandler.dictModInfos?.Values.Where(m => m != null && !m.GetIsDisabled()).Select(m => m.GetDirectory()).Where(d => !string.IsNullOrEmpty(d)).ToArray() ?? Array.Empty<string>();
         FrameworkConsole.AddOns = () => Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe() + "\n" + Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
         FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe();
