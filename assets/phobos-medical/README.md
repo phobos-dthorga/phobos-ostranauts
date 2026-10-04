@@ -20,7 +20,7 @@ colours were the only image input supplied to PixelLab for the superseded fittin
 The first hospital-bed base, fitting and their palette/preview were superseded
 when the owner changed direction. Five exact binaries were verified and retained
 on the existing `codex/rejected-artwork` branch, local commit
-`fd98de450ee10d346a041cfea4a928737b848ffc`. The archive commit has not been pushed;
+`fd98de450ee10d346a041cfea4a928737b848ffc`. The archive commit is on GitHub;
 the [archive inventory](../rejected-artwork-archive.json) records hashes.
 The bed requests used two built-in image calls and one included PixelLab generation.
 PixelLab allowance changed from 1671 to 1670; credits remained at USD 0. Built-in

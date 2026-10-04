@@ -132,8 +132,8 @@ recovery role, with no active surgery or standalone patient monitor.
 The unchanged **1463 x 1075** source is retained only on
 `codex/workshop-art-masters`, commit
 `9249a8182ec3d4d6172920cc7edb9a83dc2a5387`, at
-`assets/workshop/masters/PhobosMedical-scene.png`. This new master commit is local
-and has not been pushed. The [exact request](medical-request.json) records the
+`assets/workshop/masters/PhobosMedical-scene.png`. This master commit was pushed
+on 5 October 2026. The [exact request](medical-request.json) records the
 prompt, reference roles, source hash and provider result. One built-in image call
 was used; its model, seed and monetary cost were not disclosed.
 

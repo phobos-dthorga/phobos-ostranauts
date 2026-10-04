@@ -48,8 +48,8 @@ normal (manifest key `ward3-medical-bed`); every form uses it, damaged forms wit
 damage tint. No separate damaged art and no PixelLab layer were made. How it looks lit and
 rotated in the game is still for the owner to check. The original hospital-bed base and the completed one-generation
 PixelLab fitting were superseded before composition. Their originals are verified
-in local archive commit `fd98de450ee10d346a041cfea4a928737b848ffc` on
-`codex/rejected-artwork`; that commit has not been pushed.
+in archive commit `fd98de450ee10d346a041cfea4a928737b848ffc` on
+`codex/rejected-artwork`, which is on GitHub.
 
 ## Vigil-2 patient monitor (set 3 artwork pilot)
 

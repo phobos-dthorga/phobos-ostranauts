@@ -78373,8 +78373,8 @@
       "path": "docs/development/medical-art-handoff.md",
       "scope": "contributor art provenance: selected Ward-3 and planned Vigil-2 pilot; superseded exact requests retained",
       "decision": "new",
-      "sha256": "c457cae26f0c35e13112e8ed1ded23506ae805fc75fab6b7d571dd93ea9c64af",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "17f095080c51855119f0c0fe939ee113fb66ebc4fcfe0bb55158c61926a9eb37",
+      "review": "5 October 2026: archive push status corrected after the archive branch was pushed."
     },
     {
       "path": "docs/development/medical-bed-design.md",

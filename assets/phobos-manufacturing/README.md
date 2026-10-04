@@ -56,8 +56,8 @@ ports, chemistry, prices and saved state are untouched; game lighting and rotati
 still await owner review.
 
 The seven previous selected working masters are preserved byte for byte in
-local archive commit `4b2c15852cdd78e02b61abe328e1b9dd8d173825` on
-`codex/rejected-artwork` (not pushed). The request record and archive inventory
+archive commit `4b2c15852cdd78e02b61abe328e1b9dd8d173825` on
+`codex/rejected-artwork` (pushed 5 October 2026). The request record and archive inventory
 retain their hashes and original provider/job records. Earlier native images stay
 under `references/` because they were inputs to the selected revisions and to the
 initial Oxsmith review. Oxsmith's own sources, masters and review are unchanged;

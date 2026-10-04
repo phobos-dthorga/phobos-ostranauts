@@ -345,128 +345,128 @@
       "sha256": "9fd920817e3dded0e623a65914fa4d762cabf1b83d9c25707275d173bbdb6d4a",
       "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/fd98de450ee10d346a041cfea4a928737b848ffc/assets/phobos-medical/source/ward3-base-chatgpt.png"
     },
     {
       "path": "assets/phobos-medical/source/ward3-fitting-pixellab.png",
       "sha256": "714a2b0042e56bd7e4b589b26439728181a8c061cb752d1ca3ae77e35716379f",
       "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/fd98de450ee10d346a041cfea4a928737b848ffc/assets/phobos-medical/source/ward3-fitting-pixellab.png"
     },
     {
       "path": "assets/phobos-medical/palette.png",
       "sha256": "83896ac0a0e05f5190a463f8e033fef23967b9be55bc64b9f28a68758912024a",
       "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/fd98de450ee10d346a041cfea4a928737b848ffc/assets/phobos-medical/palette.png"
     },
     {
       "path": "assets/phobos-medical/ward3-base-master.png",
       "sha256": "fecf1089bcb525e32c29411bd7d3290ee3297cbd820ced526c0c57d0c3cfc989",
       "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/fd98de450ee10d346a041cfea4a928737b848ffc/assets/phobos-medical/ward3-base-master.png"
     },
     {
       "path": "assets/phobos-medical/base-preview.png",
       "sha256": "ff240916e39b10d906672dcfb0667bfd72e5510c672521ae61ec727da29efea9",
       "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
       "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/fd98de450ee10d346a041cfea4a928737b848ffc/assets/phobos-medical/base-preview.png"
     },
     {
       "path": "assets/phobos-medical/vigil1-monitor-master.png",
       "sha256": "62a1896cf6ba7b6936acf1625262e53c42905e83eb7d84f0fcd59c9b1f01b6ea",
       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/6110645617acfb16a53fe37647ecd24296f57ec7/assets/phobos-medical/vigil1-monitor-master.png"
     },
     {
       "path": "assets/phobos-medical/vigil1-monitor-native.png",
       "sha256": "b76ff69a9bec3f6230751dbc9f2868d74063dc5fd3fe659b13e07209dc683ecd",
       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/6110645617acfb16a53fe37647ecd24296f57ec7/assets/phobos-medical/vigil1-monitor-native.png"
     },
     {
       "path": "assets/phobos-medical/vigil1-monitor-nativeNormal.png",
       "sha256": "88788d9558194af99919c2e8f089ba55b66292b4a5c7d7e15f9f9ca474076f6d",
       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/6110645617acfb16a53fe37647ecd24296f57ec7/assets/phobos-medical/vigil1-monitor-nativeNormal.png"
     },
     {
       "path": "assets/phobos-medical/vigil1-monitor-preview.png",
       "sha256": "1b01f435e47b9933c60510866054b919393fcfe2ae5153ee0b406a7f6625e817",
       "reason": "Superseded one-tile Vigil-1 pilot: owner requested larger sizing on 4 October 2026; revised to two-tile Vigil-2.",
       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/6110645617acfb16a53fe37647ecd24296f57ec7/assets/phobos-medical/vigil1-monitor-preview.png"
     },
     {
       "path": "assets/artwork-completion/source/v4-refinery.png",
       "sha256": "db0a71cb23f4b500a10c3128b153629b87419dafe7d0857d6dfd7cf399c38040",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/v4-refinery.png"
     },
     {
       "path": "assets/artwork-completion/source/x2-processor.png",
       "sha256": "af7f666626c09fdfaf0c9b3e4345e181af84ad3fa281fb50ded43d51c7b2f815",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/x2-processor.png"
     },
     {
       "path": "assets/artwork-completion/source/k2-reactor.png",
       "sha256": "978000171eaa58e6f8c7a24170a8fb434ba38629891b185f5c430c1bb90fb69e",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/k2-reactor.png"
     },
     {
       "path": "assets/artwork-completion/source/ax2-cracker.png",
       "sha256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/ax2-cracker.png"
     },
     {
       "path": "assets/artwork-completion/source/lc3-leach-unit.png",
       "sha256": "6d96eaf2b9e655a45c6073c50bf2c90c8614a3c2fd829d933a5c298fcb797540",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/lc3-leach-unit.png"
     },
     {
       "path": "assets/artwork-completion/source/sa3-acid-plant.png",
       "sha256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/sa3-acid-plant.png"
     },
     {
       "path": "assets/artwork-completion/source/copperhead3-fermenter-still.png",
       "sha256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
       "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
-      "archiveStatus": "Local archive commit; not pushed",
-      "archiveURL": null
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/copperhead3-fermenter-still.png"
     }
   ],
   "additions": [

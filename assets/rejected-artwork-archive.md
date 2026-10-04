@@ -3,9 +3,9 @@
 ## Chemical machinery revision, 5 October 2026
 
 Seven previously selected working masters (V4, X2, K2, AX-2, LC-3, SA-3 and
-Copperhead-3) were verified byte for byte in local commit
+Copperhead-3) were verified byte for byte in commit
 `4b2c15852cdd78e02b61abe328e1b9dd8d173825` on `codex/rejected-artwork` before
-removal from main. The commit has not been pushed. Their original PixelLab
+removal from main. The commit was pushed on 5 October 2026. Their original PixelLab
 records and hashes remain in the [replacement provenance](phobos-manufacturing/chemical-reactor-requests.json).
 Earlier native sprites remain required generation/review inputs on main; new
 sources and selected working masters are retained for the owner-requested restyle.
@@ -16,8 +16,8 @@ path guards, verifies exact stored bytes, then removes only the named assets.
 ## Medical monitor size revision, 4 October 2026
 
 The original one-tile Vigil-1 master, native colour/normal and preview were
-verified byte for byte in local commit `6110645617acfb16a53fe37647ecd24296f57ec7`
-on `codex/rejected-artwork`. The commit has not been pushed. The owner requested
+verified byte for byte in commit `6110645617acfb16a53fe37647ecd24296f57ec7`
+on `codex/rejected-artwork`, pushed on 5 October 2026. The owner requested
 larger sizing; the current planned Vigil-2 is a two-by-two cart, with a 32 x 32
 native pilot and 128 x 128 master. Its untouched 1254 x 1254 source remains on main,
 along with the exact initial prompt, revised registration and hashes in
@@ -26,10 +26,9 @@ along with the exact initial prompt, revised registration and hashes in
 ## Ward-3 superseded direction, 4 October 2026
 
 Five Medical artwork binaries (the initial hospital-bed source, PixelLab fitting,
-input palette and two base previews/masters) were verified byte for byte in local
-commit `fd98de450ee10d346a041cfea4a928737b848ffc` on `codex/rejected-artwork`.
-This commit has not been pushed; its entries in the JSON inventory have no public
-URL. The owner's revised 2075 nanomedical concept and all prompt/cost records stay
+input palette and two base previews/masters) were verified byte for byte in
+commit `fd98de450ee10d346a041cfea4a928737b848ffc` on `codex/rejected-artwork`,
+which is on GitHub; its entries in the JSON inventory now carry their links. The owner's revised 2075 nanomedical concept and all prompt/cost records stay
 in `assets/phobos-medical/`. No selected runtime source was removed.
 
 
