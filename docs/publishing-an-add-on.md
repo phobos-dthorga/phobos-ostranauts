@@ -9,8 +9,9 @@ What an add-on can do today (Phobos Framework 0.92.0):
 
 - Retune anything a local file can: prices, power, work, odds, thresholds.
 - Add recipes, outcome tables and crops, under your own id prefix.
-- Add new items with your own pictures, for Phobos Manufacturing's recipes to make
-  and use.
+- Add new items with your own pictures: stock for Phobos Manufacturing's recipes,
+  castings for Phobos Shipbreaker's F6 furnace, and seed, produce and meals for
+  Phobos Agriculture.
 - Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
 
@@ -23,8 +24,11 @@ skipped, with the reason.
 
 ## 2. Make the add-on folder
 
-Copy [the template](../examples/addons/PhobosAddOnTemplate) and rename it. A worked
-example sits beside it: [Richer Gangue](../examples/addons/PhobosExampleRicherGangue).
+Copy [the template](../examples/addons/PhobosAddOnTemplate) and rename it. Two worked
+examples sit beside it: [Richer Gangue](../examples/addons/PhobosExampleRicherGangue)
+for Phobos Manufacturing, and
+[Dockside Extras](../examples/addons/PhobosExampleDocksideExtras) for Phobos
+Shipbreaker and Phobos Agriculture.
 
 ```text
 MyAddon/
@@ -111,8 +115,9 @@ by key, named after the language (`en.json`, `fr.json`, `pt-BR.json`).
 
 ## 6. New items with your own pictures
 
-Phobos Manufacturing 0.45.0 takes added items (Shipbreaker and Agriculture do not
-yet). Put them in `phobos/PhobosManufacturing/materials/`:
+Phobos Manufacturing 0.45.0, Phobos Shipbreaker 0.75.0 and Phobos Agriculture 0.48.0
+take added items. Put them in the `materials` folder of the mod whose machines will
+make or use them, for example `phobos/PhobosManufacturing/materials/`:
 
 ```json
 {
@@ -136,7 +141,7 @@ yet). Put them in `phobos/PhobosManufacturing/materials/`:
 | Field | What it is |
 | --- | --- |
 | the key | The item's id: letters and digits, starting with your `idPrefix`. Keep it for ever; saves name it. |
-| `kind` | `stock` for an ordinary solid, `mined` for something that behaves like ore. |
+| `kind` | What sort of item it is. Each mod has its own short list, below. |
 | `kg`, `price`, `stack` | One unit's mass, its base price, and how many stack in a cell. |
 | `side` | Its size in the world, in tiles (1 for a 16 x 16 picture). |
 | `category` | The game's market category: `IsCategoryMetals`, `IsCategoryOre`, `IsCategoryIndustrialProducts` or `IsCategoryTrash`. |
@@ -154,6 +159,41 @@ yet). Put them in `phobos/PhobosManufacturing/materials/`:
   `"terminal": true`. That marks it as a remainder, and the RM-1 reaction mass
   feeder grinds it into thrust. A trash item without it is refused.
 - **Not sold by merchants.** Added items come from your recipes.
+
+What each mod takes:
+
+| Mod | `kind` | What makes or uses it |
+| --- | --- | --- |
+| Phobos Manufacturing | `stock` for an ordinary solid, `mined` for something that behaves like ore | Any recipe of its machines, as feed or as product. |
+| Phobos Shipbreaker | `stock` only | A product of an F6 furnace recipe you add. The furnace still melts the game's aluminium or steel scrap, twenty at a time. |
+| Phobos Agriculture | `stock` for seed and produce, `food` for something the crew eat, `waste` for a leftover | A crop you add (its seed and its produce), or a Hearth-2 recipe (what it cooks and what comes out). |
+
+**A furnace recipe** goes in `phobos/PhobosShipbreaker/process-recipes/`. Copy the
+`thermal` figures of a shipped recipe for the same metal, keep the charge at twenty
+1 kg scraps, and make the products weigh 20 kg in all. Name it for the furnace's
+panel with a `Recipe.<your recipe id>` line in
+`phobos/translations/PhobosShipbreaker/en.json`.
+
+**Food** needs one more entry, in `phobos/PhobosAgriculture/crops/`, saying what
+eating one gives (each from 1 to 20). Leave `text` out: the item is named in your
+materials file.
+
+```json
+{
+  "schema": "crops",
+  "items": {
+    "MyaddonStew": { "hunger": 2, "satiety": 2 }
+  }
+}
+```
+
+**A crop** you add names its seed in `stock` and its harvest in `produce`. Both may
+be items you add, and both need an entry under `items` as above (an empty one,
+`{}`, for an item nobody eats). Growth pictures are still borrowed from a shipped
+crop through `art`. The Hearth-2 holds one recipe for each item it cooks, so cook
+something the shipped recipes do not.
+
+The Dockside Extras example does the furnace recipe and the meal.
 
 ## 7. The order files apply in
 

@@ -78,7 +78,7 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         // Next charge: which metal the chamber takes and what is released. Changes only while idle, cool and empty.
         W.Label(root, Text.Get("Furnace.action_recipe"));
         var recipeRow=C.Row(root);
-        foreach(var r in FurnaceRecipes.All){string id=r.Id;C.Button(recipeRow,Text.Get("Furnace.recipe_"+id),()=>command("recipe",id));}
+        foreach(var r in FurnaceRecipes.All){string id=r.Id;C.Button(recipeRow,FurnaceRecipes.Label(r),()=>command("recipe",id));}
         Setting("heat", FurnaceRules.MinPowerSettingKW, FurnaceRules.HeatLimitKW, b => b.HeatCapKW);
         Setting("ramp", FurnaceRules.MinRamp, FurnaceRules.MaxRamp, b => b.RampKPerSecond);
         Setting("cool", FurnaceRules.MinPowerSettingKW, FurnaceRules.CoolingKW, b => b.CoolingCapKW);

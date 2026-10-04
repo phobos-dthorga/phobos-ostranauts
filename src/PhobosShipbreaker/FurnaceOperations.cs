@@ -109,7 +109,7 @@ internal static partial class FurnaceService
             s.State.Recipe = recipe.Revision; b.Profile = recipe.Profile; Save(s);
             if (s.Protected) { message = Text.Get("Furnace.protected"); return false; }
         }
-        message = Text.Get("Furnace.recipe_set", Text.Get("Furnace.recipe_" + recipe.Id), Text.Get(FurnaceRecipes.FeedLabelKey(recipe))); return true;
+        message = Text.Get("Furnace.recipe_set", FurnaceRecipes.Label(recipe), Text.Get(FurnaceRecipes.FeedLabelKey(recipe))); return true;
     }
     private static bool Seal(Session s, out string message)
     {
@@ -330,7 +330,7 @@ internal static partial class FurnaceService
             CoolingConnectionStatus(co), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
             b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling + "\n" +
             Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode)) + "\n" +
-            Text.Get("Furnace.recipe_status", Text.Get("Furnace.recipe_" + Recipe(s).Id), Text.Get(FurnaceRecipes.FeedLabelKey(Recipe(s)))) + "\n\n" +
+            Text.Get("Furnace.recipe_status", FurnaceRecipes.Label(Recipe(s)), Text.Get(FurnaceRecipes.FeedLabelKey(Recipe(s)))) + "\n\n" +
             Plugin.Collectors.Describe(co) + "\n" + CollectorService.DescribeLink(co, true);
     }
     internal static bool F3(string input, out bool success, out string response)

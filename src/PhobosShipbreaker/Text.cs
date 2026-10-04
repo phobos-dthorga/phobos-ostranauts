@@ -8,4 +8,5 @@ internal static class Text
     private static readonly TranslationCatalog Catalog = Translations.Register(Owner, typeof(Text).Assembly, "PhobosShipbreaker.en.json", "PhobosShipbreaker.equipment-names.json");
     internal static void EnsureLoaded() { _ = Catalog; }
     internal static string Get(string key, params object[] args) => Catalog.Get(key, args);
+    internal static bool Has(string key) => Catalog.Contains(key);
 }

@@ -69548,6 +69548,19 @@
       }
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Materials.added_kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Shipbreaker 0.75.0: the loader message for a material of the wrong kind.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0}: a material a file adds is of kind stock, and the mod's own materials keep their kinds.",
+      "after": "{0}: a material a file adds is of kind stock, and the mod's own materials keep their kinds."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Bulk.sell_heading",
       "category": "control label",
@@ -77026,8 +77039,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "358d5a05973585f3eafca38a9f272eff6b5e5e2de5b31ada7920a5ac2522295e",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "60d58682478680ec1e1f9fbd1c624c080d8c0732d58772afc9587cbea9b35c87",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77186,8 +77199,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5e704286e5ddc6c70bb6d6cc493993c8b1850558bbe5fe416deb3aeb5a816e84",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "788327ce35f2192162bdd7ab02f8a98532242691f1da9a1ee52ed31ce84fe03e",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77787,8 +77800,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "b9ef3135237deffce20f52a370e094184f9562f93081ac967561a0cde51d4ca7",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "9558fb56101c2899a246594bacb232ce9a1d082fbb6c20c44fb857c8a9f59898",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -77855,8 +77868,8 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "c47ec4cbfd4fb32f72bc30ca89a04872208e442f230ae501221e45c550d1190c",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "6ea65f6b555be8dd6827b6978df2ce290b680e4dca455a8dd51c6008b3a384fc",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -78006,8 +78019,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "84891abaf304a430b8f8e31b3beafbdfd5c66582ba9814e8cca3e49e88fd6fc3",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "8edcfc04e1472938b360b9c573db0d6ae9a4f6ce978906e53af2418c91765675",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -78083,15 +78096,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0c240255446a268c5fe62919d94aabbac16fb7f759f2d406a2786f4f747a7a7c",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "a5e74238eb90bb2715cde8b0f6ee814e0370d5dca1d66f1eed55859bd5031e5c",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "66411d27a5f87f2bd48742cc252be0b67a848d2a341f77d0b80468372dd754a5",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "bf619b020332f663ed77c2b142555fcbb012b4dc4bd2a1cb40914a06ff166fc3",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/item-references.md",
@@ -78153,8 +78166,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "51f55755bd4be94d24289125e040226d6366c71dc857a872bcbb685f1917911c",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "de3161e01e2b90a83ff268d9be0d7d2046cff38601c87937bd3954f8e41a8051",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78258,8 +78271,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0ea9c19571f1f73472e59237692ddad46c3fedd8f97209294f63928a5440ebbc",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "5246305e14ab79b148e798e5538cacbe599150c4a7831de74154f593493c77ed",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -78293,8 +78306,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e670593fe59e09a2e101e980831af06e9a13e3a4cf3dd883e62e72c5561be744",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "c12f75e54485d7b14236c1d40e43af8c7b3e98b68c4c33800eafca7f16b0a90a",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -78307,8 +78320,15 @@
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "4e1ed362635db9f30cc9de45a2041927d74f99359fc271e053fc2557d813e896",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+    },
+    {
+      "path": "examples/addons/PhobosExampleDocksideExtras/README.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "f042ed55d64ca2e5ad3a1540dc5b1c0bb3057a301fceac25fd47ca7c8638bdf4",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     }
   ],
   "surfaces": [
@@ -78332,8 +78352,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bca62db66c5fb8f4031ae43b3add7501d7c0f0c5a59c976e304d08e487e8a774",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "1f3a9d16c2a6ffda5f16af5f84c4d4fe1045ea58051ebbdfab10b5635d76d7ed",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -78391,8 +78411,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1196705aad7464e7847523363523f9e77861295ba81344cdf93bfef5c85bba11",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "581fcf437980e736d64bcc5ab6e19c47df06b328f6248cd3048c9944a2553e78",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

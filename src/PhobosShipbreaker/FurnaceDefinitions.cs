@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Data;
+using Phobos.Ostranauts.Framework.Localization;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosShipbreaker.Core;
 using UnityEngine;
@@ -72,16 +74,27 @@ internal static class FurnaceDefinitions
             Packet(d, id, m.kg, m.price, "Furnace." + name + "_name", "Furnace." + name + "_description", m.art ?? "", m.side, m.stack);
             if (m.category != null) d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { m.category + "=1x1" }).ToArray();
         }
+        // Materials a data file added (Shipbreaker 0.75.0): loose stock with its own name and picture, for an F6 recipe
+        // of the same file to cast. Added trash is terminal by the schema's rule, and so a declared remainder.
+        foreach (var added in ShipbreakerMaterials.Added)
+        {
+            string id = added.Key; var m = added.Value;
+            Packet(d, id, m.kg, m.price, "", "", "", m.side, m.stack, m);
+            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { m.category + "=1x1" }).ToArray();
+            if (m.terminal) Remainders.Declare(id);
+        }
         Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", "PhobosFurnaceSectionDedicated");
         CoolingCargo.Add(d);
     }
     private static string[] Grid(int width, int height, string interior) => Enumerable.Range(0, (height + 2) * (width + 2))
         .Select(i => i % (width + 2) > 0 && i % (width + 2) <= width && i / (width + 2) > 0 && i / (width + 2) <= height ? interior : "Blank").ToArray();
-    private static void Packet(NativeDefinitions d, string id, double mass, double price, string name, string description, string art, int side = 0, int stack = 1)
+    private static void Packet(NativeDefinitions d, string id, double mass, double price, string name, string description, string art, int side = 0, int stack = 1, MaterialEntry? added = null)
     {
         var co = NativeDefinitions.Clone(d.Objects[ProcessRules.Residue]); var item = NativeDefinitions.Clone(d.Items[ProcessRules.Residue]);
         co.strName = co.strItemDef = item.strName = id;
-        co.strNameFriendly = co.strNameShort = Text.Get(name); co.strDesc = Text.Get(description);
+        // An added material carries its own name and text, which an add-on's translation may replace.
+        co.strNameFriendly = co.strNameShort = added != null ? Translations.Get(Text.Owner, "Material." + id, added.name ?? id) : Text.Get(name);
+        co.strDesc = added != null ? Translations.Get(Text.Owner, "Material." + id + "_description", added.description ?? "") : Text.Get(description);
         if (side == 0) side = id == FurnaceRules.Section ? 4 : id == FurnaceRules.Remainder ? 1 : 2;
         co.nStackLimit = stack;
         co.inventoryWidth = co.inventoryHeight = item.nCols = side;
@@ -90,7 +103,9 @@ internal static class FurnaceDefinitions
         item.aSocketAdds = Enumerable.Repeat("TILItemAdds", side * side).ToArray();
         item.aSocketReqs = Enumerable.Repeat("Blank", (side + 2) * (side + 2)).ToArray();
         item.aSocketForbids = Enumerable.Range(0, (side + 2) * (side + 2)).Select(i => i % (side + 2) > 0 && i % (side + 2) <= side && i / (side + 2) > 0 && i / (side + 2) <= side ? "TILItemForbids" : "Blank").ToArray();
-        if (id == FurnaceRules.Housing) Content.ApplyArtwork(co, item, art);
+        // An added material names its own picture, which the game finds in whichever enabled mod's images folder holds it.
+        if (added != null) { item.strImg = co.strPortraitImg = added.image; item.strImgNorm = added.image + "Normal"; item.strImgDamaged = "blank"; }
+        else if (id == FurnaceRules.Housing) Content.ApplyArtwork(co, item, art);
         else Content.ApplyStockArtwork(co, item, art);
         d.Conditions[id + "Identity"] = new JsonCond { strName = id + "Identity", strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         d.Triggers[id + "Trigger"] = new CondTrigger { strName = id + "Trigger", fChance = 1, fCount = 1, bAND = true, aReqs = new[] { id + "Identity" }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };

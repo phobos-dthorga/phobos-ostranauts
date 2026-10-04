@@ -1,0 +1,17 @@
+{
+  "schema": "materials",
+  "materials": {
+    "DocksideStewedTomatoes": {
+      "notes": "An added meal: kind food makes it something the crew can eat. Its food values are in this add-on's crops file.",
+      "kind": "food",
+      "kg": 0.25,
+      "price": 20,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryFood",
+      "name": "Stewed Tomatoes",
+      "description": "A quarter kilogram of tomatoes cooked down in the Hearth-2. Warm, at least.",
+      "image": "dockside/StewedTomatoes"
+    }
+  }
+}

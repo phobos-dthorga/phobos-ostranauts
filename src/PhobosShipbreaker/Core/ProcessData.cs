@@ -13,7 +13,9 @@ public static class ShipbreakerMaterials
 {
     public const string Schema = MaterialSchema.Name, ModFolder = "PhobosShipbreaker", Resource = "PhobosShipbreaker.materials.json";
     public const string FurnacePacket = "furnace-packet", FurnaceHousing = "furnace-housing", ReclaimerPacket = "reclaimer-packet", Reject = "reject";
-    public static readonly IReadOnlyList<string> Kinds = new[] { FurnacePacket, FurnaceHousing, ReclaimerPacket, Reject };
+    /// <summary>The kind of a material a data file adds (Shipbreaker 0.75.0): an ordinary loose item, cast by an F6 recipe.</summary>
+    public const string Stock = "stock";
+    public static readonly IReadOnlyList<string> Kinds = new[] { FurnacePacket, FurnaceHousing, ReclaimerPacket, Reject, Stock };
     /// <summary>Every material the code builds from the pack, in definition order.</summary>
     public static IReadOnlyList<string> Ids => new[] { FurnaceRules.Blank, FurnaceRules.Housing, FurnaceRules.Remainder, FurnaceRecipes.AluminiumIngot, FurnaceRecipes.SteelIngot,
         FurnaceRecipes.SteelRemainder, ReclaimerRules.Feedstock, ReclaimerRules.Reject }.Concat(FeedFamilies.RejectKg.Keys).ToArray();
@@ -22,21 +24,33 @@ public static class ShipbreakerMaterials
     public static DataPackSource Source => new(Text.Owner, ModFolder, Schema, typeof(ShipbreakerMaterials).Assembly, Resource);
     public static MaterialPack Load()
     {
-        pack = DataPacks.Load<MaterialPack>(Source, p =>
-        {
-            MaterialSchema.Validate(p, new MaterialContext(Ids) { Kinds = Kinds });
-            // Masses the code's formulas and recipes are written for: the feed-family rejects, the reclaimer packets and the furnace products.
-            foreach (var bound in FeedFamilies.RejectKg.Concat(new[] {
-                new KeyValuePair<string, double>(ReclaimerRules.Feedstock, ReclaimerRules.InputKg), new KeyValuePair<string, double>(ReclaimerRules.Reject, ReclaimerRules.RejectKg),
-                new KeyValuePair<string, double>(FurnaceRules.Blank, FurnaceRules.BlankKg), new KeyValuePair<string, double>(FurnaceRules.Remainder, FurnaceRules.RemainderKg),
-                new KeyValuePair<string, double>(FurnaceRecipes.SteelRemainder, FurnaceRules.RemainderKg) }))
-                if (Math.Abs(p.materials[bound.Key].kg - bound.Value) > ProcessRules.MassTolerance) throw new ArgumentException(Text.Get("Materials.bound_mass", bound.Key, bound.Value));
-        });
+        pack = DataPacks.Load<MaterialPack>(Source, Check);
         return pack;
+    }
+    /// <summary>The rules every materials file is held to, on top of the shared schema.</summary>
+    public static void Check(MaterialPack p)
+    {
+        // Add-ons and players may add materials of their own (Shipbreaker 0.75.0), as plain stock; ours keep their kinds.
+        var ids = Ids;
+        MaterialSchema.Validate(p, new MaterialContext(ids) { Kinds = Kinds, AllowAdditions = true });
+        foreach (var m in p.materials)
+            if (ids.Contains(m.Key) == (m.Value.kind == Stock)) throw new ArgumentException(Text.Get("Materials.added_kind", m.Key));
+        // Masses the code's formulas and recipes are written for: the feed-family rejects, the reclaimer packets and the furnace products.
+        foreach (var bound in FeedFamilies.RejectKg.Concat(new[] {
+            new KeyValuePair<string, double>(ReclaimerRules.Feedstock, ReclaimerRules.InputKg), new KeyValuePair<string, double>(ReclaimerRules.Reject, ReclaimerRules.RejectKg),
+            new KeyValuePair<string, double>(FurnaceRules.Blank, FurnaceRules.BlankKg), new KeyValuePair<string, double>(FurnaceRules.Remainder, FurnaceRules.RemainderKg),
+            new KeyValuePair<string, double>(FurnaceRecipes.SteelRemainder, FurnaceRules.RemainderKg) }))
+            if (Math.Abs(p.materials[bound.Key].kg - bound.Value) > ProcessRules.MassTolerance) throw new ArgumentException(Text.Get("Materials.bound_mass", bound.Key, bound.Value));
     }
     public static MaterialEntry Entry(string id) => Pack.materials.TryGetValue(id, out var e) ? e : throw new InvalidOperationException("No materials entry for " + id);
     /// <summary>A material's unit mass, for recipe checks; null for an id that is not ours.</summary>
     public static double? KgOf(string? id) => id != null && Pack.materials.TryGetValue(id, out var e) ? e.kg : null;
+    /// <summary>The materials data files added, after ours, in id order.</summary>
+    public static IReadOnlyList<KeyValuePair<string, MaterialEntry>> Added
+    {
+        get { var ids = Ids; return Pack.materials.Where(p => !ids.Contains(p.Key)).OrderBy(p => p.Key, StringComparer.Ordinal).ToArray(); }
+    }
+    public static bool IsAdded(string? id) => id != null && Pack.materials.ContainsKey(id) && !Ids.Contains(id);
 }
 
 /// <summary>Shipbreaker's fixed recipes from the <c>process-recipes</c> data pack (Shipbreaker 0.46.0): the F6 charges

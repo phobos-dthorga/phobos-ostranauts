@@ -1,0 +1,12 @@
+{
+  "schema": "process-recipes",
+  "recipes": {
+    "dockside-mooring-cleats": {
+      "notes": "An added F6 recipe: twenty aluminium scraps into three 5 kg cleats, four scrap gates and the furnace's own 1 kg melt remainder. 15 + 4 + 1 = 20 kg. The thermal figures are the shipped aluminium recipes' own. No revision is written: Framework derives a stable one from the id.",
+      "machine": "furnace",
+      "inputs": [ { "id": "ItmScrapAluminum", "count": 20, "kg": 1 } ],
+      "products": [ { "id": "DocksideMooringCleat", "count": 3, "kg": 5 }, { "id": "ItmScrapAluminum", "count": 4, "kg": 1 }, { "id": "PhobosFurnaceMeltRemainder", "count": 1, "kg": 1 } ],
+      "thermal": { "meltK": 933.45, "targetK": 973.15, "solidCp": 1.05, "liquidCp": 1.177, "latentKJ": 397, "holdSeconds": 60 }
+    }
+  }
+}

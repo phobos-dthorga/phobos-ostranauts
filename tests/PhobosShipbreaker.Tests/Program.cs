@@ -21,6 +21,7 @@ void Throws(Action action, string message)
 }
 
 FurnaceChecks.Run(Check);
+ExampleAddOnChecks.Run(Check);
 CaptureChecks.Run(Check);
 ReclamationChecks.Run(Check,Throws);
 FurnaceMaterialChecks.Run(Check);

@@ -193,8 +193,8 @@ def crops():
                ['hours', 'kw', 'seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'vapourKg', 'seedCarbonKg', 'edibleKg', 'keptStockKg', 'portionKg',
                 'stock', 'produce', 'feed', 'feedCommodity', 'art'],
                'Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg.')
-    item = obj({'notes': NOTES, 'text': string('Translation key of the item name; its description is the key plus _desc.'),
-                'hunger': num(1, 20, integer=True), 'satiety': num(1, 20, integer=True)}, ['text'])
+    item = obj({'notes': NOTES, 'text': string('Translation key of the item name; its description is the key plus _desc. Left out for an item a file adds to the materials pack, which is named there.'),
+                'hunger': num(1, 20, integer=True), 'satiety': num(1, 20, integer=True)}, [])
     response = obj({'notes': NOTES, 'points': {'type': 'array', 'minItems': 1, 'maxItems': 16, 'items': {'type': 'array', 'minItems': 2, 'maxItems': 2,
                     'prefixItems': [num(0, 10, description='CO2 partial pressure, kPa'), num(0.5, 2, description='Growth factor')]},
                     'description': 'Points of [kPa, factor] in rising pressure; interpolated, ends held.'}}, ['points'],

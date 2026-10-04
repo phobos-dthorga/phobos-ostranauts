@@ -1,0 +1,17 @@
+{
+  "schema": "materials",
+  "materials": {
+    "DocksideMooringCleat": {
+      "notes": "An added item: a 5 kg cast aluminium cleat. Shipbreaker's added items are always kind stock. Its picture is images/dockside/MooringCleat.png in this add-on, with MooringCleatNormal.png beside it.",
+      "kind": "stock",
+      "kg": 5,
+      "price": 16,
+      "stack": 4,
+      "side": 1,
+      "category": "IsCategoryMetals",
+      "name": "Mooring Cleat",
+      "description": "Five kilograms of cast aluminium with two horns. Something to tie off to, or to sell.",
+      "image": "dockside/MooringCleat"
+    }
+  }
+}

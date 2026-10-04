@@ -868,6 +868,7 @@
   "Thaw.methane_linked": "Linked. Methane from each methane-ice block goes to this store.",
   "Thaw.methane_link_missing": "Choose an installed methane store touching the thaw unit or on its gas line, on this ship.",
   "Thaw.completed_methane_log": "Thawed methane ice {0}: {1:G} kg of water into {2}, {3:G} kg of methane into {4}, {5:G} kg of gangue to the tray.",
+  "Materials.added_kind": "{0}: a material a file adds is of kind stock, and the mod's own materials keep their kinds.",
   "Materials.bound_mass": "{0} must weigh {1:F3} kg: the recipes and family budgets are written for that mass. Change the recipe revision and the budget together, not the material alone.",
   "Recipes.one_input": "Recipe {0}: Shipbreaker machines take one kind of input per recipe.",
   "Recipes.furnace_thermal": "Recipe {0}: a furnace recipe needs its thermal profile (meltK, targetK, solidCp, liquidCp, latentKJ, holdSeconds).",

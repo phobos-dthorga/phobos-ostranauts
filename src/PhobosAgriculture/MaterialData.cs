@@ -31,7 +31,8 @@ internal static class AgricultureMaterials
     {
         pack = DataPacks.Load<MaterialPack>(Source, p =>
         {
-            MaterialSchema.Validate(p, new MaterialContext(Ids) { Kinds = Kinds });
+            // Add-ons and players may add materials of their own (Agriculture 0.48.0): planting stock, produce and meals.
+            MaterialSchema.Validate(p, new MaterialContext(Ids) { Kinds = Kinds, AllowAdditions = true });
             // Masses and prices the crop, recovery and workup models are written for.
             foreach (var bound in new[] {
                 (Definitions.Irrigation, Definitions.IrrigationKg, (double?)null), (Definitions.Nutrient, Definitions.NutrientKg, null),
@@ -47,6 +48,12 @@ internal static class AgricultureMaterials
     }
     internal static MaterialEntry Entry(string id) => Pack.materials.TryGetValue(id, out var e) ? e : throw new InvalidOperationException("No materials entry for " + id);
     internal static double Price(string id) => Entry(id).price;
+    /// <summary>The materials data files added, after ours, in id order.</summary>
+    internal static IReadOnlyList<KeyValuePair<string, MaterialEntry>> Added
+    {
+        get { var ids = Ids; return Pack.materials.Where(p => !ids.Contains(p.Key)).OrderBy(p => p.Key, StringComparer.Ordinal).ToArray(); }
+    }
+    internal static bool IsAdded(string? id) => id != null && Pack.materials.ContainsKey(id) && !Ids.Contains(id);
     /// <summary>A material's unit mass, for crop and recipe checks; null for an id that is not ours.</summary>
     internal static double? KgOf(string? id) => id != null && Pack.materials.TryGetValue(id, out var e) ? e.kg : null;
 }

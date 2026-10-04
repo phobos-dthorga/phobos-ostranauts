@@ -218,7 +218,7 @@
             },
             "text": {
               "type": "string",
-              "description": "Translation key of the item name; its description is the key plus _desc."
+              "description": "Translation key of the item name; its description is the key plus _desc. Left out for an item a file adds to the materials pack, which is named there."
             },
             "hunger": {
               "type": "integer",
@@ -230,10 +230,7 @@
               "minimum": 1,
               "maximum": 20
             }
-          },
-          "required": [
-            "text"
-          ]
+          }
         }
       },
       "description": "The crop items the mod builds, by definition id."

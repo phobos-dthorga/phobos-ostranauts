@@ -100,6 +100,13 @@ internal static class Definitions
         Stock(d, RecyclerCapture.Wet, "wet_rejects");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         foreach (var item in Crops.Items) Stock(d, item.Key, item.Value.text);
+        // Materials a data file added (Agriculture 0.48.0) that no crop item entry names: plain loose stock. Added trash
+        // is terminal by the schema's rule, and so a declared remainder.
+        foreach (var added in AgricultureMaterials.Added)
+        {
+            if (!Crops.Pack.items.ContainsKey(added.Key)) Stock(d, added.Key, "");
+            if (added.Value.terminal) Phobos.Ostranauts.Framework.Registration.Remainders.Declare(added.Key);
+        }
         Stock(d, Nutrient, "nutrients"); Stock(d, Residue, "residue");
         Stock(d, Drainage, "drainage");
         Stock(d, Service.CharacterizedDrainage, "characterized_drainage");
@@ -156,7 +163,10 @@ internal static class Definitions
         var entry = AgricultureMaterials.Entry(id); bool food = entry.kind == AgricultureMaterials.Food;
         double kg = entry.kg, price = entry.price; string? artKey = entry.art;
         var co = NativeDefinitions.Clone(DataHandler.dictCOs[food ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"]);
-        co.strName = id; co.strNameFriendly = co.strNameShort = Text.Get(key); co.strDesc = Text.Get(key + "_desc");
+        // An added material (0.48.0) carries its own name, text and picture, which an add-on's translation may replace.
+        bool added = AgricultureMaterials.IsAdded(id);
+        co.strName = id; co.strNameFriendly = co.strNameShort = added ? Phobos.Ostranauts.Framework.Localization.Translations.Get(Text.Owner, "Material." + id, entry.name ?? id) : Text.Get(key);
+        co.strDesc = added ? Phobos.Ostranauts.Framework.Localization.Translations.Get(Text.Owner, "Material." + id + "_description", entry.description ?? "") : Text.Get(key + "_desc");
         co.nStackLimit = entry.stack; co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
         co.aStartingConds = food ? new[] { "IsSolid=1x1", "IsEdible=1x1", "IsFood=1x1", "IsCategoryFood=1x1", "IsPocketable=1x1" } : new[] { "IsSolid=1x1", "IsPocketable=1x1" };
         if (entry.category != null && !co.aStartingConds.Contains(entry.category + "=1x1")) co.aStartingConds = co.aStartingConds.Concat(new[] { entry.category + "=1x1" }).ToArray();
@@ -164,7 +174,7 @@ internal static class Definitions
         // Keep the donor's native item behavior and socket geometry, but give each
         // commodity its own registered image. Saved commodity identities stay fixed.
         var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[co.strItemDef]);
-        string image = "phobos/agriculture/Stock-" + (artKey ?? key);
+        string image = added ? entry.image! : "phobos/agriculture/Stock-" + (artKey ?? key);
         co.strItemDef = item.strName = id;
         co.strPortraitImg = item.strImg = image;
         item.strImgNorm = image + "Normal";

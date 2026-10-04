@@ -1,0 +1,10 @@
+{
+  "schema": "crops",
+  "items": {
+    "DocksideStewedTomatoes": {
+      "notes": "What eating one gives. An added item has no text key here: its name is in the materials file.",
+      "hunger": 2,
+      "satiety": 2
+    }
+  }
+}

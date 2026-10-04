@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Example: Dockside Extras",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/publishing-an-add-on.md",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "1.0.0",
+    "strNotes": "A worked example of a Phobos add-on: an aluminium mooring cleat the F6 furnace casts, and stewed tomatoes the Hearth-2 cooks, each with its own picture. Data only; it needs Phobos Framework, Phobos Shipbreaker and Phobos Agriculture."
+  }
+]

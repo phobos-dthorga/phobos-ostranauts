@@ -128,6 +128,18 @@ class DataPackTests(unittest.TestCase):
         broken(rewrite(items, '"image": "richergangue/SeamChunk"', '"image": "richergangue/Missing"'))   # no such picture
         broken(rewrite(items, '"category": "IsCategoryMetals"', '"category": "IsCategoryTrash"'))        # trash with no consumer
         broken(lambda copy: (copy / 'images/richergangue/SeamChunkNormal.png').unlink())
+        # Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items too: the second worked example.
+        example = ROOT / 'examples/addons/PhobosExampleDocksideExtras'
+        manifest, checked = validate.check_addon(example)
+        self.assertEqual(manifest['id'], 'example-dockside-extras')
+        self.assertEqual(len(checked), 6)
+        cleat = 'phobos/PhobosShipbreaker/materials/dockside.json'
+        broken(rewrite(cleat, '"kind": "stock"', '"kind": "furnace-packet"'))                          # Shipbreaker's added items are plain stock
+        broken(rewrite(cleat, '"DocksideMooringCleat"', '"MooringCleat"'))                              # an added item without the prefix
+        broken(rewrite('phobos/PhobosShipbreaker/process-recipes/dockside.json', '"count": 3, "kg": 5', '"count": 4, "kg": 5'))  # creates five kilograms
+        broken(rewrite('phobos/PhobosAgriculture/crops/dockside.json', '"hunger": 2,', '"text": "meal", "hunger": 2,'))          # an added item is named in its materials entry
+        broken(rewrite('phobos/PhobosAgriculture/crops/dockside.json', '"hunger": 2,', '"hunger": 40,'))                        # beyond what food gives
+        broken(lambda copy: (copy / 'images/dockside/StewedTomatoes.png').unlink())
         for bad in ({'id': 'x'}, {'schemaVersion': 1, 'id': 'my-add-on', 'name': 'N', 'author': 'A', 'version': 'one', 'idPrefix': 'myaddon'}):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.addon_manifest(bad)

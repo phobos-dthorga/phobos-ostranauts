@@ -1037,3 +1037,7 @@ L39 — Framework 0.90.0 with War Declared 0.2.0: add-on discovery reads the gam
 ## 4 October: add-on text and added items (L40)
 
 L40 — Framework 0.91.0 and 0.92.0 with Manufacturing 0.45.0: translation catalogs are read once more per content load, when the mod list is known; added materials are built with the others at content load and add one identity to a machine's feed rule. Nothing is added to a frame or a power step. No capture accompanies this change.
+
+## 5 October: added items in Shipbreaker and Agriculture (L41)
+
+L41 — Shipbreaker 0.75.0 and Agriculture 0.48.0: materials a data file adds are built with the others at content load. The furnace panel's recipe label makes one catalogue lookup more per recipe when the panel is drawn. Nothing is added to a frame or a power step. No capture accompanies this change.

@@ -906,8 +906,11 @@
   add-ons by itself. Framework 0.91.0 adds text from add-ons
   (`phobos/translations/<Mod>/<language>.json`; new keys only under the add-on's prefix).
   Framework 0.92.0 with Manufacturing 0.45.0 lets files add materials with their own
-  name and picture (`MaterialContext.AllowAdditions`; Shipbreaker and Agriculture not
-  yet); added trash must be `terminal`, which declares it a remainder.
+  name and picture (`MaterialContext.AllowAdditions`); added trash must be `terminal`, which declares
+  it a remainder. Shipbreaker 0.75.0 (kind `stock`, cast by an added F6 recipe) and
+  Agriculture 0.48.0 (`stock`, `food`, `waste`; a crop item entry for an added
+  material has no `text`) take them too. Keep both worked examples under
+  `examples/addons` loading in the unit, native and Python checks.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

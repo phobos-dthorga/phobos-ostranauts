@@ -151,8 +151,9 @@ them as they land.
 
 ## Adding an item
 
-Phobos Manufacturing 0.45.0 lets a file add items of its own to the `materials`
-pack, with their own pictures, for recipes to make and use. Because an item needs
+Phobos Manufacturing 0.45.0, Phobos Shipbreaker 0.75.0 and Phobos Agriculture 0.48.0
+let a file add items of its own to the `materials` pack, with their own pictures, for
+recipes to make and use. Because an item needs
 a picture in a mod folder, this is really for add-ons:
 [publishing an add-on](publishing-an-add-on.md#6-new-items-with-your-own-pictures)
 has the fields and rules. The shipped materials can still only be retuned.

@@ -31,6 +31,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.75.0] - 2026-10-05 - Draft
+
+### Added
+
+- Add-ons and your own data files can add items of their own, with their own pictures, for an F6 furnace recipe of the same file to cast. The furnace panel shows the name the add-on gives its recipe. See the add-on publishing guide and its Dockside Extras example.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.92.0 or newer.
+- An added furnace recipe still melts twenty of the game's aluminium or steel scraps. Added items are not sold by merchants. A save holding an add-on's items needs that add-on enabled.
+- Checked offline; not yet seen in the game.
+
 ## [0.74.0] - 2026-10-04 - Draft
 
 ### Changed

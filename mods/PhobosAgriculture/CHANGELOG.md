@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.48.0] - 2026-10-05 - Draft
+
+### Added
+
+- Add-ons and your own data files can add items of their own, with their own pictures: seed and produce for a crop the file adds, and meals for a Hearth-2 recipe it adds. An added meal carries its own food values and the crew eat it like the shipped ones. See the add-on publishing guide and its Dockside Extras example.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.92.0 or newer.
+- A crop a file adds still borrows a shipped crop's growth pictures. Added items are not sold by merchants. A save holding an add-on's items needs that add-on enabled.
+- Checked offline; not yet seen in the game.
+
 ## [0.47.0] - 2026-10-04 - Draft
 
 ### Changed

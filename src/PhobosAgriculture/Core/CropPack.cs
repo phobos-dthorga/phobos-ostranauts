@@ -107,6 +107,9 @@ public sealed class CropContext
     public Func<string, bool>? KnownText { get; set; }
     /// <summary>Whether growth-stage artwork ships under this name. A crop a player adds borrows a shipped crop's stages.</summary>
     public Func<string, bool>? KnownArt { get; set; }
+    /// <summary>Whether an item is one a data file added to the materials pack (Agriculture 0.48.0): it carries its own
+    /// name there, so its crop item entry needs no text key.</summary>
+    public Func<string, bool>? AddedItem { get; set; }
 }
 
 public static class CropSchema
@@ -159,7 +162,8 @@ public static class CropSchema
         foreach (var pair in pack.items)
         {
             var item = pair.Value;
-            if (context.KnownItem?.Invoke(pair.Key) == false || string.IsNullOrWhiteSpace(item.text) || context.KnownText?.Invoke(item.text) == false)
+            bool added = context.AddedItem?.Invoke(pair.Key) == true;
+            if (context.KnownItem?.Invoke(pair.Key) == false || (added ? item.text.Length != 0 : string.IsNullOrWhiteSpace(item.text) || context.KnownText?.Invoke(item.text) == false))
                 throw new ArgumentException(Text.Get("crops_item_entry", pair.Key));
             if ((item.hunger == null) != (item.satiety == null) || item.hunger is int h && (h < 1 || h > 20) || item.satiety is int s && (s < 1 || s > 20))
                 throw new ArgumentException(Text.Get("crops_food", pair.Key));
@@ -201,15 +205,15 @@ public static class Crops
     public static DataPackSource Source => new(Text.Owner, ModFolder, CropSchema.Name, typeof(Crops).Assembly, Resource);
     /// <summary>Every crop, in the pack's order (the order of planting actions, feeds and crew recipes).</summary>
     public static IReadOnlyList<Crop> All { get { _ = Pack; return all; } }
-    /// <summary>The crop item ids of the shipped pack, from its text alone. A player file cannot add an item (the
-    /// materials pack would not know it), so these are all the crop items there can be.</summary>
+    /// <summary>The crop item ids of the shipped pack, from its text alone: the crop items that are the mod's own. An
+    /// item a data file adds (Agriculture 0.48.0) is in the materials pack as an addition, with its own name.</summary>
     public static IReadOnlyList<string> ShippedItemIds() =>
         (DataPacks.Parse(DataPacks.ShippedText(Source), CropSchema.Name, shipped: true)["items"] as JObject)?.Properties().Select(p => p.Name).ToArray() ?? Array.Empty<string>();
     /// <summary>What the rest of the mod knows about a crop's items: the materials pack's masses and the text catalogue.</summary>
     public static CropContext Known() => new()
     {
         UnitMassOf = AgricultureMaterials.KgOf, KnownItem = id => AgricultureMaterials.KgOf(id) != null,
-        KnownText = key => Text.Has(key) && Text.Has(key + "_desc"),
+        KnownText = key => Text.Has(key) && Text.Has(key + "_desc"), AddedItem = AgricultureMaterials.IsAdded,
         KnownArt = new HashSet<string>(ShippedArt(), StringComparer.Ordinal).Contains
     };
     /// <summary>The artwork families the shipped crops use; their growth-stage images are in the package.</summary>

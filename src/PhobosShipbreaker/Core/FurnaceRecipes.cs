@@ -110,5 +110,9 @@ public static class FurnaceRecipes
     public static IReadOnlyList<string> ProductIds => Array.AsReadOnly(All.SelectMany(r => r.Products).Select(p => p.Id).Distinct(StringComparer.Ordinal).ToArray());
     public static FurnaceRecipe? ByRevision(int revision) => All.FirstOrDefault(r => r.Revision == revision);
     public static FurnaceRecipe? ById(string? id) => id == null ? null : All.FirstOrDefault(r => r.Id == id);
+    /// <summary>A recipe's name on the panel: ours from the catalogue; one a data file added (Shipbreaker 0.75.0) from
+    /// <c>Recipe.&lt;id&gt;</c>, which an add-on's translation file supplies, or its id.</summary>
+    public static string Label(FurnaceRecipe recipe) => Text.Has("Furnace.recipe_" + recipe.Id) ? Text.Get("Furnace.recipe_" + recipe.Id) :
+        Text.Has("Recipe." + recipe.Id) ? Text.Get("Recipe." + recipe.Id) : recipe.Id;
     public static string FeedLabelKey(FurnaceRecipe recipe) => recipe.FeedId == FurnaceMaterialRules.Aluminium ? "Furnace.feed_aluminium" : "Furnace.feed_steel";
 }

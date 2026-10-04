@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "example-dockside-extras",
+  "name": "Example: Dockside Extras",
+  "author": "Phobos A. D'thorga",
+  "version": "1.0.0",
+  "idPrefix": "dockside",
+  "requires": {
+    "PhobosFramework": "0.92.0",
+    "PhobosShipbreaker": "0.75.0",
+    "PhobosAgriculture": "0.48.0"
+  },
+  "notes": "Kept in the Phobos Ostranauts repository as the worked example of added items for Shipbreaker and Agriculture, and loaded by its checks."
+}

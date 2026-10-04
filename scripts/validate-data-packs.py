@@ -306,7 +306,8 @@ def process_recipes(pack, where):
 
 
 # Mods whose materials pack takes added materials (Framework 0.92.0).
-MATERIAL_ADDITIONS = ('PhobosManufacturing',)
+# Each with the kinds an added material may be: Shipbreaker's are always plain stock (0.75.0).
+MATERIAL_ADDITIONS = {'PhobosManufacturing': ('stock', 'mined'), 'PhobosShipbreaker': ('stock',), 'PhobosAgriculture': ('stock', 'food', 'waste')}
 MATERIAL_RESERVED = ('phobos', 'itm', 'sys', 'stat', 'is')
 
 
@@ -391,9 +392,10 @@ CROP_TOLERANCE = 1e-9
 NET_GAS_PER_CARBON = 12 / 30
 
 
-def crops(pack, where):
+def crops(pack, where, added=()):
     """The crops schema (Agriculture 0.40.0): structure and mass balance. Item masses, text and the freeze are
-    checked by the game-side loader and scripts/freeze-recipes.py."""
+    checked by the game-side loader and scripts/freeze-recipes.py. added: the ids of materials an add-on adds
+    (Agriculture 0.48.0), whose item entries carry no text key."""
     fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items', 'co2Response'}, where)
     response = pack.get('co2Response')
     if response is not None:
@@ -460,7 +462,10 @@ def crops(pack, where):
     for key, item in items.items():
         w = f'{where}/items/{key}'
         fields(item, {'notes', 'text', 'hunger', 'satiety'}, w)
-        if not item.get('text'):
+        if key in added:
+            if 'text' in item:
+                raise Problem(f'{w}/text: an added item is named in the materials file, not here')
+        elif not item.get('text'):
             raise Problem(f'{w}/text: needed')
         if ('hunger' in item) != ('satiety' in item):
             raise Problem(f'{w}: hunger and satiety go together')
@@ -697,7 +702,8 @@ def check_addon(folder):
             continue
         shipped_dir = ROOT / 'mods' / mod_dir.name / 'framework'
         merged_recipes = None
-        # Recipes first: an outcome table may name a recipe the same add-on adds.
+        added_items = set()
+        # Materials and recipes first: a crop item or an outcome table may name what the same add-on adds.
         order = {'materials': 0, 'process-recipes': 1, 'outcomes': 3}
         for schema_dir in sorted((p for p in mod_dir.iterdir() if p.is_dir()), key=lambda p: (order.get(p.name, 2), p.name)):
             schema = schema_dir.name
@@ -745,6 +751,9 @@ def check_addon(folder):
                             for key, m in merged['materials'].items():
                                 if key in shipped_ids:
                                     continue
+                                added_items.add(key)
+                                if m.get('kind', 'stock') not in MATERIAL_ADDITIONS[mod_dir.name]:
+                                    raise Problem(f'{rel}: {key} must be of kind {" or ".join(MATERIAL_ADDITIONS[mod_dir.name])}')
                                 for suffix in ('.png', 'Normal.png'):
                                     if not (folder / 'images' / (m['image'] + suffix)).exists():
                                         raise Problem(f'{rel}: images/{m["image"]}{suffix} is missing from the add-on (run with --write-normals to make the Normal picture)')
@@ -757,6 +766,8 @@ def check_addon(folder):
                             sibling = shipped_dir / 'process-recipes.json'
                             merged_recipes = json.loads(sibling.read_text(encoding='utf-8-sig')).get('recipes') if sibling.exists() else None
                         outcomes(merged, rel, merged_recipes)
+                    elif schema == 'crops':
+                        crops(merged, rel, added_items)
                     else:
                         SCHEMAS[schema](merged, rel)
                 except Problem as error:

@@ -6,6 +6,7 @@ int checks = 0;
 void Check(bool value, string message) { if (!value) throw new Exception(message); checks++; }
 void Near(double actual, double expected, string message) => Check(Math.Abs(actual - expected) < 1e-7, message + $": {actual} vs {expected}");
 CropState New(Crop c) { var s = new CropState { Water = 20, Nutrients = .5 }; s.Plant(c, 1); return s; }
+ExampleAddOnChecks.Run(Check);
 // The nutrient hopper (0.27.0): price parity with the bulk charge, and a dose bounded by the step and the hopper.
 Check(HopperRules.PricePerKg(750, .5) == 1500 && HopperRules.Commodity == "crop nutrients", "The kiosk sells crop nutrients at the bulk charge's own price per kilogram");
 Check(HopperRules.DoseKg(.02, 5) == .02 && HopperRules.DoseKg(.02, .01) == .01 && HopperRules.DoseKg(-1, 5) == 0 && HopperRules.DoseKg(double.NaN, 5) == 0, "A dose is what the step needs, what the hopper holds, never negative");

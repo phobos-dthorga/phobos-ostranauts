@@ -1,0 +1,12 @@
+{
+  "schema": "process-recipes",
+  "recipes": {
+    "dockside-stewed-tomatoes": {
+      "notes": "An added Hearth-2 recipe: one portion of tomatoes into one of stewed tomatoes, mass in equals mass out. The cooker holds one recipe for each item it cooks, and the shipped recipes cook no tomatoes.",
+      "machine": "hearth",
+      "inputs": [ { "id": "PhobosVerdemorrowTomatoes", "count": 1, "kg": 0.25 } ],
+      "products": [ { "id": "DocksideStewedTomatoes", "count": 1, "kg": 0.25 } ],
+      "seconds": 300
+    }
+  }
+}
