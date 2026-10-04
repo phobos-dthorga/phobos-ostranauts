@@ -30,7 +30,7 @@ Chili, radish and activated char were offered and not chosen.
 | 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
 | 3 | Agriculture 0.43.0 and 0.44.0, Manufacturing 0.37.0 | CO2 response, rack vapour overflow to a linked tank, the B2 straw press and both V4 straw charges (offline checks only) | Built |
 | 4 | Agriculture 0.45.0 | Fibre flax: straw bundles scutched at the B2 into the game's clean scrap cloth, shives to the straw press; linseed only as planting stock; no oil press yet (offline checks only) | Built |
-| 5 | Agriculture 0.46.0 (set A); Framework and Manufacturing (sets B, C) | Sugar beet and B2 sugar built (offline checks only); ethanol tanks, line and fire, then fermenter-still, bottler and spirit, to follow | Owner decisions taken; set A built |
+| 5 | Agriculture 0.46.0 (set A); Framework 0.80.0, Manufacturing 0.38.0 to 0.40.0 (sets B, C) | Sugar beet and B2 sugar; ethanol tanks, line and fire; fermenter-still; bottler and spirit (offline checks only) | Built |
 | 5b | none | Rubber dandelion | Set aside (owner decision, 4 October 2026): the game has no rubber, and its only honest use would bend the game's own repair recipes |
 | 6 | later | Spirulina bioreactor, a separate machine | Needs its own design record |
 
@@ -538,3 +538,26 @@ small service.
     Agriculture's press reads Agriculture's records.
   - The artwork is one PixelLab image, from a flat-colour layout start image as the
     SA-3 used.
+
+### Set C, part two: the bottler and spirit (Manufacturing 0.40.0)
+
+- **The bottler.** The Alembrine Corker-2 is a 2 x 2 unit at 0.4 kW, linked to an
+  ethanol cask and a water silo. A batch of 0.2 kWh draws 84.7 g of ethanol and
+  160.3 g of water and puts seven 35 g servings of spirit into its four-cell tray, in
+  one settlement. Explicit Start; it repeats while supplied and the tray has room,
+  and waits for Start after a reload.
+- **The spirit.** A clone of the game's own vodka serving at 40% alcohol by volume,
+  with its own identity and an 8 cr price, so a beet rack's spirit earns about 1.9
+  times the crop's nutrients and water. See the refinery record for the figures.
+- **Agent decisions**, open to revision:
+  - No custom drink reply. The plan proposed one, but the clone keeps the vodka's
+    `IsLiquor`, which the game's own liquor drinking keys on, so crew drink it and
+    feel it exactly as they would vodka.
+  - The crew order Keep spirit stocked is deferred. The unit has no feed to load,
+    and its tray holds four batches; a hauling order for full trays can follow if
+    play shows a need.
+  - The bottler is priced at 18,000 cr (Friendly tier), below the L2 filling
+    station.
+  - The bottler art is one PixelLab image from a flat-colour start image, with one
+    lamp-like label recoloured to the housing slate. The spirit icon is a recolour
+    of the selected phosphoric acid flask, after a generated bottle failed at 16 px.

@@ -19,7 +19,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill", BottlerArt = "PhobosBottlingUnit";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     /// <summary>The game's named colour for each stored gas's contents row; hydrogen, which the game has no gas for, takes its cryogenic blue.</summary>
     internal static readonly IReadOnlyDictionary<string, string> ContentsColors = new Dictionary<string, string>(StringComparer.Ordinal)
@@ -37,6 +37,7 @@ internal static class Definitions
         AddMaterials(d);
         foreach (var machine in ChargeMachines.All) AddChargeMachine(d, machine);
         AddProcessor(d);
+        AddBottler(d);
         AddReactor(d);
         AddCracker(d);
         // Every size of every gas store; each size's art is named after its own definition prefix.
@@ -104,6 +105,32 @@ internal static class Definitions
             co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(ProcessorRules.Footprint), "PhobosGasOut,8,0" };
             co.strPortraitImg = item.strImg;
         }
+    }
+
+    /// <summary>The Alembrine Corker-2 bottling unit (Manufacturing 0.40.0): a powered 2 x 2 appliance whose tray takes only
+    /// its own spirit servings, with an ethanol port and a water port and no gas port.</summary>
+    private static void AddBottler(NativeDefinitions d)
+    {
+        string p = BottlerRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Bottler.name"), Text.Get("Bottler.description", BottlerRules.MachineKg, BottlerRules.WorkingKW, BottlerRules.ServingsPerBatch),
+            BottlerRules.Footprint, BottlerRules.MachineKg, Economy.Price(p), ImagePath + BottlerArt, Controls, BottlerRules.IdleKW, InstallMenu.Appliances);
+        ApplianceDefinitions.SetPowerOverride(d, p, BottlerRules.IdleKW, BottlerRules.WorkingKW, ManufacturingRules.Bottling, "PowerA");
+        d.Triggers[BottlerRules.SpiritTrigger] = new CondTrigger { strName = BottlerRules.SpiritTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = new[] { BottlerRules.Spirit + "Identity" }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+        d.Triggers[BottlerRules.TrayTrigger] = new CondTrigger { strName = BottlerRules.TrayTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = Array.Empty<string>(), aForbids = new[] { "IsInstalled" }, aTriggers = new[] { BottlerRules.SpiritTrigger } };
+        // A product tray of four cells: one batch is one stack of seven, so it holds four batches before it waits.
+        EquipmentInventory.Apply(d, p, InventorySpec.ProductTray(2, 2, BottlerRules.TrayTrigger));
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Bottler.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0," + ApplianceDefinitions.WallRowY(BottlerRules.Footprint) };
+            co.strPortraitImg = item.strImg;
+        }
+        var water = LinePorts.Water(BottlerRules.Footprint);
+        LineDefinitions.AddPort(d, p, Phobos.Ostranauts.Framework.Items.SharedLines.ProcessWaterSpec(), LinePorts.WaterPoint, water.X, water.Y, water.Socket);
     }
 
     /// <summary>The K2 Sabatier reactor: a powered 2 x 2 appliance with no container; its gases are a saved record.</summary>
@@ -321,7 +348,10 @@ internal static class Definitions
     {
         foreach (var m in Materials.All)
         {
-            string source = m.Mined ? RefineryRules.Hydrates : "ItmScrapSteel";
+            // The Alembrine spirit (Manufacturing 0.40.0) is a clone of the game's own vodka serving, so the game's liquor
+            // drinking and effects apply; it drops the vodka's brand marker, which the game's Bismertnaya lines key off.
+            bool spirit = m.Id == BottlerRules.Spirit;
+            string source = spirit ? BottlerRules.SpiritDonor : m.Mined ? RefineryRules.Hydrates : "ItmScrapSteel";
             var native = DataHandler.dictCOs[source];
             var co = NativeDefinitions.Clone(native); var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[native.strItemDef]);
             co.strName = co.strItemDef = item.strName = m.Id;
@@ -331,7 +361,7 @@ internal static class Definitions
             d.Conditions[identity] = new JsonCond { strName = identity, strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
             var keep = m.Mined ? new[] { "IsNonHighlightable", "IsSolid", "IsMineral", "IsEdged", "IsTough", "IsImmuneAnnihilation", "IsOre", "StatDamage", "StatDamageMax" }
                 : new[] { "IsRigid", "IsSolid", "StatDamageMax" };
-            co.aStartingConds = co.aStartingConds.Where(s => keep.Contains(s.Split('=')[0])).Concat(new[] { identity + "=1x1", m.Category + "=1x1",
+            co.aStartingConds = co.aStartingConds.Where(s => spirit ? BottlerRules.KeepFromDonor(s.Split('=')[0]) : keep.Contains(s.Split('=')[0])).Concat(new[] { identity + "=1x1", m.Category + "=1x1",
                 "StatMass=1x" + m.Kg.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x" + m.Price.ToString(CultureInfo.InvariantCulture) }).ToArray();
             if (m.Art.Length > 0)
             {

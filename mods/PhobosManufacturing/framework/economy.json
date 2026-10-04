@@ -97,6 +97,15 @@
       "restoreMinutes": 120,
       "internalBin": "PhobosFermenterStillInputBin"
     },
+    "PhobosBottlingUnit": {
+      "notes": "Alembrine Corker-2 Bottling Unit (Manufacturing 0.40.0), 2 x 2, 90 kg: a dosing pump, a chiller and a filler. Priced below the L2 filling station, billed like the A2 regulator.",
+      "price": 18000,
+      "work": { "install": 1000, "uninstall": 800, "repair": 2400, "dismantle": 600 },
+      "repairBill": { "ItmScrapSteel": 2, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 3, "ItmPartsElecSmall01": 3, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 50, "ItmScrapAluminum": 15, "ItmPartsMechSmall01": 8, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 1, "ItmComponentMobo01": 2, "ItmHeatSink01": 1, "ItmScrapTrash": 13 },
+      "brokenSalvage": { "ItmScrapSteel": 30, "ItmScrapAluminum": 8, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 50 },
+      "restoreMinutes": 45
+    },
     "PhobosHydrogenStore": {
       "notes": "Fennmark H2 Hydrogen Store, the small size; H3 and H4 derive from it through the size ladder.",
       "price": 22000,
@@ -234,6 +243,7 @@
       "PhobosAcidLine": "Neutral",
       "PhobosEthanolTank": "Friendly",
       "PhobosFermenterStill": "Friendly",
+      "PhobosBottlingUnit": "Friendly",
       "PhobosEthanolLine": "Neutral",
       "PhobosCanisterFiller": "Friendly",
       "PhobosPropellantManifold": "Friendly",

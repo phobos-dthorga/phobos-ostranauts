@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.39.0",
+      "value": "0.40.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {

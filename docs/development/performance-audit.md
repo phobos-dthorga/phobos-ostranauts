@@ -985,3 +985,10 @@ L33 — Manufacturing 0.39.0: a fourth charge machine on the shared engine, with
 recipes; its power step and settlement are the engine's own. Its ignition role is
 checked only when an ethanol or fuel spill already needs an ignition source. No
 capture accompanies this change.
+
+## 4 October: bottling unit (L34)
+
+L34 — Manufacturing 0.40.0: one more batch machine on the existing power hook. While
+armed it checks its two linked vessels each power step, as the X2 does; the tray probe
+builds seven servings and discards them, so it runs once per batch, before the batch's
+first energy, rather than every step. No capture accompanies this change.

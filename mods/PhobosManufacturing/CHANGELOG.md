@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.40.0] - 2026-10-04 - Draft
+
+### Added
+
+- The Alembrine Corker-2 Bottling Unit (owner decisions, 4 October 2026): a 2 x 2, 0.4 kW unit that draws ethanol from a linked Cask tank and water from a linked water silo and fills seven servings of Alembrine spirit at a time into its tray. Each half-hour batch takes 84.7 g of ethanol and 160.3 g of water. Press Start; it keeps bottling while supplied and waits for Start after a reload.
+- Alembrine spirit: a 35 g serving at 40% alcohol that crew drink like the game's own liquor, worth about 8 cr. A beet rack's ethanol bottles into about 31 servings.
+- The bottling unit is sold at the usual Manufacturing merchants and, for scrip, at faction kiosks (Friendly standing). No merchant sells the spirit.
+
+### Save compatibility
+
+- Automatic. New equipment and a new item only.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.80.0 or newer. Ethanol comes from the fermenter-still, which needs Phobos Agriculture 0.46.0 or newer.
+- The spirit's strength and mass follow published densities of ethanol and water, leaving out the small volume loss on mixing; its price and the batch power are gameplay choices.
+- Checked offline; not yet seen in the game.
+
 ## [0.39.0] - 2026-10-04 - Draft
 
 ### Added
@@ -25,7 +43,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - Requires Phobos Framework 0.80.0 or newer. The fermenter-still needs Phobos Agriculture 0.46.0 or newer for its beets and sugar; without it the still is idle and says why.
-- The fermented share of the sugar (92%) and the still's power are gameplay choices within published fermentation figures. The bottler and spirit come in the next release.
+- The fermented share of the sugar (92%) and the still's power are gameplay choices within published fermentation figures.
 - Checked offline; not yet seen in the game.
 
 ## [0.38.0] - 2026-10-04 - Draft

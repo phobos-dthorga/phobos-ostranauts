@@ -71989,6 +71989,569 @@
       ],
       "before": "Fermenter-stills",
       "after": "Fermenter-stills"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAlembrineSpirit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs (Material. + material id)",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Spirit",
+      "after": "Spirit"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAlembrineSpirit_description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs (Material. + material id)",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "A 35 g measure of clear spirit at 40% alcohol, bottled aboard from your own beets. It drinks like any other liquor: a lift for morale, a hazard for judgement. Not for the reactor.",
+      "after": "A 35 g measure of clear spirit at 40% alcohol, bottled aboard from your own beets. It drinks like any other liquor: a lift for morale, a hazard for judgement. Not for the reactor."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Bottling Unit",
+      "after": "Bottling Unit"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Spirit from your own ethanol. This 2 x 2 unit weighs {0:F0} kg and draws {1:F1} kW while working. It draws ethanol from a linked Cask tank and water from a linked water silo, mixes them to 40% alcohol and fills {2} servings of Alembrine spirit at a time into its tray. Link the cask and the silo, touching the unit or on its ethanol or water line.",
+      "after": "Spirit from your own ethanol. This 2 x 2 unit weighs {0:F0} kg and draws {1:F1} kW while working. It draws ethanol from a linked Cask tank and water from a linked water silo, mixes them to 40% alcohol and fills {2} servings of Alembrine spirit at a time into its tray. Link the cask and the silo, touching the unit or on its ethanol or water line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.armed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Started. It fills a batch whenever the cask and silo hold enough and the tray has room.",
+      "after": "Started. It fills a batch whenever the cask and silo hold enough and the tray has room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "This bottling unit's record could not be read. Repair it, then Accept from the panel.",
+      "after": "This bottling unit's record could not be read. Repair it, then Accept from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Batch cancelled; its progress is lost. Nothing was drawn yet.",
+      "after": "Batch cancelled; its progress is lost. Nothing was drawn yet."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Paused. The batch's progress is kept.",
+      "after": "Paused. The batch's progress is kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The bottling unit stopped on a fault. See the log.",
+      "after": "The bottling unit stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Bottling: {0:F2} of {1:F2} kWh.",
+      "after": "Bottling: {0:F2} of {1:F2} kWh."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Waiting: {0}",
+      "after": "Waiting: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The tray has no room for another batch. Take the spirit out.",
+      "after": "The tray has no room for another batch. Take the spirit out."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Install the bottling unit first.",
+      "after": "Install the bottling unit first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Repair the bottling unit first.",
+      "after": "Repair the bottling unit first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Unlock the bottling unit first.",
+      "after": "Unlock the bottling unit first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The bottling unit is switched off at its power control.",
+      "after": "The bottling unit is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.no_ethanol",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "no ethanol cask linked",
+      "after": "no ethanol cask linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.ethanol_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked ethanol cask is damaged, locked, moved away or not on this ship",
+      "after": "the linked ethanol cask is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.ethanol_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked ethanol cask is protected or busy; accept its contents or wait",
+      "after": "the linked ethanol cask is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.ethanol_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "ethanol is trapped in the linked cask's outer shell; repair it and recover the ethanol first",
+      "after": "ethanol is trapped in the linked cask's outer shell; repair it and recover the ethanol first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.ethanol_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked ethanol cask holds {0:F3} kg and a batch needs {1:F3} kg",
+      "after": "the linked ethanol cask holds {0:F3} kg and a batch needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "no water silo linked",
+      "after": "no water silo linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked water vessel is not installed, out of reach or not ready",
+      "after": "the linked water vessel is not installed, out of reach or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked silo is busy or has a saved-contents fault; check its panel",
+      "after": "the linked silo is busy or has a saved-contents fault; check its panel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked water vessel holds water in its catch chamber; recover it first",
+      "after": "the linked water vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.vessel_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "the linked water vessel holds {0:F3} kg and a batch needs {1:F3} kg",
+      "after": "the linked water vessel holds {0:F3} kg and a batch needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Stop the bottling unit before changing its links.",
+      "after": "Stop the bottling unit before changing its links."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Linked.",
+      "after": "Linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "That is not a vessel of the right kind touching the bottling unit or on its line.",
+      "after": "That is not a vessel of the right kind touching the bottling unit or on its line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Record accepted.",
+      "after": "Record accepted."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Nothing to accept.",
+      "after": "Nothing to accept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "{0}\nBatch: {1:F2} of {2:F2} kWh. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}.",
+      "after": "{0}\nBatch: {1:F2} of {2:F2} kWh. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "Draws {0:F1} kW working. A batch is {1} servings from {2:F1} g of ethanol and {3:F1} g of water.",
+      "after": "Draws {0:F1} kW working. A batch is {1} servings from {2:F1} g of ethanol and {3:F1} g of water."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.batch_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "{0}: bottled {1} servings from {2} and {3}.",
+      "after": "{0}: bottled {1} servings from {2} and {3}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The spirit definition is unavailable.",
+      "after": "The spirit definition is unavailable."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The spirit definition changed.",
+      "after": "The spirit definition changed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The batch would not conserve mass; nothing was delivered.",
+      "after": "The batch would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/BottlerService.cs"
+      ],
+      "before": "A serving could not be placed in the tray.",
+      "after": "A serving could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.bottler",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs (Group. + group id)"
+      ],
+      "before": "Bottling units",
+      "after": "Bottling units"
     }
   ],
   "documents": [
@@ -71996,8 +72559,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "49983bbc4f761159002369d11c2d4b32419295c6c5cb6ad6447d82e8fefe9a6f",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "dcdde3408f3933b04a614dd985719913ddcade635aba51628b8958e4680ee68b",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "SUPPORT.md",
@@ -72423,8 +72986,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "aeb0455db30b48783c7f61b4008b74f5cdce1f1444ee0ee3d8f1ab8cf99a63d1",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "e186de8e928953ebb73677a8cd6b6f9e5f2c312c5f1fb2f08004d3e46e398b9a",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -72541,15 +73104,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "6fcfd162b170835ae91d1e9c491b0a85797128b9ef2f808990c36d36e5480dff",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "c5d0d19f0bcab2fccb6ac986a81497fb56e72acdab64bd1e4c2c190f7e7e9c6e",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "b73d91b572a951afb698bf2e5ec88a9083e75d22228c0fc6340ae6c8efa61cc2",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "e13c76f3a60e0d578b379fccaa95dde180b3823c52e74e973eb9dc0c51ac6918",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -72607,8 +73170,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "c80fa1dce49a3138d41578c8d25fe9ab7300f3920d435cc8157634122a9d0e7b",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "bb9ae462d607dc45ce068a7adf784f74408515cb08d982c30d35abd00688d852",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -72679,8 +73242,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5882236bf922b8a66ee6cae0169e3161533b3023395442ce00dd5433e27059e6",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "474bc3d6368f4087aa1890c989bad3fb02c685552c3b43a62ea93c0935fe6476",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -72968,15 +73531,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "61800ca8c888c6521a2f5886f7b66ed4524524d39b1960511f16b130a76407fe",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "5009f628aebc748eada1a48e31a7ac24ad72b2173cf2738d6203d32fc41aa96f",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "544a4b2827874eca1ebac162bdcc554182fb7169de823cf9b5e3cf66436c7da6",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "96db3fdf50b8a9dc52b5c702ab70e3a3aa4a496a743f8b4d87c97b6e3606f3f7",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -73094,8 +73657,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b1cc905c1ab91578d0e16ad2200e70a07d2b5f54ccc0e4cc013db50c392cef0b",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "85d9f5b6917dbbe68f0b2c5dcae457c40065c84fb8f0c6ce23f46f94f3baf2cb",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -73227,16 +73790,16 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "f5e9971cb430d1ab46ed437b828a87ae875db4eeba915de7414f62a6260d550a",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "6fce0ebd340a3cf4fca15f1510af51cdbed80f85bef36eceaeecc6f0089695b5",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ba4164bed03113b73e525c969e96a7f06a03151b07f0182ec39b2997305721e3",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "4b272cb0389e7862bbd496ed07b5545e4a5b197a36c72868007a806d7a8a7fb4",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -73293,8 +73856,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b948694d3924b0e174f496fc5adba81723c83bc51c252ce60effc8fdb54f6877",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
+      "sha256": "29a69e8c18307e670628d213266a9ed5acabf9558e19fad46ea3964268ccf632",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

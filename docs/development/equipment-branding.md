@@ -78,7 +78,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Alembrine Cask-2, Cask-3 and Cask-4 Ethanol Tanks | Bunded ethanol tanks in three sizes (Manufacturing 0.38.0); Cask for the tank, the digit the footprint |
 | Phobos' Alembrine Ethanol Line | 1 x 1 steel line segments for ethanol (Manufacturing 0.38.0); like the other lines, no model number |
 | Phobos' Alembrine Copperhead-3 Fermenter-Still | Three-by-three fermenter and pot still (Manufacturing 0.39.0) |
-| Phobos' Alembrine Corker-2 Bottling Unit | Planned for Manufacturing 0.40.0 (owner-approved phase 5 plan, 4 October 2026) |
+| Phobos' Alembrine Corker-2 Bottling Unit | Two-by-two unit bottling cask ethanol into Alembrine spirit (Manufacturing 0.40.0) |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen

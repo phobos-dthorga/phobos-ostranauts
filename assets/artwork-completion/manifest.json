@@ -1708,6 +1708,30 @@
       "derivedFrom": "source/leached-residue.png"
     },
     {
+      "key": "alembrine-spirit",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAlembrineSpirit",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockAlembrineSpirit",
+      "status": "selected",
+      "source": "source/alembrine-spirit.png",
+      "sourceSHA256": "8fade708cfb3592db52c7ba6b74a6942eb5fc2fc398bf44d7f59e71edfd051ca",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected phosphoric acid flask onto a pale glass ramp, so the spirit reads as a clear glass flask from above (map in manufacturing-requests.json). Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/phosphoric-acid-flask.png"
+    },
+    {
       "key": "plant-ash",
       "mod": "PhobosManufacturing",
       "definition": "PhobosPlantAsh",
@@ -2911,6 +2935,31 @@
       "review": "Overhead and native-scale export inspected beside the SA-3; Alembrine colour language (brass-tan frame, brushed steel vats, copper still and condenser coils). Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "c45098a1-b0d1-4e85-a3ab-3d5be40afa63"
+    },
+    {
+      "key": "corker2-bottling-unit",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosBottlingUnitInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosBottlingUnit",
+      "status": "selected",
+      "source": "source/corker2-bottling-unit.png",
+      "sourceSHA256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Alembrine colour language beside the fermenter-still. A small orange label on the pump that could read as a lamp was recoloured to the housing slate (repair recorded in manufacturing-requests.json). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "a7455eb2-5b1b-4f24-817b-96ab5f4c2564"
     },
     {
       "key": "at2-acid-tank",

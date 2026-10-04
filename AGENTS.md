@@ -354,8 +354,11 @@
   spirit) is next. Manufacturing 0.39.0 adds the Copperhead-3 fermenter-still, a
   charge machine (`machine: fermenter`, requirement `agriculture-sugar-crops`). It
   takes six beets as mash or six sugar packets as a wash, 92% of the sucrose
-  ferments, and it is an ignition source while working. The bottler and spirit
-  follow in 0.40.0 as their own service, since the charge engine binds items.
+  ferments, and it is an ignition source while working. Manufacturing 0.40.0 adds the
+  Corker-2 bottling unit as its own service (the charge engine binds items): a cask and
+  a silo give seven 35 g servings of Alembrine spirit a batch in one settlement. The
+  spirit clones the game's `LiquidVodka` (keeping `IsLiquor`, so the game's own drinking
+  applies; dropping `IsBismertnaya`) at 8 cr a serving. Phase 5 is complete.
 
 ## Manufacturing direction (2026-09-25)
 

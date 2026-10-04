@@ -303,6 +303,29 @@ internal static class ManufacturingNativeChecks
             "The fermenter-still links a water vessel, a CO2 store and an ethanol cask, is an ignition source while working, and finds Agriculture's beets and sugar at their masses");
         var ethanolPort = LinePorts.Ethanol(3);
         check(d.Objects[FermenterRules.Prefix + "Installed"].mapPoints.Contains(LinePorts.EthanolPoint + "," + ethanolPort.X + "," + ethanolPort.Y), "The fermenter-still has an ethanol port");
+        // The Alembrine Corker-2 bottling unit and its spirit (Manufacturing 0.40.0).
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var bottler = d.Objects[BottlerRules.Prefix + state];
+            check(d.Items[bottler.strItemDef].nCols == 2 && Stat(bottler, "StatMass") == BottlerRules.MachineKg && bottler.strNameFriendly.StartsWith("Phobos' Alembrine Corker-2 Bottling Unit", StringComparison.Ordinal),
+                "The bottling unit is a 90 kg two by two Alembrine machine: " + state);
+            check((bottler.jsonPI == BottlerRules.Prefix + "Power") == (installed && !damaged) && Stat(bottler, "StatBasePrice") == (damaged ? (int)Economy.Price(BottlerRules.Prefix) / 4 : (int)Economy.Price(BottlerRules.Prefix)),
+                "The bottling unit draws power only when installed and intact, at its price: " + state);
+        }
+        var bottlerPower = d.Power[BottlerRules.Prefix + "Power"];
+        check(Math.Abs(bottlerPower.fOverrideAmount - BottlerRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && bottlerPower.strOverrideCond == ManufacturingRules.Bottling &&
+              Economy.Pack.factionKiosks?.tiers[BottlerRules.Prefix] == "Friendly", "The bottling unit draws 0.4 kW bottling and sits at the Friendly kiosk tier");
+        var tray = DataHandler.dictCTs[BottlerRules.TrayTrigger];
+        check(tray.TriggeredDataCO(new DataCO(d.Objects[Materials.Spirit]), false) && !tray.TriggeredDataCO(new DataCO(DataHandler.dictCOs[BottlerRules.SpiritDonor]), false) &&
+              !tray.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapSteel"]), false), "The bottling unit's tray takes its own spirit and not the game's vodka or anything else");
+        var bottlerEthanol = LinePorts.Ethanol(BottlerRules.Footprint); var bottlerWater = LinePorts.Water(BottlerRules.Footprint);
+        var bottlerPoints = d.Objects[BottlerRules.Installed].mapPoints;
+        check(bottlerPoints.Contains(LinePorts.EthanolPoint + "," + bottlerEthanol.X + "," + bottlerEthanol.Y) && bottlerPoints.Contains(LinePorts.WaterPoint + "," + bottlerWater.X + "," + bottlerWater.Y),
+            "The bottling unit has an ethanol port and a water port");
+        var spirit = d.Objects[Materials.Spirit];
+        check(Has(spirit, "IsLiquor") && Has(spirit, "IsLiquid") && !Has(spirit, "IsBismertnaya") && Has(spirit, "IsCategoryIntoxicants") && spirit.nStackLimit == BottlerRules.ServingsPerBatch,
+            "The spirit drinks as the game's liquor without the vodka's brand mark, and stacks seven to a batch");
         foreach (var (table, share) in new[] { (MiningLoot.MTable, MiningLoot.NoduleMChance), (MiningLoot.STable, MiningLoot.NoduleSChance) })
         {
             var nodule = d.LootCarves[table][Materials.SulfideNodule];

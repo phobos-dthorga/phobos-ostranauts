@@ -20,7 +20,7 @@ internal sealed class LiquidLine
         new[] { (LeachRules.Prefix, Equipment.Entry(LeachRules.Prefix).footprint), (AcidPlantRules.Prefix, Equipment.Entry(AcidPlantRules.Prefix).footprint) }
             .Concat(LiquidStores.AcidFamily.Sizes.Select(s => (s.Prefix, s.Footprint))));
     internal static readonly LiquidLine Ethanol = new(EthanolLineRules.Rules, () =>
-        new[] { (FermenterRules.Prefix, Equipment.Entry(FermenterRules.Prefix).footprint) }.Concat(LiquidStores.EthanolFamily.Sizes.Select(s => (s.Prefix, s.Footprint))));
+        new[] { (FermenterRules.Prefix, Equipment.Entry(FermenterRules.Prefix).footprint), (BottlerRules.Prefix, BottlerRules.Footprint) }.Concat(LiquidStores.EthanolFamily.Sizes.Select(s => (s.Prefix, s.Footprint))));
     internal static readonly IReadOnlyList<LiquidLine> All = new[] { Acid, Ethanol };
 
     internal LiquidLineRules Rules { get; }

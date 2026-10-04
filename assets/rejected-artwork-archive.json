@@ -386,6 +386,11 @@
       "commit": "27e9fa0ffa5646df76c203dbbfa5940869f36d2e",
       "date": "2026-10-04",
       "note": "Agriculture sugar beet PixelLab pass: the superseded mature plant on soil, the rejected over-large young plant and the raw seedling the keyed sprout came from, never committed to main, archived directly. Requests, seeds, hashes and reasons: assets/phobos-agriculture/sugar-beet-generation-records.json."
+    },
+    {
+      "commit": "c8058814490820a6600d830e67c5d1aca7c1e404",
+      "date": "2026-10-04",
+      "note": "Manufacturing Alembrine PixelLab pass: the rejected first Corker-2 bottling unit (side-on bottles, lamp-like details) and the rejected angled spirit bottle, never committed to main, archived directly. Requests, seeds, hashes and reasons: assets/artwork-completion/manufacturing-requests.json."
     }
   ]
 }

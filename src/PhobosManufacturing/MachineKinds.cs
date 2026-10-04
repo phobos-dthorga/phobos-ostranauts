@@ -5,7 +5,7 @@ using PhobosManufacturing.Core;
 namespace PhobosManufacturing;
 
 /// <summary>Which Manufacturing service, if any, owns a powered object.</summary>
-internal enum MachineKind { None, Charge, Processor, Sabatier, Filler, Cracker }
+internal enum MachineKind { None, Charge, Processor, Sabatier, Filler, Cracker, Bottler }
 
 /// <summary>One classification per definition id for the power hooks, which the game calls for every powered
 /// object in the world once per game second (once per frame at fast-forward); a foreign appliance costs one
@@ -19,7 +19,8 @@ internal static class MachineKinds
         if (id == null) return MachineKind.None;
         if (kinds.TryGetValue(id, out var known)) return known;
         var kind = ChargeMachines.For(id) != null ? MachineKind.Charge : ProcessorRules.IsFamily(id) ? MachineKind.Processor :
-            SabatierRules.IsFamily(id) ? MachineKind.Sabatier : FillerRules.IsFamily(id) ? MachineKind.Filler : CrackerRules.IsFamily(id) ? MachineKind.Cracker : MachineKind.None;
+            SabatierRules.IsFamily(id) ? MachineKind.Sabatier : FillerRules.IsFamily(id) ? MachineKind.Filler : CrackerRules.IsFamily(id) ? MachineKind.Cracker :
+            BottlerRules.IsFamily(id) ? MachineKind.Bottler : MachineKind.None;
         if (kinds.Count < 65536) kinds[id] = kind;
         return kind;
     }

@@ -272,6 +272,16 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockSpentMash"
+    },
+    "PhobosAlembrineSpirit": {
+      "notes": "Alembrine spirit (Manufacturing 0.40.0): one 35 g serving at 40% alcohol by volume, a clone of the game's vodka serving with its own identity. Priced in the refining band: a sugar beet rack's 31 servings (about 8 cr each) are worth about 1.9 times the crop's nutrients and water (owner decision, 4 October 2026: an own-brand spirit, not the game's 42.5 cr vodka). Not sold by any merchant.",
+      "kind": "stock",
+      "kg": 0.035,
+      "price": 8,
+      "stack": 7,
+      "side": 1,
+      "category": "IsCategoryIntoxicants",
+      "art": "StockAlembrineSpirit"
     }
   }
 }

@@ -1700,6 +1700,23 @@
           "labels": {}
         },
         {
+          "key": "bottling-unit",
+          "title": "Alembrine Corker-2 Bottling Unit",
+          "ids": [
+            "PhobosBottlingUnitLoose",
+            "PhobosBottlingUnitLooseDmg",
+            "PhobosBottlingUnitInstalled",
+            "PhobosBottlingUnitInstalledDmg"
+          ],
+          "function": "A 2 x 2, 0.4 kW unit that draws ethanol from a Cask tank and water from a water silo and fills seven servings of Alembrine spirit at 40% alcohol a batch into its four-cell tray.",
+          "use": "Install through APPS touching, or on the lines of, a Cask ethanol tank and a water silo, and connect its power point. Link them on its Control Panel and Start; each half-hour batch takes 84.7 g of ethanol and 160.3 g of water. Take the spirit from its tray.",
+          "find": "Sold at the listed Manufacturing merchants and faction kiosks (Friendly standing); rare in engineering salvage.",
+          "notes": "New in Manufacturing 0.40.0. It keeps bottling while supplied and the tray has room, and waits for Start after a reload. The 0.2 kWh a batch is authored.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "ethanol-tanks",
           "title": "Alembrine Cask-2, Cask-3 and Cask-4 Ethanol Tanks",
           "ids": [
@@ -1839,6 +1856,20 @@
           "use": "Made in the SA-3. The LC-3's struvite from acid takes one with three Epsom salt. Carry, stack (ten per stack) and sell at any general buyer.",
           "find": "Made in the SA-3 from sulfide nodules. Never sold in shops.",
           "notes": "Priced at 300 cr, so roasting a nodule earns about twice the nodule (owner decision, 1 October 2026). Flasks already aboard take the new price when a save loads.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "spirit",
+          "title": "Alembrine spirit",
+          "ids": [
+            "PhobosAlembrineSpirit"
+          ],
+          "function": "A 35 g serving of clear spirit at 40% alcohol by volume, bottled aboard from your own ethanol. Crew drink it like the game's own liquor, with the same effects.",
+          "use": "Leave it where crew can reach it, or sell it to the game's buyers. It stacks seven to a batch.",
+          "find": "Made in the Corker-2 bottling unit. Never sold in shops.",
+          "notes": "Priced at 8 cr a serving (owner decision, 4 October 2026: an own-brand spirit in the refining band), so a sugar beet rack's ethanol bottles into about twice the crop's nutrients and water. A copy of the game's vodka serving with its own name and price.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}

@@ -87,6 +87,7 @@ internal static class Content
         if (ManifoldRules.IsFamily(co.strCODef)) return ManifoldService.MaintenanceReason(co);
         if (FillerRules.IsFamily(co.strCODef)) return FillerService.MaintenanceReason(co);
         if (RegulatorRules.IsFamily(co.strCODef)) return RegulatorService.MaintenanceReason(co);
+        if (BottlerRules.IsFamily(co.strCODef)) return BottlerService.MaintenanceReason(co);
         return null;
     }
 }

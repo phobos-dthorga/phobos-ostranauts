@@ -18,7 +18,9 @@
     "references/carbon-stock-first-pass.png": "33dfbb4c547afb2327e2275a3b4108e719a33094c81a9e90226937c6200ffab5",
     "references/refinery-slag-start.png": "55215d7118150fb1beaa62b356f8fff98d98aa05704d3995115e90fce67c9512",
     "references/anhydrous-residue-start.png": "01d02b61d7d867aeb0d98eb4120484d8e4e792e338d427d1320c0dfa2568c6ef",
-    "references/a2-cabin-air-regulator-start.png": "e48ee82a8eec77328abeaf84b4da1c582fac97b64bcc01dee240314a8ad80ef5"
+    "references/a2-cabin-air-regulator-start.png": "e48ee82a8eec77328abeaf84b4da1c582fac97b64bcc01dee240314a8ad80ef5",
+    "references/bottling-unit-start.png": "2b3706df8ed69e21f1250e72f4b6b6cd7c253d601045cbfe6d87313ef9164d6d",
+    "references/corker2-bottling-unit-first-pass.png": "290482d872fda442698ffde69d8f295703465c7694ddfff92c7eac12ae08489c"
   },
   "derived": {
     "nickel-iron-ingot": {
@@ -172,9 +174,28 @@
           12
         ]
       }
+    },
+    "alembrine-spirit": {
+      "from": "source/phosphoric-acid-flask.png",
+      "method": "per-pixel luminance map onto a pale silver-blue glass ramp; alpha and pixel placement unchanged (Manufacturing 0.40.0, 4 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.72,
+          48
+        ],
+        "g": [
+          0.78,
+          52
+        ],
+        "b": [
+          0.86,
+          62
+        ]
+      }
     }
   },
-  "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",
+  "rejectedArchive": "codex/rejected-artwork commit c8058814490820a6600d830e67c5d1aca7c1e404 (corker2-bottling-unit-v1, alembrine-spirit-v1). Every other unselected output is a retained generation input of a selected one.",
   "attempts": [
     {
       "key": "v4-refinery",
@@ -896,6 +917,63 @@
       "initImageSHA256": "1879266f9a20ffb7ae1917bf98eea36516ea1b5d0dd9f9ab618a8607eb77732d",
       "decision": "selected",
       "review": "Overhead, no side faces; two vats, the copper still and the condenser read at 48 px beside the SA-3. The joining pipes did not come through; the parts read without them. Manufacturing 0.39.0, 4 October 2026."
+    },
+    {
+      "key": "corker2-bottling-unit-v1",
+      "jobId": "760adc98-1274-4947-88f4-cbde30616745",
+      "costGenerations": 1,
+      "request": {
+        "width": 128,
+        "height": 128,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down",
+        "seed": 9330150,
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, bottling unit, no start image (first attempt; the selected request below differs only in wording and its start image)."
+      },
+      "sha256": "9b0f57a53510bc00a82d92f0173612a63c3049cb7311f3c262f8e10662285d09",
+      "decision": "rejected",
+      "review": "The bottles stand side-on with necks in perspective, the frame is inset with an unused border, and two round details read as a button and a lamp."
+    },
+    {
+      "key": "corker2-bottling-unit",
+      "jobId": "a7455eb2-5b1b-4f24-817b-96ab5f4c2564",
+      "assetId": "907965d4-adc5-5b0f-8e54-70c955d28281",
+      "costGenerations": 1,
+      "request": {
+        "width": 128,
+        "height": 128,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down",
+        "seed": 9330152,
+        "init_image_strength": 100,
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas, edge to edge, is the top of a compact spacecraft bottling unit in a square frame: a warm brass-tan painted steel frame with dark corner brackets around a pale tan enamel deck lit from the upper left; upper left the round lid of a copper mixing tank with a brass centre cap; upper right a dark slate pump housing with a round brushed steel motor end; along the bottom a dark slate tray holding a row of five round clear glass bottle tops with copper caps, seen straight down as circles; short copper pipes joining tank, pump and tray. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no buttons, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos."
+      },
+      "initImage": "references/bottling-unit-start.png",
+      "initImageSHA256": "2b3706df8ed69e21f1250e72f4b6b6cd7c253d601045cbfe6d87313ef9164d6d",
+      "decision": "selected",
+      "review": "Overhead, edge to edge; tank, pump and the row of bottle caps read at 32 px beside the fermenter-still. One label recoloured (see repairs)."
+    },
+    {
+      "key": "alembrine-spirit-v1",
+      "jobId": "1d727a3d-6a14-4653-a7bf-ce96ff9fee50",
+      "costGenerations": 1,
+      "request": {
+        "description": "A small squat clear glass bottle lying flat on its side, copper screw cap, cream label band; overhead inventory sprite, 64 x 64, transparent.",
+        "width": 64,
+        "height": 64,
+        "seed": 9330151
+      },
+      "sha256": "41fb3571b6d69478991a022740aa74e10e259c843f270e45c0cc6bb59f924f6e",
+      "decision": "rejected",
+      "review": "An angled bottle in three-quarter view that becomes a smudge at 16 px; replaced by a recolour of the selected flask."
     }
   ],
   "passes": [
@@ -960,5 +1038,13 @@
       },
       "note": "The A2 cabin air regulator. Valve colours echo the game's canister convention by name only (green oxygen, blue nitrogen); no game imagery was uploaded. One pass from an original procedural start drawing sent base64."
     }
-  ]
+  ],
+  "repairs": {
+    "corker2-bottling-unit": {
+      "from": "references/corker2-bottling-unit-first-pass.png",
+      "fromSHA256": "290482d872fda442698ffde69d8f295703465c7694ddfff92c7eac12ae08489c",
+      "to": "source/corker2-bottling-unit.png",
+      "method": "Inside the pump label box (pixels x 99-108, y 20-28) the 27 pixels with saturation >= 0.45 and value >= 0.35 (an orange and red label that could read as a lamp) are set to the housing slate, RGB 66, 69, 76. Owner ruling of 29 September 2026: no painted indicators. No other pixel changed."
+    }
+  }
 }

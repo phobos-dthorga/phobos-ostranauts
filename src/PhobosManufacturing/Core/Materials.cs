@@ -59,6 +59,8 @@ public static class Materials
     public const string PlantAsh = "PhobosPlantAsh";
     /// <summary>The fermenter-still (Manufacturing 0.39.0): the terminal spent mash of a beet or sugar charge.</summary>
     public const string SpentMash = "PhobosSpentMash";
+    /// <summary>The bottler (Manufacturing 0.40.0): Alembrine spirit, one 35 g serving at 40% alcohol by volume.</summary>
+    public const string Spirit = BottlerRules.Spirit;
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
@@ -66,7 +68,7 @@ public static class Materials
     public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
         EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue,
         SulfideNodule, PhosphoricAcidFlask, RoastedCalcine, EpsomSalt, AmmoniumSulfate, OlivineLeachCake, NickelSteelIngot,
-        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash };
+        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash, Spirit };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();

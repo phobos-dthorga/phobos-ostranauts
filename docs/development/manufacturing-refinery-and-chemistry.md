@@ -798,4 +798,34 @@ and by-products in a 0.5 kg terminal spent mash. Fermentation releases about
 The 3 kWh a charge for heating the still is authored. Both charges need Agriculture
 0.46.0's beets or sugar at their masses (`agriculture-sugar-crops`). The ethanol is
 a supply chain, with no finished item, so the value checks make no profit claim.
-The spirit the bottler will make carries the chain's value.
+The spirit the bottler makes carries the chain's value.
+
+## The bottling unit and spirit (0.40.0)
+
+The Alembrine Corker-2 dilutes stored ethanol with silo water into 35 g servings at
+40% alcohol by volume. At 20 C, 400 mL of ethanol (789.3 kg/m3, CRC Handbook of
+Chemistry and Physics) and 600 mL of water (998.2 kg/m3) weigh 315.7 g and 598.9 g,
+so the spirit is 34.5% ethanol by mass. The volume contraction on mixing (about 3%)
+is left out, which is our simplification. A serving is 12.1 g of ethanol and 22.9 g
+of water, rounded to the tenth of a gram; a batch is seven servings (one stack of
+the game's own vodka), drawing 84.7 g of ethanol and 160.3 g of water, and its mass
+balance is exact. The 0.2 kWh a batch (pumping, chilling and filling) is authored.
+
+The bottler is not a charge machine: the charge engine binds an item in a feed bin,
+and the bottler draws only liquids. Its own service credits measured electricity to
+the batch and settles the two draws and seven servings in one `CommoditySettlement`
+commit, so a batch is never half delivered. Its record is the batch's energy and a
+count of batches; running permission is not saved.
+
+The spirit is a clone of the game's `LiquidVodka` serving with its own identity: it
+keeps the vodka's liquor, liquid, drug, hydrator and flammable conditions, so the
+game's own liquor drinking (the `SeekDrinkLiquor` interactions key on `IsLiquor`)
+and its effects apply unchanged, and no custom drink reply was needed. It drops the
+`IsBismertnaya` brand mark, which the game's Bismertnaya lines key on. Its price,
+8 cr a serving against the game's 42.5 cr vodka, is ours (owner decision,
+4 October 2026: an own-brand spirit priced in the refining band): a nine-beet rack
+gives 0.380 kg of ethanol through the mash route, about 31.4 servings worth 251 cr,
+against 134 cr of the crop's nutrients and water, 1.87 times. Bottling always beats
+the kiosk's buy-back (9 cr/kg of ethanol against about 661 cr/kg bottled). No
+merchant sells the spirit. A crew order to keep spirit stocked was planned and is
+deferred: the tray holds four batches and the unit needs no feed loading.

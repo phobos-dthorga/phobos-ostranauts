@@ -514,7 +514,7 @@ See [draining and venting](lines-and-draining.md).
 Cask-3 and Cask-4 one tile wider each. Like acid tanks they are bunded liquid tanks,
 not gas stores, with a four-place canister rack, **Pour ethanol into** on their
 panel, and a refusal to be moved while they hold anything. The fermenter-still
-below fills them; a bottler for spirit comes in the next release.
+below fills them, and the bottling unit after it turns their ethanol into spirit.
 
 ### The fermenter-still
 
@@ -537,6 +537,26 @@ Beets give more ethanol than sugar, because the B2 leaves some sugar in its
 molasses; sugar keeps and doubles as a small food. The CO2 can feed a grow room's
 A2 regulator. **A working still lights ethanol spills** in its room, so keep casks
 it might damage in another room, or keep them repaired. Spent mash is trash.
+
+### The bottling unit
+
+The **Alembrine Corker-2 Bottling Unit** (0.40.0, 2 x 2, 0.4 kW) turns stored ethanol
+into **Alembrine spirit**: 35 g servings at 40% alcohol, which crew drink like any
+other liquor and which sell to the game's buyers.
+
+1. Install it touching, or on the lines of, a Cask ethanol tank and a water silo,
+   and connect its power point.
+2. On its **Control Panel** > **Connections**, set **Ethanol cask** and **Water
+   silo**. Apply.
+3. Press **Start**. Each batch takes half an hour (0.2 kWh) and draws 84.7 g of
+   ethanol and 160.3 g of water for **seven servings**, one stack, which go into
+   its four-cell tray.
+
+It keeps bottling while the cask and silo hold a batch and the tray has room, then
+waits. Take the spirit out of its tray (right-click, **Inventory**). After a reload
+it waits for **Start** again. A serving is worth about 8 cr: a beet rack's harvest
+bottles into about 31 servings, roughly twice what its nutrients and water cost,
+and far more than the 9 cr a kilogram the kiosk pays for the ethanol itself.
 
 
 - **Trade.** A station's refuelling kiosk buys stored ethanol back at 45% of its

@@ -54,6 +54,8 @@
   "Fermenter.name": { "brand": "Alembrine", "model": "Copperhead-3" },
   "Fermenter.feed_name": { "brand": "Alembrine", "model": "Copperhead-3" },
   "Material.PhobosSpentMash": { "brand": "Alembrine", "model": "" },
+  "Bottler.name": { "brand": "Alembrine", "model": "Corker-2" },
+  "Material.PhobosAlembrineSpirit": { "brand": "Alembrine", "model": "" },
   "Ethanol.name_medium": { "brand": "Alembrine", "model": "Cask-3" },
   "Ethanol.name_large": { "brand": "Alembrine", "model": "Cask-4" },
   "EthanolLine.name": { "brand": "Alembrine", "model": "" },

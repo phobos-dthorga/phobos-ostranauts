@@ -1699,6 +1699,31 @@
     "patches": null
   },
   {
+    "key": "alembrine-spirit",
+    "sourceSHA256": "8fade708cfb3592db52c7ba6b74a6942eb5fc2fc398bf44d7f59e71edfd051ca",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      16,
+      16,
+      49,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAlembrineSpirit.png": "cef09a8e0ecb2f40a905fa0e4e46f3f59f6b22ff6e452680844f06fc252710e2",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAlembrineSpiritNormal.png": "25279a27947d62bb3a12c109569a5834fa905f1dc1c58a3f2cd3b1f40ccaf38e"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "plant-ash",
     "sourceSHA256": "08c7d06908af897e4be83a248c00cc9028f15c0ddb9b89b2e8048258a88d6f96",
     "nativeSize": [
@@ -2952,6 +2977,32 @@
     "exports": {
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStill.png": "1657c0b85f3432a360e80afdea7360a3fa5f4546178db56af98ace5747f256a1",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStillNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "corker2-bottling-unit",
+    "sourceSHA256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnit.png": "4a5a50e94e9106416819fcd50a8fb35fb8f09d3215fe658d2679b28fba898d9f",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnitNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
