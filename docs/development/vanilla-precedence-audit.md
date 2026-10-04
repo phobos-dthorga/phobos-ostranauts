@@ -464,3 +464,24 @@ passing `TIsBedMedical01Uninstalled`) and the fixers' lists never take one.
   own `QueueInteraction`; it never uses `AIIssueOrder`, which cancels everything queued, and
   never touches crew the player controls.
 
+
+## Machines in a time-skip (Framework 0.99.0, 5 October 2026)
+
+Owner report: after the six-hour skip the chemical reactors had done nothing.
+
+- **Native evidence.** `GUIFFWD.FFWD` calls `StarSystem.Update(fTimeDelta)` once, so the clock
+  jumps the whole skip; the next `Powered.Run` multiplies its rate by `fEpoch - fUpdateLast`
+  and asks `UsePower` for hours of energy in one call. The game's own appliances accept that:
+  they have no heat rule and take what the conduit holds.
+- **Ours.** Every Phobos machine checks its step's heat against the room first
+  (`RoomHeat.Decide`), which refuses a step longer than an hour as invalid, and would refuse a
+  shorter jump as too warm. The machine then drew no power and made no progress for the skip.
+  A skip with crew orders enabled was already stepped
+  (`CrewSkip.Advance` replaces only that one clock call); a skip without them was not.
+- **Verdict.** Keep the game's jump when nothing of ours is running. When any machine on the
+  skipping ships carries the resume mark (its Start stands), step the clock in ten-second steps
+  and run each powered object's own `Powered.Run` per step, as the crew path does. Nothing is
+  blocked or replaced: the same native power step runs more often with a smaller interval. The
+  game's crew effects, repairs, reactor catch-up and report are untouched. Real-time waits
+  count skipped seconds (`Cadence.AdvanceSkip`), so a recheck is not put off until the skip ends.
+- **Not changed.** The heat rule itself: a machine is never given hours of heat in one step.

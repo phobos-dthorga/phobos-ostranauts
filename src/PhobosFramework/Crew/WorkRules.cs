@@ -19,6 +19,13 @@ public static class CrewBalance
     public const double HandlingSeconds = 10;
     public const double DiscoverySeconds = 2;
     public const double SkipStepSeconds = 1;
+    /// <summary>The step of a time-skip that has running machines but no crew orders (Framework 0.99.0): coarser than
+    /// the crew step, because no job has to end on a second, and fine enough that each step's heat and power are a
+    /// machine's ordinary step at fast-forward.</summary>
+    public const double MachineSkipStepSeconds = 10;
+    /// <summary>How a time-skip advances the clock, pure: in crew steps while crew orders are enabled, in machine steps
+    /// while any machine's Start stands, and otherwise 0, the game's own single jump.</summary>
+    public static double SkipStep(bool crewOrders, bool runningMachines) => crewOrders ? SkipStepSeconds : runningMachines ? MachineSkipStepSeconds : 0;
     public const double WalkSecondsPerTile = 2;
     public static double UntilHour(double epoch) => 3600 - ((epoch % 3600 + 3600) % 3600);
     public static bool Finite(double n) => !double.IsNaN(n) && !double.IsInfinity(n);

@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.98.0**, Shipbreaker **0.78.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.99.0**, Shipbreaker **0.78.0**, Auto Nav
 **0.33.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -312,7 +312,8 @@ Pause retains panel work. Cancel resets work on panels already inside the
 processor without deleting them. On reload, panel recipe, progress and duration remain,
 and the collector keeps its selected partner. Whatever was running when you saved
 [carries on by itself](#machines-carry-on-after-a-reload); whatever was paused
-waits for you to start it. Short transfer timers reset; their physical cargo stays at the sender.
+waits for you to start it. Running machines also keep working through the game's
+time-skip (Framework 0.99.0). Short transfer timers reset; their physical cargo stays at the sender.
 Full output waits with cargo retained. Nothing processes while its ship is unloaded.
 
 Change settings with the game closed, then restart. Shipbreaker uses

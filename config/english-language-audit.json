@@ -80199,8 +80199,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c5b0f05e592a721940d20abd345a968853e6b13d3c74d377b4eca54757917393",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "728d9ca2744917ef22c87ba5964d91ae64ae342b3a0b5179310142eec618986d",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "SUPPORT.md",
@@ -80360,15 +80360,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0ca858fcf6ab7888f5d1207158f0b7428aee89c5b6f5d9cdc5cf057fee7c90a4",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "0946f32d6cd2de4eca2a8e2c6f37eaf7980656bdd8ae7d4aa24cf643609d319b",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "90afe896c93d1737e83f8ef43aa4aaf0a1116ddcc76c62da38695115cdf419da",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "c0d9c12a8b29247fa234c87a10a9324445f576b2d1c9976e42864f49063c7055",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/development/README.md",
@@ -80961,8 +80961,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "fefd3c38490d63f1a25edd7379ee60484e86a37c36af032f68759826a8c14452",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "aef55dbbd8cba0ea1e511f77eb4a4bf625257176e636671727e43cb8fcb181ac",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81152,8 +81152,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "2aa5d909f81657f14c381f2a5246e7f165867260c55818a6c6511ce73c4c6585",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "d2e2ddbae4a2aa2c4d45506617a094a2b76ba3643054fc5a7ba2674ce00a53b9",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -81201,8 +81201,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c895ca2eb1436db8bf48159ed29bb2bc5ab3dde05070963b2e489f4e87d434f4",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "09ddc2db4e6ab7a8f6125d46c9dee4abd32fd2667ba34bcaab719be6ed7f0a6e",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81327,8 +81327,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9d1ff916755c9d16750933bdffb6735a71e0f4cd5102864ae7943b294fbffd92",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "060c4b600fbca78dd8e9d7c5b40c7569cb0e158dfa9b0267ff38304e5c7c680c",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "docs/residue-collector.md",
@@ -81446,8 +81446,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "75566b2fe173fa1bb558a8a4178f0e6905aa35ca3c5db3e568cebf3211441f2e",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "38011b096a482796786ee66df7577b83428fef94a999bfd4b90aaddb5c206123",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -81569,8 +81569,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c0cd0a08830da22261399a0d4ac329f7cea547c5580e6a23f404e6598fb455ff",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "29efb307868bc5020ca432ff57c06cbcdab10d5e30357be559be0aa7df33ac2e",
+      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

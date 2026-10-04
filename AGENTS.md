@@ -1222,6 +1222,16 @@
   fast-forward interactions when they pose a specific integration risk. Record
   the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.
+- Owner report (2026-10-05), Framework 0.99.0: **a time-skip must never hand a machine hours
+  in one step.** The game's skip jumps the clock once, and the next power step then asks for
+  the whole interval; `RoomHeat.Decide` refuses a step over an hour, so every running machine
+  stood still for the skip. `CrewSkip.Advance` now steps the skip (ten seconds,
+  `CrewBalance.SkipStep`) whenever a machine on the skipping ships carries the
+  `ResumeAfterLoad` mark, running each powered object's own native power step; crew orders
+  keep their one-second steps and an idle ship keeps the game's jump. Real-time waits use
+  `Cadence.RealTime`, which counts skipped seconds, so use it (not `Time.unscaledTime`) for
+  any machine recheck. A new machine keeps the resume mark while it runs, or it will not be
+  stepped. Never relax the heat check to accept a long step instead.
 - Owner report (2026-10-05), Framework 0.93.0: a Harmony postfix sees a by-value argument
   as the game's method left it, not as it was passed. `Powered.GatherPower` counts its
   argument down, so the receipt hook recorded nothing delivered and every machine on

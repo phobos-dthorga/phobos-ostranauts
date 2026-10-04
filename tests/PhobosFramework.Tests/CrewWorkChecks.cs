@@ -84,6 +84,13 @@ internal static class CrewWorkChecks
         }
         check(CrewBalance.UntilHour(15*3600+43*60)==17*60,"Skip splits at real roster boundary");
         check(CrewBalance.UntilHour(16*3600)==3600,"Exact boundaries do not produce zero-length steps");
+        // Framework 0.99.0: a skip is stepped for running machines too, so they are never asked for hours in one step.
+        check(CrewBalance.SkipStep(false,false)==0&&CrewBalance.SkipStep(false,true)==CrewBalance.MachineSkipStepSeconds&&CrewBalance.SkipStep(true,false)==CrewBalance.SkipStepSeconds&&
+            CrewBalance.SkipStep(true,true)==CrewBalance.SkipStepSeconds,"A skip keeps the game's jump with nothing running, steps for running machines, and keeps the crew step for crew orders");
+        check(CrewBalance.MachineSkipStepSeconds>=1&&CrewBalance.MachineSkipStepSeconds<=Phobos.Ostranauts.Framework.Processing.ProcessJob.MaxSeconds/60,
+            "A machine step is far inside the longest step a machine's heat check accepts");
+        check(Phobos.Ostranauts.Framework.Cadence.Skipped(5,10)==15&&Phobos.Ostranauts.Framework.Cadence.Skipped(5,-1)==5&&Phobos.Ostranauts.Framework.Cadence.Skipped(5,double.NaN)==5&&
+            Phobos.Ostranauts.Framework.Cadence.Skipped(5,double.PositiveInfinity)==5,"Skipped seconds only ever move the wait clock forward");
         var interrupted=new CrewTimeBudget(3600);interrupted.TrySpend(30,true);
         check(interrupted.Available==3570,"Interrupted work still costs elapsed time without completion credit");
     }

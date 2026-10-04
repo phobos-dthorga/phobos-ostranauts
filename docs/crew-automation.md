@@ -176,6 +176,12 @@ maintained with the [constants updater](development/updating-constants.md).
 
 ## Time-skip
 
+**Machines keep working through a skip** (Framework 0.99.0). Whenever a machine is
+running, the skip is taken in ten-second steps, so it draws power, warms its room and
+delivers its products as in ordinary play; you need no crew order for that. Before
+0.99.0 a running machine did nothing for the length of a skip. With nothing running,
+the skip is the game's own single jump.
+
 The native time-skip screen retains its collision warnings, roster display and
 Go control. Its Phobos summary and detail view show intended onboard work and
 current blockers. This is a read-only indication, not a guaranteed production

@@ -1081,3 +1081,7 @@ L50 — Manufacturing 0.52.0: a fifth charge machine on the shared engine. The p
 ## 5 October: the carbothermal route (L51)
 
 L51 — Manufacturing 0.53.0: a sixth charge machine (one more string comparison in `ChargeMachines.ForBin`, six in all, no allocation), a seventh gas store family (three more entries in the store definition index, still one dictionary probe per definition; `GasStores.FamilyOf` walks seven families instead of six), and the K2's second mode. The K2 resolves its carbon source once when it charges an empty hold and when its panel is described, never per frame while a cycle runs: the gas already in its hold answers the mode on the power step. Two recipes, three store sizes and one machine family are built at content load. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: machines in a time-skip (L52)
+
+L52 — Framework 0.99.0: a time-skip with a running machine and no crew order is now stepped every ten game seconds instead of jumping once. A six-hour skip is 2,160 steps, each running the game's own power step for every powered object on the skipping ships and the gas step for every gas container, a tenth of the work the crew-order path already did at one-second steps. It happens once per skip, inside the skip's own frame, and only when a machine carries the resume mark; with nothing running the cost is one scan of the object table for that mark. Nothing is added to an ordinary frame. No capture accompanies this change.

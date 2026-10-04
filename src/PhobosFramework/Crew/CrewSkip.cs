@@ -86,16 +86,32 @@ public static class CrewSkip
     {
         var ships=crew.Select(c=>c.ship).Distinct().ToArray();
         Managed=ships.Any(s=>CrewWork.Equipment(s).Any(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled));
-        if(!Managed) { system.Update(seconds); return; }
-        consumers=DataHandler.mapCOs.Values.Where(c=>c!=null&&!c.bDestroyed&&ships.Contains(c.ship)&&(c.Pwr!=null||c.GasContainer!=null)).ToArray();
+        var powered=DataHandler.mapCOs.Values.Where(c=>c!=null&&!c.bDestroyed&&ships.Contains(c.ship)&&(c.Pwr!=null||c.GasContainer!=null)).ToArray();
+        // Owner report (5 October 2026), Framework 0.99.0: with no crew order enabled the game jumped the whole skip in
+        // one step, and the next power step then asked every machine for six hours at once. No room takes six hours
+        // of a machine's heat in one step and no conduit holds six hours of its power, so every running machine stood
+        // still for the skip. A skip is stepped whenever a machine's Start stands (the resume mark it already keeps),
+        // so its power, heat and deliveries are its ordinary steps; with nothing running the game's own jump stays.
+        double stepSeconds=CrewBalance.SkipStep(Managed,powered.Any(Persistence.ResumeAfterLoad.Marked));
+        if(stepSeconds<=0) { system.Update(seconds); return; }
+        consumers=powered;
         Active=true; double remaining=seconds, hourLeft=0; var initial=StarSystem.fEpoch; int previewHour=StarSystem.nUTCHour;
         try
         {
             while(remaining>1e-6)
             {
+                if(!Managed)
+                {
+                    // Machines only: no crew job is assigned, charged or completed, and the game's own crew effects,
+                    // repairs and report are untouched.
+                    double machineStep=Math.Min(stepSeconds,remaining);
+                    system.Update(machineStep); Cadence.AdvanceSkip(machineStep);
+                    TickMachines(ships);
+                    remaining-=machineStep; continue;
+                }
                 if(hourLeft<=1e-6) { SnapshotHour(crew,previewHour++); hourLeft=Math.Min(3600,remaining); }
                 // Small shared steps retain power competition and native gas/thermal limits.
-                double step=Math.Min(CrewBalance.SkipStepSeconds,Math.Min(CrewBalance.UntilHour(StarSystem.fEpoch),Math.Min(remaining,hourLeft)));
+                double step=Math.Min(stepSeconds,Math.Min(CrewBalance.UntilHour(StarSystem.fEpoch),Math.Min(remaining,hourLeft)));
                 foreach(var id in assignments.Keys.ToArray())
                     if(!CrewWork.Eligible(assignments[id].Worker!,assignments[id].Offer,out _) || unavailable.Contains(id)) Drop(id);
                 foreach(var actor in crew) TryAssign(actor,ships);
@@ -108,7 +124,7 @@ public static class CrewSkip
                     availableSeconds+=step;
                     if(!assignments.ContainsKey(actor.strID))budgets[actor.strID].TrySpend(step,false);
                 }
-                system.Update(step);
+                system.Update(step); Cadence.AdvanceSkip(step);
                 TickMachines(ships);
                 foreach(var actor in crew)
                 {

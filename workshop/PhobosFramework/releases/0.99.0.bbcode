@@ -1,0 +1,18 @@
+[h1]Phobos Framework 0.99.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Machines now work through the game's time-skip. Skipping hours used to hand every running machine the whole skip as one step: no room can take six hours of a machine's heat at once, so each machine refused the step and did nothing until the skip ended. A skip is now taken in ten-second steps whenever a machine is running, so refineries, reactors, crackers, racks and the rest draw power, warm the room and deliver their products as they do in ordinary play.
+[*]A machine waiting on a full store or an empty feed looks again during a skip. Its five-second recheck followed real time, and a skip is over in a moment of real time, so one wait used to last the rest of the skip.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]With no Phobos machine running, the skip is the game's own single jump, as before. With crew orders enabled it keeps its one-second steps.
+[*]A long skip with many machines running takes a little longer to work out than it did.
+[*]Automatic. Nothing saved changes.
+[*]Checked offline; not yet seen in the game.
+[/list]
