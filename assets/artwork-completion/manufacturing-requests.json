@@ -115,6 +115,44 @@
           86
         ]
       }
+    },
+    "cask2-ethanol-tank": {
+      "from": "source/at2-acid-tank.png",
+      "method": "per-pixel luminance map onto an Alembrine copper-and-brass ramp; then mirrored left to right so the painted pipe stub sits on the -X ethanol port side; alpha unchanged (Manufacturing 0.38.0, 4 October 2026; no generation spend). The Cask-4 export uses the Cask-2 master, as the AT-4 uses the AT-2.",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          1.05,
+          40
+        ],
+        "g": [
+          0.72,
+          14
+        ],
+        "b": [
+          0.42,
+          6
+        ]
+      }
+    },
+    "cask3-ethanol-tank": {
+      "from": "source/at3-acid-tank.png",
+      "method": "per-pixel luminance map onto an Alembrine copper-and-brass ramp; then mirrored left to right so the painted pipe stub sits on the -X ethanol port side; alpha unchanged (Manufacturing 0.38.0, 4 October 2026; no generation spend). The Cask-4 export uses the Cask-2 master, as the AT-4 uses the AT-2.",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          1.05,
+          40
+        ],
+        "g": [
+          0.72,
+          14
+        ],
+        "b": [
+          0.42,
+          6
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",

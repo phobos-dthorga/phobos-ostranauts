@@ -30,14 +30,14 @@ internal static class StoreService
     /// the refuelling kiosk charges; the game prices H2SO4 there).</summary>
     internal const double GasPurchaseStepKg = 10;
     internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ?
-        GasOffers(new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily }) :
+        GasOffers(new[] { GasStores.OxygenFamily, GasStores.NitrogenFamily, GasStores.CarbonDioxideFamily }, selling: true) :
         Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
-    /// <summary>The kiosk buys back from every gas store, hydrogen, methane and ammonia included, and from the acid tanks,
-    /// at the Framework share of the game's own price for that gas (Manufacturing 0.26.0; owner decision, 1 October
-    /// 2026). A store's reserve is never sold.</summary>
-    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselBuybackProvider Buyback = new(Plugin.Id, () => Content.Ready ? GasOffers(GasStores.Families) :
+    /// <summary>The kiosk buys back from every gas store, hydrogen, methane and ammonia included, and from every liquid
+    /// tank, at the Framework share of the station price (Manufacturing 0.26.0; owner decision, 1 October 2026). Ethanol
+    /// (Manufacturing 0.38.0) is bought back but never sold (owner decision, 4 October 2026). A store's reserve is never sold.</summary>
+    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselBuybackProvider Buyback = new(Plugin.Id, () => Content.Ready ? GasOffers(GasStores.Families, selling: false) :
         Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
-    private static IEnumerable<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer Offer, IReadOnlyList<string> Families)> GasOffers(IEnumerable<GasFamily> gases)
+    private static IEnumerable<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer Offer, IReadOnlyList<string> Families)> GasOffers(IEnumerable<GasFamily> gases, bool selling)
     {
         foreach (var family in gases)
         {
@@ -49,13 +49,16 @@ internal static class StoreService
         }
         foreach (var family in LiquidStores.Families)
         {
-            double price = NativeGasVessel.PricePerKg(family.MistSpecies);
+            if (selling && !family.StationSells) continue;
+            double price = LiquidPricePerKg(family);
             if (!(price > 0)) continue;
             int steps = (int)Math.Ceiling(family.Sizes.Max(s => s.CapacityKg) / GasPurchaseStepKg);
-            yield return (new Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer("manufacturing." + family.MistSpecies.ToLowerInvariant(), Text.Get(family.TextPrefix + ".offer"),
+            yield return (new Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer("manufacturing." + (family.MistSpecies ?? family.Commodity).ToLowerInvariant(), Text.Get(family.TextPrefix + ".offer"),
                 Text.Get("Store.unit_kg"), price, GasPurchaseStepKg, steps), family.Sizes.Select(s => s.Prefix).ToArray());
         }
     }
+    /// <summary>A liquid's station price per kilogram: its authored price, or the game's own price for its mist species.</summary>
+    internal static double LiquidPricePerKg(LiquidFamily family) => family.PricePerKg ?? NativeGasVessel.PricePerKg(family.MistSpecies!);
     /// <summary>Vent amounts in readable steps (1, 2 or 5 times a power of ten) near 4%, 20% and 40% of capacity, and all of it.</summary>
     internal static double[] VentChoices(GasStore fuel) => new[] { .04, .2, .4 }.Select(f => Nice(fuel.CapacityKg * f)).Append(fuel.CapacityKg).Distinct().OrderBy(x => x).ToArray();
     internal static double Nice(double kg)
@@ -230,6 +233,17 @@ internal static class StoreService
         Blast(source, air!, burn);
         Plugin.Log(Text.Get(logKey, source.strNameFriendly, burn.BurnedKg, burn.OxygenKg, burn.EnergyKJ / 1000, burn.LostKg));
         return true;
+    }
+    /// <summary>A spilled liquid fuel (ethanol from a damaged tank or line, Manufacturing 0.38.0): when the room has oxygen
+    /// and an ignition source, <paramref name="take"/> removes the fuel from its record and the burn follows through the
+    /// game's own explosion; returns the burn, or null when nothing lit (the spill then stays in the bund or the line).</summary>
+    internal static Deflagration? IgniteSpill(CondOwner source, Combustion fuel, double kg, Func<double, double> take)
+    {
+        if (kg <= 1e-9 || !Ignites(source, out var air)) return null;
+        var burn = fuel.Burn(kg, RoomGas.HeldKg(air!, "O2"));
+        if (burn.BurnedKg <= 0 || take(kg) <= 0) return null;
+        Blast(source, air!, burn);
+        return burn;
     }
     private static bool Ignites(CondOwner co, out RoomHeat.Air? air)
     {

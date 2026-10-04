@@ -484,3 +484,36 @@ water) for the straw press; 0.15 kWh a root is authored.
 so a third such job is a row, not new code. Beets and sugar carry
 `<id>Identity` conditions (`WorkupDefinitions.FeedItems`) for the fermenter's feed, as
 the straw bale does.
+
+### Set B: ethanol tanks, line and fire (Framework 0.80.0, Manufacturing 0.38.0)
+
+- **Brand.** Alembrine (owner choice of name, 4 October 2026): Cask-2, Cask-3 and
+  Cask-4 tanks, the ethanol line, and next the Copperhead-3 fermenter-still and the
+  Corker-2 bottler.
+- **Liquid families generalised.** `LiquidFamily` now carries its own density,
+  contents colour, notice, maintenance text, station price, and either a mist
+  (acid) or a fuel with a burn share (ethanol). Acid keeps every id, record and
+  behaviour.
+- **Lines generalised.** The acid line's code became `LiquidLine`, with one row of
+  rules per liquid (`LiquidLineRules`). Framework adds an ethanol lane and port (the
+  -X side, one row below the water port).
+- **Ethanol figures.**
+  - Density: 789.3 kg/m3 (CRC Handbook, to re-check before quoting), so 495 kg a
+    Cask-2 at the acid tanks' 80% fill.
+  - Combustion: 1,366.8 kJ/mol (NIST Chemistry WebBook), 29,670 kJ/kg, with 2.084 kg
+    O2 and 1.911 kg CO2 per kg.
+  - Burn share 5% and station price 20 cr/kg are authored.
+- **Fire.**
+  - A damaged or destroyed cask offers its burn share to a fire, and a damaged line
+    segment offers the same share of what it holds.
+  - It burns only with at least 5 kPa of oxygen and an ignition source in the room.
+    Ignition sources are those the gas stores already use (fire, a working
+    hearth-type machine, a powered device at half damage); the fermenter-still
+    joins them in set C.
+  - The burn goes through the existing deflagration blasts, using the gas stores'
+    shared burn model (`Combustion.Burn`).
+- **Agent decisions in set B**, open to revision:
+  - The ethanol line shares the coolant conduit's lane, because the tile has room
+    for five lanes and all five are taken.
+  - The Cask art is a copper recolour of the selected acid tank masters, mirrored so
+    the pipe stub sits on the ethanol port side; no generation spend.

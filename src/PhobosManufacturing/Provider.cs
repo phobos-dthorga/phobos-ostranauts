@@ -129,7 +129,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             var targets = LiquidStoreService.PourTargets(co).ToArray();
             var tanks = BulkVessels.AboardAnyState(co.ship, BulkVessel.Spec(co).Commodity).Where(v => v != co && LiquidStores.IsFamily(v.strCODef)).ToArray();
             if (targets.Length > 0 || tanks.Length > 0)
-                yield return new(Text.Get("Acid.pour_field"), Text.Get("Provider.link_none"), targets.Select(c => ("pour:" + c.strID, LinkChoices.Label(co, c, LiquidStoreService.Line(co), deposit: true))),
+                yield return new(Text.Get(LiquidStores.For(co.strCODef)!.Family.TextPrefix + ".pour_field"), Text.Get("Provider.link_none"), targets.Select(c => ("pour:" + c.strID, LinkChoices.Label(co, c, LiquidStoreService.Line(co), deposit: true))),
                     "", () => LinkChoices.Note(co, LiquidStoreService.Line(co), tanks, targets));
         }
         else if (GasStores.For(co.strCODef) is GasStore fuel && !BulkVessel.Protected(co))

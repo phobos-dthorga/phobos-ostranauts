@@ -49,13 +49,13 @@ internal static class Definitions
         foreach (var family in GasStores.Families)
             VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), ContentsColors[family.Species]);
         foreach (var family in LiquidStores.Families)
-            VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), "H2SO4Yellow");
+            VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), family.ContentsColor);
         AddManifold(d);
         AddFiller(d);
         AddRegulator(d);
         AddLinePorts(d);
-        // The Lixivar acid line and the acid ports (Manufacturing 0.24.0).
-        AcidLine.Add(d);
+        // The Lixivar acid line (Manufacturing 0.24.0) and the Alembrine ethanol line (0.38.0), with their ports.
+        LiquidLine.AddAll(d);
         AddDeflagrations(d);
     }
 

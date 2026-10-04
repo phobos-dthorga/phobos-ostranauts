@@ -766,3 +766,15 @@ time of writing it is marked *from memory*; verify before quoting numbers.
 Our inference, simplified model and authored balance are stated as such in each
 row; the percentages chosen are within the cited ranges but are gameplay
 choices, and item-unit rounding is explicit.
+
+## Ethanol tanks and fire (0.38.0)
+
+The Alembrine Cask-2, Cask-3 and Cask-4 hold ethanol as a kilogram record: 495 kg in
+the Cask-2 (789.3 kg/m3, CRC Handbook, to re-check before quoting, in the shared
+0.787 m3 vessel at 80%). Ethanol has no game species, so a damaged tank cannot mist.
+Instead, an authored 5% of its contents burns as C2H5OH + 3 O2 -> 2 CO2 + 3 H2O
+(1,366.8 kJ/mol, NIST Chemistry WebBook: 29,670 kJ/kg, 2.084 kg O2 and 1.911 kg CO2
+per kg), and only when the room has at least 5 kPa of oxygen and an ignition source.
+The water vapour has no species and leaves with the blast, as methane's does. The
+refuelling kiosk buys ethanol back at 45% of an authored 20 cr/kg and never sells it
+(owner decision, 4 October 2026).

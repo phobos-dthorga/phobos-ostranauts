@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Items;
 using Phobos.Ostranauts.Framework.Liquids;
@@ -7,44 +9,61 @@ using PhobosManufacturing.Core;
 
 namespace PhobosManufacturing;
 
-/// <summary>The Lixivar acid line's network family and native definitions (Manufacturing 0.24.0): the segment forms on
-/// Framework's shared pattern in the acid lane, its bills from the economy pack, and acid ports on the LC-3, the SA-3
-/// and every AT tank size. Sulfuric acid is assigned to this family, so every acid link and pour reaches through
-/// touching equipment or the acid line (the owner's link rule), never across open floor.</summary>
-internal static class AcidLine
+/// <summary>A liquid line's network family and native definitions: the segment forms on Framework's shared pattern in its
+/// lane, its bills from the economy pack, and its ports on the equipment that holds or uses its liquid. The liquid is
+/// assigned to this family, so every link and pour of it reaches through touching equipment or this line (the owner's
+/// link rule), never across open floor. The Lixivar acid line (Manufacturing 0.24.0) and the Alembrine ethanol line
+/// (0.38.0) are two instances.</summary>
+internal sealed class LiquidLine
 {
-    internal static readonly FluidSegmentFamily Family = new(AcidLineRules.FamilyId, c => c.strCODef == AcidLineRules.Installed,
-        c => LinePorts.Points(AcidLineRules.FamilyId, c.strCODef), adjacencyJoins: true) { Label = () => Text.Get("AcidLine.label") };
+    internal static readonly LiquidLine Acid = new(AcidLineRules.Rules, () =>
+        new[] { (LeachRules.Prefix, Equipment.Entry(LeachRules.Prefix).footprint), (AcidPlantRules.Prefix, Equipment.Entry(AcidPlantRules.Prefix).footprint) }
+            .Concat(LiquidStores.AcidFamily.Sizes.Select(s => (s.Prefix, s.Footprint))));
+    internal static readonly LiquidLine Ethanol = new(EthanolLineRules.Rules, () => LiquidStores.EthanolFamily.Sizes.Select(s => (s.Prefix, s.Footprint)));
+    internal static readonly IReadOnlyList<LiquidLine> All = new[] { Acid, Ethanol };
 
-    internal static LineSegmentSpec Spec()
+    internal LiquidLineRules Rules { get; }
+    internal FluidSegmentFamily Family { get; }
+    private readonly Func<IEnumerable<(string Prefix, int Footprint)>> ported;
+    private LiquidLine(LiquidLineRules rules, Func<IEnumerable<(string, int)>> ported)
     {
-        string name = Text.Get("AcidLine.name");
+        Rules = rules; this.ported = ported;
+        Family = new(rules.FamilyId, c => c.strCODef == rules.Installed, c => LinePorts.Points(rules.FamilyId, c.strCODef), adjacencyJoins: true) { Label = () => Text.Get(rules.TextPrefix + ".label") };
+    }
+    /// <summary>Every definition with a port on this line.</summary>
+    internal IEnumerable<(string Prefix, int Footprint)> Ported => ported();
+
+    internal LineSegmentSpec Spec()
+    {
+        string name = Text.Get(Rules.TextPrefix + ".name");
         return new LineSegmentSpec
         {
-            Prefix = AcidLineRules.Prefix, Name = name, DamagedName = name + Text.Get("AcidLine.damaged"), Description = Text.Get("AcidLine.description"),
-            Art = Definitions.ImagePath + AcidLineRules.Art, Present = AcidLineRules.Present, Intact = AcidLineRules.Intact, Kg = AcidLineRules.SegmentKg,
-            Price = Economy.SupplyPrice(AcidLineRules.Prefix), InstallTab = InstallMenu.Hvac, LooseStack = SharedLines.LooseStack, Layer = LineLayers.Acid,
-            Family = AcidLineRules.FamilyId
+            Prefix = Rules.Prefix, Name = name, DamagedName = name + Text.Get(Rules.TextPrefix + ".damaged"), Description = Text.Get(Rules.TextPrefix + ".description"),
+            Art = Definitions.ImagePath + Rules.Art, Present = Rules.Present, Intact = Rules.Intact, Kg = LiquidLineRules.SegmentKg,
+            Price = Economy.SupplyPrice(Rules.Prefix), InstallTab = InstallMenu.Hvac, LooseStack = SharedLines.LooseStack, Layer = Rules.Layer,
+            Family = Rules.FamilyId
         };
     }
 
-    internal static void Add(NativeDefinitions d)
+    internal static void AddAll(NativeDefinitions d) { foreach (var line in All) line.Add(d); }
+
+    private void Add(NativeDefinitions d)
     {
-        LineFamilies.Assign(LiquidStores.SulfuricAcid, Family);
+        LineFamilies.Assign(Rules.Liquid.Commodity, Family);
         var spec = Spec();
         LineDefinitions.Add(d, spec);
-        // The line holds its acid until drained (Manufacturing 0.25.0): 0.9 kg a tile, with the tank-damage mist fraction
-        // reaching the room as H2SO4 when a segment is damaged or destroyed; crew drain it into Framework's drain canister.
-        LineContents.Declare(Family, AcidLineRules.Prefix, new[] { AcidLineRules.HeldAcid() });
-        LineContents.OfferActions(d, AcidLineRules.Prefix, gas: false);
+        // The line holds its liquid until drained (Manufacturing 0.25.0): an acid line's damaged segment mists the tanks'
+        // fraction into the room as H2SO4; an ethanol line's keeps its ethanol, which can burn (EthanolLineFirePatch).
+        LineContents.Declare(Family, Rules.Prefix, new[] { Rules.Held() });
+        LineContents.OfferActions(d, Rules.Prefix, gas: false);
         // Bills from the pack, as Framework's own lines: repair with its material, dismantling to retained waste
-        // (acid-wetted lining is not recovered as clean metal), the full segment mass.
-        var supply = Economy.Pack.supplies[AcidLineRules.Prefix];
-        string waste = supply.remainder ?? AcidLineRules.Prefix + "Waste";
-        MaintenanceDefinitions.Remainder(d, waste, Text.Get("AcidLine.waste"), AcidLineRules.SegmentKg);
+        // (liquid-wetted lining is not recovered as clean metal), the full segment mass.
+        var supply = Economy.Pack.supplies[Rules.Prefix];
+        string waste = supply.remainder ?? Rules.Prefix + "Waste";
+        MaintenanceDefinitions.Remainder(d, waste, Text.Get(Rules.TextPrefix + ".waste"), LiquidLineRules.SegmentKg);
         foreach (string form in LineDefinitions.Forms)
         {
-            string id = AcidLineRules.Prefix + form; var co = d.Objects[id];
+            string id = Rules.Prefix + form; var co = d.Objects[id];
             if (form.EndsWith("Dmg", StringComparison.Ordinal))
             {
                 MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", supply.repairWork);
@@ -55,14 +74,12 @@ internal static class AcidLine
             MaintenanceDefinitions.Dismantle(d, id, supply.dismantleWork, new[] { waste });
             EquipmentSaveUpgrade.Register(d, id, id);
         }
-        // Acid ports by Framework's rule: the +X side, one row below the gas port.
-        void Port(string prefix, int footprint)
+        // Ports by Framework's rule for this liquid (acid: the +X side one row below the gas port; ethanol: the -X side
+        // one row below the water port).
+        foreach (var (prefix, footprint) in Ported)
         {
-            var port = LinePorts.Acid(footprint);
-            LineDefinitions.AddPort(d, prefix, spec, LinePorts.AcidPoint, port.X, port.Y, port.Socket);
+            var port = Rules.Port(footprint);
+            LineDefinitions.AddPort(d, prefix, spec, Rules.PortPoint, port.X, port.Y, port.Socket);
         }
-        Port(LeachRules.Prefix, Equipment.Entry(LeachRules.Prefix).footprint);
-        Port(AcidPlantRules.Prefix, Equipment.Entry(AcidPlantRules.Prefix).footprint);
-        foreach (var store in LiquidStores.All) Port(store.Prefix, store.Footprint);
     }
 }

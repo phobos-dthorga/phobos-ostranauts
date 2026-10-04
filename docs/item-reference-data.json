@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.79.0",
+      "version": "0.80.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -18230,7 +18230,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.37.0",
+      "version": "0.38.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -26680,6 +26680,2061 @@
           "operatingModes": [],
           "installTab": null,
           "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolLineInstalled",
+          "name": "Phobos' Alembrine Ethanol Line",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 4.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosEthanolLineInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolLineInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineWaste",
+                  "name": "Phobos' Alembrine Retained ethanol line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolLineInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosEthanolLineInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolLineInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineLoose",
+                  "name": "Phobos' Alembrine Ethanol Line",
+                  "count": 1,
+                  "baseValue": 4.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolLineInstalledDmg",
+          "name": "Phobos' Alembrine Ethanol Line (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 0.800000011920929,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosEthanolLineInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolLineInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineWaste",
+                  "name": "Phobos' Alembrine Retained ethanol line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolLineInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineInstalled",
+                  "name": "Phobos' Alembrine Ethanol Line",
+                  "count": 1,
+                  "baseValue": 4.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolLineInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineLooseDmg",
+                  "name": "Phobos' Alembrine Ethanol Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 0.800000011920929
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolLineLoose",
+          "name": "Phobos' Alembrine Ethanol Line",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 4.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolLineLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolLineLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineWaste",
+                  "name": "Phobos' Alembrine Retained ethanol line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolLineLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolLineLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineInstalled",
+                  "name": "Phobos' Alembrine Ethanol Line",
+                  "count": 1,
+                  "baseValue": 4.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolLineLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolLineLooseDmg",
+          "name": "Phobos' Alembrine Ethanol Line (Damaged)",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.800000011920929,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolLineLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolLineLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineWaste",
+                  "name": "Phobos' Alembrine Retained ethanol line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolLineLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolLineLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineInstalledDmg",
+                  "name": "Phobos' Alembrine Ethanol Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 0.800000011920929
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolLineLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolLineLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolLineLoose",
+                  "name": "Phobos' Alembrine Ethanol Line",
+                  "count": 1,
+                  "baseValue": 4.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolLineWaste",
+          "name": "Phobos' Alembrine Retained ethanol line waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankInstalled",
+          "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 240.0,
+          "baseValue": 15000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 180,
+                  "baseValue": 647.9999828338623
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 22,
+                  "baseValue": 1.1000000163912773
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosEthanolTankInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLoose",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 15000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankInstalledDmg",
+          "name": "Phobos' Alembrine Cask-2 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 240.0,
+          "baseValue": 3750.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 60,
+                  "baseValue": 215.9999942779541
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 168,
+                  "baseValue": 8.400000125169754
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankInstalled",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 15000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLooseDmg",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 3750.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLargeInstalled",
+          "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 670.0,
+          "baseValue": 34460.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 514,
+                  "baseValue": 1850.3999509811401
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 86,
+                  "baseValue": 94.60000205039978
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 62,
+                  "baseValue": 3.1000000461935997
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankLargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosEthanolTankLargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankLargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeLoose",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 34460.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLargeInstalledDmg",
+          "name": "Phobos' Alembrine Cask-4 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 670.0,
+          "baseValue": 8615.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 168,
+                  "baseValue": 604.7999839782715
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 472,
+                  "baseValue": 23.600000351667404
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankLargeInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeInstalled",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 34460.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankLargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeLooseDmg",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 8615.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLargeLoose",
+          "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 670.0,
+          "baseValue": 34460.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 514,
+                  "baseValue": 1850.3999509811401
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 86,
+                  "baseValue": 94.60000205039978
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 62,
+                  "baseValue": 3.1000000461935997
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankLargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankLargeLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeInstalled",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 34460.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankLargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLargeLooseDmg",
+          "name": "Phobos' Alembrine Cask-4 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 670.0,
+          "baseValue": 8615.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 168,
+                  "baseValue": 604.7999839782715
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 472,
+                  "baseValue": 23.600000351667404
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankLargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankLargeLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeInstalledDmg",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 8615.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLargeLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankLargeLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLargeLoose",
+                  "name": "Phobos' Alembrine Cask-4 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 34460.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLoose",
+          "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 240.0,
+          "baseValue": 15000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 180,
+                  "baseValue": 647.9999828338623
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 22,
+                  "baseValue": 1.1000000163912773
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankInstalled",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 15000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankLooseDmg",
+          "name": "Phobos' Alembrine Cask-2 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 240.0,
+          "baseValue": 3750.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 60,
+                  "baseValue": 215.9999942779541
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 168,
+                  "baseValue": 8.400000125169754
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankInstalledDmg",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 3750.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankLoose",
+                  "name": "Phobos' Alembrine Cask-2 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 15000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankMediumInstalled",
+          "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 460.0,
+          "baseValue": 24400.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankMediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankMediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 351,
+                  "baseValue": 1263.5999665260315
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 58,
+                  "baseValue": 63.80000138282776
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 43,
+                  "baseValue": 2.1500000320374966
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankMediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosEthanolTankMediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankMediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumLoose",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 24400.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankMediumInstalledDmg",
+          "name": "Phobos' Alembrine Cask-3 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 460.0,
+          "baseValue": 6100.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankMediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankMediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 115,
+                  "baseValue": 413.99998903274536
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 324,
+                  "baseValue": 16.20000024139881
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankMediumInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumInstalled",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 24400.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosEthanolTankMediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumLooseDmg",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 6100.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankMediumLoose",
+          "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 460.0,
+          "baseValue": 24400.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankMediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankMediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 351,
+                  "baseValue": 1263.5999665260315
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 58,
+                  "baseValue": 63.80000138282776
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 43,
+                  "baseValue": 2.1500000320374966
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankMediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankMediumLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumInstalled",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 24400.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosEthanolTankMediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosEthanolTankMediumLooseDmg",
+          "name": "Phobos' Alembrine Cask-3 Ethanol Tank (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 460.0,
+          "baseValue": 6100.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosEthanolTankMediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosEthanolTankMediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 115,
+                  "baseValue": 413.99998903274536
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 324,
+                  "baseValue": 16.20000024139881
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosEthanolTankMediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosEthanolTankMediumLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumInstalledDmg",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank (Damaged)",
+                  "count": 1,
+                  "baseValue": 6100.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosEthanolTankMediumLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosEthanolTankMediumLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosEthanolTankMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosEthanolTankMediumLoose",
+                  "name": "Phobos' Alembrine Cask-3 Ethanol Tank",
+                  "count": 1,
+                  "baseValue": 24400.0
+                }
+              ]
+            }
+          ],
           "aliases": []
         },
         {
@@ -36018,6 +38073,34 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosEthanolLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -36229,6 +38312,34 @@
         {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosAcidLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosEthanolLineLoose",
           "condition": "Pristine, Neutral standing",
           "chance": 1.0,
           "count": 128
@@ -36452,6 +38563,34 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosEthanolLineLoose",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 128
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -36808,227 +38947,262 @@
           "count": 8
         },
         {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Loot",
+          "chance": 0.0007352941176470588,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosEthanolTankLooseDmg",
+          "condition": "Loot",
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.00078125,
+          "chance": 0.0007352941176470588,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0023437500000000003,
+          "chance": 0.002205882352941177,
           "count": 1
         },
         {
@@ -37237,6 +39411,27 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosAcidTankLargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosEthanolTankLargeLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -37244,6 +39439,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosEthanolLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -37460,7 +39662,35 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -37676,6 +39906,27 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -37886,6 +40137,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -38096,6 +40368,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -38306,6 +40599,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -38516,6 +40830,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -38726,6 +41061,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -38936,6 +41292,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -39146,6 +41523,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -39356,6 +41754,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -39566,6 +41985,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -39776,6 +42216,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -39986,6 +42447,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -40196,6 +42678,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -40406,6 +42909,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -40616,6 +43140,27 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -40821,6 +43366,27 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosAcidTankLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosEthanolTankLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -40828,6 +43394,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosEthanolLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -41044,6 +43617,27 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -41254,7 +43848,35 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolTankLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAcidLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosEthanolLineLoose",
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
@@ -54122,17 +56744,17 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "15feff0fc630f83bff5aeb85be78a23fc3dd2e5c5f7c5eb76591519dbe887f29",
+    "mods/PhobosFramework/mod_info.json": "4f10e8defa502bf6249433197a4ee82f94eaec68ea8a87c2e06b762158e96294",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "086bd940e67900a247bbb01d19b46e23294665c17cb3746c986f84851c155599",
+    "mods/PhobosManufacturing/framework/economy.json": "ea5abd40faaebace135d6277dc31ef55de9fced328548160c40a563ea557d76e",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "00aac208bea0ec3d413606f7594d20e7caa033e8aa307211da7a41c3f8ada699",
     "mods/PhobosManufacturing/framework/equipment.json": "0b45c25d18e3deab4998aa8dec9cf45b004dd294aa18fe51eddf9174548c19c8",
     "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "1fe8ee6d2934d98f6e4249444328d732c66fe56b8e6e23ad808cfab8dfac4ce9",
     "mods/PhobosManufacturing/framework/materials.json": "a0168b75b4227f34b2f6b9331e9b5d3e26ca99c20ac20854d8e5980243caaa74",
     "mods/PhobosManufacturing/framework/process-recipes.json": "bcf3b155aaf11a672b9f2fa006d0ef5b546133de23404256b93c63ba3c204f7c",
-    "mods/PhobosManufacturing/framework/vessels.json": "38f780dd14722199d5fddf7c68baa000e2b57d507ea5773c0b6bbbd6bec6aec2",
-    "mods/PhobosManufacturing/mod_info.json": "8ce6f9ec79c4b53d61dfd811f0afab802276283dcbb743ac2e2c1e4810d4d026",
+    "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
+    "mods/PhobosManufacturing/mod_info.json": "c4ef000899eb37c80310367ad1bcc346e0d2ef4dd3a55a8067647ddee7df31ab",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -54383,7 +57005,7 @@
     "src/PhobosFramework/Liquids/LineContents.cs": "7d29d96face2497723b7cba61e1e78f813b21bf3df01b142212add151331ea0f",
     "src/PhobosFramework/Liquids/LineFamilies.cs": "79d9b4d9b17d2eabce6b1d130dbd886aef612338bb83989b5945d38cc403fe99",
     "src/PhobosFramework/Liquids/LineHoldUp.cs": "48a8f522c14fb8f6491f62d1ad9413b28698f4a625a63498f711756daa6f9830",
-    "src/PhobosFramework/Liquids/LinePorts.cs": "6dcbef02f4989d6a3cb9ae9e16d11b19be6cdca5500f467984f15d97981653a2",
+    "src/PhobosFramework/Liquids/LinePorts.cs": "a28b9592bf41db8540bf8fd83f7f5fa92a0c3195fa4be9970c297cbb9d0750b3",
     "src/PhobosFramework/Liquids/LineReach.cs": "7d49f4d293dac3e7dac5e8b9d193ed1807b8669bebc866b069c5682550ca4e9d",
     "src/PhobosFramework/Liquids/LinkDiagnosis.cs": "b3cc82ac7ad337e64f6e055cc0f3d9c8d16a631fb005244406ad0cc48ece2f62",
     "src/PhobosFramework/Liquids/LiquidDeliveryBudget.cs": "5ddee4a9290d4d6c7c7e5346bd0c8e786ee943e9563732e97b651dc7621b0c74",
@@ -54416,8 +57038,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "4df27c1532bee7261608d257d92f566ec1d2212f0cbca96422bc097b7510a0ff",
-    "src/PhobosFramework/Plugin.cs": "4226b55074edc248adc05aafc950ad885d49025b794d80d94222453171365d7c",
+    "src/PhobosFramework/PhobosFramework.csproj": "ce02cd1ffff322e981e4b46c38277c0575dfff598abd264475e0a46f3b436911",
+    "src/PhobosFramework/Plugin.cs": "bf336c19eb71ed8b874a437c459e45ad5ef3fd53f267c436e929a5c0779de170",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -54441,7 +57063,7 @@
     "src/PhobosFramework/Registration/InstallMenu.cs": "1876a1222a5e766afe46380ccd0530e99246912d6b47bdb55399c87feaa1cdf2",
     "src/PhobosFramework/Registration/InventorySpec.cs": "4eb4590dc12c26d0ef5915f6a9050bf316ad8d268a956a9a5f610abb6510535f",
     "src/PhobosFramework/Registration/ItemHandling.cs": "2183fb3143003f9b2cc5e2069c4801286a9931c3ad0ddcecbb3b40de1167bd24",
-    "src/PhobosFramework/Registration/LineDefinitions.cs": "e974afb87799f3db14b529e7ecf08191b5694d7eea72610d989a11f22d168871",
+    "src/PhobosFramework/Registration/LineDefinitions.cs": "9a7843941b57b4217e7244fdce01dcbfff82079c4a09df462b849e9cadbc265b",
     "src/PhobosFramework/Registration/LineJoints.cs": "872532acbced07b92534306cb6e5e1ff32ea168bddf8326b98fe1b221be68745",
     "src/PhobosFramework/Registration/LootCarves.cs": "47b225dca907ba0bba096a9b4d7f67d21be39b5dbf4c2e99981d11e2a1ea28ff",
     "src/PhobosFramework/Registration/MachineFamilies.cs": "d503d92533e8d35ec60f0346e09e93fed2b38330c77f87f9d5a6c80a55558779",
@@ -54460,26 +57082,25 @@
     "src/PhobosFramework/Trading/RegionalMarkets.cs": "b79921a791e70a757cbf0457a382f53da73ef4ce9651c821bb36765464ca927b",
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "c6a468518c314879c5de240a42febac015f20eb4b672e928124862a74831b951",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
-    "src/PhobosManufacturing/AcidLine.cs": "4975096716328dcab12e2bc9277500ab883fd6c3a79a67b6b64d673a636e16cb",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/ChargeMachine.cs": "629932bd820c0b6998c9b442d8eda0ea4fc326c8ca903354233ea20673cb03ea",
     "src/PhobosManufacturing/ChargeMachines.cs": "2c156c44d34ad54272bcad83c532dc19833beaed0c00099a8a79727f4f238047",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "16f54a97cfaeb9ed157cb68f0058745b98e5bce375af71428d57691c8c90d3f8",
-    "src/PhobosManufacturing/Content.cs": "8251be14d1823e7fd1bdd516f9136d3cd6f0daa2ba582c38aaa5808de04d1e4e",
-    "src/PhobosManufacturing/Core/AcidLineRules.cs": "db1dc2c2f12db3ca2477f8d15f6de72149356335359e3ec468b85fa960451ec2",
+    "src/PhobosManufacturing/Content.cs": "c8dcf5b06b5e783fbcd92dbf79ad6e0b66933fb113e5baab882e6b8309fc3ec7",
+    "src/PhobosManufacturing/Core/AcidLineRules.cs": "acd58624c130617c9a7e8109763bbb40ee5403552cc5fffbc7772be055de48b4",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/ChargeCatalog.cs": "a6a95bd2090b92e75731b2453c98d1dbf80c8737a3357738566789afc7183966",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "b784f2eac6eb184f20bfa4e523100ed7423a9346b0ccaa494445ba814b3bdc20",
     "src/PhobosManufacturing/Core/ChargeState.cs": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "7edc36b28c2bc09b5403360276011da3379016888879f438083fdc5bc27f3d6b",
+    "src/PhobosManufacturing/Core/Economy.cs": "21b2327e4e9f1fb19cd841680135b3eea4bc95d05d01cc3cc439463ac4373cc7",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
-    "src/PhobosManufacturing/Core/GasStoreRules.cs": "477231f3e45756d102535cabcc62b3f5c7eb47d7ad0c489c90bf3a5cc7b4d561",
+    "src/PhobosManufacturing/Core/GasStoreRules.cs": "e592d7c62deb05ccbdb08f4c5bc139c7ab0b2fab87c376fbf9d8f03e27aacd4e",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "a5ea5e856cf9803e858eae68f65cb9b64289e88bbf7c438f18b1ae14b1410c84",
     "src/PhobosManufacturing/Core/LeachRules.cs": "35711e5c4f9be2815eac0287e4524d33c7a4e74a6ce4ac8f0c1ed3af54278397",
-    "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "84a147e98343f6aeadc04f3f795d4fd588838a638980be22c9c148cba78fea89",
+    "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "85e2b7ed6d74564b183d74cd858a04ebca6b74557386985da8c91297b5603c93",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
     "src/PhobosManufacturing/Core/ManufacturingRules.cs": "e58b803d6f9f7340c11fec55b11b0bb2cf4c85bbe0ae3f87ee4974275119fff6",
     "src/PhobosManufacturing/Core/Materials.cs": "0a051236cb66b4ab9874dfa0f553e3d4a74a42fc59ad1fbb41a07c0f566196be",
@@ -54491,24 +57112,25 @@
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "8e3cb63ba96fce5b2897c592b55027ce72aacec33a79380c2ab638034ee43234",
-    "src/PhobosManufacturing/Definitions.cs": "d79d5ffd25220319a7f770b24de1c9c1321b6ba49ec3f3890fd66d6a5c69bb93",
+    "src/PhobosManufacturing/Definitions.cs": "98c8220a8708d42c367dbd6ecc92f5aadf782b8aa6da604fdbf8169ab334e170",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "e7c9a1b80d7b923389d3a2a835245ccaa1e094646d782a1e771f54d491fcf097",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "74e2ff66329f2db7ba796dd4f8c59689f0b458030b0826c0f2fe821358439d87",
     "src/PhobosManufacturing/GasLine.cs": "cc7160e51150ac2dd2137c539ef24e9f95bf4e59f82d0f5cee36b4e747d5e1fc",
-    "src/PhobosManufacturing/LiquidStoreService.cs": "8c411fde7c64add718ff3387262efa0f062f2f982e3cd691774c391ec29f4bc5",
+    "src/PhobosManufacturing/LiquidLine.cs": "6e59a8f0804e7dae98d33d49d8a3f8c45dcab150f1a608451ddaac4ecd71c2b1",
+    "src/PhobosManufacturing/LiquidStoreService.cs": "c24b6c0e874fcb18b8df276563822d6c9ee2726a26d30d6be29c7e05a6722378",
     "src/PhobosManufacturing/MachineKinds.cs": "d25b3a55d1a0e5fd74e6165f2c13720222666710341c00fa2d92b4e029504481",
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "23220c454e2c093f29fc132518cbf9f055a08eb6eabcca5a77e19dd2f95fd385",
-    "src/PhobosManufacturing/Plugin.cs": "239674b4ede905bdb6aa765c1eb9f92af951f7aa4647c4188c3a6883f363558b",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "468be6633d7eed385808c4e90411f9c86d70c29e0004e0cbb9361ce864e55bc3",
+    "src/PhobosManufacturing/Plugin.cs": "715db7d1c5d8b3137c744df4e29b779321c3b4f23ac6cbce7cd5f188a6abf7de",
     "src/PhobosManufacturing/ProcessorService.cs": "4a79abe057f9589a9b539dcb57c6b3da46430137b67e9a78647d5c903851a425",
-    "src/PhobosManufacturing/Provider.cs": "9802e0c693aeea8b214e1084c33927d4e906704bc0e02b887ccdb1b03a222c58",
+    "src/PhobosManufacturing/Provider.cs": "a63c7a4768bbc8b0d2b46fc2273fd1e554cc31f60f69559bee3afda134a18b52",
     "src/PhobosManufacturing/RegulatorService.cs": "d6254fa6d5b46ba81dba03841679fe694bb78ac7553359819c2ab0d585527d10",
     "src/PhobosManufacturing/SabatierService.cs": "b425681db739effa38ee27e44f1cabe8aaafcf049817ebaa83c4fc713a8cbb43",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "cd47e34974c8c482d11380bb69b156fae86db589a8bad079d6bb431c11ba18a4",
-    "src/PhobosManufacturing/StoreService.cs": "3e029fbdee09844b36abdd66a471c1080576f45e75aed2b5a6c172991edfd677",
+    "src/PhobosManufacturing/StoreService.cs": "5da3189a6ee90780125c75c55cd774fdd715ce56981917bbb337a309f42de2ac",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -54636,7 +57258,7 @@
     "translations/PhobosAgriculture/en.json": "729cdf4bb335f3443f1df8238b01f58b6174d591a944d0286c781061aaaaea2c",
     "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
     "translations/PhobosFramework/en.json": "3a3856556c53bdd2d340f722dd68fca668c4d5aed8f6c66ee1097414302b80af",
-    "translations/PhobosManufacturing/en.json": "cd11907dde793170f3ca69ebb5f8588eb6fc2bc53f606c207996d78b3c4e474b",
+    "translations/PhobosManufacturing/en.json": "f02a5d13459ec2d8f5565b349cf230ad8859ac4d1ee1a9b4e510a44dbd5ca480",
     "translations/PhobosShipbreaker/en.json": "9c2a063eb74005b210b23cc5bfbd08a1cf31cb9b3caa339e095d1cc2c66580ee",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }

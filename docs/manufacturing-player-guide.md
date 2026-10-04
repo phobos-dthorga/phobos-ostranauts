@@ -508,6 +508,31 @@ the acid pours in, leaving the empty canister there. A damaged segment lets a
 ten-thousandth of its acid into the room as mist and keeps the rest until drained.
 See [draining and venting](lines-and-draining.md).
 
+## Ethanol tanks and line
+
+**Alembrine Cask tanks** (0.38.0) hold ethanol: 495 kg in the 2 x 2 Cask-2, with the
+Cask-3 and Cask-4 one tile wider each. Like acid tanks they are bunded liquid tanks,
+not gas stores, with a four-place canister rack, **Pour ethanol into** on their
+panel, and a refusal to be moved while they hold anything. Nothing makes ethanol
+yet: an Alembrine fermenter-still for beets and sugar, and a bottler for spirit,
+come in the next release.
+
+- **Trade.** A station's refuelling kiosk buys stored ethanol back at 45% of its
+  20 cr/kg station value, but never sells it: your beets are the only source.
+- **Fire.** Ethanol burns. If a cask is damaged, its outer shell catches the spill,
+  and a twentieth of what it held burns at once when the room has oxygen (5 kPa or
+  more) and something to light it: an open fire, a working still or refinery
+  hearth, or a powered device at half damage or worse. The game's own fire and
+  blast follow. With no ignition source the spill just waits in the bund for
+  repair and recovery, but keep sparks out of that room until it is fixed.
+- **The ethanol line** (INSTALL > HVAC) joins casks and the machines that will use
+  them, the same way the acid line does: it runs under or beside each one, holds
+  its ethanol (about 0.39 kg a tile) and drains into a Framework drain canister. A
+  damaged segment keeps its ethanol, and a share of it burns if the room lets it.
+  Its port is on the left side of a cask, one row below the water port. On screen
+  it shares a lane with Shipbreaker's furnace coolant conduit, so lay the two on
+  different tiles.
+
 ## Gas stores
 
 Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large

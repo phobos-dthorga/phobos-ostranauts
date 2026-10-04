@@ -970,3 +970,11 @@ accompanies this change.
 L31 — Agriculture 0.46.0: one more crop row and one more B2 conversion. Flax and sugar
 share `BenchConversions`; a running job looks its row up once per power step from a
 two-entry table. No capture accompanies this change.
+
+## 4 October: ethanol tanks and line (L32)
+
+L32 — Framework 0.80.0 with Manufacturing 0.38.0: three more tank sizes and one more line
+family on the existing bulk-vessel and line-contents paths. A tank's damage hook runs
+once per damage switch or destruction; the ethanol line's runs once per segment damage
+switch and searches for an ignition source only when the room has the oxygen to burn,
+as the gas stores do. No per-step cost is added. No capture accompanies this change.

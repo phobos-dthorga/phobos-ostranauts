@@ -345,6 +345,13 @@
   can catch the game's fire, the working still being an ignition source; rubber
   dandelion set aside. Agriculture 0.46.0 (set A): sugar beet and B2 sugar, through
   `BenchConversions` (one-item B2 jobs as data rows); beets and sugar unsold.
+  Framework 0.80.0 with Manufacturing 0.38.0 (set B): the **Alembrine** brand (owner
+  choice of name), Cask-2 to Cask-4 ethanol tanks and the ethanol line. `LiquidFamily`
+  takes a mist or a fuel, and the acid line became `LiquidLine` with one rules row per
+  liquid. Ethanol has its own lane and port in Framework; on screen it shares the
+  coolant lane. A damaged cask or segment can burn through the shared
+  `Combustion.Burn` and the existing deflagrations. Set C (fermenter-still, bottler,
+  spirit) is next.
 
 ## Manufacturing direction (2026-09-25)
 

@@ -17,7 +17,7 @@ internal static class AcidLineNativeChecks
         check(LineFamilies.For("water")?.Id == LineFamilies.ProcessWaterId && LineFamilies.For(ManufacturingRules.Hydrogen)?.Id == LineFamilies.GasId,
             "Assigning acid leaves water and the gases on their own lines");
         var ported = new[] { (LeachRules.Prefix, Equipment.Entry(LeachRules.Prefix).footprint), (AcidPlantRules.Prefix, Equipment.Entry(AcidPlantRules.Prefix).footprint) }
-            .Concat(LiquidStores.All.Select(s => (s.Prefix, s.Footprint))).ToArray();
+            .Concat(LiquidStores.AcidFamily.Sizes.Select(s => (s.Prefix, s.Footprint))).ToArray();
         check(ported.Length == 5, "The LC-3, the SA-3 and the three AT sizes carry acid ports");
         foreach (var (prefix, footprint) in ported)
         {
@@ -42,8 +42,9 @@ internal static class AcidLineNativeChecks
         }
         check(d.Installables[AcidLineRules.Prefix + "LooseInstall"].strBuildType == InstallMenu.Hvac, "The acid line installs from INSTALL, HVAC");
         check(d.Installables[AcidLineRules.Prefix + "InstalledDmgRepair"].aInputs.Contains("TIsScrapSteel=1x1"), "Repair takes a steel scrap");
-        check(Economy.SupplyKeys.SequenceEqual(new[] { AcidLineRules.Prefix }) && Economy.Pack.factionKiosks?.tiers[AcidLineRules.Prefix] == "Neutral",
-            "The acid line is Manufacturing's one supply, at the faction kiosks at any standing");
+        check(Economy.SupplyKeys.SequenceEqual(new[] { AcidLineRules.Prefix, EthanolLineRules.Prefix }) && Economy.Pack.factionKiosks?.tiers[AcidLineRules.Prefix] == "Neutral" &&
+              Economy.Pack.factionKiosks?.tiers[EthanolLineRules.Prefix] == "Neutral",
+            "The acid and ethanol lines are Manufacturing's supplies, at the faction kiosks at any standing");
 
         // Manufacturing 0.25.0: the line holds its own acid, drained into Framework's canister, which pours into an AT tank's rack.
         var held = LineContents.Families.FirstOrDefault(f => f.Family.Id == AcidLineRules.FamilyId);
@@ -61,7 +62,40 @@ internal static class AcidLineNativeChecks
             {
                 var co = d.Objects[store.Prefix + form];
                 check(co.strContainerCT == Phobos.Ostranauts.Framework.Items.DrainCanisterDefinitions.RackTrigger && co.nContainerWidth == 2 && co.nContainerHeight == 2 && co.aInteractions.Contains("Inventory"),
-                    "An acid tank racks drain canisters and nothing else: " + store.Prefix + form);
+                    "A liquid tank racks drain canisters and nothing else: " + store.Prefix + form);
             }
+
+        // The Alembrine ethanol line (Manufacturing 0.38.0): its own family, ports on the -X side one row below the water port.
+        var ethanolFamily = LineFamilies.For(LiquidStores.Ethanol);
+        check(ethanolFamily != null && ethanolFamily.Id == EthanolLineRules.FamilyId && ethanolFamily.IsNetwork && ethanolFamily.AdjacencyJoins && ethanolFamily.Label?.Invoke() == "ethanol line",
+            "Ethanol rides the ethanol line, a network touching equipment joins");
+        foreach (var store in LiquidStores.EthanolFamily.Sizes)
+        {
+            var port = LinePorts.Ethanol(store.Footprint);
+            foreach (string form in LineDefinitions.Forms)
+            {
+                var co = d.Objects[store.Prefix + form];
+                check(co.mapPoints.Contains(LinePorts.EthanolPoint + "," + port.X + "," + port.Y) && LinePorts.Points(EthanolLineRules.FamilyId, store.Prefix + form).Contains(LinePorts.EthanolPoint) &&
+                      !LinePorts.Points(AcidLineRules.FamilyId, store.Prefix + form).Any(), "An ethanol cask has an ethanol port and no acid port: " + store.Prefix + form);
+            }
+            var water = LinePorts.Water(store.Footprint);
+            check(port.Socket != water.Socket && port.Y == water.Y - 16 && port.X == water.X, "The ethanol port sits one row below the water port: " + store.Prefix);
+        }
+        foreach (string form in LineDefinitions.Forms)
+        {
+            var co = d.Objects[EthanolLineRules.Prefix + form];
+            check(co.strNameFriendly.StartsWith("Phobos' Alembrine Ethanol Line", StringComparison.Ordinal), "The ethanol segment carries the Alembrine name: " + form);
+            check(EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatMass") == 1 && (form.EndsWith("Dmg", StringComparison.Ordinal) || EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatBasePrice") == 4),
+                "An ethanol segment weighs one kilogram and costs 4 intact: " + form);
+            check(d.Installables.TryGetValue(EthanolLineRules.Prefix + form + "Dismantle", out var dismantle) && dismantle.aLootCOs.All(l => l.StartsWith("PhobosEthanolLineWaste", StringComparison.Ordinal)),
+                "Dismantling an ethanol segment returns retained waste: " + form);
+        }
+        check(d.Installables[EthanolLineRules.Prefix + "LooseInstall"].strBuildType == InstallMenu.Hvac, "The ethanol line installs from INSTALL, HVAC");
+        var heldEthanol = LineContents.Families.FirstOrDefault(f => f.Family.Id == EthanolLineRules.FamilyId)?.Of(LiquidStores.Ethanol);
+        check(heldEthanol != null && heldEthanol.MistSpecies == null && Math.Abs(heldEthanol.KgPerTile - Math.PI * 0.0125 * 0.0125 * LiquidStores.EthanolDensityKgPerM3) < 1e-12,
+            "An ethanol segment holds one metre of 25 mm bore of ethanol (0.39 kg) and has no mist");
+        foreach (string form in new[] { "Installed", "InstalledDmg" })
+            check(d.Objects[EthanolLineRules.Prefix + form].aInteractions.Contains(LineContents.DrainAction) && !d.Objects[EthanolLineRules.Prefix + form].aInteractions.Contains(LineContents.VentAction),
+                "An installed ethanol segment offers Drain, not Vent: " + form);
     }
 }

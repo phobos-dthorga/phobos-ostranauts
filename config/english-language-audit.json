@@ -70571,6 +70571,418 @@
       ],
       "before": "The pinch of mineral ash a straw bale leaves when the refinery burns or chars it. Nothing more comes out of it; carry it out of the tray and sell or discard it.",
       "after": "The pinch of mineral ash a straw bale leaves when the refinery burns or chars it. Nothing more comes out of it; carry it out of the tray and sell or discard it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol Tank",
+      "after": "Ethanol Tank"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.name_medium",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol Tank",
+      "after": "Ethanol Tank"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.name_large",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol Tank",
+      "after": "Ethanol Tank"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.details",
+      "category": "description",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "A {3} x {3} ethanol tank with a second shell to catch leaks. Weighs {0:F0} kg empty and holds {1:F0} kg of ethanol. Ethanol burns: keep sparks, fires and working stills away from a damaged tank.",
+      "after": "A {3} x {3} ethanol tank with a second shell to catch leaks. Weighs {0:F0} kg empty and holds {1:F0} kg of ethanol. Ethanol burns: keep sparks, fires and working stills away from a damaged tank."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.offer",
+      "category": "control",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol (Alembrine casks)",
+      "after": "Ethanol (Alembrine casks)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol: {0:F1} of {1:F0} kg",
+      "after": "Ethanol: {0:F1} of {1:F0} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.bund",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Caught in the outer tank: {0:F1} kg. Repair the main tank, then recover the ethanol from this panel.",
+      "after": "Caught in the outer tank: {0:F1} kg. Repair the main tank, then recover the ethanol from this panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Damaged: ethanol is caught in the outer tank. Repair before filling or drawing ethanol, and keep sparks away.",
+      "after": "Damaged: ethanol is caught in the outer tank. Repair before filling or drawing ethanol, and keep sparks away."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Repair the tank before recovering the trapped ethanol.",
+      "after": "Repair the tank before recovering the trapped ethanol."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.bund_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "No trapped ethanol to recover.",
+      "after": "No trapped ethanol to recover."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.recovered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Trapped ethanol returned to the tank.",
+      "after": "Trapped ethanol returned to the tank."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.pour_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "That is not an intact ethanol tank touching this one or on its ethanol line.",
+      "after": "That is not an intact ethanol tank touching this one or on its ethanol line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.poured",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Poured {0:F1} kg of ethanol into {1}.",
+      "after": "Poured {0:F1} kg of ethanol into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.pour_field",
+      "category": "control",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Pour ethanol into",
+      "after": "Pour ethanol into"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.burn_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "burned when the spill caught fire",
+      "after": "burned when the spill caught fire"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.damaged_log_spill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "{0} was damaged: its bund caught the ethanol and nothing lit it. Keep fires, sparks and working stills out of that room until it is repaired.",
+      "after": "{0} was damaged: its bund caught the ethanol and nothing lit it. Keep fires, sparks and working stills out of that room until it is repaired."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.damaged_log_fire",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "{0} was damaged and the spill caught fire: {1:F1} kg of ethanol burned ({2:F0} MJ). Put out any fire and check the crew.",
+      "after": "{0} was damaged and the spill caught fire: {1:F1} kg of ethanol burned ({2:F0} MJ). Put out any fire and check the crew."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.destroyed_log_spill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "{0} was destroyed: its ethanol ran out and nothing lit it.",
+      "after": "{0} was destroyed: its ethanol ran out and nothing lit it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.destroyed_log_fire",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "{0} was destroyed and the spill caught fire: {1:F1} kg of ethanol burned ({2:F0} MJ). Put out any fire and check the crew.",
+      "after": "{0} was destroyed and the spill caught fire: {1:F1} kg of ethanol burned ({2:F0} MJ). Put out any fire and check the crew."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Ethanol.contents",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (family TextPrefix + key)",
+        "src/PhobosManufacturing/Definitions.cs",
+        "src/PhobosManufacturing/StoreService.cs",
+        "src/PhobosManufacturing/Provider.cs"
+      ],
+      "before": "Ethanol",
+      "after": "Ethanol"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)"
+      ],
+      "before": "Ethanol Line",
+      "after": "Ethanol Line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)"
+      ],
+      "before": " (Damaged)",
+      "after": " (Damaged)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)"
+      ],
+      "before": "Steel line for ethanol between ethanol tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor until it runs under or beside each one. It holds its ethanol until drained. It shares a lane on screen with the furnace coolant conduit, so keep the two on different tiles.",
+      "after": "Steel line for ethanol between ethanol tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor until it runs under or beside each one. It holds its ethanol until drained. It shares a lane on screen with the furnace coolant conduit, so keep the two on different tiles."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.waste",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)"
+      ],
+      "before": "Retained ethanol line waste",
+      "after": "Retained ethanol line waste"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.label",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)"
+      ],
+      "before": "ethanol line",
+      "after": "ethanol line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "EthanolLine.fire",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidLine.cs (rules TextPrefix + key)",
+        "src/PhobosManufacturing/LiquidStoreService.cs"
+      ],
+      "before": "A damaged ethanol line at {0} caught fire: {1:F0} g of ethanol burned ({2:F1} MJ). Put out any fire and repair the line.",
+      "after": "A damaged ethanol line at {0} caught fire: {1:F0} g of ethanol burned ({2:F1} MJ). Put out any fire and repair the line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.ethanol",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine ethanol tank or line text, written in the shared style of the acid tank text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/LiquidStoreService.cs (Maintenance. + family key)"
+      ],
+      "before": "Pour the ethanol into another tank before moving or dismantling this one.",
+      "after": "Pour the ethanol into another tank before moving or dismantling this one."
     }
   ],
   "documents": [
@@ -70578,8 +70990,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c8c63177efcbb71757d7896bf789def6a45477bb2dbf26685e4490a8a0ddf0f0",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "e33aa7ff71a18bf4967c73cb8aa6b6fe0914cff32343890599de3d214e1fce2c",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "SUPPORT.md",
@@ -70738,8 +71150,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "099961f2819df0d57326b0aa39000d9d00f68c07005c0d5bf125d70849a7fee5",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "9516781e848731f2864f683cdd3d931c4c841b7314d38e9d601c09dd2072d8a8",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/crew-automation.md",
@@ -71005,8 +71417,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a8e4e84bb91959b904fc02cabd2e145a92f087c34e735f90cf953a44067edd93",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "08112bcbc55ec889e14d41817f20e422aa31e9315a93a1899a087b11144596f9",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -71123,15 +71535,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f7c1af82c47c6706f83095fbe16e32ef5c834bfec9d79077f620631f084dbd0b",
-      "review": "Reviewed 1 October 2026 for Framework 0.67.0 and Shipbreaker 0.60.0: the D4, R4 and F6 come whole; assembly sections retired, saved sections convert automatically."
+      "sha256": "f8597cf45b9aaa84e51e47c7bf45ba3f8be02416d1415f87c4a4988b08bc15b8",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "c88f80b171baa1bbd3c4129e2058eda9f55e99dc235aef5042795407bc07f857",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "23317e29bb1ee63cbd5529a986dc4fb6473c2b20d793129ea017533e28062e1a",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -71189,8 +71601,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "887eb5d59aacf480a97f75cc8c911f606b016756befc9f279e14880cb46982b8",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "7b9efbaacb401d40caf6703580648ae6f9d5c8f035f28c3bcf6dc1d66a341325",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -71261,8 +71673,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "41ba6024afa4a474f095c08fd26ab7e403a162e81df54b9071f8847cafd7b1d2",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "be3e120c0121f05b12dbe267f51321fe09fdf64766774cf83d5034f795dd1e42",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -71473,8 +71885,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cc7895e2f1132bda9df39869a9268124f168e33d0b59eb6b0c7a98a176e8f0c6",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0 and Agriculture 0.39.0: station bulk purchases no longer fail with a stale quote."
+      "sha256": "9bbc59a8449b7c9d5b9d3de0aac31c40316642cc2443ef42f4f0b8497bc1b372",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -71536,8 +71948,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "98d336f652d1dafd283d033dc184f153437b81032bb3b661b7518d51f7539ce2",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "a4d8763c30f02a0d86d3c2f6cccf1a5e83aa9bf78ee72359399447eca9ee784b",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/item-references.md",
@@ -71550,15 +71962,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "7011d6fea53aaf6bde02977d005807773d1e4a20531acc80a11041fcd2164055",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "0ab6ca7660e56eb37d56ccea1f5403d663b1f76ff2890d93db2c0acd5b0b2143",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "d9d7ef630062b84c5335b7ac9f0a84679ca6b1b840013e7586725c2f902dcc3f",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "0552eef602e17f6434513ba2d3b4b4fabfc60128a05c970a37f721249c63614a",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -71578,8 +71990,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f6ef83a622c6816bda188153e8465b3da094f0f85f67a2670db3ce0b0e9d7182",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "f7dee061f034b3414adfcbc6558e2383a5f610bf4eb5651ecf11aad2fae49a18",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "docs/residue-collector.md",
@@ -71669,15 +72081,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d376d886e2b5b30ae892b98742f65aae695342b5ae0b5d4d737d41f5ade209bd",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "d4668e7264ed6472582f540a1a6b23bb93608708243cb168f1c71c4a2cceadd5",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "039a6560bb9471058d65d498b6c6397d2cf535bd3d5ea0b87b02759345c0fcc6",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "58f2e0fbac3c1098a5ee4fb12a1bdff6b6e907e232ffdf521fce8d4e7fd5aebb",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -71809,16 +72221,16 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "61397a5d5b89fe9499621ad36caed88a7fd8ad32b409f13ccf4ad1048a9a7777",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "31f78ff283670dcd8c688bb0df3ef0d1f85733fd699d7945e962008da21404b3",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0a2a1ff4f015aa631fbedcbaced492053ab263b302a7122ff8fe8852fcde31ce",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "12fd11fb1f85ca383252bb6ff03a833b227c78e4df5caced9f03ca002f558597",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -71869,14 +72281,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "15feff0fc630f83bff5aeb85be78a23fc3dd2e5c5f7c5eb76591519dbe887f29",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "4f10e8defa502bf6249433197a4ee82f94eaec68ea8a87c2e06b762158e96294",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8ce6f9ec79c4b53d61dfd811f0afab802276283dcbb743ac2e2c1e4810d4d026",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "c4ef000899eb37c80310367ad1bcc346e0d2ef4dd3a55a8067647ddee7df31ab",
+      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

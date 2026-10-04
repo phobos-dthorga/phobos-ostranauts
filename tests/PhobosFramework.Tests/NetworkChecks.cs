@@ -124,6 +124,9 @@ internal static class NetworkChecks
         check(LinePorts.Water(2) == (-24, 8, 0) && LinePorts.Water(3) == (-32, 0, 3) && LinePorts.Water(4) == (-40, 8, 4) && LinePorts.Water(5) == (-48, 0, 10),
             "The water port mirrors it on the -X side");
         check(LinePorts.Acid(2) == (24, -8, 3) && LinePorts.Acid(3) == (32, -16, 8) && LinePorts.Acid(4) == (40, -8, 11), "The acid port sits one row below the gas port");
+        check(LinePorts.Ethanol(2) == (-24, -8, 2) && LinePorts.Ethanol(3) == (-32, -16, 6) && LinePorts.Ethanol(4) == (-40, -8, 8), "The ethanol port sits on the -X side one row below the water port");
+        bool ethanolRefused = false; try { LinePorts.Ethanol(1); } catch (ArgumentOutOfRangeException) { ethanolRefused = true; }
+        check(ethanolRefused, "A one-tile machine has no ethanol port");
         bool acidRefused = false; try { LinePorts.Acid(1); } catch (ArgumentOutOfRangeException) { acidRefused = true; }
         check(acidRefused, "A one-tile footprint has no row below the middle for an acid port");
         LinePorts.Register("example.family", "ExampleInstalled", "ExamplePoint");

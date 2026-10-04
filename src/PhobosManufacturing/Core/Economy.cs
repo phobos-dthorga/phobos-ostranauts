@@ -25,7 +25,7 @@ public static class Economy
     };
     public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).Concat(GasStores.Families.Select(f => f.SmallPrefix)).Concat(LiquidStores.Families.Select(f => f.SmallPrefix)).ToArray();
     /// <summary>The Lixivar acid line (Manufacturing 0.24.0); the gas line moved to Framework's own pack in 0.23.0.</summary>
-    public static IReadOnlyList<string> SupplyKeys { get; } = new[] { AcidLineRules.Prefix };
+    public static IReadOnlyList<string> SupplyKeys { get; } = LiquidLines.All.Select(l => l.Prefix).ToArray();
 
     /// <summary>Reads the shipped pack and any player files, validates them against the code's families and returns
     /// the result. The native lookups (material masses, merchant tables) are supplied when the game's data is loaded;

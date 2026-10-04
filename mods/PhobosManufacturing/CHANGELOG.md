@@ -10,6 +10,30 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.38.0] - 2026-10-04 - Draft
+
+### Added
+
+- Alembrine ethanol tanks (owner decisions, 4 October 2026): the Cask-2, Cask-3 and Cask-4 hold 495, about 1,230 and about 2,380 kg of ethanol. They are bunded like the acid tanks, with a canister rack and Pour ethanol into on their panel. A station's refuelling kiosk buys stored ethanol back at 45% of its 20 cr per kg value and never sells it.
+- The Alembrine ethanol line (INSTALL, HVAC) joins casks and machines like the acid line, holds its ethanol and drains into a drain canister.
+- Ethanol burns: a damaged cask or line segment can catch fire when the room has oxygen and something to light it, through the game's own fire and blast. Otherwise the spill waits in the bund.
+- The fermenter-still and bottler that make and use ethanol come in the next release.
+
+### Changed
+
+- The acid tanks and acid line share their code with the ethanol ones; they behave as before.
+
+### Save compatibility
+
+- Automatic. New equipment only; acid tanks, the acid line and their records are unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.80.0 or newer.
+- On screen the ethanol line shares a lane with Shipbreaker's furnace coolant conduit; lay them on different tiles.
+- The share that burns and the ethanol price are gameplay choices; density and heat of combustion follow published figures.
+- Checked offline; not yet seen in the game.
+
 ## [0.37.0] - 2026-10-04 - Draft
 
 ### Added

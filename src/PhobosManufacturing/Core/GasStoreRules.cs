@@ -37,6 +37,16 @@ public sealed class Combustion
         if (!(heatingKJPerKg > 0) || !(oxygenPerFuel > 0) || roomProductsPerKg.Values.Any(v => !ManufacturingRules.Finite(v) || v < 0)) throw new ArgumentException("Invalid combustion.");
         HeatingKJPerKg = heatingKJPerKg; OxygenPerFuel = oxygenPerFuel; RoomProductsPerKg = roomProductsPerKg;
     }
+    /// <summary>A burn of <paramref name="fuelKg"/> limited by the oxygen the room holds: what burns, the oxygen it takes, the
+    /// heat, what is left unburned, the blast size and the native room products. Shared by the gas stores and, since
+    /// Manufacturing 0.38.0, the ethanol tanks and line.</summary>
+    public Deflagration Burn(double fuelKg, double oxygenAvailableKg)
+    {
+        if (!ManufacturingRules.Finite(fuelKg) || !ManufacturingRules.Finite(oxygenAvailableKg) || fuelKg < 0 || oxygenAvailableKg < 0) throw new ArgumentException("Invalid deflagration inputs.");
+        double burned = Math.Min(fuelKg, oxygenAvailableKg / OxygenPerFuel), energy = burned * HeatingKJPerKg;
+        return new Deflagration(burned, burned * OxygenPerFuel, energy, fuelKg - burned, GasStores.SizeFor(energy),
+            RoomProductsPerKg.ToDictionary(p => p.Key, p => p.Value * burned, StringComparer.Ordinal));
+    }
 }
 
 /// <summary>One gas store family: the small size's identities and ratings, the gas, and whether it burns. The
@@ -129,14 +139,7 @@ public sealed class GasStore
             return (8 * Footprint + 8, Footprint % 2 == 0 ? 8 : 0, row * Footprint + Footprint - 1);
         }
     }
-    public Deflagration Burn(double fuelKg, double oxygenAvailableKg)
-    {
-        if (!ManufacturingRules.Finite(fuelKg) || !ManufacturingRules.Finite(oxygenAvailableKg) || fuelKg < 0 || oxygenAvailableKg < 0) throw new ArgumentException("Invalid deflagration inputs.");
-        var fuel = Family.Fuel ?? throw new InvalidOperationException("Not a fuel: " + Commodity);
-        double burned = Math.Min(fuelKg, oxygenAvailableKg / fuel.OxygenPerFuel), energy = burned * fuel.HeatingKJPerKg;
-        return new Deflagration(burned, burned * fuel.OxygenPerFuel, energy, fuelKg - burned, GasStores.SizeFor(energy),
-            fuel.RoomProductsPerKg.ToDictionary(p => p.Key, p => p.Value * burned, StringComparer.Ordinal));
-    }
+    public Deflagration Burn(double fuelKg, double oxygenAvailableKg) => (Family.Fuel ?? throw new InvalidOperationException("Not a fuel: " + Commodity)).Burn(fuelKg, oxygenAvailableKg);
 }
 
 /// <summary>The gas store families, every size of them, and the rules they share: when a released fuel ignites,

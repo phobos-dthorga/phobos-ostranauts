@@ -10,7 +10,10 @@ namespace Phobos.Ostranauts.Framework.Registration;
 public static class LineLayers
 {
     public const float Belt = 1.03f, ProcessWater = 1.04f, Gas = 1.05f, Acid = 1.06f, Irrigation = 1.07f, Coolant = 1.08f;
-    public static readonly IReadOnlyList<float> All = new[] { Belt, ProcessWater, Gas, Acid, Irrigation, Coolant };
+    /// <summary>The ethanol line (Framework 0.80.0). The 16-pixel tile has room for five pipe lanes, all taken, so its art
+    /// shares the coolant lane's pixels; it draws above the coolant conduit and the two should not share a tile.</summary>
+    public const float Ethanol = 1.09f;
+    public static readonly IReadOnlyList<float> All = new[] { Belt, ProcessWater, Gas, Acid, Irrigation, Coolant, Ethanol };
 }
 
 /// <summary>One family of 1 x 1 line segments (pipe or belt) on the shared pattern: a presence condition on the

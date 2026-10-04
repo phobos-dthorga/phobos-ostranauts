@@ -65,7 +65,7 @@ internal static class Content
     internal static CondOwner? Resolve(string? id) => CrewWork.Resolve(id);
     internal static bool Machine(CondOwner? co) => co != null && MachineKinds.IsOurs(co.strCODef);
     /// <summary>Anything whose removal work Manufacturing may refuse: its machines and stores, and the acid line's segments.</summary>
-    internal static bool Maintained(CondOwner? co) => Machine(co) || co != null && AcidLineRules.IsFamily(co.strCODef);
+    internal static bool Maintained(CondOwner? co) => Machine(co) || co != null && LiquidLines.ForDefinition(co.strCODef) != null;
     /// <summary>Null when the acting crew member may command this machine locally or through the bound console.</summary>
     internal static string? Access(CondOwner co, ConsoleBinding? binding = null, CondOwner? worker = null)
     {

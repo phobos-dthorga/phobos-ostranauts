@@ -26,6 +26,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.80.0] - 2026-10-04 - Draft
+
+### Added
+
+- An ethanol line lane and port for content mods (Phobos Manufacturing 0.38.0 uses them): the port sits on the left side of a machine, one row below the water port.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- The pipe tile has room for five lanes, all taken, so the ethanol line's art shares the furnace coolant conduit's lane.
+- Checked offline; not yet seen in the game.
+
 ## [0.79.0] - 2026-10-04 - Draft
 
 ### Added

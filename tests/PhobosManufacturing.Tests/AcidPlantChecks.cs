@@ -33,11 +33,26 @@ internal static class AcidPlantChecks
         check(roast >= 1.5 * nodule && roast <= 2.5 * nodule, "The roast's flask alone earns 1.5 to 2.5 times the nodule (refining as a business, 1 October 2026), before the acid and the reagents");
         check(ChargeCommodities.Is(LiquidStores.SulfuricAcid) && LiquidStores.FamilyOf(LiquidStores.SulfuricAcid) == LiquidStores.AcidFamily && GasStores.FamilyOf(LiquidStores.SulfuricAcid) == null,
             "Sulfuric acid is a charge commodity in a liquid store, never a gas store");
-        check(LiquidStores.All.Count == 3 && LiquidStores.All.All(s => s.Spec.DamagePolicy == Phobos.Ostranauts.Framework.Liquids.VesselDamagePolicy.Isolate) &&
-              LiquidStores.All.Select(s => s.Prefix).Distinct().Count() == 3 && LiquidStores.All.All(s => !GasStores.IsFamily(s.Installed)),
-            "Three acid tank sizes, each isolating on damage, none a gas store");
+        check(LiquidStores.All.Count == 6 && LiquidStores.All.All(s => s.Spec.DamagePolicy == Phobos.Ostranauts.Framework.Liquids.VesselDamagePolicy.Isolate) &&
+              LiquidStores.All.Select(s => s.Prefix).Distinct().Count() == 6 && LiquidStores.All.All(s => !GasStores.IsFamily(s.Installed)),
+            "Three acid tank and three ethanol cask sizes, each isolating on damage, none a gas store");
         check(LiquidStores.MistKg(1000) == .1 && LiquidStores.MistKg(-1) == 0 && LiquidStores.MistKg(double.NaN) == 0, "A damaged tank mists a ten-thousandth of its service acid");
-        throws(() => new LiquidFamily("PhobosX", "x", "H2", "X", "r", "j", "g"), "A liquid's mist must be a game room species");
+        throws(() => new LiquidFamily("PhobosX", "x", "X", "r", "j", "g", 1000, "Blank", "n", "m", false, mistSpecies: "H2", mistFraction: .1), "A liquid's mist must be a game room species");
+        throws(() => new LiquidFamily("PhobosX", "x", "X", "r", "j", "g", 1000, "Blank", "n", "m", false), "A liquid without a game species needs its own price");
+        throws(() => new LiquidFamily("PhobosX", "x", "X", "r", "j", "g", 1000, "Blank", "n", "m", false, fuel: LiquidStores.EthanolCombustion, pricePerKg: 1), "A fuel needs its burn share");
+
+        // Ethanol (Manufacturing 0.38.0): no mist, a fuel that burns by its stoichiometry, bought back and never sold.
+        var e = LiquidStores.EthanolFamily; var c = e.Fuel!;
+        check(e.MistSpecies == null && e.MistKg(1000) == 0 && Math.Abs(e.BurnKg(495) - 24.75) < 1e-9 && e.BurnKg(-1) == 0 && !e.StationSells && LiquidStores.AcidFamily.StationSells &&
+              e.PricePerKg == LiquidStores.EthanolPricePerKg && LiquidStores.AcidFamily.PricePerKg == null && LiquidStores.FamilyOf(LiquidStores.Ethanol) == e && ChargeCommodities.Is(LiquidStores.Ethanol),
+            "Ethanol does not mist; a damaged cask offers a twentieth to a fire; stations buy it back and never sell it");
+        check(Math.Abs(c.OxygenPerFuel - 2.0838) < 1e-3 && Math.Abs(c.RoomProductsPerKg["CO2"] - 1.9106) < 1e-3 && Math.Abs(c.HeatingKJPerKg - 1366.8 / 0.046068) < 5,
+            "Ethanol burns as C2H5OH + 3 O2 -> 2 CO2 + 3 H2O, 29.7 MJ/kg");
+        var b = c.Burn(10, 5);
+        check(Math.Abs(b.BurnedKg - 5 / c.OxygenPerFuel) < 1e-9 && Math.Abs(b.OxygenKg - 5) < 1e-9 && Math.Abs(b.LostKg + b.BurnedKg - 10) < 1e-9, "A burn is limited by the room's oxygen");
+        check(Math.Abs(EthanolLineRules.Rules.Held().KgPerTile - .39) < .01 && AcidLineRules.Rules.Held().MistSpecies == "H2SO4" && EthanolLineRules.Rules.Held().MistSpecies == null &&
+              LiquidLines.ForLiquid(e) == EthanolLineRules.Rules && LiquidLines.ForDefinition("PhobosEthanolLineInstalled") == EthanolLineRules.Rules && LiquidLines.ForDefinition("PhobosAcidLineInstalled") == AcidLineRules.Rules,
+            "An ethanol line segment holds about 0.39 kg and does not mist; each line knows its liquid");
         var ports = new[] { AcidPlantRules.OxygenPort, AcidPlantRules.WaterPort, AcidPlantRules.AcidPort, AcidPlantRules.VesselPort, LeachRules.VesselPort, RefineryRules.VesselPort };
         check(ports.Distinct().Count() == ports.Length, "The SA-3's ports are its own");
     }

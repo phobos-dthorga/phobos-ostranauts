@@ -32,6 +32,10 @@ FAMILIES = [
     # Violet, the pipeline identification colour for acids and alkalis (BS 1710), for the Lixivar acid line.
     {'name': 'acid', 'lane': 2, 'ramp': {'r': (1.0, 22), 'g': (0.55, 8), 'b': (1.3, 30)},
      'targets': ['mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe']},
+    # Brown, the pipeline identification colour for oils and combustible liquids (BS 1710), for the Alembrine ethanol line
+    # (Manufacturing 0.38.0). The tile has room for five lanes, all taken, so it shares the coolant conduit's lane.
+    {'name': 'ethanol', 'lane': 4, 'ramp': {'r': (1.1, 30), 'g': (0.7, 10), 'b': (0.35, 4)},
+     'targets': ['mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipe']},
 ]
 # The Rivetline conveyor belt (Framework 0.61.0) lies under every pipe lane: a 12-pixel band of dark belting with raised
 # cross-cleats every third pixel between steel side rails, joined by the same native joint mask as the pipes.

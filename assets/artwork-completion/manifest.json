@@ -2889,6 +2889,31 @@
       "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
     },
     {
+      "key": "cask2-ethanol-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosEthanolTankInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosEthanolTank",
+      "status": "selected",
+      "source": "source/cask2-ethanol-tank.png",
+      "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/at2-acid-tank.png"
+    },
+    {
       "key": "at3-acid-tank",
       "mod": "PhobosManufacturing",
       "definition": "PhobosAcidTankMediumInstalled",
@@ -2914,6 +2939,31 @@
       "jobId": "b9c57547-88b4-4187-8b90-2be524b0ca59"
     },
     {
+      "key": "cask3-ethanol-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosEthanolTankMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosEthanolTankMedium",
+      "status": "selected",
+      "source": "source/cask3-ethanol-tank.png",
+      "sourceSHA256": "42dfdde44bde11b1079490922742799ed69e63b41ade9d2e358a5d00e3445cfe",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/at3-acid-tank.png"
+    },
+    {
       "key": "at4-acid-tank",
       "mod": "PhobosManufacturing",
       "definition": "PhobosAcidTankLargeInstalled",
@@ -2937,6 +2987,31 @@
       "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
+    },
+    {
+      "key": "cask4-ethanol-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosEthanolTankLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosEthanolTankLarge",
+      "status": "selected",
+      "source": "source/cask2-ethanol-tank.png",
+      "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/at2-acid-tank.png"
     },
     {
       "key": "sulfide-nodule",

@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.37.0";
-    public const string MinimumFrameworkVersion = "0.79.0";
+    public const string Version = "0.38.0";
+    public const string MinimumFrameworkVersion = "0.80.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -296,7 +296,7 @@ internal static class StoreDestroyPatch
         // is vented or logged as lost on a reload (Manufacturing 0.32.0).
         if (__instance == null || Phobos.Ostranauts.Framework.FrameworkLifecycle.Unloading(__instance)) return;
         if (GasStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
-        else if (LiquidStores.IsFamily(__instance.strCODef) && !__instance.HasCond("IsModeSwitching", false)) LiquidStoreService.Mist(__instance, "destroyed_log");
+        else if (LiquidStores.IsFamily(__instance.strCODef) && !__instance.HasCond("IsModeSwitching", false)) LiquidStoreService.Hazard(__instance, "destroyed_log");
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
         else if (CrackerRules.IsFamily(__instance.strCODef)) CrackerService.Destroying(__instance);
     }

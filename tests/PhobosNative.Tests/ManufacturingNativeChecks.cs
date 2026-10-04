@@ -244,7 +244,8 @@ internal static class ManufacturingNativeChecks
             bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
             check(tankItem.nCols == store.Footprint && tank.inventoryWidth == store.Footprint && tank.jsonPI == null && tank.aTickers.Length == 0 && Stat(tank, "StatMass") == store.DryKg,
                 "Each acid tank is a passive vessel of its own footprint at its dry mass: " + store.Prefix + state);
-            check(tank.strNameFriendly.StartsWith("Phobos' Lixivar AT-" + store.Footprint + " Sulfuric Acid Tank", StringComparison.Ordinal), "Each acid tank carries its Lixivar model: " + store.Prefix + state);
+            string model = store.Family == LiquidStores.AcidFamily ? "Phobos' Lixivar AT-" + store.Footprint + " Sulfuric Acid Tank" : "Phobos' Alembrine Cask-" + store.Footprint + " Ethanol Tank";
+            check(tank.strNameFriendly.StartsWith(model, StringComparison.Ordinal), "Each liquid tank carries its own brand and model: " + store.Prefix + state);
             check(Stat(tank, "StatBasePrice") == (damaged ? (int)store.Price / 4 : (int)store.Price) && Has(tank, EquipmentEconomy.HighSalvageMark), "Each acid tank carries its price and the high-salvage mark: " + store.Prefix + state);
             check(!GasStores.IsFamily(tank.strName) && LiquidStores.IsFamily(tank.strName) && !tank.mapPoints.Any(p => p.StartsWith("PhobosGas", StringComparison.Ordinal)),
                 "An acid tank is no gas store and has no gas-line port: " + store.Prefix + state);
@@ -256,6 +257,13 @@ internal static class ManufacturingNativeChecks
         // The kiosk prices acid through NativeGasVessel.PricePerKg, which reads this same GasPrices table in a running game.
         check(NativeGasCanister.IsRoomSpecies("H2SO4") && GasPrice("H2SO4") == 3.1 && Math.Abs(LiquidStores.MistKg(1150) - 0.115) < 1e-9,
             "Acid mist is the game's own H2SO4, which the game prices at 3.1 cr/kg; a full AT-2 mists 115 g when damaged");
+        // The Alembrine ethanol casks (Manufacturing 0.38.0).
+        var ethanolSpec = BulkVessels.SpecFor(LiquidStores.EthanolFamily.Small.Installed)!;
+        check(ethanolSpec.Commodity == LiquidStores.Ethanol && ethanolSpec.DamagePolicy == VesselDamagePolicy.Isolate && ethanolSpec.CapacityKg == 495 && ethanolSpec.DryKg == 240 &&
+              Math.Abs(LiquidStores.EthanolDensityKgPerM3 * LiquidStores.VesselVolumeM3 * LiquidStores.FillFraction - 497) < 1,
+            "The Cask-2 holds 495 kg (ethanol at 789 kg/m3 in 0.787 m3 at 80%) and isolates on damage");
+        check(StoreService.LiquidPricePerKg(LiquidStores.EthanolFamily) == LiquidStores.EthanolPricePerKg && LiquidStores.AcidFamily.PricePerKg == null,
+            "Ethanol carries its authored station price; acid keeps the game's own (read from GasPrices in a running game)");
 
         // The Lixivar SA-3 acid plant.
         foreach (string state in Definitions.Forms)
@@ -340,7 +348,7 @@ internal static class ManufacturingNativeChecks
             System.Globalization.CultureInfo.InvariantCulture);
         double UnitValue(string id, int count, double kg) => id == ManufacturingRules.Water ? count * kg * Price(id) :
             GasStores.FamilyOf(id) is GasFamily gas ? count * kg * GasPrice(gas.Species) :
-            LiquidStores.FamilyOf(id) is LiquidFamily liquid ? count * kg * GasPrice(liquid.MistSpecies) : count * Price(id);
+            LiquidStores.FamilyOf(id) is LiquidFamily liquid ? count * kg * (liquid.PricePerKg ?? GasPrice(liquid.MistSpecies!)) : count * Price(id);
         bool Mined(string id) => Materials.ById(id)?.Mined == true || !d.Objects.ContainsKey(id) && DataHandler.dictCOs.TryGetValue(id, out var native) && new DataCO(native).HasCond("IsOre");
         bool Finished(string id) => !ChargeCommodities.Is(id) && !Materials.IsTerminal(id) && id != RefineryRules.Gangue;
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)

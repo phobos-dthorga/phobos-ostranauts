@@ -91,6 +91,27 @@
       "targets": [
         "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipe"
       ]
+    },
+    {
+      "name": "ethanol",
+      "lane": 4,
+      "ramp": {
+        "r": [
+          1.1,
+          30
+        ],
+        "g": [
+          0.7,
+          10
+        ],
+        "b": [
+          0.35,
+          4
+        ]
+      },
+      "targets": [
+        "mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipe"
+      ]
     }
   ],
   "base": {
@@ -173,6 +194,10 @@
     "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeSheet.png": "38dfff243b3552017093f866364f63b83543f6d2b5fa8af9dc0cbed48a840bf0",
     "mods/PhobosManufacturing/images/phobos/manufacturing/AcidPipeSheetNormal.png": "6238fb7a19a8da84f3c8ee0b6d0a4375edfa97904b1e86019cd5f5f6d16fd64a",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipe.png": "0c9583623a6c415c3a61aad8ca43abb62fb68e2f7bc848f683d0b58998bf6582",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipeSheet.png": "1c5fe490ed496c329726eb9679eb5292858e5f40f0259b10a1e3fa95c9127adb",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/EthanolPipeSheetNormal.png": "f0c7eb5864f52314a0203363553e6136a015a3fb52993d9709cf8d3349b7934c",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe.png": "ae4c12b5ed3572642e72dda11ec60e96ae30afcec99bc4562418aeedb8088aa9",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
     "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeSheet.png": "11102c6e43ede69347dd26cc6611bfc473cdbd448a7aab49d21727e090638811",

@@ -1683,6 +1683,49 @@
           "labels": {}
         },
         {
+          "key": "ethanol-tanks",
+          "title": "Alembrine Cask-2, Cask-3 and Cask-4 Ethanol Tanks",
+          "ids": [
+            "PhobosEthanolTankLoose",
+            "PhobosEthanolTankLooseDmg",
+            "PhobosEthanolTankInstalled",
+            "PhobosEthanolTankInstalledDmg",
+            "PhobosEthanolTankMediumLoose",
+            "PhobosEthanolTankMediumLooseDmg",
+            "PhobosEthanolTankMediumInstalled",
+            "PhobosEthanolTankMediumInstalledDmg",
+            "PhobosEthanolTankLargeLoose",
+            "PhobosEthanolTankLargeLooseDmg",
+            "PhobosEthanolTankLargeInstalled",
+            "PhobosEthanolTankLargeInstalledDmg"
+          ],
+          "function": "Bunded tanks for ethanol, kept as a kilogram record: 495 kg in the 2 x 2 Cask-2, with the 3 x 3 Cask-3 and 4 x 4 Cask-4 larger on the shared size ladder. Liquid tanks, not gas stores.",
+          "use": "Install through APPS touching the machines that will fill or draw from it, or join them with ethanol line laid under or right beside both. Pour ethanol into another cask it touches or shares an ethanol line with, from its panel or C1. Sell stored ethanol back at a station refuelling kiosk at 45%. Empty it before moving or dismantling it. Its four-place rack takes Framework drain canisters of ethanol.",
+          "find": "Sold at the listed supply merchants and faction kiosks (Friendly standing); found in engineering salvage like the other tanks. Stations never sell ethanol itself.",
+          "notes": "New in Manufacturing 0.38.0. Ethanol burns: a damaged cask offers a twentieth of its contents to a fire, which lights only with 5 kPa of oxygen and an ignition source in the room (an open fire, a working still or hearth, a powered device at half damage); the bund keeps the rest. Nothing makes ethanol until the fermenter-still arrives.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "ethanol-line",
+          "title": "Alembrine ethanol line",
+          "ids": [
+            "PhobosEthanolLineLoose",
+            "PhobosEthanolLineLooseDmg",
+            "PhobosEthanolLineInstalled",
+            "PhobosEthanolLineInstalledDmg",
+            "PhobosEthanolLineWaste"
+          ],
+          "function": "Steel line for ethanol between the Cask tanks and the machines that fill or draw from them. Every cask and machine it runs under or right beside joins one network; touching equipment joins without it.",
+          "use": "Lay it through INSTALL > HVAC on intact floor until it runs under or right beside each cask and machine. To take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles; the run closes until Return line to service.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in supply lots. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "New in Manufacturing 0.38.0. Holds about 0.39 kg of ethanol a tile. A damaged segment keeps its ethanol, and a share can burn if the room lets it. On screen it shares a lane with the furnace coolant conduit: lay the two on different tiles. Dismantling returns retained line waste.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "l2",
           "title": "L2 Canister Filling Station",
           "ids": [

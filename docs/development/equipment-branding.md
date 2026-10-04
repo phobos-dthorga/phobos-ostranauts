@@ -75,6 +75,9 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Lixivar SA-3 Sulfuric Acid Plant | Three-by-three roaster, converter and absorber (Manufacturing 0.19.0); SA for sulfuric acid |
 | Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | Bunded liquid tanks in three sizes (Manufacturing 0.19.0); AT for acid tank, the digit the footprint |
 | Phobos' Lixivar Acid Line | Lined 1 x 1 line segments for sulfuric acid (Manufacturing 0.24.0); a sibling of the tanks, so Lixivar, and like the other lines no model number |
+| Phobos' Alembrine Cask-2, Cask-3 and Cask-4 Ethanol Tanks | Bunded ethanol tanks in three sizes (Manufacturing 0.38.0); Cask for the tank, the digit the footprint |
+| Phobos' Alembrine Ethanol Line | 1 x 1 steel line segments for ethanol (Manufacturing 0.38.0); like the other lines, no model number |
+| Phobos' Alembrine Copperhead-3 Fermenter-Still, Corker-2 Bottling Unit | Planned for the next Manufacturing release (owner-approved phase 5 plan, 4 October 2026) |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen
@@ -106,6 +109,16 @@ Cake and Caustic Remainder, from 0.19.0 the Sulfide Nodule, Phosphoric Acid
 Flask and Roasted Calcine, and from 0.20.0 Epsom Salt, Ammonium Sulfate and the
 Olivine Leach Cake. The calcined residue is made by the V4 and stays
 Fennmark.
+
+**Alembrine** is Manufacturing's distillery brand (owner choice, 4 October 2026, when the
+fermenter was placed in Manufacturing under a new brand): ethanol tanks and line, and
+next the fermenter-still, bottler and spirit. The name comes from alembic, the old
+still. No company of that name was found in a web search on 4 October 2026; the
+first proposal, Alembra, was dropped because a German IT consultancy uses it, and
+alembic itself names several companies. Its colours are copper and brass, apart from
+Lixivar's sage and slate. Models are a word and the footprint width, after
+Verdemorrow's pattern (Cask-2, Copperhead-3, Corker-2), so they never collide with
+the letter models of the other brands.
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

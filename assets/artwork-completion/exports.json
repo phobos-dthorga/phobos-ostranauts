@@ -2934,6 +2934,32 @@
     "fullFootprint": true
   },
   {
+    "key": "cask2-ethanol-tank",
+    "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTank.png": "afac0834eb80e0e344efb07c769b30fa8ea6c7cb153cddd5c80d8a0dbfc47d00",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "at3-acid-tank",
     "sourceSHA256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
     "nativeSize": [
@@ -2960,6 +2986,32 @@
     "fullFootprint": true
   },
   {
+    "key": "cask3-ethanol-tank",
+    "sourceSHA256": "42dfdde44bde11b1079490922742799ed69e63b41ade9d2e358a5d00e3445cfe",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankMedium.png": "558d3e271bbdccaeba6cb1431c87c6e2dde36d109eb135085582a568e864ac0c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankMediumNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "at4-acid-tank",
     "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
     "nativeSize": [
@@ -2979,6 +3031,32 @@
     "exports": {
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankLarge.png": "b17049434c2828ea6155f339b589e63656b0a68675f3aca9e75729e9ed2424e0",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "cask4-ethanol-tank",
+    "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankLarge.png": "0562df7f24b498a003a6cc1fbe784248ed81988b8973ecd3743f18c75e3ee463",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,

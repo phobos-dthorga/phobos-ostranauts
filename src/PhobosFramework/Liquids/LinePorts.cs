@@ -6,7 +6,8 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 /// <summary>Where each line family meets a piece of equipment (Framework 0.57.0), and which equipment has which
 /// ports. One rule for every machine and store, so players learn it once: the process-water port is the neighbouring
 /// tile on the local -X side, the gas port the neighbouring tile on the local +X side, both in the middle row (the
-/// upper of the two middle rows on an even footprint), and the acid port on the +X side one row below the gas port.
+/// upper of the two middle rows on an even footprint), the acid port on the +X side one row below the gas port, and
+/// (Framework 0.80.0) the ethanol port on the -X side one row below the water port.
 /// Ports rotate with the equipment. The footprint tile beside the port draws the pipe's joint. Since Framework
 /// 0.69.0 (owner decision, 1 October 2026) a port no longer says where the pipe must lie: it marks the equipment as
 /// taking part in the family, and a pipe of the family under the equipment or directly beside it on any side joins
@@ -15,7 +16,7 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 /// so equipment saved before a port existed gains it with no rewrite.</summary>
 public static class LinePorts
 {
-    public const string WaterPoint = "PhobosWaterPort", GasPoint = "PhobosGasPort", AcidPoint = "PhobosAcidPort";
+    public const string WaterPoint = "PhobosWaterPort", GasPoint = "PhobosGasPort", AcidPoint = "PhobosAcidPort", EthanolPoint = "PhobosEthanolPort";
     private static readonly Dictionary<string, Dictionary<string, List<string>>> ports = new(StringComparer.Ordinal);
     private static readonly IReadOnlyList<string> none = Array.Empty<string>();
 
@@ -29,6 +30,11 @@ public static class LinePorts
     {
         if (footprint < 2) throw new ArgumentOutOfRangeException(nameof(footprint), "An acid port needs a footprint of two tiles or more.");
         return Side(footprint, MiddleRow(footprint) + 1, plusX: true);
+    }
+    public static (int X, int Y, int Socket) Ethanol(int footprint)
+    {
+        if (footprint < 2) throw new ArgumentOutOfRangeException(nameof(footprint), "An ethanol port needs a footprint of two tiles or more.");
+        return Side(footprint, MiddleRow(footprint) + 1, plusX: false);
     }
     private static (int X, int Y, int Socket) Side(int footprint, int row, bool plusX)
     {
