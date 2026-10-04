@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.43.0",
+      "value": "0.44.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.36.0",
+      "value": "0.37.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -959,6 +959,22 @@
       ],
       "review": [
         "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackStrawBale": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per native stack for the B2's 1 kg straw bales (materials data pack).",
+      "targets": [
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowStrawBale/stack"
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. The V4 takes bales one unit at a time; keep the bale's 1 kg mass."
       ]
     },
     "Agriculture.stackNutrients": {

@@ -55,12 +55,19 @@ internal static class AgricultureStock
     /// <summary>The nutrient hopper arrived in Agriculture 0.27.0; its vessels are found by commodity at link time.</summary>
     internal static readonly Version HopperMinimum = new(0, 27, 0);
     private static readonly OptionalStock hoppers = new(PluginId, HopperMinimum);
+    /// <summary>The straw bale arrived in Agriculture 0.44.0, at 1 kg (the V4's straw charges).</summary>
+    internal static readonly Version StrawMinimum = new(0, 44, 0);
+    private static readonly OptionalStock straw = new(PluginId, StrawMinimum, (RefineryRules.StrawBale, RefineryRules.StrawBaleKg));
     internal static bool PluginPresent => provider.PluginPresent;
     internal static bool Available => provider.Available;
     /// <summary>Whether the LC-3's complete formulation can deposit into Agriculture hoppers.</summary>
     internal static bool Hoppers => hoppers.Available;
-    internal static void Detect() { provider.Detect(); hoppers.Detect(); }
+    /// <summary>Whether the V4's straw charges can bind Agriculture's bale.</summary>
+    internal static bool Straw => straw.Available;
+    internal static void Detect() { provider.Detect(); hoppers.Detect(); straw.Detect(); }
     internal static bool Definitions() => provider.Definitions();
-    internal static void Resolve() { provider.Resolve(); hoppers.Resolve(); }
-    internal static void Reset() { provider.Reset(); hoppers.Reset(); }
+    /// <summary>Whether Agriculture's straw bale is published at the 1 kg the straw charges expect.</summary>
+    internal static bool StrawDefinitions() => straw.Definitions();
+    internal static void Resolve() { provider.Resolve(); hoppers.Resolve(); straw.Resolve(); }
+    internal static void Reset() { provider.Reset(); hoppers.Reset(); straw.Reset(); }
 }

@@ -339,6 +339,11 @@ seeds** packet; a healthy harvest after 90 hours gives one 0.25 kg portion of dr
 **soybeans**, gives the packet back, and leaves about 0.62 kg of straw for the B2
 bench. Beans keep.
 
+Since Agriculture 0.44.0 the B2's **straw press** dries crop residue and spent
+biomass into 1 kg straw bales, sending the steam to a water tank it reaches. A
+Phobos Manufacturing V4 burns a bale into carbon dioxide for a grow room or chars
+four into a carbon stock; see [straw press](agriculture-nutrient-production.md#straw-press-agriculture-0440).
+
 Cook a bean portion and one 0.25 kg water ration in the Hearth-2 for fifteen minutes
 to make a 0.5 kg bowl of **soybean stew**: eight units of hunger relief and more
 satiety than bread, from all that protein. As with bread, the cooker stops and waits

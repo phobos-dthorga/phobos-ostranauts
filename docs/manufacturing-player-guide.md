@@ -76,6 +76,8 @@ what went in, sorted.
 | 1 leached residue (6.8 kg, from the LC-3; new) | 0.26 kg of carbon dioxide into the linked carbon dioxide store; 1 calcined residue (6.54 kg) | 7.5 min |
 | 1 carbon stock, with a linked methane store (0.27.0) | draws 4.007 kg of methane; 4 carbon black (1 kg each); 1.007 kg of hydrogen into the linked hydrogen store | 30 min |
 | 1 carbon black, with a linked oxygen store (0.27.0) | draws 2.664 kg of oxygen; 3.664 kg of carbon dioxide into the linked carbon dioxide store; about 9 kWh of heat into the room | 30 min |
+| 1 straw bale, with a linked oxygen store (0.37.0; Agriculture 0.44.0) | draws 0.927 kg of oxygen; 1.275 kg of carbon dioxide into the linked carbon dioxide store; 0.622 kg of water; 1 plant ash; about 3.8 kWh of heat into the room | 30 min |
+| 4 straw bales (0.37.0; Agriculture 0.44.0) | 1 carbon stock; 1.9 kg of water; 0.261 kg of methane into the linked methane store; 4 plant ash; **0.719 kg of carbon dioxide breathed into the room** | 30 min |
 | 4 spent CO2 scrubber cartridges (0.27.0) | 3 ready scrubber cartridges; 1 exhausted sorbent (2.5 kg) | 30 min |
 | 4 spent EVA CO2 filters (0.27.0) | 3 ready EVA filters; 1 exhausted sorbent (2.5 kg) | 30 min |
 
@@ -121,6 +123,13 @@ fill, so their products have somewhere to go:
   an A2 doses a grow room from that store (see [Cabin air regulator](#cabin-air-regulator)).
   Crops stop growing in a room with no carbon dioxide, which a well-scrubbed
   room can be, and since Agriculture 0.43.0 grow faster in an enriched one.
+- **Crop waste** (0.37.0, with Agriculture 0.44.0). Agriculture's B2 presses crop
+  residue into 1 kg straw bales. One bale with a linked oxygen store burns into
+  1.3 kg of carbon dioxide for the grow room's A2, plus water; four bales with a
+  linked methane store char into one carbon stock, with water, a little methane
+  for the store and some carbon dioxide into the room. Each bale leaves a pinch of
+  plant ash. Straw is waste, so charring it is pure gain; four bales of crop waste
+  give one kilogram of carbon, a fifth of one carbon ore charge.
 - **Reactivating cartridges.** Spent CO2 scrubber cartridges and EVA filters go
   into the V4's feed four at a time; three come back ready and the fourth is an
   exhausted sorbent remainder. They are the ship's largest recurring purchase,

@@ -21,7 +21,8 @@ internal static class AgricultureMaterials
     {
         RecyclerCapture.Wet, Definitions.Nutrient,
         Definitions.Residue, Definitions.Drainage, Service.CharacterizedDrainage, Service.RecoveryReject, Service.RecoveryCartridge, Definitions.Irrigation,
-        WorkupDefinitions.Residue, WorkupDefinitions.Concentrate, WorkupDefinitions.Spent, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, BulkDefinitions.Nutrients
+        WorkupDefinitions.Residue, WorkupDefinitions.Concentrate, WorkupDefinitions.Spent, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, BulkDefinitions.Nutrients,
+        WorkupDefinitions.Bale
     }.Concat(Crops.ShippedItemIds()).ToArray();
     private static MaterialPack? pack;
     internal static MaterialPack Pack => pack ??= Load();
@@ -35,7 +36,7 @@ internal static class AgricultureMaterials
             foreach (var bound in new[] {
                 (Definitions.Irrigation, Definitions.IrrigationKg, (double?)null), (Definitions.Nutrient, Definitions.NutrientKg, null),
                 (BulkDefinitions.Nutrients, BulkDefinitions.NutrientKg, null), (Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, TreatmentCartridge.FullPrice),
-                (WorkupDefinitions.Makeup, NutrientRecovery.MakeupKg, NutrientRecovery.MakeupPrice) })
+                (WorkupDefinitions.Makeup, NutrientRecovery.MakeupKg, NutrientRecovery.MakeupPrice), (WorkupDefinitions.Bale, StrawPress.BaleKg, null) })
             {
                 var m = p.materials[bound.Item1];
                 if (Math.Abs(m.kg - bound.Item2) > 1e-9 || (bound.Item3 is double price && Math.Abs(m.price - price) > 1e-9))

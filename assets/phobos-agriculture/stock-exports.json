@@ -438,5 +438,27 @@
     "sampling": "nearest; whole canvas; no independent crop",
     "exportSHA256": "d3e4f04af150169e2f175cad0278f37ed12b7aba7691240de0346dfa582bb673",
     "normalSHA256": "c54d5b6b3e11b86d8a36d55f4a4841f1c12eb548d5884f136134948384d83e19"
+  },
+  {
+    "key": "straw_bale",
+    "source": "assets/phobos-agriculture/source/stock-straw-bale.png",
+    "sourceSHA256": "88103db7d66dd0b13469cf738465d008a1afb7236a548b5b2f66c7d753a1a9ee",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      5,
+      17,
+      59,
+      47
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "b0583b40ae8d330d1fadcdba911a3213e56061f7708cd725f2a11d0fb7347f29",
+    "normalSHA256": "b6efb83c592072f43ed4d74f87e7955c75c30751da3616f617766e83d7c48337"
   }
 ]

@@ -53,6 +53,33 @@ biomass includes its unrecovered water. This is simplified gameplay chemistry.
 The first version processes one recorded packet per stage; batch aggregation
 and detailed mineral recipes remain possible later improvements.
 
+## Straw press (Agriculture 0.44.0)
+
+The B2 also has a **straw press** for crop waste the racks leave behind. Crop residue
+and spent crop biomass go in whole; the press dries them and packs **1 kg straw
+bales**. Bales are fuel and carbon feed for a Phobos Manufacturing V4 refinery: burn
+one with stored oxygen into carbon dioxide for a grow room, or char four into one
+carbon stock.
+
+1. Put **Recorded Crop Residue** or **Spent Crop Biomass** in the B2 Inventory. Only
+   waste made by Agriculture 0.44.0 or later can be pressed: it records how much
+   plant matter it holds. Older residue still goes through nutrient recovery.
+2. Choose **Load the straw press**. A crew member spends a minute loading every
+   pressable item into the press, up to 12 kg.
+3. Place a Rivetline water tank touching the B2, or on its process-water line, with
+   room for the water. Choose **Start** with no nutrient job selected.
+4. The dryer runs at 1 kW until the straw holds only a bale's share of water, sends
+   the steam to the tank, then packs whole bales into the Inventory. What cannot make
+   a whole bale stays in the press for the next load.
+5. **Empty the straw press** (while stopped) returns everything it holds as one
+   recorded crop residue, which can be pressed again or go through recovery.
+
+A bale is 0.87 kg of plant matter, 0.03 kg of minerals and 0.10 kg of water.
+Recovery first and then pressing works well: fresh residue is mineral-rich and
+spent biomass mineral-poor, and the press mixes them. Without a reachable tank with
+room, the dryer stops and says so rather than losing the water. The bench cannot be
+removed while the press holds anything.
+
 ## Gradual W2 mixture use
 
 Put a finished B2 mixture or an ordinary 40 g formulated-nutrient packet into

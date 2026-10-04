@@ -122,7 +122,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
     {
         string id=item.strCODef;
         if(Definitions.IsCooker(co))return HearthRecipes.IsProduct(id);
-        if(WorkupDefinitions.IsBench(co))return id==WorkupDefinitions.Spent || id==WorkupDefinitions.Mixture || order.Recipe=="recover-crop" && id==WorkupDefinitions.Concentrate;
+        if(WorkupDefinitions.IsBench(co))return id==WorkupDefinitions.Spent || id==WorkupDefinitions.Mixture || id==WorkupDefinitions.Bale || order.Recipe=="recover-crop" && id==WorkupDefinitions.Concentrate;
         if(IrrigationDefinitions.IsSupply(co))return id==Service.RecoveryReject || id==Definitions.Irrigation;
         // Produce leaves the rack; planting stock leaves only beyond the one unit kept for the next planting.
         return id==Definitions.Residue || id==WorkupDefinitions.Residue || (Crops.IsStock(id) ? CrewLogistics.Contents(co).Count(c=>c.strCODef==id)>1 : Crops.IsProduce(id));

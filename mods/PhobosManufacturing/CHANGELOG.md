@@ -10,6 +10,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.37.0] - 2026-10-04 - Draft
+
+### Added
+
+- Straw from Phobos Agriculture 0.44.0 (owner decision, 4 October 2026: crop waste both ways). The V4 burns one straw bale with stored oxygen into 1.275 kg of carbon dioxide for a linked store, plus water and plant ash, so an A2 can dose a grow room from crop waste. It chars four bales into one carbon stock, with water, 0.261 kg of methane for a linked methane store and 0.719 kg of carbon dioxide into the room.
+- Plant ash: the small terminal remainder of a burned or charred bale.
+
+### Save compatibility
+
+- Automatic. Two new recipe revisions; earlier charges settle as before.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer. The straw charges need Phobos Agriculture 0.44.0 or newer and stay hidden without it.
+- Char yield (29% of the plant matter as carbon) is authored within slow-pyrolysis findings; complete combustion is authored. Charring waste bales gains value, an owner-approved exception to the refining step rule.
+- Checked offline; not yet seen in the game.
+
 ## [0.36.0] - 2026-10-04 - Draft
 
 ### Added

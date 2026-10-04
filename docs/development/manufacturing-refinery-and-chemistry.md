@@ -614,6 +614,33 @@ mixing model, so we test the room's oxygen rather than a hydrogen fraction.
 The room-heat cap is the same ceiling every Phobos machine respects; the energy
 above it is accounted as blast, not deleted quietly.
 
+## Straw from Agriculture (0.37.0)
+
+Owner decision of 4 October 2026: crop waste goes both ways. Agriculture 0.44.0's
+B2 presses residue into fixed 1 kg straw bales (0.87 kg CH2O-equivalent organic
+matter, 0.03 kg minerals, 0.10 kg water); the V4 takes them under the
+`agriculture-straw` requirement, met when Agriculture 0.44.0 or newer has published
+the bale at 1 kg. Molar masses IUPAC 2013 (CH2O 30.026, O2 31.998, CO2 44.009,
+H2O 18.015, CH4 16.043, C 12.011 g/mol).
+
+- **straw-burn** (revision 13): CH2O + O2 -> CO2 + H2O on 28.975 mol. 0.927 kg of
+  oxygen drawn; 1.275 kg of CO2 to a linked carbon dioxide store; 0.522 kg of
+  reaction water plus the bale's 0.100 kg, 0.622 kg to the water vessel; 0.03 kg of
+  plant ash (terminal). Heat 467.1 kJ/mol (glucose -1273.3 kJ/mol as the stand-in,
+  NIST Chemistry WebBook; CO2 and liquid water CODATA key values), 3.76 kWh into the
+  room. Complete combustion is authored.
+- **straw-char** (revision 14): four bales, 3.48 kg organic matter (115.90 mol C,
+  231.8 mol H, 115.9 mol O). 1.000 kg of carbon stock (83.26 mol, 29% of the dry
+  organic matter, authored within the 25 to 35% slow-pyrolysis char yields Antal and
+  Gronli 2003 report; unverified against the paper). The rest closes by element:
+  16.33 mol CO2 (0.719 kg, into the room), 16.29 mol CH4 (0.261 kg, to a linked methane
+  store) and 83.27 mol water (1.500 kg) plus the bales' 0.400 kg; four plant ash.
+  About 6.85 MJ released, 1.90 kWh, with the same enthalpy basis.
+
+Value: the burn is a supply charge (no finished item). The char is the owner's
+exception: four waste bales (1 cr each, sold by no one) become a carbon stock, so the
+native value check accepts it rather than the step rule.
+
 ## Sources
 
 Cited beside the claims above. Where a reference could not be re-read at the

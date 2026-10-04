@@ -1097,9 +1097,23 @@
             "PhobosVerdemorrowSpentBiomass"
           ],
           "function": "All residue material remaining after concentrate recovery.",
-          "use": "Remove from B2 and retain as waste cargo.",
+          "use": "Load it into the B2 straw press (Agriculture 0.44.0 and later), or remove it as waste cargo.",
           "find": "B2 recovery.",
-          "notes": "Variable mass includes water and unrecovered nutrients; cannot reroll for further recovery.",
+          "notes": "Variable mass includes water and unrecovered nutrients; no further nutrient recovery. Biomass made since 0.44.0 records its plant matter and can be pressed into straw bales.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "straw-bale",
+          "title": "Straw Bale",
+          "ids": [
+            "PhobosVerdemorrowStrawBale"
+          ],
+          "function": "A dried 1 kg bale of pressed crop waste: 0.87 kg plant matter, 0.03 kg minerals and 0.10 kg water.",
+          "use": "Feed it to a Phobos Manufacturing V4: one bale with a linked oxygen store burns into carbon dioxide for a grow room; four char into one carbon stock.",
+          "find": "Made by the B2 straw press from recorded crop residue and spent biomass. Never sold or found.",
+          "notes": "Fixed composition so the V4 can take it by mass. Without Phobos Manufacturing 0.37.0 it has no use.",
           "guide": "agriculture-nutrient-production.md",
           "internal": false,
           "labels": {}
@@ -1711,9 +1725,10 @@
             "PhobosCalcinedResidue",
             "PhobosRoastedCalcine",
             "PhobosOlivineLeachCake",
-            "PhobosExhaustedSorbent"
+            "PhobosExhaustedSorbent",
+            "PhobosPlantAsh"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3) and exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back). Trash at the technical minimum price; nothing recovers them.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back) and plant ash (30 g: the minerals of one burned or charred straw bale). Trash at the technical minimum price; nothing recovers them.",
           "use": "Carry them out of the tray and sell or discard them.",
           "find": "Left in the V4, LC-3 or SA-3 tray by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",

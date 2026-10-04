@@ -26,8 +26,8 @@ internal static partial class Service
         var access = Access(co, null, actor); if (access != null) return access;
         if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) return Text.Get("repair");
         if (IrrigationDefinitions.IsSupply(co) && !SupplyWork.Contains(action)) return Text.Get("help");
-        if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" || action == "formulate-nutrients" ? null : Text.Get("help");
-        if (action == "recover-crop" || action == "formulate-nutrients") return Text.Get("help");
+        if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw" ? null : Text.Get("help");
+        if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw") return Text.Get("help");
         var b = s.State;
         if (action == "drain") return b.Water + b.Nutrients + s.Solution.TotalKg + s.Line.TotalKg > 0 ? null : Text.Get("empty");
         if (action == "harvest") return b.CropId.Length > 0 && b.Ready ? null : Text.Get("not_ready");
@@ -52,8 +52,8 @@ internal static partial class Service
         if (WorkProblem(co, actor, action) is string problem) { s.Notice = problem; return false; }
         try
         {
-            if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" ? QueueWorkup(s,"recover") : action == "formulate-nutrients" && QueueWorkup(s,"formulate");
-            if (action == "recover-crop" || action == "formulate-nutrients") return false;
+            if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" ? QueueWorkup(s,"recover") : action == "bale-straw" ? LoadPress(s) : action == "formulate-nutrients" && QueueWorkup(s,"formulate");
+            if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw") return false;
             if(action=="recover-solution") return QueueRecovery(s);
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
             if (action == "pick") return Pick(s);
@@ -99,7 +99,9 @@ internal static partial class Service
         if (harvest.ResidueKg > 1e-8) specs.Add((b.RecoveryRevision == 1 ? WorkupDefinitions.Residue : Definitions.Residue, harvest.ResidueKg));
         var next = b.Copy(); next.ClearCrop();
         double nutrient = NutrientRecovery.Allocation(b, harvest.ResidueKg);
-        return Deliver(s, specs, null, next, initialize:(p,id)=> { if(id==WorkupDefinitions.Residue) WriteResidue(p,nutrient); });
+        // The residue's organic matter is recorded too (Agriculture 0.44.0), so the B2 can press it into straw bales.
+        double organic = Math.Min(NutrientRecovery.Organic(b, harvest.ResidueKg), harvest.ResidueKg - nutrient);
+        return Deliver(s, specs, null, next, initialize:(p,id)=> { if(id==WorkupDefinitions.Residue) WriteResidue(p,nutrient,organic); });
     }
     /// <summary>Picks ripe fruit and leaves the plant growing (Agriculture 0.42.0): whole portions only, no residue and no
     /// kept stock; the final harvest gives those. The portions leave the plant's own mass, so delivery balances.</summary>
@@ -138,13 +140,14 @@ internal static partial class Service
     /// <summary>The first portion in the cooker that some recipe takes and whose supply is there too, in the recipes' order.</summary>
     internal static CondOwner? Cookable(CondOwner co) => HearthRecipes.All.Where(r => r.Extra is not (string id, double kg) || Input(co, id, kg) != null)
         .Select(r => Input(co, r.Input, r.Kg)).FirstOrDefault(x => x != null);
-    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
+    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null, StrawPress? nextPress=null)
     {
         var products = new List<CondOwner>(); bool committed = false; TrayDelivery? delivery = null;
         try
         {
             if (s.Object.objContainer == null || s.Object.objContainer.Locked) return false;
-            double sourceMass = (input?.GetTotalMass() ?? 0) + (additionalInput?.GetTotalMass() ?? 0) + s.State.ContentsMass - next.ContentsMass + s.Solution.TotalKg - (nextSolution ?? s.Solution).TotalKg + s.Line.TotalKg - (nextLine ?? s.Line).TotalKg;
+            double sourceMass = (input?.GetTotalMass() ?? 0) + (additionalInput?.GetTotalMass() ?? 0) + s.State.ContentsMass - next.ContentsMass + s.Solution.TotalKg - (nextSolution ?? s.Solution).TotalKg + s.Line.TotalKg - (nextLine ?? s.Line).TotalKg
+                + s.Press.TotalKg - (nextPress ?? s.Press).TotalKg;
             if (Math.Abs(specs.Sum(x => x.Kg) - sourceMass) > 1e-7) throw new InvalidOperationException("Unbalanced agriculture delivery.");
             foreach (var spec in specs)
             {
@@ -170,7 +173,7 @@ internal static partial class Service
                 committed = true;
             }
             if(additionalInput!=null) { additionalInput.RemoveFromCurrentHome(true); if(additionalInput.objCOParent!=null||additionalInput.ship!=null) throw new InvalidOperationException("Recovery input did not detach."); committed=true; }
-            s.State = next; s.Solution = nextSolution ?? s.Solution; s.Line=nextLine??s.Line; Save(s); committed = true;
+            s.State = next; s.Solution = nextSolution ?? s.Solution; s.Line=nextLine??s.Line; s.Press=nextPress??s.Press; Save(s); committed = true;
             if (input != null) input.Destroy();
             if(additionalInput!=null) additionalInput.Destroy();
             if (!DeliveryStore(s.Object).TryWrite(new Dictionary<string,string>{["state"]="clear"})) throw new InvalidOperationException("Material delivery journal failed.");

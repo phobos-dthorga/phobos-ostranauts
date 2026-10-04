@@ -29,6 +29,30 @@ internal static class NutrientRecoveryChecks
             Near(NutrientRecovery.Allocation(CropState.Read(legacy),harvest.ResidueKg),0,"Historic cohorts keep uncharacterized residue");
             check(CropState.Read(state.Save()).RecoveryRevision==1,"New cohort allocation revision survives reload");
         }
+        // The straw press (Agriculture 0.44.0): residue records name their organic matter; older records still read.
+        {
+            var wheat=new CropState{Water=20,Nutrients=.5};wheat.Plant(Crop.Get("wheat"),1);
+            for(int n=0;n<200&&!wheat.Ready;n++)wheat.Step(1,Crop.Get("wheat").KW,10,10,true);
+            var h=wheat.Harvest();double nutrient=NutrientRecovery.Allocation(wheat,h.ResidueKg),organic=NutrientRecovery.Organic(wheat,h.ResidueKg);
+            check(organic>0&&organic+nutrient<=h.ResidueKg+1e-9,"A harvest's residue records its organic matter within its mass");
+            var full=NutrientRecovery.ReadFull(NutrientRecovery.Record(h.ResidueKg,nutrient,organic),h.ResidueKg);
+            Near(full.Nutrient,nutrient,"The organic record keeps the nutrient");check(full.Organic is double o&&Math.Abs(o-organic)<1e-12,"The organic record survives reload");
+            check(NutrientRecovery.ReadFull(NutrientRecovery.Record(h.ResidueKg,nutrient),h.ResidueKg).Organic==null,"A record from before 0.44.0 has no organic matter and cannot be pressed");
+            Reject(()=>NutrientRecovery.Record(1,.5,.6),"Organic matter and nutrients cannot exceed the item's mass");
+            var press=new StrawPress();double pressed=0;
+            for(int n=0;n<3;n++){press.Absorb(h.ResidueKg,nutrient,organic);pressed+=h.ResidueKg;}
+            Near(press.TotalKg,pressed,"The press holds every kilogram it takes");
+            press.Absorb(2,.06,1.5);pressed+=2;
+            double dried=press.Dry();double kept=press.TotalKg;Near(kept+dried,pressed,"Drying only moves water out, to the tank");
+            Near(press.Water,press.Organic*StrawPress.BaleWaterKg/StrawPress.BaleOrganicKg,"Dried straw keeps the bale's share of water");
+            int bales=press.Bales;check(bales>=1,"Enough dried straw makes a bale");
+            press.Pack(bales);Near(press.TotalKg+bales*StrawPress.BaleKg,kept,"Bales take exactly their mass out of the press");
+            check(press.Bales==0,"The press stops when no whole bale is left");
+            var read=StrawPress.Read(press.Save());Near(read.TotalKg,press.TotalKg,"The press record survives reload");
+            Reject(()=>new StrawPress().Absorb(StrawPress.CapacityKg+1,0,1),"The press refuses more than it holds");
+            Near(StrawPress.BaleOrganicKg+StrawPress.BaleMineralsKg+StrawPress.BaleWaterKg,StrawPress.BaleKg,"A bale's parts make its kilogram");
+            var wet=new StrawPress();wet.Absorb(1,.03,.2);check(wet.Bales==0&&wet.Surplus>0,"Too little straw for a bale still dries");
+        }
         var reservoir=new CropState{Water=20,Running=true};var solution=new NutrientSolution{Profile="potato-v1"};
         Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Full liquid capacity does not consume a physical charge");
         reservoir.Water=10;check(NutrientCharge.DoseAllowance(reservoir,solution,1)>0,"Available water and measured blending work admit dosing");

@@ -131,6 +131,12 @@
       "source": "stock-soybean-stew.png",
       "label": "Hearth soybean stew",
       "definition": "PhobosVerdemorrowHearthSoybeans"
+    },
+    {
+      "key": "straw_bale",
+      "source": "stock-straw-bale.png",
+      "label": "Straw bale",
+      "definition": "PhobosVerdemorrowStrawBale"
     }
   ]
 }

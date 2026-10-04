@@ -35,6 +35,9 @@ public static class RefineryRules
     /// carbon/carbides 10 kg, gangue 3 kg. Steel identities are Shipbreaker's, named as strings only.</summary>
     public const string Hydrates = "ItmMineral11", Iron = "ItmMineral01", Carbides = "ItmMineral03", Gangue = "ItmMiningTrash";
     public const string SteelIngot = "PhobosSteelIngot", SteelRemainder = "PhobosSteelMeltRemainder";
+    /// <summary>Agriculture's straw bale (Agriculture 0.44.0), named as a string only: 1 kg, fixed composition.</summary>
+    public const string StrawBale = "PhobosVerdemorrowStrawBale";
+    public const double StrawBaleKg = 1;
     public const double HydratesKg = 10, IronKg = 20, CarbidesKg = 10, GangueKg = 3, SteelIngotKg = 4, SteelRemainderKg = 1;
     private static EquipmentEntry Shape => Equipment.Entry(Prefix);
     public static int Footprint => Shape.footprint;
@@ -49,16 +52,16 @@ public static class RefineryRules
     /// <summary>Whether one loose unit may enter the feed: an exact feed identity at its unit mass, detached,
     /// empty and unstacked. Wear is ignored: the game's ores spawn with random damage. Steel-bound identities
     /// enter only while Shipbreaker's stock exists.</summary>
-    public static bool ValidFeed(string? id, double kg, bool detached, bool empty, bool unstacked, bool steelStock)
+    public static bool ValidFeed(string? id, double kg, bool detached, bool empty, bool unstacked, bool steelStock, bool straw = false)
     {
         if (!detached || !empty || !unstacked || id == null) return false;
-        double? unit = FeedKg(id, steelStock);
+        double? unit = FeedKg(id, steelStock, straw);
         return unit.HasValue && ProcessMaterial.MassMatches(kg, unit.Value);
     }
     /// <summary>The unit mass a feed identity must carry, or null when it is not feed: from the available recipes.</summary>
-    public static double? FeedKg(string? id, bool steelStock) => ChargeCatalog.For(ChargeCatalog.Refinery).FeedKg(id, RefineryRecipes.Met(steelStock));
+    public static double? FeedKg(string? id, bool steelStock, bool straw = false) => ChargeCatalog.For(ChargeCatalog.Refinery).FeedKg(id, RefineryRecipes.Met(steelStock, straw));
     /// <summary>Feed identities the bin admits at the game level beyond the native TIsOre rule: our own stock.</summary>
-    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue, Materials.CarbonBlack };
+    public static readonly string[] StockFeed = { Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue, Materials.CarbonBlack, StrawBale };
 }
 
 /// <summary>The V4 catalog (owner chemistry decisions, 29 September 2026; sources in the refinery design record): the
@@ -73,8 +76,9 @@ public static class RefineryRecipes
     public static DataPackSource Source => ChargeCatalog.Source;
     public static RecipePack Load(Func<string, double?>? nativeMass = null) => ChargeCatalog.Load(nativeMass);
     private static ChargeRecipeView View => ChargeCatalog.For(Machine);
-    /// <summary>The V4's requirement gate: the steel recipe needs Shipbreaker's stock identities.</summary>
-    public static Func<string, bool> Met(bool steelStock) => key => key == SteelStockRequirement && steelStock;
+    /// <summary>The V4's requirement gate: the steel recipe needs Shipbreaker's stock identities, the straw charges
+    /// Agriculture's bale.</summary>
+    public static Func<string, bool> Met(bool steelStock, bool straw = false) => key => key == SteelStockRequirement && steelStock || key == ChargeCatalog.StrawRequirement && straw;
     /// <summary>Every charge, by revision.</summary>
     public static IReadOnlyList<ChargeRecipe> All => View.All;
     public static ChargeRecipe Hydrates => ById("hydrates")!;
@@ -95,10 +99,10 @@ public static class RefineryRecipes
     public static ChargeRecipe? ById(string? id) => View.ById(id);
     /// <summary>Recipes available now, less superseded ones: the plain steel recipe needs Shipbreaker's stock identities and
     /// is superseded by nickel steel, so new charges never bind it.</summary>
-    public static IEnumerable<ChargeRecipe> Available(bool steelStock) => View.Available(Met(steelStock));
+    public static IEnumerable<ChargeRecipe> Available(bool steelStock, bool straw = false) => View.Available(Met(steelStock, straw));
     /// <summary>The recipe whose whole charge is present among the feed identities, preferring the largest charge,
     /// or null. The caller binds the exact units.</summary>
-    public static ChargeRecipe? Match(IEnumerable<string> feedIds, bool steelStock) => View.Match(feedIds, Met(steelStock));
+    public static ChargeRecipe? Match(IEnumerable<string> feedIds, bool steelStock, bool straw = false) => View.Match(feedIds, Met(steelStock, straw));
     /// <summary>Whether a saved charge froze: a melt interrupted by heat waits for longer than its own duration.
     /// A drying or roasting charge simply resumes.</summary>
     public static bool Spoiled(ChargeRecipe recipe, double waitSeconds) =>

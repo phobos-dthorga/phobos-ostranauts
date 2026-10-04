@@ -1674,6 +1674,31 @@
     "patches": null
   },
   {
+    "key": "plant-ash",
+    "sourceSHA256": "08c7d06908af897e4be83a248c00cc9028f15c0ddb9b89b2e8048258a88d6f96",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockPlantAsh.png": "91340b9f6bdc168ae735ccdb72ba83df3bea0561c8689b614521e5e7a6aa6c6c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockPlantAshNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "carbon-stock",
     "sourceSHA256": "d139ff0d5c3dac235f29740c9068fde836e7348d8c8668f3aa9a0cbc3167a07d",
     "nativeSize": [

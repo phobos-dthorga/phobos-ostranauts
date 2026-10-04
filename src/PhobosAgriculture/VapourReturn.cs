@@ -35,6 +35,17 @@ internal static class VapourReturn
         return kept;
     }
 
+    /// <summary>The room left in the machine's tank, for work that must put all its water away or not start (the B2's
+    /// straw dryer, Agriculture 0.44.0). Looks the tank up afresh.</summary>
+    internal static double Room(Service.Session s)
+    {
+        if (s.Object.ship == null) return 0;
+        s.VapourTank = Pick(s.Object)?.strID ?? ""; s.VapourCheck = StarSystem.fEpoch + RecheckSeconds;
+        var tank = Service.Resolve(s.VapourTank); var spec = tank == null ? null : BulkVessels.Of(tank);
+        var state = spec == null ? null : BulkVessel.TryRead(tank!, spec);
+        return state == null ? 0 : Math.Max(0, spec!.CapacityKg - state.TotalKg);
+    }
+
     /// <summary>The nearest usable water tank the rack reaches: touching first, then fewest line steps.</summary>
     internal static CondOwner? Pick(CondOwner rack) =>
         BulkVessels.Aboard(rack.ship, LineCommodities.Water).Where(t => Usable(rack, t))

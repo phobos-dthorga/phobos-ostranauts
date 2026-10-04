@@ -21,6 +21,8 @@ internal static partial class Service
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
         internal WorkupJob Workup = new();
+        /// <summary>The B2's straw press (Agriculture 0.44.0); empty on every other machine.</summary>
+        internal StrawPress Press = new();
         internal string DoseId = "";
         internal NutrientSolution Solution = new();
         internal FluidLine Line = new();
@@ -46,7 +48,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            DoseId = previous.DoseId, Workup = previous.Workup.Copy(), State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            DoseId = previous.DoseId, Workup = previous.Workup.Copy(), Press = previous.Press.Copy(), State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -118,7 +120,7 @@ internal static partial class Service
         acceptable = records && evidence;
         return s;
     }
-    private static double ExpectedMass(CondOwner co, Session s) => Definitions.DryMass(co) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + PhysicalMass(co);
+    private static double ExpectedMass(CondOwner co, Session s) => Definitions.DryMass(co) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(co);
     /// <summary>Owner-confirmed recovery of a protected machine: the readable records are trusted, an interrupted
     /// transfer journal is closed and the item's mass is set back to what the records say. Unreadable or
     /// inconsistent records cannot be accepted.</summary>
@@ -141,12 +143,13 @@ internal static partial class Service
         Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Saves);
         if (!DosingStore(s.Object).TryWriteIfChanged(DosingBinding.Save(s.DoseId))) throw new InvalidOperationException("Protected dosing binding.");
         if (!WorkupStore(s.Object).TryWriteIfChanged(s.Workup.Save())) throw new InvalidOperationException("Protected workup state.");
+        if (WorkupDefinitions.IsBench(s.Object) && !PressStore(s.Object).TryWriteIfChanged(s.Press.Save())) throw new InvalidOperationException("Protected straw press.");
         if (!LineStore(s.Object).TryWriteIfChanged(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!s.Store.TryWriteIfChanged(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!SolutionStore(s.Object).TryWriteIfChanged(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         // Native containers already include child cargo in StatMass. Keep it and propagate
         // only the numerical reservoir/biomass difference to any native parent.
-        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
+        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
     }
     private static double PhysicalMass(CondOwner co) => co.objContainer?.ContainedCOs.Sum(c => c.GetTotalMass()) ?? 0;
     internal static void Fault(CondOwner co, Exception error)
@@ -173,7 +176,7 @@ internal static partial class Service
     {
         var s = Get(co);
         double kw = s.Protected || WaterGuard(co).Protected || !RoomReady(co) ? 0 :
-            WorkupDefinitions.IsBench(co) ? s.State.Running && s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : 0 :
+            WorkupDefinitions.IsBench(co) ? !s.State.Running ? 0 : s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : PressWork(s) ? StrawPress.PowerKW : 0 :
             IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? HearthRecipes.CookerKW : 0 : s.State.DemandKW;
         return nativeAmount / StandbyKW * Math.Max(kw, StandbyKW);
     }
@@ -296,15 +299,20 @@ internal static partial class Service
         if (WorkupDefinitions.IsBench(co))
         {
             if (action == "cancel-workup" && Paused(s)) { s.Workup = new(); Save(s); message = Describe(co); return true; }
-            if (action == "recover-crop" || action == "formulate-nutrients")
+            if (action == "empty-press")
+            {
+                if (!Paused(s)) { message = Text.Get("press_pause"); return false; }
+                bool emptied = EmptyPress(s); message = s.Notice; return emptied;
+            }
+            if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw")
             {
                 if (binding != null) { message = Text.Get("local_work"); return false; }
                 CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
             }
             if (action != "start" && action != "resume" && action != "pause") { message = Text.Get("help"); return false; }
-            if (action != "pause" && s.Workup.Mode.Length == 0) { message = Text.Get("workup_input"); return false; }
+            if (action != "pause" && s.Workup.Mode.Length == 0 && !PressWork(s)) { message = Text.Get(s.Press.Empty ? "workup_input" : "press_short"); return false; }
         }
-        else if (action == "recover-crop" || action == "formulate-nutrients" || action == "cancel-workup") { message = Text.Get("help"); return false; }
+        else if (action == "recover-crop" || action == "formulate-nutrients" || action == "cancel-workup" || action == "bale-straw" || action == "empty-press") { message = Text.Get("help"); return false; }
         if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;

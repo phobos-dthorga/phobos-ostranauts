@@ -316,6 +316,9 @@ internal static class ManufacturingNativeChecks
         check(AcidPlantRecipes.All.Count == 1 && AcidPlantRecipes.Match(new[] { Materials.SulfideNodule }) == AcidPlantRecipes.Roast, "The SA-3 has its one roast recipe");
         check(RefineryRecipes.Available(true).Count() == 11 && RefineryRecipes.Available(false).Count() == 11 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker never changes the definitions, and nickel steel is offered with or without it");
         check(AgricultureStock.Definitions(), "Agriculture's makeup packet is published at the 40 g the formulation expects");
+        check(AgricultureStock.StrawDefinitions(), "Agriculture's straw bale is published at the 1 kg the straw charges expect");
+        check(RefineryRecipes.Available(true, true).Count() == 13 && RefineryRecipes.Available(false, true).Select(r => r.Id).Contains("straw-char") && !RefineryRecipes.Available(true).Any(r => r.Requires.Contains(ChargeCatalog.StrawRequirement)),
+            "The straw charges are offered only with Agriculture's bale");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
         // Refining as a business (owner approval, 1 October 2026; docs/development/refining-business-and-interdependencies.md,
@@ -354,6 +357,14 @@ internal static class ManufacturingNativeChecks
             {
                 check(recipe.Products.All(p => p.Id == ManufacturingRules.CropNutrients) && !recipe.ItemInputs.Any(i => Bought(i.Id)) && recipe.Solids(recipe.Products).Count() == 0,
                     $"The {recipe.Id} charge deposits only crop nutrients into a hopper (Agriculture's own price), from salts no merchant sells");
+                continue;
+            }
+            // The owner's exception (4 October 2026, crop waste both ways): straw is baled crop waste, which no merchant sells
+            // and which is priced as waste, so charring it gains and burning it supplies; neither can be bought into a loop.
+            if (recipe.Requires.Contains(ChargeCatalog.StrawRequirement))
+            {
+                check(recipe.ItemInputs.All(i => i.Id == RefineryRules.StrawBale) && !recipe.ItemInputs.Any(i => Bought(i.Id)) && Price(RefineryRules.StrawBale) <= 1,
+                    $"The {recipe.Id} charge takes only Agriculture's straw bales, which no merchant sells and which are priced as waste");
                 continue;
             }
             if (recipe.Requires.Contains(ChargeCatalog.MakeupRequirement))
@@ -401,6 +412,9 @@ internal static class ManufacturingNativeChecks
         foreach (string filter in new[] { "ItmFilterCO201Dmg", "ItmFilterCO202Dmg" })
             check(feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[filter]), false) && Stat(DataHandler.dictCOs[filter], "StatMass") == 2.5, "A spent CO2 filter passes the V4 feed's game-level rule at 2.5 kg: " + filter);
         check(RefineryRules.FeedKg("ItmFilterCO201", true) == null && RefineryRules.FeedKg("ItmFilterCO201Dmg", true) == 2.5, "Only spent cartridges are feed; ready ones are refused by the exact rule");
+        // Agriculture's straw bale enters at the game level by its identity condition, and by the exact rule only with the straw gate.
+        check(feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.StrawBale]), false) && RefineryRules.FeedKg(RefineryRules.StrawBale, true, true) == 1 && RefineryRules.FeedKg(RefineryRules.StrawBale, true) == null,
+            "A straw bale passes the V4 feed's game-level rule, and is feed only while Agriculture's bale is available");
         // The whole iron chain: a meteoric iron block and a fifth of a carbon ore block end as four nickel steel ingots.
         double ironChain = 4 * Price(Materials.NickelSteelIngot), ironOre = Price(RefineryRules.Iron) + Price(RefineryRules.Carbides) / RefineryRecipes.Carbon.Products.Single(p => p.Id == Materials.CarbonStock).Count;
         check(ironChain >= 1.5 * ironOre && ironChain <= 2.5 * ironOre, $"Meteoric iron and carbon ore end as nickel steel worth 1.5 to 2.5 times the ores: {ironChain:F2} from {ironOre:F2}");

@@ -371,6 +371,11 @@
       "commit": "370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f",
       "date": "2026-10-04",
       "note": "Agriculture tomato and soybean PixelLab pass: rejected and superseded outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/phobos-agriculture/tomato-soybean-generation-records.json."
+    },
+    {
+      "commit": "527ab790238c1d6352ebc287f23a3b68b2a1ea15",
+      "date": "2026-10-04",
+      "note": "Agriculture straw bale PixelLab pass: the rejected perspective attempt, never committed to main, archived directly. Request, seed, hash and reason: assets/phobos-agriculture/straw-bale-generation-records.json."
     }
   ]
 }

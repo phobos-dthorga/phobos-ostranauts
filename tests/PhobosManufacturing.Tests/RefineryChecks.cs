@@ -18,7 +18,7 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 12, "Twelve distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 14, "Fourteen distinct revisions");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,
@@ -121,11 +121,11 @@ internal static class RefineryChecks
         double calcineKJ = -601.6 + -393.5 - -1113.3;
         check(Math.Abs(cal.ReactionKWh + magnesite * calcineKJ / 3600) < .01 && cal.ReactionKWh < 0 && Math.Abs(cal.EnergyKWh - 3) < 1e-9 && !cal.Melt,
             "The calcine absorbs its reaction heat (about 118 kJ per mole) within a 3 kWh charge; not a melt");
-        check(RefineryRules.StoredGasFamilies.Count() == 3 && RefineryRules.StoredGasFamilies.Contains(GasStores.CarbonDioxideFamily) && RefineryRules.StoredGasFamilies.Contains(GasStores.HydrogenFamily),
-            "The V4 sends ammonia, carbon dioxide and hydrogen to stores");
+        check(RefineryRules.StoredGasFamilies.Count() == 4 && RefineryRules.StoredGasFamilies.Contains(GasStores.MethaneFamily) && RefineryRules.StoredGasFamilies.Contains(GasStores.CarbonDioxideFamily) && RefineryRules.StoredGasFamilies.Contains(GasStores.HydrogenFamily),
+            "The V4 sends ammonia, carbon dioxide, hydrogen and (since straw charring) methane to stores");
         check(RefineryRules.GasFamilies.Count() == 5 && RefineryRules.GasFamilies.Contains(GasStores.MethaneFamily) && RefineryRules.GasFamilies.Contains(GasStores.OxygenFamily) &&
-              !RefineryRules.Stores(GasStores.MethaneFamily) && RefineryRules.Stores(GasStores.HydrogenFamily),
-            "The V4 links five gas stores: methane and oxygen it draws from, ammonia, carbon dioxide and hydrogen it fills");
+              RefineryRules.Stores(GasStores.MethaneFamily) && !RefineryRules.Stores(GasStores.OxygenFamily) && RefineryRules.Stores(GasStores.HydrogenFamily),
+            "The V4 links five gas stores: oxygen it draws from, methane it draws from and (straw charring) fills, ammonia, carbon dioxide and hydrogen it fills");
 
         // The interdependency first slice (Manufacturing 0.27.0), with IUPAC 2013 molar masses.
         const double C = 0.012011, H2 = 0.002016, CH4 = 0.016043, O2 = 0.031998, CO2 = 0.044009;
@@ -151,6 +151,27 @@ internal static class RefineryChecks
             "The sorbent is terminal; carbon black and the game's CO2 filters enter the V4's feed");
         check(RefineryRules.ValidFeed(Materials.LeachedResidue, 6.8, true, true, true, false) && RefineryRecipes.Match(new[] { Materials.LeachedResidue }, false) == cal && Materials.IsTerminal(Materials.CalcinedResidue) && !Materials.IsTerminal(Materials.LeachedResidue),
             "The leached residue enters and matches the calcine; the calcined residue is terminal");
+
+        // Agriculture's straw (Manufacturing 0.37.0): one bale is 0.87 kg CH2O-equivalent organic matter, 0.03 kg minerals and
+        // 0.10 kg water. Both charges need Agriculture's bale and conserve mass to the gram.
+        const double CH2O = 0.030026, H2O = 0.018015;
+        var strawBurn = RefineryRecipes.ById("straw-burn")!; var strawChar = RefineryRecipes.ById("straw-char")!;
+        double organicMol = .87 / CH2O;
+        check(strawBurn.Revision == 13 && strawChar.Revision == 14 && strawBurn.Requires.SequenceEqual(new[] { ChargeCatalog.StrawRequirement }) && strawChar.Requires.SequenceEqual(new[] { ChargeCatalog.StrawRequirement }),
+            "The straw charges are refinery revisions 13 and 14 and need Agriculture's bale");
+        check(Math.Abs(strawBurn.Draws.Single(i => i.Id == ManufacturingRules.Oxygen).Kg - organicMol * O2) < .001 && Math.Abs(strawBurn.Deposits.Single(p => p.Id == ManufacturingRules.CarbonDioxide).Kg - organicMol * CO2) < .001 &&
+              Math.Abs(strawBurn.Products.Single(p => p.Id == ManufacturingRules.Water).Kg - (organicMol * H2O + .1)) < .001 && strawBurn.Products.Single(p => p.Id == Materials.PlantAsh).Count == 1 &&
+              strawBurn.OffGasKg == 0 && Math.Abs(strawBurn.ChargeKg - Sum(strawBurn)) < 1e-9 && Math.Abs(strawBurn.ReactionKWh - organicMol * 467.1 / 3600) < .01,
+            "Straw burning: CH2O + O2 -> CO2 + H2O on 28.975 mol, the CO2 to a store, the bale's water and ash kept, 3.76 kWh released");
+        double charredC = 1.0 / C, restC = 4 * organicMol - charredC, methaneMol = .261 / CH4;
+        check(strawChar.ItemInputs.Single().Count == 4 && strawChar.Products.Single(p => p.Id == Materials.CarbonStock).Count == 1 && strawChar.Products.Single(p => p.Id == Materials.PlantAsh).Count == 4 &&
+              Math.Abs(strawChar.OffGasKg / CO2 + methaneMol - restC) < .1 && Math.Abs(strawChar.ChargeKg - Sum(strawChar)) < 1e-9 && strawChar.ReactionKWh > 0,
+            "Straw charring: four bales give one carbon stock; the rest of the carbon leaves as CO2 and methane, with water and four plant ash");
+        check(RefineryRecipes.Match(Enumerable.Repeat(RefineryRules.StrawBale, 4), false) == null && RefineryRecipes.Match(Enumerable.Repeat(RefineryRules.StrawBale, 4), false, true) == strawChar &&
+              RefineryRules.ValidFeed(RefineryRules.StrawBale, 1, true, true, true, false, true) && !RefineryRules.ValidFeed(RefineryRules.StrawBale, 1, true, true, true, false) &&
+              RefineryRules.StockFeed.Contains(RefineryRules.StrawBale) && Materials.IsTerminal(Materials.PlantAsh),
+            "Four bales match the char only with Agriculture's bale; the bale is stock feed and plant ash is terminal");
+        check(RefineryRecipes.Available(true, true).Count() == 13, "Thirteen recipes with Agriculture's bale");
 
         // Refining as a business (owner approval, 1 October 2026): a chain from mined ore to finished items earns 1.5 to 2.5
         // times the ore at base prices; remainders are trash; the clay chunk sells like hydrates. The native checks repeat

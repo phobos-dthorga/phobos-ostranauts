@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-04",
+  "provider": "PixelLab",
+  "status": "Selected candidate inspected at native size and at 4x by the agent while the owner was away (owner direction of 4 October 2026 to continue on its own); owner review pending; no gameplay validation.",
+  "inputs": "Text only. No game or third-party images uploaded.",
+  "terms": "As recorded in stock-generation-records.json (PixelLab terms checked 2026-09-25).",
+  "usage": {
+    "allowanceBefore": 1697,
+    "allowanceAfter": 1695,
+    "generations": 2,
+    "selected": 1,
+    "rejected": 1,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "derivations": {
+    "stock-straw-bale.png": {
+      "from": "source/straw-bale-pixellab.png",
+      "fromSHA256": "f71a9d836082cce5eec304a273530bde102029151f6a565844396c45c85e4073",
+      "method": "Mechanical crop of rows 8 to 37 (the bale top surface) of the selected PixelLab output, pasted unchanged at row 17 of a transparent 64 x 64 canvas; the brown front face below row 37 is dropped so only the overhead surface remains. No repainting.",
+      "sha256": "88103db7d66dd0b13469cf738465d008a1afb7236a548b5b2f66c7d753a1a9ee"
+    }
+  },
+  "records": [
+    {
+      "key": "straw_bale-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a compact rectangular bale of pressed golden-tan dry wheat straw, its top surface showing tightly packed parallel straw fibres running lengthwise, held by two thin dark sage green bands across it. Flat top-down view of the top surface only, rectangular edges running horizontally and vertically, no visible side or front face. Coarse deliberate pixel clusters, three or four shading tones, warm straw gold and tan with Verdemorrow sage bands. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510110,
+        "shading": "basic shading"
+      },
+      "job_id": "06f5a73e-f71e-41be-ac72-893eda401572",
+      "costGenerations": 1,
+      "sha256": "9cb00ad3ae4b04f07d210e34e168a1a7d22835413e612f1485c2e18960409519",
+      "status": "rejected",
+      "reason": "A strapped box with its front and side faces showing in perspective."
+    },
+    {
+      "key": "straw_bale",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above looking straight down. A flat golden straw rectangle filling the middle of the canvas, wider than tall: the top of a pressed bale of dry wheat straw, drawn as a plain axis-aligned rectangle covered in short parallel horizontal straw strands in gold, tan and pale yellow, with two thin dark sage green twine lines crossing it from top edge to bottom edge. Flat, no depth, no visible sides, no 3D box shape, no perspective. Coarse pixel clusters, three or four tones. Transparent background with 8px clear margins. No words, numbers, floor or shadow. Readable at 16x16 pixels.",
+        "seed": 2510111,
+        "shading": "flat shading",
+        "text_guidance_scale": 12
+      },
+      "job_id": "f7ae8e30-d2aa-4779-aa90-1029046372d9",
+      "costGenerations": 1,
+      "sha256": "f71a9d836082cce5eec304a273530bde102029151f6a565844396c45c85e4073",
+      "source": "source/straw-bale-pixellab.png",
+      "status": "selected (as a derivation input)",
+      "reason": "A clean overhead straw top with twine, above a brown front face; the top is cropped out mechanically (see derivations)."
+    }
+  ]
+}

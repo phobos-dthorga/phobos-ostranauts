@@ -28,7 +28,7 @@ Chili, radish and activated char were offered and not chosen.
 | 0 | this record | Sources, per-crop decisions, open questions | Written |
 | 1 | Agriculture 0.40.0 | Crops and Hearth-2 recipes as data packs; no change in play | Built, offline checks only |
 | 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
-| 3 | Agriculture 0.43.0 | CO2 response and rack vapour overflow to a linked water tank built (offline checks only); residue to carbon waits for an owner decision | Partly built |
+| 3 | Agriculture 0.43.0 and 0.44.0, Manufacturing 0.37.0 | CO2 response, rack vapour overflow to a linked tank, the B2 straw press and both V4 straw charges (offline checks only) | Built |
 | 4 | later | Flax: fibre to cloth, linseed; oil press decision | Needs its own design record |
 | 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
 | 5b | later | Rubber dandelion: latex to seals | Needs an owner decision on repair supplies |
@@ -340,3 +340,57 @@ Findings from the Manufacturing charge engine (4 October 2026):
 Options put to the owner: a fixed-mass dried straw bale made at the B2 bench and
 charred four at a time in the V4; burning bales into CO2 for the grow room instead
 of carbon stock, which closes a loop with the CO2 response; or setting the tie aside.
+
+## Phase 3b: straw bales both ways (Agriculture 0.44.0, Manufacturing 0.37.0)
+
+Owner decision, 4 October 2026: **both**: bales burned to CO2 and charred to carbon
+stock, knowing the char needs a value exception. The owner then left the remaining
+choices to the agent; those below are agent decisions, open to revision.
+
+**Residue records.** A residue record may now carry an `organic` field: the
+residue's share of the plant's CH2O-equivalent fixed carbon (the crop model's
+`Carbon`, so the field is exact in the model's own terms). A harvest writes it; B2
+recovery writes it onto spent biomass too, with the nutrients left behind. Records
+without it (all earlier residue) still recover nutrients and cannot be pressed.
+
+**The press** is a saved accumulator on the B2 (`AgricultureStrawPress`: organic,
+minerals, water, drying energy), counted in the bench's mass and blocking its
+removal while it holds anything. Loading is a one-minute crew action that takes
+pressable items whole, up to 12 kg. Starting the bench with no workup job runs the
+dryer at 1 kW (agent choice), which boils off water above the bale's share at
+2,257 kJ/kg (NIST Chemistry WebBook, latent heat of vaporisation at 100 C; sensible
+heating left out) and puts it into a reachable Framework water tank through
+`VapourReturn`, all or nothing: without room it stops and says so. Whole bales then
+go to the tray. A bale is fixed at 0.87 kg organic, 0.03 kg minerals and 0.10 kg
+water (about 10% moisture, the usual figure for stored straw; agent choice) so the
+V4 can bind it by mass. Minerals sit between fresh residue (3.5 to 8% of the organic
+matter) and spent biomass (1.4 to 3.3%); what no whole bale can take waits for more
+straw or leaves through **Empty the straw press** as one recorded residue, so nothing
+is created or destroyed.
+
+**The bale** (`PhobosVerdemorrowStrawBale`, 1 kg, 1 cr, stack 10, not sold or found)
+carries the `PhobosVerdemorrowStrawBaleIdentity` condition the V4's feed admits at
+the game level. Its icon is a mechanical crop of the top surface of a PixelLab
+output (records in `assets/phobos-agriculture/straw-bale-generation-records.json`).
+
+**The V4 charges** (Manufacturing 0.37.0, revisions 13 and 14, gated on Agriculture
+0.44.0's bale at 1 kg; chemistry in the refinery record):
+
+| Charge | In | Out |
+| --- | --- | --- |
+| straw-burn | 1 bale, 0.927 kg O2 drawn | 1.275 kg CO2 to a store, 0.622 kg water, 1 plant ash (30 g); 3.76 kWh into the room |
+| straw-char | 4 bales | 1 carbon stock, 1.9 kg water, 0.261 kg methane to a store, 0.719 kg CO2 into the room, 4 plant ash; 1.90 kWh into the room |
+
+Char yield: 1.000 kg of carbon from 3.48 kg of organic matter, 29%, authored within
+the quarter-to-a-third char yield of slow pyrolysis reported in M. J. Antal and
+M. Gronli, The Art, Science, and Technology of Charcoal Production, Industrial and
+Engineering Chemistry Research 42 (2003), 1619-1640 (unverified against the paper:
+read before quoting). Char is treated as pure carbon and tar as cracked; the gas
+split closes by element. Heats use formation enthalpies with glucose
+(-1273.3 kJ/mol, NIST) standing in for plant carbohydrate.
+
+**Value.** Burning makes no finished item, so it is a supply charge. Charring turns
+4 cr of waste bales into a carbon stock worth far more, which the refining rules'
+step test refuses; the owner's choice of both routes accepts it, and the native
+value check records it as an exception: bales are priced as waste and sold by no
+one, so no bought loop exists.

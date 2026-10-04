@@ -64,6 +64,7 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Spent Crop Biomass | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 30.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Straw Bale | 1.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 450.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir (Damaged) | 90.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | 635.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |

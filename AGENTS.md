@@ -329,8 +329,13 @@
   Agriculture 0.43.0 (phase 3): crops grow faster per hour and per kWh in enriched air
   (crops-pack `co2Response`, outside the frozen entries; budgets per kilogram unchanged),
   and a full rack's spare condensate goes to a Framework water tank it reaches instead
-  of vanishing. Residue to carbon in the V4 waits for an owner decision: the charge
-  engine needs fixed-mass inputs and residue's value fails the refining step rule.
+  of vanishing. Owner decision the same day, residue to carbon **both ways**:
+  Agriculture 0.44.0 adds the B2 straw press (residue records gain `organic`; a saved
+  press accumulator dries straw into a tank and packs fixed 1 kg bales) and
+  Manufacturing 0.37.0 burns a bale to CO2 (V4 revision 13) or chars four into carbon
+  stock (revision 14), the char a recorded value exception. The owner then delegated
+  phase 3b and phase 4 decisions while away; agent choices are marked as such in the
+  crop expansion record.
 
 ## Manufacturing direction (2026-09-25)
 

@@ -1,0 +1,25 @@
+[h1]Phobos Agriculture 0.44.0[/h1]
+[b]Draft - not published | 2026-10-04[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Straw press on the Groundwork B2 (owner decision, 4 October 2026: crop waste both ways). Load crop residue and spent crop biomass into the press, start the bench, and it dries them into 1 kg straw bales, sending the steam to a Rivetline water tank the bench touches or shares a process-water line with. With Phobos Manufacturing 0.37.0, a V4 burns a bale into carbon dioxide for a grow room or chars four into a carbon stock.
+[*]Empty the straw press returns what it holds as one recorded crop residue, so nothing is lost.
+[*]The B2 has a process-water port for the dryer's tank.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Residue and spent biomass made from now on record their plant matter; older residue still goes through nutrient recovery but cannot be pressed. The press is a new saved record on the bench.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.79.0 or newer. The bale's uses need Phobos Manufacturing 0.37.0 or newer.
+[*]The dryer needs a water tank with room for all the water it removes; without one it stops and says so. The bench cannot be removed while the press holds anything.
+[*]Bale composition and dryer power are gameplay choices; drying energy follows water's latent heat (NIST).
+[*]Checked offline; not yet seen in the game.
+[/list]

@@ -235,6 +235,16 @@
       "category": "IsCategoryTrash",
       "art": "spent_biomass"
     },
+    "PhobosVerdemorrowStrawBale": {
+      "notes": "Groundwork straw bale, 1 kg: 0.87 kg organic matter, 0.03 kg minerals and 0.10 kg water, pressed and dried at the B2 (Agriculture 0.44.0). Fuel and carbon feed for the Phobos Manufacturing V4. Not sold; priced low, as baled crop waste.",
+      "kind": "stock",
+      "kg": 1,
+      "price": 1,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "straw_bale"
+    },
     "PhobosVerdemorrowGroundworkMakeup": {
       "notes": "Groundwork makeup salts, 40 g; bound to the workup model.",
       "kind": "stock",

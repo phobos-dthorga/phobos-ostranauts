@@ -947,3 +947,13 @@ reservoir is full; then `VapourReturn` looks up the nearest reachable water tank
 every 30 seconds (one `BulkVessels.Aboard` pass and a line-reach check per tank, from the
 cached topology) and saves the tank's record once per step it deposits. The panel's status
 line reads the curve once. No capture accompanies this change.
+
+## 4 October: straw press and straw charges (L29)
+
+L29 — Agriculture 0.44.0 and Manufacturing 0.37.0: the B2 saves one more small record
+(the straw press) with its other records, written only when it changes. While the dryer
+runs, each power step adds energy to that record; the tank look-up (`VapourReturn.Room`,
+one `BulkVessels.Aboard` pass and a line-reach check per tank) runs once per drying batch,
+not per step. Loading the press walks the bench's own six-cell tray once per crew action.
+The V4's two new charges add two catalogue entries and one more gas link (methane now
+both drawn and stored); charge settlement is unchanged. No capture accompanies this change.

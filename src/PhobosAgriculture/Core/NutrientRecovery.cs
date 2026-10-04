@@ -16,22 +16,35 @@ public static class NutrientRecovery
         if (!CropState.Finite(residue) || residue < 0 || residue > state.Biomass + 1e-8) throw new ArgumentException("Invalid residue allocation.");
         return Math.Min(residue, state.Progress * Crop.Get(state.CropId).Nutrient * Math.Min(1, residue / state.Biomass));
     }
-    public static Dictionary<string,string> Record(double mass, double nutrient)
+    /// <summary>The organic matter (the crop model's CH2O-equivalent fixed carbon) in a harvest's residue: the residue's
+    /// share of the plant's mass (Agriculture 0.44.0).</summary>
+    public static double Organic(CropState state, double residue) =>
+        state.Biomass <= 0 || residue <= 0 ? 0 : Math.Min(residue, state.Carbon * Math.Min(1, residue / state.Biomass));
+    /// <summary>A residue record. Since Agriculture 0.44.0 it may also name the organic matter, which the straw press
+    /// needs; records without it (all residue made before) still recover nutrients.</summary>
+    public static Dictionary<string,string> Record(double mass, double nutrient, double? organic = null)
     {
-        Validate(mass, nutrient);
-        return new() { ["mass"] = mass.ToString("R", CultureInfo.InvariantCulture), ["nutrient"] = nutrient.ToString("R", CultureInfo.InvariantCulture) };
+        Validate(mass, nutrient, organic);
+        var d = new Dictionary<string,string> { ["mass"] = mass.ToString("R", CultureInfo.InvariantCulture), ["nutrient"] = nutrient.ToString("R", CultureInfo.InvariantCulture) };
+        if (organic is double o) d["organic"] = o.ToString("R", CultureInfo.InvariantCulture);
+        return d;
     }
-    public static double Read(IReadOnlyDictionary<string,string> fields, double physicalMass)
+    public static double Read(IReadOnlyDictionary<string,string> fields, double physicalMass) => ReadFull(fields, physicalMass).Nutrient;
+    /// <summary>The record's nutrient and, when it names one, its organic matter.</summary>
+    public static (double Nutrient, double? Organic) ReadFull(IReadOnlyDictionary<string,string> fields, double physicalMass)
     {
-        if (fields.Count != 2) throw new ArgumentException("Unknown residue record.");
+        bool organicField = fields.ContainsKey("organic");
+        if (fields.Count != (organicField ? 3 : 2)) throw new ArgumentException("Unknown residue record.");
         double mass = double.Parse(fields["mass"], CultureInfo.InvariantCulture), nutrient = double.Parse(fields["nutrient"], CultureInfo.InvariantCulture);
-        Validate(mass, nutrient);
+        double? organic = organicField ? double.Parse(fields["organic"], CultureInfo.InvariantCulture) : null;
+        Validate(mass, nutrient, organic);
         if (!CropState.Finite(physicalMass) || Math.Abs(mass - physicalMass) > 1e-8) throw new ArgumentException("Residue mass does not match its record.");
-        return nutrient;
+        return (nutrient, organic);
     }
-    private static void Validate(double mass, double nutrient)
+    private static void Validate(double mass, double nutrient, double? organic = null)
     {
         if (!CropState.Finite(mass) || !CropState.Finite(nutrient) || mass <= 0 || nutrient < 0 || nutrient > mass) throw new ArgumentException("Invalid residue budget.");
+        if (organic is double o && (!CropState.Finite(o) || o < 0 || nutrient + o > mass + 1e-9)) throw new ArgumentException("Invalid residue budget.");
     }
 }
 

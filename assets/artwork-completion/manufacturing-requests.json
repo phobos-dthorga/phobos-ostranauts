@@ -96,6 +96,25 @@
           40
         ]
       }
+    },
+    "plant-ash": {
+      "from": "source/calcined-residue.png",
+      "method": "per-pixel luminance map onto a pale warm ash-grey ramp; alpha and pixel placement unchanged (Manufacturing 0.37.0, 4 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.55,
+          95
+        ],
+        "g": [
+          0.53,
+          92
+        ],
+        "b": [
+          0.5,
+          86
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",

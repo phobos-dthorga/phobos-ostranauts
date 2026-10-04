@@ -19,7 +19,7 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.43.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.44.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -201,7 +201,7 @@ internal static class ContentsEligibilityPatch
         if (!Definitions.Machine(co)) return null;
         var s = Service.Get(co!);
         if (s.Protected || Service.WaterGuard(co!).Protected) return Text.Get("Maintenance.protected");
-        if (s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg > 1e-8) return Text.Get("Maintenance.contents");
+        if (s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg > 1e-8) return Text.Get("Maintenance.contents");
         if (s.State.CookerProgress > 0 || s.Workup.Mode.Length > 0) return Text.Get("Maintenance.job");
         return null;
     }

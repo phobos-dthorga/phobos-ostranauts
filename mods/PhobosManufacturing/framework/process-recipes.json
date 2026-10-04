@@ -109,6 +109,27 @@
       "products": [ { "id": "ItmFilterCO202", "count": 3, "kg": 2.5 }, { "id": "PhobosExhaustedSorbent", "count": 1, "kg": 2.5 } ],
       "seconds": 1800
     },
+    "straw-burn": {
+      "notes": "Burning Agriculture's straw bale for a grow room (Manufacturing 0.37.0; owner decision of 4 October 2026 to take crop waste both ways). The bale's 0.87 kg of organic matter is the crop model's CH2O-equivalent fixed carbon: CH2O + O2 -> CO2 + H2O on 28.975 mol (IUPAC 2013 molar masses), oxygen drawn from a linked oxygen store and the carbon dioxide to a linked carbon dioxide store, for an A2 to dose crops. 0.927 kg O2 gives 1.275 kg CO2 and 0.522 kg water, plus the bale's own 0.100 kg of water; its 0.03 kg of minerals leave as plant ash. Complete combustion with stored oxygen in excess is authored. Heat from formation enthalpies with glucose as the carbohydrate stand-in (CODATA key values for CO2 and liquid water; glucose -1273.3 kJ/mol, NIST Chemistry WebBook): 467 kJ per mole of CH2O, 3.76 kWh, into the room. Needs Agriculture's bale.",
+      "machine": "refinery",
+      "revision": 13,
+      "inputs": [ { "id": "PhobosVerdemorrowStrawBale", "count": 1, "kg": 1 }, { "id": "oxygen", "count": 1, "kg": 0.927 } ],
+      "products": [ { "id": "carbon dioxide", "count": 1, "kg": 1.275 }, { "id": "water", "count": 1, "kg": 0.622 }, { "id": "PhobosPlantAsh", "count": 1, "kg": 0.03 } ],
+      "seconds": 1800,
+      "reactionKWh": 3.76,
+      "requires": [ "agriculture-straw" ]
+    },
+    "straw-char": {
+      "notes": "Charring four of Agriculture's straw bales into carbon stock (Manufacturing 0.37.0; owner decision of 4 October 2026, with the value exception it needs). Slow pyrolysis leaves roughly a quarter to a third of dry biomass as char; we take 1.000 kg of carbon from the 3.48 kg of CH2O-equivalent organic matter (29 percent, authored, char treated as pure carbon, tar taken as cracked). The rest closes by element: 16.33 mol CO2 (0.719 kg) into the room, 16.29 mol methane (0.261 kg) to a linked methane store and 83.27 mol water (1.500 kg), plus the bales' own 0.400 kg of water; the 0.12 kg of minerals leave as four plant ash. Heat from formation enthalpies as for the straw burn (glucose stand-in, liquid water): about 6.85 MJ released, 1.90 kWh, into the room. Needs Agriculture's bale.",
+      "machine": "refinery",
+      "revision": 14,
+      "inputs": [ { "id": "PhobosVerdemorrowStrawBale", "count": 4, "kg": 1 } ],
+      "products": [ { "id": "PhobosCarbonStock", "count": 1, "kg": 1 }, { "id": "water", "count": 1, "kg": 1.9 }, { "id": "methane", "count": 1, "kg": 0.261 }, { "id": "PhobosPlantAsh", "count": 4, "kg": 0.03 } ],
+      "offGas": { "CO2": 0.719 },
+      "seconds": 1800,
+      "reactionKWh": 1.9,
+      "requires": [ "agriculture-straw" ]
+    },
     "evaporite-leach": {
       "notes": "Leach and glaserite-route crystallisation of the evaporite crust in 20 kg of circulating water: 2 KCl + Na2SO4 -> K2SO4 + 2 NaCl, KCl limiting at 8.048 mol (route: US patents 4,215,100 and 6,143,271). Potassium sulfate 0.701 kg; the Na,Mg phosphate (0.250 kg) is wet-separated; halite, the NaCl made, the leftover thenardite, trona and villiaumite leave as the terminal brine salt cake (2.248 kg); the clay matrix and magnesite leave as the leached residue for the V4. Rounded to item units, the gram of rounding to the cake. The water is condensed and returned. 12 kWh authored: a closed crystalliser with condensate recovery, about a quarter of open-pan evaporation at 2.26 MJ/kg (NIST). Crust minerals after McCoy et al. 2025 (NASA OSIRIS-REx Bennu samples); the proportions are authored.",
       "machine": "leach",

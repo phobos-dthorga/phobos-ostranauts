@@ -1684,6 +1684,30 @@
       "derivedFrom": "source/caustic-remainder.png"
     },
     {
+      "key": "plant-ash",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosPlantAsh",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockPlantAsh",
+      "status": "selected",
+      "source": "source/plant-ash.png",
+      "sourceSHA256": "08c7d06908af897e4be83a248c00cc9028f15c0ddb9b89b2e8048258a88d6f96",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected calcined residue lump onto a pale warm ash-grey ramp (map in manufacturing-requests.json); lighter than the calcined residue so the two read apart. Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/calcined-residue.png"
+    },
+    {
       "key": "carbon-stock",
       "mod": "PhobosManufacturing",
       "definition": "PhobosCarbonStock",

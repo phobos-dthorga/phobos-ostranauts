@@ -250,6 +250,17 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockExhaustedSorbent"
+    },
+    "PhobosPlantAsh": {
+      "notes": "Terminal (Manufacturing 0.37.0): the 30 g of mineral ash one straw bale leaves when the V4 burns or chars it.",
+      "kind": "stock",
+      "kg": 0.03,
+      "price": 0.01,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockPlantAsh"
     }
   }
 }
