@@ -8398,15 +8398,15 @@
     },
     {
       "path": "src/PhobosMedical/Core/MedicalRules.cs",
-      "sha256": "8de05134d2df77f5f4dbb21d62838aec2263b3e5dc90daf3dbad3f9996b427a6",
+      "sha256": "27128e96438cac006fe1354b2084f38c10deb76deeacd0183b9ff9ab2afa34b5",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: two more identifiers.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: two more identifiers. Medical 0.4.1: the bed's use point moved at definition time; no runtime path changed.",
       "findings": [
         "FF0"
       ],
       "indicators": {},
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosMedical/Core/MonitorRules.cs",
@@ -8444,10 +8444,10 @@
     },
     {
       "path": "src/PhobosMedical/Definitions.cs",
-      "sha256": "810a1ccebbd6095a1cd53e2d7ddcf5875891adabd390049ae6ee6382e1bf3ae9",
+      "sha256": "bc001b490d30c128486e252db44e2d0fc576b4d4122fdb345ca9d65d238a8af3",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: one more interaction at definition time.",
+      "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: one more interaction at definition time. Medical 0.4.1: the bed's use point moved at definition time; no runtime path changed.",
       "findings": [
         "FF0"
       ],
@@ -8457,11 +8457,11 @@
           129,
           133,
           134,
-          163,
-          164
+          164,
+          165
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosMedical/EquipmentEconomy.cs",
@@ -8556,10 +8556,10 @@
     },
     {
       "path": "src/PhobosMedical/Plugin.cs",
-      "sha256": "3355b6ba3bd16d3b7c712cefb479039a10f693f1d4def71181c253f6f99211fb",
+      "sha256": "efb04847086f0cddb7e3fbc003639364298e12c671c3f2598b9f594bccf5821c",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Phobos Medical 0.1.0: Ward-3 beds come from Framework's shared world sweep every two real seconds; the offer gate on TriggeredInternal returns after one definition-id comparison for every object that is not an installed Ward-3, then a name check, before any work. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: registers the medic crew provider; the toggle action adds one name comparison on an already-filtered path.",
+      "decision": "Phobos Medical 0.1.0: Ward-3 beds come from Framework's shared world sweep every two real seconds; the offer gate on TriggeredInternal returns after one definition-id comparison for every object that is not an installed Ward-3, then a name check, before any work. Medical 0.3.0: monitor wiring; no new per-frame path. Medical 0.4.0: registers the medic crew provider; the toggle action adds one name comparison on an already-filtered path. Medical 0.4.1: the bed's use point moved at definition time; no runtime path changed.",
       "findings": [
         "FF0"
       ],
@@ -8594,7 +8594,7 @@
           161
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosMedical/Provider.cs",

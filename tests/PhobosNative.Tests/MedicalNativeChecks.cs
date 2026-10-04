@@ -43,8 +43,20 @@ internal static class MedicalNativeChecks
             check(DataHandler.dictInteractions.ContainsKey(ia), "Ward-3 action resolves: " + ia);
         check(installed.aInteractions.Contains(MedicalRules.Sleep) && installed.aInteractions.Contains(MedicalRules.Rest) && installed.aInteractions.Contains(MedicalRules.Lay)
             && installed.aInteractions.Contains(MedicalRules.Controls), "The installed Ward-3 offers Sleep, Rest, Lay patient here and its Control Panel");
-        check(installed.mapPoints.Contains("sleep," + MedicalRules.PatientPointOffset) && installed.mapPoints.Contains("use," + MedicalRules.PatientPointOffset),
-            "The patient lies in the middle of the mattress, as on the Infirmaway");
+        check(installed.mapPoints.Contains("sleep," + MedicalRules.PatientPointOffset), "The patient lies in the middle of the mattress, as on the Infirmaway");
+        // Medical 0.4.1 (owner report: Inventory could not be reached). The game's Inventory action reaches one tile
+        // from the use point, so a free tile must lie that near: the use point is the foot-end mattress tile, whose
+        // neighbour past the foot is outside the bed. The game's sleep opener places the sleeper at the sleep point.
+        foreach (string form in MedicalRules.Forms)
+        {
+            var use = medical.Objects[p + form].mapPoints.Single(m => m.StartsWith("use,", StringComparison.Ordinal)).Split(',');
+            int useY = int.Parse(use[2]), footEdge = -8 * MedicalRules.Depth;
+            check(use[1] == "0" && useY > footEdge && useY - 16 < footEdge, "Ward-3 use point is the foot-end tile, one step from the floor past the foot: " + form);
+        }
+        check(DataHandler.dictInteractions["Inventory"].strTargetPoint == "use" && DataHandler.dictInteractions["Inventory"].fTargetPointRange == 1,
+            "The game's Inventory action walks to within one tile of the use point");
+        check(DataHandler.dictInteractions[MedicalRules.Sleep].strTeleport == MedicalRules.SleepPoint, "The game's sleep opener places the sleeper at the sleep point, not the use point");
+        check(DataHandler.dictInteractions[MedicalRules.Rest].strTeleport == MedicalRules.SleepPoint, "Rest and recover places the patient at the sleep point too");
 
         // The rest chain: the gate to the game's own lie-down first, then the loop, then getting up.
         var loop = DataHandler.dictInteractions[MedicalRules.RestLoop];

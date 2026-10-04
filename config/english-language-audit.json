@@ -77117,8 +77117,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f8ce83293e44db35c51cca9f74431c33a49449007af2541dd5850c3354e5e7c3",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "2c125c21c2ae134475e8dfbb7841830066789047b016384aa0ec715cac96e4fe",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "SUPPORT.md",
@@ -77807,8 +77807,8 @@
       "path": "docs/development/medical-bed-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "525336fc97bc1d7b5fbd87a66f61491d4c2b1d76e121c0eea07caf51e913b40b",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "ad9de1a15af6c1ebc06694ff3f666406a69c9aad161c5c5b8d90953187ccae15",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/development/medical-bed-research.md",
@@ -78224,15 +78224,15 @@
       "path": "docs/medical-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "079f07e35513b7420f27699338eb39f7047102b9064bfe41f4721d7bba71a7cc",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "fa12550ed2db63f342abccec6098875082a3965b8dcea2545c18d2cde4223bef",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/medical-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "56fc009041e8a1a9b234814ed6dfcc1f182638be34e714e4631d324d93786b90",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "9a2665a2020f5fdfa3a53adcb01c2bbaecbfdf3f6ee0101dc468dcb9f744a9db",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/performance-captures.md",
@@ -78378,8 +78378,8 @@
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "0719def175a7e09cda60225b5b84eddeefce1ddc4ce9188bd19329d856d269a6",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "b3c423e054b78520bd76f3b5ff5343763e378d5c2a33805111067ed030c12743",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -78526,8 +78526,8 @@
     {
       "path": "mods/PhobosMedical/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "48e6fde432970748d3cb8b76b2c48a00d18b128838119828223d24440ca7e389",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "ea269a832093709c1cb726b73166376eaaf6280c2d42083bb0946ac6adafd157",
+      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
     }
   ],
   "hardcodedReview": {

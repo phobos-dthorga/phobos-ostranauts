@@ -5,6 +5,21 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-05 - Draft
+
+### Fixed
+
+- The Ward-3's drawer could not be opened: Inventory answered that the crew could not get there. The bed's walk-to point was in the middle of the mattress, and the game's Inventory action needs a free tile right beside that point. The point is now at the foot of the bed, so stand at the foot to open the drawer. Sleep, Rest and recover, the Control Panel and crew treatment also work from either side near the foot. Patients still lie in the middle of the mattress.
+
+### Save compatibility
+
+- Automatic. Installed beds pick the new point up on the next load; nothing saved changes.
+
+### Compatibility and limits
+
+- Keep the floor at the foot of the bed clear. A bed with its foot against a wall or other equipment cannot have its drawer opened.
+- Offline checks are not gameplay validation; the owner reported the fault from play and has yet to confirm the fix.
+
 ## [0.4.0] - 2026-10-04 - Draft
 
 ### Added

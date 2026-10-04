@@ -15,7 +15,8 @@ for the current minimum). Automated checks pass; in-game checks are still pendin
    regional supply kiosks, or for scrip at the CCRE and GalCon faction kiosks
    (Friendly standing). It is 3 tiles across and 5 deep, like the game's own bed.
 2. Install it through **INSTALL, FURN** with a Mortorq. Put its head against a
-   wall that carries power: it draws from the tile row behind its head.
+   wall that carries power: it draws from the tile row behind its head. Leave the
+   floor at its foot clear: crew open the drawer and work on the patient from there.
 3. Right-click it. You will see **Rest and recover**, **Sleep**, **Lay patient
    here**, **Send injured crew here**, **Keep patient treated** and **Control Panel**.
 4. Put clean scrap cloth and a splint or two in its drawer, then switch on **Keep
@@ -179,6 +180,7 @@ says so and offers **Accept** to start it afresh.
 | --- | --- | --- |
 | No **Lay patient here** | You are not dragging anyone, or the person is awake or dead | Drag an unconscious person first. An awake one can rest or sleep. |
 | **Rest and recover** is refused | That crew member is not injured enough | Let them sleep instead, or tune the thresholds. |
+| **Inventory** says the crew cannot get there | The floor at the foot of the bed is blocked | Clear the tile past the foot of the bed, or move the bed. The drawer opens from the foot. |
 | The patient is not recuperating | No power, no air, or the bed is damaged | Check the panel: it names the reason. |
 | Healing is very slow | The patient is weightless but not under care (no power, no air), or the panel says this game version's wound code has changed | Restore power and air; otherwise spin up the ship. |
 | The monitor says no Ward-3 is touching | It stands more than one tile from the bed, or the bed is loose | Move it beside the installed bed. |

@@ -2017,7 +2017,7 @@
     "Medical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.4.0",
+      "value": "0.4.1",
       "description": "PhobosMedical published source/package version.",
       "targets": [
         {

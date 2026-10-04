@@ -207,6 +207,17 @@ Owner go, 4 October 2026, after the larger monitor art.
 - **Saved record** `PhobosState.MedicalMonitor` version 1: watched bed (or none) and alerts.
 - It never changes the patient.
 
+## Use point correction (Medical 0.4.1)
+
+Owner report from play, 5 October 2026: Sleep worked but Inventory failed with the game's
+"can't get to" message. Cause: the bed copied the Infirmaway's `use,0,-1` (mattress centre).
+The game's Inventory action walks to within one tile of `use`, and every tile that near the
+centre of a 3 x 5 bed is the bed itself; Sleep worked because its reach is two tiles. The
+Infirmaway has no inventory, so the game never meets this. Fix: `use` is the foot-end
+mattress tile (`0,-32`); `sleep` stays at the centre, and the game's sleep opener teleports
+the sleeper there (`strTeleport: sleep`), so patients lie where they did. Native checks hold
+the point one step from the floor past the foot. Not yet confirmed in play.
+
 ## Set 4 as built (Medical 0.4.0, Framework 0.89.0)
 
 Continued under the approved plan after set 3; the order and its defaults below are agent

@@ -50,8 +50,13 @@ public static class MedicalRules
     public const int Width = 3, Depth = 5, DrawerWidth = 3, DrawerHeight = 2;
     public const double MachineKg = 92;
     public const string SleepPoint = "sleep", UsePoint = "use";
-    /// <summary>The Infirmaway's own walk-to and lie-down point: the middle of the mattress.</summary>
+    /// <summary>The Infirmaway's own lie-down point: the middle of the mattress.</summary>
     public const string PatientPointOffset = "0,-1";
+    /// <summary>The walk-to point (Medical 0.4.1): the foot-end tile of the mattress, in the game's 16 units a tile. The
+    /// game's Inventory action needs a free tile within one tile of this point, and no free tile is that near the middle
+    /// of a 3 x 5 bed; from here the tiles past the foot are. Actions with a reach of two (Sleep, Rest, the Control Panel,
+    /// crew work) also reach it from either side near the foot. Sleepers are still placed at the sleep point.</summary>
+    public const string UsePointOffset = "0,-32";
     /// <summary>How far from the sleep point, in world units (one tile each), a patient may lie and still count.</summary>
     public const double PatientReach = 1.0;
     public const double TickSeconds = 2;

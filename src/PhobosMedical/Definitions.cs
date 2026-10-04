@@ -133,8 +133,9 @@ internal static class Definitions
                 co.aStartingConds = co.aStartingConds.Concat(new[] { "IsBedMedical=1x1", "IsCushion=1x1", "IsSheet=1x1", "IsOff=1x1" }).ToArray();
                 co.aInteractions = co.aInteractions.Concat(new[] { MedicalRules.Sleep, MedicalRules.Rest, MedicalRules.Lay, MedicalRules.Send, MedicalRules.TreatOrder }).Distinct().ToArray();
             }
-            // Walk-to and lie-down point in the middle of the mattress, as the Infirmaway's; power from the wall row behind its head.
-            co.mapPoints = new[] { MedicalRules.UsePoint + "," + MedicalRules.PatientPointOffset, MedicalRules.SleepPoint + "," + MedicalRules.PatientPointOffset,
+            // Lie-down point in the middle of the mattress, as the Infirmaway's; walk-to point at the foot end, so the
+            // drawer's Inventory action (reach one tile) has a free tile to stand on; power from the wall row behind its head.
+            co.mapPoints = new[] { MedicalRules.UsePoint + "," + MedicalRules.UsePointOffset, MedicalRules.SleepPoint + "," + MedicalRules.PatientPointOffset,
                 "PowerA,0," + ApplianceDefinitions.WallRowY(MedicalRules.Depth) };
             // The Halewright art (Medical 0.1.1) on every form, drawn as low as the game's own beds so a patient
             // lies on top of it; damaged forms take the game's damage tint over the same image.
