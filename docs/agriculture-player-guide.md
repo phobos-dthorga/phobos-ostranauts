@@ -143,13 +143,13 @@ flowchart TD
    Remove cargo and replant. Full storage keeps the crop intact; harvest again
    after making room.
 
-| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat | Dwarf tomato | Soybean | Fibre flax |
-| --- | --- | --- | --- | --- | --- | --- |
-| Duration | 96 game hours | 48 game hours | 84 game hours | 64 game hours to first ripe | 90 game hours | 90 game hours |
-| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW | 0.70 kW | 0.65 kW | 0.90 kW |
-| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh | 44.8 kWh to first ripe | 58.5 kWh | 81 kWh |
-| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g | 4.962 kg / 25 g | 0.774 kg / 24 g | 1.375 kg / 35 g |
-| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue | fourteen 0.25 kg tomato portions, one seed packet, 1.5 kg vine residue (or up to three picks first) | one 0.25 kg bean portion, one seed packet, 0.62 kg straw residue | four 0.25 kg flax straw bundles, one seed packet, 0.59 kg residue |
+| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat | Dwarf tomato | Soybean | Fibre flax | Sugar beet |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Duration | 96 game hours | 48 game hours | 84 game hours | 64 game hours to first ripe | 90 game hours | 90 game hours | 140 game hours |
+| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW | 0.70 kW | 0.65 kW | 0.90 kW | 0.80 kW |
+| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh | 44.8 kWh to first ripe | 58.5 kWh | 81 kWh | 112 kWh |
+| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g | 4.962 kg / 25 g | 0.774 kg / 24 g | 1.375 kg / 35 g | 5.862 kg / 50 g |
+| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue | fourteen 0.25 kg tomato portions, one seed packet, 1.5 kg vine residue (or up to three picks first) | one 0.25 kg bean portion, one seed packet, 0.62 kg straw residue | four 0.25 kg flax straw bundles, one seed packet, 0.59 kg residue | nine 0.5 kg sugar beets, one seed packet, 1.48 kg residue |
 
 Delays and respiration reduce biomass, and damage reduces edible output. Whole
 portion rounding can reduce a delayed harvest by one portion; the remainder stays
@@ -370,3 +370,21 @@ bench working and loads the shives into the press as they come.
 
 Flax straw is not sold: buying bundles to turn into cloth would just be trading.
 Linseed oil and edible linseed are not in this version.
+
+## Sugar beet and sugar
+
+Sugar beet (Agriculture 0.46.0) is the slow, thirsty crop that feeds a sweet tooth and,
+with Phobos Manufacturing, a still. Sow one 20 g **Continuance sugar beet seed** packet;
+a healthy harvest after 140 hours gives nine 0.5 kg **sugar beets**, gives the packet
+back, and leaves 1.48 kg of leaves and crowns as residue.
+
+Put a beet in a **Groundwork B2** and choose **Prepare sugar extraction**, then
+**Start**. About eighteen minutes at 0.5 kW give one 70 g packet of **beet sugar**
+and 0.43 kg of wet pulp as recorded residue for the
+[straw press](agriculture-nutrient-production.md#straw-press-agriculture-0440).
+Sugar is a small food: a little hunger relief and a lift, not a meal. A crew order
+**Extract sugar from beets** keeps the bench working and loads the pulp into the press.
+
+Beets and sugar are not sold: they are for your own galley and still. A fermenter
+that turns beets or sugar into ethanol, and a bottler for spirit, are planned for
+Phobos Manufacturing.

@@ -30,8 +30,8 @@ Chili, radish and activated char were offered and not chosen.
 | 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
 | 3 | Agriculture 0.43.0 and 0.44.0, Manufacturing 0.37.0 | CO2 response, rack vapour overflow to a linked tank, the B2 straw press and both V4 straw charges (offline checks only) | Built |
 | 4 | Agriculture 0.45.0 | Fibre flax: straw bundles scutched at the B2 into the game's clean scrap cloth, shives to the straw press; linseed only as planting stock; no oil press yet (offline checks only) | Built |
-| 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
-| 5b | later | Rubber dandelion: latex to seals | Needs an owner decision on repair supplies |
+| 5 | Agriculture 0.46.0 (set A); Framework and Manufacturing (sets B, C) | Sugar beet and B2 sugar built (offline checks only); ethanol tanks, line and fire, then fermenter-still, bottler and spirit, to follow | Owner decisions taken; set A built |
+| 5b | none | Rubber dandelion | Set aside (owner decision, 4 October 2026): the game has no rubber, and its only honest use would bend the game's own repair recipes |
 | 6 | later | Spirulina bioreactor, a separate machine | Needs its own design record |
 
 Phases 4 to 6 add machines, brands, commodities and prices, so each opens with a
@@ -434,3 +434,53 @@ so shives never fill the six-cell tray. It does not run the dryer, which needs a
 **Not done.** Linseed exists only as the planting packet. An oil press, shared with
 soybean oil, still waits for a real use for oil (the plan's rule); edible linseed
 was left out to keep the crop's decision about cloth.
+
+## Phase 5: sugar beet to ethanol and spirit
+
+Owner decisions, 4 October 2026 (asked on the owner's return):
+
+- **Fermenter:** a Phobos Manufacturing machine under a new brand.
+- **Ethanol:** stored in bulk in its own tanks. A separate small bottler turns it into
+  an own-brand spirit, priced within the refining band rather than at the game's vodka
+  price (42.5 cr a 35 g serving).
+- **Beets:** two routes. The fermenter takes beets as mash, or the B2 extracts sugar
+  first and the fermenter takes sugar.
+- **Trade:** stations buy stored ethanol back at 45% and never sell it.
+- **Damage:** a damaged ethanol tank or line spills into its bund. With oxygen and an
+  ignition source in the room, the spill catches the game's own fire.
+- **Ignition:** a working fermenter-still counts as an ignition source.
+- **Line:** ethanol has its own line, holding its contents like the acid line.
+- **Rubber dandelion (phase 5b):** set aside.
+
+The plan delivers this in three sets: A, sugar beet and B2 sugar (Agriculture 0.46.0);
+B, ethanol tanks, line and fire (Framework, Manufacturing); C, fermenter-still, bottler
+and spirit (Manufacturing).
+
+### Set A: sugar beet and B2 sugar (Agriculture 0.46.0)
+
+**The crop.** One 20 g packet, 140 hours at 0.8 kW, a 6 kg stand: nine 0.5 kg roots,
+the packet back and 1.48 kg of leaves and crowns. Roots run 75 to 80% water and 15 to
+20% sucrose ([University of California, Davis: Sugar Beet as a Biofuel Feedstock](https://sugarbeets.ucdavis.edu/sites/g/files/dgvnsk14561/files/inline-files/224136.pdf), authors not recorded here; [ScienceDirect topic overview: sugar beet](https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/sugar-beet)). A field crop
+takes 150 to 200 days; the hours keep it the slowest crop, in proportion to the others.
+The figures (carbon 1.17 kg, nutrient 50 g, water 5.862 kg, vapour 0.4 kg) are authored
+within those ratios and close the crops pack's mass rule.
+
+**B2 sugar** (a fourth workup mode, `sugar`). One root, authored as 75% water, 17%
+sucrose, 5% pulp fibre and 3% other solubles and minerals, gives 70 g of white sugar
+(82% of its sucrose: diffusion takes about 98% and 10 to 15% stays in molasses, per the
+same sources) and 0.43 kg of pulp as recorded residue (51 g organic, 4 g minerals, 375 g
+water) for the straw press; 0.15 kWh a root is authored.
+
+**Agent decisions in set A**, open to revision:
+
+- Beets and sugar are not sold. If merchants sold them, buying either and fermenting it
+  would be a trading loop, and the spirit would have to be priced near nothing. Seed is
+  sold as usual (12 cr, Neutral faction tier, one crate share taken from the nutrient
+  charge).
+- Sugar is a small food (hunger 2, satiety 1).
+
+**Code.** Flax scutching and beet sugar are now rows of one table,
+`Core/BenchConversions.cs`: a one-item B2 job giving a product and a recorded residue,
+so a third such job is a row, not new code. Beets and sugar carry
+`<id>Identity` conditions (`WorkupDefinitions.FeedItems`) for the fermenter's feed, as
+the straw bale does.

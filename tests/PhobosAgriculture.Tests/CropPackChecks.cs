@@ -15,7 +15,7 @@ internal static class CropPackChecks
         void Reject(Action action, string label) { bool failed = false; try { action(); } catch (ArgumentException) { failed = true; } catch (FormatException) { failed = true; } catch (InvalidOperationException) { failed = true; } check(failed, label); }
 
         // The three crops, in the order of their planting actions, with the figures the code held before 0.40.0.
-        check(Crops.All.Select(c => c.Id).SequenceEqual(new[] { "potato", "lettuce", "lettuce-seed", "wheat", "tomato", "soybean", "flax" }), "The shipped crops keep their order, new ones after");
+        check(Crops.All.Select(c => c.Id).SequenceEqual(new[] { "potato", "lettuce", "lettuce-seed", "wheat", "tomato", "soybean", "flax", "sugar-beet" }), "The shipped crops keep their order, new ones after");
         var historic = new Dictionary<string, double[]>
         {
             ["potato"] = new[] { 96, .75, .2, 5, .84, .04, 4.624, .2, .04 },
@@ -100,6 +100,16 @@ internal static class CropPackChecks
         check(Math.Abs(FlaxScutching.ClothCount * FlaxScutching.ClothKg + FlaxScutching.ShivesKg - FlaxScutching.StrawKg) < 1e-12 &&
               FlaxScutching.ShivesMineralsKg + FlaxScutching.ShivesOrganicKg < FlaxScutching.ShivesKg && Math.Abs(FlaxScutching.ClothCount * FlaxScutching.ClothKg / FlaxScutching.StrawKg - .2) < 1e-12,
             "Scutching one bundle gives two 25 g clean cloth (20% of the straw) and shives with the rest of its mass");
+        // Sugar beet (0.46.0): nine 0.5 kg roots and the packet back; B2 sugar extraction conserves each root's mass.
+        var sb = Full("sugar-beet");
+        check(sb.Seed == .02 && sb.Portions == 9 && sb.Portion == .5 && Math.Abs(sb.Residue - 1.48) < 1e-9 && Crop.Get("sugar-beet").Produce == SugarExtraction.Beet,
+            "A sugar beet harvest keeps a seed packet, gives nine 0.5 kg roots and 1.48 kg of leaves and crowns");
+        foreach (var c in BenchConversions.All)
+            check(Math.Abs(c.ProductCount * c.ProductKg + c.ResidueKg - c.InputKg) < 1e-12 && c.ResidueMineralsKg + c.ResidueOrganicKg <= c.ResidueKg + 1e-12 &&
+                  BenchConversions.ForMode(c.Mode) == c && BenchConversions.ForAction(c.Action) == c, "A bench conversion conserves its input's mass: " + c.Mode);
+        check(Math.Abs(SugarExtraction.SugarKg / SugarExtraction.BeetSucroseKg - .8235) < 1e-3 && SugarExtraction.BeetSucroseKg / SugarExtraction.BeetKg >= .15 &&
+              SugarExtraction.BeetSucroseKg / SugarExtraction.BeetKg <= .2 && SugarExtraction.BeetWaterKg / SugarExtraction.BeetKg >= .75,
+            "A beet is 75% water and 17% sucrose, of which the bench crystallises 82%, within the cited ranges");
         check(Crops.All.All(c => c.Picks == 0 || c.Id == "tomato") && Crop.Get("tomato").Picks == 3 && Crop.Get("tomato").PickKg == .75, "Only tomato is picked repeatedly: three picks of up to 0.75 kg");
 
         // Tomato (0.42.0): picking takes whole portions from a ripe plant, leaves it growing and sets growth back by
@@ -156,13 +166,13 @@ internal static class CropPackChecks
             var raw = DataPacks.Parse(shipped, CropSchema.Name, shipped: true); change(raw);
             return DataPacks.LoadText<CropPack>(raw.ToString(), "", "test", CropSchema.Name, (p, r) => { CropSchema.Validate(p, Crops.Known()); CropFreeze.Enforce(r, frozen); });
         }
-        check(Try(_ => { }).crops.Count == 7, "The shipped crops file passes its own rules");
-        check(frozen.revisions.Keys.OrderBy(k => k, StringComparer.Ordinal).SequenceEqual(new[] { "flax", "lettuce", "lettuce-seed", "potato", "soybean", "tomato", "wheat" }), "Every shipped crop is frozen");
+        check(Try(_ => { }).crops.Count == 8, "The shipped crops file passes its own rules");
+        check(frozen.revisions.Keys.OrderBy(k => k, StringComparer.Ordinal).SequenceEqual(new[] { "flax", "lettuce", "lettuce-seed", "potato", "soybean", "sugar-beet", "tomato", "wheat" }), "Every shipped crop is frozen");
         Reject(() => Try(r => r["crops"]!["potato"]!["hours"] = 48), "A published crop cannot be changed");
         Reject(() => Try(r => ((JObject)r["crops"]!).Remove("lettuce")), "A published crop cannot be removed");
         // A new crop beside the shipped ones, using the mod's own items: the way a player file adds one.
         JObject Fast() { var c = (JObject)DataPacks.Parse(shipped, CropSchema.Name, true)["crops"]!["lettuce"]!.DeepClone(); c["hours"] = 36; c["feed"] = "fast-lettuce-v1"; c["feedCommodity"] = "fast lettuce feed"; return c; }
-        check(Try(r => r["crops"]!["fast-lettuce"] = Fast()).crops.Count == 8, "A new crop that balances and uses known items is accepted");
+        check(Try(r => r["crops"]!["fast-lettuce"] = Fast()).crops.Count == 9, "A new crop that balances and uses known items is accepted");
         Reject(() => Try(r => { var c = Fast(); c["picks"] = 2; r["crops"]!["fast-lettuce"] = c; }), "A picked crop needs a pick mass");
         Reject(() => Try(r => { var c = Fast(); c["picks"] = 2; c["pickKg"] = .1; r["crops"]!["fast-lettuce"] = c; }), "A pick takes at least one whole portion");
         var named = Fast(); named["name"] = "Quick lettuce";
@@ -178,6 +188,6 @@ internal static class CropPackChecks
         Reject(() => Try(r => { var c = Fast(); c["yield"] = 3; r["crops"]!["fast-lettuce"] = c; }), "An unknown field is refused");
         Reject(() => Try(r => r["items"]!["PhobosVerdemorrowLettuce"]!["hunger"] = 40), "Food values stay within bounds");
         // Checks above built packs from text; the live table is still the shipped one.
-        check(Crops.All.Count == 7, "Checking a candidate file does not change the crops in use");
+        check(Crops.All.Count == 8, "Checking a candidate file does not change the crops in use");
     }
 }

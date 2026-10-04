@@ -236,6 +236,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceSugarBeet": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceSugarBeet",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGSupplyKioskInv",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -326,6 +332,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceSugarBeet": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceSugarBeet",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -413,6 +425,12 @@
     "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceFlax": {
       "merchant": "ItmTraderSanDiegoHalvorsonInv",
       "item": "PhobosVerdemorrowContinuanceFlax",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceSugarBeet": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceSugarBeet",
       "condition": "Pristine",
       "chance": 0.65
     },
@@ -588,6 +606,9 @@
       "PhobosVerdemorrowContinuanceFlax": {
         "chance": 0.65
       },
+      "PhobosVerdemorrowContinuanceSugarBeet": {
+        "chance": 0.65
+      },
       "PhobosVerdemorrowGroundworkNutrients": {
         "chance": 0.65
       },
@@ -674,7 +695,8 @@
         "PhobosVerdemorrowContinuanceTomato": 0.02,
         "PhobosVerdemorrowContinuanceSoybean": 0.01,
         "PhobosVerdemorrowContinuanceFlax": 0.01,
-        "PhobosVerdemorrowGroundworkNutrients": 0.07,
+        "PhobosVerdemorrowContinuanceSugarBeet": 0.01,
+        "PhobosVerdemorrowGroundworkNutrients": 0.06,
         "PhobosVerdemorrowGroundworkIrrigation": 0.06,
         "PhobosVerdemorrowGroundworkRecoveryCartridge": 0.05,
         "PhobosVerdemorrowWaterConduitLoose": 0.04
@@ -709,6 +731,7 @@
       "PhobosVerdemorrowContinuanceTomato": "Neutral",
       "PhobosVerdemorrowContinuanceSoybean": "Neutral",
       "PhobosVerdemorrowContinuanceFlax": "Neutral",
+      "PhobosVerdemorrowContinuanceSugarBeet": "Neutral",
       "PhobosVerdemorrowGroundworkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkBulkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkIrrigation": "Neutral",

@@ -73,6 +73,16 @@
       "category": "IsCategoryIndustrialProducts",
       "art": "flax_seed"
     },
+    "PhobosVerdemorrowContinuanceSugarBeet": {
+      "notes": "Continuance sugar beet seed packet, 20 g: one sowing.",
+      "kind": "stock",
+      "kg": 0.02,
+      "price": 12,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "beet_seed"
+    },
     "PhobosVerdemorrowGroundworkNutrients": {
       "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
       "kind": "stock",
@@ -158,6 +168,26 @@
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
       "art": "flax_straw"
+    },
+    "PhobosVerdemorrowSugarBeets": {
+      "notes": "Sugar beet root, 0.5 kg: 75% water, 17% sucrose, 5% pulp fibre, 3% other (authored within cited ranges). Not sold: a farm intermediate, so no bought beet becomes sugar or spirit for profit.",
+      "kind": "stock",
+      "kg": 0.5,
+      "price": 4,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "sugar_beets"
+    },
+    "PhobosVerdemorrowBeetSugar": {
+      "notes": "White beet sugar, 70 g, from the B2. A small food, and fermenter feed. Not sold, for the same reason as the beets.",
+      "kind": "food",
+      "kg": 0.07,
+      "price": 10,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryFood",
+      "art": "beet_sugar"
     },
     "PhobosVerdemorrowHearthSoybeans": {
       "notes": "Hearth soybean stew, 0.5 kg; eaten directly. Like bread, cooking it with a bought water ration costs more than it fetches.",

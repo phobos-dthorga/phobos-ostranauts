@@ -105,6 +105,7 @@ internal static class Definitions
         Stock(d, Service.CharacterizedDrainage, "characterized_drainage");
         Stock(d, Service.RecoveryReject, "recovery_reject");
         Stock(d, Service.RecoveryCartridge, "recovery_cartridge");
+        WorkupDefinitions.AddFeedIdentities(d);
         foreach (var eaten in Crops.Items.Where(i => i.Value.hunger != null))
         {
             string food = eaten.Key;

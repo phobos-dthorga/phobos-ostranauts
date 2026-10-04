@@ -1,5 +1,5 @@
 {
-  "revision": 7,
+  "revision": 8,
   "registration": "Top-left pixel coordinates, whole source canvas, centered native pivot; all plant stages retain the same 64x64 source canvas. Four tray pictures represent one rack cohort, not four separately simulated crops.",
   "rack": {
     "source": "firstlight-rack-v2.png",
@@ -95,6 +95,12 @@
     "Flax-mature": "flax-mature.png",
     "Flax-harvest": "flax-harvest.png",
     "Flax-wilted": "flax-wilted.png",
-    "Flax-dead": "flax-dead.png"
+    "Flax-dead": "flax-dead.png",
+    "SugarBeet-sprout": "sugar-beet-sprout.png",
+    "SugarBeet-young": "sugar-beet-young.png",
+    "SugarBeet-mature": "sugar-beet-mature.png",
+    "SugarBeet-harvest": "sugar-beet-harvest.png",
+    "SugarBeet-wilted": "sugar-beet-wilted.png",
+    "SugarBeet-dead": "sugar-beet-dead.png"
   }
 }

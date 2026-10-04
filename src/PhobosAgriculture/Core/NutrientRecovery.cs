@@ -88,7 +88,7 @@ public sealed class WorkupJob
     public Dictionary<string,string> Save()
     {
         if (Input == null || Supplement == null || Input == "none" || Supplement == "none" ||
-            (Mode != "" && Mode != "recover" && Mode != "formulate" && Mode != "scutch") || !CropState.Finite(Energy) || Energy < 0 || Energy > 100 ||
+            (Mode != "" && Mode != "recover" && Mode != "formulate" && BenchConversions.ForMode(Mode) == null) || !CropState.Finite(Energy) || Energy < 0 || Energy > 100 ||
             (Mode.Length == 0 && (Input.Length > 0 || Supplement.Length > 0 || Energy != 0)) || (Mode.Length > 0 && Input.Length == 0) ||
             (Mode == "formulate" && Supplement.Length == 0) || (Mode != "formulate" && Supplement.Length > 0)) throw new ArgumentException("Invalid workup job.");
         var fields = new Dictionary<string,string> { ["mode"] = Mode.Length == 0 ? "none" : Mode,

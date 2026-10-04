@@ -62,17 +62,17 @@ internal static partial class Service
         try{var r=NutrientRecovery.ReadFull(fields,co.GetTotalMass());return r.Organic is double o&&o>1e-9?(r.Nutrient,o):null;}
         catch(Exception error) when (error is ArgumentException || error is FormatException || error is KeyNotFoundException || error is OverflowException){return null;}
     }
-    /// <summary>Flax scutching (Agriculture 0.45.0): one retted straw bundle gives two of the game's clean scrap cloth and its
-    /// shives as recorded residue, which the straw press takes.</summary>
-    private static void ScutchTick(Session s,double energy)
+    /// <summary>A one-item bench conversion (flax scutching since Agriculture 0.45.0, beet sugar since 0.46.0): the bound
+    /// item gives its product and a recorded residue for the straw press.</summary>
+    private static void ConversionTick(Session s,BenchConversion c,double energy)
     {
         var job=s.Workup;var input=Resolve(job.Input);
-        if(input==null||!IsInput(s.Object,input,FlaxScutching.Straw,FlaxScutching.StrawKg)){s.State.Running=false;s.Notice=Text.Get("workup_input");return;}
-        job.Energy=Math.Min(FlaxScutching.KWh,job.Energy+energy);Save(s);
-        if(job.Energy+1e-10<FlaxScutching.KWh)return;
-        var products=Enumerable.Repeat((FlaxScutching.Cloth,FlaxScutching.ClothKg),FlaxScutching.ClothCount).Append((WorkupDefinitions.Residue,FlaxScutching.ShivesKg)).ToList();
+        if(input==null||!IsInput(s.Object,input,c.Input,c.InputKg)){s.State.Running=false;s.Notice=Text.Get("workup_input");return;}
+        job.Energy=Math.Min(c.KWh,job.Energy+energy);Save(s);
+        if(job.Energy+1e-10<c.KWh)return;
+        var products=Enumerable.Repeat((c.Product,c.ProductKg),c.ProductCount).Append((WorkupDefinitions.Residue,c.ResidueKg)).ToList();
         var next=s.State.Copy();next.Running=false;
-        bool success=Deliver(s,products,input,next,initialize:(p,id)=>{if(id==WorkupDefinitions.Residue)WriteResidue(p,FlaxScutching.ShivesMineralsKg,FlaxScutching.ShivesOrganicKg);});
+        bool success=Deliver(s,products,input,next,initialize:(p,id)=>{if(id==WorkupDefinitions.Residue)WriteResidue(p,c.ResidueMineralsKg,c.ResidueOrganicKg);});
         if(success){s.Workup=new();Save(s);}else s.State.Running=false;
     }
     /// <summary>Whether any pressable item sits in the bench and the press has room for one, for the crew's flax order.</summary>
@@ -153,11 +153,11 @@ internal static partial class Service
     private static bool QueueWorkup(Session s,string mode)
     {
         if(!WorkupDefinitions.IsBench(s.Object)||!Paused(s)||s.Workup.Mode.Length>0) return false;
-        if(mode=="scutch")
+        if(BenchConversions.ForMode(mode) is BenchConversion c)
         {
-            var straw=Input(s.Object,FlaxScutching.Straw,FlaxScutching.StrawKg);
-            if(straw==null){s.Notice=Text.Get("workup_input");return false;}
-            s.Workup=new WorkupJob{Mode=mode,Input=straw.strID}; Save(s); s.Notice=Text.Get("workup_queued"); return true;
+            var item=Input(s.Object,c.Input,c.InputKg);
+            if(item==null){s.Notice=Text.Get("workup_input");return false;}
+            s.Workup=new WorkupJob{Mode=mode,Input=item.strID}; Save(s); s.Notice=Text.Get("workup_queued"); return true;
         }
         string definition=mode=="recover"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate;
         foreach(var input in s.Object.objContainer?.ContainedCOs ?? Enumerable.Empty<CondOwner>())
@@ -184,7 +184,7 @@ internal static partial class Service
     {
         if(!s.State.Running) return;
         if(s.Workup.Mode.Length==0) { if(PressWork(s)) PressTick(s,energy); return; }
-        if(s.Workup.Mode=="scutch") { ScutchTick(s,energy); return; }
+        if(BenchConversions.ForMode(s.Workup.Mode) is BenchConversion conversion) { ConversionTick(s,conversion,energy); return; }
         var job=s.Workup;var input=Resolve(job.Input);var supplement=Resolve(job.Supplement);
         string definition=job.Mode=="recover"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate;
         if(input==null || !IsInput(s.Object,input,definition,input.GetTotalMass())) {s.State.Running=false;s.Notice=Text.Get("workup_input");return;}

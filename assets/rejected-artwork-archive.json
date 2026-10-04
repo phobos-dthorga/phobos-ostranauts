@@ -381,6 +381,11 @@
       "commit": "1ed162759953e0d6bacaf9c200e11545c250bac4",
       "date": "2026-10-04",
       "note": "Agriculture flax PixelLab pass: the rejected thin straw bundle, never committed to main, archived directly. Request, seed, hash and reason: assets/phobos-agriculture/flax-generation-records.json."
+    },
+    {
+      "commit": "27e9fa0ffa5646df76c203dbbfa5940869f36d2e",
+      "date": "2026-10-04",
+      "note": "Agriculture sugar beet PixelLab pass: the superseded mature plant on soil, the rejected over-large young plant and the raw seedling the keyed sprout came from, never committed to main, archived directly. Requests, seeds, hashes and reasons: assets/phobos-agriculture/sugar-beet-generation-records.json."
     }
   ]
 }

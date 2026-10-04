@@ -504,5 +504,71 @@
     "sampling": "nearest; whole canvas; no independent crop",
     "exportSHA256": "971353242c6d1892082134d239a781ed360cb17805e988d4e6480aa9a75301b1",
     "normalSHA256": "18ba1eff7e4ae451d546d3147458851b1a144f1dce184a71b7f247fbba660402"
+  },
+  {
+    "key": "beet_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-sugar-beet.png",
+    "sourceSHA256": "852b5f5807f5462b6ffebfcb0a1faedaf7b0d46db675653b49b0041610471086",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      13,
+      10,
+      51,
+      54
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "943467fa89c0af82dd710db61765b4b390d6fad5c5df338ef3310536c18d9fbe",
+    "normalSHA256": "8c21cd83b5418ca10b2961aaa7660eb6c672416c616214df648689ca1f886792"
+  },
+  {
+    "key": "sugar_beets",
+    "source": "assets/phobos-agriculture/source/stock-sugar-beets.png",
+    "sourceSHA256": "54d909e930ddd4763500d0ff2acf7508b1348d50e55ebd466485ccf28baa4833",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      13,
+      6,
+      53,
+      60
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "9c904496fd588d17643910f309c65c52b22cb952c9aca4447041390768eb22ff",
+    "normalSHA256": "345ccc93d4af6c426b6cb2b6396c3c2d2c9ba176e2bcc7036a452c2e02158b8b"
+  },
+  {
+    "key": "beet_sugar",
+    "source": "assets/phobos-agriculture/source/stock-beet-sugar.png",
+    "sourceSHA256": "439c68b2e8543d1a4b5842db8986b4f2dbe06448465afa128d1e02e34d2cdd2f",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      14,
+      12,
+      54,
+      55
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "f13b96d2523429ef2d75318b04ce65e8968b0d2178b60b72a1d38cf7e14acff9",
+    "normalSHA256": "481230df1b9544bb17efd3420aacda2f5146d4306db80d0c4e0d302527523a6e"
   }
 ]

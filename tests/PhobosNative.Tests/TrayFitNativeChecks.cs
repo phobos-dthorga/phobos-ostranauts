@@ -75,6 +75,9 @@ internal static class TrayFitNativeChecks
         Holds(ReclaimerRules.Prefix, "a full four-packet feed", ReclaimerRules.Recipes.Current.Products, ReclaimerRules.FeedCapacity);
         // F6: two releases of each recipe.
         foreach (var recipe in FurnaceRecipes.All) Holds(FurnaceRules.Prefix, recipe.Id, recipe.Products, 2);
+        // B2 (Agriculture 0.46.0): two batches of each one-item conversion, flax scutching and beet sugar.
+        foreach (var c in PhobosAgriculture.Core.BenchConversions.All)
+            Holds(PhobosAgriculture.WorkupDefinitions.Bench, c.Mode, new[] { new ProductSpec(c.Product, c.ProductCount, c.ProductKg), new ProductSpec(PhobosAgriculture.WorkupDefinitions.Residue, 1, c.ResidueKg) }, 2);
         // V4, LC-3, SA-3: two charges of each recipe, and of what a frozen melt leaves.
         foreach (var machine in PhobosManufacturing.ChargeMachines.All)
             foreach (var recipe in PhobosManufacturing.Core.ChargeCatalog.For(machine.Spec.MachineKey).All)

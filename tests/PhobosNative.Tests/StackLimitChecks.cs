@@ -34,6 +34,10 @@ internal static class StackLimitChecks
             // Agriculture 0.45.0: flax.
             ["PhobosVerdemorrowContinuanceFlax"] = 25,
             ["PhobosVerdemorrowFlaxStraw"] = 10,
+            // Agriculture 0.46.0: sugar beet.
+            ["PhobosVerdemorrowContinuanceSugarBeet"] = 25,
+            ["PhobosVerdemorrowSugarBeets"] = 10,
+            ["PhobosVerdemorrowBeetSugar"] = 10,
             ["PhobosVerdemorrowGroundworkRecoveryCartridge"] = 3,
             ["PhobosVerdemorrowGroundworkBulkNutrients"] = 3,
             ["PhobosVerdemorrowGroundworkIrrigation"] = 3,

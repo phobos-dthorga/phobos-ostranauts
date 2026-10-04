@@ -144,6 +144,26 @@
       "feed": "flax-v1",
       "feedCommodity": "flax feed",
       "art": "Flax"
+    },
+    "sugar-beet": {
+      "notes": "Sugar beet (Agriculture 0.46.0): one 20 g packet of seed into a 6 kg stand over 140 hours at 0.8 kW. A harvest gives nine 0.5 kg roots for the B2 to extract sugar from, or for a Phobos Manufacturing fermenter, keeps one packet back, and leaves about 1.48 kg of leaves and crowns as residue. Roots run 75 to 80% water and 15 to 20% sucrose (University of California, Davis, Sugar Beet as a Biofuel Feedstock); a field crop takes 150 to 200 days. The hours, light and yields are authored gameplay balance. See docs/development/agriculture-crop-expansion.md.",
+      "hours": 140,
+      "kw": 0.8,
+      "seedKg": 0.02,
+      "finalKg": 6,
+      "carbonKg": 1.17,
+      "nutrientKg": 0.05,
+      "waterKg": 5.862,
+      "vapourKg": 0.4,
+      "seedCarbonKg": 0.018,
+      "edibleKg": 4.6,
+      "keptStockKg": 0.02,
+      "portionKg": 0.5,
+      "stock": "PhobosVerdemorrowContinuanceSugarBeet",
+      "produce": "PhobosVerdemorrowSugarBeets",
+      "feed": "sugar-beet-v1",
+      "feedCommodity": "beet feed",
+      "art": "SugarBeet"
     }
   },
   "co2Response": {
@@ -165,6 +185,9 @@
     "PhobosVerdemorrowHearthSoybeans": { "notes": "A bowl from 0.25 kg of dry beans: about three potato portions of food energy and far more protein, so it satisfies for longer.", "text": "soybean_stew", "hunger": 8, "satiety": 6 },
     "PhobosVerdemorrowContinuanceFlax": { "text": "flax_seed" },
     "PhobosVerdemorrowFlaxStraw": { "notes": "Not food: retted flax straw for the B2 to scutch.", "text": "flax_straw" },
+    "PhobosVerdemorrowContinuanceSugarBeet": { "text": "beet_seed" },
+    "PhobosVerdemorrowSugarBeets": { "notes": "Not eaten raw here: roots for B2 sugar or a fermenter.", "text": "sugar_beets" },
+    "PhobosVerdemorrowBeetSugar": { "notes": "70 g of white sugar, about 280 kcal: a little food, not a meal.", "text": "beet_sugar", "hunger": 2, "satiety": 1 },
     "PhobosVerdemorrowHearthFlatbread": { "notes": "The game's own prepared-meal values (food 9, satiety 5): a loaf from 0.4 kg of grain is about four potato portions of food energy.", "text": "flatbread", "hunger": 9, "satiety": 5 }
   }
 }

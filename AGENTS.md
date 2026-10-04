@@ -338,6 +338,13 @@
   crop expansion record. Agriculture 0.45.0 (phase 4): fibre flax, whose straw the B2
   scutches (a third workup mode) into the game's own clean scrap cloth, the shives
   going to the straw press; flax straw is unsold; no oil press until oil has a use.
+  Owner decisions on phase 5 (same day): a Manufacturing fermenter-still under a new
+  brand; bulk ethanol in its own tanks and line, bottled by a separate bottler into an
+  own-brand spirit priced in the refining band; beets mashed directly or B2 sugar first;
+  kiosk buy-back of ethanol only; a damaged ethanol tank or line spills to its bund and
+  can catch the game's fire, the working still being an ignition source; rubber
+  dandelion set aside. Agriculture 0.46.0 (set A): sugar beet and B2 sugar, through
+  `BenchConversions` (one-item B2 jobs as data rows); beets and sugar unsold.
 
 ## Manufacturing direction (2026-09-25)
 

@@ -1140,10 +1140,10 @@
         "src/PhobosAgriculture/Service.cs:260"
       ],
       "before": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/cancel-workup <B2 full object ID>",
-      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/scutch-flax/bale-straw/cancel-workup/empty-press <B2 full object ID>",
+      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/scutch-flax/extract-sugar/bale-straw/cancel-workup/empty-press <B2 full object ID>",
       "review20261004": {
         "decision": "rewrite",
-        "reason": "Console help lists the scutch-flax command. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+        "reason": "Console help lists the extract-sugar command. Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
       }
     },
     {
@@ -2822,10 +2822,10 @@
         "src/PhobosAgriculture/WorkupDefinitions.cs:19"
       ],
       "before": "Groundwork B2: enclosed 2 x 2 nutrient workup bench. Recover concentrate from recorded crop residue, then formulate with equal-mass Groundwork makeup salts. 0.5 kW; finite inputs and retained spent biomass. Authored aggregate chemistry, not a chemical assay.",
-      "after": "Groundwork B2: put crop waste back to work. This enclosed 2 x 2 bench recovers concentrate from recorded crop residue, then mixes it with an equal mass of Groundwork makeup salts. It scutches flax straw into clean scrap cloth. Its straw press dries crop waste into 1 kg straw bales, sending the steam to a water tank it touches or shares a water line with. Uses 0.5 kW for nutrient work and 1 kW for drying. Nutrient recovery is simplified for play.",
+      "after": "Groundwork B2: put crop waste back to work. This enclosed 2 x 2 bench recovers concentrate from recorded crop residue, then mixes it with an equal mass of Groundwork makeup salts. It scutches flax straw into clean scrap cloth and extracts sugar from beets. Its straw press dries crop waste into 1 kg straw bales, sending the steam to a water tank it touches or shares a water line with. Uses 0.5 kW for nutrient work and 1 kW for drying. Nutrient recovery is simplified for play.",
       "review20261004": {
         "decision": "rewrite",
-        "reason": "Bench description gains flax scutching. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+        "reason": "Bench description gains beet sugar extraction. Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
       }
     },
     {
@@ -3121,10 +3121,10 @@
         "src/PhobosAgriculture/WorkupService.cs:101"
       ],
       "before": "Need recorded crop residue, or recorded concentrate plus enough makeup salts. Inputs must remain in this bench.",
-      "after": "Load recorded crop residue, recorded concentrate with enough makeup salts, or a flax straw bundle. Keep the supplies in this bench until the job finishes.",
+      "after": "Load recorded crop residue, recorded concentrate with enough makeup salts, a flax straw bundle or a sugar beet. Keep the supplies in this bench until the job finishes.",
       "review20261004": {
         "decision": "rewrite",
-        "reason": "The missing-input message names flax straw as a third supply. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+        "reason": "The missing-input message names a sugar beet as a fourth supply. Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
       }
     },
     {
@@ -67515,6 +67515,199 @@
       "after": "Scutch flax into cloth"
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "plant-sugar-beet",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew action: sow sugar beet, with its time.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Sow sugar beet seed (15 minutes)",
+      "after": "Sow sugar beet seed (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "beet_seed",
+      "category": "name",
+      "decision": "add",
+      "reason": "Item name: the sugar beet seed packet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Sugar Beet Seed (20 g)",
+      "after": "Sugar Beet Seed (20 g)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "beet_seed_desc",
+      "category": "description",
+      "decision": "add",
+      "reason": "Item description: what the packet sows and that harvests return it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Continuance sugar beet seed from Verdemorrow Agronomics. One packet sows one rack, and each harvest gives a packet back.",
+      "after": "Continuance sugar beet seed from Verdemorrow Agronomics. One packet sows one rack, and each harvest gives a packet back."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "sugar_beets",
+      "category": "name",
+      "decision": "add",
+      "reason": "Item name: the sugar beet root.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Sugar Beet (0.5 kg)",
+      "after": "Sugar Beet (0.5 kg)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "sugar_beets_desc",
+      "category": "description",
+      "decision": "add",
+      "reason": "Item description: what the root is and where it goes.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "A fat, pale root that is mostly water and a sixth sugar. Extract the sugar at a Groundwork B2, or mash it in a fermenter. Eating it raw is technically possible and not recommended.",
+      "after": "A fat, pale root that is mostly water and a sixth sugar. Extract the sugar at a Groundwork B2, or mash it in a fermenter. Eating it raw is technically possible and not recommended."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "beet_sugar",
+      "category": "name",
+      "decision": "add",
+      "reason": "Item name: the beet sugar packet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Beet Sugar (70 g)",
+      "after": "Beet Sugar (70 g)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "beet_sugar_desc",
+      "category": "description",
+      "decision": "add",
+      "reason": "Item description: a small food and fermenter feed.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "White sugar from the B2. A spoonful keeps a tired crew member going a little longer; a fermenter turns it into spirit.",
+      "after": "White sugar from the B2. A spoonful keeps a tired crew member going a little longer; a fermenter turns it into spirit."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "sugar-beet",
+      "category": "name",
+      "decision": "add",
+      "reason": "Crop name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Sugar beet",
+      "after": "Sugar beet"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mix-sugar-beet",
+      "category": "control",
+      "decision": "add",
+      "reason": "W2 feed selection for sugar beet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Select beet feed (pause and unlink first)",
+      "after": "Select beet feed (pause and unlink first)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "solution_sugar-beet-v1",
+      "category": "name",
+      "decision": "add",
+      "reason": "Feed formulation name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "beet feed v1",
+      "after": "beet feed v1"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_sugar-beet",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew order recipe: grow sugar beet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Grow sugar beet",
+      "after": "Grow sugar beet"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "extract-sugar",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew action: prepare sugar extraction, with its time.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/BenchConversions.cs:35"
+      ],
+      "before": "Prepare sugar extraction (1 minute)",
+      "after": "Prepare sugar extraction (1 minute)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "workup_sugar",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Bench job name while extracting sugar.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/WorkupService.cs (workup_ plus the job mode)"
+      ],
+      "before": "Extracting sugar from beets",
+      "after": "Extracting sugar from beets"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_extract-sugar",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew order recipe: extract sugar from beets.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/CrewProvider.cs (crew_recipe_ plus the recipe)"
+      ],
+      "before": "Extract sugar from beets",
+      "after": "Extract sugar from beets"
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -70385,8 +70578,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b7250da02e437a373c91e3ff227fec1a06f0b4c113965fdc501d92663b8f9fb8",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "c8c63177efcbb71757d7896bf789def6a45477bb2dbf26685e4490a8a0ddf0f0",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "SUPPORT.md",
@@ -70413,15 +70606,15 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "3f0579dbb42a794188acb3d3e53386a26ea714d727cfbb770a2cb69d9bc4e82c",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "d93dbf369a374347e4728e7205d1a841a956f8e630ff3fdec6e79ab19715981a",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "777aa11bf0450f7bc67f830bc6d247aa89c5120b1c8ca440fbeb953829d5e428",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "10dac97ce88a71d412749bf01ffb548fb5957a0e3b8ee64738eae146b2eb761b",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
@@ -70434,8 +70627,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4084a8c628743c5bbb6a242194a46a49b391d062e310ef90f740b81f6d73326e",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "70100d37b5d5891ccee0bedc789ff7f57beae331436482529bc0fd6ee85451fe",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -70545,8 +70738,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6db3a83a70ac8bb4a771227b1ab0816936134023bbd57c641fab3a8572ba69dc",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "099961f2819df0d57326b0aa39000d9d00f68c07005c0d5bf125d70849a7fee5",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/crew-automation.md",
@@ -70573,8 +70766,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "22d408918cc2c8e87b28c14d73b9484d41f920a88a9416e47e9783b07f5d9ca1",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "9f6741fabd5e51d4a87f32cfaff5e54211dcf08e86aff1e7a3981d343696ea5c",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -70594,8 +70787,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "34abcc5055c75353847f99357777e38cdeea659065486c639959bb2ea4668a1b",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "b1b1b4293f8fa1099cef2a4a431bbeae765fcd3587bebd2d38fa051a2a5bd608",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -70937,8 +71130,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "3559d960a13a8b7cacdf278476ccd4df548b2b566b7f09a5a10168ef3be35ca9",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "c88f80b171baa1bbd3c4129e2058eda9f55e99dc235aef5042795407bc07f857",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -71068,8 +71261,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d927e457f108729de2832793e6bfc1a9969aae4f84d4412665bb626c65cd5c58",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "41ba6024afa4a474f095c08fd26ab7e403a162e81df54b9071f8847cafd7b1d2",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -71462,8 +71655,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "911e77adc4089e867f7154f0bba1db0aa8b0d9a15749ec0d1356029ef27eb6cf",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "f16ab602e93bdbcc3d7ed9a92247599592eb1a942c08c0c9f6b7aceda7ee99eb",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -71616,22 +71809,22 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "6719720dcb5ab755bef750301b4e25f290dce08d2dbf5ad91829111e4690b7aa",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "61397a5d5b89fe9499621ad36caed88a7fd8ad32b409f13ccf4ad1048a9a7777",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6a0513c7fbe54167fa54d5100ba75e49c14dfafd7203c64f75e36e758d35ed2f",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "0a2a1ff4f015aa631fbedcbaced492053ab263b302a7122ff8fe8852fcde31ce",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4dca0fa9ff09a02ce992d524e89c2a82b2798827edf5540c68b32a360802cf51",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "a0a603d8de969541557b351e8e250e8b625cd9cd9c208be03fed757dab3a740b",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "mods/PhobosAgriculture/framework/recipes.json",
@@ -71641,8 +71834,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "395604651d2634881c564951c6925974fcedf2e2290299ac577f18c051c5edc6",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
+      "sha256": "a47b59bdc7b049e458b5a759e0388bb595c25615eef9c6cb7b2d8171b4a140b0",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

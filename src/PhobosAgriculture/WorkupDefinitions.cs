@@ -17,11 +17,12 @@ internal static class WorkupDefinitions
     internal const double DryKg = 20;
     internal static bool IsBench(CondOwner co) => co.strCODef.StartsWith(Bench, StringComparison.Ordinal);
     /// <summary>The bench's crew work: each is a one-minute crew action at the B2 and nowhere else.</summary>
-    internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "scutch-flax", "bale-straw" };
+    internal static readonly string[] Work = new[] { "recover-crop", "formulate-nutrients" }.Concat(BenchConversions.All.Select(c => c.Action)).Concat(new[] { "bale-straw" }).ToArray();
     internal static bool IsWork(string action) => Array.IndexOf(Work, action) >= 0;
     /// <summary>The workup job each queuing action prepares, and back.</summary>
-    internal static string? ModeOf(string action) => action == "recover-crop" ? "recover" : action == "formulate-nutrients" ? "formulate" : action == "scutch-flax" ? "scutch" : null;
-    internal static string ActionOf(string mode) => mode == "recover" ? "recover-crop" : mode == "formulate" ? "formulate-nutrients" : "scutch-flax";
+    internal static string? ModeOf(string action) => action == "recover-crop" ? "recover" : action == "formulate-nutrients" ? "formulate" : BenchConversions.ForAction(action)?.Mode;
+    internal static string ActionOf(string mode) => mode == "recover" ? "recover-crop" : mode == "formulate" ? "formulate-nutrients" :
+        BenchConversions.ForMode(mode)?.Action ?? throw new ArgumentException("Unknown workup mode: " + mode);
     internal static readonly string[] Actions = Work.Concat(new[] { "start", "pause", "cancel-workup", "empty-press" }).ToArray();
     /// <summary>The B2's tray: one job's residue and supplement, its two unstackable products, and two cells to spare
     /// (six cells, where it had sixty-four).</summary>
@@ -40,8 +41,19 @@ internal static class WorkupDefinitions
         }
         foreach (var stock in new[] { (Residue, "recorded_residue"), (Concentrate, "concentrate"), (Spent, "spent_biomass"), (Makeup, "makeup"), (Mixture, "mixture"), (Bale, "straw_bale") })
             Definitions.Stock(d, stock.Item1, stock.Item2);
-        // The bale's identity condition, which Manufacturing's refinery feed admits at the game level.
-        d.Conditions[BaleIdentity] = new JsonCond { strName = BaleIdentity, strNameFriendly = Text.Get("straw_bale"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-        d.Objects[Bale].aStartingConds = d.Objects[Bale].aStartingConds.Concat(new[] { BaleIdentity + "=1x1" }).ToArray();
+    }
+    /// <summary>Items Phobos Manufacturing's charge machines take as feed: the straw bale (0.44.0), and sugar beets and beet
+    /// sugar for the fermenter (0.46.0).</summary>
+    internal static readonly string[] FeedItems = { Bale, SugarExtraction.Beet, SugarExtraction.Sugar };
+    /// <summary>Each feed item's identity condition, which a Manufacturing machine's feed admits at the game level. Runs once
+    /// every item is defined (the beets and sugar come from the crops pack).</summary>
+    internal static void AddFeedIdentities(NativeDefinitions d)
+    {
+        foreach (string id in FeedItems)
+        {
+            string identity = id + "Identity";
+            d.Conditions[identity] = new JsonCond { strName = identity, strNameFriendly = d.Objects[id].strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { identity + "=1x1" }).ToArray();
+        }
     }
 }

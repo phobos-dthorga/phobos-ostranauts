@@ -10,6 +10,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.46.0] - 2026-10-04 - Draft
+
+### Added
+
+- Sugar beet (owner-approved crop list, 4 October 2026). Sow a 20 g Continuance sugar beet seed packet; a harvest after 140 hours gives nine 0.5 kg beets and the packet back.
+- Beet sugar at the Groundwork B2: one beet gives a 70 g packet of white sugar, a small food, and its wet pulp as residue for the straw press. A crew order, Extract sugar from beets, keeps the bench working and loads the pulp into the press.
+- Sugar beet seed at the usual seed sellers and faction kiosks, and now and then in locked crates.
+
+### Changed
+
+- The B2's flax scutching and beet sugar share one job type; flax scutching works as before.
+
+### Save compatibility
+
+- Automatic. One new crop and a new bench job; nothing saved earlier changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- Beets and sugar are not sold, so they cannot be bought and turned into sugar or spirit for profit. The fermenter and spirit are planned for Phobos Manufacturing.
+- Root composition and sugar recovery sit within published sugar beet figures; growth time, light and yields are gameplay choices.
+- Checked offline; not yet seen in the game.
+
 ## [0.45.0] - 2026-10-04 - Draft
 
 ### Added

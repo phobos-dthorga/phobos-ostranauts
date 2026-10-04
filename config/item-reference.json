@@ -920,6 +920,48 @@
           "labels": {}
         },
         {
+          "key": "beet-seed",
+          "title": "Continuance Sugar Beet Seed",
+          "ids": [
+            "PhobosVerdemorrowContinuanceSugarBeet"
+          ],
+          "function": "Planting stock for a sugar beet crop: one 20 g packet sows one rack.",
+          "use": "Place one in the rack and choose Sow sugar beet seed after loading water and nutrients.",
+          "find": "Buy stock, find eligible crate loot, or keep the packet each beet harvest gives back. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "A healthy harvest returns one packet, so a beet rack restocks its own seed.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "sugar-beets",
+          "title": "Sugar Beet",
+          "ids": [
+            "PhobosVerdemorrowSugarBeets"
+          ],
+          "function": "A 0.5 kg sugar beet root: nine from each beet harvest.",
+          "use": "Extract its sugar at a Groundwork B2 (Prepare sugar extraction, then Start) for a 70 g sugar packet and pulp for the straw press.",
+          "find": "Harvest sugar beet. Never sold or found.",
+          "notes": "Authored as 75% water and 17% sucrose, within published sugar beet figures. A Phobos Manufacturing fermenter for beets is planned.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "beet-sugar",
+          "title": "Beet Sugar",
+          "ids": [
+            "PhobosVerdemorrowBeetSugar"
+          ],
+          "function": "A 70 g packet of white sugar from the B2.",
+          "use": "Eat it for a little hunger relief, or keep it for a fermenter.",
+          "find": "Extract it from sugar beets at a B2. Never sold or found.",
+          "notes": "Food effects are values chosen for gameplay: a small food, not a meal.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "crop-residue",
           "title": "Crop Residue",
           "ids": [

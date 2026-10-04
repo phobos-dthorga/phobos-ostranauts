@@ -67,6 +67,20 @@ scutching/hackling processing*, Industrial Crops and Products, 2021
 Spinning and weaving are folded into the bench's work: the game has items for
 neither.
 
+## Beet sugar (Agriculture 0.46.0)
+
+The B2 extracts sugar from **sugar beets**. Put a 0.5 kg beet in the Inventory, choose
+**Prepare sugar extraction** (one minute of crew setup), then Start. At 0.15 kWh a beet
+gives a 70 g packet of white **beet sugar** and 0.43 kg of pulp as recorded residue
+(51 g plant matter, 4 g minerals, 375 g water) for the straw press.
+
+A beet is authored as 75% water, 17% sucrose, 5% pulp fibre and 3% other solubles,
+within the 75 to 80% water and 15 to 20% sucrose reported for sugar beet roots
+([University of California, Davis: Sugar Beet as a Biofuel Feedstock](https://sugarbeets.ucdavis.edu/sites/g/files/dgvnsk14561/files/inline-files/224136.pdf); [ScienceDirect topic overview: sugar beet](https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/sugar-beet)). Factory diffusion takes about 98% of the sucrose and
+some 10 to 15% stays in molasses, so the bench crystallises 82% of the root's sucrose;
+the molasses sugar stays in the pulp. Boiling the juice down is folded into the bench's
+work.
+
 ## Straw press (Agriculture 0.44.0)
 
 The B2 also has a **straw press** for crop waste the racks leave behind. Crop residue

@@ -2423,6 +2423,348 @@
     "normalSHA256": "5ddf527d59ed756e4d4b268072011c1fe707aabf4824e331f556afd491ddc4b9"
   },
   {
+    "name": "SugarBeet-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-sprout.png",
+        "sourceSHA256": "f5293fd1d9bd96c5edb872d5444496d4fd825c9620ee86c080d7c99e65cd41c6",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "321d6f2cc019258403cd4014be0e0a9bfe68c7879c8c5aa4e307e47fe78087c2"
+  },
+  {
+    "name": "Rack-SugarBeet-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-sprout.png",
+        "sourceSHA256": "f5293fd1d9bd96c5edb872d5444496d4fd825c9620ee86c080d7c99e65cd41c6",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "d3b743196957e0c7799dccc6b7869f15ce706570a770f4a27ec09359c55e5857",
+    "normalSHA256": "c0a98814e26b8d15074954e17213ad1f1efcc183acc27dbad293af283e17b3be"
+  },
+  {
+    "name": "SugarBeet-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-young.png",
+        "sourceSHA256": "d879e2314cdac225523ff05c27316ce6c8ecb9da99b56bbb90d612acc2338079",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "57a5ca43d8c8127a43e12d4da5f1ead5a34ca6d51f1acb02dd1e8a4d057e5599"
+  },
+  {
+    "name": "Rack-SugarBeet-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-young.png",
+        "sourceSHA256": "d879e2314cdac225523ff05c27316ce6c8ecb9da99b56bbb90d612acc2338079",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "2eb87759ab5e3461c3f95b788b322899f770841c63b8f271d70b278d25bee909",
+    "normalSHA256": "a5f7044875e2b0fc3eb781e1c5c5c465dd8e6cdfb680030735856e716d43942e"
+  },
+  {
+    "name": "SugarBeet-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-mature.png",
+        "sourceSHA256": "765d349939a8d92474ed532d1155cb1220142de956bd1f122ab95e3a0cad2623",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "d3839df81fcb88a05092234c29a9ce0354423cafd79ccbeb3fa57d67933ed449"
+  },
+  {
+    "name": "Rack-SugarBeet-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-mature.png",
+        "sourceSHA256": "765d349939a8d92474ed532d1155cb1220142de956bd1f122ab95e3a0cad2623",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "9855791f2b9f470f5cd1110ed34b1c2f3a96e598f053145d65f70c6fabba401c",
+    "normalSHA256": "6aba27cb2fbb7818d6e98d367aaeae09791d38a38fcff69774bcadde5fd46f33"
+  },
+  {
+    "name": "SugarBeet-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-harvest.png",
+        "sourceSHA256": "1a2f718cc81ee95a8758e0c4f336d91d1a8583adc25909f0ae44da73fd11870a",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "aaa8ab6ea7d4a65ba6fbc1bdb03fdb20517cdf246a1f7085d9be6fac422cfed7"
+  },
+  {
+    "name": "Rack-SugarBeet-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-harvest.png",
+        "sourceSHA256": "1a2f718cc81ee95a8758e0c4f336d91d1a8583adc25909f0ae44da73fd11870a",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "a67a3eac4ac76cdf1f4cba6302daf6a4bf799f0bd71b8c86d34d6d454fd6262f",
+    "normalSHA256": "7dcec1f11f95552d388c00b7cd540daa99b3a8f9c2564c6fbc9b019314475676"
+  },
+  {
+    "name": "SugarBeet-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-wilted.png",
+        "sourceSHA256": "bff643272cc6ccf35e8e814f31955931d6c7d7cbd5bd9b9675daa8bf4f435426",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "40160b9e961490565fdf302a86bdd7bf6c0e8aea1f23628f8b5bd4b499b5cbf6"
+  },
+  {
+    "name": "Rack-SugarBeet-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-wilted.png",
+        "sourceSHA256": "bff643272cc6ccf35e8e814f31955931d6c7d7cbd5bd9b9675daa8bf4f435426",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "ec092f10a9bcdc0065d53868c28d77b029b1a315ca0e82b131428b38b400f711",
+    "normalSHA256": "a6ab680162cd73b4c774067e5474ae40921a09f5afdd9d83400ddf83014e9348"
+  },
+  {
+    "name": "SugarBeet-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-dead.png",
+        "sourceSHA256": "8a25c80e92985da786e8ba5f543e813ab54da6608958be0c64a0457e3ecd4488",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b9c8aead674e430cfcc41fb708381cfa38718507edbf18cc1b5ec5ac84c162de"
+  },
+  {
+    "name": "Rack-SugarBeet-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/sugar-beet-dead.png",
+        "sourceSHA256": "8a25c80e92985da786e8ba5f543e813ab54da6608958be0c64a0457e3ecd4488",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "ded1fbdaccb23cd5f413ef22a2aec979e4ae8b55ec17e2e43c23c419625306b5",
+    "normalSHA256": "2dc815462cb6b6d8df8ed7d68414ee695aac8e16d513d0ff6003d61fde7a8d5a"
+  },
+  {
     "name": "Counter",
     "inputs": [
       {

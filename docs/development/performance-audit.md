@@ -964,3 +964,9 @@ L30 — Agriculture 0.45.0: one more crop row and one more B2 job mode. A scutch
 reads its bound bundle once per power step, as the recovery job does. The flax crew
 order checks the bench's six-cell tray for pressable residue once per offer. No capture
 accompanies this change.
+
+## 4 October: sugar beet (L31)
+
+L31 — Agriculture 0.46.0: one more crop row and one more B2 conversion. Flax and sugar
+share `BenchConversions`; a running job looks its row up once per power step from a
+two-entry table. No capture accompanies this change.

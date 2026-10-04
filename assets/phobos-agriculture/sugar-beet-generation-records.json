@@ -1,0 +1,233 @@
+{
+  "date": "2026-10-04",
+  "provider": "PixelLab",
+  "status": "Selected candidates inspected at native size and at 4x by the agent (owner-approved phase 5 plan, 4 October 2026); owner review pending; no gameplay validation.",
+  "inputs": "Text, and edits of PixelLab's own sugar beet output. No game or third-party images uploaded.",
+  "terms": "As recorded in stock-generation-records.json (PixelLab terms checked 2026-09-25).",
+  "usage": {
+    "allowanceBefore": 1686,
+    "allowanceAfter": 1675,
+    "generations": 11,
+    "selected": 8,
+    "supersededOrRejected": 2,
+    "derivationInputs": 1,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "derivations": {
+    "sugar-beet-sprout.png": {
+      "from": "sugar-beet-sprout-raw (job c28cd409-a326-45a2-aa5a-2fb0461c0339, sha256 7b1eafacda6aae6bc6f0f9c5f10afaa1792d9fc5899ebc42752dc03a4bc69871)",
+      "method": "Mechanical colour key: every visible pixel whose green channel is not greater than both red and blue was made transparent (189 pixels of a brown soil lump and the red stalks removed, 178 kept); the remaining leaves were then moved down 6 pixels unchanged to centre them. No pixel was drawn.",
+      "sha256": "f5293fd1d9bd96c5edb872d5444496d4fd825c9620ee86c080d7c99e65cd41c6"
+    }
+  },
+  "records": [
+    {
+      "key": "sugar-beet-mature-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "seed": 2510130,
+        "text_guidance_scale": 10,
+        "description": "Top-down plan view of one sugar beet plant, looking straight down from above. A broad rosette of about twelve large glossy dark green oval leaves with pale green midribs and reddish leaf stalks fanning out from the centre (32,32), with the pale cream top of the beet root crown just visible in the very centre. Chunky simple pixel art with big clean colour clusters, bold readable silhouette, four tones, selective outline, similar chunkiness to a lettuce sprite. No soil, no pot, no tray, no shadow. Transparent background, whole plant inside the central 48x48 pixels of the 64x64 canvas so it stays readable at 16x16."
+      },
+      "job_id": "021daec1-6afc-4cea-825c-f02e82ef3bcb",
+      "costGenerations": 1,
+      "sha256": "be6466610c8808a0d86ea1bda60b843b029b10ee56105a050b8f0e82366574a5",
+      "status": "superseded",
+      "reason": "Good rosette on a dark soil disc; the disc was removed by the selected edit below."
+    },
+    {
+      "key": "sugar-beet-mature",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature-v1",
+        "description": "Remove the round dark brown soil disc and dark outline circle behind the plant completely, leaving a fully transparent background between and around the leaves. Keep the green beet leaves, their pale midribs, the reddish stalks and the pale cream root crown in the centre exactly as they are. Same overhead view, colours, position and pixel style.",
+        "no_background": true,
+        "seed": 2510134
+      },
+      "job_id": "0ef63de4-59d4-4a5a-a08a-bd8fd05a176a",
+      "costGenerations": 1,
+      "status": "selected",
+      "reason": "A clean rosette with its crown; the other stages are edits of it.",
+      "sha256": "765d349939a8d92474ed532d1155cb1220142de956bd1f122ab95e3a0cad2623",
+      "source": "source/sugar-beet-mature.png",
+      "sourceSHA256": "765d349939a8d92474ed532d1155cb1220142de956bd1f122ab95e3a0cad2623"
+    },
+    {
+      "key": "sugar-beet-harvest",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Make this sugar beet ready to harvest: the outer leaves turn yellowing and a little limp, and the pale cream root crown in the centre becomes much larger and fatter, clearly swelling up out of the middle. Same overhead view, position, size and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510135
+      },
+      "job_id": "6195ddf7-d50f-4478-b000-50a26fac0d90",
+      "costGenerations": 1,
+      "status": "selected",
+      "reason": "Yellowed leaves around a swollen crown.",
+      "sha256": "1a2f718cc81ee95a8758e0c4f336d91d1a8583adc25909f0ae44da73fd11870a",
+      "source": "source/sugar-beet-harvest.png",
+      "sourceSHA256": "1a2f718cc81ee95a8758e0c4f336d91d1a8583adc25909f0ae44da73fd11870a"
+    },
+    {
+      "key": "sugar-beet-dead",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Make this beet plant dead: collapsed brittle grey-brown dead leaves lying flat, no green left, the centre crown shrivelled and dark, slightly smaller and flatter than now. Same overhead view, position and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510136
+      },
+      "job_id": "cea39612-347a-469a-a28d-54a21f9fc992",
+      "costGenerations": 1,
+      "status": "selected",
+      "reason": "Grey and lifeless.",
+      "sha256": "8a25c80e92985da786e8ba5f543e813ab54da6608958be0c64a0457e3ecd4488",
+      "source": "source/sugar-beet-dead.png",
+      "sourceSHA256": "8a25c80e92985da786e8ba5f543e813ab54da6608958be0c64a0457e3ecd4488"
+    },
+    {
+      "key": "sugar-beet-wilted",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Make this beet plant clearly sick and wilting: most leaves turn pale sickly yellow and khaki with dark brown spots and dry curled edges, several leaves droop and shrink. It must look obviously unhealthy, very different from a healthy green plant, but not yet dead grey. Same overhead view, position and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510137
+      },
+      "job_id": "e67af752-5091-46e4-98b3-e816b2c63a48",
+      "costGenerations": 1,
+      "status": "selected",
+      "reason": "Pale and spotted, paler than the harvest gold.",
+      "sha256": "bff643272cc6ccf35e8e814f31955931d6c7d7cbd5bd9b9675daa8bf4f435426",
+      "source": "source/sugar-beet-wilted.png",
+      "sourceSHA256": "bff643272cc6ccf35e8e814f31955931d6c7d7cbd5bd9b9675daa8bf4f435426"
+    },
+    {
+      "key": "sugar-beet-young-v1",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Make this a young sugar beet: a small rosette of about six green oval leaves with reddish stalks, no visible root crown in the centre, occupying the central 32x32 pixels of the 64x64 canvas, centred at (32,32). Same overhead view, green palette and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510138
+      },
+      "job_id": "0bf30ee1-8118-4925-aa88-c4f7e21ec0fd",
+      "costGenerations": 1,
+      "status": "rejected",
+      "reason": "As large as the mature plant; not a young stage.",
+      "sha256": "dba925d17970f19bfc8ed13c2030245b9c70819d0596c9629e64415f11f75068"
+    },
+    {
+      "key": "sugar-beet-young",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Make this a much smaller young beet plant: keep only the six innermost leaves, each half as long as now, so the whole plant fits inside a 28 pixel wide circle centred at (32,32); everything outside that circle becomes fully transparent. Remove the cream root crown from the centre. Same overhead view, green colours and pixel style.",
+        "no_background": true,
+        "seed": 2510140
+      },
+      "job_id": "228c9fc7-52d9-49f2-95fb-14ed73f23a93",
+      "costGenerations": 1,
+      "status": "selected",
+      "reason": "A small leafy rosette, clearly between seedling and mature.",
+      "sha256": "d879e2314cdac225523ff05c27316ce6c8ecb9da99b56bbb90d612acc2338079",
+      "source": "source/sugar-beet-young.png",
+      "sourceSHA256": "d879e2314cdac225523ff05c27316ce6c8ecb9da99b56bbb90d612acc2338079"
+    },
+    {
+      "key": "sugar-beet-sprout-raw",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "sugar-beet-mature (job 0ef63de4-59d4-4a5a-a08a-bd8fd05a176a)",
+        "description": "Replace the plant with a tiny beet seedling seen from directly above: just two small oval bright green seed leaves on short reddish stalks from the centre point (32,32), the whole seedling about 12 pixels across. No root crown, no soil. Same top-down view, colours and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510139
+      },
+      "job_id": "c28cd409-a326-45a2-aa5a-2fb0461c0339",
+      "costGenerations": 1,
+      "status": "selected (as a derivation input)",
+      "reason": "Two seed leaves above a brown soil lump; keyed and centred mechanically (see derivations).",
+      "sha256": "7b1eafacda6aae6bc6f0f9c5f10afaa1792d9fc5899ebc42752dc03a4bc69871"
+    },
+    {
+      "key": "beet_seed",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "seed": 2510131,
+        "description": "One original tiny spaceship farming inventory item sprite: a small flat cream foil SEED PACKET of sugar beet seed lying flat, sage green sealed edges, with a large simple pictogram of one pale cream conical beet root with a tuft of green leaves in the centre. Thin horizontal green sealed seam across its top. Original utilitarian spacecraft agriculture stock, Verdemorrow cream, sage and slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels."
+      },
+      "job_id": "68b9532a-e512-4c57-9e60-65523af953cd",
+      "costGenerations": 1,
+      "sha256": "852b5f5807f5462b6ffebfcb0a1faedaf7b0d46db675653b49b0041610471086",
+      "source": "source/stock-seed-sugar-beet.png",
+      "sourceSHA256": "852b5f5807f5462b6ffebfcb0a1faedaf7b0d46db675653b49b0041610471086",
+      "status": "selected",
+      "reason": "A flat packet in the family style with a beet pictogram."
+    },
+    {
+      "key": "sugar_beets",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "seed": 2510132,
+        "text_guidance_scale": 10,
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above looking straight down. Two whole harvested sugar beet roots lying flat side by side, each a fat pale cream-white cone with faint brown soil-tan rings and a short cut-off green leaf stub at the wide end, their thin tapering tips pointing down-right. Bold chunky shapes with big clean colour clusters, three or four tones, flat, no perspective. Transparent background with 6px clear margins. No words, numbers, floor or shadow. Must read clearly as root vegetables when reduced to 16x16 pixels."
+      },
+      "job_id": "deb0b345-1924-4534-8809-051cfc6c2d83",
+      "costGenerations": 1,
+      "sha256": "54d909e930ddd4763500d0ff2acf7508b1348d50e55ebd466485ccf28baa4833",
+      "source": "source/stock-sugar-beets.png",
+      "sourceSHA256": "54d909e930ddd4763500d0ff2acf7508b1348d50e55ebd466485ccf28baa4833",
+      "status": "selected",
+      "reason": "Two pale roots lying flat, readable as root vegetables."
+    },
+    {
+      "key": "beet_sugar",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "seed": 2510133,
+        "description": "One original tiny spaceship galley inventory item sprite seen strictly from directly above: a small flat cream paper ration pouch, its top folded and sealed with a sage green strip, with a neat heap of sparkling pure white granulated SUGAR crystals spilling slightly from the open corner. Flat top-down view, no visible sides, no perspective. Coarse deliberate pixel clusters, three or four tones, cream, white and sage palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels."
+      },
+      "job_id": "a7516b4b-edf8-45d9-977a-0dba6c2c7b93",
+      "costGenerations": 1,
+      "sha256": "439c68b2e8543d1a4b5842db8986b4f2dbe06448465afa128d1e02e34d2cdd2f",
+      "source": "source/stock-beet-sugar.png",
+      "sourceSHA256": "439c68b2e8543d1a4b5842db8986b4f2dbe06448465afa128d1e02e34d2cdd2f",
+      "status": "selected",
+      "reason": "A flat sealed pouch with white sugar at its corner."
+    }
+  ]
+}

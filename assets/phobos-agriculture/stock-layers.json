@@ -149,6 +149,24 @@
       "source": "stock-flax-straw.png",
       "label": "Flax straw",
       "definition": "PhobosVerdemorrowFlaxStraw"
+    },
+    {
+      "key": "beet_seed",
+      "source": "stock-seed-sugar-beet.png",
+      "label": "Sugar beet seed",
+      "definition": "PhobosVerdemorrowContinuanceSugarBeet"
+    },
+    {
+      "key": "sugar_beets",
+      "source": "stock-sugar-beets.png",
+      "label": "Sugar beets",
+      "definition": "PhobosVerdemorrowSugarBeets"
+    },
+    {
+      "key": "beet_sugar",
+      "source": "stock-beet-sugar.png",
+      "label": "Beet sugar",
+      "definition": "PhobosVerdemorrowBeetSugar"
     }
   ]
 }

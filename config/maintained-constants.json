@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.0",
+      "value": "0.46.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -946,7 +946,7 @@
       "min": 1,
       "max": 100,
       "value": "25",
-      "description": "Maximum physical objects per native stack for the wheat, soybean and flax seed packets (materials data pack).",
+      "description": "Maximum physical objects per native stack for the wheat, soybean, flax and sugar beet seed packets (materials data pack).",
       "targets": [
         {
           "path": "mods/PhobosAgriculture/framework/materials.json",
@@ -959,6 +959,10 @@
         {
           "path": "mods/PhobosAgriculture/framework/materials.json",
           "pointer": "/materials/PhobosVerdemorrowContinuanceFlax/stack"
+        },
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowContinuanceSugarBeet/stack"
         }
       ],
       "review": [
@@ -1089,6 +1093,14 @@
         {
           "path": "mods/PhobosAgriculture/framework/materials.json",
           "pointer": "/materials/PhobosVerdemorrowHearthSoybeans/stack"
+        },
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowSugarBeets/stack"
+        },
+        {
+          "path": "mods/PhobosAgriculture/framework/materials.json",
+          "pointer": "/materials/PhobosVerdemorrowBeetSugar/stack"
         }
       ],
       "review": [

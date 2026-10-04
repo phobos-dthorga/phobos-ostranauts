@@ -52,6 +52,12 @@ Loads include initial supply from empty and round up whole 5 kg water / 40 g nut
 | flax | 4 | 30 | 44.000 | 1.120 | 9 | 28 | 3 | 6.2 / 24.7 / 80.2 |
 | flax | 8 | 7 | 20.533 | 0.523 | 5 | 14 | 2 | 3.2 / 12.7 / 41.2 |
 | flax | 8 | 30 | 88.000 | 2.240 | 18 | 56 | 5 | 12.3 / 49.3 / 160.3 |
+| sugar-beet | 1 | 7 | 7.034 | 0.060 | 2 | 2 | 1 | 0.7 / 2.7 / 8.7 |
+| sugar-beet | 1 | 30 | 30.147 | 0.257 | 7 | 7 | 1 | 2.3 / 9.3 / 30.3 |
+| sugar-beet | 4 | 7 | 28.138 | 0.240 | 6 | 6 | 1 | 2.0 / 8.0 / 26.0 |
+| sugar-beet | 4 | 30 | 120.590 | 1.029 | 25 | 26 | 3 | 8.5 / 34.0 / 110.5 |
+| sugar-beet | 8 | 7 | 56.275 | 0.480 | 12 | 12 | 1 | 4.0 / 16.0 / 52.0 |
+| sugar-beet | 8 | 30 | 241.179 | 2.057 | 49 | 52 | 5 | 16.8 / 67.3 / 218.8 |
 
 ## Endurance and space at default pace
 
@@ -80,6 +86,9 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | flax | 1 | 106.36 | 433.64 | 53.57 | 20 / 29 | 11.280 | 100 / 125 |
 | flax | 4 | 66.48 | 148.30 | 13.39 | 68 / 77 | 45.120 | 340 / 365 |
 | flax | 8 | 59.83 | 100.74 | 6.70 | 132 / 141 | 90.240 | 660 / 685 |
+| sugar-beet | 1 | 38.81 | 158.22 | 58.33 | 20 / 29 | 30.405 | 100 / 125 |
+| sugar-beet | 4 | 24.26 | 54.11 | 14.58 | 68 / 77 | 121.618 | 340 / 365 |
+| sugar-beet | 8 | 21.83 | 36.76 | 7.29 | 132 / 141 | 243.237 | 660 / 685 |
 
 ## Growth-pace sensitivity: thirty-day demand
 
@@ -148,6 +157,15 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | flax | 8 | 0.5 | 176.000 | 4.480 | 1 / 0 |
 | flax | 8 | 1 | 88.000 | 2.240 | 0 / 0 |
 | flax | 8 | 2 | 44.000 | 1.120 | 0 / 0 |
+| sugar-beet | 1 | 0.5 | 60.295 | 0.514 | 5 / 0 |
+| sugar-beet | 1 | 1 | 30.147 | 0.257 | 0 / 0 |
+| sugar-beet | 1 | 2 | 15.074 | 0.129 | 0 / 0 |
+| sugar-beet | 4 | 0.5 | 241.179 | 2.057 | 29 / 5 |
+| sugar-beet | 4 | 1 | 120.590 | 1.029 | 5 / 0 |
+| sugar-beet | 4 | 2 | 60.295 | 0.514 | 0 / 0 |
+| sugar-beet | 8 | 0.5 | 482.359 | 4.114 | 62 / 38 |
+| sugar-beet | 8 | 1 | 241.179 | 2.057 | 14 / 0 |
+| sugar-beet | 8 | 2 | 120.590 | 1.029 | 0 / 0 |
 
 ## Recovery per completed healthy cohort
 
@@ -162,6 +180,7 @@ No recovery is credited against horizon totals: completed harvests, B2 setup, co
 | tomato | 1.495 | 4.49 | 4.49 | 8.97 | 1.49052 | 0.03090 | 3.708 |
 | soybean | 0.620 | 9.92 | 9.92 | 19.84 | 0.61008 | 0.01340 | 1.608 |
 | flax | 0.590 | 7.74 | 7.74 | 15.49 | 0.58226 | 0.01280 | 1.536 |
+| sugar-beet | 1.480 | 7.40 | 7.40 | 14.80 | 1.47260 | 0.03060 | 3.672 |
 
 One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; consumes 0.0392 kg cartridge medium; recovers 17.550 kg water + 0.080 kg nutrients; retains 2.0092 kg rejects. Needs 0.196 kWh, 23.52 powered minutes plus 15 crew setup minutes. The remaining cartridge has 5.4 kg treatment capacity. Outputs require fresh headroom.
 
@@ -170,8 +189,8 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
 - `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `5051cc79b4e7f8030478dd861173bebe74d8a34b7be38c75467c203ee54f4223`
-- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `3a10ac47f1a1195dafd282740df72b215089acae2cbf14d01cf48960ac960f8d`
-- `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `c6dd32441adcd32db66c2153e3fff6674e58bbdad67e4f1f4356ed1f77d2acfe`
+- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `c77e281b839f2f0dd53881c6d7b617b51df9e62e314dc6b8aae4a5449dec0449`
+- `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `b1a4f92561783634bd6ae4b50fb5919ee0ba62307c7c2a6f90b71b5272fd3f8c`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`
 - `src/PhobosAgriculture/IrrigationDefinitions.cs` (UTF-8/LF, no BOM): `0a49d2a9e4c57f612debac16d17e4b3cbf35892533247e99c71e109a29589d7a`
