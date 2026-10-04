@@ -1,7 +1,8 @@
 # Phobos Agriculture
 
-Grow a meal between salvage runs. Firstlight-4 grows potatoes, lettuce or dwarf
-wheat; Hearth-2 turns potatoes into cooked portions and wheat into flatbread. Keep the plants supplied with
+Grow a meal between salvage runs. Firstlight-4 grows potatoes, lettuce, dwarf
+wheat, dwarf tomatoes or soybeans; Hearth-2 cooks potatoes, bakes wheat into
+flatbread and turns soybeans into stew. Keep the plants supplied with
 water, nutrients, light and suitable cabin air. Four trays share one crop cycle.
 
 Use the [current package versions](player-guide.md) and [dependency requirements](installing-mods.md). These are development packages;
@@ -23,8 +24,8 @@ keeps the version history and [artwork notes](development/artwork-completion.md)
 ## Equipment and supplies
 
 **Verdemorrow Agronomics** supplies this agricultural family: **Firstlight-4**
-cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes,
-lettuce seeds and seed wheat, and **Groundwork** formulated nutrients. Harvested produce and
+cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes and
+seed packets, and **Groundwork** formulated nutrients. Harvested produce and
 retained materials also carry the Verdemorrow brand. Full names begin with
 `Phobos' Verdemorrow`; the [brand register](development/equipment-branding.md) lists them.
 
@@ -112,13 +113,13 @@ flowchart TD
    Remove cargo and replant. Full storage keeps the crop intact; harvest again
    after making room.
 
-| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat |
-| --- | --- | --- | --- |
-| Duration | 96 game hours | 48 game hours | 84 game hours |
-| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW |
-| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh |
-| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g |
-| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue |
+| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat | Dwarf tomato | Soybean |
+| --- | --- | --- | --- | --- | --- |
+| Duration | 96 game hours | 48 game hours | 84 game hours | 64 game hours to first ripe | 90 game hours |
+| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW | 0.70 kW | 0.65 kW |
+| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh | 44.8 kWh to first ripe | 58.5 kWh |
+| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g | 4.962 kg / 25 g | 0.774 kg / 24 g |
+| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue | fourteen 0.25 kg tomato portions, one seed packet, 1.5 kg vine residue (or up to three picks first) | one 0.25 kg bean portion, one seed packet, 0.62 kg straw residue |
 
 Delays and respiration reduce biomass, and damage reduces edible output. Whole
 portion rounding can reduce a delayed harvest by one portion; the remainder stays
@@ -283,3 +284,36 @@ recipe budgets, compatibility, save behavior and owner gameplay checks.
 ## Crew standing orders
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+## Dwarf tomatoes: picking
+
+Tomatoes (Agriculture 0.42.0) are picked, not just harvested. Plant one
+**Continuance tomato seeds** packet. When the fruit ripens (the rack's tomatoes turn
+red), you have a choice:
+
+- **Pick ripe fruit** (fifteen minutes) takes three 0.25 kg portions and leaves the
+  plant growing. The fruit turns green again and ripens in about ten hours at full
+  health. A plant gives three picks; the panel shows how many are left.
+- **Harvest crop** takes all the remaining fruit, saves a seed packet from it and
+  ends the planting. You can harvest at any ripe moment, picked or not.
+
+Picking costs the plant the same water, nutrient and light per kilogram as its first
+fruit did; it simply keeps fresh food coming before you replant. A crew order for
+tomatoes picks while the plant allows and then harvests. Tomatoes are eaten fresh,
+a light food like lettuce.
+
+## Soybeans and stew
+
+Soybeans (Agriculture 0.42.0) are the protein crop. Plant one **Continuance soybean
+seeds** packet; a healthy harvest after 90 hours gives one 0.25 kg portion of dry
+**soybeans**, gives the packet back, and leaves about 0.62 kg of straw for the B2
+bench. Beans keep.
+
+Cook a bean portion and one 0.25 kg water ration in the Hearth-2 for fifteen minutes
+to make a 0.5 kg bowl of **soybean stew**: eight units of hunger relief and more
+satiety than bread, from all that protein. As with bread, the cooker stops and waits
+if the water ration is gone when the cooking finishes.
+
+Tomato and soybean figures follow the ratios NASA's crop chamber found; the hours,
+picks, yields and food values are gameplay choices. See the
+[crop expansion record](development/agriculture-crop-expansion.md).

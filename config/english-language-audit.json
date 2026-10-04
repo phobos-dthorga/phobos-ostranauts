@@ -232,13 +232,13 @@
       "key": "cooker_desc",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Now names both recipes, their times and the water ration.",
+      "reason": "Now names all three recipes, their times and the water ration.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Definitions.cs:56"
       ],
       "before": "Hearth-2: 2 x 2 cooker. Load 0.4 kg raw potato portions; 2 kW for 90 seconds per portion. Heat enters the cabin.",
-      "after": "Hearth-2: a hot meal between shifts. This 2 x 2 cooker draws 2 kW: 90 seconds for a 0.4 kg potato portion, ten minutes to bake 0.4 kg of wheat grain and a water ration into flatbread. The cabin gets the spare heat.",
+      "after": "Hearth-2: a hot meal between shifts. This 2 x 2 cooker draws 2 kW: 90 seconds for a 0.4 kg potato portion, ten minutes to bake 0.4 kg of wheat grain and a water ration into flatbread, fifteen minutes to cook 0.25 kg of soybeans and a water ration into stew. The cabin gets the spare heat.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -3616,13 +3616,13 @@
       "key": "crew_recipe_cook",
       "category": "control/name/value",
       "decision": "rewrite",
-      "reason": "Now covers bread as well as potatoes.",
+      "reason": "Now covers bread and stew as well as potatoes.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAgriculture/CrewProvider.cs:26"
       ],
       "before": "Cook potato portions",
-      "after": "Cook what the galley has: potatoes, or grain into bread",
+      "after": "Cook what the galley has: potatoes, bread or soybean stew",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66734,13 +66734,349 @@
       "key": "cooker_supply_missing",
       "category": "status/warning",
       "decision": "add",
-      "reason": "Says what is missing, what it means and what to do.",
+      "reason": "Now names stew as well as bread.",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/MaterialOperations.cs:111"
       ],
-      "before": "The cooking is done except for its supply: bread needs a water ration in the cooker. Add one and choose Start to finish it.",
-      "after": "The cooking is done except for its supply: bread needs a water ration in the cooker. Add one and choose Start to finish it."
+      "before": "The cooking is done except for its supply: bread and stew need a water ration in the cooker. Add one and choose Start to finish it.",
+      "after": "The cooking is done except for its supply: bread and stew need a water ration in the cooker. Add one and choose Start to finish it."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "plant-tomato",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Planting job, worded like the other crops.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Plant tomato seeds (15 minutes)",
+      "after": "Plant tomato seeds (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "plant-soybean",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Planting job, worded like the other crops.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Plant soybean seeds (15 minutes)",
+      "after": "Plant soybean seeds (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "tomato_seed",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Seed packet name with its mass.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Tomato Seeds (5 g)",
+      "after": "Tomato Seeds (5 g)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "tomato_seed_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is for and that the final harvest saves a packet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Continuance seeds for a dwarf tomato that stays compact under rack lights. One packet sows one rack; the final harvest saves a packet from the fruit.",
+      "after": "Continuance seeds for a dwarf tomato that stays compact under rack lights. One packet sows one rack; the final harvest saves a packet from the fruit."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybean_seed",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Seed packet name with its mass.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Soybean Seeds (30 g)",
+      "after": "Soybean Seeds (30 g)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybean_seed_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is for and that a harvest gives a packet back.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Continuance soybean seed from Verdemorrow Agronomics. One packet sows one rack, and each harvest gives a packet back.",
+      "after": "Continuance soybean seed from Verdemorrow Agronomics. One packet sows one rack, and each harvest gives a packet back."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "tomatoes",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Produce name with its mass.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Tomatoes (0.25 kg)",
+      "after": "Tomatoes (0.25 kg)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "tomatoes_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Flavour text; dry humour, no mechanics claimed.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Ripe tomatoes off the vine. Mostly water and entirely worth it after a month of ration paste.",
+      "after": "Ripe tomatoes off the vine. Mostly water and entirely worth it after a month of ration paste."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybeans",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Produce name with its mass.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Soybeans (0.25 kg)",
+      "after": "Soybeans (0.25 kg)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybeans_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says they keep and how to use them.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Dry beans that keep for as long as you need them to. Cook them in the Hearth-2 with a water ration; raw, they are a bad idea.",
+      "after": "Dry beans that keep for as long as you need them to. Cook them in the Hearth-2 with a water ration; raw, they are a bad idea."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybean_stew",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Food name with its mass.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Soybean Stew (0.5 kg)",
+      "after": "Soybean Stew (0.5 kg)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybean_stew_desc",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Flavour text; filling and protein-rich.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "A bowl of beans in broth. Heavy, warm and full of protein: it keeps a crew going longer than it has any right to.",
+      "after": "A bowl of beans in broth. Heavy, warm and full of protein: it keeps a crew going longer than it has any right to."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "tomato",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Crop name on the rack status.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Dwarf tomato",
+      "after": "Dwarf tomato"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "soybean",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Crop name on the rack status.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Soybean",
+      "after": "Soybean"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mix-tomato",
+      "category": "control label",
+      "decision": "add",
+      "reason": "W2 feed choice, worded like the other feeds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Select tomato feed (pause and unlink first)",
+      "after": "Select tomato feed (pause and unlink first)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mix-soybean",
+      "category": "control label",
+      "decision": "add",
+      "reason": "W2 feed choice, worded like the other feeds.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Select soybean feed (pause and unlink first)",
+      "after": "Select soybean feed (pause and unlink first)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "solution_tomato-v1",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Feed name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "tomato feed v1",
+      "after": "tomato feed v1"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "solution_soybean-v1",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Feed name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "soybean feed v1",
+      "after": "soybean feed v1"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_tomato",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Crew order.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Grow tomatoes",
+      "after": "Grow tomatoes"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_soybean",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Crew order.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Grow soybeans",
+      "after": "Grow soybeans"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "pick",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Pick action with its duration, like Harvest.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/CrewProvider.cs:76",
+        "src/PhobosAgriculture/Definitions.cs:30",
+        "src/PhobosAgriculture/MaterialOperations.cs:34",
+        "src/PhobosAgriculture/MaterialOperations.cs:59"
+      ],
+      "before": "Pick ripe fruit (15 minutes)",
+      "after": "Pick ripe fruit (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "pick_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says why nothing can be picked and what to do instead.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/MaterialOperations.cs:34",
+        "src/PhobosAgriculture/MaterialOperations.cs:109"
+      ],
+      "before": "Nothing to pick: the plant is not ripe yet, or it has given all its picks. Harvest it to finish the planting.",
+      "after": "Nothing to pick: the plant is not ripe yet, or it has given all its picks. Harvest it to finish the planting."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "picks_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Picks taken and allowed, and what Harvest does.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Service.cs:347"
+      ],
+      "before": "Picks taken: {0} of {1}. Harvest takes the rest and ends the planting.",
+      "after": "Picks taken: {0} of {1}. Harvest takes the rest and ends the planting."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_picks",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the rules a picked crop must meet.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:109"
+      ],
+      "before": "Crop {0}: picks run from 0 to {1}, and a crop that is picked needs a pick mass of at least one portion, within its edible share and less than one cycle's growth.",
+      "after": "Crop {0}: picks run from 0 to {1}, and a crop that is picked needs a pick mass of at least one portion, within its edible share and less than one cycle's growth."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -69561,8 +69897,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4882cf52ef0b32b92c44cbc3fc81b4bad0533a30d676412b89c90a760015660c",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "f9b3d5a7364dc9ceb9619592d28b13db7f63b222d269267202233653ded51735",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "SUPPORT.md",
@@ -69589,8 +69925,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "bcbeed2e839da309d1e9ebb0bfd0bcf27f34372b71f3f660c903eafa567341ec",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "f37c9d021076b79ac3fb626679a91e48cee2593863fcdc5b0754de8819d8a2d8",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -69610,8 +69946,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "22a10f51f78f8b76028164df5fce621ca92a9743eb015f4d1a50966fc8c7c99d",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "5ffc8fd84c73868b0fb9da91f914c19bc68bedb2742c51d0d5643628e466b4bc",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -69721,8 +70057,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e3cde44293fb765331ba2e4928ff89a9cd08f37a994cdbe9aa1eb83e847116c9",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "7fb402b49eff5521a3736fd8a17e51a6f741189ce1e030c0f7d23ce152dc3b62",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/crew-automation.md",
@@ -69749,8 +70085,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "6b809210b7eb03421daee3cbe39c0415fc3dc8a05eb497abb09d4e05f1d885b6",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "560477214875f4e10f36b52384cd0609d54d7d34569d93e0aeb8ce1d685420d1",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -69770,8 +70106,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "7d3d454eb142704271a3b62f52d6e93c534ebd7777823dac1b41bf545e3ae9c9",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "883c8ca6e2d5206f6954688fc158c91d55b54694983a99d1732d65ffbbd375ab",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -70113,8 +70449,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "351ede182a6320766463d24dcf62d28e6dbc4d067954048dfdf4d077e5921840",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "fcbb0afab2d1d439d9a21324ab9a34c113be0355f08381f9b57964b6886b543b",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -70244,8 +70580,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2c589431effc121ac77d19e4ffb9208e373f92384d998ce349591d100753669c",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "0603cd6050e40bf4b808434d6ef3c8c38c5301c8180d76ea081810a25c25245a",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -70638,8 +70974,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8c5d83f425c1f0a7d6d8b52eb7195366c01fcc95ff2f5210f0ee762211684151",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "b4b6a8e04f8ed5389ab18966cdc2123428acf1b01ccd8a7a048248603d703080",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -70729,8 +71065,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "304b0ee95d5171186959c11b4ec113b7f7139a2ce72339ad2844d638caf68632",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
+      "sha256": "ae0a16afef941836b135f82be04f8b47e542a5d6932238496eb3c81822f1dd72",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -70792,22 +71128,22 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "c298b032b48e304abe68c676c76e13e461b9683f8751aef7ed7310d2a90a98d3",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "cb056077d8cc0ba8c2a4b00c7b6c2566adb068f7cf0c37c2eb7f56cec10f3893",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8577881e5338af924d6aa73dc208939ea803c73132137f05c804e3ac15553bb4",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "9d2e69cc8175bd19fb8621ce036364bad6275711a3708e13fe7d0467abec2276",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "77b9298cc8c39e5a4a0bc7a734b374426389a11dfbd924c8fb2ddf88617f5acf",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "21348feb40d796f8b311423aa4d30e363148428c177d57104bc1830dc447b003",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "mods/PhobosAgriculture/framework/recipes.json",
@@ -70817,8 +71153,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "98de1966eede65dc510314d062f83328672aec5fa83448d0e3a5b73814957422",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.41.0: dwarf wheat and Hearth flatbread."
+      "sha256": "76ff4753daf39bc829fbdbdd5ff0f5833588903c160d09a35eb93924fca8ad6d",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

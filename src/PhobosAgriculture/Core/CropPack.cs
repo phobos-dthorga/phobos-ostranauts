@@ -32,6 +32,10 @@ public sealed class CropEntry
     public double seedCarbonKg;
     /// <summary>Of a full healthy cohort: the edible mass, planting stock kept back from it, and one portion.</summary>
     public double edibleKg, keptStockKg, portionKg;
+    /// <summary>Picks a ripe plant allows before its final harvest (Agriculture 0.42.0); zero or absent for a crop
+    /// harvested once. Each pick takes up to <see cref="pickKg"/> of whole portions and leaves the plant growing.</summary>
+    public int picks;
+    public double pickKg;
     /// <summary>The item planted, and the item each portion becomes.</summary>
     public string stock = "", produce = "";
     /// <summary>The feed formulation a W2 mixes for this crop (a saved name), and the name that feed is held under in
@@ -65,6 +69,7 @@ public static class CropSchema
 {
     public const string Name = "crops";
     public const double MassTolerance = 1e-9, MaxHours = 10000, MaxKW = 1.5;
+    public const int MaxPicks = 10;
     /// <summary>Carbon dioxide taken in less oxygen given off, per kilogram of carbon fixed as CH2O: (44 - 32) / 30.</summary>
     public const double NetGasPerCarbon = 12d / 30;
     public static void Validate(CropPack pack, CropContext context)
@@ -98,6 +103,10 @@ public static class CropSchema
             if (context.UnitMassOf?.Invoke(c.stock) is double stockKg && Math.Abs(stockKg - c.seedKg) > MassTolerance) throw new ArgumentException(Text.Get("crops_unit", id, c.stock, c.seedKg, stockKg));
             if (context.UnitMassOf?.Invoke(c.produce) is double produceKg && Math.Abs(produceKg - c.portionKg) > MassTolerance) throw new ArgumentException(Text.Get("crops_unit", id, c.produce, c.portionKg, produceKg));
             if (c.keptStockKg > 0 && Math.Abs(c.keptStockKg - c.seedKg) > MassTolerance) throw new ArgumentException(Text.Get("crops_kept", id));
+            // A pick takes whole portions, less than one cycle's growth, so the plant can regrow what was picked.
+            if (c.picks < 0 || c.picks > MaxPicks || (c.picks == 0) != (c.pickKg == 0) ||
+                c.picks > 0 && (!CropState.Finite(c.pickKg) || c.pickKg < c.portionKg || c.pickKg > c.edibleKg || c.pickKg >= c.finalKg - c.seedKg))
+                throw new ArgumentException(Text.Get("crops_picks", id, MaxPicks));
             if (string.IsNullOrWhiteSpace(c.feed) || c.feed == NutrientSolution.None || !feeds.Add(c.feed)) throw new ArgumentException(Text.Get("crops_feed", id, c.feed));
             if (string.IsNullOrWhiteSpace(c.feedCommodity) || c.feedCommodity == "water" || !commodities.Add(c.feedCommodity)) throw new ArgumentException(Text.Get("crops_feed", id, c.feedCommodity));
             if (string.IsNullOrWhiteSpace(c.art) || c.art.Any(ch => !char.IsLetterOrDigit(ch)) || context.KnownArt?.Invoke(c.art) == false) throw new ArgumentException(Text.Get("crops_art", id));

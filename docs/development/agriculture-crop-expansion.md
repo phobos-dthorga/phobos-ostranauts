@@ -27,7 +27,7 @@ Chili, radish and activated char were offered and not chosen.
 | --- | --- | --- | --- |
 | 0 | this record | Sources, per-crop decisions, open questions | Written |
 | 1 | Agriculture 0.40.0 | Crops and Hearth-2 recipes as data packs; no change in play | Built, offline checks only |
-| 2 | Agriculture 0.41.0 | Wheat (pilot), then tomato with repeat picking and soybean | Wheat built, offline checks only; tomato and soybean wait for the owner's review of the wheat pilot |
+| 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
 | 3 | Agriculture 0.42.0, Manufacturing 0.37.0 | CO2 response; residue charred to carbon stock in the V4; rack vapour overflow to a linked water tank | Planned |
 | 4 | later | Flax: fibre to cloth, linseed; oil press decision | Needs its own design record |
 | 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
@@ -239,15 +239,44 @@ revise.
 Loot: fridge and crate finds keep their old totals (0.22 and 0.30 per roll); the
 wheat items share them, so potato and lettuce items are slightly rarer than before.
 
-## Decisions phase 2 still needs
+## Phase 2: tomato and soybean (Agriculture 0.42.0)
 
-These are ours to propose in the phase 2 change and the owner's to revise:
+Owner, 4 October 2026: the wheat looks good; continue with the rest.
 
-1. The owner's review of the wheat pilot (artwork, figures, flatbread) before
-   tomato and soybean follow.
-2. Authored hours, power and yields for tomato and soybean, in the ratios above.
-3. Number of tomato picks and the regrow interval (a saved crop field).
-4. Soybean's food: a cooked meal now, oil later.
+| Figure | Tomato | Soybean | Basis |
+| --- | --- | --- | --- |
+| Hours | 64 to first ripe | 90 | Chamber tomato fruit from day 65 of 84 to 91; soybean 90 to 97 days, potato's |
+| Rack power | 0.7 kW | 0.65 kW | 38.6 and 36.5 mol PAR per m2 per day against potato's 42 |
+| Seed | 5 g packet | 30 g packet | Our choice; both keep one back |
+| Final mass | 5 kg | 0.9 kg | Tomato fruit is 94.5% water (USDA); a ripe soybean stand is dry |
+| Carbon (as CH2O) | 0.52 kg | 0.68 kg | Chamber total dry matter per cycle about 0.6 and 0.5 times potato's (derived) |
+| Edible | 3.6 kg fruit | 0.29 kg beans | About half (tomato) and a third (soybean) of the dry matter |
+| Harvest | fourteen 0.25 kg portions, packet, 1.5 kg vine | one 0.25 kg portion, packet, 0.62 kg straw | Whole portions |
+
+**Repeat picking.** The crops schema gains optional `picks` and `pickKg`, and the
+saved planting an optional `picks` count (absent means none, so older records are
+unchanged). A pick takes whole portions, up to `pickKg`, from a ripe plant with picks
+left. It removes their mass and the matching share of the plant's carbon, and sets
+growth back by exactly the share of a cycle they were. Regrowing therefore uses the
+same water, nutrient and carbon budget per unit of progress that grew them, and a
+healthy plant returns to the state it was picked from; the unit checks prove this
+by stepping the regrowth. Tomato allows three picks of up to 0.75 kg, about ten
+hours of regrowth each. The chamber picked its tomatoes as they ripened over the
+last quarter of the cycle; three picks is our authored number.
+
+**Soybean stew.** Hearth revision 3: 0.25 kg of dry beans and one 0.25 kg water ration
+into a 0.5 kg bowl over fifteen minutes; dry beans take up about their own mass of
+water. Real soybeans soak for hours first; the short cook is authored. Food values
+eight and six (authored: about three potato portions of energy, and protein-rich).
+Oil from soybeans waits for phase 4's press decision.
+
+Artwork: 24 PixelLab generations from the subscription, 17 selected (twelve growth
+stages, five icons); rejected and superseded outputs are on the archive branch
+(`assets/phobos-agriculture/tomato-soybean-generation-records.json`). The tomato's
+mature stage carries green fruit and its harvest stage red, so a picked plant is
+seen to ripen again.
+
+Fridge and crate finds keep their 0.22 and 0.30 totals, now shared by every crop.
 
 ## Later phases: starting notes
 

@@ -328,5 +328,115 @@
     "sampling": "nearest; whole canvas; no independent crop",
     "exportSHA256": "25428ec718e226a9caf62f322c8c547bd6d70e4a9e9417e33915620c507f0b66",
     "normalSHA256": "0084964ace8293d9bea15675758c6cf62db2ba7ecda3c5bb93096c72799cd6e5"
+  },
+  {
+    "key": "tomato_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-tomato.png",
+    "sourceSHA256": "501bcc0d5ca452bbdebf47ea5a64587148a2a443c4af0a79c92d6a6de075464e",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      8,
+      5,
+      56,
+      57
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "88eb899a1461f593d9f74c1c5056b0d24458ce8951469789b80c910eee34049a",
+    "normalSHA256": "18fb6d01d57593c206b24c6e2a6975b67221839f90fe3fb0e0421a571ca4fa8a"
+  },
+  {
+    "key": "soybean_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-soybean.png",
+    "sourceSHA256": "74bd8f3846ec244d5165e4e92c3b3678194396bf1aef33ceed8dc73cc0827278",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      5,
+      5,
+      59,
+      58
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "4c6b8d5f4b19d23a5554dabb60cf095a7c54382c7884c8798d6dbcfbc1f1d25d",
+    "normalSHA256": "ccb8529e67a70a362714bde6d84c3ea89227be7988af47b171f22ef7ee3a0261"
+  },
+  {
+    "key": "tomatoes",
+    "source": "assets/phobos-agriculture/source/stock-tomatoes.png",
+    "sourceSHA256": "9d602c276187ef9c1e202bd71afb24e16d7463523bc89cf624335beee29a2b3a",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      12,
+      53,
+      53
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "445095353fdefd4d9987ca862ca0c6c0e19a09428ea92cb10fbab22a3afc820d",
+    "normalSHA256": "c54d5b6b3e11b86d8a36d55f4a4841f1c12eb548d5884f136134948384d83e19"
+  },
+  {
+    "key": "soybeans",
+    "source": "assets/phobos-agriculture/source/stock-soybeans.png",
+    "sourceSHA256": "8ba1fe4cff728e3d2874eb484bf964f5e7e47f013aff7bbe54a9fb1033e35c57",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      15,
+      15,
+      48,
+      46
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "77ac2ca15d191ed2103f93a39693833b8dfbe7aa6c2b738648337ca7bcfba5ba",
+    "normalSHA256": "628f85c720eebceb1a5d382d265f3a0c88c52d78a2b6c0eccbcbdd1303a91645"
+  },
+  {
+    "key": "soybean_stew",
+    "source": "assets/phobos-agriculture/source/stock-soybean-stew.png",
+    "sourceSHA256": "2ff8ccb034bb067ccd549b781468f2aad14833050bad1212ff1b1a1b7a9ace09",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      12,
+      52,
+      53
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "d3e4f04af150169e2f175cad0278f37ed12b7aba7691240de0346dfa582bb673",
+    "normalSHA256": "c54d5b6b3e11b86d8a36d55f4a4841f1c12eb548d5884f136134948384d83e19"
   }
 ]

@@ -285,6 +285,60 @@
       "sha256": "193a47ac0a0fd39b8ad9e3b78eafb3e6586df19e8c42e17ae697b822a3484f61",
       "reason": "Wheat pilot: the selected sprout before its recorded colour key removed a dark soil disc.",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/0f88244696989feef30218c1e454857be3148695/assets/phobos-agriculture/source/wheat-sprout-unkeyed.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/tomato-mature-superseded-pot.png",
+      "sha256": "83aaa83a394f69eb32ccf2b65b3a0a0e788d13ec5c62f519f14d7d8f7822bd43",
+      "reason": "Tomato and soybean pass: Good overhead plant, but sat in a round pot; cleaned by the next edit.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-mature-superseded-pot.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/soybean-mature-superseded-pot.png",
+      "sha256": "e6fdf8f721e3b4a4fac39480b6f367209c11208af98ba63f5c5c3f19ba9adf63",
+      "reason": "Tomato and soybean pass: Overhead, but sat in a round pot and showed no pods; cleaned by the next edit.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/soybean-mature-superseded-pot.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/tomato-young-rejected-side.png",
+      "sha256": "60499b70d3d53370af0d95869a32c170806a397151704b320f80eb0e258f2465",
+      "reason": "Tomato and soybean pass: Drawn from the side, a stem with branches: violates the overhead-first rule.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-young-rejected-side.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/tomato-harvest-rejected-duplicate.png",
+      "sha256": "303b28c47e9f5c93221464ccb6358d9a6f42e611f4746bca459df6f896668110",
+      "reason": "Tomato and soybean pass: Almost identical to its source; the source itself became the harvest stage.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-harvest-rejected-duplicate.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-tomatoes-rejected-isometric.png",
+      "sha256": "fc7a660bbaacb7b644f01424320e41aa9e146aad4a94b1e273d8ee9d6777e511",
+      "reason": "Tomato and soybean pass: Drawn isometric, a diamond tray with a visible side.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/stock-tomatoes-rejected-isometric.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-soybeans-rejected-perspective.png",
+      "sha256": "4274d5f8db1143d2d2a10884f249dae767a4428f53d8d7ed748b219e3094ceb6",
+      "reason": "Tomato and soybean pass: A small tray with its front lip and handles showing in perspective.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/stock-soybeans-rejected-perspective.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-soybean-stew-rejected-bowl.png",
+      "sha256": "292a486c88c43b8ee7a490d298e93d54718a2cc8d61099743500d85b9a144f9b",
+      "reason": "Tomato and soybean pass: The bowl's side shows in perspective.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/stock-soybean-stew-rejected-bowl.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/tomato-sprout-unkeyed.png",
+      "sha256": "d93b2ab58901488e5d161196172ec3b833dcfe553000dbf8a8ed49ed2201b545",
+      "reason": "Tomato and soybean pass: the selected stage before its recorded colour key removed a soil disc.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-sprout-unkeyed.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/tomato-young-unkeyed.png",
+      "sha256": "88a175909e1f9b5593caed4a071696709aa63f18c3e01550944b08a0ffe19f66",
+      "reason": "Tomato and soybean pass: the selected stage before its recorded colour key removed a soil disc.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-young-unkeyed.png"
     }
   ],
   "additions": [
@@ -312,6 +366,11 @@
       "commit": "0f88244696989feef30218c1e454857be3148695",
       "date": "2026-10-04",
       "note": "Agriculture wheat pilot PixelLab pass: rejected and superseded outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/phobos-agriculture/wheat-generation-records.json."
+    },
+    {
+      "commit": "370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f",
+      "date": "2026-10-04",
+      "note": "Agriculture tomato and soybean PixelLab pass: rejected and superseded outputs, never committed to main, archived directly. Requests, seeds and reasons: assets/phobos-agriculture/tomato-soybean-generation-records.json."
     }
   ]
 }

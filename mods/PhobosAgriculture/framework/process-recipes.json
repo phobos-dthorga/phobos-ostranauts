@@ -18,6 +18,14 @@
       "inputs": [ { "id": "PhobosVerdemorrowWheatGrain", "count": 1, "kg": 0.4 }, { "id": "LiquidWater", "count": 1, "kg": 0.25 } ],
       "products": [ { "id": "PhobosVerdemorrowHearthFlatbread", "count": 1, "kg": 0.65 } ],
       "seconds": 600
+    },
+    "hearth-soybeans": {
+      "notes": "Hearth revision 3 (Agriculture 0.42.0): one 0.25 kg portion of dry soybeans and one 0.25 kg water ration into one 0.5 kg bowl of soybean stew over fifteen minutes at 2 kW (0.5 kWh). Dry beans take up about their own mass of water when cooked; real soybeans soak for hours first, and the Hearth's short cook is authored. Steam loss is not modelled, so the bowl keeps the water's mass.",
+      "machine": "hearth",
+      "revision": 3,
+      "inputs": [ { "id": "PhobosVerdemorrowSoybeans", "count": 1, "kg": 0.25 }, { "id": "LiquidWater", "count": 1, "kg": 0.25 } ],
+      "products": [ { "id": "PhobosVerdemorrowHearthSoybeans", "count": 1, "kg": 0.5 } ],
+      "seconds": 900
     }
   }
 }

@@ -82,6 +82,48 @@
       "feed": "wheat-v1",
       "feedCommodity": "wheat feed",
       "art": "Wheat"
+    },
+    "tomato": {
+      "notes": "Dwarf tomato (Agriculture 0.42.0): one 5 g seed packet into a 5 kg plant, first ripe after 64 hours at 0.7 kW. A ripe plant can be picked three times, up to three 0.25 kg portions a pick; each pick sets growth back by the share of a cycle it took, so the plant regrows that fruit from the same budget (about ten hours at full health). The final harvest takes the rest, a seed packet kept from the fruit and the vine as residue. Ratios after NASA Kennedy Space Center's Biomass Production Chamber tomato: first fruit at about two thirds of potato's cycle, fruit picked as it ripened over the last quarter, about half the dry matter in fruit, and ripe fruit 94.5% water (USDA). See docs/development/agriculture-crop-expansion.md; hours, picks and yields are authored gameplay balance.",
+      "hours": 64,
+      "kw": 0.7,
+      "seedKg": 0.005,
+      "finalKg": 5,
+      "carbonKg": 0.52,
+      "nutrientKg": 0.025,
+      "waterKg": 4.962,
+      "vapourKg": 0.2,
+      "seedCarbonKg": 0.0045,
+      "edibleKg": 3.6,
+      "keptStockKg": 0.005,
+      "portionKg": 0.25,
+      "picks": 3,
+      "pickKg": 0.75,
+      "stock": "PhobosVerdemorrowContinuanceTomato",
+      "produce": "PhobosVerdemorrowTomatoes",
+      "feed": "tomato-v1",
+      "feedCommodity": "tomato feed",
+      "art": "Tomato"
+    },
+    "soybean": {
+      "notes": "Soybean (Agriculture 0.42.0): one 30 g seed packet into a 0.9 kg stand over 90 hours at 0.65 kW. A harvest keeps one packet back and gives one 0.25 kg portion of dry beans; the rest, about 0.62 kg, is straw. Ratios after NASA Kennedy Space Center's Biomass Production Chamber soybean: about potato's cycle (90 to 97 days), less light than wheat, about a third of the dry matter in seed, and seed of 37% protein and 20% fat (dry basis). See docs/development/agriculture-crop-expansion.md; hours and yields are authored gameplay balance.",
+      "hours": 90,
+      "kw": 0.65,
+      "seedKg": 0.03,
+      "finalKg": 0.9,
+      "carbonKg": 0.68,
+      "nutrientKg": 0.024,
+      "waterKg": 0.774,
+      "vapourKg": 0.2,
+      "seedCarbonKg": 0.027,
+      "edibleKg": 0.29,
+      "keptStockKg": 0.03,
+      "portionKg": 0.25,
+      "stock": "PhobosVerdemorrowContinuanceSoybean",
+      "produce": "PhobosVerdemorrowSoybeans",
+      "feed": "soybean-v1",
+      "feedCommodity": "soybean feed",
+      "art": "Soybean"
     }
   },
   "items": {
@@ -92,6 +134,11 @@
     "PhobosVerdemorrowLettuce": { "text": "leaves", "hunger": 1, "satiety": 1 },
     "PhobosVerdemorrowContinuanceWheat": { "text": "wheat_seed" },
     "PhobosVerdemorrowWheatGrain": { "text": "wheat_grain" },
+    "PhobosVerdemorrowContinuanceTomato": { "text": "tomato_seed" },
+    "PhobosVerdemorrowTomatoes": { "notes": "Eaten fresh, like lettuce: a quarter kilogram of tomatoes is little food energy.", "text": "tomatoes", "hunger": 1, "satiety": 1 },
+    "PhobosVerdemorrowContinuanceSoybean": { "text": "soybean_seed" },
+    "PhobosVerdemorrowSoybeans": { "text": "soybeans" },
+    "PhobosVerdemorrowHearthSoybeans": { "notes": "A bowl from 0.25 kg of dry beans: about three potato portions of food energy and far more protein, so it satisfies for longer.", "text": "soybean_stew", "hunger": 8, "satiety": 6 },
     "PhobosVerdemorrowHearthFlatbread": { "notes": "The game's own prepared-meal values (food 9, satiety 5): a loaf from 0.4 kg of grain is about four potato portions of food energy.", "text": "flatbread", "hunger": 9, "satiety": 5 }
   }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-04",
-  "baselineCommit": "32c619b2a14be28f2e65f666497016e7ed5ed9e0",
+  "baselineCommit": "c00b4e1e3862828459c5483b69f84073ad74455f",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -136,7 +136,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Core/Crop.cs",
-      "sha256": "a2f3ba83c4137db9b132a3b22d80f4472ef6611ad141e2aa4554043eab46e118",
+      "sha256": "4c9d0b098f25a0709cf34821718469e846a145de70ecac0f92677d05ddf657e2",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -145,7 +145,8 @@
         "FF0",
         "FF1",
         "FF2",
-        "L25"
+        "L25",
+        "L27"
       ],
       "indicators": {},
       "reviewed": "2026-10-04"
@@ -165,18 +166,19 @@
     },
     {
       "path": "src/PhobosAgriculture/Core/CropPack.cs",
-      "sha256": "0c7cb5ee2aecf3dd682a2a7ef63d51ab20e2f26aca86aa9add03b9762b2c9723",
+      "sha256": "35578e089eff383906e81be2e520e220bfd163786287d159742a1e7b0e79cfb7",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "L25"
+        "L25",
+        "L27"
       ],
       "indicators": {
         "collection": [
-          153,
-          164,
-          176
+          162,
+          173,
+          185
         ]
       },
       "reviewed": "2026-10-04"
@@ -300,7 +302,7 @@
     },
     {
       "path": "src/PhobosAgriculture/CrewProvider.cs",
-      "sha256": "68a0996c81b3a432978ea7cf152afbf1dffc9ad139558d2a9b7c3de627fe69a2",
+      "sha256": "e37b09e9b58c2db5a6104ea3e33c830fa95f613e54d0bd2e4b5ff9f32f6d13ec",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -310,7 +312,8 @@
         "K1",
         "L3",
         "L25",
-        "L26"
+        "L26",
+        "L27"
       ],
       "indicators": {
         "collection": [
@@ -322,7 +325,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "cbb0f8f52f3f10f97feef76d7e7b60f8bb39664b631e76c15bb70c8099303216",
+      "sha256": "6692c0206d5d5ddf2eb369afcb23c2f36ca3216a3c42facf319f4d1e15e8d43f",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -338,7 +341,8 @@
         "L3",
         "L17",
         "L18",
-        "L25"
+        "L25",
+        "L27"
       ],
       "indicators": {
         "collection": [
@@ -568,7 +572,7 @@
     },
     {
       "path": "src/PhobosAgriculture/MaterialOperations.cs",
-      "sha256": "63a2554e88d23ea356c32afec69b8b4c2d3d413455dffca1b73e8601c8fd1344",
+      "sha256": "c7b19804951d715fce6d913df6a3d9349eda7928af4e0eb8bb948920d7b268e9",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -577,20 +581,22 @@
         "FF0",
         "L18",
         "L25",
-        "L26"
+        "L26",
+        "L27"
       ],
       "indicators": {
         "collection": [
-          65,
-          94,
-          114,
-          127,
-          128,
-          131
+          67,
+          96,
+          111,
+          126,
+          139,
+          140,
+          143
         ],
         "persistence_or_io": [
-          150,
-          164
+          162,
+          176
         ]
       },
       "reviewed": "2026-10-04"
@@ -669,7 +675,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "0d7df7739f9b96c6927e92d41a6bb8958e428b0e4405d8eb925708ef01207812",
+      "sha256": "83f1f914743c90fbc92ec6fcebea5dac0d1263e75551f45f47b20c12f8e54a50",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -695,7 +701,8 @@
         "L19",
         "L24",
         "L25",
-        "L26"
+        "L26",
+        "L27"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -810,7 +817,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Service.cs",
-      "sha256": "5c16765ef9fb3547721d31f57dec237c43db500a49e1da0b4ae5169d8069ead2",
+      "sha256": "1f81dc3d61096cb9b7b898c6c9e82c3660dd33cfc713c5a41010445e3d77b3e9",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -822,7 +829,8 @@
         "L4",
         "L10",
         "L17",
-        "L25"
+        "L25",
+        "L27"
       ],
       "indicators": {
         "persistence_or_io": [

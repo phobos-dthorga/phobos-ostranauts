@@ -27,6 +27,14 @@
     "brand": "Verdemorrow",
     "model": "Continuance"
   },
+  "tomato_seed": {
+    "brand": "Verdemorrow",
+    "model": "Continuance"
+  },
+  "soybean_seed": {
+    "brand": "Verdemorrow",
+    "model": "Continuance"
+  },
   "nutrients": {
     "brand": "Verdemorrow",
     "model": "Groundwork"
@@ -48,6 +56,18 @@
     "model": ""
   },
   "flatbread": {
+    "brand": "Verdemorrow",
+    "model": "Hearth"
+  },
+  "tomatoes": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "soybeans": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "soybean_stew": {
     "brand": "Verdemorrow",
     "model": "Hearth"
   },

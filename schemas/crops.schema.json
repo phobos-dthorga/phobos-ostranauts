@@ -102,6 +102,17 @@
               "exclusiveMinimum": 0,
               "description": "One portion; one unit of the produce item."
             },
+            "picks": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10,
+              "description": "Picks a ripe plant allows before its final harvest; absent for a crop harvested once."
+            },
+            "pickKg": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Most fruit one pick takes, in whole portions."
+            },
             "stock": {
               "type": "string",
               "description": "The item planted."

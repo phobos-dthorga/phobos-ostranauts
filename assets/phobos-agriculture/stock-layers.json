@@ -101,6 +101,36 @@
       "source": "stock-flatbread.png",
       "label": "Hearth flatbread",
       "definition": "PhobosVerdemorrowHearthFlatbread"
+    },
+    {
+      "key": "tomato_seed",
+      "source": "stock-seed-tomato.png",
+      "label": "Continuance tomato seeds",
+      "definition": "PhobosVerdemorrowContinuanceTomato"
+    },
+    {
+      "key": "soybean_seed",
+      "source": "stock-seed-soybean.png",
+      "label": "Continuance soybean seeds",
+      "definition": "PhobosVerdemorrowContinuanceSoybean"
+    },
+    {
+      "key": "tomatoes",
+      "source": "stock-tomatoes.png",
+      "label": "Tomatoes",
+      "definition": "PhobosVerdemorrowTomatoes"
+    },
+    {
+      "key": "soybeans",
+      "source": "stock-soybeans.png",
+      "label": "Soybeans",
+      "definition": "PhobosVerdemorrowSoybeans"
+    },
+    {
+      "key": "soybean_stew",
+      "source": "stock-soybean-stew.png",
+      "label": "Hearth soybean stew",
+      "definition": "PhobosVerdemorrowHearthSoybeans"
     }
   ]
 }

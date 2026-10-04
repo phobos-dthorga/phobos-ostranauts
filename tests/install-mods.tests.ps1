@@ -678,5 +678,9 @@ Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0/BepInEx/plugi
 Fails { & $installer @held -Mods AutoNav -HoldManufacturing | Out-Null } 'only handles the known non-operational'
 Check (Test-Path -LiteralPath $heldPath) 'Holding removed an unexpected assembly'
 Fails { & $installer @held -Mods Manufacturing -HoldManufacturing | Out-Null } 'cannot also select it'
+# Each run builds its synthetic installations in a fresh folder of about 140 MB. Remove it after a passing run;
+# a failing run keeps it for inspection. Links are removed first so the delete never follows one.
+Get-ChildItem -LiteralPath $fixtures -Recurse -Force -Attributes ReparsePoint -ErrorAction SilentlyContinue | ForEach-Object { $_.Delete() }
+Remove-Item -LiteralPath $fixtures -Recurse -Force
 Write-Output "$script:passed checks including held-scaffold backup and guards passed."
 Remove-Variable -Name PhobosInstallerTestGameRunning -Scope Global

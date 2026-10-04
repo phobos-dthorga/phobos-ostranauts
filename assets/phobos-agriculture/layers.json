@@ -1,5 +1,5 @@
 {
-  "revision": 5,
+  "revision": 6,
   "registration": "Top-left pixel coordinates, whole source canvas, centered native pivot; all plant stages retain the same 64x64 source canvas. Four tray pictures represent one rack cohort, not four separately simulated crops.",
   "rack": {
     "source": "firstlight-rack-v2.png",
@@ -77,6 +77,18 @@
     "Wheat-mature": "wheat-mature.png",
     "Wheat-harvest": "wheat-harvest.png",
     "Wheat-wilted": "wheat-wilted.png",
-    "Wheat-dead": "wheat-dead.png"
+    "Wheat-dead": "wheat-dead.png",
+    "Tomato-sprout": "tomato-sprout.png",
+    "Tomato-young": "tomato-young.png",
+    "Tomato-mature": "tomato-mature.png",
+    "Tomato-harvest": "tomato-harvest.png",
+    "Tomato-wilted": "tomato-wilted.png",
+    "Tomato-dead": "tomato-dead.png",
+    "Soybean-sprout": "soybean-sprout.png",
+    "Soybean-young": "soybean-young.png",
+    "Soybean-mature": "soybean-mature.png",
+    "Soybean-harvest": "soybean-harvest.png",
+    "Soybean-wilted": "soybean-wilted.png",
+    "Soybean-dead": "soybean-dead.png"
   }
 }

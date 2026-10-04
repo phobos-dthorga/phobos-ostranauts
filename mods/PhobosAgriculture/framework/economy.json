@@ -218,6 +218,18 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceTomato": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceTomato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceSoybean": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceSoybean",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGSupplyKioskInv",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -290,6 +302,18 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceTomato": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceTomato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceSoybean": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceSoybean",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -359,6 +383,18 @@
     "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceWheat": {
       "merchant": "ItmTraderSanDiegoHalvorsonInv",
       "item": "PhobosVerdemorrowContinuanceWheat",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceTomato": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceTomato",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceSoybean": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceSoybean",
       "condition": "Pristine",
       "chance": 0.65
     },
@@ -457,6 +493,33 @@
       "chance": 0.95,
       "lot": "supplies",
       "floor": "supplies"
+    },
+    "PhobosHearthSoybeans_ItmOKLGFoodCart01KioskInv": {
+      "notes": "Hearth soybean stew at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart01KioskInv",
+      "item": "PhobosVerdemorrowHearthSoybeans",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthSoybeans_ItmOKLGFoodCart02KioskInv": {
+      "notes": "Hearth soybean stew at the food carts, at the supplies floor.",
+      "merchant": "ItmOKLGFoodCart02KioskInv",
+      "item": "PhobosVerdemorrowHearthSoybeans",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
+    },
+    "PhobosHearthSoybeans_ItmTraderSanDiegoFutureFoodsInv": {
+      "notes": "Hearth soybean stew at the food carts, at the supplies floor.",
+      "merchant": "ItmTraderSanDiegoFutureFoodsInv",
+      "item": "PhobosVerdemorrowHearthSoybeans",
+      "condition": "Pristine",
+      "chance": 0.95,
+      "lot": "supplies",
+      "floor": "supplies"
     }
   },
   "regions": {
@@ -498,6 +561,12 @@
       "PhobosVerdemorrowContinuanceWheat": {
         "chance": 0.65
       },
+      "PhobosVerdemorrowContinuanceTomato": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowContinuanceSoybean": {
+        "chance": 0.65
+      },
       "PhobosVerdemorrowGroundworkNutrients": {
         "chance": 0.65
       },
@@ -529,6 +598,15 @@
       },
       "PhobosVerdemorrowHearthFlatbread": {
         "chance": 0.65
+      },
+      "PhobosVerdemorrowTomatoes": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowSoybeans": {
+        "chance": 0.65
+      },
+      "PhobosVerdemorrowHearthSoybeans": {
+        "chance": 0.65
       }
     }
   },
@@ -545,28 +623,35 @@
   },
   "worldLoot": [
     {
-      "notes": "Stored seeds and produce in fridges; chances per contents roll, scaled by the Loot setting. Agriculture 0.41.0 shares the same 0.22 total with the wheat items.",
+      "notes": "Stored seeds and produce in fridges; chances per contents roll, scaled by the Loot setting. The same 0.22 total since Agriculture 0.41.0, shared by every crop's seed and food.",
       "table": "ItmFridge01Contents",
       "branch": "PhobosAgricultureStoredSeeds",
       "items": {
-        "PhobosVerdemorrowContinuancePotato": 0.02,
-        "PhobosVerdemorrowContinuanceLettuce": 0.03,
-        "PhobosVerdemorrowContinuanceWheat": 0.02,
-        "PhobosVerdemorrowRawPotatoes": 0.05,
-        "PhobosVerdemorrowLettuce": 0.04,
+        "PhobosVerdemorrowContinuancePotato": 0.01,
+        "PhobosVerdemorrowContinuanceLettuce": 0.02,
+        "PhobosVerdemorrowContinuanceWheat": 0.01,
+        "PhobosVerdemorrowContinuanceTomato": 0.02,
+        "PhobosVerdemorrowContinuanceSoybean": 0.01,
+        "PhobosVerdemorrowRawPotatoes": 0.03,
+        "PhobosVerdemorrowLettuce": 0.02,
         "PhobosVerdemorrowWheatGrain": 0.02,
+        "PhobosVerdemorrowTomatoes": 0.02,
+        "PhobosVerdemorrowSoybeans": 0.02,
         "PhobosVerdemorrowHearthPotatoes": 0.02,
-        "PhobosVerdemorrowHearthFlatbread": 0.02
+        "PhobosVerdemorrowHearthFlatbread": 0.01,
+        "PhobosVerdemorrowHearthSoybeans": 0.01
       }
     },
     {
-      "notes": "Supplies in locked crates. Agriculture 0.41.0 shares the same 0.30 total with seed wheat.",
+      "notes": "Supplies in locked crates. The same 0.30 total since Agriculture 0.41.0, shared by every crop's seed.",
       "table": "ItmRandomCrateLockedContents",
       "branch": "PhobosAgricultureCrateSupplies",
       "items": {
-        "PhobosVerdemorrowContinuancePotato": 0.02,
-        "PhobosVerdemorrowContinuanceLettuce": 0.03,
-        "PhobosVerdemorrowContinuanceWheat": 0.02,
+        "PhobosVerdemorrowContinuancePotato": 0.01,
+        "PhobosVerdemorrowContinuanceLettuce": 0.02,
+        "PhobosVerdemorrowContinuanceWheat": 0.01,
+        "PhobosVerdemorrowContinuanceTomato": 0.02,
+        "PhobosVerdemorrowContinuanceSoybean": 0.01,
         "PhobosVerdemorrowGroundworkNutrients": 0.08,
         "PhobosVerdemorrowGroundworkIrrigation": 0.06,
         "PhobosVerdemorrowGroundworkRecoveryCartridge": 0.05,
@@ -599,6 +684,8 @@
       "PhobosVerdemorrowContinuancePotato": "Neutral",
       "PhobosVerdemorrowContinuanceLettuce": "Neutral",
       "PhobosVerdemorrowContinuanceWheat": "Neutral",
+      "PhobosVerdemorrowContinuanceTomato": "Neutral",
+      "PhobosVerdemorrowContinuanceSoybean": "Neutral",
       "PhobosVerdemorrowGroundworkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkBulkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkIrrigation": "Neutral",
@@ -608,7 +695,10 @@
       "PhobosVerdemorrowLettuce": "Neutral",
       "PhobosVerdemorrowHearthPotatoes": "Neutral",
       "PhobosVerdemorrowWheatGrain": "Neutral",
-      "PhobosVerdemorrowHearthFlatbread": "Neutral"
+      "PhobosVerdemorrowHearthFlatbread": "Neutral",
+      "PhobosVerdemorrowTomatoes": "Neutral",
+      "PhobosVerdemorrowSoybeans": "Neutral",
+      "PhobosVerdemorrowHearthSoybeans": "Neutral"
     }
   }
 }

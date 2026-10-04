@@ -43,6 +43,26 @@
       "category": "IsCategoryIndustrialProducts",
       "art": "wheat_seed"
     },
+    "PhobosVerdemorrowContinuanceTomato": {
+      "notes": "Continuance tomato seed packet, 5 g: one planting.",
+      "kind": "stock",
+      "kg": 0.005,
+      "price": 5,
+      "stack": 50,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "tomato_seed"
+    },
+    "PhobosVerdemorrowContinuanceSoybean": {
+      "notes": "Continuance soybean seed packet, 30 g: one planting.",
+      "kind": "stock",
+      "kg": 0.03,
+      "price": 12,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "soybean_seed"
+    },
     "PhobosVerdemorrowGroundworkNutrients": {
       "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
       "kind": "stock",
@@ -99,6 +119,34 @@
       "stack": 10,
       "side": 1,
       "art": "flatbread"
+    },
+    "PhobosVerdemorrowTomatoes": {
+      "notes": "Fresh tomatoes, 0.25 kg; eaten directly. Priced like lettuce.",
+      "kind": "food",
+      "kg": 0.25,
+      "price": 8,
+      "stack": 10,
+      "side": 1,
+      "art": "tomatoes"
+    },
+    "PhobosVerdemorrowSoybeans": {
+      "notes": "Dry soybeans, 0.25 kg; they keep; cook them in the Hearth-2 with a water ration. Priced for their protein, below wheat grain by mass of food energy.",
+      "kind": "stock",
+      "kg": 0.25,
+      "price": 25,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryFood",
+      "art": "soybeans"
+    },
+    "PhobosVerdemorrowHearthSoybeans": {
+      "notes": "Hearth soybean stew, 0.5 kg; eaten directly. Like bread, cooking it with a bought water ration costs more than it fetches.",
+      "kind": "food",
+      "kg": 0.5,
+      "price": 70,
+      "stack": 10,
+      "side": 1,
+      "art": "soybean_stew"
     },
     "PhobosVerdemorrowCropResidue": {
       "notes": "Unrecorded crop residue from older crops: waste.",

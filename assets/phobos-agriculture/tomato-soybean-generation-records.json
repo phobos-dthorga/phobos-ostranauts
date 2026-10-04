@@ -1,0 +1,489 @@
+{
+  "date": "2026-10-04",
+  "provider": "PixelLab",
+  "status": "Selected candidates inspected at native size in the rack and at 4x; owner approved the wheat pilot and asked for the rest; no gameplay validation.",
+  "inputs": "Text, edits of PixelLab's own outputs, and the selected wheat grain tray as an init image for the three trays. No game or third-party images uploaded.",
+  "terms": "As recorded in stock-generation-records.json (PixelLab terms checked 2026-09-25).",
+  "usage": {
+    "allowanceBefore": 1721,
+    "allowanceAfter": 1697,
+    "generations": 24,
+    "selected": 17,
+    "rejectedOrSuperseded": 7,
+    "droppedByProviderUncharged": 2,
+    "abandonedStalled": 1,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "derivations": [
+    {
+      "source": "source/tomato-sprout.png",
+      "operation": "Mechanical colour key, as for the wheat sprout: every visible pixel whose green channel is not greater than both red and blue was made transparent (635 soil-disc pixels removed, 277 kept)."
+    },
+    {
+      "source": "source/tomato-young.png",
+      "operation": "The same colour key (369 soil-disc pixels removed, 587 kept)."
+    }
+  ],
+  "records": [
+    {
+      "key": "tomato-mature-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "Top-down plan view of one compact dwarf tomato plant, looking straight down from above. A round bushy clump of about ten broad serrated dark-green tomato leaves fanning out from the centre (32,32), with seven or eight plump glossy RED cherry tomatoes sitting on top of the leaves as bright round red dots with a tiny green star calyx, a couple of them still orange. Chunky simple pixel art with big clean colour clusters, bold readable silhouette, four tones, selective outline, similar chunkiness to a lettuce sprite. No soil, no pot, no tray, no stake, no shadow. Transparent background, whole plant inside the central 48x48 pixels of the 64x64 canvas so it stays readable at 16x16.",
+        "seed": 2510070,
+        "text_guidance_scale": 10,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "31a6028a-331f-4beb-b44a-105829cd7b00",
+      "costGenerations": 1,
+      "sha256": "83aaa83a394f69eb32ccf2b65b3a0a0e788d13ec5c62f519f14d7d8f7822bd43",
+      "status": "superseded",
+      "reason": "Good overhead plant, but sat in a round pot; cleaned by the next edit."
+    },
+    {
+      "key": "soybean-mature-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "Top-down plan view of one bushy soybean plant, looking straight down from above. A round clump of about twelve trifoliate leaves, each leaf made of three oval medium-green leaflets, fanning out from the centre (32,32), with a few short fuzzy pale khaki-green seed pods tucked between the inner leaves. Chunky simple pixel art with big clean colour clusters, bold readable silhouette, four tones, selective outline, similar chunkiness to a lettuce sprite. No soil, no pot, no tray, no shadow. Transparent background, whole plant inside the central 48x48 pixels of the 64x64 canvas so it stays readable at 16x16.",
+        "seed": 2510080,
+        "text_guidance_scale": 10,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "b1131449-c064-4da4-8988-0cebc3488294",
+      "costGenerations": 1,
+      "sha256": "e6fdf8f721e3b4a4fac39480b6f367209c11208af98ba63f5c5c3f19ba9adf63",
+      "status": "superseded",
+      "reason": "Overhead, but sat in a round pot and showed no pods; cleaned by the next edit."
+    },
+    {
+      "key": "tomato-harvest",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-mature-v1",
+        "description": "Remove the round brown pot and dark soil circle behind the plant completely, so only the green tomato leaves and red tomatoes remain on a fully transparent background. Keep the leaves, tomatoes, colours, overhead view and position exactly the same.",
+        "no_background": true,
+        "seed": 2510071
+      },
+      "job_id": "5551985e-60c1-4bd6-8a0f-93b7907629c9",
+      "costGenerations": 1,
+      "sha256": "7546563fa1b12e30ff3818e6b9f32f93d7e3569c9b3840437a2b6279b3e74287",
+      "source": "source/tomato-harvest.png",
+      "sourceSHA256": "7546563fa1b12e30ff3818e6b9f32f93d7e3569c9b3840437a2b6279b3e74287",
+      "status": "selected",
+      "reason": "Pot removed. Covered in ripe red fruit, so it is the harvest stage; the mature stage is a green-fruit edit of it."
+    },
+    {
+      "key": "soybean-mature",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature-v1",
+        "description": "Remove the round purple-brown pot and soil circle behind the plant completely, leaving a fully transparent background. Keep the green soybean leaves, and add six small fuzzy pale tan-khaki bean pods clustered near the centre between the leaves so the plant reads as a soybean. Same overhead view, colours, position and pixel style.",
+        "no_background": true,
+        "seed": 2510081
+      },
+      "job_id": "3dc3f31c-8471-4edd-a4c6-646c7ea76234",
+      "costGenerations": 1,
+      "sha256": "22298f56c973b4231ca1e82ea22e1ecdd75e59e0581fadb86491fbbccd5a633d",
+      "source": "source/soybean-mature.png",
+      "sourceSHA256": "22298f56c973b4231ca1e82ea22e1ecdd75e59e0581fadb86491fbbccd5a633d",
+      "status": "selected",
+      "reason": "Pot removed and pods added: green with a tan centre, distinct from wheat."
+    },
+    {
+      "key": "tomato-sprout",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Replace the plant with a tiny tomato seedling seen from directly above: just two small rounded bright green seed leaves and one tiny serrated true leaf radiating from the centre point (32,32), the whole seedling about 12 pixels across. No tomatoes, no flowers, no soil, no pot. Same top-down view, colours and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510072
+      },
+      "job_id": "3a5b5317-4fb9-4ac3-9a16-546e61566e72",
+      "costGenerations": 1,
+      "sha256": "d93b2ab58901488e5d161196172ec3b833dcfe553000dbf8a8ed49ed2201b545",
+      "source": "source/tomato-sprout.png",
+      "sourceSHA256": "a07882c4cc7ed2c9ce3f11dece29b25e681a1d815163a0560dace8ff4107cd2a",
+      "status": "selected",
+      "reason": "Overhead seedling; its soil disc removed by the recorded colour key."
+    },
+    {
+      "key": "tomato-young-v1",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Make this a young tomato plant before fruiting: about six serrated green leaves in an open tuft, NO tomatoes at all, a few tiny yellow flower dots only, visibly smaller and sparser than now, occupying the central 32x32 pixels of the 64x64 canvas, centred at (32,32). Same overhead view, green palette and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510073
+      },
+      "job_id": "9409af9b-e705-4895-b964-183b887fa11c",
+      "costGenerations": 1,
+      "sha256": "60499b70d3d53370af0d95869a32c170806a397151704b320f80eb0e258f2465",
+      "status": "rejected",
+      "reason": "Drawn from the side, a stem with branches: violates the overhead-first rule."
+    },
+    {
+      "key": "tomato-harvest-v1",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Make this tomato plant fully ripe and heavy with fruit: twice as many plump glossy deep red tomatoes covering much of the leaves, all fully red, none orange. Same plant shape, size, overhead view, position and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510074
+      },
+      "job_id": "43f4ac45-ccc2-4d6f-8a1d-c9546efb0a91",
+      "costGenerations": 1,
+      "sha256": "303b28c47e9f5c93221464ccb6358d9a6f42e611f4746bca459df6f896668110",
+      "status": "rejected",
+      "reason": "Almost identical to its source; the source itself became the harvest stage."
+    },
+    {
+      "key": "tomato-wilted",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Make this tomato plant clearly sick and wilting: most leaves turn pale sickly yellow and khaki with dark brown dry tips and patches, several leaves shrivel, the tomatoes become small, split and dull brownish-orange. It must look obviously unhealthy, very different from a healthy green plant, but not yet dead grey. Same overhead view, position and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510075
+      },
+      "job_id": "eaa4269a-34ca-4d9a-90b6-71d6da5f596a",
+      "costGenerations": 1,
+      "sha256": "e0aad12ca39ac8a0a9cbbbd77d38d3161d7cedb0138955acb27ca63c259d4ed6",
+      "source": "source/tomato-wilted.png",
+      "sourceSHA256": "e0aad12ca39ac8a0a9cbbbd77d38d3161d7cedb0138955acb27ca63c259d4ed6",
+      "status": "selected",
+      "reason": "Clearly sick at native size."
+    },
+    {
+      "key": "tomato-dead",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Make this tomato plant dead: collapsed brittle grey-brown dead leaves lying flat, no green left, a few shrivelled dark brown dried tomatoes, slightly smaller and flatter than now. Same overhead view, position and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510076
+      },
+      "job_id": "690ffcb6-2477-4082-9df1-47b51bc6a1f4",
+      "costGenerations": 1,
+      "sha256": "6c115714a27981a822afeab1ff3939e9e47a19bff4985a0c6803007975212eac",
+      "source": "source/tomato-dead.png",
+      "sourceSHA256": "6c115714a27981a822afeab1ff3939e9e47a19bff4985a0c6803007975212eac",
+      "status": "selected",
+      "reason": "Grey with dark dried fruit."
+    },
+    {
+      "key": "soybean-sprout",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature",
+        "description": "Replace the plant with a tiny soybean seedling seen from directly above: just two thick rounded pale green seed leaves and two small oval true leaves radiating from the centre point (32,32), the whole seedling about 12 pixels across. No pods, no soil, no pot. Same top-down view, colours and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510082
+      },
+      "job_id": "5aba4e11-f7d1-411b-af8d-08945f0ca063",
+      "costGenerations": 1,
+      "sha256": "7149217c35dce6c83713efc6b5d506434cc92a38ae5ef63c23ee7e791e93fc23",
+      "source": "source/soybean-sprout.png",
+      "sourceSHA256": "7149217c35dce6c83713efc6b5d506434cc92a38ae5ef63c23ee7e791e93fc23",
+      "status": "selected",
+      "reason": "Overhead four-leaf seedling. Larger than asked; acceptable at native size."
+    },
+    {
+      "key": "soybean-young",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature",
+        "description": "Make this a young soybean plant before podding: about six trifoliate green leaves in an open tuft, NO pods at all, all green, visibly smaller and sparser than now, occupying the central 32x32 pixels of the 64x64 canvas, centred at (32,32). Same overhead view, green palette and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510083
+      },
+      "job_id": "384e8cd3-2ef0-48cc-a3e3-92a1ca9942e8",
+      "costGenerations": 1,
+      "sha256": "4d3496d72a97d8f510d41610a29c202a31b98db00dcd861dfc19fa6001e13658",
+      "source": "source/soybean-young.png",
+      "sourceSHA256": "4d3496d72a97d8f510d41610a29c202a31b98db00dcd861dfc19fa6001e13658",
+      "status": "selected",
+      "reason": "All green, no pods. Nearly the mature stage's size; the missing pods tell them apart."
+    },
+    {
+      "key": "soybean-harvest",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature",
+        "description": "Make this soybean plant mature and ready to harvest, as soybeans dry down in the field: the leaves turn golden yellow and tan, and many more plump fuzzy brown-tan bean pods fill the centre. Same plant shape, size, overhead view, position and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510084
+      },
+      "job_id": "3f1b57d5-38a7-474d-b3a4-a8f84adda3ba",
+      "costGenerations": 1,
+      "sha256": "b01be06c5029db3321a6e3336694d677aa51d7c1f41118d88fe6222b8deb4c8d",
+      "source": "source/soybean-harvest.png",
+      "sourceSHA256": "b01be06c5029db3321a6e3336694d677aa51d7c1f41118d88fe6222b8deb4c8d",
+      "status": "selected",
+      "reason": "Golden, as a ripe soybean stand dries down."
+    },
+    {
+      "key": "soybean-wilted",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature",
+        "description": "Make this soybean plant clearly sick and wilting: most leaves turn pale sickly yellow-green and khaki with dark brown dry spots and curled edges, several leaflets shrivel, the pods turn small and greyish. It must look obviously unhealthy, very different from a healthy green plant, but not yet dead grey. Same overhead view, position and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510085
+      },
+      "job_id": "5fea0a26-1701-4204-b4d2-db00688cc3b8",
+      "costGenerations": 1,
+      "sha256": "c5678947e93ffb768603dc12f45a17791d55cdd575a743c911b4fa86dde82a77",
+      "source": "source/soybean-wilted.png",
+      "sourceSHA256": "c5678947e93ffb768603dc12f45a17791d55cdd575a743c911b4fa86dde82a77",
+      "status": "selected",
+      "reason": "Pale sickly yellow with grey pods, distinct from the golden harvest."
+    },
+    {
+      "key": "soybean-dead",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "soybean-mature",
+        "description": "Make this soybean plant dead: collapsed brittle grey-brown dead leaves lying flat, no green left, shrivelled dark empty pods, slightly smaller and flatter than now. Same overhead view, position and pixel style, transparent background, no soil or pot.",
+        "no_background": true,
+        "seed": 2510086
+      },
+      "job_id": "b7854d27-22dc-4acd-ad02-251fb8ce7d56",
+      "costGenerations": 1,
+      "sha256": "f380ba3661c203aad5d73b61b2740db7189ca1fd1d33243ca3fbc0cbd4b30461",
+      "source": "source/soybean-dead.png",
+      "sourceSHA256": "f380ba3661c203aad5d73b61b2740db7189ca1fd1d33243ca3fbc0cbd4b30461",
+      "status": "selected",
+      "reason": "Grey, clearly dead."
+    },
+    {
+      "key": "tomato_seed",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite: a small flat cream foil SEED PACKET of tomato seeds lying flat, sage green sealed edges, with a large simple red tomato pictogram with a green leafy top in the centre. Thin horizontal green sealed seam across its top. Original utilitarian spacecraft agriculture stock, Verdemorrow cream, sage and slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510090,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "21dc306c-b04c-49e8-a06a-1c0925dd5921",
+      "costGenerations": 1,
+      "sha256": "501bcc0d5ca452bbdebf47ea5a64587148a2a443c4af0a79c92d6a6de075464e",
+      "source": "source/stock-seed-tomato.png",
+      "sourceSHA256": "501bcc0d5ca452bbdebf47ea5a64587148a2a443c4af0a79c92d6a6de075464e",
+      "status": "selected",
+      "reason": "Matches the other seed packets."
+    },
+    {
+      "key": "tomatoes-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim holding a small heap of plump glossy red cherry tomatoes with little green star calyxes. Like a flat top-down view into a box, no visible side walls or front face. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and red palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510091,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "a4a7c775-8de7-4e0e-aa57-61c5106febbf",
+      "costGenerations": 1,
+      "sha256": "fc7a660bbaacb7b644f01424320e41aa9e146aad4a94b1e273d8ee9d6777e511",
+      "status": "rejected",
+      "reason": "Drawn isometric, a diamond tray with a visible side."
+    },
+    {
+      "key": "soybean_seed",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite: a small flat cream foil SEED PACKET of soybean seeds lying flat, sage green sealed edges, with a large simple pale tan bean-pod pictogram holding three round beans in the centre. Thin horizontal green sealed seam across its top. Original utilitarian spacecraft agriculture stock, Verdemorrow cream, sage and slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510092,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "4a4dc366-d843-4b70-a0dc-ded926ee95f7",
+      "costGenerations": 1,
+      "sha256": "74bd8f3846ec244d5165e4e92c3b3678194396bf1aef33ceed8dc73cc0827278",
+      "source": "source/stock-seed-soybean.png",
+      "sourceSHA256": "74bd8f3846ec244d5165e4e92c3b3678194396bf1aef33ceed8dc73cc0827278",
+      "status": "selected",
+      "reason": "Matches the other seed packets; its pictogram is muddy at 16 pixels but the packet reads."
+    },
+    {
+      "key": "soybeans-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim, completely filled with a heap of round pale yellow-tan dry SOYBEANS shown as small round beige clusters. Like a flat top-down view into a box, no visible side walls or front face. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and beige palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510093,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "94755c6e-dd16-4c4a-b952-fef9a66071b4",
+      "costGenerations": 1,
+      "sha256": "4274d5f8db1143d2d2a10884f249dae767a4428f53d8d7ed748b219e3094ceb6",
+      "status": "rejected",
+      "reason": "A small tray with its front lip and handles showing in perspective."
+    },
+    {
+      "key": "soybean_stew-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship galley food item sprite seen strictly from directly above: a shallow round cream enamel bowl, viewed straight down into it, full of a hearty stew of plump cooked pale golden soybeans in a light brown broth with a few green herb flecks. Flat top-down view, no visible side of the bowl. Coarse deliberate pixel clusters, three or four warm tones. One centred object inside 64x64 transparent canvas with 8px clear margins. No spoon, table, words, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510094,
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "525c071b-6bc0-406d-b3ca-4307673148a5",
+      "costGenerations": 1,
+      "sha256": "292a486c88c43b8ee7a490d298e93d54718a2cc8d61099743500d85b9a144f9b",
+      "status": "rejected",
+      "reason": "The bowl's side shows in perspective."
+    },
+    {
+      "key": "tomato-mature",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-harvest",
+        "description": "Make every tomato on this plant small, hard and unripe: pale GREEN tomatoes instead of red, a few slightly yellow-green, none red or orange. Keep the leaves, plant shape, size, overhead view, position and pixel style exactly the same, transparent background.",
+        "no_background": true,
+        "seed": 2510077
+      },
+      "job_id": "8ff3ea95-7f31-49ac-b25b-e74b1955cfd7",
+      "costGenerations": 1,
+      "sha256": "255614772213395059e1a697f5d3b2f57815330b015f5f50eace09cda8021d68",
+      "source": "source/tomato-mature.png",
+      "sourceSHA256": "255614772213395059e1a697f5d3b2f57815330b015f5f50eace09cda8021d68",
+      "status": "selected",
+      "reason": "Green unripe fruit: the plant visibly ripens to the harvest stage, and after each pick it shows unripe again."
+    },
+    {
+      "key": "tomato-young",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "tomato-sprout (job 3a5b5317-4fb9-4ac3-9a16-546e61566e72)",
+        "description": "Grow this seedling into a young tomato plant seen strictly from directly above, looking down onto its crown: about six serrated green leaves radiating outward from the centre point (32,32) in a round open rosette, no visible stem, no tomatoes, a few tiny yellow flower dots. The plant is about 32 pixels across. No soil disc, no pot. Same top-down view, green palette and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510078
+      },
+      "job_id": "e7b49d9c-cca5-4c91-acec-b4512aca8ff5",
+      "costGenerations": 1,
+      "sha256": "88a175909e1f9b5593caed4a071696709aa63f18c3e01550944b08a0ffe19f66",
+      "source": "source/tomato-young.png",
+      "sourceSHA256": "94c686ef575fb4f73327b6f5c8260e8ccac0407814e0ada926a6887b916067c9",
+      "status": "selected",
+      "reason": "Overhead rosette; its soil disc removed by the recorded colour key. A first attempt with the same request was dropped by the provider and not charged."
+    },
+    {
+      "key": "soybeans",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim, completely filled with a heap of round pale yellow-beige dry SOYBEANS, each bean a small round cream-yellow cluster. Like a flat top-down view into a box, no visible side walls or front face. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and beige palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510096,
+        "init_image": "wheat_grain tray (job 48a83a43-60b7-4c5c-ac99-8cfec848cf8e), init_image_strength 120",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "a07956cf-2316-468b-9d95-c409f852dad6",
+      "costGenerations": 1,
+      "sha256": "8ba1fe4cff728e3d2874eb484bf964f5e7e47f013aff7bbe54a9fb1033e35c57",
+      "source": "source/stock-soybeans.png",
+      "sourceSHA256": "8ba1fe4cff728e3d2874eb484bf964f5e7e47f013aff7bbe54a9fb1033e35c57",
+      "status": "selected",
+      "reason": "An open overhead heap of beans; the tray did not come through, which still reads. A first attempt was dropped by the provider and not charged."
+    },
+    {
+      "key": "soybean_stew",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship galley food item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim, completely filled with hearty SOYBEAN STEW: plump cooked pale golden beans in a light brown broth with a few green herb flecks. Like a flat top-down view into a box, no visible side walls or front face. Coarse deliberate pixel clusters, three or four warm tones. One centred object inside 64x64 transparent canvas with 8px clear margins. No spoon, words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510097,
+        "init_image": "wheat_grain tray (job 48a83a43-60b7-4c5c-ac99-8cfec848cf8e), init_image_strength 120",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "b070b74d-34b1-442a-921e-d55052035cae",
+      "costGenerations": 1,
+      "sha256": "2ff8ccb034bb067ccd549b781468f2aad14833050bad1212ff1b1a1b7a9ace09",
+      "source": "source/stock-soybean-stew.png",
+      "sourceSHA256": "2ff8ccb034bb067ccd549b781468f2aad14833050bad1212ff1b1a1b7a9ace09",
+      "status": "selected",
+      "reason": "Overhead tray of stew, matching the cooked-potato tray."
+    },
+    {
+      "key": "tomatoes",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite seen strictly from directly above: a shallow square cream ration tray with sage green rim, completely filled with a heap of plump glossy RED cherry tomatoes, each a round red cluster with a tiny green star calyx. Like a flat top-down view into a box, no visible side walls or front face, not a diamond shape. Coarse deliberate pixel clusters, three or four shading tones, Verdemorrow cream, sage and red palette. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510098,
+        "init_image": "wheat_grain tray (job 48a83a43-60b7-4c5c-ac99-8cfec848cf8e), init_image_strength 120",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline"
+      },
+      "job_id": "3b0afd56-686f-4a03-bf9c-6dd3a71d2294",
+      "costGenerations": 1,
+      "sha256": "9d602c276187ef9c1e202bd71afb24e16d7463523bc89cf624335beee29a2b3a",
+      "source": "source/stock-tomatoes.png",
+      "sourceSHA256": "9d602c276187ef9c1e202bd71afb24e16d7463523bc89cf624335beee29a2b3a",
+      "status": "selected",
+      "reason": "Overhead tray of red fruit. An identical earlier request (seed 2510095, job 8255c6af-1ac2-4575-90ca-41322bc68f51) stalled at 95% for over twenty minutes and was abandoned."
+    }
+  ]
+}

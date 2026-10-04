@@ -322,8 +322,11 @@
   machines, brands, commodities or prices each open with a design record and owner
   decisions. Agriculture 0.41.0 adds dwarf wheat as the pilot crop (owner go, 4 October
   2026): seed wheat, grain and Hearth flatbread baked from grain and a water ration
-  (the cooker recipe may take one supply beside its portion). Tomato and soybean
-  artwork waits for the owner's review of the wheat pilot.
+  (the cooker recipe may take one supply beside its portion). The owner approved the
+  wheat pilot the same day; Agriculture 0.42.0 adds dwarf tomato, with repeat picking
+  (crops-pack `picks`/`pickKg`, saved `picks`; a pick sets growth back by exactly the
+  mass it took), and soybean with Hearth soybean stew. Phase 2 is complete; phase 3
+  (CO2 response, residue to carbon in the V4, rack vapour to a linked tank) is next.
 
 ## Manufacturing direction (2026-09-25)
 

@@ -34,6 +34,18 @@ Loads include initial supply from empty and round up whole 5 kg water / 40 g nut
 | wheat | 4 | 30 | 39.943 | 1.543 | 8 | 39 | 4 | 7.8 / 31.3 / 101.8 |
 | wheat | 8 | 7 | 18.640 | 0.720 | 4 | 18 | 2 | 3.7 / 14.7 / 47.7 |
 | wheat | 8 | 30 | 79.886 | 3.086 | 16 | 78 | 7 | 15.7 / 62.7 / 203.7 |
+| tomato | 1 | 7 | 13.025 | 0.066 | 3 | 2 | 1 | 0.8 / 3.3 / 10.8 |
+| tomato | 1 | 30 | 55.822 | 0.281 | 12 | 8 | 1 | 3.3 / 13.3 / 43.3 |
+| tomato | 4 | 7 | 52.101 | 0.263 | 11 | 7 | 1 | 3.0 / 12.0 / 39.0 |
+| tomato | 4 | 30 | 223.290 | 1.125 | 45 | 29 | 3 | 12.3 / 49.3 / 160.3 |
+| tomato | 8 | 7 | 104.202 | 0.525 | 21 | 14 | 2 | 5.8 / 23.3 / 75.8 |
+| tomato | 8 | 30 | 446.580 | 2.250 | 90 | 57 | 5 | 24.5 / 98.0 / 318.5 |
+| soybean | 1 | 7 | 1.445 | 0.045 | 1 | 2 | 1 | 0.5 / 2.0 / 6.5 |
+| soybean | 1 | 30 | 6.192 | 0.192 | 2 | 5 | 1 | 1.2 / 4.7 / 15.2 |
+| soybean | 4 | 7 | 5.779 | 0.179 | 2 | 5 | 1 | 1.2 / 4.7 / 15.2 |
+| soybean | 4 | 30 | 24.768 | 0.768 | 5 | 20 | 2 | 4.2 / 16.7 / 54.2 |
+| soybean | 8 | 7 | 11.558 | 0.358 | 3 | 9 | 1 | 2.0 / 8.0 / 26.0 |
+| soybean | 8 | 30 | 49.536 | 1.536 | 10 | 39 | 4 | 8.2 / 32.7 / 106.2 |
 
 ## Endurance and space at default pace
 
@@ -53,6 +65,12 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | wheat | 1 | 117.17 | 477.68 | 38.89 | 20 / 29 | 10.371 | 100 / 125 |
 | wheat | 4 | 73.23 | 163.36 | 9.72 | 68 / 77 | 41.486 | 340 / 365 |
 | wheat | 8 | 65.91 | 110.97 | 4.86 | 132 / 141 | 82.971 | 660 / 685 |
+| tomato | 1 | 20.96 | 85.45 | 53.33 | 20 / 29 | 56.104 | 100 / 125 |
+| tomato | 4 | 13.10 | 29.22 | 13.33 | 68 / 77 | 224.415 | 340 / 365 |
+| tomato | 8 | 11.79 | 19.85 | 6.67 | 132 / 141 | 448.830 | 660 / 685 |
+| soybean | 1 | 188.95 | 770.35 | 78.12 | 20 / 29 | 6.384 | 100 / 125 |
+| soybean | 4 | 118.10 | 263.44 | 19.53 | 68 / 77 | 25.536 | 340 / 365 |
+| soybean | 8 | 106.29 | 178.96 | 9.77 | 132 / 141 | 51.072 | 660 / 685 |
 
 ## Growth-pace sensitivity: thirty-day demand
 
@@ -94,6 +112,24 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | wheat | 8 | 0.5 | 159.771 | 6.171 | 0 / 0 |
 | wheat | 8 | 1 | 79.886 | 3.086 | 0 / 0 |
 | wheat | 8 | 2 | 39.943 | 1.543 | 0 / 0 |
+| tomato | 1 | 0.5 | 111.645 | 0.562 | 15 / 0 |
+| tomato | 1 | 1 | 55.822 | 0.281 | 4 / 0 |
+| tomato | 1 | 2 | 27.911 | 0.141 | 0 / 0 |
+| tomato | 4 | 0.5 | 446.580 | 2.250 | 70 / 46 |
+| tomato | 4 | 1 | 223.290 | 1.125 | 26 / 2 |
+| tomato | 4 | 2 | 111.645 | 0.562 | 3 / 0 |
+| tomato | 8 | 0.5 | 893.160 | 4.500 | 144 / 120 |
+| tomato | 8 | 1 | 446.580 | 2.250 | 55 / 31 |
+| tomato | 8 | 2 | 223.290 | 1.125 | 10 / 0 |
+| soybean | 1 | 0.5 | 12.384 | 0.384 | 0 / 0 |
+| soybean | 1 | 1 | 6.192 | 0.192 | 0 / 0 |
+| soybean | 1 | 2 | 3.096 | 0.096 | 0 / 0 |
+| soybean | 4 | 0.5 | 49.536 | 1.536 | 0 / 0 |
+| soybean | 4 | 1 | 24.768 | 0.768 | 0 / 0 |
+| soybean | 4 | 2 | 12.384 | 0.384 | 0 / 0 |
+| soybean | 8 | 0.5 | 99.072 | 3.072 | 0 / 0 |
+| soybean | 8 | 1 | 49.536 | 1.536 | 0 / 0 |
+| soybean | 8 | 2 | 24.768 | 0.768 | 0 / 0 |
 
 ## Recovery per completed healthy cohort
 
@@ -105,6 +141,8 @@ No recovery is credited against horizon totals: completed harvests, B2 setup, co
 | lettuce | 0.200 | 0.50 | 0.50 | 1.00 | 0.19950 | 0.00500 | 0.600 |
 | lettuce-seed | 1.180 | 5.90 | 5.90 | 11.80 | 1.17410 | 0.02460 | 2.952 |
 | wheat | 0.950 | 18.32 | 18.32 | 36.64 | 0.93168 | 0.02000 | 2.400 |
+| tomato | 1.495 | 4.49 | 4.49 | 8.97 | 1.49052 | 0.03090 | 3.708 |
+| soybean | 0.620 | 9.92 | 9.92 | 19.84 | 0.61008 | 0.01340 | 1.608 |
 
 One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; consumes 0.0392 kg cartridge medium; recovers 17.550 kg water + 0.080 kg nutrients; retains 2.0092 kg rejects. Needs 0.196 kWh, 23.52 powered minutes plus 15 crew setup minutes. The remaining cartridge has 5.4 kg treatment capacity. Outputs require fresh headroom.
 
@@ -112,8 +150,8 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
-- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `a2f3ba83c4137db9b132a3b22d80f4472ef6611ad141e2aa4554043eab46e118`
-- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `cbb0f8f52f3f10f97feef76d7e7b60f8bb39664b631e76c15bb70c8099303216`
+- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `4c9d0b098f25a0709cf34821718469e846a145de70ecac0f92677d05ddf657e2`
+- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `6692c0206d5d5ddf2eb369afcb23c2f36ca3216a3c42facf319f4d1e15e8d43f`
 - `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `dba4e221480a6c1f366cd5ef088aeafb6baa73fc3c9c03af39df132db2b038f1`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`

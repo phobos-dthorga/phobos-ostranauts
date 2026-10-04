@@ -10,6 +10,30 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.42.0] - 2026-10-04 - Draft
+
+### Added
+
+- Dwarf tomatoes, picked as they ripen (owner direction, 4 October 2026). Plant a 5 g Continuance tomato seed packet: first ripe after 64 hours at 0.7 kW. Pick ripe fruit takes three 0.25 kg portions and leaves the plant growing; the fruit turns green, then red again in about ten hours. A plant gives three picks, and Harvest takes the rest of the fruit, a seed packet and the vine. A crew order picks while it can, then harvests. Tomatoes are eaten fresh.
+- Soybeans: plant a 30 g Continuance soybean seed packet; 90 hours at 0.65 kW give one 0.25 kg portion of dry beans, the packet back and 0.62 kg of straw. The Hearth-2 cooks beans and a water ration into a 0.5 kg bowl of soybean stew in fifteen minutes, filling and protein-rich.
+- Seed packets at the supply kiosk, K-Leg fixer, Halvorson and regional merchants; soybean stew at the food carts; all five items in finds and at the faction kiosks at any standing.
+- New artwork: six growth stages each for tomato and soybean in the rack, and five item icons.
+- Data files: a crop may allow picks (picks and pickKg in crops.json). See the data file guide.
+
+### Changed
+
+- Fridge and crate finds keep their old totals, now shared by every crop's seed and food.
+
+### Save compatibility
+
+- Automatic. A planting records its picks only once picked; plantings, feeds and cooking saved by earlier versions load unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- Picks, hours, yields and food values are gameplay choices in the ratios NASA's crop chamber found. Cooking moisture loss and soaking are not modelled.
+- Checked offline; not yet seen in the game.
+
 ## [0.41.0] - 2026-10-04 - Draft
 
 ### Added

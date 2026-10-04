@@ -72,7 +72,8 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             if(Service.DoseCandidates(s).Any())return Act("bulk-dose");
             return Supply(BulkDefinitions.Nutrients)??Supply(Definitions.Nutrient)??Supply(WorkupDefinitions.Mixture)??Blocked(out reason);
         }
-        if(b.Ready)return Act("harvest",1800);
+        // A crop picked repeatedly is picked while it allows, then harvested.
+        if(b.Ready)return b.PickPortions()>0?Act("pick",900):Act("harvest",1800);
         if(!IrrigationDefinitions.IsSupply(co) && b.CropId.Length>0 && b.CropId!=order.Recipe && order.ClearCrops)return Act("clear",900);
         if(b.CropId.Length>0 && b.Health<=0) return order.ClearCrops?Act("clear",900):Blocked(out reason);
         if(b.Water<Math.Min(4.7,s.Solution.PlainWaterCapacity)&&!(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co)))

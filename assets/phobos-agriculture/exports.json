@@ -1397,6 +1397,690 @@
     "normalSHA256": "e3ee69f9756b874fca31043f833dfdbc84fc088e1c3f3c9e20e610e20f13cd0b"
   },
   {
+    "name": "Tomato-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-sprout.png",
+        "sourceSHA256": "a07882c4cc7ed2c9ce3f11dece29b25e681a1d815163a0560dace8ff4107cd2a",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "74f92fbf95f736b1f93cd7038e469de29c7ee5c3de1e9b462d6049fcc879e9cd"
+  },
+  {
+    "name": "Rack-Tomato-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-sprout.png",
+        "sourceSHA256": "a07882c4cc7ed2c9ce3f11dece29b25e681a1d815163a0560dace8ff4107cd2a",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "3b098eb4bd67d72edc7e6e0fcc275613efb0b1c869990846977d2cb8c8b15361",
+    "normalSHA256": "75a93435ae6baf821ee95ed0138fd3a59f20fed20acc1164a9df6b8b635cca9a"
+  },
+  {
+    "name": "Tomato-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-young.png",
+        "sourceSHA256": "94c686ef575fb4f73327b6f5c8260e8ccac0407814e0ada926a6887b916067c9",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "a88f4ec15c874491ad1e4330d2b43b403fb1820dbd85cff06746c07e016262ee"
+  },
+  {
+    "name": "Rack-Tomato-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-young.png",
+        "sourceSHA256": "94c686ef575fb4f73327b6f5c8260e8ccac0407814e0ada926a6887b916067c9",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "f559e175f6e0ee23752d98f26e91941432f3fe6bac358954cdafb6acc710016d",
+    "normalSHA256": "406adc3fd3c417801ce119f9a4b73a195d999deccad4f09a93a52081e23e8cf0"
+  },
+  {
+    "name": "Tomato-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-mature.png",
+        "sourceSHA256": "255614772213395059e1a697f5d3b2f57815330b015f5f50eace09cda8021d68",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "bf53e2211ea4ae862a3faae8d973faacd4b96508db92815db750bfe5996b7280"
+  },
+  {
+    "name": "Rack-Tomato-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-mature.png",
+        "sourceSHA256": "255614772213395059e1a697f5d3b2f57815330b015f5f50eace09cda8021d68",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "cb03eaa46eaf1efdf195916dcad24b2850819e59c20e509d9df38babc363c433",
+    "normalSHA256": "720a1d8b262c768e8e3f76d7c0601adc9ae6ba32c56320035e799edcb4ad40aa"
+  },
+  {
+    "name": "Tomato-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-harvest.png",
+        "sourceSHA256": "7546563fa1b12e30ff3818e6b9f32f93d7e3569c9b3840437a2b6279b3e74287",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "4f478eaf6e5e0ee65e785d320a003c7bc350257cd8a5046004ba1341e2fdc2a0"
+  },
+  {
+    "name": "Rack-Tomato-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-harvest.png",
+        "sourceSHA256": "7546563fa1b12e30ff3818e6b9f32f93d7e3569c9b3840437a2b6279b3e74287",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b61d872be87e0c542564d0f08b864077bb8eb84a2024ba20f0827c355881fd2a",
+    "normalSHA256": "720a1d8b262c768e8e3f76d7c0601adc9ae6ba32c56320035e799edcb4ad40aa"
+  },
+  {
+    "name": "Tomato-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-wilted.png",
+        "sourceSHA256": "e0aad12ca39ac8a0a9cbbbd77d38d3161d7cedb0138955acb27ca63c259d4ed6",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "6dd8935f028e9bc13cae14dd5ed4d38775600009f01df6d466eee1168ee2cbb8"
+  },
+  {
+    "name": "Rack-Tomato-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-wilted.png",
+        "sourceSHA256": "e0aad12ca39ac8a0a9cbbbd77d38d3161d7cedb0138955acb27ca63c259d4ed6",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b014c5a2338895800371a4b5dde6b64d92c94725630412f1d067ece1f2cf1642",
+    "normalSHA256": "720a1d8b262c768e8e3f76d7c0601adc9ae6ba32c56320035e799edcb4ad40aa"
+  },
+  {
+    "name": "Tomato-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/tomato-dead.png",
+        "sourceSHA256": "6c115714a27981a822afeab1ff3939e9e47a19bff4985a0c6803007975212eac",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "e15eaf31eac2c3fca3c5f428df9693cdfeef5a2265ec8e0efb81afaa50b8429d"
+  },
+  {
+    "name": "Rack-Tomato-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/tomato-dead.png",
+        "sourceSHA256": "6c115714a27981a822afeab1ff3939e9e47a19bff4985a0c6803007975212eac",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "130eaf0189164bf95ff3ceb29550ab5815b48c7702b47f21d2a19c21012078c0",
+    "normalSHA256": "b515a4500a6c06353a6df8c2df84d258203963445082a8a5ebbd79beacda1d77"
+  },
+  {
+    "name": "Soybean-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-sprout.png",
+        "sourceSHA256": "7149217c35dce6c83713efc6b5d506434cc92a38ae5ef63c23ee7e791e93fc23",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "5c2cd3a78067cfaa11e7d50323810285715f63b81b36e3880d030f46732b7d8f"
+  },
+  {
+    "name": "Rack-Soybean-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-sprout.png",
+        "sourceSHA256": "7149217c35dce6c83713efc6b5d506434cc92a38ae5ef63c23ee7e791e93fc23",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "1dd38485b7dbcfb6e7d98284cc863839a69b5f3d743be20e6b2947acbcd1e464",
+    "normalSHA256": "57ab08a1c5e6290646f5c1cbdb1c4cf1029a438d0d5fd13935ff4eaf7dfc3ac5"
+  },
+  {
+    "name": "Soybean-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-young.png",
+        "sourceSHA256": "4d3496d72a97d8f510d41610a29c202a31b98db00dcd861dfc19fa6001e13658",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "980c0c48e927b33a1ad971a56ddc8be7bb50467acf2570af48daca390f8c7da0"
+  },
+  {
+    "name": "Rack-Soybean-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-young.png",
+        "sourceSHA256": "4d3496d72a97d8f510d41610a29c202a31b98db00dcd861dfc19fa6001e13658",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "9b3a6e56cf393b8e787af6b7dd3b7056a856214a1acd8f11a2ef3b22c8228c06",
+    "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
+  },
+  {
+    "name": "Soybean-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-mature.png",
+        "sourceSHA256": "22298f56c973b4231ca1e82ea22e1ecdd75e59e0581fadb86491fbbccd5a633d",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b2506bfd8050a0acdce964dea71854628fbd8e9b1b144d36ba155f9b17e51f5e"
+  },
+  {
+    "name": "Rack-Soybean-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-mature.png",
+        "sourceSHA256": "22298f56c973b4231ca1e82ea22e1ecdd75e59e0581fadb86491fbbccd5a633d",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "306c48fb5fa0902a83b5f580dd2e45c50dda44795b95240e3dc3b0b0bf8fabde",
+    "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
+  },
+  {
+    "name": "Soybean-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-harvest.png",
+        "sourceSHA256": "b01be06c5029db3321a6e3336694d677aa51d7c1f41118d88fe6222b8deb4c8d",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "637f28f0c75a8a3b24ad9bff13befd2c03f115596150edfd5c5965d3179b71cd"
+  },
+  {
+    "name": "Rack-Soybean-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-harvest.png",
+        "sourceSHA256": "b01be06c5029db3321a6e3336694d677aa51d7c1f41118d88fe6222b8deb4c8d",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "ecfc731598ddbce1da737282ac4beaecbfafd6138eadd0bce314d32a0d797d0a",
+    "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
+  },
+  {
+    "name": "Soybean-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-wilted.png",
+        "sourceSHA256": "c5678947e93ffb768603dc12f45a17791d55cdd575a743c911b4fa86dde82a77",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "52a5b4bc6bbf894e648a772edb5722b38172c1aa3d01988409883bc74ca1085c"
+  },
+  {
+    "name": "Rack-Soybean-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-wilted.png",
+        "sourceSHA256": "c5678947e93ffb768603dc12f45a17791d55cdd575a743c911b4fa86dde82a77",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "09484522ea8b3f3223ed8a4272514482b12fc995faf4514434f2a78bd718a0b1",
+    "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
+  },
+  {
+    "name": "Soybean-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/soybean-dead.png",
+        "sourceSHA256": "f380ba3661c203aad5d73b61b2740db7189ca1fd1d33243ca3fbc0cbd4b30461",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "806ed61006fc03ff4d62b82b77e9e3141de27958e4c4370ea09ca2d109a91751"
+  },
+  {
+    "name": "Rack-Soybean-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/soybean-dead.png",
+        "sourceSHA256": "f380ba3661c203aad5d73b61b2740db7189ca1fd1d33243ca3fbc0cbd4b30461",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "52a731be502e2d69debf2daaacbfdb247971262c6a4d833cc2dfad68e09b50d6",
+    "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
+  },
+  {
     "name": "Counter",
     "inputs": [
       {

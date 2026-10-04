@@ -23,6 +23,12 @@ internal static class StackLimitChecks
             ["PhobosVerdemorrowContinuanceWheat"] = 25,
             ["PhobosVerdemorrowWheatGrain"] = 10,
             ["PhobosVerdemorrowHearthFlatbread"] = 10,
+            // Agriculture 0.42.0: tomato and soybean.
+            ["PhobosVerdemorrowContinuanceTomato"] = 50,
+            ["PhobosVerdemorrowContinuanceSoybean"] = 25,
+            ["PhobosVerdemorrowTomatoes"] = 10,
+            ["PhobosVerdemorrowSoybeans"] = 10,
+            ["PhobosVerdemorrowHearthSoybeans"] = 10,
             ["PhobosVerdemorrowGroundworkRecoveryCartridge"] = 3,
             ["PhobosVerdemorrowGroundworkBulkNutrients"] = 3,
             ["PhobosVerdemorrowGroundworkIrrigation"] = 3,

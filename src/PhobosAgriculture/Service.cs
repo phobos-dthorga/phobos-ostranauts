@@ -343,6 +343,8 @@ internal static partial class Service
             if (room?.GasContainer != null && Moles(room.GasContainer, "StatGasMolCO2") <= 1e-6) warnings.Add(Text.Get("carbon_low"));
             if (b.Running && !b.Ready && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW < b.DemandKW * .95) warnings.Add(Text.Get("power_low"));
             environment += "\n" + string.Join("\n", warnings);
+            var planted = Crop.Get(b.CropId);
+            if (planted.Picks > 0) environment += "\n" + Text.Get("picks_status", b.Picks, planted.Picks);
         }
         return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Crop.Get(b.CropId).Name, b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
             Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected || WaterGuard(co).Protected ? Text.Get("protected") : s.Notice) + "\n" + DescribeWaterRoute(s);

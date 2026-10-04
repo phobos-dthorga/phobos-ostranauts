@@ -388,7 +388,7 @@ def crops(pack, where):
         if not key or key == 'empty' or any(not (ch.islower() or ch.isdigit() or ch == '-') for ch in key):
             raise Problem(f'{w}: names are lower-case letters, digits and hyphens')
         fields(c, {'notes', 'name', 'hours', 'kw', 'seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'vapourKg', 'seedCarbonKg',
-                   'edibleKg', 'keptStockKg', 'portionKg', 'stock', 'produce', 'feed', 'feedCommodity', 'art'}, w)
+                   'edibleKg', 'keptStockKg', 'portionKg', 'picks', 'pickKg', 'stock', 'produce', 'feed', 'feedCommodity', 'art'}, w)
         if 'name' in c and (not isinstance(c['name'], str) or not c['name'].strip() or len(c['name']) > 40):
             raise Problem(f'{w}/name: a plain name is at most 40 characters')
         number(c.get('hours'), f'{w}/hours', 0, 10000, exclusive_low=True)
@@ -407,6 +407,12 @@ def crops(pack, where):
             raise Problem(f'{w}: the edible share, kept stock and one portion must fit inside the harvest')
         if c['keptStockKg'] > 0 and abs(c['keptStockKg'] - c['seedKg']) > CROP_TOLERANCE:
             raise Problem(f'{w}/keptStockKg: stock kept back must be exactly one planting')
+        # Repeat picking (Agriculture 0.42.0): whole portions, within the edible share, less than one cycle's growth.
+        picks, pick_kg = c.get('picks', 0), c.get('pickKg', 0)
+        number(picks, f'{w}/picks', 0, 10, integer=True)
+        number(pick_kg, f'{w}/pickKg', 0, None)
+        if (picks == 0) != (pick_kg == 0) or picks > 0 and not (c['portionKg'] <= pick_kg <= c['edibleKg'] and pick_kg < c['finalKg'] - c['seedKg']):
+            raise Problem(f'{w}: a picked crop needs a pick mass of at least one portion, within its edible share and less than one cycle of growth')
         for name in ('stock', 'produce'):
             if not c.get(name) or c[name] not in items:
                 raise Problem(f'{w}/{name}: must name an entry of the items section')

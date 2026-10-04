@@ -724,6 +724,34 @@
           "labels": {}
         },
         {
+          "key": "tomato-seed",
+          "title": "Continuance Tomato Seeds",
+          "ids": [
+            "PhobosVerdemorrowContinuanceTomato"
+          ],
+          "function": "Planting stock for a dwarf tomato crop: one 5 g packet sows one rack.",
+          "use": "Place one in the rack and choose Plant tomato seeds after loading water and nutrients.",
+          "find": "Buy stock, find eligible fridge or crate loot, or keep the packet the final tomato harvest saves from the fruit. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "Picks do not return seed; only the final harvest does. Split one packet off a stack before planting by hand; crew orders take single units.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "soybean-seed",
+          "title": "Continuance Soybean Seeds",
+          "ids": [
+            "PhobosVerdemorrowContinuanceSoybean"
+          ],
+          "function": "Planting stock for a soybean crop: one 30 g packet sows one rack.",
+          "use": "Place one in the rack and choose Plant soybean seeds after loading water and nutrients.",
+          "find": "Buy stock, find eligible fridge or crate loot, or keep the packet each soybean harvest gives back. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "A healthy harvest returns one packet, so a soybean rack restocks its own seed.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "nutrients",
           "title": "Groundwork Formulated Crop Nutrients",
           "ids": [
@@ -817,6 +845,48 @@
           "use": "Put a grain portion and a water ration in the Hearth-2 and choose Start; collect the loaf and use the Eat action.",
           "find": "Bake it from wheat grain, buy it at the food carts, or find eligible fridge loot. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "Food effects follow the game's own prepared meal. Baking moisture loss is not modelled, so the loaf weighs its grain plus its water. Portions support storage stacks; mass and food effects remain per loaf.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "tomatoes",
+          "title": "Tomatoes",
+          "ids": [
+            "PhobosVerdemorrowTomatoes"
+          ],
+          "function": "Fresh fruit from the tomato crop, eaten as it is.",
+          "use": "Pick a ripe plant with Pick ripe fruit (up to three times) or harvest it, collect the portions and use the Eat action.",
+          "find": "Grow tomatoes, or find eligible fridge loot. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "A light food like lettuce. A ripe plant can be picked three times, three portions each, and regrows what was picked in about ten hours at full health; the final harvest takes the rest. Growth times and yields are authored gameplay balance in the ratios NASA's crop chamber found; see docs/development/agriculture-crop-expansion.md.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "soybeans",
+          "title": "Soybeans",
+          "ids": [
+            "PhobosVerdemorrowSoybeans"
+          ],
+          "function": "Dry beans from the soybean crop: one 0.25 kg portion a harvest.",
+          "use": "Cook them in the Hearth-2 with a water ration into soybean stew. They are not eaten as they are.",
+          "find": "Harvest soybeans, or find eligible fridge loot. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "Beans keep, and a soybean harvest leaves most of the plant as straw residue for the B2 bench. Growth times and yields are authored gameplay balance in the ratios NASA's crop chamber found; see docs/development/agriculture-crop-expansion.md.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "soybean-stew",
+          "title": "Hearth Soybean Stew",
+          "ids": [
+            "PhobosVerdemorrowHearthSoybeans"
+          ],
+          "function": "Prepared crew food: a bowl of cooked soybeans.",
+          "use": "Put a soybean portion and a water ration in the Hearth-2 and choose Start; collect the bowl and use the Eat action.",
+          "find": "Cook it from soybeans, buy it at the food carts, or find eligible fridge loot. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "Food effects are values chosen for gameplay: heavy and satisfying. Steam loss is not modelled, so the bowl weighs its beans plus its water. Portions support storage stacks; mass and food effects remain per bowl.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}

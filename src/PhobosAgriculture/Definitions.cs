@@ -27,7 +27,7 @@ internal static class Definitions
     /// <summary>The crew work actions: one planting action per crop in the crops pack, between the fixed ones.</summary>
     internal static string[] Work = BuildWork();
     private static string[] BuildWork() => new[] { "recover-crop", "formulate-nutrients" }.Concat(Crops.All.Select(c => PlantPrefix + c.Id))
-        .Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" }).ToArray();
+        .Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "pick", "clear", "drain" }).ToArray();
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
     /// <summary>Work action ids to their actions, and the consumable supplies, built for the interaction hooks that run
     /// on every native offer and completion; rebuilt when the crops pack is loaded.</summary>

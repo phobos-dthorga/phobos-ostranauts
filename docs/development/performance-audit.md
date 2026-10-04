@@ -930,3 +930,11 @@ L26 — Agriculture 0.41.0: wheat is one more crops-pack entry; nothing per step
 crop count except the dictionary probes L25 introduced. The cooker's recipe lookup scans a
 two-entry list; `Cookable` and the crew cooking order scan it once per Start or order
 evaluation, with one inventory probe per recipe supply. No capture accompanies this change.
+
+## 4 October: tomato picking and soybean (L27)
+
+L27 — Agriculture 0.42.0: two more crops-pack entries and one cooking recipe. Picking
+adds `CropState.PickPortions`, a few arithmetic operations called when a pick is offered,
+when the crew order is evaluated and in the panel's status line; the status line also
+reads the crop's pick count. Nothing new runs per power step. No capture accompanies
+this change.

@@ -31,6 +31,7 @@ internal static partial class Service
         var b = s.State;
         if (action == "drain") return b.Water + b.Nutrients + s.Solution.TotalKg + s.Line.TotalKg > 0 ? null : Text.Get("empty");
         if (action == "harvest") return b.CropId.Length > 0 && b.Ready ? null : Text.Get("not_ready");
+        if (action == "pick") return b.PickPortions() > 0 ? null : Text.Get("pick_none");
         if (action == "clear") return b.CropId.Length > 0 ? null : Text.Get("not_ready");
         if (action.StartsWith("plant-", StringComparison.Ordinal))
         {
@@ -55,6 +56,7 @@ internal static partial class Service
             if (action == "recover-crop" || action == "formulate-nutrients") return false;
             if(action=="recover-solution") return QueueRecovery(s);
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
+            if (action == "pick") return Pick(s);
             if (action == "drain")
             {
                 double kg = s.State.Water + s.State.Nutrients + s.Solution.TotalKg + s.Line.TotalKg;
@@ -98,6 +100,16 @@ internal static partial class Service
         var next = b.Copy(); next.ClearCrop();
         double nutrient = NutrientRecovery.Allocation(b, harvest.ResidueKg);
         return Deliver(s, specs, null, next, initialize:(p,id)=> { if(id==WorkupDefinitions.Residue) WriteResidue(p,nutrient); });
+    }
+    /// <summary>Picks ripe fruit and leaves the plant growing (Agriculture 0.42.0): whole portions only, no residue and no
+    /// kept stock; the final harvest gives those. The portions leave the plant's own mass, so delivery balances.</summary>
+    private static bool Pick(Session s)
+    {
+        var b = s.State; int portions = b.PickPortions();
+        if (portions < 1) { s.Notice = Text.Get("pick_none"); return false; }
+        var grown = Crop.Get(b.CropId); var next = b.Copy(); next.Pick(portions);
+        var specs = Enumerable.Repeat((grown.Produce, grown.PortionKg), portions).ToList();
+        return Deliver(s, specs, null, next);
     }
     private static void Cook(Session s)
     {

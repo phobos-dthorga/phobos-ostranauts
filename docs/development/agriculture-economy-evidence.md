@@ -85,6 +85,11 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Lettuce (0.25 kg) | 8.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Seed Wheat (50 g) | 15.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Wheat Grain (0.4 kg) | 30.00 | IsCategoryFood | Yes | Yes | No | No |
+| Phobos' Verdemorrow Continuance Tomato Seeds (5 g) | 5.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Tomatoes (0.25 kg) | 8.00 | IsCategoryFood | Yes | Yes | No | No |
+| Phobos' Verdemorrow Continuance Soybean Seeds (30 g) | 12.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Soybeans (0.25 kg) | 25.00 | IsCategoryFood | Yes | Yes | No | No |
+| Phobos' Verdemorrow Hearth Soybean Stew (0.5 kg) | 70.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Hearth Flatbread (0.65 kg) | 90.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Crop Residue | 0.01 | IsCategoryTrash | Yes | Yes | No | No |

@@ -176,11 +176,15 @@ The rules a crop is held to:
   each portion becomes) must be Agriculture items, `seedKg` must be one unit of the
   stock and `portionKg` one unit of the produce. A file cannot add an item.
 - **It borrows artwork.** `art` names a shipped crop's growth stages: `Potato`,
-  `Lettuce` or `LettuceSeed`.
+  `Lettuce`, `LettuceSeed`, `Wheat`, `Tomato` or `Soybean`.
 - **It needs its own names.** The crop's name, `feed` and `feedCommodity` must not
   be used by another crop. They are saved with your racks and pipes, so do not
   rename them later. `name` is the plain name shown in the game.
 - **A rack's limits apply.** At most 1.5 kW, 20 kg of water and 0.5 kg of nutrient.
+- **Picking is optional.** `picks` (up to 10) and `pickKg` let a ripe plant be picked
+  that many times before its harvest, taking up to `pickKg` of whole portions each
+  time; the shipped tomato uses them. A pick must take at least one portion and less
+  than one cycle's growth.
 - **Shipped crops cannot be edited.** A file that changes `potato`, `lettuce` or
   `lettuce-seed` is skipped. Copy one under a new name instead.
 
