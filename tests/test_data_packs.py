@@ -172,8 +172,22 @@ class DataPackTests(unittest.TestCase):
         bad = json.loads(json.dumps(pack)); bad['alerts']['pain'] = 75
         with self.assertRaises(validate.Problem):
             validate.care(bad, 'test')
-        legacy = json.loads(json.dumps(pack)); del legacy['levels']; del legacy['alerts']
+        legacy = json.loads(json.dumps(pack)); del legacy['levels']; del legacy['alerts']; del legacy['treatments']
         validate.care(legacy, 'test')
+        # Medical 0.4.0: treatments name a fixed test and effect, one item and a bounded time; players may add one.
+        added = json.loads(json.dumps(pack))
+        added['treatments']['dress-with-dirty'] = {'test': 'bleeding', 'item': 'ItmScrapClothDirty', 'medicSeconds': 30}
+        validate.care(added, 'test')
+        self.assertEqual(schemas.problems(json.loads(writer.render('care')), added), [])
+        for field, value in (('test', 'amputation'), ('effect', 'apply-condition'), ('item', ''), ('medicSeconds', 0),
+                             ('medicSeconds', 4000), ('order', 1.5), ('skill', 'Skill Medical'), ('heal', 1)):
+            bad = json.loads(json.dumps(pack))
+            bad['treatments']['dress-bleeding'][field] = value
+            with self.subTest(treatment=field, value=value), self.assertRaises(validate.Problem):
+                validate.care(bad, 'test')
+        bad = json.loads(json.dumps(pack)); bad['treatments']['bad name'] = pack['treatments']['dress-bleeding']
+        with self.assertRaises(validate.Problem):
+            validate.care(bad, 'test')
         bad = json.loads(json.dumps(pack))
         bad['admission']['heal'] = 1
         with self.assertRaises(validate.Problem):

@@ -76193,6 +76193,572 @@
         "decision": "add",
         "reason": "Read in full with Phobos Medical 0.1.0."
       }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.treat.title",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:79"
+      ],
+      "before": "Keep patient treated",
+      "after": "Keep patient treated",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.treat.action",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:79"
+      ],
+      "before": "[us] [sets] the crew to look after the patient in [them].",
+      "after": "[us] [sets] the crew to look after the patient in [them].",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.treat.tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:79"
+      ],
+      "before": "Switch on or off: while someone lies in this bed, crew dress bleeding wounds, splint broken bones and change dirty dressings, using supplies from the bed's drawer. Crew with the Haul duty restock the drawer from around the ship.",
+      "after": "Switch on or off: while someone lies in this bed, crew dress bleeding wounds, splint broken bones and change dirty dressings, using supplies from the bed's drawer. Crew with the Haul duty restock the drawer from around the ship.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.recipe",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:24"
+      ],
+      "before": "Keep patient treated",
+      "after": "Keep patient treated",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:137"
+      ],
+      "before": "Crew will keep the patient in {0} treated.",
+      "after": "Crew will keep the patient in {0} treated.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:132"
+      ],
+      "before": "Crew stopped treating the patient in {0}.",
+      "after": "Crew stopped treating the patient in {0}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.not_owned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:126"
+      ],
+      "before": "Only the owner's crew can be given this order.",
+      "after": "Only the owner's crew can be given this order.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:45",
+        "src/PhobosMedical/MedicCrew.cs:125"
+      ],
+      "before": "The bed needs attention. Check that it is installed and undamaged, and accept any saved contents in its Control Panel.",
+      "after": "The bed needs attention. Check that it is installed and undamaged, and accept any saved contents in its Control Panel.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.select_recipe",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:51"
+      ],
+      "before": "Choose Keep patient treated in the Crew panel.",
+      "after": "Choose Keep patient treated in the Crew panel.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.no_patient",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:53"
+      ],
+      "before": "Nobody is lying in the bed.",
+      "after": "Nobody is lying in the bed.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.nothing_due",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:54"
+      ],
+      "before": "{0} needs nothing the crew can do just now.",
+      "after": "{0} needs nothing the crew can do just now.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.no_stock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:68",
+        "src/PhobosMedical/MedicCrew.cs:91"
+      ],
+      "before": "No {0} in the drawer or loose aboard. Put some in the bed's drawer, or anywhere the crew can reach.",
+      "after": "No {0} in the drawer or loose aboard. Put some in the bed's drawer, or anywhere the crew can reach.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.treat_bleeding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:61"
+      ],
+      "before": "Dress a bleeding wound on {1} with {0}",
+      "after": "Dress a bleeding wound on {1} with {0}",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.treat_fracture",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:61"
+      ],
+      "before": "Splint a broken bone on {1} with {0}",
+      "after": "Splint a broken bone on {1} with {0}",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.treat_spent-dressing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:61"
+      ],
+      "before": "Change a dirty dressing on {1} for {0}",
+      "after": "Change a dirty dressing on {1} for {0}",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.done_bleeding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:101"
+      ],
+      "before": "Dressed a bleeding wound on {1} with {0}.",
+      "after": "Dressed a bleeding wound on {1} with {0}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.done_fracture",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:101"
+      ],
+      "before": "Splinted a broken bone on {1} with {0}.",
+      "after": "Splinted a broken bone on {1} with {0}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.done_spent-dressing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:101"
+      ],
+      "before": "Changed a dirty dressing on {1} for {0}. The old one is on the deck beside the bed.",
+      "after": "Changed a dirty dressing on {1} for {0}. The old one is on the deck beside the bed.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.no_longer_due",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:78",
+        "src/PhobosMedical/MedicCrew.cs:95",
+        "src/PhobosMedical/MedicCrew.cs:97"
+      ],
+      "before": "That treatment is no longer needed.",
+      "after": "That treatment is no longer needed.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.does_not_fit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:92"
+      ],
+      "before": "{0} does not go on that wound.",
+      "after": "{0} does not go on that wound.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:105"
+      ],
+      "before": "The wound would not take the {0} ({1}). It is on the deck beside the bed.",
+      "after": "The wound would not take the {0} ({1}). It is on the deck beside the bed.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Medic.log",
+      "category": "log",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/MedicCrew.cs:80"
+      ],
+      "before": "{0} treated {3}: {1} on {2}.",
+      "after": "{0} treated {3}: {1} on {2}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_name",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:62",
+        "src/PhobosMedical/Core/TreatmentRules.cs:63"
+      ],
+      "before": "Treatment name {0} must be letters, digits, dashes or underscores, at most {1} characters.",
+      "after": "Treatment name {0} must be letters, digits, dashes or underscores, at most {1} characters.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_test",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:64"
+      ],
+      "before": "Treatment {0}: unknown test {1}; the tests are {2}.",
+      "after": "Treatment {0}: unknown test {1}; the tests are {2}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_effect",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:65"
+      ],
+      "before": "Treatment {0}: unknown effect {1}; the effects are {2}.",
+      "after": "Treatment {0}: unknown effect {1}; the effects are {2}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_item",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:66"
+      ],
+      "before": "Treatment {0} needs an item: the name of a game item definition.",
+      "after": "Treatment {0} needs an item: the name of a game item definition.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_seconds",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:68"
+      ],
+      "before": "Treatment {0}: medicSeconds must be from {1} to {2}.",
+      "after": "Treatment {0}: medicSeconds must be from {1} to {2}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_skill",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:69"
+      ],
+      "before": "Treatment {0}: skill must be the name of a skill condition, or left out.",
+      "after": "Treatment {0}: skill must be the name of a skill condition, or left out.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_order",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:70"
+      ],
+      "before": "Treatment {0}: order must be a whole number from 0 to {1}.",
+      "after": "Treatment {0}: order must be a whole number from 0 to {1}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_native",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/TreatmentRules.cs:72"
+      ],
+      "before": "Treatment {0}: {1}",
+      "after": "Treatment {0}: {1}",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_unknown_item",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Content.cs:48"
+      ],
+      "before": "the game has no item {0}.",
+      "after": "the game has no item {0}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_treatment_no_slot",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Content.cs:51"
+      ],
+      "before": "{0} does not go on a wound for the test {1} (the game's own slot effects say where an item may go).",
+      "after": "{0} does not go on a wound for the test {1} (the game's own slot effects say where an item may go).",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.Medical",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Keep patient treated (Medical 0.4.0 / Framework 0.89.0): working-spacer voice; says what happened, what it means and what the player can do; placeholders, item names and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosFramework/Crew/CrewPanel.cs:178"
+      ],
+      "before": "Medical care",
+      "after": "Medical care",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.4.0."
+      }
     }
   ],
   "documents": [
@@ -76200,8 +76766,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fedabf89136487a54a8a7d4aa34f16b353ff026ec2d080f625f91cde87386501",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "055a42ef70bff61e587d1a10bba5d6d9db3c04e6d1e2df4fe6d4b107495c9ae5",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "SUPPORT.md",
@@ -76360,8 +76926,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "705776230750077d93ba8b888251dab00e4d15b3585612a088e4d3c47cda828c",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "49287d6086978a7942046805222dc953e4d40f928bc2a2aaa99a39fb095fe0c8",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/crew-automation.md",
@@ -76703,8 +77269,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1bd4a3b480b986301739f066582c9edc61e31b0c1ef7de8f3310baa74ef954d4",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "16561f0078a8609ac04d6707eedc57a1935f2127a96009cc1e934ab937ec10a2",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -76794,8 +77360,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "693a01ace820f1187782cb18d487166421a2e84f91de493a2884f0ee2a4c9f18",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "2a5d3a103e0b05c30ff0ad583256c882a948db5a85587b0175555231505cefe4",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -76888,8 +77454,8 @@
       "path": "docs/development/medical-bed-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "a0707477b04d02e00d4c4db9fc9da9c3acc5aff3170202ccc5c6e7af9673c63d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "525336fc97bc1d7b5fbd87a66f61491d4c2b1d76e121c0eea07caf51e913b40b",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/development/medical-bed-research.md",
@@ -77179,8 +77745,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "1135e1a9a98132a9917e36e810ba37fc159c310e80c090958be3fd9c51fa42da",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "3edf9390788f840548d89931806d0f8db1333c355d56f76dc3adaeead4cb205e",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -77200,8 +77766,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7c2fa95427feb2b391cc5a0d5c58420bbd8921db7bde6926d3463be5e6dcf6cd",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "ba6009f4a9de59773a8400ac4bc961060ed045cdff4c9f4b3ee18542fdac88fd",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -77263,8 +77829,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a114c05e6f09e7b84497488105d35c81737aa5db4d7ed8d0f44dd2f815f55153",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "9bb5dc4cd501537637ccdd43ceb70a39e2d892ee5154aaff4593f855b85f2f11",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/item-references.md",
@@ -77305,15 +77871,15 @@
       "path": "docs/medical-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "1928b3c48a13d62d020f988f9f61d18923bef1c2097fdc8b7ddec1f5dd0d4878",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "079f07e35513b7420f27699338eb39f7047102b9064bfe41f4721d7bba71a7cc",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/medical-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "8729276dcbb781a10616ec8192ac41b6998ab991ae060b5b4e7a72e2b2b7a566",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "56fc009041e8a1a9b234814ed6dfcc1f182638be34e714e4631d324d93786b90",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/performance-captures.md",
@@ -77326,8 +77892,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ebbbe1d7101330119f7569990afe8def17769c92d98fe5adf099cde7e0779360",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "5eaa4de3d46093e87eb2294a5b54d04d9f8de7976629689611423915892f2b71",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/residue-collector.md",
@@ -77445,8 +78011,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f0d4b026c84517fba0d15f7a7428ae04d79fa9f6d3720057434da1040d03499e",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "43a35cd9538e80e58dd84890e780dc468e67ab6fca70201b6601f032e6065cad",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -77459,8 +78025,8 @@
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "a0f165609aa543d3cfac2549aa1bae77f22cf4fcc88afadfd78e37f731909bfe",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "0719def175a7e09cda60225b5b84eddeefce1ddc4ce9188bd19329d856d269a6",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -77481,8 +78047,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a118f1bb62d6036f42062281af904ac8ac041735a9812d109fb407e179c408c2",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "d4d2e256879f4d963cfc32ed5b3b9348004aa8545bbf7bc46f65850cef7a3483",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -77533,8 +78099,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "15019a0ec5ad93ca98117adb9f0a686227fbbea7466045373d61192615b1d3fe",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "745742e3a995f3f5d2293402bc0f22a704abf7b7d5efc0e32ed790a05cbb1a29",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -77593,8 +78159,8 @@
     {
       "path": "mods/PhobosMedical/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "95dc6dcbae9bcb120027c4f349d0948f06af347b933914528d41f4c3c609d727",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "48e6fde432970748d3cb8b76b2c48a00d18b128838119828223d24440ca7e389",
+      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
     }
   ],
   "hardcodedReview": {

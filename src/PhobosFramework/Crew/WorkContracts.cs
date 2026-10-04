@@ -26,6 +26,9 @@ public sealed class CrewWorkOffer
     public CondOwner? Destination { get; }
     public CondOwner? Origin { get; }
     public bool SkipSupported { get; }
+    /// <summary>The full id of a person who must not take this work (Framework 0.89.0): the patient a medic order
+    /// treats, who may be crew lying in the bed. Empty means anyone eligible.</summary>
+    public string ExcludedActor { get; set; } = "";
     public CrewWorkOffer(string action, string label, CrewRole role, CondOwner target, double seconds,
         string skill = "", string duty = "Operate", bool skipSupported = true, CondOwner? cargo = null, CondOwner? destination = null)
     { Action = action; Label = label; Role = role; Target = target; Seconds = seconds; Skill = skill; Duty = duty; SkipSupported = skipSupported; Cargo = cargo; Destination = destination; Origin = cargo?.objCOParent; }

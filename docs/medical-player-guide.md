@@ -17,7 +17,9 @@ for the current minimum). Automated checks pass; in-game checks are still pendin
 2. Install it through **INSTALL, FURN** with a Mortorq. Put its head against a
    wall that carries power: it draws from the tile row behind its head.
 3. Right-click it. You will see **Rest and recover**, **Sleep**, **Lay patient
-   here** and **Control Panel**.
+   here**, **Send injured crew here**, **Keep patient treated** and **Control Panel**.
+4. Put clean scrap cloth and a splint or two in its drawer, then switch on **Keep
+   patient treated** so the crew look after whoever lies in it.
 
 The Ward-3 is the off-white bed with capped cartridges at its head and two folded
 treatment arms. Those are styling for a 2075 sickbay: its healing is the game's own
@@ -113,15 +115,45 @@ It warns again only once the figure has eased and risen again.
 It only watches: it never treats, heals or moves anyone. With no bed touching, no
 power or a damaged monitor, its panel says so instead of showing readings.
 
+## Keeping the patient treated
+
+Right-click the bed and choose **Keep patient treated**; choose it again to stop.
+While someone lies in the bed, a crew member on shift with the **Operate** duty
+comes to the bed and works through what the patient needs, worst first:
+
+| Need | What the crew do | Uses |
+| --- | --- | --- |
+| A bleeding wound with nothing on it | Dress it | One clean scrap cloth |
+| A broken arm or leg, not splinted | Splint it | One splint |
+| A dressing gone dirty | Take it off and put a clean one on | One clean scrap cloth |
+
+The item goes on the wound just as if you had dropped it there yourself, so the
+game's own effects do the healing: a clean dressing stops bleeding, a splint sets
+the bone, and a dirty dressing stops spreading infection once it is off. Bleeding
+comes first, vital parts before limbs. The old dressing is left on the deck beside
+the bed.
+
+- **Supplies.** The crew take from the bed's drawer. When it is out, crew with the
+  **Haul** duty fetch cloth or splints from the deck, unlocked containers or other
+  machines' trays anywhere aboard. They never take from someone's hands, a locked
+  container or a wound. If there is none aboard, the Crew panel says what is missing.
+- **Who treats.** Crew with the game's trauma skill (dressing and splinting) or
+  nursing skill (changing dressings) are asked first and work faster. The patient
+  never treats themselves. Each crew member's **Medical care** role in the Crew panel
+  is on by default; switch it off to keep someone away from this work.
+- It is one order per bed, and it only treats the person in that bed.
+
 ## The drawer
 
 A three-by-two drawer at the head takes dressings (clean or dirty scrap cloth),
-splints and medicines. It is ordinary storage for now; later releases use it.
+splints and medicines. **Keep patient treated** takes its cloth and splints from here.
 
 ## Tuning it
 
-The bed's power and the thresholds that decide who counts as injured are in the
-**care** data file. See [editing the data files](editing-data-files.md#tuning-the-medical-bed).
+The bed's power, the thresholds that decide who counts as injured and the
+treatments the crew give (what each uses, how long it takes, which skill speeds it)
+are in the **care** data file. You can add a treatment of your own, such as dressing
+with a dirty cloth when clean cloth runs out. See [editing the data files](editing-data-files.md#tuning-the-medical-bed).
 The healing itself is the game's own and is not in that file.
 
 ## Upkeep
@@ -150,6 +182,7 @@ says so and offers **Accept** to start it afresh.
 | The patient is not recuperating | No power, no air, or the bed is damaged | Check the panel: it names the reason. |
 | Healing is very slow | The patient is weightless but not under care (no power, no air), or the panel says this game version's wound code has changed | Restore power and air; otherwise spin up the ship. |
 | The monitor says no Ward-3 is touching | It stands more than one tile from the bed, or the bed is loose | Move it beside the installed bed. |
+| Nobody comes to treat the patient | Nobody on shift has the Operate duty or the Medical care role, the drawer is empty and nothing usable lies aboard, or the patient needs nothing the crew can do | Open the bed's Crew panel: it names the reason. |
 | Nobody comes when Send injured crew here is on | Nobody aboard counts as injured, everyone injured is under your control or busy fighting, or the bed has no power or air | Check the panel; order someone to Rest and recover yourself. |
 
 More: [design record](development/medical-bed-design.md),

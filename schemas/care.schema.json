@@ -135,6 +135,66 @@
         }
       },
       "description": "What a station adds to the game's own care (Medical 0.2.0)."
+    },
+    "treatments": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[A-Za-z0-9_-]{1,48}$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "test": {
+              "type": "string",
+              "description": "Which wounds it is for.",
+              "enum": [
+                "bleeding",
+                "fracture",
+                "spent-dressing"
+              ]
+            },
+            "effect": {
+              "type": "string",
+              "description": "slot-item: the item goes onto the wound the game's own way.",
+              "enum": [
+                "slot-item"
+              ]
+            },
+            "item": {
+              "type": "string",
+              "description": "The game item definition used up, one per treatment.",
+              "pattern": "^[A-Za-z0-9_]{1,48}$"
+            },
+            "medicSeconds": {
+              "type": "number",
+              "minimum": 5,
+              "maximum": 1800,
+              "description": "How long a medic takes, in seconds; crew with the skill are quicker."
+            },
+            "skill": {
+              "type": "string",
+              "description": "A skill condition, such as SkillMedicalTrauma; crew with it are asked first. Leave out for anyone.",
+              "pattern": "^[A-Za-z0-9_]{0,48}$"
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000,
+              "description": "Lower comes first; ties go by name."
+            }
+          },
+          "required": [
+            "test",
+            "item",
+            "medicSeconds"
+          ]
+        }
+      },
+      "description": "What a medic does for a patient in a Ward-3, by name (Medical 0.4.0)."
     }
   },
   "required": [

@@ -1607,8 +1607,10 @@
   Framework 0.84.0 (Send injured crew here; weightless care through one hand-applied
   `Wound.Run` transpiler, `levels.bed.weightlessHealing` default 1 as an agent default),
   and 0.3.0 with Framework 0.86.0 (Vigil-2 2 x 2 patient monitor, pairing by touching through
-  `Observations.Footprints`, readings, hour trend and alerts; it never heals).
-  Owner gameplay checks remain pending.
+  `Observations.Footprints`, readings, hour trend and alerts; it never heals), and 0.4.0 with
+  Framework 0.89.0 (Keep patient treated: the care pack's `treatments` section, `CrewRole.Medical`,
+  `Health.WoundCare` slotting real items the game's own way, `CrewWorkOffer.ExcludedActor` so a
+  patient never treats themselves). Owner gameplay checks remain pending.
 
 ## Documentation audiences
 

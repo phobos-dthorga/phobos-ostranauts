@@ -124,7 +124,7 @@ New services land with Phobos Medical as first consumer:
 | 1 | `ApplianceDefinitions` width-by-depth overload (square families unchanged); `Health.PatientPlacement`; `Health.PatientFacts` (brought forward from set 2: the admission thresholds need it) |
 | 2 | `Health.CareGrants`, `Health.WoundGravity` (one hand-applied transpiler on `Wound.Run`; left off with a plain message if the pattern moves) |
 | 3 | `Observations.Footprints` (rotation-aware touching, lifted from `LaserRules.Touching`) |
-| 4 | `Health.WoundCare` (slot one unit; apply a checked native condition); `CrewRole.Medical` |
+| 4 | `Health.WoundCare` (slot one unit, done in 0.89.0; applying a checked native condition waits for set 6); `CrewRole.Medical`; `CrewWorkOffer.ExcludedActor` |
 
 ## Release sets
 
@@ -134,7 +134,7 @@ New services land with Phobos Medical as first consumer:
 | 1 | Framework 0.82.0, Medical 0.1.0 | Ward-3: sleep, rest awake, lay a casualty, honest power, drawer, status panel, `care` pack |
 | 2 | Framework 0.84.0, Medical 0.2.0 | Injured-crew order; weightless care (done; Framework 0.83.0 went to another change) |
 | 3 | Framework 0.86.0, Medical 0.3.0 (done) | Vigil-2 patient monitor: planned 2 x 2 cart, pairs by touching, readout and alerts only, never heals; revised from the one-tile Vigil-1 after the owner's size direction ([art handoff](medical-art-handoff.md)) |
-| 4 | Framework 0.85.0, Medical 0.4.0 | Treatments in the pack; medic order stocking the drawer |
+| 4 | Framework 0.89.0, Medical 0.4.0 (done) | Treatments in the pack; Keep patient treated, the medic order stocking the drawer |
 | 5 | Medical 0.5.0 | Attend-2 autodoc: no rack of its own, progress by measured energy |
 | 6 | Medical 0.6.0 | Nanite course cartridge applying the game's `NanoFirstAid` |
 
@@ -206,3 +206,44 @@ Owner go, 4 October 2026, after the larger monitor art.
   bleeds. One `PlayerNotices` caution per firing, switchable per monitor.
 - **Saved record** `PhobosState.MedicalMonitor` version 1: watched bed (or none) and alerts.
 - It never changes the patient.
+
+## Set 4 as built (Medical 0.4.0, Framework 0.89.0)
+
+Continued under the approved plan after set 3; the order and its defaults below are agent
+choices open to owner revision.
+
+- **Keep patient treated**, a standing crew order on the installed Ward-3 (Framework
+  `CrewWork`, right-click toggle like the L2's bottle order, ship-wide source). Treatments
+  use the Operate duty and the new `CrewRole.Medical` (on by default); restocking is
+  Framework's own haul (Haul duty) into the bed's drawer.
+- **Treatments are data.** The care pack's `treatments` section names a fixed `test`
+  (`bleeding`, `fracture`, `spent-dressing`), the only `effect` built so far (`slot-item`),
+  the item used up, `medicSeconds` (5 to 1800), an optional skill condition and an
+  `order`. Code never branches on a treatment name. `apply-condition` stays reserved for
+  set 6. Every file must name an item the game knows that goes on a suitable wound slot by
+  the game's own slot effects (`TreatmentRules.NativeCheck`, run while the game loads the
+  pack, so a bad player file is refused on its own). Shipped: dress-bleeding (clean scrap
+  cloth, 45 s, trauma), splint-fracture (`ItmSplint01`, 90 s, trauma), change-dressing
+  (clean cloth for a dirty one, 45 s, nursing). Seconds are authored balance.
+- **The game's own effects.** Framework `Health.WoundCare.Apply` calls the game's
+  `Slots.SlotItem(slot, item, bAuto: false)`, the same path as a paper-doll drop, so a clean
+  cloth staunches (and its own wear ticker later turns it dirty), a splint splints, and an
+  item the game uses up (water, spirits) is gone afterwards, which also counts as success.
+  `RemoveToDeck` unslots a spent dressing (the game's unslot interaction runs) and sets it on
+  the deck beside the bed through the game's deck drop.
+- **Order of care** (`TreatmentRules.Due`, pure): treatments by order, wounds within one by
+  vital part, bleed rate, depth, then name. A wound may appear under several treatments, so a
+  later one is a fallback; the order takes the first step whose item is in the drawer or can
+  be fetched. A treatment stays due while its test holds, so an item that does not change the
+  wound (water on a bleeding wound) would repeat; the editing guide says so.
+- **Integrity.** Every condition is checked before anything moves; one unit leaves the
+  drawer only after that; a unit the game refuses after it left is set down on the deck,
+  never destroyed. The finished step is matched against the same need (treatment and wound
+  part) before it is carried out.
+- **The patient never treats themselves.** Framework 0.89.0 adds `CrewWorkOffer.ExcludedActor`,
+  checked in `CrewWork.Eligible`; the order sets it to the patient on every offer.
+- **Saved structures.** None new beyond the standing order Framework already saves per
+  equipment; the order is off on every bed until switched on. The toggle's interaction name
+  `PhobosMedicalTreat` joins the names that stay registered for good.
+- Not done: pills, disinfection, surgery, dressings applied outside a Ward-3, and the autodoc
+  (set 5), which is this order as a machine.

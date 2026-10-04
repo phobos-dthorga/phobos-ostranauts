@@ -10,6 +10,7 @@ Usage: validate-data-packs.py [--format json] [paths...]
 """
 import argparse
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -452,6 +453,10 @@ def crops(pack, where):
 
 CARE_STATIONS = ('bed', 'monitor')
 CARE_LEVELS = ('bed',)
+CARE_TESTS = ('bleeding', 'fracture', 'spent-dressing')
+CARE_EFFECTS = ('slot-item',)
+CARE_NAME = re.compile(r'^[A-Za-z0-9_-]{1,48}$')
+CARE_IDENT = re.compile(r'^[A-Za-z0-9_]{1,48}$')
 CARE_MAX_KW = 2
 # The game's fatal or knock-out levels: an admission threshold must sit below them (Phobos Medical 0.1.0).
 CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
@@ -459,7 +464,7 @@ CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
 
 def care(pack, where):
     """The care schema (Phobos Medical 0.1.0): station power and the injured and discharge thresholds."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission', 'levels', 'alerts'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission', 'levels', 'alerts', 'treatments'}, where)
     stations = pack.get('stations')
     if not isinstance(stations, dict):
         raise Problem(f'{where}/stations: expected station to entry')
@@ -504,6 +509,26 @@ def care(pack, where):
             number(alerts.get(name), f'{where}/alerts/{name}', 0, CARE_LIMITS[name], exclusive_low=True)
             if alerts[name] >= CARE_LIMITS[name]:
                 raise Problem(f'{where}/alerts/{name}: must be below {CARE_LIMITS[name]}')
+    # Medical 0.4.0: what a medic does; optional. Whether the item fits a wound is checked against the game's own
+    # definitions when the game loads the pack, not here.
+    treatments = pack.get('treatments', {})
+    if not isinstance(treatments, dict):
+        raise Problem(f'{where}/treatments: expected name to entry')
+    for key, t in treatments.items():
+        w = f'{where}/treatments/{key}'
+        if not CARE_NAME.match(key):
+            raise Problem(f'{w}: a name is letters, digits, dashes or underscores, at most 48')
+        fields(t, {'notes', 'test', 'effect', 'item', 'medicSeconds', 'skill', 'order'}, w)
+        if t.get('test') not in CARE_TESTS:
+            raise Problem(f'{w}/test: one of {", ".join(CARE_TESTS)}')
+        if t.get('effect', 'slot-item') not in CARE_EFFECTS:
+            raise Problem(f'{w}/effect: one of {", ".join(CARE_EFFECTS)}')
+        if not isinstance(t.get('item'), str) or not CARE_IDENT.match(t['item']):
+            raise Problem(f'{w}/item: a game item definition name')
+        number(t.get('medicSeconds'), f'{w}/medicSeconds', 5, 1800)
+        if 'skill' in t and (not isinstance(t['skill'], str) or t['skill'] and not CARE_IDENT.match(t['skill'])):
+            raise Problem(f'{w}/skill: a skill condition name')
+        number(t.get('order', 0), f'{w}/order', 0, 1000, integer=True)
 
 
 OUTCOME_MAX_WEIGHT = 10000

@@ -5,6 +5,26 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-04 - Draft
+
+### Added
+
+- Keep patient treated, a crew order on the Ward-3. Switch it on from the bed's right-click menu; while someone lies in the bed, a crew member with the Operate duty dresses bleeding wounds, splints broken arms and legs, and changes dressings that have gone dirty. Each treatment uses one clean scrap cloth or one splint from the bed's drawer and puts it on the wound the game's own way, so the healing is the game's.
+- When the drawer is out, crew with the Haul duty fetch cloth or splints from the deck, unlocked containers or other machines' trays anywhere aboard. They never take from someone's hands, a locked container or a wound.
+- Worst first: bleeding before fractures before dirty dressings, and within each, vital parts, then the fastest bleed, then the deepest wound. Crew with the game's trauma or nursing skill are asked first and work faster.
+- The patient never treats themselves, even when they are crew. A dirty dressing taken off goes on the deck beside the bed for the crew to deal with.
+- The care pack gains a treatments section: which wounds each treatment is for (bleeding, fracture or spent-dressing), the item it uses up, how long it takes and which skill speeds it. Players may retune these or add their own, such as rinsing with water; every item must go on a suitable wound slot by the game's own rules, and a treatment can never write healing of its own.
+
+### Save compatibility
+
+- Automatic. The order is off on every bed until switched on. Nothing else saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.89.0, which adds the Medical care crew role and shared wound care.
+- The autodoc and nanite treatments are later steps. Pills, disinfection and surgery are not part of this order.
+- Offline checks are not gameplay validation; owner gameplay checks are pending.
+
 ## [0.3.0] - 2026-10-04 - Draft
 
 ### Added

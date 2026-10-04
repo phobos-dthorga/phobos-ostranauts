@@ -273,6 +273,34 @@ What the file holds:
 - **`levels.bed.weightlessHealing`** (Medical 0.2.0): the share of normal wound
   healing a weightless patient keeps under care, from 0.05 (the game's own, no help)
   to 1 (no weightless penalty, the shipped value).
+- **`treatments`** (Medical 0.4.0): what the crew do under **Keep patient treated**,
+  by name. Each has a `test` (`bleeding`: a bleeding wound with nothing on it;
+  `fracture`: an unsplinted broken arm or leg; `spent-dressing`: a dressing gone
+  dirty, which comes off first), an `effect` (`slot-item`, the only one so far: the
+  item goes on the wound as if you had dropped it there), the `item` used up (a game
+  item name), `medicSeconds` (5 to 1800), an optional `skill` (a game skill condition
+  such as `SkillMedicalTrauma`; crew who have it go first and work faster) and an
+  `order` (lower first). The item must go on a suitable wound by the game's own slot
+  rules, or the file is refused when the game loads it. The shipped entries are
+  `dress-bleeding`, `splint-fracture` and `change-dressing`.
+
+A wound may match more than one treatment; the crew use the first whose item they
+can get, so a later entry is a fallback. This file lets them dress a bleeding wound
+with a dirty cloth when no clean one can be had (the game's own dirty-dressing
+effect: it stops the bleeding but adds infection, and the change-dressing treatment
+swaps it once clean cloth arrives):
+
+```json
+{
+  "treatments": {
+    "dress-dirty": { "test": "bleeding", "item": "ItmScrapClothDirty", "medicSeconds": 45, "order": 15 }
+  }
+}
+```
+
+A treatment stays due while its test holds, so pick an item that changes the wound:
+a dressing covers it, a splint splints it. Water or spirits on a bleeding wound clean
+it but leave it bleeding, so the crew would keep pouring.
 
 The healing is otherwise the game's own Recuperating and cannot be changed here; a
 field such as `heal` is refused. Nothing in this file is saved with your beds, so a change

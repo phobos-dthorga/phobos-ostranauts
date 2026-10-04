@@ -294,6 +294,7 @@
   "Crew.Cooking": "Cooking",
   "Crew.Industry": "Industry",
   "Crew.Exterior": "Exterior missions and flight",
+  "Crew.Medical": "Medical care",
   "Crew.training": "{0}: {1:F1}% trained",
   "Crew.enable": "Enable / Resume standing order",
   "Crew.stop": "Stop standing order",

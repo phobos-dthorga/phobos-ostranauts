@@ -78,6 +78,21 @@ internal static class MedicalNativeChecks
         check(DataHandler.dictConds.ContainsKey(Phobos.Ostranauts.Framework.Health.WoundGravity.FactorStat), "Framework's weightless-healing stat is a registered condition");
         WoundGravityChecks(check);
 
+        // Medical 0.4.0: Keep patient treated, and every shipped treatment against the game's own definitions.
+        check(installed.aInteractions.Contains(MedicalRules.TreatOrder) && DataHandler.dictInteractions.ContainsKey(MedicalRules.TreatOrder), "The installed Ward-3 offers Keep patient treated");
+        foreach (var t in Care.Treatments)
+        {
+            check(PhobosMedical.Content.NativeTreatmentProblem(t.Value.test, t.Value.item) == null, "Treatment item exists and goes on a suitable wound slot: " + t.Key);
+            string slot = t.Value.test == TreatmentRules.Fracture ? "WoundItemArmFractureL" : "WoundItemArmLowerL";
+            check(Phobos.Ostranauts.Framework.Health.WoundCare.Fits(t.Value.item, slot), "Treatment item fits the game's own wound item slot " + slot + ": " + t.Key);
+            check(string.IsNullOrEmpty(t.Value.skill) || DataHandler.dictConds.ContainsKey(t.Value.skill!), "Treatment skill is a game condition: " + t.Key);        }
+        check(PhobosMedical.Content.NativeTreatmentProblem(TreatmentRules.Fracture, "ItmScrapClothClean") != null, "A cloth is refused as a splint: it has no fracture slot");
+        check(PhobosMedical.Content.NativeTreatmentProblem(TreatmentRules.Bleeding, "ItmNoSuchThing") != null, "An unknown item is refused");
+        // The wound parts the game builds pair with item slots of the same place name, which WoundCare relies on.
+        foreach (var wound in DataHandler.dictCOs.Values.Where(c => c.strName != null && c.strName.StartsWith("Wound", StringComparison.Ordinal) && c.aSlotsWeHave != null && c.aSlotsWeHave.Length == 1 &&
+                     c.aSlotsWeHave[0].StartsWith(Phobos.Ostranauts.Framework.Health.WoundCare.ItemSlotPrefix, StringComparison.Ordinal)))
+            check(Phobos.Ostranauts.Framework.Health.WoundCare.ItemSlot(wound.strName) == wound.aSlotsWeHave[0], "Wound part names its own item slot: " + wound.strName);
+
         // Medical 0.3.0: the Vigil-2 monitor, a 2 x 2 powered cart that stores nothing.
         foreach (string form in MedicalRules.Forms)
         {

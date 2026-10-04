@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using Phobos.Ostranauts.Framework.Data;
 using Phobos.Ostranauts.Framework.Health;
@@ -118,4 +119,50 @@ Check(!Phobos.Ostranauts.Framework.Observations.Footprints.Touching(0, 0, 3, 5, 
 Check(Phobos.Ostranauts.Framework.Observations.Footprints.OnDeck(3, 5, 90) == (5, 3) && Phobos.Ostranauts.Framework.Observations.Footprints.OnDeck(3, 5, 180) == (3, 5),
     "a quarter turn swaps width and depth; a half turn does not");
 
-Console.WriteLine($"PASS: {checks} care-pack, bed-decision, monitor and record checks. No game session was run.");
+// ---- Treatments (Medical 0.4.0) -----------------------------------------------------------------------------
+Care.Use(pack);
+var treatments = Care.Treatments;
+Check(treatments.Count == 3 && treatments[0].Key == "dress-bleeding" && treatments[1].Key == "splint-fracture" && treatments[2].Key == "change-dressing",
+    "the shipped treatments come in their order of care");
+Check(treatments.All(t => t.Value.effect == TreatmentRules.SlotItem && t.Value.medicSeconds >= TreatmentRules.MinSeconds), "every shipped treatment slots one item onto a wound");
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["test"] = "amputation")), "a test the code does not know is refused");
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["effect"] = "apply-condition")), "an effect not yet built is refused");
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["medicSeconds"] = 2)), "a treatment quicker than five seconds is refused");
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["item"] = "")), "a treatment without an item is refused");
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["heal"] = 1)), "a treatment cannot write healing of its own");
+Throws(() => Load(Edited(o => o["treatments"]!["bad name"] = o["treatments"]!["dress-bleeding"]!.DeepClone())), "a treatment name with a space is refused");
+var added = Load(Edited(o => o["treatments"]!["dress-dirty"] = new JObject { ["test"] = "bleeding", ["item"] = "ItmScrapClothDirty", ["medicSeconds"] = 45, ["order"] = 15 }));
+Check(added.treatments!.ContainsKey("dress-dirty"), "a player may add a treatment");
+var fallback = TreatmentRules.Due(added.treatments,
+    new[] { new WoundCase("WoundLegLowerR", "WoundItemLegLowerR", true, false, false, false, 0.3, 0.2, false, false) });
+Check(fallback.Count == 2 && fallback[0].Id == "dress-bleeding" && fallback[1].Id == "dress-dirty", "a later treatment for the same wound waits behind the first as its fallback");
+Check(Load(Edited(o => o.Remove("treatments"))).treatments == null, "a pack without treatments (as written for 0.3.0) still loads");
+TreatmentRules.NativeCheck = (test, item) => item == "ItmMissing" ? "no such item" : null;
+Throws(() => Load(Edited(o => o["treatments"]!["dress-bleeding"]!["item"] = "ItmMissing")), "the game-definition check refuses an unknown item");
+TreatmentRules.NativeCheck = null;
+Check(TreatmentRules.SlotsSuit(TreatmentRules.Fracture, new[] { "WoundItemArmFractureL" }) && !TreatmentRules.SlotsSuit(TreatmentRules.Fracture, new[] { "WoundItemArmLowerL" }),
+    "a fracture treatment needs an item that goes on a fracture slot");
+Check(TreatmentRules.SlotsSuit(TreatmentRules.Bleeding, new[] { "WoundItemArmLowerL" }) && !TreatmentRules.SlotsSuit(TreatmentRules.Bleeding, new[] { "WoundItemArmFractureL", "drag" }),
+    "a dressing needs an item that goes on an ordinary wound slot");
+Check(WoundCare.ItemSlot("WoundArmLowerL") == "WoundItemArmLowerL" && WoundCare.ItemSlot("WoundArmFractureL") == "WoundItemArmFractureL", "each wound part has its item slot");
+Check(WoundCare.ItemSlot("WoundItemArmLowerL") == null && WoundCare.ItemSlot("Wound") == null && WoundCare.ItemSlot("ArmLowerL") == null, "only a wound part has an item slot");
+
+WoundCase Wound(string part, bool bleeding = false, bool fractured = false, bool splinted = false, bool vital = false, double rate = 0, double worst = 0, bool covered = false, bool spent = false) =>
+    new(part, WoundCare.ItemSlot(part)!, bleeding, fractured, splinted, vital, rate, worst, covered, spent);
+var due = TreatmentRules.Due(treatments, new[] {
+    Wound("WoundArmFractureL", fractured: true),
+    Wound("WoundLegLowerR", bleeding: true, rate: 0.3, worst: 0.2),
+    Wound("WoundChestUpper", bleeding: true, vital: true, rate: 0.2, worst: 0.1),
+    Wound("WoundArmLowerL", covered: true, spent: true),
+    Wound("WoundArmUpperR", bleeding: true, rate: 0.5, covered: true) });
+Check(due.Count == 4, "every untreated need is due once; a covered bleeding wound is not dressed again");
+Check(due[0].Id == "dress-bleeding" && due[0].Wound.Part == "WoundChestUpper", "bleeding comes first, a vital part before a faster bleed elsewhere");
+Check(due[1].Wound.Part == "WoundLegLowerR" && due[2].Id == "splint-fracture" && due[3].Id == "change-dressing" && due[3].Replace, "then fractures, then dirty dressings, which are replaced");
+Check(due[0].Action == "treat:dress-bleeding:WoundChestUpper", "the crew action names the treatment and the wound");
+Check(TreatmentRules.Due(treatments, new[] { Wound("WoundArmFractureL", fractured: true, splinted: true), Wound("WoundArmLowerL", covered: true) }).Count == 0,
+    "a splinted fracture and a clean dressing need nothing");
+Check(!TreatmentRules.Applies(TreatmentRules.Bleeding, Wound("WoundArmFractureL", bleeding: true)), "a dressing never goes on a fracture slot");
+var nothing = TreatmentRules.Due(Array.Empty<KeyValuePair<string, TreatmentEntry>>(), new[] { Wound("WoundLegLowerR", bleeding: true, rate: 1) });
+Check(nothing.Count == 0, "with no treatments in the pack the order does nothing");
+
+Console.WriteLine($"PASS: {checks} care-pack, bed-decision, monitor, treatment and record checks. No game session was run.");

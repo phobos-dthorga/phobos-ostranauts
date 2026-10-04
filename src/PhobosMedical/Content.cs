@@ -31,6 +31,7 @@ internal static class Content
     internal static NativeDefinitions Prepare()
     {
         var d = new NativeDefinitions();
+        TreatmentRules.NativeCheck = NativeTreatmentProblem;
         Care.Load();
         Economy.Load(Content.NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         Definitions.Add(d);
@@ -38,6 +39,16 @@ internal static class Content
         MaintenanceInformation.Register(d, "PhobosMedicalMaintenanceInformation", co => BedService.MaintenanceReason(co) ?? MonitorMaintenance(co) ?? "");
         ItemHandling.Apply(d);
         return d;
+    }
+    /// <summary>A treatment's item against the game's definitions: it must exist and fit a wound item slot that suits
+    /// the treatment's test (the game's own slot effects say where an item may go).</summary>
+    internal static string? NativeTreatmentProblem(string test, string item)
+    {
+        if (DataHandler.dictCOs == null) return null;
+        if (!DataHandler.dictCOs.TryGetValue(item, out var def)) return Text.Get("care_treatment_unknown_item", item);
+        var effects = def.mapSlotEffects ?? Array.Empty<string>();
+        var slots = effects.Where((_, i) => i % 2 == 0);
+        return TreatmentRules.SlotsSuit(test, slots) ? null : Text.Get("care_treatment_no_slot", item, test);
     }
     /// <summary>A native definition's starting mass (StatMass=1xN), for the economy pack's salvage check.</summary>
     internal static double? NativeMass(string id)

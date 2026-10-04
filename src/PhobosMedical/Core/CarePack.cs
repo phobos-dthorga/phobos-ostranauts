@@ -19,6 +19,28 @@ public sealed class CarePack : DataPack
     public Dictionary<string, LevelEntry>? levels;
     /// <summary>When the Vigil-2 warns (Medical 0.3.0); absent means the shipped defaults.</summary>
     public AlertEntry? alerts;
+    /// <summary>What a medic does for a patient in a Ward-3 (Medical 0.4.0), by name; absent means nothing. Players may
+    /// tune or add entries; code acts on the fixed tests and effects in <see cref="TreatmentRules"/>, never on a name.</summary>
+    public Dictionary<string, TreatmentEntry>? treatments;
+}
+
+/// <summary>One treatment: which wounds it is for (<see cref="test"/>), what is done (<see cref="effect"/>), the one
+/// real item it uses up, how long a medic takes, the skill that makes it quicker and its place in the order of care.</summary>
+public sealed class TreatmentEntry
+{
+    public string? notes;
+    /// <summary><c>bleeding</c>, <c>fracture</c> or <c>spent-dressing</c>.</summary>
+    public string test = "";
+    /// <summary><c>slot-item</c>: the item goes onto the wound the game's own way.</summary>
+    public string effect = TreatmentRules.SlotItem;
+    /// <summary>The game definition of the item used up, one unit per treatment.</summary>
+    public string item = "";
+    public double medicSeconds;
+    /// <summary>A skill condition (the game's own, such as <c>SkillMedicalTrauma</c>); crew who have it work faster and
+    /// are asked first. Empty means anyone, at the ordinary pace.</summary>
+    public string? skill;
+    /// <summary>Lower comes first; ties go by name.</summary>
+    public int order;
 }
 
 /// <summary>The figures at which a Vigil-2 posts an alert, on the same scales as admission. Each must sit below the
@@ -95,6 +117,8 @@ public static class CareSchema
             Between(alerts.infection, FatalInfection, "alerts/infection");
             Between(alerts.pain, KnockoutPain, "alerts/pain");
         }
+        foreach (var pair in pack.treatments ?? new Dictionary<string, TreatmentEntry>())
+            TreatmentRules.Validate(pair.Key, pair.Value);
         foreach (var pair in pack.levels ?? new Dictionary<string, LevelEntry>())
         {
             if (!Levels.Contains(pair.Key)) throw new ArgumentException(Text.Get("care_level_unknown", pair.Key, string.Join(", ", Levels)));
@@ -124,5 +148,8 @@ public static class Care
     public static AdmissionEntry Admission => Pack.admission;
     /// <summary>The share of normal healing a weightless patient keeps in this station's care; the game's own 0.05 when the pack says nothing.</summary>
     public static AlertEntry Alerts => Pack.alerts ?? new AlertEntry();
+    /// <summary>The treatments in the order of care: by <c>order</c>, then by name.</summary>
+    public static IReadOnlyList<KeyValuePair<string, TreatmentEntry>> Treatments =>
+        (Pack.treatments ?? new Dictionary<string, TreatmentEntry>()).OrderBy(p => p.Value.order).ThenBy(p => p.Key, StringComparer.Ordinal).ToList();
     public static double WeightlessHealing(string station) => Pack.levels != null && Pack.levels.TryGetValue(station, out var l) ? l.weightlessHealing : CareSchema.MinWeightless;
 }

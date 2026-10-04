@@ -1664,3 +1664,18 @@ First consumer: Phobos Medical's 3 x 5 Ward-3 bed.
 side by side or one tile apart without overlapping, from each item's width and depth turned by
 its rotation (`OnDeck`). The pure `Touching(ax, ay, aw, ah, bx, by, bw, bh)` takes centres and
 sizes in tiles. First used by Phobos Medical's Vigil-2 to find its bed.
+
+## Wound care and medical crew work (0.89.0)
+
+- **`Health.WoundCare`** treats a wound the game's own way. A wound part `Wound<Place>` has
+  the item slot `WoundItem<Place>` (`ItemSlot(part)`). `Fits(item, slot)` reads the item
+  definition's own slot effects; `Occupant(patient, slot)` says what lies there. `Apply`
+  slots one single, loose unit (detach it from its stack first with `StackUnits.Detach`)
+  through the game's `Slots.SlotItem(slot, item, bAuto: false)`, so the item's own slot
+  interaction does the treating. An item the game uses up on the wound counts as success.
+  `RemoveToDeck` unslots a spent item and sets it down beside a given object; `SetDown`
+  does the same for any loose item. Nothing is ever destroyed.
+- **`CrewRole.Medical`** for medical crew work, on by default per crew member like the other
+  roles except Exterior.
+- **`CrewWorkOffer.ExcludedActor`**: the full id of one person who must not take the work,
+  such as the patient a medic treats. Empty means anyone eligible.

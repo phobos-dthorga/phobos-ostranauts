@@ -147,7 +147,8 @@ public static class CrewWork
             actor.HasCond("IsAIManual") || actor.HasCond("IsInCombat") || actor.HasCond("IsEmergencyOverride") || actor.Company == null ||
             actor.Company != CrewSim.coPlayer?.Company || actor.ship != offer.Target.ship || actor.Company.mapRoster == null ||
             !actor.Company.mapRoster.TryGetValue(actor.strID, out var roster) || roster?.aDutyLvls == null ||
-            actor.Company.GetShift(hour??StarSystem.nUTCHour, actor).nID != 2 || checkRole && !CrewSpecialities.Allowed(actor, offer.Role)) return false;
+            actor.Company.GetShift(hour??StarSystem.nUTCHour, actor).nID != 2 || checkRole && !CrewSpecialities.Allowed(actor, offer.Role) ||
+            offer.ExcludedActor.Length > 0 && offer.ExcludedActor == actor.strID) return false;
         int duty = Array.IndexOf(JsonCompanyRules.aDutiesNew, offer.Duty);
         if (duty < 0 || duty >= roster.aDutyLvls.Length || roster.aDutyLvls[duty] < JsonCompanyRules.nPriorityMin || roster.aDutyLvls[duty] > JsonCompanyRules.nPriorityMax) return false;
         // Needs, pain and sleep are the game's business: a painted job has no such gate either, and the

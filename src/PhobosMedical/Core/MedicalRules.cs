@@ -38,6 +38,8 @@ public static class MedicalRules
     public static bool IsMonitor(string? id) => EquipmentIdentity.IsFamily(id, MonitorPrefix);
     /// <summary>The right-click toggle for Send injured crew here (Medical 0.2.0).</summary>
     public const string Send = "PhobosMedicalSend";
+    /// <summary>The right-click toggle for Keep patient treated (Medical 0.4.0) and the crew order's recipe.</summary>
+    public const string TreatOrder = "PhobosMedicalTreat", TreatRecipe = "PhobosMedical.Treat";
     public const string RestStartLoot = "PhobosMedicalRestStartUs", RestStopLoot = "PhobosMedicalRestStopUs";
     public const string BedFreeTrigger = "PhobosMedicalBedFree", CanRestTrigger = "PhobosMedicalCanRest",
         DrawerTrigger = "PhobosMedicalDrawer", DrawerClothTrigger = "PhobosMedicalDrawerCloth";

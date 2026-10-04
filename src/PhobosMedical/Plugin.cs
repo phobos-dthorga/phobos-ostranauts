@@ -16,8 +16,8 @@ namespace PhobosMedical;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = MedicalRules.Owner;
-    public const string Version = "0.3.0";
-    public const string MinimumFrameworkVersion = "0.86.0";
+    public const string Version = "0.4.0";
+    public const string MinimumFrameworkVersion = "0.89.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -33,6 +33,7 @@ public sealed class Plugin : BaseUnityPlugin
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new MedicCrewProvider());
         EquipmentProviders.RegisterGroup(Provider.Group, () => Text.Get("Group.bed"));
         EquipmentProviders.RegisterGroup(Provider.MonitorGroup, () => Text.Get("Group.monitor"));
         Panel.Register();
@@ -58,6 +59,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         FrameworkLifecycle.ContentLoading -= Load;
         EquipmentProviders.Unregister(Id);
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Unregister(Id);
         BedService.Reset(); MonitorService.Reset(); harmony?.UnpatchSelf();
     }
 }
@@ -100,6 +102,12 @@ internal static class ActionPatch
         {
             bool on = !BedService.StateOf(__instance.objThem).SendInjured;
             bool ok = BedService.Command(__instance.objThem, null, on ? "send:on" : "send:off", out string reply);
+            if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(reply, ok ? "Neutral" : "Bad", "Game");
+            return;
+        }
+        if (__instance.strName == MedicalRules.TreatOrder)
+        {
+            bool ok = MedicCrewProvider.Toggle(__instance.objThem, out string reply);
             if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(reply, ok ? "Neutral" : "Bad", "Game");
             return;
         }

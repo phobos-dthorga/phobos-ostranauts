@@ -211,11 +211,19 @@ def care():
                      'wound': num(None, 1, exclusive_minimum=0, description='Worst wound cut or blunt damage, 0 to 1, at which a person counts as injured; below 1.'),
                      'dischargeShare': num(0, 1, description='A resting patient gets up below every threshold times this share; below 1.')},
                     description='Who counts as injured, and when a resting patient has recovered.')
+    treatment = obj({'notes': NOTES, 'test': string('Which wounds it is for.', enum=['bleeding', 'fracture', 'spent-dressing']),
+                     'effect': string('slot-item: the item goes onto the wound the game\'s own way.', enum=['slot-item']),
+                     'item': string('The game item definition used up, one per treatment.', pattern='^[A-Za-z0-9_]{1,48}$'),
+                     'medicSeconds': num(5, 1800, description='How long a medic takes, in seconds; crew with the skill are quicker.'),
+                     'skill': string('A skill condition, such as SkillMedicalTrauma; crew with it are asked first. Leave out for anyone.', pattern='^[A-Za-z0-9_]{0,48}$'),
+                     'order': num(0, 1000, integer=True, description='Lower comes first; ties go by name.')},
+                    ['test', 'item', 'medicSeconds'])
     level = obj({'notes': NOTES, 'weightlessHealing': num(0.05, 1, description="Share of normal wound healing a weightless patient keeps under care: 0.05 is the game's own, 1 removes the penalty.")})
     return obj({**header('care'), 'stations': named(station, 'Electrical demand by station: bed, monitor.', '^(bed|monitor)$'), 'admission': admission,
                 'alerts': obj({'notes': NOTES, 'bloodLost': num(None, 40, exclusive_minimum=0), 'infection': num(None, 95, exclusive_minimum=0),
                                'pain': num(None, 75, exclusive_minimum=0)}, description='When a Vigil-2 posts a caution (Medical 0.3.0); a bleeding wound always alerts.'),
-                'levels': named(level, "What a station adds to the game's own care (Medical 0.2.0).", '^(bed)$')},
+                'levels': named(level, "What a station adds to the game's own care (Medical 0.2.0).", '^(bed)$'),
+                'treatments': named(treatment, 'What a medic does for a patient in a Ward-3, by name (Medical 0.4.0).', '^[A-Za-z0-9_-]{1,48}$')},
                ['schemaVersion', 'schema', 'stations', 'admission'],
                'Phobos Medical care pack: station power and admission thresholds. The healing is the game\'s own Recuperating.')
 

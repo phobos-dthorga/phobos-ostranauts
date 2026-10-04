@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Phobos.Ostranauts.Framework.Crew;
 
-public enum CrewRole { Agriculture, Cooking, Industry, Exterior }
+public enum CrewRole { Agriculture, Cooking, Industry, Exterior, Medical }
 public enum WorkPermission { Disabled, Enabled, Stopped, Suspended }
 
 /// <summary>Authored training balance, independent of recipes and machine power.</summary>

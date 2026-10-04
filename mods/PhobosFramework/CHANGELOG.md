@@ -26,6 +26,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.89.0] - 2026-10-04 - Draft
+
+### Added
+
+- A Medical care crew role, on for every crew member by default, which can be switched off per person in the Crew panel like the other roles.
+- Shared wound care for content mods: one real item goes onto a patient's wound slot through the game's own slotting, so a clean cloth staunches, a splint splints and a dirty dressing taken off stops counting, all by the game's own effects. A spent item comes off onto the deck, never destroyed. Phobos Medical 0.4.0 is the first user.
+- A crew job can now name one person who must not take it, so a patient lying in a bed is never sent to treat themselves.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.88.0] - 2026-10-04 - Draft
 
 ### Added

@@ -33,5 +33,34 @@
       "notes": "What the Ward-3 adds to the game's own Recuperating (0.2.0). weightlessHealing is the share of normal wound healing a weightless patient keeps under care: the game's own figure is 0.05 (a twentieth); 1 removes the penalty. Agent default 1, open to owner revision.",
       "weightlessHealing": 1.0
     }
+  },
+  "treatments": {
+    "dress-bleeding": {
+      "notes": "Medical 0.4.0. A clean scrap cloth on a bleeding wound: the game's own clean-dressing slot effect staunches it. Seconds and order are authored gameplay balance.",
+      "test": "bleeding",
+      "effect": "slot-item",
+      "item": "ItmScrapClothClean",
+      "medicSeconds": 45,
+      "skill": "SkillMedicalTrauma",
+      "order": 10
+    },
+    "splint-fracture": {
+      "notes": "Medical 0.4.0. The game's own splint on an unsplinted broken arm or leg; its slot effect splints the fracture.",
+      "test": "fracture",
+      "effect": "slot-item",
+      "item": "ItmSplint01",
+      "medicSeconds": 90,
+      "skill": "SkillMedicalTrauma",
+      "order": 20
+    },
+    "change-dressing": {
+      "notes": "Medical 0.4.0. A dressing the game has turned dirty comes off onto the deck and a clean scrap cloth goes on, so the wound stops picking up the dirty dressing's infection.",
+      "test": "spent-dressing",
+      "effect": "slot-item",
+      "item": "ItmScrapClothClean",
+      "medicSeconds": 45,
+      "skill": "SkillMedicalNursing",
+      "order": 30
+    }
   }
 }
