@@ -26,6 +26,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.84.0] - 2026-10-04 - Draft
+
+### Added
+
+- Weightless care for medical equipment. The game slows every wound's healing, and the easing of its bleeding, to a twentieth when a person is weightless. A mod can now give a patient a stat for the share of normal healing it restores, and the game's own wound code uses the larger of the two. Nobody has the stat unless a mod gives it, so without one nothing changes. If a game update changes that code, the change is skipped with one log line and the rest of Framework starts as normal. First used by Phobos Medical's Ward-3.
+- Mods can list the player's loaded crew, from the same roster the game's time skip uses.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline against the installed game's own wound code; not yet seen in the game.
+
 ## [0.83.0] - 2026-10-04 - Draft
 
 ### Added

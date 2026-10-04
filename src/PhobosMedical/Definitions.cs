@@ -69,6 +69,10 @@ internal static class Definitions
         var lay = Clone("Inventory", MedicalRules.Lay, "Interaction.lay");
         lay.fTargetPointRange = 2;
         d.Interactions[lay.strName] = lay;
+        // Send injured crew here: a toggle like the game's own Toggle Power, taken at the bed.
+        var send = Clone("Inventory", MedicalRules.Send, "Interaction.send");
+        send.fTargetPointRange = 2;
+        d.Interactions[send.strName] = send;
 
         // Rest: walk to the bed and lie down awake, the game's own sleep opener with the bed's own marks.
         var rest = Clone("SeekSleepSimple", MedicalRules.Rest, "Interaction.rest");
@@ -121,7 +125,7 @@ internal static class Definitions
             {
                 // The game's own bed marks; it installs switched off, as the Infirmaway does, until power arrives.
                 co.aStartingConds = co.aStartingConds.Concat(new[] { "IsBedMedical=1x1", "IsCushion=1x1", "IsSheet=1x1", "IsOff=1x1" }).ToArray();
-                co.aInteractions = co.aInteractions.Concat(new[] { MedicalRules.Sleep, MedicalRules.Rest, MedicalRules.Lay }).Distinct().ToArray();
+                co.aInteractions = co.aInteractions.Concat(new[] { MedicalRules.Sleep, MedicalRules.Rest, MedicalRules.Lay, MedicalRules.Send }).Distinct().ToArray();
             }
             // Walk-to and lie-down point in the middle of the mattress, as the Infirmaway's; power from the wall row behind its head.
             co.mapPoints = new[] { MedicalRules.UsePoint + "," + MedicalRules.PatientPointOffset, MedicalRules.SleepPoint + "," + MedicalRules.PatientPointOffset,

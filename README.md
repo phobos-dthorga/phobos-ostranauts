@@ -37,13 +37,13 @@ published-release or installed-version claims. Current build baseline:
 
 | Mod | Version | What it does | Status / guide |
 | --- | --- | --- | --- |
-| **Phobos Framework** | 0.83.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/development/framework-author-guide.md) |
+| **Phobos Framework** | 0.84.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/development/framework-author-guide.md) |
 | **Phobos Shipbreaker** | 0.72.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
 | **Phobos Auto Nav** | 0.32.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/development/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.46.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.41.0 | Fennmark V4 refinery, X2 electrolysis cell, K2 Sabatier reactor, Tolvane AX-2 ammonia cracker, Lixivar LC-3 leach unit and SA-3 acid plant, gas and acid stores in three sizes, L2 canister filling station, A2 cabin air regulator and P1 RCS manifold: mined ore into water, metal stock, oxygen, ammonia, fertiliser salts, sulfuric acid, cabin air, bottled gas and thruster propellant | Requires Framework 0.83.0; water from an S3 or R3; [player guide](docs/manufacturing-player-guide.md) |
 | **Phobos' War Has Been Declared** | 0.1.1 | Battle stations log parts destroyed on your ships; standing down lays the game's own build sites where they stood, filtered by player-editable rebuild schematics | Requires Framework 0.45.1; no items; [player guide](docs/war-declared-player-guide.md) |
-| **Phobos Medical** | 0.1.1 | Halewright Ward-3 medical bed: lay an unconscious casualty in it, let the injured rest awake, or sleep; powered care with the game's own medical-rest healing, stopping when the power does | Requires Framework 0.82.0; uses the vanilla bed's art for now; [player guide](docs/medical-player-guide.md) |
+| **Phobos Medical** | 0.2.0 | Halewright Ward-3 medical bed: lay an unconscious casualty in it, let the injured rest awake, or sleep; powered care with the game's own medical-rest healing, stopping when the power does | Requires Framework 0.84.0; uses the vanilla bed's art for now; [player guide](docs/medical-player-guide.md) |
 
 Approach Assist has been retired and removed; its prototype remains in Git history. Phobos Medical's monitor, medic care and autodoc, and asteroid life-support processing, remain proposals.
 External hull cutting is bounded to supported ordinary walls; broader structural

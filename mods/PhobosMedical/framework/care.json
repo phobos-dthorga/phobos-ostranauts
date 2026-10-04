@@ -16,5 +16,11 @@
     "pain": 20,
     "wound": 0.1,
     "dischargeShare": 0.5
+  },
+  "levels": {
+    "bed": {
+      "notes": "What the Ward-3 adds to the game's own Recuperating (0.2.0). weightlessHealing is the share of normal wound healing a weightless patient keeps under care: the game's own figure is 0.05 (a twentieth); 1 removes the penalty. Agent default 1, open to owner revision.",
+      "weightlessHealing": 1.0
+    }
   }
 }

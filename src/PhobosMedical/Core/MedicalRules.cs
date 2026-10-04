@@ -29,6 +29,8 @@ public static class MedicalRules
     public const string Controls = "PhobosMedicalControls";
     public const string Rest = "PhobosMedicalRest", RestLoop = "PhobosMedicalRestLoop", RestSleep = "PhobosMedicalRestSleep",
         RestEnd = "PhobosMedicalRestEnd", RestCancel = "PhobosMedicalRestCancel", Lay = "PhobosMedicalLay";
+    /// <summary>The right-click toggle for Send injured crew here (Medical 0.2.0).</summary>
+    public const string Send = "PhobosMedicalSend";
     public const string RestStartLoot = "PhobosMedicalRestStartUs", RestStopLoot = "PhobosMedicalRestStopUs";
     public const string BedFreeTrigger = "PhobosMedicalBedFree", CanRestTrigger = "PhobosMedicalCanRest",
         DrawerTrigger = "PhobosMedicalDrawer", DrawerClothTrigger = "PhobosMedicalDrawerCloth";

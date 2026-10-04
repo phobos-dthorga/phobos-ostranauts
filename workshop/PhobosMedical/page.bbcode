@@ -1,5 +1,5 @@
 [h1]Phobos Medical[/h1]
-[b]Version:[/b] 0.1.1
+[b]Version:[/b] 0.2.0
 [b]Publication status:[/b] Not published - held draft, awaiting owner gameplay checks
 
 The game's medical bed only helps someone tired enough to climb into it. The Halewright Ward-3 takes the casualties too: lay an unconscious crew member in it, let the injured lie down awake, and keep them mending while the power holds.
@@ -10,6 +10,8 @@ The game's medical bed only helps someone tired enough to climb into it. The Hal
 [*][b]Rest and recover[/b]: an injured crew member lies down awake and recuperates without being tired. They fall asleep in place if sleepy and get up once their injuries have eased.
 [*][b]Sleep[/b]: anyone tired may sleep in a free Ward-3, as in the vanilla bed, unless you keep it for the injured.
 [*]While the bed has power and air, its patient gets the game's own medical-rest healing, the same as the vanilla Infirmaway gives a sleeper. Cut the power and the care stops, with one line in the crew log, until it returns.
+[*][b]Send injured crew here[/b]: switch it on and a free bed calls the worst-off injured crew member to rest, without cancelling what they are doing.
+[*][b]Weightless care[/b]: weightlessness normally slows wound healing to a twentieth; under the Ward-3's care a patient heals at the normal rate.
 [*]A Control Panel shows the patient, how long they have been under care, blood lost, infection, pain, the worst wound and any bleeding.
 [*]A small bedside drawer for dressings, splints and medicines.
 [/list]
@@ -26,7 +28,7 @@ The bed's power and the thresholds that decide who counts as injured live in a d
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.82.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.84.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [/list]
 
@@ -42,7 +44,7 @@ The bed's power and the thresholds that decide who counts as injured live in a d
 [list]
 [*]Ordinary saves are supported. Each bed remembers its patient and setting.
 [*]Its cartridges and folded arms are styling for a 2075 sickbay; the healing is the game's own medical rest, not nanomachine surgery.
-[*]It does not dress wounds, splint fractures or cure anything by itself yet, and weightlessness still slows healing in it. A patient monitor, medic care and an autodoc are planned.
+[*]It does not dress wounds, splint fractures or cure anything by itself yet. A patient monitor, medic care and an autodoc are planned.
 [*]Automated checks pass; in-game checks are still pending.
 [/list]
 

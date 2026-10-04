@@ -132,7 +132,7 @@ New services land with Phobos Medical as first consumer:
 | --- | --- | --- |
 | 0 | records only | This record, the research record, the art handoff, the brand, the AGENTS.md direction |
 | 1 | Framework 0.82.0, Medical 0.1.0 | Ward-3: sleep, rest awake, lay a casualty, honest power, drawer, status panel, `care` pack |
-| 2 | Framework 0.83.0, Medical 0.2.0 | Injured-crew order; weightless care |
+| 2 | Framework 0.84.0, Medical 0.2.0 | Injured-crew order; weightless care (done; Framework 0.83.0 went to another change) |
 | 3 | Framework 0.84.0, Medical 0.3.0 | Vigil-1 patient monitor: pairs by touching, readout and alerts only, never heals |
 | 4 | Framework 0.85.0, Medical 0.4.0 | Treatments in the pack; medic order stocking the drawer |
 | 5 | Medical 0.5.0 | Attend-2 autodoc: no rack of its own, progress by measured energy |
@@ -165,3 +165,26 @@ Place and rotate the bed; sleep powered and unpowered; rest awake then fall asle
 place; lay a dragged unconscious crew member and drag them off; cut and restore power
 mid-care; a second crew member is refused; save and reload in each route; one-hour and
 eight-hour skips.
+
+## Set 2 as built (Medical 0.2.0, Framework 0.84.0)
+
+Owner go, 4 October 2026 ("proceed with what's next").
+
+- **Weightless care.** `Health.WoundGravity` (Framework) patches the game's private
+  `Wound.Run` by hand: exactly one `ldc.r8 0.05` after its `DcGrav01` test becomes a call to
+  `WoundGravity.Factor(patient, 0.05)`, which returns the larger of 0.05 and the patient's
+  `StatPhobosWoundGravityFactor`, capped at 1. Any other count leaves the method unchanged
+  and `Available` false; the bed's panel then says so. The bed sets the stat to the care
+  pack's `levels.bed.weightlessHealing` while caring and clears it with the rest of its care
+  (the hidden care mark and sweep cover a bed destroyed under its patient). Shipped value
+  1: an agent default, open to owner revision. It restores bleed easing too, because the
+  game uses the same rate for both.
+- **Send injured crew here.** A sixth field on the bed record (`send`; five-field records
+  from 0.1.x read with it off), a right-click toggle and a panel setting. Each bed step,
+  if the bed is free, powered and in air, the worst-off injured crew member (Framework
+  `CrewWork.Crew()`, `BedRules.Severity`) who is awake, not under the player's control
+  (`IsAIManual`, the selected crew member, the player character), not fighting, not asleep
+  and not already resting or queued to rest, gets Rest and recover appended to their queue
+  (`QueueInteraction`, never `AIIssueOrder`, which cancels everything). A bed waits up to
+  90 real seconds for the person it sent. One crew-log line names them.
+

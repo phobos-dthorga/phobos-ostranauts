@@ -30,6 +30,8 @@ public static class CrewWork
     public static CondOwner? Actor => executing?.Actor;
     public static bool IsExecuting => executing != null;
     public static bool AllCrewAboard(Ship ship) => CrewRoster.AllAboard(ship);
+    /// <summary>The player's loaded crew, from the same company roster the game's time skip uses (Framework 0.84.0).</summary>
+    public static IReadOnlyList<CondOwner> Crew() => CrewRoster.Members();
     public static event Action? SkipStarting;
     public static IEnumerable<ICrewWorkProvider> Providers => providers.Values;
     public static string Message(string key, params object[] args) => Text.Get("Crew." + key, args);

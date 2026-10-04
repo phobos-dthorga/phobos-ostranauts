@@ -73,6 +73,11 @@ internal static class MedicalNativeChecks
             check(item.fZScale == DataHandler.dictItemDefs["ItmBedMedical01"].fZScale, "Ward-3 draws as low as the game's medical bed: " + form);
         }
 
+        // Medical 0.2.0: Send injured crew here, and the weightless-care stat Framework reads.
+        check(installed.aInteractions.Contains(MedicalRules.Send) && DataHandler.dictInteractions.ContainsKey(MedicalRules.Send), "The installed Ward-3 offers Send injured crew here");
+        check(DataHandler.dictConds.ContainsKey(Phobos.Ostranauts.Framework.Health.WoundGravity.FactorStat), "Framework's weightless-healing stat is a registered condition");
+        WoundGravityChecks(check);
+
         // The vanilla shapes the bed relies on.
         check(DataHandler.dictCTs["TIsBedMedical"].aForbids.Contains("IsOff"), "The game's medical-bed test refuses an Off bed (power mirrors into IsOff)");
         check(DataHandler.dictCTs["TIsBedFree"].aForbids.Contains("IsOccupied"), "The game's free-bed test refuses an occupied bed");
@@ -84,5 +89,44 @@ internal static class MedicalNativeChecks
             && DataHandler.dictCTs["TIsValidTick1HourIncapacitated"].aForbids.Contains(MedicalRules.SleepingMedical),
             "Time skip gives an unconscious patient with medical sleep the game's medical hour, not the incapacitated one");
         check(DataHandler.dictConds["IsOccupied"].bResetTimer, "The game's occupied mark resets its timer when refreshed");
+    }
+
+    /// <summary>Framework 0.84.0's wound-gravity patch against the installed game's own <c>Wound.Run</c>: exactly one
+    /// <c>ldc.r8 0.05</c> follows the <c>DcGrav01</c> test in its IL (read as bytes, without Harmony's runtime), and the
+    /// pure rewrite replaces exactly one constant in a synthetic copy of that shape and leaves any other shape alone.</summary>
+    private static void WoundGravityChecks(Action<bool, string> check)
+    {
+        var run = typeof(Wound).GetMethod("Run", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        check(run != null && run.GetParameters().Length == 1 && run.GetParameters()[0].ParameterType == typeof(double), "The game's Wound.Run(double) exists");
+        var il = run!.GetMethodBody()!.GetILAsByteArray()!;
+        int matches = 0;
+        for (int i = 0; i + 5 <= il.Length; i++)
+        {
+            if (il[i] != 0x72) continue; // ldstr
+            string? text = null;
+            try { text = run.Module.ResolveString(BitConverter.ToInt32(il, i + 1)); } catch (ArgumentException) { }
+            if (text != Phobos.Ostranauts.Framework.Health.WoundGravity.GravityCondition) continue;
+            for (int j = i + 5; j + 9 <= il.Length && j < i + 40; j++)
+                if (il[j] == 0x23 && Math.Abs(BitConverter.ToDouble(il, j + 1) - Phobos.Ostranauts.Framework.Health.WoundGravity.NativeFactor) < 1e-12) { matches++; break; }
+        }
+        check(matches == 1, "The game's Wound.Run multiplies by 0.05 exactly once after its DcGrav01 test (" + matches + ")");
+        HarmonyLib.CodeInstruction I(System.Reflection.Emit.OpCode op, object? operand = null) => new(op, operand);
+        // The rewrite changes the constant's own instruction in place, as transpilers do, so each case builds a fresh shape.
+        System.Collections.Generic.List<HarmonyLib.CodeInstruction> Shape() => new()
+        {
+            I(System.Reflection.Emit.OpCodes.Ldloc_1), I(System.Reflection.Emit.OpCodes.Ldstr, "DcGrav01"), I(System.Reflection.Emit.OpCodes.Callvirt, typeof(CondOwner).GetMethod("HasCond", new[] { typeof(string) })),
+            I(System.Reflection.Emit.OpCodes.Brfalse_S), I(System.Reflection.Emit.OpCodes.Ldloc_2), I(System.Reflection.Emit.OpCodes.Ldc_R8, 0.05), I(System.Reflection.Emit.OpCodes.Mul), I(System.Reflection.Emit.OpCodes.Stloc_2)
+        };
+        var shape = Shape();
+        var rewritten = Phobos.Ostranauts.Framework.Health.WoundGravity.Rewrite(Shape(), out int count);
+        check(count == 1 && rewritten.Count == shape.Count + 2 && rewritten[5].opcode == System.Reflection.Emit.OpCodes.Ldloc_1 && rewritten[6].opcode == System.Reflection.Emit.OpCodes.Ldc_R8
+            && rewritten[7].opcode == System.Reflection.Emit.OpCodes.Call && rewritten[8].opcode == System.Reflection.Emit.OpCodes.Mul,
+            "The rewrite loads the patient and asks Factor in place of the constant");
+        var twice = Shape(); twice.AddRange(Shape());
+        var untouched = Phobos.Ostranauts.Framework.Health.WoundGravity.Rewrite(twice, out int doubled);
+        check(doubled == 2 && untouched.Count == twice.Count && untouched.Count(c => c.opcode == System.Reflection.Emit.OpCodes.Ldc_R8) == 2, "Two matches leave the method unchanged");
+        var none = Phobos.Ostranauts.Framework.Health.WoundGravity.Rewrite(Shape().Take(4).ToList(), out int missing);
+        check(missing == 0 && none.Count == 4, "No match leaves the method unchanged");
+        check(Phobos.Ostranauts.Framework.Health.WoundGravity.Factor(null!, 0.05) == 0.05, "Without a patient the game's own factor stands");
     }
 }

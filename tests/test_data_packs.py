@@ -149,6 +149,13 @@ class DataPackTests(unittest.TestCase):
             bad[section][field] = value
             with self.subTest(field=field, value=value), self.assertRaises(validate.Problem):
                 validate.care(bad, 'test')
+        for value in (0.01, 1.5):
+            bad = json.loads(json.dumps(pack))
+            bad['levels']['bed']['weightlessHealing'] = value
+            with self.subTest(weightless=value), self.assertRaises(validate.Problem):
+                validate.care(bad, 'test')
+        legacy = json.loads(json.dumps(pack)); del legacy['levels']
+        validate.care(legacy, 'test')
         bad = json.loads(json.dumps(pack))
         bad['admission']['heal'] = 1
         with self.assertRaises(validate.Problem):

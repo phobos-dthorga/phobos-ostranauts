@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.83.0";
+    public const string Version = "0.84.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -57,6 +57,8 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Diagnostics.NativePerformance.Initialize(message => Logger.LogWarning(message));
         harmony = new Harmony(FrameworkInfo.PluginId);
         harmony.PatchAll(typeof(FrameworkPlugin).Assembly);
+        // Weightless care (0.84.0): applied by hand so a changed game method never stops the rest of Framework.
+        Health.WoundGravity.Apply(harmony, message => Logger.LogWarning(message));
         FrameworkLifecycle.ContentLoaded += Crew.CrewSpecialities.Definitions;
         FrameworkLifecycle.ContentLoaded += Trading.FactionKiosks.Definitions;
         // Framework's own water tanks (0.58.0): their panel, console group, station water and the crew reserve setting,

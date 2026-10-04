@@ -1563,6 +1563,9 @@
   perform the game's own wound slotting on real items, never authored wound changes;
   the monitor never heals; the autodoc follows the medic. Shared patient, wound,
   placement and gravity services belong in Framework with Medical as first consumer.
+  Delivered: Medical 0.1.x (Ward-3 bed, care pack, owner-selected 2075 art) and 0.2.0 with
+  Framework 0.84.0 (Send injured crew here; weightless care through one hand-applied
+  `Wound.Run` transpiler, `levels.bed.weightlessHealing` default 1 as an agent default).
   Owner gameplay checks remain pending.
 
 ## Documentation audiences

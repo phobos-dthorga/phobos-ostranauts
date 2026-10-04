@@ -27,6 +27,9 @@ internal static class BedService
         internal bool Protected;
         internal double LastTick = double.NaN;
         internal CareReason Reason = CareReason.NoPatient;
+        /// <summary>The crew member last sent here and when (real seconds), so one bed sends one person at a time.</summary>
+        internal string Sent = "";
+        internal float SentAt = float.NegativeInfinity;
     }
     private static ConditionalWeakTable<CondOwner, Session> sessions = new();
     /// <summary>Patients a bed claimed on its last tick, so the care sweep never withdraws care a bed still gives.</summary>
@@ -133,8 +136,41 @@ internal static class BedService
             patient.AddCondAmount(MedicalRules.Rested, 1);
         // A laid patient has no loop of their own on the bed; keep it marked occupied, as the game's sleep loop does.
         if (patient != null && s.State.Route == BedRoute.Laid) bed.AddCondAmount("IsOccupied", 1);
+        if (s.State.SendInjured && patient == null && s.Reason == CareReason.NoPatient && powered && pressurised) Dispatch(bed, s);
         Save(bed, s);
     }
+
+    /// <summary>How long a bed waits for the person it sent before it may send someone else, in real seconds.</summary>
+    internal const float SendPatience = 90;
+
+    /// <summary>Send injured crew here: the worst-off injured crew member aboard who is awake, not under the player's
+    /// direct control, not already resting or on the way to a bed, and not fighting, is given Rest and recover at the
+    /// end of whatever they are doing. Nothing they are doing is cancelled.</summary>
+    private static void Dispatch(CondOwner bed, Session s)
+    {
+        float now = UnityEngine.Time.unscaledTime;
+        var sent = CrewWork.Resolve(s.Sent);
+        if (sent != null && now - s.SentAt < SendPatience && sent.HasQueuedInteraction(MedicalRules.Rest)) return;
+        CondOwner? best = null; double worst = 0;
+        foreach (var crew in CrewWork.Crew())
+        {
+            if (!Sendable(crew, bed)) continue;
+            var facts = PatientFacts.Read(crew);
+            if (facts == null || !BedRules.Injured(facts, Care.Admission)) continue;
+            double severity = BedRules.Severity(facts);
+            if (best == null || severity > worst) { best = crew; worst = severity; }
+        }
+        if (best == null) return;
+        var rest = DataHandler.GetInteraction(MedicalRules.Rest);
+        if (rest == null || !rest.Triggered(best, bed) || !best.QueueInteraction(bed, rest)) return;
+        s.Sent = best.strID; s.SentAt = now;
+        PlayerNotices.Post(bed.ship, "PhobosMedical.send", NoticeLevel.Info, Text.Get("Bed.sent", ObjectPresentation.Name(best), ObjectPresentation.Name(bed)));
+    }
+
+    internal static bool Sendable(CondOwner crew, CondOwner bed) =>
+        crew != null && !crew.bDestroyed && crew.ship == bed.ship && crew.HasCond("IsHuman") && !crew.HasCond("IsDead") && !crew.HasCond("Unconscious") &&
+        !crew.HasCond("IsAIManual") && crew != CrewSim.GetSelectedCrew() && crew != CrewSim.coPlayer && !crew.HasCond("IsInCombat") && !crew.HasCond("InSocialCombat") &&
+        !crew.HasCond(MedicalRules.Resting) && !crew.HasCond("Sleeping") && !crew.HasCond(MedicalRules.SleepingMedical) && !crew.HasQueuedInteraction(MedicalRules.Rest);
 
     private static void SetInUse(CondOwner bed, bool on)
     {
@@ -148,12 +184,17 @@ internal static class BedService
         if (!patient.HasCond(want)) patient.AddCondAmount(want, 1);
         if (other == MedicalRules.Recovering && patient.HasCond(other)) patient.ZeroCondAmount(other);
         if (!patient.HasCond(MedicalRules.CareMark)) patient.AddCondAmount(MedicalRules.CareMark, 1);
+        // Weightless care (0.2.0): the share of normal wound healing the patient keeps while weightless.
+        double weightless = Care.WeightlessHealing(CareSchema.Bed);
+        if (weightless > WoundGravity.NativeFactor && Math.Abs(patient.GetCondAmount(WoundGravity.FactorStat) - weightless) > 1e-9)
+            patient.SetCondAmount(WoundGravity.FactorStat, weightless);
     }
     /// <summary>Takes the bed's care off a person: its own Recovering, and the game's medical sleep where the bed gave it.</summary>
     internal static void Withdraw(CondOwner person)
     {
         if (person == null || person.bDestroyed) return;
         if (person.HasCond(MedicalRules.Recovering)) person.ZeroCondAmount(MedicalRules.Recovering);
+        if (person.HasCond(WoundGravity.FactorStat)) person.ZeroCondAmount(WoundGravity.FactorStat);
         if (person.HasCond(MedicalRules.CareMark))
         {
             if (person.HasCond(MedicalRules.SleepingMedical)) person.ZeroCondAmount(MedicalRules.SleepingMedical);
@@ -247,11 +288,15 @@ internal static class BedService
             lines.Add(Text.Get("Bed.care_" + s.Reason));
             if (PatientFacts.Read(patient) is { } f)
                 lines.Add(Text.Get("Bed.facts", f.BloodLost, f.Infection, f.Pain, f.WorstWound * 100, f.Bleeding, f.UnsplintedFractures));
+            if (patient.HasCond(WoundGravity.GravityCondition))
+                lines.Add(!WoundGravity.Available ? Text.Get("Bed.weightless_unavailable")
+                    : Text.Get("Bed.weightless", WoundGravity.Factor(patient, WoundGravity.NativeFactor) * 100, WoundGravity.NativeFactor * 100));
         }
         var air = RoomHeat.Read(bed, MedicalRules.SleepPoint);
         lines.Add(air == null ? Text.Get("Bed.room_vacuum") : Text.Get("Bed.room", air.PressureKPa));
         lines.Add(bed.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"));
         lines.Add(Text.Get(s.State.Reserved ? "Bed.use_injured" : "Bed.use_anyone"));
+        lines.Add(Text.Get(s.State.SendInjured ? "Bed.send_on" : "Bed.send_off"));
         return string.Join("\n", lines);
     }
 
@@ -282,6 +327,8 @@ internal static class BedService
         {
             case "use:injured": s.State.Reserved = true; message = Text.Get("Bed.use_injured"); break;
             case "use:anyone": s.State.Reserved = false; message = Text.Get("Bed.use_anyone"); break;
+            case "send:on": s.State.SendInjured = true; message = Text.Get("Bed.send_on"); break;
+            case "send:off": s.State.SendInjured = false; message = Text.Get("Bed.send_off"); break;
             default: message = Text.Get("Content.unsupported_action"); return false;
         }
         if (!Save(bed, s)) { message = Text.Get("Bed.protected"); return false; }

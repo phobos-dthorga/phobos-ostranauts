@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "strName": "StatPhobosWoundGravityFactor",
+    "strNameFriendly": "Weightless healing restored",
+    "strDesc": "Medical equipment is restoring this share of [us-pos] normal wound healing while weightless.",
+    "strColor": "Neutral",
+    "nDisplaySelf": 0,
+    "nDisplayOther": 0,
+    "fClampMax": 1.0
+  }
+]

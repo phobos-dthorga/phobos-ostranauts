@@ -15,6 +15,17 @@ public sealed class CarePack : DataPack
     /// <summary>Electrical demand by station: <c>bed</c>.</summary>
     public Dictionary<string, StationEntry> stations = new(StringComparer.Ordinal);
     public AdmissionEntry admission = new();
+    /// <summary>What each station adds to the game's own care (Medical 0.2.0); absent means nothing added.</summary>
+    public Dictionary<string, LevelEntry>? levels;
+}
+
+/// <summary>The bed's additions to the game's Recuperating.</summary>
+public sealed class LevelEntry
+{
+    public string? notes;
+    /// <summary>Share of normal wound healing a weightless patient keeps while under care, from the game's own 0.05
+    /// (no lift) to 1 (no weightless penalty at all). Needs Framework's wound-gravity patch.</summary>
+    public double weightlessHealing = Phobos.Ostranauts.Framework.Health.WoundGravity.NativeFactor;
 }
 
 public sealed class StationEntry
@@ -41,6 +52,9 @@ public static class CareSchema
     public const string Bed = "bed";
     public static readonly IReadOnlyList<string> Stations = new[] { Bed };
     public const double MaxKW = 2;
+    /// <summary>Stations that can add to the game's care: the bed (Medical 0.2.0).</summary>
+    public static readonly IReadOnlyList<string> Levels = new[] { Bed };
+    public const double MinWeightless = Phobos.Ostranauts.Framework.Health.WoundGravity.NativeFactor;
     /// <summary>The game's fatal or knock-out levels: an admission threshold must sit below them to mean anything.</summary>
     public const double FatalBloodLost = 40, FatalInfection = 95, KnockoutPain = 75;
 
@@ -64,6 +78,12 @@ public static class CareSchema
         Between(a.pain, KnockoutPain, "pain");
         Between(a.wound, 1, "wound");
         if (!Finite(a.dischargeShare) || a.dischargeShare < 0 || a.dischargeShare >= 1) throw new ArgumentException(Text.Get("care_discharge"));
+        foreach (var pair in pack.levels ?? new Dictionary<string, LevelEntry>())
+        {
+            if (!Levels.Contains(pair.Key)) throw new ArgumentException(Text.Get("care_level_unknown", pair.Key, string.Join(", ", Levels)));
+            double w = pair.Value?.weightlessHealing ?? double.NaN;
+            if (!Finite(w) || w < MinWeightless || w > 1) throw new ArgumentException(Text.Get("care_weightless", pair.Key, MinWeightless));
+        }
     }
     private static void Between(double value, double below, string field)
     {
@@ -85,4 +105,6 @@ public static class Care
     public static void Use(CarePack loaded) { CareSchema.Validate(loaded); pack = loaded; }
     public static StationEntry Station(string station) => Pack.stations.TryGetValue(station, out var s) ? s : throw new InvalidOperationException("No care station " + station);
     public static AdmissionEntry Admission => Pack.admission;
+    /// <summary>The share of normal healing a weightless patient keeps in this station's care; the game's own 0.05 when the pack says nothing.</summary>
+    public static double WeightlessHealing(string station) => Pack.levels != null && Pack.levels.TryGetValue(station, out var l) ? l.weightlessHealing : CareSchema.MinWeightless;
 }

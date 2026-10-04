@@ -28,6 +28,12 @@ Throws(() => Load(Edited(o => o["stations"]!["bed"]!["workingKW"] = 5)), "a stat
 Throws(() => Load(Edited(o => o["stations"]!["monitor"] = new JObject { ["idleKW"] = 0, ["workingKW"] = 0.1 })), "a station the code does not know is refused");
 Throws(() => Load(Edited(o => ((JObject)o["stations"]!).Remove("bed"))), "a missing bed station is refused");
 Throws(() => Load(Edited(o => o["admission"]!["heal"] = 2)), "an unknown field is refused (no authored healing)");
+Check(Math.Abs(Care.WeightlessHealing(CareSchema.Bed) - 1) < 1e-12, "the shipped bed lifts the weightless healing penalty fully");
+Throws(() => Load(Edited(o => o["levels"]!["bed"]!["weightlessHealing"] = 0.01)), "weightless healing below the game's own 0.05 is refused");
+Throws(() => Load(Edited(o => o["levels"]!["bed"]!["weightlessHealing"] = 1.5)), "weightless healing above normal is refused");
+Throws(() => Load(Edited(o => o["levels"]!["monitor"] = new JObject { ["weightlessHealing"] = 0.5 })), "a care level the code does not know is refused");
+var noLevels = Load(Edited(o => o.Remove("levels")));
+Check(noLevels.levels == null, "a pack without levels (as written for 0.1.0) still loads");
 var tuned = Load(Edited(o => o["admission"]!["pain"] = 30));
 Check(tuned.admission.pain == 30 && tuned.admission.bloodLost == a.bloodLost, "a tuned threshold loads and the rest stay shipped");
 
@@ -60,11 +66,16 @@ double between = a.wound * (1 + a.dischargeShare) / 2;
 Check(!BedRules.Injured(Facts(worst: a.wound * 0.9), a) && !BedRules.Recovered(Facts(worst: a.wound * 0.9), a) && !BedRules.Recovered(Facts(worst: between), a),
     "between discharge and admission a patient keeps resting (no bouncing)");
 Check(!BedRules.Recovered(Facts(bleeding: true), a), "nobody gets up while bleeding");
+Check(BedRules.Severity(Facts(blood: 20)) > BedRules.Severity(Facts(blood: 10)) && BedRules.Severity(Facts(bleeding: true)) > BedRules.Severity(Facts()),
+    "the worse off someone is, the sooner a free bed calls them");
 
 // ---- The saved record ---------------------------------------------------------------------------------------
-var state = new BedState { Patient = "crew-1234", Route = BedRoute.Laid, Since = 1234.5, Reserved = true, OutageNoticed = true };
+var state = new BedState { Patient = "crew-1234", Route = BedRoute.Laid, Since = 1234.5, Reserved = true, OutageNoticed = true, SendInjured = true };
 var round = BedState.Read(state.Save());
-Check(round.Patient == state.Patient && round.Route == state.Route && round.Since == state.Since && round.Reserved && round.OutageNoticed, "the bed record round-trips");
+Check(round.Patient == state.Patient && round.Route == state.Route && round.Since == state.Since && round.Reserved && round.OutageNoticed && round.SendInjured, "the bed record round-trips");
+var legacy = new Dictionary<string, string>(state.Save()); legacy.Remove("send");
+var old = BedState.Read(legacy);
+Check(old.Patient == state.Patient && old.Reserved && !old.SendInjured, "a bed saved by 0.1.0 (five fields) reads with Send injured crew off");
 var empty = BedState.Read(new BedState().Save());
 Check(empty.Patient == "" && empty.Route == BedRoute.None && !empty.Reserved, "an empty bed saves as nobody and reads back empty");
 Check(new BedState().Save()["patient"] == BedState.Nobody, "an empty patient is saved as a word, never an empty value");

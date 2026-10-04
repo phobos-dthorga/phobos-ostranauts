@@ -86,6 +86,29 @@
         }
       },
       "description": "Who counts as injured, and when a resting patient has recovered."
+    },
+    "levels": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(bed)$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "weightlessHealing": {
+              "type": "number",
+              "minimum": 0.05,
+              "maximum": 1,
+              "description": "Share of normal wound healing a weightless patient keeps under care: 0.05 is the game's own, 1 removes the penalty."
+            }
+          }
+        }
+      },
+      "description": "What a station adds to the game's own care (Medical 0.2.0)."
     }
   },
   "required": [

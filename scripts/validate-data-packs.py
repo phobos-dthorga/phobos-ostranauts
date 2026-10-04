@@ -458,7 +458,7 @@ CARE_LIMITS = {'bloodLost': 40, 'infection': 95, 'pain': 75, 'wound': 1}
 
 def care(pack, where):
     """The care schema (Phobos Medical 0.1.0): station power and the injured and discharge thresholds."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'stations', 'admission', 'levels'}, where)
     stations = pack.get('stations')
     if not isinstance(stations, dict):
         raise Problem(f'{where}/stations: expected station to entry')
@@ -485,6 +485,16 @@ def care(pack, where):
     number(a.get('dischargeShare'), f'{where}/admission/dischargeShare', 0, 1)
     if a['dischargeShare'] >= 1:
         raise Problem(f'{where}/admission/dischargeShare: must be below 1')
+    # Medical 0.2.0: what a station adds to the game's care; optional.
+    levels = pack.get('levels', {})
+    if not isinstance(levels, dict):
+        raise Problem(f'{where}/levels: expected station to entry')
+    for key, level in levels.items():
+        w = f'{where}/levels/{key}'
+        if key not in CARE_STATIONS:
+            raise Problem(f'{w}: unknown level; the levels are {", ".join(CARE_STATIONS)}')
+        fields(level, {'notes', 'weightlessHealing'}, w)
+        number(level.get('weightlessHealing'), f'{w}/weightlessHealing', 0.05, 1)
 
 
 SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}

@@ -73939,13 +73939,13 @@
       "key": "Panel.help",
       "category": "help/settings",
       "decision": "add",
-      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept. Medical 0.2.0: extended for Send injured crew here; read in full.",
       "trace": "composed key",
       "references": [
         "src/PhobosMedical/Panel.cs:13"
       ],
-      "before": "Lay an unconscious casualty here while dragging them, or order an injured crew member to Rest and recover. Anyone tired may Sleep here unless you keep the bed for the injured. While powered and in air, the patient recuperates with the game's own medical-rest healing; cut the power and that stops until it returns. A resting patient gets up once their injuries have eased.",
-      "after": "Lay an unconscious casualty here while dragging them, or order an injured crew member to Rest and recover. Anyone tired may Sleep here unless you keep the bed for the injured. While powered and in air, the patient recuperates with the game's own medical-rest healing; cut the power and that stops until it returns. A resting patient gets up once their injuries have eased.",
+      "before": "Lay an unconscious casualty here while dragging them, or order an injured crew member to Rest and recover. Anyone tired may Sleep here unless you keep the bed for the injured. While powered and in air, the patient recuperates with the game's own medical-rest healing; cut the power and that stops until it returns. A resting patient gets up once their injuries have eased. Switch on Send injured crew here and the bed calls the worst-off injured crew member when it is free.",
+      "after": "Lay an unconscious casualty here while dragging them, or order an injured crew member to Rest and recover. Anyone tired may Sleep here unless you keep the bed for the injured. While powered and in air, the patient recuperates with the game's own medical-rest healing; cut the power and that stops until it returns. A resting patient gets up once their injuries have eased. Switch on Send injured crew here and the bed calls the worst-off injured crew member when it is free.",
       "review20261004": {
         "decision": "add",
         "reason": "Read in full with Phobos Medical 0.1.0."
@@ -73990,13 +73990,13 @@
       "key": "Console.help",
       "category": "help/settings",
       "decision": "add",
-      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept. Medical 0.2.0: extended for Send injured crew here; read in full.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosMedical/Plugin.cs:149"
       ],
-      "before": "phobosmedical list | status <id> | use <id> anyone|injured | accept <id>",
-      "after": "phobosmedical list | status <id> | use <id> anyone|injured | accept <id>",
+      "before": "phobosmedical list | status <id> | use <id> anyone|injured | send <id> on|off | accept <id>",
+      "after": "phobosmedical list | status <id> | use <id> anyone|injured | send <id> on|off | accept <id>",
       "review20261004": {
         "decision": "add",
         "reason": "Read in full with Phobos Medical 0.1.0."
@@ -74103,6 +74103,231 @@
         "decision": "add",
         "reason": "Read in full with Phobos Medical 0.1.0."
       }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.send.title",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:73"
+      ],
+      "before": "Send injured crew here",
+      "after": "Send injured crew here",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.send.action",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:73"
+      ],
+      "before": "[us] [sets] [them] to take injured crew.",
+      "after": "[us] [sets] [them] to take injured crew.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Interaction.send.tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosMedical/Definitions.cs:73"
+      ],
+      "before": "Switch on or off: while this bed is free and powered, an injured crew member is sent to rest in it.",
+      "after": "Switch on or off: while this bed is free and powered, an injured crew member is sent to rest in it.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.sent",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/BedService.cs:167"
+      ],
+      "before": "{0} is going to rest in {1}.",
+      "after": "{0} is going to rest in {1}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.send_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/BedService.cs:299",
+        "src/PhobosMedical/BedService.cs:330"
+      ],
+      "before": "Send injured crew here: on. While free and powered, this bed calls the worst-off injured crew member to rest.",
+      "after": "Send injured crew here: on. While free and powered, this bed calls the worst-off injured crew member to rest.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.send_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/BedService.cs:299",
+        "src/PhobosMedical/BedService.cs:331"
+      ],
+      "before": "Send injured crew here: off.",
+      "after": "Send injured crew here: off.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.weightless",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/BedService.cs:293"
+      ],
+      "before": "Weightless: wounds heal at {0:0}% of normal under care (the game's own is {1:0}%).",
+      "after": "Weightless: wounds heal at {0:0}% of normal under care (the game's own is {1:0}%).",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Bed.weightless_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/BedService.cs:292"
+      ],
+      "before": "Weightless: this game version's wound code has changed, so the bed cannot lift the weightless healing penalty.",
+      "after": "Weightless: this game version's wound code has changed, so the bed cannot lift the weightless healing penalty.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Provider.send_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Provider.cs:23"
+      ],
+      "before": "Send injured crew here",
+      "after": "Send injured crew here",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Provider.on",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Provider.cs:23",
+        "src/PhobosMedical/Provider.cs:24"
+      ],
+      "before": "On",
+      "after": "On",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "Provider.off",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Provider.cs:23",
+        "src/PhobosMedical/Provider.cs:24"
+      ],
+      "before": "Off",
+      "after": "Off",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_level_unknown",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/CarePack.cs:83"
+      ],
+      "before": "Unknown care level {0}; the levels are {1}.",
+      "after": "Unknown care level {0}; the levels are {1}.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
+    },
+    {
+      "mod": "PhobosMedical",
+      "key": "care_weightless",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "New player text for Phobos Medical 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosMedical/Core/CarePack.cs:85"
+      ],
+      "before": "Level {0}: weightlessHealing must be from {1} (the game's own) to 1.",
+      "after": "Level {0}: weightlessHealing must be from {1} (the game's own) to 1.",
+      "review20261004": {
+        "decision": "add",
+        "reason": "Read in full with Phobos Medical 0.1.0."
+      }
     }
   ],
   "documents": [
@@ -74110,8 +74335,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "afdd4de641a74faf99f89b2e9163b1ef2c8ed095fed524435afc13191b341875",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "3d67c7a757b81e5807fef80f99c7f034392b0a08646cc17078c32dade09abd13",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "SUPPORT.md",
@@ -74270,8 +74495,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4e61fd7de1b0787e59fb8b1e2b80554eb0a5b408d291f782c5f70e402a6e0e40",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "1a4dd083bfcf726eb8d99aa772866b4bb98d4c6e454d9a43b5b45ef65e726f30",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/crew-automation.md",
@@ -74613,7 +74838,7 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dcc3b262c8ee400b965300c3d96daf6b291efd6594d269fc40c771c8671d8e08",
+      "sha256": "ea132e8deee5dc6801a52eeb8ebe374889ec8db60fe47a979d3e2f306b351ac1",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -74704,7 +74929,7 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "87db6a4685da27691ac48905dd4b00fe277070d0e2ab8e71949351d8e1247659",
+      "sha256": "4f53a16c93fcad32411362bd7ca93c495a4ccb6abd7bb10d6be383862eaa570e",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -74798,7 +75023,7 @@
       "path": "docs/development/medical-bed-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "743314ad58d12c7a5a959be85179e9ef469bb0db9adf98896d6d4c0ae2ccb540",
+      "sha256": "2d803c7e49edf4626c77be7382e06bcf657213b03b5dc5056291395c075e793f",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75061,7 +75286,7 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "60f2aa951e9e9037021e03c83a7c2f75b1580a46a3c5d054364eca5b6f89b16a",
+      "sha256": "df440afede0fa5787aade891deaee5027f767c3660c6a72780075db82db40e1e",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75089,7 +75314,7 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "df88efe05f131c6922fd2143468003a9d8f37a8bdf07edc1dc0cb56bed473e73",
+      "sha256": "2740345438da90b757b72cb892ff82b2517044157f4349af178fd493bf777077",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75110,8 +75335,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d5b11a4f42e404917fe5dab4f13a805a0f2084cb498d752673fd991c36e64bc6",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "d59efee5d086488367cb30355736f8b648f7cb055da5a3672bac388d00645e6d",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -75173,8 +75398,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1dca68f8243c103e5615e1347527a2e1361623724d34afc22a08e5d49b9e7900",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "0a93b24473813f5751f4f73f61df08eb1a70dd8122d98c4fe675d2252969f3a3",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/item-references.md",
@@ -75215,14 +75440,14 @@
       "path": "docs/medical-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "630bd2bc5f4aeb4e35d5053cf17ac61043dfc1b65c37dace6bade51a2a9245e1",
+      "sha256": "bda559b1d20be2c8de147be608bf2d6474e4df194eefac542990a183cd867c27",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/medical-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "df138e478adf9156261563e544c6f261f0e6e9f9a17755d43056b4d222958881",
+      "sha256": "a8f7e344c63b861e325de09181ceb806036c0da9d3f5dacf0676a2f2ea776bff",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75236,8 +75461,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1e72e994e0382709253ac141bf6f5c3dc58a8d20657fd5657141645cb7330d2b",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "f00254e9848733b982d4f3bd669fa2b16b6948264c39debf1ecc9f4762a66118",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/residue-collector.md",
@@ -75355,8 +75580,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3ab143b0b93356b28a9c53b033df9501de0b8439ee2ed0ac0a9516d955f32164",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "cd526d946224d2f4ef61d991470940f3395b8dd51c877b5ba6240c8ca0ca9d9f",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -75369,8 +75594,8 @@
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "76904e3e56f0ae25a606d431a33f2b5292e83187050a85735944bb1141658eaa",
-      "review": "4 October 2026, Medical Workshop cover: reviewed the current held page in full. New cover credit describes a resting spacer and original promotional artwork, with care unchanged and no additional treatment promise; current capabilities, commands, requirements and publication status retained."
+      "sha256": "8eb3d4f36c6cd6725c942fc4f9007eb8902a3bfb04d323a0928c1fa4722a7685",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -75391,8 +75616,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "15a8e184b57802c28963048e67432b279664eaddc9c5a969d764fcff7476b313",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "72514286ffd67641202de7af28e96773387a6d8661a495ee7d0495531171425d",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -75443,8 +75668,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9632d8825f565874411d2ca4823baa76603e040ae40957218ea0426a01affe34",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "1b01534184b15e0989f66dca69ab2bf6382aa277bc63a0af152d16e3261ded57",
+      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -75503,7 +75728,7 @@
     {
       "path": "mods/PhobosMedical/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "990866b4adce707b386724a02ceaab8d1c23b8376913bd035e6c64902f132f72",
+      "sha256": "34fcd96a509a9f325454eaf006bc440bb5a40281aa7be2de641b0194b31e7375",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     }
   ],

@@ -5,7 +5,7 @@ medical bed only helps someone tired enough to climb in and sleep; the Ward-3 al
 takes an unconscious casualty and lets the injured lie down awake, and keeps them
 mending while its power holds.
 
-Phobos Medical 0.1.0 requires Phobos Framework (see [installing](installing-mods.md)
+Phobos Medical requires Phobos Framework (see [installing](installing-mods.md)
 for the current minimum). Automated checks pass; in-game checks are still pending.
 
 ## Getting it running
@@ -57,8 +57,10 @@ own medical hour, which also clears a little poison and radiation.
 - **No power, no care.** If the power or the room's air fails, the care stops at
   once and the crew log says so; it starts again when they return. An unpowered
   Ward-3 is an ordinary bed.
-- **Weightlessness still slows healing.** The game cuts wound healing to a
-  twentieth in microgravity, in this bed as anywhere. A fix is planned.
+- **Weightless care.** The game cuts wound healing to a twentieth for anyone
+  weightless. A patient under the Ward-3's care heals at the normal rate instead, and
+  the panel shows it. If a game update changes the game's wound code, the bed cannot
+  do this and its panel says so.
 - **It does not treat wounds.** Dress bleeding wounds with clean cloth and splint
   fractures yourself from the paper doll, as before. Keep dressings and splints in
   the bed's drawer.
@@ -71,9 +73,21 @@ Right-click the bed and choose **Control Panel**:
   asleep or unconscious), how long they have been under care, a short reading of
   blood lost, infection, pain, the worst wound and any bleeding wounds or unsplinted
   fractures, the room's pressure and the power.
-- **Settings** has one choice, **Use**: *Anyone* (the default; anyone tired may
+- **Settings** has two choices. **Use**: *Anyone* (the default; anyone tired may
   sleep here, and the injured may also rest) or *Injured only* (sleep is offered
-  only to the injured).
+  only to the injured). **Send injured crew here**: *Off* (the default) or *On*.
+
+## Sending injured crew to bed
+
+Right-click the bed and choose **Send injured crew here**, or switch it on in
+**Settings**. While the bed is free, powered and in air, it calls the worst-off
+injured crew member to **Rest and recover**, one person at a time, and the crew log
+says who is coming.
+
+- The order joins the end of what they are already doing; nothing is cancelled.
+- It never sends the crew member you are controlling, anyone asleep, unconscious or
+  fighting, or someone already on the way to a bed.
+- Who counts as injured is the same rule as for **Rest and recover**.
 
 ## The drawer
 
@@ -93,7 +107,7 @@ The healing itself is the game's own and is not in that file.
 - Uninstalling or dismantling is refused while someone is in the bed.
 - F3 console: `phobosmedical list` names the beds on your ship; `phobosmedical
   status <id>` shows one; `phobosmedical use <id> anyone` or `injured` sets the
-  Use choice.
+  Use choice; `phobosmedical send <id> on` or `off` sets Send injured crew here.
 
 ## Saves
 
@@ -108,7 +122,8 @@ says so and offers **Accept** to start it afresh.
 | No **Lay patient here** | You are not dragging anyone, or the person is awake or dead | Drag an unconscious person first. An awake one can rest or sleep. |
 | **Rest and recover** is refused | That crew member is not injured enough | Let them sleep instead, or tune the thresholds. |
 | The patient is not recuperating | No power, no air, or the bed is damaged | Check the panel: it names the reason. |
-| Healing is very slow | The ship is weightless | The game slows wound healing in microgravity; spin up or wait for the planned fix. |
+| Healing is very slow | The patient is weightless but not under care (no power, no air), or the panel says this game version's wound code has changed | Restore power and air; otherwise spin up the ship. |
+| Nobody comes when Send injured crew here is on | Nobody aboard counts as injured, everyone injured is under your control or busy fighting, or the bed has no power or air | Check the panel; order someone to Rest and recover yourself. |
 
 More: [design record](development/medical-bed-design.md),
 [what the vanilla bed does](development/medical-bed-research.md).

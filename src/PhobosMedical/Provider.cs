@@ -19,8 +19,11 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         bool reserved = BedService.StateOf(co).Reserved;
         yield return new(Text.Get("Provider.use_field"), Text.Get(reserved ? "Provider.use_injured" : "Provider.use_anyone"),
             new[] { ("use:anyone", Text.Get("Provider.use_anyone")), ("use:injured", Text.Get("Provider.use_injured")) }, reserved ? "use:injured" : "use:anyone");
+        bool send = BedService.StateOf(co).SendInjured;
+        yield return new(Text.Get("Provider.send_field"), Text.Get(send ? "Provider.on" : "Provider.off"),
+            new[] { ("send:on", Text.Get("Provider.on")), ("send:off", Text.Get("Provider.off")) }, send ? "send:on" : "send:off");
     }
-    public bool IsConfiguration(string action) => action.StartsWith("use:", StringComparison.Ordinal);
+    public bool IsConfiguration(string action) => action.StartsWith("use:", StringComparison.Ordinal) || action.StartsWith("send:", StringComparison.Ordinal);
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosState." + MedicalRules.Record });
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {

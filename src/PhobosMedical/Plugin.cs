@@ -16,8 +16,8 @@ namespace PhobosMedical;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = MedicalRules.Owner;
-    public const string Version = "0.1.1";
-    public const string MinimumFrameworkVersion = "0.82.0";
+    public const string Version = "0.2.0";
+    public const string MinimumFrameworkVersion = "0.84.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -95,6 +95,13 @@ internal static class ActionPatch
         if (isCancelIa || __instance.objThem == null || __instance.objUs != CrewSim.GetSelectedCrew() || !Content.Machine(__instance.objThem)) return;
         var actor = __instance.objUs;
         if (__instance.strName == MedicalRules.Controls) { Panel.Show(__instance.objThem); return; }
+        if (__instance.strName == MedicalRules.Send)
+        {
+            bool on = !BedService.StateOf(__instance.objThem).SendInjured;
+            bool ok = BedService.Command(__instance.objThem, null, on ? "send:on" : "send:off", out string reply);
+            if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(reply, ok ? "Neutral" : "Bad", "Game");
+            return;
+        }
         if (__instance.strName != MedicalRules.Lay) return;
         bool done;
         string message;
@@ -147,7 +154,7 @@ internal static class ConsolePatch
         }
         var bed = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
-        string action = parts.Length == 4 && parts[1] == "use" ? "use:" + parts[3] : parts[1];
+        string action = parts.Length == 4 && (parts[1] == "use" || parts[1] == "send") ? parts[1] + ":" + parts[3] : parts[1];
         __result = Content.Machine(bed) && BedService.Command(bed!, null, action, out message);
         strInput += "\n" + message; return false;
     }

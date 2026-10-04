@@ -1644,3 +1644,17 @@ First consumer: Phobos Medical's 3 x 5 Ward-3 bed.
   `Ship.AddCO(body, true)`, the room at the body's position). `CanPlace(dragger)` says
   why not (nobody dragged, dead, awake, no ship); `Place` returns the person or null.
   The person's own queued actions are left as the game made them.
+
+## Weightless care and the crew list (0.84.0)
+
+- **`Health.WoundGravity`.** The game multiplies a weightless patient's wound-healing rate
+  (which also eases bleeding) by 0.05 in its private `Wound.Run`. Framework replaces that
+  one constant with `WoundGravity.Factor(patient, 0.05)`: the larger of 0.05 and the patient's
+  `StatPhobosWoundGravityFactor`, capped at 1. Set the stat with `SetCondAmount` while your
+  equipment cares for someone and clear it when it stops; nobody has it otherwise. The patch
+  is applied by hand at start-up; if the game's IL does not have exactly one such constant,
+  nothing is changed and `WoundGravity.Available` is false, so say that to the player.
+  `Rewrite` is pure and checked against a synthetic method and the game's own IL.
+- **`CrewWork.Crew()`** returns the player's loaded crew from the company roster the game's
+  time skip uses.
+

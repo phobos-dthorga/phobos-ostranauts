@@ -223,6 +223,10 @@ What the file holds:
   threshold times this share and nothing bleeds (0 to just under 1). The gap stops
   a patient getting up and lying down again.
 
-The healing is the game's own Recuperating and cannot be changed here; a field such
-as `heal` is refused. Nothing in this file is saved with your beds, so a change
+- **`levels.bed.weightlessHealing`** (Medical 0.2.0): the share of normal wound
+  healing a weightless patient keeps under care, from 0.05 (the game's own, no help)
+  to 1 (no weightless penalty, the shipped value).
+
+The healing is otherwise the game's own Recuperating and cannot be changed here; a
+field such as `heal` is refused. Nothing in this file is saved with your beds, so a change
 applies to every bed from the next game load.

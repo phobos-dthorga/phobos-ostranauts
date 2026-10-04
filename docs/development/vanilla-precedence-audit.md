@@ -447,3 +447,15 @@ passing `TIsBedMedical01Uninstalled`) and the fixers' lists never take one.
   the game's own calls; the patient's knock-out loop stays as the game made it.
 - **Removal is refused when offered**, never by blocking native destruction: Uninstall and
   Dismantle are refused while someone lies in the bed.
+
+## Weightless care and sending injured crew (Medical 0.2.0, Framework 0.84.0, 4 October 2026)
+
+- **One constant in the game's wound code.** Weightless healing needs the factor inside the
+  game's private `Wound.Run`, which no data reaches, so Framework transpiles exactly that
+  constant into a call that keeps the game's own value unless a patient carries the Phobos
+  stat. Applied by hand and skipped whole when the game's code changes, so it never fights a
+  future version or stops Framework.
+- **Orders join the queue.** Send injured crew here appends Rest and recover with the game's
+  own `QueueInteraction`; it never uses `AIIssueOrder`, which cancels everything queued, and
+  never touches crew the player controls.
+
