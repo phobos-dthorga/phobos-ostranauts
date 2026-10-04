@@ -26,6 +26,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.90.0] - 2026-10-04 - Draft
+
+### Added
+
+- Add-ons players can publish on Steam Workshop (owner direction, 4 October 2026). An add-on is an ordinary mod folder with a phobos-addon.json manifest and the same data files a player keeps in BepInEx/config. Every Phobos data pack reads them: an add-on can retune anything, and add recipes, outcome tables and crops under its own id prefix. It is data only, with no code.
+- Files apply in order: the shipped pack, add-ons in the game's mod order, then the player's own files. Any file may set a priority from -100 to 100 to change its place.
+- The console command phobosframework addons lists the add-ons in use and any file that was skipped, with the reason. A crew-log notice says when files were skipped.
+- A publishing guide, a template and a worked example add-on, and an offline checker for add-on folders.
+
+### Changed
+
+- A recipe added by a data file without a revision gets a stable one from its id, so two add-ons never clash.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes. Removing an add-on leaves a charge bound to one of its recipes waiting until the add-on returns or the charge is cancelled.
+
+### Compatibility and limits
+
+- Names and translations from add-ons, and new items with their own art, are not in this version.
+- The game's own UPLOAD button is described from its code; we have not published with it.
+- Checked offline; not yet seen in the game.
+
 ## [0.89.0] - 2026-10-04 - Draft
 
 ### Added

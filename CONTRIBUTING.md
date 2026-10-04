@@ -67,6 +67,11 @@ contributions follow [LICENSE](LICENSE); excluded work retains its own terms.
 Read [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md), especially Auto Nav's unresolved
 upstream terms. Do not label those portions MIT.
 
+Add-ons are welcome too: data-only mods that retune or extend the Phobos data packs,
+published by their own authors under their own terms
+([publishing an add-on](docs/publishing-an-add-on.md)). An add-on carries only its
+author's files; it must not re-upload Phobos plugins, artwork or shipped packs.
+
 Forks and community maintenance are welcome within applicable terms. Suggested
 credit: “Based on Phobos Ostranauts by Phobos A. D'thorga.” This is a courtesy
 request, not an additional licence restriction.

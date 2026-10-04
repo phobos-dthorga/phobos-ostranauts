@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "my-add-on",
+  "name": "My Phobos Add-on",
+  "author": "your name",
+  "version": "1.0.0",
+  "idPrefix": "myaddon",
+  "requires": {
+    "PhobosFramework": "0.90.0"
+  },
+  "notes": "Change id, name, author and idPrefix. List each Phobos mod your files are for under requires, with the lowest version they work with."
+}

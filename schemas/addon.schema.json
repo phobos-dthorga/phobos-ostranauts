@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/addon.schema.json",
+  "title": "Phobos addon data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{3,48}$",
+      "description": "The add-on's own short id."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name players see in the add-on list."
+    },
+    "author": {
+      "type": "string",
+      "description": "Who made it."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+){1,3}$",
+      "description": "Such as 1.0.0."
+    },
+    "idPrefix": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9]{2,23}$",
+      "description": "The start of every id the add-on adds. Not Phobos, Itm, Sys, Stat or Is."
+    },
+    "requires": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+){1,3}$"
+        }
+      },
+      "description": "Phobos mod folder names and the lowest version of each the files need, such as PhobosManufacturing: 0.44.0."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "author",
+    "version",
+    "idPrefix"
+  ],
+  "description": "The manifest of a Phobos add-on (phobos-addon.json), beside the mod_info.json the game itself reads."
+}

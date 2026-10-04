@@ -82,6 +82,21 @@ public sealed class RecipeContext
 
 public static class RecipeSchema
 {
+    /// <summary>Revisions derived for recipes an override file adds without one start here, far above any shipped revision.</summary>
+    public const int DerivedRevisionFloor = 1000000, DerivedRevisionSpan = 1000000000;
+    /// <summary>A stable revision for an added recipe, from its id alone (Framework 0.90.0): a saved charge stores its
+    /// recipe's revision, so two add-ons adding recipes to one machine must never pick the same number by hand.</summary>
+    public static int DerivedRevision(string id) => DerivedRevisionFloor + (int)(Outcomes.Hash(new[] { id ?? "" }) % DerivedRevisionSpan);
+    /// <summary>Gives every recipe an override file adds without a <c>revision</c> its derived one. A recipe already in
+    /// the pack keeps its own.</summary>
+    public static void PrepareOverlay(Newtonsoft.Json.Linq.JObject overlay, Newtonsoft.Json.Linq.JObject merged)
+    {
+        if (!(overlay["recipes"] is Newtonsoft.Json.Linq.JObject added)) return;
+        var existing = merged["recipes"] as Newtonsoft.Json.Linq.JObject;
+        foreach (var recipe in added.Properties())
+            if (recipe.Value is Newtonsoft.Json.Linq.JObject entry && entry["revision"] == null && existing?[recipe.Name] == null)
+                entry["revision"] = DerivedRevision(recipe.Name);
+    }
     public const string Name = "process-recipes";
     /// <summary>Bound on the heat a single charge may declare, either sign.</summary>
     public const double MaximumReactionKWh = 1000;

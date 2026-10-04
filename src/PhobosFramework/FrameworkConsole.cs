@@ -11,6 +11,8 @@ internal static class FrameworkConsole
     /// <summary>Further status lines appended to <c>phobosframework status</c> (the data packs); set by the plugin so
     /// the console can be compiled on its own.</summary>
     internal static Func<string>? ExtraStatus { get; set; }
+    /// <summary>The add-ons in use and the data files skipped, for <c>phobosframework addons</c> (Framework 0.90.0).</summary>
+    internal static Func<string>? AddOns { get; set; }
     /// <summary>The <c>loot [table]</c> report (the loot carve registry), set by the plugin for the same reason.</summary>
     internal static Func<string?, string>? Loot { get; set; }
     private static bool Prefix(ref string strInput, ref bool __result)
@@ -34,6 +36,12 @@ internal static class FrameworkConsole
         {
             __result = true;
             strInput += "\n" + Crew.CrewDiagnostics.Describe(words.Length == 3 ? words[2] : null);
+            return false;
+        }
+        if (command == "addons" && words.Length == 2 && AddOns != null)
+        {
+            __result = true;
+            strInput += "\n" + AddOns();
             return false;
         }
         __result = words.Length <= 2 && (command == "help" || command == "status" || command == "recipes");

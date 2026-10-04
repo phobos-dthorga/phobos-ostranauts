@@ -573,6 +573,159 @@ def outcomes(pack, where, recipes=None):
 SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
 
 
+# ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----
+ADDON_RESERVED = ('phobos', 'itm', 'sys', 'stat', 'is')
+MIN_PRIORITY, MAX_PRIORITY = -100, 100
+DERIVED_REVISION_FLOOR, DERIVED_REVISION_SPAN = 1000000, 1000000000
+
+
+def stable_hash(ids):
+    """Framework's Outcomes.Hash: FNV-1a over the sorted, newline-joined ids, then a final avalanche."""
+    h = 2166136261
+    for b in '\n'.join(sorted(ids)).encode('utf-8'):
+        h ^= b
+        h = (h * 16777619) & 0xffffffff
+    h ^= h >> 16
+    h = (h * 0x85ebca6b) & 0xffffffff
+    h ^= h >> 13
+    h = (h * 0xc2b2ae35) & 0xffffffff
+    h ^= h >> 16
+    return h
+
+
+def derived_revision(recipe_id):
+    return DERIVED_REVISION_FLOOR + stable_hash([recipe_id]) % DERIVED_REVISION_SPAN
+
+
+def version_tuple(text, where):
+    parts = str(text).split('.')
+    if not 2 <= len(parts) <= 4 or not all(p.isdigit() for p in parts):
+        raise Problem(f'{where}: expected a version such as 1.0.0')
+    return tuple(int(p) for p in parts)
+
+
+def addon_manifest(manifest, where='phobos-addon.json'):
+    fields(manifest, {'schemaVersion', 'id', 'name', 'author', 'version', 'idPrefix', 'requires', 'notes'}, where)
+    if manifest.get('schemaVersion') != 1:
+        raise Problem(f'{where}: schemaVersion must be 1')
+    ident = manifest.get('id', '')
+    if not isinstance(ident, str) or not 3 <= len(ident) <= 48 or any(not (c.islower() and c.isascii() or c.isdigit() or c == '-') for c in ident):
+        raise Problem(f'{where}/id: 3 to 48 lower-case letters, digits or hyphens')
+    for key in ('name', 'author'):
+        if not isinstance(manifest.get(key), str) or not manifest[key].strip():
+            raise Problem(f'{where}/{key}: needed')
+    version_tuple(manifest.get('version', ''), f'{where}/version')
+    prefix = manifest.get('idPrefix', '')
+    if (not isinstance(prefix, str) or not 3 <= len(prefix) <= 24 or not prefix.isascii() or not prefix.isalnum() or not prefix[0].isalpha()
+            or any(prefix.lower().startswith(r) for r in ADDON_RESERVED)):
+        raise Problem(f'{where}/idPrefix: 3 to 24 letters and digits, starting with a letter, and not starting with Phobos, Itm, Sys, Stat or Is')
+    requires = manifest.get('requires', {})
+    if not isinstance(requires, dict):
+        raise Problem(f'{where}/requires: expected mod folder to version')
+    for mod, need in requires.items():
+        version_tuple(need, f'{where}/requires/{mod}')
+    return manifest
+
+
+def merge(base, overlay, where=''):
+    """The loader's merge: objects merge by name, everything else replaces; a null is refused."""
+    for key, value in overlay.items():
+        if value is None:
+            raise Problem(f'{where}/{key}: null; a file can tune or add entries, never remove one')
+        if isinstance(value, dict) and isinstance(base.get(key), dict):
+            merge(base[key], value, f'{where}/{key}')
+        else:
+            base[key] = value
+    return base
+
+
+def no_duplicates(pairs):
+    seen = {}
+    for k, v in pairs:
+        if k in seen:
+            raise Problem(f'duplicate field {k!r}')
+        seen[k] = v
+    return seen
+
+
+def check_addon(folder):
+    """Validates an add-on folder against the shipped packs. Returns the list of files that were checked."""
+    folder = Path(folder)
+    manifest_path = folder / 'phobos-addon.json'
+    if not manifest_path.exists():
+        raise Problem('phobos-addon.json is missing')
+    manifest = addon_manifest(json.loads(manifest_path.read_text(encoding='utf-8-sig'), object_pairs_hook=no_duplicates))
+    prefix = manifest['idPrefix'].lower()
+    if not (folder / 'mod_info.json').exists():
+        raise Problem('mod_info.json is missing: the game needs it to list the add-on')
+    checked = []
+    root = folder / 'phobos'
+    for mod_dir in sorted(p for p in root.iterdir() if p.is_dir()) if root.exists() else []:
+        if mod_dir.name == 'translations':
+            for path in sorted(mod_dir.rglob('*.json')):
+                catalog = json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=no_duplicates)
+                if not isinstance(catalog, dict) or any(not isinstance(v, str) for v in catalog.values()):
+                    raise Problem(f'{path.relative_to(folder).as_posix()}: a translation file is one object of text by key')
+                checked.append(path.relative_to(folder).as_posix())
+            continue
+        shipped_dir = ROOT / 'mods' / mod_dir.name / 'framework'
+        merged_recipes = None
+        # Recipes first: an outcome table may name a recipe the same add-on adds.
+        order = {'materials': 0, 'process-recipes': 1, 'outcomes': 3}
+        for schema_dir in sorted((p for p in mod_dir.iterdir() if p.is_dir()), key=lambda p: (order.get(p.name, 2), p.name)):
+            schema = schema_dir.name
+            files = sorted(schema_dir.glob('*.json'), key=lambda p: p.name.lower())
+            if schema == 'schematics':
+                for path in files:
+                    json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=no_duplicates)
+                    checked.append(path.relative_to(folder).as_posix())
+                continue
+            shipped_path = shipped_dir / f'{schema}.json'
+            if schema not in SCHEMAS or not shipped_path.exists():
+                raise Problem(f'phobos/{mod_dir.name}/{schema}: {mod_dir.name} has no {schema} pack')
+            merged = json.loads(shipped_path.read_text(encoding='utf-8-sig'))
+            overlays = []
+            for path in files:
+                rel = path.relative_to(folder).as_posix()
+                if path.stat().st_size > 1048576:
+                    raise Problem(f'{rel}: larger than 1 MiB')
+                overlay = json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=no_duplicates)
+                if not isinstance(overlay, dict):
+                    raise Problem(f'{rel}: expected an object')
+                if overlay.get('schema', schema) != schema or overlay.get('schemaVersion', 1) != 1:
+                    raise Problem(f'{rel}: the folder is for schema {schema}, version 1')
+                priority = overlay.pop('priority', 0)
+                if isinstance(priority, bool) or not isinstance(priority, int) or not MIN_PRIORITY <= priority <= MAX_PRIORITY:
+                    raise Problem(f'{rel}/priority: a whole number from {MIN_PRIORITY} to {MAX_PRIORITY}')
+                overlays.append((priority, path.name.lower(), rel, overlay))
+            for _, _, rel, overlay in sorted(overlays, key=lambda o: (o[0], o[1])):
+                for table, entries in overlay.items():
+                    if not isinstance(entries, dict):
+                        continue
+                    for key in entries:
+                        if key not in merged.get(table, {}) and not key.lower().startswith(prefix):
+                            raise Problem(f'{rel}: an add-on may add only entries that start with its id prefix; {key} does not start with {manifest["idPrefix"]}')
+                if schema == 'process-recipes':
+                    for key, recipe in overlay.get('recipes', {}).items():
+                        if isinstance(recipe, dict) and 'revision' not in recipe and key not in merged.get('recipes', {}):
+                            recipe['revision'] = derived_revision(key)
+                merge(merged, overlay, rel)
+                try:
+                    if schema == 'outcomes':
+                        if merged_recipes is None:
+                            sibling = shipped_dir / 'process-recipes.json'
+                            merged_recipes = json.loads(sibling.read_text(encoding='utf-8-sig')).get('recipes') if sibling.exists() else None
+                        outcomes(merged, rel, merged_recipes)
+                    else:
+                        SCHEMAS[schema](merged, rel)
+                except Problem as error:
+                    raise Problem(str(error)) from None
+                checked.append(rel)
+            if schema == 'process-recipes':
+                merged_recipes = merged.get('recipes')
+    return manifest, checked
+
+
 def check_file(path):
     text = path.read_text(encoding='utf-8-sig')
     if len(text.encode('utf-8')) > 1048576:
@@ -606,7 +759,21 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('paths', nargs='*')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
+    parser.add_argument('--addon', metavar='FOLDER', help='check an add-on folder against the shipped packs instead')
     args = parser.parse_args()
+    if args.addon:
+        try:
+            manifest, checked = check_addon(args.addon)
+        except (Problem, ValueError, OSError) as error:
+            print(json.dumps({'status': 'invalid', 'error': str(error)}, indent=2) if args.format == 'json' else f'ERR {error}')
+            return 1
+        if args.format == 'json':
+            print(json.dumps({'status': 'valid', 'id': manifest['id'], 'files': checked}, indent=2))
+        else:
+            for name in checked:
+                print('ok ', name)
+            print(f"Add-on {manifest['id']}: {len(checked)} file(s) valid against the shipped packs. The game's own loader remains authoritative.")
+        return 0
     paths = [Path(p) for p in args.paths] or sorted((ROOT / 'mods').glob('*/framework/*.json'))
     results, errors = [], []
     for path in paths:

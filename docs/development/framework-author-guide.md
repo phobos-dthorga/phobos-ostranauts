@@ -1679,3 +1679,13 @@ sizes in tiles. First used by Phobos Medical's Vigil-2 to find its bed.
   roles except Exterior.
 - **`CrewWorkOffer.ExcludedActor`**: the full id of one person who must not take the work,
   such as the patient a medic treats. Empty means anyone eligible.
+
+## Add-ons (0.90.0)
+
+A content mod that loads its packs through `DataPacks.Load(source, validate)` supports add-ons with no further work: the loader asks `AddOns.For(source.ModFolder, version of source.Assembly)` and applies each add-on's `phobos/<ModFolder>/<schema>/*.json` between the shipped pack and the player's files. Three things to know when you add a schema:
+
+- **New entries must be keyed at the second level** (`recipes.<id>`, `tables.<id>`, `crops.<id>`), because the id-prefix rule is checked there. Tuning a shipped key is always allowed; adding one needs the add-on's prefix.
+- **Anything saved by number needs a derived number.** Register an overlay preparer as `RecipeSchema.PrepareOverlay` does, so an author never picks a number that another add-on also picked.
+- **Validate on every file.** The validator you pass runs on the shipped pack and on each override on top of the ones before it; put authoring-only rules (pricing) in tests, not in the validator.
+
+Files a mod reads outside `DataPacks` (War Declared's schematics) call `AddOns.For` themselves. The player guide is `docs/publishing-an-add-on.md`; keep it and `examples/addons` current when a schema changes.

@@ -15716,13 +15716,13 @@
       "key": "FrameworkConsole.commands_phobosframework_status_recipes_help_read_only",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Adds the read-only loot report to the command list.",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosFramework/FrameworkConsole.cs:30"
       ],
       "before": "Commands: phobosframework status | recipes | help | perf help. Performance capture is opt-in and does not change gameplay. No hot reload.",
-      "after": "Commands: phobosframework status | recipes | crew [name] | loot [table] | help | perf help. crew explains why each crew member is or is not studying or working; loot shows a mining or loot table as the game rolls it now, with any Phobos shares carved into it. Performance capture is opt-in and does not change gameplay. No hot reload.",
+      "after": "Commands: phobosframework status | recipes | addons | crew [name] | loot [table] | help | perf help. addons lists the add-ons in use and any file that was skipped, with the reason. crew explains why each crew member is or is not studying or working; loot shows a mining or loot table as the game rolls it now, with any Phobos shares carved into it. Performance capture is opt-in and does not change gameplay. No hot reload.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -76759,6 +76759,214 @@
         "decision": "add",
         "reason": "Read in full with Phobos Medical 0.4.0."
       }
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.status_addons",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Add-on files applied: {0}.",
+      "after": "Add-on files applied: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.priority",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "priority must be a whole number from {0} to {1}.",
+      "after": "priority must be a whole number from {0} to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.addon_prefix",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "An add-on may add only entries that start with its own id prefix: {0} does not start with {1}.",
+      "after": "An add-on may add only entries that start with its own id prefix: {0} does not start with {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "No add-ons enabled.",
+      "after": "No add-ons enabled."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} add-on or data file(s) were skipped; the rest are in use. Type phobosframework addons in the F3 console for the reasons.",
+      "after": "{0} add-on or data file(s) were skipped; the rest are in use. Type phobosframework addons in the F3 console for the reasons."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} {1} by {2} (id {3}, prefix {4})",
+      "after": "{0} {1} by {2} (id {3}, prefix {4})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Add-on {0} was not used: {1}",
+      "after": "Add-on {0} was not used: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.clash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "its id or id prefix is already held by add-on {0}.",
+      "after": "its id or id prefix is already held by add-on {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.requires",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "it needs {0} {1} or newer, and {2} is installed.",
+      "after": "it needs {0} {1} or newer, and {2} is installed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_empty",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "phobos-addon.json holds no manifest.",
+      "after": "phobos-addon.json holds no manifest."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_version",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "phobos-addon.json must say schemaVersion 1.",
+      "after": "phobos-addon.json must say schemaVersion 1."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_id",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "id must be 3 to 48 lower-case letters, digits or hyphens.",
+      "after": "id must be 3 to 48 lower-case letters, digits or hyphens."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_fields",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "name and author are needed, and version must read like 1.0.0.",
+      "after": "name and author are needed, and version must read like 1.0.0."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_prefix",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "idPrefix must be {0} to {1} letters and digits, start with a letter, and not start with Phobos, Itm, Sys, Stat or Is.",
+      "after": "idPrefix must be {0} to {1} letters and digits, start with a letter, and not start with Phobos, Itm, Sys, Stat or Is."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "AddOns.manifest_requires",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "requires: {0} needs a version that reads like 0.44.0.",
+      "after": "requires: {0} needs a version that reads like 0.44.0."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FrameworkConsole.addons",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Add-on discovery, manifest and file-order messages (Framework 0.90.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Add-ons:",
+      "after": "Add-ons:"
     }
   ],
   "documents": [
@@ -76766,8 +76974,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "055a42ef70bff61e587d1a10bba5d6d9db3c04e6d1e2df4fe6d4b107495c9ae5",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "232ec3f4d5348536769560758053956d89472cef67368cfd8372aa829bbc0c85",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "SUPPORT.md",
@@ -76780,8 +76988,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "89ad541b76c48966e91ce0bcf9c1e8942c67f22b7aaeaf8c3f9ddf8cb4a4167e",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "f0b2a96925052f29162b06f3ef69a40d15ad54bdd223f6ab8adc810f53e7866b",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -76926,8 +77134,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "49287d6086978a7942046805222dc953e4d40f928bc2a2aaa99a39fb095fe0c8",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "46b6f708d713ce74d925492727290075d37c140aa463da0018dbd154cd5c4aa6",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77269,8 +77477,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "16561f0078a8609ac04d6707eedc57a1935f2127a96009cc1e934ab937ec10a2",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "bb6587241f6ce1a727bedab4e599166004f57849266eb9ef973d1e1edbc832a6",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -77526,8 +77734,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3c65c9d1ad06e5898e55858aa42d99749da8bf1a2d07ad18bfb075b0777f19dc",
-      "review": "Reviewed 4 October 2026: performance ledger refreshed for findings L29 to L38."
+      "sha256": "abf6e008e950f16385ff153646ffff37f5904b9e71ae158bd0c3bb901b67eb14",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -77594,8 +77802,8 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "1b6f3302c2513357026133f91ec62bf7950dc160976af88814ad3f0d9fc5d95f",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "733fb98b27ec1543edc66e5b7ed1526d4748f195c2b49ab273ad0eb0abfe91e5",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -77745,8 +77953,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "3edf9390788f840548d89931806d0f8db1333c355d56f76dc3adaeead4cb205e",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "8ec6d7c8bb9ec8ced93cd95cb5979d29d8c96886fb5f238a72933afcf89bf6b9",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -77766,8 +77974,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ba6009f4a9de59773a8400ac4bc961060ed045cdff4c9f4b3ee18542fdac88fd",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "afc267bd56a4769abf4ee2ff80868b2bedd3d3f3da7ca1d39b9b29e79df8dee5",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -77829,8 +78037,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9bb5dc4cd501537637ccdd43ceb70a39e2d892ee5154aaff4593f855b85f2f11",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "f3f358919c95209f5edf24ba0ff8ac535a1b53eb68acbb6e5be23c870265e6c5",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/item-references.md",
@@ -77892,8 +78100,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5eaa4de3d46093e87eb2294a5b54d04d9f8de7976629689611423915892f2b71",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "8d7f9d7bd128d96912a943b5403f35ea3774a26c4583214b8c2d13a19e7aac4d",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/residue-collector.md",
@@ -77983,15 +78191,15 @@
       "path": "docs/war-declared-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "2ce93209e0f99ccde9d812021dafd69bb23117a4a61de6bbefc47c2c80c3599e",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "48aaf02f36224652074405e2be6517130af8c5f00a4a57b6adc630684773ac97",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "docs/war-declared-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "0563fc0e687173f7a5e4801b00097b88d3d1bea7335410be7f6f1f18b616c9d5",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "4e7d177d7c5c083ee7a6e490010e0dcbe66fc60d6700e251e338d85e17e86468",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
@@ -78011,8 +78219,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "43a35cd9538e80e58dd84890e780dc468e67ab6fca70201b6601f032e6065cad",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "06e7c6c8d35806cf7b3b3c71174342e9e8b1007aefc703d10a5e316cba31ebd1",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -78039,8 +78247,15 @@
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "628eca4e7f01b866017cc7ca648507ce7659df229b293635ed7cd9b5a43037f0",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "0795874add6f70c3485d2a846fc1ef8eb62a797cfc25ebdf8334b5b564d4e330",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+    },
+    {
+      "path": "docs/publishing-an-add-on.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "09daf14da6995b471d40a3efe3bb6905dd1767b03874222d17864bcd20555134",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     }
   ],
   "surfaces": [
@@ -78099,8 +78314,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "745742e3a995f3f5d2293402bc0f22a704abf7b7d5efc0e32ed790a05cbb1a29",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "fa7634e28d125986f2919d8608e4642e6bd357417a031595f9171ba9042d45e2",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -78129,8 +78344,8 @@
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "9c85b2ad11dce84cf34ae8935bbc253eb3d0c6cbe6c1b0605ba969bc75399b2c",
+      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
     },
     {
       "path": "mods/PhobosWarDeclared/schematics/safe.json",

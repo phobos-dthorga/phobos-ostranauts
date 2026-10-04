@@ -116,6 +116,11 @@ you would rather have the hull sealed than every gap walkable.
 
 ## Rebuild schematics
 
+Schematics can also come from add-ons other players publish (War Declared 0.2.0):
+an enabled add-on's files under `phobos/PhobosWarDeclared/schematics` are read
+before your own folder, so your own file of the same name still wins. To share
+yours, see [publishing an add-on](publishing-an-add-on.md).
+
 A schematic decides, for each destroyed part, whether its build site is laid when
 you stand down, held for Lay held, or left for you to place by hand.
 

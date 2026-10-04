@@ -1029,3 +1029,7 @@ made, but the refresh that stamps the files was not run (an agent omission, foun
 ran the audit). It was run once for the whole span, so every file changed between L28 and L38 carries all ten codes
 rather than only the codes of the changes that touched it. The dispositions above stand; the stamping is coarser
 than usual for these rows.
+
+## 4 October: add-ons (L39)
+
+L39 — Framework 0.90.0 with War Declared 0.2.0: add-on discovery reads the game's mod list and each enabled folder's manifest once per content load, and each pack load lists one folder per add-on. Nothing runs per frame except a counter comparison for the skipped-file notice. No capture accompanies this change.

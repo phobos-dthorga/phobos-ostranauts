@@ -5,6 +5,12 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
     "schemaVersion": {
       "type": "integer",
       "const": 1

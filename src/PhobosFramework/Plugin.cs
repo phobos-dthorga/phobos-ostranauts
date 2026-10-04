@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.89.0";
+    public const string Version = "0.90.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -40,7 +40,11 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Translations.UserDirectory = System.IO.Path.Combine(Paths.ConfigPath, "PhobosTranslations");
         Data.DataPacks.UserRoot = Paths.ConfigPath;
         Data.DataPacks.Log = message => Logger.LogWarning(message);
-        FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
+        // Add-ons players publish (0.90.0): every enabled game mod folder, in the game's own order, may hold one.
+        Data.AddOns.Log = message => Logger.LogWarning(message);
+        Data.AddOns.EnabledModDirectories = () => DataHandler.dictModInfos?.Values.Where(m => m != null && !m.GetIsDisabled()).Select(m => m.GetDirectory()).Where(d => !string.IsNullOrEmpty(d)).ToArray() ?? Array.Empty<string>();
+        FrameworkConsole.AddOns = () => Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe() + "\n" + Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
+        FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe();
         FrameworkConsole.Loot = Registration.LootCarveRegistry.Describe;
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
@@ -73,7 +77,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Trading.BulkSupplies.RegisterBuyback(Items.WaterTankService.Buyback);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
-    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); }
+    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); Data.DataFileNotice.Poll(); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
     private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

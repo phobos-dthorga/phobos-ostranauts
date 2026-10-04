@@ -57,6 +57,7 @@ def named(value_schema, description=None, key_pattern=None):
 NOTES = string('Free text for maintainers; ignored by the game.')
 BILL = named(num(0, 10000, integer=True), 'Material counts by item id.')
 HEADER = {
+    'priority': {'type': 'integer', 'minimum': -100, 'maximum': 100, 'description': 'Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it.'},
     'schemaVersion': {'type': 'integer', 'const': 1},
     'schema': string('The schema name; a player file may repeat it.'),
     'notes': NOTES,
@@ -236,7 +237,19 @@ def outcomes():
                'Chance tables: the recipes a charge may turn out to be, and the odds. Every outcome is an ordinary recipe of the same mod with the same charge and duration as its base.')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
+def addon():
+    return obj({'schemaVersion': {'type': 'integer', 'const': 1},
+                'id': {'type': 'string', 'pattern': '^[a-z0-9-]{3,48}$', 'description': "The add-on's own short id."},
+                'name': string('The name players see in the add-on list.'), 'author': string('Who made it.'),
+                'version': {'type': 'string', 'pattern': '^[0-9]+(\\.[0-9]+){1,3}$', 'description': 'Such as 1.0.0.'},
+                'idPrefix': {'type': 'string', 'pattern': '^[A-Za-z][A-Za-z0-9]{2,23}$', 'description': 'The start of every id the add-on adds. Not Phobos, Itm, Sys, Stat or Is.'},
+                'requires': named({'type': 'string', 'pattern': '^[0-9]+(\\.[0-9]+){1,3}$'}, 'Phobos mod folder names and the lowest version of each the files need, such as PhobosManufacturing: 0.44.0.'),
+                'notes': NOTES},
+               ['schemaVersion', 'id', 'name', 'author', 'version', 'idPrefix'],
+               'The manifest of a Phobos add-on (phobos-addon.json), beside the mod_info.json the game itself reads.')
+
+
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
 
 
 def render(name):

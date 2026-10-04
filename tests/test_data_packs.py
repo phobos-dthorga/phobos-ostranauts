@@ -88,6 +88,44 @@ class DataPackTests(unittest.TestCase):
         shipped = json.loads((ROOT / 'mods/PhobosManufacturing/framework/outcomes.json').read_text(encoding='utf-8'))
         self.assertEqual(sum(shipped['tables']['gangue-wash']['outcomes'].values()), 100)
 
+    def test_addon_checker(self):
+        # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.
+        import shutil, tempfile
+        example = ROOT / 'examples/addons/PhobosExampleRicherGangue'
+        manifest, checked = validate.check_addon(example)
+        self.assertEqual(manifest['id'], 'example-richer-gangue')
+        self.assertEqual(len(checked), 2)
+        self.assertEqual(validate.check_addon(ROOT / 'examples/addons/PhobosAddOnTemplate')[1], [])
+        # The same numbers Framework derives (tests/PhobosFramework.Tests/AddOnChecks.cs).
+        self.assertEqual(validate.stable_hash(['a1', 'b2']), 1848931155)
+        self.assertEqual(validate.derived_revision('richergangue-steel-seam'), 843336921)
+        def broken(change):
+            with tempfile.TemporaryDirectory() as temp:
+                copy = Path(temp) / 'addon'
+                shutil.copytree(example, copy)
+                change(copy)
+                with self.assertRaises(validate.Problem):
+                    validate.check_addon(copy)
+        recipes = 'phobos/PhobosManufacturing/process-recipes/richer-gangue.json'
+        tables = 'phobos/PhobosManufacturing/outcomes/richer-gangue.json'
+        def rewrite(rel, old, new):
+            def change(copy):
+                path = copy / rel
+                text = path.read_text(encoding='utf-8')
+                self.assertIn(old, text)
+                path.write_text(text.replace(old, new), encoding='utf-8')
+            return change
+        broken(lambda copy: (copy / 'phobos-addon.json').unlink())
+        broken(rewrite('phobos-addon.json', '"idPrefix": "richergangue"', '"idPrefix": "PhobosGangue"'))
+        broken(rewrite(recipes, '"richergangue-steel-seam"', '"steel-seam"'))                      # an added id without the prefix
+        broken(rewrite(recipes, '"count": 4, "kg": 1', '"count": 5, "kg": 1'))                       # creates a kilogram
+        broken(rewrite(recipes, '"seconds": 1200', '"seconds": 600'))                              # another charge than its base
+        broken(rewrite(tables, '"richergangue-steel-seam": 10', '"richergangue-missing": 10'))      # names no recipe
+        broken(rewrite(tables, '"schema": "outcomes",', '"schema": "outcomes", "priority": 500,'))  # out of range
+        for bad in ({'id': 'x'}, {'schemaVersion': 1, 'id': 'my-add-on', 'name': 'N', 'author': 'A', 'version': 'one', 'idPrefix': 'myaddon'}):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.addon_manifest(bad)
+
     def test_validator_checks_supersession(self):
         # Framework 0.68.0: a later revision may replace one earlier revision of its own machine, and only one recipe may.
         def pack(*supersedes):

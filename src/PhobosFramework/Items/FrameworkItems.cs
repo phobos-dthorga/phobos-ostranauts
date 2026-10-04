@@ -44,6 +44,8 @@ public static class FrameworkItems
     internal static void Register(Action<string> log)
     {
         Ready = false;
+        // A new content load reads the game's mod list afresh, before any pack is loaded (add-ons, Framework 0.90.0).
+        Data.AddOns.Reset();
         try { Prepare().Publish(); Ready = true; }
         catch (Exception e) { log(Text.Get("FrameworkItems.failed", e)); }
     }

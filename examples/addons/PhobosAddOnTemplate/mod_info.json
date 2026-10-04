@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "My Phobos Add-on",
+    "strAuthor": "your name",
+    "strModURL": "",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "1.0.0",
+    "strNotes": "Say what your add-on changes, and that it needs Phobos Framework and the Phobos mods it edits."
+  }
+]

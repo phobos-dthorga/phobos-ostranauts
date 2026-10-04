@@ -13,6 +13,7 @@ common failures and useful reports.
 - [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [installing machines and maintenance](section-assembly-and-maintenance.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Editing the Phobos data files](editing-data-files.md): prices, work and merchant odds in files you can override.
+- [Publishing a Phobos add-on](publishing-an-add-on.md): pack your changes as a mod others can subscribe to on Steam Workshop.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Lines hold what they carry](lines-and-draining.md): draining water and acid lines into canisters, venting gas lines, and pouring canisters back.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.

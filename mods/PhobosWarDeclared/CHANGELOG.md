@@ -9,6 +9,21 @@ not Steam publication.
 
 - Reviewed every English entry. Lay held build sites is now Lay postponed build sites. Damage reports explain what is waiting and why. Schematics, commands and saved battle records stay the same.
 
+## [0.2.0] - 2026-10-04 - Draft
+
+### Added
+
+- Rebuild schematics can come from add-ons other players publish: files under phobos/PhobosWarDeclared/schematics in an enabled add-on are read before your own folder, so your own file of the same name still wins. See the add-on publishing guide.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.90.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.1.1] - 2026-09-29 - Draft
 
 ### Changed

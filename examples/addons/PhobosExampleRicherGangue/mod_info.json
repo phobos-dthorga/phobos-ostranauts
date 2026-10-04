@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Example: Richer Gangue",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/publishing-an-add-on.md",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "1.0.0",
+    "strNotes": "A worked example of a Phobos add-on: it retunes the gangue wash and adds one outcome. Data only; it needs Phobos Framework and Phobos Manufacturing."
+  }
+]

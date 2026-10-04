@@ -17,6 +17,11 @@ your game settings, and the mod reads it on top of the shipped one.
   created the first time the game loads with the mod installed. Every `.json`
   file in it is applied, in name order.
 
+To share your changes with other players, see
+[publishing an add-on](publishing-an-add-on.md): the same files, in a mod folder of
+your own. Add-ons apply before your local files, so yours have the last word unless
+a file sets a `priority`.
+
 ## What a file looks like
 
 Copy only what you want to change, keeping the same nesting as the shipped file.

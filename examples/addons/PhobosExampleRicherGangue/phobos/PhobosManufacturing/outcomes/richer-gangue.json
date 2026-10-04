@@ -1,0 +1,11 @@
+{
+  "schema": "outcomes",
+  "tables": {
+    "gangue-wash": {
+      "outcomes": {
+        "gangue-wash": 30,
+        "richergangue-steel-seam": 10
+      }
+    }
+  }
+}

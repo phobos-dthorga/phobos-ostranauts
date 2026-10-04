@@ -895,6 +895,16 @@
   return (at most 1.5 x cost, feed no merchant sells). First use: Manufacturing 0.44.0's
   gangue wash on the LC-3 (leach revisions 7 to 10; washed tailings are a declared
   remainder). Game-like recipes are allowed where the owner says so and are labelled.
+- Owner direction (2026-10-04): **players may publish add-ons on Steam Workshop.** An
+  add-on is a data-only game mod folder with `phobos-addon.json` and override files
+  under `phobos/<Mod>/<schema>/` (Framework 0.90.0 `Data.AddOns`). Order: shipped pack,
+  add-ons in the game's mod order, the player's local files; any file may set a
+  `priority` header. Add-ons tune anything and add only under their own id prefix;
+  every check on player files applies to them. Keep `docs/publishing-an-add-on.md`,
+  `examples/addons` (loaded by tests) and `scripts/validate-data-packs.py --addon` working
+  whenever a schema changes; a new schema loaded through `DataPacks.Load` supports
+  add-ons by itself. Owner-approved follow-ups: names and translations from add-ons,
+  then new items with their own art.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

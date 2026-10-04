@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.89.0",
+      "value": "0.90.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -1898,7 +1898,7 @@
     "WarDeclared.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.1",
+      "value": "0.2.0",
       "description": "PhobosWarDeclared published source/package version.",
       "targets": [
         {
@@ -1952,7 +1952,7 @@
     "WarDeclared.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.1",
+      "value": "0.90.0",
       "description": "Current War Has Been Declared required Framework version, shared with local installer admission.",
       "targets": [
         {

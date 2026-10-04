@@ -11,6 +11,7 @@ FermenterChecks.Run(Check, Throws);
 BottlerChecks.Run(Check, Throws);
 FeederChecks.Run(Check, Throws);
 GangueChecks.Run(Check, Throws);
+ExampleAddOnChecks.Run(Check);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);

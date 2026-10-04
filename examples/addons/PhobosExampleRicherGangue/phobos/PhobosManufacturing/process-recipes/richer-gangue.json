@@ -1,0 +1,13 @@
+{
+  "schema": "process-recipes",
+  "recipes": {
+    "richergangue-steel-seam": {
+      "notes": "An added gangue wash outcome: a seam of metal, 4 kg of scrap steel and 9 kg of washed tailings. Same charge and time as the gangue wash, so it can join its outcome table. No revision is written: Framework derives a stable one from the id.",
+      "machine": "leach",
+      "inputs": [ { "id": "ItmMiningTrash", "count": 4, "kg": 3 }, { "id": "sulfuric acid", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "ItmScrapSteel", "count": 4, "kg": 1 }, { "id": "PhobosWashedTailings", "count": 9, "kg": 1 } ],
+      "circulates": { "water": 10 },
+      "seconds": 1200
+    }
+  }
+}

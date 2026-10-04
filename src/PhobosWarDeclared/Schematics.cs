@@ -17,6 +17,8 @@ internal static class Schematics
     private static string selected = WarRules.DefaultSchematic;
 
     internal static string UserDirectory { get; set; } = "";
+    /// <summary>The folder name add-ons file War Declared schematics under: <c>phobos/PhobosWarDeclared/schematics</c>.</summary>
+    internal const string AddOnFolder = "PhobosWarDeclared";
     internal static IReadOnlyList<string> Problems => problems;
     internal static IEnumerable<Schematic> All => all.Values.OrderBy(s => s.Key, StringComparer.Ordinal);
     internal static Schematic Active => all.TryGetValue(selected, out var s) ? s : all[WarRules.DefaultSchematic];
@@ -37,6 +39,27 @@ internal static class Schematics
             if (name != null) found[name] = Schematic.Parse(name, reader.ReadToEnd());
         }
         if (!found.ContainsKey(WarRules.DefaultSchematic)) throw new InvalidOperationException("The shipped safe schematic is missing.");
+        // Schematics from enabled add-ons (War Declared 0.2.0, Framework 0.90.0): the same strict files, read before the
+        // player's own folder, so a player's file of the same name still has the last word.
+        foreach (var addOn in Phobos.Ostranauts.Framework.Data.AddOns.For(AddOnFolder, Plugin.Version))
+        {
+            try
+            {
+                string folder = addOn.Folder(AddOnFolder, "schematics");
+                if (!Directory.Exists(folder)) continue;
+                foreach (var path in Directory.GetFiles(folder, "*.json").OrderBy(p => p, StringComparer.OrdinalIgnoreCase))
+                {
+                    var file = addOn.Manifest.id + "/" + Path.GetFileName(path);
+                    var name = Schematic.KeyFromFileName(Path.GetFileName(path));
+                    if (name == null) { problems.Add(Text.Get("Schematic.bad_name", file)); continue; }
+                    try { found[name] = Schematic.Parse(name, File.ReadAllText(path)); }
+                    catch (Exception ex) when (ex is FormatException || ex is IOException || ex is UnauthorizedAccessException)
+                    { problems.Add(Text.Get("Schematic.bad_file", file, ex.Message)); }
+                }
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is ArgumentException)
+            { problems.Add(Text.Get("Schematic.no_folder", addOn.Directory, ex.Message)); }
+        }
         if (!string.IsNullOrEmpty(UserDirectory))
         {
             try
