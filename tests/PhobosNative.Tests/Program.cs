@@ -88,6 +88,7 @@ CompletionArtworkChecks.Run(framework, "PhobosFramework", repo, Check, Phobos.Os
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
+CropNativeChecks.Run(agriculture, repo, Check);
 StackLimitChecks.Run(Check);
 ItemHandlingChecks.Run(Check);
 NutrientProductionNativeChecks.Run(agriculture, game, Check);

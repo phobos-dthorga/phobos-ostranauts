@@ -18,11 +18,12 @@ internal static partial class Service
     private static bool? SolutionCommand(Session s, string action, out string message)
     {
         message = "";
-        if (action != "mix-potato" && action != "mix-lettuce" && action != "mix-lettuce-seed" && action != "water-only") return null;
+        var mixed = action.StartsWith(Definitions.MixPrefix, StringComparison.Ordinal) ? Crops.Find(action.Substring(Definitions.MixPrefix.Length)) : null;
+        if (mixed == null && action != "water-only") return null;
         if (!IrrigationDefinitions.IsSupply(s.Object) || !Paused(s) || !NativeFluidRoute.EndpointReady(s.Object) ||
             WaterBank(s.Object).Occupied || s.Solution.TotalKg > NutrientSolution.Tolerance)
         { message = Text.Get("solution_switch"); return false; }
-        string profile = action == "mix-potato" ? NutrientSolution.Potato : action == "mix-lettuce" ? NutrientSolution.Lettuce : action == "mix-lettuce-seed" ? NutrientSolution.LettuceSeed : NutrientSolution.None;
+        string profile = mixed?.Feed ?? NutrientSolution.None;
         if (profile != NutrientSolution.None && s.State.Water > CropState.ReservoirKg - CropState.NutrientCapacityKg)
         { message = Text.Get("solution_headroom"); return false; }
         s.Solution.Profile = profile; Save(s); message = Describe(s.Object); return true;
@@ -45,7 +46,7 @@ internal static partial class Service
         var water = LiquidTransferGuard.Commit(new Reservoir(source), new Reservoir(target), budget, WaterGuard(source.Object), WaterGuard(target.Object));
         source.Notice = Text.Get("water_receipt", water.ReceivedKg); return water.ReceivedKg;
     }
-    private static string DescribeSolution(Session s) => Text.Get("solution_status", Text.Get("solution_" + s.Solution.Profile),
+    private static string DescribeSolution(Session s) => Text.Get("solution_status", Text.Feed(s.Solution.Profile),
         s.Solution.Quantity.CarrierKg, s.Solution.Quantity.SoluteKg, s.State.Nutrients, s.State.Water + s.Solution.TotalKg, CropState.ReservoirKg);
 
     private sealed class SolutionReservoir : IMixtureReservoir

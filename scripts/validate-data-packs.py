@@ -367,7 +367,70 @@ def equipment(pack, where):
             for i, v in enumerate(xy):
                 number(v, f'{w}/points/{name}/{i}', -512, 512, integer=True)
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment}
+CROP_TOLERANCE = 1e-9
+# Carbon dioxide taken in less oxygen given off, per kilogram of carbon fixed as CH2O: (44 - 32) / 30.
+NET_GAS_PER_CARBON = 12 / 30
+
+
+def crops(pack, where):
+    """The crops schema (Agriculture 0.40.0): structure and mass balance. Item masses, text and the freeze are
+    checked by the game-side loader and scripts/freeze-recipes.py."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items'}, where)
+    entries = pack.get('crops', {})
+    if not isinstance(entries, dict) or not entries:
+        raise Problem(f'{where}/crops: needs at least one crop')
+    items = pack.get('items', {})
+    if not isinstance(items, dict):
+        raise Problem(f'{where}/items: expected item id to entry')
+    feeds, commodities = set(), set()
+    for key, c in entries.items():
+        w = f'{where}/crops/{key}'
+        if not key or key == 'empty' or any(not (ch.islower() or ch.isdigit() or ch == '-') for ch in key):
+            raise Problem(f'{w}: names are lower-case letters, digits and hyphens')
+        fields(c, {'notes', 'name', 'hours', 'kw', 'seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'vapourKg', 'seedCarbonKg',
+                   'edibleKg', 'keptStockKg', 'portionKg', 'stock', 'produce', 'feed', 'feedCommodity', 'art'}, w)
+        if 'name' in c and (not isinstance(c['name'], str) or not c['name'].strip() or len(c['name']) > 40):
+            raise Problem(f'{w}/name: a plain name is at most 40 characters')
+        number(c.get('hours'), f'{w}/hours', 0, 10000, exclusive_low=True)
+        number(c.get('kw'), f'{w}/kw', 0, 1.5, exclusive_low=True)
+        for name in ('seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'edibleKg', 'portionKg'):
+            number(c.get(name), f'{w}/{name}', 0, None, exclusive_low=True)
+        for name in ('vapourKg', 'seedCarbonKg', 'keptStockKg'):
+            number(c.get(name), f'{w}/{name}', 0, None)
+        if c['seedKg'] >= c['finalKg'] or c['seedCarbonKg'] > c['seedKg'] or c['seedCarbonKg'] + c['carbonKg'] > c['finalKg'] + CROP_TOLERANCE:
+            raise Problem(f'{w}: holds more carbon than it weighs, or its seed weighs as much as its harvest')
+        gained = c['waterKg'] + c['nutrientKg'] + c['carbonKg'] * NET_GAS_PER_CARBON - c['vapourKg']
+        grown = c['finalKg'] - c['seedKg']
+        if abs(gained - grown) > CROP_TOLERANCE:
+            raise Problem(f'{w}: does not conserve mass (takes in {gained:.6f} kg, grows by {grown:.6f} kg)')
+        if c['edibleKg'] > c['finalKg'] + CROP_TOLERANCE or c['keptStockKg'] > c['edibleKg'] or c['portionKg'] > c['edibleKg']:
+            raise Problem(f'{w}: the edible share, kept stock and one portion must fit inside the harvest')
+        if c['keptStockKg'] > 0 and abs(c['keptStockKg'] - c['seedKg']) > CROP_TOLERANCE:
+            raise Problem(f'{w}/keptStockKg: stock kept back must be exactly one planting')
+        for name in ('stock', 'produce'):
+            if not c.get(name) or c[name] not in items:
+                raise Problem(f'{w}/{name}: must name an entry of the items section')
+        if not c.get('feed') or c['feed'] == 'water' or c['feed'] in feeds:
+            raise Problem(f'{w}/feed: needs its own feed name')
+        if not c.get('feedCommodity') or c['feedCommodity'] == 'water' or c['feedCommodity'] in commodities:
+            raise Problem(f'{w}/feedCommodity: needs its own conduit name')
+        feeds.add(c['feed'])
+        commodities.add(c['feedCommodity'])
+        if not c.get('art') or not c['art'].isalnum():
+            raise Problem(f'{w}/art: needs an artwork name made of letters and digits')
+    for key, item in items.items():
+        w = f'{where}/items/{key}'
+        fields(item, {'notes', 'text', 'hunger', 'satiety'}, w)
+        if not item.get('text'):
+            raise Problem(f'{w}/text: needed')
+        if ('hunger' in item) != ('satiety' in item):
+            raise Problem(f'{w}: hunger and satiety go together')
+        for name in ('hunger', 'satiety'):
+            if name in item:
+                number(item[name], f'{w}/{name}', 1, 20, integer=True)
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops}
 
 
 def check_file(path):

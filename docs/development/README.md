@@ -25,6 +25,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Agriculture nutrient recovery and workup direction](agriculture-nutrient-recovery.md)
 - [Phobos Agriculture: research findings](agriculture-research.md)
 - [Phobos Agriculture: endurance roadmap](agriculture-roadmap.md)
+- [Phobos Agriculture: crop expansion phases and sources](agriculture-crop-expansion.md)
 - [Agriculture maintenance and treatment economics — 0.7.0](agriculture-treatment-economy.md)
 - [Future animation and restrained sound cues](animation-and-sound-direction.md)
 - [Dedicated item and equipment artwork](artwork-completion.md)

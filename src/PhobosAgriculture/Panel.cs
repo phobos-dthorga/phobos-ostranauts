@@ -85,7 +85,7 @@ public sealed class Panel : GUIData
                     C.Button(shell.Detail,Text.Get("bulk_target"),()=>ConfigurationSheet.Choices(shell,Text.Get("bulk_target"),"",PanelConfiguration.Stamp(co),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason)));
                     C.Field(shell.Detail,C.Text("charge"),ObjectPresentation.Name(Service.Get(co).DoseId),()=>Connection(co,"charge"),
                         ()=>ObjectPicker.Locate(shell,Service.Resolve(Service.Get(co).DoseId)),()=>Setting(co,"dose-off"),Service.Resolve(Service.Get(co).DoseId)!=null,Service.Get(co).DoseId!="none");
-                    foreach(var action in new[]{"mix-potato","mix-lettuce","mix-lettuce-seed","water-only"})AddButton(shell.Detail,co,action,true);
+                    foreach(var action in Definitions.MixActions)AddButton(shell.Detail,co,action,true);
                 }
                 else foreach(var action in new[]{"water-routed","water-legacy"})AddButton(shell.Detail,co,action,true);
                 var row=C.Row(shell.Detail);AddButton(row,co,"receive");AddButton(row,co,"pause-receive");
@@ -138,9 +138,9 @@ public sealed class Panel : GUIData
             (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value=="none"?(kind=="collector"?"capture-unlink":kind=="charge"?"dose-off":"unlink-water"):
                 (kind=="collector"?"capture-link:":kind=="charge"?"dose:":"link-water:")+value,out reason));
     }
-    private void Setting(CondOwner co,string action)=>ConfigurationSheet.Choices(shell,Text.Get(action),"",PanelConfiguration.Stamp(co),new[]{(action,Text.Get(action))},
+    private void Setting(CondOwner co,string action)=>ConfigurationSheet.Choices(shell,Text.Action(action),"",PanelConfiguration.Stamp(co),new[]{(action,Text.Action(action))},
         (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason));
-    private void AddButton(Transform parent,CondOwner co,string action,bool setting=false)=>C.Button(parent,Text.Get(action),()=>{if(setting)Setting(co,action);else Execute(co,action);});
+    private void AddButton(Transform parent,CondOwner co,string action,bool setting=false)=>C.Button(parent,Text.Action(action),()=>{if(setting)Setting(co,action);else Execute(co,action);});
     private void Execute(CondOwner co, string action)
     {
         bool recycler = RecyclerCapture.IsRecycler(co);

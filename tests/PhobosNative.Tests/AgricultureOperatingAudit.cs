@@ -24,23 +24,23 @@ internal static class AgricultureOperatingAudit
             "The 0, 0.25 and 1 cr/kWh columns are hypothetical marginal electricity costs, not game tariffs; zero does not mean the plant uses no energy. Add cooking, pumping, standby, cooling, crew, equipment, treatments, losses and trade adjustments separately. No climate-control or labour rate is invented.",
             "", "| Cycle | Water + nutrients + purchased seed | Cultivation kWh | At 0 cr/kWh | At 0.25 cr/kWh | At 1 cr/kWh |",
             "|---|---:|---:|---:|---:|---:|" });
-        foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
+        foreach (var crop in new[] { Crop.Get("potato"), Crop.Get("lettuce"), Crop.Get("lettuce-seed") })
         {
-            double inputs = Inputs(crop) + (crop == Crop.Potato ? 0 : price(PhobosAgriculture.Definitions.LettuceSeed));
+            double inputs = Inputs(crop) + (crop == Crop.Get("potato") ? 0 : price("PhobosVerdemorrowContinuanceLettuce"));
             double energy = crop.Hours * crop.KW;
             rows.Add($"| {crop.Id} | {N(inputs)} | {N(energy)} | {N(inputs)} | {N(inputs + energy * .25)} | {N(inputs + energy)} |");
         }
-        int availableSeeds = Harvest(Crop.LettuceSeed).Portions - 1;
+        int availableSeeds = Harvest(Crop.Get("lettuce-seed")).Portions - 1;
         if (availableSeeds <= 0) throw new InvalidOperationException("Seed rotation cannot replace its own planting stock.");
-        double rotationInputs = Inputs(Crop.LettuceSeed) + availableSeeds * Inputs(Crop.Lettuce);
-        double rotationEnergy = Crop.LettuceSeed.Hours * Crop.LettuceSeed.KW + availableSeeds * Crop.Lettuce.Hours * Crop.Lettuce.KW;
-        double rotationHours = Crop.LettuceSeed.Hours + availableSeeds * Crop.Lettuce.Hours;
-        rows.Add($"\nA repeating lettuce rotation reserves one returned seed packet, grows {availableSeeds} food cohorts and yields {availableSeeds * Harvest(Crop.Lettuce).Portions} edible servings over {N(rotationHours)} rack-growth hours. It consumes {N(rotationInputs)} cr of water/nutrients and {N(rotationEnergy)} kWh. Per food cohort: {N(rotationInputs / availableSeeds)} cr and {N(rotationEnergy / availableSeeds)} kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.\n");
+        double rotationInputs = Inputs(Crop.Get("lettuce-seed")) + availableSeeds * Inputs(Crop.Get("lettuce"));
+        double rotationEnergy = Crop.Get("lettuce-seed").Hours * Crop.Get("lettuce-seed").KW + availableSeeds * Crop.Get("lettuce").Hours * Crop.Get("lettuce").KW;
+        double rotationHours = Crop.Get("lettuce-seed").Hours + availableSeeds * Crop.Get("lettuce").Hours;
+        rows.Add($"\nA repeating lettuce rotation reserves one returned seed packet, grows {availableSeeds} food cohorts and yields {availableSeeds * Harvest(Crop.Get("lettuce")).Portions} edible servings over {N(rotationHours)} rack-growth hours. It consumes {N(rotationInputs)} cr of water/nutrients and {N(rotationEnergy)} kWh. Per food cohort: {N(rotationInputs / availableSeeds)} cr and {N(rotationEnergy / availableSeeds)} kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.\n");
         rows.AddRange(new[] { "## Proposed crop-residue recovery ceiling — not a recipe", "",
             "Authored allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is authored gameplay balance, not NASA's leaching yield. Seed nutrients receive no extra credit. B2 combines the concentrate with equal-mass purchased makeup salts. Spent biomass stays cargo; these values exclude workup electricity, crew and equipment.",
             "", "| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Recovered concentrate g | Makeup cost cr | Finished mixture g | Avoided fresh-stock cost less makeup cr |",
             "|---|---:|---:|---:|---:|---:|---:|" });
-        foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
+        foreach (var crop in new[] { Crop.Get("potato"), Crop.Get("lettuce"), Crop.Get("lettuce-seed") })
         {
             double residue = Harvest(crop).ResidueKg;
             double allocated = crop.Nutrient * residue / crop.Final, recovered = allocated * NutrientRecovery.Fraction;

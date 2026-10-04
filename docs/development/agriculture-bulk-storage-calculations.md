@@ -16,18 +16,18 @@ Loads include initial supply from empty and round up whole 5 kg water / 40 g nut
 | potato | 4 | 30 | 138.720 | 1.200 | 28 | 30 | 3 | 9.7 / 38.7 / 125.7 |
 | potato | 8 | 7 | 64.736 | 0.560 | 13 | 14 | 2 | 4.5 / 18.0 / 58.5 |
 | potato | 8 | 30 | 277.440 | 2.400 | 56 | 60 | 5 | 19.3 / 77.3 / 251.3 |
-| lettuce-seed | 1 | 7 | 2.373 | 0.018 | 1 | 1 | 1 | 0.3 / 1.3 / 4.3 |
-| lettuce-seed | 1 | 30 | 10.170 | 0.075 | 3 | 2 | 1 | 0.8 / 3.3 / 10.8 |
-| lettuce-seed | 4 | 7 | 9.492 | 0.070 | 2 | 2 | 1 | 0.7 / 2.7 / 8.7 |
-| lettuce-seed | 4 | 30 | 40.680 | 0.300 | 9 | 8 | 1 | 2.8 / 11.3 / 36.8 |
-| lettuce-seed | 8 | 7 | 18.984 | 0.140 | 4 | 4 | 1 | 1.3 / 5.3 / 17.3 |
-| lettuce-seed | 8 | 30 | 81.360 | 0.600 | 17 | 15 | 2 | 5.3 / 21.3 / 69.3 |
 | lettuce | 1 | 7 | 4.430 | 0.018 | 1 | 1 | 1 | 0.3 / 1.3 / 4.3 |
 | lettuce | 1 | 30 | 18.987 | 0.075 | 4 | 2 | 1 | 1.0 / 4.0 / 13.0 |
 | lettuce | 4 | 7 | 17.721 | 0.070 | 4 | 2 | 1 | 1.0 / 4.0 / 13.0 |
 | lettuce | 4 | 30 | 75.948 | 0.300 | 16 | 8 | 1 | 4.0 / 16.0 / 52.0 |
 | lettuce | 8 | 7 | 35.442 | 0.140 | 8 | 4 | 1 | 2.0 / 8.0 / 26.0 |
 | lettuce | 8 | 30 | 151.896 | 0.600 | 31 | 15 | 2 | 7.7 / 30.7 / 99.7 |
+| lettuce-seed | 1 | 7 | 2.373 | 0.018 | 1 | 1 | 1 | 0.3 / 1.3 / 4.3 |
+| lettuce-seed | 1 | 30 | 10.170 | 0.075 | 3 | 2 | 1 | 0.8 / 3.3 / 10.8 |
+| lettuce-seed | 4 | 7 | 9.492 | 0.070 | 2 | 2 | 1 | 0.7 / 2.7 / 8.7 |
+| lettuce-seed | 4 | 30 | 40.680 | 0.300 | 9 | 8 | 1 | 2.8 / 11.3 / 36.8 |
+| lettuce-seed | 8 | 7 | 18.984 | 0.140 | 4 | 4 | 1 | 1.3 / 5.3 / 17.3 |
+| lettuce-seed | 8 | 30 | 81.360 | 0.600 | 17 | 15 | 2 | 5.3 / 21.3 / 69.3 |
 
 ## Endurance and space at default pace
 
@@ -38,12 +38,12 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | potato | 1 | 33.74 | 137.54 | 50.00 | 20 / 29 | 34.980 | 100 / 125 |
 | potato | 4 | 21.09 | 47.04 | 12.50 | 68 / 77 | 139.920 | 340 / 365 |
 | potato | 8 | 18.98 | 31.95 | 6.25 | 132 / 141 | 279.840 | 660 / 685 |
-| lettuce-seed | 1 | 115.04 | 469.03 | 200.00 | 20 / 29 | 10.245 | 100 / 125 |
-| lettuce-seed | 4 | 71.90 | 160.40 | 50.00 | 68 / 77 | 40.980 | 340 / 365 |
-| lettuce-seed | 8 | 64.71 | 108.96 | 25.00 | 132 / 141 | 81.960 | 660 / 685 |
 | lettuce | 1 | 61.62 | 251.22 | 200.00 | 20 / 29 | 19.062 | 100 / 125 |
 | lettuce | 4 | 38.51 | 85.91 | 50.00 | 68 / 77 | 76.248 | 340 / 365 |
 | lettuce | 8 | 34.66 | 58.36 | 25.00 | 132 / 141 | 152.496 | 660 / 685 |
+| lettuce-seed | 1 | 115.04 | 469.03 | 200.00 | 20 / 29 | 10.245 | 100 / 125 |
+| lettuce-seed | 4 | 71.90 | 160.40 | 50.00 | 68 / 77 | 40.980 | 340 / 365 |
+| lettuce-seed | 8 | 64.71 | 108.96 | 25.00 | 132 / 141 | 81.960 | 660 / 685 |
 
 ## Growth-pace sensitivity: thirty-day demand
 
@@ -58,15 +58,6 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | potato | 8 | 0.5 | 554.880 | 4.800 | 76 / 52 |
 | potato | 8 | 1 | 277.440 | 2.400 | 21 / 0 |
 | potato | 8 | 2 | 138.720 | 1.200 | 0 / 0 |
-| lettuce-seed | 1 | 0.5 | 20.340 | 0.150 | 0 / 0 |
-| lettuce-seed | 1 | 1 | 10.170 | 0.075 | 0 / 0 |
-| lettuce-seed | 1 | 2 | 5.085 | 0.037 | 0 / 0 |
-| lettuce-seed | 4 | 0.5 | 81.360 | 0.600 | 0 / 0 |
-| lettuce-seed | 4 | 1 | 40.680 | 0.300 | 0 / 0 |
-| lettuce-seed | 4 | 2 | 20.340 | 0.150 | 0 / 0 |
-| lettuce-seed | 8 | 0.5 | 162.720 | 1.200 | 0 / 0 |
-| lettuce-seed | 8 | 1 | 81.360 | 0.600 | 0 / 0 |
-| lettuce-seed | 8 | 2 | 40.680 | 0.300 | 0 / 0 |
 | lettuce | 1 | 0.5 | 37.974 | 0.150 | 0 / 0 |
 | lettuce | 1 | 1 | 18.987 | 0.075 | 0 / 0 |
 | lettuce | 1 | 2 | 9.494 | 0.037 | 0 / 0 |
@@ -76,6 +67,15 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | lettuce | 8 | 0.5 | 303.792 | 1.200 | 26 / 2 |
 | lettuce | 8 | 1 | 151.896 | 0.600 | 0 / 0 |
 | lettuce | 8 | 2 | 75.948 | 0.300 | 0 / 0 |
+| lettuce-seed | 1 | 0.5 | 20.340 | 0.150 | 0 / 0 |
+| lettuce-seed | 1 | 1 | 10.170 | 0.075 | 0 / 0 |
+| lettuce-seed | 1 | 2 | 5.085 | 0.037 | 0 / 0 |
+| lettuce-seed | 4 | 0.5 | 81.360 | 0.600 | 0 / 0 |
+| lettuce-seed | 4 | 1 | 40.680 | 0.300 | 0 / 0 |
+| lettuce-seed | 4 | 2 | 20.340 | 0.150 | 0 / 0 |
+| lettuce-seed | 8 | 0.5 | 162.720 | 1.200 | 0 / 0 |
+| lettuce-seed | 8 | 1 | 81.360 | 0.600 | 0 / 0 |
+| lettuce-seed | 8 | 2 | 40.680 | 0.300 | 0 / 0 |
 
 ## Recovery per completed healthy cohort
 
@@ -84,8 +84,8 @@ No recovery is credited against horizon totals: completed harvests, B2 setup, co
 | Crop | Residue kg | Concentrate g | Makeup g | Mixture g | Spent biomass kg | Electricity kWh | Powered minutes |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | potato | 0.800 | 3.84 | 3.84 | 7.68 | 0.79616 | 0.01700 | 2.040 |
-| lettuce-seed | 1.180 | 5.90 | 5.90 | 11.80 | 1.17410 | 0.02460 | 2.952 |
 | lettuce | 0.200 | 0.50 | 0.50 | 1.00 | 0.19950 | 0.00500 | 0.600 |
+| lettuce-seed | 1.180 | 5.90 | 5.90 | 11.80 | 1.17410 | 0.02460 | 2.952 |
 
 One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; consumes 0.0392 kg cartridge medium; recovers 17.550 kg water + 0.080 kg nutrients; retains 2.0092 kg rejects. Needs 0.196 kWh, 23.52 powered minutes plus 15 crew setup minutes. The remaining cartridge has 5.4 kg treatment capacity. Outputs require fresh headroom.
 
@@ -93,8 +93,8 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
-- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `e2dcb182a80bf8ca8872aa22a01b17402b9c3f74f08c1c0721e36023e4174df0`
-- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `9af4aebbe0adf6fcb501b9c19f4417fb0eb7e4a283eda6a1797eb09a9ac17e84`
+- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `a2f3ba83c4137db9b132a3b22d80f4472ef6611ad141e2aa4554043eab46e118`
+- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `cbb0f8f52f3f10f97feef76d7e7b60f8bb39664b631e76c15bb70c8099303216`
 - `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `dba4e221480a6c1f366cd5ef088aeafb6baa73fc3c9c03af39df132db2b038f1`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`

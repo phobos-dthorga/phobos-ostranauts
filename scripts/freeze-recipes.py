@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze published process-recipe revisions.
+"""Freeze published process-recipe revisions and crops.
 
 Every mods/<Mod>/framework/process-recipes.json has a sibling
 frozen-process-recipes.json holding a SHA-256 of each published machine@revision.
@@ -8,6 +8,10 @@ differently, and refuses a pack that drops a frozen revision, so changing a reci
 means adding a revision. The hash is over the entry JSON with its top-level notes
 removed, keys sorted at every level and no whitespace; the C# side
 (PhobosFramework.Data.RecipeFreeze) computes the same.
+
+A crops pack (mods/<Mod>/framework/crops.json) is frozen the same way into
+frozen-crops.json, keyed by crop name: a saved planting stores only that name, so a
+published crop can never change or disappear; a change adds a crop beside it.
 
 Usage: freeze-recipes.py [--check] [--format json] [packs...]
 --check verifies without writing (exit 1 when a freeze file is stale or a frozen
@@ -39,22 +43,29 @@ def entry_hash(entry):
 
 def published(pack):
     out = {}
+    if pack.get('schema') == 'crops':
+        for crop_id, entry in pack.get('crops', {}).items():
+            out[crop_id] = (crop_id, entry_hash(entry))
+        return out
     for recipe_id, entry in pack.get('recipes', {}).items():
         key = f"{entry.get('machine', '')}@{entry.get('revision', '')}"
         out[key] = (recipe_id, entry_hash(entry))
     return out
 
 
-def freeze_path(pack_path):
-    return pack_path.with_name('frozen-process-recipes.json')
+FROZEN_NAMES = {'process-recipes': 'frozen-process-recipes.json', 'crops': 'frozen-crops.json'}
+
+
+def freeze_path(pack_path, schema='process-recipes'):
+    return pack_path.with_name(FROZEN_NAMES[schema])
 
 
 def process(pack_path, check):
     pack = json.loads(pack_path.read_text(encoding='utf-8-sig'))
-    if pack.get('schema') != 'process-recipes':
+    if pack.get('schema') not in FROZEN_NAMES:
         return None
     current = published(pack)
-    path = freeze_path(pack_path)
+    path = freeze_path(pack_path, pack['schema'])
     frozen = json.loads(path.read_text(encoding='utf-8-sig')) if path.exists() else {'schemaVersion': 1, 'revisions': {}}
     problems, added = [], []
     for key, digest in frozen.get('revisions', {}).items():
@@ -81,7 +92,8 @@ def main():
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
     args = parser.parse_args()
-    paths = [Path(p).resolve() for p in args.packs] or sorted((ROOT / 'mods').glob('*/framework/process-recipes.json'))
+    paths = [Path(p).resolve() for p in args.packs] or sorted(
+        list((ROOT / 'mods').glob('*/framework/process-recipes.json')) + list((ROOT / 'mods').glob('*/framework/crops.json')))
     results = [r for r in (process(p, args.check) for p in paths) if r]
     errors = [p for r in results for p in r['problems']]
     report = {'schemaVersion': 1, 'status': 'valid' if not errors else 'invalid', 'packs': results}

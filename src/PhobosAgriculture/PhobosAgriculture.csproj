@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.39.0</Version>
+    <Version>0.40.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -29,4 +29,8 @@
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/vessels.json" LogicalName="PhobosAgriculture.vessels.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/economy.json" LogicalName="PhobosAgriculture.economy.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/materials.json" LogicalName="PhobosAgriculture.materials.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/crops.json" LogicalName="PhobosAgriculture.crops.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/frozen-crops.json" LogicalName="PhobosAgriculture.frozen-crops.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/process-recipes.json" LogicalName="PhobosAgriculture.process-recipes.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../mods/PhobosAgriculture/framework/frozen-process-recipes.json" LogicalName="PhobosAgriculture.frozen-process-recipes.json" /></ItemGroup>
 </Project>

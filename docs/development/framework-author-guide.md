@@ -170,6 +170,15 @@ frozen revision that changed or disappeared, shipped or player. To change a reci
 add a revision and run the freezer; CI runs `freeze-recipes.py --check`. The
 Python and C# digests are asserted equal on a fixed sample in both test suites.
 
+A content mod may define its own schema: any `DataPack` subclass loads through
+`DataPacks.Load<T>` with the owner's validator. Agriculture's `crops` schema
+(`PhobosAgriculture.Core.CropPack`, Agriculture 0.40.0) is the first. Its entries are
+keyed by the name a saved planting stores, so the same freezer writes
+`frozen-crops.json` keyed by crop name and `CropFreeze.Enforce` reuses
+`RecipeFreeze.Hash`. A mod-owned schema still needs its validator in
+`scripts/validate-data-packs.py`, its JSON Schema in `scripts/write-json-schemas.py`
+and a row in the player editing guide.
+
 `Data.MaterialPack` (`materials`) holds a mod's loose items by definition id: kind
 (how the owner builds it), kg, price, stack, side, category, terminal flag and art.
 `MaterialSchema.Validate` requires an entry for every id the owner names and no

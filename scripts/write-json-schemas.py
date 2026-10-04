@@ -174,7 +174,28 @@ def equipment():
     return obj({**header('equipment'), 'equipment': named(entry, 'Machine shapes by definition prefix; a read-only reference for now.')},
                ['schemaVersion', 'schema', 'equipment'], 'Footprint, mass, power, heat share, feed cells, art and use points of each machine.')
 
-SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment}
+def crops():
+    kg = lambda text: num(0, exclusive_minimum=0, description=text)
+    crop = obj({'notes': NOTES, 'name': string('Plain name for a crop you add; shipped crops use the translation files.'), 'hours': num(None, 10000, exclusive_minimum=0, description='Lit hours to harvest at ordinary pace.'),
+                'kw': num(None, 1.5, exclusive_minimum=0, description='Rack electrical demand while growing.'),
+                'seedKg': kg('Planted mass; one unit of the stock item.'), 'finalKg': kg('Harvest-ready mass of the cohort.'),
+                'carbonKg': kg('Carbon fixed over the cycle, as CH2O.'), 'nutrientKg': kg('Nutrient taken up.'), 'waterKg': kg('Water taken up.'),
+                'vapourKg': num(0, description='Water transpired.'), 'seedCarbonKg': num(0, description='Carbon the planting stock already holds.'),
+                'edibleKg': kg('Edible mass of a full healthy cohort.'), 'keptStockKg': num(0, description='Planting stock kept back at harvest: zero or one planting.'),
+                'portionKg': kg('One portion; one unit of the produce item.'), 'stock': string('The item planted.'), 'produce': string('The item each portion becomes.'),
+                'feed': string('The saved name of the feed a W2 mixes for this crop.'), 'feedCommodity': string('The saved name that feed is held under in conduit.'),
+                'art': string('Artwork family of the growth stages; a crop that ships with the mod.', pattern='^[A-Za-z0-9]+$')},
+               ['hours', 'kw', 'seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'vapourKg', 'seedCarbonKg', 'edibleKg', 'keptStockKg', 'portionKg',
+                'stock', 'produce', 'feed', 'feedCommodity', 'art'],
+               'Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg.')
+    item = obj({'notes': NOTES, 'text': string('Translation key of the item name; its description is the key plus _desc.'),
+                'hunger': num(1, 20, integer=True), 'satiety': num(1, 20, integer=True)}, ['text'])
+    return obj({**header('crops'), 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
+                'items': named(item, 'The crop items the mod builds, by definition id.')}, ['schemaVersion', 'schema', 'crops', 'items'],
+               'What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop.')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops}
 
 
 def render(name):

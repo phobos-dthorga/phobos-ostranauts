@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/crops.schema.json",
+  "title": "Phobos crops data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "crops"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "crops": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "name": {
+              "type": "string",
+              "description": "Plain name for a crop you add; shipped crops use the translation files."
+            },
+            "hours": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 10000,
+              "description": "Lit hours to harvest at ordinary pace."
+            },
+            "kw": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1.5,
+              "description": "Rack electrical demand while growing."
+            },
+            "seedKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Planted mass; one unit of the stock item."
+            },
+            "finalKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Harvest-ready mass of the cohort."
+            },
+            "carbonKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Carbon fixed over the cycle, as CH2O."
+            },
+            "nutrientKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Nutrient taken up."
+            },
+            "waterKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Water taken up."
+            },
+            "vapourKg": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Water transpired."
+            },
+            "seedCarbonKg": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Carbon the planting stock already holds."
+            },
+            "edibleKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "Edible mass of a full healthy cohort."
+            },
+            "keptStockKg": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Planting stock kept back at harvest: zero or one planting."
+            },
+            "portionKg": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "description": "One portion; one unit of the produce item."
+            },
+            "stock": {
+              "type": "string",
+              "description": "The item planted."
+            },
+            "produce": {
+              "type": "string",
+              "description": "The item each portion becomes."
+            },
+            "feed": {
+              "type": "string",
+              "description": "The saved name of the feed a W2 mixes for this crop."
+            },
+            "feedCommodity": {
+              "type": "string",
+              "description": "The saved name that feed is held under in conduit."
+            },
+            "art": {
+              "type": "string",
+              "description": "Artwork family of the growth stages; a crop that ships with the mod.",
+              "pattern": "^[A-Za-z0-9]+$"
+            }
+          },
+          "required": [
+            "hours",
+            "kw",
+            "seedKg",
+            "finalKg",
+            "carbonKg",
+            "nutrientKg",
+            "waterKg",
+            "vapourKg",
+            "seedCarbonKg",
+            "edibleKg",
+            "keptStockKg",
+            "portionKg",
+            "stock",
+            "produce",
+            "feed",
+            "feedCommodity",
+            "art"
+          ],
+          "description": "Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg."
+        }
+      },
+      "description": "Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it."
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "text": {
+              "type": "string",
+              "description": "Translation key of the item name; its description is the key plus _desc."
+            },
+            "hunger": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            },
+            "satiety": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      },
+      "description": "The crop items the mod builds, by definition id."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "crops",
+    "items"
+  ],
+  "description": "What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop."
+}

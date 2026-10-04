@@ -38,7 +38,7 @@ internal static partial class Service
     }
     private static bool Paused(Session s) => !s.State.Running && !s.State.Receiving;
     internal static string[] Actions(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.Actions : IrrigationDefinitions.IsSupply(co)
-        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "mix-potato", "mix-lettuce", "mix-lettuce-seed", "water-only", "cancel-recovery", "dose-inventory", "dose-off" }
+        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water" }.Concat(Definitions.MixActions).Concat(new[] { "cancel-recovery", "dose-inventory", "dose-off" }).ToArray()
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
         : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
     /// <summary>The racks a W2 can feed, or the W2s that can feed a rack: only those joined by an irrigation conduit

@@ -165,7 +165,7 @@ internal static partial class Service
         var s = Get(co);
         double kw = s.Protected || WaterGuard(co).Protected || !RoomReady(co) ? 0 :
             WorkupDefinitions.IsBench(co) ? s.State.Running && s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : 0 :
-            IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : 0 : s.State.DemandKW;
+            IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? HearthRecipes.CookerKW : 0 : s.State.DemandKW;
         return nativeAmount / StandbyKW * Math.Max(kw, StandbyKW);
     }
     internal static void Tick(CondOwner co)
@@ -210,8 +210,9 @@ internal static partial class Service
             else if (Definitions.IsCooker(co))
             {
                 exchange = new Exchange { RoomHeatKWh = received };
-                if (s.State.Running && CookerInput(s) != null) s.State.CookerProgress = Math.Min(.05, s.State.CookerProgress + received);
-                if (s.State.CookerProgress >= .05) Cook(s);
+                double needKWh = CookerKWh(s);
+                if (s.State.Running && CookerInput(s) != null) s.State.CookerProgress = Math.Min(needKWh, s.State.CookerProgress + received);
+                if (s.State.CookerProgress >= needKWh) Cook(s);
             }
             else
             {
@@ -266,7 +267,7 @@ internal static partial class Service
             else if (action == "unwatch") s.Watch.Cancel();
             else
             {
-                if (!s.State.Running || (Definitions.IsCooker(co) ? CookerInput(s) == null || s.State.CookerProgress >= .05 : s.State.CropId.Length == 0 || s.State.Ready))
+                if (!s.State.Running || (Definitions.IsCooker(co) ? CookerInput(s) == null || s.State.CookerProgress >= CookerKWh(s) : s.State.CropId.Length == 0 || s.State.Ready))
                 { message = Text.Get("cue_start_first"); return false; }
                 s.Watch.Arm(CrewSim.GetSelectedCrew().strID, co.ship.strRegID);
             }
@@ -305,7 +306,7 @@ internal static partial class Service
                 if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) { message = Text.Get("repair"); return false; }
                 if (Definitions.IsCooker(co) && s.State.CookerInput.Length == 0)
                 {
-                    var raw = Input(co, Definitions.Raw, .4);
+                    var raw = Cookable(co);
                     if (raw == null) { message = Text.Get("missing_input"); return false; }
                     s.State.CookerInput = raw.strID;
                 }
@@ -331,7 +332,7 @@ internal static partial class Service
         string environment = room == null || room.GasContainer == null ? Text.Get("unknown") : Text.Get("environment", room.strID, room.GetCondAmount("StatGasTemp") - 273.15, room.GetCondAmount("StatGasPressure"));
         environment += "\n" + Text.Get(s.Watch.Armed ? "cue_watching" : s.Watch.Completed ? "cue_completed" : "cue_off") + "\n" + CompletionCues.VolumeLabel;
         environment += "\n" + (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown"));
-        if (Definitions.IsCooker(co)) return Text.Get("cooker_status", b.CookerProgress / .05 * 100, Text.Get(b.Running ? "cooking" : "stopped"), environment, s.Protected ? Text.Get("protected") : s.Notice);
+        if (Definitions.IsCooker(co)) return Text.Get("cooker_status", b.CookerProgress / CookerKWh(s) * 100, Text.Get(b.Running ? "cooking" : "stopped"), environment, s.Protected ? Text.Get("protected") : s.Notice);
         if (b.CropId.Length > 0)
         {
             var warnings = new List<string>();
@@ -343,7 +344,7 @@ internal static partial class Service
             if (b.Running && !b.Ready && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW < b.DemandKW * .95) warnings.Add(Text.Get("power_low"));
             environment += "\n" + string.Join("\n", warnings);
         }
-        return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Text.Get(b.CropId), b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
+        return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Crop.Get(b.CropId).Name, b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
             Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected || WaterGuard(co).Protected ? Text.Get("protected") : s.Notice) + "\n" + DescribeWaterRoute(s);
     }
     private sealed class Reservoir : ILiquidReservoir

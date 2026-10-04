@@ -56,11 +56,14 @@ The rules:
   with a higher `revision` (the machine offers the highest); a file that edits a
   frozen revision is skipped with that reason. Material masses are tied to the
   recipes that use them in the same way.
+- **A published crop never changes either; add one beside it.** A rack that is
+  growing a crop remembers only the crop's name, so the shipped crops are frozen
+  like recipes. See [Adding a crop](#adding-a-crop).
 
 ## Editor help
 
 The repository ships a JSON Schema for each pack in `schemas/` (`economy`,
-`process-recipes`, `materials`, `vessels`, `equipment`). Point your editor at them and it will
+`process-recipes`, `materials`, `vessels`, `equipment`, `crops`). Point your editor at them and it will
 complete field names and flag a wrong type or range as you type. In VS Code, add
 to your settings (adjust the path to where you cloned or downloaded the schemas):
 
@@ -90,7 +93,9 @@ existing job keeps the work it started with, and a shop keeps what it already
 holds. Changing a store's capacity or empty weight in a vessels file does not
 silently change a store you already own: it shows as needing attention with an
 Accept button, and its contents wait until you accept. A charge already running
-keeps the recipe revision it started with.
+keeps the recipe revision it started with. A rack keeps growing the crop it was
+planted with; if you remove the file that added that crop, the rack waits, marked
+as needing attention, until the file is back.
 
 ## Which packs exist
 
@@ -111,6 +116,8 @@ keeps the recipe revision it started with.
 | Phobos Framework 0.57.0 | `economy` | The shared gas and process-water lines, and since 0.58.0 the Rivetline S2 to S5 water silos: price, work, bills, salvage, offers, lots, world finds |
 | Phobos Framework 0.58.0 | `vessels` | The S3 water silo's capacity and weight |
 | Phobos Manufacturing 0.17.0 | `equipment` | The V4 refinery's size, weight, power, heat into the room, feed cells and connection points (read only for now) |
+| Phobos Agriculture 0.40.0 | `crops` | What a Firstlight rack grows: each crop's growth time, power, water, nutrient and carbon budgets, harvest, items, feed and artwork |
+| Phobos Agriculture 0.40.0 | `process-recipes` | What the Hearth-2 cooks: one portion in, one portion out, and the seconds it takes |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -133,3 +140,50 @@ it replaces (`supersedes`, a list of revision numbers): the machine then offers
 the new recipe for new charges, while a charge already bound to the old revision
 still finishes by it. Only one recipe may supersede a given revision. More packs (loot) follow as the tables move over; this page lists
 them as they land.
+
+## Adding a crop
+
+Put a file in `BepInEx/config/PhobosAgriculture/crops/` (Agriculture 0.40.0). The
+shipped `crops.json` in the mod's `framework` folder is the reference. A new crop
+gets its own planting job on the rack, its own feed on the W2 and its own crew
+order, with no code.
+
+```json
+{
+  "crops": {
+    "quick-lettuce": {
+      "name": "Quick lettuce",
+      "hours": 36, "kw": 0.4,
+      "seedKg": 0.005, "finalKg": 1.2,
+      "carbonKg": 0.0605, "nutrientKg": 0.005, "waterKg": 1.2658, "vapourKg": 0.1,
+      "seedCarbonKg": 0.0045,
+      "edibleKg": 1, "keptStockKg": 0, "portionKg": 0.25,
+      "stock": "PhobosVerdemorrowContinuanceLettuce",
+      "produce": "PhobosVerdemorrowLettuce",
+      "feed": "quick-lettuce-v1", "feedCommodity": "quick lettuce feed",
+      "art": "Lettuce"
+    }
+  }
+}
+```
+
+The rules a crop is held to:
+
+- **Mass must close.** Water plus nutrient plus 0.4 times the carbon, less the
+  vapour, must equal the final mass less the seed. The 0.4 is the carbon dioxide a
+  plant takes in less the oxygen it gives off, per kilogram of carbon it fixes.
+- **It uses the mod's own items.** `stock` (what is planted) and `produce` (what
+  each portion becomes) must be Agriculture items, `seedKg` must be one unit of the
+  stock and `portionKg` one unit of the produce. A file cannot add an item.
+- **It borrows artwork.** `art` names a shipped crop's growth stages: `Potato`,
+  `Lettuce` or `LettuceSeed`.
+- **It needs its own names.** The crop's name, `feed` and `feedCommodity` must not
+  be used by another crop. They are saved with your racks and pipes, so do not
+  rename them later. `name` is the plain name shown in the game.
+- **A rack's limits apply.** At most 1.5 kW, 20 kg of water and 0.5 kg of nutrient.
+- **Shipped crops cannot be edited.** A file that changes `potato`, `lettuce` or
+  `lettuce-seed` is skipped. Copy one under a new name instead.
+
+The Hearth-2's recipes work the same way in
+`BepInEx/config/PhobosAgriculture/process-recipes/`: one item in, one item of the
+same mass out, a number of seconds, and no two recipes for the same item.

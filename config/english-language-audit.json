@@ -66247,6 +66247,335 @@
       }
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "crops_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: no crops listed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:74"
+      ],
+      "before": "The crops file lists no crops.",
+      "after": "The crops file lists no crops."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_id",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: says what a crop name may contain.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:79"
+      ],
+      "before": "Crop name {0} is not usable: use lower-case letters, digits and hyphens.",
+      "after": "Crop name {0} is not usable: use lower-case letters, digits and hyphens."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_positive",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: a figure is missing, negative or zero.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:81",
+        "src/PhobosAgriculture/Core/CropPack.cs:83"
+      ],
+      "before": "Crop {0} has a figure that is missing, negative or zero where it cannot be.",
+      "after": "Crop {0} has a figure that is missing, negative or zero where it cannot be."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_limits",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: states the rack limits a crop must stay inside.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:84"
+      ],
+      "before": "Crop {0} is outside what a rack can do: at most {1:F0} hours and {2:F1} kW.",
+      "after": "Crop {0} is outside what a rack can do: at most {1:F0} hours and {2:F1} kW."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the bound on a plain crop name.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:85"
+      ],
+      "before": "Crop {0}: a plain name is at most 40 ordinary characters.",
+      "after": "Crop {0}: a plain name is at most 40 ordinary characters."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_carbon",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: carbon or seed mass is impossible.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:87"
+      ],
+      "before": "Crop {0} holds more carbon than it weighs, or its seed weighs as much as its harvest.",
+      "after": "Crop {0} holds more carbon than it weighs, or its seed weighs as much as its harvest."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: states the mass balance rule and both figures.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:90"
+      ],
+      "before": "Crop {0} does not conserve mass: it takes in {1:F4} kg and grows by {2:F4} kg. Water plus nutrient plus 0.4 x carbon, less vapour, must equal final less seed.",
+      "after": "Crop {0} does not conserve mass: it takes in {1:F4} kg and grows by {2:F4} kg. Water plus nutrient plus 0.4 x carbon, less vapour, must equal final less seed."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_rack",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: states what a rack holds.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:91"
+      ],
+      "before": "Crop {0} needs more than a rack holds: at most {1:F0} kg of water and {2:F1} kg of nutrient.",
+      "after": "Crop {0} needs more than a rack holds: at most {1:F0} kg of water and {2:F1} kg of nutrient."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_harvest",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the harvest gives more than it grows.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:92"
+      ],
+      "before": "Crop {0} gives more than it grows: the edible share, the kept stock and one portion must fit inside the harvest.",
+      "after": "Crop {0} gives more than it grows: the edible share, the kept stock and one portion must fit inside the harvest."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_item",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: names the unknown item.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:95",
+        "src/PhobosAgriculture/Core/CropPack.cs:115"
+      ],
+      "before": "Crop {0} names an item this mod does not have: {1}.",
+      "after": "Crop {0} names an item this mod does not have: {1}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_unit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the planted or portion mass differs from the item.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:98",
+        "src/PhobosAgriculture/Core/CropPack.cs:99"
+      ],
+      "before": "Crop {0}: one {1} must weigh {2:R} kg, and the materials file says {3:R} kg.",
+      "after": "Crop {0}: one {1} must weigh {2:R} kg, and the materials file says {3:R} kg."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_kept",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: kept stock must be one planting.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:100"
+      ],
+      "before": "Crop {0}: stock kept back at harvest must be exactly one planting.",
+      "after": "Crop {0}: stock kept back at harvest must be exactly one planting."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: feed and conduit names must be unique.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:101",
+        "src/PhobosAgriculture/Core/CropPack.cs:102"
+      ],
+      "before": "Crop {0} needs its own feed name and its own conduit name: {1} is missing or already used.",
+      "after": "Crop {0} needs its own feed name and its own conduit name: {1} is missing or already used."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_art",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: says which artwork names are allowed, with examples.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:103"
+      ],
+      "before": "Crop {0} needs the artwork name of a crop that ships with the mod, such as Potato or Lettuce.",
+      "after": "Crop {0} needs the artwork name of a crop that ships with the mod, such as Potato or Lettuce."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_item_entry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: a crop item or its text is unknown.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:109"
+      ],
+      "before": "Crop item {0} is not one of this mod's items, or its name and description text are missing.",
+      "after": "Crop item {0} is not one of this mod's items, or its name and description text are missing."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_food",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the bounds on food values.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:111"
+      ],
+      "before": "Crop item {0}: hunger and satiety go together, each from 1 to 20.",
+      "after": "Crop item {0}: hunger and satiety go together, each from 1 to 20."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_frozen_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: a published crop cannot be removed, and why.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:132"
+      ],
+      "before": "Published crop {0} is missing. A published crop can never be removed; saved plantings depend on it.",
+      "after": "Published crop {0} is missing. A published crop can never be removed; saved plantings depend on it."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_frozen_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: a published crop cannot be changed; says what to do instead.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:133"
+      ],
+      "before": "The file changes published crop {0}. Add a new crop beside it instead; saved plantings keep the old one.",
+      "after": "The file changes published crop {0}. Add a new crop beside it instead; saved plantings keep the old one."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hearth_recipe_shape",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the shape a cooking recipe must have.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/HearthRecipes.cs:55"
+      ],
+      "before": "Cooking recipe {0} must take one item, give one item and say how many seconds it cooks.",
+      "after": "Cooking recipe {0} must take one item, give one item and say how many seconds it cooks."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hearth_recipe_item",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: a cooking recipe names an unknown item.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/HearthRecipes.cs:56"
+      ],
+      "before": "Cooking recipe {0} names an item this mod does not have.",
+      "after": "Cooking recipe {0} names an item this mod does not have."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "hearth_recipe_input",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: two recipes cook the same item.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/HearthRecipes.cs:57"
+      ],
+      "before": "Cooking recipe {0}: another recipe already cooks {1}.",
+      "after": "Cooking recipe {0}: another recipe already cooks {1}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "plant_other",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Planting job for a crop a player file added, worded like the shipped ones.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Text.cs:17"
+      ],
+      "before": "Plant {0} (15 minutes)",
+      "after": "Plant {0} (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mix_other",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Feed choice for a crop a player file added, worded like the shipped ones.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Text.cs:18"
+      ],
+      "before": "Select {0} feed (pause and unlink first)",
+      "after": "Select {0} feed (pause and unlink first)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_other",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Crew order for a crop a player file added.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/CrewProvider.cs:26"
+      ],
+      "before": "Grow {0}",
+      "after": "Grow {0}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "solution_other",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Feed name for a crop a player file added.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Text.cs:23"
+      ],
+      "before": "{0} feed",
+      "after": "{0} feed"
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -69065,8 +69394,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ad4a6db1e93968efa5e1eebf3632cd269e8d69319f807c5d78ea3ae4ab3b6f27",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "a2ad787f0c5ffadff9ac9cf1952f062cb963af69ed73ee6ce1aefb7ea4660e2c",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "SUPPORT.md",
@@ -69093,8 +69422,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a0fdefd7b64f3c5914e60a668b40a75ea1b7a1da6c26901dea817c4f0fdce2ab",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0 and Agriculture 0.39.0: station bulk purchases no longer fail with a stale quote."
+      "sha256": "415184e7f4552d14328cc7f64cb091f82304b6ae3e48487a4fbef164a63053db",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -69225,8 +69554,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5f8fb32974b1e7650a3c2197dc22512db4afa160c34b4688c299bf4777c7302b",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "f1bfc55d7e8c71df1ad58672524f56c21e842bf94d02f1d9956bd7755775e1f6",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/crew-automation.md",
@@ -69239,8 +69568,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "9968ba4b88bd8cde8d008766b6f39d7389bac3a40ed8cd1c9196d0771fc895f3",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "d207a90d1882d3a9277e742ca2920c0e6ce5a400b0512b7bbc774f6ee539f7b4",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -69253,8 +69582,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "99dd339e8bd751dfd805c241655fecd776c33443c0e9a07deaa81be7c06dc14a",
-      "review": "Reviewed 1 October 2026 for Framework 0.71.0: products delivered into stacks, product trays sized to the job."
+      "sha256": "101dd3a91d62d57e4d80fe725c178c145606ce6ecf8795874abb3566532beee6",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -69274,8 +69603,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "dff1233001c8de8a9d361817e726f1d9e07b2efd04aeb55c61f5cbea05bb7514",
-      "review": "Reviewed 2026-09-30 for Agriculture 0.27.0 (Groundwork nutrient hoppers, kiosk crop nutrients, W2 dosing): new hopper, kiosk and dosing wording and the guides that describe them; direct player text."
+      "sha256": "e82a916c7851dd60ef83814fb5122612d9616d6b1e3c7dd6936a1b54b6e94f50",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -69329,8 +69658,8 @@
       "path": "docs/development/agriculture-roadmap.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "d45f0b8e933a3630291c20a193b3c1cd85d18dcbcaa102f40254e87ee38b442b",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "e2a75c585aeb35ea7971d7e98f001d7fb25c566f6ac2dffcb045141bf537e9a1",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/agriculture-treatment-economy.md",
@@ -69526,8 +69855,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7b1ae11f6261dbf1c2e1280e1f9724e2da4b61b6097fe14d05d4e520bcb48e3a",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "471fd0d41bce3cfe0405daef2279718bb12bf903e1278e4f8d9afeb2ccfeb249",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -69748,8 +70077,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "c8653dbe695d5f98dcab18cd19ab6a581cc447186d7e7a3f5d68b91beb13177c",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "5886f9688992bf1d6be30fe2aac34ad1550ff83e27df2196f09d4a66d3fbdcdf",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -70142,8 +70471,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3045369b93c238a156e501a51bf340415ee8504a86f8b42077e02089da78c3ca",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "966f5c5c7615bab9458443161df2ffd4c48c6557504dc8ca08786c2f226dfa04",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -70233,8 +70562,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "22e92bee82512a9be393f7322f2877bcd5a5a03dedae25219f7d9e6ecabe28f6",
-      "review": "Reviewed 1 October 2026 for Framework 0.68.0, Manufacturing 0.26.0 and Shipbreaker 0.62.0: refining as a business, kiosk buy-back, nickel steel, methane ice price."
+      "sha256": "304b0ee95d5171186959c11b4ec113b7f7139a2ce72339ad2844d638caf68632",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -70291,6 +70620,13 @@
       "decision": "Development design record; player text limited to names and the link to the player guide.",
       "sha256": "91c49f9b41e8f3dc5c33edd6fd2aa1e9975af3ee8c1cb8d876d60c85e51890d9",
       "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+    },
+    {
+      "path": "docs/development/agriculture-crop-expansion.md",
+      "scope": "developer design record",
+      "decision": "Development design record with research sources; no player text.",
+      "sha256": "d8c03d4fbfd327674b4da9c14716624abec0af46ae437b388911e4b61ef80cbd",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     }
   ],
   "surfaces": [
@@ -70314,8 +70650,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7ab4ac7b1a0dde7a789d1c966953d6934bfa6a287ea55cfca61049eed2d7deca",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "cdf63895cdd1f7c412f540104686c28eb379c434e188747544d41ed06681b21d",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.40.0: crops and cooking recipes are data packs."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

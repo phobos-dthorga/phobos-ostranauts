@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.40.0] - 2026-10-04 - Draft
+
+### Changed
+
+- Crops are now a readable data file. What a Firstlight rack grows (growth time, power, water, nutrient, harvest, items, feed and artwork of each crop) moved from the code into framework/crops.json, and the Hearth-2's cooking recipe into framework/process-recipes.json. Potatoes, lettuce and lettuce grown for seed behave exactly as before. This is groundwork for the new crops to come (owner direction, 4 October 2026).
+- You can add a crop of your own with a file in BepInEx/config/PhobosAgriculture/crops: it gets its own planting job, W2 feed and crew order. It must conserve mass, use the mod's own items and borrow a shipped crop's artwork. See the data file guide.
+
+### Save compatibility
+
+- Automatic. Plantings, feeds, pipes and half-cooked portions saved by earlier versions load unchanged.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- The shipped crops and the shipped cooking recipe are frozen: a file that edits one is skipped with the reason; add a new one beside it instead. A file cannot add an item or artwork.
+- If you remove a file that added a crop while a rack is growing it, that rack waits for attention until the file is back.
+- Checked offline against saved-record fixtures and the item reference export; not yet seen in the game.
+
 ## [0.39.0] - 2026-10-04 - Draft
 
 ### Added

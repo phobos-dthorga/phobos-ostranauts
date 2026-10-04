@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-04",
-  "baselineCommit": "42eae36a1c17e4e87ab0e4410052bda59628826b",
+  "baselineCommit": "69a5ee23c4c01cf0f50a90c311d186fb47ce4219",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -136,29 +136,50 @@
     },
     {
       "path": "src/PhobosAgriculture/Core/Crop.cs",
-      "sha256": "e2dcb182a80bf8ca8872aa22a01b17402b9c3f74f08c1c0721e36023e4174df0",
+      "sha256": "a2f3ba83c4137db9b132a3b22d80f4472ef6611ad141e2aa4554043eab46e118",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "FF0",
         "FF1",
-        "FF2"
+        "FF2",
+        "L25"
       ],
       "indicators": {},
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Core/CropAppearance.cs",
-      "sha256": "04a8210c253b3acca497b71f309f04af23a1fbd4e0c0094ae2aaef45e45d9bc0",
+      "sha256": "1958b4726b5dcb9a2ace88955c0709240ff0262d3ba75a84aef7bf947582175c",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R1"
+        "R1",
+        "L25"
       ],
-      "indicators": {}
+      "indicators": {},
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosAgriculture/Core/CropPack.cs",
+      "sha256": "0c7cb5ee2aecf3dd682a2a7ef63d51ab20e2f26aca86aa9add03b9762b2c9723",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L25"
+      ],
+      "indicators": {
+        "collection": [
+          153,
+          164,
+          176
+        ]
+      },
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Core/DosingBinding.cs",
@@ -181,6 +202,22 @@
         "R1"
       ],
       "indicators": {}
+    },
+    {
+      "path": "src/PhobosAgriculture/Core/HearthRecipes.cs",
+      "sha256": "c6cb905e27753203e05aa30b163bf601328ceae09e7baf3e0ddb72f2bf8bfbc0",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L25"
+      ],
+      "indicators": {
+        "collection": [
+          43
+        ]
+      },
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Core/HopperRules.cs",
@@ -211,14 +248,16 @@
     },
     {
       "path": "src/PhobosAgriculture/Core/NutrientSolution.cs",
-      "sha256": "d59e4cb602b933364f6b992c64e32f38ea86ee67d5880a8520c32a1058625c04",
+      "sha256": "960761c2a2d70bf167e70cccd367e9420210194cd904e43c3272b39b918604a7",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R1"
+        "R1",
+        "L25"
       ],
-      "indicators": {}
+      "indicators": {},
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Core/RecoveryWork.cs",
@@ -259,25 +298,30 @@
     },
     {
       "path": "src/PhobosAgriculture/CrewProvider.cs",
-      "sha256": "6a533564316eeccd82546c438552425d8ee20137b4c95e64a322e102ff1e48c6",
+      "sha256": "0a117bd04db616f580f99419e38c0b4778109aed15b053d058b006b1b9d16bfd",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "FF0",
         "K1",
-        "L3"
+        "L3",
+        "L25"
       ],
-      "indicators": {},
-      "reviewed": "2026-10-01"
+      "indicators": {
+        "collection": [
+          25
+        ]
+      },
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "9af4aebbe0adf6fcb501b9c19f4417fb0eb7e4a283eda6a1797eb09a9ac17e84",
+      "sha256": "cbb0f8f52f3f10f97feef76d7e7b60f8bb39664b631e76c15bb70c8099303216",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R4",
         "H1",
@@ -289,20 +333,25 @@
         "K1",
         "L3",
         "L17",
-        "L18"
+        "L18",
+        "L25"
       ],
       "indicators": {
         "collection": [
-          34,
-          64,
-          80,
-          83,
-          89,
-          105,
-          147
+          29,
+          30,
+          38,
+          43,
+          76,
+          92,
+          95,
+          101,
+          108,
+          117,
+          159
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/EconomyData.cs",
@@ -412,17 +461,18 @@
     },
     {
       "path": "src/PhobosAgriculture/IrrigationService.cs",
-      "sha256": "722dde6aa7900798b82c9069cdb58ee4d8a4a9dff1585c150177f10470f9e146",
+      "sha256": "447a6716473331fc78037630767c0462aafc6b60b28ac0bceb666069ee7d0c0e",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "FF1",
         "FF2",
         "L2",
         "L4",
-        "L10"
+        "L10",
+        "L25"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -433,11 +483,8 @@
           21,
           30
         ],
-        "discovery": [
-          47,
-          123
-        ],
         "collection": [
+          41,
           47,
           74,
           123,
@@ -445,27 +492,33 @@
           202,
           204
         ],
+        "discovery": [
+          47,
+          123
+        ],
         "profiling": [
           134
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/LineService.cs",
-      "sha256": "7165f75fa64c42d83fe20310cb7b110417c13047a20bfcf71c8e84ae22dd7b57",
+      "sha256": "c1f2f1c1e59d642c88ac28fe917c647f14c133d14df125d982f60f36614ec2fe",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "FF1",
         "FF2",
         "L10",
-        "L11"
+        "L11",
+        "L25"
       ],
       "indicators": {
         "collection": [
+          25,
           26,
           99,
           106
@@ -476,7 +529,7 @@
           31
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/LootContent.cs",
@@ -494,52 +547,60 @@
     },
     {
       "path": "src/PhobosAgriculture/MaterialData.cs",
-      "sha256": "83fb68410b56807270aa081aba953c28be12c8871d606e012fa5fa906e10358a",
+      "sha256": "afcba45fab24f8a9e218bf875d5823fd9fab5db8d368f1947e3275a0d6675dca",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R4"
-      ],
-      "indicators": {},
-      "reviewed": "2026-09-30"
-    },
-    {
-      "path": "src/PhobosAgriculture/MaterialOperations.cs",
-      "sha256": "dc6f703e0707ee76e7bb4f1b82f67a33ef1988f597cf27cfbc15aac564c00412",
-      "role": "biology, fluids, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
-      "findings": [
-        "R1",
-        "FF0",
-        "L18"
+        "R4",
+        "L25"
       ],
       "indicators": {
         "collection": [
-          64,
-          94,
-          106,
-          116
-        ],
-        "persistence_or_io": [
-          135,
-          149
+          25
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
+    },
+    {
+      "path": "src/PhobosAgriculture/MaterialOperations.cs",
+      "sha256": "44bc3688ae699d833e70c01fa61fff6cb67e7b06d4a42884a5e98246022e821c",
+      "role": "biology, fluids, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "R1",
+        "FF0",
+        "L18",
+        "L25"
+      ],
+      "indicators": {
+        "collection": [
+          65,
+          94,
+          106,
+          119,
+          122
+        ],
+        "persistence_or_io": [
+          141,
+          155
+        ]
+      },
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/Panel.cs",
-      "sha256": "3af026a131c27f878b370fe1fd068b4b4eeff1f7684659a913d005788184f48a",
+      "sha256": "9bf3efc8ae6fb67fbc4a92c792080cad62c0c2e7ae40072117d2000a182daf77",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "P6",
         "K1",
         "U1",
-        "L16"
+        "L16",
+        "L25"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -569,7 +630,7 @@
           167
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/PanelConfiguration.cs",
@@ -602,7 +663,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "b3b2aa4501b368fcf9c0ce692a2a7a4e957556efa4f3c1c98872ba5a6f09d7bb",
+      "sha256": "da2ec7696d4687c304cac6aa7072e424a0d038d38988bd88cb01615fd9b73cc5",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
@@ -626,7 +687,8 @@
         "L17",
         "L18",
         "L19",
-        "L24"
+        "L24",
+        "L25"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -741,10 +803,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Service.cs",
-      "sha256": "6dc3739d9b0245c48ac1974bcb894a99891f60d3849da6ffb48ad39b281c5355",
+      "sha256": "5c16765ef9fb3547721d31f57dec237c43db500a49e1da0b4ae5169d8069ead2",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "FF0",
@@ -752,7 +814,8 @@
         "FF2",
         "L4",
         "L10",
-        "L17"
+        "L17",
+        "L25"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -774,22 +837,28 @@
         ],
         "collection": [
           64,
-          278,
-          337
+          279,
+          338
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/SolutionService.cs",
-      "sha256": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
+      "sha256": "f6b339b20ce1658bb6566fb8983d16f0be0ef8c92097d893afaa85de2e93854a",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R1"
+        "R1",
+        "L25"
       ],
-      "indicators": {}
+      "indicators": {
+        "persistence_or_io": [
+          13
+        ]
+      },
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/StackLimits.cs",
@@ -819,14 +888,16 @@
     },
     {
       "path": "src/PhobosAgriculture/Text.cs",
-      "sha256": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
+      "sha256": "d6314088f5b2bb1d6c02a2ebcddc871cc6fce86c86c86a8b4d1affc9baedea8b",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R4"
+        "R4",
+        "L25"
       ],
-      "indicators": {}
+      "indicators": {},
+      "reviewed": "2026-10-04"
     },
     {
       "path": "src/PhobosAgriculture/VesselData.cs",

@@ -914,3 +914,12 @@ nothing. `VesselContentsDisplay.Poll` runs on a five-second cadence and sweeps e
 loaded ship once (`GetCOs` plus one registry probe per object), then never again until
 the next load. The game's own card re-reads the row twice a second while open. No
 capture accompanies this change.
+
+## 4 October: crops as a data pack (L25)
+
+L25 — Agriculture 0.40.0: crop figures come from the crops pack. `Crop.Get`, `Crops.ByFeed`
+and `HearthRecipes.ForInput` replace string comparisons with one dictionary probe (or a
+scan of a one-entry recipe list) on the paths that already called them each power step.
+`Crops.All`, `Definitions.MixActions` and `LineService.FeedProfiles` allocate small arrays,
+and are read when a panel is drawn, an order is evaluated or definitions are prepared, not
+per step. The packs load once per content load. No capture accompanies this change.

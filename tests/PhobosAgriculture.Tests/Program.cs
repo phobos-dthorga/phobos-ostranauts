@@ -24,7 +24,7 @@ Check(!RecyclerAttachment.Aligned(0,0,0,0,0,0), "Overlapping machinery cannot pa
 Check(!RecyclerAttachment.Aligned(0,0,0,0,-2,0), "Nearby machinery with an edge gap cannot pair");
 Check(!RecyclerAttachment.Aligned(0,0,45,0,-1.5,0), "Recycler must follow the tile grid");
 Check(!RecyclerAttachment.Aligned(0,0,0,double.NaN,-1.5,0), "Invalid geometry cannot pair");
-foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
+foreach (var crop in new[] { Crop.Get("potato"), Crop.Get("lettuce"), Crop.Get("lettuce-seed") })
 {
     var s = New(crop); double energy = 0, oxygen = 0;
     for (int hour = 0; hour < crop.Hours; hour++)
@@ -35,8 +35,8 @@ foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
         Near(x.RoomHeatKWh + (s.Carbon - carbon) * CropState.HeatPerCarbonKWh + x.VapourKg * 2.45 / 3.6, crop.KW, "Step conserves energy");
     }
     Check(s.Ready, "Crop reaches harvest"); Near(s.Biomass, crop.Final, "Nominal biomass"); Near(oxygen, crop.Carbon * 32 / 30, "Oxygen follows net growth");
-    var harvest = s.Harvest(); Check(harvest.Portions == (crop == Crop.Potato ? 10 : 4), "Complete crop provides useful food");
-    Near(harvest.SeedKg, crop == Crop.Potato ? .2 : 0, "Potato seed reserved; lettuce does not invent seed");
+    var harvest = s.Harvest(); Check(harvest.Portions == (crop == Crop.Get("potato") ? 10 : 4), "Complete crop provides useful food");
+    Near(harvest.SeedKg, crop == Crop.Get("potato") ? .2 : 0, "Potato seed reserved; lettuce does not invent seed");
     Near(harvest.SeedKg + harvest.Portions * harvest.PortionKg + harvest.ResidueKg, s.Biomass, "Harvest conserves all biomass");
     var cleared = s.Harvest(true); Check(cleared.SeedKg == 0 && cleared.Portions == 0, "Clearing cannot grant food/seed"); Near(cleared.ResidueKg, s.Biomass, "Clearing retains all tissue");
     var stressed = s.Copy(); stressed.Health = .5; var damagedHarvest = stressed.Harvest(); Check(damagedHarvest.Portions < harvest.Portions, "Damage reduces food");
@@ -46,21 +46,21 @@ foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
     var loaded = CropState.Read(s.Save()); Near(loaded.Biomass, s.Biomass, "Reload keeps biomass"); Check(!loaded.Running && !loaded.Receiving, "Reload cannot restore permissions");
     loaded.Pace = 2; Near(s.Pace, 1, "Saved cohort captured independently");
 }
-var powered = New(Crop.Potato); powered.Step(1, .375, 10, 10, true); Near(powered.Progress, .5 / 96, "Half power bounds growth");
-var dry = New(Crop.Potato); dry.Water = 0; var heat = dry.Step(1, .75, 10, 10, true); Near(dry.Progress, 0, "No irrigation means no growth"); Check(heat.RoomHeatKWh >= .75, "Spent lamps plus respiration remain heat");
-var dark = New(Crop.Potato); dark.Running = false; double before = dark.ContentsMass;
+var powered = New(Crop.Get("potato")); powered.Step(1, .375, 10, 10, true); Near(powered.Progress, .5 / 96, "Half power bounds growth");
+var dry = New(Crop.Get("potato")); dry.Water = 0; var heat = dry.Step(1, .75, 10, 10, true); Near(dry.Progress, 0, "No irrigation means no growth"); Check(heat.RoomHeatKWh >= .75, "Spent lamps plus respiration remain heat");
+var dark = New(Crop.Get("potato")); dark.Running = false; double before = dark.ContentsMass;
 var exchange = dark.Step(1, 0, 10, 10, true); Check(exchange.OxygenKg < 0 && exchange.CO2Kg > 0, "Dark respiration has opposite gas direction"); Near(dark.ContentsMass - before + exchange.CO2Kg + exchange.OxygenKg + exchange.VapourKg, 0, "Respiration conserves mass");
-var coarse = New(Crop.Potato); var fine = New(Crop.Potato); coarse.Running = fine.Running = false;
+var coarse = New(Crop.Get("potato")); var fine = New(Crop.Get("potato")); coarse.Running = fine.Running = false;
 for (int n = 0; n < 10; n++) coarse.Step(1, 0, 10, 10, true);
 for (int n = 0; n < 100; n++) fine.Step(.1, 0, 10, 10, true);
 Near(coarse.Carbon, fine.Carbon, "Fast-forward respiration invariant"); Near(coarse.Health, fine.Health, "Stress grace invariant");
 var savedFields = fine.Save(); savedFields["health"] = "NaN"; bool rejected = false; try { CropState.Read(savedFields); } catch { rejected = true; } Check(rejected, "Malformed state rejected");
 var savedCooker = new CropState { CookerInput = "exact-portion", CookerProgress = .025, Running = true };
 var loadedCooker = CropState.Read(savedCooker.Save()); Check(loadedCooker.CookerInput == "exact-portion" && loadedCooker.CookerProgress == .025 && !loadedCooker.Running, "Cooking reload retains exact input and partial energy, requiring Resume");
-var carbonLimited = New(Crop.Potato); var carbonExchange = carbonLimited.Step(1, .75, 0, 10, true); Near(carbonLimited.Progress, 0, "Missing atmospheric carbon prevents food production"); Check(carbonExchange.OxygenKg <= 0, "No photosynthetic oxygen from a timer");
-foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
+var carbonLimited = New(Crop.Get("potato")); var carbonExchange = carbonLimited.Step(1, .75, 0, 10, true); Near(carbonLimited.Progress, 0, "Missing atmospheric carbon prevents food production"); Check(carbonExchange.OxygenKg <= 0, "No photosynthetic oxygen from a timer");
+foreach (var crop in new[] { Crop.Get("potato"), Crop.Get("lettuce"), Crop.Get("lettuce-seed") })
 {
-    var visual = New(crop); string prefix = crop == Crop.Potato ? "Rack-Potato-" : crop == Crop.LettuceSeed ? "Rack-LettuceSeed-" : "Rack-Lettuce-";
+    var visual = New(crop); string prefix = crop == Crop.Get("potato") ? "Rack-Potato-" : crop == Crop.Get("lettuce-seed") ? "Rack-LettuceSeed-" : "Rack-Lettuce-";
     foreach (var stage in new[] { (0d, "sprout"), (.1499, "sprout"), (.15, "young"), (.4499, "young"), (.45, "mature"), (.999, "mature"), (1d, "harvest") })
     {
         visual.Progress = stage.Item1;
@@ -87,6 +87,7 @@ dest.Fail = false; dest.Kg = 20; receipt = FiniteLiquidTransfer.Commit(source, d
 SolutionChecks.Run(Check);
 RecoveryChecks.Run(Check);
 NutrientRecoveryChecks.Run(Check);
+CropPackChecks.Run(Check);
 Console.WriteLine($"Agriculture: {checks} checks passed (offline; not gameplay validation).");
 
 sealed class Reservoir : ILiquidReservoir

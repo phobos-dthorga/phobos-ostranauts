@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "schema": "process-recipes",
+  "notes": "Phobos Agriculture cooking recipes (Agriculture 0.40.0): what a Hearth-2 turns one portion into. Each recipe takes one item and gives one item of the same mass; cooking adds and removes nothing, and its electricity leaves as room heat. The Hearth-2 draws 2 kW while cooking, so seconds fixes the energy. Published revisions are frozen (frozen-process-recipes.json): change a recipe by adding a revision. A portion in the cooker is cooked by the recipe that names its item, so two recipes may not take the same item.",
+  "recipes": {
+    "hearth-potatoes": {
+      "notes": "Hearth revision 1, unchanged since Agriculture 0.2.0: one 0.4 kg portion of raw potatoes into one cooked portion over 90 seconds at 2 kW (0.05 kWh).",
+      "machine": "hearth",
+      "revision": 1,
+      "inputs": [ { "id": "PhobosVerdemorrowRawPotatoes", "count": 1, "kg": 0.4 } ],
+      "products": [ { "id": "PhobosVerdemorrowHearthPotatoes", "count": 1, "kg": 0.4 } ],
+      "seconds": 90
+    }
+  }
+}

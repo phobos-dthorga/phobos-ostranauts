@@ -8,15 +8,17 @@ namespace PhobosAgriculture.Core;
 /// <summary>Authored fresh-feed profiles, not real hydroponic concentrations or chemical assays.</summary>
 public sealed class NutrientSolution
 {
-    public const string None = "water", Potato = "potato-v1", Lettuce = "lettuce-v1", LettuceSeed = "lettuce-seed-v1";
+    /// <summary>Plain water. Every other profile is a crop's feed from the crops data pack (<see cref="Crop.Feed"/>).</summary>
+    public const string None = "water";
     public const double Tolerance = 1e-9;
     public string Profile = None;
     public LiquidMixture Quantity;
     public bool Enabled => Profile != None;
     public double TotalKg => Quantity.TotalKg;
     public NutrientSolution Copy() => (NutrientSolution)MemberwiseClone();
-    public static string CropId(string profile) => profile == Potato ? "potato" : profile == Lettuce ? "lettuce" : profile == LettuceSeed ? "lettuce-seed" : profile == None ? "" : throw new ArgumentException("Unknown solution profile.");
-    public static LiquidMixture Ratio(string profile) => profile == Potato ? new(4.624, .04) : profile == Lettuce ? new(1.2658, .005) : profile == LettuceSeed ? new(Crop.LettuceSeed.Water, Crop.LettuceSeed.Nutrient) : throw new ArgumentException("Water-only mode has no nutrient formulation.");
+    public static string CropId(string profile) => profile == None ? "" : Crops.ByFeed(profile)?.Id ?? throw new ArgumentException("Unknown solution profile.");
+    /// <summary>A feed is its crop's own water and nutrient budget, mixed in that proportion.</summary>
+    public static LiquidMixture Ratio(string profile) => Crops.ByFeed(profile) is Crop c ? new(c.Water, c.Nutrient) : throw new ArgumentException("Water-only mode has no nutrient formulation.");
     public double PlainWaterCapacity => Math.Max(0, CropState.ReservoirKg - TotalKg);
     public double DryCapacity => Math.Max(0, CropState.NutrientCapacityKg - Quantity.SoluteKg);
     public bool CanPlant(string crop) => TotalKg <= Tolerance || CropId(Profile) == crop;

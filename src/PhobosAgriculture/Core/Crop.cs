@@ -5,17 +5,22 @@ using System.Linq;
 
 namespace PhobosAgriculture.Core;
 
+/// <summary>One crop from the <c>crops</c> data pack (<see cref="Crops"/>): the budgets a planting is settled by, what
+/// its harvest gives and the names it is planted, fed and drawn under. A saved planting stores only <see cref="Id"/>.</summary>
 public sealed class Crop
 {
-    public readonly string Id;
-    public readonly double Hours, KW, Seed, Final, Carbon, Nutrient, Water, Vapour, SeedCarbon;
-    public Crop(string id, double hours, double kw, double seed, double final, double carbon, double nutrient, double water, double vapour, double seedCarbon)
-    { Id = id; Hours = hours; KW = kw; Seed = seed; Final = final; Carbon = carbon; Nutrient = nutrient; Water = water; Vapour = vapour; SeedCarbon = seedCarbon; }
-    public static Crop Get(string id) => id == "potato" ? Potato : id == "lettuce" ? Lettuce : id == "lettuce-seed" ? LettuceSeed : throw new ArgumentException("Unknown crop profile.");
-    public static readonly Crop Potato = new("potato", 96, .75, .2, 5, .84, .04, 4.624, .2, .04);
-    // Authored seed-production cycle: separate from the historic food cohort.
-    public static readonly Crop LettuceSeed = new("lettuce-seed", 96, .4, .005, 1.2, .0725, .01, 1.356, .2, .0045);
-    public static readonly Crop Lettuce = new("lettuce", 48, .4, .005, 1.2, .0605, .005, 1.2658, .1, .0045);
+    public readonly string Id, Stock, Produce, Feed, FeedCommodity, Art;
+    private readonly string? plainName;
+    /// <summary>The crop as players read it: the catalogue's wording, or the plain name a player file gave a crop it added.</summary>
+    public string Name => Text.Has(Id) ? Text.Get(Id) : plainName ?? Id;
+    public readonly double Hours, KW, Seed, Final, Carbon, Nutrient, Water, Vapour, SeedCarbon, EdibleKg, KeptStockKg, PortionKg;
+    public Crop(string id, CropEntry e)
+    {
+        Id = id; Hours = e.hours; KW = e.kw; Seed = e.seedKg; Final = e.finalKg; Carbon = e.carbonKg; Nutrient = e.nutrientKg; Water = e.waterKg; Vapour = e.vapourKg;
+        SeedCarbon = e.seedCarbonKg; EdibleKg = e.edibleKg; KeptStockKg = e.keptStockKg; PortionKg = e.portionKg;
+        Stock = e.stock; Produce = e.produce; Feed = e.feed; FeedCommodity = e.feedCommodity; Art = e.art; plainName = e.name;
+    }
+    public static Crop Get(string id) => Crops.Find(id) ?? throw new ArgumentException("Unknown crop profile.");
 }
 
 public sealed class CropState
@@ -32,10 +37,10 @@ public sealed class CropState
     public HarvestBudget Harvest(bool clear = false)
     {
         if (CropId.Length == 0 || !clear && !Ready) throw new InvalidOperationException("No harvestable cohort.");
-        bool potato = CropId == "potato";
-        double edible = clear ? 0 : Biomass * (potato ? 4.2 / 5 : CropId == "lettuce-seed" ? .02 / 1.2 : 1 / 1.2) * Health;
-        double seed = potato && edible >= .2 ? .2 : 0;
-        double portion = potato ? .4 : CropId == "lettuce-seed" ? Crop.LettuceSeed.Seed : .25;
+        var crop = Crop.Get(CropId);
+        double edible = clear ? 0 : Biomass * (crop.EdibleKg / crop.Final) * Health;
+        double seed = crop.KeptStockKg > 0 && edible >= crop.KeptStockKg ? crop.KeptStockKg : 0;
+        double portion = crop.PortionKg;
         int count = (int)Math.Floor((edible - seed + 1e-8) / portion);
         return new HarvestBudget(seed, count, portion, Math.Max(0, Biomass - seed - count * portion));
     }
@@ -92,7 +97,7 @@ public sealed class CropState
         foreach (double x in new[] { Progress, Health, Water, Nutrients, Biomass, Carbon, Pace, DarkHours, CookerProgress })
             if (!Finite(x) || x < -1e-9) throw new ArgumentException("Invalid saved crop quantity.");
         if (RecoveryRevision < 0 || RecoveryRevision > 1) throw new ArgumentException("Unknown crop recovery revision.");
-        if (Progress > 1 || Health > 1 || Water > ReservoirKg + 1e-9 || Nutrients > NutrientCapacityKg + 1e-9 || Pace < .5 || Pace > 2 || Carbon > Biomass + 1e-9 || CookerProgress > .05 + 1e-9)
+        if (Progress > 1 || Health > 1 || Water > ReservoirKg + 1e-9 || Nutrients > NutrientCapacityKg + 1e-9 || Pace < .5 || Pace > 2 || Carbon > Biomass + 1e-9 || CookerProgress > HearthRecipes.MaxKWh + 1e-9)
             throw new ArgumentException("Saved crop quantity exceeds its bound.");
         if (CropId.Length > 0) { var c = Crop.Get(CropId); if (Cohort.Length != 32 || Biomass > c.Final + 1e-8) throw new ArgumentException("Invalid saved cohort."); }
         else if (Biomass > 1e-9 || Carbon > 1e-9 || Progress > 0 || Cohort.Length > 0) throw new ArgumentException("Unbound biomass.");

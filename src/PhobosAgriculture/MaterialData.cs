@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Ostranauts.Framework.Data;
 using PhobosAgriculture.Core;
 
@@ -14,12 +15,14 @@ internal static class AgricultureMaterials
     internal const string Schema = MaterialSchema.Name, ModFolder = "PhobosAgriculture", Resource = "PhobosAgriculture.materials.json";
     internal const string Stock = "stock", Food = "food", Waste = "waste";
     internal static readonly IReadOnlyList<string> Kinds = new[] { Stock, Food, Waste };
+    /// <summary>Every material the code builds: the fixed supplies and wastes, and the crop items the shipped crops pack
+    /// names (read from its text, so the two packs can check each other without loading in a circle).</summary>
     internal static IReadOnlyList<string> Ids => new[]
     {
-        RecyclerCapture.Wet, Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient, Definitions.Raw, Definitions.Meal, Definitions.Leaves,
+        RecyclerCapture.Wet, Definitions.Nutrient,
         Definitions.Residue, Definitions.Drainage, Service.CharacterizedDrainage, Service.RecoveryReject, Service.RecoveryCartridge, Definitions.Irrigation,
         WorkupDefinitions.Residue, WorkupDefinitions.Concentrate, WorkupDefinitions.Spent, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, BulkDefinitions.Nutrients
-    };
+    }.Concat(Crops.ShippedItemIds()).ToArray();
     private static MaterialPack? pack;
     internal static MaterialPack Pack => pack ??= Load();
     internal static DataPackSource Source => new(Text.Owner, ModFolder, Schema, typeof(AgricultureMaterials).Assembly, Resource);
@@ -43,4 +46,6 @@ internal static class AgricultureMaterials
     }
     internal static MaterialEntry Entry(string id) => Pack.materials.TryGetValue(id, out var e) ? e : throw new InvalidOperationException("No materials entry for " + id);
     internal static double Price(string id) => Entry(id).price;
+    /// <summary>A material's unit mass, for crop and recipe checks; null for an id that is not ours.</summary>
+    internal static double? KgOf(string? id) => id != null && Pack.materials.TryGetValue(id, out var e) ? e.kg : null;
 }

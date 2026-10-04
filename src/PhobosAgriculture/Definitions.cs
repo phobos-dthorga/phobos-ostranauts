@@ -19,14 +19,23 @@ internal static class Definitions
     internal static readonly InventorySpec RackInventory = InventorySpec.ProductTray(4, 3, Rack + "Supplies"), CookerInventory = InventorySpec.ProductTray(2, 2);
     /// <summary>Masses the crop model is written for; the materials pack is bound to them.</summary>
     internal const double IrrigationKg = 5, NutrientKg = .04;
-    internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
+    // Planting stock, produce and foods are named by the crops data pack (Agriculture 0.40.0), not here.
+    internal const string Nutrient = "PhobosVerdemorrowGroundworkNutrients", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal static bool Ready;
-    internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
+    internal const string PlantPrefix = "plant-", MixPrefix = "mix-";
+    /// <summary>The crew work actions: one planting action per crop in the crops pack, between the fixed ones.</summary>
+    internal static string[] Work = BuildWork();
+    private static string[] BuildWork() => new[] { "recover-crop", "formulate-nutrients" }.Concat(Crops.All.Select(c => PlantPrefix + c.Id))
+        .Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" }).ToArray();
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
-    /// <summary>Work action ids to their actions, and the consumable supplies, built once for the interaction hooks
-    /// that run on every native offer and completion.</summary>
-    internal static readonly System.Collections.Generic.Dictionary<string, string> WorkIds = Work.ToDictionary(WorkId, a => a, StringComparer.Ordinal);
+    /// <summary>Work action ids to their actions, and the consumable supplies, built for the interaction hooks that run
+    /// on every native offer and completion; rebuilt when the crops pack is loaded.</summary>
+    internal static System.Collections.Generic.Dictionary<string, string> WorkIds = Work.ToDictionary(WorkId, a => a, StringComparer.Ordinal);
+    /// <summary>The crop a planting action names, or null.</summary>
+    internal static Crop? PlantCrop(string action) => action.StartsWith(PlantPrefix, StringComparison.Ordinal) ? Crops.Find(action.Substring(PlantPrefix.Length)) : null;
+    /// <summary>The W2's feed actions: one per crop, then plain water.</summary>
+    internal static string[] MixActions => Crops.All.Select(c => MixPrefix + c.Id).Concat(new[] { "water-only" }).ToArray();
     internal static readonly System.Collections.Generic.HashSet<string> Supplies = new(new[] { Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }, StringComparer.Ordinal);
     /// <summary>The vanilla direct-eating reply our food replies are cloned from, and the native openers that list it.</summary>
     internal const string EatTemplate = "SeekFoodAllowDirect";
@@ -50,6 +59,9 @@ internal static class Definitions
         var d = new NativeDefinitions();
         AgricultureVessels.Load();
         AgricultureMaterials.Load();
+        // Crops and cooker recipes are data packs (Agriculture 0.40.0); the planting actions follow the crops.
+        Crops.Load(); HearthRecipes.Load();
+        Work = BuildWork(); WorkIds = Work.ToDictionary(WorkId, a => a, StringComparer.Ordinal);
         AgricultureEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("controls"); controls.strDesc = controls.strTooltip = Text.Get("controls"); controls.strRaiseUI = null; controls.fTargetPointRange = 2;
@@ -67,7 +79,7 @@ internal static class Definitions
         foreach (string action in Work)
         {
             Phobos.Ostranauts.Framework.Crew.CrewSpecialities.RegisterPractical(WorkId(action), "Agriculture");
-            var work = NativeDefinitions.Clone(controls); work.strName = WorkId(action); work.strTitle = work.strTooltip = Text.Get(action);
+            var work = NativeDefinitions.Clone(controls); work.strName = WorkId(action); work.strTitle = work.strTooltip = Text.Action(action);
             work.fDuration = action == "recover-crop" || action == "formulate-nutrients" ? 1d / 60 : action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
             d.Interactions[work.strName] = work;
         }
@@ -87,16 +99,16 @@ internal static class Definitions
         HopperDefinitions.Add(d);
         Stock(d, RecyclerCapture.Wet, "wet_rejects");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
-        Stock(d, PotatoSeed, "potato_seed"); Stock(d, LettuceSeed, "lettuce_seed");
-        Stock(d, Nutrient, "nutrients"); Stock(d, Raw, "raw");
-        Stock(d, Meal, "meal"); Stock(d, Leaves, "leaves"); Stock(d, Residue, "residue");
+        foreach (var item in Crops.Items) Stock(d, item.Key, item.Value.text);
+        Stock(d, Nutrient, "nutrients"); Stock(d, Residue, "residue");
         Stock(d, Drainage, "drainage");
         Stock(d, Service.CharacterizedDrainage, "characterized_drainage");
         Stock(d, Service.RecoveryReject, "recovery_reject");
         Stock(d, Service.RecoveryCartridge, "recovery_cartridge");
-        foreach (string food in new[] { Meal, Leaves })
+        foreach (var eaten in Crops.Items.Where(i => i.Value.hunger != null))
         {
-            d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
+            string food = eaten.Key;
+            d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + eaten.Value.hunger, "TUpSatiety=1x" + eaten.Value.satiety, "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
             // Authored food values reach the crew through the game's own direct-eating chain: an identity
             // condition on the food, a trigger on it and a reply cloned from the vanilla one that carries our
             // effects, inserted ahead of the vanilla replies in every native seek-food opener.

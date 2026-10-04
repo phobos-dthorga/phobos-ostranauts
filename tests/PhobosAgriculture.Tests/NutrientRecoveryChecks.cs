@@ -10,7 +10,7 @@ internal static class NutrientRecoveryChecks
     {
         void Near(double a,double b,string message)=>check(Math.Abs(a-b)<1e-8,message);
         void Reject(Action action,string message){bool rejected=false;try{action();}catch(ArgumentException){rejected=true;}check(rejected,message);}
-        foreach(var crop in new[]{Crop.Potato,Crop.Lettuce,Crop.LettuceSeed})
+        foreach(var crop in new[]{Crop.Get("potato"),Crop.Get("lettuce"),Crop.Get("lettuce-seed")})
         {
             var state=new CropState{Water=20,Nutrients=.5};state.Plant(crop,1);
             Near(NutrientRecovery.Allocation(state,state.Biomass),0,"Clearing seed before growth cannot manufacture recovered nutrients");
@@ -29,7 +29,7 @@ internal static class NutrientRecoveryChecks
             Near(NutrientRecovery.Allocation(CropState.Read(legacy),harvest.ResidueKg),0,"Historic cohorts keep uncharacterized residue");
             check(CropState.Read(state.Save()).RecoveryRevision==1,"New cohort allocation revision survives reload");
         }
-        var reservoir=new CropState{Water=20,Running=true};var solution=new NutrientSolution{Profile=NutrientSolution.Potato};
+        var reservoir=new CropState{Water=20,Running=true};var solution=new NutrientSolution{Profile="potato-v1"};
         Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Full liquid capacity does not consume a physical charge");
         reservoir.Water=10;check(NutrientCharge.DoseAllowance(reservoir,solution,1)>0,"Available water and measured blending work admit dosing");
         Near(NutrientCharge.DoseAllowance(reservoir,solution,0),0,"No electricity budget consumes nothing");

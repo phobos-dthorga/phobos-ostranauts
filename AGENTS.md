@@ -307,6 +307,21 @@
   4 x 4 / 2 x 2 footprints, four-tray single-cohort meaning and read-only rendering.
   Follow `docs/development/agriculture-living-visuals.md` and `assets/phobos-agriculture/layers.json`.
 
+- Owner direction (2026-10-04), crop expansion: more food crops, industrial crops and
+  ties between Agriculture and the other mods, with the schema files used more widely.
+  Owner choices: dwarf wheat, dwarf tomato and soybean first; biomass to carbon, sugar
+  beet with a fermenter, flax and rubber dandelion as industrial chains; CO2 raising
+  yield, transpiration water and a spirulina bioreactor as cross-mod ties; crops and
+  cooker recipes as data packs before any new crop. Follow
+  `docs/development/agriculture-crop-expansion.md` for the phases and sources.
+  Agriculture 0.40.0 is phase 1: `framework/crops.json` (schema `crops`, owned by
+  Agriculture, frozen by crop name in `frozen-crops.json`) and the Hearth-2 recipes in
+  Agriculture's `process-recipes.json`. A crop is a data entry plus artwork: never
+  branch on a crop id in code again. Player files may add a crop from the mod's own
+  items and a shipped artwork family, never edit a shipped one. Later phases that add
+  machines, brands, commodities or prices each open with a design record and owner
+  decisions.
+
 ## Manufacturing direction (2026-09-25)
 
 - The owner approved a separate **Phobos Manufacturing** content mod for dedicated

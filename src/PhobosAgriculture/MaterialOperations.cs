@@ -34,10 +34,11 @@ internal static partial class Service
         if (action == "clear") return b.CropId.Length > 0 ? null : Text.Get("not_ready");
         if (action.StartsWith("plant-", StringComparison.Ordinal))
         {
-            var crop = action == "plant-potato" ? Crop.Potato : action == "plant-lettuce-seed" ? Crop.LettuceSeed : Crop.Lettuce;
+            var crop = Definitions.PlantCrop(action);
+            if (crop == null) return Text.Get("help");
             if (b.CropId.Length != 0) return Text.Get("crop_present");
             if (!s.Solution.CanPlant(crop.Id)) return Text.Get("solution_incompatible");
-            return Input(co, crop == Crop.Potato ? Definitions.PotatoSeed : Definitions.LettuceSeed, crop.Seed) != null ? null : Text.Get("missing_input");
+            return Input(co, crop.Stock, crop.Seed) != null ? null : Text.Get("missing_input");
         }
         if (action == "load-water") return b.Water > s.Solution.PlainWaterCapacity - .25 ? Text.Get("full") : Input(co, "LiquidWater", .25) != null ? null : Text.Get("missing_input");
         if (action == "load-irrigation") return b.Water > s.Solution.PlainWaterCapacity - Definitions.IrrigationKg ? Text.Get("irrigation_full", Definitions.IrrigationKg) : Input(co, Definitions.Irrigation, Definitions.IrrigationKg) != null ? null : Text.Get("missing_input");
@@ -64,12 +65,11 @@ internal static partial class Service
                 return Deliver(s, new List<(string, double)> { (CharacterizedDrainage, kg) }, null, drained, solution,line);
             }
             var next = s.State.Copy(); CondOwner? input;
-            if (action == "plant-potato" || action == "plant-lettuce" || action == "plant-lettuce-seed")
+            if (Definitions.PlantCrop(action) is Crop crop)
             {
-                var crop = action == "plant-potato" ? Crop.Potato : action == "plant-lettuce-seed" ? Crop.LettuceSeed : Crop.Lettuce;
                 if (next.CropId.Length != 0) return false;
                 if (!s.Solution.CanPlant(crop.Id)) { s.Notice = Text.Get("solution_incompatible"); return false; }
-                input = Input(co, crop == Crop.Potato ? Definitions.PotatoSeed : Definitions.LettuceSeed, crop.Seed);
+                input = Input(co, crop.Stock, crop.Seed);
                 next.Plant(crop, Plugin.Pace.Value);
             }
             else if (action == "load-water")
@@ -91,9 +91,9 @@ internal static partial class Service
     {
         var b = s.State;
         if (b.CropId.Length == 0 || !clear && !b.Ready) { s.Notice = Text.Get("not_ready"); return false; }
-        var specs = new List<(string Id, double Kg)>(); var harvest = b.Harvest(clear);
-        if (harvest.SeedKg > 0) specs.Add((Definitions.PotatoSeed, harvest.SeedKg));
-        for (int n = 0; n < harvest.Portions; n++) specs.Add((b.CropId == "potato" ? Definitions.Raw : b.CropId == "lettuce-seed" ? Definitions.LettuceSeed : Definitions.Leaves, harvest.PortionKg));
+        var specs = new List<(string Id, double Kg)>(); var harvest = b.Harvest(clear); var grown = Crop.Get(b.CropId);
+        if (harvest.SeedKg > 0) specs.Add((grown.Stock, harvest.SeedKg));
+        for (int n = 0; n < harvest.Portions; n++) specs.Add((grown.Produce, harvest.PortionKg));
         if (harvest.ResidueKg > 1e-8) specs.Add((b.RecoveryRevision == 1 ? WorkupDefinitions.Residue : Definitions.Residue, harvest.ResidueKg));
         var next = b.Copy(); next.ClearCrop();
         double nutrient = NutrientRecovery.Allocation(b, harvest.ResidueKg);
@@ -101,16 +101,22 @@ internal static partial class Service
     }
     private static void Cook(Session s)
     {
-        var raw = CookerInput(s); if (raw == null) { s.State.Running = false; return; }
+        var raw = CookerInput(s); var recipe = HearthRecipes.ForInput(raw?.strCODef); if (raw == null || recipe == null) { s.State.Running = false; return; }
         var next = s.State.Copy(); next.CookerProgress = 0; next.CookerInput = ""; next.Running = false;
-        s.MealCommitted = Deliver(s, new List<(string, double)> { (Definitions.Meal, .4) }, raw, next);
+        s.MealCommitted = Deliver(s, new List<(string, double)> { (recipe.Product, recipe.Kg) }, raw, next);
         if (!s.MealCommitted) { s.Watch.Cancel(); s.State.Running = false; }
     }
     private static CondOwner? CookerInput(Session s)
     {
         var input = Resolve(s.State.CookerInput);
-        return input != null && IsInput(s.Object, input, Definitions.Raw, .4) ? input : null;
+        return input != null && HearthRecipes.ForInput(input.strCODef) is HearthRecipe r && IsInput(s.Object, input, r.Input, r.Kg) ? input : null;
     }
+    /// <summary>The recipe the bound portion is cooked by, or null when nothing cookable is bound.</summary>
+    private static HearthRecipe? CookerRecipe(Session s) => HearthRecipes.ForInput(CookerInput(s)?.strCODef);
+    /// <summary>The energy the bound portion takes; with nothing bound, the most any recipe takes.</summary>
+    private static double CookerKWh(Session s) => CookerRecipe(s)?.KWh ?? HearthRecipes.MaxKWh;
+    /// <summary>The first portion in the cooker that some recipe takes, in the recipes' order.</summary>
+    private static CondOwner? Cookable(CondOwner co) => HearthRecipes.All.Select(r => Input(co, r.Input, r.Kg)).FirstOrDefault(x => x != null);
     private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
     {
         var products = new List<CondOwner>(); bool committed = false; TrayDelivery? delivery = null;

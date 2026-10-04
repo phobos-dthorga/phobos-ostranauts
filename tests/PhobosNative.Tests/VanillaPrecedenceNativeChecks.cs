@@ -32,7 +32,7 @@ internal static class VanillaPrecedenceNativeChecks
         check(!agriculture.Objects.Keys.Any(id => !id.StartsWith("Phobos", StringComparison.Ordinal)), "Agriculture republishes no native object definition by name");
 
         // Authored food values ride the game's own direct-eating chain.
-        foreach (string food in new[] { Definitions.Meal, Definitions.Leaves })
+        foreach (string food in new[] { "PhobosVerdemorrowHearthPotatoes", "PhobosVerdemorrowLettuce" })
         {
             string identity = "Is" + food, reply = food + "AllowDirect";
             check(agriculture.Objects[food].aStartingConds.Contains(identity + "=1x1") && agriculture.Conditions.ContainsKey(identity), "Food carries its identity condition: " + food);

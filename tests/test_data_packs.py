@@ -116,6 +116,26 @@ class DataPackTests(unittest.TestCase):
         bad = {'schemaVersion': 1, 'schema': 'economy', 'equipment': {}, 'factionKiosks': {'merchants': [], 'tiers': {}}}
         self.assertTrue(schemas.problems(json.loads(writer.render('economy')), bad))
 
+    def test_crops_must_conserve_mass_and_stay_frozen(self):
+        # Agriculture 0.40.0: crops are a data pack. Every file balances, and a published crop never changes.
+        path = ROOT / 'mods/PhobosAgriculture/framework/crops.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        validate.crops(pack, 'test')
+        frozen = json.loads((path.with_name('frozen-crops.json')).read_text(encoding='utf-8'))['revisions']
+        self.assertEqual(sorted(frozen), sorted(pack['crops']))
+        for crop_id, entry in pack['crops'].items():
+            self.assertEqual(freeze.entry_hash(entry), frozen[crop_id], crop_id)
+        for field, value in (('waterKg', 9), ('edibleKg', 99), ('feed', 'lettuce-v1'), ('produce', 'ItmScrapSteel'), ('keptStockKg', 0.1)):
+            bad = json.loads(json.dumps(pack))
+            bad['crops']['potato'][field] = value
+            with self.subTest(field=field), self.assertRaises(validate.Problem):
+                validate.crops(bad, 'test')
+        bad = json.loads(json.dumps(pack))
+        bad['crops']['potato']['yield'] = 1
+        with self.assertRaises(validate.Problem):
+            validate.crops(bad, 'test')
+        self.assertTrue(schemas.problems(json.loads(writer.render('crops')), bad))
+
     def test_validator_refuses_unknown_fields(self):
         pack = {'schemaVersion': 1, 'schema': 'materials', 'materials': {'m': {'kg': 1, 'price': 1, 'colour': 'red'}}}
         with self.assertRaises(validate.Problem):

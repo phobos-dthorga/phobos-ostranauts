@@ -27,12 +27,11 @@ def source_inputs():
              "src/PhobosAgriculture/Core/TreatmentCartridge.cs",
              "src/PhobosAgriculture/IrrigationDefinitions.cs", "src/PhobosAgriculture/BulkDefinitions.cs"]
     texts = {p: (ROOT/p).read_text(encoding="utf-8-sig") for p in paths}
-    crops = {}
-    for name, body in re.findall(r'public static readonly Crop \w+ = new\("([^"]+)",\s*([^;]+)\);', texts[paths[0]]):
-        values = [float(x.strip()) for x in body.split(",")]
-        if len(values) != 9:
-            raise ValueError("Crop constructor changed; review this model")
-        crops[name] = dict(zip(("hours", "kw", "seed", "final", "carbon", "nutrient", "water", "vapour", "seed_carbon"), values))
+    # Agriculture 0.40.0: the crop budgets live in the crops data pack.
+    pack = json.loads((ROOT / "mods/PhobosAgriculture/framework/crops.json").read_text(encoding="utf-8-sig"))["crops"]
+    fields = (("hours", "hours"), ("kw", "kw"), ("seed", "seedKg"), ("final", "finalKg"), ("carbon", "carbonKg"), ("nutrient", "nutrientKg"),
+              ("water", "waterKg"), ("vapour", "vapourKg"), ("seed_carbon", "seedCarbonKg"))
+    crops = {name: {key: float(entry[field]) for key, field in fields} for name, entry in pack.items()}
     if set(crops) != {"potato", "lettuce", "lettuce-seed"}:
         raise ValueError("Crop coverage changed; extend the storage study")
 

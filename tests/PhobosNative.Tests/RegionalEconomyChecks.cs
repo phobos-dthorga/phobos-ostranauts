@@ -96,9 +96,9 @@ internal static class RegionalEconomyChecks
             (PhobosManufacturing.Core.Materials.RefinerySlag, "AnyTrash"),
             (PhobosManufacturing.Core.Materials.ClayHydrates, "AnyOres"),
             (PhobosAgriculture.WorkupDefinitions.Makeup, "AnyIndustrialProducts"),
-            (PhobosAgriculture.Definitions.Meal, "AnyFood"),
-            (PhobosAgriculture.Definitions.Raw, "AnyFood"),
-            (PhobosAgriculture.Definitions.Leaves, "AnyFood") })
+            ("PhobosVerdemorrowHearthPotatoes", "AnyFood"),
+            ("PhobosVerdemorrowRawPotatoes", "AnyFood"),
+            ("PhobosVerdemorrowLettuce", "AnyFood") })
         {
             check(DataHandler.dictDataCoCollections[pair.Item2].IsPartOfCollection(pair.Item1), "Native market recognizes " + pair.Item1);
             var market = new ShipMarket("RegionalEconomyTest");

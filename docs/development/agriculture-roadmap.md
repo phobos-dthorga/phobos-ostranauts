@@ -144,6 +144,11 @@ indefinite operation from food production alone.
 
 ## Round 4: additional biological systems with distinct value
 
+Owner direction of 4 October 2026 selected the crops and chains to add. The
+[crop expansion record](agriculture-crop-expansion.md) now carries the phases,
+sources and open decisions for crops; the text below is kept as the reasoning it
+started from.
+
 Evaluate new crops only for a different player decision: harvest pattern, processing,
 storage, crew preference, propagation, energy/space trade-off or nutrient use.
 NASA's [deep-space crop discussion](https://www.nasa.gov/science-research/nasa-plant-researchers-explore-question-of-deep-space-food-crops/)

@@ -20,9 +20,9 @@ internal static partial class Service
     internal const double FeedDensityKgPerM3=998.2;
     internal static LineHoldUpFamily? IrrigationHolding;
     /// <summary>The line commodity a feed profile is held as in the conduit and in drain canisters (stable saved names).</summary>
-    internal static string FeedCommodity(string profile)=>profile==NutrientSolution.Potato?"potato feed":profile==NutrientSolution.Lettuce?"lettuce feed":
-        profile==NutrientSolution.LettuceSeed?"lettuce seed feed":profile==NutrientSolution.None?"water":throw new ArgumentException("Unknown solution profile.");
-    internal static readonly string[] FeedProfiles={NutrientSolution.None,NutrientSolution.Potato,NutrientSolution.Lettuce,NutrientSolution.LettuceSeed};
+    internal static string FeedCommodity(string profile)=>profile==NutrientSolution.None?"water":Crops.ByFeed(profile)?.FeedCommodity??throw new ArgumentException("Unknown solution profile.");
+    /// <summary>Plain water, then each crop's feed in the crops pack's order.</summary>
+    internal static string[] FeedProfiles=>new[]{NutrientSolution.None}.Concat(Crops.All.Select(c=>c.Feed)).ToArray();
     internal static IEnumerable<LineCommodity> ConduitCommodities()=>FeedProfiles.Select(p=>LineCommodity.Liquid(FeedCommodity(p),FeedDensityKgPerM3,ConduitBoreMm));
     private static ObjectStateStore LineStore(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureLine",Plugin.Id,1);
     internal static LiquidTransferGuard LineGuard(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureLineTransfer",Plugin.Id);
