@@ -10,6 +10,11 @@ internal static class SabatierChecks
 {
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
+        // The panel's cycle meter (Manufacturing 0.48.0): a share done and minutes left, not kWh that read like a countdown.
+        check(ManufacturingRules.PercentDone(0.34, 1.2) == 28 && ManufacturingRules.MinutesLeft(0.34, 1.2, 1.2) == 43, "A K2 cycle at 0.34 of 1.20 kWh is 28% done with about 43 minutes left");
+        check(ManufacturingRules.PercentDone(0, 1.2) == 0 && ManufacturingRules.PercentDone(1.1999, 1.2) == 99 && ManufacturingRules.PercentDone(1.2, 1.2) == 100, "The meter reads 100% only when the cycle has finished");
+        check(ManufacturingRules.MinutesLeft(1.199, 1.2, 1.2) == 1 && ManufacturingRules.MinutesLeft(1.2, 1.2, 1.2) == 0 && ManufacturingRules.MinutesLeft(0, 6, 6) == 60, "Minutes left never read zero while work remains, and a fresh X2 cycle is an hour");
+        check(ManufacturingRules.PercentDone(double.NaN, 1.2) == 0 && ManufacturingRules.MinutesLeft(0.5, 1.2, 0) == 0 && ManufacturingRules.PercentDone(-1, 1.2) == 0, "Unreadable figures show nothing done, never a fault");
         // CO2 + 4 H2 -> CH4 + 2 H2O with the game's molar masses; water is the balancing remainder.
         check(SabatierRules.Balanced(), "Every cycle conserves mass and makes the stoichiometric water within 0.01%");
         check(Math.Abs(SabatierRules.HydrogenMolesPerCycle - 62.007) < 0.01 && Math.Abs(SabatierRules.CarbonDioxideMolesPerCycle * 4 - SabatierRules.HydrogenMolesPerCycle) < 1e-9,

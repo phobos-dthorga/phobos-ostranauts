@@ -16,6 +16,21 @@ public static class ManufacturingRules
     public const string CropNutrients = "crop nutrients";
     public const double LocalAccessTiles = 2.5, ConsoleAccessTiles = 2.5;
     public const double VesselRecheckSeconds = 5;
+    /// <summary>How far through a cycle a machine is, for its panel (Manufacturing 0.48.0; owner request, 5 October 2026:
+    /// a meter in kWh read like a consumption countdown). A cycle is a fixed amount of delivered electricity, so the
+    /// share delivered is the share done: 0 to 100, never 100 before the cycle has actually finished.</summary>
+    public static double PercentDone(double doneKWh, double cycleKWh)
+    {
+        if (!Finite(doneKWh) || !Finite(cycleKWh) || cycleKWh <= 0 || doneKWh <= 0) return 0;
+        return doneKWh >= cycleKWh ? 100 : System.Math.Min(99, System.Math.Floor(doneKWh / cycleKWh * 100));
+    }
+    /// <summary>Whole minutes of work left in a cycle at the machine's full draw, never less than one while any is left.</summary>
+    public static double MinutesLeft(double doneKWh, double cycleKWh, double workingKW)
+    {
+        if (!Finite(doneKWh) || !Finite(cycleKWh) || !Finite(workingKW) || workingKW <= 0 || cycleKWh <= 0) return 0;
+        double left = System.Math.Max(0, cycleKWh - System.Math.Max(0, doneKWh));
+        return left <= 0 ? 0 : System.Math.Max(1, System.Math.Ceiling(left / workingKW * 60));
+    }
     /// <summary>Two square footprints lie within one tile of each other: the distance between centres, on the
     /// longer axis, is at least half of both footprints (no overlap) and at most that plus one tile.</summary>
     public static bool Adjacent(double ax, double ay, int aFootprint, double bx, double by, int bFootprint) =>

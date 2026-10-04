@@ -261,7 +261,7 @@ internal static class CrackerService
         // The reaction stores its share of the cycle's electricity in the products; the rest warms the room.
         RoomHeat.Deposit(transfer.Air, Math.Max(0, supplied - CrackerRules.AbsorbedKWh(credited - before)));
         s.State.CycleKWh = credited;
-        s.Status = co.HasCond("IsPowered") ? Text.Get("Cracker.working", s.State.CycleKWh, CrackerRules.CycleKWh) : Text.Get("Cracker.waiting_power");
+        s.Status = co.HasCond("IsPowered") ? Text.Get("Cracker.working", ManufacturingRules.MinutesLeft(s.State.CycleKWh, CrackerRules.CycleKWh, CrackerRules.WorkingKW)) : Text.Get("Cracker.waiting_power");
         if (!complete) { Save(co, s); return; }
         s.State.Convert();
         Save(co, s);
@@ -332,7 +332,7 @@ internal static class CrackerService
     internal static string Describe(CondOwner co)
     {
         var s = Get(co); var st = s.State;
-        return Text.Get("Cracker.status", s.Status, st.AmmoniaKg, st.NitrogenKg, st.HydrogenKg, st.CycleKWh, CrackerRules.CycleKWh, st.Cycles,
+        return Text.Get("Cracker.status", s.Status, st.AmmoniaKg, st.NitrogenKg, st.HydrogenKg, ManufacturingRules.PercentDone(st.CycleKWh, CrackerRules.CycleKWh), CrackerRules.CycleKWh, st.Cycles,
                 st.ProducedNitrogenKg, st.ProducedHydrogenKg, st.ConsumedAmmoniaKg,
                 co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"),
                 ObjectPresentation.Name(AmmoniaPeer(co)), ObjectPresentation.Name(NitrogenPeer(co)), ObjectPresentation.Name(HydrogenPeer(co))) +

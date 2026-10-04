@@ -48530,24 +48530,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Processor.working",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ProcessorService.cs:238"
-      ],
-      "before": "Electrolysing: {0:F1} of {1:F1} kWh this cycle.",
-      "after": "Splitting water: {0:F1} of {1:F1} kWh used this cycle.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
-        "before": "Electrolysing: {0:F1} of {1:F1} kWh this cycle."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Processor.waiting_power",
       "category": "status/warning",
       "decision": "add",
@@ -48926,23 +48908,6 @@
       ],
       "before": "the cabin air",
       "after": "the cabin air",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Processor.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/ProcessorService.cs:303"
-      ],
-      "before": "{0}\nHold: {1:F3} kg of water. Cycle: {2:F1} of {3:F1} kWh. Cycles: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}.",
-      "after": "{0}\nHold: {1:F3} kg of water. Cycle: {2:F1} of {3:F1} kWh. Cycles: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -50045,23 +50010,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Sabatier.working",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/SabatierService.cs:284"
-      ],
-      "before": "Reacting: {0:F2} of {1:F2} kWh this cycle.",
-      "after": "Reacting: {0:F2} of {1:F2} kWh this cycle.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Sabatier.waiting_power",
       "category": "status/warning",
       "decision": "add",
@@ -50579,23 +50527,6 @@
       ],
       "before": "Reactor damaged: gas released",
       "after": "Reactor damaged: gas released",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Sabatier.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/SabatierService.cs:355"
-      ],
-      "before": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nCycle: {5:F2} of {6:F2} kWh. Cycles: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}.",
-      "after": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nCycle: {5:F2} of {6:F2} kWh. Cycles: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -57150,23 +57081,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Cracker.working",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/CrackerService.cs:251"
-      ],
-      "before": "Cracking: {0:F2} of {1:F2} kWh this cycle.",
-      "after": "Cracking: {0:F2} of {1:F2} kWh this cycle.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Cracker.waiting_power",
       "category": "status/warning",
       "decision": "add",
@@ -57546,23 +57460,6 @@
       ],
       "before": "Cracker damaged: gas released",
       "after": "Cracker damaged: gas released",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Cracker.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/CrackerService.cs:322"
-      ],
-      "before": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nCycle: {4:F2} of {5:F2} kWh. Cycles: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}.",
-      "after": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nCycle: {4:F2} of {5:F2} kWh. Cycles: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -72438,19 +72335,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Bottler.working",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosManufacturing/BottlerService.cs"
-      ],
-      "before": "Bottling: {0:F2} of {1:F2} kWh.",
-      "after": "Bottling: {0:F2} of {1:F2} kWh."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Bottler.waiting",
       "category": "status/warning",
       "decision": "add",
@@ -72747,19 +72631,6 @@
       ],
       "before": "Nothing to accept.",
       "after": "Nothing to accept."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Bottler.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine bottling unit and spirit text, written in the shared style of the X2 and fermenter-still text it parallels.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosManufacturing/BottlerService.cs"
-      ],
-      "before": "{0}\nBatch: {1:F2} of {2:F2} kWh. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}.",
-      "after": "{0}\nBatch: {1:F2} of {2:F2} kWh. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}."
     },
     {
       "mod": "PhobosManufacturing",
@@ -73450,6 +73321,110 @@
       ],
       "before": "Carried on after loading the game.",
       "after": "Carried on after loading the game."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Splitting water: about {0:F0} min left in this cycle at full power.",
+      "after": "Splitting water: about {0:F0} min left in this cycle at full power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nHold: {1:F3} kg of water. This cycle: {2:F0}% done. Cycles finished: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}.",
+      "after": "{0}\nHold: {1:F3} kg of water. This cycle: {2:F0}% done. Cycles finished: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Reacting: about {0:F0} min left in this cycle at full power.",
+      "after": "Reacting: about {0:F0} min left in this cycle at full power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nThis cycle: {5:F0}% done. Cycles finished: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}.",
+      "after": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nThis cycle: {5:F0}% done. Cycles finished: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Cracking: about {0:F0} min left in this cycle at full power.",
+      "after": "Cracking: about {0:F0} min left in this cycle at full power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Cracker.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nThis cycle: {4:F0}% done. Cycles finished: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}.",
+      "after": "{0}\nHeld: {1:F3} kg ammonia. Made, waiting to go out: {2:F3} kg nitrogen, {3:F3} kg hydrogen.\nThis cycle: {4:F0}% done. Cycles finished: {6}. Delivered {7:F1} kg of nitrogen and {8:F2} kg of hydrogen from {9:F1} kg of ammonia.\nPower: {10}. Ammonia from: {11}. Nitrogen to: {12}. Hydrogen to: {13}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Bottling: about {0:F0} min left in this batch at full power.",
+      "after": "Bottling: about {0:F0} min left in this batch at full power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Bottler.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Reworded with Manufacturing 0.48.0 (owner request): the cycle meter is a share done and minutes left; the placeholders changed with it.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nThis batch: {1:F0}% done. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}.",
+      "after": "{0}\nThis batch: {1:F0}% done. Batches made: {3} ({4} servings).\nPower: {5}. Ethanol cask: {6}. Water silo: {7}."
     },
     {
       "mod": "PhobosMedical",
@@ -77117,8 +77092,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2c125c21c2ae134475e8dfbb7841830066789047b016384aa0ec715cac96e4fe",
-      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+      "sha256": "64786d26076a4af1d3dae6d7a548341699a3f70b98f1ce6716301214f0db41bb",
+      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77879,8 +77854,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "30a8c7a7e34c38069ec032727d75a00ca16bf8871d75659df1e5996616d86e89",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "e18f26c7afea5d986317fdc3f300ce1dc99ebcdd79f41508af9244c09ab2a1f6",
+      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded; records refreshed."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78203,8 +78178,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "2244cc2a7675870d5a79fbc6dcf656a961e598785738e9f7ca9f4afaa03353da",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "fe129ef531d4226600d554465e0fdacc98a4fef1cabecb1e677d0c02943aed7d",
+      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -78371,8 +78346,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ebdce7b3b1988a9ab625d16c9c69b0eddd7810b9a144497fe27d76bfcafe93f4",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "9a303eeadd9a80a90d02af155326b36bd597e939b07ffffd9b35a5101acb7e1f",
+      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78472,8 +78447,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c7ce8c6716dc0ddecc411cfc561254f87737429ccd0f7568aa0fa4de35c70c11",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "a0a79c7ea06eaa60ea31167608ba253dd89551395bfcde545c1109038067bcf5",
+      "review": "5 October 2026: Manufacturing 0.48.0 cycle meters reworded as a share done and minutes left; the eight panel lines and the changelog entry reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

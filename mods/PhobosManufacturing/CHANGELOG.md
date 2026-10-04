@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.48.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The X2, K2, AX-2 and bottler panels show cycle progress as a share done and the minutes left at full power, instead of a kilowatt-hour meter that read like a countdown. The top line says how long is left; the status below says how far through the cycle it is and how many cycles are finished. Nothing about how the machines work has changed.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- The minutes assume full power; on a weak supply a cycle takes longer than shown.
+- Checked offline; not yet seen in the game.
+
 ## [0.47.0] - 2026-10-05 - Draft
 
 ### Changed

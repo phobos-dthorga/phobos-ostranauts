@@ -1057,3 +1057,7 @@ L44 — Framework 0.95.0 with Shipbreaker 0.77.0, Manufacturing 0.47.0, Agricult
 ## 5 October: panel reach measured tile to tile (L45)
 
 L45 — Framework 0.96.0: the crew access check looks up two tiles (the crew member's and the machine's use point) instead of comparing two positions. It runs when a panel opens, on each panel refresh (twice a second while one is open) and on a command, never on a frame or power step. No capture accompanies this change.
+
+## 5 October: cycle meters as a share and minutes (L46)
+
+L46 — Manufacturing 0.48.0: the X2, K2, AX-2 and bottler status lines compute a percentage and the minutes left where they formatted two kWh figures: a few arithmetic operations on the same step and panel refresh as before. No capture accompanies this change.

@@ -202,7 +202,7 @@ internal static class BottlerService
         if (!sessions.TryGetValue(co, out var s) || !s.Running || !co.HasCond(ManufacturingRules.Bottling) || s.Protected) return;
         var (credited, complete) = BottlerRules.Advance(s.State.BatchKWh, supplied);
         s.State.BatchKWh = credited;
-        s.Status = co.HasCond("IsPowered") ? Text.Get("Bottler.working", s.State.BatchKWh, BottlerRules.BatchKWh) : Text.Get("Bottler.waiting_power");
+        s.Status = co.HasCond("IsPowered") ? Text.Get("Bottler.working", ManufacturingRules.MinutesLeft(s.State.BatchKWh, BottlerRules.BatchKWh, BottlerRules.WorkingKW)) : Text.Get("Bottler.waiting_power");
         if (complete) Settle(co, s);
         else Save(co, s);
     }
@@ -273,7 +273,7 @@ internal static class BottlerService
     internal static string Describe(CondOwner co)
     {
         var s = Get(co);
-        return Text.Get("Bottler.status", s.Status, s.State.BatchKWh, BottlerRules.BatchKWh, s.State.Batches, s.State.Batches * BottlerRules.ServingsPerBatch,
+        return Text.Get("Bottler.status", s.Status, ManufacturingRules.PercentDone(s.State.BatchKWh, BottlerRules.BatchKWh), BottlerRules.BatchKWh, s.State.Batches, s.State.Batches * BottlerRules.ServingsPerBatch,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(EthanolLink.PeerId(co)), ObjectPresentation.Name(WaterLink.PeerId(co))) +
             "\n" + Text.Get("Bottler.demand", BottlerRules.WorkingKW, BottlerRules.ServingsPerBatch, BottlerRules.EthanolPerBatchKg * 1000, BottlerRules.WaterPerBatchKg * 1000) +
             (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));

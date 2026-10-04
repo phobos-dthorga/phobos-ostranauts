@@ -315,7 +315,7 @@ internal static class SabatierService
         double reactionKWh = (credited - before) / SabatierRules.CycleKWh * SabatierRules.ReactionKWhPerCycle;
         if (reactionKWh > 0) RoomHeat.Deposit(transfer.Air, reactionKWh);
         s.State.CycleKWh = credited;
-        s.Status = co.HasCond("IsPowered") ? Text.Get("Sabatier.working", s.State.CycleKWh, SabatierRules.CycleKWh) : Text.Get("Sabatier.waiting_power");
+        s.Status = co.HasCond("IsPowered") ? Text.Get("Sabatier.working", ManufacturingRules.MinutesLeft(s.State.CycleKWh, SabatierRules.CycleKWh, SabatierRules.WorkingKW)) : Text.Get("Sabatier.waiting_power");
         if (!complete) { Save(co, s); return; }
         s.State.Convert();
         Save(co, s);
@@ -389,7 +389,7 @@ internal static class SabatierService
     internal static string Describe(CondOwner co)
     {
         var s = Get(co); var st = s.State;
-        return Text.Get("Sabatier.status", s.Status, st.HydrogenKg, st.CarbonDioxideKg, st.WaterKg, st.MethaneKg, st.CycleKWh, SabatierRules.CycleKWh, st.Cycles,
+        return Text.Get("Sabatier.status", s.Status, st.HydrogenKg, st.CarbonDioxideKg, st.WaterKg, st.MethaneKg, ManufacturingRules.PercentDone(st.CycleKWh, SabatierRules.CycleKWh), SabatierRules.CycleKWh, st.Cycles,
                 st.ProducedWaterKg, st.ProducedMethaneKg, st.ConsumedCarbonDioxideKg,
                 co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"),
                 ObjectPresentation.Name(HydrogenPeer(co)), CanisterName(co), ObjectPresentation.Name(WaterPeer(co)), ObjectPresentation.Name(MethanePeer(co))) +

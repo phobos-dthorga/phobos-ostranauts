@@ -258,7 +258,7 @@ internal static class ProcessorService
         s.Last = StarSystem.fEpoch;
         var (credited, complete) = ProcessorRules.Advance(s.State.CycleKWh, supplied);
         s.State.CycleKWh = credited;
-        s.Status = co.HasCond("IsPowered") ? Text.Get("Processor.working", s.State.CycleKWh, ProcessorRules.CycleKWh) : Text.Get("Processor.waiting_power");
+        s.Status = co.HasCond("IsPowered") ? Text.Get("Processor.working", ManufacturingRules.MinutesLeft(s.State.CycleKWh, ProcessorRules.CycleKWh, ProcessorRules.WorkingKW)) : Text.Get("Processor.waiting_power");
         if (complete) Settle(co, s, transfer.Air);
         else Save(co, s);
     }
@@ -341,7 +341,7 @@ internal static class ProcessorService
     internal static string Describe(CondOwner co)
     {
         var s = Get(co);
-        return Text.Get("Processor.status", s.Status, s.State.HoldKg, s.State.CycleKWh, ProcessorRules.CycleKWh, s.State.Cycles, s.State.ProducedO2Kg, s.State.ProducedH2Kg, s.State.CabinO2Kg,
+        return Text.Get("Processor.status", s.Status, s.State.HoldKg, ManufacturingRules.PercentDone(s.State.CycleKWh, ProcessorRules.CycleKWh), ProcessorRules.CycleKWh, s.State.Cycles, s.State.ProducedO2Kg, s.State.ProducedH2Kg, s.State.CabinO2Kg,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(WaterPeer(co)), ObjectPresentation.Name(StorePeer(co)),
             s.State.Canister.Length == 0 ? Text.Get("Processor.cabin") : ObjectPresentation.Name(s.State.Canister)) +
             "\n" + Text.Get("Processor.demand", ProcessorRules.WorkingKW, RoomHeat.Machine(ProcessorRules.WorkingKW * ProcessorRules.RoomHeatFraction)) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
