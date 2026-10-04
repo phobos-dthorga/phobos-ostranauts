@@ -26,6 +26,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.85.0] - 2026-10-04 - Draft
+
+### Added
+
+- Optional feed stores: a machine can name one store, touching it or joined by conveyor belt, and take its feed from there while started and powered. Phobos Shipbreaker 0.73.0 and Phobos Manufacturing 0.42.0 use it.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.84.0] - 2026-10-04 - Draft
 
 ### Added

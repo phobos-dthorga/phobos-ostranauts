@@ -69991,6 +69991,149 @@
       "after": "This setting could not be saved because of a fault in the mod, which has been logged. Choose Discard; nothing was changed."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Take feed from",
+      "after": "Take feed from"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "No store (load by hand or by crew)",
+      "after": "No store (load by hand or by crew)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.chosen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store set: {0}. While started and powered, the machine takes what it can use from there.",
+      "after": "Feed store set: {0}. While started and powered, the machine takes what it can use from there."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store cleared. Load the machine by hand or by crew.",
+      "after": "Feed store cleared. Load the machine by hand or by crew."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.reason_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "not touching this machine and no conveyor belt joins them. Move it within one tile, or lay belt from beside one to beside the other.",
+      "after": "not touching this machine and no conveyor belt joins them. Move it within one tile, or lay belt from beside one to beside the other."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "The saved feed store could not be read, so it was left alone.",
+      "after": "The saved feed store could not be read, so it was left alone."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.unreadable_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Unreadable",
+      "after": "Unreadable"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store: {0}.",
+      "after": "Feed store: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.status_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store: waiting for power.",
+      "after": "Feed store: waiting for power."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.status_reach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store: no longer touching and no belt joins it. Mend the belt or move the store.",
+      "after": "Feed store: no longer touching and no belt joins it. Mend the belt or move the store."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StoreFeed.status_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Optional feed store text: what it does, why a store is not offered and what to fix.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/StoreFeed.cs"
+      ],
+      "before": "Feed store: gone, locked or not a store any more. Choose another under Take feed from.",
+      "after": "Feed store: gone, locked or not a store any more. Choose another under Take feed from."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.nickel-steel",
       "category": "name",
@@ -74335,8 +74478,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3d67c7a757b81e5807fef80f99c7f034392b0a08646cc17078c32dade09abd13",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "b0c38a903fdcbd394db96ebd008475508ca0bced4c2cf6073ee945e5cc86e04e",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "SUPPORT.md",
@@ -74488,15 +74631,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2c5c62971351ca784ed9ca05d548bf4f9667d49277241d2c3151a10361c66deb",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "7052474d06c2f122303dcfce7c602003a0687000db592503480e00e788a8d284",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1a4dd083bfcf726eb8d99aa772866b4bb98d4c6e454d9a43b5b45ef65e726f30",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "431bef7d1e38274690e0c522df53095963ea5a27242e6c866c251a32f6dc5f6b",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/crew-automation.md",
@@ -75095,8 +75238,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "51ed2470247c6f3af6151ccea2a51ea4e6c130100b7faaec0ac669f891e061ec",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "0793c84f045867a0605b26cba4fbde5a284c5b2029fac7e545a1998e85a33523",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -75335,8 +75478,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d59efee5d086488367cb30355736f8b648f7cb055da5a3672bac388d00645e6d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "80119794c2257dabac4bf1594ad01882df0b9d5a5ff509b56417cc8ffc46df1b",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -75391,15 +75534,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a47b20fd732f42dec36b11e82f3244d226ddb52a8362402ccb14f1b7e3878d7e",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "5a5a704698c7ebc5ef4c82dd2203c44162e434cd1b622a46ee0507d78176caa8",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0a93b24473813f5751f4f73f61df08eb1a70dd8122d98c4fe675d2252969f3a3",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "2de8927d776931afdf08f00ba1f3b5b73747bc50a60915e5591c0e6372b1d883",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/item-references.md",
@@ -75419,15 +75562,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "0e4524f8437423d88855bd5dd70f60e175bb41dcc43384344e11665e41477018",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "eb42dee245c4fdf7595365b3122c931eeecbbc095fe6a488b27dd78ad5a6a195",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "bc95431bc1e9709c0566950d2fb9acb3a1fa3e78a794e40a290bf55e792b1e52",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "b6d02f274acd28e885c67111c1a2ff1de7dc244b783e3217c1bd57b94ed3c450",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -75461,8 +75604,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f00254e9848733b982d4f3bd669fa2b16b6948264c39debf1ecc9f4762a66118",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "c7302c21d41b140bc62a462693bcc0531659d9705243b2982b3d7be6d5005b89",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/residue-collector.md",
@@ -75496,8 +75639,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "43868902e68f5fb379432411f3ac15e766ae0a5dc6fbe8723d8bfcfe169c3590",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "2e5ca4efe4f47b6941c7fbf0ce8851eed1659b402612aca1aae27b34674608aa",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -75510,8 +75653,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a7b65503ae8991cecaa84ebddb85d2acef613a36fd4604c652c21afd7a13cadd",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "08b05e8d98a0d355218905727caf118929024ba4a3dbb6ccfcb6119d8f633c8b",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -75580,15 +75723,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cd526d946224d2f4ef61d991470940f3395b8dd51c877b5ba6240c8ca0ca9d9f",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "3737596cfffdaea4a22954c4f2087ceae9a6f748673ecc2d10205ee4a076d544",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "22210c3c7c2af54f70c1b5349dec86ff1d0e98fceb200b64886509b688a1da41",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "5407e28c034a03cc6cf318e30cf75e4aef4964ebbc9a40eca9ca5a14d0d7de09",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -75601,8 +75744,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "22eb40bab9f900e5b011805a90d8e6c97d53e4bb3706826bedfb519d69b373bd",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "3b0bcbc90e6342753bc609e54706e4ca41c3ea6260ae7b3ad1726914910c6401",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -75616,8 +75759,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "72514286ffd67641202de7af28e96773387a6d8661a495ee7d0495531171425d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "996477facb4dba45e7ee611980f48c76db73744af83440a805e582f1d458f482",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -75668,14 +75811,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1b01534184b15e0989f66dca69ab2bf6382aa277bc63a0af152d16e3261ded57",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "51b3ed582948585340a1d9c8fa545e1d4cb64c23153ac542a1d1df49dcc899ca",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3410c95c29f40e91cc35afd82e3f9346cd077e0b03398bd6d949631d3f9bf52c",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "e6bf61a08194ddc8525b40f84a9126b72a48a386accef76ea9940c0f7ffc26e0",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -75692,8 +75835,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "20a2c1e3224ba6c6d2aec621c4a039c965841e935e830d68b8b880be4a84fda8",
-      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
+      "sha256": "ef2d5e4bfe218dfe2e0eb664f484ba184ed97d6fb6062ad9416860c9842e2d68",
+      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

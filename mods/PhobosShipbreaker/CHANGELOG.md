@@ -31,6 +31,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.73.0] - 2026-10-04 - Draft
+
+### Added
+
+- Optional feed store for the T2 (owner request, 4 October 2026): under Connections, Take feed from, choose a material bin or other store that touches the thaw unit or is joined to it by conveyor belt. While started and powered, the T2 takes its ice from there whenever its own inventory holds none. Loading by hand or by crew works as before.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; the choice is a new record on the machine.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.85.0 or newer.
+- The D4, R4 and F6 keep their existing routes and have no feed store choice.
+- Checked offline; not yet seen in the game.
+
 ## [0.72.0] - 2026-10-04 - Draft
 
 ### Fixed

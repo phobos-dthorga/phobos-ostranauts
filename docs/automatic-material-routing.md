@@ -50,6 +50,36 @@ stays in the sender until it arrives. Turn it off with the Framework setting
 reload, like the crew's standing orders; a route that was paused stays paused.
 Processing keeps its own rule and waits for Start / resume.
 
+## Feed stores for the T2 and the Manufacturing machines (optional)
+
+Loading by hand always works. If you would rather not, a T2 thaw unit, a V4
+refinery, an LC-3, an SA-3 or a fermenter-still can keep itself fed from **one
+store you choose** (Shipbreaker 0.73.0, Manufacturing 0.42.0):
+
+1. Put a store where the machine can reach it: a Rivetline material bin or any
+   ordinary unlocked container, installed **within one tile** of the machine, or
+   joined to it by **conveyor belt** laid from beside one to beside the other.
+2. Open the machine's **Control Panel** > **Connections** and choose the store
+   under **Take feed from**. The sheet lists stores aboard that are out of reach
+   and says why. Apply.
+3. Fill the store and press **Start** on the machine once.
+
+```mermaid
+flowchart LR
+    Bin["Material bin or other store"] -->|touching, or conveyor belt| Machine["T2, V4, LC-3, SA-3 or fermenter-still"]
+    Hand["By hand, into its Inventory"] --> Machine
+    Crew["Load feed by crew (T2)"] --> Machine
+```
+
+While it is started and powered, the machine takes what it can use from the
+store when its own inventory holds none: one ice block at a time for the T2, one
+exact charge for the others. Anything it cannot use stays in the store. The
+choice is saved and holds across a reload; the machine itself still waits for
+**Start** after a reload. If the store is moved, locked or its belt is cut, the
+status line says so and the machine carries on with whatever you load by hand.
+Choose **No store** to clear it. The pull is not metered separately: it rides on
+the machine's own power.
+
 ## Connect the equipment
 
 The simplest chain runs grabber, chute, dismantling fixture, reclaimer, then a

@@ -259,6 +259,11 @@ exception is the station refuelling kiosk's Bulk supplies view.
    ore. **Pause** keeps the charge and its progress; **Cancel** puts the charge
    back in the inventory and forfeits the work.
 
+   Optional: under **Connections** > **Take feed from**, choose a material bin
+   or other store that touches the refinery or is joined to it by conveyor belt,
+   and the refinery takes its charges from there too. See
+   [feed stores](automatic-material-routing.md#feed-stores-for-the-t2-and-the-manufacturing-machines-optional).
+
    A running refinery never takes what it has just made. To carburise its own
    ingots, or burn its own carbon, press **Start** again: each press takes one
    such charge.
@@ -794,7 +799,7 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
 
 ## Limits
 
-- No crew loading orders for the V4 yet; load its inventory by hand or with a crew
+- No crew loading orders for the V4 yet; load its inventory by hand, choose a feed store, or use a crew
   output store on the tray. The L2 has its bottle order.
 - No construction recipes: buy the machines.
 - Stored gases are kilogram records in their stores; a game gas becomes room

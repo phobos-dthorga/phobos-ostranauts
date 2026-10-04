@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.42.0] - 2026-10-04 - Draft
+
+### Added
+
+- Optional feed store for the V4, LC-3, SA-3 and fermenter-still (owner request, 4 October 2026): under Connections, Take feed from, choose a material bin or other store that touches the machine or is joined to it by conveyor belt. While started and powered, the machine takes exact charges from there as well as from its own inventory. Loading by hand works as before.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; the choice is a new record on the machine.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.85.0 or newer. Conveyor belts and material bins come with Phobos Framework and Phobos Shipbreaker; any ordinary container that touches the machine also works.
+- A repeating machine still never takes what it makes, from a store either.
+- Checked offline; not yet seen in the game.
+
 ## [0.41.0] - 2026-10-04 - Draft
 
 ### Fixed

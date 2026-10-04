@@ -140,7 +140,14 @@ internal sealed class ChargeMachine
     /// <summary>Feed lying in the machine's own inventory (Manufacturing 0.41.0). A machine that repeats by itself never
     /// takes what it makes (a V4 would carburise its own ingots, or burn the carbon stock it just made); a charge of
     /// those is taken only by Start, once each time it is chosen.</summary>
-    private List<CondOwner> OwnFeed(CondOwner co, bool byStart) => OwnInventoryFeed.Units(co, u => CrewFeed(u, co) && (byStart || !OwnProduct(u.strCODef)));
+    private List<CondOwner> OwnFeed(CondOwner co, bool byStart)
+    {
+        Func<CondOwner, bool> accept = u => CrewFeed(u, co) && (byStart || !OwnProduct(u.strCODef));
+        var units = OwnInventoryFeed.Units(co, accept);
+        // The optional feed store (Manufacturing 0.42.0): a bin or other store touching the machine or on a belt to it.
+        units.AddRange(StoreFeed.Units(co, accept));
+        return units;
+    }
     internal bool ValidFeed(CondOwner? input, CondOwner? machine) => input != null && !input.bDestroyed && input.Crew == null &&
         !input.HasCond("IsInstalled") && input.GetCOsSafe(true).Count == 0 && input.GetLotCOs(true).Count == 0 && input.coStackHead == null && input.aStack.Count == 0 &&
         FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetTotalMass(), kg);
@@ -365,7 +372,7 @@ internal sealed class ChargeMachine
             if (problem != null) { Stop(co, s, problem); return; }
             // An empty feed keeps the machine armed; its own inventory is looked at every couple of real seconds.
             if (Feed(co)?.objContainer?.ContainedCOs.Count == 0 && !s.State.Bound &&
-                (co.objContainer!.ContainedCOs.Count == 0 || !s.OwnFeed.Due() || OwnFeed(co, false).Count == 0)) { s.Status = T("feed_empty"); return; }
+                (!s.OwnFeed.Due() || OwnFeed(co, false).Count == 0)) { s.Status = T("feed_empty"); return; }
             if (!(Resume(co, s) || Bind(co, s)) && !s.VesselWait) s.AwaitingFeed = false;
         }
         if (!s.State.Running) { if (!s.VesselWait) SetWorking(co, false); return; }
@@ -572,7 +579,7 @@ internal sealed class ChargeMachine
         return T("status", s.Status, count, shape.feedCells, charge,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(primary), s.State.Cycles) + selected +
             "\n" + T("demand", shape.workingKW, shape.workingKW * shape.roomHeatFraction) +
-            (extra == null ? "" : "\n" + extra) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            (extra == null ? "" : "\n" + extra) + (StoreFeed.Describe(co) is { Length: > 0 } fed ? "\n" + fed : "") + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     /// <summary>The panel's fields: one per commodity link (shown once a vessel is in reach or linked, or always for
     /// the primary one), and the recipe choice on an explicit-selection machine.</summary>
@@ -588,6 +595,7 @@ internal sealed class ChargeMachine
             yield return Provider.LinkField(link.FieldLabel(), link.ActionPrefix, peer, vessels.Select(v => (v, LinkChoices.Label(co, v, cargo, link.Deposit))),
                 () => LinkChoices.Note(co, cargo, vessels));
         }
+        yield return StoreFeed.Field(co);
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             var s = Get(co);
@@ -637,6 +645,11 @@ internal sealed class ChargeMachine
         message = T("fault");
         if (!Content.Ready) { message = Content.Status; return false; }
         if (action.StartsWith("recipe:", StringComparison.Ordinal)) return SelectRecipe(co, action.Substring(7), binding, out message);
+        if (action.StartsWith(StoreFeed.ActionPrefix, StringComparison.Ordinal))
+        {
+            message = Content.Access(co, binding) ?? "";
+            return message.Length == 0 && StoreFeed.Command(co, action, out message);
+        }
         // The longest matching prefix wins, so gas-link:<store>: is never read as a shorter prefix.
         foreach (var link in Links.OrderByDescending(l => l.ActionPrefix.Length))
             if (action.StartsWith(link.ActionPrefix, StringComparison.Ordinal)) return Link(co, link, action.Substring(link.ActionPrefix.Length), binding, out message);

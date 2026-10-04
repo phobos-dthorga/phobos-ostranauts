@@ -871,6 +871,11 @@
   Start) and Cancel puts it back. Never tell a player to use a second inventory
   window, and never design one. Every panel choice must be listed by its provider's
   `IsConfiguration`, or Apply refuses it for ever (`EquipmentField.Unlisted`).
+  Owner request the same day, **optional for the player**: a machine may name one feed
+  store (a material bin or any ordinary store, touching or on a conveyor belt) and take
+  its feed from there while started and powered (Framework 0.85.0 `StoreFeed`;
+  Shipbreaker 0.73.0 T2; Manufacturing 0.42.0 charge machines). Hand loading always
+  stays; never make a belt or bin a requirement.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

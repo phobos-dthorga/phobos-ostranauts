@@ -999,3 +999,11 @@ L35 — Framework 0.83.0 with Shipbreaker 0.72.0 and Manufacturing 0.41.0: a sta
 in its own inventory for feed. The look is skipped when that inventory is empty, and otherwise runs at most once
 every two real seconds for each armed, idle machine (a few admission checks over a tray of at most a dozen cells);
 a working machine and a paused one never look. No capture accompanies this change.
+
+## 4 October: optional feed stores (L36)
+
+L36 — Framework 0.85.0 with Shipbreaker 0.73.0 and Manufacturing 0.42.0: an armed, idle machine with a chosen feed
+store also looks there, on the same two-second real-time cadence as its own inventory and only when that gave
+nothing. The look reads the saved choice, asks the cached belt layout whether the two still join, and runs the feed's
+admission over the store's units. A machine with no store chosen pays one saved-record read per look. No capture
+accompanies this change.

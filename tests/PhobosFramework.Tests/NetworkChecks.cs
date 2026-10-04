@@ -76,6 +76,14 @@ internal static class NetworkChecks
         check(foreign.Count == 1 && foreign[0] == "conduit", "Another line under or beside the end is named once; its own line and pipe further off are not");
         check(LinkDiagnosis.ForeignSegments(ring, "irrigation", lines).SequenceEqual(new[] { "own" }), "Asked from the other side, the process-water line is the foreign one");
 
+        // The optional feed store (Framework 0.85.0): the saved choice, and the first thing to fix when it gives nothing.
+        check(StoreFeedRecord.Read(StoreFeedRecord.Save("abc-123")) == "abc-123" && StoreFeedRecord.Read(new Dictionary<string, string>()) == null &&
+              StoreFeedRecord.Read(new Dictionary<string, string> { ["store"] = "a", ["later"] = "b" }) == null, "A feed store choice survives reload; a record with other fields is left alone");
+        check(StoreFeedRecord.Classify(false, true, false, false, false, true) == StoreFeedProblem.NotChosen && StoreFeedRecord.Classify(true, false, true, true, true, true) == StoreFeedProblem.Unreadable &&
+              StoreFeedRecord.Classify(true, true, false, false, false, true) == StoreFeedProblem.Missing && StoreFeedRecord.Classify(true, true, true, false, false, true) == StoreFeedProblem.NotAStore &&
+              StoreFeedRecord.Classify(true, true, true, true, false, true) == StoreFeedProblem.OutOfReach && StoreFeedRecord.Classify(true, true, true, true, true, false) == StoreFeedProblem.NoPower &&
+              StoreFeedRecord.Classify(true, true, true, true, true, true) == StoreFeedProblem.None, "A feed store gives nothing until it is chosen, present, a store, in reach by touch or belt, and the machine has power");
+
         // A panel choice its provider does not list can never be applied (the ML-2's job switches, Framework 0.83.0).
         var offered = new[] { new Phobos.Ostranauts.Framework.Controls.EquipmentField("Filter", "Rock", new[] { ("filter:rock", "Rock"), ("filter:walls", "Walls") }),
             new Phobos.Ostranauts.Framework.Controls.EquipmentField("Haul", "Off", new[] { ("haul:on", "On"), ("haul:off", "Off") }) };

@@ -51,16 +51,18 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Thaw.methane_field"), ObjectPresentation.Name(methane),
                 stores.Select(v => ("methane-link:" + v.strID, LinkChoices.Label(co, v, ThawService.MethaneLink, true))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }),
                 "methane-link:" + (methane.Length == 0 ? "none" : methane), () => LinkChoices.Note(co, ThawService.MethaneLink, ThawService.MethaneCandidates(co)));
+        // Optional (Shipbreaker 0.73.0): a material bin or other store, touching or on a belt, that keeps the feed loaded.
+        yield return Phobos.Ostranauts.Framework.Inventory.StoreFeed.Field(co);
     }
     // Every prefix a field above offers must be listed here: a choice that is not is refused on Apply as stale, and
     // the panel then asks to apply or discard it for ever (the ML-2's two job switches, until Shipbreaker 0.72.0).
-    internal static readonly string[] ConfigurationPrefixes = new[] { "link:", "methane-link:" }.Concat(LaserRules.SettingPrefixes).ToArray();
+    internal static readonly string[] ConfigurationPrefixes = new[] { "link:", "methane-link:", Phobos.Ostranauts.Framework.Inventory.StoreFeed.ActionPrefix }.Concat(LaserRules.SettingPrefixes).ToArray();
     public bool IsConfiguration(string action) => ConfigurationPrefixes.Any(p => action.StartsWith(p, StringComparison.Ordinal));
     // The laser's stamp covers only its saved choices and its cooling link, not the sweep record that changes with
     // every powered second.
     public string ConfigurationStamp(CondOwner co) => LaserRules.IsFamily(co.strCODef)
         ? Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosState." + LaserService.FilterStoreName, "PhobosState." + LaserService.PowerStoreName, "PhobosMaterialPort." })
-        : Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order" });
+        : Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order", Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key });
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");

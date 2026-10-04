@@ -133,7 +133,7 @@ internal static class ThawService
             if (s.Job?.Running == true) return true;
             // The game shows one inventory for the unit, so ice put in by hand lies beside the gangue: take a block
             // from there when the feed is empty (Shipbreaker 0.72.0).
-            if (!OwnInventoryFeed.TopUp(co, Feed(co))) { s.Status = Text.Get("Thaw.feed_empty"); return true; }
+            if (!OwnInventoryFeed.TopUp(co, Feed(co)) && !StoreFeed.TopUp(co, Feed(co))) { s.Status = Text.Get("Thaw.feed_empty"); return true; }
             bool started = StartNext(co, s);
             // A vessel that cannot take water yet keeps the queue armed; anything else disarms it.
             if (!started && !s.VesselWait) s.AwaitingFeed = false;
@@ -230,7 +230,7 @@ internal static class ThawService
             var problem = MachineProblem(co);
             if (problem != null) { Stop(co, s, problem); return; }
             var waiting = Feed(co);
-            if (waiting?.objContainer?.ContainedCOs.Count == 0 && !(s.OwnFeed.Due() && OwnInventoryFeed.TopUp(co, waiting))) { s.Status = Text.Get("Thaw.feed_empty"); return; }
+            if (waiting?.objContainer?.ContainedCOs.Count == 0 && !(s.OwnFeed.Due() && (OwnInventoryFeed.TopUp(co, waiting) || StoreFeed.TopUp(co, waiting)))) { s.Status = Text.Get("Thaw.feed_empty"); return; }
             if (!StartNext(co, s) && !s.VesselWait) s.AwaitingFeed = false;
         }
         if (s.Job?.Running != true) { if (!s.VesselWait) SetWorking(co, false); return; }
@@ -373,8 +373,9 @@ internal static class ThawService
         return Text.Get("Thaw.status", s.Status, inputs?.Count ?? 0, ThawRules.FeedCapacity, progress, duration,
             co.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power"), ObjectPresentation.Name(Peer(co))) +
             (MethanePeer(co).Length > 0 ? Text.Get("Thaw.methane_to", ObjectPresentation.Name(MethanePeer(co))) : "") +
-            "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, ThawRules.WorkingKW * ThawRules.RoomHeatFraction) + IndustryObservations.ExplainStop(co);
+            "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, ThawRules.WorkingKW * ThawRules.RoomHeatFraction) + FeedStoreLine(co) + IndustryObservations.ExplainStop(co);
     }
+    private static string FeedStoreLine(CondOwner co) { string line = StoreFeed.Describe(co); return line.Length == 0 ? "" : "\n" + line; }
     internal static bool Link(CondOwner co, string id, ConsoleBinding? binding, out string reason) => Link(co, id, false, binding, out reason);
     /// <summary>Links water to a vessel, or (methane) methane ice's methane to a methane store; each touching the T2 or on
     /// the matching line.</summary>
@@ -396,6 +397,11 @@ internal static class ThawService
         if (!Content.Ready) { message = Content.Status; return false; }
         if (action.StartsWith("link:", StringComparison.Ordinal)) return Link(co, action.Substring(5), false, binding, out message);
         if (action.StartsWith("methane-link:", StringComparison.Ordinal)) return Link(co, action.Substring(13), true, binding, out message);
+        if (action.StartsWith(StoreFeed.ActionPrefix, StringComparison.Ordinal))
+        {
+            message = ProcessingService.AccessProblem(co, binding) ?? "";
+            return message.Length == 0 && StoreFeed.Command(co, action, out message);
+        }
         bool result;
         switch (action)
         {

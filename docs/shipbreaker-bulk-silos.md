@@ -58,6 +58,11 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
    and 2 kg of ice gangue drops into the tray, which holds two. Empty the tray
    by hand or with a crew output store.
 
+Optional: under **Connections** > **Take feed from**, choose a material bin or
+other store that touches the T2 or is joined to it by conveyor belt, and the T2
+takes its ice from there whenever its own inventory holds none. See
+[feed stores](automatic-material-routing.md#feed-stores-for-the-t2-and-the-manufacturing-machines-optional).
+
 Silos are shared: up to eight machines of each kind can link to one silo, from
 any mod, and the silo's panel lists every machine linked to it. Nothing links
 across open floor; see
