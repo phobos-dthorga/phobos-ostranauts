@@ -28,8 +28,8 @@ internal static class LeachChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(recipe.Solids(recipe.Products).Count(p => Materials.IsTerminal(p.Id)) <= 1, "At most one terminal remainder per feed: " + recipe.Id);
         }
-        check(LeachRecipes.All.Select(r => r.Revision).OrderBy(r => r).SequenceEqual(new[] { 1, 2, 3, 4, 5, 6 }), "Six revisions of its own, 1 to 6");
-        check(LeachRecipes.Available(false).Count() == 4 && LeachRecipes.Available(true).Count() == 5 && LeachRecipes.Available(true, true).Count() == 6 &&
+        check(LeachRecipes.All.Select(r => r.Revision).OrderBy(r => r).SequenceEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }), "Ten revisions of its own, 1 to 10 (the gangue wash and its three outcomes are 7 to 10)");
+        check(LeachRecipes.Available(false).Count() == 5 && LeachRecipes.Available(true).Count() == 6 && LeachRecipes.Available(true, true).Count() == 7 &&
               !LeachRecipes.Available(false).Contains(LeachRecipes.Makeup) && !LeachRecipes.Available(true).Contains(LeachRecipes.CropNutrients),
             "Without Agriculture neither formulation is available, and crop nutrients need its hoppers");
 

@@ -425,6 +425,18 @@ internal static class ManufacturingNativeChecks
                     !recipe.ItemInputs.Any(i => Bought(i.Id)), $"The {recipe.Id} charge yields only Agriculture's makeup packet at Agriculture's own price, from salts no merchant sells");
                 continue;
             }
+            // The owner's exception (4 October 2026, the gangue wash): a charge with an outcome table is judged by what a
+            // wash is expected to return over its whole table, not outcome by outcome, so a rare find may be worth far more
+            // than the charge. The expected return stays near the cost: a by-product worth washing, never a mine.
+            if (ChargeOutcomes.Pack.tables.TryGetValue(ChargeOutcomes.BaseOf(recipe.Id), out var table))
+            {
+                if (ChargeOutcomes.IsHidden(recipe.Id)) continue;
+                double cost = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg)), weight = table.outcomes.Values.Sum();
+                double expected = table.outcomes.Sum(o => o.Value / weight * ChargeCatalog.For(recipe.Machine).ById(o.Key)!.Products.Sum(p => UnitValue(p.Id, p.Count, p.Kg)));
+                check(expected <= 1.5 * cost && !recipe.ItemInputs.Any(i => Bought(i.Id)),
+                    $"The {recipe.Id} charge is expected to return at most half again its cost over its outcome table, from feed no merchant sells: {expected:F2} out of {cost:F2}");
+                continue;
+            }
             double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
             double outValue = recipe.Products.Sum(p => UnitValue(p.Id, p.Count, p.Kg));
             if (recipe.ItemInputs.All(i => Bought(i.Id)))

@@ -10,6 +10,7 @@
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/process-recipes.json" LogicalName="PhobosManufacturing.process-recipes.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/frozen-process-recipes.json" LogicalName="PhobosManufacturing.frozen-process-recipes.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/materials.json" LogicalName="PhobosManufacturing.materials.json" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/outcomes.json" LogicalName="PhobosManufacturing.outcomes.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/vessels.json" LogicalName="PhobosManufacturing.vessels.json" />
     <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/equipment.json" LogicalName="PhobosManufacturing.equipment.json" />
   </ItemGroup>

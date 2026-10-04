@@ -84,7 +84,7 @@ internal static class ChargeMachines
     /// steps draw from a linked acid tank and the complete formulation deposits into a linked Agriculture hopper.</summary>
     private static ChargeMachineSpec LeachSpec() => new()
     {
-        Prefix = LeachRules.Prefix, StockTrigger = LeachRules.StockTrigger, StockFeed = LeachRules.StockFeed, AdmitsOre = true,
+        Prefix = LeachRules.Prefix, StockTrigger = LeachRules.StockTrigger, StockFeed = LeachRules.StockFeed, AdmitsOre = true, FeedConditions = LeachRules.FeedConditions,
         Record = LeachRules.Record, MachineKey = ChargeCatalog.Leach, TextPrefix = "Leach", SnapshotKind = "leach", Art = Definitions.LeachArt,
         Selection = RecipeSelection.Explicit, IgnitionSource = false,
         Met = key => LeachRecipes.IsMet(key, AgricultureStock.Available, AgricultureStock.Hoppers),

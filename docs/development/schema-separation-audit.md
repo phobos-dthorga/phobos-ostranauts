@@ -304,3 +304,7 @@ their notable rows cited inline. Related records: [framework author guide](frame
 [updating constants](updating-constants.md), [item reference maintenance](item-reference-maintenance.md),
 [War Declared design](war-declared-design.md) (the override precedent),
 [vanilla precedence audit](vanilla-precedence-audit.md).
+
+## Follow-up: outcome tables (4 October 2026)
+
+Owner direction on the gangue wash plan: chance tables are data a player may edit or add to, apart from the code. Framework 0.88.0 adds the `outcomes` schema (`Data/OutcomePack.cs`): a table per base recipe, weights by outcome recipe id, merged by key from `BepInEx/config/<Mod>/outcomes`. The outcomes themselves stay in the frozen process-recipes pack, so mass conservation and the revision freeze apply to them unchanged; the table is not frozen, because odds are balance and a bound charge has already saved its result. Enforced on every file: outcomes share their base's machine, inputs, circulating volumes and duration; whole-number weights from 0 to 10,000; some weight left; a recipe in at most one table. Shipped-only authoring rule: the expected return over a table. The code holds a generic stable pick and no table.

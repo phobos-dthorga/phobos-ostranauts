@@ -73,6 +73,21 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.process_recipes(pack, 'test')
 
+    def test_outcome_tables(self):
+        # Framework 0.88.0: chance tables over ordinary recipes with the same charge; odds are tunable, the charge is not.
+        unit = {'machine': 'm', 'inputs': [{'id': 'a', 'count': 4, 'kg': 3}], 'products': [{'id': 'b', 'count': 12, 'kg': 1}], 'seconds': 1200}
+        recipes = {'wash': {**unit, 'revision': 1}, 'wash-steel': {**unit, 'revision': 2}, 'other': {**unit, 'revision': 3, 'seconds': 600}}
+        def pack(outcomes, key='wash'):
+            return {'schemaVersion': 1, 'schema': 'outcomes', 'tables': {key: {'outcomes': outcomes}}}
+        validate.outcomes(pack({'wash': 50, 'wash-steel': 30}), 'test', recipes)
+        validate.outcomes(pack({'wash': 0, 'wash-steel': 1}), 'test', recipes)
+        for bad in (pack({'wash-steel': 30}), pack({'wash': 1, 'missing': 1}), pack({'wash': 1, 'other': 1}), pack({'wash': 0, 'wash-steel': 0}),
+                    pack({'wash': 1, 'wash-steel': -1}), pack({'wash': 1, 'wash-steel': 10001}), pack({'wash': 1, 'wash-steel': 1.5}), pack({'nowhere': 1}, 'nowhere')):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.outcomes(bad, 'test', recipes)
+        shipped = json.loads((ROOT / 'mods/PhobosManufacturing/framework/outcomes.json').read_text(encoding='utf-8'))
+        self.assertEqual(sum(shipped['tables']['gangue-wash']['outcomes'].values()), 100)
+
     def test_validator_checks_supersession(self):
         # Framework 0.68.0: a later revision may replace one earlier revision of its own machine, and only one recipe may.
         def pack(*supersedes):

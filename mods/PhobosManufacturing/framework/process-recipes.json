@@ -212,6 +212,42 @@
       "seconds": 300,
       "reactionKWh": 0.56,
       "requires": [ "agriculture-crop-nutrients" ]
+    },
+    "gangue-wash": {
+      "notes": "The gangue wash (owner request, 4 October 2026; game-like by the owner's leave). Four 3 kg lumps of the game's gangue are washed in 1 kg of sulfuric acid from a linked tank and 10 kg of circulating water, which is returned. The acid breaks down the rock's carbonate and oxide cement and frees whatever metal grains it held; the hook is real (chondritic rock carries nickel-iron metal grains, a few percent by mass in ordinary chondrites), the yields and the free aluminium are ours. What a charge turns out to be is set by its outcome table (framework/outcomes.json) from the identities of its four lumps. This is the outcome with no metal: 13 kg of washed tailings, the rock and the spent acid as sulfates. 4 kWh authored at the LC-3's 12 kW for 20 minutes.",
+      "machine": "leach",
+      "revision": 7,
+      "inputs": [ { "id": "ItmMiningTrash", "count": 4, "kg": 3 }, { "id": "sulfuric acid", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "PhobosWashedTailings", "count": 13, "kg": 1 } ],
+      "circulates": { "water": 10 },
+      "seconds": 1200
+    },
+    "gangue-wash-steel": {
+      "notes": "A gangue wash outcome (see gangue-wash): 2 kg of the game's scrap steel freed from the rock, and 11 kg of washed tailings.",
+      "machine": "leach",
+      "revision": 8,
+      "inputs": [ { "id": "ItmMiningTrash", "count": 4, "kg": 3 }, { "id": "sulfuric acid", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "ItmScrapSteel", "count": 2, "kg": 1 }, { "id": "PhobosWashedTailings", "count": 11, "kg": 1 } ],
+      "circulates": { "water": 10 },
+      "seconds": 1200
+    },
+    "gangue-wash-aluminium": {
+      "notes": "A gangue wash outcome (see gangue-wash): 2 kg of the game's scrap aluminium, and 11 kg of washed tailings. Free aluminium metal does not occur in rock; this outcome is game-like.",
+      "machine": "leach",
+      "revision": 9,
+      "inputs": [ { "id": "ItmMiningTrash", "count": 4, "kg": 3 }, { "id": "sulfuric acid", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "ItmScrapAluminum", "count": 2, "kg": 1 }, { "id": "PhobosWashedTailings", "count": 11, "kg": 1 } ],
+      "circulates": { "water": 10 },
+      "seconds": 1200
+    },
+    "gangue-wash-nickel-iron": {
+      "notes": "A gangue wash outcome (see gangue-wash): one 4 kg nickel-iron ingot's worth of metal grains, consolidated, and 9 kg of washed tailings. The rare find (owner decision, 4 October 2026); its value is a recorded chance exception to the refining band.",
+      "machine": "leach",
+      "revision": 10,
+      "inputs": [ { "id": "ItmMiningTrash", "count": 4, "kg": 3 }, { "id": "sulfuric acid", "count": 1, "kg": 1 } ],
+      "products": [ { "id": "PhobosNickelIronIngot", "count": 1, "kg": 4 }, { "id": "PhobosWashedTailings", "count": 9, "kg": 1 } ],
+      "circulates": { "water": 10 },
+      "seconds": 1200
     }
   }
 }

@@ -220,7 +220,15 @@ def care():
                'Phobos Medical care pack: station power and admission thresholds. The healing is the game\'s own Recuperating.')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}
+def outcomes():
+    table = obj({'notes': NOTES, 'outcomes': named(num(0, 10000, integer=True, description='Weight: the outcome is picked this often out of the table total. 0 switches it off.'),
+                                                   'Weight by outcome recipe id. The base recipe is one of its own outcomes.', '^[A-Za-z0-9-]+$')}, ['outcomes'])
+    return obj({**header('outcomes'), 'tables': named(table, 'Tables by base recipe id: the recipe a player chooses or a machine matches.', '^[A-Za-z0-9-]+$')},
+               ['schemaVersion', 'schema', 'tables'],
+               'Chance tables: the recipes a charge may turn out to be, and the odds. Every outcome is an ordinary recipe of the same mod with the same charge and duration as its base.')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
 
 
 def render(name):

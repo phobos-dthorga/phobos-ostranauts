@@ -433,6 +433,8 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.13.0') { 'framework/vessels.json' }
             # 0.17.0 moves the charge machines' physical figures into a read-only equipment pack.
             if ($version -ge [version]'0.17.0') { 'framework/equipment.json' }
+            # 0.44.0 adds the outcome tables (the gangue wash).
+            if ($version -ge [version]'0.44.0') { 'framework/outcomes.json' }
             # 0.10.0 adds the Tolvane AX-2 ammonia cracker.
             if ($version -ge [version]'0.10.0') {
                 'images/phobos/manufacturing/PhobosAmmoniaCracker.png'; 'images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png'

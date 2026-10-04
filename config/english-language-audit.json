@@ -70134,6 +70134,97 @@
       "after": "Feed store: gone, locked or not a store any more. Choose another under Take feed from."
     },
     {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.table_empty",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0} is empty.",
+      "after": "Outcome table {0} is empty."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.unknown_recipe",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0} names {1}, which is not a recipe.",
+      "after": "Outcome table {0} names {1}, which is not a recipe."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.base_missing",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0} must list {0} itself among its outcomes.",
+      "after": "Outcome table {0} must list {0} itself among its outcomes."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.weight",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0}: the weight of {1} must be a whole number from 0 to {2}.",
+      "after": "Outcome table {0}: the weight of {1} must be a whole number from 0 to {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.different_charge",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0}: {1} must be a recipe of the same machine with the same inputs, circulating volumes and duration.",
+      "after": "Outcome table {0}: {1} must be a recipe of the same machine with the same inputs, circulating volumes and duration."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.shared",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Recipe {0} is already an outcome of {1}; it cannot also be an outcome of {2}.",
+      "after": "Recipe {0} is already an outcome of {1}; it cannot also be an outcome of {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "OutcomeSchema.no_weight",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Data/OutcomePack.cs"
+      ],
+      "before": "Outcome table {0} needs at least one outcome with a weight above 0.",
+      "after": "Outcome table {0} needs at least one outcome with a weight above 0."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.nickel-steel",
       "category": "name",
@@ -73212,6 +73303,90 @@
       "after": "Reaction mass feeders"
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.gangue-wash",
+      "category": "name",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Gangue wash",
+      "after": "Gangue wash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.gangue-wash-steel",
+      "category": "name",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Gangue wash",
+      "after": "Gangue wash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.gangue-wash-aluminium",
+      "category": "name",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Gangue wash",
+      "after": "Gangue wash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.gangue-wash-nickel-iron",
+      "category": "name",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Gangue wash",
+      "after": "Gangue wash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosWashedTailings",
+      "category": "name",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Washed Tailings",
+      "after": "Washed Tailings"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosWashedTailings_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Outcome table validation messages, and the gangue wash recipe name and tailings text (4 October 2026).",
+      "trace": "literal reference",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "A kilogram of grey grit and sulfate crust: what the acid leaves of washed gangue. No recipe wants it, but a reaction mass feeder will grind it into thrust.",
+      "after": "A kilogram of grey grit and sulfate crust: what the acid leaves of washed gangue. No recipe wants it, but a reaction mass feeder will grind it into thrust."
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -76025,8 +76200,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fc2c83a347f0befd42c5984ad78a7cf5e25ab8bfab5475b38a6565355d9b72d9",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "fedabf89136487a54a8a7d4aa34f16b353ff026ec2d080f625f91cde87386501",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "SUPPORT.md",
@@ -76185,8 +76360,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0066d431c04b1b10e6f48278b1d49094c70a29ac04f158a556504dffd207ffbb",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "705776230750077d93ba8b888251dab00e4d15b3585612a088e4d3c47cda828c",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/crew-automation.md",
@@ -76619,8 +76794,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "3f261886f044620e44adbc2df661b663204ba88d79980ff4db0e439f9ce32036",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "693a01ace820f1187782cb18d487166421a2e84f91de493a2884f0ee2a4c9f18",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -76685,8 +76860,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "6d09ce0150745047da2eee2ed3341db48aa372c13aff06a249100ac835738cb5",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "5a2f188697d121c276a15ba4fcfb8b17a45ea7ccd9746b494ced4539d3d98680",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -76853,8 +77028,8 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "882b13c3e3c85a1fe076e7f63d8dcd59fe5c61041384c9bce58ff1072ecad541",
-      "review": "Reviewed 2026-09-30 for Framework 0.54.0 / Manufacturing 0.17.0 (shared charge engine, equipment pack): the read-only equipment pack and recipe fields in the editing guide and Workshop page; version numbers and the faction-kiosk availability lines; wording is direct player text."
+      "sha256": "1b6f3302c2513357026133f91ec62bf7950dc160976af88814ad3f0d9fc5d95f",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -77004,8 +77179,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "5095a040bfae1c29f5cfb5b27744249411d99648648482664c449c7dde8a6df4",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "1135e1a9a98132a9917e36e810ba37fc159c310e80c090958be3fd9c51fa42da",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -77025,8 +77200,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "63c846e5e10dd22e43adada25a3081775f5a52ffb3145aecd6f95175b8f526b9",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "7c2fa95427feb2b391cc5a0d5c58420bbd8921db7bde6926d3463be5e6dcf6cd",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -77088,8 +77263,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d15c6316560858ef0e44b562475cf8da8e99e58713e989435a15ee935842d781",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "a114c05e6f09e7b84497488105d35c81737aa5db4d7ed8d0f44dd2f815f55153",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/item-references.md",
@@ -77109,15 +77284,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "208dcb2923224609d8b348284e315ad78a66f2ceff8c00c4c13a09b2cf80a79e",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "d389c69042a5262bbf5ded99bfa18fe0891134aaf51789a118be344408ffc887",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "d288e549368ba1cb248d068d9b6448e2eccf348334c1c0548189321ed89d1447",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "039a683420aa60a6af7736e8bdb311ad19ac6028a97044429ead16acecd45a16",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -77151,8 +77326,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "df90d79155f018a7b624fbe5f15d8c85baa4fe46b9c6351cb1816e230fc3a6fe",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "ebbbe1d7101330119f7569990afe8def17769c92d98fe5adf099cde7e0779360",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "docs/residue-collector.md",
@@ -77270,15 +77445,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe66528eda42e8311d7f2c95689df415ef8b21153b9d7290ff32b012b3e81dab",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "f0d4b026c84517fba0d15f7a7428ae04d79fa9f6d3720057434da1040d03499e",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "052180fa4a1fe8856422bb192de7227a33df3da6e69bf20fa30e0aed3fe94693",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "17671719a605161b07800c4b1b3346c83d0a692c20715d16ead937834b761613",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -77306,8 +77481,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2036ccb22cbbe637528dc95f1c529c6b86d7fabc4403f8fd94e34d8832347c95",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "a118f1bb62d6036f42062281af904ac8ac041735a9812d109fb407e179c408c2",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -77358,14 +77533,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f1fdaa6991909095d948d28d98a78d7d97aed600bcaacd988e7b9659b36f8491",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "15019a0ec5ad93ca98117adb9f0a686227fbbea7466045373d61192615b1d3fe",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f63fb486fa68145a6fca7a9c3eaa63b333037f7d778f94c2afe397123c6cc268",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "9e97d7bcbe0ec7822bd1e10891b2a76d182d5c6d9f357a64abf560e19974a3aa",
+      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

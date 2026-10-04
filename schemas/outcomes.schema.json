@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/outcomes.schema.json",
+  "title": "Phobos outcomes data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "outcomes"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "tables": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[A-Za-z0-9-]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "outcomes": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[A-Za-z0-9-]+$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000,
+                  "description": "Weight: the outcome is picked this often out of the table total. 0 switches it off."
+                }
+              },
+              "description": "Weight by outcome recipe id. The base recipe is one of its own outcomes."
+            }
+          },
+          "required": [
+            "outcomes"
+          ]
+        }
+      },
+      "description": "Tables by base recipe id: the recipe a player chooses or a machine matches."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "tables"
+  ],
+  "description": "Chance tables: the recipes a charge may turn out to be, and the odds. Every outcome is an ordinary recipe of the same mod with the same charge and duration as its base."
+}

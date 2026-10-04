@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ostranauts.Trading;
 using Phobos.Ostranauts.Framework.Registration;
 using PhobosManufacturing.Core;
 
@@ -30,6 +31,16 @@ internal static class RemainderNativeChecks
             check(!Remainders.IsDeclared(useful), "Not a remainder, so the feeder refuses it: " + useful);
         foreach (var m in Materials.All)
             check(Remainders.IsDeclared(m.Id) == m.Terminal, "A Manufacturing material is a remainder exactly when it is terminal: " + m.Id);
+
+        // The gangue wash (Manufacturing 0.44.0): the LC-3's feed admits the game's gangue, and its tailings are a remainder.
+        var leachFeed = DataHandler.dictCTs[manufacturing.Objects[LeachRules.Prefix + "InputBin"].strContainerCT];
+        var gangue = DataHandler.dictCOs[LeachRules.Gangue];
+        double gangueKg = double.Parse(gangue.aStartingConds.Single(s => s.StartsWith("StatMass=", StringComparison.Ordinal)).Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
+        check(leachFeed.TriggeredDataCO(new DataCO(gangue), false) && gangueKg == 3 && leachFeed.TriggeredDataCO(new DataCO(DataHandler.dictCOs[LeachRules.Olivine]), false) &&
+              !leachFeed.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapSteel"]), false), "The LC-3 feed admits the game's 3 kg gangue and its olivine, and still refuses scrap");
+        check(Remainders.IsDeclared(Materials.WashedTailings) && ChargeOutcomes.Pack.tables.ContainsKey("gangue-wash"), "Washed tailings are a declared remainder, and the gangue wash has its outcome table");
+        foreach (string product in new[] { "ItmScrapSteel", "ItmScrapAluminum" })
+            check(DataHandler.dictCOs[product].aStartingConds.Any(s => s.StartsWith("StatMass=1.0x1", StringComparison.Ordinal)), "The game's scrap is a 1 kg unit, as the wash's outcomes say: " + product);
 
         // The Slingwright RM-1 itself.
         foreach (string state in PhobosManufacturing.Definitions.Forms)

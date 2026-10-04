@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "schema": "outcomes",
+  "notes": "Phobos Manufacturing outcome tables (Manufacturing 0.44.0): charges with more than one possible result, and the odds of each. Each outcome is an ordinary recipe in process-recipes.json with the same charge and duration as its base. Weights are whole numbers; a weight of 0 switches an outcome off. A charge's result is fixed by the items in it, never rolled again. Player files in BepInEx/config/PhobosManufacturing/outcomes may retune these odds, add an outcome to a table, or add a table for recipes of their own.",
+  "tables": {
+    "gangue-wash": {
+      "notes": "Lean by the owner's choice (4 October 2026): half the washes give only tailings. Expected worth about 13.5 cr a charge at base prices against about 11 cr of gangue and acid.",
+      "outcomes": {
+        "gangue-wash": 50,
+        "gangue-wash-steel": 30,
+        "gangue-wash-aluminium": 15,
+        "gangue-wash-nickel-iron": 5
+      }
+    }
+  }
+}

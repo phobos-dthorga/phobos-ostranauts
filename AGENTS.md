@@ -885,6 +885,16 @@
   deliver it as one stack. `RemainderNativeChecks` refuses a Phobos trash-category item
   that is neither declared nor listed there with the recipe that takes it. The feeder
   lives in Manufacturing (owner choice), so other mods' remainders need it installed.
+- Owner direction (2026-10-04): **chance outcomes are data.** A charge that can turn out
+  more than one way has one exact, frozen recipe per outcome and a table in the owner's
+  `outcomes` data pack (Framework 0.88.0 `Data.OutcomePack`; player overrides in
+  `BepInEx/config/<Mod>/outcomes`). Every outcome has its base's machine, inputs,
+  circulating volumes and duration. The pick is `Outcomes.Pick`, a stable hash of the bound
+  unit ids, applied at bind and saved as the charge's revision: never roll at runtime,
+  never hard-code a table, never reroll. Value is judged over the table's expected
+  return (at most 1.5 x cost, feed no merchant sells). First use: Manufacturing 0.44.0's
+  gangue wash on the LC-3 (leach revisions 7 to 10; washed tailings are a declared
+  remainder). Game-like recipes are allowed where the owner says so and are labelled.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

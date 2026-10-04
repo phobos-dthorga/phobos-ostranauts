@@ -26,6 +26,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.88.0] - 2026-10-04 - Draft
+
+### Added
+
+- An outcomes data pack for content mods: tables of the recipes a charge may turn out to be, with whole-number odds players can retune or add to. Each outcome is an ordinary recipe with the same charge as its base. A result is picked from the items in the charge, so it is never rolled again. Phobos Manufacturing 0.44.0 uses it for the gangue wash.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.87.0] - 2026-10-04 - Draft
 
 ### Added

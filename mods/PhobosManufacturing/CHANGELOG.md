@@ -10,6 +10,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.44.0] - 2026-10-04 - Draft
+
+### Added
+
+- The gangue wash on the LC-3 (owner request, 4 October 2026): four lumps of gangue and a kilogram of sulfuric acid, with 10 kg of water on hand, wash for 20 minutes into 13 kg of results by chance. About half the washes give only washed tailings; the rest give 2 scrap steel or 2 scrap aluminium, and rarely a nickel-iron ingot, with tailings for the remainder.
+- A wash's result is set by its four lumps and never rolled again: reloading, or cancelling and starting again, changes nothing.
+- Washed tailings come as one stack and are a remainder the RM-1 reaction mass feeder grinds.
+- The odds are a data file players can edit: the new outcomes pack, with overrides in BepInEx/config/PhobosManufacturing/outcomes. See the editing guide.
+
+### Save compatibility
+
+- Automatic. New recipes and one new item only.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.88.0 or newer.
+- The wash is game-like: rock does carry nickel-iron grains, but free aluminium and the odds are gameplay choices.
+- Checked offline; not yet seen in the game.
+
 ## [0.43.0] - 2026-10-04 - Draft
 
 ### Added

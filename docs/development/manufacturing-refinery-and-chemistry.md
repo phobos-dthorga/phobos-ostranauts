@@ -853,3 +853,29 @@ out as reaction mass.
   recycler rejects, and all retained maintenance waste. Trash-category items that a recipe takes (leached residue,
   crop residue, spent biomass, process solution) are not remainders. The native checks refuse a Phobos trash item
   that is neither.
+
+## The gangue wash and outcome tables (0.44.0)
+
+Owner request, 4 October 2026: an acid wash that turns gangue into scrap by chance, game-like where it helps play.
+
+- **Charge.** Four of the game's 3 kg gangue lumps (`ItmMiningTrash`) and 1 kg of sulfuric acid drawn from the
+  linked tank, in 10 kg of circulating water that is returned; 20 minutes at the LC-3's 12 kW (4 kWh, authored).
+- **Outcomes, each an exact recipe of 13 kg in and 13 kg out** (leach revisions 7 to 10): tailings only; 2 kg of scrap
+  steel and 11 kg of tailings; 2 kg of scrap aluminium and 11 kg; one 4 kg nickel-iron ingot and 9 kg. Washed
+  tailings are a 1 kg terminal remainder delivered as one stack, and a declared remainder for the RM-1 feeder.
+- **What is real and what is ours.** Chondritic rock carries nickel-iron metal grains, a few percent by mass in
+  ordinary chondrites (meteorite mineralogy, cited from memory); dilute acid attacking the carbonate and oxide cement
+  around them is a fair picture of a wash. Free aluminium metal does not occur in rock, acid would attack iron too,
+  and the odds and yields are authored. The recipe is game-like by the owner's leave and is labelled so in the guide.
+- **The pick.** `framework/outcomes.json` holds the table (50, 30, 15, 5). At bind the charge engine asks Framework
+  `Outcomes.Pick`, a stable hash of the four bound lumps' ids modulo the total weight, and saves the picked outcome's
+  revision as the bound charge. The same lumps always give the same result; reload, cancel and restart cannot reroll
+  it; regrouping lumps gives a different draw that can only be seen by consuming them. The panel shows the base
+  recipe's name until the wash finishes.
+- **Value.** At base prices a wash costs about 11 cr (gangue 2 cr a lump, acid 3.1 cr) and is expected to return
+  about 13.5 cr. The 5% ingot (220 cr) is far above the refining band on its own; the owner approved judging an
+  outcome table by its expected return (at most half again its cost, from feed no merchant sells), which the native
+  value check now does.
+- **Separation.** Recipes are frozen data, the table is tunable data, and the code names neither: see the outcomes
+  section of the editing guide. Mass conservation applies to every file; generosity is an authoring rule for the
+  shipped table only.

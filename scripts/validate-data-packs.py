@@ -506,7 +506,46 @@ def care(pack, where):
                 raise Problem(f'{where}/alerts/{name}: must be below {CARE_LIMITS[name]}')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care}
+OUTCOME_MAX_WEIGHT = 10000
+
+
+def outcomes(pack, where, recipes=None):
+    """The outcomes schema (Framework 0.88.0): chance tables over ordinary recipes of the same mod.
+
+    recipes is the sibling process-recipes pack's recipes (id to entry); without it only the shape is checked."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'tables'}, where)
+    tables = pack.get('tables')
+    if not isinstance(tables, dict):
+        raise Problem(f'{where}/tables: expected base recipe to table')
+    def signature(r):
+        ins = sorted((u['id'], u['count'], u['kg']) for u in r.get('inputs', []))
+        return (r.get('machine'), tuple(ins), tuple(sorted(r.get('circulates', {}).items())), r.get('seconds'))
+    seen = {}
+    for key, table in tables.items():
+        w = f'{where}/tables/{key}'
+        fields(table, {'notes', 'outcomes'}, w)
+        entries = table.get('outcomes')
+        if not isinstance(entries, dict) or not entries:
+            raise Problem(f'{w}/outcomes: expected outcome recipe to weight')
+        if key not in entries:
+            raise Problem(f'{w}: a table lists its own base recipe among its outcomes')
+        total = 0
+        for outcome, weight in entries.items():
+            number(weight, f'{w}/outcomes/{outcome}', 0, OUTCOME_MAX_WEIGHT, integer=True)
+            total += weight
+            if outcome in seen:
+                raise Problem(f'{w}: {outcome} is already an outcome of {seen[outcome]}')
+            seen[outcome] = key
+            if recipes is not None:
+                if key not in recipes or outcome not in recipes:
+                    raise Problem(f'{w}: {outcome if key in recipes else key} is not a recipe')
+                if signature(recipes[outcome]) != signature(recipes[key]):
+                    raise Problem(f'{w}: {outcome} must have the same machine, inputs, circulating volumes and duration as {key}')
+        if total < 1:
+            raise Problem(f'{w}: needs at least one outcome with a weight above 0')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
 
 
 def check_file(path):
@@ -528,7 +567,13 @@ def check_file(path):
         return None
     if pack.get('schemaVersion') != 1:
         raise Problem('schemaVersion must be 1')
-    SCHEMAS[schema](pack, schema)
+    if schema == 'outcomes':
+        # Cross-checked against the same mod's recipes, as the game's loader does.
+        sibling = path.with_name('process-recipes.json')
+        recipes = json.loads(sibling.read_text(encoding='utf-8-sig')).get('recipes') if sibling.exists() else None
+        outcomes(pack, schema, recipes)
+    else:
+        SCHEMAS[schema](pack, schema)
     return schema
 
 

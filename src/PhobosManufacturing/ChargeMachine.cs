@@ -223,12 +223,15 @@ internal sealed class ChargeMachine
     private string WorkingStatus(ChargeRecipe recipe)
     {
         string key = Phobos.Ostranauts.Framework.Localization.Translations.Language + "|" + recipe.Id;
-        if (!workingText.TryGetValue(key, out var text)) workingText[key] = text = T("working", Text.Get("Recipe." + recipe.Id));
+        if (!workingText.TryGetValue(key, out var text)) workingText[key] = text = T("working", RecipeName(recipe));
         return text;
     }
     // Written only when it changes: an idle machine reaches this on every power step.
     private void SetWorking(CondOwner co, bool value) { if (co.HasCond(Spec.WorkingCondition) != value) co.SetCondAmount(Spec.WorkingCondition, value ? 1 : 0); }
     private ChargeRecipe? Recipe(Session s) => s.State.Bound ? Catalog.ByRevision(s.State.Revision) : null;
+    /// <summary>The name a player sees: an outcome shows as the recipe it was chosen as, so a result stays unknown
+    /// until the charge finishes.</summary>
+    private static string RecipeName(ChargeRecipe recipe) => Text.Get("Recipe." + ChargeOutcomes.BaseOf(recipe.Id));
     private bool Available(ChargeRecipe recipe) => recipe.Requires.All(Spec.Met);
     /// <summary>The bound units, when every one of them still sits in the feed bin and is still valid feed.</summary>
     private List<CondOwner>? Charge(CondOwner co, Session s)
@@ -304,6 +307,9 @@ internal sealed class ChargeMachine
         if (units.Any(u => !ChargeState.SafeId(u.strID))) { s.Status = T("invalid_feed"); return false; }
         foreach (var unit in units)
             if (unit.objCOParent != feed && !OwnInventoryFeed.Take(unit, feed)) { s.Status = Text.Get("Content.feed_blocked"); return false; }
+        // A charge with an outcome table (Manufacturing 0.44.0) turns out to be one of its outcomes, decided by the
+        // bound units themselves: the same units always give the same result, so nothing can reroll it.
+        recipe = ChargeOutcomes.Resolve(recipe, units.Select(u => u.strID));
         s.State.RecipeId = recipe.Id; s.State.Revision = recipe.Revision; s.State.ProgressSeconds = 0; s.State.WaitSeconds = 0; s.State.EmittedKg = 0;
         s.State.Charge = units.Select(u => u.strID).ToList();
         Save(co, s);
@@ -320,7 +326,7 @@ internal sealed class ChargeMachine
         // reagent the charge draws must be there.
         if (ReadyVessels(co, Needs(recipe, recipe.Products), out string why) == null) { WaitForVessel(s, why); return false; }
         s.State.Running = true; s.Last = StarSystem.fEpoch; s.VesselWait = false;
-        s.Status = T("working", Text.Get("Recipe." + recipe.Id));
+        s.Status = T("working", RecipeName(recipe));
         if (s.State.ProgressSeconds >= recipe.Seconds) return Finish(co, s);
         SetWorking(co, true);
         return true;
@@ -490,7 +496,7 @@ internal sealed class ChargeMachine
         {
             s.VesselWait = true; s.NextVesselCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = T("tray_full"); return false;
         }
-        Plugin.Log(T(spoiled ? "spoiled_log" : "completed_log", Text.Get("Recipe." + recipe.Id), co.strID));
+        Plugin.Log(T(spoiled ? "spoiled_log" : "completed_log", RecipeName(recipe), co.strID));
         if (spoiled) Phobos.Ostranauts.Framework.Notices.PlayerNotices.Post(co.ship, "PhobosManufacturing.spoiled", Phobos.Ostranauts.Framework.Notices.NoticeLevel.Caution, T("spoiled_notice", co.strNameFriendly));
         s.State.Cycles++; s.State.Clear(); Save(co, s);
         if (s.Protected) return true;
@@ -572,7 +578,7 @@ internal sealed class ChargeMachine
         var recipe = Recipe(s);
         var shape = Equipment.Entry(Spec.Prefix);
         int count = Feed(co)?.objContainer?.ContainedCOs.Count ?? 0;
-        string charge = recipe == null ? T("no_charge_bound") : T("charge", Text.Get("Recipe." + recipe.Id), s.State.ProgressSeconds, recipe.Seconds, s.State.WaitSeconds);
+        string charge = recipe == null ? T("no_charge_bound") : T("charge", RecipeName(recipe), s.State.ProgressSeconds, recipe.Seconds, s.State.WaitSeconds);
         string primary = Links.Count == 0 ? "" : Peer(co, Links[0]);
         string selected = Spec.Selection != RecipeSelection.Explicit ? "" : "\n" + (Catalog.ByRevision(s.State.Selected) is ChargeRecipe chosen ? T("selected", Text.Get("Recipe." + chosen.Id)) : T("no_selection"));
         string? extra = Spec.ExtraStatus?.Invoke(co);

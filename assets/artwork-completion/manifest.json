@@ -3277,6 +3277,30 @@
       "review": "Recorded derivation; native-scale export inspected beside its siblings. Owner in-game review pending."
     },
     {
+      "key": "washed-tailings",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosWashedTailings",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockWashedTailings",
+      "status": "selected",
+      "source": "source/washed-tailings.png",
+      "sourceSHA256": "781952e68e189c5ae5515b32217c428ea5b1dc2144006b77382434641f123ee8",
+      "requestRecord": "round-three-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected olivine leach cake onto a cool grey grit ramp (map in manufacturing-requests.json). Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/olivine-leach-cake.png"
+    },
+    {
       "key": "drain-canister",
       "mod": "PhobosFramework",
       "definition": "PhobosLineDrainCanister",

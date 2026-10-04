@@ -1905,11 +1905,12 @@
             "PhobosOlivineLeachCake",
             "PhobosExhaustedSorbent",
             "PhobosPlantAsh",
-            "PhobosSpentMash"
+            "PhobosSpentMash",
+            "PhobosWashedTailings"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) and spent mash (0.5 kg: what a fermenter-still charge leaves). Trash at the technical minimum price; nothing recovers them.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them.",
           "use": "Feed them to a Slingwright RM-1 reaction mass feeder, which grinds them into thrust for the RCS. They can still be sold or discarded.",
-          "find": "Left in the V4, LC-3, SA-3 or fermenter-still tray by their charges. Never sold.",
+          "find": "Left in the V4, LC-3, SA-3 or fermenter-still inventory by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,

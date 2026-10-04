@@ -111,7 +111,8 @@ public sealed class ChargeRecipeView
     /// through <see cref="ByRevision"/>. A superseded recipe returns when its replacement's requirements are not met.</summary>
     public IEnumerable<ChargeRecipe> Available(Func<string, bool> met)
     {
-        var ready = All.Where(r => r.Requires.All(met)).ToArray();
+        // A recipe that is only ever an outcome of another (Manufacturing 0.44.0) is never offered, matched or selected.
+        var ready = All.Where(r => r.Requires.All(met) && !ChargeOutcomes.IsHidden(r.Id)).ToArray();
         var replaced = new HashSet<int>(ready.SelectMany(r => r.Supersedes));
         return ready.Where(r => !replaced.Contains(r.Revision));
     }

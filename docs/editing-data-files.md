@@ -119,6 +119,7 @@ as needing attention, until the file is back.
 | Phobos Agriculture 0.40.0 | `crops` | What a Firstlight rack grows: each crop's growth time, power, water, nutrient and carbon budgets, harvest, items, feed and artwork |
 | Phobos Agriculture 0.40.0 | `process-recipes` | What the Hearth-2 cooks: one portion in, one portion out, and the seconds it takes |
 | Phobos Medical 0.1.0 | `care` | The Ward-3 bed's idle and working power, who counts as injured, and when a resting patient gets up |
+| Phobos Manufacturing 0.44.0 | `outcomes` | Charges with more than one possible result (the gangue wash), and the odds of each |
 | Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
@@ -142,6 +143,48 @@ it replaces (`supersedes`, a list of revision numbers): the machine then offers
 the new recipe for new charges, while a charge already bound to the old revision
 still finishes by it. Only one recipe may supersede a given revision. More packs (loot) follow as the tables move over; this page lists
 them as they land.
+
+## Retuning the gangue wash
+
+The `outcomes` pack (Manufacturing 0.44.0, Framework 0.88.0) holds the tables for
+charges that can turn out more than one way. A table belongs to one recipe and
+lists the recipes a charge of it may become, each with a whole-number weight:
+
+```json
+{
+  "tables": {
+    "gangue-wash": {
+      "outcomes": {
+        "gangue-wash": 50,
+        "gangue-wash-steel": 30,
+        "gangue-wash-aluminium": 15,
+        "gangue-wash-nickel-iron": 5
+      }
+    }
+  }
+}
+```
+
+An outcome is picked as often as its weight out of the table's total, so these
+are 50, 30, 15 and 5 in a hundred. To change the odds, put a file in
+`BepInEx/config/PhobosManufacturing/outcomes/` naming only what you change:
+
+```json
+{ "tables": { "gangue-wash": { "outcomes": { "gangue-wash": 20, "gangue-wash-steel": 60 } } } }
+```
+
+- **Switch an outcome off** with a weight of 0. A table needs some weight left.
+- **Add an outcome** by writing a recipe of your own in a `process-recipes` file
+  (same machine, same inputs, same circulating volumes and same seconds as the
+  base recipe, and it must balance), then naming it in the table.
+- **Add a table** for a recipe of your own the same way; the table lists the
+  base recipe itself as one of its outcomes.
+- **What is refused:** an outcome whose charge differs from its base, a recipe
+  in two tables, a weight below 0 or above 10,000, and unknown fields. The file
+  is skipped with a message and the shipped table stands.
+- **Saved games:** a wash already bound has saved its result; new odds apply to
+  washes started after the change. A charge's result comes from the items in it,
+  so the same four lumps give the same result under the same table.
 
 ## Adding a crop
 

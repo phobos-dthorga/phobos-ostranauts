@@ -3342,6 +3342,31 @@
     "patches": null
   },
   {
+    "key": "washed-tailings",
+    "sourceSHA256": "781952e68e189c5ae5515b32217c428ea5b1dc2144006b77382434641f123ee8",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockWashedTailings.png": "ac2ef234665ad6ce8ff8250229c8ac9f9967b6ee840eb91640e546e85c22093f",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockWashedTailingsNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "drain-canister",
     "sourceSHA256": "304c8e52750b54be07d4557e32f200e63f87f394fd8b799690a084a1cf51ff61",
     "nativeSize": [

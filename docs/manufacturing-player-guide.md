@@ -388,6 +388,7 @@ works the recipe you choose, one charge at a time, at 12 kW.
 | Struvite | 1 phosphate concentrate; 30 g of ammonia from the linked ammonia store; 0.22 kg of water from the linked vessel | 1 struvite (0.43 kg), a slow-release fertiliser; 1 caustic remainder (70 g) | 5 min |
 | Makeup formulation (Agriculture only) | 1 potassium sulfate and 2 struvite | 39 Verdemorrow Groundwork makeup salts packets (40 g each), nothing left over | 2.5 min |
 | Epsom salt from olivine | 1 olivine (the game's 10 kg ore chunk); 8.64 kg of sulfuric acid from the linked acid tank; 9.52 kg of water from the linked vessel | 32 Epsom salt (0.432 kg each); 1 olivine leach cake (14.33 kg, trash). About 5.3 kWh of extra heat goes into the room. | 60 min |
+| Gangue wash | 4 gangue (the game's 3 kg lumps); 1 kg of sulfuric acid from the linked acid tank, with 10 kg of water on hand in the linked vessel | 13 kg in all, by chance: usually washed tailings only; sometimes 2 scrap steel or 2 scrap aluminium, rarely a nickel-iron ingot, with tailings for the rest | 20 min |
 | Acid-route struvite | 1 phosphoric acid flask (from the SA-3) and 3 Epsom salt; 0.27 kg of ammonia from the linked ammonia store | 3 struvite; 3 ammonium sulfate (0.232 kg each); 94 g of water back into the linked vessel | 10 min |
 | Crop nutrients (Agriculture 0.27.0 or newer) | 1 potassium sulfate, 1 struvite, 1 Epsom salt and 1 ammonium sulfate; 0.25 kg of ammonia and 0.73 kg of sulfuric acid from their links | 2.77 kg of crop nutrients into the linked nutrient hopper | 5 min |
 
@@ -719,6 +720,33 @@ game's own, count every gas in nitrogen-equivalent kilograms, so a methane store
 shows as more fuel than its weight. A ship that only uses nitrogen flies exactly
 as before. Draws settle into the stores every couple of seconds and before a
 save; station refuelling still fills only the game's own nitrogen canisters.
+
+### The gangue wash
+
+Gangue is what mining and thawing leave behind, and until now nothing wanted it.
+Choose **Gangue wash** as the LC-3's recipe, put **four lumps** in its inventory
+and Start. What a wash gives is chance:
+
+| A wash gives | About how often |
+| --- | --- |
+| 13 washed tailings and nothing else | 50 in 100 |
+| 2 scrap steel and 11 tailings | 30 in 100 |
+| 2 scrap aluminium and 11 tailings | 15 in 100 |
+| 1 nickel-iron ingot and 9 tailings | 5 in 100 |
+
+- **The result is in the lumps.** The same four lumps always wash out the same,
+  so saving and reloading, or cancelling and starting again, changes nothing.
+  You find out when the wash finishes.
+- **Where it goes.** Scrap feeds the F6 furnace; the ingot is the V4's stock for
+  nickel steel; the tailings are one stack of rubbish for the RM-1 feeder below.
+- **Keep it fed.** Gangue sits in material bins, so a bin on **Take feed from**
+  keeps the wash running.
+- **The odds are a file you can edit.** They live in the mod's `outcomes` data
+  pack; see [editing data files](editing-data-files.md#retuning-the-gangue-wash).
+
+This recipe is game-like, by the owner's leave. Chondritic rock does carry
+nickel-iron metal grains; free aluminium does not occur in rock, and the odds
+are ours.
 
 ## The reaction mass feeder
 

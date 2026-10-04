@@ -282,6 +282,17 @@
       "side": 1,
       "category": "IsCategoryIntoxicants",
       "art": "StockAlembrineSpirit"
+    },
+    "PhobosWashedTailings": {
+      "notes": "Terminal (Manufacturing 0.44.0): what a gangue wash leaves, silicate fines and gypsum-like sulfates, in 1 kg units delivered as one stack. A declared remainder: the reaction mass feeder grinds it.",
+      "kind": "stock",
+      "kg": 1,
+      "price": 0.01,
+      "stack": 20,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockWashedTailings"
     }
   }
 }

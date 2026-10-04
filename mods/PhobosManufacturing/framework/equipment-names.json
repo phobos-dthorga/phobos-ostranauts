@@ -69,5 +69,6 @@
   "Material.PhobosRoastedCalcine": { "brand": "Lixivar", "model": "" },
   "Material.PhobosEpsomSalt": { "brand": "Lixivar", "model": "" },
   "Material.PhobosAmmoniumSulfate": { "brand": "Lixivar", "model": "" },
-  "Material.PhobosOlivineLeachCake": { "brand": "Lixivar", "model": "" }
+  "Material.PhobosOlivineLeachCake": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosWashedTailings": { "brand": "Lixivar", "model": "" }
 }
