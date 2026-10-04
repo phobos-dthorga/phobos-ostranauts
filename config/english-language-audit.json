@@ -77292,8 +77292,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "c5e51db8a266eb0e5427f920bd17608651b0248ddd5c59bcf461073628b10c4e",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "88db3492788e59ddcdca6fe2bc35e292cc9d3e5dd2f6ea40005c4bdb4af96b04",
+      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -77670,8 +77670,8 @@
       "path": "docs/development/fusion-industry-roadmap.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "a28477a029b093bee3aa99734a399e7b847170d7800c5a6d59bc5bdc4ec16ad0",
-      "review": "2026-09-28: status updated for Shipbreaker 0.33.0 storage outputs and repeat run; motion pause and remaining work stated."
+      "sha256": "2836dbaa0d4f7719994b78441321299c7a8995c67a3d99e9fc38b5b3ce333252",
+      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
     },
     {
       "path": "docs/development/fusion-smelter-research.md",
@@ -78245,8 +78245,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e3f116b761f709f6a824e54df49a9ea42266106dc4a2a3517236fd75c0aad4cb",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "9ea30cadcbdf856ac9a675aeaceec251a337d5aadc6359bc1660f16facff843e",
+      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78401,6 +78401,13 @@
       "decision": "new",
       "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
       "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+    },
+    {
+      "path": "docs/development/native-electric-supply.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "new",
+      "sha256": "3eae21bd7a405f203d78a2846522f27bc3d6eb15754ed8f19bb8823984d5591a",
+      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
     }
   ],
   "surfaces": [

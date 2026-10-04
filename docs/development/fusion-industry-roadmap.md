@@ -80,6 +80,8 @@ controls, with [installation and panel mockups](../../assets/phobos-furnace/rese
 That historical study completed research/design only; the electric cycle is now
 implemented. Any later raw-fusion debit/allocation still needs a
 maintainable adapter; the current reactor's displayed split is not an energy receipt.
+The MHD's supply ceiling and its independence from fuel use are recorded in
+[how the game supplies electricity](native-electric-supply.md) (5 October 2026).
 
 Decision record: **2026-09-23**. The owner wants all five ideas retained and
 researched as relevant equipment and activities arise during play, so experiments

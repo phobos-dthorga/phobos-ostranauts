@@ -12,6 +12,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- The player guide now explains how much power machines draw, what one MHD generator can supply (about 27 MW, read from the game's code) and that drawing more electricity costs the reactor no extra fuel.
+
 - JSON Schema files for the four data packs in the repository's schemas folder, for editor completion of shipped packs and player override files, generated from the same field sets the offline validator uses; the editing guide shows how to point an editor at them. Built packages now carry a manifest the installer checks.
 
 - Audit linked player documentation and correct generated placement wording for section assembly while preserving direct installation of complete machinery. No gameplay or save changes.

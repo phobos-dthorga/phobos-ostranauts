@@ -84,6 +84,36 @@ two front power points; the G4 grabber and ML-2 laser, mounted outside the hull,
 take power from the wall row on the hull side; the C2 collector, set into the wall,
 from its own tiles.
 
+### How much power machines draw
+
+A machine takes its full working draw only while it is working, for example 24 kW
+for the V4 refinery while a charge runs. Started but waiting for feed, it takes a
+small idle draw (about 0.1 kW), just enough to show as powered. While it waits for
+its room to cool it takes nothing at all.
+
+The game asks for power about once a second. A machine counts work only for the
+electricity that actually arrives: on a weak supply the panel's "seconds of work"
+climb more slowly than the clock and the charge takes longer, but uses the same
+energy. A V4 carbon extraction, 1,800 seconds at 24 kW, uses 12 kWh in all.
+
+### What one MHD can supply, and fuel
+
+These figures are read from the game's own code (game version 1.0.1.5), not measured
+in play:
+
+- **About 27 MW per MHD generator.** While the reactor runs with its MHD switch on,
+  each MHD is topped up to 2 kWh every 0.27 seconds, and whatever is wired to it
+  draws from that. The reactor's power level and ratio knob do not change this.
+- **At high fast-forward** the top-up happens at most once per frame, so very large
+  loads at extreme speed can fall short.
+- **More electricity costs no more fuel.** The reactor burns fuel according to its
+  own settings (pellet flow and power level) whatever the ship draws. What a heavy
+  machine does cost is heat into its room, and time.
+- With the MHD switch on, the reactor also charges batteries wired to it at each
+  battery's own rate.
+
+The [electric supply record](development/native-electric-supply.md) has the detail.
+
 ## Machines carry on after a reload
 
 Work that was running when you saved carries on by itself after a reload (since
