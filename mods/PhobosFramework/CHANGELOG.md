@@ -26,6 +26,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.94.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Machines give off a quarter of the heat they did, for game balance. A room takes four times as long to warm to 40 C, and the mining laser fills a linked radiator four times more slowly. This is an authored gameplay choice, not a property of the machines.
+
+### Added
+
+- A setting, MachineHeatScale under Heat in the Framework configuration file, from 0.05 to 1. The default is 0.25; 1 gives the full heat of earlier versions. Fires and explosions are not affected.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes. A warm room cools as before; machines simply add less heat from now on.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.93.0] - 2026-10-05 - Draft
 
 ### Fixed

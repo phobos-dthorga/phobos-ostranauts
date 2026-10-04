@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.49.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The grow racks, Hearth-2 cooker, W2 supply and B2 bench follow Framework's new machine heat setting: a quarter of their heat by default, so a grow room stays cool for longer.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.94.0 or newer. Set the share with MachineHeatScale in the Framework configuration file.
+- Checked offline; not yet seen in the game.
+
 ## [0.48.0] - 2026-10-05 - Draft
 
 ### Added

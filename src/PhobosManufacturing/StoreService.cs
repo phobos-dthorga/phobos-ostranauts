@@ -279,7 +279,7 @@ internal static class StoreService
         foreach (var product in burn.RoomProductsKg) if (product.Value > 0) RoomGas.Emit(air, product.Key, product.Value);
         double roomRise = Math.Max(0, 333.15 - (air.Kelvin + air.PendingKelvin));
         double roomKWh = Math.Min(burn.EnergyKJ / 3600, roomRise * air.Mols * RoomHeat.GasHeatCapacityJPerMolK / RoomHeat.JoulesPerKilowattHour);
-        if (roomKWh > 0) RoomHeat.Deposit(air, roomKWh);
+        if (roomKWh > 0) RoomHeat.DepositHazard(air, roomKWh);
         NativeExplosions.Spawn(co.ship, co.tf.position, GasStores.DeflagrationDefinition(burn));
     }
     private static bool SameRoom(CondOwner c, RoomHeat.Air air) => c.ship?.GetRoomAtWorldCoords1(c.GetPos(), false)?.CO == air.Room;

@@ -31,6 +31,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.76.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The ML-2 mining laser, T2 thaw unit, D4, R4, G4 and F6 losses follow Framework's new machine heat setting: a quarter of their heat by default. Panels show the heat that actually arrives, and the laser fills a linked F6-R or F6-P four times more slowly. The furnace's own melt heat is unchanged.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.94.0 or newer. Set the share with MachineHeatScale in the Framework configuration file.
+- Checked offline; not yet seen in the game.
+
 ## [0.75.0] - 2026-10-05 - Draft
 
 ### Added

@@ -29,7 +29,8 @@ internal static partial class LaserService
         if (!owned) return true;
         var r = s!.Record; double kw = r.Number("kw");
         amount = Math.Min(amount * kw / LaserRules.WorkingKW, (r.Number("seconds") - r.Number("progress")) * kw / Units.SecondsPerHour);
-        double stepHeatKJ = amount * Units.SecondsPerHour * LaserRules.WasteHeatFraction;
+        // The assembly takes the scaled heat, as a room would (Framework 0.94.0 machine heat setting).
+        double stepHeatKJ = RoomHeat.Machine(amount * Units.SecondsPerHour * LaserRules.WasteHeatFraction);
         var radiator = s.Radiator != null && !s.Radiator.bDestroyed && !s.Radiator.HasCond("IsDamaged") ? s.Radiator : null;
         if (radiator != null && LaserRules.HeatToRadiator(true, FurnaceService.SinkHeadroomKJ(radiator), stepHeatKJ))
         {
@@ -56,7 +57,7 @@ internal static partial class LaserService
         double supplied = NativeEnergyReceipts.Complete(power, co, transfer.Receipt);
         if (!LaserRules.Finite(supplied) || supplied < 0) throw new InvalidOperationException("Invalid laser energy receipt.");
         // The declared share is heat for the cooling assembly or the room's air; the rest left with the vapour and debris.
-        if (transfer.Radiator != null) FurnaceService.SinkDeposit(transfer.Radiator, supplied * Units.SecondsPerHour * LaserRules.WasteHeatFraction);
+        if (transfer.Radiator != null) FurnaceService.SinkDeposit(transfer.Radiator, RoomHeat.Machine(supplied * Units.SecondsPerHour * LaserRules.WasteHeatFraction));
         else RoomHeat.Deposit(transfer.Air!, supplied, LaserRules.WasteHeatFraction);
         if (!sessions.TryGetValue(transfer.Laser, out var s)) throw new InvalidOperationException("Laser session lost during receipt.");
         if (s.Record.Phase == LaserPhase.Working) s.Record.Credit(supplied);

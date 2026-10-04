@@ -386,7 +386,7 @@ internal static class SabatierService
                 st.ProducedWaterKg, st.ProducedMethaneKg, st.ConsumedCarbonDioxideKg,
                 co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"),
                 ObjectPresentation.Name(HydrogenPeer(co)), CanisterName(co), ObjectPresentation.Name(WaterPeer(co)), ObjectPresentation.Name(MethanePeer(co))) +
-            "\n" + Text.Get("Sabatier.demand", SabatierRules.WorkingKW, SabatierRules.RoomHeatKW(true)) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            "\n" + Text.Get("Sabatier.demand", SabatierRules.WorkingKW, RoomHeat.Machine(SabatierRules.RoomHeatKW(true))) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     internal static string CanisterId(CondOwner co) => Get(co).State.Canister;
     internal static string CanisterName(CondOwner co) { var s = Get(co); return s.State.Canister.Length == 0 ? ConsoleText.Get("not_selected") : ObjectPresentation.Name(s.State.Canister); }

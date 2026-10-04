@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.93.0";
+    public const string Version = "0.94.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -52,6 +52,10 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         RefreshLanguage();
         try { Audio.CompletionCues.Player = new Audio.CompletionAudio(gameObject, Config, message => Logger.LogWarning(message)); }
         catch (Exception ex) { Logger.LogWarning("Optional completion audio unavailable: " + ex.Message); }
+        // Machine heat (0.94.0; owner decision, 5 October 2026): one share for every Phobos machine, a quarter by default.
+        Processing.RoomHeat.MachineHeatScale = Config.Bind("Heat", "MachineHeatScale", Processing.RoomHeat.DefaultMachineHeatScale,
+            new BepInEx.Configuration.ConfigDescription(Text.Get("RoomHeat.setting"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Processing.RoomHeat.MinMachineHeatScale, Processing.RoomHeat.MaxMachineHeatScale))).Value;
         Trading.MarketStock.AvailabilityMultiplier = Config.Bind("Economy", "StockAvailabilityMultiplier", 1d,
             new BepInEx.Configuration.ConfigDescription(Text.Get("Plugin.chance_multiplier_for_registered_equipment_offers_to"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(.25, 4))).Value;

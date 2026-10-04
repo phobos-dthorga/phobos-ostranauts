@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.93.0",
+      "value": "0.94.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.75.0",
+      "value": "0.76.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.48.0",
+      "value": "0.49.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.0",
+      "value": "0.46.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -609,7 +609,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.92.0",
+      "value": "0.94.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -681,7 +681,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.92.0",
+      "value": "0.94.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1508,7 +1508,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.92.0",
+      "value": "0.94.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -2673,6 +2673,24 @@
       ],
       "review": [
         "Run Shipbreaker core and native checks and regenerate item references. The heat share of this draw must stay within what one cooling assembly sheds below its limit; a started laser job keeps the draw it captured."
+      ]
+    },
+    "Framework.machineHeatScale": {
+      "type": "number",
+      "value": "0.25",
+      "min": 0.05,
+      "max": 1,
+      "description": "Default share of every machine's heat that reaches its room or cooling assembly (owner balance decision, 5 October 2026); players override it with Heat/MachineHeatScale.",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Processing/RoomHeat.cs",
+          "pattern": "\\bDefaultMachineHeatScale\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Framework RoomHeat checks and the native checks.",
+        "Update the Machine heat section of docs/player-guide.md, the heat figures in player documents and the setting's translation."
       ]
     }
   }

@@ -373,7 +373,7 @@ internal static class ThawService
         return Text.Get("Thaw.status", s.Status, inputs?.Count ?? 0, ThawRules.FeedCapacity, progress, duration,
             co.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power"), ObjectPresentation.Name(Peer(co))) +
             (MethanePeer(co).Length > 0 ? Text.Get("Thaw.methane_to", ObjectPresentation.Name(MethanePeer(co))) : "") +
-            "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, ThawRules.WorkingKW * ThawRules.RoomHeatFraction) + FeedStoreLine(co) + IndustryObservations.ExplainStop(co);
+            "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, RoomHeat.Machine(ThawRules.WorkingKW * ThawRules.RoomHeatFraction)) + FeedStoreLine(co) + IndustryObservations.ExplainStop(co);
     }
     private static string FeedStoreLine(CondOwner co) { string line = StoreFeed.Describe(co); return line.Length == 0 ? "" : "\n" + line; }
     internal static bool Link(CondOwner co, string id, ConsoleBinding? binding, out string reason) => Link(co, id, false, binding, out reason);

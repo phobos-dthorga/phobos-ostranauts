@@ -256,7 +256,8 @@ internal static partial class FurnaceService
         // Radiator advances separately, including when it is unpaired. This call only
         // moves hot-node energy into its finite store and the accepting native room.
         var loss = b.Passive(dt, false, connected && !Routed(s.Object), accepting ? roomK : FurnaceRules.ReferenceK, capacity, probe);
-        if (loss.Room > 0) room!.GasContainer.fDGasTemp += loss.Room / (moles * FurnaceRules.GasCv);
+        // The furnace cools as before; the room receives the machine heat share of what it loses (Framework 0.94.0).
+        if (loss.Room > 0) room!.GasContainer.fDGasTemp += Phobos.Ostranauts.Framework.Processing.RoomHeat.Machine(loss.Room) / (moles * FurnaceRules.GasCv);
         if (connected) { sink!.SinkKJ = b.SinkKJ; Save(sink); }
         Save(s);
     }

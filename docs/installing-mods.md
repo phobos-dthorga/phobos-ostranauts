@@ -1,8 +1,8 @@
 # Installing and updating our mods
 
-Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.92.0.
-Current prepared Agriculture requires Framework 0.92.0 for shared crew work and controls.
-Current prepared Manufacturing requires Framework 0.92.0 for room heat, native gas and vessel damage services.
+Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.94.0.
+Current prepared Agriculture requires Framework 0.94.0 for shared crew work and controls.
+Current prepared Manufacturing requires Framework 0.94.0 for room heat, native gas and vessel damage services.
 Current prepared War Has Been Declared requires Framework 0.90.0 for the shared build-site and combat-observation services.
 Current prepared Phobos Medical requires Framework 0.89.0 for the shared patient services and rectangular equipment.
 Current dependency minima come from `config/mod-dependency-minimums.json`,

@@ -329,7 +329,7 @@ internal static class CrackerService
                 st.ProducedNitrogenKg, st.ProducedHydrogenKg, st.ConsumedAmmoniaKg,
                 co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"),
                 ObjectPresentation.Name(AmmoniaPeer(co)), ObjectPresentation.Name(NitrogenPeer(co)), ObjectPresentation.Name(HydrogenPeer(co))) +
-            "\n" + Text.Get("Cracker.demand", CrackerRules.WorkingKW, CrackerRules.RoomHeatKW(true)) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            "\n" + Text.Get("Cracker.demand", CrackerRules.WorkingKW, RoomHeat.Machine(CrackerRules.RoomHeatKW(true))) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     internal static bool LinkTo(CondOwner co, string kind, string id, ConsoleBinding? binding, out string reason)
     {

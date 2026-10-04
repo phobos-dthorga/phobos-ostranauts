@@ -9,11 +9,31 @@ namespace Phobos.Ostranauts.Framework.Processing;
 ///
 /// Framework 0.76.0 (owner decision, 3 October 2026): our machines do not work in the vacuum of space, and say so.
 /// Every machine checks through <see cref="Check"/> and words its wait with <see cref="Describe"/>, so a machine in
-/// a compartment open to space no longer claims to be waiting for the room to cool.</summary>
+/// a compartment open to space no longer claims to be waiting for the room to cool.
+///
+/// Framework 0.94.0 (owner decision, 5 October 2026, for game balance): every machine's heat is scaled by
+/// <see cref="MachineHeatScale"/>, a player setting defaulting to a quarter. It covers what a machine puts into
+/// its room (electrical waste heat and reaction heat, through <see cref="Check"/> and <see cref="Deposit"/>) and the
+/// mining laser's heat into a cooling assembly. The rest is not modelled: an authored gameplay balance, not physics.
+/// Fires and deflagrations are hazards, not machine output, and go in unscaled through <see cref="DepositHazard"/>.</summary>
 public static class RoomHeat
 {
     public const double GasHeatCapacityJPerMolK = 20.7, MaxRoomKelvin = 40 + Units.CelsiusToKelvin, MinPressureKPa = 10;
     public const double JoulesPerKilojoule = 1000, JoulesPerKilowattHour = 3600 * 1000;
+    /// <summary>The share of a machine's heat that reaches its room or cooling assembly by default (owner, 5 October 2026).</summary>
+    public const double DefaultMachineHeatScale = 0.25;
+    /// <summary>The range players may choose from; 1 is the full heat machines gave before Framework 0.94.0.</summary>
+    public const double MinMachineHeatScale = 0.05, MaxMachineHeatScale = 1;
+    private static double machineHeatScale = DefaultMachineHeatScale;
+    /// <summary>The share of every machine's heat that is paid out; set once from the Framework configuration.</summary>
+    public static double MachineHeatScale
+    {
+        get => machineHeatScale;
+        set => machineHeatScale = double.IsNaN(value) || double.IsInfinity(value) ? DefaultMachineHeatScale : Math.Max(MinMachineHeatScale, Math.Min(MaxMachineHeatScale, value));
+    }
+    /// <summary>A machine's heat as it is actually paid out, in whatever unit it is given: what panels show and what a
+    /// machine that warms its air directly must use.</summary>
+    public static double Machine(double heat) => heat * MachineHeatScale;
 
     /// <summary>Why a step's heat cannot go into the room, if it cannot.</summary>
     public enum HeatProblem { None, NoAir, RoomTooWarm, Invalid }
@@ -39,10 +59,11 @@ public static class RoomHeat
         bool readable = mols > 0 && kelvin > 0 && !double.IsNaN(mols) && !double.IsNaN(kelvin) && !double.IsNaN(pendingKelvin);
         return new HeatCheck(readable ? HeatProblem.RoomTooWarm : HeatProblem.Invalid, pressure, celsius);
     }
-    /// <summary>Checks one step of a machine's heat against its room's air (null: no room, no air).</summary>
+    /// <summary>Checks one step of a machine's heat against its room's air (null: no room, no air). The heat is the
+    /// machine's own, before <see cref="MachineHeatScale"/>; the check applies the scale, as the deposit does.</summary>
     public static HeatCheck Check(Air? air, double kw, double seconds) => air == null
-        ? Decide(false, 0, 0, 0, 0, kw, seconds)
-        : Decide(true, air.Mols, air.Kelvin, air.PendingKelvin, air.PressureKPa, kw, seconds);
+        ? Decide(false, 0, 0, 0, 0, Machine(kw), seconds)
+        : Decide(true, air.Mols, air.Kelvin, air.PendingKelvin, air.PressureKPa, Machine(kw), seconds);
 
     /// <summary>What a waiting machine tells the player.</summary>
     public static string Describe(HeatCheck check) => check.Problem switch
@@ -104,11 +125,18 @@ public static class RoomHeat
         return air != null && Budget(air.Mols, air.Kelvin, air.PendingKelvin, air.PressureKPa, kw, seconds, out riseKelvin);
     }
 
-    /// <summary>Pays the declared fraction of supplied energy into the air as a pending temperature change.</summary>
+    /// <summary>Pays the declared fraction of a machine's supplied energy into the air as a pending temperature change,
+    /// scaled by <see cref="MachineHeatScale"/>.</summary>
     public static void Deposit(Air air, double suppliedKWh, double fraction = 1)
     {
         if (air == null) throw new ArgumentNullException(nameof(air));
         if (double.IsNaN(fraction) || fraction < 0 || fraction > 1) throw new ArgumentException("Invalid heat fraction.");
-        air.Gas.fDGasTemp += RiseKelvin(air.Mols, suppliedKWh * fraction);
+        air.Gas.fDGasTemp += RiseKelvin(air.Mols, Machine(suppliedKWh * fraction));
+    }
+    /// <summary>Heat from a fire or deflagration: a hazard, not machine output, so it is never scaled.</summary>
+    public static void DepositHazard(Air air, double kWh)
+    {
+        if (air == null) throw new ArgumentNullException(nameof(air));
+        air.Gas.fDGasTemp += RiseKelvin(air.Mols, kWh);
     }
 }

@@ -76,8 +76,8 @@ what went in, sorted.
 | 4 nickel-iron ingots + 1 carbon stock | 4 Fennmark nickel steel ingots (4 kg each); 1 refinery slag (1 kg) | 33 min |
 | 1 leached residue (6.8 kg, from the LC-3; new) | 0.26 kg of carbon dioxide into the linked carbon dioxide store; 1 calcined residue (6.54 kg) | 7.5 min |
 | 1 carbon stock, with a linked methane store (0.27.0) | draws 4.007 kg of methane; 4 carbon black (1 kg each); 1.007 kg of hydrogen into the linked hydrogen store | 30 min |
-| 1 carbon black, with a linked oxygen store (0.27.0) | draws 2.664 kg of oxygen; 3.664 kg of carbon dioxide into the linked carbon dioxide store; about 9 kWh of heat into the room | 30 min |
-| 1 straw bale, with a linked oxygen store (0.37.0; Agriculture 0.44.0) | draws 0.927 kg of oxygen; 1.275 kg of carbon dioxide into the linked carbon dioxide store; 0.622 kg of water; 1 plant ash; about 3.8 kWh of heat into the room | 30 min |
+| 1 carbon black, with a linked oxygen store (0.27.0) | draws 2.664 kg of oxygen; 3.664 kg of carbon dioxide into the linked carbon dioxide store; about 2.3 kWh of heat into the room | 30 min |
+| 1 straw bale, with a linked oxygen store (0.37.0; Agriculture 0.44.0) | draws 0.927 kg of oxygen; 1.275 kg of carbon dioxide into the linked carbon dioxide store; 0.622 kg of water; 1 plant ash; about 1 kWh of heat into the room | 30 min |
 | 4 straw bales (0.37.0; Agriculture 0.44.0) | 1 carbon stock; 1.9 kg of water; 0.261 kg of methane into the linked methane store; 4 plant ash; **0.719 kg of carbon dioxide breathed into the room** | 30 min |
 | 4 spent CO2 scrubber cartridges (0.27.0) | 3 ready scrubber cartridges; 1 exhausted sorbent (2.5 kg) | 30 min |
 | 4 spent EVA CO2 filters (0.27.0) | 3 ready EVA filters; 1 exhausted sorbent (2.5 kg) | 30 min |
@@ -499,6 +499,11 @@ staying under 40 C. In a compartment open to space (or with less than 10 kPa) it
 draws nothing and its panel says so, with the room's pressure. A room that is too
 warm makes it wait instead, with the room's temperature; it carries on by itself
 once the room has cooled.
+
+Since Framework 0.94.0 a machine gives off a quarter of the heat it used to, so a
+room takes four times as long to reach 40 C. The heat figures on panels and in
+this guide are that quarter. See [Machine heat](player-guide.md#machine-heat) for
+the setting.
 
 **Acid tanks** are bunded tanks, not gas stores: they have no gas line and never
 feed thrusters, filling stations or cabin air. Fill one from an SA-3 or at a

@@ -623,7 +623,15 @@
   atmosphere/thermal headroom; vacuum is not free cooling. Owner decision (2026-10-03):
   **Phobos machines do not work in the vacuum of space**, and say so plainly (Framework
   `RoomHeat.Check`/`Describe`, one shared message for every machine); casing radiation
-  was considered and declined. The F6-R/F6-P radiators keep their own model. Use explicit
+  was considered and declined. The F6-R/F6-P radiators keep their own model.
+  Owner decision (2026-10-05), for game balance: **machines give off a quarter of their
+  heat**, as a player setting (Framework 0.94.0 `RoomHeat.MachineHeatScale`, BepInEx
+  Heat/MachineHeatScale, 0.05 to 1, default 0.25). It covers heat into the room
+  (electrical and reaction heat) and the mining laser's heat into a cooling assembly;
+  the furnace's own melt heat is unchanged and fires and deflagrations stay unscaled
+  (`RoomHeat.DepositHazard`). New machines put heat in only through `RoomHeat.Check` and
+  `Deposit`, or `RoomHeat.Machine` where they warm their air directly, and show the
+  scaled figure on their panels. Use explicit
   paired output collectors. Version 0.9.0 adds automatic reclaimer feed from
   fixtures or collector buffers, independent input/output pairs and saved exact-ID
   filters through Framework. Follow `docs/automatic-material-routing.md`. Keep

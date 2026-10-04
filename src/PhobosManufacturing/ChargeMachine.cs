@@ -584,7 +584,7 @@ internal sealed class ChargeMachine
         string? extra = Spec.ExtraStatus?.Invoke(co);
         return T("status", s.Status, count, shape.feedCells, charge,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(primary), s.State.Cycles) + selected +
-            "\n" + T("demand", shape.workingKW, shape.workingKW * shape.roomHeatFraction) +
+            "\n" + T("demand", shape.workingKW, RoomHeat.Machine(shape.workingKW * shape.roomHeatFraction)) +
             (extra == null ? "" : "\n" + extra) + (StoreFeed.Describe(co) is { Length: > 0 } fed ? "\n" + fed : "") + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     /// <summary>The panel's fields: one per commodity link (shown once a vessel is in reach or linked, or always for

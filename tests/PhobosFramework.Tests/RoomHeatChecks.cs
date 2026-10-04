@@ -41,6 +41,12 @@ internal static class RoomHeatChecks
         var thin = RoomHeat.Decide(true, 50, 290, 0, 5, 1.0, 60);
         check(thin.Problem == RoomHeat.HeatProblem.NoAir && thin.PressureKPa == 5, "Air under 10 kPa counts as no air, with its pressure");
         check(RoomHeat.Check(null, 1.0, 60).Problem == RoomHeat.HeatProblem.NoAir, "A machine with no room has no air");
+        // Machine heat scale (0.94.0): a quarter by default, a player setting between 0.05 and 1.
+        check(RoomHeat.MachineHeatScale == .25 && RoomHeat.Machine(24) == 6, "Machines give off a quarter of their heat by default");
+        RoomHeat.MachineHeatScale = 3; check(RoomHeat.MachineHeatScale == 1, "The setting cannot go above the full heat");
+        RoomHeat.MachineHeatScale = 0; check(RoomHeat.MachineHeatScale == .05, "The setting cannot remove machine heat altogether");
+        RoomHeat.MachineHeatScale = double.NaN; check(RoomHeat.MachineHeatScale == .25, "An unreadable setting falls back to a quarter");
+        RoomHeat.MachineHeatScale = RoomHeat.DefaultMachineHeatScale;
         foreach (double kw in new[] { 0d, -1d, double.NaN })
             check(RoomHeat.Decide(false, 0, 0, 0, 0, kw, 60).Problem == RoomHeat.HeatProblem.Invalid, "An invalid load is refused");
     }

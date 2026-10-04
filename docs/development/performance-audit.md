@@ -1045,3 +1045,7 @@ L41 — Shipbreaker 0.75.0 and Agriculture 0.48.0: materials a data file adds ar
 ## 5 October: receipt hook keeps the request (L42)
 
 L42 — Framework 0.93.0: the GatherPower hook gains a prefix that copies one number, for every powered object in the world, so the postfix can compare the request with what remained. The postfix still returns on one integer when no receipt is open. No capture accompanies this change.
+
+## 5 October: machine heat scale (L43)
+
+L43 — Framework 0.94.0 with Shipbreaker 0.76.0, Manufacturing 0.46.0 and Agriculture 0.49.0: every machine's heat check and deposit multiplies by one stored number. No new hook, lookup or allocation; nothing is added to a frame beyond that multiplication. No capture accompanies this change.

@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.93.0**, Shipbreaker **0.75.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.94.0**, Shipbreaker **0.76.0**, Auto Nav
 **0.32.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -83,6 +83,20 @@ no wall behind it, run conduit along that row. Exceptions: the F6 furnace keeps 
 two front power points; the G4 grabber and ML-2 laser, mounted outside the hull,
 take power from the wall row on the hull side; the C2 collector, set into the wall,
 from its own tiles.
+
+## Machine heat
+
+Working Phobos machines warm the air of their room, and wait when it nears 40 C.
+Since Framework 0.94.0 they give off **a quarter** of the heat they used to, for
+game balance: a room takes four times as long to warm up, and the mining laser
+fills a linked F6-R or F6-P four times more slowly. The figures on machine panels
+are that quarter. This is an authored gameplay choice, not a property of the
+machines; the rest of the heat is simply not modelled.
+
+To change it, close the game and set `MachineHeatScale` under `[Heat]` in
+`BepInEx/config/phobosgekko.ostranauts.framework.cfg`: from 0.05 to 1, where 1
+gives the full heat of earlier versions. Fires and explosions are not affected.
+Machines still need air: none of them works in vacuum.
 
 ## What a tank holds
 
@@ -334,7 +348,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.75.0 requires Framework 0.92.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.76.0 requires Framework 0.94.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

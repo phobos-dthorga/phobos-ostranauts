@@ -337,7 +337,7 @@ internal static class ProcessorService
         return Text.Get("Processor.status", s.Status, s.State.HoldKg, s.State.CycleKWh, ProcessorRules.CycleKWh, s.State.Cycles, s.State.ProducedO2Kg, s.State.ProducedH2Kg, s.State.CabinO2Kg,
             co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"), ObjectPresentation.Name(WaterPeer(co)), ObjectPresentation.Name(StorePeer(co)),
             s.State.Canister.Length == 0 ? Text.Get("Processor.cabin") : ObjectPresentation.Name(s.State.Canister)) +
-            "\n" + Text.Get("Processor.demand", ProcessorRules.WorkingKW, ProcessorRules.WorkingKW * ProcessorRules.RoomHeatFraction) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            "\n" + Text.Get("Processor.demand", ProcessorRules.WorkingKW, RoomHeat.Machine(ProcessorRules.WorkingKW * ProcessorRules.RoomHeatFraction)) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     internal static bool Link(CondOwner co, string kind, string id, ConsoleBinding? binding, out string reason)
     {

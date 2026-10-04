@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.46.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Every Manufacturing machine follows Framework's new machine heat setting: a quarter of its heat by default, reaction heat included. Panels show the heat that actually arrives. Burning methane, ethanol and hydrogen fires are not affected.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.94.0 or newer. Set the share with MachineHeatScale in the Framework configuration file.
+- Checked offline; not yet seen in the game.
+
 ## [0.45.0] - 2026-10-04 - Draft
 
 ### Added

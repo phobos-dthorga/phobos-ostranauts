@@ -320,7 +320,7 @@ internal static partial class LaserService
         string filter = Text.Get("Laser.filter_" + LaserRules.FilterId(Filter(co)));
         bool cooled = Radiator(co, out _) != null, high = HighPower(co);
         double kw = LaserRules.JobKW(high, cooled);
-        string demand = Text.Get(cooled ? "Laser.demand_radiator" : "Laser.demand", kw, LaserRules.HeatKW(kw), LaserRules.ArcDegrees, LaserRules.RangeTiles) +
+        string demand = Text.Get(cooled ? "Laser.demand_radiator" : "Laser.demand", kw, Phobos.Ostranauts.Framework.Processing.RoomHeat.Machine(LaserRules.HeatKW(kw)), LaserRules.ArcDegrees, LaserRules.RangeTiles) +
             "\n" + Text.Get("Laser.power_line", PowerLabel(high)) + "\n" + CoolingStatus(co);
         sessions.TryGetValue(co.strID, out var s);
         if (!Read(co, out var r))

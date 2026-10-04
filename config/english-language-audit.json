@@ -77032,6 +77032,19 @@
       ],
       "before": "{0}: name, description and image are for added materials only; a shipped material keeps its own.",
       "after": "{0}: name, description and image are for added materials only; a shipped material keeps its own."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "RoomHeat.setting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Framework 0.94.0: the machine heat setting's description.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "How much of their heat Phobos machines give off, from 0.05 to 1. 0.25, the default, means a quarter of the heat they gave before Framework 0.94.0; 1 restores it. It covers the heat machines put into their room and the mining laser's heat into a cooling assembly. Fires and explosions are not affected.",
+      "after": "How much of their heat Phobos machines give off, from 0.05 to 1. 0.25, the default, means a quarter of the heat they gave before Framework 0.94.0; 1 restores it. It covers the heat machines put into their room and the mining laser's heat into a cooling assembly. Fires and explosions are not affected."
     }
   ],
   "documents": [
@@ -77039,8 +77052,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "643b69b1798c5f881805ff325c8208ed6addefb66aaf3fa572ba1ff254a3386a",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "6200a370949bd8f6963a77c2189a228dd4aa783d388e4bcc347618359a28e026",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77199,8 +77212,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9b0a4c5f0d1250c0202336d5cfae8824656d06e283e7843ceb9cff45b9df6303",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "c6baa07c3d917c1f45c879446bac45b390b120834612aec457b533c12094ef45",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77800,8 +77813,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "8fd2aae5344fb311b6d5849f2e78d174d302dbb0833435e47a1f54c05974d2e2",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "102a4b533b84e516dd907bf6b1d631abcf407b0d4965cd478ea177ebb459ff4f",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78040,8 +78053,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fee46417dc4156c699da07a12a81c4207fc2233fb5bd3ec23733de7678745147",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "d0367c78e4ea3a98f9715639dfb710bb717c4f3606a8b0e46cfd10cd843c046b",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -78096,15 +78109,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a5e74238eb90bb2715cde8b0f6ee814e0370d5dca1d66f1eed55859bd5031e5c",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "fc573857026e6c601c2396c155b1a5a3af730610963e9d78baf584945b575b33",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bf619b020332f663ed77c2b142555fcbb012b4dc4bd2a1cb40914a06ff166fc3",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "174cb335acaeec010d96c36f12023aa3cadff1a496e2a9099a45e9d0b096c14e",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/item-references.md",
@@ -78131,8 +78144,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "039a683420aa60a6af7736e8bdb311ad19ac6028a97044429ead16acecd45a16",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "e81ae6036ed26ae4223039a9b3606d1f7f87ecaa4a205aa71a4e26c67afb047c",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -78166,8 +78179,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "956a6ba8f725457abd9fd62a636499b937bd19c1603c4b8ec67cf3f87a2f0eb5",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "6200a4f04b986415ed28bd9814b9debec9a0f2d819ba21632f6ab07efa41069d",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78201,8 +78214,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "2e5ca4efe4f47b6941c7fbf0ce8851eed1659b402612aca1aae27b34674608aa",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "142512eddf4dbbdd95b2e2616b86067ed94bbb78e3d82607801daba310afb7a2",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -78271,8 +78284,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5246305e14ab79b148e798e5538cacbe599150c4a7831de74154f593493c77ed",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "ae7e5a2f7e42edbfddee6ee7ef150abac5ae1ddf6ac91d352eb5cccf13b8f5cb",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -78285,15 +78298,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "75f6e5860e7a60d2c256ac2bdd16ae9cbf7196943a1645e4b6a8a29ff73d1e52",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "02b6211694631323e7c35eefe5555adfc61f2ce78ec0f79afa11bb4c0392092e",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "b06547ef5a22c6cc0000bb284ffd8f9d10625a33515aa4dde719ace31861fe06",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "06f3a69505fa9f7c187a401abb8cc541d13ecf506f231f384dd70cbd6f3bbdb4",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78306,8 +78319,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c12f75e54485d7b14236c1d40e43af8c7b3e98b68c4c33800eafca7f16b0a90a",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "93b524c34448440bc20a162242488f2b610f85a91a5ab45a0892b18ed293dd4f",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -78335,8 +78348,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d4d2e256879f4d963cfc32ed5b3b9348004aa8545bbf7bc46f65850cef7a3483",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "2dfdcf580403753abe08fad35d7f8f6cd697b03431ca88a0eaef328839b198c0",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -78352,8 +78365,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1f3a9d16c2a6ffda5f16af5f84c4d4fe1045ea58051ebbdfab10b5635d76d7ed",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "efc9738cdaf0fb0e6fc12f6d524f2974c85c8d83ae93bf1af5a102e48e4be524",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -78387,14 +78400,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6f36a618a1aeef52165f9c67c177465c3c8515b209858076b793e751a20610f8",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "3eafc3611107cd67441e7af4ce302d5a75a7331e4889d4bec2479dec47c34824",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "72cab4ac55ca9a68809b1ec128d2d75bffaf3e8c37046bf1fb39b9e67e7e286f",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "0e79ab8902ed9be16c974818e3ce2d24c0d8a60b7ab0e7fd65ecbffbaeae2b6a",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -78411,8 +78424,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "581fcf437980e736d64bcc5ab6e19c47df06b328f6248cd3048c9944a2553e78",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "bf0b04a5416bc39a13200a85751940da42d6c4576084b8391b8b775bdcc39523",
+      "review": "5 October 2026: machine heat at a quarter (Framework 0.94.0 setting); the new setting text, changelogs, Workshop page line and heat figures in the guides and item reference were reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

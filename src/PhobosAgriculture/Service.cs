@@ -200,7 +200,8 @@ internal static partial class Service
                 s.Watch.Cancel(); s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1); s.State.Running = false; Save(s); return;
             }
             // Settle measured electricity even if a later liquid adapter fails.
-            gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            // Machine heat share (Framework 0.94.0): both halves of the room's heat are scaled alike.
+            gas.fDGasTemp += RoomHeat.Machine(received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             if (s.State.Receiving && !s.Routed && !WorkupDefinitions.IsBench(co) && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
             {
                 // Only tanks touching the rack or on its water line (Agriculture 0.32.0, the owner's link rule).
@@ -243,7 +244,7 @@ internal static partial class Service
                 gas.Run();
             }
             // Native gas simulation owns room mixing and later cooling. 20.8 J/mol/K follows native heat accounting.
-            gas.fDGasTemp += (exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            gas.fDGasTemp += RoomHeat.Machine(exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             Save(s);
             if (s.MealCommitted || !wasReady && s.State.Ready)
             {
