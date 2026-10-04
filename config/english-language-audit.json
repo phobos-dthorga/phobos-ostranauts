@@ -58696,14 +58696,14 @@
       "mod": "PhobosFramework",
       "key": "MaterialSchema.unknown",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Added-material validation messages (Framework 0.92.0).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosFramework/Data/MaterialPack.cs:50"
       ],
       "before": "{0} is not a material this mod knows. Materials cannot be added in a data file.",
-      "after": "{0} is not a material this mod knows. Materials cannot be added in a data file.",
+      "after": "{0} is not a material this mod knows, and this mod does not take added materials.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -76967,6 +76967,58 @@
       ],
       "before": "Add-ons:",
       "after": "Add-ons:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.added_id",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Added-material validation messages (Framework 0.92.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: an added material's id is 3 to 64 letters and digits, starts with a letter, and does not start with Phobos, Itm, Sys, Stat or Is.",
+      "after": "{0}: an added material's id is 3 to 64 letters and digits, starts with a letter, and does not start with Phobos, Itm, Sys, Stat or Is."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.added_fields",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Added-material validation messages (Framework 0.92.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: an added material needs a name, a category and an image (a path under an images folder, without .png).",
+      "after": "{0}: an added material needs a name, a category and an image (a path under an images folder, without .png)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.added_trash",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Added-material validation messages (Framework 0.92.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: an added item in the trash category must say \"terminal\": true, so the reaction mass feeder takes it. Nothing may pile up without a use.",
+      "after": "{0}: an added item in the trash category must say \"terminal\": true, so the reaction mass feeder takes it. Nothing may pile up without a use."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaterialSchema.shipped_fields",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Added-material validation messages (Framework 0.92.0).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: name, description and image are for added materials only; a shipped material keeps its own.",
+      "after": "{0}: name, description and image are for added materials only; a shipped material keeps its own."
     }
   ],
   "documents": [
@@ -76974,8 +77026,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a47c8fc8cf2458adc6a880920e8b0065667bfbf94707868fa51d1ad8d1c270d2",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "358d5a05973585f3eafca38a9f272eff6b5e5e2de5b31ada7920a5ac2522295e",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "SUPPORT.md",
@@ -77134,8 +77186,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "305d3fe5ec7a66e9ac9905a855df1218501d609502d2f3fe75eee0acfee3048f",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "5e704286e5ddc6c70bb6d6cc493993c8b1850558bbe5fe416deb3aeb5a816e84",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77735,8 +77787,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "abf6e008e950f16385ff153646ffff37f5904b9e71ae158bd0c3bb901b67eb14",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "b9ef3135237deffce20f52a370e094184f9562f93081ac967561a0cde51d4ca7",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -77803,8 +77855,8 @@
       "path": "docs/development/schema-separation-audit.md",
       "scope": "developer audit record",
       "decision": "new",
-      "sha256": "4569a5c3555f5e215fc96a92b1b81620641dcb916769797f7bd1e9c9ba911013",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "c47ec4cbfd4fb32f72bc30ca89a04872208e442f230ae501221e45c550d1190c",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -77954,8 +78006,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "8ec6d7c8bb9ec8ced93cd95cb5979d29d8c96886fb5f238a72933afcf89bf6b9",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "84891abaf304a430b8f8e31b3beafbdfd5c66582ba9814e8cca3e49e88fd6fc3",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -77975,8 +78027,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "5f3595b4b85757bac77eb1fe9e0eed80df815853d6439acf8a71633b222105f2",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "fee46417dc4156c699da07a12a81c4207fc2233fb5bd3ec23733de7678745147",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -78038,8 +78090,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f3f358919c95209f5edf24ba0ff8ac535a1b53eb68acbb6e5be23c870265e6c5",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "66411d27a5f87f2bd48742cc252be0b67a848d2a341f77d0b80468372dd754a5",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/item-references.md",
@@ -78059,8 +78111,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "d389c69042a5262bbf5ded99bfa18fe0891134aaf51789a118be344408ffc887",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "ff3a35d08b1cde03a1b4daf797dda0e0c6de813677e589e79ccd8765d17e8a55",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -78101,8 +78153,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d534ddd02ca0e547cb2bf7c42a30af40eb0b0e9fa1337f767863284ecbb761a0",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "51f55755bd4be94d24289125e040226d6366c71dc857a872bcbb685f1917911c",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78220,15 +78272,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9eb24b052a413772f2a67d0ad62fe97ea07f6bce739fe862c8641b51b048403a",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "6057279c16b9fbae0ffe33401e131418f2a92c1dbfa9736e7a50a07e9ec9e82b",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "17671719a605161b07800c4b1b3346c83d0a692c20715d16ead937834b761613",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "b06547ef5a22c6cc0000bb284ffd8f9d10625a33515aa4dde719ace31861fe06",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78255,8 +78307,8 @@
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "b05a61f2b5c516814e218c54c3f370f9b5c8660083881a60ea0e22e987627037",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "4e1ed362635db9f30cc9de45a2041927d74f99359fc271e053fc2557d813e896",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     }
   ],
   "surfaces": [
@@ -78315,14 +78367,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8503ee8fe040cd081dc8d46936441bd09fe73c4f6e68b9625123dc1cc1dd70ea",
-      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
+      "sha256": "5cb4862c5d417079facab5d52ddc071c497c8116e9c544d6762e97ffb96d7ecf",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9e97d7bcbe0ec7822bd1e10891b2a76d182d5c6d9f357a64abf560e19974a3aa",
-      "review": "Reviewed 4 October 2026 for Framework 0.88.0 and Manufacturing 0.44.0: outcome tables and the gangue wash."
+      "sha256": "72cab4ac55ca9a68809b1ec128d2d75bffaf3e8c37046bf1fb39b9e67e7e286f",
+      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

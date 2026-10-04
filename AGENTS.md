@@ -903,8 +903,11 @@
   every check on player files applies to them. Keep `docs/publishing-an-add-on.md`,
   `examples/addons` (loaded by tests) and `scripts/validate-data-packs.py --addon` working
   whenever a schema changes; a new schema loaded through `DataPacks.Load` supports
-  add-ons by itself. Owner-approved follow-ups: names and translations from add-ons,
-  then new items with their own art.
+  add-ons by itself. Framework 0.91.0 adds text from add-ons
+  (`phobos/translations/<Mod>/<language>.json`; new keys only under the add-on's prefix).
+  Framework 0.92.0 with Manufacturing 0.45.0 lets files add materials with their own
+  name and picture (`MaterialContext.AllowAdditions`; Shipbreaker and Agriculture not
+  yet); added trash must be `terminal`, which declares it a remainder.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

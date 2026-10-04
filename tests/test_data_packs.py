@@ -94,7 +94,7 @@ class DataPackTests(unittest.TestCase):
         example = ROOT / 'examples/addons/PhobosExampleRicherGangue'
         manifest, checked = validate.check_addon(example)
         self.assertEqual(manifest['id'], 'example-richer-gangue')
-        self.assertEqual(len(checked), 4)
+        self.assertEqual(len(checked), 5)
         self.assertEqual(validate.check_addon(ROOT / 'examples/addons/PhobosAddOnTemplate')[1], [])
         # The same numbers Framework derives (tests/PhobosFramework.Tests/AddOnChecks.cs).
         self.assertEqual(validate.stable_hash(['a1', 'b2']), 1848931155)
@@ -123,6 +123,11 @@ class DataPackTests(unittest.TestCase):
         broken(rewrite(tables, '"richergangue-steel-seam": 10', '"richergangue-missing": 10'))      # names no recipe
         broken(rewrite(tables, '"schema": "outcomes",', '"schema": "outcomes", "priority": 500,'))  # out of range
         broken(rewrite('phobos/translations/PhobosManufacturing/en.json', '"Recipe.richergangue-steel-seam"', '"Recipe.someone-elses"'))  # a new key without the prefix
+        items = 'phobos/PhobosManufacturing/materials/richer-gangue.json'
+        broken(rewrite(items, '"RichergangueSeamChunk"', '"SeamChunk"'))                                # an added item without the prefix
+        broken(rewrite(items, '"image": "richergangue/SeamChunk"', '"image": "richergangue/Missing"'))   # no such picture
+        broken(rewrite(items, '"category": "IsCategoryMetals"', '"category": "IsCategoryTrash"'))        # trash with no consumer
+        broken(lambda copy: (copy / 'images/richergangue/SeamChunkNormal.png').unlink())
         for bad in ({'id': 'x'}, {'schemaVersion': 1, 'id': 'my-add-on', 'name': 'N', 'author': 'A', 'version': 'one', 'idPrefix': 'myaddon'}):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.addon_manifest(bad)

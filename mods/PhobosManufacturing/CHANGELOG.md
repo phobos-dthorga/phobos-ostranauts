@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.45.0] - 2026-10-04 - Draft
+
+### Added
+
+- Add-ons and your own data files can add items of their own, with their own pictures, for Manufacturing's recipes to make and use. A machine admits an added item when one of its recipes takes it. See the add-on publishing guide.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.92.0 or newer.
+- Added items are not sold by merchants. A save holding an add-on's items needs that add-on enabled.
+- Checked offline; not yet seen in the game.
+
 ## [0.44.0] - 2026-10-04 - Draft
 
 ### Added

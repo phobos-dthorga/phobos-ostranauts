@@ -152,7 +152,9 @@ def recipes():
 def materials():
     material = obj({'notes': NOTES, 'kind': string('How the mod builds it (stock, mined, packet, food, waste, ...).'), 'kg': num(0, exclusive_minimum=0),
                     'price': num(0, exclusive_minimum=0), 'stack': num(1, 1000, integer=True), 'side': num(1, 8, integer=True),
-                    'category': string('Native market category condition, e.g. IsCategoryMetals.'), 'terminal': {'type': 'boolean'}, 'art': string()}, ['kg', 'price'])
+                    'category': string('Native market category condition, e.g. IsCategoryMetals.'), 'terminal': {'type': 'boolean'}, 'art': string(),
+                    'name': string('Added materials only: the name shown when no translation names it.'), 'description': string('Added materials only.'),
+                    'image': {'type': 'string', 'pattern': '^[A-Za-z0-9_-][A-Za-z0-9_/-]*$', 'description': 'Added materials only: the picture, a path under an images folder without .png, such as myaddon/SteelNugget.'}}, ['kg', 'price'])
     return obj({**header('materials'), 'materials': named(material, 'Loose items by definition id.')}, ['schemaVersion', 'schema', 'materials'],
                'Loose items a Phobos mod adds: mass, price, stack, footprint, category and art.')
 

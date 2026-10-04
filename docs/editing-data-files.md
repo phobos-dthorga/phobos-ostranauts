@@ -149,6 +149,14 @@ the new recipe for new charges, while a charge already bound to the old revision
 still finishes by it. Only one recipe may supersede a given revision. More packs (loot) follow as the tables move over; this page lists
 them as they land.
 
+## Adding an item
+
+Phobos Manufacturing 0.45.0 lets a file add items of its own to the `materials`
+pack, with their own pictures, for recipes to make and use. Because an item needs
+a picture in a mod folder, this is really for add-ons:
+[publishing an add-on](publishing-an-add-on.md#6-new-items-with-your-own-pictures)
+has the fields and rules. The shipped materials can still only be retuned.
+
 ## Retuning the gangue wash
 
 The `outcomes` pack (Manufacturing 0.44.0, Framework 0.88.0) holds the tables for

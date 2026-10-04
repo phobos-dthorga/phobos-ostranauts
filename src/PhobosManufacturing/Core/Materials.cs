@@ -20,6 +20,13 @@ public sealed class Material
     public string Art { get; }
     /// <summary>A mined chunk: it clones the game's hydrates so it mines, breaks, stacks and sells like ore.</summary>
     public bool Mined { get; }
+    /// <summary>A material a data file added (Manufacturing 0.45.0), with its own name, description and image.</summary>
+    public bool Added { get; private set; }
+    public string Name { get; private set; } = "";
+    public string Description { get; private set; } = "";
+    public string Image { get; private set; } = "";
+    public static Material AddedBy(string id, MaterialEntry e, bool mined) =>
+        new(id, e.kg, e.stack, e.price, e.category ?? "", e.terminal, e.side, "", mined) { Added = true, Name = e.name ?? id, Description = e.description ?? "", Image = e.image ?? "" };
     public Material(string id, double kg, int stack, double price, string category, bool terminal, int side, string art, bool mined = false)
     {
         if (string.IsNullOrWhiteSpace(id) || !ManufacturingRules.Finite(kg) || kg <= 0 || stack < 1 || !ManufacturingRules.Finite(price) || price <= 0 || side < 1)
@@ -78,7 +85,8 @@ public static class Materials
     /// <summary>Reads the shipped pack and any player files, validated against the ids and kinds the code knows.</summary>
     public static MaterialPack Load()
     {
-        pack = DataPacks.Load<MaterialPack>(Source, p => MaterialSchema.Validate(p, new MaterialContext(Ids) { Kinds = Kinds }));
+        // Add-ons and players may add materials of their own (Manufacturing 0.45.0, Framework 0.92.0).
+        pack = DataPacks.Load<MaterialPack>(Source, p => MaterialSchema.Validate(p, new MaterialContext(Ids) { Kinds = Kinds, AllowAdditions = true }));
         return pack;
     }
     public static IReadOnlyList<Material> All
@@ -87,7 +95,10 @@ public static class Materials
         {
             if (all != null && ReferenceEquals(builtFrom, Pack)) return all;
             builtFrom = Pack;
-            return all = Array.AsReadOnly(Ids.Select(id => { var e = builtFrom.materials[id]; return new Material(id, e.kg, e.stack, e.price, e.category ?? "", e.terminal, e.side, e.art ?? "", e.kind == MinedKind); }).ToArray());
+            var shipped = Ids.Select(id => { var e = builtFrom.materials[id]; return new Material(id, e.kg, e.stack, e.price, e.category ?? "", e.terminal, e.side, e.art ?? "", e.kind == MinedKind); });
+            // Materials data files added, after ours, in id order.
+            var added = builtFrom.materials.Where(p => !Ids.Contains(p.Key)).OrderBy(p => p.Key, StringComparer.Ordinal).Select(p => Material.AddedBy(p.Key, p.Value, p.Value.kind == MinedKind));
+            return all = Array.AsReadOnly(shipped.Concat(added).ToArray());
         }
     }
     public static Material Ingot => ById(NickelIronIngot)!;
@@ -112,4 +123,6 @@ public static class Materials
     /// <summary>Raw stock the V4 takes (ingots and carbon); the LC-3's salts are stock too but feed only the LC-3.</summary>
     public static bool IsStock(string? id) => id == NickelIronIngot || id == CarbonStock;
     public static bool IsTerminal(string? id) => ById(id)?.Terminal == true;
+    /// <summary>A material a data file added, not one of ours.</summary>
+    public static bool IsAdded(string? id) => ById(id)?.Added == true;
 }

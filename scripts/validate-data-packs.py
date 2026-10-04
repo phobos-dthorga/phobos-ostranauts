@@ -305,14 +305,32 @@ def process_recipes(pack, where):
             replaced.add((r['machine'], e))
 
 
-def materials(pack, where):
+# Mods whose materials pack takes added materials (Framework 0.92.0).
+MATERIAL_ADDITIONS = ('PhobosManufacturing',)
+MATERIAL_RESERVED = ('phobos', 'itm', 'sys', 'stat', 'is')
+
+
+def materials(pack, where, shipped=None):
+    """shipped: the shipped pack's ids when checking an override over a pack that takes additions; None otherwise."""
     fields(pack, {'schemaVersion', 'schema', 'notes', 'materials'}, where)
     entries = pack.get('materials', {})
     if not isinstance(entries, dict) or not entries:
         raise Problem(f'{where}/materials: needs at least one material')
     for key, m in entries.items():
         w = f'{where}/materials/{key}'
-        fields(m, {'notes', 'kind', 'kg', 'price', 'stack', 'side', 'category', 'terminal', 'art'}, w)
+        fields(m, {'notes', 'kind', 'kg', 'price', 'stack', 'side', 'category', 'terminal', 'art', 'name', 'description', 'image'}, w)
+        added = shipped is not None and key not in shipped
+        if added:
+            if not 3 <= len(key) <= 64 or not key.isascii() or not key.isalnum() or not key[0].isalpha() or any(key.lower().startswith(r) for r in MATERIAL_RESERVED):
+                raise Problem(f'{w}: an added material id is 3 to 64 letters and digits, starts with a letter, and does not start with Phobos, Itm, Sys, Stat or Is')
+            image = m.get('image', '')
+            if (not isinstance(m.get('name'), str) or not m['name'].strip() or not isinstance(m.get('category'), str) or not m['category'].strip() or not isinstance(image, str) or not image
+                    or image.startswith('/') or '..' in image or any(not (c.isascii() and c.isalnum() or c in '/_-') for c in image)):
+                raise Problem(f'{w}: an added material needs a name, a category and an image (a path under an images folder, without .png)')
+            if m['category'] == 'IsCategoryTrash' and m.get('terminal') is not True:
+                raise Problem(f'{w}: an added item in the trash category must say "terminal": true, so the reaction mass feeder takes it')
+        elif any(k in m for k in ('name', 'description', 'image')):
+            raise Problem(f'{w}: name, description and image are for added materials only')
         number(m.get('kg'), f'{w}/kg', 0, None, exclusive_low=True)
         number(m.get('price'), f'{w}/price', 0, None, exclusive_low=True)
         number(m.get('stack', 1), f'{w}/stack', 1, 1000, integer=True)
@@ -720,7 +738,21 @@ def check_addon(folder):
                             recipe['revision'] = derived_revision(key)
                 merge(merged, overlay, rel)
                 try:
-                    if schema == 'outcomes':
+                    if schema == 'materials':
+                        if mod_dir.name in MATERIAL_ADDITIONS:
+                            shipped_ids = set(json.loads(shipped_path.read_text(encoding='utf-8-sig')).get('materials', {}))
+                            materials(merged, rel, shipped_ids)
+                            for key, m in merged['materials'].items():
+                                if key in shipped_ids:
+                                    continue
+                                for suffix in ('.png', 'Normal.png'):
+                                    if not (folder / 'images' / (m['image'] + suffix)).exists():
+                                        raise Problem(f'{rel}: images/{m["image"]}{suffix} is missing from the add-on (run with --write-normals to make the Normal picture)')
+                        else:
+                            materials(merged, rel)
+                            if any(key not in json.loads(shipped_path.read_text(encoding='utf-8-sig')).get('materials', {}) for key in merged['materials']):
+                                raise Problem(f'{rel}: {mod_dir.name} does not take added materials yet')
+                    elif schema == 'outcomes':
                         if merged_recipes is None:
                             sibling = shipped_dir / 'process-recipes.json'
                             merged_recipes = json.loads(sibling.read_text(encoding='utf-8-sig')).get('recipes') if sibling.exists() else None
@@ -769,8 +801,20 @@ def main():
     parser.add_argument('paths', nargs='*')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
     parser.add_argument('--addon', metavar='FOLDER', help='check an add-on folder against the shipped packs instead')
+    parser.add_argument('--write-normals', action='store_true', help="with --addon: write a flat <name>Normal.png beside every picture in the add-on's images folder that lacks one (needs Pillow)")
     args = parser.parse_args()
     if args.addon:
+        if args.write_normals:
+            from PIL import Image
+            for picture in sorted((Path(args.addon) / 'images').rglob('*.png')):
+                target = picture.with_name(picture.stem + 'Normal.png')
+                if picture.stem.endswith('Normal') or target.exists():
+                    continue
+                source = Image.open(picture).convert('RGBA')
+                flat = Image.new('RGBA', source.size, (128, 128, 255, 0))
+                flat.putalpha(source.getchannel('A'))
+                flat.save(target)
+                print('wrote', target)
         try:
             manifest, checked = check_addon(args.addon)
         except (Problem, ValueError, OSError) as error:

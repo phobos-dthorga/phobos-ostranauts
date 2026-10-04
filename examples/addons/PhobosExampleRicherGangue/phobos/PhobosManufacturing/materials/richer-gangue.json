@@ -1,0 +1,17 @@
+{
+  "schema": "materials",
+  "materials": {
+    "RichergangueSeamChunk": {
+      "notes": "An added item: a 4 kg chunk of seam metal. Its picture is images/richergangue/SeamChunk.png in this add-on, with SeamChunkNormal.png beside it.",
+      "kind": "stock",
+      "kg": 4,
+      "price": 12,
+      "stack": 6,
+      "side": 1,
+      "category": "IsCategoryMetals",
+      "name": "Seam Chunk",
+      "description": "Four kilograms of metal seam washed out of gangue. A V4 refinery breaks it into scrap steel.",
+      "image": "richergangue/SeamChunk"
+    }
+  }
+}

@@ -1,4 +1,7 @@
 {
   "Recipe.gangue-wash": "Lavage de gangue",
-  "Recipe.richergangue-steel-seam": "Lavage de gangue, filon d'acier"
+  "Recipe.richergangue-steel-seam": "Lavage de gangue, filon d'acier",
+  "Recipe.richergangue-chunk-break": "Bloc de filon en ferraille d'acier",
+  "Material.RichergangueSeamChunk": "Bloc de filon",
+  "Material.RichergangueSeamChunk_description": "Quatre kilogrammes de filon lavés de la gangue. Une raffinerie V4 le réduit en ferraille d'acier."
 }

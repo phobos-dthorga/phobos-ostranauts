@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.91.0",
+      "value": "0.92.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.44.0",
+      "value": "0.45.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1508,7 +1508,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.88.0",
+      "value": "0.92.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {

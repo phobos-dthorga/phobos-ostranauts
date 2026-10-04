@@ -1033,3 +1033,7 @@ than usual for these rows.
 ## 4 October: add-ons (L39)
 
 L39 — Framework 0.90.0 with War Declared 0.2.0: add-on discovery reads the game's mod list and each enabled folder's manifest once per content load, and each pack load lists one folder per add-on. Nothing runs per frame except a counter comparison for the skipped-file notice. No capture accompanies this change.
+
+## 4 October: add-on text and added items (L40)
+
+L40 — Framework 0.91.0 and 0.92.0 with Manufacturing 0.45.0: translation catalogs are read once more per content load, when the mod list is known; added materials are built with the others at content load and add one identity to a machine's feed rule. Nothing is added to a frame or a power step. No capture accompanies this change.

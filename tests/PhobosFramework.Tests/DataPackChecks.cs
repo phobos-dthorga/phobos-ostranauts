@@ -176,6 +176,23 @@ internal static class DataPackChecks
         var materialContext = new MaterialContext(new[] { "PhobosThing" }) { Kinds = new[] { "stock" } };
         MaterialPack Materials() { var pack = new MaterialPack { schemaVersion = 1, schema = "materials" }; pack.materials["PhobosThing"] = new MaterialEntry { kg = 1, price = 2, stack = 10, side = 1 }; return pack; }
         MaterialSchema.Validate(Materials(), materialContext);
+        // Added materials (Framework 0.92.0): only where the owner allows them, with a name, category and picture.
+        var open = new MaterialContext(new[] { "PhobosThing" }) { Kinds = new[] { "stock" }, AllowAdditions = true };
+        MaterialPack With(string id, Action<MaterialEntry>? change = null)
+        {
+            var pack = Materials();
+            var entry = new MaterialEntry { kind = "stock", kg = 2, price = 5, stack = 4, side = 1, category = "IsCategoryMetals", name = "Nugget", image = "myaddon/Nugget" };
+            change?.Invoke(entry); pack.materials[id] = entry; return pack;
+        }
+        MaterialSchema.Validate(With("MyaddonNugget"), open);
+        MaterialSchema.Validate(With("MyaddonSlag", e => { e.category = MaterialSchema.TrashCategory; e.terminal = true; }), open);
+        throws(() => MaterialSchema.Validate(With("MyaddonNugget"), materialContext), "A mod that does not take added materials refuses one");
+        throws(() => MaterialSchema.Validate(With("PhobosNugget"), open), "An added material may not take a Phobos id");
+        throws(() => MaterialSchema.Validate(With("Itm-Nugget"), open), "An added material id is letters and digits");
+        throws(() => MaterialSchema.Validate(With("MyaddonNugget", e => e.name = null), open), "An added material needs a name");
+        throws(() => MaterialSchema.Validate(With("MyaddonNugget", e => e.image = "../core/thing"), open), "An added material's picture stays under an images folder");
+        throws(() => MaterialSchema.Validate(With("MyaddonSlag", e => e.category = MaterialSchema.TrashCategory), open), "Added trash must be a terminal remainder: nothing piles up without a use");
+        throws(() => { var pack = Materials(); pack.materials["PhobosThing"].name = "Renamed"; MaterialSchema.Validate(pack, open); }, "A shipped material keeps its own name");
         check(true, "A complete materials pack validates");
         void BadMaterial(Action<MaterialPack> mutate, string message) { var pack = Materials(); mutate(pack); throws(() => MaterialSchema.Validate(pack, materialContext), message); }
         BadMaterial(p => p.materials.Remove("PhobosThing"), "Every known material needs an entry");

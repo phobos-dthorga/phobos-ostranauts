@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "6f91633221e02b3b95f238ca259c208c6214ad8b",
+  "baselineCommit": "7f2a0a90b741c813f6c6c26c81831490dd70dd6d",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3750,15 +3750,16 @@
     },
     {
       "path": "src/PhobosFramework/Data/MaterialPack.cs",
-      "sha256": "a7f7cff6b06ef3922764b35ef3caa01b0570931f4ac9ed2a596cac273f59fa61",
+      "sha256": "7154bbfdeeaac1cb347c984d46445bcd6321c1484847a41fc7da2ab1048976d8",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-30 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R4"
+        "R4",
+        "L40"
       ],
       "indicators": {},
-      "reviewed": "2026-09-30"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Data/OutcomePack.cs",
@@ -5787,7 +5788,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "3d3678df99f026d4c568b3b54db26d60e0caa48659034e5924542d651413c88b",
+      "sha256": "652ee6788acc49d0daa8c2e24162dd1de8bb4f2af25b0e130c1fdf6023cebb35",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -5834,7 +5835,8 @@
         "L36",
         "L37",
         "L38",
-        "L39"
+        "L39",
+        "L40"
       ],
       "indicators": {
         "collection": [
@@ -7367,10 +7369,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/Materials.cs",
-      "sha256": "4f9697209f8a6c46656a937eee894fae716ac4cfddcc3117ae814a2190497ccb",
+      "sha256": "4c7f5895f46cc28c3286ca31f03176ed47e1f5b77aae8afa06b55acb6032bce7",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF0",
         "R4",
@@ -7386,14 +7388,17 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L40"
       ],
       "indicators": {
         "collection": [
-          90
+          98,
+          100,
+          101
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/Core/ProcessorRules.cs",
@@ -7544,10 +7549,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Definitions.cs",
-      "sha256": "ffb1afbefdac138c811b52a7eb97b469df250f5a27bc2283576b4f182e4438f7",
+      "sha256": "fc1cec6af7c00c0a5822ce7f3dfb4b4cc64a759032e7889c7cae46e6f2b4142d",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF0",
         "R4",
@@ -7570,37 +7575,39 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L40"
       ],
       "indicators": {
         "collection": [
           57,
           77,
-          84,
-          107,
-          153,
-          173,
-          193,
-          213,
-          239,
-          245,
-          265,
-          289,
-          311,
-          312,
-          368,
-          392,
-          393,
-          398,
-          413
+          79,
+          86,
+          109,
+          155,
+          175,
+          195,
+          215,
+          241,
+          247,
+          267,
+          291,
+          313,
+          314,
+          370,
+          396,
+          397,
+          405,
+          420
         ],
         "persistence_or_io": [
-          369,
-          455,
-          461
+          371,
+          462,
+          468
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
@@ -7911,10 +7918,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "c4ceae175095fb4d4600e0a1e83ef2b57b9fe66df7fc45aa772d4680a2096bae",
+      "sha256": "72e7d3ce53ba47407e2275f3349acc5482597ca077a41d32bf75f80adc550872",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R6",
         "FF0",
@@ -7947,7 +7954,8 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L40"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -7987,7 +7995,7 @@
           332
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/ProcessorService.cs",

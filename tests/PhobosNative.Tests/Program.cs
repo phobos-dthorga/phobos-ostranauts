@@ -145,6 +145,7 @@ CompletionArtworkChecks.Run(medical, "PhobosMedical", repo, Check, PhobosMedical
 medical.Publish();
 MedicalNativeChecks.Run(medical, Check);
 RemainderNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, manufacturing, Check);
+AddOnNativeChecks.Run(repo, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);

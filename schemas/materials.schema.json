@@ -68,6 +68,19 @@
             },
             "art": {
               "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "description": "Added materials only: the name shown when no translation names it."
+            },
+            "description": {
+              "type": "string",
+              "description": "Added materials only."
+            },
+            "image": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-][A-Za-z0-9_/-]*$",
+              "description": "Added materials only: the picture, a path under an images folder without .png, such as myaddon/SteelNugget."
             }
           },
           "required": [

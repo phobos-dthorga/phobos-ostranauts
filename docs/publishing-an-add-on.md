@@ -5,15 +5,14 @@ mod that other players can subscribe to on Steam Workshop. It is data only: text
 files, and no code. If you can [edit the data files](editing-data-files.md) for
 yourself, you can publish them.
 
-What an add-on can do today (Phobos Framework 0.91.0):
+What an add-on can do today (Phobos Framework 0.92.0):
 
 - Retune anything a local file can: prices, power, work, odds, thresholds.
 - Add recipes, outcome tables and crops, under your own id prefix.
+- Add new items with your own pictures, for Phobos Manufacturing's recipes to make
+  and use.
 - Name the things it adds, and translate the Phobos mods into another language.
 - Add War Has Been Declared rebuild schematics.
-
-New items with their own artwork are being added next; this page will say when
-they work.
 
 ## 1. Get it working for yourself first
 
@@ -41,6 +40,9 @@ MyAddon/
     translations/
       PhobosManufacturing/en.json
       PhobosManufacturing/fr.json
+  images/
+    myaddon/SteelNugget.png
+    myaddon/SteelNuggetNormal.png
 ```
 
 Your files go under `phobos/<Mod>/<schema>/`, exactly as they sat under
@@ -107,7 +109,53 @@ by key, named after the language (`en.json`, `fr.json`, `pt-BR.json`).
 - A player's own file in `BepInEx/config/PhobosTranslations` still has the last
   word. Text has no `priority`.
 
-## 6. The order files apply in
+## 6. New items with your own pictures
+
+Phobos Manufacturing 0.45.0 takes added items (Shipbreaker and Agriculture do not
+yet). Put them in `phobos/PhobosManufacturing/materials/`:
+
+```json
+{
+  "schema": "materials",
+  "materials": {
+    "MyaddonSteelNugget": {
+      "kind": "stock",
+      "kg": 2,
+      "price": 6,
+      "stack": 8,
+      "side": 1,
+      "category": "IsCategoryMetals",
+      "name": "Steel Nugget",
+      "description": "Two kilograms of steel, ready for the furnace.",
+      "image": "myaddon/SteelNugget"
+    }
+  }
+}
+```
+
+| Field | What it is |
+| --- | --- |
+| the key | The item's id: letters and digits, starting with your `idPrefix`. Keep it for ever; saves name it. |
+| `kind` | `stock` for an ordinary solid, `mined` for something that behaves like ore. |
+| `kg`, `price`, `stack` | One unit's mass, its base price, and how many stack in a cell. |
+| `side` | Its size in the world, in tiles (1 for a 16 x 16 picture). |
+| `category` | The game's market category: `IsCategoryMetals`, `IsCategoryOre`, `IsCategoryIndustrialProducts` or `IsCategoryTrash`. |
+| `name`, `description` | Shown in the game. A translation file may replace them with `Material.<id>` and `Material.<id>_description`. |
+| `image` | The picture, as a path under your `images` folder without `.png`. |
+| `terminal` | `true` for a leftover no recipe takes. |
+
+- **Pictures.** Draw each item from straight above, 16 pixels for each tile of
+  `side`, on a transparent background. The game also wants a normal map beside it,
+  named `<picture>Normal.png`; the checker makes a flat one for you:
+  `python scripts/validate-data-packs.py --addon MyAddon --write-normals`.
+- **Give every item a use.** A recipe makes it and a recipe uses it, or it sells.
+  Your recipes name it by its id, like any other item, and the machines admit it.
+- **No rubbish without a consumer.** An item in the trash category must say
+  `"terminal": true`. That marks it as a remainder, and the RM-1 reaction mass
+  feeder grinds it into thrust. A trash item without it is refused.
+- **Not sold by merchants.** Added items come from your recipes.
+
+## 7. The order files apply in
 
 ```mermaid
 flowchart LR
@@ -130,7 +178,7 @@ Use it sparingly: a fix that must win over other add-ons, or over a player's old
 local tweak, raises its priority. A player who wants the last word back raises
 theirs higher.
 
-## 7. Check it
+## 8. Check it
 
 With Python installed and a copy of the Phobos repository:
 
@@ -150,7 +198,7 @@ For editor help while you write, point your editor at the schema files in the
 repository's [schemas folder](../schemas), including `addon.schema.json` for the
 manifest.
 
-## 8. Publish it
+## 9. Publish it
 
 The game uploads a mod folder itself.
 
@@ -175,6 +223,10 @@ it ourselves; if it behaves differently for you, please
 - **A recipe you add** is saved by its derived number. If a player removes your
   add-on with a charge of that recipe in progress, the charge waits, unfinished,
   until the add-on returns or the player cancels it; nothing is lost.
+- **An item you add** exists only while your add-on is enabled. If a player saves
+  with your items aboard and then removes the add-on, the game finds items it has
+  no definition for; what it does with them is the game's own behaviour, which we
+  have not tested. Say so on your Workshop page.
 - **Renaming an id** after publishing breaks saves that use it. Add a new id and
   keep the old one.
 

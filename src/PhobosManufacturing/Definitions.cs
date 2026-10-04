@@ -74,7 +74,9 @@ internal static class Definitions
         // Feed at the game level: native ore (where the machine takes it) or our own stock; the container patch then
         // applies the exact identity, mass and count rule.
         d.Triggers[spec.StockTrigger] = new CondTrigger { strName = spec.StockTrigger, fChance = 1, fCount = 1, bAND = false,
-            aReqs = (spec.AdmitsOre ? new[] { "IsOre" } : Array.Empty<string>()).Concat(spec.FeedConditions).Concat(spec.StockFeed.Select(id => id + "Identity")).ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+            aReqs = (spec.AdmitsOre ? new[] { "IsOre" } : Array.Empty<string>()).Concat(spec.FeedConditions).Concat(spec.StockFeed.Select(id => id + "Identity"))
+                // Added materials a recipe of this machine takes (0.45.0) are admitted by their own identity.
+                .Concat(ChargeCatalog.For(spec.MachineKey).FeedIds.Where(Materials.IsAdded).Select(id => id + "Identity")).Distinct().ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
         d.Triggers[spec.FeedTrigger] = new CondTrigger { strName = spec.FeedTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = Array.Empty<string>(), aForbids = Array.Empty<string>(), aTriggers = new[] { "TIsFitContainerSolid", spec.StockTrigger } };
         ApplianceDefinitions.AddFeedBin(d, p, spec.FeedTrigger, shape.feedCells, Text.Get(spec.Text("feed_name")));
@@ -383,7 +385,9 @@ internal static class Definitions
             var native = DataHandler.dictCOs[source];
             var co = NativeDefinitions.Clone(native); var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[native.strItemDef]);
             co.strName = co.strItemDef = item.strName = m.Id;
-            co.strNameFriendly = co.strNameShort = Text.Get("Material." + m.Id); co.strDesc = Text.Get("Material." + m.Id + "_description");
+            // An added material (0.45.0) carries its own name and text, which an add-on's translation may replace.
+            co.strNameFriendly = co.strNameShort = m.Added ? Phobos.Ostranauts.Framework.Localization.Translations.Get(Text.Owner, "Material." + m.Id, m.Name) : Text.Get("Material." + m.Id);
+            co.strDesc = m.Added ? Phobos.Ostranauts.Framework.Localization.Translations.Get(Text.Owner, "Material." + m.Id + "_description", m.Description) : Text.Get("Material." + m.Id + "_description");
             co.nStackLimit = m.Stack; co.mapChargeProfiles = Array.Empty<string>();
             string identity = m.Id + "Identity";
             d.Conditions[identity] = new JsonCond { strName = identity, strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
@@ -391,9 +395,12 @@ internal static class Definitions
                 : new[] { "IsRigid", "IsSolid", "StatDamageMax" };
             co.aStartingConds = co.aStartingConds.Where(s => spirit ? BottlerRules.KeepFromDonor(s.Split('=')[0]) : keep.Contains(s.Split('=')[0])).Concat(new[] { identity + "=1x1", m.Category + "=1x1",
                 "StatMass=1x" + m.Kg.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x" + m.Price.ToString(CultureInfo.InvariantCulture) }).ToArray();
-            if (m.Art.Length > 0)
+            if (m.Art.Length > 0 || m.Added)
             {
-                item.strImg = ImagePath + m.Art; item.strImgNorm = ImagePath + m.Art + "Normal"; item.strImgDamaged = "";
+                // Ours live under this mod's image folder; an added material names its own picture, which the game
+                // finds in whichever enabled mod's images folder holds it.
+                string image = m.Added ? m.Image : ImagePath + m.Art;
+                item.strImg = image; item.strImgNorm = image + "Normal"; item.strImgDamaged = "";
                 co.strPortraitImg = item.strImg;
                 item.nCols = m.Side; item.aSocketAdds = Enumerable.Repeat("TILItemAdds", m.Side * m.Side).ToArray();
                 item.aSocketReqs = Border(m.Side, "Blank"); item.aSocketForbids = Border(m.Side, "TILItemForbids");
