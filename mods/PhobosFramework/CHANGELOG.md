@@ -39,7 +39,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - A machine with a stack of feed still takes one charge at a time; the rest of the stack waits in its inventory for the next charge.
-- Checked offline; not yet seen in the game.
+- Owner checked in play on 5 October 2026 (game 1.0.1.5): the V4 refinery and X2 chemical processor now work through their charges. Other machines were not checked one by one.
 
 ## [0.92.0] - 2026-10-04 - Draft
 
