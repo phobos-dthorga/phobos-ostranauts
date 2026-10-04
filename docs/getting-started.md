@@ -88,7 +88,7 @@ named-test-save requirement for the current suite.
   walking, which is why the default schematic holds them. In-game checks are pending.
 - **The Ward-3 heals with the game's own medical rest.** It does not dress wounds
   or cure anything by itself yet, and it stops caring when its power or air does.
-  Until its own art is made it looks like the vanilla medical bed. In-game checks are pending.
+  In-game checks are pending.
 - **Updating is not uninstalling.** Do not remove a provider from a save that
   contains its equipment, cargo or jobs. There is no general save-cleanup or
   guaranteed downgrade tool; see [dependency contingencies](development/dependency-contingencies.md).

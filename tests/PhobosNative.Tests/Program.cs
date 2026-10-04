@@ -140,6 +140,7 @@ AcidLineNativeChecks.Run(manufacturing, Check);
 var medical = PhobosMedical.Content.Prepare();
 foreach (var equipment in medical.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded Medical equipment: " + equipment.strName);
+CompletionArtworkChecks.Run(medical, "PhobosMedical", repo, Check, PhobosMedical.Core.MedicalRules.BedPrefix);
 medical.Publish();
 MedicalNativeChecks.Run(medical, Check);
 LootCarveNativeChecks.Run(Check, Throws);

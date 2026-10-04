@@ -3398,6 +3398,36 @@
       "sourceSHA256": "f074fd543f1484a812b0b4a2d63008ebe96f131e8b0020cb96f9f7ce8b9f949b",
       "requestRecord": "mining-laser-requests.json",
       "review": "Drawn glow from scripts/derive-laser-art.py, stretched along the beam by Framework's world beam; brightness and blending in the game's light pass await owner review."
+    },
+    {
+      "key": "ward3-medical-bed",
+      "mod": "PhobosMedical",
+      "definition": "PhobosMedicalBedInstalled",
+      "nativeSize": [
+        48,
+        80
+      ],
+      "masterSize": [
+        96,
+        160
+      ],
+      "pivot": [
+        24,
+        40
+      ],
+      "runtime": "phobos/medical/PhobosMedicalBed",
+      "status": "selected",
+      "source": "source/ward3-medical-bed.png",
+      "sourceSHA256": "369bb431a34defdfb899ba95b22dd0039ecb5c20836562d74ddb4a7edd7bb612",
+      "requestRecord": "../phobos-medical/requests.json",
+      "review": "Owner-selected 2075 nanomedical concept (4 October 2026). Registered mechanically by assets/phobos-medical/register-ward3.py: white margin removed by edge flood fill, widened about a fifth to 44 native px (the game's medical bed is opaque over 44 x 80), 96-colour palette with no dithering so the teal cartridge caps and side plates survive. Overhead, no side faces; native 48 x 80 and 8x enlargement inspected; the cushion centre stays clear for the patient. Damaged forms use the game's damage tint. Owner in-game review pending.",
+      "provider": "OpenAI built-in Imagegen; mechanical registration and export",
+      "productionSource": "../phobos-medical/source/ward3-nanomedical-chatgpt.png",
+      "productionSize": [
+        971,
+        1619
+      ],
+      "productionSHA256": "1e38c5c746c7bb847291cf99fdfe7218e731e3ecd73f98229d6e78724f63c768"
     }
   ],
   "records": [

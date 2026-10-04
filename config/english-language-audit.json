@@ -74084,7 +74084,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fa52daba6e7b20c620e34cd7dfb34535ac3aa73a688554b01e29bfb8b2100299",
+      "sha256": "519e2c9103fd9dec56ef92864127487909e2eaf461a729c42f88986d023ef493",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -74763,16 +74763,16 @@
     },
     {
       "path": "docs/development/medical-art-handoff.md",
-      "scope": "contributor artwork handoff; placeholders are not reviewed art",
+      "scope": "contributor art concept and superseded handoff; no runtime selection or treatment claim",
       "decision": "new",
-      "sha256": "c6c38130348afbfee3fe0d99dae1ba2aba383ff212be5e34bbab627d7200ccc5",
+      "sha256": "b2f1880e2aac58f7bc8538e16ce01f3a27fa351353bd2e70946f5dbd098140b7",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/development/medical-bed-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "7e6648e423390e22f3b3485d55ce91e82a5033f3ed172ef107ee8bf1659d3fa1",
+      "sha256": "743314ad58d12c7a5a959be85179e9ef469bb0db9adf98896d6d4c0ae2ccb540",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75112,7 +75112,7 @@
       "path": "docs/getting-started.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "851bc87cdb41528be97f2bbe646dda4212ebc9db8a74d72513fe224cc82058b4",
+      "sha256": "aba3d731db222ed8e8c19c409ec24b73069832603d770392bbf57efc06954959",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75189,14 +75189,14 @@
       "path": "docs/medical-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "8ed9c132a11c2a56f1bd7ebe9852506d96642b63d2f5ea0f346c6c96929c38cb",
+      "sha256": "630bd2bc5f4aeb4e35d5053cf17ac61043dfc1b65c37dace6bade51a2a9245e1",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
       "path": "docs/medical-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "fca5db3cda6910fd0028b3c40964c7635f1bcbc20f62c48505930b444a88bb20",
+      "sha256": "df138e478adf9156261563e544c6f261f0e6e9f9a17755d43056b4d222958881",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75343,7 +75343,7 @@
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "31f4746098ac8d511c66293ebb3d74b6d5ef27885dab2fd9f3a4a1406be3c2d3",
+      "sha256": "7710526818fc05512a34a7dad96d3436e499e9b7496f79500e7339999a6479b2",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75365,7 +75365,7 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "903aa21e0fc74b644636262a2478f909c8c40b48f521c146a743dd7c5562b97f",
+      "sha256": "43d05b00ab636426fb83209a9cacf4e50f9cfe39ac365991e0ea0866573cdd1b",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {
@@ -75477,7 +75477,7 @@
     {
       "path": "mods/PhobosMedical/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5c6514745a977cf063074db78a8c8686273244c8c301b0dafc1da53ce878d963",
+      "sha256": "990866b4adce707b386724a02ceaab8d1c23b8376913bd035e6c64902f132f72",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     }
   ],

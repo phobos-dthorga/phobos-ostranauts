@@ -32,9 +32,10 @@ the wall row behind its head, a small bedside drawer (service rack) for dressing
   plain sleep exactly as the Infirmaway's Off form does.
 - **Loose and damaged forms carry none of these marks**, so the Infirmaway's install
   job (`TIsBedMedical01Uninstalled`) and fixer lists never take a Ward-3.
-- **Stand-in art.** Until the Halewright art exists, each form shows the matching vanilla
-  Infirmaway images, referenced by name, drawn as low as the game's beds so a patient lies
-  on top ([handoff](medical-art-handoff.md)).
+- **Art.** Medical 0.1.0 showed the vanilla Infirmaway images by name as a stand-in; 0.1.1
+  binds the owner-selected Halewright 2075 nanomedical concept on every form, drawn as low as
+  the game's beds so a patient lies on top ([handoff](medical-art-handoff.md)). The cartridges
+  and arms are styling; the care is unchanged.
 
 ### Patient record
 

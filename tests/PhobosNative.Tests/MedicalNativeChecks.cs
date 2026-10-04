@@ -64,12 +64,13 @@ internal static class MedicalNativeChecks
         foreach (string refused in new[] { "ItmScrapSteel", "ItmBedMedical01Loose" })
             check(!Passes(drawer, DataHandler.dictCOs[refused]), "The drawer refuses " + refused);
 
-        // Stand-in art: the Infirmaway's own images by name, drawn as low as the game's beds.
+        // The Halewright art on every form, drawn as low as the game's own medical bed so a patient lies on top.
         foreach (string form in MedicalRules.Forms)
         {
-            var donor = DataHandler.dictItemDefs[MedicalRules.StandInDonor(form)];
             var item = medical.Items[p + form];
-            check(item.strImg == donor.strImg && item.strImgNorm == donor.strImgNorm && item.fZScale == donor.fZScale, "Ward-3 shows the matching Infirmaway art until its own is made: " + form);
+            check(item.strImg == "phobos/medical/PhobosMedicalBed" && item.strImgNorm == item.strImg + "Normal" && medical.Objects[p + form].strPortraitImg == item.strImg,
+                "Ward-3 shows its own Halewright art: " + form);
+            check(item.fZScale == DataHandler.dictItemDefs["ItmBedMedical01"].fZScale, "Ward-3 draws as low as the game's medical bed: " + form);
         }
 
         // The vanilla shapes the bed relies on.

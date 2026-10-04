@@ -44,14 +44,9 @@ public static class MedicalRules
     /// <summary>How far from the sleep point, in world units (one tile each), a patient may lie and still count.</summary>
     public const double PatientReach = 1.0;
     public const double TickSeconds = 2;
-    /// <summary>The vanilla Infirmaway artwork, referenced by name at run time until the Halewright art is made.</summary>
-    public const string StandInArt = "ItmBedMedical01";
+    /// <summary>How low the bed draws: the game's own beds use 0.05, so a patient lying on it draws on top.</summary>
+    public const float BedZScale = 0.05f;
     public static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
-    /// <summary>The Infirmaway definition each Ward-3 form borrows its stand-in art from.</summary>
-    public static string StandInDonor(string form) => form switch
-    {
-        "Installed" => "ItmBedMedical01", "Loose" => "ItmBedMedical01Loose", "InstalledDmg" => "ItmBedMedical01Dmg", _ => "ItmBedMedical01DmgLoose"
-    };
     public static bool IsBed(string? id) => EquipmentIdentity.IsFamily(id, BedPrefix);
     /// <summary>The interactions a Ward-3's patient record guards: someone else may not take an occupied bed.</summary>
     public static readonly string[] Guarded = { Sleep, Rest, Lay };

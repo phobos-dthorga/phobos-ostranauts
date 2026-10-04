@@ -1,0 +1,113 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-04",
+ "status": "Nanomedical concept selected by the owner on 4 October 2026 and exported for Phobos Medical 0.1.1.",
+ "ownerDirection": "A 2075 infirmary bed in Ostranauts' vanilla art style, fictionally able to repair moderate to somewhat severe wounds using nanomachines.",
+ "inputProvenance": "Original text only supplied to Imagegen. Blue Bottle Games' native Infirmaway and local equipment study were inspected locally for style; no game texture or screenshot was supplied to a generation provider. PixelLab received only an original Phobos palette.",
+ "scope": "Artwork only. No healing rules, equipment identities or placements changed; the runtime image of every Ward-3 form changed in 0.1.1.",
+ "usage": {
+  "openaiBuiltInCalls": 2,
+  "openaiCost": "Not disclosed by the built-in tool",
+  "pixellabCalls": 1,
+  "pixellabQuotedCostGenerations": 1,
+  "pixellabAllowanceBefore": 1671,
+  "pixellabAllowanceAfter": 1670,
+  "pixellabCreditsBeforeUSD": 0,
+  "pixellabCreditsAfterUSD": 0
+ },
+ "requests": [
+  {
+   "key": "ward3-base",
+   "provider": "OpenAI built-in Imagegen",
+   "operation": "image_gen.imagegen",
+   "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight\ndown at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and\nvertically on the canvas. Show no vertical front or side faces.\nA spacecraft medical bed seen from directly above, filling a tall portrait canvas\nwith a 3 : 5 width-to-height ratio, the bed's outline touching all four canvas\nedges. Head of the bed at the TOP edge. An off-white enamel frame with rounded\ncorners and thin mid-grey side rails along both long edges. A pale mint-grey\nmattress with a folded sheet across the lower third and a flat pillow near the\nhead. Across the top edge, a narrow head panel of darker grey with one muted teal\nstripe. The middle of the mattress is plain and uncluttered. Clean, utilitarian,\nworn-in industrial spaceship furniture; flat even lighting; restrained shading.\nNo people, no text, no numbers, no logos, no screens, no gauges, no cables beyond\nthe frame, no floor, no shadow, no perspective.",
+   "generatedFile": "exec-9091dcda-f4b3-45db-8a72-db7eb6a7455e.png",
+   "source": "source/ward3-base-chatgpt.png",
+   "returnedSize": [
+    971,
+    1619
+   ],
+   "decision": "Superseded by owner's nanomedical direction before composition or runtime binding",
+   "review": "Overhead orientation and clear patient centre verified. Native preview reviewed. Original returned dimensions are slightly below the handoff's requested 1024 x 1707 source minimum; untouched source retained.",
+   "sha256": "9fd920817e3dded0e623a65914fa4d762cabf1b83d9c25707275d173bbdb6d4a",
+   "archive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+    "path": "assets/phobos-medical/source/ward3-base-chatgpt.png",
+    "status": "Local; not pushed"
+   }
+  },
+  {
+   "key": "ward3-fitting",
+   "provider": "PixelLab",
+   "operation": "create_image_pixflux",
+   "request": {
+    "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One small spacecraft medical-bed head-end fitting, a compact off-white enamel bedside drawer unit with a muted blue-teal recessed pull and a flat grey power socket plate in its top panel. Seen only from directly overhead: squared lid, shallow recessed pull, flush socket and two fastening points. Original coarse pixel art, restrained wear, flat even lighting and simple readable pixel clusters. Complete fitting centered on a transparent 64 x 64 canvas with 4-pixel margins, intended native export 16 x 16. No people, text, numbers, logos, screens, gauges, cables, floor, shadows, perspective or visible side walls.",
+    "width": 64,
+    "height": 64,
+    "view": "high top-down",
+    "isometric": false,
+    "no_background": true,
+    "detail": "low detail",
+    "shading": "basic shading",
+    "outline": "selective outline",
+    "seed": 3041026,
+    "colorImage": "palette.png"
+   },
+   "jobId": "ddcc472e-db0c-441f-9b49-53ee199fbea4",
+   "assetId": "1ca5663b-6730-59c1-bb44-c59ecc51060a",
+   "source": "source/ward3-fitting-pixellab.png",
+   "returnedSize": [
+    64,
+    64
+   ],
+   "decision": "Completed after owner changed direction; superseded, no additional fitting commissioned",
+   "costGenerations": 1,
+   "sha256": "714a2b0042e56bd7e4b589b26439728181a8c061cb752d1ca3ae77e35716379f",
+   "archive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+    "path": "assets/phobos-medical/source/ward3-fitting-pixellab.png",
+    "status": "Local; not pushed"
+   }
+  },
+  {
+   "key": "ward3-nanomedical-concept",
+   "provider": "OpenAI built-in Imagegen",
+   "operation": "image_gen.imagegen",
+   "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game equipment sprite concept for Phobos' Halewright Ward-3: a spacecraft infirmary bed from the year 2075, designed in this fictional setting to repair moderate to somewhat severe wounds using nanomachines. Art direction informed by Ostranauts' vanilla ship-equipment sprites: coarse deliberate pixel clusters, practical industrial modules, muted material colours, sparse mechanical detail, very restrained flat shading. This should look like working equipment aboard a cash-strapped spacer's ship, visibly more capable than an ordinary hospital mattress. Draw an original design, not a copy of any game asset.\n\nTall 3:5 portrait canvas, straight rectangular 3-tile-wide by 5-tile-deep footprint. Head at the TOP edge. Occupy the complete rectangular footprint with the machine, without surrounding floor or padding. A reinforced off-white enamel chassis, mid-grey structural rails and pale mint-grey segmented patient cushion. Small flat headrest at the top of the cushion. Keep the entire central patient area empty and unobstructed, with no person or canopy: a game character must be able to lie over it.\n\nMake the nanomedical function legible through a few useful, physically plausible service components: an integrated head-end treatment housing with a pair of capped replaceable nanomachine suspension cartridges and compact sterile pump modules; recessed feed channels contained inside the side rails; two short articulated treatment/injection manipulators folded into recesses alongside the upper mattress, seen from directly above and parked clear of the patient; small side-mounted wound-treatment pads; a compact maintenance drawer at the foot. These components are integral to the bed, not separate furniture. No pipes or cables extending outside the rectangular footprint. Slight asymmetry in service fittings, a few visible fasteners and latches, broad wear patches rather than dense scratches. One quiet muted blue-teal accent on the treatment housing and cartridge caps. Nanomachines themselves are microscopic and MUST NOT appear as visible little robots, particles or glowing swarms.\n\nPIXEL ART, not a photograph or smooth illustration. Design the image to read as a coarse 48 x 80 logical pixel sprite enlarged cleanly, with crisp square pixel clusters, stepped outlines, a restricted palette of about 24 colours, no anti-aliasing and no gradients. Deliver a high-resolution 3:5 source canvas, ideally 1536 x 2560 or larger, while keeping that coarse logical pixel density. Flat diffuse illumination, minimal local shading only.\n\nNo text, numbers, logos, medical crosses, painted screens, gauges, status lights, readouts, people, wounds, blood, floating holograms, magical glow, floor, backdrop scenery, drop shadows, isometric projection, perspective, visible side faces or polished luxury styling. No blanket hiding the working parts.",
+   "generatedFile": "exec-85087806-2578-4261-973a-e8cf4a27fabc.png",
+   "source": "source/ward3-nanomedical-chatgpt.png",
+   "decision": "Retained concept for owner review; not selected for runtime",
+   "review": "Overhead original mechanical bed with treatment cartridges and manipulators, empty central patient cushion, no text or instruments. Returned art has white margins and a narrower silhouette than the complete 3 x 5 footprint; these need deliberate registration before runtime binding. Nanomachine healing is fictional design intent, not an implemented feature or a clinical finding.",
+   "returnedSize": [
+    971,
+    1619
+   ],
+   "sha256": "1e38c5c746c7bb847291cf99fdfe7218e731e3ecd73f98229d6e78724f63c768",
+   "preview": {
+    "native": "ward3-nanomedical-native-preview.png",
+    "sheet": "ward3-nanomedical-preview.png",
+    "size": [
+     48,
+     80
+    ],
+    "palette": "24-colour median-cut, no dithering",
+    "sampling": "Nearest-neighbour, whole original canvas; no silhouette registration"
+   }
+  }
+ ],
+ "licensing": {
+  "openai": "https://openai.com/policies/terms-of-use/",
+  "pixellab": "https://www.pixellab.ai/termsofservice",
+  "note": "Provider provenance and terms references are separate from repository code licensing; no new legal determination made."
+ },
+ "registration": {
+  "date": "2026-10-04",
+  "script": "assets/phobos-medical/register-ward3.py",
+  "master": "assets/artwork-completion/source/ward3-medical-bed.png",
+  "manifestKey": "ward3-medical-bed",
+  "method": "Edge flood fill removes the white margin (tolerance 28); silhouette 747 x 1590 box-reduced to 88 x 156 px (about a fifth wider, 44 native px like the game's medical bed); 96-colour median cut, no dithering; alpha at half; centred on a transparent 96 x 160 canvas. No provider call.",
+  "trialsInspected": "Widths 73 (natural), 82, 86, 90 and 94 px and palettes of 32, 48, 64 and 96 colours were compared at 48 x 80 native and enlarged; 88 px and 96 colours kept the round cartridges and the teal accents."
+ }
+}

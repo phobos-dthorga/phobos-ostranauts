@@ -7445,7 +7445,7 @@
     },
     {
       "path": "src/PhobosMedical/Core/MedicalRules.cs",
-      "sha256": "6f677d7b9d574470eaf4f86c0055508cb20970f4617e85a4fb8be9c5c2708763",
+      "sha256": "a33ba6519c69d95ceaadd7dcccbb06ddfcb8adec8178c06a7624aeadde3fe7cf",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
@@ -7457,7 +7457,7 @@
     },
     {
       "path": "src/PhobosMedical/Definitions.cs",
-      "sha256": "1e4469d0632d1df8cfe9794183cdcb9942df3bbd676fff7920b0b7c7b568cf40",
+      "sha256": "44b92dcad6b21d4079d232b8ca4d476726aa90ded7f112b21e6139aaab38162f",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Phobos Medical 0.1.0 / Framework 0.82.0: definition-time, presentation or pure rules; no per-frame path.",
@@ -7520,7 +7520,7 @@
     },
     {
       "path": "src/PhobosMedical/Plugin.cs",
-      "sha256": "05c6b17660e878ef357c8e3786ec81aef77eebcccbcec296090b4cdebe41ddcd",
+      "sha256": "4415bcadf2114b9edaf0d422e79b8a7d9a477a76ae88dd4cea7aa22d89f0f049",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Phobos Medical 0.1.0: Ward-3 beds come from Framework's shared world sweep every two real seconds; the offer gate on TriggeredInternal returns after one definition-id comparison for every object that is not an installed Ward-3, then a name check, before any work.",

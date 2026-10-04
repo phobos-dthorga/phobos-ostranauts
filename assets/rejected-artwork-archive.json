@@ -339,6 +339,46 @@
       "sha256": "88a175909e1f9b5593caed4a071696709aa63f18c3e01550944b08a0ffe19f66",
       "reason": "Tomato and soybean pass: the selected stage before its recorded colour key removed a soil disc.",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/370fbdad2d13effdd5ffdf4182e2aaa19fb4fb4f/assets/phobos-agriculture/source/tomato-young-unkeyed.png"
+    },
+    {
+      "path": "assets/phobos-medical/source/ward3-base-chatgpt.png",
+      "sha256": "9fd920817e3dded0e623a65914fa4d762cabf1b83d9c25707275d173bbdb6d4a",
+      "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
+      "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/source/ward3-fitting-pixellab.png",
+      "sha256": "714a2b0042e56bd7e4b589b26439728181a8c061cb752d1ca3ae77e35716379f",
+      "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
+      "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/palette.png",
+      "sha256": "83896ac0a0e05f5190a463f8e033fef23967b9be55bc64b9f28a68758912024a",
+      "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
+      "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/ward3-base-master.png",
+      "sha256": "fecf1089bcb525e32c29411bd7d3290ee3297cbd820ced526c0c57d0c3cfc989",
+      "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
+      "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/phobos-medical/base-preview.png",
+      "sha256": "ff240916e39b10d906672dcfb0667bfd72e5510c672521ae61ec727da29efea9",
+      "reason": "Superseded by owner direction on 4 October 2026: 2075 nanomedical bed concept.",
+      "archiveCommit": "fd98de450ee10d346a041cfea4a928737b848ffc",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
     }
   ],
   "additions": [

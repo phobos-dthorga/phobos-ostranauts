@@ -3416,5 +3416,30 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "ward3-medical-bed",
+    "sourceSHA256": "369bb431a34defdfb899ba95b22dd0039ecb5c20836562d74ddb4a7edd7bb612",
+    "nativeSize": [
+      48,
+      80
+    ],
+    "pivot": [
+      24,
+      40
+    ],
+    "sourceBounds": [
+      4,
+      2,
+      92,
+      158
+    ],
+    "exports": {
+      "mods/PhobosMedical/images/phobos/medical/PhobosMedicalBed.png": "2c6ebd2350cf012566fbbdae265f70830311b78c7631592a91e638c2590c3213",
+      "mods/PhobosMedical/images/phobos/medical/PhobosMedicalBedNormal.png": "1e3829bdece516099c10e470ee80ebc8518a73592d505934d7e8ce77a3d78759"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

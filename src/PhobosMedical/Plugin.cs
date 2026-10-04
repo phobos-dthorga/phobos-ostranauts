@@ -16,7 +16,7 @@ namespace PhobosMedical;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = MedicalRules.Owner;
-    public const string Version = "0.1.0";
+    public const string Version = "0.1.1";
     public const string MinimumFrameworkVersion = "0.82.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;

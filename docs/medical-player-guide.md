@@ -19,8 +19,9 @@ for the current minimum). Automated checks pass; in-game checks are still pendin
 3. Right-click it. You will see **Rest and recover**, **Sleep**, **Lay patient
    here** and **Control Panel**.
 
-Until its own artwork is made, the Ward-3 looks like the vanilla medical bed. Its
-name and Control Panel tell them apart.
+The Ward-3 is the off-white bed with capped cartridges at its head and two folded
+treatment arms. Those are styling for a 2075 sickbay: its healing is the game's own
+medical rest, not nanomachine surgery.
 
 ## Three ways into the bed
 

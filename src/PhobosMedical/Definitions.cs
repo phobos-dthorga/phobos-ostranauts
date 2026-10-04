@@ -126,19 +126,10 @@ internal static class Definitions
             // Walk-to and lie-down point in the middle of the mattress, as the Infirmaway's; power from the wall row behind its head.
             co.mapPoints = new[] { MedicalRules.UsePoint + "," + MedicalRules.PatientPointOffset, MedicalRules.SleepPoint + "," + MedicalRules.PatientPointOffset,
                 "PowerA,0," + ApplianceDefinitions.WallRowY(MedicalRules.Depth) };
-            StandInArt(item, co, form);
+            // The Halewright art (Medical 0.1.1) on every form, drawn as low as the game's own beds so a patient
+            // lies on top of it; damaged forms take the game's damage tint over the same image.
+            item.fZScale = MedicalRules.BedZScale;
+            co.strPortraitImg = item.strImg;
         }
-    }
-
-    /// <summary>Until the Halewright artwork is made, each form shows the matching vanilla Infirmaway form, referenced
-    /// by name at run time (nothing of the game's is copied into the package). The bed draws as low as the game's own
-    /// beds, so a patient lies on top of it.</summary>
-    private static void StandInArt(JsonItemDef item, JsonCondOwner co, string form)
-    {
-        string donorName = MedicalRules.StandInDonor(form);
-        if (DataHandler.dictItemDefs == null || !DataHandler.dictItemDefs.TryGetValue(donorName, out var donor)) return;
-        item.strImg = donor.strImg; item.strImgNorm = donor.strImgNorm; item.strImgDamaged = donor.strImgDamaged; item.strDmgColor = donor.strDmgColor;
-        item.fZScale = donor.fZScale;
-        co.strPortraitImg = donor.strImg;
     }
 }

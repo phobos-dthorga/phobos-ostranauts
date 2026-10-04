@@ -1,5 +1,15 @@
 # Rejected artwork archive
 
+## Ward-3 superseded direction, 4 October 2026
+
+Five Medical artwork binaries (the initial hospital-bed source, PixelLab fitting,
+input palette and two base previews/masters) were verified byte for byte in local
+commit `fd98de450ee10d346a041cfea4a928737b848ffc` on `codex/rejected-artwork`.
+This commit has not been pushed; its entries in the JSON inventory have no public
+URL. The owner's revised 2075 nanomedical concept and all prompt/cost records stay
+in `assets/phobos-medical/`. No selected runtime source was removed.
+
+
 Rejected and unselected image originals are preserved on [codex/rejected-artwork](https://github.com/phobos-dthorga/phobos-ostranauts/tree/codex/rejected-artwork). The branch starts from the complete pre-cleanup repository snapshot, retaining original paths and contemporaneous provenance. Do not merge its rejected binaries back into main.
 
 The first 26 images below were removed from the current main tree on 27 September 2026. Selected masters, required generation inputs, native exports and textual provenance stay on main. This is ordinary branch cleanup, not a history rewrite; older main commits still contain these files.
