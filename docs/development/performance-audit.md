@@ -957,3 +957,10 @@ one `BulkVessels.Aboard` pass and a line-reach check per tank) runs once per dry
 not per step. Loading the press walks the bench's own six-cell tray once per crew action.
 The V4's two new charges add two catalogue entries and one more gas link (methane now
 both drawn and stored); charge settlement is unchanged. No capture accompanies this change.
+
+## 4 October: fibre flax (L30)
+
+L30 — Agriculture 0.45.0: one more crop row and one more B2 job mode. A scutching job
+reads its bound bundle once per power step, as the recovery job does. The flax crew
+order checks the bench's six-cell tray for pressable residue once per offer. No capture
+accompanies this change.

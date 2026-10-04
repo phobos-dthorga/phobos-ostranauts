@@ -53,6 +53,20 @@ biomass includes its unrecovered water. This is simplified gameplay chemistry.
 The first version processes one recorded packet per stage; batch aggregation
 and detailed mineral recipes remain possible later improvements.
 
+## Flax scutching (Agriculture 0.45.0)
+
+The B2 also scutches **flax straw** from a flax harvest. Put a 0.25 kg bundle in the
+Inventory, choose **Prepare flax scutching** (one minute of crew setup), then Start.
+At 0.05 kWh a bundle gives two of the game's **clean scrap cloth** (25 g each) and
+0.2 kg of shives as recorded residue (0.17 kg plant matter, 5 g minerals, 25 g
+water) for the straw press. The yield, 20% of the straw as cloth, sits between the
+roughly 15% after industrial hackling and 25% after scutching reported for flax in
+*Comparing flax and hemp fibres yield and mechanical properties after
+scutching/hackling processing*, Industrial Crops and Products, 2021
+([ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0926669021008104)).
+Spinning and weaving are folded into the bench's work: the game has items for
+neither.
+
 ## Straw press (Agriculture 0.44.0)
 
 The B2 also has a **straw press** for crop waste the racks leave behind. Crop residue

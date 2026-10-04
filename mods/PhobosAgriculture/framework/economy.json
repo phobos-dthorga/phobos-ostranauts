@@ -230,6 +230,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowContinuanceFlax": {
+      "merchant": "ItmOKLGSupplyKioskInv",
+      "item": "PhobosVerdemorrowContinuanceFlax",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGSupplyKioskInv_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGSupplyKioskInv",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -314,6 +320,12 @@
       "condition": "Pristine",
       "chance": 0.65
     },
+    "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowContinuanceFlax": {
+      "merchant": "ItmOKLGFixer",
+      "item": "PhobosVerdemorrowContinuanceFlax",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
     "PhobosAgricultureStock_ItmOKLGFixer_PhobosVerdemorrowGroundworkNutrients": {
       "merchant": "ItmOKLGFixer",
       "item": "PhobosVerdemorrowGroundworkNutrients",
@@ -395,6 +407,12 @@
     "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceSoybean": {
       "merchant": "ItmTraderSanDiegoHalvorsonInv",
       "item": "PhobosVerdemorrowContinuanceSoybean",
+      "condition": "Pristine",
+      "chance": 0.65
+    },
+    "PhobosAgricultureStock_ItmTraderSanDiegoHalvorsonInv_PhobosVerdemorrowContinuanceFlax": {
+      "merchant": "ItmTraderSanDiegoHalvorsonInv",
+      "item": "PhobosVerdemorrowContinuanceFlax",
       "condition": "Pristine",
       "chance": 0.65
     },
@@ -567,6 +585,9 @@
       "PhobosVerdemorrowContinuanceSoybean": {
         "chance": 0.65
       },
+      "PhobosVerdemorrowContinuanceFlax": {
+        "chance": 0.65
+      },
       "PhobosVerdemorrowGroundworkNutrients": {
         "chance": 0.65
       },
@@ -652,7 +673,8 @@
         "PhobosVerdemorrowContinuanceWheat": 0.01,
         "PhobosVerdemorrowContinuanceTomato": 0.02,
         "PhobosVerdemorrowContinuanceSoybean": 0.01,
-        "PhobosVerdemorrowGroundworkNutrients": 0.08,
+        "PhobosVerdemorrowContinuanceFlax": 0.01,
+        "PhobosVerdemorrowGroundworkNutrients": 0.07,
         "PhobosVerdemorrowGroundworkIrrigation": 0.06,
         "PhobosVerdemorrowGroundworkRecoveryCartridge": 0.05,
         "PhobosVerdemorrowWaterConduitLoose": 0.04
@@ -686,6 +708,7 @@
       "PhobosVerdemorrowContinuanceWheat": "Neutral",
       "PhobosVerdemorrowContinuanceTomato": "Neutral",
       "PhobosVerdemorrowContinuanceSoybean": "Neutral",
+      "PhobosVerdemorrowContinuanceFlax": "Neutral",
       "PhobosVerdemorrowGroundworkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkBulkNutrients": "Neutral",
       "PhobosVerdemorrowGroundworkIrrigation": "Neutral",

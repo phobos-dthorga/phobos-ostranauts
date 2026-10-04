@@ -335,7 +335,9 @@
   Manufacturing 0.37.0 burns a bale to CO2 (V4 revision 13) or chars four into carbon
   stock (revision 14), the char a recorded value exception. The owner then delegated
   phase 3b and phase 4 decisions while away; agent choices are marked as such in the
-  crop expansion record.
+  crop expansion record. Agriculture 0.45.0 (phase 4): fibre flax, whose straw the B2
+  scutches (a third workup mode) into the game's own clean scrap cloth, the shives
+  going to the straw press; flax straw is unsold; no oil press until oil has a use.
 
 ## Manufacturing direction (2026-09-25)
 

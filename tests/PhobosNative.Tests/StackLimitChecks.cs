@@ -31,6 +31,9 @@ internal static class StackLimitChecks
             ["PhobosVerdemorrowHearthSoybeans"] = 10,
             // Agriculture 0.44.0: straw bales, a fixed 1 kg each.
             ["PhobosVerdemorrowStrawBale"] = 10,
+            // Agriculture 0.45.0: flax.
+            ["PhobosVerdemorrowContinuanceFlax"] = 25,
+            ["PhobosVerdemorrowFlaxStraw"] = 10,
             ["PhobosVerdemorrowGroundworkRecoveryCartridge"] = 3,
             ["PhobosVerdemorrowGroundworkBulkNutrients"] = 3,
             ["PhobosVerdemorrowGroundworkIrrigation"] = 3,

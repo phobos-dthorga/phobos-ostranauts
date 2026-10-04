@@ -143,13 +143,13 @@ flowchart TD
    Remove cargo and replant. Full storage keeps the crop intact; harvest again
    after making room.
 
-| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat | Dwarf tomato | Soybean |
-| --- | --- | --- | --- | --- | --- |
-| Duration | 96 game hours | 48 game hours | 84 game hours | 64 game hours to first ripe | 90 game hours |
-| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW | 0.70 kW | 0.65 kW |
-| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh | 44.8 kWh to first ripe | 58.5 kWh |
-| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g | 4.962 kg / 25 g | 0.774 kg / 24 g |
-| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue | fourteen 0.25 kg tomato portions, one seed packet, 1.5 kg vine residue (or up to three picks first) | one 0.25 kg bean portion, one seed packet, 0.62 kg straw residue |
+| Ideal complete cycle | Potatoes | Lettuce | Dwarf wheat | Dwarf tomato | Soybean | Fibre flax |
+| --- | --- | --- | --- | --- | --- | --- |
+| Duration | 96 game hours | 48 game hours | 84 game hours | 64 game hours to first ripe | 90 game hours | 90 game hours |
+| Active electrical demand | 0.75 kW | 0.40 kW | 1.20 kW | 0.70 kW | 0.65 kW | 0.90 kW |
+| Cycle energy | 72 kWh | 19.2 kWh | 100.8 kWh | 44.8 kWh to first ripe | 58.5 kWh | 81 kWh |
+| Water / nutrients | 4.624 kg / 40 g | 1.2658 kg / 5 g | 1.165 kg / 45 g | 4.962 kg / 25 g | 0.774 kg / 24 g | 1.375 kg / 35 g |
+| Immediate ideal harvest | ten 0.4 kg raw portions, one 0.2 kg seed potato, 0.8 kg residues | four 0.25 kg edible portions, 0.2 kg residues | one 0.4 kg grain portion, one 50 g seed wheat packet, 0.95 kg straw residue | fourteen 0.25 kg tomato portions, one seed packet, 1.5 kg vine residue (or up to three picks first) | one 0.25 kg bean portion, one seed packet, 0.62 kg straw residue | four 0.25 kg flax straw bundles, one seed packet, 0.59 kg residue |
 
 Delays and respiration reduce biomass, and damage reduces edible output. Whole
 portion rounding can reduce a delayed harvest by one portion; the remainder stays
@@ -352,3 +352,21 @@ if the water ration is gone when the cooking finishes.
 Tomato and soybean figures follow the ratios NASA's crop chamber found; the hours,
 picks, yields and food values are gameplay choices. See the
 [crop expansion record](development/agriculture-crop-expansion.md).
+
+## Fibre flax and cloth
+
+Flax (Agriculture 0.45.0) is grown for its stems, not to eat. Sow one 10 g
+**Continuance flax seed** packet; a healthy harvest after 90 hours gives four 0.25 kg
+bundles of **flax straw**, gives the packet back, and leaves 0.59 kg of residue.
+
+Put a bundle in a **Groundwork B2** and choose **Prepare flax scutching**, then
+**Start**. A few minutes at 0.5 kW turn one bundle into two **clean scrap cloth**
+(the game's own, 25 g each) and 0.2 kg of woody shives as recorded residue.
+Clean cloth is what bed and medical-bed repairs take, and what buffing uses during
+a weapon Restore, so a flax rack keeps those repairs going far from a station. Load
+the shives into the B2's [straw press](agriculture-nutrient-production.md#straw-press-agriculture-0440)
+with the rest of your crop waste. A crew order **Scutch flax into cloth** keeps the
+bench working and loads the shives into the press as they come.
+
+Flax straw is not sold: buying bundles to turn into cloth would just be trading.
+Linseed oil and edible linseed are not in this version.

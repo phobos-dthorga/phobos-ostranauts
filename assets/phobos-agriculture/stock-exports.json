@@ -460,5 +460,49 @@
     "sampling": "nearest; whole canvas; no independent crop",
     "exportSHA256": "b0583b40ae8d330d1fadcdba911a3213e56061f7708cd725f2a11d0fb7347f29",
     "normalSHA256": "b6efb83c592072f43ed4d74f87e7955c75c30751da3616f617766e83d7c48337"
+  },
+  {
+    "key": "flax_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-flax.png",
+    "sourceSHA256": "49cdafe6869ce51c8f22d7b42948f6d2cc4a236ce73681a3d1fbca58cb34b22f",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      10,
+      9,
+      54,
+      54
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "c730e0f9a09a22c41d945511fbeaaf7c908c123f3dc98ce7bc0bc6e405b0d472",
+    "normalSHA256": "984a64dd3774dd34c250bbbe7666692f6f054081fbf271cbfcf5866f454047f4"
+  },
+  {
+    "key": "flax_straw",
+    "source": "assets/phobos-agriculture/source/stock-flax-straw.png",
+    "sourceSHA256": "349ceef0d6bbfc9ecd95a9cdf052492801f6ccbdbce3310aad8792f838ee3137",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      2,
+      12,
+      63,
+      54
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "971353242c6d1892082134d239a781ed360cb17805e988d4e6480aa9a75301b1",
+    "normalSHA256": "18ba1eff7e4ae451d546d3147458851b1a144f1dce184a71b7f247fbba660402"
   }
 ]

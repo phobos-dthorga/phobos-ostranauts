@@ -26,7 +26,7 @@ internal static class Definitions
     internal const string PlantPrefix = "plant-", MixPrefix = "mix-";
     /// <summary>The crew work actions: one planting action per crop in the crops pack, between the fixed ones.</summary>
     internal static string[] Work = BuildWork();
-    private static string[] BuildWork() => new[] { "recover-crop", "formulate-nutrients", "bale-straw" }.Concat(Crops.All.Select(c => PlantPrefix + c.Id))
+    private static string[] BuildWork() => WorkupDefinitions.Work.Concat(Crops.All.Select(c => PlantPrefix + c.Id))
         .Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "pick", "clear", "drain" }).ToArray();
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
     /// <summary>Work action ids to their actions, and the consumable supplies, built for the interaction hooks that run
@@ -80,7 +80,7 @@ internal static class Definitions
         {
             Phobos.Ostranauts.Framework.Crew.CrewSpecialities.RegisterPractical(WorkId(action), "Agriculture");
             var work = NativeDefinitions.Clone(controls); work.strName = WorkId(action); work.strTitle = work.strTooltip = Text.Action(action);
-            work.fDuration = action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw" ? 1d / 60 : action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
+            work.fDuration = WorkupDefinitions.IsWork(action) ? 1d / 60 : action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
             d.Interactions[work.strName] = work;
         }
         ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, RackKg, AgricultureEconomy.Price(Rack), "phobos/agriculture/Rack", Controls, .02);
@@ -92,7 +92,7 @@ internal static class Definitions
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack, StringComparison.Ordinal))) co.strContainerCT = Rack + "Supplies";
         EquipmentInventory.Apply(d, Rack, RackInventory);
         EquipmentInventory.Apply(d, Cooker, CookerInventory);
-        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution" && a!="recover-crop" && a!="formulate-nutrients" && a!="bale-straw").Select(WorkId)).ToArray();
+        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution" && !WorkupDefinitions.IsWork(a)).Select(WorkId)).ToArray();
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);
         BulkDefinitions.Add(d);

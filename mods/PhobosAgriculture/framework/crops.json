@@ -124,6 +124,26 @@
       "feed": "soybean-v1",
       "feedCommodity": "soybean feed",
       "art": "Soybean"
+    },
+    "flax": {
+      "notes": "Fibre flax (Agriculture 0.45.0): one 10 g packet of flax seed sown dense into a 1.6 kg stand over 90 hours at 0.9 kW. Pulled at yellow ripeness and retted, a harvest gives four 0.25 kg bundles of flax straw for the B2 to scutch into the game's clean scrap cloth, keeps one packet of linseed back for the next sowing, and leaves about 0.59 kg of roots, leaves and bolls as residue. Fibre flax takes about 90 to 100 days from sowing to pulling; the hours, light and yields are authored gameplay balance. See docs/development/agriculture-crop-expansion.md.",
+      "hours": 90,
+      "kw": 0.9,
+      "seedKg": 0.01,
+      "finalKg": 1.6,
+      "carbonKg": 1.2,
+      "nutrientKg": 0.035,
+      "waterKg": 1.375,
+      "vapourKg": 0.3,
+      "seedCarbonKg": 0.009,
+      "edibleKg": 1.05,
+      "keptStockKg": 0.01,
+      "portionKg": 0.25,
+      "stock": "PhobosVerdemorrowContinuanceFlax",
+      "produce": "PhobosVerdemorrowFlaxStraw",
+      "feed": "flax-v1",
+      "feedCommodity": "flax feed",
+      "art": "Flax"
     }
   },
   "co2Response": {
@@ -143,6 +163,8 @@
     "PhobosVerdemorrowContinuanceSoybean": { "text": "soybean_seed" },
     "PhobosVerdemorrowSoybeans": { "text": "soybeans" },
     "PhobosVerdemorrowHearthSoybeans": { "notes": "A bowl from 0.25 kg of dry beans: about three potato portions of food energy and far more protein, so it satisfies for longer.", "text": "soybean_stew", "hunger": 8, "satiety": 6 },
+    "PhobosVerdemorrowContinuanceFlax": { "text": "flax_seed" },
+    "PhobosVerdemorrowFlaxStraw": { "notes": "Not food: retted flax straw for the B2 to scutch.", "text": "flax_straw" },
     "PhobosVerdemorrowHearthFlatbread": { "notes": "The game's own prepared-meal values (food 9, satiety 5): a loaf from 0.4 kg of grain is about four potato portions of food energy.", "text": "flatbread", "hunger": 9, "satiety": 5 }
   }
 }

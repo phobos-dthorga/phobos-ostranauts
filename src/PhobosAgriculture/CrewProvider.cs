@@ -16,12 +16,12 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
     public bool Validate(CondOwner co,StandingOrder draft,out string reason){reason="";return true;}
     public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?IsOutput(co,c,draft):
         BulkDefinitions.IsWaterTank(co)?c.strCODef==Definitions.Irrigation:Definitions.IsCooker(co)?HearthRecipes.IsInput(c.strCODef)||HearthRecipes.IsExtra(c.strCODef):WorkupDefinitions.IsBench(co)?
-        c.strCODef==(draft.Recipe=="recover-crop"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate)||c.strCODef==WorkupDefinitions.Makeup:
+        c.strCODef==BenchInput(draft.Recipe)||c.strCODef==WorkupDefinitions.Makeup:
         c.strCODef==Definitions.Irrigation||c.strCODef=="LiquidWater"||c.strCODef.StartsWith("PhobosVerdemorrow",StringComparison.Ordinal));
     public string Id => Plugin.Id;
     public bool Supports(CondOwner equipment) => Definitions.Machine(equipment)||BulkDefinitions.IsWaterTank(equipment);
     public bool RoutineResume(CondOwner equipment) => true;
-    public IReadOnlyList<string> Recipes(CondOwner co) => BulkDefinitions.IsWaterTank(co)?new[]{"bulk-fill"}:Definitions.IsCooker(co)?new[]{"cook"}:WorkupDefinitions.IsBench(co)?new[]{"recover-crop","formulate-nutrients"}:
+    public IReadOnlyList<string> Recipes(CondOwner co) => BulkDefinitions.IsWaterTank(co)?new[]{"bulk-fill"}:Definitions.IsCooker(co)?new[]{"cook"}:WorkupDefinitions.IsBench(co)?new[]{"recover-crop","formulate-nutrients","scutch-flax"}:
         IrrigationDefinitions.IsSupply(co)?new[]{"supply","supply-charges","recover-solution"}:Crops.All.Select(c=>c.Id).ToArray();
     public string RecipeLabel(string recipe) => Text.Has("crew_recipe_"+recipe)?Text.Get("crew_recipe_"+recipe):Crops.Find(recipe) is Crop grown?Text.Get("crew_recipe_other",grown.Name):Text.Get("crew_recipe_"+recipe);
     public CrewWorkOffer? Next(CondOwner co,StandingOrder order,out string reason)
@@ -53,8 +53,10 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         if(WorkupDefinitions.IsBench(co))
         {
             if(s.Workup.Mode.Length>0)return b.Running?null:Act("start");
-            if(Stock(co,order,order.Recipe=="recover-crop"?WorkupDefinitions.Concentrate:WorkupDefinitions.Mixture)>=order.Stock) {reason=Text.Get("crew_stock_met");return null;}
-            string input=order.Recipe=="recover-crop"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate;
+            // Flax shives go into the straw press as they come, so the tray never fills with them (Agriculture 0.45.0).
+            if(order.Recipe=="scutch-flax" && Service.PressLoadable(co))return Act("bale-straw",60);
+            if(Stock(co,order,BenchProduct(order.Recipe))>=order.Stock) {reason=Text.Get("crew_stock_met");return null;}
+            string input=BenchInput(order.Recipe);
             if(!CrewLogistics.Contents(co).Any(c=>c.strCODef==input))return Supply(input)??Blocked(out reason);
             if(order.Recipe=="formulate-nutrients" && !CrewLogistics.Contents(co).Any(c=>c.strCODef==WorkupDefinitions.Makeup))return Supply(WorkupDefinitions.Makeup)??Blocked(out reason);
             return Act(order.Recipe,60);
@@ -117,12 +119,14 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             return new("bulk-load",Text.Get("bulk-load"),CrewRole.Agriculture,co,10,"Agriculture");
         return CrewLogistics.Supply(co,order,co,c=>c.strCODef==Definitions.Irrigation,CrewRole.Agriculture)??Blocked(out reason);
     }
+    private static string BenchInput(string recipe)=>recipe=="recover-crop"?WorkupDefinitions.Residue:recipe=="scutch-flax"?FlaxScutching.Straw:WorkupDefinitions.Concentrate;
+    private static string BenchProduct(string recipe)=>recipe=="recover-crop"?WorkupDefinitions.Concentrate:recipe=="scutch-flax"?FlaxScutching.Cloth:WorkupDefinitions.Mixture;
     private static int Stock(CondOwner co,StandingOrder order,string id)=>CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==id);
     private static bool IsOutput(CondOwner co,CondOwner item,StandingOrder order)
     {
         string id=item.strCODef;
         if(Definitions.IsCooker(co))return HearthRecipes.IsProduct(id);
-        if(WorkupDefinitions.IsBench(co))return id==WorkupDefinitions.Spent || id==WorkupDefinitions.Mixture || id==WorkupDefinitions.Bale || order.Recipe=="recover-crop" && id==WorkupDefinitions.Concentrate;
+        if(WorkupDefinitions.IsBench(co))return id==WorkupDefinitions.Spent || id==WorkupDefinitions.Mixture || id==WorkupDefinitions.Bale || order.Recipe=="recover-crop" && id==WorkupDefinitions.Concentrate || order.Recipe=="scutch-flax" && id==FlaxScutching.Cloth;
         if(IrrigationDefinitions.IsSupply(co))return id==Service.RecoveryReject || id==Definitions.Irrigation;
         // Produce leaves the rack; planting stock leaves only beyond the one unit kept for the next planting.
         return id==Definitions.Residue || id==WorkupDefinitions.Residue || (Crops.IsStock(id) ? CrewLogistics.Contents(co).Count(c=>c.strCODef==id)>1 : Crops.IsProduce(id));

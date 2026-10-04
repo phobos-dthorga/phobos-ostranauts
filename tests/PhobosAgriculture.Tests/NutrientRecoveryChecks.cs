@@ -52,6 +52,8 @@ internal static class NutrientRecoveryChecks
             Reject(()=>new StrawPress().Absorb(StrawPress.CapacityKg+1,0,1),"The press refuses more than it holds");
             Near(StrawPress.BaleOrganicKg+StrawPress.BaleMineralsKg+StrawPress.BaleWaterKg,StrawPress.BaleKg,"A bale's parts make its kilogram");
             var wet=new StrawPress();wet.Absorb(1,.03,.2);check(wet.Bales==0&&wet.Surplus>0,"Too little straw for a bale still dries");
+            var scutch=WorkupJob.Read(new WorkupJob{Mode="scutch",Input="flax1",Energy=.02}.Save());check(scutch.Mode=="scutch"&&scutch.Input=="flax1"&&Math.Abs(scutch.Energy-.02)<1e-12,"A flax scutching job survives reload");
+            Reject(()=>new WorkupJob{Mode="scutch",Input="flax1",Supplement="salts"}.Save(),"Scutching takes no supplement");
         }
         var reservoir=new CropState{Water=20,Running=true};var solution=new NutrientSolution{Profile="potato-v1"};
         Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Full liquid capacity does not consume a physical charge");

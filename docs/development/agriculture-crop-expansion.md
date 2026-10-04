@@ -29,7 +29,7 @@ Chili, radish and activated char were offered and not chosen.
 | 1 | Agriculture 0.40.0 | Crops and Hearth-2 recipes as data packs; no change in play | Built, offline checks only |
 | 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
 | 3 | Agriculture 0.43.0 and 0.44.0, Manufacturing 0.37.0 | CO2 response, rack vapour overflow to a linked tank, the B2 straw press and both V4 straw charges (offline checks only) | Built |
-| 4 | later | Flax: fibre to cloth, linseed; oil press decision | Needs its own design record |
+| 4 | Agriculture 0.45.0 | Fibre flax: straw bundles scutched at the B2 into the game's clean scrap cloth, shives to the straw press; linseed only as planting stock; no oil press yet (offline checks only) | Built |
 | 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
 | 5b | later | Rubber dandelion: latex to seals | Needs an owner decision on repair supplies |
 | 6 | later | Spirulina bioreactor, a separate machine | Needs its own design record |
@@ -394,3 +394,43 @@ split closes by element. Heats use formation enthalpies with glucose
 step test refuses; the owner's choice of both routes accepts it, and the native
 value check records it as an exception: bales are priced as waste and sold by no
 one, so no bought loop exists.
+
+## Phase 4: fibre flax (Agriculture 0.45.0)
+
+The owner delegated phase 4 while away (4 October 2026); every choice below is an
+agent decision, open to revision.
+
+**Why cloth.** The game's clean scrap cloth (`ItmScrapClothClean`, 25 g, 2.40 cr) is
+a real consumable: ten native repairs take it (beds, medical beds and others, four
+to six each) and weapon Restore uses absorbent scrap cloth as its buffing tool. A
+ship far from a station runs short of it; flax closes that gap with the game's own
+item, so no new textile identity is needed.
+
+**The crop.** One 10 g packet sown dense, 90 hours at 0.9 kW, 1.6 kg stand; four
+0.25 kg bundles of retted flax straw, the packet back, 0.59 kg residue. Fibre flax
+takes about 90 to 100 days from sowing to pulling; the hours, light and yields are
+authored, kept in the same proportion to the other crops as their real cycles.
+
+**Scutching.** A third B2 job (`scutch`): one 0.25 kg bundle, authored as 88%
+organic matter, 2% minerals and 10% water, gives two clean cloth (0.05 kg, 20% of
+the straw) and 0.2 kg of shives as recorded residue (0.17 kg organic, 5 g minerals,
+25 g water) that the straw press takes. Source: *Comparing flax and hemp fibres
+yield and mechanical properties after scutching/hackling processing*, Industrial
+Crops and Products (2021), [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S0926669021008104):
+about 25% fibre after scutching and 15% after hackling at industrial scale; authors
+not yet recorded here (to complete before quoting). Spinning and weaving are folded
+into the bench's work; the game has items for neither. 0.05 kWh per bundle is
+authored.
+
+**Trade.** Flax straw is priced at 2 cr and sold by no one, so a bought bundle can
+never be resold as 4.80 cr of cloth. The seed packet is sold like the other seed (12
+cr, Neutral faction tier, one crate share taken from the nutrient charge's so the
+crate total stays 0.30).
+
+**Crew.** A bench order **Scutch flax into cloth** fetches bundles, runs the job and
+hauls the cloth out; between jobs it loads pressable residue into the straw press,
+so shives never fill the six-cell tray. It does not run the dryer, which needs a tank.
+
+**Not done.** Linseed exists only as the planting packet. An oil press, shared with
+soybean oil, still waits for a real use for oil (the plan's rule); edible linseed
+was left out to keep the crop's decision about cloth.

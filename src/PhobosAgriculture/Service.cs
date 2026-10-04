@@ -304,7 +304,7 @@ internal static partial class Service
                 if (!Paused(s)) { message = Text.Get("press_pause"); return false; }
                 bool emptied = EmptyPress(s); message = s.Notice; return emptied;
             }
-            if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw")
+            if (WorkupDefinitions.IsWork(action))
             {
                 if (binding != null) { message = Text.Get("local_work"); return false; }
                 CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
@@ -312,7 +312,7 @@ internal static partial class Service
             if (action != "start" && action != "resume" && action != "pause") { message = Text.Get("help"); return false; }
             if (action != "pause" && s.Workup.Mode.Length == 0 && !PressWork(s)) { message = Text.Get(s.Press.Empty ? "workup_input" : "press_short"); return false; }
         }
-        else if (action == "recover-crop" || action == "formulate-nutrients" || action == "cancel-workup" || action == "bale-straw" || action == "empty-press") { message = Text.Get("help"); return false; }
+        else if (WorkupDefinitions.IsWork(action) || action == "cancel-workup" || action == "empty-press") { message = Text.Get("help"); return false; }
         if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;

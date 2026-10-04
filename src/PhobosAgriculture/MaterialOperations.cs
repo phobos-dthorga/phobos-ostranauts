@@ -26,8 +26,8 @@ internal static partial class Service
         var access = Access(co, null, actor); if (access != null) return access;
         if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) return Text.Get("repair");
         if (IrrigationDefinitions.IsSupply(co) && !SupplyWork.Contains(action)) return Text.Get("help");
-        if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw" ? null : Text.Get("help");
-        if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw") return Text.Get("help");
+        if (WorkupDefinitions.IsBench(co)) return WorkupDefinitions.IsWork(action) ? null : Text.Get("help");
+        if (WorkupDefinitions.IsWork(action)) return Text.Get("help");
         var b = s.State;
         if (action == "drain") return b.Water + b.Nutrients + s.Solution.TotalKg + s.Line.TotalKg > 0 ? null : Text.Get("empty");
         if (action == "harvest") return b.CropId.Length > 0 && b.Ready ? null : Text.Get("not_ready");
@@ -52,8 +52,8 @@ internal static partial class Service
         if (WorkProblem(co, actor, action) is string problem) { s.Notice = problem; return false; }
         try
         {
-            if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" ? QueueWorkup(s,"recover") : action == "bale-straw" ? LoadPress(s) : action == "formulate-nutrients" && QueueWorkup(s,"formulate");
-            if (action == "recover-crop" || action == "formulate-nutrients" || action == "bale-straw") return false;
+            if (WorkupDefinitions.IsBench(co)) return action == "bale-straw" ? LoadPress(s) : WorkupDefinitions.ModeOf(action) is string mode && QueueWorkup(s, mode);
+            if (WorkupDefinitions.IsWork(action)) return false;
             if(action=="recover-solution") return QueueRecovery(s);
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
             if (action == "pick") return Pick(s);

@@ -10,6 +10,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.45.0] - 2026-10-04 - Draft
+
+### Added
+
+- Fibre flax (owner-approved crop list, 4 October 2026). Sow a 10 g Continuance flax seed packet; a harvest after 90 hours gives four 0.25 kg bundles of flax straw and the packet back.
+- Flax scutching at the Groundwork B2: one bundle gives two of the game's own clean scrap cloth, the cloth bed and medical-bed repairs take and weapon buffing uses, and its woody shives as residue for the straw press.
+- A crew order, Scutch flax into cloth, keeps the bench working and loads the shives into the press.
+- Flax seed at the usual seed sellers and faction kiosks, and now and then in locked crates.
+
+### Save compatibility
+
+- Automatic. One new crop and a new bench job; nothing saved earlier changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- Flax straw is not sold, so it cannot be bought and turned into cloth for profit. Linseed oil and edible linseed are not included.
+- The cloth yield (20% of the straw) sits within published scutching and hackling yields; growth time, light and the bundle's make-up are gameplay choices.
+- Checked offline; not yet seen in the game.
+
 ## [0.44.0] - 2026-10-04 - Draft
 
 ### Added

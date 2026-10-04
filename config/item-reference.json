@@ -892,6 +892,34 @@
           "labels": {}
         },
         {
+          "key": "flax-seed",
+          "title": "Continuance Flax Seed",
+          "ids": [
+            "PhobosVerdemorrowContinuanceFlax"
+          ],
+          "function": "Planting stock for a fibre flax crop: one 10 g packet of linseed sows one rack.",
+          "use": "Place one in the rack and choose Sow flax seed after loading water and nutrients.",
+          "find": "Buy stock, find eligible crate loot, or keep the packet each flax harvest gives back. See the listed merchant offers for current retail availability. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "A healthy harvest returns one packet, so a flax rack restocks its own seed. Not food; linseed oil is not in this version.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "flax-straw",
+          "title": "Flax Straw",
+          "ids": [
+            "PhobosVerdemorrowFlaxStraw"
+          ],
+          "function": "A 0.25 kg bundle of pulled, retted flax stems: four from each flax harvest.",
+          "use": "Scutch it at a Groundwork B2 (Prepare flax scutching, then Start) for two of the game's clean scrap cloth and 0.2 kg of shives for the straw press.",
+          "find": "Harvest fibre flax. Never sold or found.",
+          "notes": "Clean scrap cloth is the game's own repair and buffing supply. The 20% cloth yield sits within published flax scutching and hackling yields; the bundle's make-up is authored.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "crop-residue",
           "title": "Crop Residue",
           "ids": [

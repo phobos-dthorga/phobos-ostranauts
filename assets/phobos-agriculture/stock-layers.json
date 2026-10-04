@@ -137,6 +137,18 @@
       "source": "stock-straw-bale.png",
       "label": "Straw bale",
       "definition": "PhobosVerdemorrowStrawBale"
+    },
+    {
+      "key": "flax_seed",
+      "source": "stock-seed-flax.png",
+      "label": "Flax seed",
+      "definition": "PhobosVerdemorrowContinuanceFlax"
+    },
+    {
+      "key": "flax_straw",
+      "source": "stock-flax-straw.png",
+      "label": "Flax straw",
+      "definition": "PhobosVerdemorrowFlaxStraw"
     }
   ]
 }

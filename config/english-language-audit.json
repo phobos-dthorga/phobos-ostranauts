@@ -1140,10 +1140,10 @@
         "src/PhobosAgriculture/Service.cs:260"
       ],
       "before": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/cancel-workup <B2 full object ID>",
-      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/bale-straw/cancel-workup/empty-press <B2 full object ID>",
+      "after": "phobosagriculture list | status/start/pause/receive/pause-receive/mix-potato/mix-lettuce/mix-lettuce-seed/water-only/water-routed/water-legacy/unlink-water/plant-potato/plant-lettuce/plant-lettuce-seed/load-water/load-irrigation/load-nutrients/recover-solution/cancel-recovery/harvest/clear/drain <full object ID> | link-water <full object ID> <full peer ID> | recover-crop/formulate-nutrients/scutch-flax/bale-straw/cancel-workup/empty-press <B2 full object ID>",
       "review20261004": {
         "decision": "rewrite",
-        "reason": "Console help lists the straw press commands (bale-straw, empty-press). Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+        "reason": "Console help lists the scutch-flax command. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
       }
     },
     {
@@ -2822,10 +2822,10 @@
         "src/PhobosAgriculture/WorkupDefinitions.cs:19"
       ],
       "before": "Groundwork B2: enclosed 2 x 2 nutrient workup bench. Recover concentrate from recorded crop residue, then formulate with equal-mass Groundwork makeup salts. 0.5 kW; finite inputs and retained spent biomass. Authored aggregate chemistry, not a chemical assay.",
-      "after": "Groundwork B2: put crop waste back to work. This enclosed 2 x 2 bench recovers concentrate from recorded crop residue, then mixes it with an equal mass of Groundwork makeup salts. Its straw press dries crop waste into 1 kg straw bales, sending the steam to a water tank it touches or shares a water line with. Uses 0.5 kW for nutrient work and 1 kW for drying. Nutrient recovery is simplified for play.",
+      "after": "Groundwork B2: put crop waste back to work. This enclosed 2 x 2 bench recovers concentrate from recorded crop residue, then mixes it with an equal mass of Groundwork makeup salts. It scutches flax straw into clean scrap cloth. Its straw press dries crop waste into 1 kg straw bales, sending the steam to a water tank it touches or shares a water line with. Uses 0.5 kW for nutrient work and 1 kW for drying. Nutrient recovery is simplified for play.",
       "review20261004": {
         "decision": "rewrite",
-        "reason": "Bench description gains the straw press, its tank and the dryer power. Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+        "reason": "Bench description gains flax scutching. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
       }
     },
     {
@@ -3121,10 +3121,10 @@
         "src/PhobosAgriculture/WorkupService.cs:101"
       ],
       "before": "Need recorded crop residue, or recorded concentrate plus enough makeup salts. Inputs must remain in this bench.",
-      "after": "Load recorded crop residue, or recorded concentrate with enough makeup salts. Keep the supplies in this bench until the job finishes.",
+      "after": "Load recorded crop residue, recorded concentrate with enough makeup salts, or a flax straw bundle. Keep the supplies in this bench until the job finishes.",
       "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
+        "decision": "rewrite",
+        "reason": "The missing-input message names flax straw as a third supply. Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
       }
     },
     {
@@ -67343,6 +67343,178 @@
       "after": "Straw press: {0:0.00} kg, {1} bale(s) ready to press"
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "plant-flax",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew action: sow flax, with its time.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Sow flax seed (15 minutes)",
+      "after": "Sow flax seed (15 minutes)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "flax_seed",
+      "category": "name",
+      "decision": "add",
+      "reason": "Item name: the flax seed packet.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Flax Seed (10 g)",
+      "after": "Flax Seed (10 g)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "flax_seed_desc",
+      "category": "description",
+      "decision": "add",
+      "reason": "Item description: what the packet sows and that harvests return it.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Continuance fibre flax seed from Verdemorrow Agronomics: linseed for a dense, tall stand grown for its stems. One packet sows one rack, and each harvest gives a packet back.",
+      "after": "Continuance fibre flax seed from Verdemorrow Agronomics: linseed for a dense, tall stand grown for its stems. One packet sows one rack, and each harvest gives a packet back."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "flax_straw",
+      "category": "name",
+      "decision": "add",
+      "reason": "Item name: the flax straw bundle.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Flax Straw (0.25 kg)",
+      "after": "Flax Straw (0.25 kg)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "flax_straw_desc",
+      "category": "description",
+      "decision": "add",
+      "reason": "Item description: what scutching gives and where the cloth is used.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Definitions.cs (Stock from the crops pack items section)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "A bundle of pulled, retted flax stems. Scutch it at a Groundwork B2 for two clean scrap cloth, the kind bed and medical-bed repairs and weapon buffing use; the woody leftovers go to the straw press.",
+      "after": "A bundle of pulled, retted flax stems. Scutch it at a Groundwork B2 for two clean scrap cloth, the kind bed and medical-bed repairs and weapon buffing use; the woody leftovers go to the straw press."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "flax",
+      "category": "name",
+      "decision": "add",
+      "reason": "Crop name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Fibre flax",
+      "after": "Fibre flax"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mix-flax",
+      "category": "control",
+      "decision": "add",
+      "reason": "W2 feed selection for flax.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Select flax feed (pause and unlink first)",
+      "after": "Select flax feed (pause and unlink first)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "solution_flax-v1",
+      "category": "name",
+      "decision": "add",
+      "reason": "Feed formulation name.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "flax feed v1",
+      "after": "flax feed v1"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_flax",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew order recipe: grow flax.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
+        "mods/PhobosAgriculture/framework/crops.json"
+      ],
+      "before": "Grow flax",
+      "after": "Grow flax"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "scutch-flax",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew action: prepare flax scutching, with its time.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/CrewProvider.cs:24",
+        "src/PhobosAgriculture/CrewProvider.cs:57",
+        "src/PhobosAgriculture/CrewProvider.cs:122",
+        "src/PhobosAgriculture/CrewProvider.cs:123",
+        "src/PhobosAgriculture/CrewProvider.cs:129",
+        "src/PhobosAgriculture/WorkupDefinitions.cs:20",
+        "src/PhobosAgriculture/WorkupDefinitions.cs:23",
+        "src/PhobosAgriculture/WorkupDefinitions.cs:24"
+      ],
+      "before": "Prepare flax scutching (1 minute)",
+      "after": "Prepare flax scutching (1 minute)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "workup_scutch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Bench job name while scutching.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/WorkupService.cs (workup_ plus the job mode)"
+      ],
+      "before": "Scutching flax into cloth",
+      "after": "Scutching flax into cloth"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crew_recipe_scutch-flax",
+      "category": "control",
+      "decision": "add",
+      "reason": "Crew order recipe: scutch flax into cloth.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosAgriculture/CrewProvider.cs (crew_recipe_ plus the recipe)"
+      ],
+      "before": "Scutch flax into cloth",
+      "after": "Scutch flax into cloth"
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -70213,8 +70385,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cfb29d5dbf5ea3947e2973adbaf0f1442bb4d40ea5a2a7b9d2cb005506dc3e90",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "b7250da02e437a373c91e3ff227fec1a06f0b4c113965fdc501d92663b8f9fb8",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "SUPPORT.md",
@@ -70241,15 +70413,15 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "2f2cc533f79c12748dc5e38070688f7412b0e8a45df71ceb3994092431d67d35",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
+      "sha256": "3f0579dbb42a794188acb3d3e53386a26ea714d727cfbb770a2cb69d9bc4e82c",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ed804d40197d755ea3a1648d6f6097b187f0ef9f5d8e10bbce8face0ee21ee7e",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "777aa11bf0450f7bc67f830bc6d247aa89c5120b1c8ca440fbeb953829d5e428",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
@@ -70262,8 +70434,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "bb3e7031119327eb479e0e3e4da9f0fd171b39c2a8497372e9a096805ac8aa7e",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "4084a8c628743c5bbb6a242194a46a49b391d062e310ef90f740b81f6d73326e",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -70373,8 +70545,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a53ef294081c17c2973fd960a8e612e364cede9f5710ba1547968df751058972",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "6db3a83a70ac8bb4a771227b1ab0816936134023bbd57c641fab3a8572ba69dc",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/crew-automation.md",
@@ -70401,8 +70573,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "a4a5500ae170da95ad9a5d854c3c35d43bfa4de3c59c8cc17d59a0e51e50ff2d",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
+      "sha256": "22d408918cc2c8e87b28c14d73b9484d41f920a88a9416e47e9783b07f5d9ca1",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -70422,8 +70594,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "883c8ca6e2d5206f6954688fc158c91d55b54694983a99d1732d65ffbbd375ab",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "34abcc5055c75353847f99357777e38cdeea659065486c639959bb2ea4668a1b",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -70765,8 +70937,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "fcbb0afab2d1d439d9a21324ab9a34c113be0355f08381f9b57964b6886b543b",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "3559d960a13a8b7cacdf278476ccd4df548b2b566b7f09a5a10168ef3be35ca9",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -70896,8 +71068,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "03d3c6ee023a89856340e49a2b37c96f3a2cba2ca3fb8ec3b27039b994d2fe72",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
+      "sha256": "d927e457f108729de2832793e6bfc1a9969aae4f84d4412665bb626c65cd5c58",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -71185,8 +71357,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "c2295515980e9c1fc7140c129321531347d81e27f594c6531f8ce49a3182d5dd",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "7011d6fea53aaf6bde02977d005807773d1e4a20531acc80a11041fcd2164055",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -71290,8 +71462,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "51569c42f6b5b78853c696666b47d225b32f7c884f2fe6971ba7c99a97c82329",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "911e77adc4089e867f7154f0bba1db0aa8b0d9a15749ec0d1356029ef27eb6cf",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -71444,22 +71616,22 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "23543a32578d6e7da387c9a07802a3ada50560acf9c7927f986da1b722959c6b",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "6719720dcb5ab755bef750301b4e25f290dce08d2dbf5ad91829111e4690b7aa",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9d2e69cc8175bd19fb8621ce036364bad6275711a3708e13fe7d0467abec2276",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "6a0513c7fbe54167fa54d5100ba75e49c14dfafd7203c64f75e36e758d35ed2f",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0bc96959403ca16dda236fb8ab8ea421dae2cad1996223d2a1be555b10829706",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "4dca0fa9ff09a02ce992d524e89c2a82b2798827edf5540c68b32a360802cf51",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "mods/PhobosAgriculture/framework/recipes.json",
@@ -71469,8 +71641,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e1b2514b6784cd5bbf8f954db0565b6506f60b6da52fd7ea31e0040ad13cfbef",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.44.0 and Manufacturing 0.37.0: straw bales from crop waste, burned or charred in the V4."
+      "sha256": "395604651d2634881c564951c6925974fcedf2e2290299ac577f18c051c5edc6",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.45.0: fibre flax scutched into clean scrap cloth."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

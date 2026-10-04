@@ -62,6 +62,25 @@ internal static partial class Service
         try{var r=NutrientRecovery.ReadFull(fields,co.GetTotalMass());return r.Organic is double o&&o>1e-9?(r.Nutrient,o):null;}
         catch(Exception error) when (error is ArgumentException || error is FormatException || error is KeyNotFoundException || error is OverflowException){return null;}
     }
+    /// <summary>Flax scutching (Agriculture 0.45.0): one retted straw bundle gives two of the game's clean scrap cloth and its
+    /// shives as recorded residue, which the straw press takes.</summary>
+    private static void ScutchTick(Session s,double energy)
+    {
+        var job=s.Workup;var input=Resolve(job.Input);
+        if(input==null||!IsInput(s.Object,input,FlaxScutching.Straw,FlaxScutching.StrawKg)){s.State.Running=false;s.Notice=Text.Get("workup_input");return;}
+        job.Energy=Math.Min(FlaxScutching.KWh,job.Energy+energy);Save(s);
+        if(job.Energy+1e-10<FlaxScutching.KWh)return;
+        var products=Enumerable.Repeat((FlaxScutching.Cloth,FlaxScutching.ClothKg),FlaxScutching.ClothCount).Append((WorkupDefinitions.Residue,FlaxScutching.ShivesKg)).ToList();
+        var next=s.State.Copy();next.Running=false;
+        bool success=Deliver(s,products,input,next,initialize:(p,id)=>{if(id==WorkupDefinitions.Residue)WriteResidue(p,FlaxScutching.ShivesMineralsKg,FlaxScutching.ShivesOrganicKg);});
+        if(success){s.Workup=new();Save(s);}else s.State.Running=false;
+    }
+    /// <summary>Whether any pressable item sits in the bench and the press has room for one, for the crew's flax order.</summary>
+    internal static bool PressLoadable(CondOwner co)
+    {
+        var s=Get(co);
+        return StackUnits.All(co).Any(c=>c.strID!=s.Workup.Input&&c.strID!=s.Workup.Supplement&&Pressable(co,c)!=null&&s.Press.TotalKg+c.GetTotalMass()<=StrawPress.CapacityKg+1e-9);
+    }
     /// <summary>Whether the press has work to do while the bench runs with no workup job: drying, or bales to pack.</summary>
     internal static bool PressWork(Session s)=>s.Workup.Mode.Length==0&&!s.Press.Empty&&(s.Press.Surplus>1e-9||s.Press.Bales>0);
     /// <summary>Crew work: every pressable item in the tray goes into the press whole, while it has room. The job's own
@@ -134,6 +153,12 @@ internal static partial class Service
     private static bool QueueWorkup(Session s,string mode)
     {
         if(!WorkupDefinitions.IsBench(s.Object)||!Paused(s)||s.Workup.Mode.Length>0) return false;
+        if(mode=="scutch")
+        {
+            var straw=Input(s.Object,FlaxScutching.Straw,FlaxScutching.StrawKg);
+            if(straw==null){s.Notice=Text.Get("workup_input");return false;}
+            s.Workup=new WorkupJob{Mode=mode,Input=straw.strID}; Save(s); s.Notice=Text.Get("workup_queued"); return true;
+        }
         string definition=mode=="recover"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate;
         foreach(var input in s.Object.objContainer?.ContainedCOs ?? Enumerable.Empty<CondOwner>())
         {
@@ -159,6 +184,7 @@ internal static partial class Service
     {
         if(!s.State.Running) return;
         if(s.Workup.Mode.Length==0) { if(PressWork(s)) PressTick(s,energy); return; }
+        if(s.Workup.Mode=="scutch") { ScutchTick(s,energy); return; }
         var job=s.Workup;var input=Resolve(job.Input);var supplement=Resolve(job.Supplement);
         string definition=job.Mode=="recover"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate;
         if(input==null || !IsInput(s.Object,input,definition,input.GetTotalMass())) {s.State.Running=false;s.Notice=Text.Get("workup_input");return;}

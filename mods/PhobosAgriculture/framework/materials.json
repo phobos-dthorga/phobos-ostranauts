@@ -63,6 +63,16 @@
       "category": "IsCategoryIndustrialProducts",
       "art": "soybean_seed"
     },
+    "PhobosVerdemorrowContinuanceFlax": {
+      "notes": "Continuance flax seed (linseed) packet, 10 g: one dense fibre sowing.",
+      "kind": "stock",
+      "kg": 0.01,
+      "price": 12,
+      "stack": 25,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "flax_seed"
+    },
     "PhobosVerdemorrowGroundworkNutrients": {
       "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
       "kind": "stock",
@@ -138,6 +148,16 @@
       "side": 1,
       "category": "IsCategoryFood",
       "art": "soybeans"
+    },
+    "PhobosVerdemorrowFlaxStraw": {
+      "notes": "Retted flax straw, 0.25 kg: 88% organic matter, 2% minerals, 10% water (authored). The B2 scutches it into two clean scrap cloth (4.80 cr) and shives; not sold, so no bought bundle can be resold as cloth.",
+      "kind": "stock",
+      "kg": 0.25,
+      "price": 2,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "flax_straw"
     },
     "PhobosVerdemorrowHearthSoybeans": {
       "notes": "Hearth soybean stew, 0.5 kg; eaten directly. Like bread, cooking it with a bought water ration costs more than it fetches.",

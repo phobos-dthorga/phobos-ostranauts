@@ -99,7 +99,7 @@ public sealed class Panel : GUIData
             for(int i=0;i<actions.Length;i+=2){var row=C.Row(shell.Detail);foreach(var action in actions.Skip(i).Take(2))AddButton(row,co,action);}
             if(!recycler&&!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co))
             {
-                C.Heading(shell.Detail,C.Text("maintenance"));var work=IrrigationDefinitions.IsSupply(co)?new[]{"load-water","load-irrigation","load-nutrients","recover-solution","drain"}:Definitions.Work.Where(a=>a!="recover-solution"&&a!="recover-crop"&&a!="formulate-nutrients"&&a!="bale-straw").ToArray();
+                C.Heading(shell.Detail,C.Text("maintenance"));var work=IrrigationDefinitions.IsSupply(co)?new[]{"load-water","load-irrigation","load-nutrients","recover-solution","drain"}:Definitions.Work.Where(a=>a!="recover-solution"&&!WorkupDefinitions.IsWork(a)).ToArray();
                 for(int i=0;i<work.Length;i+=2){var row=C.Row(shell.Detail);foreach(var action in work.Skip(i).Take(2))AddButton(row,co,action);}
             }
         }
@@ -177,7 +177,7 @@ public sealed class Panel : GUIData
         string state=C.Text(session.Protected?"state_Blocked":b.Running?"state_Running":"state_Stopped");
         live.text=state;readout.text=tab=="details"?Service.Describe(co):state+"\n"+(session.Protected?Text.Get("protected"):session.Notice);
         if(tab=="operation")readout.text+="\n"+(Definitions.IsCooker(co)?Text.Get("panel_cooker",b.CookerProgress/.05*100):
-            WorkupDefinitions.IsBench(co)?Text.Get("panel_workup",session.Workup.Mode.Length==0?C.Text("not_selected"):Text.Get(session.Workup.Mode=="recover"?"recover-crop":"formulate-nutrients"),session.Workup.Energy)+"\n"+Text.Get("panel_press",session.Press.TotalKg,session.Press.Bales):
+            WorkupDefinitions.IsBench(co)?Text.Get("panel_workup",session.Workup.Mode.Length==0?C.Text("not_selected"):Text.Get(WorkupDefinitions.ActionOf(session.Workup.Mode)),session.Workup.Energy)+"\n"+Text.Get("panel_press",session.Press.TotalKg,session.Press.Bales):
             IrrigationDefinitions.IsSupply(co)?Text.Get("panel_supply",b.Water,session.Solution.TotalKg):Text.Get("panel_live",b.Progress*100,b.Health*100,b.Water,b.Nutrients));
         string key=Artwork.Key(co,b,session.Protected);
         if(portrait==null||key==portraitKey)return;portraitKey=key;portrait.texture=Artwork.Texture(key);portrait.color=portrait.texture!=null&&portrait.texture.name!="missing.png"?Color.white:Color.clear;

@@ -1,0 +1,196 @@
+{
+  "date": "2026-10-04",
+  "provider": "PixelLab",
+  "status": "Selected candidates inspected at native size and at 4x by the agent while the owner was away (owner direction of 4 October 2026 to continue phase 4 on its own); owner review pending; no gameplay validation.",
+  "inputs": "Text, and edits of PixelLab's own flax output. No game or third-party images uploaded.",
+  "terms": "As recorded in stock-generation-records.json (PixelLab terms checked 2026-09-25).",
+  "usage": {
+    "allowanceBefore": 1695,
+    "allowanceAfter": 1686,
+    "generations": 9,
+    "selected": 8,
+    "rejected": 1,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "records": [
+    {
+      "key": "flax-mature",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "Top-down plan view of a dense clump of fibre flax plants, looking straight down from above. Many slender upright stems with small narrow blue-green leaves, seen from above as a tight round tuft of fine needle-like green leaves radiating from the centre (32,32), dotted with about eight small round sky-blue five-petal flax flowers near the middle. Chunky simple pixel art with big clean colour clusters, bold readable silhouette, four tones, selective outline, similar chunkiness to a lettuce sprite. No soil, no pot, no tray, no shadow. Transparent background, whole plant inside the central 48x48 pixels of the 64x64 canvas so it stays readable at 16x16.",
+        "seed": 2510120,
+        "shading": "basic shading",
+        "text_guidance_scale": 10
+      },
+      "job_id": "91654a5c-e733-4750-9546-72151961cf5a",
+      "costGenerations": 1,
+      "sha256": "769d71173d32905e54d07d4a932a601a7b3fc6e8711820ec2ac9e5db4fa0c2f8",
+      "source": "source/flax-mature.png",
+      "sourceSHA256": "769d71173d32905e54d07d4a932a601a7b3fc6e8711820ec2ac9e5db4fa0c2f8",
+      "status": "selected",
+      "reason": "A fine-leaved tuft with blue flowers, clean transparent background; the other stages are edits of it."
+    },
+    {
+      "key": "flax-harvest",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "flax-mature (job 91654a5c-e733-4750-9546-72151961cf5a)",
+        "description": "Ripen this flax for harvest, as fibre flax is pulled when the stems turn yellow: all the leaves and stems turn dry golden straw yellow and pale tan, the blue flowers are gone and small round tan seed bolls sit near the centre instead. Same shape, size, overhead view, position and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510124
+      },
+      "job_id": "a0a7b4e8-3f78-416b-98fb-6382e92938f1",
+      "costGenerations": 1,
+      "sha256": "5962026f085574a1220b94c240010fac31cd1a4b9e3bea24fcd73b490e035279",
+      "source": "source/flax-harvest.png",
+      "sourceSHA256": "5962026f085574a1220b94c240010fac31cd1a4b9e3bea24fcd73b490e035279",
+      "status": "selected",
+      "reason": "Golden, as fibre flax at yellow ripeness."
+    },
+    {
+      "key": "flax-dead",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "flax-mature (job 91654a5c-e733-4750-9546-72151961cf5a)",
+        "description": "Make this flax plant dead: collapsed brittle grey-brown dead stems and leaves lying flat, no green and no flowers left, slightly smaller and flatter than now. Same overhead view, position and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510125
+      },
+      "job_id": "dfdc8a6a-2e36-4bd0-9c05-c63c1b0e4e69",
+      "costGenerations": 1,
+      "sha256": "25111466bbfd9d5a38aac787dc9e7f4970e694fd177fedf15c4ac1b17581df95",
+      "source": "source/flax-dead.png",
+      "sourceSHA256": "25111466bbfd9d5a38aac787dc9e7f4970e694fd177fedf15c4ac1b17581df95",
+      "status": "selected",
+      "reason": "Grey and lifeless, distinct from the harvest gold."
+    },
+    {
+      "key": "flax-wilted",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "flax-mature (job 91654a5c-e733-4750-9546-72151961cf5a)",
+        "description": "Make this flax plant clearly sick and wilting: most leaves turn pale sickly yellow and khaki with dark brown dry tips, the stems droop and thin out, the flowers shrivel to dull grey-blue specks. It must look obviously unhealthy, very different from a healthy green plant, but not yet dead grey. Same overhead view, position and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510126
+      },
+      "job_id": "5020bc98-d12d-4276-a9ed-d2b6899843fd",
+      "costGenerations": 1,
+      "sha256": "68c74e1bfc18b47060196e2092f226522dcfbf585aca155679675c1eebb12f9b",
+      "source": "source/flax-wilted.png",
+      "sourceSHA256": "68c74e1bfc18b47060196e2092f226522dcfbf585aca155679675c1eebb12f9b",
+      "status": "selected",
+      "reason": "Pale khaki with dull flowers, distinct from both harvest and dead."
+    },
+    {
+      "key": "flax-young",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "flax-mature (job 91654a5c-e733-4750-9546-72151961cf5a)",
+        "description": "Make this a young flax plant before flowering: a smaller, sparser tuft of fine needle-like green leaves, NO blue flowers at all, all green, occupying the central 32x32 pixels of the 64x64 canvas, centred at (32,32). Same overhead view, green palette and pixel style, transparent background, no soil.",
+        "no_background": true,
+        "seed": 2510127
+      },
+      "job_id": "9c095305-1b9c-4dd5-baf3-f4c43f17aad1",
+      "costGenerations": 1,
+      "sha256": "f62497f49d3c28827821fe9f1ff35bf1ac08e4c4f397053af76c765ba51eaf67",
+      "source": "source/flax-young.png",
+      "sourceSHA256": "f62497f49d3c28827821fe9f1ff35bf1ac08e4c4f397053af76c765ba51eaf67",
+      "status": "selected",
+      "reason": "A small green tuft without flowers."
+    },
+    {
+      "key": "flax-sprout",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image": "flax-mature (job 91654a5c-e733-4750-9546-72151961cf5a)",
+        "description": "Replace the plant with a tiny flax seedling seen from directly above: just four short narrow bright green leaf tips radiating from the centre point (32,32), the whole seedling about 12 pixels across. No flowers, no soil. Same top-down view, colours and pixel style, transparent background.",
+        "no_background": true,
+        "seed": 2510128
+      },
+      "job_id": "2796dcbe-740b-4548-86d8-90deb05e7d18",
+      "costGenerations": 1,
+      "sha256": "88a3707551cbb19869684a45b08994b32e3b2488d904ae07874f13806454957e",
+      "source": "source/flax-sprout.png",
+      "sourceSHA256": "88a3707551cbb19869684a45b08994b32e3b2488d904ae07874f13806454957e",
+      "status": "selected",
+      "reason": "A small bright seedling star."
+    },
+    {
+      "key": "flax_seed",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "One original tiny spaceship farming inventory item sprite: a small flat cream foil SEED PACKET of flax seed lying flat, sage green sealed edges, with a large simple pictogram of one round sky-blue five-petal flax flower above a few small glossy brown linseeds in the centre. Thin horizontal green sealed seam across its top. Original utilitarian spacecraft agriculture stock, Verdemorrow cream, sage and slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "seed": 2510121,
+        "shading": "basic shading"
+      },
+      "job_id": "2ba99993-7c1b-4d31-bd03-afa8ad3e8076",
+      "costGenerations": 1,
+      "sha256": "49cdafe6869ce51c8f22d7b42948f6d2cc4a236ce73681a3d1fbca58cb34b22f",
+      "source": "source/stock-seed-flax.png",
+      "sourceSHA256": "49cdafe6869ce51c8f22d7b42948f6d2cc4a236ce73681a3d1fbca58cb34b22f",
+      "status": "selected",
+      "reason": "A flat packet in the family style with a blue flax flower."
+    },
+    {
+      "key": "flax_straw-v1",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above looking straight down. A flat bundle of dried retted flax stems lying horizontally across the middle of the canvas: many long thin straight pale silver-grey and straw-tan stalks side by side, tied around the middle with one thin dark sage green cord, the stalk ends slightly fanned at both left and right ends. Flat, no depth, no visible sides, no perspective. Coarse pixel clusters, three or four tones. Transparent background with 6px clear margins. No words, numbers, floor or shadow. Readable at 16x16 pixels.",
+        "seed": 2510122,
+        "shading": "flat shading",
+        "text_guidance_scale": 12
+      },
+      "job_id": "45cd64c9-d0b0-441e-96fe-000c44e08f7d",
+      "costGenerations": 1,
+      "sha256": "9c4b6f3ecc3ab521a9e234f4e3b3a32186955450fa8f56ade56f7b802982178e",
+      "status": "rejected",
+      "reason": "Too thin: a broom-like wisp that becomes a smudge at 16 px."
+    },
+    {
+      "key": "flax_straw",
+      "operation": "create_image_pixflux",
+      "request": {
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "outline": "selective outline",
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above looking straight down. A thick fat sheaf of dried flax stalks lying horizontally and filling most of the canvas width: a dense tight bundle of straight pale silver-grey and light straw-tan stalks packed side by side, about 24 pixels thick in the middle, bound around its middle by two wide dark sage green cords, both ends cut square. Bold chunky shape with big clean colour clusters, three or four tones, flat, no perspective, no visible sides. Transparent background with 6px clear margins. No words, numbers, floor or shadow. Must read clearly as a bundle of stalks when reduced to 16x16 pixels.",
+        "seed": 2510123,
+        "shading": "flat shading",
+        "text_guidance_scale": 12
+      },
+      "job_id": "3713225e-3e7b-4ebf-af15-e260bdf419d3",
+      "costGenerations": 1,
+      "sha256": "349ceef0d6bbfc9ecd95a9cdf052492801f6ccbdbce3310aad8792f838ee3137",
+      "source": "source/stock-flax-straw.png",
+      "sourceSHA256": "349ceef0d6bbfc9ecd95a9cdf052492801f6ccbdbce3310aad8792f838ee3137",
+      "status": "selected",
+      "reason": "A tied sheaf seen from above, fanned at one end; reads as stalks at native size, though small."
+    }
+  ]
+}

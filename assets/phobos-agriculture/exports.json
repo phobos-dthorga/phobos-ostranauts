@@ -2081,6 +2081,348 @@
     "normalSHA256": "4a93de91c1fe8ff2588967a3cbe38260bc3a9b3409bd7f15b6ec05e1780c3cbc"
   },
   {
+    "name": "Flax-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-sprout.png",
+        "sourceSHA256": "88a3707551cbb19869684a45b08994b32e3b2488d904ae07874f13806454957e",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "bf8bc0ea0199629b90c1bd37993464136774785f76c0340b7f0e31d4c506c4fc"
+  },
+  {
+    "name": "Rack-Flax-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-sprout.png",
+        "sourceSHA256": "88a3707551cbb19869684a45b08994b32e3b2488d904ae07874f13806454957e",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "64dc736accac49cfd8d633b06489eefe6f5207c8300bd3af42ab55c67485f8f7",
+    "normalSHA256": "8dbd24af6bc24b0a45a823c725cb1b0c18b45b12f62edbe732dd7af4acf085cd"
+  },
+  {
+    "name": "Flax-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-young.png",
+        "sourceSHA256": "f62497f49d3c28827821fe9f1ff35bf1ac08e4c4f397053af76c765ba51eaf67",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b9f35c48d8ef7131cbb0f16d9d39aad6c9f7e6e71bd4fc6be23c6ac09b3d4a73"
+  },
+  {
+    "name": "Rack-Flax-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-young.png",
+        "sourceSHA256": "f62497f49d3c28827821fe9f1ff35bf1ac08e4c4f397053af76c765ba51eaf67",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "0c5b5bf1e7b79ed25575fdfdbe37d3f94ffc50dce3035c975c4ed303e647f8ac",
+    "normalSHA256": "6560e9f6068ce3e18d071b7e7265de0fe80cd28d05869b2e762c595ad889cdb0"
+  },
+  {
+    "name": "Flax-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-mature.png",
+        "sourceSHA256": "769d71173d32905e54d07d4a932a601a7b3fc6e8711820ec2ac9e5db4fa0c2f8",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "ea8ee3aeea8d2f92011cb7d6b0b6cd902f30ff106e6d62c196ec2f42212dbc9c"
+  },
+  {
+    "name": "Rack-Flax-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-mature.png",
+        "sourceSHA256": "769d71173d32905e54d07d4a932a601a7b3fc6e8711820ec2ac9e5db4fa0c2f8",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "49947951e414d73d45e951093260503d1a1bf00c93995e2ba34b2256550ce974",
+    "normalSHA256": "60b6582f79ff760e1b513de4dff3cbf4b4cca612b9ff5512635be7c923a5f5f6"
+  },
+  {
+    "name": "Flax-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-harvest.png",
+        "sourceSHA256": "5962026f085574a1220b94c240010fac31cd1a4b9e3bea24fcd73b490e035279",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "a9b51f06be3e2b9b254975f1c138f5edaa42a381870721457acea9c7ba55d88a"
+  },
+  {
+    "name": "Rack-Flax-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-harvest.png",
+        "sourceSHA256": "5962026f085574a1220b94c240010fac31cd1a4b9e3bea24fcd73b490e035279",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "5013d65ca5079a5f6ab261ff619cc6991bbbb23f53dc6b06447dbe346eb8a990",
+    "normalSHA256": "60b6582f79ff760e1b513de4dff3cbf4b4cca612b9ff5512635be7c923a5f5f6"
+  },
+  {
+    "name": "Flax-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-wilted.png",
+        "sourceSHA256": "68c74e1bfc18b47060196e2092f226522dcfbf585aca155679675c1eebb12f9b",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "42eb256d348348234c57ef6e931c70991979340f3145cafe505f5410818bedb7"
+  },
+  {
+    "name": "Rack-Flax-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-wilted.png",
+        "sourceSHA256": "68c74e1bfc18b47060196e2092f226522dcfbf585aca155679675c1eebb12f9b",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "a96ef01d08f6bc8831516603eea8ee5c449ed9942f4754aa637be0d11ab84857",
+    "normalSHA256": "60b6582f79ff760e1b513de4dff3cbf4b4cca612b9ff5512635be7c923a5f5f6"
+  },
+  {
+    "name": "Flax-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/flax-dead.png",
+        "sourceSHA256": "25111466bbfd9d5a38aac787dc9e7f4970e694fd177fedf15c4ac1b17581df95",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "00fac91171bda35e6d98152b6854d7f1efe599916a446c15fcc1bf90514f487b"
+  },
+  {
+    "name": "Rack-Flax-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/flax-dead.png",
+        "sourceSHA256": "25111466bbfd9d5a38aac787dc9e7f4970e694fd177fedf15c4ac1b17581df95",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "7e7966e83708bf3e2452714e598dbdb78c5dba79ff53b13ed0ebcc4367d1641f",
+    "normalSHA256": "5ddf527d59ed756e4d4b268072011c1fe707aabf4824e331f556afd491ddc4b9"
+  },
+  {
     "name": "Counter",
     "inputs": [
       {

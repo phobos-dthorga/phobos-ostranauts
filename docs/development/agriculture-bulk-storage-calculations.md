@@ -46,6 +46,12 @@ Loads include initial supply from empty and round up whole 5 kg water / 40 g nut
 | soybean | 4 | 30 | 24.768 | 0.768 | 5 | 20 | 2 | 4.2 / 16.7 / 54.2 |
 | soybean | 8 | 7 | 11.558 | 0.358 | 3 | 9 | 1 | 2.0 / 8.0 / 26.0 |
 | soybean | 8 | 30 | 49.536 | 1.536 | 10 | 39 | 4 | 8.2 / 32.7 / 106.2 |
+| flax | 1 | 7 | 2.567 | 0.065 | 1 | 2 | 1 | 0.5 / 2.0 / 6.5 |
+| flax | 1 | 30 | 11.000 | 0.280 | 3 | 7 | 1 | 1.7 / 6.7 / 21.7 |
+| flax | 4 | 7 | 10.267 | 0.261 | 3 | 7 | 1 | 1.7 / 6.7 / 21.7 |
+| flax | 4 | 30 | 44.000 | 1.120 | 9 | 28 | 3 | 6.2 / 24.7 / 80.2 |
+| flax | 8 | 7 | 20.533 | 0.523 | 5 | 14 | 2 | 3.2 / 12.7 / 41.2 |
+| flax | 8 | 30 | 88.000 | 2.240 | 18 | 56 | 5 | 12.3 / 49.3 / 160.3 |
 
 ## Endurance and space at default pace
 
@@ -71,6 +77,9 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | soybean | 1 | 188.95 | 770.35 | 78.12 | 20 / 29 | 6.384 | 100 / 125 |
 | soybean | 4 | 118.10 | 263.44 | 19.53 | 68 / 77 | 25.536 | 340 / 365 |
 | soybean | 8 | 106.29 | 178.96 | 9.77 | 132 / 141 | 51.072 | 660 / 685 |
+| flax | 1 | 106.36 | 433.64 | 53.57 | 20 / 29 | 11.280 | 100 / 125 |
+| flax | 4 | 66.48 | 148.30 | 13.39 | 68 / 77 | 45.120 | 340 / 365 |
+| flax | 8 | 59.83 | 100.74 | 6.70 | 132 / 141 | 90.240 | 660 / 685 |
 
 ## Growth-pace sensitivity: thirty-day demand
 
@@ -130,6 +139,15 @@ Water envelope: 19.5 kg per rack plus W2; 0.5 kg central dry stock, excluding ra
 | soybean | 8 | 0.5 | 99.072 | 3.072 | 0 / 0 |
 | soybean | 8 | 1 | 49.536 | 1.536 | 0 / 0 |
 | soybean | 8 | 2 | 24.768 | 0.768 | 0 / 0 |
+| flax | 1 | 0.5 | 22.000 | 0.560 | 0 / 0 |
+| flax | 1 | 1 | 11.000 | 0.280 | 0 / 0 |
+| flax | 1 | 2 | 5.500 | 0.140 | 0 / 0 |
+| flax | 4 | 0.5 | 88.000 | 2.240 | 0 / 0 |
+| flax | 4 | 1 | 44.000 | 1.120 | 0 / 0 |
+| flax | 4 | 2 | 22.000 | 0.560 | 0 / 0 |
+| flax | 8 | 0.5 | 176.000 | 4.480 | 1 / 0 |
+| flax | 8 | 1 | 88.000 | 2.240 | 0 / 0 |
+| flax | 8 | 2 | 44.000 | 1.120 | 0 / 0 |
 
 ## Recovery per completed healthy cohort
 
@@ -143,6 +161,7 @@ No recovery is credited against horizon totals: completed harvests, B2 setup, co
 | wheat | 0.950 | 18.32 | 18.32 | 36.64 | 0.93168 | 0.02000 | 2.400 |
 | tomato | 1.495 | 4.49 | 4.49 | 8.97 | 1.49052 | 0.03090 | 3.708 |
 | soybean | 0.620 | 9.92 | 9.92 | 19.84 | 0.61008 | 0.01340 | 1.608 |
+| flax | 0.590 | 7.74 | 7.74 | 15.49 | 0.58226 | 0.01280 | 1.536 |
 
 One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; consumes 0.0392 kg cartridge medium; recovers 17.550 kg water + 0.080 kg nutrients; retains 2.0092 kg rejects. Needs 0.196 kWh, 23.52 powered minutes plus 15 crew setup minutes. The remaining cartridge has 5.4 kg treatment capacity. Outputs require fresh headroom.
 
@@ -151,8 +170,8 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
 - `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `5051cc79b4e7f8030478dd861173bebe74d8a34b7be38c75467c203ee54f4223`
-- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `2204ae9bc61a386a4a70f86261ccabfd1dd285ed851e388c7047ff9eaed4bf18`
-- `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `d0cafb683bfe341060205d571a58b20aee277310d15c0b35a9f4c0cf8726fed9`
+- `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `3a10ac47f1a1195dafd282740df72b215089acae2cbf14d01cf48960ac960f8d`
+- `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `c6dd32441adcd32db66c2153e3fff6674e58bbdad67e4f1f4356ed1f77d2acfe`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`
 - `src/PhobosAgriculture/IrrigationDefinitions.cs` (UTF-8/LF, no BOM): `0a49d2a9e4c57f612debac16d17e4b3cbf35892533247e99c71e109a29589d7a`
