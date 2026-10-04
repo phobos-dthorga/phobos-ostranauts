@@ -1903,6 +1903,31 @@
       "jobId": "e0dcf9fb-4c87-4066-b68d-0c2389082b1c"
     },
     {
+      "key": "rm1-reaction-mass-feeder",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosReactionMassFeederInstalled",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/PhobosReactionMassFeeder",
+      "status": "selected",
+      "source": "source/rm1-reaction-mass-feeder.png",
+      "sourceSHA256": "680704898d0e64c9003d4cf2e26a3a548a356a7a3ae7eaddbddc4c66965e925c",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected: a coil ring around a grinder mouth with a feed tube at the bottom edge reads at 16 px; no lights or gauges. Slingwright colours (olive frame, bone plate, steel-blue coil). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "04b2efde-8bad-4e03-bcc9-4a21a7a16899"
+    },
+    {
       "key": "o2-oxygen-store",
       "mod": "PhobosManufacturing",
       "definition": "PhobosOxygenStoreInstalled",

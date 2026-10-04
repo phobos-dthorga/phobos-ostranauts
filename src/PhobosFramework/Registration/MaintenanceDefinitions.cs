@@ -76,5 +76,6 @@ public static class MaintenanceDefinitions
         item.aStartingConds = new[] { "IsSolid=1x1", "IsCategoryTrash=1x1", "StatMass=1x" + mass.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x0.01" };
         item.aUpdateCommands = Array.Empty<string>();
         d.Objects.Add(id, item);
+        Remainders.Declare(id);
     }
 }

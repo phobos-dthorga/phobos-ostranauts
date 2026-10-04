@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.86.0, Agriculture 0.46.0, Shipbreaker 0.73.0 and Auto Nav 0.32.0
+Framework 0.87.0, Agriculture 0.47.0, Shipbreaker 0.74.0 and Auto Nav 0.32.0
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished

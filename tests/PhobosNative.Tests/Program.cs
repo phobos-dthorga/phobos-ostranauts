@@ -144,6 +144,7 @@ foreach (var equipment in medical.Objects.Values)
 CompletionArtworkChecks.Run(medical, "PhobosMedical", repo, Check, PhobosMedical.Core.MedicalRules.BedPrefix);
 medical.Publish();
 MedicalNativeChecks.Run(medical, Check);
+RemainderNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, manufacturing, Check);
 LootCarveNativeChecks.Run(Check, Throws);
 DefinitionMigrationChecks.Run(Check, Throws);
 LineNativeChecks.Run(new[] { framework, prepared, agriculture, manufacturing, medical }, Check);

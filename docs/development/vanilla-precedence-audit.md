@@ -211,6 +211,11 @@ registered feeds found on the same tiles. Shallow-loaded ships, `Maneuver`, refu
 (`RefuelRCS`, `GUIStationRefuel`) and the thrust formula stay native. A failure in the
 replacement falls back to the native method. Verdict: justified replacement, recorded.
 
+Manufacturing 0.43.0 (4 October 2026) registers a second feed, the Slingwright RM-1
+reaction mass feeder, through the same `IRcsPropellantFeed` contract. It adds no patch
+and changes nothing above: the feed sits on a gas-input tile as the P1 does, and its
+kilograms count as nitrogen (worth 1).
+
 ## Canister filling (Framework 0.44.0, Manufacturing 0.4.0, 29 September 2026)
 
 Owner request: a safe way to refill the game's own canisters and suit bottles. The

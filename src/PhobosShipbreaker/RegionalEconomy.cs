@@ -22,5 +22,7 @@ internal static class RegionalEconomy
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantWaste], "IsCategoryTrash", 1);
         // Terminal rejects and melt remainders are waste, never stock.
         foreach (string reject in FeedFamilies.RejectKg.Keys.Concat(TerminalRemainders)) MaintenanceDefinitions.SetStat(d.Objects[reject], "IsCategoryTrash", 1);
+        // Owner rule (4 October 2026): every remainder is declared, so a consumer (the reaction mass feeder) may take it.
+        Remainders.Declare(FeedFamilies.RejectKg.Keys.Concat(TerminalRemainders).Concat(new[] { FurnaceService.CoolantWaste }));
     }
 }

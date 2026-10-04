@@ -31,6 +31,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.74.0] - 2026-10-04 - Draft
+
+### Changed
+
+- Terminal rejects, melt remainders and coolant waste are declared as remainders, so Phobos Manufacturing's reaction mass feeder can grind them into RCS reaction mass.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.87.0 or newer. The feeder itself comes with Phobos Manufacturing 0.43.0.
+- Checked offline; not yet seen in the game.
+
 ## [0.73.0] - 2026-10-04 - Draft
 
 ### Added

@@ -1794,6 +1794,23 @@
           "labels": {}
         },
         {
+          "key": "rm1",
+          "title": "Slingwright RM-1 Reaction Mass Feeder",
+          "ids": [
+            "PhobosReactionMassFeederLoose",
+            "PhobosReactionMassFeederLooseDmg",
+            "PhobosReactionMassFeederInstalled",
+            "PhobosReactionMassFeederInstalledDmg"
+          ],
+          "function": "A powered 1 x 1 grinder that turns remainders (slag, cakes, calcine, rejects, tailings, retained waste) into up to 60 kg of reaction mass, which the RCS thrusters burn like nitrogen, kilogram for kilogram.",
+          "use": "Install through INSTALL > HVAC on an RCS Intake Regulator's gas-input tile, where a gas canister would go, and connect power. Put remainders in its Inventory, or choose a bin or locker under Take feed from. It grinds by itself at 3 kW, 0.15 kWh a kilogram. Draw order sets whether it burns before or after the canisters. Throw the reaction mass overboard before dismantling.",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "New in Manufacturing 0.43.0. It takes remainders only, never ore, scrap, gangue or a product. Not a gas canister: station refuelling never fills it. The energy and exhaust figures are authored.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "p1",
           "title": "P1 RCS Propellant Manifold",
           "ids": [
@@ -1891,7 +1908,7 @@
             "PhobosSpentMash"
           ],
           "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) and spent mash (0.5 kg: what a fermenter-still charge leaves). Trash at the technical minimum price; nothing recovers them.",
-          "use": "Carry them out of the tray and sell or discard them.",
+          "use": "Feed them to a Slingwright RM-1 reaction mass feeder, which grinds them into thrust for the RCS. They can still be sold or discarded.",
           "find": "Left in the V4, LC-3, SA-3 or fermenter-still tray by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",
           "guide": "manufacturing-player-guide.md",

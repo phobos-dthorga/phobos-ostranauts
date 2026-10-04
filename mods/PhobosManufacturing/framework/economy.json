@@ -49,6 +49,15 @@
       "brokenSalvage": { "ItmScrapSteel": 3, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 2, "ItmScrapTrash": 5 },
       "restoreMinutes": 30
     },
+    "PhobosReactionMassFeeder": {
+      "notes": "Slingwright RM-1 Reaction Mass Feeder (Manufacturing 0.43.0), 1 x 1, 40 kg: a grinder, a charging coil and a feed tube. Priced below the P1 manifold it sits beside; billed like it with a motor for the grinder.",
+      "price": 16000,
+      "work": { "install": 700, "uninstall": 600, "repair": 2000, "dismantle": 400 },
+      "repairBill": { "ItmScrapSteel": 2, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 3, "ItmPartsElecSmall01": 2, "ItmComponentMotor01": 1 },
+      "salvage": { "ItmScrapSteel": 18, "ItmScrapAluminum": 6, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 4, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1, "ItmScrapTrash": 8 },
+      "brokenSalvage": { "ItmScrapSteel": 12, "ItmScrapAluminum": 3, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 23 },
+      "restoreMinutes": 30
+    },
     "PhobosCanisterFiller": {
       "notes": "Fennmark L2 Canister Filling Station, 2 x 2, 120 kg.",
       "price": 26000,
@@ -247,6 +256,7 @@
       "PhobosEthanolLine": "Neutral",
       "PhobosCanisterFiller": "Friendly",
       "PhobosPropellantManifold": "Friendly",
+      "PhobosReactionMassFeeder": "Friendly",
       "PhobosCabinAirRegulator": "Friendly",
       "PhobosHydrogenStore": "Friendly",
       "PhobosMethaneStore": "Friendly",

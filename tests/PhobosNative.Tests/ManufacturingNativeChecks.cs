@@ -233,7 +233,7 @@ internal static class ManufacturingNativeChecks
         check(new[] { BulkVessels.SpecFor(HydrogenRules.Installed), methaneSpec, BulkVessels.SpecFor("PhobosProcessSiloInstalled") }.Select(s => s?.Commodity).Distinct().Count() == 3,
             "Water, hydrogen and methane vessels coexist in the registry");
         check(GasStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) && LiquidStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) &&
-              BulkVessels.All.Count(s => s.Owner == Plugin.Id) == GasStores.All.Count + LiquidStores.All.Count,
+              BulkVessels.All.Count(s => s.Owner == Plugin.Id) == GasStores.All.Count + LiquidStores.All.Count + 1, // and the reaction mass feeder's record
             "Every gas and liquid store size is registered once, by this mod");
 
         // The Lixivar acid tanks (Manufacturing 0.19.0): bunded liquid stores, never gas stores.

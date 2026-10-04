@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.46.0",
+      "version": "0.47.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.86.0",
+      "version": "0.87.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -18230,7 +18230,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.42.0",
+      "version": "0.43.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -37770,6 +37770,548 @@
           "aliases": []
         },
         {
+          "id": "PhobosReactionMassFeederInstalled",
+          "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 40.0,
+          "baseValue": 16000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosReactionMassFeederInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosReactionMassFeederInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 18,
+                  "baseValue": 64.79999828338623
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 6,
+                  "baseValue": 30.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosReactionMassFeederInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosReactionMassFeederInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosReactionMassFeederInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederLoose",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+                  "count": 1,
+                  "baseValue": 16000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosReactionMassFeederInstalledDmg",
+          "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 40.0,
+          "baseValue": 4000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosReactionMassFeederInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosReactionMassFeederInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 12,
+                  "baseValue": 43.19999885559082
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 3,
+                  "baseValue": 3.3000000715255737
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosReactionMassFeederInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x2",
+                "TIsMotor=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederInstalled",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+                  "count": 1,
+                  "baseValue": 16000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosReactionMassFeederInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederLooseDmg",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder (Damaged)",
+                  "count": 1,
+                  "baseValue": 4000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosReactionMassFeederLoose",
+          "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 40.0,
+          "baseValue": 16000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosReactionMassFeederLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosReactionMassFeederLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 18,
+                  "baseValue": 64.79999828338623
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 6,
+                  "baseValue": 30.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosReactionMassFeederLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosReactionMassFeederLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederInstalled",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+                  "count": 1,
+                  "baseValue": 16000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosReactionMassFeederLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosReactionMassFeederLooseDmg",
+          "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 40.0,
+          "baseValue": 4000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosReactionMassFeederLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosReactionMassFeederLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 12,
+                  "baseValue": 43.19999885559082
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 3,
+                  "baseValue": 3.3000000715255737
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosReactionMassFeederLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosReactionMassFeederLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederInstalledDmg",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder (Damaged)",
+                  "count": 1,
+                  "baseValue": 4000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosReactionMassFeederLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosReactionMassFeederLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosReactionMassFeederLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x2",
+                "TIsMotor=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosReactionMassFeederLoose",
+                  "name": "Phobos' Slingwright RM-1 Reaction Mass Feeder",
+                  "count": 1,
+                  "baseValue": 16000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosRefinerySlag",
           "name": "Phobos' Fennmark Refinery Slag",
           "stackLimit": 10,
@@ -39398,6 +39940,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -39657,6 +40206,13 @@
         },
         {
           "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -39916,6 +40472,13 @@
         },
         {
           "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -40120,6 +40683,13 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -40296,266 +40866,280 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Loot",
+          "chance": 0.000625,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosReactionMassFeederLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0006578947368421052,
+          "chance": 0.000625,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0019736842105263163,
+          "chance": 0.0018750000000000004,
           "count": 1
         },
         {
@@ -40631,6 +41215,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -40890,6 +41481,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosBottlingUnitLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosReactionMassFeederLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -41155,6 +41753,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -41400,6 +42005,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -41645,6 +42257,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -41890,6 +42509,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42135,6 +42761,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42380,6 +43013,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42625,6 +43265,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42870,6 +43517,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43115,6 +43769,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43360,6 +44021,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43605,6 +44273,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosReactionMassFeederLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43844,6 +44519,13 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44089,6 +44771,13 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44334,6 +45023,13 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44579,6 +45275,13 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44824,6 +45527,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45089,6 +45799,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosReactionMassFeederLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -45328,6 +46045,13 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosBottlingUnitLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosReactionMassFeederLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -47016,7 +47740,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.73.0",
+      "version": "0.74.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -59826,7 +60550,7 @@
     "mods/PhobosAgriculture/framework/process-recipes.json": "cf6ac4baf5aab571a51808c69bf93bc3b980f15fced9675ea6c752948bbf9565",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
-    "mods/PhobosAgriculture/mod_info.json": "a47b59bdc7b049e458b5a759e0388bb595c25615eef9c6cb7b2d8171b4a140b0",
+    "mods/PhobosAgriculture/mod_info.json": "bca62db66c5fb8f4031ae43b3add7501d7c0f0c5a59c976e304d08e487e8a774",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
@@ -59837,17 +60561,17 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "ef0862f417388c03abd3de106db6aa9a29e35339240f113a4dba001afeba861d",
+    "mods/PhobosFramework/mod_info.json": "f1fdaa6991909095d948d28d98a78d7d97aed600bcaacd988e7b9659b36f8491",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "44a8dd08fe0b71583bd521777128226bfc4d0828024a02fccf145c1abb4939af",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "0f28a553b81936894adf5f2cc7609684ecea6b4aca6d130fa98c3a16d1fb9c5e",
+    "mods/PhobosManufacturing/framework/economy.json": "99ff9d631c5e538317b327dce6339ad2a978a16a4c37a53f068191567984ed36",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "b091d935a5c251add122735753345cd8fe2d45637040860c9cd6ca34b8af4824",
     "mods/PhobosManufacturing/framework/equipment.json": "58a2332c3f43011a6c1dcf83b61769bba0101252cdeccb9dfbf7c66ffe3796da",
     "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "1a87a5f64fcb724c9eb95b8f665ead9635c001e488f87cf05446fd94d3b144f9",
     "mods/PhobosManufacturing/framework/materials.json": "0cae5c2eec0a55840d0ebdefba400d94c457c24dc8f0f507d181f436e4d75537",
     "mods/PhobosManufacturing/framework/process-recipes.json": "6e1a55a5bff5f29b734b320a380d5f3cfb1c0f29482394ffd9e69c7dbbf4404c",
     "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
-    "mods/PhobosManufacturing/mod_info.json": "e6bf61a08194ddc8525b40f84a9126b72a48a386accef76ea9940c0f7ffc26e0",
+    "mods/PhobosManufacturing/mod_info.json": "f63fb486fa68145a6fca7a9c3eaa63b333037f7d778f94c2afe397123c6cc268",
     "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
     "mods/PhobosMedical/framework/care.json": "1b11187022fa705bd35b42141d3075cbed2ec57c1c625bf06bdf9ba2b3d9cbc6",
     "mods/PhobosMedical/framework/economy.json": "8e95f9579601722de619bde463568c243ec971e1ab2d5f653d5128473929b3c9",
@@ -59863,7 +60587,7 @@
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
     "mods/PhobosShipbreaker/framework/recipes.json": "3f9869e304a8681d85272346d91e25e8ce30d6f7173576ff13b454571baa49b9",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "ef2d5e4bfe218dfe2e0eb664f484ba184ed97d6fb6062ad9416860c9842e2d68",
+    "mods/PhobosShipbreaker/mod_info.json": "1196705aad7464e7847523363523f9e77861295ba81344cdf93bfef5c85bba11",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -59893,7 +60617,7 @@
     "src/PhobosAgriculture/Core/SugarExtraction.cs": "1cbc8121dbef1106e99a845982b517a3f63a67e67f9e061941490fed9584469a",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "4ff762ad3ae97eaf4454c3418d1a32efd1c5ccfbc7e411e3c9a3c89caa930585",
-    "src/PhobosAgriculture/Definitions.cs": "c77e281b839f2f0dd53881c6d7b617b51df9e62e314dc6b8aae4a5449dec0449",
+    "src/PhobosAgriculture/Definitions.cs": "26d939177a7598bb4984c8d4445ab78194665514072c24b1f2daba5cb8e050ff",
     "src/PhobosAgriculture/EconomyData.cs": "3b15b43e59342e5285fb73f7b7b6c0332ce2581445c2fa12615c540c9d9cbb9a",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "cd003b2bb973afae140f4e26251741a183fb232659a68752d49c5d2f04fc0cd5",
     "src/PhobosAgriculture/HopperDefinitions.cs": "c5e7058fe6a313971be48212b1682c449ebad3d6e7e2b04ff09b311fd20a49ce",
@@ -59907,8 +60631,8 @@
     "src/PhobosAgriculture/Panel.cs": "9057af62095521f35768d90c0501ed96bfa0635e9cba4e920d6a66afd53fde67",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "3efa5d873a8b8271f688ce9b82ce73fe0796f1b1c445711e02c1245ffc1ab7b1",
-    "src/PhobosAgriculture/Plugin.cs": "0fb729ecb349d6397b0051c128ba65486170ad14eb3358919e6d04ba575f975d",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "1e5baaa7a0a83ca8bf1f77572b75b890f6bb45ad20a2c16254579fb5b79668f1",
+    "src/PhobosAgriculture/Plugin.cs": "1e2282e2682d8f31a03b51a8bff7506e3cf14bfdd37d9e92053edaccc75947ff",
     "src/PhobosAgriculture/RecoveryService.cs": "f66ae610f32c446d77ac90c6eb72c78006f088de90874adfc5f3eaac14df56db",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
@@ -60142,8 +60866,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "bf800bf77f53387e144801eec9b9732e7da10bef97515c1782feb6c981fc5ca5",
-    "src/PhobosFramework/Plugin.cs": "96da19efd2a474ccd866a04f604c2e1b1dc2cb9754fadb83e71fae04c65fa346",
+    "src/PhobosFramework/PhobosFramework.csproj": "d2014abff40d7e58a8c002198220b8ceae589d8e5174db127250b71d8e77c05a",
+    "src/PhobosFramework/Plugin.cs": "7eb68bfb539c2807189f19041cfd28d26034fc83271adbbd756cb8c7aa004fb0",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -60171,11 +60895,12 @@
     "src/PhobosFramework/Registration/LineJoints.cs": "872532acbced07b92534306cb6e5e1ff32ea168bddf8326b98fe1b221be68745",
     "src/PhobosFramework/Registration/LootCarves.cs": "47b225dca907ba0bba096a9b4d7f67d21be39b5dbf4c2e99981d11e2a1ea28ff",
     "src/PhobosFramework/Registration/MachineFamilies.cs": "d503d92533e8d35ec60f0346e09e93fed2b38330c77f87f9d5a6c80a55558779",
-    "src/PhobosFramework/Registration/MaintenanceDefinitions.cs": "5d74b0b17245ade6ce25b008549be64782359080b3b22deb1f946dc4b6cc945e",
+    "src/PhobosFramework/Registration/MaintenanceDefinitions.cs": "2afe642260320fd559ec4d42d7bb3e44211b5f2f12e3e9f5a4855c8ea4b9629b",
     "src/PhobosFramework/Registration/MaintenanceInformation.cs": "b4800a38d08e93250dbad547e416fb84daff861e9ab689158649b8f8a761a652",
     "src/PhobosFramework/Registration/MaintenanceSafety.cs": "aebb7edfb18875497c26d18be88744cacd5e2432c0afa3e75de3a1ab0b22dce2",
     "src/PhobosFramework/Registration/NativeDefinitions.cs": "b9cd68f5ba1baf0ebcea8572fc62065e45b2f9e8de967f7b78d5e55aebfb9cc7",
     "src/PhobosFramework/Registration/NativeEffects.cs": "02eeeeb6a9664fbeb95ae125e998b41049343d7980fb759a0796a6f6e2eac8f7",
+    "src/PhobosFramework/Registration/Remainders.cs": "d121ca639ad2d41262810d8d505de22471d4002a0a1c227b5bfe9c29b937b782",
     "src/PhobosFramework/Sensors/SensorLeaseRecord.cs": "73006c1d931c4d12e8ce67d9b41a98999b5ac5a70fcd047b5405ee292c547268",
     "src/PhobosFramework/Sensors/SensorLeases.cs": "ce795fb2925dcdee48873853957052514520d88a3b0e67dd15e9137da7efb16a",
     "src/PhobosFramework/Text.cs": "866668152e077c30ff9d278aa86762e0b44e9662a46d9a6bd94f99cf040ea493",
@@ -60191,7 +60916,7 @@
     "src/PhobosManufacturing/ChargeMachine.cs": "b20c47a7e15cb504fbf4b8e92f81636dd815a0a9a08b3c4261ebc723eb013df8",
     "src/PhobosManufacturing/ChargeMachines.cs": "fc901dec94ed48ab2fbecbc29cbf30d8d91b8d3bb7875987401c94d6e0405db2",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "16f54a97cfaeb9ed157cb68f0058745b98e5bce375af71428d57691c8c90d3f8",
-    "src/PhobosManufacturing/Content.cs": "273f72998997d0b672975cabb7f6c3105f87b2f77b7513a614bed08eda412abb",
+    "src/PhobosManufacturing/Content.cs": "2ce20e3857d628f33c4d1037cfa9ec0d82e396b8887abbdc13073b963275c449",
     "src/PhobosManufacturing/Core/AcidLineRules.cs": "acd58624c130617c9a7e8109763bbb40ee5403552cc5fffbc7772be055de48b4",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/BottlerRules.cs": "e0bd4d5733a6939ea666fc69125d0cc342bd6f19d5591dc789347b0b350c35b1",
@@ -60200,8 +60925,9 @@
     "src/PhobosManufacturing/Core/ChargeState.cs": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "51f828bb5177fafd65974e55ae7981ae3931e8282ac7ab42b949fcd20f2bf9fe",
+    "src/PhobosManufacturing/Core/Economy.cs": "41f232fec961367801b6c1bd76d4ad06ab6e72af5ef2c691b7391dc17394eaf9",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
+    "src/PhobosManufacturing/Core/FeederRules.cs": "8563d92a118a1ffba2bfb200fa3941307bf5501b95dbfd3ec687b365158ceaf0",
     "src/PhobosManufacturing/Core/FermenterRules.cs": "9331577a9aa896c6a18f10f1b41023a21e57b2979b02345efe9fc21e49dd2061",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "e592d7c62deb05ccbdb08f4c5bc139c7ab0b2fab87c376fbf9d8f03e27aacd4e",
@@ -60209,7 +60935,7 @@
     "src/PhobosManufacturing/Core/LeachRules.cs": "35711e5c4f9be2815eac0287e4524d33c7a4e74a6ce4ac8f0c1ed3af54278397",
     "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "85e2b7ed6d74564b183d74cd858a04ebca6b74557386985da8c91297b5603c93",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
-    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "3d2511d9edce38cf049007250fab7e75fa86b9c74ae92c65ae15f30f4d8b6f6c",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "0d78091e5ac62ae3c8c57a3e60dd32b5d552152d8540c4b8f2ab35f8680bd143",
     "src/PhobosManufacturing/Core/Materials.cs": "7a3adc67a01ccc6bf13703ad67d0959839f5ff9bf0c7dd19572c2971979a91d2",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "31b3433e1ccfe19fc3569f25aedbbd2a778acad9bd3e65f7bdcb41f6b3ed40dd",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
@@ -60219,21 +60945,22 @@
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "8e3cb63ba96fce5b2897c592b55027ce72aacec33a79380c2ab638034ee43234",
-    "src/PhobosManufacturing/Definitions.cs": "d480c2305ebf65127c9600d8430427114cebc4b63e7954ae957467e1d536a9bd",
+    "src/PhobosManufacturing/Definitions.cs": "ffb1afbefdac138c811b52a7eb97b469df250f5a27bc2283576b4f182e4438f7",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "e7c9a1b80d7b923389d3a2a835245ccaa1e094646d782a1e771f54d491fcf097",
+    "src/PhobosManufacturing/FeederService.cs": "deb79e0c5af89eacd085aa3505038439dd2d2de90d64a03a345802146d525ddc",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "74e2ff66329f2db7ba796dd4f8c59689f0b458030b0826c0f2fe821358439d87",
     "src/PhobosManufacturing/GasLine.cs": "cc7160e51150ac2dd2137c539ef24e9f95bf4e59f82d0f5cee36b4e747d5e1fc",
     "src/PhobosManufacturing/LiquidLine.cs": "3efde6e343f19ae0a02fb709eda679b498ebcd81a5a9283cbea06238913f8030",
     "src/PhobosManufacturing/LiquidStoreService.cs": "c24b6c0e874fcb18b8df276563822d6c9ee2726a26d30d6be29c7e05a6722378",
-    "src/PhobosManufacturing/MachineKinds.cs": "81d8f623a5f5a37879de91a66b2d862519ee1c733e78aec4f7705228b3e1b08b",
+    "src/PhobosManufacturing/MachineKinds.cs": "a04f5baa3f98c0d2d4bf970c0f360d95f55bdd1610ccba21d806cfb1a9cbacce",
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "e32963b6c974b0943b8670175db881d02e5a42c4d481eb0511e0779d4e9b2fa2",
-    "src/PhobosManufacturing/Plugin.cs": "41ca4fc1aff76ba432b9976df5c1abfabca4ade42caa71ae49fee6aa4914f4c3",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "1dda99e9f125e2c14444c2b4374026e1c017e134acfa6778d853d87f8025b97a",
+    "src/PhobosManufacturing/Plugin.cs": "4b9af21bff3062cb1a2bc1079b54f8d233d77a355479d2e94fa2925ab703a6b7",
     "src/PhobosManufacturing/ProcessorService.cs": "4a79abe057f9589a9b539dcb57c6b3da46430137b67e9a78647d5c903851a425",
-    "src/PhobosManufacturing/Provider.cs": "ef7d8a3ec19e73da65f3cf918ef1c089fbf4e83d9010b051ed983cacf2019310",
+    "src/PhobosManufacturing/Provider.cs": "b323b314b0b697b6f34bb388bbeac694cc75e4b46903974c121669fdb2eb5a42",
     "src/PhobosManufacturing/RegulatorService.cs": "d6254fa6d5b46ba81dba03841679fe694bb78ac7553359819c2ab0d585527d10",
     "src/PhobosManufacturing/SabatierService.cs": "b425681db739effa38ee27e44f1cabe8aaafcf049817ebaa83c4fc713a8cbb43",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "f52d5839851ce359dba6c96eddf3df70269eff64020f97e27beab08e8c9848d6",
@@ -60280,7 +61007,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "06b7106fc9d42c080b5f9fefddc3d35ad1f43bacb74a60649ba456a12b5178b2",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "e7cc2e1dbc0a4d961854799bfa63a627044fbd98d750aafb9467aba4b3fe0824",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "6d756923b4f4f93a19a24f5f5d3c9a796141e32e8e170b1a3f29fdb4050d5316",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "22b79c5498c069b0448657a3ba0f66d62b6e175a461697182604c33619c48ea2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -60339,9 +61066,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "386f9dee56dd0491faf68f35ab01f94265bd8160c22b1300db93e19fb1ad81cc",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "4f264faaa14b2a6d759675cb250118ce89a3879563f806319cef7dc534506d89",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "455d6204a45c3dfb07421af055c5b2685eb9755e3e4681f9995aa2b0f290d1d2",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "1efff69d3faaf1acb3a44435e59bb608ce3afb4b8788fbf4ba661559123028f7",
+    "src/PhobosShipbreaker/Plugin.cs": "b60e14eca7dd9d15041098b887d61ca18f482afd9e23238420a2052f043f7937",
     "src/PhobosShipbreaker/PowerKinds.cs": "c0409cb8e737a45dc9a61da9b00594d346fabff1b16454f17a910a68a0a436b8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "bdb33ca44f10b2fe4ef61c9a3e69744b2b21965c478aa6c8fb6c9b1df8b758e0",
@@ -60352,7 +61079,7 @@
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "eca940a94852c906d6f13432afb13800d7f98557c1b93bb5da0c5c15f41feef4",
     "src/PhobosShipbreaker/ReclamationPower.cs": "58cf2f5242ed449c9e04f7f725a45a240bfe24bd70b49d8fdeab5ac2ea757e96",
     "src/PhobosShipbreaker/ReclamationService.cs": "5649d7e6b162d3adf9f1bb9f0ed09f6331c0d3597c20a71a68db264027ec7f9c",
-    "src/PhobosShipbreaker/RegionalEconomy.cs": "3e0fc14a05f908faa8754e280204ac24b8db413c4af9193624bbe869b9195388",
+    "src/PhobosShipbreaker/RegionalEconomy.cs": "e38af5d58f2d5656c7c54d57a9bc7dc8ef33e158f6b1c83ce19ce3a99cf29690",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "3aac86d2e112775f4a9c36efe4554b44deff55f1655a9b632f604b20c5ec30ab",
     "src/PhobosShipbreaker/StockQuantities.cs": "841dfc03eefdd7ac018f03625ed19eb59118bed68237268f427eb7c74c067625",
@@ -60378,11 +61105,11 @@
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "81897d819a5f9ce2c36b5da0acd49e90c240d59d3de1c90b58ea84e48a733ae8",
-    "tests/PhobosNative.Tests/Program.cs": "9e39f959fb0fafa735bbea68d9910eac31fb496cc696467f57ffeb8d00789f33",
+    "tests/PhobosNative.Tests/Program.cs": "d490fd583d63f06c41a2f1d6b1be0f314703734249b376029345e713ecfad6ae",
     "translations/PhobosAgriculture/en.json": "729cdf4bb335f3443f1df8238b01f58b6174d591a944d0286c781061aaaaea2c",
     "translations/PhobosAutoNav/en.json": "be258c49c837135b070b59ddf440a0d7599d16e9a1ac3d6bd2976d87c57961c2",
     "translations/PhobosFramework/en.json": "82d081858cc2b392a32700cf9cda9a0f4229b0120fc4a7da03804fe3373ab654",
-    "translations/PhobosManufacturing/en.json": "90d36d95022ff915e5c410f57fca6b15eaded78091dce8e30332fbb5da8c65e1",
+    "translations/PhobosManufacturing/en.json": "29ba32895f0687cb203e11d0ed692cd94a331302ad5e176a239b434e9152dbfc",
     "translations/PhobosMedical/en.json": "c1dfcc58a4c5ce2cff7895d13b2e20363011bbab4e15bef332b2741348a584f8",
     "translations/PhobosShipbreaker/en.json": "d7dd56cbe3ae456215a5ce7042a704a0ce6a9a6015a4b4b5c6da983fe863bb97",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"

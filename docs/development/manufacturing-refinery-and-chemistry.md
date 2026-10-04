@@ -829,3 +829,27 @@ against 134 cr of the crop's nutrients and water, 1.87 times. Bottling always be
 the kiosk's buy-back (9 cr/kg of ethanol against about 661 cr/kg bottled). No
 merchant sells the spirit. A crew order to keep spirit stocked was planned and is
 deferred: the tray holds four batches and the unit needs no feed loading.
+
+## The reaction mass feeder (0.43.0)
+
+Owner rule, 4 October 2026: no trash-like object is left to pile up in numbers, and every remainder has a
+consumer. The consumer is the Slingwright RM-1: it grinds any declared remainder and the RCS throws the mass
+out as reaction mass.
+
+- **Mass.** A ground item is destroyed and its exact mass enters the feeder's record; the thrusters remove that
+  mass from the ship. Nothing is created.
+- **Worth.** One kilogram counts as one kilogram of nitrogen (authored): the mass is taken as leaving at about
+  700 m/s, near the ideal exhaust speed of cold nitrogen gas, so Framework's nitrogen-equivalent accounting needs
+  no new factor.
+- **Energy.** Half of 700 squared is 245 kJ, 0.068 kWh, a kilogram. The feeder pays 0.15 kWh/kg while grinding
+  (authored, about twice the kinetic energy for launcher and grinding losses), half of it into the room at once.
+  A burn then needs no power.
+- **Source and limits.** Waste as reaction mass is the mass driver of the 1977 NASA Ames space settlement study
+  (O'Neill and others, NASA SP-428); cited from memory and to be verified before quoting further. NASA did not
+  design this machine and the figures are ours. Throwing ground solids through gas thrusters is game-like, and
+  the record says so.
+- **What counts.** Framework `Registration.Remainders` holds every declared remainder by definition id:
+  Manufacturing's terminal materials, Shipbreaker's rejects and melt remainders, Agriculture's treatment and
+  recycler rejects, and all retained maintenance waste. Trash-category items that a recipe takes (leached residue,
+  crop residue, spent biomass, process solution) are not remainders. The native checks refuse a Phobos trash item
+  that is neither.

@@ -26,6 +26,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.87.0] - 2026-10-04 - Draft
+
+### Added
+
+- A shared list of remainders: the waste items no recipe takes. Each mod declares its own, and retained maintenance waste is declared automatically, so a consumer such as Phobos Manufacturing's reaction mass feeder can take exactly those and nothing useful.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.86.0] - 2026-10-04 - Draft
 
 ### Added

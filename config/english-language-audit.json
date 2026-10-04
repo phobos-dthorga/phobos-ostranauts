@@ -72736,6 +72736,482 @@
       "after": "The machine could not take its charge in: its inner feed is full of something else. Cancel to get that back, then Start again."
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.feeder_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "It still holds reaction mass. Let the thrusters burn it, or throw it overboard from the panel, before dismantling.",
+      "after": "It still holds reaction mass. Let the thrusters burn it, or throw it overboard from the panel, before dismantling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingGrinding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Grinding",
+      "after": "Grinding"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Reaction Mass Feeder",
+      "after": "Reaction Mass Feeder"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Turns your rubbish into thrust. This 1 x 1 unit weighs {0:F0} kg and goes where an RCS gas canister would. Put remainders in it: slag, cakes, rejects, tailings, retained waste. While it has power ({2:F0} kW) it grinds them, one at a time, into up to {1:F0} kg of reaction mass, and the thrusters burn that like nitrogen. It takes remainders only, never ore, scrap or anything useful.",
+      "after": "Turns your rubbish into thrust. This 1 x 1 unit weighs {0:F0} kg and goes where an RCS gas canister would. Put remainders in it: slag, cakes, rejects, tailings, retained waste. While it has power ({2:F0} kW) it grinds them, one at a time, into up to {1:F0} kg of reaction mass, and the thrusters burn that like nitrogen. It takes remainders only, never ore, scrap or anything useful."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.contents",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Reaction mass",
+      "after": "Reaction mass"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.idle",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Nothing to grind. Put remainders in its inventory.",
+      "after": "Nothing to grind. Put remainders in its inventory."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "This feeder's record could not be read. Repair it, then Accept from the panel.",
+      "after": "This feeder's record could not be read. Repair it, then Accept from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Full: {0:F0} kg of reaction mass. It grinds again once the thrusters have used some.",
+      "after": "Full: {0:F0} kg of reaction mass. It grinds again once the thrusters have used some."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.grinding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Grinding {0}: {1:F2} of {2:F2} kWh.",
+      "after": "Grinding {0}: {1:F2} of {2:F2} kWh."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.ground",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Ground {0}: {1:F2} kg added.",
+      "after": "Ground {0}: {1:F2} kg added."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "The feeder stopped on a fault. See the log.",
+      "after": "The feeder stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Install the feeder first.",
+      "after": "Install the feeder first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Repair the feeder first.",
+      "after": "Repair the feeder first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Unlock the feeder first.",
+      "after": "Unlock the feeder first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "The feeder is switched off at its power control.",
+      "after": "The feeder is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Reaction mass: {0:F1} of {1:F0} kg. Power: {2}.",
+      "after": "Reaction mass: {0:F1} of {1:F0} kg. Power: {2}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.feeding_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Feeding the thrusters.",
+      "after": "Feeding the thrusters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.feeding_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Not feeding the thrusters; it still grinds.",
+      "after": "Not feeding the thrusters; it still grinds."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.order_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Burned before the canisters.",
+      "after": "Burned before the canisters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.order_last",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Burned after the canisters.",
+      "after": "Burned after the canisters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.placed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "On an RCS intake: the thrusters can draw on it.",
+      "after": "On an RCS intake: the thrusters can draw on it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.not_placed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Not on an RCS intake. Install it where a gas canister would go, on an RCS Intake Regulator, or the thrusters cannot reach it.",
+      "after": "Not on an RCS intake. Install it where a gas canister would go, on an RCS Intake Regulator, or the thrusters cannot reach it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Draws {0:F0} kW while grinding, {1:F2} kWh for each kilogram.",
+      "after": "Draws {0:F0} kW while grinding, {1:F2} kWh for each kilogram."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.feeding_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Feed the thrusters",
+      "after": "Feed the thrusters"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.order_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Draw order",
+      "after": "Draw order"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.action_jettison",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Throw the reaction mass overboard",
+      "after": "Throw the reaction mass overboard"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.jettison_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "thrown overboard",
+      "after": "thrown overboard"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.jettisoned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "{0:F1} kg of reaction mass thrown overboard.",
+      "after": "{0:F1} kg of reaction mass thrown overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.nothing_to_jettison",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "There is no reaction mass to throw overboard.",
+      "after": "There is no reaction mass to throw overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.draw_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "RCS reaction mass",
+      "after": "RCS reaction mass"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Record accepted.",
+      "after": "Record accepted."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Feeder.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Nothing to accept.",
+      "after": "Nothing to accept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.feeder",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Slingwright reaction mass feeder text, in the shared style of the P1 and bottler text it parallels.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/FeederService.cs",
+        "src/PhobosManufacturing/Definitions.cs"
+      ],
+      "before": "Reaction mass feeders",
+      "after": "Reaction mass feeders"
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -75549,8 +76025,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bba5d5348faa24218800cacc4e87e090e0827583639a150b29f0b16d7bd6af25",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "fc2c83a347f0befd42c5984ad78a7cf5e25ab8bfab5475b38a6565355d9b72d9",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "SUPPORT.md",
@@ -75577,8 +76053,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d93dbf369a374347e4728e7205d1a841a956f8e630ff3fdec6e79ab19715981a",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "a8fbc1374ba08a101928ea18577e959945f78eb03e3574d4db1c63d31db385e5",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -75709,8 +76185,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4fe4de7bdee9e64279c34525d8724b30084f3caea42e45aaad4ca6d2028b782b",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "0066d431c04b1b10e6f48278b1d49094c70a29ac04f158a556504dffd207ffbb",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/crew-automation.md",
@@ -75737,8 +76213,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "9f6741fabd5e51d4a87f32cfaff5e54211dcf08e86aff1e7a3981d343696ea5c",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "71a7a894757a28d8fe0e14356a7592b32064dd35e2d321942906e788f6e104eb",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -76004,8 +76480,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a6acbf64331d6e9bc3ef46d0f1516f53d2374ff2d6d194bb87d3ef0a3b938015",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "c6e27cdae8c6e4a568c64dd5946efd0fac004895876d843c2401fb0f45f2f1ea",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -76136,15 +76612,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "ba3c3cbea0e78c922c45763229dc8c9bce67987811563873d00406accb6a1249",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "8d58edeab033dac8a0f5c91a40061c2fe942050cb469eb5f3e75d6ab5107613e",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "64dfb7d061cda80fcf4872cf8b72286b18c4a68ca5e69f1bf34bc6e9699f96ec",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "3f261886f044620e44adbc2df661b663204ba88d79980ff4db0e439f9ce32036",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -76209,8 +76685,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "bb9ae462d607dc45ce068a7adf784f74408515cb08d982c30d35abd00688d852",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "6d09ce0150745047da2eee2ed3341db48aa372c13aff06a249100ac835738cb5",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -76309,8 +76785,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "0793c84f045867a0605b26cba4fbde5a284c5b2029fac7e545a1998e85a33523",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "0bf0e5dc6a246cccfd9693e4c75b3e7f783ca80dd54ad6c19857056dc04c0822",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -76500,8 +76976,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "df440afede0fa5787aade891deaee5027f767c3660c6a72780075db82db40e1e",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "2aa5d909f81657f14c381f2a5246e7f165867260c55818a6c6511ce73c4c6585",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -76549,8 +77025,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "27f45a2878e1b8bb22f0b71bf4e9326e21ed5733ea64933b55ef28fe6f02d381",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "63c846e5e10dd22e43adada25a3081775f5a52ffb3145aecd6f95175b8f526b9",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -76605,15 +77081,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5a5a704698c7ebc5ef4c82dd2203c44162e434cd1b622a46ee0507d78176caa8",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "0c240255446a268c5fe62919d94aabbac16fb7f759f2d406a2786f4f747a7a7c",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dfec2b31ed7a130d0b9d9cbc3315f72622e3d3411bd38db726178f65d653a7ea",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "d15c6316560858ef0e44b562475cf8da8e99e58713e989435a15ee935842d781",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/item-references.md",
@@ -76633,15 +77109,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "eb42dee245c4fdf7595365b3122c931eeecbbc095fe6a488b27dd78ad5a6a195",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "208dcb2923224609d8b348284e315ad78a66f2ceff8c00c4c13a09b2cf80a79e",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "b6d02f274acd28e885c67111c1a2ff1de7dc244b783e3217c1bd57b94ed3c450",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "d288e549368ba1cb248d068d9b6448e2eccf348334c1c0548189321ed89d1447",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -76675,8 +77151,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "627610e7f9d76d2753b62a3cd7ca62ed62b6241d80f229d848881466cd068857",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "df90d79155f018a7b624fbe5f15d8c85baa4fe46b9c6351cb1816e230fc3a6fe",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/residue-collector.md",
@@ -76724,8 +77200,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "08b05e8d98a0d355218905727caf118929024ba4a3dbb6ccfcb6119d8f633c8b",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "4d173499a09a2cafbe80600b4bf1895446bb57d939ad2bd14e3b75759caf141f",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -76780,8 +77256,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f16ab602e93bdbcc3d7ed9a92247599592eb1a942c08c0c9f6b7aceda7ee99eb",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "0ea9c19571f1f73472e59237692ddad46c3fedd8f97209294f63928a5440ebbc",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -76794,15 +77270,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2e74b1df4ca54b198d83365517ad537a90108a410e92973aab0c49b682a90cf1",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "fe66528eda42e8311d7f2c95689df415ef8b21153b9d7290ff32b012b3e81dab",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5407e28c034a03cc6cf318e30cf75e4aef4964ebbc9a40eca9ca5a14d0d7de09",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "052180fa4a1fe8856422bb192de7227a33df3da6e69bf20fa30e0aed3fe94693",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -76815,8 +77291,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3b0bcbc90e6342753bc609e54706e4ca41c3ea6260ae7b3ad1726914910c6401",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "e670593fe59e09a2e101e980831af06e9a13e3a4cf3dd883e62e72c5561be744",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -76830,8 +77306,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "016d45a5154ba462e0feb59a6aff23b1347755d0b0f05df8d386b848d7c8b267",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "2036ccb22cbbe637528dc95f1c529c6b86d7fabc4403f8fd94e34d8832347c95",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -76847,8 +77323,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a47b59bdc7b049e458b5a759e0388bb595c25615eef9c6cb7b2d8171b4a140b0",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "bca62db66c5fb8f4031ae43b3add7501d7c0f0c5a59c976e304d08e487e8a774",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -76882,14 +77358,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ef0862f417388c03abd3de106db6aa9a29e35339240f113a4dba001afeba861d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "f1fdaa6991909095d948d28d98a78d7d97aed600bcaacd988e7b9659b36f8491",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e6bf61a08194ddc8525b40f84a9126b72a48a386accef76ea9940c0f7ffc26e0",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "f63fb486fa68145a6fca7a9c3eaa63b333037f7d778f94c2afe397123c6cc268",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -76906,8 +77382,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ef2d5e4bfe218dfe2e0eb664f484ba184ed97d6fb6062ad9416860c9842e2d68",
-      "review": "Reviewed 4 October 2026 for Framework 0.85.0, Shipbreaker 0.73.0 and Manufacturing 0.42.0: optional feed stores by touch or conveyor belt."
+      "sha256": "1196705aad7464e7847523363523f9e77861295ba81344cdf93bfef5c85bba11",
+      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

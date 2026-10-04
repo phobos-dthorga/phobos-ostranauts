@@ -3,7 +3,7 @@
   <ItemGroup>
     <Compile Include="../Support/PerformanceDisabled.cs" Link="PerformanceDisabled.cs" />
     <!-- NativeCombat and AttachedTiles read live game ships and tiles; this suite runs without the game assemblies. -->
-    <Compile Include="../../src/PhobosFramework/Observations/*.cs" Exclude="../../src/PhobosFramework/Observations/NativeCombat.cs;../../src/PhobosFramework/Observations/AttachedTiles.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../src/PhobosFramework/Observations/*.cs" Exclude="../../src/PhobosFramework/Observations/NativeCombat.cs;../../src/PhobosFramework/Observations/AttachedTiles.cs;../../src/PhobosFramework/Observations/Footprints.cs" Link="%(Filename)%(Extension)" />
     <Compile Include="../../src/PhobosFramework/Controls/ConsoleBinding.cs" Link="ConsoleBinding.cs" />
     <Compile Include="../../src/PhobosShipbreaker/IndustryObservations.cs" Link="IndustryObservations.cs" />
     <Compile Include="../../src/PhobosShipbreaker/ControlAuthority.cs" Link="ControlAuthority.cs" />

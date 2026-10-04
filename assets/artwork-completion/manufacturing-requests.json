@@ -20,7 +20,8 @@
     "references/anhydrous-residue-start.png": "01d02b61d7d867aeb0d98eb4120484d8e4e792e338d427d1320c0dfa2568c6ef",
     "references/a2-cabin-air-regulator-start.png": "e48ee82a8eec77328abeaf84b4da1c582fac97b64bcc01dee240314a8ad80ef5",
     "references/bottling-unit-start.png": "2b3706df8ed69e21f1250e72f4b6b6cd7c253d601045cbfe6d87313ef9164d6d",
-    "references/corker2-bottling-unit-first-pass.png": "290482d872fda442698ffde69d8f295703465c7694ddfff92c7eac12ae08489c"
+    "references/corker2-bottling-unit-first-pass.png": "290482d872fda442698ffde69d8f295703465c7694ddfff92c7eac12ae08489c",
+    "references/rm1-feeder-start.png": "9f4be0ec77deab7ae80c3f6cba9581847eaaadd1627482de7880a5ed8777ddce"
   },
   "derived": {
     "nickel-iron-ingot": {
@@ -974,6 +975,29 @@
       "sha256": "41fb3571b6d69478991a022740aa74e10e259c843f270e45c0cc6bb59f924f6e",
       "decision": "rejected",
       "review": "An angled bottle in three-quarter view that becomes a smudge at 16 px; replaced by a recolour of the selected flask."
+    },
+    {
+      "key": "rm1-reaction-mass-feeder",
+      "operation": "create_image_pixflux",
+      "jobId": "04b2efde-8bad-4e03-bcc9-4a21a7a16899",
+      "assetId": "88739a57-42d5-506a-a75b-2adfe21e29d2",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a small spacecraft reaction mass feeder, one deck tile: a dark olive-drab painted steel frame around a pale bone-coloured steel top plate lit from the upper left; in the middle a round steel-blue accelerator coil ring with ribbed windings around a dark round grinder hopper mouth with steel teeth; a short grey steel feed tube leaving the middle of the bottom edge; four small dark corner bolts; a few scuffs. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details. No lights, no gauges, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9330160,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/rm1-feeder-start.png",
+      "decision": "selected",
+      "review": "Overhead, edge to edge, no side faces; the coil ring, grinder mouth and feed tube read at 16 px. Selected on the first pass (Manufacturing 0.43.0, 4 October 2026)."
     }
   ],
   "passes": [

@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.47.0] - 2026-10-04 - Draft
+
+### Changed
+
+- Treatment rejects, recycler wet rejects and retained waste are declared as remainders, so Phobos Manufacturing's reaction mass feeder can grind them into RCS reaction mass.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.87.0 or newer. The feeder itself comes with Phobos Manufacturing 0.43.0.
+- Checked offline; not yet seen in the game.
+
 ## [0.46.0] - 2026-10-04 - Draft
 
 ### Added

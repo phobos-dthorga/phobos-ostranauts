@@ -62,6 +62,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark H2 Hydrogen Store | Two-by-two passive pressurised hydrogen store (Manufacturing) |
 | Phobos' Fennmark K2 Sabatier Reactor | Two-by-two catalytic CO2 reduction reactor (Manufacturing 0.2.0) |
 | Phobos' Fennmark M2 Methane Store | Two-by-two passive pressurised methane store (Manufacturing 0.2.0) |
+| Phobos' Slingwright RM-1 Reaction Mass Feeder | One-tile powered grinder feeding remainders to the RCS as reaction mass (Manufacturing 0.43.0) |
 | Phobos' Fennmark P1 RCS Propellant Manifold | One-tile passive valve block feeding the RCS from bulk stores (Manufacturing 0.3.0) |
 | Phobos' Fennmark Gas Line | Sealed gas line segment; ordinary supply without a model number (Manufacturing 0.3.0 as the propellant line, renamed 0.4.0) |
 | Phobos' Fennmark H3 and H4 Hydrogen Stores; M3 and M4 Methane Stores | Medium (3 x 3) and large (4 x 4) sizes; the model digit is the footprint (Manufacturing 0.4.0) |
@@ -115,6 +116,13 @@ of that name was found in a web search on 1 October 2026. Its colours are
 off-white enamel base plates, gunmetal housings, black optics and one signal-red
 collar, apart from Rivetline's greys and blues. Models follow the Tolvane
 pattern: two letters for the job, a hyphen and the footprint width (ML-2).
+
+**Slingwright** is Manufacturing's maker of reaction-mass equipment (agent choice on
+4 October 2026 under the owner's direction to open a new brand where Fennmark is
+crowded; open to revision). The name joins sling, the oldest launcher, to wright, a
+maker; no company or brand of that name was found in a web search on 4 October 2026.
+Its colours are olive-drab frames, bone top plates and steel-blue coils. Models are
+two letters for the job, a hyphen and a series number (RM-1).
 
 **Lixivar** is Manufacturing's third fictional manufacturer (owner approval, 30
 September 2026), for hydrometallurgy: leaching, crystallisation and, later, the

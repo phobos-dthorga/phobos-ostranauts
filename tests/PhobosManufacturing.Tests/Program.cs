@@ -9,6 +9,7 @@ LeachChecks.Run(Check, Throws);
 AcidPlantChecks.Run(Check, Throws);
 FermenterChecks.Run(Check, Throws);
 BottlerChecks.Run(Check, Throws);
+FeederChecks.Run(Check, Throws);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);

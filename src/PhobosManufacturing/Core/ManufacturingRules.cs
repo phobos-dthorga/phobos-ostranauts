@@ -7,7 +7,7 @@ namespace PhobosManufacturing.Core;
 public static class ManufacturingRules
 {
     public const string Owner = "phobosgekko.ostranauts.manufacturing";
-    public const string Working = "PhobosManufacturingWorking", Electrolysing = "PhobosManufacturingElectrolysing", Reacting = "PhobosManufacturingReacting", Filling = "PhobosManufacturingFilling", Bottling = "PhobosManufacturingBottling",
+    public const string Working = "PhobosManufacturingWorking", Electrolysing = "PhobosManufacturingElectrolysing", Reacting = "PhobosManufacturingReacting", Filling = "PhobosManufacturingFilling", Bottling = "PhobosManufacturingBottling", Grinding = "PhobosManufacturingGrinding",
         Content = "PhobosManufacturingContent";
     /// <summary>The commodity every registered water vessel holds (Shipbreaker's S3, Agriculture's R3) and ours.</summary>
     public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane", Oxygen = "oxygen", Nitrogen = "nitrogen", CarbonDioxide = "carbon dioxide", Ammonia = "ammonia";

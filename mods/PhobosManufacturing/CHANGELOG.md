@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.43.0] - 2026-10-04 - Draft
+
+### Added
+
+- The Slingwright RM-1 Reaction Mass Feeder (owner decisions, 4 October 2026): a 1 x 1 powered grinder for an RCS intake, INSTALL, HVAC. It turns remainders (slag, cakes, calcine, rejects, retained waste) into up to 60 kg of reaction mass that the thrusters burn like nitrogen. It grinds by itself at 3 kW, 0.15 kWh a kilogram, takes remainders only, and can draw them from a bin or locker under Take feed from.
+- Every terminal remainder this mod makes is now declared, so the feeder is its consumer.
+- Sold at the usual Manufacturing merchants and, for scrip, at faction kiosks (Friendly standing).
+
+### Save compatibility
+
+- Automatic. New equipment only; remainders already aboard are accepted as they are.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.87.0 or newer.
+- The exhaust speed, energy and worth of reaction mass are gameplay choices; throwing ground solids through gas thrusters is game-like.
+- Checked offline; not yet seen in the game.
+
 ## [0.42.0] - 2026-10-04 - Draft
 
 ### Added

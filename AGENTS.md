@@ -876,6 +876,15 @@
   its feed from there while started and powered (Framework 0.85.0 `StoreFeed`;
   Shipbreaker 0.73.0 T2; Manufacturing 0.42.0 charge machines). Hand loading always
   stays; never make a belt or bin a requirement.
+- Owner rule (2026-10-04): **no trash-like objects left to pile up in numbers.** Every
+  remainder needs a consumer before the thing that makes it, even a game-like one. The
+  consumer is Manufacturing 0.43.0's Slingwright RM-1 Reaction Mass Feeder, which grinds
+  declared remainders into RCS reaction mass (a second `IRcsPropellantFeed`, worth 1,
+  0.15 kWh/kg, authored). Declare every new terminal remainder through Framework 0.87.0
+  `Registration.Remainders` (retained maintenance waste is declared automatically) and
+  deliver it as one stack. `RemainderNativeChecks` refuses a Phobos trash-category item
+  that is neither declared nor listed there with the recipe that takes it. The feeder
+  lives in Manufacturing (owner choice), so other mods' remainders need it installed.
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

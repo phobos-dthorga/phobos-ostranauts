@@ -104,6 +104,8 @@ internal static class Definitions
         Stock(d, Drainage, "drainage");
         Stock(d, Service.CharacterizedDrainage, "characterized_drainage");
         Stock(d, Service.RecoveryReject, "recovery_reject");
+        // Owner rule (4 October 2026): the treatment rejects and the recycler's wet rejects, which no recipe takes, are declared remainders.
+        Phobos.Ostranauts.Framework.Registration.Remainders.Declare(Service.RecoveryReject, RecyclerCapture.Wet);
         Stock(d, Service.RecoveryCartridge, "recovery_cartridge");
         WorkupDefinitions.AddFeedIdentities(d);
         foreach (var eaten in Crops.Items.Where(i => i.Value.hunger != null))

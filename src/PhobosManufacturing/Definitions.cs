@@ -19,7 +19,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill", BottlerArt = "PhobosBottlingUnit";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant", FermenterArt = "PhobosFermenterStill", BottlerArt = "PhobosBottlingUnit", FeederArt = "PhobosReactionMassFeeder";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     /// <summary>The game's named colour for each stored gas's contents row; hydrogen, which the game has no gas for, takes its cryogenic blue.</summary>
     internal static readonly IReadOnlyDictionary<string, string> ContentsColors = new Dictionary<string, string>(StringComparer.Ordinal)
@@ -28,7 +28,7 @@ internal static class Definitions
     };
     internal static void Add(NativeDefinitions d)
     {
-        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Filling, ManufacturingRules.Content })
+        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Filling, ManufacturingRules.Grinding, ManufacturingRules.Content })
             d.Conditions[condition] = new JsonCond { strName = condition, strNameFriendly = Text.Get("Condition." + condition), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("Panel.controls"); controls.strDesc = controls.strTooltip = Text.Get("Panel.controls_tooltip");
@@ -52,6 +52,9 @@ internal static class Definitions
         foreach (var family in LiquidStores.Families)
             VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), family.ContentsColor);
         AddManifold(d);
+        AddFeeder(d);
+        // Owner rule (4 October 2026): every terminal remainder is declared, so the feeder is its consumer.
+        Remainders.Declare(Materials.All.Where(m => m.Terminal).Select(m => m.Id));
         AddFiller(d);
         AddRegulator(d);
         AddLinePorts(d);
@@ -264,6 +267,31 @@ internal static class Definitions
             co.strPortraitImg = item.strImg;
         }
     }
+    /// <summary>The Slingwright RM-1 reaction mass feeder (Manufacturing 0.43.0): a powered 1 x 1 machine for a regulator's
+    /// gas-input tile, like the P1. Its four-cell inventory admits declared remainders only (the admission hook); the
+    /// ground mass is a bulk-vessel record shown on the right-click card. Not airtight and not a gas container, so the
+    /// game never treats it as a canister.</summary>
+    private static void AddFeeder(NativeDefinitions d)
+    {
+        string p = FeederRules.Prefix;
+        BulkVessels.Register(new BulkVesselSpec(p, FeederRules.Commodity, FeederRules.CapacityKg, FeederRules.MachineKg, ManufacturingRules.Owner,
+            FeederRules.MassRecord, FeederRules.MassJournal, FeederRules.MassGuard));
+        VesselContentsDisplay.Declare(d, FeederRules.Commodity, Text.Get("Feeder.contents"), "CO2White");
+        ApplianceDefinitions.Add(d, p, Text.Get("Feeder.name"), Text.Get("Feeder.description", FeederRules.MachineKg, FeederRules.CapacityKg, FeederRules.WorkingKW),
+            FeederRules.Footprint, FeederRules.MachineKg, Economy.Price(p), ImagePath + FeederArt, Controls, FeederRules.IdleKW, InstallMenu.Hvac);
+        ApplianceDefinitions.SetPowerOverride(d, p, FeederRules.IdleKW, FeederRules.WorkingKW, ManufacturingRules.Grinding, "PowerA");
+        EquipmentInventory.Apply(d, p, InventorySpec.ServiceRack(FeederRules.TrayWidth, FeederRules.TrayHeight));
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Feeder.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
+            co.mapPoints = new[] { "use,0,0", "PowerA,0," + ApplianceDefinitions.WallRowY(FeederRules.Footprint) };
+            co.strPortraitImg = item.strImg;
+        }
+    }
+
     /// <summary>The P1 manifold: a passive 1 x 1 valve block for a regulator's gas-input tile. Deliberately not
     /// airtight and not a gas container, so the game never treats it as a canister (no refuelling into it); the
     /// Framework RCS patch finds it on the tile and asks it for remass.</summary>

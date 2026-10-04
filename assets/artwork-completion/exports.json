@@ -1902,6 +1902,32 @@
     "fullFootprint": true
   },
   {
+    "key": "rm1-reaction-mass-feeder",
+    "sourceSHA256": "680704898d0e64c9003d4cf2e26a3a548a356a7a3ae7eaddbddc4c66965e925c",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosReactionMassFeeder.png": "e3d3cae69bac766162d568922da98b2262e2d45a34540d6999f1e617e71264fa",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosReactionMassFeederNormal.png": "30dd0e95d3fda123a8b48a8fe9859aa66ef2e862fb1b5b5c7aec114c5ac3adff"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "o2-oxygen-store",
     "sourceSHA256": "69399b34c1a83fe17cbb77d1717527dc2848fe6862d320d11793a848f2a7325a",
     "nativeSize": [

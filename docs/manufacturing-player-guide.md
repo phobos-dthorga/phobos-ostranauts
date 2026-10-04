@@ -30,6 +30,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark A2 Cabin Air Regulator | 2 x 2 tiles; 60 kg; one power point; 0.1 kW | 23,000 cr, broken 5,750 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
+| Phobos' Slingwright RM-1 Reaction Mass Feeder | 1 x 1 tile; 40 kg; one power point; 3 kW grinding | 16,000 cr, broken 4,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark Gas Line (a Framework item since Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
 | Phobos' Process Water Line (Framework 0.57.0) | 1 tile per segment; 1 kg | 3 cr | The same sellers, in lots of 128; INSTALL > HVAC. |
 | Phobos' Lixivar Acid Line | 1 tile per segment; 1 kg | 6 cr | The same sellers, in lots of 128; INSTALL > HVAC. |
@@ -718,6 +719,43 @@ game's own, count every gas in nitrogen-equivalent kilograms, so a methane store
 shows as more fuel than its weight. A ship that only uses nitrogen flies exactly
 as before. Draws settle into the stores every couple of seconds and before a
 save; station refuelling still fills only the game's own nitrogen canisters.
+
+## The reaction mass feeder
+
+The **Slingwright RM-1 Reaction Mass Feeder** turns the ship's rubbish into thrust.
+Slag, cakes, calcine, rejects, tailings, retained waste: none of it has another
+use, and none of it needs to pile up.
+
+1. Install it where a gas canister would go, on an **RCS Intake Regulator**
+   (INSTALL > HVAC), and connect its power point. It can sit beside canisters and
+   a P1 manifold on the regulator's other intakes.
+2. Put remainders in its **Inventory**. It takes remainders only and refuses ore,
+   scrap, gangue and anything useful. Or choose a bin or locker under
+   **Connections** > **Take feed from** and it helps itself; see
+   [feed stores](automatic-material-routing.md#feed-stores-for-the-t2-and-the-manufacturing-machines-optional).
+3. While it has power it grinds one item at a time into **reaction mass**, up to
+   60 kg, shown on its right-click card. Grinding draws 3 kW and takes 0.15 kWh
+   a kilogram, about 20 kg an hour. It needs no Start and carries on after a reload.
+4. The thrusters burn the reaction mass like nitrogen, kilogram for kilogram.
+   **Draw order** chooses whether it burns before the canisters (the default) or
+   after; **Feed the thrusters** switches it out of the RCS while it keeps grinding.
+
+```mermaid
+flowchart LR
+    Rem["Slag, cakes, rejects, tailings, waste"] --> RM1["RM-1 feeder, 3 kW"]
+    Bin["Bin or locker, optional"] -->|Take feed from| RM1
+    RM1 -->|reaction mass, up to 60 kg| RCS["RCS thrusters"]
+```
+
+**Throw the reaction mass overboard** on the panel empties it without thrust; do
+that, or burn it off, before dismantling. Uninstalling carries the mass along. A
+damaged feeder keeps its mass and feeds nothing until repaired.
+
+The figures are ours: mass thrown at about 700 m/s, the exhaust speed of cold
+nitrogen, takes 0.068 kWh a kilogram, and the feeder pays about twice that for
+losses. Throwing ground rock out of gas thrusters is game-like; the idea of
+using waste as reaction mass is the mass driver of the 1977 NASA Ames space
+settlement study (NASA SP-428, cited from memory).
 
 ## The hydrogen store
 

@@ -1007,3 +1007,11 @@ store also looks there, on the same two-second real-time cadence as its own inve
 nothing. The look reads the saved choice, asks the cached belt layout whether the two still join, and runs the feed's
 admission over the store's units. A machine with no store chosen pays one saved-record read per look. No capture
 accompanies this change.
+
+## 4 October: reaction mass feeder (L37)
+
+L37 — Framework 0.87.0 with Manufacturing 0.43.0: one more RCS feed and one more batch machine on the existing
+power hook. The reserve query the game makes every frame is two dictionary probes and no allocation; an idle feeder
+looks through its four-cell inventory each power step and in its feed store at most every five real seconds. The
+inventory admission hook adds one prefix comparison for containers that are not charge feeds. No capture
+accompanies this change.
