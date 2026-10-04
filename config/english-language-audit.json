@@ -77975,8 +77975,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "afc267bd56a4769abf4ee2ff80868b2bedd3d3f3da7ca1d39b9b29e79df8dee5",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "5f3595b4b85757bac77eb1fe9e0eed80df815853d6439acf8a71633b222105f2",
+      "review": "Reviewed 4 October 2026 for Framework 0.91.0: translations and names from add-ons."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
