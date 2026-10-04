@@ -10,6 +10,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.50.0] - 2026-10-05 - Draft
+
+### Added
+
+- Regolith leach on the LC-3: the game's loose regolith finally has a use. One 20 kg lump, 1.08 kg of sulfuric acid and 1.65 kg of water give four Epsom salt and washed tailings in 30 minutes. By chance a leach also gives scrap steel, a Silicates ore chunk or, rarely, a nickel-iron ingot. The result is fixed by the lump, and the odds are a data file you can edit.
+
+### Changed
+
+- Washed tailings stack 25 to a cell, up from 20, so a leach's tailings arrive as one stack.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- The Epsom salt follows the olivine recipe; how much olivine a lump holds is our figure. The scrap steel and the ore chunk are game-like finds.
+- A prospector sells regolith, so the odds are lean: a leach is expected to return a little more than it costs.
+- Checked offline; not yet seen in the game.
+
 ## [0.49.0] - 2026-10-05 - Draft
 
 ### Added

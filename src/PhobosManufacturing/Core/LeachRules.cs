@@ -26,6 +26,9 @@ public static class LeachRules
     public const string Olivine = "ItmMineral02";
     /// <summary>The game's own gangue (3 kg), the gangue wash's feed (Manufacturing 0.44.0).</summary>
     public const string Gangue = "ItmMiningTrash";
+    /// <summary>The game's own loose regolith (20 kg), the regolith leach's feed (Manufacturing 0.50.0). A mineral, not an
+    /// ore, in the game's data, so the same feed condition admits it.</summary>
+    public const string Regolith = "ItmMineralStone01";
     /// <summary>Native conditions the feed admits beside the ore rule: gangue is a mineral, not an ore, in the game's data.
     /// The container rule still admits only the selected recipe's exact feed.</summary>
     public static readonly string[] FeedConditions = { "IsMineral" };
@@ -45,7 +48,7 @@ public static class LeachRules
     public static readonly string[] StockFeed = { Materials.EvaporiteCrust, Materials.PhosphateConcentrate, Materials.PotassiumSulfate, Materials.Struvite,
         Materials.PhosphoricAcidFlask, Materials.EpsomSalt, Materials.AmmoniumSulfate };
     /// <summary>Every item identity the LC-3's recipes take: its own stock and the game's olivine.</summary>
-    public static IEnumerable<string> FeedIds => StockFeed.Concat(new[] { Olivine, Gangue });
+    public static IEnumerable<string> FeedIds => StockFeed.Concat(new[] { Olivine, Gangue, Regolith });
 }
 
 /// <summary>The LC-3 catalog: the <c>leach</c> recipes of the shared charge catalog, with the named charges the

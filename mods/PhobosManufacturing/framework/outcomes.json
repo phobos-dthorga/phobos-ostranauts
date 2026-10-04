@@ -11,6 +11,10 @@
         "gangue-wash-aluminium": 15,
         "gangue-wash-nickel-iron": 5
       }
+    },
+    "regolith-leach": {
+      "notes": "Lean, and held to the bought-stock rule (5 October 2026): a K-Leg prospector sells loose regolith, so the table's expected return stays under 1.25 times its cost. About 66.8 cr expected at base prices against about 54.8 cr of lump, acid and water.",
+      "outcomes": { "regolith-leach": 72, "regolith-leach-steel": 22, "regolith-leach-silicates": 4, "regolith-leach-nickel-iron": 2 }
     }
   }
 }

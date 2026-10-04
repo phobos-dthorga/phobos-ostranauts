@@ -394,6 +394,7 @@ works the recipe you choose, one charge at a time, at 12 kW.
 | Makeup formulation (Agriculture only) | 1 potassium sulfate and 2 struvite | 39 Verdemorrow Groundwork makeup salts packets (40 g each), nothing left over | 2.5 min |
 | Epsom salt from olivine | 1 olivine (the game's 10 kg ore chunk); 8.64 kg of sulfuric acid from the linked acid tank; 9.52 kg of water from the linked vessel | 32 Epsom salt (0.432 kg each); 1 olivine leach cake (14.33 kg, trash). About 5.3 kWh of extra heat goes into the room. | 60 min |
 | Gangue wash | 4 gangue (the game's 3 kg lumps); 1 kg of sulfuric acid from the linked acid tank, with 10 kg of water on hand in the linked vessel | 13 kg in all, by chance: usually washed tailings only; sometimes 2 scrap steel or 2 scrap aluminium, rarely a nickel-iron ingot, with tailings for the rest | 20 min |
+| Regolith leach | 1 loose regolith (the game's 20 kg lump); 1.08 kg of sulfuric acid from the linked acid tank and 1.65 kg of water from the linked vessel | 4 Epsom salt and washed tailings; by chance also 3 scrap steel, a Silicates ore chunk or, rarely, a nickel-iron ingot | 30 min |
 | Acid-route struvite | 1 phosphoric acid flask (from the SA-3) and 3 Epsom salt; 0.27 kg of ammonia from the linked ammonia store | 3 struvite; 3 ammonium sulfate (0.232 kg each); 94 g of water back into the linked vessel | 10 min |
 | Crop nutrients (Agriculture 0.27.0 or newer) | 1 potassium sulfate, 1 struvite, 1 Epsom salt and 1 ammonium sulfate; 0.25 kg of ammonia and 0.73 kg of sulfuric acid from their links | 2.77 kg of crop nutrients into the linked nutrient hopper | 5 min |
 
@@ -757,6 +758,37 @@ and Start. What a wash gives is chance:
 This recipe is game-like, by the owner's leave. Chondritic rock does carry
 nickel-iron metal grains; free aluminium does not occur in rock, and the odds
 are ours.
+
+### The regolith leach
+
+Loose regolith is the broken rock most walls leave behind, and until now nothing
+wanted it either. Choose **Regolith leach** as the LC-3's recipe, put **one lump**
+in its inventory and Start. Every leach gives **four Epsom salt**; the rest is
+chance:
+
+| A leach gives, beside 4 Epsom salt | About how often |
+| --- | --- |
+| 21 washed tailings | 72 in 100 |
+| 3 scrap steel and 18 tailings | 22 in 100 |
+| 1 Silicates ore chunk and 11 tailings | 4 in 100 |
+| 1 nickel-iron ingot and 17 tailings | 2 in 100 |
+
+- **It uses water up.** Unlike the gangue wash, the 1.65 kg of water is not
+  returned: most of it ends up inside the salt crystals.
+- **The result is in the lump.** One lump always leaches the same, so reloading
+  or cancelling changes nothing.
+- **Where it goes.** Epsom salt feeds the struvite and crop-nutrient recipes; the
+  tailings are one stack for the RM-1 feeder.
+- **Keep it fed.** Material bins hold regolith, so a bin on **Take feed from**
+  keeps the leach running; a crate on **Send products to** keeps its tray clear.
+- **The odds are a file you can edit**, in the same `outcomes` data pack as the
+  gangue wash.
+
+The Epsom salt is real chemistry, the same reaction as the olivine recipe on the
+share of a lump we take to be olivine; that share is ours, not a measured
+property of the game's rock. The scrap steel and the ore chunk are game-like
+finds. The odds are lean on purpose: a K-Leg prospector sells regolith, so a
+leach is expected to return only a little more than it costs.
 
 ## The reaction mass feeder
 

@@ -1065,3 +1065,7 @@ L46 — Manufacturing 0.48.0: the X2, K2, AX-2 and bottler status lines compute 
 ## 5 October: product stores (L47)
 
 L47 — Framework 0.98.0 with Manufacturing 0.49.0: a started charge machine or bottler with a product store looks in its tray once a real second and moves at most one unit; with no store chosen the cost is one saved-record read at that cadence. No new hook and no world scan. No capture accompanies this change.
+
+## 5 October: regolith leach (L48)
+
+L48 — Manufacturing 0.50.0: four recipes and one outcome table as data, and one more feed identity on the LC-3. The outcome pick is the existing hash at bind. Nothing is added to a frame or a power step. No capture accompanies this change.

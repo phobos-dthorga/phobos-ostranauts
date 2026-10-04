@@ -87,6 +87,9 @@ class DataPackTests(unittest.TestCase):
                 validate.outcomes(bad, 'test', recipes)
         shipped = json.loads((ROOT / 'mods/PhobosManufacturing/framework/outcomes.json').read_text(encoding='utf-8'))
         self.assertEqual(sum(shipped['tables']['gangue-wash']['outcomes'].values()), 100)
+        # Manufacturing 0.50.0: the regolith leach, held to the bought-stock rule by its lean odds.
+        self.assertEqual(shipped['tables']['regolith-leach']['outcomes'],
+                         {'regolith-leach': 72, 'regolith-leach-steel': 22, 'regolith-leach-silicates': 4, 'regolith-leach-nickel-iron': 2})
 
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.

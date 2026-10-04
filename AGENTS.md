@@ -1587,8 +1587,10 @@
   methane). Ferrosilicon is new stock with a use in the same release (silicol hydrogen on
   the LC-3). Methanation is a second K2 mode fed from new Fennmark carbon monoxide stores;
   old K2 records must read unchanged. Manufacturing machines gain an optional product
-  store by touching or belt, and the V4 leaves regolith alone unless told to bake or
-  sinter it. Follow `docs/development/regolith-programme.md` for decisions, order, agent
+  store by touching or belt (Framework 0.98.0 `StoreDelivery`, Manufacturing 0.49.0), and
+  the V4 leaves regolith alone unless told to bake or sinter it. Manufacturing 0.50.0 ships
+  the leach (leach revisions 11 to 14); a prospector sells regolith, so its table is held
+  to the bought-stock rule (1.25 x), not the 1.5 x table rule. Follow `docs/development/regolith-programme.md` for decisions, order, agent
   defaults and the list of figures still unverified; never cite those until checked.
   The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
   because the owner's ChatGPT plan is time-limited.

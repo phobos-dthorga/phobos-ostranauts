@@ -284,11 +284,11 @@
       "art": "StockAlembrineSpirit"
     },
     "PhobosWashedTailings": {
-      "notes": "Terminal (Manufacturing 0.44.0): what a gangue wash leaves, silicate fines and gypsum-like sulfates, in 1 kg units delivered as one stack. A declared remainder: the reaction mass feeder grinds it.",
+      "notes": "Terminal (Manufacturing 0.44.0): what a gangue wash or a regolith leach leaves, silicate fines and gypsum-like sulfates, in 1 kg units delivered as one stack (25 to a stack since 0.50.0, so a leach's 21 fit one cell). A declared remainder: the reaction mass feeder grinds it.",
       "kind": "stock",
       "kg": 1,
       "price": 0.01,
-      "stack": 20,
+      "stack": 25,
       "side": 1,
       "category": "IsCategoryTrash",
       "terminal": true,

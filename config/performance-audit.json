@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "32e9f02ef54d161d1f05ea375f5e92c7e7f14f9f",
+  "baselineCommit": "9c5f3f8eb4243068ade4ac1fd9bd3bc915661651",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -7325,10 +7325,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/LeachRules.cs",
-      "sha256": "d0e59ec345f8b0c5151c4e565f49a9d8178218bdbcc615a9d34ba11066b546c0",
+      "sha256": "1d6d2f5df9f610dc71aab7ab757b30dd8518cc3bd7aaf507a26e4cfbfe047140",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "K1",
         "L29",
@@ -7340,10 +7340,11 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L48"
       ],
       "indicators": {},
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/Core/LiquidStoreRules.cs",
@@ -7969,7 +7970,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "ffe302eeecaee85604e78890c63a5bb9d5f4a7b94dbe44418e372cb336f831b8",
+      "sha256": "bda55d84a5852a65da3d78270b3a414387bbbabb87b040b7bd7c486c2167b6b1",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -8010,7 +8011,8 @@
         "L43",
         "L44",
         "L46",
-        "L47"
+        "L47",
+        "L48"
       ],
       "indicators": {
         "persistence_or_io": [

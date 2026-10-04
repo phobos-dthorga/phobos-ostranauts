@@ -248,6 +248,42 @@
       "products": [ { "id": "PhobosNickelIronIngot", "count": 1, "kg": 4 }, { "id": "PhobosWashedTailings", "count": 9, "kg": 1 } ],
       "circulates": { "water": 10 },
       "seconds": 1200
+    },
+    "regolith-leach": {
+      "notes": "The regolith leach (owner request, 5 October 2026). One 20 kg lump of the game's loose regolith is leached in 1.080 kg of sulfuric acid from a linked tank and 1.648 kg of water drawn from a linked vessel. The honest part is the olivine-epsom reaction, (Mg0.71Fe0.29)2SiO4 + 2 H2SO4 + 12 H2O -> 1.42 MgSO4.7H2O + 0.58 FeSO4.7H2O + SiO2, on an authored 0.875 kg of acid-accessible olivine in the lump (5.504 mol at Fa29, one eighth of the olivine ore recipe, with the same 89.7% magnesium recovery): 4 Epsom salt (1.728 kg). The water is 1.190 kg of hydration water and 0.458 kg left wetting the cake; rounded to item units, 0.4 g to the acid and the water takes the rest. Everything else leaves as 21 kg of washed tailings: the undissolved rock, silica, iron sulfate and liquor. What a charge turns out to be is set by its outcome table (framework/outcomes.json) from the identity of its lump; this is the outcome with no extra find. The olivine share of a lump is ours, not a measured property of the game's rock. Reaction heat scaled from olivine-epsom, 0.66 kWh. 6 kWh authored at the LC-3's 12 kW for 30 minutes.",
+      "machine": "leach",
+      "revision": 11,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 }, { "id": "sulfuric acid", "count": 1, "kg": 1.08 }, { "id": "water", "count": 1, "kg": 1.648 } ],
+      "products": [ { "id": "PhobosEpsomSalt", "count": 4, "kg": 0.432 }, { "id": "PhobosWashedTailings", "count": 21, "kg": 1 } ],
+      "seconds": 1800,
+      "reactionKWh": 0.66
+    },
+    "regolith-leach-steel": {
+      "notes": "A regolith leach outcome (see regolith-leach): the acid also frees 3 kg of the game's scrap steel, with 18 kg of washed tailings. Chondritic rock does carry metal grains; that they come out as clean scrap is game-like.",
+      "machine": "leach",
+      "revision": 12,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 }, { "id": "sulfuric acid", "count": 1, "kg": 1.08 }, { "id": "water", "count": 1, "kg": 1.648 } ],
+      "products": [ { "id": "PhobosEpsomSalt", "count": 4, "kg": 0.432 }, { "id": "ItmScrapSteel", "count": 3, "kg": 1 }, { "id": "PhobosWashedTailings", "count": 18, "kg": 1 } ],
+      "seconds": 1800,
+      "reactionKWh": 0.66
+    },
+    "regolith-leach-silicates": {
+      "notes": "A regolith leach outcome (see regolith-leach): the lump held a sound 10 kg chunk of the game's Silicates ore, which the acid leaves whole, with 11 kg of washed tailings. Game-like: a find, not chemistry.",
+      "machine": "leach",
+      "revision": 13,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 }, { "id": "sulfuric acid", "count": 1, "kg": 1.08 }, { "id": "water", "count": 1, "kg": 1.648 } ],
+      "products": [ { "id": "PhobosEpsomSalt", "count": 4, "kg": 0.432 }, { "id": "ItmMineral04", "count": 1, "kg": 10 }, { "id": "PhobosWashedTailings", "count": 11, "kg": 1 } ],
+      "seconds": 1800,
+      "reactionKWh": 0.66
+    },
+    "regolith-leach-nickel-iron": {
+      "notes": "A regolith leach outcome (see regolith-leach): one 4 kg nickel-iron ingot's worth of metal grains, consolidated, with 17 kg of washed tailings. The rare find; its value is a chance exception to the refining band, judged over the table's expected return.",
+      "machine": "leach",
+      "revision": 14,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 }, { "id": "sulfuric acid", "count": 1, "kg": 1.08 }, { "id": "water", "count": 1, "kg": 1.648 } ],
+      "products": [ { "id": "PhobosEpsomSalt", "count": 4, "kg": 0.432 }, { "id": "PhobosNickelIronIngot", "count": 1, "kg": 4 }, { "id": "PhobosWashedTailings", "count": 17, "kg": 1 } ],
+      "seconds": 1800,
+      "reactionKWh": 0.66
     }
   }
 }

@@ -879,3 +879,41 @@ Owner request, 4 October 2026: an acid wash that turns gangue into scrap by chan
 - **Separation.** Recipes are frozen data, the table is tunable data, and the code names neither: see the outcomes
   section of the editing guide. Mass conservation applies to every file; generosity is an authoring rule for the
   shipped table only.
+
+## The regolith leach (0.50.0)
+
+Owner request, 5 October 2026, set 1 of the [regolith programme](regolith-programme.md): an
+LC-3 acid leach of the game's loose regolith (`ItmMineralStone01`, 20 kg, 35 cr), "like the
+gangue wash but richer".
+
+**Charge.** One lump, 1.080 kg of sulfuric acid from a linked tank and 1.648 kg of water drawn
+from a linked vessel; 1,800 s at the LC-3's 12 kW (6 kWh, authored). Leach revisions 11 to 14,
+one frozen recipe per outcome, selected explicitly like every LC-3 recipe.
+
+**Chemistry, and what is ours.** The Epsom salt is the `olivine-epsom` reaction,
+(Mg0.71Fe0.29)2SiO4 + 2 H2SO4 + 12 H2O -> 1.42 MgSO4.7H2O + 0.58 FeSO4.7H2O + SiO2, with the
+sources that recipe already cites (Jonckbloedt 1998 for the olivine process; Nakamura et al.
+2011 for the Fa29 composition). It is run on **0.875 kg of acid-accessible olivine per lump,
+an authored figure**: one eighth of the ore recipe's 7 kg, at the same 89.7% magnesium
+recovery, which gives exactly four 0.432 kg units (1.728 kg). The game says only that loose
+regolith is "broken rock, dust, and other common byproducts of mining"; no source sets its
+olivine content. Reaction heat is the olivine recipe's 5.3 kWh scaled by eight, 0.66 kWh.
+
+**Mass balance.** In: 20 + 1.080 + 1.648 = 22.728 kg. Out: 1.728 kg of salt and 21 kg of washed
+tailings (base outcome). The water is 1.190 kg of hydration water (9.518 / 8) and 0.458 kg
+left wetting the cake, chosen so the tailings come to whole 1 kg units; 0.4 g of rounding sits
+with the acid. The other outcomes swap tailings for 3 kg of scrap steel, one 10 kg Silicates
+ore chunk or one 4 kg nickel-iron ingot, each closing at 22.728 kg. Washed tailings now stack
+25 so a leach's 21 are delivered as one stack.
+
+**Game-like parts, labelled in the guide.** Scrap steel as clean scrap, and a whole Silicates
+chunk inside a lump, are finds, not chemistry. Chondritic rock does carry metal grains; the
+share an acid leach frees has no named source here.
+
+**Value, and why the odds are leaner than first proposed.** `ItmOKLGProspectorInv` stocks 10 to
+20 lumps, so a merchant sells regolith and the bought-stock rule applies (at most 1.25 x), not
+the 1.5 x outcome-table rule. Cost at base prices: 35 + 3.35 (acid) + 16.48 (water) = 54.83 cr.
+The planning default of 65/25/7/3 would have returned about 75 cr (1.37 x). The shipped table
+is **72/22/4/2**: 52 cr of salt every time, plus on average 2.4 cr of steel, 8 cr of ore and
+4.4 cr of ingot, about 66.8 cr (1.22 x). The unit check holds it to that rule. Agent choice
+under the owner's delegated default; open to revision in `outcomes.json`.

@@ -35,7 +35,8 @@ programme.
 - **Artwork:** ChatGPT for the two machine masters while the owner's plan lasts, PixelLab
   and derivation for the rest. The [handoff](oxsmith-art-handoff.md) was written first.
 
-Agent defaults, open to owner revision: leach odds 65/25/7/3; the bake gives 0.4 kg of
+Agent defaults, open to owner revision: leach odds 72/22/4/2 (first proposed as 65/25/7/3, then
+leaned because a K-Leg prospector sells regolith, which brings in the bought-stock rule); the bake gives 0.4 kg of
 water and 0.1 kg of CO2, leaving 19.5 kg, exactly three 6.5 kg pavers; the V4 leaves
 regolith alone unless told to bake or sinter it; machine prices about 96,000 cr (EC-4),
 72,000 cr (CR-4) and 20,000 cr (carbon monoxide store).
@@ -45,8 +46,8 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 | Set | What | Status |
 | --- | --- | --- |
 | Art | ChatGPT handoff for the EC-4 and CR-4 | Written 5 October 2026; awaiting the owner's run |
-| 0 | Products out by belt: an optional "Send products to" store for Manufacturing machines | Not started |
-| 1 | Regolith leach on the LC-3, with an outcome table | Not started |
+| 0 | Products out by belt: an optional "Send products to" store for Manufacturing machines | Done: Framework 0.98.0, Manufacturing 0.49.0 |
+| 1 | Regolith leach on the LC-3, with an outcome table | Done: Manufacturing 0.50.0, odds 72/22/4/2 |
 | 2 | Volatile bake on the V4; baked regolith as a declared remainder | Not started |
 | 3 | Sintered pavers, the V4's regolith choice, the regolith floor twin | Not started |
 | 4 | Oxsmith EC-4, ferrosilicon and its silicol use | Not started; opens with a design record |
