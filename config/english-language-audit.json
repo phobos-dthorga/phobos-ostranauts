@@ -75016,7 +75016,7 @@
       "path": "docs/development/medical-art-handoff.md",
       "scope": "contributor art concept and superseded handoff; no runtime selection or treatment claim",
       "decision": "new",
-      "sha256": "b2f1880e2aac58f7bc8538e16ce01f3a27fa351353bd2e70946f5dbd098140b7",
+      "sha256": "79e5af23b5524a816af694958c0fe67c2c13aa7d56f226212bc7d34b9645c93a",
       "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
     },
     {

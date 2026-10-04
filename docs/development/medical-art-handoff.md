@@ -37,6 +37,59 @@ PixelLab fitting were superseded before composition. Their originals are verifie
 in local archive commit `fd98de450ee10d346a041cfea4a928737b848ffc` on
 `codex/rejected-artwork`; that commit has not been pushed.
 
+## Vigil-1 patient monitor (set 3, owner-run ChatGPT request)
+
+Prepared 4 October 2026 for Medical 0.3.0. The monitor stands beside a Ward-3, pairs
+with the bed it touches, and shows readings and alerts on its panel. It never heals.
+Readings stay live text on the panel and consoles, so the sprite carries no screen,
+numbers or lamps (the owner's 29 September ruling on painted instruments).
+
+| | Value |
+| --- | --- |
+| Footprint | 1 x 1 tile (agent choice, open to revision): a floor cart at the bed's side |
+| Native world sprite | 16 x 16 px |
+| Registered master | 64 x 64 px (4x; the short side is 16) |
+| ChatGPT source | square canvas, 1024 x 1024 or larger |
+| Orientation | back edge at the **top**: it takes power from the wall row behind it; its sensor arm reaches toward the patient on the **left** |
+
+Attach the selected Ward-3 concept, `assets/phobos-medical/source/ward3-nanomedical-chatgpt.png`,
+as a style reference (original Phobos art, so it may be uploaded), then paste exactly:
+
+> ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight
+> down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and
+> vertically on the canvas. Show no vertical front or side faces.
+>
+> Create an ORIGINAL game equipment sprite concept for Phobos' Halewright Vigil-1: a
+> compact bedside patient-monitoring cart for a spacecraft sickbay in 2075, made by the
+> same maker as the attached Ward-3 medical bed and matching it exactly in style:
+> off-white enamel housing, mid-grey structural trim, dark grey recesses, a few visible
+> fasteners and one quiet muted blue-teal accent. Art direction informed by Ostranauts'
+> vanilla ship-equipment sprites: coarse deliberate pixel clusters, practical industrial
+> modules, muted material colours, sparse mechanical detail, very restrained flat shading.
+>
+> Square canvas, one square floor tile seen from directly above, the cart filling almost
+> the whole square with a small margin. Show only its top: a squared enamel lid with a
+> vent grille and a recessed carry handle near the top edge; a short folded articulated
+> sensor arm parked along the LEFT edge, ending in a small round sensor head with a
+> teal ring; a neat coiled lead stowed in a shallow recess; two small locking caster
+> covers at the bottom corners. The display faces sideways toward the bed and is NOT
+> visible from above.
+>
+> PIXEL ART, not a photograph or smooth illustration. Design the image to read as a
+> coarse 16 x 16 logical pixel sprite enlarged cleanly, with crisp square pixel
+> clusters, stepped outlines, a restricted palette of about 16 colours, no
+> anti-aliasing and no gradients, so the shapes stay readable when reduced to 16 x 16.
+> Flat diffuse illumination, minimal local shading only.
+>
+> No screen, numbers, waveforms, text, logos, medical crosses, gauges, status lights,
+> readouts, people, cables leaving the tile, floor, backdrop, drop shadow, isometric
+> projection, perspective or visible side faces. White background.
+
+Save the untouched output as `assets/phobos-medical/source/vigil1-monitor-chatgpt.png`
+and tell the agent the date; the agent records the prompt and hashes in
+`assets/phobos-medical/requests.json`, registers it to 64 x 64 the way the Ward-3 was
+registered, inspects it at 16 x 16 and exports it.
+
 ## Initial handoff (superseded)
 
 No image had been generated when the initial handoff was prepared.
