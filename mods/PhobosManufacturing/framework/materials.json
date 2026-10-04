@@ -261,6 +261,17 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockPlantAsh"
+    },
+    "PhobosSpentMash": {
+      "notes": "Terminal (Manufacturing 0.39.0): the 0.5 kg of pulp, unfermented sugar, yeast and water a fermenter-still charge leaves.",
+      "kind": "stock",
+      "kg": 0.5,
+      "price": 0.01,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockSpentMash"
     }
   }
 }

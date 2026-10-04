@@ -41,6 +41,19 @@
       "art": "PhobosAcidPlant",
       "installTab": "APPS",
       "points": { "use": [ 0, -32 ], "PowerA": [ 0, 32 ] }
+    },
+    "PhobosFermenterStill": {
+      "notes": "Alembrine Copperhead-3 Fermenter-Still (Manufacturing 0.39.0): two fermentation vats, a copper pot still and a condenser, one charge of beets or sugar at a time. Its 3 kW heats the still and runs the pumps; nearly all of it ends up in the room through the condenser.",
+      "kind": "charge-machine",
+      "footprint": 3,
+      "massKg": 320,
+      "idleKW": 0.1,
+      "workingKW": 3,
+      "roomHeatFraction": 0.9,
+      "feedCells": 6,
+      "art": "PhobosFermenterStill",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 32 ] }
     }
   }
 }

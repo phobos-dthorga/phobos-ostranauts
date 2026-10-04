@@ -21,7 +21,8 @@ public static class Economy
     {
         (RefineryRules.Prefix, RefineryRules.MachineKg), (ProcessorRules.Prefix, ProcessorRules.MachineKg), (SabatierRules.Prefix, SabatierRules.MachineKg),
         (CrackerRules.Prefix, CrackerRules.MachineKg), (ManifoldRules.Prefix, ManifoldRules.MachineKg), (FillerRules.Prefix, FillerRules.MachineKg),
-        (RegulatorRules.Prefix, RegulatorRules.MachineKg), (LeachRules.Prefix, LeachRules.MachineKg), (AcidPlantRules.Prefix, AcidPlantRules.MachineKg)
+        (RegulatorRules.Prefix, RegulatorRules.MachineKg), (LeachRules.Prefix, LeachRules.MachineKg), (AcidPlantRules.Prefix, AcidPlantRules.MachineKg),
+        (FermenterRules.Prefix, FermenterRules.MachineKg)
     };
     public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).Concat(GasStores.Families.Select(f => f.SmallPrefix)).Concat(LiquidStores.Families.Select(f => f.SmallPrefix)).ToArray();
     /// <summary>The Lixivar acid line (Manufacturing 0.24.0); the gas line moved to Framework's own pack in 0.23.0.</summary>

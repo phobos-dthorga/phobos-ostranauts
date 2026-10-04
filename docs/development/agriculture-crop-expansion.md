@@ -517,3 +517,24 @@ the straw bale does.
     for five lanes and all five are taken.
   - The Cask art is a copper recolour of the selected acid tank masters, mirrored so
     the pipe stub sits on the ethanol port side; no generation spend.
+
+### Set C, part one: the fermenter-still (Manufacturing 0.39.0)
+
+Set C ships in two releases, an agent decision: the fermenter-still first, then the
+bottler and spirit (0.40.0). The bottler cannot be a charge machine, because the
+charge engine binds an item and the bottler draws only liquids, so it needs its own
+small service.
+
+- **The still.** The Alembrine Copperhead-3 is a 3 x 3 charge machine at 3 kW. It
+  takes beets as mash or sugar as a wash. Ethanol goes to a cask, CO2 to a store and
+  stillage water to a silo, and a 0.5 kg spent mash goes to the tray. It is an
+  ignition source while working.
+- **Figures.** 92% of the sucrose ferments (authored, within the 90 to 95% of
+  theoretical). See the refinery record for the full balance.
+- **Agent decisions:**
+  - The still is priced at 28,000 cr (Friendly faction tier), below the SA-3 for
+    plainer kit.
+  - The spent mash is terminal, not straw-press feed: it is Manufacturing's item, and
+    Agriculture's press reads Agriculture's records.
+  - The artwork is one PixelLab image, from a flat-colour layout start image as the
+    SA-3 used.

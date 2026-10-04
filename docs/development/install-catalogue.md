@@ -13,7 +13,7 @@ is still pending.
 | Phobos Shipbreaker | FURN | Y2, Y3 and Y4 material bins (beside the game's own Storage Bay) |
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and E2, E3 and E4 nutrient hoppers |
 | Phobos Agriculture | MISC | Irrigation conduit |
-| Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, Tolvane AX-2 ammonia cracker, Lixivar LC-3 leach and crystallise unit, Lixivar SA-3 acid plant, the AT-2, AT-3 and AT-4 acid tanks, the Alembrine Cask-2, Cask-3 and Cask-4 ethanol tanks (0.38.0), and the hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores in all three sizes |
+| Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, Tolvane AX-2 ammonia cracker, Lixivar LC-3 leach and crystallise unit, Lixivar SA-3 acid plant, the AT-2, AT-3 and AT-4 acid tanks, the Alembrine Cask-2, Cask-3 and Cask-4 ethanol tanks (0.38.0), the Alembrine Copperhead-3 fermenter-still (0.39.0), and the hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores in all three sizes |
 | Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, L2 canister filling station and A2 cabin air regulator; Lixivar acid line (0.24.0); Alembrine ethanol line (0.38.0) |
 | Phobos Framework | HVAC | Fennmark gas line (moved from Manufacturing in Framework 0.57.0) and process water line |
 | Phobos Framework | MISC | Rivetline conveyor belt (Framework 0.61.0) |

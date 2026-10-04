@@ -153,6 +153,25 @@
           6
         ]
       }
+    },
+    "spent-mash": {
+      "from": "source/leached-residue.png",
+      "method": "per-pixel luminance map onto a warm brown mash ramp; alpha and pixel placement unchanged (Manufacturing 0.39.0, 4 October 2026; no generation spend)",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.85,
+          40
+        ],
+        "g": [
+          0.7,
+          28
+        ],
+        "b": [
+          0.45,
+          12
+        ]
+      }
     }
   },
   "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",
@@ -854,6 +873,29 @@
       "initImage": "references/a2-cabin-air-regulator-start.png",
       "decision": "selected",
       "review": "Overhead, no side faces; the two valve wheels, sensor grille and diffuser read at 32 px. One pass kept on the start layout."
+    },
+    {
+      "key": "copperhead3-fermenter-still",
+      "jobId": "c45098a1-b0d1-4e85-a3ab-3d5be40afa63",
+      "assetId": "4b0497f2-05fa-599d-bfa2-5dad90063988",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft fermenter and still installed in a square frame: a warm brass-tan painted steel frame with dark corner brackets around a pale tan enamel deck lit from the upper left; on the left two round brushed steel fermentation vats, each with a bolted lid and a dark centre hatch; upper right the round top of a polished copper pot still with a brass dome cap in its centre; lower right a dark rectangular condenser box with vertical copper coil tubes; short steel and copper pipes joining the vats, the still and the condenser. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no flames, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9330140,
+        "init_image_strength": 100,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/fermenter-still-start.png",
+      "initImageSHA256": "1879266f9a20ffb7ae1917bf98eea36516ea1b5d0dd9f9ab618a8607eb77732d",
+      "decision": "selected",
+      "review": "Overhead, no side faces; two vats, the copper still and the condenser read at 48 px beside the SA-3. The joining pipes did not come through; the parts read without them. Manufacturing 0.39.0, 4 October 2026."
     }
   ],
   "passes": [

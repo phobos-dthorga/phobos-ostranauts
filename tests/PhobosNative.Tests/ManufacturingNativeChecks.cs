@@ -282,6 +282,27 @@ internal static class ManufacturingNativeChecks
               !plantTrigger.TriggeredDataCO(new DataCO(d.Objects[Materials.EvaporiteCrust]), false), "The SA-3 feed takes the sulfide nodule and nothing else");
         check(ChargeMachines.AcidPlant.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Oxygen, ManufacturingRules.Water, LiquidStores.SulfuricAcid }),
             "The SA-3 links an oxygen store, a water vessel and an acid tank");
+        // The Alembrine Copperhead-3 fermenter-still (Manufacturing 0.39.0).
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var still = d.Objects[FermenterRules.Prefix + state];
+            check(d.Items[still.strItemDef].nCols == 3 && Stat(still, "StatMass") == 320 && still.strNameFriendly.StartsWith("Phobos' Alembrine Copperhead-3 Fermenter-Still", StringComparison.Ordinal),
+                "The fermenter-still is a 320 kg three by three Alembrine machine: " + state);
+            check((still.jsonPI == FermenterRules.Prefix + "Power") == (installed && !damaged) && Stat(still, "StatBasePrice") == (damaged ? (int)Economy.Price(FermenterRules.Prefix) / 4 : (int)Economy.Price(FermenterRules.Prefix)),
+                "The fermenter-still draws power only when installed and intact, at its price: " + state);
+        }
+        var stillPower = d.Power[FermenterRules.Prefix + "Power"];
+        check(Math.Abs(stillPower.fOverrideAmount - 3 / Units.SecondsPerHour) < 1e-12 && stillPower.strOverrideCond == ManufacturingRules.Working, "The fermenter-still draws 3 kW working");
+        var stillTrigger = DataHandler.dictCTs[d.Objects[FermenterRules.Prefix + "InputBin"].strContainerCT];
+        check(stillTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[FermenterRules.Beet]), false) && stillTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[FermenterRules.Sugar]), false) &&
+              !stillTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["PhobosVerdemorrowRawPotatoes"]), false) && !stillTrigger.TriggeredDataCO(new DataCO(d.Objects[Materials.SulfideNodule]), false),
+            "The fermenter-still's feed takes Agriculture's beets and sugar and nothing else");
+        check(ChargeMachines.Fermenter.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Water, ManufacturingRules.CarbonDioxide, LiquidStores.Ethanol }) &&
+              ChargeMachines.Fermenter.Spec.IgnitionSource && AgricultureStock.SugarCropsDefinitions() && Economy.Pack.factionKiosks?.tiers[FermenterRules.Prefix] == "Friendly",
+            "The fermenter-still links a water vessel, a CO2 store and an ethanol cask, is an ignition source while working, and finds Agriculture's beets and sugar at their masses");
+        var ethanolPort = LinePorts.Ethanol(3);
+        check(d.Objects[FermenterRules.Prefix + "Installed"].mapPoints.Contains(LinePorts.EthanolPoint + "," + ethanolPort.X + "," + ethanolPort.Y), "The fermenter-still has an ethanol port");
         foreach (var (table, share) in new[] { (MiningLoot.MTable, MiningLoot.NoduleMChance), (MiningLoot.STable, MiningLoot.NoduleSChance) })
         {
             var nodule = d.LootCarves[table][Materials.SulfideNodule];
@@ -308,7 +329,7 @@ internal static class ManufacturingNativeChecks
             var co = d.Objects[m.Id];
             check(Stat(co, "StatMass") == m.Kg && Stat(co, "StatBasePrice") == m.Price && co.nStackLimit == m.Stack && Has(co, m.Category) && Has(co, m.Id + "Identity"),
                 "Material carries its mass, price, stack and category: " + m.Id);
-            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Lixivar ", StringComparison.Ordinal), "Material is branded Fennmark or Lixivar: " + m.Id);
+            check(co.strNameFriendly.StartsWith("Phobos' Fennmark ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Lixivar ", StringComparison.Ordinal) || co.strNameFriendly.StartsWith("Phobos' Alembrine ", StringComparison.Ordinal), "Material is branded Fennmark or Lixivar: " + m.Id);
             check(d.Items.ContainsKey(co.strItemDef), "Material item definition exists: " + m.Id);
         }
         var clay = new DataCO(d.Objects[Materials.ClayHydrates]);

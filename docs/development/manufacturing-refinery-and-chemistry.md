@@ -778,3 +778,24 @@ per kg), and only when the room has at least 5 kPa of oxygen and an ignition sou
 The water vapour has no species and leaves with the blast, as methane's does. The
 refuelling kiosk buys ethanol back at 45% of an authored 20 cr/kg and never sells it
 (owner decision, 4 October 2026).
+
+## The fermenter-still (0.39.0)
+
+The Alembrine Copperhead-3 ferments Phobos Agriculture's sucrose: C12H22O11 + H2O ->
+4 C2H5OH + 4 CO2 (IUPAC 2013 molar masses), on an authored 92% of the sugar, within the
+90 to 95% of theoretical that industrial fermentations reach; the rest goes to yeast
+and by-products in a 0.5 kg terminal spent mash. Fermentation releases about
+172.5 kJ per mole of sucrose (formation enthalpies, NIST Chemistry WebBook: sucrose
+-2226.1, liquid water -285.83, liquid ethanol -277.6, CO2 -393.51 kJ/mol).
+
+- **Beet mash** (fermenter revision 1): six 0.5 kg beets (0.510 kg sucrose) give
+  0.253 kg ethanol to a cask, 0.241 kg CO2 to a store, 2.006 kg water to a vessel and
+  the spent mash (0.281 kg solids with 0.219 kg water); 0.07 kWh released.
+- **Sugar wash** (revision 2): six 70 g packets (0.420 kg sucrose) in 2 kg of
+  circulating water, with 0.487 kg drawn for good, give 0.208 kg ethanol and
+  0.199 kg CO2; 0.05 kWh released.
+
+The 3 kWh a charge for heating the still is authored. Both charges need Agriculture
+0.46.0's beets or sugar at their masses (`agriculture-sugar-crops`). The ethanol is
+a supply chain, with no finished item, so the value checks make no profit claim.
+The spirit the bottler will make carries the chain's value.

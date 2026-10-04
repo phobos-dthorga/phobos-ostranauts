@@ -7,6 +7,7 @@ RefineryChecks.Run(Check, Throws);
 ChargeChecks.Run(Check, Throws);
 LeachChecks.Run(Check, Throws);
 AcidPlantChecks.Run(Check, Throws);
+FermenterChecks.Run(Check, Throws);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);

@@ -12,7 +12,8 @@ internal static class ChargeMachines
     internal static readonly ChargeMachine Refinery = new(RefinerySpec());
     internal static readonly ChargeMachine Leach = new(LeachSpec());
     internal static readonly ChargeMachine AcidPlant = new(AcidPlantSpec());
-    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant };
+    internal static readonly ChargeMachine Fermenter = new(FermenterSpec());
+    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant, Fermenter };
     private static readonly Dictionary<string, ChargeMachine?> byDefinition = new(StringComparer.Ordinal);
     internal static ChargeMachine? For(string? id)
     {
@@ -134,6 +135,28 @@ internal static class ChargeMachines
         MaintenanceChargeKey = "Maintenance.acid_plant_charge",
         Links = () => new[] { AcidPlantOxygen(), AcidPlantWater(), AcidPlantAcid() }
     };
+    /// <summary>The Alembrine Copperhead-3 (Manufacturing 0.39.0): beets or sugar, chosen automatically from the feed;
+    /// ethanol to a linked cask, carbon dioxide to a linked store, stillage water to (and wash water from) a linked water
+    /// vessel. It is an ignition source while working: its boiler and hot ethanol vapour light a spill in its room.</summary>
+    private static ChargeMachineSpec FermenterSpec() => new()
+    {
+        Prefix = FermenterRules.Prefix, StockTrigger = FermenterRules.StockTrigger, StockFeed = FermenterRules.StockFeed, AdmitsOre = false,
+        Record = FermenterRules.Record, MachineKey = ChargeCatalog.Fermenter, TextPrefix = "Fermenter", SnapshotKind = "fermenter", Art = Definitions.FermenterArt,
+        Selection = RecipeSelection.Automatic, IgnitionSource = true,
+        Met = key => key == ChargeCatalog.SugarCropsRequirement && AgricultureStock.SugarCrops,
+        ExtraStatus = _ => AgricultureStock.SugarCrops ? null : Text.Get("Fermenter.no_agriculture"),
+        MaintenanceChargeKey = "Maintenance.fermenter_charge",
+        Links = () => new[] { FermenterWater(), FermenterCarbonDioxide(), FermenterEthanol() }
+    };
+    private static ChargeLinkSpec FermenterWater() => new(ManufacturingRules.Water, "link:", FermenterRules.WaterPort, FermenterRules.VesselPort, _ => true,
+        () => Text.Get("Provider.vessel_field"), alwaysShow: true, Reasons("Fermenter", "vessel"),
+        () => Text.Get("Fermenter.linked"), () => Text.Get("Fermenter.unlinked"), () => Text.Get("Fermenter.link_missing"), deposit: true);
+    private static ChargeLinkSpec FermenterCarbonDioxide() => new(ManufacturingRules.CarbonDioxide, "co2:", FermenterRules.CarbonDioxidePort, FermenterRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.CarbonDioxide), () => Text.Get("Provider.co2_store_field"), alwaysShow: true, Reasons("Fermenter", "co2"),
+        () => Text.Get("Fermenter.co2_linked"), () => Text.Get("Fermenter.co2_unlinked"), () => Text.Get("Fermenter.co2_link_missing"), deposit: true);
+    private static ChargeLinkSpec FermenterEthanol() => new(LiquidStores.Ethanol, "ethanol:", FermenterRules.EthanolPort, FermenterRules.VesselPort,
+        v => LiquidStores.Holds(v.strCODef, LiquidStores.Ethanol), () => Text.Get("Provider.ethanol_field"), alwaysShow: true, Reasons("Fermenter", "ethanol"),
+        () => Text.Get("Fermenter.ethanol_linked"), () => Text.Get("Fermenter.ethanol_unlinked"), () => Text.Get("Fermenter.ethanol_link_missing"), deposit: true);
     private static Func<LinkProblem, double, double, string> Reasons(string prefix, string what) => (problem, have, need) => problem switch
     {
         LinkProblem.None => Text.Get(prefix + ".no_" + what),

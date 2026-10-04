@@ -130,6 +130,27 @@
       "reactionKWh": 1.9,
       "requires": [ "agriculture-straw" ]
     },
+    "beet-mash": {
+      "notes": "Beet mash in the Alembrine fermenter-still (Manufacturing 0.39.0; owner decisions of 4 October 2026): six of Phobos Agriculture's 0.5 kg sugar beets (each authored as 75% water, 17% sucrose, 5% pulp fibre and 3% other solubles and minerals). C12H22O11 + H2O -> 4 C2H5OH + 4 CO2 (IUPAC 2013 molar masses) on 92% of the 0.510 kg of sucrose, 1.371 mol, an authored share within the 90 to 95% of theoretical that industrial fermentations reach: 0.253 kg of ethanol to a linked ethanol cask, 0.241 kg of carbon dioxide to a linked carbon dioxide store, and the 2.006 kg of water not bound in the spent mash to a linked water vessel. The pulp, the unfermented sugar, yeast and minerals leave as a 0.5 kg terminal spent mash. Fermentation releases about 172.5 kJ per mole of sucrose (formation enthalpies, NIST Chemistry WebBook: sucrose -2226.1, liquid water -285.83, liquid ethanol -277.6, CO2 -393.51 kJ/mol), 0.07 kWh; the 3 kWh charge energy for heating the still is authored. Needs Agriculture's beets.",
+      "machine": "fermenter",
+      "revision": 1,
+      "inputs": [ { "id": "PhobosVerdemorrowSugarBeets", "count": 6, "kg": 0.5 } ],
+      "products": [ { "id": "ethanol", "count": 1, "kg": 0.253 }, { "id": "carbon dioxide", "count": 1, "kg": 0.241 }, { "id": "water", "count": 1, "kg": 2.006 }, { "id": "PhobosSpentMash", "count": 1, "kg": 0.5 } ],
+      "seconds": 3600,
+      "reactionKWh": 0.07,
+      "requires": [ "agriculture-sugar-crops" ]
+    },
+    "sugar-wash": {
+      "notes": "Sugar wash in the Alembrine fermenter-still (Manufacturing 0.39.0): six of Phobos Agriculture's 70 g beet sugar packets (0.420 kg of sucrose) in 2 kg of circulating water, with 0.487 kg drawn for good from a linked water vessel. C12H22O11 + H2O -> 4 C2H5OH + 4 CO2 on the same authored 92%, 1.129 mol: 0.208 kg of ethanol to a linked ethanol cask and 0.199 kg of carbon dioxide to a linked carbon dioxide store; the unfermented sugar, yeast and the wash water they hold leave as a 0.5 kg terminal spent mash. About 0.05 kWh of fermentation heat (same enthalpies as the beet mash). Needs Agriculture's sugar.",
+      "machine": "fermenter",
+      "revision": 2,
+      "inputs": [ { "id": "PhobosVerdemorrowBeetSugar", "count": 6, "kg": 0.07 }, { "id": "water", "count": 1, "kg": 0.487 } ],
+      "products": [ { "id": "ethanol", "count": 1, "kg": 0.208 }, { "id": "carbon dioxide", "count": 1, "kg": 0.199 }, { "id": "PhobosSpentMash", "count": 1, "kg": 0.5 } ],
+      "circulates": { "water": 2 },
+      "seconds": 3600,
+      "reactionKWh": 0.05,
+      "requires": [ "agriculture-sugar-crops" ]
+    },
     "evaporite-leach": {
       "notes": "Leach and glaserite-route crystallisation of the evaporite crust in 20 kg of circulating water: 2 KCl + Na2SO4 -> K2SO4 + 2 NaCl, KCl limiting at 8.048 mol (route: US patents 4,215,100 and 6,143,271). Potassium sulfate 0.701 kg; the Na,Mg phosphate (0.250 kg) is wet-separated; halite, the NaCl made, the leftover thenardite, trona and villiaumite leave as the terminal brine salt cake (2.248 kg); the clay matrix and magnesite leave as the leached residue for the V4. Rounded to item units, the gram of rounding to the cake. The water is condensed and returned. 12 kWh authored: a closed crystalliser with condensate recovery, about a quarter of open-pan evaporation at 2.26 MJ/kg (NIST). Crust minerals after McCoy et al. 2025 (NASA OSIRIS-REx Bennu samples); the proportions are authored.",
       "machine": "leach",

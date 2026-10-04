@@ -351,7 +351,11 @@
   liquid. Ethanol has its own lane and port in Framework; on screen it shares the
   coolant lane. A damaged cask or segment can burn through the shared
   `Combustion.Burn` and the existing deflagrations. Set C (fermenter-still, bottler,
-  spirit) is next.
+  spirit) is next. Manufacturing 0.39.0 adds the Copperhead-3 fermenter-still, a
+  charge machine (`machine: fermenter`, requirement `agriculture-sugar-crops`). It
+  takes six beets as mash or six sugar packets as a wash, 92% of the sucrose
+  ferments, and it is an ignition source while working. The bottler and spirit
+  follow in 0.40.0 as their own service, since the charge engine binds items.
 
 ## Manufacturing direction (2026-09-25)
 

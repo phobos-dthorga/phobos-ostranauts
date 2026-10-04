@@ -1674,6 +1674,31 @@
     "patches": null
   },
   {
+    "key": "spent-mash",
+    "sourceSHA256": "adabd25c53c14b4ee672aff559327a4a9622881056e6b356090628ae3cc78bb7",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentMash.png": "65d9b55fcfb83b0f0d443b87105b175966a5f85bfd26689b6283835fc1a81a3a",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSpentMashNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
     "key": "plant-ash",
     "sourceSHA256": "08c7d06908af897e4be83a248c00cc9028f15c0ddb9b89b2e8048258a88d6f96",
     "nativeSize": [
@@ -2901,6 +2926,32 @@
     "exports": {
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlantNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "copperhead3-fermenter-still",
+    "sourceSHA256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStill.png": "1657c0b85f3432a360e80afdea7360a3fa5f4546178db56af98ace5747f256a1",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStillNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,

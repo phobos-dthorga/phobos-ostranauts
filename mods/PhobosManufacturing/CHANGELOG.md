@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.39.0] - 2026-10-04 - Draft
+
+### Added
+
+- The Alembrine Copperhead-3 Fermenter-Still (owner decisions, 4 October 2026): a 3 x 3, 3 kW fermenter and pot still for Phobos Agriculture's sugar beets or beet sugar. Six beets give 0.253 kg of ethanol, 0.241 kg of carbon dioxide and 2 kg of water; six sugar packets give 0.208 kg of ethanol and 0.199 kg of carbon dioxide. Ethanol goes to a Cask tank, CO2 to a store, water to a silo, and a spent mash to the tray.
+- A working still can light an ethanol spill in its room.
+- Sold at the usual Manufacturing merchants and, for scrip, at faction kiosks (Friendly standing).
+
+### Save compatibility
+
+- Automatic. New equipment only.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.80.0 or newer. The fermenter-still needs Phobos Agriculture 0.46.0 or newer for its beets and sugar; without it the still is idle and says why.
+- The fermented share of the sugar (92%) and the still's power are gameplay choices within published fermentation figures. The bottler and spirit come in the next release.
+- Checked offline; not yet seen in the game.
+
 ## [0.38.0] - 2026-10-04 - Draft
 
 ### Added

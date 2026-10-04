@@ -978,3 +978,10 @@ family on the existing bulk-vessel and line-contents paths. A tank's damage hook
 once per damage switch or destruction; the ethanol line's runs once per segment damage
 switch and searches for an ignition source only when the room has the oxygen to burn,
 as the gas stores do. No per-step cost is added. No capture accompanies this change.
+
+## 4 October: fermenter-still (L33)
+
+L33 — Manufacturing 0.39.0: a fourth charge machine on the shared engine, with two
+recipes; its power step and settlement are the engine's own. Its ignition role is
+checked only when an ethanol or fuel spill already needs an ignition source. No
+capture accompanies this change.

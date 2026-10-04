@@ -513,9 +513,31 @@ See [draining and venting](lines-and-draining.md).
 **Alembrine Cask tanks** (0.38.0) hold ethanol: 495 kg in the 2 x 2 Cask-2, with the
 Cask-3 and Cask-4 one tile wider each. Like acid tanks they are bunded liquid tanks,
 not gas stores, with a four-place canister rack, **Pour ethanol into** on their
-panel, and a refusal to be moved while they hold anything. Nothing makes ethanol
-yet: an Alembrine fermenter-still for beets and sugar, and a bottler for spirit,
-come in the next release.
+panel, and a refusal to be moved while they hold anything. The fermenter-still
+below fills them; a bottler for spirit comes in the next release.
+
+### The fermenter-still
+
+The **Alembrine Copperhead-3 Fermenter-Still** (0.39.0, 3 x 3, 3 kW) turns Phobos
+Agriculture's sugar beets or beet sugar (Agriculture 0.46.0 or newer) into ethanol.
+
+1. Install it touching, or on the lines of, a water silo, a carbon dioxide store
+   and a Cask ethanol tank, and connect its power point.
+2. On its **Control Panel** > **Connections**, set **Water silo**, **Carbon dioxide
+   store** and **Ethanol cask**. Apply.
+3. Load **six beets** or **six sugar packets** into its feed and **Start**. Each
+   charge takes an hour:
+
+| Charge | Gives |
+| --- | --- |
+| 6 sugar beets | 0.253 kg ethanol to the cask, 0.241 kg CO2 to the store, 2.006 kg water to the silo, 1 spent mash |
+| 6 beet sugar packets, with 0.487 kg water drawn and 2 kg circulated | 0.208 kg ethanol, 0.199 kg CO2, 1 spent mash |
+
+Beets give more ethanol than sugar, because the B2 leaves some sugar in its
+molasses; sugar keeps and doubles as a small food. The CO2 can feed a grow room's
+A2 regulator. **A working still lights ethanol spills** in its room, so keep casks
+it might damage in another room, or keep them repaired. Spent mash is trash.
+
 
 - **Trade.** A station's refuelling kiosk buys stored ethanol back at 45% of its
   20 cr/kg station value, but never sells it: your beets are the only source.

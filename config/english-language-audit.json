@@ -70983,6 +70983,1012 @@
       ],
       "before": "Pour the ethanol into another tank before moving or dismantling this one.",
       "after": "Pour the ethanol into another tank before moving or dismantling this one."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.beet-mash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json (Recipe. + recipe id)"
+      ],
+      "before": "beet mash",
+      "after": "beet mash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.sugar-wash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "mods/PhobosManufacturing/framework/process-recipes.json (Recipe. + recipe id)"
+      ],
+      "before": "sugar wash",
+      "after": "sugar wash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosSpentMash",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs (Material. + material id)",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "Spent Mash",
+      "after": "Spent Mash"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosSpentMash_description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs (Material. + material id)",
+        "mods/PhobosManufacturing/framework/materials.json"
+      ],
+      "before": "What is left in the vats after a fermenter-still charge: pulp, yeast and sugar that did not ferment. Nothing more comes out of it; carry it out of the tray and sell or discard it.",
+      "after": "What is left in the vats after a fermenter-still charge: pulp, yeast and sugar that did not ferment. Nothing more comes out of it; carry it out of the tray and sell or discard it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.ethanol_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Ethanol cask",
+      "after": "Ethanol cask"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.fermenter_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The fermenter-still has an unfinished batch. Finish or Cancel it first.",
+      "after": "The fermenter-still has an unfinished batch. Finish or Cancel it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Fermenter-Still",
+      "after": "Fermenter-Still"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Spirit from your own beets. This {2} x {2} fermenter and pot still weighs {0:F0} kg and draws {1:F0} kW while working. Load six sugar beets, or six packets of beet sugar, from Phobos Agriculture. It ferments them and distils the ethanol into a linked ethanol cask; the carbon dioxide goes to a linked store and spare water to a linked water silo. A working still can light an ethanol spill in its room. Link a water silo, a carbon dioxide store and an ethanol cask, touching the still or on its water, gas or ethanol line.",
+      "after": "Spirit from your own beets. This {2} x {2} fermenter and pot still weighs {0:F0} kg and draws {1:F0} kW while working. Load six sugar beets, or six packets of beet sugar, from Phobos Agriculture. It ferments them and distils the ethanol into a linked ethanol cask; the carbon dioxide goes to a linked store and spare water to a linked water silo. A working still can light an ethanol spill in its room. Link a water silo, a carbon dioxide store and an ethanol cask, touching the still or on its water, gas or ethanol line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.feed_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Fermenter charge",
+      "after": "Fermenter charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.feed_description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Holds {0} beets or {0} sugar packets: one charge.",
+      "after": "Holds {0} beets or {0} sugar packets: one charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The feed holds part of a charge. Load six beets or six sugar packets.",
+      "after": "The feed holds part of a charge. Load six beets or six sugar packets."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_agriculture",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Phobos Agriculture 0.46.0 or newer is not loaded, so there are no beets or sugar to ferment.",
+      "after": "Phobos Agriculture 0.46.0 or newer is not loaded, so there are no beets or sugar to ferment."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Stop the fermenter-still before changing its links.",
+      "after": "Stop the fermenter-still before changing its links."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "no water silo linked",
+      "after": "no water silo linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked water vessel is not installed, out of reach or not ready",
+      "after": "the linked water vessel is not installed, out of reach or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked silo is busy or has a saved-contents fault; check its panel",
+      "after": "the linked silo is busy or has a saved-contents fault; check its panel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked water vessel holds water in its catch chamber; recover it first",
+      "after": "the linked water vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.vessel_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand",
+      "after": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg",
+      "after": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Water silo linked.",
+      "after": "Water silo linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "That is not a water silo touching the fermenter-still or on its water line.",
+      "after": "That is not a water silo touching the fermenter-still or on its water line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_co2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "no carbon dioxide store linked",
+      "after": "no carbon dioxide store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked carbon dioxide store is damaged, locked, moved away or not on this ship",
+      "after": "the linked carbon dioxide store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked carbon dioxide store is protected or busy; accept its contents or wait",
+      "after": "the linked carbon dioxide store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked carbon dioxide store holds contents in its catch chamber; recover them first",
+      "after": "the linked carbon dioxide store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked carbon dioxide store holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked carbon dioxide store holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked carbon dioxide store has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked carbon dioxide store has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Carbon dioxide store linked.",
+      "after": "Carbon dioxide store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Carbon dioxide store unlinked.",
+      "after": "Carbon dioxide store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.co2_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "That is not a carbon dioxide store touching the fermenter-still or on its gas line.",
+      "after": "That is not a carbon dioxide store touching the fermenter-still or on its gas line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_ethanol",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "no ethanol cask linked",
+      "after": "no ethanol cask linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked ethanol cask is damaged, locked, moved away or not on this ship",
+      "after": "the linked ethanol cask is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked ethanol cask is protected or busy; accept its contents or wait",
+      "after": "the linked ethanol cask is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "ethanol is trapped in the linked cask's outer shell; repair it and recover the ethanol first",
+      "after": "ethanol is trapped in the linked cask's outer shell; repair it and recover the ethanol first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked ethanol cask holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked ethanol cask holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "the linked ethanol cask has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked ethanol cask has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Ethanol cask linked.",
+      "after": "Ethanol cask linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Ethanol cask unlinked.",
+      "after": "Ethanol cask unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.ethanol_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "That is not an ethanol cask touching the fermenter-still or on its ethanol line.",
+      "after": "That is not an ethanol cask touching the fermenter-still or on its ethanol line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "This fermenter-still's record could not be read. Repair it, then Accept its contents from the panel.",
+      "after": "This fermenter-still's record could not be read. Repair it, then Accept its contents from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Batch waiting: {0}. Press Start to resume it.",
+      "after": "Batch waiting: {0}. Press Start to resume it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.retained_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept.",
+      "after": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.charge_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains.",
+      "after": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The feed is empty. Load a charge for the chosen recipe.",
+      "after": "The feed is empty. Load a charge for the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Nothing in the feed belongs to the chosen recipe.",
+      "after": "Nothing in the feed belongs to the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Waiting: {0}",
+      "after": "Waiting: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Working: {0}.",
+      "after": "Working: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Batch cancelled. Supplies stay in the feed; progress is lost.",
+      "after": "Batch cancelled. Supplies stay in the feed; progress is lost."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Paused. Supplies and progress are kept.",
+      "after": "Paused. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The fermenter-still stopped on a fault. See the log.",
+      "after": "The fermenter-still stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The tray has no room for the products. Clear it.",
+      "after": "The tray has no room for the products. Clear it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "{0} at {1}: charge finished.",
+      "after": "{0} at {1}: charge finished."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Finished. The feed is empty.",
+      "after": "Finished. The feed is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.no_charge_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "No batch in progress.",
+      "after": "No batch in progress."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
+      "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
+      "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Product definition unavailable: {0}.",
+      "after": "Product definition unavailable: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Product definition changed: {0}.",
+      "after": "Product definition changed: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The charge would not conserve mass; nothing was delivered.",
+      "after": "The charge would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "A product could not be placed in the tray.",
+      "after": "A product could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "A charge unit could not be removed from the feed.",
+      "after": "A charge unit could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Install the fermenter-still first.",
+      "after": "Install the fermenter-still first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Repair the fermenter-still first.",
+      "after": "Repair the fermenter-still first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Unlock the fermenter-still and its feed first.",
+      "after": "Unlock the fermenter-still and its feed first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The fermenter-still is switched off at its power control.",
+      "after": "The fermenter-still is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The fermenter-still's feed compartment is missing.",
+      "after": "The fermenter-still's feed compartment is missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.fermenter",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "trace": "composed key",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "Fermenter-stills",
+      "after": "Fermenter-stills"
     }
   ],
   "documents": [
@@ -70990,8 +71996,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e33aa7ff71a18bf4967c73cb8aa6b6fe0914cff32343890599de3d214e1fce2c",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "49983bbc4f761159002369d11c2d4b32419295c6c5cb6ad6447d82e8fefe9a6f",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "SUPPORT.md",
@@ -71417,8 +72423,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "08112bcbc55ec889e14d41817f20e422aa31e9315a93a1899a087b11144596f9",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "aeb0455db30b48783c7f61b4008b74f5cdce1f1444ee0ee3d8f1ab8cf99a63d1",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -71535,15 +72541,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f8597cf45b9aaa84e51e47c7bf45ba3f8be02416d1415f87c4a4988b08bc15b8",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "6fcfd162b170835ae91d1e9c491b0a85797128b9ef2f808990c36d36e5480dff",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "23317e29bb1ee63cbd5529a986dc4fb6473c2b20d793129ea017533e28062e1a",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "b73d91b572a951afb698bf2e5ec88a9083e75d22228c0fc6340ae6c8efa61cc2",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -71601,8 +72607,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "7b9efbaacb401d40caf6703580648ae6f9d5c8f035f28c3bcf6dc1d66a341325",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "c80fa1dce49a3138d41578c8d25fe9ab7300f3920d435cc8157634122a9d0e7b",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -71673,8 +72679,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "be3e120c0121f05b12dbe267f51321fe09fdf64766774cf83d5034f795dd1e42",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "5882236bf922b8a66ee6cae0169e3161533b3023395442ce00dd5433e27059e6",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -71962,15 +72968,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "0ab6ca7660e56eb37d56ccea1f5403d663b1f76ff2890d93db2c0acd5b0b2143",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "61800ca8c888c6521a2f5886f7b66ed4524524d39b1960511f16b130a76407fe",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "0552eef602e17f6434513ba2d3b4b4fabfc60128a05c970a37f721249c63614a",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "544a4b2827874eca1ebac162bdcc554182fb7169de823cf9b5e3cf66436c7da6",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -72088,8 +73094,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "58f2e0fbac3c1098a5ee4fb12a1bdff6b6e907e232ffdf521fce8d4e7fd5aebb",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "b1cc905c1ab91578d0e16ad2200e70a07d2b5f54ccc0e4cc013db50c392cef0b",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -72221,16 +73227,16 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "31f78ff283670dcd8c688bb0df3ef0d1f85733fd699d7945e962008da21404b3",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "f5e9971cb430d1ab46ed437b828a87ae875db4eeba915de7414f62a6260d550a",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "12fd11fb1f85ca383252bb6ff03a833b227c78e4df5caced9f03ca002f558597",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "ba4164bed03113b73e525c969e96a7f06a03151b07f0182ec39b2997305721e3",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -72287,8 +73293,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c4ef000899eb37c80310367ad1bcc346e0d2ef4dd3a55a8067647ddee7df31ab",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "b948694d3924b0e174f496fc5adba81723c83bc51c252ce60effc8fdb54f6877",
+      "review": "Reviewed 4 October 2026 for Manufacturing 0.39.0: the Alembrine fermenter-still."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

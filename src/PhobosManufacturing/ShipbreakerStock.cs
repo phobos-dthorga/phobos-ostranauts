@@ -58,16 +58,22 @@ internal static class AgricultureStock
     /// <summary>The straw bale arrived in Agriculture 0.44.0, at 1 kg (the V4's straw charges).</summary>
     internal static readonly Version StrawMinimum = new(0, 44, 0);
     private static readonly OptionalStock straw = new(PluginId, StrawMinimum, (RefineryRules.StrawBale, RefineryRules.StrawBaleKg));
+    /// <summary>Sugar beets and beet sugar arrived in Agriculture 0.46.0, at 0.5 kg and 70 g (the fermenter-still).</summary>
+    internal static readonly Version SugarCropsMinimum = new(0, 46, 0);
+    private static readonly OptionalStock sugarCrops = new(PluginId, SugarCropsMinimum, (FermenterRules.Beet, FermenterRules.BeetKg), (FermenterRules.Sugar, FermenterRules.SugarKg));
     internal static bool PluginPresent => provider.PluginPresent;
     internal static bool Available => provider.Available;
     /// <summary>Whether the LC-3's complete formulation can deposit into Agriculture hoppers.</summary>
     internal static bool Hoppers => hoppers.Available;
     /// <summary>Whether the V4's straw charges can bind Agriculture's bale.</summary>
     internal static bool Straw => straw.Available;
-    internal static void Detect() { provider.Detect(); hoppers.Detect(); straw.Detect(); }
+    /// <summary>Whether the fermenter-still can bind Agriculture's beets and sugar.</summary>
+    internal static bool SugarCrops => sugarCrops.Available;
+    internal static void Detect() { provider.Detect(); hoppers.Detect(); straw.Detect(); sugarCrops.Detect(); }
     internal static bool Definitions() => provider.Definitions();
     /// <summary>Whether Agriculture's straw bale is published at the 1 kg the straw charges expect.</summary>
     internal static bool StrawDefinitions() => straw.Definitions();
-    internal static void Resolve() { provider.Resolve(); hoppers.Resolve(); straw.Resolve(); }
-    internal static void Reset() { provider.Reset(); hoppers.Reset(); straw.Reset(); }
+    internal static bool SugarCropsDefinitions() => sugarCrops.Definitions();
+    internal static void Resolve() { provider.Resolve(); hoppers.Resolve(); straw.Resolve(); sugarCrops.Resolve(); }
+    internal static void Reset() { provider.Reset(); hoppers.Reset(); straw.Reset(); sugarCrops.Reset(); }
 }

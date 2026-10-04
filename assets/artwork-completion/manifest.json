@@ -1684,6 +1684,30 @@
       "derivedFrom": "source/caustic-remainder.png"
     },
     {
+      "key": "spent-mash",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosSpentMash",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockSpentMash",
+      "status": "selected",
+      "source": "source/spent-mash.png",
+      "sourceSHA256": "adabd25c53c14b4ee672aff559327a4a9622881056e6b356090628ae3cc78bb7",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Exact luminance-recolour derivative of the selected leached residue onto a warm brown mash ramp (map in manufacturing-requests.json). Reviewed at native size by the agent; owner in-game review pending.",
+      "derivedFrom": "source/leached-residue.png"
+    },
+    {
       "key": "plant-ash",
       "mod": "PhobosManufacturing",
       "definition": "PhobosPlantAsh",
@@ -2862,6 +2886,31 @@
       "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "0c2615ca-5930-4de4-ac88-4acb0af0991c"
+    },
+    {
+      "key": "copperhead3-fermenter-still",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosFermenterStillInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosFermenterStill",
+      "status": "selected",
+      "source": "source/copperhead3-fermenter-still.png",
+      "sourceSHA256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected beside the SA-3; Alembrine colour language (brass-tan frame, brushed steel vats, copper still and condenser coils). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "c45098a1-b0d1-4e85-a3ab-3d5be40afa63"
     },
     {
       "key": "at2-acid-tank",

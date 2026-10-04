@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "revisions": {
     "acid-plant@1": "18355316df84db7f364c2fd0746618bd8c802eb7a722f6c6e3b7396f54f096b1",
+    "fermenter@1": "8df2aeb1bebcd9a0baf598fbd211853056d4758814892c8170eb2ea947f4b24c",
+    "fermenter@2": "9e974ca32791c50903fa14b57ad2f6ef6f296fd70b9722c3cb60640d55358297",
     "leach@1": "4863bae17aefdc59f674e41be2dc2754a15ebf57247ae8948bd5996754ce57f4",
     "leach@2": "8e05a7b845f3eb2f5befc3cd166915b76bdc7543e0b061378cf7cf38ace4be70",
     "leach@3": "c3e2e8dfa77c44d63507572e65fbf699586e22aa154d9320a60531b8547a353c",
