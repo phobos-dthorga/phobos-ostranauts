@@ -5,6 +5,10 @@ start with the [health, injury and drug reference](../health-reference.md). Its
 companion pages cover chronic ailments/scars, medicines and substances, and the
 source/version record. This page remains the earlier device-focused investigation.
 
+The vanilla medical bed itself is traced in full, against game 1.0.1.5, in
+[the Infirmaway record](medical-bed-research.md) (4 October 2026); the mod that
+builds on it is in the [Phobos Medical design record](medical-bed-design.md).
+
 Research updated 2026-09-20. Local game session reports **1.0.1.4**. The
 [environment record](modding-notes.md#environment-recheck-2026-09-20) lists the
 installed plugin versions and configured mods.

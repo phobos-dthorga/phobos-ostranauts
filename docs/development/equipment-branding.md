@@ -80,6 +80,18 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Alembrine Copperhead-3 Fermenter-Still | Three-by-three fermenter and pot still (Manufacturing 0.39.0) |
 | Phobos' Alembrine Corker-2 Bottling Unit | Two-by-two unit bottling cask ethanol into Alembrine spirit (Manufacturing 0.40.0) |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
+| Phobos' Halewright Ward-3 Medical Bed | Three-by-five powered medical bed (Medical 0.1.0); Ward for the sickbay ward, 3 for the width |
+
+**Halewright** is Phobos Medical's fictional manufacturer (owner choice, 4 October
+2026), for medical equipment: the Ward-3 bed, and later the Vigil-1 patient monitor
+and the Attend-2 autodoc. The name joins *hale* (sound, healthy) and *wright* (maker):
+a maker of health. No medical company or brand of that name was found in a web search
+on 4 October 2026 (the nearest were Haleon and Hale Products, both clearly distinct).
+Its colours are clean off-white enamel, pale mint-grey upholstery, mid-grey rails and
+one muted blue-teal accent, apart from Tolvane's deep teal and signal yellow. Models
+are a word and the footprint width, after Alembrine's pattern, so they never collide
+with the letter models of the other brands. These are fictional products; they make
+no claim about real medical devices or clinical outcomes.
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen
 line: deep teal frames, cool enamel lids and signal-yellow corner brackets, kept

@@ -1538,6 +1538,26 @@
 - The chemical laser is an idea only. It needs sourced chemistry and feeds the
   mods do not store yet; do not add consumer-less commodities for it.
 
+## Medical direction (2026-10-04)
+
+- Owner request: a new mod expanding on the vanilla Van Buren Infirmaway medical bed,
+  whose only real function is a stronger healing sleep (the game's `SleepingMedical`;
+  see `docs/development/medical-bed-research.md`). Owner decisions the same day: a new
+  content mod **Phobos Medical** (`PhobosMedical`, Framework required) under the new
+  brand **Halewright** (models a word plus the footprint width: Ward-3, Vigil-1,
+  Attend-2); **a new own-brand bed with companion equipment, leaving the Infirmaway
+  untouched**; all four directions (any patient in the bed, a working autodoc, a
+  bedside monitor and medic care, honest power and weightless care); authored tables
+  in data packs from the start (the content-owned `care` schema, players tune or add,
+  code never branches on a treatment id); base healing is the game's own Recuperating
+  with Halewright extras on top; artwork a ChatGPT base with PixelLab layers
+  (`docs/development/medical-art-handoff.md`; the owner runs the ChatGPT step).
+- Follow `docs/development/medical-bed-design.md` for the release sets. Treatments
+  perform the game's own wound slotting on real items, never authored wound changes;
+  the monitor never heals; the autodoc follows the medic. Shared patient, wound,
+  placement and gravity services belong in Framework with Medical as first consumer.
+  Owner gameplay checks remain pending.
+
 ## Documentation audiences
 
 - Keep current player operating guides and item references in `docs/`. Put contributor instructions, implementation details, research, design proposals and audit reports in `docs/development/`, with separate indexes. Mixed operating guides may retain necessary limits and direct research credits; link detailed evidence rather than burying the next player action.

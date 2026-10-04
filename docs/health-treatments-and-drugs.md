@@ -40,7 +40,9 @@ Sources: wound-slot interactions, `CONDWound...` payloads in `loot.json`,
 bed eligibility. Power has a separate `TIsPowered` trigger. The existence of
 these checks is not proof that every native care path checks power continuously.
 This matters for our intended powered equipment: measure power loss while care
-is already underway, not only at interaction start.
+is already underway, not only at interaction start. The full trace of the bed,
+with healing rates per hour and what it does not do, is in
+[the Infirmaway record](development/medical-bed-research.md).
 
 The accelerated medical-sleep path also references
 `CONDTick1HourSleepMedicalPhysio`, which directly modifies sleep, blood loss,
