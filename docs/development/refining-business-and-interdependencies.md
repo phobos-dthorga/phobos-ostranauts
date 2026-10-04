@@ -246,7 +246,9 @@ Solid arrows exist today. Dotted arrows are proposals, numbered as below.
 - **Dead ends:** carbon stock and nickel-iron without Shipbreaker; ingots until
   the M4 mill; nine terminal remainders; silicates, regolith and six precious ores.
 - **Racks** stop growing when the room has no CO2. A potato crop draws 12.8 g an
-  hour; more CO2 prevents starvation but does not raise yield.
+  hour; more CO2 prevents starvation but does not raise yield. (Superseded by
+  Agriculture 0.43.0: an enriched room now grows crops faster; see the
+  [crop expansion record](agriculture-crop-expansion.md).)
 - **Bought consumables with no Phobos source:** LiOH scrubber cartridges (about
   one per crew member per day, 235 cr), EVA filters, W2 recovery cartridges, F6
   coolant charges.

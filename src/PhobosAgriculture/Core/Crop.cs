@@ -82,15 +82,19 @@ public sealed class CropState
 
     // Effective continuously lit, NET healthy-growth surrogate. Dark/blocked time respires
     // explicitly; no oxygen timer and no bank of power credit. All quantities are kg/kWh.
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, NutrientSolution? solution = null)
+    /// <param name="co2Factor">How much faster the crop grows per hour and per kWh in its room's carbon dioxide
+    /// (Agriculture 0.43.0, <see cref="Co2Response"/>); 1 is the historic rate. Budgets per unit of growth are
+    /// unchanged, so enrichment shortens the cycle and its energy without changing what the crop takes or gives.</param>
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, NutrientSolution? solution = null, double co2Factor = 1)
     {
         foreach (double x in new[] { hours, electricKWh, co2Kg, oxygenKg }) if (!Finite(x) || x < 0) throw new ArgumentException("Invalid crop step.");
+        if (!Finite(co2Factor) || co2Factor < Co2Response.MinFactor || co2Factor > Co2Response.MaxFactor) throw new ArgumentException("Invalid carbon dioxide response.");
         if (hours > 1) throw new ArgumentException("Settle cultivation in at most one-hour steps.");
         var exchange = new Exchange { RoomHeatKWh = electricKWh };
         solution?.Validate(this);
         if (CropId.Length == 0 || hours == 0) return exchange;
         var c = Crop.Get(CropId);
-        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours / (c.Hours * Pace), electricKWh / (c.Hours * c.KW))) : 0;
+        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours * co2Factor / (c.Hours * Pace), electricKWh * co2Factor / (c.Hours * c.KW))) : 0;
         double solutionGrowth = solution == null ? 0 : Math.Min(solution.Quantity.CarrierKg / c.Water, solution.Quantity.SoluteKg / c.Nutrient);
         grow = Math.Max(0, Math.Min(grow, Math.Min(solutionGrowth + Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
         double mixedGrowth = Math.Min(grow, solutionGrowth);
@@ -103,7 +107,7 @@ public sealed class CropState
         Water += condensed;
         exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = transpired - condensed;
         exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * 2.45 / 3.6;
-        double dark = Math.Max(0, hours - grow * c.Hours * Pace);
+        double dark = Math.Max(0, hours - grow * c.Hours * Pace / co2Factor);
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;
         double returnedWater = respired * 18 / 30;

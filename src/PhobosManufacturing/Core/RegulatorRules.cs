@@ -33,7 +33,8 @@ public static class RegulatorRules
     /// faster than the crew use it.</summary>
     public const double OxygenKgPerHour = 6, NitrogenKgPerHour = 12;
     /// <summary>Carbon dioxide set points for grow rooms in kPa (Manufacturing 0.27.0; 0 leaves it alone). Crops stop growing
-    /// when their room has none; more than a trace does not raise yield in Agriculture's model. Every choice sits below the
+    /// when their room has none, and since Agriculture 0.43.0 grow faster in an enriched room (about x1.03, x1.20 and x1.15 at
+    /// these three set points, on Agriculture's crops-pack curve). Every choice sits below the
     /// game's own 0.3 kPa carbon dioxide warning band, and the regulator never doses past <see cref="MaxCarbonDioxideKPa"/>.</summary>
     public static readonly IReadOnlyList<double> CarbonDioxideTargets = new[] { 0d, 0.05d, 0.1d, 0.2d };
     public const double MaxCarbonDioxideKPa = 0.25;

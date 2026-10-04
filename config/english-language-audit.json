@@ -67079,6 +67079,33 @@
       "after": "Crop {0}: picks run from 0 to {1}, and a crop that is picked needs a pick mass of at least one portion, within its edible share and less than one cycle's growth."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "co2_growth",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Panel line: the room CO2, the growth factor and where growth is fastest.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Service.cs:361"
+      ],
+      "before": "Cabin CO2 {0:0.00} kPa: growth x{1:0.00}. About 0.10 to 0.15 kPa grows fastest; much more slows it again.",
+      "after": "Cabin CO2 {0:0.00} kPa: growth x{1:0.00}. About 0.10 to 0.15 kPa grows fastest; much more slows it again."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_co2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Data file refusal: the rules for the CO2 curve.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture/Core/CropPack.cs:52",
+        "src/PhobosAgriculture/Core/CropPack.cs:57"
+      ],
+      "before": "The CO2 response needs 1 to 16 points of (kPa, factor) in rising pressure, from 0 to 10 kPa, with factors from 0.5 to 2.",
+      "after": "The CO2 response needs 1 to 16 points of (kPa, factor) in rising pressure, from 0 to 10 kPa, with factors from 0.5 to 2."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -69897,8 +69924,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f9b3d5a7364dc9ceb9619592d28b13db7f63b222d269267202233653ded51735",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "6c8a80105e8a8d3d75ea8a24aacad33dbb368ecc9ea0af6ce394bc17053c0ef7",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "SUPPORT.md",
@@ -69925,8 +69952,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "f37c9d021076b79ac3fb626679a91e48cee2593863fcdc5b0754de8819d8a2d8",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "2f2cc533f79c12748dc5e38070688f7412b0e8a45df71ceb3994092431d67d35",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -69946,8 +69973,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5ffc8fd84c73868b0fb9da91f914c19bc68bedb2742c51d0d5643628e466b4bc",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "6cb33f8ecddbed6c07613945d40dc3d5fa26a1185163ad60d5642fbd5d2fd47b",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -70057,8 +70084,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7fb402b49eff5521a3736fd8a17e51a6f741189ce1e030c0f7d23ce152dc3b62",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "ef6568d92fef61b8ca61b5c8dedff47b39a5ba109e773a350e7c4aa23b80a8f0",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/crew-automation.md",
@@ -70085,8 +70112,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "560477214875f4e10f36b52384cd0609d54d7d34569d93e0aeb8ce1d685420d1",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "a4a5500ae170da95ad9a5d854c3c35d43bfa4de3c59c8cc17d59a0e51e50ff2d",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -70580,8 +70607,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "0603cd6050e40bf4b808434d6ef3c8c38c5301c8180d76ea081810a25c25245a",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "03d3c6ee023a89856340e49a2b37c96f3a2cba2ca3fb8ec3b27039b994d2fe72",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -70876,8 +70903,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "8be28f2f778d469c9c394ecf40e056e1f3a0487544a02d879c726bd99db33cb4",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "08e243a0320944167ab010dd91c3c7b8d7291c4e725540f934cd7fdfd74e17f6",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -70974,8 +71001,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b4b6a8e04f8ed5389ab18966cdc2123428acf1b01ccd8a7a048248603d703080",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "49fa44848114da370390b4d5169fe59b50fd5083e94d1204752eb456b56120d8",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -71065,8 +71092,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "ae0a16afef941836b135f82be04f8b47e542a5d6932238496eb3c81822f1dd72",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "db7da7b3dcb36f4799fa4ad8c3398988e1bb2c94c76303937c71ee875e62fe6a",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/development/feedstock-round-three-design.md",
@@ -71107,8 +71134,8 @@
       "path": "docs/development/refining-business-and-interdependencies.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "ec8de2c8e7fd6a75421f3d43aab91961a840e44979963d3aba813b1101259ffe",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.27.0: methane cracking, carbon burner, CO2 filter reactivation, A2 carbon dioxide for crops."
+      "sha256": "7139f5c453bd88da7d770c2ab69f8b738d857244c472dae2037f3b0969a92a52",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "docs/shipbreaker-mining-laser.md",
@@ -71128,8 +71155,8 @@
       "path": "docs/development/agriculture-crop-expansion.md",
       "scope": "developer design record",
       "decision": "Development design record with research sources; no player text.",
-      "sha256": "cb056077d8cc0ba8c2a4b00c7b6c2566adb068f7cf0c37c2eb7f56cec10f3893",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "6755a8e84e2c19a8c143f1aaf823ce972b64724f79ee43b61f3414a489868c84",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     }
   ],
   "surfaces": [
@@ -71153,8 +71180,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "76ff4753daf39bc829fbdbdd5ff0f5833588903c160d09a35eb93924fca8ad6d",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.42.0: dwarf tomato with picking, soybean and soybean stew."
+      "sha256": "40900f2b6c3e278c94fe8d215fc386d4e3e778bd92e5693bc5c14da828cbc84c",
+      "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

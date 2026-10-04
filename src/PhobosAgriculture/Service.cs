@@ -29,6 +29,9 @@ internal static partial class Service
         internal bool RecoveryMetered;
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
+        /// <summary>The water tank a full rack sends spare condensate to, and when to look for one again (Agriculture 0.43.0).</summary>
+        internal string VapourTank = "";
+        internal double VapourCheck;
         internal string Notice = "";
         // Per-session cache for the per-step paths: the water port bank (its ports read the maps live).
         internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
@@ -150,6 +153,12 @@ internal static partial class Service
     { var s = Get(co); s.Watch.Cancel(); s.State.Running = s.State.Receiving = false; s.Protected = true; s.Notice = Text.Get("fault"); Plugin.Log(error.ToString()); }
     internal static CondOwner? Room(CondOwner co) => co.ship?.GetRoomAtWorldCoords1(co.GetPos(), false)?.CO;
     internal static double Moles(GasContainer gas, string key) => Math.Max(0, (gas.mapGasMols1.TryGetValue(key, out var x) ? x : 0) + (gas.mapDGasMols.TryGetValue(key, out var y) ? y : 0));
+    /// <summary>The room's carbon dioxide partial pressure in kPa: its share of the room's moles times the room pressure.</summary>
+    internal static double Co2KPa(CondOwner room, GasContainer gas)
+    {
+        double total = Moles(gas, "StatGasMolTotal");
+        return total > 0 ? room.GetCondAmount("StatGasPressure") * Moles(gas, "StatGasMolCO2") / total : 0;
+    }
     internal static bool RoomReady(CondOwner co)
     {
         var room = Room(co); var gas = room?.GasContainer;
@@ -221,8 +230,12 @@ internal static partial class Service
                 // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
                 // air has no water vapour species, so an H2O emission was silently discarded.
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
-                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution);
+                // Agriculture 0.43.0: an enriched room grows the crop faster for the same light (Co2Response).
+                double co2Factor = Co2Response.Factor(Co2KPa(room, gas));
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution, co2Factor);
                 exchange.RoomHeatKWh += standby;
+                // Condensate a full reservoir cannot hold goes to a linked water tank instead of vanishing (Agriculture 0.43.0).
+                exchange.VapourKg -= VapourReturn.Deposit(s, exchange.VapourKg);
                 gas.AddGasMols("CO2", exchange.CO2Kg / .044, false); gas.AddGasMols("O2", exchange.OxygenKg / .032, false);
                 gas.Run();
             }
@@ -345,6 +358,7 @@ internal static partial class Service
             environment += "\n" + string.Join("\n", warnings);
             var planted = Crop.Get(b.CropId);
             if (planted.Picks > 0) environment += "\n" + Text.Get("picks_status", b.Picks, planted.Picks);
+            if (room?.GasContainer != null) { double kPa = Co2KPa(room, room.GasContainer); environment += "\n" + Text.Get("co2_growth", kPa, Co2Response.Factor(kPa)); }
         }
         return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Crop.Get(b.CropId).Name, b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
             Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected || WaterGuard(co).Protected ? Text.Get("protected") : s.Notice) + "\n" + DescribeWaterRoute(s);

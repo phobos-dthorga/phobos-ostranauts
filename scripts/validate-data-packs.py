@@ -375,7 +375,21 @@ NET_GAS_PER_CARBON = 12 / 30
 def crops(pack, where):
     """The crops schema (Agriculture 0.40.0): structure and mass balance. Item masses, text and the freeze are
     checked by the game-side loader and scripts/freeze-recipes.py."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items', 'co2Response'}, where)
+    response = pack.get('co2Response')
+    if response is not None:
+        fields(response, {'notes', 'points'}, f'{where}/co2Response')
+        points, last = response.get('points'), -1
+        if not isinstance(points, list) or not 1 <= len(points) <= 16:
+            raise Problem(f'{where}/co2Response/points: 1 to 16 points of [kPa, factor]')
+        for i, point in enumerate(points):
+            if not isinstance(point, list) or len(point) != 2:
+                raise Problem(f'{where}/co2Response/points/{i}: expected [kPa, factor]')
+            number(point[0], f'{where}/co2Response/points/{i}/0', 0, 10)
+            number(point[1], f'{where}/co2Response/points/{i}/1', 0.5, 2)
+            if point[0] <= last:
+                raise Problem(f'{where}/co2Response/points/{i}: pressures must rise')
+            last = point[0]
     entries = pack.get('crops', {})
     if not isinstance(entries, dict) or not entries:
         raise Problem(f'{where}/crops: needs at least one crop')

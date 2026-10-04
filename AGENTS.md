@@ -325,8 +325,12 @@
   (the cooker recipe may take one supply beside its portion). The owner approved the
   wheat pilot the same day; Agriculture 0.42.0 adds dwarf tomato, with repeat picking
   (crops-pack `picks`/`pickKg`, saved `picks`; a pick sets growth back by exactly the
-  mass it took), and soybean with Hearth soybean stew. Phase 2 is complete; phase 3
-  (CO2 response, residue to carbon in the V4, rack vapour to a linked tank) is next.
+  mass it took), and soybean with Hearth soybean stew. Phase 2 is complete.
+  Agriculture 0.43.0 (phase 3): crops grow faster per hour and per kWh in enriched air
+  (crops-pack `co2Response`, outside the frozen entries; budgets per kilogram unchanged),
+  and a full rack's spare condensate goes to a Framework water tank it reaches instead
+  of vanishing. Residue to carbon in the V4 waits for an owner decision: the charge
+  engine needs fixed-mass inputs and residue's value fails the refining step rule.
 
 ## Manufacturing direction (2026-09-25)
 

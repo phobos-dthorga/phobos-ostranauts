@@ -124,6 +124,23 @@ internal static class CropPackChecks
         var pickedPotato = Saved("potato", "2.6", "0.46"); pickedPotato["picks"] = "1";
         Reject(() => CropState.Read(pickedPotato), "A crop harvested once cannot have picks");
 
+        // Agriculture 0.43.0: room carbon dioxide speeds growth per hour and per kWh, with the same budget per unit of growth.
+        check(Co2Response.Factor(0) == 1 && Co2Response.Factor(.04) == 1 && Math.Abs(Co2Response.Factor(.1) - 1.2) < 1e-12 && Math.Abs(Co2Response.Factor(.125) - 1.225) < 1e-12 &&
+              Math.Abs(Co2Response.Factor(.15) - 1.25) < 1e-12 && Co2Response.Factor(.5) == 1 && Math.Abs(Co2Response.Factor(5) - .85) < 1e-12 && Co2Response.Factor(double.NaN) == 1,
+            "The curve: no change at ambient, fastest near 0.15 kPa, back to the historic rate by 0.5 kPa and slower above");
+        (double Hours, double KWh, CropState State) GrowAt(string id, double factor)
+        {
+            var c = Crop.Get(id); var st = new CropState { Water = 20, Nutrients = .5 }; st.Plant(c, 1); double hours = 0, kwh = 0;
+            for (int i = 0; i < 400 && !st.Ready; i++) { double h = Math.Min(1, (1 - st.Progress) * c.Hours / factor); st.Step(h, h * c.KW, 10, 10, true, null, factor); hours += h; kwh += h * c.KW; }
+            return (hours, kwh, st);
+        }
+        var plain = GrowAt("wheat", 1); var rich = GrowAt("wheat", 1.25);
+        check(plain.State.Ready && rich.State.Ready && Math.Abs(plain.Hours - 84) < 1e-9 && Math.Abs(rich.Hours - 84 / 1.25) < 1e-9 && Math.Abs(rich.KWh - plain.KWh / 1.25) < 1e-9,
+            "At 0.15 kPa wheat ripens in 1/1.25 of the time on 1/1.25 of the energy");
+        check(Math.Abs(rich.State.Biomass - plain.State.Biomass) < 1e-9 && Math.Abs(rich.State.Carbon - plain.State.Carbon) < 1e-9 && Math.Abs(rich.State.Water - plain.State.Water) < 1e-9 &&
+              Math.Abs(rich.State.Nutrients - plain.State.Nutrients) < 1e-9, "Enrichment changes the time, not what the crop takes or gives");
+        Reject(() => new CropState().Step(1, 1, 1, 1, true, null, 3), "A growth factor outside 0.5 to 2 is refused");
+
         // The rules every crops file is held to.
         string shipped = DataPacks.ShippedText(Crops.Source);
         var frozen = RecipeFreeze.Read(typeof(Crops).Assembly, Crops.FrozenResource);

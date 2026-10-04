@@ -185,6 +185,9 @@ The rules a crop is held to:
   that many times before its harvest, taking up to `pickKg` of whole portions each
   time; the shipped tomato uses them. A pick must take at least one portion and less
   than one cycle's growth.
+- **The CO2 curve is yours to tune.** `co2Response.points` lists `[kPa, factor]`
+  pairs in rising pressure (factors 0.5 to 2); it changes how fast crops grow, never
+  what they take or give, so it is not frozen.
 - **Shipped crops cannot be edited.** A file that changes `potato`, `lettuce` or
   `lettuce-seed` is skipped. Copy one under a new name instead.
 

@@ -49,6 +49,36 @@ for growth. These are gameplay limits chosen for this mod, not universal plant t
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
+### Carbon dioxide and spare water
+
+**Enriched air grows crops faster** (Agriculture 0.43.0). Every crop grows more per
+hour and per kWh in a room with more carbon dioxide, up to about 25% faster around
+0.10 to 0.15 kPa. It takes the same water, nutrients and light per kilogram, so the
+cycle is simply shorter. Above that it slows again, back to the ordinary rate by
+0.5 kPa. Below ordinary cabin air nothing changes, but a room with no CO₂ at all still
+stops growth. The rack's panel shows the room's CO₂ and the factor it gives. An
+**A2 cabin air regulator** set to **0.10 kPa** (Phobos Manufacturing) holds a grow
+room near the best point.
+
+| Room CO₂ | Growth |
+| --- | --- |
+| 0.04 kPa or less (ordinary air) | x1.00 |
+| 0.05 kPa | x1.03 |
+| 0.10 kPa | x1.20 |
+| 0.15 kPa | x1.25 |
+| 0.20 kPa | x1.15 |
+| 0.50 kPa | x1.00 |
+| 1.0 kPa and above | x0.85 |
+
+The figures follow NASA and Utah State University crop-chamber work on wheat and
+soybean; the curve itself is a gameplay choice. Crew start to suffer from CO₂ well
+before plants do, which is why the A2 never goes past 0.25 kPa.
+
+**Spare condensate goes to a tank.** A rack condenses its plants' water back into its
+own reservoir. When the reservoir is full, the surplus used to be lost; since 0.43.0
+it goes to a Rivetline water tank the rack touches or shares a process-water line
+with. Without such a tank, it is lost as before.
+
 ## Living rack visuals
 
 Firstlight-4 now shows potatoes or lettuce in its four trays: sprout, young,

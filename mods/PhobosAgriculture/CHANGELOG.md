@@ -10,6 +10,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.43.0] - 2026-10-04 - Draft
+
+### Added
+
+- Enriched air grows crops faster (owner direction, 4 October 2026). Every crop grows more per hour and per kWh with more carbon dioxide in its room: about 20% faster at 0.10 kPa and 25% at 0.15 kPa, slowing again above that and back to the ordinary rate by 0.5 kPa. It takes the same water, nutrients and light per kilogram, so the cycle is just shorter. The rack's panel shows the room's CO2 and the factor. An A2 regulator from Phobos Manufacturing set to 0.10 kPa holds a grow room near the best point. Crops already growing benefit too.
+- Spare condensate goes to a tank: water a full rack cannot keep, which used to be lost, now goes to a Rivetline water tank the rack touches or shares a process-water line with.
+- Data files: crops.json has a co2Response curve you can tune. See the data file guide.
+
+### Save compatibility
+
+- Automatic. Nothing new is saved; plantings saved by earlier versions grow on the same budgets.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.79.0 or newer.
+- The curve follows NASA and Utah State University crop-chamber findings on wheat and soybean; its exact values and the absence of a penalty below ordinary air are gameplay choices. Racks fed only from Ship's Water drinking tanks still lose their spare condensate; it is not routed into drinking water.
+- Turning crop residue into carbon stock is not included: it needs a design decision first.
+- Checked offline; not yet seen in the game.
+
 ## [0.42.0] - 2026-10-04 - Draft
 
 ### Added

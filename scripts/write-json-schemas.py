@@ -192,7 +192,11 @@ def crops():
                'Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg.')
     item = obj({'notes': NOTES, 'text': string('Translation key of the item name; its description is the key plus _desc.'),
                 'hunger': num(1, 20, integer=True), 'satiety': num(1, 20, integer=True)}, ['text'])
-    return obj({**header('crops'), 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
+    response = obj({'notes': NOTES, 'points': {'type': 'array', 'minItems': 1, 'maxItems': 16, 'items': {'type': 'array', 'minItems': 2, 'maxItems': 2,
+                    'prefixItems': [num(0, 10, description='CO2 partial pressure, kPa'), num(0.5, 2, description='Growth factor')]},
+                    'description': 'Points of [kPa, factor] in rising pressure; interpolated, ends held.'}}, ['points'],
+                   'How room carbon dioxide speeds growth per hour and per kWh; budgets per kilogram are unchanged.')
+    return obj({**header('crops'), 'co2Response': response, 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
                 'items': named(item, 'The crop items the mod builds, by definition id.')}, ['schemaVersion', 'schema', 'crops', 'items'],
                'What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop.')
 

@@ -28,7 +28,7 @@ Chili, radish and activated char were offered and not chosen.
 | 0 | this record | Sources, per-crop decisions, open questions | Written |
 | 1 | Agriculture 0.40.0 | Crops and Hearth-2 recipes as data packs; no change in play | Built, offline checks only |
 | 2 | Agriculture 0.41.0, 0.42.0 | Wheat (pilot), then tomato with repeat picking and soybean | Built, offline checks only; the owner approved the wheat pilot on 4 October 2026 |
-| 3 | Agriculture 0.42.0, Manufacturing 0.37.0 | CO2 response; residue charred to carbon stock in the V4; rack vapour overflow to a linked water tank | Planned |
+| 3 | Agriculture 0.43.0 | CO2 response and rack vapour overflow to a linked water tank built (offline checks only); residue to carbon waits for an owner decision | Partly built |
 | 4 | later | Flax: fibre to cloth, linseed; oil press decision | Needs its own design record |
 | 5 | later | Sugar beet and a fermenter: ethanol and CO2 | Needs its own design record |
 | 5b | later | Rubber dandelion: latex to seals | Needs an owner decision on repair supplies |
@@ -290,3 +290,53 @@ Fridge and crate finds keep their 0.22 and 0.30 totals, now shared by every crop
 - **Transpiration.** Racks already condense transpired water back into their own
   reservoir. Only overflow from a full reservoir is lost, so the tie is a link to a
   water tank, not a new machine.
+
+## Phase 3: CO2 response and spare condensate (Agriculture 0.43.0)
+
+Owner, 4 October 2026: proceed with phase 3.
+
+**CO2 response.** `crops.json` gains a top-level `co2Response` curve, outside the frozen
+crop entries: a growth factor against the room's carbon dioxide partial pressure. The
+factor multiplies growth per hour and per kWh, and every budget per unit of growth is
+unchanged, so mass is conserved and an enriched room only shortens the cycle and its
+energy; the unit checks grow wheat at 1 and 1.25 and compare. One curve serves every
+shipped crop (all are C3 plants):
+
+| CO2, kPa | 0.04 | 0.10 | 0.15 | 0.25 | 0.5 | 1.0 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Factor | 1.00 | 1.20 | 1.25 | 1.05 | 1.00 | 0.85 |
+
+Source findings (see Carbon dioxide response above): saturation near 1,000 to 1,500
+ppm; wheat +13 to +40% at 1,000 to 1,200 ppm; 15 to 22% less at 2,500 ppm and 37%
+less by 10,000 ppm. Our choices: +20% and +25% rather than the top of the range, no
+penalty below ordinary air (a room with no CO2 still stops growth, as before), and
+one curve for crops the studies measured separately. It applies to plantings already
+growing, because it changes their rate and never their budgets. The A2's 0.10 kPa
+setting gives x1.20.
+
+**Spare condensate.** A rack keeps condensing its plants' water into its own
+reservoir. What a full reservoir cannot hold used to be discarded (the game has no
+water vapour species); it now goes to the nearest Framework water tank the rack
+reaches by the owner's link rule (touching or the process-water line), through the
+tank's own record, so the water stays in the ship's books. With no reachable,
+ready tank it is lost as before. Ship's Water drinking tanks are not used: condensate
+is not routed into the potable pool (reclaim, do not join).
+
+## Residue to carbon: why it waits
+
+Findings from the Manufacturing charge engine (4 October 2026):
+
+- Every V4 input has a fixed unit mass, checked at admission, binding and delivery;
+  crop residue and spent biomass each carry their own mass (0.2 to 1.5 kg), so the
+  engine cannot bind them as they are.
+- Honest yields are small. Biomass pyrolysis leaves roughly a quarter to a third of
+  the dry matter as char (our estimate, not yet sourced); a wheat harvest's straw
+  would give about a quarter kilogram of carbon, against 5 kg from one carbon ore
+  charge.
+- Residue is priced at 0.01 cr, so any carbon product fails the refining value rules'
+  step test by orders of magnitude; like fertiliser, it would need its own owner
+  rule.
+
+Options put to the owner: a fixed-mass dried straw bale made at the B2 bench and
+charred four at a time in the V4; burning bales into CO2 for the grow room instead
+of carbon stock, which closes a loop with the CO2 response; or setting the tie aside.

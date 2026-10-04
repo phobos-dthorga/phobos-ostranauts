@@ -14,6 +14,50 @@ public sealed class CropPack : DataPack
 {
     public Dictionary<string, CropEntry> crops = new(StringComparer.Ordinal);
     public Dictionary<string, CropItemEntry> items = new(StringComparer.Ordinal);
+    /// <summary>How the room's carbon dioxide speeds growth (Agriculture 0.43.0); absent means no response.</summary>
+    public Co2ResponseEntry? co2Response;
+}
+
+public sealed class Co2ResponseEntry
+{
+    public string? notes;
+    /// <summary>Points of (carbon dioxide partial pressure in kPa, growth factor), in rising pressure. Between points the
+    /// factor is interpolated; below the first and above the last it holds the end value.</summary>
+    public List<double[]> points = new();
+}
+
+/// <summary>The growth factor a room's carbon dioxide gives (Agriculture 0.43.0). The factor multiplies how much a crop
+/// grows per hour and per kWh; every budget per unit of growth stays the crop's own, so mass is conserved and a richer
+/// room only shortens the cycle. All shipped crops are C3 plants, so one curve serves them all.</summary>
+public static class Co2Response
+{
+    public const double MinFactor = .5, MaxFactor = 2, MaxKPa = 10;
+    /// <summary>The factor at <paramref name="kPa"/> on <paramref name="points"/>; 1 with no curve or no reading.</summary>
+    public static double Factor(IReadOnlyList<double[]>? points, double kPa)
+    {
+        if (points == null || points.Count == 0 || !CropState.Finite(kPa) || kPa < 0) return 1;
+        if (kPa <= points[0][0]) return points[0][1];
+        for (int i = 1; i < points.Count; i++)
+            if (kPa <= points[i][0])
+            {
+                double t = (kPa - points[i - 1][0]) / (points[i][0] - points[i - 1][0]);
+                return points[i - 1][1] + t * (points[i][1] - points[i - 1][1]);
+            }
+        return points[points.Count - 1][1];
+    }
+    public static double Factor(double kPa) => Factor(Crops.Pack.co2Response?.points, kPa);
+    public static void Validate(Co2ResponseEntry? entry)
+    {
+        if (entry == null) return;
+        if (entry.points.Count < 1 || entry.points.Count > 16) throw new ArgumentException(Text.Get("crops_co2"));
+        double last = -1;
+        foreach (var p in entry.points)
+        {
+            if (p == null || p.Length != 2 || !CropState.Finite(p[0]) || !CropState.Finite(p[1]) || p[0] <= last || p[0] < 0 || p[0] > MaxKPa || p[1] < MinFactor || p[1] > MaxFactor)
+                throw new ArgumentException(Text.Get("crops_co2"));
+            last = p[0];
+        }
+    }
 }
 
 public sealed class CropEntry
@@ -77,6 +121,7 @@ public static class CropSchema
         if (pack == null) throw new ArgumentNullException(nameof(pack));
         if (context == null) throw new ArgumentNullException(nameof(context));
         if (pack.crops.Count == 0) throw new ArgumentException(Text.Get("crops_empty"));
+        Co2Response.Validate(pack.co2Response);
         var feeds = new HashSet<string>(StringComparer.Ordinal); var commodities = new HashSet<string>(StringComparer.Ordinal);
         foreach (var pair in pack.crops)
         {

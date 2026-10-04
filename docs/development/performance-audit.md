@@ -938,3 +938,12 @@ adds `CropState.PickPortions`, a few arithmetic operations called when a pick is
 when the crew order is evaluated and in the panel's status line; the status line also
 reads the crop's pick count. Nothing new runs per power step. No capture accompanies
 this change.
+
+## 4 October: CO2 response and spare condensate (L28)
+
+L28 — Agriculture 0.43.0: each rack power step reads the room's CO2 and total moles once
+more and interpolates a six-point curve. Spare condensate exists only when a rack's
+reservoir is full; then `VapourReturn` looks up the nearest reachable water tank at most
+every 30 seconds (one `BulkVessels.Aboard` pass and a line-reach check per tank, from the
+cached topology) and saves the tank's record once per step it deposits. The panel's status
+line reads the curve once. No capture accompanies this change.

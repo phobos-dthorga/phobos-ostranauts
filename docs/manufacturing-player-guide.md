@@ -120,7 +120,7 @@ fill, so their products have somewhere to go:
   and load one carbon black: the V4 burns it into 3.7 kg of carbon dioxide, and
   an A2 doses a grow room from that store (see [Cabin air regulator](#cabin-air-regulator)).
   Crops stop growing in a room with no carbon dioxide, which a well-scrubbed
-  room can be.
+  room can be, and since Agriculture 0.43.0 grow faster in an enriched one.
 - **Reactivating cartridges.** Spent CO2 scrubber cartridges and EVA filters go
   into the V4's feed four at a time; three come back ready and the fourth is an
   exhausted sorbent remainder. They are the ship's largest recurring purchase,
@@ -588,8 +588,10 @@ then carbon dioxide if asked, then nitrogen until the room reaches its pressure:
 up to 6 kg of oxygen, 1 kg of carbon dioxide and 12 kg of nitrogen an hour. It
 only adds gas. It never vents, never scrubs carbon dioxide and never cools, so
 keep the game's scrubbers running. Its carbon dioxide never passes 0.25 kPa, below
-the 0.3 kPa where the game starts to warn the crew; that is plenty for crops,
-which only need some. It keeps
+the 0.3 kPa where the game starts to warn the crew. Since Agriculture 0.43.0, crops
+grow faster in an enriched room: about 3% faster at 0.05 kPa, 20% at 0.10 kPa and
+15% at 0.20 kPa, so **0.10** is the grow-room setting to choose. The rack's panel
+shows the factor it is getting. It keeps
 working after a reload, like the game's own air pumps.
 
 - It stops feeding a room below **10 kPa**: that room is open to space, and
