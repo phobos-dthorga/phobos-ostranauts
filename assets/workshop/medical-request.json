@@ -1,0 +1,39 @@
+{
+  "provider": "OpenAI built-in Imagegen",
+  "operation": "image_gen.imagegen",
+  "date": "2026-10-04",
+  "resultId": "exec-58f794b1-4400-4539-9b3a-88be89c779d9",
+  "generatedFile": "exec-58f794b1-4400-4539-9b3a-88be89c779d9.png",
+  "prompt": "Use case: stylized-concept\nAsset type: original pixel-art promotional SCENE layer for the Phobos Medical Steam Workshop cover. Landscape 244:170 aspect ratio, ideally a 1464 x 1020 source. Output ONLY the scene, without a title, lettering, border or footer: those will be added using the existing Phobos cover frame.\n\nReference image 1, Phobos Shipbreaker cover: STYLE reference only. Match its coarse game-cover pixel clusters, restrained material colours, industrial spaceship deck and machinery, confident dark outlines, shallow overhead room view and worn but readable spacecraft atmosphere. Do not reproduce its equipment or any of its lettering.\nReference image 2, Phobos Agriculture cover: STYLE reference only for the inhabited ship interior, warm off-white cabinets, grey deck tiles and workaday space-survival mood. Do not draw plants, farming machinery or the cover's wording.\nReference image 3, Halewright Ward-3: ORIGINAL PHOBOS EQUIPMENT DESIGN reference. Preserve the bed's off-white heavy rectangular chassis, pale mint-grey segmented patient cushion, flat headrest, mid-grey rails, paired capped blue-teal treatment cartridges at the head, two articulated treatment arms folded beside the upper cushion, side access modules and maintenance drawer at the foot.\n\nDraw a cramped but orderly 2075 spacecraft sickbay in the same visual family as the sibling covers. One Halewright Ward-3 medical bed is the unmistakable hero, occupying most of the central scene, head toward the upper wall and foot toward the lower edge. It is installed among grey steel deck plates and dark slate wall panels. Show one small ordinary spacer resting calmly on the bed, brown hair, plain rust-orange work clothes, head on the headrest, boots toward the foot. Their silhouette should be modest and clearly readable, and must not hide the head cartridges and parked treatment arms. No visible wounds or blood; convey recuperation through the resting pose. The bed's treatment arms are PARKED, not operating on the person. Surrounding details are simple supporting furniture: a compact off-white medicine/dressing storage cabinet at the left wall, a short supply counter with folded clean cloth and two small closed supply containers, a dark muted-teal stool, and a shallow footlocker at the lower-right. Keep a narrow practical walkway beside the bed. A restrained wall lamp can suggest warm inhabited light, with no dramatic light effects.\n\nCamera near directly overhead with just the slight raised, oblique room illustration used in the Phobos Agriculture and Shipbreaker covers. Strong readable shapes, regular deck tiles, restrained local shading, original chunky PIXEL ART with stepped edges, limited palette, no anti-aliasing, no blurry painting, no photorealistic rendering, no lush gradients. Warm off-white enamel and pale mint-grey cushions against charcoal, grey steel and slate blue, muted blue-teal cartridge caps, a few quiet brass fittings and rust-orange clothes. Worn-in utilitarian equipment; no luxurious hospital or shiny science-fiction showroom.\n\nNo text, labels, letters, numbers, logos, red crosses, title panels, outer decorative frame, watermarks, holograms, visible nanorobots, particle swarms, lasers, gore, active surgery, futuristic scanning arches, standalone patient monitors, extra medical machines, machinery from the reference covers, or outside space vista. Fictional illustration of resting in an advanced medical bed, not a gameplay screenshot or a claim of an implemented nanomachine treatment.",
+  "references": [
+    {
+      "path": "mods/PhobosShipbreaker/preview.png",
+      "role": "Style only: pixel density, industrial scene and palette"
+    },
+    {
+      "path": "mods/PhobosAgriculture/preview.png",
+      "role": "Style only: inhabited spacecraft interior"
+    },
+    {
+      "path": "assets/phobos-medical/source/ward3-nanomedical-chatgpt.png",
+      "role": "Original Phobos Ward-3 design"
+    }
+  ],
+  "inputProvenance": "Only original Phobos images supplied. No game textures, game screenshots, third-party mod sprites or official logos.",
+  "calls": 1,
+  "model": "Not disclosed by the built-in tool",
+  "seed": "Not disclosed",
+  "cost": "Not disclosed; no PixelLab generation or paid credit involved",
+  "returnedSize": [
+    1463,
+    1075
+  ],
+  "master": {
+    "branch": "codex/workshop-art-masters",
+    "commit": "9249a8182ec3d4d6172920cc7edb9a83dc2a5387",
+    "path": "assets/workshop/masters/PhobosMedical-scene.png",
+    "sha256": "1A0C3922308A2453FDF6648700C414D827E9FDD6C2077E9037DE7CFE8C6464AE",
+    "status": "Retained locally; this commit has not been pushed"
+  },
+  "review": "First scene and final 512/256 compositions inspected: matching shared frame and pixel lettering, resting spacer and head cartridges readable at thumbnail size. Original promotional illustration, no gameplay screenshot or added treatment claim."
+}

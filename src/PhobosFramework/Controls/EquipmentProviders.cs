@@ -19,6 +19,12 @@ public interface IEquipmentPanelFields : IEquipmentPanelPresentation
 }
 public sealed class EquipmentField
 {
+    /// <summary>The choices a provider's fields offer that its own <see cref="IEquipmentPanelFields.IsConfiguration"/>
+    /// does not list (Framework 0.83.0). Such a choice can never be applied: the provider refuses it as stale and the
+    /// panel asks to apply or discard it for ever. Empty for a sound provider. Pure.</summary>
+    public static IReadOnlyList<string> Unlisted(IEnumerable<EquipmentField> fields, Func<string, bool> isConfiguration) =>
+        fields.SelectMany(f => f.Choices).Select(c => c.Id).Where(id => !isConfiguration(id)).Distinct(StringComparer.Ordinal).ToArray();
+
     public readonly string Label,Value;
     public readonly IReadOnlyList<(string Id,string Label)> Choices;
     /// <summary>The choice id matching the current setting, so a configuration sheet opens with it marked; empty when

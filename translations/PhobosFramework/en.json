@@ -327,6 +327,7 @@
   "Console.apply": "Apply",
   "Console.discard": "Discard",
   "Console.keep_editing": "Keep editing",
+  "Console.unsupported_choice": "This setting could not be saved because of a fault in the mod, which has been logged. Choose Discard; nothing was changed.",
   "Console.stale": "Settings changed or access was lost. Your edits are kept. Choose Discard to load the current settings.",
   "Console.invalid_process": "Choose work that this machine can do.",
   "Console.invalid_store": "This store is no longer available on this ship.",

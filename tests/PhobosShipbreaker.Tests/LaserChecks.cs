@@ -20,6 +20,8 @@ internal static class LaserChecks
         void Pay(LaserRecord record) => record.Credit(record.Number("kw") * (record.Number("seconds") - record.Number("progress")) / 3600);
 
         var r = Bound();
+        check(new[] { "filter:rock", "cooling:none", "power:" + LaserRules.PowerHigh, LaserRules.HaulJobsKey + ":" + LaserRules.SwitchOn, LaserRules.DepositJobsKey + ":" + LaserRules.SwitchOff }
+            .All(a => LaserRules.SettingPrefixes.Any(p => a.StartsWith(p, StringComparison.Ordinal))), "Every laser setting, the two job switches included, is one its panel can apply");
         check(r.Valid && r.Phase == LaserPhase.Seeking && !r.HasJob && r.Number("cursor") == -LaserRules.ArcDegrees / 2 && r.Number("rock") == 0 && r.Number("walls") == 0,
             "A fresh sweep is bound to one moored ship and starts at the arc's near edge with nothing counted");
 

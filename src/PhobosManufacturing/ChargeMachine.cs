@@ -27,7 +27,11 @@ internal sealed class ChargeMachine
     {
         internal ChargeState State = null!;
         internal bool Protected, AwaitingFeed, HeatWait, VesselWait, NeedsAttention;
+        // True only while Start itself binds: the one time a charge may be made of things this machine makes.
+        internal bool ByStart;
         internal double Last, NextVesselCheck, WaitSince;
+        // How often an armed, idle machine looks in its own inventory for a charge (real time).
+        internal readonly Cadence OwnFeed = new(ManufacturingRules.VesselRecheckSeconds);
         internal string Status = "";
         internal string? LastStop;
     }
@@ -121,6 +125,22 @@ internal sealed class ChargeMachine
         return feedKg.TryGetValue(id, out double kg) ? kg : (double?)null;
     }
     private CondOwner? MachineOf(CondOwner? bin) => bin?.objCOParent;
+    // The solids this machine's recipes make, rebuilt when the catalog view changes.
+    private ChargeRecipeView? productView; private readonly HashSet<string> productIds = new(StringComparer.Ordinal);
+    private bool OwnProduct(string? id)
+    {
+        var view = Catalog;
+        if (!ReferenceEquals(productView, view))
+        {
+            productView = view; productIds.Clear();
+            foreach (var recipe in view.All) foreach (var product in recipe.Products) if (!ChargeCommodities.Is(product.Id)) productIds.Add(product.Id);
+        }
+        return id != null && productIds.Contains(id);
+    }
+    /// <summary>Feed lying in the machine's own inventory (Manufacturing 0.41.0). A machine that repeats by itself never
+    /// takes what it makes (a V4 would carburise its own ingots, or burn the carbon stock it just made); a charge of
+    /// those is taken only by Start, once each time it is chosen.</summary>
+    private List<CondOwner> OwnFeed(CondOwner co, bool byStart) => OwnInventoryFeed.Units(co, u => CrewFeed(u, co) && (byStart || !OwnProduct(u.strCODef)));
     internal bool ValidFeed(CondOwner? input, CondOwner? machine) => input != null && !input.bDestroyed && input.Crew == null &&
         !input.HasCond("IsInstalled") && input.GetCOsSafe(true).Count == 0 && input.GetLotCOs(true).Count == 0 && input.coStackHead == null && input.aStack.Count == 0 &&
         FeedKg(input.strCODef, machine) is double kg && ProcessMaterial.MassMatches(input.GetTotalMass(), kg);
@@ -229,7 +249,10 @@ internal sealed class ChargeMachine
         {
             s.LastStop = null; s.NeedsAttention = false; s.AwaitingFeed = true;
             if (s.State.Running) return true;
-            bool started = Resume(co, s) || Bind(co, s);
+            bool started;
+            s.ByStart = true;
+            try { started = Resume(co, s) || Bind(co, s); }
+            finally { s.ByStart = false; }
             if (!started && !s.VesselWait) s.AwaitingFeed = false;
             return started || s.VesselWait;
         }
@@ -248,9 +271,14 @@ internal sealed class ChargeMachine
     private bool Bind(CondOwner co, Session s)
     {
         SetWorking(co, false); s.VesselWait = false;
-        var bin = Feed(co)?.objContainer?.ContainedCOs;
-        if (bin == null || bin.Count == 0) { s.Status = T("feed_empty"); return false; }
-        var valid = bin.Where(c => ValidFeed(c, co)).ToList();
+        var feed = Feed(co); var bin = feed?.objContainer?.ContainedCOs;
+        if (feed == null || bin == null) { s.Status = T("feed_empty"); return false; }
+        // The game shows one inventory for the machine, so a charge put in by hand lies beside the products
+        // (Manufacturing 0.41.0). The charge is chosen from the feed and that inventory together, feed first, and only
+        // the units of the chosen charge are then taken into the feed.
+        var own = OwnFeed(co, s.ByStart);
+        if (bin.Count == 0 && own.Count == 0) { s.Status = T("feed_empty"); return false; }
+        var valid = bin.Where(c => ValidFeed(c, co)).Concat(own).ToList();
         ChargeRecipe? recipe;
         if (Spec.Selection == RecipeSelection.Explicit)
         {
@@ -265,8 +293,10 @@ internal sealed class ChargeMachine
             if (recipe == null) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
         }
         var units = new List<CondOwner>();
-        foreach (var input in recipe.ItemInputs) units.AddRange(valid.Where(c => c.strCODef == input.Id).OrderBy(c => c.strID, StringComparer.Ordinal).Take(input.Count));
+        foreach (var input in recipe.ItemInputs) units.AddRange(valid.Where(c => c.strCODef == input.Id).OrderBy(c => c.objCOParent == feed ? 0 : 1).ThenBy(c => c.strID, StringComparer.Ordinal).Take(input.Count));
         if (units.Any(u => !ChargeState.SafeId(u.strID))) { s.Status = T("invalid_feed"); return false; }
+        foreach (var unit in units)
+            if (unit.objCOParent != feed && !OwnInventoryFeed.Take(unit, feed)) { s.Status = Text.Get("Content.feed_blocked"); return false; }
         s.State.RecipeId = recipe.Id; s.State.Revision = recipe.Revision; s.State.ProgressSeconds = 0; s.State.WaitSeconds = 0; s.State.EmittedKg = 0;
         s.State.Charge = units.Select(u => u.strID).ToList();
         Save(co, s);
@@ -297,8 +327,10 @@ internal sealed class ChargeMachine
         CrewWork.ManualStop(co);
         Stop(co, s, T(cancel ? "cancelled" : "paused_retained"), needsAttention: false);
         if (!cancel || s.Protected) return !s.Protected;
-        // Cancelling releases the bound units unchanged; the charge's work is forfeited, its mass is not.
+        // Cancelling releases the bound units unchanged; the charge's work is forfeited, its mass is not. They go back
+        // into the machine's inventory, where a hand can reach them, as far as it has room.
         s.State.Clear(); Save(co, s);
+        if (!s.Protected) OwnInventoryFeed.Return(Feed(co), co);
         return true;
     }
     private void Stop(CondOwner co, Session s, string message, bool needsAttention = true)
@@ -331,7 +363,9 @@ internal sealed class ChargeMachine
         {
             var problem = MachineProblem(co);
             if (problem != null) { Stop(co, s, problem); return; }
-            if (Feed(co)?.objContainer?.ContainedCOs.Count == 0 && !s.State.Bound) { s.Status = T("feed_empty"); return; }
+            // An empty feed keeps the machine armed; its own inventory is looked at every couple of real seconds.
+            if (Feed(co)?.objContainer?.ContainedCOs.Count == 0 && !s.State.Bound &&
+                (co.objContainer!.ContainedCOs.Count == 0 || !s.OwnFeed.Due() || OwnFeed(co, false).Count == 0)) { s.Status = T("feed_empty"); return; }
             if (!(Resume(co, s) || Bind(co, s)) && !s.VesselWait) s.AwaitingFeed = false;
         }
         if (!s.State.Running) { if (!s.VesselWait) SetWorking(co, false); return; }

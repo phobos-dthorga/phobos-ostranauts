@@ -24,6 +24,8 @@ internal static class ThawService
         internal CondOwner? Input;
         internal double Last, NextVesselCheck;
         internal bool AwaitingFeed, CrewManaged, NeedsAttention, HeatWait, VesselWait;
+        // How often an armed, idle unit looks in its own inventory for ice (real time; see OwnInventoryFeed).
+        internal readonly Cadence OwnFeed = new(ProcessRules.OwnFeedRecheckSeconds);
         internal string Status = Text.Get("Thaw.paused");
     }
     internal sealed class Transfer
@@ -129,7 +131,9 @@ internal static class ThawService
             IndustryObservations.ClearStop(co);
             s.CrewManaged = false; s.NeedsAttention = false; s.AwaitingFeed = true;
             if (s.Job?.Running == true) return true;
-            if (Feed(co)!.objContainer.ContainedCOs.Count == 0) { s.Status = Text.Get("Thaw.feed_empty"); return true; }
+            // The game shows one inventory for the unit, so ice put in by hand lies beside the gangue: take a block
+            // from there when the feed is empty (Shipbreaker 0.72.0).
+            if (!OwnInventoryFeed.TopUp(co, Feed(co))) { s.Status = Text.Get("Thaw.feed_empty"); return true; }
             bool started = StartNext(co, s);
             // A vessel that cannot take water yet keeps the queue armed; anything else disarms it.
             if (!started && !s.VesselWait) s.AwaitingFeed = false;
@@ -190,6 +194,8 @@ internal static class ThawService
             input.ZeroCondAmount(ProcessRules.Progress); input.ZeroCondAmount(ProcessRules.Revision); input.ZeroCondAmount(ProcessRules.Duration);
         }
         s.Input = null; s.Job = null;
+        // The cancelled ice goes back where a hand can reach it.
+        OwnInventoryFeed.Return(Feed(co), co);
         return true;
     }
     private static void Stop(CondOwner co, Session s, string message, bool needsAttention = true)
@@ -223,7 +229,8 @@ internal static class ThawService
         {
             var problem = MachineProblem(co);
             if (problem != null) { Stop(co, s, problem); return; }
-            if (Feed(co)?.objContainer?.ContainedCOs.Count == 0) { s.Status = Text.Get("Thaw.feed_empty"); return; }
+            var waiting = Feed(co);
+            if (waiting?.objContainer?.ContainedCOs.Count == 0 && !(s.OwnFeed.Due() && OwnInventoryFeed.TopUp(co, waiting))) { s.Status = Text.Get("Thaw.feed_empty"); return; }
             if (!StartNext(co, s) && !s.VesselWait) s.AwaitingFeed = false;
         }
         if (s.Job?.Running != true) { if (!s.VesselWait) SetWorking(co, false); return; }

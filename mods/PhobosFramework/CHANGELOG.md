@@ -26,6 +26,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.83.0] - 2026-10-04 - Draft
+
+### Added
+
+- A shared way for machines to take feed from their own inventory, one checked unit at a time, and to give it back on Cancel. Phobos Shipbreaker 0.72.0 and Phobos Manufacturing 0.41.0 use it.
+
+### Fixed
+
+- A panel setting that cannot be saved now says so and tells you to Discard, and the fault is logged, where it used to claim the settings had changed.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.82.0] - 2026-10-04 - Draft
 
 ### Added

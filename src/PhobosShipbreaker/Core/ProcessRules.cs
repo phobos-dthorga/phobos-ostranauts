@@ -22,6 +22,8 @@ public static class ProcessRules
     // Heaviest ordinary wall the game ships (Langdon-Phillips "Glory Series", 48 kg).
     public const double MaximumWallKg = 48;
     public const double CycleSeconds = 60;
+    /// <summary>Real seconds between an armed, idle machine's looks into its own inventory for feed put there by hand.</summary>
+    public const double OwnFeedRecheckSeconds = 2;
     public const double ActiveKW = 30;
     public const double IdleKW = 0.12;
     public const int FeedCapacity = 4;

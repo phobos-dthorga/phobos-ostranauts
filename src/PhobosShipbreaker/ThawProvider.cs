@@ -32,7 +32,7 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Laser.power_field"), LaserService.PowerLabel(high),
                 new[] { false, true }.Select(h => ("power:" + (h ? LaserRules.PowerHigh : LaserRules.PowerStandard), LaserService.PowerLabel(h))),
                 "power:" + (high ? LaserRules.PowerHigh : LaserRules.PowerStandard));
-            foreach (var (action, label, on) in new[] { ("haul:", "Laser.haul_field", LaserService.HaulJobs(co)), ("deposits:", "Laser.deposit_field", LaserService.DepositJobs(co)) })
+            foreach (var (action, label, on) in new[] { (LaserRules.HaulJobsKey + ":", "Laser.haul_field", LaserService.HaulJobs(co)), (LaserRules.DepositJobsKey + ":", "Laser.deposit_field", LaserService.DepositJobs(co)) })
                 yield return new(Text.Get(label), LaserService.SwitchLabel(on),
                     new[] { false, true }.Select(v => (action + (v ? LaserRules.SwitchOn : LaserRules.SwitchOff), LaserService.SwitchLabel(v))),
                     action + (on ? LaserRules.SwitchOn : LaserRules.SwitchOff));
@@ -52,8 +52,10 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
                 stores.Select(v => ("methane-link:" + v.strID, LinkChoices.Label(co, v, ThawService.MethaneLink, true))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }),
                 "methane-link:" + (methane.Length == 0 ? "none" : methane), () => LinkChoices.Note(co, ThawService.MethaneLink, ThawService.MethaneCandidates(co)));
     }
-    public bool IsConfiguration(string action) => action.StartsWith("link:", StringComparison.Ordinal) || action.StartsWith("methane-link:", StringComparison.Ordinal) ||
-        action.StartsWith("filter:", StringComparison.Ordinal) || action.StartsWith("cooling:", StringComparison.Ordinal) || action.StartsWith("power:", StringComparison.Ordinal);
+    // Every prefix a field above offers must be listed here: a choice that is not is refused on Apply as stale, and
+    // the panel then asks to apply or discard it for ever (the ML-2's two job switches, until Shipbreaker 0.72.0).
+    internal static readonly string[] ConfigurationPrefixes = new[] { "link:", "methane-link:" }.Concat(LaserRules.SettingPrefixes).ToArray();
+    public bool IsConfiguration(string action) => ConfigurationPrefixes.Any(p => action.StartsWith(p, StringComparison.Ordinal));
     // The laser's stamp covers only its saved choices and its cooling link, not the sweep record that changes with
     // every powered second.
     public string ConfigurationStamp(CondOwner co) => LaserRules.IsFamily(co.strCODef)

@@ -24352,14 +24352,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.paused_load_panels_and_start_the_queue",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ProcessingService.cs:26"
       ],
       "before": "Paused. Load supported feed and start the queue.",
-      "after": "Paused. Load supported feed and start the queue.",
+      "after": "Paused. Put supported feed in the inventory and start the queue.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -24645,14 +24645,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.work_cancelled_panel_retained_spent_energy_is",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ProcessingService.cs:155"
       ],
       "before": "Work cancelled; input retained. Spent energy is not refunded.",
-      "after": "Work cancelled. Supplies stay in the feed; electricity already used is lost.",
+      "after": "Work cancelled. The feed is back in the inventory where there was room; electricity already used is lost.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
@@ -45059,13 +45059,13 @@
       "key": "ProcessingService.queue_waiting_for_wall_panels",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Names the families the queue waits for.",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ProcessingService.cs:109"
       ],
       "before": "Queue armed; waiting for wall panels in the feed. They can come from a crew loading order, the feed window in the controls or a connected grabber.",
-      "after": "Ready and waiting for parts: ordinary walls, floor grates, DuraWal, Whipple and aero panels, or windows. Crew can load them, you can use the feed window, or a connected grabber can bring them in.",
+      "after": "Ready and waiting for parts: ordinary walls, floor grates, DuraWal, Whipple and aero panels, or windows. Put them in its inventory, have crew load them, or let a connected grabber bring them in.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
@@ -45656,13 +45656,13 @@
       "key": "Thaw.paused",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Updated for this feature (methane ice in the T2); placeholders follow the new arguments; states the situation and next action directly.",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:27"
       ],
       "before": "Paused. Load water ice, link a vessel and start.",
-      "after": "Paused. Load water ice or methane ice, link a water silo and Start.",
+      "after": "Paused. Put water ice or methane ice in its inventory, link a water silo and Start.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain cutting, cargo, furnace heat and the next crew action; keep clearance, quantities and release requirements.",
@@ -45673,8 +45673,8 @@
       "mod": "PhobosShipbreaker",
       "key": "Thaw.feed_empty",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:104",
@@ -45682,7 +45682,7 @@
         "src/PhobosShipbreaker/ThawService.cs:186"
       ],
       "before": "Feed empty. Waiting for water ice.",
-      "after": "Feed empty. Waiting for water ice.",
+      "after": "Nothing to thaw. Put water ice in its inventory.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -45969,14 +45969,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Thaw.cancelled",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/ThawService.cs:145"
       ],
       "before": "Work cancelled. The ice stays in the feed; spent energy is lost.",
-      "after": "Work cancelled. The ice stays in the feed; spent energy is lost.",
+      "after": "Work cancelled. The ice is back in the inventory; spent energy is lost.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -47539,15 +47539,15 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.feed_empty",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:227",
         "src/PhobosManufacturing/ChargeMachine.cs:309"
       ],
       "before": "The feed is empty. Load a charge.",
-      "after": "The feed is empty. Load a charge.",
+      "after": "Nothing to work on. Put a charge in the refinery's inventory and press Start.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -47578,14 +47578,14 @@
       "key": "Refinery.no_charge",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Updated for the V4 calcine charge (Manufacturing 0.18.0): names the leached residue and its carbon dioxide store; placeholders unchanged.",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
         "src/PhobosManufacturing/ChargeMachine.cs:240"
       ],
       "before": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock.",
-      "after": "The feed holds no complete charge: one ore block, one leached residue, or four nickel-iron ingots with one carbon stock.",
+      "after": "No complete charge inside: one ore block, one leached residue, or four nickel-iron ingots with one carbon stock.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -47630,14 +47630,14 @@
       "mod": "PhobosManufacturing",
       "key": "Refinery.cancelled",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:273"
       ],
       "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
-      "after": "Batch cancelled. Supplies stay in the feed; progress is lost.",
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -59765,15 +59765,15 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.feed_empty",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:227",
         "src/PhobosManufacturing/ChargeMachine.cs:309"
       ],
       "before": "The feed is empty. Load a charge for the chosen recipe.",
-      "after": "The feed is empty. Load a charge for the chosen recipe.",
+      "after": "Nothing to work on. Put the chosen recipe's charge in the unit's inventory and press Start.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -59783,8 +59783,8 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.invalid_feed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
@@ -59792,7 +59792,7 @@
         "src/PhobosManufacturing/ChargeMachine.cs:244"
       ],
       "before": "Nothing in the feed belongs to the chosen recipe.",
-      "after": "Nothing in the feed belongs to the chosen recipe.",
+      "after": "Nothing inside belongs to the chosen recipe.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -59802,15 +59802,15 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.no_charge",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
         "src/PhobosManufacturing/ChargeMachine.cs:240"
       ],
       "before": "The feed holds part of a charge. Load the rest of the chosen recipe's charge.",
-      "after": "The feed holds part of a charge. Load the rest of the chosen recipe's charge.",
+      "after": "Only part of a charge is inside. Add the rest of the chosen recipe's charge.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -59926,14 +59926,14 @@
       "mod": "PhobosManufacturing",
       "key": "Leach.cancelled",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:273"
       ],
       "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
-      "after": "Batch cancelled. Supplies stay in the feed; progress is lost.",
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -61674,15 +61674,15 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.no_charge",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
         "src/PhobosManufacturing/ChargeMachine.cs:240"
       ],
       "before": "The feed holds no sulfide nodule.",
-      "after": "The feed holds no sulfide nodule.",
+      "after": "No sulfide nodule inside.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -62266,15 +62266,15 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.feed_empty",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:227",
         "src/PhobosManufacturing/ChargeMachine.cs:309"
       ],
       "before": "The feed is empty. Load a charge for the chosen recipe.",
-      "after": "The feed is empty. Load a charge for the chosen recipe.",
+      "after": "Nothing to work on. Put a sulfide nodule in the plant's inventory and press Start.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -62284,8 +62284,8 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.invalid_feed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:235",
@@ -62293,7 +62293,7 @@
         "src/PhobosManufacturing/ChargeMachine.cs:244"
       ],
       "before": "Nothing in the feed belongs to the chosen recipe.",
-      "after": "Nothing in the feed belongs to the chosen recipe.",
+      "after": "Nothing inside belongs to the chosen recipe.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -62338,14 +62338,14 @@
       "mod": "PhobosManufacturing",
       "key": "AcidPlant.cancelled",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ChargeMachine.cs:273"
       ],
       "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
-      "after": "Batch cancelled. Supplies stay in the feed; progress is lost.",
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -69978,6 +69978,19 @@
       }
     },
     {
+      "mod": "PhobosFramework",
+      "key": "Console.unsupported_choice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says plainly what went wrong and what to press.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/ProviderPanel.cs"
+      ],
+      "before": "This setting could not be saved because of a fault in the mod, which has been logged. Choose Discard; nothing was changed.",
+      "after": "This setting could not be saved because of a fault in the mod, which has been logged. Choose Discard; nothing was changed."
+    },
+    {
       "mod": "PhobosManufacturing",
       "key": "Recipe.nickel-steel",
       "category": "name",
@@ -71139,15 +71152,15 @@
       "mod": "PhobosManufacturing",
       "key": "Fermenter.no_charge",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "composed key",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "The feed holds part of a charge. Load six beets or six sugar packets.",
-      "after": "The feed holds part of a charge. Load six beets or six sugar packets."
+      "after": "Only part of a charge is inside. Load six beets or six sugar packets."
     },
     {
       "mod": "PhobosManufacturing",
@@ -71629,29 +71642,29 @@
       "mod": "PhobosManufacturing",
       "key": "Fermenter.feed_empty",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "composed key",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "The feed is empty. Load a charge for the chosen recipe.",
-      "after": "The feed is empty. Load a charge for the chosen recipe."
+      "after": "Nothing to work on. Put six beets or six sugar packets in the still's inventory and press Start."
     },
     {
       "mod": "PhobosManufacturing",
       "key": "Fermenter.invalid_feed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "composed key",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "Nothing in the feed belongs to the chosen recipe.",
-      "after": "Nothing in the feed belongs to the chosen recipe."
+      "after": "Nothing inside can be fermented."
     },
     {
       "mod": "PhobosManufacturing",
@@ -71685,15 +71698,15 @@
       "mod": "PhobosManufacturing",
       "key": "Fermenter.cancelled",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Alembrine fermenter-still text, written in the shared style of the SA-3 text it parallels.",
+      "decision": "rewrite",
+      "reason": "The game shows one inventory for a machine, so loading text names the inventory, not a feed window (owner report, 4 October 2026).",
       "trace": "composed key",
       "references": [
         "src/PhobosManufacturing/ChargeMachines.cs (spec TextPrefix Fermenter + key)",
         "src/PhobosManufacturing/ChargeMachine.cs"
       ],
       "before": "Batch cancelled. Supplies stay in the feed; progress is lost.",
-      "after": "Batch cancelled. Supplies stay in the feed; progress is lost."
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost."
     },
     {
       "mod": "PhobosManufacturing",
@@ -72565,6 +72578,19 @@
       ],
       "before": "Bottling units",
       "after": "Bottling units"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.feed_blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says plainly what went wrong and what to press.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing/ChargeMachine.cs"
+      ],
+      "before": "The machine could not take its charge in: its inner feed is full of something else. Cancel to get that back, then Start again.",
+      "after": "The machine could not take its charge in: its inner feed is full of something else. Cancel to get that back, then Start again."
     },
     {
       "mod": "PhobosMedical",
@@ -74084,8 +74110,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "519e2c9103fd9dec56ef92864127487909e2eaf461a729c42f88986d023ef493",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "afdd4de641a74faf99f89b2e9163b1ef2c8ed095fed524435afc13191b341875",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "SUPPORT.md",
@@ -74244,8 +74270,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a0c8bfd623671aff192b1c08463553da4ebea3d8e6319efd4efc0734a174ece0",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "4e61fd7de1b0787e59fb8b1e2b80554eb0a5b408d291f782c5f70e402a6e0e40",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/crew-automation.md",
@@ -74844,8 +74870,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "474bc3d6368f4087aa1890c989bad3fb02c685552c3b43a62ea93c0935fe6476",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "51ed2470247c6f3af6151ccea2a51ea4e6c130100b7faaec0ac669f891e061ec",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -75084,8 +75110,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0df7aa6ba495f1b10e6788ba2e6b8a5e1839940e3a464528c31e91fc4269b515",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "d5b11a4f42e404917fe5dab4f13a805a0f2084cb498d752673fd991c36e64bc6",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -75140,15 +75166,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "157ec5c0b84e1d334837d240309826a752b1745762c0e88ef2b0d1c53e6fb9dc",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "a47b20fd732f42dec36b11e82f3244d226ddb52a8362402ccb14f1b7e3878d7e",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6f20e76594e26e5685e152cd5d10b85f0d19c1fd6e88d1ef88c1f1f9cf0c8e9d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "1dca68f8243c103e5615e1347527a2e1361623724d34afc22a08e5d49b9e7900",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/item-references.md",
@@ -75168,15 +75194,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "5009f628aebc748eada1a48e31a7ac24ad72b2173cf2738d6203d32fc41aa96f",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "0e4524f8437423d88855bd5dd70f60e175bb41dcc43384344e11665e41477018",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "00a3d4cc7f0ca34e17ad958ee0062e84b0cdebc1f76926b4647eb118815c93bb",
-      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
+      "sha256": "bc95431bc1e9709c0566950d2fb9acb3a1fa3e78a794e40a290bf55e792b1e52",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -75210,8 +75236,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e0fd8f07a2ccbd75d99e80436a5d32bbebf3091f19e79df9ea7678851dc97a94",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "1e72e994e0382709253ac141bf6f5c3dc58a8d20657fd5657141645cb7330d2b",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/residue-collector.md",
@@ -75245,8 +75271,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "7f844e51ab3eecabde0079a1a09b7b0118a32180c34626fe773a9f5773fb8d31",
-      "review": "Reviewed 4 October 2026 for Framework 0.79.0: tanks and stores show their contents on the right-click card."
+      "sha256": "43868902e68f5fb379432411f3ac15e766ae0a5dc6fbe8723d8bfcfe169c3590",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -75259,8 +75285,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e609b13e7232a83373b64e486ecf825d830e3c8c28f3e65b682c1341ae9271fd",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "a7b65503ae8991cecaa84ebddb85d2acef613a36fd4604c652c21afd7a13cadd",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -75329,29 +75355,29 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e687cb9556d153b88ac0b4b271b12f75f6473ec539ea728bae76874ba9582c35",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "3ab143b0b93356b28a9c53b033df9501de0b8439ee2ed0ac0a9516d955f32164",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "85d9f5b6917dbbe68f0b2c5dcae457c40065c84fb8f0c6ce23f46f94f3baf2cb",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "22210c3c7c2af54f70c1b5349dec86ff1d0e98fceb200b64886509b688a1da41",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "7710526818fc05512a34a7dad96d3436e499e9b7496f79500e7339999a6479b2",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "76904e3e56f0ae25a606d431a33f2b5292e83187050a85735944bb1141658eaa",
+      "review": "4 October 2026, Medical Workshop cover: reviewed the current held page in full. New cover credit describes a resting spacer and original promotional artwork, with care unchanged and no additional treatment promise; current capabilities, commands, requirements and publication status retained."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d984debeaee051d433e0c23987913358ba324f841c59ededd74c6bbab518eb73",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "22eb40bab9f900e5b011805a90d8e6c97d53e4bb3706826bedfb519d69b373bd",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -75365,8 +75391,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "43d05b00ab636426fb83209a9cacf4e50f9cfe39ac365991e0ea0866573cdd1b",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "15a8e184b57802c28963048e67432b279664eaddc9c5a969d764fcff7476b313",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -75417,14 +75443,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "64e84f26f3b4844d7d622d8d1a309f058795468d7fb1c813b0949baa89e6769f",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "9632d8825f565874411d2ca4823baa76603e040ae40957218ea0426a01affe34",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "29a69e8c18307e670628d213266a9ed5acabf9558e19fad46ea3964268ccf632",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "3410c95c29f40e91cc35afd82e3f9346cd077e0b03398bd6d949631d3f9bf52c",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -75441,8 +75467,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d1f00cffb0f5ef063d76c59a77c0cd6d91ab55c4f9c60142604481ba13845e06",
-      "review": "Reviewed 4 October 2026 for Shipbreaker 0.71.0: the ML-2 can queue the game's own Haul and Mine jobs."
+      "sha256": "20a2c1e3224ba6c6d2aec621c4a039c965841e935e830d68b8b880be4a84fda8",
+      "review": "Reviewed 4 October 2026 for Framework 0.83.0, Shipbreaker 0.72.0 and Manufacturing 0.41.0: machines take feed from their one inventory."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

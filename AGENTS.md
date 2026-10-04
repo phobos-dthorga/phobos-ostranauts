@@ -864,6 +864,13 @@
   Products are delivered into stacks through Framework `TrayDelivery` (0.71.0), never
   one cell each; `TrayFitNativeChecks` proves every tray against every real recipe at
   the game's own stack limits, so a new recipe that outgrows its tray fails there.
+- Owner report (2026-10-04): **the game shows one inventory for an object.** A hidden
+  feed compartment cannot be loaded by hand, so a started machine takes feed from its
+  own inventory (Framework 0.83.0 `OwnInventoryFeed`; Shipbreaker 0.72.0 T2, D4, R4;
+  Manufacturing 0.41.0 charge machines, which never take their own products except by
+  Start) and Cancel puts it back. Never tell a player to use a second inventory
+  window, and never design one. Every panel choice must be listed by its provider's
+  `IsConfiguration`, or Apply refuses it for ever (`EquipmentField.Unlisted`).
 - Expose reasonable player preferences and balance adjustments as documented
   settings. Preserve saved-job meaning when settings change; keep item identities,
   physical dimensions and mass-balanced recipes stable rather than making every

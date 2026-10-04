@@ -49,10 +49,9 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
    out and what to fix (loose, damaged, locked, no working line touching it).
    Apply. The C1 console offers the same choice. Pause the T2 before changing
    the link.
-4. Right-click the T2 and choose **Inventory**. The gangue tray opens, and the
-   **Ice Feed** opens as its own window. Put one block of water ice in at a
-   time (right-click a stack to place one); the feed holds two. Gangue and
-   stacked blocks are refused with the reason. Methane ice is accepted too; see
+4. Right-click the T2 and choose **Inventory**, and put water ice in. The unit
+   has the one inventory, which the ice shares with the gangue; it takes one
+   block at a time from there, a stack included. Methane ice is accepted too; see
    below.
 5. Choose **Start / resume thawing**. The unit waits for ice, then thaws each
    block for 40 minutes at 6 kW: 22.7 kg of water goes into the linked vessel
@@ -199,8 +198,8 @@ silo refuses uninstalling too; send the water away or accept the records first.
 A silo destroyed with water inside loses that water; the log records it.
 
 The T2 keeps each block's progress on the block itself. Reload pauses the
-unit; Start, the C1 or a crew loading order resumes it. Cancel leaves the ice
-in the feed and forgets its progress.
+unit; Start, the C1 or a crew loading order resumes it. Cancel puts the ice
+back in the inventory and forgets its progress.
 
 ## Heat and power
 

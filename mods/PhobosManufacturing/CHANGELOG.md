@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.41.0] - 2026-10-04 - Draft
+
+### Fixed
+
+- The V4 refinery, LC-3, SA-3 and fermenter-still now use what you put in their inventory. The game shows one inventory for a machine, so a charge loaded by hand lay beside the products and the machine reported an empty feed. Start now takes one exact charge out of the inventory, and Cancel puts it back.
+- A running machine never takes what it has just made: a V4 does not carburise its own ingots or burn its own carbon by itself. Press Start again to work one such charge.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; a charge already inside a machine's inventory is picked up at the next Start.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.83.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.40.0] - 2026-10-04 - Draft
 
 ### Added

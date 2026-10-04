@@ -76,6 +76,12 @@ internal static class NetworkChecks
         check(foreign.Count == 1 && foreign[0] == "conduit", "Another line under or beside the end is named once; its own line and pipe further off are not");
         check(LinkDiagnosis.ForeignSegments(ring, "irrigation", lines).SequenceEqual(new[] { "own" }), "Asked from the other side, the process-water line is the foreign one");
 
+        // A panel choice its provider does not list can never be applied (the ML-2's job switches, Framework 0.83.0).
+        var offered = new[] { new Phobos.Ostranauts.Framework.Controls.EquipmentField("Filter", "Rock", new[] { ("filter:rock", "Rock"), ("filter:walls", "Walls") }),
+            new Phobos.Ostranauts.Framework.Controls.EquipmentField("Haul", "Off", new[] { ("haul:on", "On"), ("haul:off", "Off") }) };
+        check(Phobos.Ostranauts.Framework.Controls.EquipmentField.Unlisted(offered, a => a.StartsWith("filter:", StringComparison.Ordinal)).SequenceEqual(new[] { "haul:on", "haul:off" }) &&
+              Phobos.Ostranauts.Framework.Controls.EquipmentField.Unlisted(offered, a => a.Contains(":")).Count == 0, "Choices a provider offers but does not list as configuration are found");
+
         var joined = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports, new[] { (0, 1) });
         check(joined.ParticipantsConnected(0, 2) && joined.Hops(0, 2) == 5, "Touching joins as if piped, and joins chain through the network");
         check(!joined.ParticipantsConnected(3, 0), "An untouched participant stays apart");

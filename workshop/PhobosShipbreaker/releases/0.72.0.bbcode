@@ -1,0 +1,23 @@
+[h1]Phobos Shipbreaker 0.72.0[/h1]
+[b]Draft - not published | 2026-10-04[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]The T2, D4 and R4 now use what you put in their inventory. The game shows one inventory for a machine, so ice, panels or residue loaded by hand lay beside the products and were never seen. A started machine now takes one unit at a time from its own inventory, and Cancel puts unworked feed back there.
+[*]The ML-2's two job settings (Haul jobs for what it frees, Mine jobs for deposits it opens) could never be applied: the panel asked to apply or discard them for ever. They now save.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes; feed already inside a machine's inventory is picked up at the next Start.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.83.0 or newer.
+[*]The F6 furnace still loads through Open feed inventory on its panel, or by crew.
+[*]Checked offline; not yet seen in the game.
+[/list]

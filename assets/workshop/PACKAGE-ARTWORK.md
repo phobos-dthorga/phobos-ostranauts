@@ -27,6 +27,15 @@ is an illustration of the idea, not a gameplay screenshot. Its prompt, seed and
 provider IDs are in `WORKSHOP-ARTWORK-COMPOSITION.json`. Generated output is subject
 to [PixelLab's terms of service](https://pixellab.ai/termsofservice).
 
+**Medical:** composed on 4 October 2026 from one OpenAI built-in Imagegen sickbay
+scene and the same Shipbreaker frame, with original pixel glyphs for MEDICAL and
+REST / RECOVER / RETURN. Only original Phobos covers and the Ward-3 design were
+generation inputs. A resting spacer and parked treatment arms illustrate the
+bed's rest/recovery role; the image adds no treatment claim. The unchanged source
+is retained on the dedicated art branch, with its pinned commit, prompt, reference
+roles and export rules in `WORKSHOP-ARTWORK-COMPOSITION.json`. OpenAI's
+[terms](https://openai.com/policies/terms-of-use/) apply to the generated imagery.
+
 [Blue Bottle Games' Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/)
 informs the industrial pixel-art style and setting. No game textures, game
 screenshots, third-party mod sprites or official logos were generation inputs.

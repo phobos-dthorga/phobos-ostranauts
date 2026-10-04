@@ -249,16 +249,19 @@ exception is the station refuelling kiosk's Bulk supplies view.
    tile and pick it under **Send ammonia to**; for a leached residue, a carbon
    dioxide store under **Send carbon dioxide to**. Each field appears once a
    store of that gas is aboard; its sheet says why one is not offered.
-3. Right-click the V4 and choose **Inventory**. The tray opens, and the
-   **Refinery charge** feed opens as its own window. Put one ore block, clay
-   chunk, salt crust or leached residue in it (right-click a stack to place one), or four nickel-iron ingots
-   and one carbon stock for nickel steel. It holds six units and refuses ice, regolith, gangue,
-   scrap and anything stacked, with the reason.
-4. On the panel choose **Start**. The refinery binds the exact charge in the
-   feed, works for the time above, then puts the solids in its tray and the
-   water in the linked vessel, and looks for the next charge. **Pause** keeps
-   the bound charge and its progress; **Cancel** leaves the units in the feed
-   and forfeits the work.
+3. Right-click the V4 and choose **Inventory**, and put the charge in: an ore
+   block, clay chunk, salt crust or leached residue, or four nickel-iron ingots
+   and one carbon stock for nickel steel. The machine has the one inventory, so
+   charges and products share it; keep room for the products.
+4. On the panel choose **Start**. The refinery takes one exact charge out of its
+   inventory, works for the time above, then puts the solids back in the
+   inventory and the water in the linked vessel, and takes the next charge of
+   ore. **Pause** keeps the charge and its progress; **Cancel** puts the charge
+   back in the inventory and forfeits the work.
+
+   A running refinery never takes what it has just made. To carburise its own
+   ingots, or burn its own carbon, press **Start** again: each press takes one
+   such charge.
 
 A water charge waits until the linked vessel can take its whole yield; the
 panel says why (no vessel, full, damaged, held, catch chamber, out of reach)
@@ -436,11 +439,10 @@ flowchart LR
    vessel**, the store under **Ammonia from**, the tank under **Acid tank** and the
    hopper under **Nutrient hopper** where you have them, and the recipe under
    **Recipe**. Apply.
-3. Right-click the LC-3 and choose **Inventory**. Put the chosen recipe's charge
-   in the **Leach unit charge** window. It holds four units and takes only the
-   chosen recipe's feed, with the reason when it refuses one.
-4. Choose **Start**. It works the charge, puts the products in its tray, then
-   binds the next charge of the same recipe if the feed holds one. Change the
+3. Right-click the LC-3 and choose **Inventory**, and put the chosen recipe's
+   charge in. Charges and products share the one inventory.
+4. Choose **Start**. It takes the charge, works it, puts the products back in the
+   inventory, then takes the next charge of the same recipe if one is there. Change the
    recipe only while no charge is bound; **Cancel** releases a bound charge.
 
 A leach waits until the linked vessel holds 20 kg of water; struvite waits until
@@ -525,7 +527,7 @@ Agriculture's sugar beets or beet sugar (Agriculture 0.46.0 or newer) into ethan
    and a Cask ethanol tank, and connect its power point.
 2. On its **Control Panel** > **Connections**, set **Water silo**, **Carbon dioxide
    store** and **Ethanol cask**. Apply.
-3. Load **six beets** or **six sugar packets** into its feed and **Start**. Each
+3. Put **six beets** or **six sugar packets** in its inventory and **Start**. Each
    charge takes an hour:
 
 | Charge | Gives |
@@ -792,7 +794,7 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
 
 ## Limits
 
-- No crew loading orders for the V4 yet; load its feed by hand or with a crew
+- No crew loading orders for the V4 yet; load its inventory by hand or with a crew
   output store on the tray. The L2 has its bottle order.
 - No construction recipes: buy the machines.
 - Stored gases are kilogram records in their stores; a game gas becomes room

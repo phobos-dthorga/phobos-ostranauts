@@ -1,14 +1,16 @@
 """Compose Workshop covers from a retained scene layer and an existing cover frame.
 
-Deterministic and offline: the scene is an unchanged generated source, the frame is
-a committed cover export, and the title is drawn from the pixel glyphs below. No
-image generation happens here. Use --check to compare committed outputs.
+Deterministic and offline: the scene is a retained source or a verified reduction
+of a pinned Git master, the frame is a committed cover export, and the title is
+drawn from the pixel glyphs below. No image generation happens here.
+Use --check to compare committed outputs.
 """
 import argparse
 import hashlib
 import io
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 from PIL import Image
@@ -38,6 +40,7 @@ TITLE = {
 SUBTITLE = {
     'A': ['.XXX.', 'X...X', 'X...X', 'XXXXX', 'X...X', 'X...X', 'X...X'],
     'B': ['XXXX.', 'X...X', 'X...X', 'XXXX.', 'X...X', 'X...X', 'XXXX.'],
+    'C': ['.XXXX', 'X....', 'X....', 'X....', 'X....', 'X....', '.XXXX'],
     'D': ['XXXX.', 'X...X', 'X...X', 'X...X', 'X...X', 'X...X', 'XXXX.'],
     'E': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'XXXXX'],
     'F': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'X....'],
@@ -50,6 +53,7 @@ SUBTITLE = {
     'S': ['.XXXX', 'X....', 'X....', '.XXX.', '....X', '....X', 'XXXX.'],
     'T': ['XXXXX', '..X..', '..X..', '..X..', '..X..', '..X..', '..X..'],
     'U': ['X...X'] * 6 + ['.XXX.'],
+    'V': ['X...X'] * 4 + ['X...X', '.X.X.', '..X..'],
     'W': ['X...X', 'X...X', 'X...X', 'X.X.X', 'X.X.X', 'XX.XX', 'X...X'],
     '/': ['....X', '...X.', '...X.', '..X..', '.X...', '.X...', 'X....'],
     ' ': ['.....'] * 7,
@@ -97,9 +101,27 @@ def draw_subtitle(image, text, centre, y, advance, colour):
         x += advance
 
 
-def compose(cover):
+def load_scene(cover):
+    scene = cover['scene']
+    master = scene.get('master')
+    if not master:
+        return load(scene['path'], scene['sha256'])
+    data = subprocess.check_output(['git', 'cat-file', 'blob', master['commit'] + ':' + master['path']], cwd=ROOT)
+    if sha256(data) != master['sha256'].upper():
+        raise ValueError(f"Scene master hash changed: {cover['id']}")
+    original = Image.open(io.BytesIO(data)).convert('RGB')
+    window = scene['window']
+    if list(original.size) != master['size'] or any(a < 2 * b for a, b in zip(original.size, (window[2] - window[0], window[3] - window[1]))):
+        raise ValueError(f"Insufficient/unexpected scene master dimensions: {cover['id']}")
+    result = original.resize(tuple(master['sceneSize']), Image.NEAREST)
+    if sha256(png(result)) != scene['sha256'].upper():
+        raise ValueError(f"Scene derivative differs from its pinned master: {cover['id']}")
+    return result
+
+
+def compose(cover, scene=None):
     image = load(cover['frame']['path'], cover['frame']['sha256'])
-    scene = load(cover['scene']['path'], cover['scene']['sha256'])
+    scene = load_scene(cover) if scene is None else scene
     left, top, right, bottom = cover['scene']['crop']
     scale = cover['scene']['scale']
     part = scene.crop((left, top, right, bottom))
@@ -126,8 +148,9 @@ def run(check):
     manifest = json.loads((ROOT / MANIFEST).read_text(encoding='utf-8'))
     report = []
     for cover in manifest['covers']:
-        full = compose(cover)
-        outputs = {}
+        scene = load_scene(cover)
+        full = compose(cover, scene)
+        outputs = {cover['scene']['path']: png(scene)} if cover['scene'].get('master') else {}
         for size in manifest['exportSizes']:
             data = png(full if size == full.width else full.resize((size, size), Image.NEAREST))
             if len(data) >= manifest['maxPreviewBytes']:

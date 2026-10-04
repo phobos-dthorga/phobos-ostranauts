@@ -106,7 +106,13 @@ public sealed class ProviderPanel : GUIData
             {
                 var f = field;
                 C.Button(shell.Detail, f.Label + ": " + f.Value, () => ConfigurationSheet.Choices(shell, f.Label, f.Current, Fields!.ConfigurationStamp(co), f.Choices,
-                    (string expected, string value, out string reason) => Fields!.ApplyConfiguration(co, null, expected, value, out reason), f.Note));
+                    (string expected, string value, out string reason) =>
+                    {
+                        if (Fields!.ApplyConfiguration(co, null, expected, value, out reason)) return true;
+                        // A choice its own provider does not list can never be saved; say so instead of calling it stale.
+                        if (!Fields.IsConfiguration(value)) { reason = ConsoleText.Get("unsupported_choice"); FrameworkLifecycle.Log("Panel choice '" + value + "' on " + co.strCODef + " is not listed by its provider's IsConfiguration."); }
+                        return false;
+                    }, f.Note));
             }
             if (fields.Length == 0) C.Label(shell.Detail, spec.Text("no_connections"));
         }

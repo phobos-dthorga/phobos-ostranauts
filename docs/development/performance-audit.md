@@ -992,3 +992,10 @@ L34 — Manufacturing 0.40.0: one more batch machine on the existing power hook.
 armed it checks its two linked vessels each power step, as the X2 does; the tray probe
 builds seven servings and discards them, so it runs once per batch, before the batch's
 first energy, rather than every step. No capture accompanies this change.
+
+## 4 October: feed from a machine's own inventory (L35)
+
+L35 — Framework 0.83.0 with Shipbreaker 0.72.0 and Manufacturing 0.41.0: a started machine with an empty feed looks
+in its own inventory for feed. The look is skipped when that inventory is empty, and otherwise runs at most once
+every two real seconds for each armed, idle machine (a few admission checks over a tray of at most a dozen cells);
+a working machine and a paused one never look. No capture accompanies this change.

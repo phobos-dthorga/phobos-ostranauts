@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.82.0**, Shipbreaker **0.71.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.83.0**, Shipbreaker **0.72.0**, Auto Nav
 **0.32.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -199,10 +199,11 @@ or in any unlocked store. Then either:
   time-skips and reloads until you switch it off. The same order appears under
   [Crew standing orders](crew-automation.md), where you can pin one input store
   instead.
-- Or open the feed window yourself: right-click the D4, choose **Control Panel**,
-  then **Open feed inventory** (or F3 `phobosshipbreaker feed`), drop the panels
-  in and choose **Start / resume processing** once. The queue then waits for
-  more panels from any source.
+- Or load it yourself: right-click the D4, choose **Inventory**, drop the panels
+  in and choose **Start / resume processing** once (Control Panel). The D4 takes
+  one panel at a time out of its inventory and keeps going while more arrive from
+  any source. **Open feed inventory** on the Control Panel (or F3
+  `phobosshipbreaker feed`) still shows the panel being worked.
 
 Any of the game's ordinary wall makes is accepted, 14 to 48 kg. Each panel
 yields the 13 kg identified residue packet plus parts, aluminium, carbon fibre
@@ -261,7 +262,7 @@ recipes stop with the panel retained; status explains the next action.
 
 | Symptom | Next useful check |
 | --- | --- |
-| Wall rejected or inventory grey | The processor's own Inventory is the product tray: use the grabber's Inventory, the feed window in the controls or Load feed by crew; check crew reach, that it is a part the fixture takes (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), stacks and contents |
+| Wall rejected or inventory grey | Put the part in the processor's own Inventory, the grabber's Inventory, or use Load feed by crew; check crew reach, that it is a part the fixture takes (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), stacks and contents |
 | Pipeline not connected | Check flush placement, facing, intact supporting walls and clear exterior cells |
 | Processor waiting | Read F9/status for power, feed eligibility or space for a complete output batch |
 | Collector waiting | Check pair, Collect state, the belt or touching route, clear mouth and its four-packet capacity |
@@ -333,7 +334,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.71.0 requires Framework 0.78.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.72.0 requires Framework 0.83.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

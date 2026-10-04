@@ -31,6 +31,23 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.72.0] - 2026-10-04 - Draft
+
+### Fixed
+
+- The T2, D4 and R4 now use what you put in their inventory. The game shows one inventory for a machine, so ice, panels or residue loaded by hand lay beside the products and were never seen. A started machine now takes one unit at a time from its own inventory, and Cancel puts unworked feed back there.
+- The ML-2's two job settings (Haul jobs for what it frees, Mine jobs for deposits it opens) could never be applied: the panel asked to apply or discard them for ever. They now save.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes; feed already inside a machine's inventory is picked up at the next Start.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.83.0 or newer.
+- The F6 furnace still loads through Open feed inventory on its panel, or by crew.
+- Checked offline; not yet seen in the game.
+
 ## [0.71.0] - 2026-10-04 - Draft
 
 ### Added

@@ -70,6 +70,9 @@ public static class LaserRules
     // Crew jobs (Shipbreaker 0.71.0): two saved switches beside the filter, off when absent, and how far around a
     // finished cut the laser looks for what it dropped (the game drops extra outputs within two tiles).
     public const string HaulJobsKey = "haul", DepositJobsKey = "deposits", SwitchOn = "on", SwitchOff = "off";
+    /// <summary>The action prefix of every setting the laser's panel offers. Its provider accepts exactly these as
+    /// configuration; a setting left out is refused on Apply for ever (the two job switches, until Shipbreaker 0.72.0).</summary>
+    public static readonly string[] SettingPrefixes = { "filter:", "cooling:", "power:", HaulJobsKey + ":", DepositJobsKey + ":" };
     public const double JobSearchTiles = 2;
     public static bool ParseSwitch(string? text, out bool on)
     {

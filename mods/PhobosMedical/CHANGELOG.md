@@ -5,6 +5,10 @@ not Steam publication.
 
 ## [Unreleased]
 
+### Added
+
+- A matching Workshop and mod-menu cover: a spacer resting in the Ward-3, framed with the shared Phobos metal border and pixel lettering. The subtitle is REST / RECOVER / RETURN. It is an original promotional illustration; care and saved beds are unchanged.
+
 ## [0.1.1] - 2026-10-04 - Draft
 
 ### Changed

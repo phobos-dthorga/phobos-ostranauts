@@ -22,6 +22,8 @@ internal sealed partial class ProcessingService
         internal bool AwaitingFeed;
         internal bool CrewManaged;
         internal bool NeedsAttention, CapacityWait, HeatWait;
+        // How often an armed, idle machine looks in its own inventory for feed (real time; see OwnInventoryFeed).
+        internal readonly Phobos.Ostranauts.Framework.Cadence OwnFeed = new(ProcessRules.OwnFeedRecheckSeconds);
         internal readonly CompletionWatch Watch = new CompletionWatch();
         // A true admission holds for the rest of its step (native power in between changes no input or tray).
         internal long AdmittedStep = long.MinValue;
@@ -114,7 +116,9 @@ internal sealed partial class ProcessingService
             string intakeMessage = "";
             bool connected = !IsReclaimer(machine) && ArmIntake(machine, out intakeMessage);
             if (state.Job?.Running == true) return true;
-            if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
+            // The game shows one inventory for the machine, so feed put in by hand lies beside the products: take one
+            // unit from there when the feed is empty (Shipbreaker 0.72.0).
+            if (!Phobos.Ostranauts.Framework.Inventory.OwnInventoryFeed.TopUp(machine, Feed(machine)))
             { state.Status = IsReclaimer(machine) ? Text.Get("Routing.queue_waiting") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.queue_waiting_for_wall_panels"); return true; }
             bool started = StartNext(machine, state);
             if (!started) { state.AwaitingFeed = false; DisarmIntake(machine); }
@@ -176,6 +180,8 @@ internal sealed partial class ProcessingService
             input.ZeroCondAmount(ProcessRules.Duration);
         }
         state.Input = null; state.Job = null;
+        // The cancelled feed goes back where a hand can reach it, as far as the tray has room.
+        Phobos.Ostranauts.Framework.Inventory.OwnInventoryFeed.Return(Feed(machine), machine);
         return true;
     }
 
@@ -235,7 +241,9 @@ internal sealed partial class ProcessingService
         if (!sessions.TryGetValue(machine, out var state) || !state.AwaitingFeed || state.Job?.Running == true) return;
         var problem = MachineProblem(machine);
         if (problem != null) { Stop(machine, state, problem); return; }
-        if (Feed(machine)?.objContainer?.ContainedCOs.Count == 0) { state.Status = Text.Get("Routing.queue_waiting"); return; }
+        var waiting = Feed(machine);
+        if (waiting?.objContainer?.ContainedCOs.Count == 0 && !(state.OwnFeed.Due() && Phobos.Ostranauts.Framework.Inventory.OwnInventoryFeed.TopUp(machine, waiting)))
+        { state.Status = Text.Get("Routing.queue_waiting"); return; }
         if (!StartNext(machine, state)) state.AwaitingFeed = false;
     }
 
