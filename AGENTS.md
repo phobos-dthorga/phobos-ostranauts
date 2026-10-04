@@ -1578,6 +1578,21 @@
   (kept below the bought-water loop), a carbon burner, CO2 filter reactivation as a
   non-gaining service, and A2 carbon dioxide dosing for grow rooms.
 
+## Regolith programme (2026-10-05)
+
+- Owner request: uses for the game's unused Regolith (Loose). All five chosen: an LC-3 acid
+  leach with an outcome table, a V4 volatile bake, sintered pavers laid as a Phobos twin of
+  the game's Polished Regolith Floor, and oxygen from rock by both routes under one new
+  brand, **Oxsmith** (EC-4 molten regolith electrolysis, CR-4 carbothermal reduction with
+  methane). Ferrosilicon is new stock with a use in the same release (silicol hydrogen on
+  the LC-3). Methanation is a second K2 mode fed from new Fennmark carbon monoxide stores;
+  old K2 records must read unchanged. Manufacturing machines gain an optional product
+  store by touching or belt, and the V4 leaves regolith alone unless told to bake or
+  sinter it. Follow `docs/development/regolith-programme.md` for decisions, order, agent
+  defaults and the list of figures still unverified; never cite those until checked.
+  The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
+  because the owner's ChatGPT plan is time-limited.
+
 ## Mining laser direction (2026-10-01)
 
 - Owner request: a ship-mounted mining laser for Shipbreaker, animated like the

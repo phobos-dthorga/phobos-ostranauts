@@ -139,6 +139,17 @@ Flask and Roasted Calcine, and from 0.20.0 Epsom Salt, Ammonium Sulfate and the
 Olivine Leach Cake. The calcined residue is made by the V4 and stays
 Fennmark.
 
+**Oxsmith** is Manufacturing's maker of high-temperature oxygen plant (owner choice,
+5 October 2026: one brand for both routes of the regolith programme). The name joins
+oxygen, and oxide, to smith, a worker of hot metal; it was the working proposal since
+30 September. No company or brand of that name was found in a web search on 5 October
+2026. Its colours are deep oxide-red enamel frames, pale ceramic refractory plates,
+blackened steel vessels and one ice-blue accent for oxygen fittings, apart from every
+other Phobos maker. Models follow Tolvane's pattern: two letters for the job, a hyphen
+and the footprint width (EC-4 Electrolysis Cell, CR-4 Carbothermal Reactor). Neither
+machine is built yet; the [art handoff](oxsmith-art-handoff.md) was prepared first. The
+carbon monoxide stores stay Fennmark beside the other gas stores.
+
 **Alembrine** is Manufacturing's distillery brand (owner choice, 4 October 2026, when the
 fermenter was placed in Manufacturing under a new brand): ethanol tanks and line, and
 next the fermenter-still, bottler and spirit. The name comes from alembic, the old

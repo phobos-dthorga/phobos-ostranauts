@@ -77267,8 +77267,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "88db3492788e59ddcdca6fe2bc35e292cc9d3e5dd2f6ea40005c4bdb4af96b04",
-      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
+      "sha256": "e3cbccd64796e8596ed1e1ac458f91aae1f3c02d49687a22e6b4b7b404122729",
+      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -77548,8 +77548,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c6e27cdae8c6e4a568c64dd5946efd0fac004895876d843c2401fb0f45f2f1ea",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "256da50c4e98a456349f8cad39ab11fce0653c2a4c2d111f00c039fe0f6d7a63",
+      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -78383,6 +78383,20 @@
       "decision": "new",
       "sha256": "3eae21bd7a405f203d78a2846522f27bc3d6eb15754ed8f19bb8823984d5591a",
       "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
+    },
+    {
+      "path": "docs/development/oxsmith-art-handoff.md",
+      "scope": "contributor artwork handoff; placeholders are not reviewed art",
+      "decision": "new",
+      "sha256": "d4129f23eb5630fe2806877dd7a66f6a780faf6ed71247c2d78def7311d0d617",
+      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
+    },
+    {
+      "path": "docs/development/regolith-programme.md",
+      "scope": "contributor decision record; player steps live in the player guide",
+      "decision": "new",
+      "sha256": "4514d5686839c70f5bc79a8629d75cc7bb9e4765e25d60e3f1fcc9992242729a",
+      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
     }
   ],
   "surfaces": [
