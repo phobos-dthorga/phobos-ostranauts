@@ -1041,3 +1041,7 @@ L40 — Framework 0.91.0 and 0.92.0 with Manufacturing 0.45.0: translation catal
 ## 5 October: added items in Shipbreaker and Agriculture (L41)
 
 L41 — Shipbreaker 0.75.0 and Agriculture 0.48.0: materials a data file adds are built with the others at content load. The furnace panel's recipe label makes one catalogue lookup more per recipe when the panel is drawn. Nothing is added to a frame or a power step. No capture accompanies this change.
+
+## 5 October: receipt hook keeps the request (L42)
+
+L42 — Framework 0.93.0: the GatherPower hook gains a prefix that copies one number, for every powered object in the world, so the postfix can compare the request with what remained. The postfix still returns on one integer when no receipt is open. No capture accompanies this change.

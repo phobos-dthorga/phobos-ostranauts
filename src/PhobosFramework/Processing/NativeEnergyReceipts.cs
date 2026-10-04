@@ -31,5 +31,9 @@ public static class NativeEnergyReceipts
 [HarmonyPatch(typeof(Powered), "GatherPower")]
 internal static class NativeEnergyGatherPatch
 {
-    private static void Postfix(Powered __instance, double __0, double __result) => NativeEnergyReceipts.Gather(__instance, __0, __result);
+    // The game's method counts its own argument down as it gathers (Framework 0.93.0; owner report, 5 October 2026),
+    // so by the postfix the argument already equals the result: the request has to be kept from before the call.
+    // Reading it afterwards recorded nothing delivered, and every machine on conduit power stood still while powered.
+    private static void Prefix(double __0, out double __state) => __state = __0;
+    private static void Postfix(Powered __instance, double __state, double __result) => NativeEnergyReceipts.Gather(__instance, __state, __result);
 }

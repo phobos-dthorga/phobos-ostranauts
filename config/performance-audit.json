@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "66a9dd0f359a547af1b397fab225757c884b4cbd",
+  "baselineCommit": "d6faccfa1e67eae802d9b3bfa6a3661fe402f1ca",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -5795,7 +5795,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "652ee6788acc49d0daa8c2e24162dd1de8bb4f2af25b0e130c1fdf6023cebb35",
+      "sha256": "fae2380f805f63a978b5d9eac3ac8f2ade605092b87aad900fd0c8465acf5aaa",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -5843,7 +5843,8 @@
         "L37",
         "L38",
         "L39",
-        "L40"
+        "L40",
+        "L42"
       ],
       "indicators": {
         "collection": [
@@ -5884,21 +5885,22 @@
     },
     {
       "path": "src/PhobosFramework/Processing/NativeEnergyReceipts.cs",
-      "sha256": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
+      "sha256": "d9ddefe2a5076da7ff78e3cbe5cb8cc1365734e1e7a91e183d181039e31bd978",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R3",
         "FF1",
-        "FF2"
+        "FF2",
+        "L42"
       ],
       "indicators": {
         "runtime_hook": [
           31
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Processing/NativeGasCanister.cs",

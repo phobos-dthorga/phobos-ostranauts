@@ -15,6 +15,18 @@ internal static class ReclaimerNativeChecks
         var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
         check(typeof(Powered).GetMethod("GatherPower", flags, null, new[] { typeof(double), typeof(System.Collections.Generic.List<CondOwner>) }, null)?.ReturnType == typeof(double),
             "Inspected native brownout receipt hook remains available");
+        // The game's GatherPower counts its own argument down, so a postfix that reads the argument sees the result and
+        // records nothing delivered (owner report, 5 October 2026: every machine on conduit power stood still). The
+        // request must be captured before the call.
+        var gather = typeof(Phobos.Ostranauts.Framework.Processing.NativeEnergyReceipts).Assembly.GetType("Phobos.Ostranauts.Framework.Processing.NativeEnergyGatherPatch")!;
+        var hooks = System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic;
+        var before = gather.GetMethod("Prefix", hooks); var after = gather.GetMethod("Postfix", hooks);
+        check(before != null && before.GetParameters().Any(a => a.Name == "__state" && a.IsOut) && after != null &&
+              after.GetParameters().Select(a => a.Name).SequenceEqual(new[] { "__instance", "__state", "__result" }),
+            "The receipt hook keeps the requested energy from before the game's call, never the argument after it");
+        var receipt = new Phobos.Ostranauts.Framework.Processing.EnergyReceipt(.5, 0);
+        receipt.Gather(.5, 0);
+        check(receipt.Consume(0) == .5, "A request fully gathered from conduit is a full delivery");
         check(typeof(Powered).GetMethod("UsePower", flags, null, new[] { typeof(CondOwner), typeof(double) }, null) != null,
             "Native electrical receipt and heat preflight hook remain available");
         var machine = d.Objects[ReclaimerRules.Installed]; var item = d.Items[machine.strItemDef];

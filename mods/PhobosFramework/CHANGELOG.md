@@ -26,6 +26,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.93.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Machines on conduit power stood still while showing as powered and working: a refinery stayed at 0 seconds of work, an electrolyser never finished a cycle. Framework measured the electricity a machine received from conduit as nothing, so no work was credited. It now measures what was delivered. This affects every Phobos machine that works by measured electricity, in every mod.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes. A charge that was waiting carries on from where it was.
+
+### Compatibility and limits
+
+- A machine with a stack of feed still takes one charge at a time; the rest of the stack waits in its inventory for the next charge.
+- Checked offline; not yet seen in the game.
+
 ## [0.92.0] - 2026-10-04 - Draft
 
 ### Added

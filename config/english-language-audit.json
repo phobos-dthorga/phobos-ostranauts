@@ -77039,8 +77039,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "60d58682478680ec1e1f9fbd1c624c080d8c0732d58772afc9587cbea9b35c87",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "643b69b1798c5f881805ff325c8208ed6addefb66aaf3fa572ba1ff254a3386a",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77067,8 +77067,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a8fbc1374ba08a101928ea18577e959945f78eb03e3574d4db1c63d31db385e5",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "4359f7038c6f0e75f50d20def7d51ba5db7a917c8de943a2952337b4da1a8c84",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -77199,8 +77199,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "788327ce35f2192162bdd7ab02f8a98532242691f1da9a1ee52ed31ce84fe03e",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "9b0a4c5f0d1250c0202336d5cfae8824656d06e283e7843ceb9cff45b9df6303",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77227,8 +77227,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "71a7a894757a28d8fe0e14356a7592b32064dd35e2d321942906e788f6e104eb",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "baf31dc2c18df02539d5d9af7545479fa61099697fa203e479cc960536e7f160",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -77800,8 +77800,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "9558fb56101c2899a246594bacb232ce9a1d082fbb6c20c44fb857c8a9f59898",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "8fd2aae5344fb311b6d5849f2e78d174d302dbb0833435e47a1f54c05974d2e2",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78166,8 +78166,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "de3161e01e2b90a83ff268d9be0d7d2046cff38601c87937bd3954f8e41a8051",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "956a6ba8f725457abd9fd62a636499b937bd19c1603c4b8ec67cf3f87a2f0eb5",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78215,8 +78215,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4d173499a09a2cafbe80600b4bf1895446bb57d939ad2bd14e3b75759caf141f",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "c2db22a1b99d98a2649eb5dff07926731205411ff1187831c75e6d5ad8ad1acc",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -78285,8 +78285,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6057279c16b9fbae0ffe33401e131418f2a92c1dbfa9736e7a50a07e9ec9e82b",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "75f6e5860e7a60d2c256ac2bdd16ae9cbf7196943a1645e4b6a8a29ff73d1e52",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -78387,8 +78387,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5cb4862c5d417079facab5d52ddc071c497c8116e9c544d6762e97ffb96d7ecf",
-      "review": "Reviewed 4 October 2026 for Framework 0.92.0 and Manufacturing 0.45.0: items added by add-ons."
+      "sha256": "6f36a618a1aeef52165f9c67c177465c3c8515b209858076b793e751a20610f8",
+      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

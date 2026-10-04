@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.92.0",
+      "version": "0.93.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -60595,7 +60595,7 @@
     "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "5cb4862c5d417079facab5d52ddc071c497c8116e9c544d6762e97ffb96d7ecf",
+    "mods/PhobosFramework/mod_info.json": "6f36a618a1aeef52165f9c67c177465c3c8515b209858076b793e751a20610f8",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "99ff9d631c5e538317b327dce6339ad2a978a16a4c37a53f068191567984ed36",
@@ -60905,11 +60905,11 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "813fb8d47e1fe260987b60cacaf827872a0f940e6d57f03aa7b9960c3d8e0902",
-    "src/PhobosFramework/Plugin.cs": "652ee6788acc49d0daa8c2e24162dd1de8bb4f2af25b0e130c1fdf6023cebb35",
+    "src/PhobosFramework/PhobosFramework.csproj": "15a3541579745d6df0e0c1dadc54e61c79bd1c42486d183c3cd897ec97e07e39",
+    "src/PhobosFramework/Plugin.cs": "fae2380f805f63a978b5d9eac3ac8f2ade605092b87aad900fd0c8465acf5aaa",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
-    "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
+    "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "d9ddefe2a5076da7ff78e3cbe5cb8cc1365734e1e7a91e183d181039e31bd978",
     "src/PhobosFramework/Processing/NativeGasCanister.cs": "09b9b1da818d3c30dea24dbb8aaadb15a11d85813fae1127ae330efd59a1dd72",
     "src/PhobosFramework/Processing/NativeGasVessel.cs": "d93a853dbf49b68c6470b8d11b9a3c342f255df9450da4b24d616f34fdd58e5d",
     "src/PhobosFramework/Processing/NativeReactor.cs": "1900e6dab163b6cd8eda290e7920d506fd501f7c5b4822d7273ad020624d2483",

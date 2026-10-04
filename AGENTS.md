@@ -1192,6 +1192,11 @@
   fast-forward interactions when they pose a specific integration risk. Record
   the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.
+- Owner report (2026-10-05), Framework 0.93.0: a Harmony postfix sees a by-value argument
+  as the game's method left it, not as it was passed. `Powered.GatherPower` counts its
+  argument down, so the receipt hook recorded nothing delivered and every machine on
+  conduit power stood still. Capture such an argument in a prefix (`__state`); check the
+  game's method for writes to its own parameters before reading one in a postfix.
 
 ## Industrial control direction (2026-09-24)
 

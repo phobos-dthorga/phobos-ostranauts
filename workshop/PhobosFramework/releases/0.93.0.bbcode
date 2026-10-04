@@ -1,0 +1,21 @@
+[h1]Phobos Framework 0.93.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Machines on conduit power stood still while showing as powered and working: a refinery stayed at 0 seconds of work, an electrolyser never finished a cycle. Framework measured the electricity a machine received from conduit as nothing, so no work was credited. It now measures what was delivered. This affects every Phobos machine that works by measured electricity, in every mod.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing saved changes. A charge that was waiting carries on from where it was.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A machine with a stack of feed still takes one charge at a time; the rest of the stack waits in its inventory for the next charge.
+[*]Checked offline; not yet seen in the game.
+[/list]
