@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Phobos.Ostranauts.Framework.Liquids;
 
 /// <summary>Why a machine does not reach a store or another machine (Framework 0.69.0), in the order a player would
@@ -44,5 +46,21 @@ public static class LinkDiagnosis
         if (!f.StoreOpenPipe) return f.StoreClosedPipe ? ReachProblem.DrainedAtStore : ReachProblem.NoPipeAtStore;
         if (!f.MachineOpenPipe) return f.MachineClosedPipe ? ReachProblem.DrainedAtMachine : ReachProblem.NoPipeAtMachine;
         return ReachProblem.SeparateRuns;
+    }
+
+    /// <summary>Segments of other line families lying on an object's join cells (Framework 0.81.0): the wrong kind of
+    /// pipe laid where the right one was meant, such as an irrigation conduit run to a machine's process-water intake.
+    /// At most one per family, in the order the families are given; the family asked about is skipped. Pure.</summary>
+    public static IReadOnlyList<T> ForeignSegments<T>(IEnumerable<int> joinCells, string familyId, IEnumerable<(string FamilyId, IReadOnlyDictionary<int, T> Segments)> families)
+    {
+        var cells = joinCells as ICollection<int> ?? new List<int>(joinCells);
+        var found = new List<T>();
+        foreach (var (id, segments) in families)
+        {
+            if (id == familyId) continue;
+            foreach (int cell in cells)
+                if (segments.TryGetValue(cell, out var segment)) { found.Add(segment); break; }
+        }
+        return found;
     }
 }

@@ -218,7 +218,7 @@ exception is the station refuelling kiosk's Bulk supplies view.
   filled by an X2 can feed a K2 and a P1 at the same time, and one water tank can
   serve every machine on its line.
 - **The link list** on a machine's Control Panel names how each store is reached
-  (*touching*, *water line*, *gas line* or *acid line*) and marks a destination that is
+  (*touching*, *process water line*, *gas line* or *acid line*) and marks a destination that is
   *full* or a source that is *empty*. A store's own panel lists every machine
   linked to it.
 - If a link stops being reachable (a segment is damaged, or one of the pair

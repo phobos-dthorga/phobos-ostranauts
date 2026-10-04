@@ -26,6 +26,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.81.0] - 2026-10-04 - Draft
+
+### Changed
+
+- Link pickers call the water line by its name in the INSTALL menu, the process water line, so it is not mistaken for the Irrigation Conduit.
+- When a link is not offered because no line of the right kind touches a machine or store, the picker now also names any other kind of line lying there, such as an Irrigation Conduit run to a W2's water intake, and says it does not count.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.80.0] - 2026-10-04 - Draft
 
 ### Added

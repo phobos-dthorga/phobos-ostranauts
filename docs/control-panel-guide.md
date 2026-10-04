@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.80.0, Agriculture 0.46.0, Shipbreaker 0.71.0 and Auto Nav 0.32.0
+Framework 0.81.0, Agriculture 0.46.0, Shipbreaker 0.71.0 and Auto Nav 0.32.0
 prepare this interface update. Manufacturing's machines and stores, Framework's water
 silos, and Shipbreaker's T2 thaw unit and ML-2 mining laser share one Control Panel:
 Operation, Connections (Settings on the laser) and Details. These are unpublished
@@ -46,11 +46,13 @@ to the already bound mission or saved resumable flight; no new target is acquire
 Since Framework 0.57.0 a machine's store and tank connections list only what it
 can actually reach: equipment touching it, or on the same water or gas line.
 A line joins whatever it runs under or right beside (since Framework 0.69.0).
-Each choice says how (*touching*, *water line*, *gas line*) and marks a
+Each choice says how (*touching*, *process water line*, *gas line*) and marks a
 destination that is *full* or a source that is *empty*. Under the choices,
 **Aboard, but not offered** names anything left out and the first thing to fix:
-loose, damaged, locked, no working line touching it, or a drained line. A
-store's own panel lists every machine linked to it. See
+loose, damaged, locked, no working line touching it, or a drained line. If a
+different kind of line lies there instead, such as an Irrigation Conduit where a
+Process Water Line is needed, it names that too: only the line the cargo travels
+in joins. A store's own panel lists every machine linked to it. See
 [linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
 Since Framework 0.63.0 the lines hold what they carry, and a drained or vented line
 reaches nothing until it is returned to service; see

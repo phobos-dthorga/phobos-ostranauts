@@ -146,6 +146,19 @@ public static class FluidRouteCache
         foreach (int cell in snapshot.JoinCells[k]) { open |= snapshot.Topology.Allowed(cell); closed |= snapshot.Closed.Contains(cell); }
         return (open, closed);
     }
+    /// <summary>Working segments of every other registered family on a participant's join cells (Framework 0.81.0), one
+    /// per family, so a link picker can say that the pipe under or beside the object is the wrong kind. Empty for an
+    /// object that is not a ready participant of the family. Read-only.</summary>
+    public static IReadOnlyList<CondOwner> ForeignSegments(Ship ship, FluidSegmentFamily family, CondOwner co)
+    {
+        if (ship == null || family == null || co == null || !family.IsNetwork || ship.nCols < 1 || ship.nRows < 1) return Array.Empty<CondOwner>();
+        var snapshot = Snapshot(ship, family, GridRoute.DefaultVisitLimit);
+        if (!snapshot.Participants.TryGetValue(co, out int k) || k >= snapshot.JoinCells.Length) return Array.Empty<CondOwner>();
+        var cells = snapshot.JoinCells[k];
+        var others = registered.Values.Where(f => f.Id != family.Id).OrderBy(f => f.Id, StringComparer.Ordinal).ToArray()
+            .Select(f => (f.Id, Snapshot(ship, f, GridRoute.DefaultVisitLimit).Segments)).ToArray();
+        return LinkDiagnosis.ForeignSegments(cells, family.Id, others);
+    }
 
     private static FamilySnapshot Snapshot(Ship ship, FluidSegmentFamily family, int visitLimit)
     {

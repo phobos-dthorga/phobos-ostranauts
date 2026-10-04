@@ -22,6 +22,12 @@ flowchart LR
     Treat --> Rej["Retained Treatment Rejects"]
 ```
 
+**Two different pipes.** Water comes *into* a W2 from a water silo or a Ship's Water
+tank through **Process Water Line** (INSTALL), or by the tank touching the W2. Water
+and feed go *out* of the W2 to the racks through **Irrigation Conduit**. The two
+never join each other: a conduit run from a silo to a W2 does nothing, and the W2's
+**Water silo connection** names any conduit lying where the line is needed.
+
 One W2 can explicitly pair with **eight racks** using the existing Pair controls.
 An existing saved pair occupies slot zero unchanged. Each rack still accepts one
 supplier, chooses its own receiving permission and must match the W2 formulation.

@@ -189,7 +189,8 @@ edible. The hours, yields and food values are gameplay choices; see the
 With **Valtora's [Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
 0.16.1** loaded, Enable optional ship-water supply draws finite potable water from
 installed tanks that touch the rack or W2 (within one tile) or share its
-process-water line. The line joins a tank, a rack or a W2 when it runs under it or
+process-water line (the INSTALL menu's **Process Water Line**, not the Irrigation
+Conduit, which only carries water and feed out of a W2 to its racks). The line joins a tank, a rack or a W2 when it runs under it or
 right beside it, on any side (since Framework 0.69.0). A tank elsewhere aboard does
 not count (since Agriculture 0.32.0): lay process-water line so it touches both, or
 move the tank, and the machine

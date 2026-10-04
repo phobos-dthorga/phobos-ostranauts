@@ -63881,14 +63881,14 @@
       "mod": "PhobosFramework",
       "key": "LineFamilies.water",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Names the process-water line in link choices.",
+      "decision": "rewrite",
+      "reason": "Names the process-water line by its INSTALL name, so players do not take the Irrigation Conduit for it (owner report, 4 October 2026).",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Liquids/LineFamilies.cs:21"
       ],
       "before": "water line",
-      "after": "water line",
+      "after": "process water line",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -64250,6 +64250,19 @@
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
       }
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.wrong_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says that a different kind of line lies where the needed one should be (owner report, 4 October 2026: an Irrigation Conduit run to a W2 water intake).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Controls/LinkChoices.cs"
+      ],
+      "before": "{0} is there, but it is a different kind of line and does not count. Only {1} joins here.",
+      "after": "{0} is there, but it is a different kind of line and does not count. Only {1} joins here."
     },
     {
       "mod": "PhobosFramework",
@@ -72559,8 +72572,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dcdde3408f3933b04a614dd985719913ddcade635aba51628b8958e4680ee68b",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "3f6f4e0c815124bd561b2f2b358bc7b9aad878412db19c7a507a6f61110bd78b",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "SUPPORT.md",
@@ -72608,8 +72621,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "70100d37b5d5891ccee0bedc789ff7f57beae331436482529bc0fd6ee85451fe",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "27d7db2077f14f5fd30f7c7b6e153577472e14d428a550d6dd4cf0d679280451",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -72719,8 +72732,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9516781e848731f2864f683cdd3d931c4c841b7314d38e9d601c09dd2072d8a8",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "f19b9236da9baec43f94b1c655a070c1ef372c0b70bc0adfab47d60eb7391a46",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "docs/crew-automation.md",
@@ -73447,8 +73460,8 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c9a905c09a92083d4d7ac420e1f50c793dfe6cc1a8c20e8c04a14e1955b1836b",
-      "review": "Reviewed 1 October 2026 for Framework 0.65.0 and Agriculture 0.34.0: Ship’s Water tanks fill water lines, formulation flushes, drained feed to treatment, PixelLab canister art."
+      "sha256": "e9ed4b97b281c7f18331ab1680157eed9027126a8a9deceaf7673e6707d325cd",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "docs/framework-item-reference.md",
@@ -73538,8 +73551,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "96db3fdf50b8a9dc52b5c702ab70e3a3aa4a496a743f8b4d87c97b6e3606f3f7",
-      "review": "Reviewed 4 October 2026 for Manufacturing 0.40.0: the Alembrine bottling unit and spirit."
+      "sha256": "00a3d4cc7f0ca34e17ad958ee0062e84b0cdebc1f76926b4647eb118815c93bb",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -73559,8 +73572,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f7dee061f034b3414adfcbc6558e2383a5f610bf4eb5651ecf11aad2fae49a18",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "c6dad22749d880d9a88d585931bc854b49a60a32eb1d075d9bfb3e580e617155",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -73650,8 +73663,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d4668e7264ed6472582f540a1a6b23bb93608708243cb168f1c71c4a2cceadd5",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "f2003b4091473b655fd9b9c000f0783ae607bd353dec8ec7f62d794ec17e7173",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -73850,8 +73863,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4f10e8defa502bf6249433197a4ee82f94eaec68ea8a87c2e06b762158e96294",
-      "review": "Reviewed 4 October 2026 for Framework 0.80.0 and Manufacturing 0.38.0: Alembrine ethanol tanks, line and fire."
+      "sha256": "315ecfce8e38357fedcf56807de6e81072939185df323b23281dec72cb0d08b0",
+      "review": "Reviewed 4 October 2026 for Framework 0.81.0: link pickers name the process water line and any other kind of line lying where it is needed."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

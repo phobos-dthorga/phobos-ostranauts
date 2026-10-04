@@ -48,14 +48,14 @@ public static class LinkChoices
             var problem = LineReach.Problem(machine, co, family);
             // In reach but not offered: the machine's own rule left it out (the wrong contents, say), which it explains itself.
             if (problem == ReachProblem.None) continue;
-            lines.Add(Text.Get("LinkChoices.not_offered_line", ObjectPresentation.Name(co), Reason(problem, family)));
+            lines.Add(Text.Get("LinkChoices.not_offered_line", ObjectPresentation.Name(co), Reason(problem, family) + WrongLine(machine, co, problem, family)));
         }
         return lines.Count == 0 ? "" : Text.Get("LinkChoices.not_offered") + "\n" + string.Join("\n", lines);
     }
     /// <summary>The note for a bulk-vessel link: every vessel of the link's commodity on the machine's ship, in any state.</summary>
     public static string Note(CondOwner machine, VesselLink link, IEnumerable<CondOwner> offered) =>
         machine?.ship == null ? "" : Note(machine, link.Family, BulkVessels.AboardAnyState(machine.ship, link.Commodity), offered);
-    /// <summary>The plain reason for one problem; the line's own name ("water line") fills the pipe reasons.</summary>
+    /// <summary>The plain reason for one problem; the line's own name ("process water line") fills the pipe reasons.</summary>
     public static string Reason(ReachProblem problem, FluidSegmentFamily? family)
     {
         string line = family?.Label?.Invoke() ?? Text.Get("LinkChoices.a_line");
@@ -75,6 +75,16 @@ public static class LinkChoices
             ReachProblem.SeparateRuns => Text.Get("LinkChoices.reason_separate", line),
             _ => ""
         };
+    }
+    /// <summary>For a missing pipe, the other kinds of line already lying under or beside that end (Framework 0.81.0):
+    /// an irrigation conduit run to a process-water intake looks like the right pipe but is not. Empty otherwise.</summary>
+    private static string WrongLine(CondOwner machine, CondOwner store, ReachProblem problem, FluidSegmentFamily? family)
+    {
+        if (family == null || machine.ship == null) return "";
+        var end = problem switch { ReachProblem.NoPipeAtStore => store, ReachProblem.NoPipeAtMachine => machine, _ => null };
+        if (end == null) return "";
+        var names = FluidRouteCache.ForeignSegments(machine.ship, family, end).Select(ObjectPresentation.Name).Distinct().ToArray();
+        return names.Length == 0 ? "" : " " + Text.Get("LinkChoices.wrong_line", string.Join(", ", names), family.Label?.Invoke() ?? Text.Get("LinkChoices.a_line"));
     }
     /// <summary>What an object is joined to through each line it has a port for, by pipe or by touching, one line of
     /// text per family ("Joined through the water line or by touching: ..."), for a panel's Details page; empty for

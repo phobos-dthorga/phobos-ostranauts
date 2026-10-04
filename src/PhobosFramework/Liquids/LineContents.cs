@@ -57,9 +57,12 @@ public static class LineContents
     private static readonly List<LineHoldUpFamily> families = new();
     private static readonly Cadence cadence = new(FluidRouteCache.RecheckSeconds);
 
-    /// <summary>Declares (or replaces) a holding family. Content declares its own lines when it prepares definitions.</summary>
+    /// <summary>Declares (or replaces) a holding family. Content declares its own lines when it prepares definitions.
+    /// The family also joins the ship scan from the start (Framework 0.81.0), so a link picker can name it when it
+    /// touches a machine before anything has routed through it.</summary>
     public static LineHoldUpFamily Declare(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> commodities)
     {
+        if (!FluidRouteCache.Families.Any(f => f.Id == family.Id)) FluidRouteCache.Register(family);
         var declared = new LineHoldUpFamily(family, prefix, commodities);
         families.RemoveAll(f => f.Family.Id == family.Id);
         families.Add(declared);

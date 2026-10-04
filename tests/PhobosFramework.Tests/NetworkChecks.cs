@@ -63,6 +63,18 @@ internal static class NetworkChecks
             "No pipe at the store, or only a drained one");
         check(Why(f => { f.MachineOpenPipe = false; return f; }) == ReachProblem.NoPipeAtMachine && Why(f => { f.MachineOpenPipe = false; f.MachineClosedPipe = true; return f; }) == ReachProblem.DrainedAtMachine &&
             Why(f => { f.StoreOpenPipe = false; f.MachineOpenPipe = false; return f; }) == ReachProblem.NoPipeAtStore, "The machine's end is checked after the store's");
+        // The wrong kind of pipe at an end (Framework 0.81.0): an irrigation conduit beside a process-water intake is named,
+        // once per family; the family asked about, and pipe off the join cells, are not.
+        var ring = new[] { 4, 5, 6 };
+        var lines = new (string, IReadOnlyDictionary<int, string>)[]
+        {
+            ("water", new Dictionary<int, string> { [5] = "own" }),
+            ("irrigation", new Dictionary<int, string> { [5] = "conduit", [6] = "conduit-2" }),
+            ("acid", new Dictionary<int, string> { [9] = "far" })
+        };
+        var foreign = LinkDiagnosis.ForeignSegments(ring, "water", lines);
+        check(foreign.Count == 1 && foreign[0] == "conduit", "Another line under or beside the end is named once; its own line and pipe further off are not");
+        check(LinkDiagnosis.ForeignSegments(ring, "irrigation", lines).SequenceEqual(new[] { "own" }), "Asked from the other side, the process-water line is the foreign one");
 
         var joined = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports, new[] { (0, 1) });
         check(joined.ParticipantsConnected(0, 2) && joined.Hops(0, 2) == 5, "Touching joins as if piped, and joins chain through the network");
