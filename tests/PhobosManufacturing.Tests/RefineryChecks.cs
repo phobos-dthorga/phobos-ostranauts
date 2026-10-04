@@ -18,7 +18,27 @@ internal static class RefineryChecks
             check(recipe.Products.All(p => recipe.Inputs.All(i => i.Id != p.Id)), "No recipe yields its own feed: " + recipe.Id);
             check(RefineryRecipes.ByRevision(recipe.Revision) == recipe && RefineryRecipes.ById(recipe.Id) == recipe, "Revision and id resolve: " + recipe.Id);
         }
-        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 14, "Fourteen distinct revisions");
+        check(RefineryRecipes.All.Select(r => r.Revision).Distinct().Count() == 16, "Sixteen distinct revisions");
+        // The regolith recipes (0.51.0) are optional: a V4 takes a lump only when its panel is told to bake or sinter.
+        var view = ChargeCatalog.For(ChargeCatalog.Refinery);
+        var bake = view.ById(ChargeCatalog.RegolithBake)!; var sinter = view.ById(ChargeCatalog.RegolithSinter)!;
+        Func<string, bool> gates = RefineryRecipes.Met(true);
+        check(ChargeCatalog.IsOptional(bake) && ChargeCatalog.IsOptional(sinter) && !ChargeCatalog.IsOptional(RefineryRecipes.Hydrates) &&
+              !view.Available(gates).Contains(bake) && !view.Available(gates).Contains(sinter) && view.FeedKg(RefineryRules.Regolith, gates) == null,
+            "A V4 with no choice made leaves loose regolith alone: neither recipe is offered and a lump is not feed");
+        var baking = ChargeCatalog.MetWith(gates, ChargeCatalog.RegolithBake); var sintering = ChargeCatalog.MetWith(gates, ChargeCatalog.RegolithSinter);
+        check(view.Match(new[] { RefineryRules.Regolith }, baking) == bake && view.Match(new[] { RefineryRules.Regolith }, sintering) == sinter &&
+              view.FeedKg(RefineryRules.Regolith, baking) == 20 && view.Available(baking).Count() == view.Available(gates).Count() + 1 && !view.Available(baking).Contains(sinter),
+            "Told to bake, it binds the bake; told to sinter, the pavers; never both");
+        check(Math.Abs(bake.Products.Sum(p => p.Kg * p.Count) + bake.OffGasKg - 20) < 1e-9 && Math.Abs(sinter.Products.Sum(p => p.Kg * p.Count) + sinter.OffGasKg - 20) < 1e-9 &&
+              bake.Products.Any(p => p.Id == Materials.BakedRegolith && p.Kg == 19.5) && sinter.Products.Any(p => p.Id == Materials.RegolithPaver && p.Count == 3 && p.Kg == RegolithFloor.TileKg) &&
+              Materials.IsTerminal(Materials.BakedRegolith) && !Materials.IsTerminal(Materials.RegolithPaver),
+            "Both close at 20 kg: the bake leaves one 19.5 kg terminal lump, the sinter three 6.5 kg pavers and nothing else");
+        // The saved preference: written only when set, so an untouched V4 record keeps its eight keys.
+        var told = new RefineryState { Prefer = ChargeCatalog.RegolithBake };
+        check(RefineryState.Read(told.Save()).Prefer == ChargeCatalog.RegolithBake && told.Save().Count == 9 && new RefineryState().Save().Count == 8 && RefineryState.Read(new RefineryState().Save()).Prefer == "",
+            "The regolith choice is saved and restored, and absent from a record that never set it");
+        throws(() => RefineryState.Read(new Dictionary<string, string> { ["prefer"] = "" }), "An empty saved preference is refused");
         // The chemistry table, line by line.
         var h = RefineryRecipes.Hydrates;
         check(h.ChargeKg == 10 && h.Products.Single(p => p.Id == "water").Kg == 1 && h.Products.Single(p => p.Id == "ItmMiningTrash").Count == 3 && h.OffGasKg == 0 && !h.Melt,

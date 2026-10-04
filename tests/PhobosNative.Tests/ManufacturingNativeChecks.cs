@@ -181,8 +181,38 @@ internal static class ManufacturingNativeChecks
             check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[id]), false), "Every native ore enters the feed at the game level: " + id);
         foreach (string id in new[] { Materials.ClayHydrates, Materials.NickelIronIngot, Materials.CarbonStock, Materials.LeachedResidue })
             check(trigger.TriggeredDataCO(new DataCO(d.Objects[id]), false), "Our chunk and stock enter the feed at the game level: " + id);
-        foreach (string outside in new[] { "ItmIce01", "ItmMineralStone01", RefineryRules.Gangue, "ItmScrapSteel", "ItmCanisterLH02Loose" })
-            check(!trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "Ice, regolith, gangue, scrap and canisters never enter the feed: " + outside);
+        foreach (string outside in new[] { "ItmIce01", RefineryRules.Gangue, "ItmScrapSteel", "ItmCanisterLH02Loose" })
+            check(!trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "Ice, gangue, scrap and canisters never enter the feed: " + outside);
+        // Loose regolith (Manufacturing 0.51.0): admitted at the game level by its own condition, which gangue lacks; the
+        // recipe rule then admits a lump only on a V4 told to bake or sinter it.
+        var regolith = DataHandler.dictCOs[RefineryRules.Regolith];
+        check(trigger.TriggeredDataCO(new DataCO(regolith), false) && regolith.aStartingConds.Any(c => c.StartsWith(RefineryRules.RegolithCondition + "=", StringComparison.Ordinal)) &&
+              regolith.aStartingConds.Any(c => c.StartsWith("StatMass=", StringComparison.Ordinal) && c.EndsWith("x20.0", StringComparison.Ordinal)) &&
+              RefineryRules.FeedKg(RefineryRules.Regolith, true) == null,
+            "The game's loose regolith is 20 kg and passes the V4's game-level feed rule; a V4 with no choice made still refuses it by recipe");
+        // The two regolith items keep a game picture by reference, and none of the donor's meaning.
+        var baked = d.Objects[Materials.BakedRegolith]; var paver = d.Objects[Materials.RegolithPaver];
+        check(d.Items[Materials.BakedRegolith].strImg == DataHandler.dictItemDefs[regolith.strItemDef].strImg && !baked.aStartingConds.Any(c => c.StartsWith("IsMineral", StringComparison.Ordinal) || c.StartsWith("IsCategoryOre", StringComparison.Ordinal)) &&
+              baked.aStartingConds.Contains("IsCategoryTrash=1x1") && baked.aStartingConds.Contains("StatMass=1x19.5") && (baked.aUpdateCommands == null || baked.aUpdateCommands.Length == 0) &&
+              Phobos.Ostranauts.Framework.Registration.Remainders.IsDeclared(Materials.BakedRegolith) && !trigger.TriggeredDataCO(new DataCO(baked), false),
+            "Baked regolith shows the game's regolith picture but is no mineral, no ore and no feed: a 19.5 kg declared remainder that never turns into gangue");
+        check(!paver.aStartingConds.Any(c => c.StartsWith("IsFloorGrate", StringComparison.Ordinal)) && paver.aStartingConds.Contains("StatMass=1x6.5") && paver.aStartingConds.Contains("StatBasePrice=1x13") &&
+              paver.aStartingConds.Any(c => c.StartsWith("StatInstallProgressMax=", StringComparison.Ordinal)) && paver.nStackLimit == 6 &&
+              !DataHandler.dictCTs["TIsFloorGrate01Uninstalled"].TriggeredDataCO(new DataCO(paver), false),
+            "A paver is 6.5 kg and 13 cr, carries install progress, and the game's own floor job cannot lay it as a plain floor");
+        // The floor twin and its two jobs.
+        var twin = d.Objects[RegolithFloor.Installed]; var tile = DataHandler.dictCOs[RegolithFloor.NativeTile];
+        check(twin.strItemDef == tile.strItemDef && twin.strName == RegolithFloor.Installed && twin.aStartingConds.Contains("IsFloorGrate=1.0x1") && twin.aStartingConds.Contains("IsInstalled=1.0x1") &&
+              twin.aStartingConds.Contains(RegolithFloor.Identity + "=1x1") && twin.aStartingConds.Any(c => c.StartsWith("StatUninstallProgressMax=", StringComparison.Ordinal)) &&
+              !tile.aStartingConds.Any(c => c.StartsWith("StatUninstallProgressMax=", StringComparison.Ordinal)) && !tile.aStartingConds.Any(c => c.StartsWith(RegolithFloor.Identity, StringComparison.Ordinal)),
+            "The regolith floor is a twin of the game's tile on the game's own item definition, still floor to pipes and machines, and the game's tile is left exactly as it was");
+        var lay = d.Installables[RegolithFloor.InstallJob]; var lift = d.Installables[RegolithFloor.UninstallJob];
+        check(lay.strActionCO == Materials.RegolithPaver && lay.strStartInstall == RegolithFloor.Installed && lay.strBuildType == InstallMenu.Hull && lay.strJobType == "install" &&
+              lay.aLootCOs.SequenceEqual(new[] { RegolithFloor.Installed }) && d.Triggers[lay.CTThem].TriggeredDataCO(new DataCO(paver), false) && !d.Triggers[lay.CTThem].TriggeredDataCO(new DataCO(twin), false),
+            "One paver lays one regolith floor through INSTALL, under hull");
+        check(lift.strActionCO == RegolithFloor.Installed && lift.strJobType == "uninstall" && lift.aLootCOs.SequenceEqual(new[] { Materials.RegolithPaver }) &&
+              d.Triggers[lift.CTThem].TriggeredDataCO(new DataCO(twin), false) && !d.Triggers[lift.CTThem].TriggeredDataCO(new DataCO(tile), false),
+            "Lifting gives the paver back, and the job never applies to the game's own tile");
         foreach (string outside in new[] { Materials.RefinerySlag, Materials.AnhydrousResidue })
             check(!trigger.TriggeredDataCO(new DataCO(d.Objects[outside]), false), "Terminal remainders never enter the feed: " + outside);
         check(!RefineryRules.ValidFeed("ItmMineral02", 10, true, true, true, true), "Olivine passes the game-level ore rule and is refused by identity");
@@ -398,7 +428,7 @@ internal static class ManufacturingNativeChecks
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;
         var superseded = new HashSet<(string, int)>(ChargeCatalog.All.SelectMany(r => r.Supersedes.Select(e => (r.Machine, e))));
-        int business = 0, steps = 0, services = 0;
+        int business = 0, steps = 0, services = 0, regolithCharges = 0;
         bool NativeItem(string id) => !ChargeCommodities.Is(id) && !Mined(id) && !d.Objects.ContainsKey(id) && Materials.ById(id) == null && id.StartsWith("Itm", StringComparison.Ordinal);
         foreach (var recipe in ChargeCatalog.All)
         {
@@ -442,6 +472,14 @@ internal static class ManufacturingNativeChecks
             if (recipe.ItemInputs.All(i => Bought(i.Id)))
                 check(outValue <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed from bought stock, earns at most a quarter more at base prices: {outValue:F2} out of {inValue:F2}");
             if (!recipe.Products.Any(p => Finished(p.Id))) continue;
+            // Loose regolith (0.51.0) is mined rock that a prospector also sells, so a charge fed only by it is held to
+            // the bought-stock rule: at most a quarter more than the lump.
+            if (recipe.ItemInputs.All(i => i.Id == RefineryRules.Regolith))
+            {
+                check(outValue <= 1.25 * inValue, $"The {recipe.Machine} {recipe.Id} charge, fed by regolith a prospector sells, earns at most a quarter more at base prices: {outValue:F2} out of {inValue:F2}");
+                regolithCharges++;
+                continue;
+            }
             if (recipe.ItemInputs.All(i => NativeItem(i.Id)))
             {
                 check(outValue <= inValue, $"The {recipe.Machine} {recipe.Id} service charge never gains on the game's own items: {outValue:F2} out of {inValue:F2}");
@@ -460,6 +498,7 @@ internal static class ManufacturingNativeChecks
                 steps++;
             }
         }
+        check(regolithCharges == 1, "One regolith charge with a finished product (the pavers) is priced: " + regolithCharges);
         check(business == 5 && steps == 4 && services == 2, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide), four steps (struvite twice, nickel steel, methane cracking) and two reactivation services are priced: {business}, {steps} and {services}");
         // Methane cracking from bought stock: water and CO2 through the X2 and K2 make the methane; selling the oxygen and water
         // back at the kiosk's share and the carbon black at a generous 1.2 times its price must not repay what was bought.

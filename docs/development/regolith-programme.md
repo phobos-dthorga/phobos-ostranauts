@@ -48,8 +48,8 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 | Art | ChatGPT handoff for the EC-4 and CR-4 | Written 5 October 2026; awaiting the owner's run |
 | 0 | Products out by belt: an optional "Send products to" store for Manufacturing machines | Done: Framework 0.98.0, Manufacturing 0.49.0 |
 | 1 | Regolith leach on the LC-3, with an outcome table | Done: Manufacturing 0.50.0, odds 72/22/4/2 |
-| 2 | Volatile bake on the V4; baked regolith as a declared remainder | Not started |
-| 3 | Sintered pavers, the V4's regolith choice, the regolith floor twin | Not started |
+| 2 | Volatile bake on the V4; baked regolith as a declared remainder | Done: Manufacturing 0.51.0, with set 3 |
+| 3 | Sintered pavers, the V4's regolith choice, the regolith floor twin | Done: Manufacturing 0.51.0. Paver priced 13 cr, not the tile's 21 (bought-stock rule). Paver art still to make: it shows the game's loose floor plate until then |
 | 4 | Oxsmith EC-4, ferrosilicon and its silicol use | Not started; opens with a design record |
 | 5 | Carbon monoxide stores, the K2's second mode, Oxsmith CR-4 | Not started; opens with a design record |
 

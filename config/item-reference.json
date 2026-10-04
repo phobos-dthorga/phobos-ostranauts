@@ -1892,6 +1892,21 @@
           "labels": {}
         },
         {
+          "key": "regolith-floor",
+          "title": "Regolith paver and sintered regolith floor",
+          "ids": [
+            "PhobosRegolithPaver",
+            "PhobosRegolithFloor"
+          ],
+          "function": "A 6.5 kg slab of sintered regolith, and the floor a crew member lays from it. The floor is our own twin of the stations' Polished Regolith Floor: the same picture and figures, covering a 2 x 2 patch, and floor to pipes, belts and machines.",
+          "use": "Set a V4's Loose regolith choice to Regolith pavers and give it a lump: three pavers come out. Lay one from INSTALL, under hull, with a welder; lift it again with a structure cutter, which gives the paver back.",
+          "find": "Pavers are made in the V4 from loose regolith. Never sold in shops. The floor is only ever laid by your crew.",
+          "notes": "A paver is 13 cr, below the floor's 21: a prospector sells regolith, so three pavers earn at most a quarter more than the lump. A save with this floor laid needs Phobos Manufacturing kept installed; removing the mod leaves holes where it lay. Until the paver has its own art it shows the game's loose floor plate picture.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "remainders",
           "title": "Terminal remainders",
           "ids": [
@@ -1906,9 +1921,10 @@
             "PhobosExhaustedSorbent",
             "PhobosPlantAsh",
             "PhobosSpentMash",
-            "PhobosWashedTailings"
+            "PhobosWashedTailings",
+            "PhobosBakedRegolith"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them. Baked regolith (19.5 kg: a regolith lump with its water baked out by the V4) is the newest; it keeps the game's regolith picture.",
           "use": "Feed them to a Slingwright RM-1 reaction mass feeder, which grinds them into thrust for the RCS. They can still be sold or discarded.",
           "find": "Left in the V4, LC-3, SA-3 or fermenter-still inventory by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",

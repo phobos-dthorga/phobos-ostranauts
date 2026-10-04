@@ -130,6 +130,26 @@
       "reactionKWh": 1.9,
       "requires": [ "agriculture-straw" ]
     },
+    "regolith-bake": {
+      "notes": "The volatile bake (owner request, 5 October 2026). One 20 kg lump of the game's loose regolith is heated to drive off what it holds bound: 0.4 kg of water to the linked vessel and 0.1 kg of carbon dioxide into the room, leaving one 19.5 kg baked regolith, a terminal remainder. The game's own cargo text says regolith is 'heated to emit chemically bonded hydrogen, water, He4'; the 2 percent water and half a percent of carbon dioxide are authored (carbon-rich chondrites hold several percent of water, stony ones far less; the game's lump is one identity for both). Optional: a V4 takes loose regolith only when its panel is told to (requires chosen-regolith-bake), so lumps in a shared feed store are left for other machines. 6 kWh authored at the V4's 24 kW for 15 minutes; warming 20 kg of rock to about 700 C is about 3.4 kWh by a heat capacity of 0.9 kJ/kg K (from memory; to be verified).",
+      "machine": "refinery",
+      "revision": 15,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 0.4 }, { "id": "PhobosBakedRegolith", "count": 1, "kg": 19.5 } ],
+      "offGas": { "CO2": 0.1 },
+      "seconds": 900,
+      "requires": [ "chosen-regolith-bake" ]
+    },
+    "regolith-sinter": {
+      "notes": "Sintered pavers (owner request, 5 October 2026). One 20 kg lump is baked dry and sintered into three 6.5 kg regolith pavers; the same 0.4 kg of water goes to the linked vessel and 0.1 kg of carbon dioxide into the room, and nothing is left over: sintering fuses the grains without melting them, so only the volatiles leave. The paver takes the mass of the game's own Polished Regolith Floor tile, which crew lay it as; it is priced below the tile, so that three pavers earn at most a quarter more than the lump a prospector sells (the bought-stock rule). Sintering regolith simulant into pavers has been demonstrated by NASA and ESA projects (named sources to be added to the design record; not verified here); the 40 minutes and 16 kWh are authored. Optional, like the bake (requires chosen-regolith-sinter).",
+      "machine": "refinery",
+      "revision": 16,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 } ],
+      "products": [ { "id": "water", "count": 1, "kg": 0.4 }, { "id": "PhobosRegolithPaver", "count": 3, "kg": 6.5 } ],
+      "offGas": { "CO2": 0.1 },
+      "seconds": 2400,
+      "requires": [ "chosen-regolith-sinter" ]
+    },
     "beet-mash": {
       "notes": "Beet mash in the Alembrine fermenter-still (Manufacturing 0.39.0; owner decisions of 4 October 2026): six of Phobos Agriculture's 0.5 kg sugar beets (each authored as 75% water, 17% sucrose, 5% pulp fibre and 3% other solubles and minerals). C12H22O11 + H2O -> 4 C2H5OH + 4 CO2 (IUPAC 2013 molar masses) on 92% of the 0.510 kg of sucrose, 1.371 mol, an authored share within the 90 to 95% of theoretical that industrial fermentations reach: 0.253 kg of ethanol to a linked ethanol cask, 0.241 kg of carbon dioxide to a linked carbon dioxide store, and the 2.006 kg of water not bound in the spent mash to a linked water vessel. The pulp, the unfermented sugar, yeast and minerals leave as a 0.5 kg terminal spent mash. Fermentation releases about 172.5 kJ per mole of sucrose (formation enthalpies, NIST Chemistry WebBook: sucrose -2226.1, liquid water -285.83, liquid ethanol -277.6, CO2 -393.51 kJ/mol), 0.07 kWh; the 3 kWh charge energy for heating the still is authored. Needs Agriculture's beets.",
       "machine": "fermenter",

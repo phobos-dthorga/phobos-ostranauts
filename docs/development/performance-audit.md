@@ -1069,3 +1069,7 @@ L47 — Framework 0.98.0 with Manufacturing 0.49.0: a started charge machine or 
 ## 5 October: regolith leach (L48)
 
 L48 — Manufacturing 0.50.0: four recipes and one outcome table as data, and one more feed identity on the LC-3. The outcome pick is the existing hash at bind. Nothing is added to a frame or a power step. No capture accompanies this change.
+
+## 5 October: regolith in the V4 and the regolith floor (L49)
+
+L49 — Manufacturing 0.51.0: the charge engine's feed table is kept per machine preference (one small dictionary per distinct choice, built on first use), and reading a machine's preference is a session lookup on the paths that already ran. Two recipes, two materials, one floor object and two install jobs are built at content load. Nothing is added to a frame. No capture accompanies this change.

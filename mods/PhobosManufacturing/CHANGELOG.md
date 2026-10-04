@@ -10,6 +10,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.51.0] - 2026-10-05 - Draft
+
+### Added
+
+- Regolith in the V4. A new Loose regolith choice on the refinery's Connections page: leave it alone (the default), Regolith bake or Regolith pavers. The bake gives 0.4 kg of water and a 19.5 kg baked lump for the RM-1 feeder in 15 minutes; pavers gives 0.4 kg of water and three 6.5 kg pavers in 40 minutes. A refinery with no choice made never takes a lump, so a shared feed bin keeps its regolith for other machines.
+- Sintered regolith floor. Lay a paver from INSTALL, under hull, with a welder: one paver covers a 2 x 2 patch and behaves like the stations' polished regolith floor, floor to pipes, belts and machines. A structure cutter lifts it back into a paver.
+
+### Save compatibility
+
+- Automatic. A refinery's saved record gains the choice only when you set one; nothing else saved changes.
+
+### Compatibility and limits
+
+- A save with the regolith floor laid needs Phobos Manufacturing kept installed; removing the mod leaves those squares without floor.
+- A paver is 13 cr, below the floor's 21, because a prospector sells regolith. The 2 percent water is our figure. Until the paver has its own picture it shows the game's loose floor plate; baked regolith keeps the game's regolith picture.
+- Checked offline; not yet seen in the game.
+
 ## [0.50.0] - 2026-10-05 - Draft
 
 ### Added

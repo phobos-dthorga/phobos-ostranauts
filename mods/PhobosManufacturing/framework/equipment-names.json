@@ -70,5 +70,8 @@
   "Material.PhobosEpsomSalt": { "brand": "Lixivar", "model": "" },
   "Material.PhobosAmmoniumSulfate": { "brand": "Lixivar", "model": "" },
   "Material.PhobosOlivineLeachCake": { "brand": "Lixivar", "model": "" },
-  "Material.PhobosWashedTailings": { "brand": "Lixivar", "model": "" }
+  "Material.PhobosWashedTailings": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosBakedRegolith": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosRegolithPaver": { "brand": "Fennmark", "model": "" },
+  "RegolithFloor.name": { "brand": "Fennmark", "model": "" }
 }

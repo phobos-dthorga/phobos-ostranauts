@@ -19,6 +19,10 @@ public class ChargeState
     public bool Running;
     /// <summary>The recipe revision the next charge binds, for explicit-selection machines (0 when none is chosen).</summary>
     public int Selected;
+    /// <summary>The optional recipe this machine has been told to take (Manufacturing 0.51.0), by recipe id, or empty.
+    /// A recipe that requires <c>chosen-&lt;id&gt;</c> is available on a machine only while this names it, so a V4 leaves
+    /// loose regolith alone until told to bake or sinter it. Saved only when set: an untouched record keeps its keys.</summary>
+    public string Prefer = "";
     /// <summary>The exact bound feed units, by object id.</summary>
     public List<string> Charge = new();
     public bool Bound => Revision > 0 && Charge.Count > 0;
@@ -26,11 +30,13 @@ public class ChargeState
     public bool ExplicitSelection { get; }
     public ChargeState(bool explicitSelection) { ExplicitSelection = explicitSelection; }
     private static readonly string[] Keys = { "recipe", "revision", "progress", "wait", "emitted", "cycles", "running", "charge" };
-    private const string SelectedKey = "selected";
+    private const string SelectedKey = "selected", PreferKey = "prefer";
     public static ChargeState Read(IReadOnlyDictionary<string, string> fields, bool explicitSelection) => Fill(new ChargeState(explicitSelection), fields);
     protected static T Fill<T>(T s, IReadOnlyDictionary<string, string> fields) where T : ChargeState
     {
-        if (fields.Keys.Any(k => Array.IndexOf(Keys, k) < 0 && !(s.ExplicitSelection && k == SelectedKey))) throw new FormatException("Unknown charge record field.");
+        if (fields.Keys.Any(k => Array.IndexOf(Keys, k) < 0 && k != PreferKey && !(s.ExplicitSelection && k == SelectedKey))) throw new FormatException("Unknown charge record field.");
+        s.Prefer = fields.TryGetValue(PreferKey, out var prefer) ? prefer : "";
+        if (fields.ContainsKey(PreferKey) && (s.Prefer.Length == 0 || !ObjectStateStore.SafeValue(s.Prefer))) throw new FormatException("Invalid charge preference.");
         s.RecipeId = fields.TryGetValue("recipe", out var recipe) && recipe != "-" ? recipe : "";
         s.Revision = Int(fields, "revision"); s.ProgressSeconds = Number(fields, "progress"); s.WaitSeconds = Number(fields, "wait");
         s.EmittedKg = Number(fields, "emitted"); s.Cycles = Int(fields, "cycles"); s.Running = fields.TryGetValue("running", out var r) && r == "1";
@@ -50,6 +56,7 @@ public class ChargeState
             ["charge"] = Charge.Count == 0 ? "-" : string.Join(";", Charge)
         };
         if (ExplicitSelection) fields[SelectedKey] = Selected.ToString(CultureInfo.InvariantCulture);
+        if (Prefer.Length > 0) fields[PreferKey] = Prefer;
         return fields;
     }
     /// <summary>Releases the bound charge; the selection, if any, stays for the next charge.</summary>

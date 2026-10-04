@@ -31,6 +31,7 @@ internal static class InstallMenuChecks
                     co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.FeederRules.Prefix) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasPrefix) ||
                     co.strName.StartsWith(Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterPrefix) || co.strName.StartsWith(PhobosManufacturing.Core.AcidLineRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.EthanolLineRules.Prefix) ||
                     co.strName.StartsWith(PhobosManufacturing.Core.FillerRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.RegulatorRules.Prefix) ? "HVAC" :
+                    co.strName == PhobosManufacturing.Core.RegolithFloor.Installed ? "HULL" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
                     BinRules.IsFamily(co.strName) || PhobosMedical.Core.MedicalRules.IsBed(co.strName) ? "FURN" :
                     co.strName.StartsWith(PhobosAgriculture.IrrigationDefinitions.Pipe) || co.strName.StartsWith(Phobos.Ostranauts.Framework.Inventory.BeltNetwork.Prefix) ? "MISC" : "APPS";

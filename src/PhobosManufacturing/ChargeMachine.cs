@@ -99,16 +99,20 @@ internal sealed class ChargeMachine
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             var selected = SelectedRecipe(machine);
-            return selected == null ? null : Catalog.FeedKg(id, Spec.Met, selected);
+            return selected == null ? null : Catalog.FeedKg(id, MetFor(machine), selected);
         }
-        return AutomaticFeedKg(id);
+        return AutomaticFeedKg(id, Preferred(machine));
     }
+    /// <summary>The optional recipe this machine has been told to take, or empty (Manufacturing 0.51.0).</summary>
+    private string Preferred(CondOwner? machine) => machine == null || machine.bDestroyed || !IsFamily(machine.strCODef) ? "" : Get(machine).State.Prefer;
+    private Func<string, bool> MetFor(CondOwner? machine) => ChargeCatalog.MetWith(Spec.Met, Preferred(machine));
     // What Catalog.FeedKg(id, Spec.Met) answers, remembered (Manufacturing 0.31.0): a running machine asks it for every
     // bound unit on every power step, and the feed hook for every item offered to the bin. The table is rebuilt when
     // the catalog view changes or any requirement gate answers differently, so it never outlives what it was built from.
     private ChargeRecipeView? feedView; private string[] feedGates = Array.Empty<string>(); private bool[] feedGateAnswers = Array.Empty<bool>();
-    private readonly Dictionary<string, double> feedKg = new(StringComparer.Ordinal);
-    private double? AutomaticFeedKg(string? id)
+    // One table per machine preference (0.51.0): machines with different optional recipes admit different feed.
+    private readonly Dictionary<string, Dictionary<string, double>> feedKg = new(StringComparer.Ordinal);
+    private double? AutomaticFeedKg(string? id, string preferred)
     {
         if (id == null) return null;
         var view = Catalog;
@@ -117,14 +121,19 @@ internal sealed class ChargeMachine
         if (!current)
         {
             feedView = view;
-            feedGates = view.All.SelectMany(r => r.Requires).Distinct(StringComparer.Ordinal).ToArray();
+            // Only the owner's gates can change under a table; an optional recipe's gate is the table's own key.
+            feedGates = view.All.SelectMany(r => r.Requires).Where(k => ChargeCatalog.ChosenId(k) == null).Distinct(StringComparer.Ordinal).ToArray();
             feedGateAnswers = feedGates.Select(Spec.Met).ToArray();
             feedKg.Clear();
-            foreach (var recipe in view.Available(Spec.Met))
-                foreach (var input in recipe.ItemInputs)
-                    if (!feedKg.ContainsKey(input.Id)) feedKg[input.Id] = input.Kg;
         }
-        return feedKg.TryGetValue(id, out double kg) ? kg : (double?)null;
+        if (!feedKg.TryGetValue(preferred, out var table))
+        {
+            feedKg[preferred] = table = new Dictionary<string, double>(StringComparer.Ordinal);
+            foreach (var recipe in view.Available(ChargeCatalog.MetWith(Spec.Met, preferred)))
+                foreach (var input in recipe.ItemInputs)
+                    if (!table.ContainsKey(input.Id)) table[input.Id] = input.Kg;
+        }
+        return table.TryGetValue(id, out double kg) ? kg : (double?)null;
     }
     private CondOwner? MachineOf(CondOwner? bin) => bin?.objCOParent;
     // The solids this machine's recipes make, rebuilt when the catalog view changes.
@@ -234,7 +243,7 @@ internal sealed class ChargeMachine
     /// <summary>The name a player sees: an outcome shows as the recipe it was chosen as, so a result stays unknown
     /// until the charge finishes.</summary>
     private static string RecipeName(ChargeRecipe recipe) => Text.Get("Recipe." + ChargeOutcomes.BaseOf(recipe.Id));
-    private bool Available(ChargeRecipe recipe) => recipe.Requires.All(Spec.Met);
+    private bool Available(ChargeRecipe recipe, CondOwner? machine) => recipe.Requires.All(MetFor(machine));
     /// <summary>The bound units, when every one of them still sits in the feed bin and is still valid feed.</summary>
     private List<CondOwner>? Charge(CondOwner co, Session s)
     {
@@ -275,7 +284,7 @@ internal sealed class ChargeMachine
     {
         if (!s.State.Bound) return false;
         var recipe = Recipe(s);
-        if (recipe == null || !Available(recipe)) { s.Status = T("retained_unavailable", s.State.RecipeId); return false; }
+        if (recipe == null || !Available(recipe, co)) { s.Status = T("retained_unavailable", s.State.RecipeId); return false; }
         if (Charge(co, s) == null) { s.Status = T("charge_changed"); return false; }
         return Run(co, s, recipe);
     }
@@ -295,13 +304,13 @@ internal sealed class ChargeMachine
         if (Spec.Selection == RecipeSelection.Explicit)
         {
             recipe = Catalog.ByRevision(s.State.Selected);
-            if (recipe == null || !Available(recipe)) { s.Status = T("no_selection"); return false; }
+            if (recipe == null || !Available(recipe, co)) { s.Status = T("no_selection"); return false; }
             var counts = valid.GroupBy(c => c.strCODef, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
             if (!recipe.ItemInputs.All(i => counts.TryGetValue(i.Id, out int n) && n >= i.Count)) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
         }
         else
         {
-            recipe = Catalog.Match(valid.Select(c => c.strCODef), Spec.Met, r => Drawable(co, r));
+            recipe = Catalog.Match(valid.Select(c => c.strCODef), MetFor(co), r => Drawable(co, r));
             if (recipe == null) { s.Status = T(valid.Count == 0 ? "invalid_feed" : "no_charge"); return false; }
         }
         var units = new List<CondOwner>();
@@ -641,6 +650,33 @@ internal sealed class ChargeMachine
             yield return new(Text.Get("Provider.recipe_field"), chosen == null ? Text.Get("Provider.link_none") : Text.Get("Recipe." + chosen.Id),
                 Catalog.Available(Spec.Met).Select(r => ("recipe:" + r.Id, Text.Get("Recipe." + r.Id))), chosen == null ? "" : "recipe:" + chosen.Id);
         }
+        // Optional recipes (0.51.0): what this machine does with feed it would otherwise leave alone.
+        var optional = Optional().ToArray();
+        if (optional.Length > 0)
+        {
+            string preferred = Preferred(co);
+            yield return new(T("prefer_field"), preferred.Length == 0 || Catalog.ById(preferred) == null ? T("prefer_none") : Text.Get("Recipe." + preferred),
+                new[] { (PreferPrefix + "none", T("prefer_none")) }.Concat(optional.Select(r => (PreferPrefix + r.Id, Text.Get("Recipe." + r.Id)))), PreferPrefix + (preferred.Length == 0 ? "none" : preferred));
+        }
+    }
+    internal const string PreferPrefix = "prefer:";
+    /// <summary>The optional recipes this installation could take: their other requirements are met.</summary>
+    private IEnumerable<ChargeRecipe> Optional() => Catalog.All.Where(r => ChargeCatalog.IsOptional(r) && !ChargeOutcomes.IsHidden(r.Id) &&
+        r.Requires.Where(k => ChargeCatalog.ChosenId(k) == null).All(Spec.Met));
+    /// <summary>Sets or clears the optional recipe (idle and unbound, like a recipe selection): "none" leaves that feed alone.</summary>
+    internal bool SelectPreference(CondOwner co, string value, ConsoleBinding? binding, out string reason)
+    {
+        reason = Content.Access(co, binding) ?? "";
+        if (reason.Length > 0) return false;
+        var s = Get(co);
+        if (s.Protected) { reason = T("protected"); return false; }
+        if (s.State.Running || s.State.Bound || co.HasCond(Spec.WorkingCondition)) { reason = T("prefer_busy"); return false; }
+        string id = value == "none" ? "" : value;
+        if (id.Length > 0 && !Optional().Any(r => r.Id == id)) { reason = T("prefer_missing", value); return false; }
+        s.State.Prefer = id; Save(co, s);
+        if (s.Protected) { reason = T("protected"); return false; }
+        s.Status = reason = id.Length == 0 ? T("prefer_cleared") : T("prefer_set", Text.Get("Recipe." + id));
+        return true;
     }
     internal bool Link(CondOwner co, ChargeLinkSpec link, string id, ConsoleBinding? binding, out string reason)
     {
@@ -664,7 +700,7 @@ internal sealed class ChargeMachine
         if (s.Protected) { reason = T("protected"); return false; }
         if (s.State.Running || s.State.Bound || co.HasCond(Spec.WorkingCondition)) { reason = T("select_busy"); return false; }
         var recipe = Catalog.ById(value) ?? (int.TryParse(value, out int revision) ? Catalog.ByRevision(revision) : null);
-        if (recipe == null || !Available(recipe)) { reason = T("select_missing", value); return false; }
+        if (recipe == null || !Available(recipe, co)) { reason = T("select_missing", value); return false; }
         s.State.Selected = recipe.Revision; Save(co, s);
         if (s.Protected) { reason = T("protected"); return false; }
         s.Status = reason = T("selected", Text.Get("Recipe." + recipe.Id));
@@ -683,6 +719,7 @@ internal sealed class ChargeMachine
         message = T("fault");
         if (!Content.Ready) { message = Content.Status; return false; }
         if (action.StartsWith("recipe:", StringComparison.Ordinal)) return SelectRecipe(co, action.Substring(7), binding, out message);
+        if (action.StartsWith(PreferPrefix, StringComparison.Ordinal)) return SelectPreference(co, action.Substring(PreferPrefix.Length), binding, out message);
         if (action.StartsWith(StoreFeed.ActionPrefix, StringComparison.Ordinal))
         {
             message = Content.Access(co, binding) ?? "";

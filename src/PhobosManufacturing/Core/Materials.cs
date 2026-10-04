@@ -70,6 +70,9 @@ public static class Materials
     public const string Spirit = BottlerRules.Spirit;
     /// <summary>The gangue wash (Manufacturing 0.44.0): what the acid leaves of the rock, in 1 kg units; terminal.</summary>
     public const string WashedTailings = "PhobosWashedTailings";
+    /// <summary>The regolith programme (Manufacturing 0.51.0): what the V4's volatile bake leaves of a lump (terminal), and
+    /// the sintered paver crew lay as the regolith floor.</summary>
+    public const string BakedRegolith = "PhobosBakedRegolith", RegolithPaver = "PhobosRegolithPaver";
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
@@ -77,7 +80,7 @@ public static class Materials
     public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
         EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue,
         SulfideNodule, PhosphoricAcidFlask, RoastedCalcine, EpsomSalt, AmmoniumSulfate, OlivineLeachCake, NickelSteelIngot,
-        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash, Spirit, WashedTailings };
+        CarbonBlack, ExhaustedSorbent, PlantAsh, SpentMash, Spirit, WashedTailings, BakedRegolith, RegolithPaver };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();

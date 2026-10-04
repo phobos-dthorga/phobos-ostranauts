@@ -30,7 +30,12 @@ public static class RefineryRules
     public static bool Stores(GasFamily family) => StoredGasFamilies.Contains(family);
     /// <summary>Native conditions the feed admits at the game level besides ore and our stock (Manufacturing 0.27.0): the
     /// game's CO2 filters, so spent scrubber and EVA cartridges can be reactivated. The exact identity rule then applies.</summary>
-    public static readonly string[] FeedConditions = { "IsFilterCO2" };
+    public static readonly string[] FeedConditions = { "IsFilterCO2", RegolithCondition };
+    /// <summary>The game's own loose regolith (20 kg) and the condition only it carries (Manufacturing 0.51.0). The feed
+    /// admits that condition, not the wider IsMineral, which would let gangue in; the recipe rule then admits a lump
+    /// only on a V4 told to bake or sinter regolith.</summary>
+    public const string Regolith = "ItmMineralStone01", RegolithCondition = "IsMineralStone01";
+    public const double RegolithKg = 20;
     /// <summary>Native feed identities and their masses (items_mining.json): hydrates 10 kg, meteoric iron 20 kg,
     /// carbon/carbides 10 kg, gangue 3 kg. Steel identities are Shipbreaker's, named as strings only.</summary>
     public const string Hydrates = "ItmMineral11", Iron = "ItmMineral01", Carbides = "ItmMineral03", Gangue = "ItmMiningTrash";

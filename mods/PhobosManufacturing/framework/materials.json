@@ -293,6 +293,25 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockWashedTailings"
+    },
+    "PhobosBakedRegolith": {
+      "notes": "Terminal (Manufacturing 0.51.0): what the V4's volatile bake leaves of a regolith lump, 19.5 kg of dry rock. It keeps the game's own regolith picture, referenced at run time. A declared remainder: the reaction mass feeder grinds it.",
+      "kind": "stock",
+      "kg": 19.5,
+      "price": 0.01,
+      "stack": 1,
+      "side": 1,
+      "category": "IsCategoryTrash",
+      "terminal": true
+    },
+    "PhobosRegolithPaver": {
+      "notes": "A sintered regolith paver (Manufacturing 0.51.0): 6.5 kg, the mass of the game's Polished Regolith Floor tile, which crew lay it as. Priced at 13 cr, below the tile's 21: a prospector sells regolith, so three pavers and the water stay within a quarter more than the 35 cr lump (the bought-stock rule); laying one is the work that makes up the rest. Not sold by merchants. Until its own art is made it shows the game's loose floor plate picture, referenced at run time.",
+      "kind": "stock",
+      "kg": 6.5,
+      "price": 13,
+      "stack": 6,
+      "side": 1,
+      "category": "IsCategoryHull"
     }
   }
 }

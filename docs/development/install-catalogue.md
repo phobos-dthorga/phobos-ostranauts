@@ -15,6 +15,7 @@ is still pending.
 | Phobos Agriculture | MISC | Irrigation conduit |
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, Tolvane AX-2 ammonia cracker, Lixivar LC-3 leach and crystallise unit, Lixivar SA-3 acid plant, the AT-2, AT-3 and AT-4 acid tanks, the Alembrine Cask-2, Cask-3 and Cask-4 ethanol tanks (0.38.0), the Alembrine Copperhead-3 fermenter-still (0.39.0), the Alembrine Corker-2 bottling unit (0.40.0), and the hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores in all three sizes |
 | Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, Slingwright RM-1 reaction mass feeder (0.43.0), L2 canister filling station and A2 cabin air regulator; Lixivar acid line (0.24.0); Alembrine ethanol line (0.38.0) |
+| Phobos Manufacturing | HULL | Fennmark sintered regolith floor (0.51.0), laid from one regolith paver beside the game's own floors; our twin of the game's Polished Regolith Floor |
 | Phobos Framework | HVAC | Fennmark gas line (moved from Manufacturing in Framework 0.57.0) and process water line |
 | Phobos Framework | MISC | Rivetline conveyor belt (Framework 0.61.0) |
 | Phobos Framework | APPS | Rivetline S2, S3, S4 and S5 process water silos (the S3 to S5 moved from Shipbreaker in Framework 0.58.0) |

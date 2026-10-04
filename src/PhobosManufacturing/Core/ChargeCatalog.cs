@@ -30,7 +30,20 @@ public static class ChargeCatalog
         [Fermenter] = FermenterRules.Prefix
     };
     /// <summary>Feature keys a recipe may require; the owner resolves each at load.</summary>
-    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement, CropNutrientsRequirement, StrawRequirement, SugarCropsRequirement };
+    /// <summary>Optional recipes (Manufacturing 0.51.0): a recipe that requires <c>chosen-&lt;its own id&gt;</c> is available
+    /// on a machine only while that machine's saved preference names it. The V4's two regolith recipes are the first.</summary>
+    public const string ChosenPrefix = "chosen-";
+    public const string RegolithBake = "regolith-bake", RegolithSinter = "regolith-sinter";
+    public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement, CropNutrientsRequirement, StrawRequirement, SugarCropsRequirement,
+        ChosenPrefix + RegolithBake, ChosenPrefix + RegolithSinter };
+    /// <summary>The recipe id an optional recipe's requirement names, or null for an ordinary requirement.</summary>
+    public static string? ChosenId(string requirement) => requirement.StartsWith(ChosenPrefix, StringComparison.Ordinal) ? requirement.Substring(ChosenPrefix.Length) : null;
+    /// <summary>Whether a recipe is optional: offered on a machine only when chosen there.</summary>
+    public static bool IsOptional(ChargeRecipe recipe) => recipe.Requires.Any(k => ChosenId(k) == recipe.Id);
+    /// <summary>A requirement gate for one machine: the owner's gates, with an optional recipe's own gate answered by the
+    /// machine's saved preference.</summary>
+    public static Func<string, bool> MetWith(Func<string, bool> met, string preferred) =>
+        key => ChosenId(key) is string id ? preferred.Length > 0 && id == preferred : met(key);
     public static string PrefixOf(string machine) => MachinePrefixes.TryGetValue(machine, out var prefix) ? prefix : throw new InvalidOperationException("Unknown charge machine: " + machine);
     private static RecipePack? pack; private static IReadOnlyList<ChargeRecipe>? all; private static RecipePack? builtFrom;
     private static readonly Dictionary<string, ChargeRecipeView> views = new(StringComparer.Ordinal);

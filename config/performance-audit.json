@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "9c5f3f8eb4243068ade4ac1fd9bd3bc915661651",
+  "baselineCommit": "cb330a1c10cf62797ff01a69022901482cc92f9c",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -6831,7 +6831,7 @@
     },
     {
       "path": "src/PhobosManufacturing/ChargeMachine.cs",
-      "sha256": "891ad56d11e5e8a1c1e9e95de17651604a7e3f437ed35eb1938c91cd1fd5af5a",
+      "sha256": "99063919a03802a58883c504acc074e7c2ca208361423f40ad8e6ed14c2e73c1",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -6860,7 +6860,8 @@
         "L38",
         "L43",
         "L44",
-        "L47"
+        "L47",
+        "L49"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -6868,32 +6869,36 @@
           72,
           76,
           85,
-          361,
-          530
+          370,
+          539
         ],
         "discovery": [
           88
         ],
         "collection": [
-          120,
-          121,
-          194,
-          195,
-          196,
-          201,
-          243,
-          293,
-          304,
-          307,
-          308,
-          314,
+          125,
+          126,
+          203,
+          204,
+          205,
+          210,
+          252,
+          302,
+          313,
           316,
-          523,
-          524,
-          556,
-          627,
-          632,
-          642
+          317,
+          323,
+          325,
+          532,
+          533,
+          565,
+          636,
+          641,
+          651,
+          654,
+          659,
+          664,
+          665
         ]
       },
       "reviewed": "2026-10-05"
@@ -7035,10 +7040,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/ChargeCatalog.cs",
-      "sha256": "e67617ea218f2b50268ae206a7c8d4df91141f1821b8fe488b15bae0da98f8ea",
+      "sha256": "c0b6b8f4875ec4c6c2392b6f29990bd7d83479302efc44bfd05dca3398183d22",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R4",
         "K1",
@@ -7053,24 +7058,25 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L49"
       ],
       "indicators": {
         "collection": [
-          47,
-          63,
-          64,
-          65,
-          66,
+          60,
+          76,
           77,
-          95,
-          115,
-          117,
+          78,
+          79,
+          90,
+          108,
           128,
-          143
+          130,
+          141,
+          156
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/Core/ChargeOutcomes.cs",
@@ -7129,20 +7135,21 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/ChargeState.cs",
-      "sha256": "11bc523fb860a54b22c32493a11fe7bc949c1b22a5807a816e049f9a325ba8c4",
+      "sha256": "9fc3b4cf88f202d84611a7da85cacfe1b8abbbf257769acb2d741d8b90056508",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Shared charge machine (Manufacturing 0.17.0): the V4 power, feed and panel paths moved unchanged into one engine; hooks resolve the machine through a memoized definition-id dictionary (one probe per call), settlement runs once per finished charge. No new scans or cadences. See K1.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF0",
-        "K1"
+        "K1",
+        "L49"
       ],
       "indicators": {
         "collection": [
-          37
+          43
         ]
       },
-      "reviewed": "2026-09-30"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/Core/CrackerRules.cs",
@@ -7419,7 +7426,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/Materials.cs",
-      "sha256": "4c7f5895f46cc28c3286ca31f03176ed47e1f5b77aae8afa06b55acb6032bce7",
+      "sha256": "95c5ef50b8530c47d208801918230e46ee0e5f5d18bd103d3f3a35ec3fab9828",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -7439,13 +7446,14 @@
         "L36",
         "L37",
         "L38",
-        "L40"
+        "L40",
+        "L49"
       ],
       "indicators": {
         "collection": [
-          98,
-          100,
-          101
+          101,
+          103,
+          104
         ]
       },
       "reviewed": "2026-10-05"
@@ -7477,10 +7485,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
-      "sha256": "84dccf952aaf9fe41a6cc62d29f490cafe5dd261e31bb89aaf83f3669101966d",
+      "sha256": "75f1c8508ac13a90379cd179a09d09ae48bb7f68b1aed1059e426898a97ebd8e",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF0",
         "R4",
@@ -7496,17 +7504,30 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L49"
       ],
       "indicators": {
         "collection": [
           25,
           27,
           28,
-          119
+          124
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
+    },
+    {
+      "path": "src/PhobosManufacturing/Core/RegolithFloor.cs",
+      "sha256": "d803382a826defd9ea3deae942383f6f7fd6c3688ceb66e1fe7faa907e521c1f",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L49"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosManufacturing/Core/RegulatorRules.cs",
@@ -7601,7 +7622,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Definitions.cs",
-      "sha256": "fc1cec6af7c00c0a5822ce7f3dfb4b4cc64a759032e7889c7cae46e6f2b4142d",
+      "sha256": "222ed6e6011b1f31cf9847a31cb2efc477d63d16d158aadffeda0558573e7f78",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -7628,35 +7649,37 @@
         "L36",
         "L37",
         "L38",
-        "L40"
+        "L40",
+        "L49"
       ],
       "indicators": {
         "collection": [
-          57,
-          77,
-          79,
-          86,
-          109,
-          155,
-          175,
-          195,
-          215,
-          241,
-          247,
-          267,
-          291,
-          313,
+          58,
+          78,
+          80,
+          87,
+          110,
+          156,
+          176,
+          196,
+          216,
+          242,
+          248,
+          268,
+          292,
           314,
-          370,
-          396,
-          397,
-          405,
-          420
+          315,
+          371,
+          402,
+          403,
+          411,
+          443,
+          473
         ],
         "persistence_or_io": [
-          371,
-          462,
-          468
+          372,
+          515,
+          521
         ]
       },
       "reviewed": "2026-10-05"
@@ -7970,7 +7993,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "bda55d84a5852a65da3d78270b3a414387bbbabb87b040b7bd7c486c2167b6b1",
+      "sha256": "f1c42c844d8ad7da377f8e3ca0e8486536d1416156b9f2a6435227a6b0bec123",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -8012,7 +8035,8 @@
         "L44",
         "L46",
         "L47",
-        "L48"
+        "L48",
+        "L49"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -8095,7 +8119,7 @@
     },
     {
       "path": "src/PhobosManufacturing/Provider.cs",
-      "sha256": "1da5370757b845c018fcb31eae4e45e2d0f652f41653c1d6bc94e7c2d764406b",
+      "sha256": "e03859b10f821f8cc473bb093f0e4a04bcbd85966f787ca2309f1697c0c25d85",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -8118,7 +8142,8 @@
         "L36",
         "L37",
         "L38",
-        "L47"
+        "L47",
+        "L49"
       ],
       "indicators": {
         "collection": [

@@ -53,6 +53,7 @@ internal static class Definitions
             VesselContentsDisplay.Declare(d, family.Commodity, Text.Get(family.TextPrefix + ".contents"), family.ContentsColor);
         AddManifold(d);
         AddFeeder(d);
+        AddRegolithFloor(d);
         // Owner rule (4 October 2026): every terminal remainder is declared, so the feeder is its consumer.
         Remainders.Declare(Materials.All.Where(m => m.Terminal).Select(m => m.Id));
         AddFiller(d);
@@ -381,7 +382,10 @@ internal static class Definitions
             // The Alembrine spirit (Manufacturing 0.40.0) is a clone of the game's own vodka serving, so the game's liquor
             // drinking and effects apply; it drops the vodka's brand marker, which the game's Bismertnaya lines key off.
             bool spirit = m.Id == BottlerRules.Spirit;
-            string source = spirit ? BottlerRules.SpiritDonor : m.Mined ? RefineryRules.Hydrates : "ItmScrapSteel";
+            // Two regolith items keep a game picture by cloning its owner (0.51.0): nothing is copied, the art is
+            // referenced at run time. The conditions each keeps are listed; everything else of the donor is dropped.
+            bool look = NativeLook.TryGetValue(m.Id, out var native0);
+            string source = spirit ? BottlerRules.SpiritDonor : look ? native0.Donor : m.Mined ? RefineryRules.Hydrates : "ItmScrapSteel";
             var native = DataHandler.dictCOs[source];
             var co = NativeDefinitions.Clone(native); var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[native.strItemDef]);
             co.strName = co.strItemDef = item.strName = m.Id;
@@ -391,8 +395,10 @@ internal static class Definitions
             co.nStackLimit = m.Stack; co.mapChargeProfiles = Array.Empty<string>();
             string identity = m.Id + "Identity";
             d.Conditions[identity] = new JsonCond { strName = identity, strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-            var keep = m.Mined ? new[] { "IsNonHighlightable", "IsSolid", "IsMineral", "IsEdged", "IsTough", "IsImmuneAnnihilation", "IsOre", "StatDamage", "StatDamageMax" }
+            var keep = look ? native0.Keep : m.Mined ? new[] { "IsNonHighlightable", "IsSolid", "IsMineral", "IsEdged", "IsTough", "IsImmuneAnnihilation", "IsOre", "StatDamage", "StatDamageMax" }
                 : new[] { "IsRigid", "IsSolid", "StatDamageMax" };
+            // A donor's damage rule would turn the item into something else (regolith into gangue): ours has none.
+            if (look) co.aUpdateCommands = Array.Empty<string>();
             co.aStartingConds = co.aStartingConds.Where(s => spirit ? BottlerRules.KeepFromDonor(s.Split('=')[0]) : keep.Contains(s.Split('=')[0])).Concat(new[] { identity + "=1x1", m.Category + "=1x1",
                 "StatMass=1x" + m.Kg.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x" + m.Price.ToString(CultureInfo.InvariantCulture) }).ToArray();
             if (m.Art.Length > 0 || m.Added)
@@ -413,6 +419,53 @@ internal static class Definitions
             // pack's current price on every load, so the retroactive prices reach ingots and salts already aboard.
             EquipmentSaveUpgrade.FollowPrice(m.Id);
         }
+    }
+    /// <summary>Materials that show a game item's own picture (0.51.0): the donor cloned, and the donor conditions kept.
+    /// The paver must not keep IsFloorGrate, or the game's own floor job would lay it as a plain floor.</summary>
+    private static readonly Dictionary<string, (string Donor, string[] Keep)> NativeLook = new(StringComparer.Ordinal)
+    {
+        [Materials.BakedRegolith] = (RefineryRules.Regolith, new[] { "IsSolid", "IsEdged", "IsTough" }),
+        [Materials.RegolithPaver] = (RegolithFloor.LooseDonor, new[] { "IsSolid", "StatDamageMax", "StatInstallProgressMax", "StatUninstallProgressMax" })
+    };
+
+    /// <summary>The regolith floor (Manufacturing 0.51.0; owner decision, 5 October 2026): a Phobos twin of the game's
+    /// Polished Regolith Floor that a crew member lays from one paver and can lift again. The twin clones the game's
+    /// object and keeps its item definition, so the picture, sockets and stats are the game's own, referenced at run
+    /// time; it keeps IsFloorGrate, so machines, pipes and belts treat it as floor. The two jobs are clones of the
+    /// game's own floor jobs (welder to lay, structure cutter to lift), pointed at our paver and twin. The game's tile
+    /// itself is never changed: it has no uninstall, and giving it one would break every tile already laid.</summary>
+    private static void AddRegolithFloor(NativeDefinitions d)
+    {
+        string paver = Materials.RegolithPaver, floor = RegolithFloor.Installed;
+        var co = NativeDefinitions.Clone(DataHandler.dictCOs[RegolithFloor.NativeTile]);
+        co.strName = floor;
+        co.strNameFriendly = Text.Get("RegolithFloor.name"); co.strDesc = Text.Get("RegolithFloor.description");
+        co.aStartingConds = co.aStartingConds.Concat(new[] { RegolithFloor.Identity + "=1x1", "StatInstallProgressMax=1x200", "StatUninstallProgressMax=1x200" }).ToArray();
+        d.Objects[floor] = co;
+        d.Conditions[RegolithFloor.Identity] = new JsonCond { strName = RegolithFloor.Identity, strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+        d.Triggers[RegolithFloor.PaverTrigger] = new CondTrigger { strName = RegolithFloor.PaverTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = new[] { paver + "Identity" }, aForbids = new[] { "IsInstalled", "IsDamaged" }, aTriggers = Array.Empty<string>() };
+        d.Triggers[RegolithFloor.InstalledTrigger] = new CondTrigger { strName = RegolithFloor.InstalledTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = new[] { RegolithFloor.Identity, "IsInstalled" }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+        // The two jobs carry the same figures as the game's FloorGrate01Install and FloorGrate01Uninstall (welder to
+        // lay, structure cutter to lift, hull work rates), written out so nothing depends on the game's job table.
+        d.Installables[RegolithFloor.InstallJob] = new JsonInstallable
+        {
+            strName = RegolithFloor.InstallJob, strActionCO = paver, strActionGroup = "Work",
+            strInteractionTemplate = "ACTInstallTEMP", CTThem = RegolithFloor.PaverTrigger, aInputs = new[] { RegolithFloor.PaverTrigger + "=1.0x1" },
+            fTargetPointRange = 2, fDuration = 0.001f, aToolCTsUse = new[] { "TIsToolWelding" }, aLootCOs = new[] { floor },
+            strStartInstall = floor, strBuildType = InstallMenu.Hull, strJobType = "install", bNoJobMenu = false,
+            strAllowLootCTsUs = "CTWorkProgressHULL", strAllowLootCTsThem = "CONDInstallProgressx5", strProgressStat = "StatInstallProgress",
+            strCTThemMultCondTools = "IsToolWelding", strCTThemMultCondUs = "StatInstallRateHULL"
+        };
+        d.Installables[RegolithFloor.UninstallJob] = new JsonInstallable
+        {
+            strName = RegolithFloor.UninstallJob, strActionCO = floor, strActionGroup = "Work",
+            strInteractionTemplate = "ACTUninstallTEMP", CTThem = RegolithFloor.InstalledTrigger, aInputs = Array.Empty<string>(),
+            fTargetPointRange = 2.5f, fDuration = 0.001f, aToolCTsUse = new[] { "TIsToolStructureCutter" }, aLootCOs = new[] { paver },
+            strJobType = "uninstall", strAllowLootCTsUs = "CTWorkProgressHULL", strAllowLootCTsThem = "CONDUninstallProgressx5", strProgressStat = "StatUninstallProgress",
+            strCTThemMultCondTools = "IsToolStructureCutter", strCTThemMultCondUs = "StatInstallRateHULL"
+        };
     }
     internal static string[] Border(int side, string interior)
     {

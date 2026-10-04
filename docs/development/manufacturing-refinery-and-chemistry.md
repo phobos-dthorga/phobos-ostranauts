@@ -917,3 +917,48 @@ The planning default of 65/25/7/3 would have returned about 75 cr (1.37 x). The 
 is **72/22/4/2**: 52 cr of salt every time, plus on average 2.4 cr of steel, 8 cr of ore and
 4.4 cr of ingot, about 66.8 cr (1.22 x). The unit check holds it to that rule. Agent choice
 under the owner's delegated default; open to revision in `outcomes.json`.
+
+## Regolith in the V4: the bake, the pavers and the floor (0.51.0)
+
+Sets 2 and 3 of the [regolith programme](regolith-programme.md), shipped together so that a
+started V4 on a shared feed bin never bakes every lump before the choice to leave it exists.
+
+**Optional recipes.** A recipe that requires `chosen-<its own id>` is available on a machine
+only while that machine's saved preference (`prefer`, written only when set) names it. The
+V4's panel offers the choice as **Loose regolith**: leave it alone (default), Regolith bake or
+Regolith pavers. The feed table is kept per preference, so two V4s can differ. The V4 admits
+regolith at the game level by its own condition `IsMineralStone01`, not `IsMineral`, which
+would also admit gangue.
+
+**Volatile bake (refinery revision 15).** 1 lump (20 kg) -> 0.4 kg water to the linked
+vessel + 0.1 kg CO2 into the room + 1 baked regolith (19.5 kg, terminal, a declared remainder
+for the RM-1). 900 s at 24 kW (6 kWh). The game's cargo text supports the hook ("heated to
+emit chemically bonded hydrogen, water, He4"); **the 2% water and 0.5% carbon dioxide are
+authored**. Carbon-rich chondrites hold several percent of water and stony ones far less; the
+game's lump is one identity for both. A supply recipe: 4 cr of water from a 35 cr lump.
+
+**Sintered pavers (revision 16).** 1 lump -> 0.4 kg water + 0.1 kg CO2 + 3 regolith pavers
+(6.5 kg each); closes exactly at 20 kg with no remainder. 2,400 s (16 kWh), not a melt.
+Sintering regolith simulant into pavers has been demonstrated in NASA and ESA projects; **no
+source is recorded here yet, and the temperature and energy are authored**.
+
+**Price, corrected from the plan.** The plan priced a paver at the tile's 21 cr (1.9 x the
+lump). A K-Leg prospector sells regolith, so a charge fed only by it is held to the
+bought-stock rule, and the native value check now says so: at most 1.25 x. The paver is
+**13 cr**: 3 x 13 + 4 (water) = 43 cr from a 35 cr lump (1.23 x). The laid floor keeps the
+tile's 21 cr; laying it is the work that adds the rest, and lifting it loses that again.
+
+**The floor.** `PhobosRegolithFloor` is a clone of the game's `ItmFloorGrate02` object that
+keeps the game's item definition, so the picture, sockets and stats are the game's own,
+referenced at run time. It keeps `IsFloorGrate`. Its Install and Uninstall jobs carry the
+figures of the game's own `FloorGrate01Install` and `FloorGrate01Uninstall` (welder, structure
+cutter, hull rates), written out in code. The paver must not carry `IsFloorGrate`: the game's
+own floor job takes any loose `IsFloorGrate` item. The game's tile is untouched; it has no
+uninstall, and adding one would complete at once on every tile already laid (0 >= 0).
+
+**Pictures.** Baked regolith clones the game's regolith item and keeps its picture; the paver
+clones the game's loose floor plate until it has art of its own (request recorded in the
+programme record). Both drop the donor's meaning: no ore or mineral marks, no damage rule.
+
+**Removal.** A save with the floor laid names a Phobos definition; removing Manufacturing
+leaves those squares without floor. Stated in the player guide and the item reference.

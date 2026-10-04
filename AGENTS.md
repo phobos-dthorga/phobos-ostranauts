@@ -1590,7 +1590,15 @@
   store by touching or belt (Framework 0.98.0 `StoreDelivery`, Manufacturing 0.49.0), and
   the V4 leaves regolith alone unless told to bake or sinter it. Manufacturing 0.50.0 ships
   the leach (leach revisions 11 to 14); a prospector sells regolith, so its table is held
-  to the bought-stock rule (1.25 x), not the 1.5 x table rule. Follow `docs/development/regolith-programme.md` for decisions, order, agent
+  to the bought-stock rule (1.25 x), not the 1.5 x table rule. Manufacturing 0.51.0 ships
+  the V4 bake and pavers (refinery revisions 15 and 16) as **optional recipes**: a recipe
+  requiring `chosen-<its id>` is available only on a machine whose saved `prefer` names it
+  (`ChargeCatalog.MetWith`), so the default leaves regolith alone. The regolith floor is
+  `PhobosRegolithFloor`, a clone of the game's `ItmFloorGrate02` on the game's own item
+  definition with its own Install and Uninstall jobs; never give the game's tile an
+  uninstall, and never let a loose Phobos item carry `IsFloorGrate`. Any charge fed only
+  by regolith is held to 1.25 x by the native value check (the paver is 13 cr for that
+  reason). Follow `docs/development/regolith-programme.md` for decisions, order, agent
   defaults and the list of figures still unverified; never cite those until checked.
   The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
   because the owner's ChatGPT plan is time-limited.

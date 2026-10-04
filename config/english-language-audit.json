@@ -73479,6 +73479,422 @@
       "after": "Regolith leach"
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Loose regolith",
+      "after": "Loose regolith"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Leave it alone",
+      "after": "Leave it alone"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Loose regolith: {0}. The refinery now takes lumps for that.",
+      "after": "Loose regolith: {0}. The refinery now takes lumps for that."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The refinery leaves loose regolith alone.",
+      "after": "The refinery leaves loose regolith alone."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing what the refinery does with regolith.",
+      "after": "Finish or Cancel this batch before changing what the refinery does with regolith."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge",
+      "after": "Optional charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge: {0}.",
+      "after": "Optional charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No optional charge.",
+      "after": "No optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing the optional charge.",
+      "after": "Finish or Cancel this batch before changing the optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Leach.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.regolith-bake",
+      "category": "name",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Regolith bake",
+      "after": "Regolith bake"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.regolith-sinter",
+      "category": "name",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Regolith pavers",
+      "after": "Regolith pavers"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosBakedRegolith",
+      "category": "name",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Baked Regolith",
+      "after": "Baked Regolith"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosBakedRegolith_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A regolith lump with its water baked out: 19.5 kg of dry rock. No recipe wants it, but a reaction mass feeder will grind it into thrust.",
+      "after": "A regolith lump with its water baked out: 19.5 kg of dry rock. No recipe wants it, but a reaction mass feeder will grind it into thrust."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosRegolithPaver",
+      "category": "name",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Regolith Paver",
+      "after": "Regolith Paver"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosRegolithPaver_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A 6.5 kg slab of sintered regolith. Lay it from the INSTALL menu as a regolith floor; a structure cutter lifts it again.",
+      "after": "A 6.5 kg slab of sintered regolith. Lay it from the INSTALL menu as a regolith floor; a structure cutter lifts it again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "RegolithFloor.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Sintered Regolith Floor",
+      "after": "Sintered Regolith Floor"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "RegolithFloor.description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A floor of sintered regolith pavers, laid by your own crew. It behaves like the stations' polished regolith floor, and a structure cutter lifts it back into a paver.",
+      "after": "A floor of sintered regolith pavers, laid by your own crew. It behaves like the stations' polished regolith floor, and a structure cutter lifts it back into a paver."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge",
+      "after": "Optional charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge: {0}.",
+      "after": "Optional charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No optional charge.",
+      "after": "No optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing the optional charge.",
+      "after": "Finish or Cancel this batch before changing the optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "AcidPlant.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge",
+      "after": "Optional charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge: {0}.",
+      "after": "Optional charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No optional charge.",
+      "after": "No optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing the optional charge.",
+      "after": "Finish or Cancel this batch before changing the optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Fermenter.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Added with Manufacturing 0.51.0: the V4's regolith choice, the two regolith items and the regolith floor.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -77274,8 +77690,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "50eb5ee95061a3cdef57f683367fd63e7661fc0f27a5ba99c174faa2dd1db6e8",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "373d23ae9aad3b669ac193c627ad76d48565377717742afe78ccc498ff115c26",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77862,15 +78278,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "8d58edeab033dac8a0f5c91a40061c2fe942050cb469eb5f3e75d6ab5107613e",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "d0e323f617ad28ba3ae886f02bf309043f3a5c434ef5eaab7b99deb9d10b3b62",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "2a5d3a103e0b05c30ff0ad583256c882a948db5a85587b0175555231505cefe4",
-      "review": "4 October 2026, Phobos Medical 0.4.0 and Framework 0.89.0: reviewed with this change (Keep patient treated, treatments, Medical care role); wording, links and maintained values checked against the player-language rule."
+      "sha256": "61a7cc33476344632c7acf7d691e3ebb47391478e7666e09617bf8385eab624f",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -77936,8 +78352,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "2571bc9d0446928e1d9e718431c1f960928c1867d313cb0147e4ccf301a962ec",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "b63a1ca12ec14907827906b0170a628bb650b47838dd6aab836d67f014ef3978",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -78036,8 +78452,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "700251be532f32c726964168c9f5e4007626ac88aa57c33253052e7e54051b1d",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); records refreshed."
+      "sha256": "a75311807871e1e17c97d9f2742f8b28c34819b48d29b289cef9d1487561a0f5",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78360,15 +78776,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "a5b85caeb7c298a60fdb7746c9db6e7a93c9c31d248fcec785c27606f15e996d",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "fa3660bbda9569fcc6edbac41246e6320e3ed9f202e94b20c48bf9234c9be5d1",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "0cc3d32b83b8baa789293fdcbea16d34b6710c94b4c6a8e1223a86348f2f9968",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "cc3175b87451bad0a36c62fb85ea44d8d833acd76885856a66966de3565aac3f",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -78528,8 +78944,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7934aea99a3ded28191f87c3658714706ae25fcf9e0ad8dc9d8df71e7df9c863",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "6d09a886c7c80901d54ed71d8cbf0b43b95115b480a2e970ca1da628ced2dc02",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78577,16 +78993,16 @@
       "path": "docs/development/regolith-programme.md",
       "scope": "contributor decision record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "9ab2c49102a431d54f07202d1c0a991ca1f1a1a09059e28d6d26e4f30916e03a",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "38974434df8a5a55c36427496684225e0bc1a6c563859541161e62585ce5c324",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "914742093cad211c5f5beea786d4a91740209975ec27c8176eaf12d51c5b871c",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "d6ced69bad063c7dce775bc26ae7204807d8b55223f834df13828649730de3da",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -78643,8 +79059,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c536211ebee3ca5c34b383341e1ebecadb97accb522f75ddd994dee1a88e72de",
-      "review": "5 October 2026: regolith leach (Manufacturing 0.50.0); recipe names, the guide section, the changelog and records reviewed against the player-language rules."
+      "sha256": "bedf178df4cd0d377f7cf86915aee041a1fe1db9e45d21592d0976bf7fd55067",
+      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

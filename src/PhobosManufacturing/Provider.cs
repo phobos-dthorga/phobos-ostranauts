@@ -154,7 +154,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:", "nutrients:", "ethanol:", "co2:", Phobos.Ostranauts.Framework.Inventory.StoreFeed.ActionPrefix, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.ActionPrefix }.Concat(FeederRules.SettingPrefixes)
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:", "nutrients:", "ethanol:", "co2:", ChargeMachine.PreferPrefix, Phobos.Ostranauts.Framework.Inventory.StoreFeed.ActionPrefix, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.ActionPrefix }.Concat(FeederRules.SettingPrefixes)
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order", Phobos.Ostranauts.Framework.Inventory.StoreFeedRecord.Key, Phobos.Ostranauts.Framework.Inventory.StoreDelivery.Key,
         "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,

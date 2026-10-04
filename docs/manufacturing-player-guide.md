@@ -79,6 +79,8 @@ what went in, sorted.
 | 1 carbon black, with a linked oxygen store (0.27.0) | draws 2.664 kg of oxygen; 3.664 kg of carbon dioxide into the linked carbon dioxide store; about 2.3 kWh of heat into the room | 30 min |
 | 1 straw bale, with a linked oxygen store (0.37.0; Agriculture 0.44.0) | draws 0.927 kg of oxygen; 1.275 kg of carbon dioxide into the linked carbon dioxide store; 0.622 kg of water; 1 plant ash; about 1 kWh of heat into the room | 30 min |
 | 4 straw bales (0.37.0; Agriculture 0.44.0) | 1 carbon stock; 1.9 kg of water; 0.261 kg of methane into the linked methane store; 4 plant ash; **0.719 kg of carbon dioxide breathed into the room** | 30 min |
+| 1 loose regolith (20 kg), with **Loose regolith** set to *Regolith bake* | 0.4 kg of water into the linked vessel; 1 baked regolith (19.5 kg); **0.1 kg of carbon dioxide breathed into the room** | 15 min |
+| 1 loose regolith (20 kg), with **Loose regolith** set to *Regolith pavers* | 3 regolith pavers (6.5 kg each); 0.4 kg of water; **0.1 kg of carbon dioxide breathed into the room** | 40 min |
 | 4 spent CO2 scrubber cartridges (0.27.0) | 3 ready scrubber cartridges; 1 exhausted sorbent (2.5 kg) | 30 min |
 | 4 spent EVA CO2 filters (0.27.0) | 3 ready EVA filters; 1 exhausted sorbent (2.5 kg) | 30 min |
 
@@ -108,6 +110,38 @@ carbon ore. Carburising adds a little more: four nickel steel ingots are worth
 steel is not Shipbreaker's plain steel ingot, which the F6 casts from scrap.
 Hydrates, clay and the salt crust are worth more as ore than as water and gas;
 you refine those for what the ship needs.
+
+### Regolith in the refinery
+
+A V4 leaves loose regolith alone until you tell it otherwise, so lumps in a shared
+feed bin stay there for the LC-3 or anything else that wants them. On the panel's
+**Connections** page, set **Loose regolith** to one of:
+
+| Choice | What a 20 kg lump becomes |
+| --- | --- |
+| Leave it alone (the default) | Nothing: the refinery will not take a lump |
+| Regolith bake | 0.4 kg of water for the linked vessel, and a 19.5 kg baked lump for the RM-1 feeder |
+| Regolith pavers | 0.4 kg of water and three 6.5 kg pavers |
+
+Change it while the refinery is idle. Both recipes need a water vessel linked,
+and both let a little carbon dioxide into the room.
+
+**Laying a regolith floor.** Carry a paver to where you want floor, open
+**INSTALL**, pick the **Sintered Regolith Floor** under hull, and place it; a crew
+member with a welder lays it. One paver covers a 2 x 2 patch, so a lump floors
+twelve squares. It looks and behaves like the polished regolith floor on
+stations, and pipes, belts and machines treat it as floor. A structure cutter
+lifts it again and gives the paver back.
+
+The floor is our own copy of the game's tile, so it can be lifted (the game's own
+tile cannot). That has one cost: a save with this floor laid needs Phobos
+Manufacturing kept installed. If you remove the mod later, the squares where it
+lay are left without floor.
+
+The 2 percent water is our figure: the game says only that regolith gives up
+water when heated. A paver is worth less than the floor it becomes, because a
+prospector sells regolith and baking it must not be a way to print money. Until
+the paver has its own picture it shows the game's loose floor plate.
 
 ## Reactors that feed each other
 
