@@ -1015,3 +1015,17 @@ power hook. The reserve query the game makes every frame is two dictionary probe
 looks through its four-cell inventory each power step and in its feed store at most every five real seconds. The
 inventory admission hook adds one prefix comparison for containers that are not charge feeds. No capture
 accompanies this change.
+
+## 4 October: outcome tables and the gangue wash (L38)
+
+L38 — Framework 0.88.0 with Manufacturing 0.44.0: a charge with an outcome table is resolved once, at bind, by one
+hash over its bound unit ids; nothing is added to a power step. The recipe list a machine offers now skips outcome
+recipes through one dictionary probe per recipe. No capture accompanies this change.
+
+## 4 October: ledger refresh for L29 to L38
+
+The ledger file was last regenerated at L28. The reviews for L29 to L38 above were written here as each change was
+made, but the refresh that stamps the files was not run (an agent omission, found on 4 October when another session
+ran the audit). It was run once for the whole span, so every file changed between L28 and L38 carries all ten codes
+rather than only the codes of the changes that touched it. The dispositions above stand; the stamping is coarser
+than usual for these rows.

@@ -77526,8 +77526,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "0bf0e5dc6a246cccfd9693e4c75b3e7f783ca80dd54ad6c19857056dc04c0822",
-      "review": "Reviewed 4 October 2026 for Framework 0.87.0 and Manufacturing 0.43.0: the reaction mass feeder and declared remainders."
+      "sha256": "3c65c9d1ad06e5898e55858aa42d99749da8bf1a2d07ad18bfb075b0777f19dc",
+      "review": "Reviewed 4 October 2026: performance ledger refreshed for findings L29 to L38."
     },
     {
       "path": "docs/development/phobos-framework.md",
