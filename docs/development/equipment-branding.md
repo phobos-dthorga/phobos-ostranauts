@@ -108,6 +108,14 @@ visibly apart from Fennmark's graphite and burnt orange. Its model names are two
 letters for the job, a hyphen and the footprint width (AX-2). The ammonia stores
 stay Fennmark beside the other gas stores.
 
+Owner artwork direction, 5 October 2026: the approved Oxsmith finish is the quality
+reference for the other chemical reactors. The replacement V4/X2/K2, AX-2,
+LC-3/SA-3 and Copperhead-3 share more defined mechanics and restrained wear while
+keeping Fennmark graphite/orange, Tolvane teal/yellow, Lixivar sage/slate and
+Alembrine brass/copper. Silos and tanks keep their existing artwork. Model names,
+native footprints and functions are unchanged; see the
+[production record](../../assets/phobos-manufacturing/README.md).
+
 **Ablatine** is Shipbreaker's second fictional manufacturer (owner choice, 1
 October 2026), for directed-energy tooling, so that Rivetline's long salvage and
 material-handling line is not crowded further. The name comes from ablation, the
@@ -147,7 +155,8 @@ oxygen, and oxide, to smith, a worker of hot metal; it was the working proposal 
 blackened steel vessels and one ice-blue accent for oxygen fittings, apart from every
 other Phobos maker. Models follow Tolvane's pattern: two letters for the job, a hyphen
 and the footprint width (EC-4 Electrolysis Cell, CR-4 Carbothermal Reactor). Neither
-machine is built yet; the [art handoff](oxsmith-art-handoff.md) was prepared first. The
+machine is built yet; [their artwork](oxsmith-art-handoff.md) was generated first
+on 5 October 2026, with shared oxide-red/ceramic styling and distinct working parts. The
 carbon monoxide stores stay Fennmark beside the other gas stores.
 
 **Alembrine** is Manufacturing's distillery brand (owner choice, 4 October 2026, when the

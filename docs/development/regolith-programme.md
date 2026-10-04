@@ -45,7 +45,7 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 
 | Set | What | Status |
 | --- | --- | --- |
-| Art | ChatGPT handoff for the EC-4 and CR-4 | Written 5 October 2026; awaiting the owner's run |
+| Art | Oxsmith EC-4 and CR-4 artwork | Prepared 5 October 2026 with built-in Imagegen: retained 1254 x 1254 sources, 256 x 256 working masters and inspected 64 x 64 native pilots; no machine bindings yet ([handoff](oxsmith-art-handoff.md)) |
 | 0 | Products out by belt: an optional "Send products to" store for Manufacturing machines | Done: Framework 0.98.0, Manufacturing 0.49.0 |
 | 1 | Regolith leach on the LC-3, with an outcome table | Done: Manufacturing 0.50.0, odds 72/22/4/2 |
 | 2 | Volatile bake on the V4; baked regolith as a declared remainder | Done: Manufacturing 0.51.0, with set 3 |

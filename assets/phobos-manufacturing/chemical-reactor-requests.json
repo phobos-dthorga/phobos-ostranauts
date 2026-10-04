@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "provider": "OpenAI built-in Imagegen",
+  "operation": "image_gen.imagegen",
+  "ownerDirection": "Those look fantastic! Redo all the other chemical reactors likewise. The silos are fine as-is for the moment.",
+  "scope": "Seven current chemical process machines: V4, X2, K2, AX-2, LC-3, SA-3 and Copperhead-3. Preserve all existing native footprints, definition/runtime IDs, operation, ports and saved state. All stores/silos and nonreacting support equipment are outside this artwork revision.",
+  "inputProvenance": "Original Phobos Oxsmith style references and retained old Phobos machine sprites only; no game textures, screenshots, third-party art or web photographs uploaded.",
+  "registration": {
+    "script": "register-chemical-reactors.py",
+    "paletteColours": 96,
+    "fullFootprint": true,
+    "coordinateSystem": "Working-master pixels; full untouched square, origin top left, no crop or margins.",
+    "method": "BOX to four-times-native working master, 96-colour median cut without dithering, NEAREST to original native size. Neutral (128,128,255) normal map with matching opaque alpha.",
+    "familyPreview": "previews/chemical-reactor-restyle-review.png",
+    "hashes": "chemical-reactor-export-hashes.json"
+  },
+  "usage": {
+    "builtInCalls": 8,
+    "pixellabCalls": 0,
+    "cost": "Not disclosed by built-in tool; no PixelLab credit purchases."
+  },
+  "requests": [
+    {
+      "key": "v4-refinery",
+      "model": "Phobos' Fennmark V4 Volatiles Refinery",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "footprintTiles": [
+        4,
+        4
+      ],
+      "source": "source/v4-refinery-restyle-chatgpt.png",
+      "master": "registered/v4-refinery-restyled.png",
+      "native": "previews/v4-refinery-restyled-native.png",
+      "normal": "previews/v4-refinery-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "v4-refinery",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosVolatilesRefineryInstalled",
+        "nativeSize": [
+          64,
+          64
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          32,
+          32
+        ],
+        "runtime": "phobos/manufacturing/PhobosVolatilesRefinery",
+        "status": "selected",
+        "source": "source/v4-refinery.png",
+        "sourceSHA256": "db0a71cb23f4b500a10c3128b153629b87419dafe7d0857d6dfd7cf399c38040",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the approved Rivetline family. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "1cabd3c2-d5f0-4c02-90af-4ff6c025dd9d"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/v4-refinery-before-restyle.png",
+        "sha256": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Fennmark V4 Volatiles Refinery, four by four floor tiles, native 64 x 64 pixels.\nMaker palette: graphite enamel perimeter frame, restrained burnt-orange corner clamps and latch handles, pale sand refractory deck plates, blackened steel working vessels, a few dull copper bands. This is Fennmark, visibly different from oxide-red Oxsmith.\n\nThe V4 is a sealed electric hearth and drying/refining retort that cooks mined rock, dries materials and recovers gases. Draw its TOP as a strong circular charcoal hearth lid in the UPPER LEFT, with a heavy ring of bolts, an orange locking boss and a pale refractory collar. No electrode caps or electrical busbars on the lid. At UPPER RIGHT, a long rectangular strapped retort lid running vertically, with two heavy steel ribs, orange latch ends and a short copper manifold leading to a compact condensation/cooling module. At LOWER LEFT, a squared feed hatch with a broad recessed burnt-orange handle. At LOWER RIGHT, an empty wide dark residue/casting collection recess beside a coarse cooling grille. Broad quiet sand deck regions between the assemblies. Four heavy clamps integrated into the graphite frame. These shapes must remain clear at 64 x 64.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-bd244992-da39-4401-8f4d-41b3e8eb9129.png",
+      "sha256": "46bcaab3f1232fb232fda49668b15f1fe6830bef8d233915a18cb9aa3a074c84",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+          "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/v4-refinery-before-restyle.png",
+          "sha256": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c"
+        }
+      ],
+      "review": "Overhead Fennmark pilot checked at 64 x 64 before the X2/K2 family expansion. Graphite/orange frame, sealed hearth, strapped retort and residue/mould recesses remain distinct. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/v4-refinery.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "x2-processor",
+      "model": "Phobos' Fennmark X2 Chemical Processor",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "source": "source/x2-processor-restyle-chatgpt.png",
+      "master": "registered/x2-processor-restyled.png",
+      "native": "previews/x2-processor-restyled-native.png",
+      "normal": "previews/x2-processor-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "x2-processor",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosChemicalProcessorInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosChemicalProcessor",
+        "status": "selected",
+        "source": "source/x2-processor.png",
+        "sourceSHA256": "af7f666626c09fdfaf0c9b3e4345e181af84ad3fa281fb50ded43d51c7b2f815",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the approved Rivetline family. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "eead4e3d-54c8-4ad9-a01a-2eedc740216d"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/x2-processor-before-restyle.png",
+        "sha256": "0d919c0492915a383fcc7204d0723d65b382a48203eb7ac7a0575f2082025a90"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Fennmark X2 Chemical Processor, TWO BY TWO floor tiles, native 32 x 32 logical pixels. This is a small, compact machine: simplify to THREE dominant assemblies and a few large latches so it remains legible at 32 x 32.\nMaker colours: graphite enamel perimeter, burnt-orange clamps and handles, pale warm-grey/sand deck, blackened steel electrode hardware and dull copper internal plumbing; one muted cool-blue oxygen separator cap.\n\nA sealed water-electrolysis processor. LEFT HALF: a long squared pale enamel electrolysis-stack lid, running vertically, with THREE broad dark recessed electrode channels, a strong grey perimeter and an orange end latch. RIGHT HALF: two small round separator lids stacked vertically, upper one muted cool blue for oxygen and lower one charcoal steel for hydrogen, with pale collars and a short thick copper internal manifold joining to the stack. Along the BOTTOM: one narrow closed service access hatch and a short recessed cooler grille. Four simple orange corner clamps. Keep the deck areas broad, details spare and top faces completely flat. No cooling bottles, standing cylinders or visible sides. This is electrically splitting water, not a melting furnace; no hearth lid, cast-metal moulds or loose products.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-b16602e0-b3fd-4306-b1ee-76899abf5f37.png",
+      "sha256": "1b61ab94c6fec7a7cbf0ad47922da335ae20bd3e7c16303c0ddbfc1720383e65",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/v4-refinery-restyle-chatgpt.png",
+          "sha256": "46bcaab3f1232fb232fda49668b15f1fe6830bef8d233915a18cb9aa3a074c84"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/x2-processor-before-restyle.png",
+          "sha256": "0d919c0492915a383fcc7204d0723d65b382a48203eb7ac7a0575f2082025a90"
+        }
+      ],
+      "review": "Native 32 x 32 and integer enlargement inspected. Compact three-channel electrode stack and paired gas separator caps preserve the X2 identity in the Fennmark family. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/x2-processor.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "k2-reactor",
+      "model": "Phobos' Fennmark K2 Sabatier Reactor",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "source": "source/k2-reactor-restyle-chatgpt-v2.png",
+      "master": "registered/k2-reactor-restyled.png",
+      "native": "previews/k2-reactor-restyled-native.png",
+      "normal": "previews/k2-reactor-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "k2-reactor",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosSabatierReactorInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosSabatierReactor",
+        "status": "selected",
+        "source": "source/k2-reactor.png",
+        "sourceSHA256": "978000171eaa58e6f8c7a24170a8fb434ba38629891b185f5c430c1bb90fb69e",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the V4/X2/H2 family. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "a9be2935-92a1-44ad-aca2-689b32c47535"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/k2-reactor-before-restyle.png",
+        "sha256": "e2845fc53a472e2aa94bfe9311d2a42409f04a466b02bbab6a123781faba074c"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nPrecise object edit of the attached original Phobos Fennmark K2 Sabatier Reactor artwork. Retain its square canvas, exact graphite/orange/sand palette, overhead projection, outer frame and four corner clamps, round upper-left reactor, upper-right finned condenser, copper plumbing and lower-left closed water-separator service hatch.\n\nCHANGE ONLY THE LARGE RECTANGULAR SERVICE BLOCK AT THE LOWER RIGHT (approximately x 47%-91%, y 65%-91%). The present three deep mould-like cavities wrongly suggest cast metal. Replace that entire block with a CLOSED charcoal-steel gas manifold housing: one broad solid rectangular top cover, TWO squat circular bolted service caps sitting horizontally on it, and a short dull-copper pipe bridge between the caps, with a few broad fasteners at the cover corners. No open cavities, empty tray, ingot recesses, metal products, grille that looks like moulds or state instruments.\n\nKeep everything else visually unchanged and preserve the whole opaque edge-to-edge footprint. Same coherent original industrial pixel art and worn-in mechanical finish. Use the same high-resolution square dimensions as the input, with no surrounding margin or background. This is a two-by-two floor unit whose eventual game sprite is 32 x 32, so the two closed manifold caps must be broad enough to survive that reduction. No text, logos, screen, gauges, lamps, glow, perspective or visible side walls.",
+      "generatedFile": "exec-7cba2bd9-9455-47d4-af86-3716727c7523.png",
+      "sha256": "a881b1ca9beacaf26b661d0c1c227904ce66ec054b2a6909adfa9513b6b26926",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/k2-reactor-restyle-chatgpt.png",
+          "sha256": "9361dc16c905022b8eb6fb36d49e0af2dad1998518f19382895de212a2df5ba3"
+        }
+      ],
+      "attempts": [
+        {
+          "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Fennmark K2 Sabatier Reactor, TWO BY TWO floor tiles, native 32 x 32 logical pixels. Simplify to THREE substantial working blocks; broad quiet surface regions and clearly separated dark and pale masses are more useful than microdetail.\nMaker colours: graphite frame, burnt-orange perimeter clamps and lid locks, sand/cream deck, charcoal steel reactor and dull copper internal manifold. Keep it recognizably Fennmark like Image 1, not red Oxsmith.\n\nA sealed gas-reaction plant with a catalytic reactor and water recovery. UPPER LEFT: one large round dark catalyst-chamber lid with a pale insulating collar, a small copper band and TWO broad orange locking tabs, no electrical electrode caps or giant busbars. RIGHT HALF: a long rectangular dark finned condenser cartridge running vertically, with a coarse grille and copper U-shaped internal pipe returning to the reactor. LOWER LEFT: a squat pale closed water-separator lid, squared rather than a second giant circle, with a small orange recessed latch. LOWER RIGHT: a short charcoal gas-service manifold block. Everything connects wholly inside the machine deck; no ingot tray, products, external tubing, gauges or state indicators. The round reactor, fin bank and pale water separator must read individually at native 32 x 32.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+          "generatedFile": "exec-0f640aa5-04cf-45c5-96a0-4536ce8d9a7e.png",
+          "source": "source/k2-reactor-restyle-chatgpt.png",
+          "sha256": "9361dc16c905022b8eb6fb36d49e0af2dad1998518f19382895de212a2df5ba3",
+          "returnedSize": [
+            1254,
+            1254
+          ],
+          "references": [
+            {
+              "path": "assets/phobos-manufacturing/source/v4-refinery-restyle-chatgpt.png",
+              "sha256": "46bcaab3f1232fb232fda49668b15f1fe6830bef8d233915a18cb9aa3a074c84"
+            },
+            {
+              "path": "assets/phobos-manufacturing/references/k2-reactor-before-restyle.png",
+              "sha256": "e2845fc53a472e2aa94bfe9311d2a42409f04a466b02bbab6a123781faba074c"
+            }
+          ],
+          "decision": "Retained as the correction input: lower-right cavities looked like an ingot tray, incompatible with the gas reactor."
+        }
+      ],
+      "review": "Native 32 x 32 inspected after one targeted correction. Closed two-cap gas manifold replaces misleading mould-like recesses; catalyst lid, condenser and water-separator hatch are clear. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/k2-reactor.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "ax2-cracker",
+      "model": "Phobos' Tolvane AX-2 Ammonia Cracker",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "source": "source/ax2-cracker-restyle-chatgpt.png",
+      "master": "registered/ax2-cracker-restyled.png",
+      "native": "previews/ax2-cracker-restyled-native.png",
+      "normal": "previews/ax2-cracker-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "ax2-cracker",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosAmmoniaCrackerInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosAmmoniaCracker",
+        "status": "selected",
+        "source": "source/ax2-cracker.png",
+        "sourceSHA256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
+        "requestRecord": "cracker-requests.json",
+        "review": "Overhead and native-scale export inspected; Tolvane colour language (teal frame, enamel lid, yellow brackets) kept distinct from Fennmark. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "912bd9ce-a3ba-46cd-8635-1f45f994071b"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/ax2-cracker-before-restyle.png",
+        "sha256": "98acf89f01313b106baca70608a5648b05ad51181dd9cb8ffa50cd4198e03327"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Tolvane AX-2 Ammonia Cracker, TWO BY TWO floor tiles, native 32 x 32 logical pixels. Keep its compact distinctive RECTANGULAR working mechanism and three bold functional masses, with far fewer tiny parts than the larger first reference.\nTolvane colours: deep blue-green TEAL frame and protective covers, cream enamel deck, charcoal/slate catalytic hardware and SIGNAL-YELLOW corner brackets and latches. Absolutely no oxide-red frame or orange Fennmark clamps. Image 2 provides the original Tolvane palette.\n\nA sealed catalytic ammonia gas cracker. LEFT TWO THIRDS: one broad rectangular horizontal catalyst/heater cassette lid, dark slate with THREE substantial transverse steel heater straps and teal end framing, occupying most of the upper-left area. RIGHT SIDE: one narrow pale rectangular recuperator cover with TWO coarse dark cooling slots, connected by a short dark U-shaped internal manifold. BOTTOM LEFT: one simple cream square maintenance cover with a broad yellow recessed latch. BOTTOM RIGHT: TWO small flush circular gas outlet caps sitting side by side, one slate grey and one pale steel, inside a single dark block. Four wide yellow corner brackets, a few strong bolt heads, quiet pale deck gaps. No large round furnace or melting crucible, no ingot moulds, no trays, no changing hot state. The broad heater cartridge and yellow/teal family identity must survive at 32 x 32.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-5f199c11-146e-41ab-ab68-0b54e37cbb5d.png",
+      "sha256": "324a74cae686308528a7d27ed5edafa87adb2747d93919ef45a11366a9a22c7a",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+          "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/ax2-cracker-before-restyle.png",
+          "sha256": "98acf89f01313b106baca70608a5648b05ad51181dd9cb8ffa50cd4198e03327"
+        }
+      ],
+      "review": "Native 32 x 32 Tolvane pilot inspected: teal/yellow frame, broad strapped catalyst cartridge, recuperator and two gas fittings, no round furnace or ingot tray. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/ax2-cracker.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "lc3-leach-unit",
+      "model": "Phobos' Lixivar LC-3 Leach and Crystallise Unit",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "footprintTiles": [
+        3,
+        3
+      ],
+      "source": "source/lc3-leach-unit-restyle-chatgpt.png",
+      "master": "registered/lc3-leach-unit-restyled.png",
+      "native": "previews/lc3-leach-unit-restyled-native.png",
+      "normal": "previews/lc3-leach-unit-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "lc3-leach-unit",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosLeachUnitInstalled",
+        "nativeSize": [
+          48,
+          48
+        ],
+        "masterSize": [
+          96,
+          96
+        ],
+        "pivot": [
+          24,
+          24
+        ],
+        "runtime": "phobos/manufacturing/PhobosLeachUnit",
+        "status": "selected",
+        "source": "source/lc3-leach-unit.png",
+        "sourceSHA256": "6d96eaf2b9e655a45c6073c50bf2c90c8614a3c2fd829d933a5c298fcb797540",
+        "requestRecord": "round-three-requests.json",
+        "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "8aaa4141-8fd7-4146-a89f-240b5035df1a"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/lc3-leach-unit-before-restyle.png",
+        "sha256": "60d18875fde1239ce9d9595cc0dc395d023ff1eed2476ed4e326dd4b6ab2828b"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Lixivar LC-3 Leach and Crystallise Unit, THREE BY THREE tiles, native 48 x 48 logical pixels. Shared artistic finish with Image 1, but Lixivar's own palette and a hydrometallurgy machine's distinct wet-process assemblies.\nLixivar colours: muted pale SAGE enamel frame and tank covers, SLATE grey mechanisms, warm grey/cream deck, restrained copper-brown clamps and internal pump tubing. No oxide-red outer frame, no burnt-orange Fennmark corner brackets and no teal/yellow Tolvane scheme.\n\nA closed leach tank and crystalliser on one bunded square deck. UPPER LEFT: a large round slate-grey bolted leach-tank lid, with a broad sage collar and a central low square agitator drive coupling seen only from above. UPPER RIGHT: a smaller rectangular sage-enamel crystalliser housing with a circular copper-brown service cap and one broad coarse fin bank. A short thick dark internal process manifold and a squat slate pump block connect the two chambers inside the deck. LOWER LEFT: one closed square charge hatch with a broad recessed copper-brown latch. LOWER RIGHT: a broad EMPTY drying/filter cassette recess covered by a coarse dark slotted grate, with a pale sage rim. Keep the quiet deck areas broad and the large leach lid, crystalliser and filter recess individually legible at 48 x 48. Four strong slate mounting clamps with small copper-brown latch plates. No visible liquids, open acid bath, crystals, workpieces, fill indicators or state effects.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-394f2df4-31cf-4dea-91fd-f2fca014b822.png",
+      "sha256": "dc81f05c22262195975e76c1aa087f916e41c31d8cd7888d8212b606a609d676",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+          "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/lc3-leach-unit-before-restyle.png",
+          "sha256": "60d18875fde1239ce9d9595cc0dc395d023ff1eed2476ed4e326dd4b6ab2828b"
+        }
+      ],
+      "review": "Native 48 x 48 Lixivar pilot inspected before the SA-3 expansion: sage/slate leach lid, crystalliser, pump and filter cassette remain distinct, with no visible changing liquids or workpieces. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/lc3-leach-unit.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "sa3-acid-plant",
+      "model": "Phobos' Lixivar SA-3 Sulfuric Acid Plant",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "footprintTiles": [
+        3,
+        3
+      ],
+      "source": "source/sa3-acid-plant-restyle-chatgpt.png",
+      "master": "registered/sa3-acid-plant-restyled.png",
+      "native": "previews/sa3-acid-plant-restyled-native.png",
+      "normal": "previews/sa3-acid-plant-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "sa3-acid-plant",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosAcidPlantInstalled",
+        "nativeSize": [
+          48,
+          48
+        ],
+        "masterSize": [
+          96,
+          96
+        ],
+        "pivot": [
+          24,
+          24
+        ],
+        "runtime": "phobos/manufacturing/PhobosAcidPlant",
+        "status": "selected",
+        "source": "source/sa3-acid-plant.png",
+        "sourceSHA256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
+        "requestRecord": "round-three-requests.json",
+        "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "0c2615ca-5930-4de4-ac88-4acb0af0991c"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/sa3-acid-plant-before-restyle.png",
+        "sha256": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Lixivar SA-3 Sulfuric Acid Plant, THREE BY THREE tiles, native 48 x 48 logical pixels. Reference 1 is the newly reviewed LC-3 from the SAME manufacturer: match its sage/slate finish, practical fittings, overhead projection and pixel-art density, while drawing a different three-stage chemical assembly. Reference 2 is the old original SA-3 for maker colours and functional landmarks.\nLixivar colours: muted pale SAGE enamel perimeter and covers, SLATE grey vessels and internal manifolds, cream refractory deck, restrained copper-brown lid latches and pipe collars. Do not use oxide-red, teal/yellow or orange/graphite maker colours.\n\nTop-surface layout of a closed roaster, converter and absorber:\n- UPPER LEFT: a prominent ROUND blackened-slate sulfide-roaster lid with a broad pale ceramic/sage collar, FOUR large bolted copper-brown clamps and one plain closed dark centre. No glowing furnace port or electrode rods.\n- UPPER RIGHT: a long RECTANGULAR slate catalytic-converter lid with a broad sage rim, two sturdy horizontal locking ribs and a short coarse fin-bank section.\n- LOWER RIGHT: a smaller ROUND pale-sage absorber service lid with a dark grey collar and a chunky central cap, clearly different in colour and size from the roaster.\n- LOWER LEFT: a closed square charge/service hatch with a broad recessed copper-brown handle; a small rectangular recessed dry-remainder cassette cover beside it, with no material visible.\nShort THICK slate internally-lined pipe bridges join roaster to converter and converter to absorber, all staying inside the square. Four heavy slate corner clamps with small copper-brown latch plates. Make the three different working shapes and the quiet cream deck separation clear at native 48 x 48. It is the acid PROCESSING PLANT, not an acid storage tank: no giant single silo dome, open basin, liquid surface, product crystals or fill indicator.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-bd965011-2c1c-43be-90a5-e3778e5c3371.png",
+      "sha256": "1fabde36c599b6fc5c90fc3eb967303fd587c32001cdefb558aae18ef8e82744",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/lc3-leach-unit-restyle-chatgpt.png",
+          "sha256": "dc81f05c22262195975e76c1aa087f916e41c31d8cd7888d8212b606a609d676"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/sa3-acid-plant-before-restyle.png",
+          "sha256": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b"
+        }
+      ],
+      "review": "Native 48 x 48 inspected beside the LC-3. Roaster, rectangular converter and smaller pale absorber are distinct within the shared sage/slate family. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/sa3-acid-plant.png",
+        "status": "Local; not pushed"
+      }
+    },
+    {
+      "key": "copperhead3-fermenter-still",
+      "model": "Phobos' Alembrine Copperhead-3 Fermenter-Still",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "footprintTiles": [
+        3,
+        3
+      ],
+      "source": "source/copperhead3-fermenter-still-restyle-chatgpt.png",
+      "master": "registered/copperhead3-fermenter-still-restyled.png",
+      "native": "previews/copperhead3-fermenter-still-restyled-native.png",
+      "normal": "previews/copperhead3-fermenter-still-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "copperhead3-fermenter-still",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosFermenterStillInstalled",
+        "nativeSize": [
+          48,
+          48
+        ],
+        "masterSize": [
+          96,
+          96
+        ],
+        "pivot": [
+          24,
+          24
+        ],
+        "runtime": "phobos/manufacturing/PhobosFermenterStill",
+        "status": "selected",
+        "source": "source/copperhead3-fermenter-still.png",
+        "sourceSHA256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected beside the SA-3; Alembrine colour language (brass-tan frame, brushed steel vats, copper still and condenser coils). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "c45098a1-b0d1-4e85-a3ab-3d5be40afa63"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/copperhead3-fermenter-still-before-restyle.png",
+        "sha256": "1657c0b85f3432a360e80afdea7360a3fa5f4546178db56af98ace5747f256a1"
+      },
+      "status": "Selected replacement; native-size artwork review passed, owner in-game review pending.",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL, redesigned Phobos spacecraft chemical-machine sprite, in the working-spacer visual language of Ostranauts, imagined in 2075. Reference Image 1 is approved original Phobos artwork: use its coherent mechanical detail, crisp recessed components, chipped enamel, ceramic/metal material separation and strictly vertical overhead camera. Reference Image 2 is the old original Phobos sprite of THIS machine: retain its maker's established colours and useful functional landmarks, but improve the machinery design substantially. Do not copy Oxsmith's red palette, electrode layout or lettering.\n\nSquare high-resolution canvas, preferably 1536 x 1536 or larger and at least 1024 x 1024. Continuous opaque square machine deck reaches all four canvas edges and fills every corner. NO margin, floor, backdrop or transparent gaps. Back and power connection edge at TOP; crew service edge at BOTTOM. Every fitting and internal pipe stays within the square. Any external gas, water or conveyor connections are separate game objects.\n\nMachine: Phobos' Alembrine Copperhead-3 Fermenter-Still, THREE BY THREE floor tiles, native 48 x 48 logical pixels. Use the same crisp practical mechanical pixel art as Image 1 while preserving the distinctive Alembrine metals in Image 2.\nAlembrine colours: subdued aged BRASS/TAN perimeter frame and clamps, brushed warm-grey steel vats, cream deck plates, rich dull COPPER still lid and tubing. No oxide-red, graphite/orange, sage/slate or teal/yellow manufacturer palette. Metals are matte, worn-in and serviceable, with simple pixel shade steps rather than smooth shiny reflections.\n\nA combined fermentation and distillation machine viewed only from above. UPPER LEFT: one large circular brushed-steel fermenter lid in a brass collar, with a central broad agitation coupler and four squat locking tabs. UPPER RIGHT: a smaller warm copper round still-pot lid with chunky brass clamps and a short thick internal copper neck. LOWER LEFT: one smaller pale steel closed wash/settling chamber lid with a simple brass rim. LOWER RIGHT: a broad rectangular charcoal condenser recess containing a COARSE COPPER SERPENTINE COIL with THREE widely spaced return bends; its copper tube links to the still entirely within the deck. Keep all three closed lid shapes and the coil readable at 48 x 48. A short simple service hatch near the front deck seam, four bolted corner clamps and quiet cream deck regions between working blocks. No bottles, spirit glasses, drink labels, open vats, liquid surfaces or foam. This is the reactor/still itself, not the separate bottling machine.\nStyle: convincing practical industrial spaceship equipment rather than a simple flat schematic icon. Use a few dominant working assemblies, sturdy clamps, dark recesses, purposeful broad panel seams and restrained wear at fasteners. Deliberate chunky PIXEL ART: stepped edges, readable square pixel clusters, mostly flat material colours with two or three shade steps, crisp dark mechanical outlines, restrained highlights. Keep the same artistic quality as the first reference, scaled to the native pixel density specified above. No smooth gradients, dithering, excessive tiny greebles, polished reflections, dramatic lighting or product photography.\n\nAll permanent hatches are closed, product trays empty. No consumable workpieces, liquid level strip, glowing sight port, hot glow or painted working-state effects. No text, letters, numbers, logos, symbols, hazard decals, screens, dials, gauges, lamps, indicator lights or live-state instruments. No people, ground shadows, beams, floor or surrounding scene. No isometric view, tilted/diamond footprint, perspective, front/side walls or rendered height. Only top surfaces, unrotated square footprint.",
+      "generatedFile": "exec-e8b1582c-c7a2-4b22-ab2e-acedc43faf24.png",
+      "sha256": "fb776d94054cb983e7824fbf4aa464c47209251b0f7e84143052d269f1a6b948",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+          "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/copperhead3-fermenter-still-before-restyle.png",
+          "sha256": "1657c0b85f3432a360e80afdea7360a3fa5f4546178db56af98ace5747f256a1"
+        }
+      ],
+      "review": "Native 48 x 48 inspected: brass frame, grey fermenter and settling lids, copper still and broad condenser coil retain the Alembrine identity. Full opaque square, correct overhead, no text or painted live instruments. Existing footprint and runtime identity preserved.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+        "path": "assets/artwork-completion/source/copperhead3-fermenter-still.png",
+        "status": "Local; not pushed"
+      }
+    }
+  ],
+  "licensing": {
+    "providerTerms": "https://openai.com/policies/terms-of-use/",
+    "note": "Provenance separate from repository code licensing and process research. No game or third-party art supplied."
+  },
+  "status": "All seven replacement designs selected after native and 4x inspection; exported under original runtime image names. User-approved Oxsmith finish is the style baseline, distinct maker palettes retained. Owner gameplay visual review pending.",
+  "familyReview": "Compared all seven native sprites and integer enlargements; original tile footprints and bold working shapes remain readable. No silos, tanks, stores, lines, bottler, air regulator, filler, propellant manifold or reaction-mass feeder selected for replacement.",
+  "unaffectedArtworkCheck": {
+    "baselineImages": 134,
+    "changedImages": [
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCracker.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessor.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStill.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosLeachUnit.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosSabatierReactor.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png"
+    ],
+    "unchangedImages": 127,
+    "result": "Exactly the seven selected colour images changed; every other Manufacturing image, including all store/tank/silo images and all neutral normal maps, is byte-identical."
+  }
+}

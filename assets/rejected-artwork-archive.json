@@ -411,6 +411,62 @@
       "archiveCommit": "6110645617acfb16a53fe37647ecd24296f57ec7",
       "archiveStatus": "Local archive commit; not pushed",
       "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/v4-refinery.png",
+      "sha256": "db0a71cb23f4b500a10c3128b153629b87419dafe7d0857d6dfd7cf399c38040",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/x2-processor.png",
+      "sha256": "af7f666626c09fdfaf0c9b3e4345e181af84ad3fa281fb50ded43d51c7b2f815",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/k2-reactor.png",
+      "sha256": "978000171eaa58e6f8c7a24170a8fb434ba38629891b185f5c430c1bb90fb69e",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/ax2-cracker.png",
+      "sha256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/lc3-leach-unit.png",
+      "sha256": "6d96eaf2b9e655a45c6073c50bf2c90c8614a3c2fd829d933a5c298fcb797540",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/sa3-acid-plant.png",
+      "sha256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
+    },
+    {
+      "path": "assets/artwork-completion/source/copperhead3-fermenter-still.png",
+      "sha256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
+      "reason": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main.",
+      "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "archiveStatus": "Local archive commit; not pushed",
+      "archiveURL": null
     }
   ],
   "additions": [
@@ -470,6 +526,11 @@
       "commit": "6110645617acfb16a53fe37647ecd24296f57ec7",
       "date": "2026-10-04",
       "note": "Initial one-tile Medical monitor master, native colour/normal and preview, never selected or committed to main. Source retained for the revised Vigil-2; exact initial prompt and registration are in assets/phobos-medical/requests.json. Local archive; not pushed."
+    },
+    {
+      "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
+      "date": "2026-10-05",
+      "note": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main."
     }
   ]
 }

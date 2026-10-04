@@ -7,6 +7,16 @@ Steam publication was performed.
 
 ## Coverage
 
+Current chemical-machinery update, 5 October 2026: after approving the Oxsmith
+designs, the owner requested the same finish for V4, X2, K2, AX-2, LC-3, SA-3 and
+Copperhead-3. Their selected OpenAI built-in Imagegen originals and larger working
+masters retain each maker's colours, existing footprints and game image identities.
+Silos/tanks and support equipment are unchanged. See the
+[production record](../../assets/phobos-manufacturing/README.md),
+[exact prompts](../../assets/phobos-manufacturing/chemical-reactor-requests.json)
+and [native-size review](../../assets/phobos-manufacturing/previews/chemical-reactor-restyle-review.png).
+The older generation details below retain their original dates and providers.
+
 | Area | Dedicated additions |
 | --- | --- |
 | Agriculture supplies (7) | Recorded crop residue, recovered concentrate, makeup salts, progressive mixture, spent biomass, Recycler wet rejects, bulk nutrient charge |

@@ -1602,6 +1602,26 @@
   defaults and the list of figures still unverified; never cite those until checked.
   The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
   because the owner's ChatGPT plan is time-limited.
+- Owner artwork direction, 5 October 2026: use the agent's artistic judgement for
+  Oxsmith while retaining a resemblance to vanilla gameplay art. EC-4 and CR-4
+  artwork is now prepared with built-in Imagegen (two calls, no PixelLab): untouched
+  1254 x 1254 sources, 256 x 256 working masters, 64 x 64 native pilots, opaque 4 x 4
+  footprints. Keep oxide-red enamel, ceramic decks, charcoal steel and small ice-blue
+  oxygen fittings. The EC-4 overhead pilot was inspected before serving as the CR-4's
+  family reference. No glowing sight ports, live instruments or changing workpieces;
+  the CR-4's paired domes use a compact vertical layout. Exact requests, registration,
+  review and hashes are in `assets/phobos-manufacturing/oxsmith-requests.json`.
+  Neither machine is implemented or bound to runtime images yet.
+- Owner approved the Oxsmith artwork and requested the same finish for all other
+  chemical reactors on 5 October 2026, excluding silos. V4, X2, K2, AX-2, LC-3,
+  SA-3 and Copperhead-3 replacements retain native dimensions, image IDs, maker
+  palettes and all gameplay. Eight built-in Imagegen calls include one K2 gas
+  manifold correction; exact requests, references, review and archive receipt are
+  in `assets/phobos-manufacturing/chemical-reactor-requests.json`. The completion
+  exporter binds the reviewed masters. All other Manufacturing images, including
+  stores/tanks/silos and neutral normals, were verified unchanged. Use the common
+  machinery registration scripts for reproducible masters and
+  `scripts/archive-artwork.py` for future verified archive appends.
 
 ## Mining laser direction (2026-10-01)
 

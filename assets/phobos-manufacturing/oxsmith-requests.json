@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "provider": "OpenAI built-in Imagegen",
+  "operation": "image_gen.imagegen",
+  "mod": "PhobosManufacturing",
+  "ownerDirection": "Refer to your own style guidelines while maintaining a semblance to Ostranauts' vanilla gameplay artwork where possible.",
+  "status": "Owner-approved artwork design; neither Oxsmith machine implemented or runtime-bound. Owner in-game review pending.",
+  "inputProvenance": "Only original Phobos artwork was supplied: the Fennmark V4 for the EC-4, then the reviewed EC-4 for the CR-4. Blue Bottle Games' vanilla equipment style is described in the local ship-equipment art study; no game texture, screenshot, third-party mod art, web photo or manufacturer drawing was supplied to Imagegen.",
+  "usage": {
+    "builtInCalls": 2,
+    "pixellabCalls": 0,
+    "cost": "Not disclosed by the built-in tool; no PixelLab paid-credit generation or purchase."
+  },
+  "registration": {
+    "script": "register-oxsmith.py",
+    "coordinateSystem": "Registered master pixels, top-left origin; source crop is the complete original canvas.",
+    "footprintTiles": [
+      4,
+      4
+    ],
+    "masterSize": [
+      256,
+      256
+    ],
+    "nativeSize": [
+      64,
+      64
+    ],
+    "fullFootprint": true,
+    "paletteColours": 96,
+    "method": "Whole opaque square, BOX reduction to 256 x 256, 96-colour median cut without dithering, NEAREST reduction to 64 x 64. Neutral (128,128,255) normal map with matching alpha. No altered footprint or added machine code.",
+    "familyPreview": "previews/oxsmith-family-review.png"
+  },
+  "comparisons": [
+    {
+      "name": "Fennmark V4",
+      "path": "assets/phobos-manufacturing/references/v4-refinery-before-restyle.png",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "sha256": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c",
+      "originalPath": "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png",
+      "role": "Preserved exact native baseline used in the initial Oxsmith review, before the owner requested a restyle."
+    },
+    {
+      "name": "Lixivar LC-3",
+      "path": "assets/phobos-manufacturing/references/lc3-leach-unit-before-restyle.png",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "sha256": "60d18875fde1239ce9d9595cc0dc395d023ff1eed2476ed4e326dd4b6ab2828b",
+      "originalPath": "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosLeachUnit.png",
+      "role": "Preserved exact native baseline used in the initial Oxsmith review, before the owner requested a restyle."
+    },
+    {
+      "name": "Lixivar SA-3",
+      "path": "assets/phobos-manufacturing/references/sa3-acid-plant-before-restyle.png",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "sha256": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b",
+      "originalPath": "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png",
+      "role": "Preserved exact native baseline used in the initial Oxsmith review, before the owner requested a restyle."
+    }
+  ],
+  "requests": [
+    {
+      "key": "oxsmith-ec4",
+      "model": "Phobos' Oxsmith EC-4 Electrolysis Cell",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nUse case: stylized-concept.\nAsset type: original Phobos Ostranauts world-equipment artwork; Oxsmith EC-4 molten-rock electrolysis cell, a four-by-four-tile industrial unit for a working spacecraft in 2075.\n\nThe attached image is our ORIGINAL Phobos Fennmark V4 sprite. Use it only as reference for strict overhead projection, compact mechanical blocks, broad readable pixel clusters and restrained lighting. Invent a different machine and use Oxsmith's own colours. Do not copy the V4's orange fittings, layout or central burner.\n\nSquare canvas, preferably 1536 x 1536 or larger, at least 1024 x 1024. Make a deliberate pixel-art equipment design that will read at 64 x 64 logical pixels, not a smooth rendering with a pixel filter. The complete square chassis fills all four canvas edges; continuous opaque deck beneath every component and at every corner, with NO surrounding background or margin. Straight horizontal/vertical edges, unrotated footprint. Head/back at TOP, crew service side at BOTTOM.\n\nOxsmith palette: subdued deep iron-oxide red enamel perimeter frame, warm pale refractory ceramic deck tiles, blackened charcoal steel and small cool ice-blue oxygen fittings. Red is rusty burgundy, not bright scarlet; the pale deck gives the dark working parts space to read. Practical, worn-in, repairable industrial spaceship machinery: broad chipped paint marks at clamp corners, a few fasteners, short seams, sparse purposeful detail.\n\nClear visual hierarchy:\n- A large ROUND sealed charcoal steel cell lid slightly above the centre, occupying roughly half the width, with a broad pale ceramic collar and a simple perimeter ring of heavy bolts.\n- THREE substantial electrode feedthrough caps visible only from above, seated flush in the cell lid; TWO broad dark electrical busbars connect them toward the TOP edge. No upright rods with visible sides.\n- One compact ice-blue oxygen offtake cap in the upper-right service area.\n- A squared inset charge hatch at the LOWER LEFT, with a wide oxide-red recessed handle.\n- An EMPTY dark tapping tray with THREE broad rectangular mould recesses at the LOWER RIGHT. No metal ingots, molten material or changing workpieces painted into the permanent chassis.\n- A narrow cooler grille down the LEFT edge, and four strong frame corner clamps.\nKeep connections entirely inside the chassis. Keep the circle, hatch and tray visibly distinct in silhouette and value. Do not cram the plate with tiny decorative greebles.\n\nPIXEL ART: chunky stepped outlines, mostly flat material fills with two or three restrained local shade steps, crisp blocky highlights and shadows, no dithering, no smooth gradients, no polished reflections, no cinematic lighting. Top surfaces only. Match the practical visual language of Ostranauts' vanilla ship equipment while drawing an entirely original design.\n\nNo text, letters, numerals, logos, symbols, warning decals, screens, dials, gauges, indicator lamps, status lights or painted live-state instruments. No glowing sight port, magical glow or emissive effects. No people, floor, scenery, shadows outside the machine, transparent gaps, cables or pipes leaving its square. No perspective, isometric view, slanted diamond, visible front/side walls, bevelled product-render thickness or photorealism.",
+      "generatedFile": "exec-bc92e1e7-4ebb-4f3c-944f-d74c5e0a9c8c.png",
+      "source": "source/oxsmith-ec4-chatgpt.png",
+      "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "reference": {
+        "path": "assets/phobos-manufacturing/references/v4-refinery-before-restyle.png",
+        "sha256": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c",
+        "role": "Original Phobos overhead equipment layout, pixel density and restrained shading; Oxsmith uses a distinct new palette and working assembly.",
+        "originalPath": "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png"
+      },
+      "review": "Pilot inspected at 64 x 64 and 4x before the reactor request. Strict overhead, full opaque square, no text or state instruments; three electrode caps and two busbars, oxygen cap, bottom charge hatch and empty three-mould tray remain distinct. Prepared for owner review, not a runtime asset.",
+      "handoffAdjustments": "User delegated artistic judgement: stronger readable hierarchy, 256 x 256 working master, no glowing sight port, flush top-facing electrode caps instead of standing rods and empty moulds with no changing workpieces.",
+      "master": "registered/oxsmith-ec4.png",
+      "native": "previews/oxsmith-ec4-native.png",
+      "normal": "previews/oxsmith-ec4-nativeNormal.png"
+    },
+    {
+      "key": "oxsmith-cr4",
+      "model": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nUse case: stylized-concept.\nAsset type: original Phobos Ostranauts world-equipment artwork; Oxsmith CR-4 carbothermal reactor, a four-by-four-tile industrial unit for a working spacecraft in 2075.\n\nThe attached image is the newly reviewed ORIGINAL Phobos Oxsmith EC-4. Use it as a FAMILY STYLE reference: identical oxide-red perimeter frame, pale refractory ceramic deck, charcoal steel, mounting clamps, maintenance wear and understated ice-blue oxygen fittings. Preserve its strict overhead camera, square footprint and pixel-art density, but draw a clearly DIFFERENT reactor, with no electrode busbars and no three-slot ingot tray.\n\nSquare canvas, preferably 1536 x 1536 or larger, at least 1024 x 1024. A deliberate pixel-art assembly designed to read at 64 x 64 logical pixels, not a smooth product rendering with a pixel filter. Continuous opaque square deck fills all four canvas edges and all corners; NO background, margin or transparent gaps. Horizontal and vertical frame edges. Back/power edge at TOP, crew service edge at BOTTOM.\n\nThe fictional machine is a sealed high-temperature rock-processing reactor with an internal gas circuit. Its visual hierarchy:\n- One dominant round BLACKENED STEEL reactor lid in the UPPER LEFT, about half the canvas width, with a broad pale ceramic collar, heavy flange bolts and SIX chunky gas-injector caps arranged around its perimeter. The centre of this lid is a plain dark closed plate, with no electrical rods or electrode fittings.\n- TWO smaller round gas-service domes SIDE BY SIDE in the UPPER RIGHT, one dark charcoal steel and one pale ceramic. A short thick dark manifold connects them to the reactor vessel, wholly inside the deck.\n- One small quiet ICE-BLUE valve fitting beside the domes: a solid mechanical cap, never a display or indicator.\n- A square inset charge hatch at LOWER LEFT, with the same broad recessed oxide-red handle and service framing as the EC-4.\n- A single broad EMPTY dark slag/service trough with a coarse protective grille at LOWER RIGHT, visually different from EC-4's three ingot moulds. No slag, molten rock, ingots, hot glow or changing workpieces permanently painted into it.\n- Four heavy corner clamps and a few useful rectangular ceramic maintenance covers around the assembly.\nUse the larger vessel and paired domes to give this machine a distinct silhouette at a glance. Avoid decorative tiny fittings and tangled hoses. No pipe or cable crosses the outer frame.\n\nColour and finish match the attached EC-4: subdued rusty burgundy/deep oxide-red enamel; warm pale cream ceramic plates; blackened charcoal steel; ice-blue restricted to one oxygen fitting. Broad restrained chipped paint at clamp corners, simple panel seams and sparse fasteners. Cash-strapped working-spacer machinery, practical and serviceable rather than polished luxury.\n\nPIXEL ART with broad purposeful square pixel clusters, stepped curves and edges, mainly flat material regions and two or three local shade steps. Crisp dark recesses, restrained highlights, no dithering or smooth gradients, no photorealistic reflections or cinematic lighting. Match Ostranauts' vanilla mechanical visual language while creating wholly original Phobos artwork.\n\nNo text, letters, numerals, logos, symbols, warning decals, screens, dials, gauges, lamps, status lights or painted live-state instruments. No glowing sight port, emissive light or magical effects. No people, floor, scenery, outside shadows, transparent gaps or connections outside the square. No perspective, isometric projection, diamond footprint, three-quarter view, visible front/side walls or product-render thickness.",
+      "generatedFile": "exec-15602270-8f3b-45a3-ad7d-2c7b6e54a5ee.png",
+      "source": "source/oxsmith-cr4-chatgpt.png",
+      "sha256": "6389ae2bbe3ab735919da97a51112f4491558779ab8e127913d77e9b5e4d5ac2",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "reference": {
+        "path": "assets/phobos-manufacturing/source/oxsmith-ec4-chatgpt.png",
+        "sha256": "c51c04572431be02304bf80adb33691032a5ad403ced8b93330cd3f293ddaeff",
+        "role": "Original reviewed Oxsmith family pilot: material palette, frame, camera, scale, charge-hatch design and restrained wear."
+      },
+      "review": "Overhead and full opaque square. Large upper-left plain reactor lid with six injector caps, paired gas domes on the right, matching lower-left hatch and coarse lower-right empty grille trough. The domes are stacked along the right edge rather than side by side; accepted as a clearer compact layout within the same family. Native-scale family and V4/LC-3/SA-3 comparison inspected; the six-cap vessel and paired domes remain readable.",
+      "handoffAdjustments": "Same permanent-art constraints as EC-4: no glowing sight port, live indicators or changing workpieces. Paired domes stacked vertically instead of horizontally; distinct plain reactor lid and grille tray.",
+      "master": "registered/oxsmith-cr4.png",
+      "native": "previews/oxsmith-cr4-native.png",
+      "normal": "previews/oxsmith-cr4-nativeNormal.png"
+    }
+  ],
+  "licensing": {
+    "providerTerms": "https://openai.com/policies/terms-of-use/",
+    "note": "Artwork provenance is separate from repository code licensing and research attribution. These references make no new legal determination or claim of validated reactor engineering."
+  },
+  "familyReview": "Both 64 x 64 sprites and 4x integer enlargements inspected beside original V4 (64 x 64), LC-3 and SA-3 (48 x 48). Oxsmith colour blocks and darker working assemblies are visibly a separate family; cell electrodes/three-mould tray and reactor injector ring/paired domes/grille remain distinguishable. Strict overhead, full opaque edge coverage and no painted state instruments. Owner in-game lighting and rotation review pending.",
+  "ownerApproval": {
+    "date": "2026-10-05",
+    "message": "Those look fantastic! Redo all the other chemical reactors likewise. The silos are fine as-is for the moment.",
+    "scope": "Oxsmith artistic design approved; machines remain unimplemented and game lighting/rotation unreviewed."
+  }
+}

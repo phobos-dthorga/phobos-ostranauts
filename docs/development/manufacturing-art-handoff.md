@@ -1,5 +1,23 @@
 # Fennmark artwork handoff: V4, X2, H2 and Manufacturing stock
 
+## Current chemical-machinery revision
+
+On 5 October 2026, after approving the Oxsmith artwork, the owner requested that
+same finish for the other chemical reactors. V4, X2, K2, AX-2, LC-3, SA-3 and
+Copperhead-3 now have selected high-resolution original replacements, registered
+to their existing native sizes and game image names. Each retains its maker's
+colours and functional shape. Silos, stores and other support equipment are
+unchanged. [Requests and provenance](../../assets/phobos-manufacturing/chemical-reactor-requests.json),
+[native-size review](../../assets/phobos-manufacturing/previews/chemical-reactor-restyle-review.png)
+and [current production notes](../../assets/phobos-manufacturing/README.md) document
+the update. Game lighting and rotation remain for the owner to check.
+
+The 29 September generation details below are history. Previous selected working
+masters are preserved in the archive; their original PixelLab jobs and source
+hashes remain recorded alongside the new artwork rather than being rewritten.
+
+## Initial Fennmark pass (29 September 2026)
+
 Prepared and **produced the same day with PixelLab**, 29 September 2026, for
 Manufacturing 0.1.0. Owner review of the art in play (scale, lighting, damage
 tint) is pending. Requests, seeds, job IDs, costs and reviews are in

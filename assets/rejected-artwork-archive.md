@@ -1,5 +1,18 @@
 # Rejected artwork archive
 
+## Chemical machinery revision, 5 October 2026
+
+Seven previously selected working masters (V4, X2, K2, AX-2, LC-3, SA-3 and
+Copperhead-3) were verified byte for byte in local commit
+`4b2c15852cdd78e02b61abe328e1b9dd8d173825` on `codex/rejected-artwork` before
+removal from main. The commit has not been pushed. Their original PixelLab
+records and hashes remain in the [replacement provenance](phobos-manufacturing/chemical-reactor-requests.json).
+Earlier native sprites remain required generation/review inputs on main; new
+sources and selected working masters are retained for the owner-requested restyle.
+All silos/tanks and other support art are unchanged. [archive-artwork.py](../scripts/archive-artwork.py)
+provides the repeatable isolated-index archive route, checks selected-source and
+path guards, verifies exact stored bytes, then removes only the named assets.
+
 ## Medical monitor size revision, 4 October 2026
 
 The original one-tile Vigil-1 master, native colour/normal and preview were

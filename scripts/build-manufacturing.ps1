@@ -12,6 +12,10 @@ if ($LASTEXITCODE -ne 0) { throw 'Manufacturing chemistry and record checks fail
 # The native suite prepares every content mod; Shipbreaker's projects must build first for the steel charge.
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot
 if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
+& python (Join-Path $repoRoot 'assets/phobos-manufacturing/register-chemical-reactors.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Chemical reactor master registration check failed.' }
+& python (Join-Path $repoRoot 'assets/phobos-manufacturing/register-oxsmith.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Oxsmith master registration check failed.' }
 & python (Join-Path $PSScriptRoot 'export-completion-art.py') --check
 if ($LASTEXITCODE -ne 0) { throw 'Artwork export check failed.' }
 & python (Join-Path $PSScriptRoot 'export-line-art.py') --check

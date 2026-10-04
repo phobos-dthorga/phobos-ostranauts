@@ -77983,8 +77983,8 @@
       "path": "docs/development/artwork-completion.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "1a224aa2fe006f7ca08109e3485cb083d7fad08a4d0e96d9e7e702f6c6d2a856",
-      "review": "2026-09-29: bulk silo pass section; native checks cover every selected binding."
+      "sha256": "0edad415ea4edeccc26223a524c53ca15bc9a4d6e4fe6bf7682673f483d55199",
+      "review": "5 October 2026: reviewed the current seven-machine chemical artwork update and its links. Existing generation details remain dated history. Maker palettes, footprints and image identities are preserved; sources, exact prompts and native-size review are linked. No gameplay or in-game rendering validation is claimed."
     },
     {
       "path": "docs/development/artwork-resolution-policy.md",
@@ -78146,8 +78146,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "256da50c4e98a456349f8cad39ab11fce0653c2a4c2d111f00c039fe0f6d7a63",
-      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
+      "sha256": "944b602831bbfb72ebd6402fe45cbe2cda65e1bf6eb407683920dbd6c6cabc3e",
+      "review": "5 October 2026: reviewed the seven replacement chemical-machine designs against established brand assignments. Fennmark graphite/orange, Tolvane teal/yellow, Lixivar sage/slate and Alembrine copper/brass remain distinct. Oxsmith keeps its original oxide-red/ceramic family and planned-machine status. Names, functions and footprints are unchanged."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -78331,8 +78331,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "56ce1b746c7c56f98629f20ee51aaf1dd872a497bb846e1c19646d923e792016",
-      "review": "Reviewed 2026-10-01 for the set 2 shared foundations (Framework 0.56.0, Manufacturing 0.22.0, Shipbreaker 0.52.0, Agriculture 0.29.0): line networks and lanes, shared stores, the shared panel host and load-time conversion; guides, records and current versions; direct player text."
+      "sha256": "6eb633d17f929c0dc8c2844f4803f3477ac60916119dc1cdd97cf49a314338ae",
+      "review": "5 October 2026: reviewed the current chemical-machinery revision, seven named machines and its provenance links. Earlier PixelLab generation details remain history, with archived masters and original provider records preserved. Silos and support equipment are unchanged; game lighting and rotation await owner review."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -78944,8 +78944,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6d09a886c7c80901d54ed71d8cbf0b43b95115b480a2e970ca1da628ced2dc02",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "903714eebb581a82383f6083ac76d4543234bf15061bc0805fa25aca344fb74d",
+      "review": "5 October 2026: reviewed current controls, requirements, limits and artwork credit. The page identifies the replaced chemical-machine art and unchanged silos; PixelLab/OpenAI artwork records remain separate and Oxsmith machines remain planned. The draft fits the 7500-byte limit without VDF-prohibited quotes or backslashes."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -78986,15 +78986,15 @@
       "path": "docs/development/oxsmith-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "new",
-      "sha256": "d4129f23eb5630fe2806877dd7a66f6a780faf6ed71247c2d78def7311d0d617",
-      "review": "5 October 2026: regolith programme record, Oxsmith brand entry and art handoff added; development records, reviewed for plain wording."
+      "sha256": "4d710e19e9096173609fe487e76eef16dcf4d21efdc852b5ea74e14c536197e5",
+      "review": "5 October 2026: reviewed exact prompts, source hashes, native family preview and repeatable registration. Both designs are owner-approved; their machines remain unimplemented. Before-restyle comparison inputs remain historical snapshots; current chemical-machine review is linked separately. Original owner-run instructions remain history; no game installation or oxygen production is claimed."
     },
     {
       "path": "docs/development/regolith-programme.md",
       "scope": "contributor decision record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "38974434df8a5a55c36427496684225e0bc1a6c563859541161e62585ce5c324",
-      "review": "5 October 2026: regolith in the V4 and the sintered regolith floor (Manufacturing 0.51.0); new messages and names, the guide section, changelog, item reference entries and records reviewed against the player-language rules."
+      "sha256": "2c6b1ea44c6233cd7698c80fb7a355034a8cc96aa315da36d34df0df4c8ed2ff",
+      "review": "5 October 2026: reviewed the programme record and updated only its artwork status. Prepared Oxsmith sources, 256-pixel working masters and 64-pixel native reviews are linked; machines remain unimplemented. Owner choices, delivered release sets and explicitly unverified scientific figures are preserved."
     }
   ],
   "surfaces": [

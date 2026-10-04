@@ -1497,7 +1497,7 @@
   },
   {
     "key": "v4-refinery",
-    "sourceSHA256": "db0a71cb23f4b500a10c3128b153629b87419dafe7d0857d6dfd7cf399c38040",
+    "sourceSHA256": "9636cdd5b91aa31263003a08c8793a029192917ee8962db5e0f2f90d09cb803f",
     "nativeSize": [
       64,
       64
@@ -1509,11 +1509,11 @@
     "sourceBounds": [
       0,
       0,
-      128,
-      128
+      256,
+      256
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png": "746d8260992c6774904444d74088b47f53aae7883f3efe1b6809a6c572cac2c0",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefineryNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -1523,7 +1523,7 @@
   },
   {
     "key": "x2-processor",
-    "sourceSHA256": "af7f666626c09fdfaf0c9b3e4345e181af84ad3fa281fb50ded43d51c7b2f815",
+    "sourceSHA256": "0f51b997f23b882a37566d0c9d495a1dce5bff4cee50507041fff1671bd5395f",
     "nativeSize": [
       32,
       32
@@ -1539,7 +1539,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessor.png": "0d919c0492915a383fcc7204d0723d65b382a48203eb7ac7a0575f2082025a90",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessor.png": "fe69ce7ddccf8e5fc258cdb4fbbfc0571294d07523f8c353d8ba2c2630357dad",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -1825,7 +1825,7 @@
   },
   {
     "key": "k2-reactor",
-    "sourceSHA256": "978000171eaa58e6f8c7a24170a8fb434ba38629891b185f5c430c1bb90fb69e",
+    "sourceSHA256": "cca7e117658640f27209b33a6ef042e75e5ce090b7a61f5c406dbecc6e88b8a1",
     "nativeSize": [
       32,
       32
@@ -1841,7 +1841,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosSabatierReactor.png": "e2845fc53a472e2aa94bfe9311d2a42409f04a466b02bbab6a123781faba074c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosSabatierReactor.png": "d84f202dcd43d4d0b2f0fa044da555e42b4e57007f280ad83bf946183c553f27",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosSabatierReactorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -2629,7 +2629,7 @@
   },
   {
     "key": "ax2-cracker",
-    "sourceSHA256": "ca10eb96e02a8eac2bccb1c8fe4e4235230dfccfc0fe1422d9e2777df6fb29ba",
+    "sourceSHA256": "8e4f640d6bc7328f7f0e759213223a4a80ac1d1300fedb0b14fc2100e012fb44",
     "nativeSize": [
       32,
       32
@@ -2645,7 +2645,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCracker.png": "98acf89f01313b106baca70608a5648b05ad51181dd9cb8ffa50cd4198e03327",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCracker.png": "3fa8814975ba3a26d75160dcb700bf12a667a1a643d777e11a25a2da1248df0f",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaCrackerNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -2655,7 +2655,7 @@
   },
   {
     "key": "lc3-leach-unit",
-    "sourceSHA256": "6d96eaf2b9e655a45c6073c50bf2c90c8614a3c2fd829d933a5c298fcb797540",
+    "sourceSHA256": "5fbbda3fe25a4154693df34061f794a1e9fe3c8905308fe3f60ff2b87aaf3c4d",
     "nativeSize": [
       48,
       48
@@ -2667,11 +2667,11 @@
     "sourceBounds": [
       0,
       0,
-      96,
-      96
+      192,
+      192
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosLeachUnit.png": "60d18875fde1239ce9d9595cc0dc395d023ff1eed2476ed4e326dd4b6ab2828b",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosLeachUnit.png": "e4252e3b6def2b5413e96d3325bdc387c96ff3c0af4c8d1f9dacc445b93db044",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosLeachUnitNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -2959,7 +2959,7 @@
   },
   {
     "key": "sa3-acid-plant",
-    "sourceSHA256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
+    "sourceSHA256": "5bf827a1669f4ebd22eb538c63a775e3cb945eabd90c4fcd5fa371df4b8f8056",
     "nativeSize": [
       48,
       48
@@ -2971,11 +2971,11 @@
     "sourceBounds": [
       0,
       0,
-      96,
-      96
+      192,
+      192
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png": "be490848d993e334a4cb511725659d6e9305d73747f6d6356f9e251d78961ffb",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlantNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -2985,7 +2985,7 @@
   },
   {
     "key": "copperhead3-fermenter-still",
-    "sourceSHA256": "e9f900d01259b178fb8b20f1beb32d47341bf239055bf14b6d214dbdb82aa364",
+    "sourceSHA256": "a064ed4603f650cf9ccbafcc0df6a2f999e54322f0fa0d4bff5b7eb42dadd67b",
     "nativeSize": [
       48,
       48
@@ -2997,11 +2997,11 @@
     "sourceBounds": [
       0,
       0,
-      96,
-      96
+      192,
+      192
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStill.png": "1657c0b85f3432a360e80afdea7360a3fa5f4546178db56af98ace5747f256a1",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStill.png": "221cfbffec180e1616ee9694bab6cbf0a3bc146f2029a4c1206c8ea7a7e1d688",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosFermenterStillNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
