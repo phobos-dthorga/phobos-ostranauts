@@ -67,6 +67,19 @@
       "art": "PhobosElectrolysisCell",
       "installTab": "APPS",
       "points": { "use": [ 0, -40 ], "PowerA": [ -24, 40 ], "PowerB": [ 24, 40 ] }
+    },
+    "PhobosCarbothermalReactor": {
+      "notes": "Oxsmith CR-4 Carbothermal Reactor (Manufacturing 0.53.0): a heated reaction vessel that reduces molten rock with methane, one lump of loose regolith or one chunk of Silicates ore at a time. Its 30 kW is half the EC-4's; a regolith charge's reductions absorb 24.6 of its 30 kWh, and the rest, 18 percent, warms the room (before the player's machine heat setting).",
+      "kind": "charge-machine",
+      "footprint": 4,
+      "massKg": 380,
+      "idleKW": 0.2,
+      "workingKW": 30,
+      "roomHeatFraction": 0.18,
+      "feedCells": 2,
+      "art": "PhobosCarbothermalReactor",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -40 ], "PowerA": [ -24, 40 ], "PowerB": [ 24, 40 ] }
     }
   }
 }

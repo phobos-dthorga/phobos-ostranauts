@@ -77,5 +77,10 @@
   "Cell.name": { "brand": "Oxsmith", "model": "EC-4" },
   "Cell.feed_name": { "brand": "Oxsmith", "model": "EC-4" },
   "Material.PhobosFerrosilicon": { "brand": "Oxsmith", "model": "" },
-  "Material.PhobosSpentFerrosilicon": { "brand": "Lixivar", "model": "" }
+  "Material.PhobosSpentFerrosilicon": { "brand": "Lixivar", "model": "" },
+  "Carbothermal.name": { "brand": "Oxsmith", "model": "CR-4" },
+  "Carbothermal.feed_name": { "brand": "Oxsmith", "model": "CR-4" },
+  "CarbonMonoxide.name": { "brand": "Fennmark", "model": "Z2" },
+  "CarbonMonoxide.name_medium": { "brand": "Fennmark", "model": "Z3" },
+  "CarbonMonoxide.name_large": { "brand": "Fennmark", "model": "Z4" }
 }

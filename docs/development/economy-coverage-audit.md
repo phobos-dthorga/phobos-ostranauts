@@ -152,6 +152,12 @@ Manufacturing machines at parity (routes, lots, engineering salvage, component r
 Restore, mass-balanced dismantling, the high-salvage mark, the Trusted faction tier).
 Ferrosilicon and spent ferrosilicon are never sold.
 
+Later addition (Manufacturing 0.53.0, 5 October 2026): the Oxsmith CR-4 joins the
+Manufacturing machines and the Fennmark Z2, Z3 and Z4 carbon monoxide stores join the
+store ladder at parity (routes, lots, the small store in engineering salvage, component
+repair, Restore, mass-balanced dismantling, the high-salvage mark, Trusted and Friendly
+faction tiers). Carbon monoxide is bought back at the kiosk and never sold.
+
 Later addition (Manufacturing 0.20.0, 30 September 2026): no new equipment. The
 LC-3's Epsom salt, ammonium sulfate and olivine leach cake are never sold by
 merchants, and its crop nutrients go only into a hopper; bagged into bulk

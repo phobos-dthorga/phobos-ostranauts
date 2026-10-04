@@ -11,6 +11,8 @@ public static class ManufacturingRules
         Content = "PhobosManufacturingContent";
     /// <summary>The commodity every registered water vessel holds (Shipbreaker's S3, Agriculture's R3) and ours.</summary>
     public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane", Oxygen = "oxygen", Nitrogen = "nitrogen", CarbonDioxide = "carbon dioxide", Ammonia = "ammonia";
+    /// <summary>Carbon monoxide (Manufacturing 0.53.0): a game gas, stored by the Fennmark Z stores.</summary>
+    public const string CarbonMonoxide = "carbon monoxide";
     /// <summary>Agriculture's hopper commodity (Agriculture 0.27.0 <c>HopperRules.Commodity</c>), named as a string only:
     /// the LC-3's complete formulation deposits into a linked hopper. A native check keeps the two equal.</summary>
     public const string CropNutrients = "crop nutrients";

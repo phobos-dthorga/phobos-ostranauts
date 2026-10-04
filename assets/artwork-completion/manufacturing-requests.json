@@ -251,6 +251,34 @@
           44
         ]
       }
+    },
+    "z2/z3/z4 carbon monoxide stores": {
+      "from": [
+        "source/n2-nitrogen-store.png",
+        "source/n3-nitrogen-store.png",
+        "source/n4-nitrogen-store.png"
+      ],
+      "to": [
+        "source/z2-carbon-monoxide-store.png",
+        "source/z3-carbon-monoxide-store.png",
+        "source/z4-carbon-monoxide-store.png"
+      ],
+      "method": "Pixels with hue 190-250 degrees, saturation >= 0.35 and value >= 0.35 (the nitrogen domes) are mapped by luminance onto a signal-red ramp; frame, clamps, band, hub and alpha unchanged (Manufacturing 0.53.0, 5 October 2026; no generation spend). Red follows the gas-cylinder convention for flammable gases.",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          1.15,
+          70
+        ],
+        "g": [
+          0.32,
+          10
+        ],
+        "b": [
+          0.28,
+          8
+        ]
+      }
     }
   },
   "rejectedArchive": "codex/rejected-artwork commit c8058814490820a6600d830e67c5d1aca7c1e404 (corker2-bottling-unit-v1, alembrine-spirit-v1). Every other unselected output is a retained generation input of a selected one.",

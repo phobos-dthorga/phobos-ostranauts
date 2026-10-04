@@ -252,7 +252,7 @@ you earn by selling them mining output.
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
 | Friendly (50) | D4 and R4, G4 grabber, ML-2 mining laser; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
-| Trusted (75) | F6 furnace; X2, AX-2, K2, V4, LC-3, SA-3 and EC-4 |
+| Trusted (75) | F6 furnace; X2, AX-2, K2, V4, LC-3, SA-3, EC-4 and CR-4 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
 faction a little, as it does for vanilla goods. Stock arrives in the usual lots
@@ -967,3 +967,20 @@ mainboards, six heat sinks, a screen and 49 kg of retained trash (420 kg); broke
 122 kg of trash. It carries the high-salvage mark, shares the other machines' routes and
 sells at Trusted faction-kiosk standing. Ferrosilicon is 2 cr a 2.2 kg unit and is not sold
 by any merchant; spent ferrosilicon is a terminal remainder at the technical minimum.
+
+## Manufacturing 0.53.0: the Oxsmith CR-4 and the Z carbon monoxide stores
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Oxsmith CR-4 carbothermal reactor | 380 kg | $72,000 | $18,000 | 2400 / 1800 | 7000 | 1800 | 165 min |
+| Fennmark Z2 carbon monoxide store | 160 kg | $20,000 | $5,000 | 1200 / 1000 | 3000 | 900 | 60 min |
+
+The CR-4 is priced between the V4 and the EC-4 (agent default, open to owner revision):
+repair takes 5 steel, 3 aluminium, 7 mechanical and 9 electronic parts, three motors, two
+mainboards, three heat sinks and a screen. Intact salvage is 230 steel, 55 aluminium, 28
+mechanical and 18 electronic parts, three motors, two mainboards, five heat sinks, a screen and
+50 kg of retained trash (380 kg); broken salvage is 205 steel, 45 aluminium, 12 mechanical and
+6 electronic parts, two motors, two heat sinks and 113 kg of trash. It sells at Trusted
+faction-kiosk standing. The Z2 is billed exactly like the other gas stores; the Z3 and Z4
+follow the store size ladder (32,530 and 45,950 cr), purchase-only, at Friendly. Stations do
+not sell carbon monoxide; the kiosk buys it back at 45% of the game's own 1.1 cr/kg.

@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "revisions": {
     "acid-plant@1": "18355316df84db7f364c2fd0746618bd8c802eb7a722f6c6e3b7396f54f096b1",
+    "carbothermal-reactor@1": "b11a7ca38ea6eff934bd556e581bc63c64e1ecf3c0250c6cf870894267028c7d",
+    "carbothermal-reactor@2": "e980e1e2b218fdc168a84b4e821c057ce66f4cb2495f22cbd15600b7035c07f3",
     "electrolysis-cell@1": "b1c60f6726f41ca7cdc4efcdc0d1902fa52cbe49f1b644a8fe15b4457002553f",
     "electrolysis-cell@2": "c50a31f71293218bb4eb13943e5a6ee25313f5a9d2e9aeb7be642d6eb6ad16ef",
     "fermenter@1": "8df2aeb1bebcd9a0baf598fbd211853056d4758814892c8170eb2ea947f4b24c",

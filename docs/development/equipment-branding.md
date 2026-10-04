@@ -75,6 +75,8 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | Three-by-three leach tank and closed crystalliser for salts and fertiliser (Manufacturing 0.18.0); L for leach, C for crystallise, 3 for the footprint |
 | Phobos' Lixivar SA-3 Sulfuric Acid Plant | Three-by-three roaster, converter and absorber (Manufacturing 0.19.0); SA for sulfuric acid |
 | Phobos' Oxsmith EC-4 Electrolysis Cell | Four-by-four molten-rock electrolysis cell, regolith or Silicates ore into oxygen, ferrosilicon and slag (Manufacturing 0.52.0); EC for electrolysis cell, 4 for the footprint |
+| Phobos' Oxsmith CR-4 Carbothermal Reactor | Four-by-four reactor that reduces molten rock with methane into carbon monoxide, hydrogen, ferrosilicon and slag (Manufacturing 0.53.0); CR for carbothermal reactor, 4 for the footprint |
+| Phobos' Fennmark Z2, Z3 and Z4 Carbon Monoxide Stores | The seventh gas store family (Manufacturing 0.53.0); Z is a letter no brand used (C is carbon dioxide, K the Sabatier reactor), the digit the footprint |
 | Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | Bunded liquid tanks in three sizes (Manufacturing 0.19.0); AT for acid tank, the digit the footprint |
 | Phobos' Lixivar Acid Line | Lined 1 x 1 line segments for sulfuric acid (Manufacturing 0.24.0); a sibling of the tanks, so Lixivar, and like the other lines no model number |
 | Phobos' Alembrine Cask-2, Cask-3 and Cask-4 Ethanol Tanks | Bunded ethanol tanks in three sizes (Manufacturing 0.38.0); Cask for the tank, the digit the footprint |
@@ -156,8 +158,8 @@ oxygen, and oxide, to smith, a worker of hot metal; it was the working proposal 
 blackened steel vessels and one ice-blue accent for oxygen fittings, apart from every
 other Phobos maker. Models follow Tolvane's pattern: two letters for the job, a hyphen
 and the footprint width (EC-4 Electrolysis Cell, CR-4 Carbothermal Reactor). The EC-4
-shipped in Manufacturing 0.52.0, with ferrosilicon as Oxsmith's one material; the CR-4 is
-not built yet. [Their artwork](oxsmith-art-handoff.md) was generated first
+shipped in Manufacturing 0.52.0, with ferrosilicon as Oxsmith's one material, and the CR-4
+in 0.53.0. [Their artwork](oxsmith-art-handoff.md) was generated first
 on 5 October 2026, with shared oxide-red/ceramic styling and distinct working parts. The
 carbon monoxide stores stay Fennmark beside the other gas stores.
 

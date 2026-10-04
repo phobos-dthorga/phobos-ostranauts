@@ -1455,10 +1455,10 @@
             "PhobosSabatierReactorInstalled",
             "PhobosSabatierReactorInstalledDmg"
           ],
-          "function": "A 2 x 2 catalytic Sabatier reactor, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at 1.2 kW takes 0.125 kg of hydrogen (one X2 cycle) and 0.682 kg of CO2 and makes 0.559 kg of water and 0.249 kg of methane. The reaction and its electricity put about 2.3 kW into the room.",
-          "use": "Install through APPS within one tile of an H2 store, an installed native CO2 canister, a water vessel (S3 or R3) and an M2 methane store; connect power; link all four on its panel or C1; Start. Fill the CO2 canister with the game's CO2 scrubber. It waits, with the reason, while an input is short or an output full, and starts a new cycle only once the last cycle's products are delivered.",
+          "function": "A 2 x 2 catalytic Sabatier reactor, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at 1.2 kW takes 0.125 kg of hydrogen (one X2 cycle) and 0.682 kg of CO2 and makes 0.559 kg of water and 0.249 kg of methane. The reaction and its electricity put about 2.3 kW into the room. Since Manufacturing 0.53.0, with a carbon monoxide store chosen as its carbon source it runs CO + 3 H2 -> CH4 + H2O instead: 0.125 kg of hydrogen and 0.579 kg of carbon monoxide into 0.332 kg of methane and 0.372 kg of water a cycle, with about 2.6 kW into the room.",
+          "use": "Install through APPS within one tile of an H2 store, an installed native CO2 canister, a water vessel (S3 or R3) and an M2 methane store; connect power; link all four on its panel or C1; Start. Fill the CO2 canister with the game's CO2 scrubber. For a CR-4's gas, choose a carbon monoxide store under CO2 or carbon monoxide from instead of a canister. It waits, with the reason, while an input is short or an output full, and starts a new cycle only once the last cycle's products are delivered.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
-          "notes": "With the X2 it returns about half the water the X2 splits, as NASA's ISS system does. Damaged, it dumps the gas it holds: CO2 and methane into the room, and its hydrogen burns if the room has oxygen and a spark, otherwise it escapes; water stays in its hold. It carries on after a reload if it was running. Dismantling refuses while it holds gas, water or a part-run cycle.",
+          "notes": "With the X2 it returns about half the water the X2 splits, as NASA's ISS system does. Damaged, it dumps the gas it holds: CO2, carbon monoxide and methane into the room, and its hydrogen burns if the room has oxygen and a spark, otherwise it escapes; water stays in its hold. It carries on after a reload if it was running. Dismantling refuses while it holds gas, water or a part-run cycle.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1527,6 +1527,23 @@
           "use": "Install through APPS with its back to a powered wall row, touching an oxygen store and a water vessel or joined to them by gas and water line; link both on its panel or C1; load loose regolith or Silicates ore into its Inventory (the feed holds two), then Start. It chooses the charge from what is loaded. Optional: a material bin under Take feed from, and a crate under Send products to. See [the player guide](manufacturing-player-guide.md).",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
           "notes": "A charge that was running carries on after a reload. A cell kept waiting for a cooler room freezes and melts again with nothing lost. While working it can light a leaking fuel store in its room, like the refinery, and like every Phobos machine it does not work in vacuum. Not a way to make money: oxygen sells back at 45 percent and ferrosilicon is worth 2 cr, so a lump's products never repay the lump, and Silicates ore sells for far more raw. NASA Kennedy Space Center has demonstrated molten regolith electrolysis on lunar material; the lump's make-up, the yield, the hour and the 60 kW are authored. Sources are in the oxygen-from-rock design record.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "cr4",
+          "title": "CR-4 Carbothermal Reactor",
+          "ids": [
+            "PhobosCarbothermalReactorLoose",
+            "PhobosCarbothermalReactorLooseDmg",
+            "PhobosCarbothermalReactorInstalled",
+            "PhobosCarbothermalReactorInstalledDmg"
+          ],
+          "function": "A 4 x 4 reactor from Oxsmith that reduces molten rock with methane. At 30 kW, half the EC-4's draw, a 20 kg lump of the game's loose regolith takes 3.91 kg of methane from a linked store and gives 6.83 kg of carbon monoxide, 0.98 kg of hydrogen and 0.4 kg of water to linked stores, with three ferrosilicon and nine refinery slag, in an hour; a 10 kg chunk of Silicates ore takes 2.61 kg of methane and gives 4.55 kg of carbon monoxide, 0.65 kg of hydrogen, two ferrosilicon and three slag in forty minutes. A K2 with the carbon monoxide store as its carbon source turns the gas back into methane and water, and an X2 splits that water: about 3.9 kg of oxygen a lump, with the methane and hydrogen returned.",
+          "use": "Install through APPS with its back to a powered wall row, touching a methane store, a carbon monoxide store, a hydrogen store and a water vessel or joined to them by gas and water line; link all four on its panel or C1; load loose regolith or Silicates ore into its Inventory (the feed holds two), then Start. It waits, with the reason, until the methane store holds enough and the others have room. Optional: a material bin under Take feed from, and a crate under Send products to. See [the player guide](manufacturing-player-guide.md).",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
+          "notes": "A charge that was running carries on after a reload, and a waiting reactor loses nothing. While working it can light a leaking fuel store in its room, and like every Phobos machine it does not work in vacuum. Not cheaper to run than the EC-4: about 68 kWh a lump across the reactor, the K2 and the X2, and one K2 needs about twelve hours for a lump's gas; it is cheaper to buy and draws half the power at once. Not a way to make money. NASA's Carbothermal Reduction Demonstration at Johnson Space Center extracts oxygen from lunar regolith simulant as carbon monoxide; our reactor is about eight times as efficient as that test rig, and the yield, the hour and the 30 kW are authored. Sources are in the oxygen-from-rock design record.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1652,6 +1669,31 @@
           "use": "Install through APPS within one tile of a V4 and choose it under the refinery's Send ammonia to; the salt crust charge will not start without one. An AX-2 cracker splits it into nitrogen and hydrogen, or the RCS can burn it through a P1 manifold, at about 1.41 times nitrogen's push per kilogram. Vent overboard or pour into another ammonia store (within one tile or along a gas line) from its panel or C1. Repair damage at once and empty it before uninstalling. ",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices, and the bigger sizes cost less per kilogram held. No fabrication recipe. The small size is a rare engineering-loot find, usually broken; the medium and large sizes are too big to turn up in salvage. The K-Leg fixer buys them back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Ammonia is one of the game's own gases and poisons the crew: a damaged store leaks about 2, 3 or 4 kg an hour into the room until repaired, and a destroyed one releases what it held. Stations do not sell ammonia; it comes only from the salt crust. The refuelling kiosk buys stored ammonia at 45% of the game's ammonia price.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "z-stores",
+          "title": "Z2, Z3 and Z4 Carbon Monoxide Stores",
+          "ids": [
+            "PhobosCarbonMonoxideStoreLoose",
+            "PhobosCarbonMonoxideStoreLooseDmg",
+            "PhobosCarbonMonoxideStoreInstalled",
+            "PhobosCarbonMonoxideStoreInstalledDmg",
+            "PhobosCarbonMonoxideStoreMediumLoose",
+            "PhobosCarbonMonoxideStoreMediumLooseDmg",
+            "PhobosCarbonMonoxideStoreMediumInstalled",
+            "PhobosCarbonMonoxideStoreMediumInstalledDmg",
+            "PhobosCarbonMonoxideStoreLargeLoose",
+            "PhobosCarbonMonoxideStoreLargeLooseDmg",
+            "PhobosCarbonMonoxideStoreLargeInstalled",
+            "PhobosCarbonMonoxideStoreLargeInstalledDmg"
+          ],
+          "function": "Passive pressurised stores for carbon monoxide (300, 745 and 1,440 kg), kept as a kilogram record. Three sizes: small 2 x 2, medium 3 x 3 and large 4 x 4, each one tile wider and holding more for less per kilogram. Red domes.",
+          "use": "Install through APPS touching a CR-4 or on its gas line and choose it under the reactor's Carbon monoxide to; then choose it on a K2 under CO2 or carbon monoxide from, and the K2 turns the gas and hydrogen into methane and water. A P1 manifold can burn it in the RCS as cold gas, worth what nitrogen is. Vent overboard or pour into another carbon monoxide store (within one tile or along a gas line) from its panel or C1. Repair damage at once and empty it before uninstalling.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices, and the bigger sizes cost less per kilogram held. No fabrication recipe. The small size is a rare engineering-loot find, usually broken; the medium and large sizes are too big to turn up in salvage. The K-Leg fixer buys them back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "Carbon monoxide is one of the game's own gases: it poisons the crew with no smell to warn them, and it burns. A damaged store leaks about 2, 3 or 4 kg an hour into the room until repaired, and a destroyed one releases what it held; with oxygen and something to light it, the contents burn into carbon dioxide instead. Stations do not sell carbon monoxide; it comes only from a CR-4. The refuelling kiosk buys it at 45% of the game's carbon monoxide price, which is very little. The L2 does not bottle it.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1886,9 +1928,9 @@
           "ids": [
             "PhobosFerrosilicon"
           ],
-          "function": "2.2 kg of iron-silicon metal (1.414 kg of iron, 0.786 kg of silicon) tapped from an Oxsmith EC-4: three from a regolith lump, two from a Silicates ore chunk.",
+          "function": "2.2 kg of iron-silicon metal (1.414 kg of iron, 0.786 kg of silicon) tapped from an Oxsmith EC-4 or CR-4: three from a regolith lump, two from a Silicates ore chunk.",
           "use": "Choose hydrogen from ferrosilicon on an LC-3 with a hydrogen store and a water vessel linked, and load three: 3.02 kg of water becomes 0.339 kg of hydrogen in the store, leaving three spent ferrosilicon. It can also be sold, for very little.",
-          "find": "Made in the EC-4. Never sold in shops.",
+          "find": "Made in the EC-4 or the CR-4. Never sold in shops.",
           "notes": "Priced at 2 cr so that a regolith lump's oxygen, water and ferrosilicon sold back never repay the lump a prospector sells. The hydrogen recipe follows the silicol process, which really consumes caustic soda; ours keeps its caustic in the machine, an authored simplification.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1956,9 +1998,9 @@
             "PhobosBakedRegolith",
             "PhobosSpentFerrosilicon"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them. Baked regolith (19.5 kg: a regolith lump with its water baked out by the V4) keeps the game's regolith picture. Spent ferrosilicon (3.095 kg: the iron fines and silica the LC-3 leaves of a ferrosilicon unit once its silicon has made hydrogen) is the newest. The EC-4 also leaves refinery slag.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite), calcined residue (6.54 kg of baked clay and magnesia), roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3), olivine leach cake (14.33 kg of silica gel, iron sulfate, rock and Epsom liquor from the LC-3), exhausted sorbent (2.5 kg: the one CO2 filter in four that reactivation in the V4 cannot bring back), plant ash (30 g: the minerals of one burned or charred straw bale) spent mash (0.5 kg: what a fermenter-still charge leaves) and washed tailings (1 kg units, one stack a wash: what the LC-3's acid leaves of gangue). Trash at the technical minimum price; nothing recovers them. Baked regolith (19.5 kg: a regolith lump with its water baked out by the V4) keeps the game's regolith picture. Spent ferrosilicon (3.095 kg: the iron fines and silica the LC-3 leaves of a ferrosilicon unit once its silicon has made hydrogen) is the newest. The EC-4 and the CR-4 also leave refinery slag.",
           "use": "Feed them to a Slingwright RM-1 reaction mass feeder, which grinds them into thrust for the RCS. They can still be sold or discarded.",
-          "find": "Left in the V4, LC-3, SA-3, EC-4 or fermenter-still inventory by their charges. Never sold.",
+          "find": "Left in the V4, LC-3, SA-3, EC-4, CR-4 or fermenter-still inventory by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -2028,11 +2070,12 @@
             "PhobosLeachUnitInputBin",
             "PhobosAcidPlantInputBin",
             "PhobosFermenterStillInputBin",
-            "PhobosElectrolysisCellInputBin"
+            "PhobosElectrolysisCellInputBin",
+            "PhobosCarbothermalReactorInputBin"
           ],
-          "function": "The V4's, the LC-3's, the SA-3's, the fermenter-still's and the EC-4's charge feeds, named child inventories built into the machines. Not separate products.",
-          "use": "Put the charge in the machine's Inventory and press Start: the machine takes one exact charge into this compartment and Cancel puts it back. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). The SA-3 takes sulfide nodules only; the fermenter-still takes six sugar beets or six beet sugar packets. The EC-4 takes one lump of loose regolith or one chunk of Silicates ore. Each binds one exact charge at a time.",
-          "find": "Inside the V4, the LC-3, the SA-3, the fermenter-still or the EC-4; the game does not show it as a window.",
+          "function": "The V4's, the LC-3's, the SA-3's, the fermenter-still's, the EC-4's and the CR-4's charge feeds, named child inventories built into the machines. Not separate products.",
+          "use": "Put the charge in the machine's Inventory and press Start: the machine takes one exact charge into this compartment and Cancel puts it back. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). The SA-3 takes sulfide nodules only; the fermenter-still takes six sugar beets or six beet sugar packets. The EC-4 and the CR-4 each take one lump of loose regolith or one chunk of Silicates ore. Each binds one exact charge at a time.",
+          "find": "Inside the V4, the LC-3, the SA-3, the fermenter-still, the EC-4 or the CR-4; the game does not show it as a window.",
           "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract.",
           "guide": "manufacturing-player-guide.md",
           "internal": true,

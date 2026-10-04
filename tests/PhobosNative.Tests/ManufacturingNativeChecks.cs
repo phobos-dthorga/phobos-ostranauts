@@ -358,6 +358,37 @@ internal static class ManufacturingNativeChecks
         check(Stat(ferrosilicon, "StatMass") == 2.2 && ferrosilicon.strNameFriendly == "Phobos' Oxsmith Ferrosilicon" && Stat(spentFerrosilicon, "StatMass") == 3.095 &&
               DataHandler.dictCTs[d.Objects[LeachRules.Prefix + "InputBin"].strContainerCT].TriggeredDataCO(new DataCO(ferrosilicon), false),
             "Ferrosilicon is a 2.2 kg Oxsmith stock the LC-3's feed admits; a spent unit weighs 3.095 kg");
+        // The Oxsmith CR-4 carbothermal reactor, the carbon monoxide stores and the K2's second mode (Manufacturing 0.53.0).
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var reactorCo = d.Objects[CarbothermalRules.Prefix + state];
+            check(d.Items[reactorCo.strItemDef].nCols == 4 && Stat(reactorCo, "StatMass") == 380 && reactorCo.strNameFriendly.StartsWith("Phobos' Oxsmith CR-4 Carbothermal Reactor", StringComparison.Ordinal),
+                "The carbothermal reactor is a 380 kg four by four Oxsmith machine: " + state);
+            check((reactorCo.jsonPI == CarbothermalRules.Prefix + "Power") == (installed && !damaged) && Stat(reactorCo, "StatBasePrice") == (damaged ? (int)Economy.Price(CarbothermalRules.Prefix) / 4 : (int)Economy.Price(CarbothermalRules.Prefix)),
+                "The carbothermal reactor draws power only when installed and intact, at its price: " + state);
+        }
+        var carbothermalPower = d.Power[CarbothermalRules.Prefix + "Power"];
+        check(Math.Abs(carbothermalPower.fOverrideAmount - 30 / Units.SecondsPerHour) < 1e-12 && carbothermalPower.strOverrideCond == ManufacturingRules.Working, "The carbothermal reactor draws 30 kW working");
+        var carbothermalTrigger = DataHandler.dictCTs[d.Objects[CarbothermalRules.Prefix + "InputBin"].strContainerCT];
+        check(carbothermalTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.Regolith]), false) && carbothermalTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[ElectrolysisRules.Silicates]), false) &&
+              !carbothermalTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.Gangue]), false),
+            "The carbothermal reactor's feed takes loose regolith and ore at the game level, never gangue");
+        check(ChargeMachines.Carbothermal.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Methane, ManufacturingRules.CarbonMonoxide, ManufacturingRules.Hydrogen, ManufacturingRules.Water }) &&
+              ChargeMachines.Carbothermal.Links.Select(l => l.Deposit).SequenceEqual(new[] { false, true, true, true }) && ChargeMachines.Carbothermal.Links.Select(l => l.MachinePort).Distinct().Count() == 4 &&
+              ChargeMachines.Carbothermal.Spec.IgnitionSource && Economy.Pack.factionKiosks?.tiers[CarbothermalRules.Prefix] == "Trusted" &&
+              Economy.Price(CarbothermalRules.Prefix) > Economy.Price(RefineryRules.Prefix) && Economy.Price(CarbothermalRules.Prefix) < Economy.Price(ElectrolysisRules.Prefix),
+            "The carbothermal reactor draws methane and fills a carbon monoxide store, a hydrogen store and a water vessel, is an ignition source, sells at Trusted and costs between the V4 and the EC-4");
+        foreach (var monoxideStore in GasStores.CarbonMonoxideFamily.Sizes)
+        {
+            var storeCo = d.Objects[monoxideStore.Installed];
+            check(storeCo.strNameFriendly.StartsWith("Phobos' Fennmark Z" + monoxideStore.Footprint + " Carbon Monoxide Store", StringComparison.Ordinal) && Stat(storeCo, "StatMass") == monoxideStore.DryKg &&
+                  BulkVessels.SpecFor(monoxideStore.Installed)?.Commodity == ManufacturingRules.CarbonMonoxide,
+                "A carbon monoxide store is a Fennmark Z of its footprint, registered as a vessel of carbon monoxide: " + monoxideStore.Prefix);
+        }
+        check(Economy.Pack.factionKiosks?.tiers[GasStores.CarbonMonoxideFamily.SmallPrefix] == "Friendly" && LineFamilies.For(ManufacturingRules.CarbonMonoxide) == LineFamilies.Gas &&
+              Math.Abs(GasPrice("CO") - 1.1) < 1e-9 && !PhobosManufacturing.Text.Get("CarbonMonoxide.offer").StartsWith("[", StringComparison.Ordinal),
+            "Carbon monoxide stores sell at Friendly, join the gas line, and the kiosk buys the gas back at the game's own price for it");
         // The Alembrine Corker-2 bottling unit and its spirit (Manufacturing 0.40.0).
         foreach (string state in Definitions.Forms)
         {
@@ -495,14 +526,15 @@ internal static class ManufacturingNativeChecks
             double inValue = recipe.Inputs.Sum(i => UnitValue(i.Id, i.Count, i.Kg));
             double outValue = recipe.Products.Sum(p => UnitValue(p.Id, p.Count, p.Kg));
             // Oxygen from rock (0.52.0; the owner's approved plan of 5 October 2026 records both EC-4 charges as supply):
+            // (and, since 0.53.0, both CR-4 charges, whose methane counts with the rock)
             // their one finished product is ferrosilicon, a low-priced by-product. Bulk leaves a ship only through the
             // kiosk's buy-back, so the charge is judged as a loop: the oxygen and water sold back at the kiosk's share and
             // the ferrosilicon at a generous 1.2 times its price must not repay the rock, which a prospector sells.
-            if (recipe.Machine == ChargeCatalog.ElectrolysisCell)
+            if (recipe.Machine == ChargeCatalog.ElectrolysisCell || recipe.Machine == ChargeCatalog.CarbothermalReactor)
             {
                 double share = Phobos.Ostranauts.Framework.Trading.BulkSupplies.BuybackShare;
                 double back = recipe.Products.Sum(p => (ChargeCommodities.Is(p.Id) ? share : 1.2) * UnitValue(p.Id, p.Count, p.Kg));
-                check(back < inValue && recipe.Products.Where(p => Finished(p.Id)).All(p => p.Id == Materials.Ferrosilicon) && recipe.Deposits.Any(p => p.Id == ManufacturingRules.Oxygen),
+                check(back < inValue && recipe.Products.Where(p => Finished(p.Id)).All(p => p.Id == Materials.Ferrosilicon) && recipe.Deposits.Any(p => p.Id == ManufacturingRules.Oxygen || p.Id == ManufacturingRules.CarbonMonoxide),
                     $"The {recipe.Id} supply charge never repays its rock: {back:F2} back from {inValue:F2}");
                 oxygenSupply++;
                 continue;
@@ -537,7 +569,7 @@ internal static class ManufacturingNativeChecks
             }
         }
         check(regolithCharges == 1, "One regolith charge with a finished product (the pavers) is priced: " + regolithCharges);
-        check(oxygenSupply == 2, "Two oxygen supply charges (regolith and Silicates ore on the EC-4) are judged as loops: " + oxygenSupply);
+        check(oxygenSupply == 4, "Four oxygen supply charges (regolith and Silicates ore, on the EC-4 and the CR-4) are judged as loops: " + oxygenSupply);
         check(business == 5 && steps == 4 && services == 2, $"Five business charges (carbon, nickel-iron, evaporite, olivine, sulfide), four steps (struvite twice, nickel steel, methane cracking) and two reactivation services are priced: {business}, {steps} and {services}");
         // Methane cracking from bought stock: water and CO2 through the X2 and K2 make the methane; selling the oxygen and water
         // back at the kiosk's share and the carbon black at a generous 1.2 times its price must not repay what was bought.

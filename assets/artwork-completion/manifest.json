@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "136 selected masters; native export review complete; owner gameplay checks pending; ML-2 design approved 4 October 2026, in-game visual checks pending",
+  "status": "140 selected masters; native export review complete; owner gameplay checks pending; ML-2 design approved 4 October 2026, in-game visual checks pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -1575,6 +1575,37 @@
       "provider": "OpenAI built-in Imagegen"
     },
     {
+      "key": "oxsmith-cr4",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbothermalReactorInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbothermalReactor",
+      "status": "selected",
+      "source": "../phobos-manufacturing/registered/oxsmith-cr4.png",
+      "sourceSHA256": "d4531c71ad4565d85fe5e4c834e5714a60a66bc40374d39951c20e4028342cab",
+      "requestRecord": "../phobos-manufacturing/oxsmith-requests.json",
+      "review": "Owner-approved Oxsmith design (5 October 2026). Native 64 x 64 inspected beside the EC-4: the same oxide-red frame and ceramic deck, a flanged reactor lid with gas injectors and two gas domes stacked along the right edge. Full opaque square, correct overhead, no text or painted live instruments. Bound to the CR-4 in Manufacturing 0.53.0; owner in-game review pending.",
+      "fullFootprint": true,
+      "productionSource": "../phobos-manufacturing/source/oxsmith-cr4-chatgpt.png",
+      "productionSHA256": "6389ae2bbe3ab735919da97a51112f4491558779ab8e127913d77e9b5e4d5ac2",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "provider": "OpenAI built-in Imagegen"
+    },
+    {
       "key": "x2-processor",
       "mod": "PhobosManufacturing",
       "definition": "PhobosChemicalProcessorInstalled",
@@ -2599,6 +2630,81 @@
       "requestRecord": "nitrogen-requests.json",
       "review": "Derived from the approved N-series masters by a recorded hue recolour: Fennmark frame and clamps kept, sulphur-yellow domes for ammonia (toxic-gas cylinder convention). Native-scale export inspected. Owner in-game review pending.",
       "fullFootprint": true
+    },
+    {
+      "key": "z2-carbon-monoxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonMonoxideStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonMonoxideStore",
+      "status": "selected",
+      "source": "source/z2-carbon-monoxide-store.png",
+      "sourceSHA256": "6c4c51d5441492e3bf477f5bf47548ccf7956235cd7058ff26c2088782673d78",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Recorded recolour of the selected nitrogen store: its blue domes mapped by luminance onto a signal-red ramp (map in manufacturing-requests.json), red for a gas that burns and poisons; frame and fittings unchanged. Reviewed at native size beside the other six gases by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/n2-nitrogen-store.png"
+    },
+    {
+      "key": "z3-carbon-monoxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonMonoxideStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonMonoxideStoreMedium",
+      "status": "selected",
+      "source": "source/z3-carbon-monoxide-store.png",
+      "sourceSHA256": "5113ba45fbe95f6a2e87751ddd179ac0984bbe7c8a6757c5a69542357cdbee19",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Recorded recolour of the selected nitrogen store: its blue domes mapped by luminance onto a signal-red ramp (map in manufacturing-requests.json), red for a gas that burns and poisons; frame and fittings unchanged. Reviewed at native size beside the other six gases by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/n3-nitrogen-store.png"
+    },
+    {
+      "key": "z4-carbon-monoxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonMonoxideStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonMonoxideStoreLarge",
+      "status": "selected",
+      "source": "source/z4-carbon-monoxide-store.png",
+      "sourceSHA256": "4855f15b17ca6b851cefc2e7e118145457c0ea825772810a23b073294716c232",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Recorded recolour of the selected nitrogen store: its blue domes mapped by luminance onto a signal-red ramp (map in manufacturing-requests.json), red for a gas that burns and poisons; frame and fittings unchanged. Reviewed at native size beside the other six gases by the agent; owner in-game review pending.",
+      "fullFootprint": true,
+      "derivedFrom": "source/n4-nitrogen-store.png"
     },
     {
       "key": "ammonium-salt-crust",

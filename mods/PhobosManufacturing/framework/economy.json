@@ -116,6 +116,16 @@
       "restoreMinutes": 180,
       "internalBin": "PhobosElectrolysisCellInputBin"
     },
+    "PhobosCarbothermalReactor": {
+      "notes": "Oxsmith CR-4 Carbothermal Reactor (Manufacturing 0.53.0), 4 x 4, 380 kg: priced between the V4 and the EC-4 (agent default, open to owner revision), since it needs no cell or busbars but leans on a K2, an X2 and three gas stores to finish the job.",
+      "price": 72000,
+      "work": { "install": 2400, "uninstall": 1800, "repair": 7000, "dismantle": 1800 },
+      "repairBill": { "ItmScrapSteel": 5, "ItmScrapAluminum": 3, "ItmPartsMechSmall01": 7, "ItmPartsElecSmall01": 9, "ItmComponentMotor01": 3, "ItmComponentMobo01": 2, "ItmHeatSink01": 3, "ItmPartsScreen01": 1 },
+      "salvage": { "ItmScrapSteel": 230, "ItmScrapAluminum": 55, "ItmPartsMechSmall01": 28, "ItmPartsElecSmall01": 18, "ItmComponentMotor01": 3, "ItmComponentMobo01": 2, "ItmHeatSink01": 5, "ItmPartsScreen01": 1, "ItmScrapTrash": 50 },
+      "brokenSalvage": { "ItmScrapSteel": 205, "ItmScrapAluminum": 45, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 2, "ItmHeatSink01": 2, "ItmScrapTrash": 113 },
+      "restoreMinutes": 165,
+      "internalBin": "PhobosCarbothermalReactorInputBin"
+    },
     "PhobosBottlingUnit": {
       "notes": "Alembrine Corker-2 Bottling Unit (Manufacturing 0.40.0), 2 x 2, 90 kg: a dosing pump, a chiller and a filler. Priced below the L2 filling station, billed like the A2 regulator.",
       "price": 18000,
@@ -172,6 +182,15 @@
     },
     "PhobosAmmoniaStore": {
       "notes": "Fennmark Q2 Ammonia Store, the small size.",
+      "price": 20000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosCarbonMonoxideStore": {
+      "notes": "Fennmark Z2 Carbon Monoxide Store (Manufacturing 0.53.0), the small size.",
       "price": 20000,
       "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
       "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
@@ -259,6 +278,7 @@
       "PhobosLeachUnit": "Trusted",
       "PhobosAcidPlant": "Trusted",
       "PhobosElectrolysisCell": "Trusted",
+      "PhobosCarbothermalReactor": "Trusted",
       "PhobosAcidTank": "Friendly",
       "PhobosAcidLine": "Neutral",
       "PhobosEthanolTank": "Friendly",
@@ -274,7 +294,8 @@
       "PhobosOxygenStore": "Friendly",
       "PhobosNitrogenStore": "Friendly",
       "PhobosCarbonDioxideStore": "Friendly",
-      "PhobosAmmoniaStore": "Friendly"
+      "PhobosAmmoniaStore": "Friendly",
+      "PhobosCarbonMonoxideStore": "Friendly"
     }
   }
 }

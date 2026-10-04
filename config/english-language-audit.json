@@ -49812,14 +49812,14 @@
       "mod": "PhobosManufacturing",
       "key": "Provider.co2_field",
       "category": "control/name/value",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Provider.cs:37"
       ],
       "before": "CO2 canister",
-      "after": "CO2 canister",
+      "after": "CO2 or carbon monoxide from",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -49882,13 +49882,13 @@
       "key": "Sabatier.description",
       "category": "item description",
       "decision": "rewrite",
-      "reason": "Link rule wording: a silo, store or acid tank links by touching or its line; canisters and hoppers stay touching-only; water vessels are silos.",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/Definitions.cs:84"
       ],
       "before": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked S3 or R3 and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water.",
-      "after": "Get some of the crew's water back from scrubbed CO2. This 2 x 2 reactor weighs {0:F0} kg and uses a catalyst to turn carbon dioxide and hydrogen into methane and water (CO2 + 4 H2 -> CH4 + 2 H2O). Each one-hour cycle draws {1:F1} kW and takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed canister within one tile. Link a water silo for its {4:F3} kg of water and a methane store for its {5:F3} kg of methane. The reaction warms the room. Run it with an X2 to recover about half the water used to make the hydrogen.",
+      "after": "Get some of the crew's water back from scrubbed CO2. This 2 x 2 reactor weighs {0:F0} kg and uses a catalyst to turn carbon dioxide and hydrogen into methane and water (CO2 + 4 H2 -> CH4 + 2 H2O). Each one-hour cycle draws {1:F1} kW and takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed canister within one tile. Link a water silo for its {4:F3} kg of water and a methane store for its {5:F3} kg of methane. The reaction warms the room. Run it with an X2 to recover about half the water used to make the hydrogen. Choose a carbon monoxide store as its carbon source instead and it makes methane and water from that gas (CO + 3 H2 -> CH4 + H2O), which is how a carbothermal reactor's gas becomes oxygen.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -50279,14 +50279,14 @@
       "mod": "PhobosManufacturing",
       "key": "Sabatier.canister_none",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/SabatierService.cs:125"
       ],
       "before": "no CO2 canister chosen",
-      "after": "no CO2 canister chosen",
+      "after": "no CO2 canister or carbon store chosen",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -74935,6 +74935,1475 @@
       "after": "That is not a hydrogen store touching the leach unit or on its gas line."
     },
     {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbothermal Reactor",
+      "after": "Carbothermal Reactor"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Oxygen out of plain rock, the roundabout way. This {2} x {2} reactor weighs {0:F0} kg and draws {1:F0} kW while working, half an electrolysis cell's draw. Load a lump of loose regolith or a chunk of Silicates ore. The reactor melts it in methane from a linked store: the rock's oxygen leaves as carbon monoxide for a linked store, the methane's hydrogen goes to a hydrogen store, ferrosilicon and slag land in the tray, and a lump's trace of water goes to a linked water silo.\n\nThe oxygen is not free yet. A K2 with the carbon monoxide store as its carbon source turns the gas and hydrogen back into methane and water, and an X2 splits that water: a regolith lump's 6.83 kg of carbon monoxide comes to about 3.9 kg of oxygen, and the methane comes back. Link a methane store, a carbon monoxide store, a hydrogen store and a water silo, touching the reactor or on its gas or water line. Carbon monoxide is poison: keep its store sound. The room gets warm, and a lump lets a little carbon dioxide into its air.",
+      "after": "Oxygen out of plain rock, the roundabout way. This {2} x {2} reactor weighs {0:F0} kg and draws {1:F0} kW while working, half an electrolysis cell's draw. Load a lump of loose regolith or a chunk of Silicates ore. The reactor melts it in methane from a linked store: the rock's oxygen leaves as carbon monoxide for a linked store, the methane's hydrogen goes to a hydrogen store, ferrosilicon and slag land in the tray, and a lump's trace of water goes to a linked water silo.\n\nThe oxygen is not free yet. A K2 with the carbon monoxide store as its carbon source turns the gas and hydrogen back into methane and water, and an X2 splits that water: a regolith lump's 6.83 kg of carbon monoxide comes to about 3.9 kg of oxygen, and the methane comes back. Link a methane store, a carbon monoxide store, a hydrogen store and a water silo, touching the reactor or on its gas or water line. Carbon monoxide is poison: keep its store sound. The room gets warm, and a lump lets a little carbon dioxide into its air."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.feed_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbothermal reactor charge",
+      "after": "Carbothermal reactor charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.feed_description",
+      "category": "description",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Up to {0} lumps of loose regolith or chunks of Silicates ore. The reactor works one at a time.",
+      "after": "Up to {0} lumps of loose regolith or chunks of Silicates ore. The reactor works one at a time."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No regolith or Silicates ore inside.",
+      "after": "No regolith or Silicates ore inside."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.heat_note",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The reaction takes up most of the heat; the rest comes off the vessel.",
+      "after": "The reaction takes up most of the heat; the rest comes off the vessel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Stop the carbothermal reactor before changing its links.",
+      "after": "Stop the carbothermal reactor before changing its links."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge",
+      "after": "Optional charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Optional charge: {0}.",
+      "after": "Optional charge: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_cleared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No optional charge.",
+      "after": "No optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finish or Cancel this batch before changing the optional charge.",
+      "after": "Finish or Cancel this batch before changing the optional charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.prefer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That choice is not available here: {0}.",
+      "after": "That choice is not available here: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "This carbothermal reactor's record could not be read. Repair it, then Accept its contents from the panel.",
+      "after": "This carbothermal reactor's record could not be read. Repair it, then Accept its contents from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Batch waiting: {0}. Press Start to resume it.",
+      "after": "Batch waiting: {0}. Press Start to resume it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.retained_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept.",
+      "after": "A {0} batch is waiting, but this installation cannot finish it. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.charge_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains.",
+      "after": "Some of this batch's supplies are missing. Put them back, or Cancel the batch to free up what remains."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Nothing to work on. Put loose regolith or Silicates ore in the reactor's inventory, link a methane store and press Start.",
+      "after": "Nothing to work on. Put loose regolith or Silicates ore in the reactor's inventory, link a methane store and press Start."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Nothing inside belongs to the chosen recipe.",
+      "after": "Nothing inside belongs to the chosen recipe."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Waiting: {0}",
+      "after": "Waiting: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Working: {0}.",
+      "after": "Working: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Batch cancelled. Its supplies are back in the inventory; progress is lost.",
+      "after": "Batch cancelled. Its supplies are back in the inventory; progress is lost."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Paused. Supplies and progress are kept.",
+      "after": "Paused. Supplies and progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The carbothermal reactor stopped on a fault. See the log.",
+      "after": "The carbothermal reactor stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The tray has no room for the products. Clear it.",
+      "after": "The tray has no room for the products. Clear it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} at {1}: charge finished.",
+      "after": "{0} at {1}: charge finished."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Finished. The feed is empty.",
+      "after": "Finished. The feed is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_charge_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "No batch in progress.",
+      "after": "No batch in progress."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
+      "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
+      "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Product definition unavailable: {0}.",
+      "after": "Product definition unavailable: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Product definition changed: {0}.",
+      "after": "Product definition changed: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The charge would not conserve mass; nothing was delivered.",
+      "after": "The charge would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A product could not be placed in the tray.",
+      "after": "A product could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A charge unit could not be removed from the feed.",
+      "after": "A charge unit could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Install the carbothermal reactor first.",
+      "after": "Install the carbothermal reactor first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Repair the carbothermal reactor first.",
+      "after": "Repair the carbothermal reactor first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Unlock the carbothermal reactor and its feed first.",
+      "after": "Unlock the carbothermal reactor and its feed first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The carbothermal reactor is switched off at its power control.",
+      "after": "The carbothermal reactor is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The carbothermal reactor's feed compartment is missing.",
+      "after": "The carbothermal reactor's feed compartment is missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no water silo linked",
+      "after": "no water silo linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel is not installed, out of reach or not ready",
+      "after": "the linked water vessel is not installed, out of reach or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked silo is busy or has a saved-contents fault; check its panel",
+      "after": "the linked silo is busy or has a saved-contents fault; check its panel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel holds water in its catch chamber; recover it first",
+      "after": "the linked water vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.vessel_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand",
+      "after": "the linked water vessel holds {0:F1} kg and the charge needs {1:F1} kg on hand"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg",
+      "after": "the linked water vessel has {0:F1} kg of room and the charge returns {1:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Water silo linked.",
+      "after": "Water silo linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a water silo touching the reactor or on its water line.",
+      "after": "That is not a water silo touching the reactor or on its water line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_methane",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no methane store linked",
+      "after": "no methane store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked methane store is damaged, locked, moved away or not on this ship",
+      "after": "the linked methane store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked methane store is protected or busy; accept its contents or wait",
+      "after": "the linked methane store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked methane store holds contents in its catch chamber; recover them first",
+      "after": "the linked methane store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked methane store holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked methane store holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked methane store has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked methane store has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Methane store linked.",
+      "after": "Methane store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Methane store unlinked.",
+      "after": "Methane store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.methane_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a methane store touching the reactor or on its gas line.",
+      "after": "That is not a methane store touching the reactor or on its gas line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_monoxide",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no carbon monoxide store linked",
+      "after": "no carbon monoxide store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked carbon monoxide store is damaged, locked, moved away or not on this ship",
+      "after": "the linked carbon monoxide store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked carbon monoxide store is protected or busy; accept its contents or wait",
+      "after": "the linked carbon monoxide store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked carbon monoxide store holds contents in its catch chamber; recover them first",
+      "after": "the linked carbon monoxide store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked carbon monoxide store holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked carbon monoxide store holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked carbon monoxide store has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked carbon monoxide store has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide store linked.",
+      "after": "Carbon monoxide store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide store unlinked.",
+      "after": "Carbon monoxide store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.monoxide_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a carbon monoxide store touching the reactor or on its gas line.",
+      "after": "That is not a carbon monoxide store touching the reactor or on its gas line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.no_hydrogen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "no hydrogen store linked",
+      "after": "no hydrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store is damaged, locked, moved away or not on this ship",
+      "after": "the linked hydrogen store is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store is protected or busy; accept its contents or wait",
+      "after": "the linked hydrogen store is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store holds contents in its catch chamber; recover them first",
+      "after": "the linked hydrogen store holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store holds {0:F2} kg and the charge needs {1:F2} kg",
+      "after": "the linked hydrogen store holds {0:F2} kg and the charge needs {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the linked hydrogen store has {0:F2} kg of room and the charge makes {1:F2} kg",
+      "after": "the linked hydrogen store has {0:F2} kg of room and the charge makes {1:F2} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Hydrogen store linked.",
+      "after": "Hydrogen store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Hydrogen store unlinked.",
+      "after": "Hydrogen store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Carbothermal.hydrogen_link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "That is not a hydrogen store touching the reactor or on its gas line.",
+      "after": "That is not a hydrogen store touching the reactor or on its gas line."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.carbothermal_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The carbothermal reactor has an unfinished batch. Finish or Cancel it first.",
+      "after": "The carbothermal reactor has an unfinished batch. Finish or Cancel it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Group.carbothermal-reactor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbothermal reactors",
+      "after": "Carbothermal reactors"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.regolith-carbothermal",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "carbon monoxide from regolith",
+      "after": "carbon monoxide from regolith"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.silicates-carbothermal",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "carbon monoxide from Silicates ore",
+      "after": "carbon monoxide from Silicates ore"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.methane_from_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Methane from",
+      "after": "Methane from"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.monoxide_out_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide to",
+      "after": "Carbon monoxide to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.name",
+      "category": "name",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon Monoxide Store",
+      "after": "Carbon Monoxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.name_medium",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon Monoxide Store",
+      "after": "Carbon Monoxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.name_large",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon Monoxide Store",
+      "after": "Carbon Monoxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.details",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of carbon monoxide from a carbothermal reactor, which a K2 turns back into methane and water. Needs no power and holds no loose cargo. Carbon monoxide poisons the crew with no smell to warn them, and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of carbon monoxide from a carbothermal reactor, which a K2 turns back into methane and water. Needs no power and holds no loose cargo. Carbon monoxide poisons the crew with no smell to warn them, and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide: {0:F1} of {1:F0} kg.",
+      "after": "Carbon monoxide: {0:F1} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Vented {0:F2} kg of carbon monoxide overboard.",
+      "after": "Vented {0:F2} kg of carbon monoxide overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0}: {1:F2} kg of carbon monoxide vented overboard.",
+      "after": "{0}: {1:F2} kg of carbon monoxide vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} burst: {1:F2} kg of carbon monoxide burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast.",
+      "after": "{0} burst: {1:F2} kg of carbon monoxide burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} was destroyed: {1:F2} kg of carbon monoxide burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast.",
+      "after": "{0} was destroyed: {1:F2} kg of carbon monoxide burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} is damaged and leaking carbon monoxide into the room, about {1:F0} kg an hour. It poisons the crew and it burns: repair it, get people clear and ventilate.",
+      "after": "{0} is damaged and leaking carbon monoxide into the room, about {1:F0} kg an hour. It poisons the crew and it burns: repair it, get people clear and ventilate."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide store damaged: leaking",
+      "after": "Carbon monoxide store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "leaked into the room through damage",
+      "after": "leaked into the room through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.leak_reason_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.deflagration_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide fire",
+      "after": "Carbon monoxide fire"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Bulk carbon monoxide (Fennmark Z-series stores)",
+      "after": "Bulk carbon monoxide (Fennmark Z-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The store still holds carbon monoxide. Vent it or pour it into another store first.",
+      "after": "The store still holds carbon monoxide. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Poured {0:F1} kg of carbon monoxide into {1}.",
+      "after": "Poured {0:F1} kg of carbon monoxide into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.released_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0} was destroyed and released {1:F1} kg of carbon monoxide into the room. Get the crew clear and ventilate before anyone breathes it or anything lights it.",
+      "after": "{0} was destroyed and released {1:F1} kg of carbon monoxide into the room. Get the crew clear and ventilate before anyone breathes it or anything lights it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.gas",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "carbon monoxide",
+      "after": "carbon monoxide"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonMonoxide.contents",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide",
+      "after": "Carbon monoxide"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.waiting_monoxide",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Waiting for carbon monoxide: {0}",
+      "after": "Waiting for carbon monoxide: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.monoxide_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the store holds {0:F3} kg of carbon monoxide and a cycle needs {1:F3} kg",
+      "after": "the store holds {0:F3} kg of carbon monoxide and a cycle needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.source_not_monoxide",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the reactor still holds carbon monoxide for a part-filled cycle; choose a carbon monoxide store to finish it",
+      "after": "the reactor still holds carbon monoxide for a part-filled cycle; choose a carbon monoxide store to finish it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.source_not_dioxide",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "the reactor still holds CO2 for a part-filled cycle; choose a CO2 canister or store to finish it",
+      "after": "the reactor still holds CO2 for a part-filled cycle; choose a CO2 canister or store to finish it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.monoxide_dumped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "{0:F3} kg of carbon monoxide went into the room too: it is poison, so ventilate.",
+      "after": "{0:F3} kg of carbon monoxide went into the room too: it is poison, so ventilate."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.status_monoxide",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Manufacturing 0.53.0: the Oxsmith CR-4 carbothermal reactor, the Fennmark carbon monoxide stores and the K2's carbon monoxide mode.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "Carbon monoxide: {0:F3} kg held, {1:F1} kg used in all.",
+      "after": "Carbon monoxide: {0:F3} kg held, {1:F1} kg used in all."
+    },
+    {
       "mod": "PhobosMedical",
       "key": "Plugin.loaded",
       "category": "log",
@@ -78730,8 +80199,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fb8215e95016ccf35038c2fc8586420ac2240abb62dd1c508a5a99215a04e0ae",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "c5b0f05e592a721940d20abd345a968853e6b13d3c74d377b4eca54757917393",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "SUPPORT.md",
@@ -78884,8 +80353,8 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "af688d1cd2022539ef67a717e68d886aa1409403764ec1e8182f0c9da6b20a50",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "99a97be483134ae2488bfd9d46660cec6c8c7abaa28ca8349c4cf74df97c9ed5",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/control-panel-guide.md",
@@ -79179,15 +80648,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "cdc9d96978efa783ff4cdc92763a2474b63b5e13b122f5fd382f044db200637b",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "4cc8c903324cae365969554530bf18b4be2c576025ce7f25e96afb7f9c9c122f",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "e4aada549c5619f20b7bcf9f946285fc2efa0c022bd4f03763fe362eeedf4d9d",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "844b2a88e524a0287f9a91eb58e992ea5f9b367446356438219d50a5ea092d52",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -79200,8 +80669,8 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "4c4200c4a5b42fde3c63a2a975a6978eb52584df1f6721b1ec3d41217202c3ec",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "1eebfaeac3ed950ed64ecb8d1104890b4d6168a58a4ee3db1445c619950cf6cf",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -79318,15 +80787,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "721ae4af71bb841370773e194a176d08c60d07e9957c3a6428e30dd1dc94c481",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "882a14ea1545ba98a08b0e29fa8fe732aae09e325b9de425373c11f28d037c42",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "3954c035fd1e32a3b9966963ad27fa11aabe006da9c255017271093f04084ebf",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "ea63c0117a545f6e032e64a425bf794d99622267e92897f83bfb66d1ecaa9cce",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -79392,8 +80861,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "613a0066d03a50e018d60365ed902a8e170ddd8b010a7b62413e637612815280",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "0f5c539bd0cbd91e697fc3269b5643cf6101ea2d2d5beb5b0df74b1fa4629ec7",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -79492,8 +80961,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2d05af52d914851f55377b87c921fb9586847b72c1fcdac77f5256727c4621c5",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "fefd3c38490d63f1a25edd7379ee60484e86a37c36af032f68759826a8c14452",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -79718,8 +81187,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c0ae61276d6cbbe10807c757fe58136dac8ff2a6546248155ecf2245db4809a9",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "eec01dc7fd9b1b646397691396fd92eddb55c47112d14adb8f9a7f49e91e29fe",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -79816,15 +81285,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "63f450392d8ae1318a186a783cc31bf4027e970fc9c6d4d0b3166cec5048448a",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "2a01c90f95ae7e9ea7f419d1f58e7893916d8cdf3e1baa9a38977dfff39fc095",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "68bd2054e6c118a33fe4d96417f3f85282574d6df1f82a761fbab80432123877",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "f125aa916e9fee4339d0863842625160e545be3714f64ae10aecddf4e959a951",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -79984,8 +81453,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "53f5eedca035986f84d45f5f62a559567b3cd798fe1253e79710279a57c8e56a",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "d84d2b9374f3030ce862e0f4a6863022a2599f0de4f2d93fd5d672687aa23bce",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -80026,30 +81495,30 @@
       "path": "docs/development/oxsmith-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "new",
-      "sha256": "18e3a1898403e132def8a1cdea58885c0c272bed8df6364fb4fda8afae1fdcdd",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "bdb7522c13ccf8eb11cfdaabf621031dd2f79251071fdc3d1e65b2dd5e3108b5",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/regolith-programme.md",
       "scope": "contributor decision record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "84387b8f5afd456f474ce4458f42be681434cf08db9fb9861f26e6ccce2ece10",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "07c1744e9c16447aa3ed530e4cb167031b28e3f53bd4e3ecd19ea88b41e237ff",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/regolith-oxygen-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "e8ff180cee05eec345c291017bc0ed09ba793f7d1796868397f694f9a1fac04e",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0: sources read are named with what they do and do not say; authored figures and the caustic simplification are labelled as ours."
+      "sha256": "5f45ca396ffa178fcaa3bee4307bc55ffbf61f41f002b9a577d110773fabbe7a",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "be18e4572bdfe3a348f727a01b3eade31f48d8a94cdd5dbb46e0f951228e4fc1",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "5d3a3ad13741e97fa9c2f5dad15e98e34cf592cb9d8b95173a006fdeb871c9b4",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -80106,8 +81575,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5b2d2bddacfd64a67dc7b32ccc5fc490bb6a70a99c4a54b359b2d6e7d2e8001e",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "f49b0d1158a2761dcb44f4b070febd8d9ea9656d2122bab6c50961f6c2f91517",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

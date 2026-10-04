@@ -12,12 +12,12 @@ internal static class GasStoreChecks
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
         // The ladder: five families, three sizes each, the small size unchanged.
-        check(GasStores.Families.Count == 6 && GasStores.All.Count == 18 && GasStores.All.Select(s => s.Prefix).Distinct().Count() == 18,
-            "Six gas families in three sizes, eighteen distinct definitions");
+        check(GasStores.Families.Count == 7 && GasStores.All.Count == 21 && GasStores.All.Select(s => s.Prefix).Distinct().Count() == 21,
+            "Seven gas families in three sizes, twenty-one distinct definitions");
         check(GasStores.Hydrogen.Prefix == HydrogenRules.Prefix && GasStores.Hydrogen.CapacityKg == 24 && GasStores.Hydrogen.Spec.Record == HydrogenRules.Record &&
               GasStores.Methane.Prefix == MethaneRules.Prefix && GasStores.Methane.CapacityKg == 160 && GasStores.Methane.Spec.Record == MethaneRules.Record,
             "The original H2 and M2 keep their identities, capacities and saved records");
-        check(GasStores.All.Select(s => s.Spec.Record).Concat(GasStores.All.Select(s => s.Spec.Journal)).Concat(GasStores.All.Select(s => s.Spec.Guard)).Distinct().Count() == 54,
+        check(GasStores.All.Select(s => s.Spec.Record).Concat(GasStores.All.Select(s => s.Spec.Journal)).Concat(GasStores.All.Select(s => s.Spec.Guard)).Distinct().Count() == 63,
             "Every size keeps its own record, journal and guard");
         // The definition index answers exactly as the query over every size did, for every form of every size.
         foreach (var store in GasStores.All)

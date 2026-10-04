@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.52.0",
+      "value": "0.53.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2487,6 +2487,71 @@
       ],
       "review": [
         "Change roomHeatFraction with it (ElectrolysisChecks ties it to the regolith charge's balance), run scripts/build-manufacturing.ps1, regenerate item references and review docs/development/regolith-oxygen-design.md."
+      ]
+    },
+    "Manufacturing.carbothermalPrice": {
+      "type": "number",
+      "value": "72000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored Oxsmith CR-4 carbothermal reactor base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosCarbothermalReactor/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "Update the price in docs/manufacturing-player-guide.md (both tables), docs/equipment-economy.md and docs/development/regolith-oxygen-design.md; the native check requires it between the V4 and the EC-4."
+      ]
+    },
+    "Manufacturing.carbothermalKilowatts": {
+      "type": "number",
+      "value": "30",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored Oxsmith CR-4 working electrical demand, in kW (equipment data pack; read-only to player files). Charge durations are fixed, so this sets each charge's energy, which must stay above the 24.6 kWh a regolith charge's reductions absorb; the room share must stay the part they do not.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/equipment.json",
+          "pointer": "/equipment/PhobosCarbothermalReactor/workingKW"
+        }
+      ],
+      "review": [
+        "Change roomHeatFraction with it (CarbothermalChecks ties it to the regolith charge's balance, and holds the draw at half the EC-4's), run scripts/build-manufacturing.ps1, regenerate item references and review the comparison tables in the player guide and docs/development/regolith-oxygen-design.md."
+      ]
+    },
+    "Manufacturing.carbonMonoxideStoreCapacityKg": {
+      "type": "number",
+      "value": "300",
+      "min": 50,
+      "max": 5000,
+      "description": "Small (2 x 2) carbon monoxide store capacity in kilograms; about 80% of the native canister vessel's ideal moles (vessels data pack).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/vessels.json",
+          "pointer": "/families/PhobosCarbonMonoxideStore/capacityKg"
+        }
+      ],
+      "review": [
+        "Existing stores become Protected until accepted when a capacity changes; update the sizes in docs/manufacturing-player-guide.md and regenerate item references."
+      ]
+    },
+    "Manufacturing.carbonMonoxideStorePrice": {
+      "type": "number",
+      "value": "20000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored small carbon monoxide store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosCarbonMonoxideStore/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack; rebuild Manufacturing, regenerate item references and update the three prices in docs/manufacturing-player-guide.md and docs/equipment-economy.md."
       ]
     },
     "Manufacturing.ferrosiliconPrice": {

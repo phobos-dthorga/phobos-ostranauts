@@ -14,7 +14,8 @@ internal static class ChargeMachines
     internal static readonly ChargeMachine AcidPlant = new(AcidPlantSpec());
     internal static readonly ChargeMachine Fermenter = new(FermenterSpec());
     internal static readonly ChargeMachine ElectrolysisCell = new(ElectrolysisCellSpec());
-    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant, Fermenter, ElectrolysisCell };
+    internal static readonly ChargeMachine Carbothermal = new(CarbothermalSpec());
+    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant, Fermenter, ElectrolysisCell, Carbothermal };
     private static readonly Dictionary<string, ChargeMachine?> byDefinition = new(StringComparer.Ordinal);
     internal static ChargeMachine? For(string? id)
     {
@@ -148,6 +149,32 @@ internal static class ChargeMachines
     private static ChargeLinkSpec CellWater() => new(ManufacturingRules.Water, "link:", ElectrolysisRules.WaterPort, ElectrolysisRules.VesselPort, _ => true,
         () => Text.Get("Provider.vessel_field"), alwaysShow: true, Reasons("Cell", "vessel"),
         () => Text.Get("Cell.linked"), () => Text.Get("Cell.unlinked"), () => Text.Get("Cell.link_missing"), deposit: true);
+
+    /// <summary>The Oxsmith CR-4 (Manufacturing 0.53.0): a lump of regolith or a chunk of Silicates ore, chosen
+    /// automatically from the feed, reduced with methane drawn from a linked methane store. Carbon monoxide and hydrogen
+    /// go to their linked stores, a lump's bound water to a linked water vessel, ferrosilicon and slag to the tray. A
+    /// charge binds only once its methane store is linked (the engine's rule for a drawing charge). Nothing spoils, and
+    /// its hot bed is an ignition source while it works.</summary>
+    private static ChargeMachineSpec CarbothermalSpec() => new()
+    {
+        Prefix = CarbothermalRules.Prefix, StockTrigger = CarbothermalRules.StockTrigger, AdmitsOre = true, FeedConditions = CarbothermalRules.FeedConditions,
+        Record = CarbothermalRules.Record, MachineKey = ChargeCatalog.CarbothermalReactor, TextPrefix = "Carbothermal", HeatNote = true, SnapshotKind = "carbothermal-reactor", Art = Definitions.CarbothermalArt,
+        Selection = RecipeSelection.Automatic, IgnitionSource = true,
+        MaintenanceChargeKey = "Maintenance.carbothermal_charge",
+        Links = () => new[] { CarbothermalMethane(), CarbothermalMonoxide(), CarbothermalHydrogen(), CarbothermalWater() }
+    };
+    private static ChargeLinkSpec CarbothermalMethane() => new(ManufacturingRules.Methane, "methane:", CarbothermalRules.MethanePort, CarbothermalRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Methane), () => Text.Get("Provider.methane_from_field"), alwaysShow: true, Reasons("Carbothermal", "methane"),
+        () => Text.Get("Carbothermal.methane_linked"), () => Text.Get("Carbothermal.methane_unlinked"), () => Text.Get("Carbothermal.methane_link_missing"));
+    private static ChargeLinkSpec CarbothermalMonoxide() => new(ManufacturingRules.CarbonMonoxide, "monoxide:", CarbothermalRules.MonoxidePort, CarbothermalRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.CarbonMonoxide), () => Text.Get("Provider.monoxide_out_field"), alwaysShow: true, Reasons("Carbothermal", "monoxide"),
+        () => Text.Get("Carbothermal.monoxide_linked"), () => Text.Get("Carbothermal.monoxide_unlinked"), () => Text.Get("Carbothermal.monoxide_link_missing"), deposit: true);
+    private static ChargeLinkSpec CarbothermalHydrogen() => new(ManufacturingRules.Hydrogen, "hydrogen:", CarbothermalRules.HydrogenPort, CarbothermalRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Hydrogen), () => Text.Get("Provider.hydrogen_out_field"), alwaysShow: true, Reasons("Carbothermal", "hydrogen"),
+        () => Text.Get("Carbothermal.hydrogen_linked"), () => Text.Get("Carbothermal.hydrogen_unlinked"), () => Text.Get("Carbothermal.hydrogen_link_missing"), deposit: true);
+    private static ChargeLinkSpec CarbothermalWater() => new(ManufacturingRules.Water, "link:", CarbothermalRules.WaterPort, CarbothermalRules.VesselPort, _ => true,
+        () => Text.Get("Provider.vessel_field"), alwaysShow: true, Reasons("Carbothermal", "vessel"),
+        () => Text.Get("Carbothermal.linked"), () => Text.Get("Carbothermal.unlinked"), () => Text.Get("Carbothermal.link_missing"), deposit: true);
 
     /// <summary>The Lixivar SA-3 (Manufacturing 0.19.0): one recipe, chosen automatically; oxygen and water drawn from
     /// linked vessels, sulfuric acid deposited into a linked acid tank, the reactions' heat into the room. Nothing melts

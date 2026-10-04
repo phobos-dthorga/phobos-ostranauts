@@ -153,7 +153,165 @@ intact picture, as the other Manufacturing machines do.
    silo, load three ferrosilicon, Start: 0.339 kg of hydrogen, three spent ferrosilicon.
 5. Save while the cell works and reload: it carries on.
 
-## Part 2: the carbothermal route (set 5)
+## Part 2: the carbothermal route (set 5, Manufacturing 0.53.0)
 
-Not yet written. It opens when set 5 starts, with the NASA Carbothermal Reduction
-Demonstration values read first.
+Three things ship together, built in this order: the Fennmark carbon monoxide stores, a
+second mode on the K2, and the Oxsmith CR-4 Carbothermal Reactor.
+
+### What the sources say, and what they do not
+
+**NASA Carbothermal Reduction Demonstration (CaRD).** Project manager A. Paz; principal
+investigators B. White, T. Colozza, N. Azim and D. O'Connor; NASA Johnson Space Center,
+with a carbothermal reactor developed by Sierra Space and gas analysis by NASA Kennedy
+Space Center ([NASA NTRS 20230003977](https://ntrs.nasa.gov/citations/20230003977),
+project poster, 2023). Read for this record on 5 October 2026. It states that:
+
+- a 2 kW laser heated lunar regolith simulant inside the reactor, in a thermal vacuum
+  chamber at Johnson, building on a 2010 field demonstration that used a solar
+  concentrator;
+- "Oxygen is extracted from regolith in the form of carbon monoxide", and the downstream
+  components that turn the carbon monoxide into oxygen gas are shared with Mars
+  resource and life-support systems (its diagram shows a Sabatier reactor, a condenser
+  and water electrolysis);
+- the brassboard tests extracted between 10.77 and 15.79 g of oxygen per kWh delivered
+  to the reactor, against 1.45 g/kWh in the 2010 field demonstration.
+
+The poster gives **no yield per kilogram of regolith** and no reaction equations. The
+figure of more than 20 percent oxygen by mass for carbothermal reduction comes from G.
+Sanders, *Progress Review: NASA Lunar ISRU* (NASA NTRS 20250003730), found by search and
+**not read in full**; it is quoted as a comparison only.
+
+**Reaction heats.** NIST formation enthalpies at 298 K: FeO -272.04, quartz -910.86,
+methane -74.87, carbon monoxide -110.53, carbon dioxide -393.51 and liquid water -285.83
+kJ/mol. Standard values, stated from the tables rather than re-read this round.
+
+### What is ours
+
+- **The reactions as written.** FeO + CH4 -> Fe + CO + 2 H2 and SiO2 + 2 CH4 -> Si +
+  2 CO + 4 H2: one methane per oxygen atom removed. A real reactor cracks methane on the
+  melt and the carbon does the reducing; the sum is the same. Complete use of the methane
+  fed, with none left as carbon in the slag, is an authored simplification.
+- **The same rock, the same metal.** The CR-4 reduces exactly what the EC-4 does: the
+  same authored lump, the same three ferrosilicon and nine slag, the same 3.9 kg of
+  oxygen, here leaving as 6.83 kg of carbon monoxide. That is 19.5 percent of the lump,
+  inside the comparison figure above. Giving the CR-4 a lower extraction would have
+  needed a second ferrosilicon identity or slag in odd masses, and nothing read
+  supports a lower figure.
+- **By the poster's own measure the game's reactor is generous.** 3.9 kg of oxygen from
+  30 kWh is 130 g/kWh, about eight times CaRD's best brassboard run. The charge still
+  pays the full reaction enthalpy, 24.6 of its 30 kWh; what is authored away is the heat
+  a real reactor loses. This is stated here so nobody reads the 30 kW as NASA's number.
+- **Time and power.** One hour at 30 kW for a lump, forty minutes for a Silicates chunk:
+  half the EC-4's draw.
+- **The K2 doing both jobs.** CO + 3 H2 -> CH4 + H2O on the Sabatier catalyst is real
+  chemistry (it is the classic methanation reaction); running both on one small reactor
+  is our choice, as the owner decided.
+
+### How the K2's second mode works
+
+**The carbon source decides.** The K2 already lets the crew choose where its carbon
+dioxide comes from. That same field now also lists carbon monoxide stores. With one
+chosen, each cycle takes the same 0.125 kg of hydrogen and 0.579 kg of carbon monoxide
+and makes 0.332 kg of methane and 0.372 kg of water. No separate mode switch: one fewer
+thing to set wrong.
+
+**Saved record.** Two optional fields, `co` and `used_co`, written only when they are
+not zero. A K2 saved before 0.53.0, or one that never sees carbon monoxide, reads and
+writes the ten fields it always did; a unit check holds that. The gas in the hold
+decides which cycle is being finished, so a reload mid-cycle cannot change the reaction.
+A part-filled hold of one gas is only ever finished from a source of the same gas; the
+panel says so if the source is switched part way.
+
+This amends the 29 September rule "keep the reactor's saved reactant/product holds and
+its one-step conversion": the holds and the one-step conversion are kept, and one
+reactant hold is added (owner decision, 5 October 2026).
+
+**Damage.** A damaged K2 already dumps its gases into the room. Its carbon monoxide,
+under 0.6 kg, goes the same way, as the game's own gas, with a line in the notice.
+
+### The carbon monoxide stores
+
+A seventh Fennmark gas family, model letter Z (Z2, Z3, Z4): the shared vessel at 80
+percent of its ideal moles holds 300 kg, since carbon monoxide weighs what nitrogen
+does. It is a game gas, so a damaged store leaks into the room, where the game's own
+carbon monoxide poisoning applies; and it is a fuel, CO + 1/2 O2 -> CO2 at 283 kJ/mol,
+so with oxygen and something to light it the contents burn through the same rule as
+methane. Everything else is the shared store code: panel, pouring, venting, the gas
+line, the right-click contents row (in the white the game uses for its own carbon
+monoxide readings), kiosk buy-back at the game's 1.1 cr/kg, Friendly at the faction
+kiosks. Stations do not sell it. The L2 does not bottle it (the game has no carbon
+monoxide canister).
+
+**A change from the plan, under a standing owner preference.** The plan said to keep
+carbon monoxide out of the P1 RCS manifold. The manifold takes any gas store by
+family, and the owner's rule is to offer a risky use with a warning rather than refuse
+it (as with ammonia). So a P1 can burn stored carbon monoxide as cold gas, worth what
+nitrogen is. Nothing was added to make that possible; excluding it would have needed a
+special case. Open to owner revision.
+
+### The loop, per regolith lump
+
+```mermaid
+flowchart LR
+    Lump["Loose regolith, 20 kg"] --> CR4["CR-4, 30 kW, 1 h"]
+    M["Methane store"] -->|3.91 kg| CR4
+    CR4 -->|6.83 kg carbon monoxide| Z["Carbon monoxide store"]
+    CR4 -->|0.98 kg hydrogen| H["Hydrogen store"]
+    CR4 --> Tray["3 ferrosilicon, 9 slag, 0.4 kg water"]
+    Z --> K2["K2, about 12 cycles"]
+    H -->|1.47 kg in all| K2
+    K2 -->|3.91 kg methane| M
+    K2 -->|4.39 kg water| W["Water silo"]
+    W -->|4.43 kg| X2["X2, about 4 cycles"]
+    X2 -->|0.49 kg hydrogen| H
+    X2 -->|3.94 kg oxygen| O["Oxygen"]
+```
+
+Methane and hydrogen net to nothing; the water the X2 splits is the water the K2 made
+(the 40 g difference is the X2's rounded cycle). What comes out is the oxygen.
+
+| | EC-4 | CR-4 with a K2 and an X2 |
+| --- | --- | --- |
+| Oxygen from a lump | 3.9 kg | about 3.9 kg |
+| Machine price | 96,000 cr | 72,000 cr, plus the K2, X2 and three stores if not aboard |
+| Peak draw | 60 kW | 30 kW, then 1.2 kW and 6 kW |
+| Electricity for a lump | 60 kWh | about 68 kWh (30 + 14 + 24) |
+| Time for a lump | 1 hour | 1 hour in the reactor, then about 12 hours of one K2 |
+| Reagents | none | 3.9 kg of methane on loan |
+| Hazards | molten cell | molten bed, a store of poison that burns |
+
+The honest summary for the guides: the CR-4 is not cheaper to run. It is cheaper to
+buy and easier on a small reactor, it uses machines a water-recycling ship already has,
+and it is slow.
+
+### Value
+
+Both CR-4 charges are supply, judged by the native check as loops like the EC-4's: a
+lump and its methane cost 43.61 cr; carbon monoxide, hydrogen and water sold back at
+the kiosk's 45 percent and ferrosilicon at 1.2 times its 2 cr return 13.45 cr.
+
+### Saved structures
+
+New: the reactor's record `ManufacturingCarbothermalReactor` and its five ports, the
+carbon monoxide stores' records, journals and guards, and the reactor's revisions 1 and
+2. Changed: the K2 record gains two optional fields, as above; automatic, nothing to
+migrate, covered by a unit check on an old record.
+
+### Artwork
+
+The CR-4 takes its owner-approved master, bound through the completion exporter. The
+three carbon monoxide stores are recorded recolours of the nitrogen stores, their domes
+mapped onto signal red, the cylinder colour for a gas that burns. No generation.
+
+### Owner checks
+
+1. Install Z, M and H stores, a water silo, a K2, an X2 and a CR-4, touching or on gas
+   and water line. Link the CR-4 to all four; put some methane in the M store.
+2. Load a lump and Start: after an hour, 3.91 kg less methane, 6.83 kg of carbon
+   monoxide, 0.98 kg more hydrogen, three ferrosilicon and nine slag.
+3. On the K2, choose the Z store under **CO2 or carbon monoxide from** and Start: each
+   cycle takes 0.579 kg of carbon monoxide and gives 0.332 kg of methane and 0.372 kg
+   of water.
+4. Switch the K2 back to a CO2 canister between cycles and confirm it runs as before.
+5. Damage a Z store in an aired room: carbon monoxide readings rise and the crew are
+   warned. Save and reload with each machine working.

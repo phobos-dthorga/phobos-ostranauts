@@ -22,12 +22,14 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | 3 x 3 tiles; 220 kg; one power point; 12 kW working | 48,000 cr, broken 12,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar SA-3 Sulfuric Acid Plant | 3 x 3 tiles; 260 kg; one power point; 4 kW working, about 21 kWh of reaction heat a nodule | 56,000 cr, broken 14,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Oxsmith EC-4 Electrolysis Cell | 4 x 4 tiles; 420 kg; two power points; 60 kW working | 96,000 cr, broken 24,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Oxsmith CR-4 Carbothermal Reactor | 4 x 4 tiles; 380 kg; two power points; 30 kW working | 72,000 cr, broken 18,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 1,150, 2,850 and 5,520 kg of acid | 16,000 cr and up the size ladder | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 470, 1,160 and 2,260 kg of carbon dioxide | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 380, 940 and 1,820 kg of liquefied ammonia | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark Z2, Z3 and Z4 Carbon Monoxide Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of carbon monoxide | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark A2 Cabin Air Regulator | 2 x 2 tiles; 60 kg; one power point; 0.1 kW | 23,000 cr, broken 5,750 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
@@ -144,7 +146,7 @@ water when heated. A paver is worth less than the floor it becomes, because a
 prospector sells regolith and baking it must not be a way to print money. Until
 the paver has its own picture it shows the game's loose floor plate.
 
-For oxygen from the same lumps, see [the EC-4](#the-ec-4-oxygen-from-rock).
+For oxygen from the same lumps, see [the EC-4](#the-ec-4-oxygen-from-rock) and [the CR-4](#the-cr-4-oxygen-from-rock-by-way-of-methane).
 
 ## Reactors that feed each other
 
@@ -305,7 +307,7 @@ exception is the station refuelling kiosk's Bulk supplies view.
 
    Also optional: under **Send products to**, choose a crate or locker and the
    refinery empties its own tray into it, so a full tray does not stop it. The
-   LC-3, SA-3, EC-4, fermenter-still and bottler offer the same. See
+   LC-3, SA-3, EC-4, CR-4, fermenter-still and bottler offer the same. See
    [product stores](automatic-material-routing.md#product-stores-for-the-manufacturing-machines-optional).
 
    A running refinery never takes what it has just made. To carburise its own
@@ -381,6 +383,19 @@ flowchart LR
 The reaction gives off heat: with its electricity, about 2.3 kW goes into the
 room while it works, and it waits for the room to cool at 40 C. Pause keeps
 held gas, made products and progress; Cancel forfeits only the cycle's energy.
+
+### Carbon monoxide instead of CO2 (0.53.0)
+
+The same field, now called **CO2 or carbon monoxide from**, also lists carbon
+monoxide stores. Choose one and the K2 runs CO + 3 H2 -> CH4 + H2O instead: each
+cycle takes the same 0.125 kg of hydrogen with 0.579 kg of carbon monoxide and
+makes 0.332 kg of methane and 0.372 kg of water. Nothing else changes: the same
+hydrogen store, water silo and methane store, the same hour at 1.2 kW, a little
+more heat (about 2.6 kW into the room). This is how a CR-4's gas becomes oxygen;
+see [the CR-4](#the-cr-4-oxygen-from-rock-by-way-of-methane).
+
+Change the source while the reactor is stopped. If it already holds some gas for
+a cycle, it finishes that cycle from a source of the same gas first and says so.
 
 ## The ammonia cracker
 
@@ -582,6 +597,74 @@ follows the silicol process, which really uses up caustic soda; ours keeps its
 caustic in the machine. Details and sources are in
 [the design record](development/regolith-oxygen-design.md).
 
+## The CR-4: oxygen from rock, by way of methane
+
+The **Oxsmith CR-4 Carbothermal Reactor** gets at the same oxygen as the EC-4 by a
+longer road. It melts the rock in methane. The rock's oxygen leaves as carbon
+monoxide, the methane's hydrogen is saved, and a K2 and an X2 finish the job.
+
+| Load one | Draws | Gives | Time |
+| --- | --- | --- | --- |
+| Loose regolith (20 kg) | 3.91 kg of methane | 6.83 kg of carbon monoxide, 0.98 kg of hydrogen and 0.4 kg of water into their stores; 3 ferrosilicon and 9 slag in the tray | 60 min |
+| Silicates ore (10 kg) | 2.61 kg of methane | 4.55 kg of carbon monoxide and 0.65 kg of hydrogen; 2 ferrosilicon and 3 slag | 40 min |
+
+1. Install the CR-4 with its back to the wall row that carries power, touching a
+   methane store, a carbon monoxide store, a hydrogen store and a water silo, or
+   joined to them by gas and water line.
+2. Open its **Control Panel** > **Connections** and set **Methane from**,
+   **Carbon monoxide to**, **Hydrogen to** and **Water silo**. Apply.
+3. Put regolith or Silicates ore in its inventory and **Start**. It waits, with
+   the reason, until its methane store holds enough and its other stores have room.
+4. On a K2, set **CO2 or carbon monoxide from** to the carbon monoxide store and
+   Start it. Run an X2 on the water the K2 makes.
+
+```mermaid
+flowchart LR
+    Lump["Loose regolith"] --> CR4["CR-4, 30 kW"]
+    M["Methane store"] -->|3.91 kg| CR4
+    CR4 -->|6.83 kg| Z["Carbon monoxide store"]
+    CR4 -->|0.98 kg| H["Hydrogen store"]
+    Z --> K2["K2, about 12 cycles"]
+    H --> K2
+    K2 -->|methane back| M
+    K2 -->|4.39 kg water| W["Water silo"]
+    W --> X2["X2, about 4 cycles"]
+    X2 -->|hydrogen| H
+    X2 -->|about 3.9 kg oxygen| O["Oxygen"]
+```
+
+Over the whole loop the methane and hydrogen come back; what is left is about
+3.9 kg of oxygen a lump, the same as the EC-4.
+
+**Which one?**
+
+| | EC-4 | CR-4 with a K2 and an X2 |
+| --- | --- | --- |
+| Price | 96,000 cr | 72,000 cr |
+| Draw while working | 60 kW | 30 kW, then 1.2 kW and 6 kW |
+| Electricity for a lump | 60 kWh | about 68 kWh |
+| Time for a lump | 1 hour | 1 hour, then about 12 hours of one K2 |
+| Needs | an oxygen store | methane to start, three gas stores, a K2, an X2 |
+
+The CR-4 is not cheaper to run. It is cheaper to buy, kinder to a small reactor,
+and it uses machines a water-recycling ship already has. It is also slow: one K2
+takes about twelve hours to work through a lump's gas, so fit a second K2 or a
+bigger store if the reactor runs often.
+
+- **Carbon monoxide is poison, and it burns.** See [Dangers](#dangers). Keep its
+  store sound and away from the reactor's own heat.
+- **Heat and air.** About a fifth of what the reactor draws warms its room, and
+  a lump lets 0.1 kg of carbon dioxide into the air. A waiting reactor loses
+  nothing.
+- **It is a fire risk while working**, like the EC-4 and the refinery.
+- **Not a money machine.** Carbon monoxide sells back for almost nothing.
+
+NASA's Carbothermal Reduction Demonstration at Johnson Space Center takes oxygen
+out of lunar regolith simulant as carbon monoxide in just this way. Our reactor
+is far more efficient than their test rig, on purpose: the yield, the hour and the
+30 kW are ours. Details and sources are in
+[the design record](development/regolith-oxygen-design.md).
+
 ### No machines in vacuum
 
 Phobos machines do not work in the vacuum of space. Each one sheds its waste heat
@@ -685,17 +768,18 @@ and far more than the 9 cr a kilogram the kiosk pays for the ethanol itself.
 Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large
 (4 x 4). A bigger store holds more for less per kilogram of capacity. Pick the
 gas by colour: olive methane, dark grey hydrogen cylinders, green oxygen, blue
-nitrogen and pale grey carbon dioxide, like the game's own canisters, and amber
-ammonia.
+nitrogen and pale grey carbon dioxide, like the game's own canisters, amber
+ammonia and red carbon monoxide.
 
 | Gas | Filled by | Used by |
 | --- | --- | --- |
-| Hydrogen (H) | an X2, an AX-2, a V4 cracking methane, an LC-3 with ferrosilicon | a K2, the RCS through a P1 |
-| Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | a V4 cracking methane, the RCS through a P1 |
+| Hydrogen (H) | an X2, an AX-2, a V4 cracking methane, an LC-3 with ferrosilicon, a CR-4 | a K2, the RCS through a P1 |
+| Methane (M) | a K2, a Shipbreaker T2 thawing methane ice | a V4 cracking methane, a CR-4, the RCS through a P1 |
 | Oxygen (O) | an X2 (set the store as its oxygen destination), an EC-4 melting regolith or Silicates ore, Bulk supplies, an L2 decanting canisters | an SA-3 roasting a nodule, a V4 burning carbon black, an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
 | Nitrogen (N) | Bulk supplies, an AX-2, an L2 decanting canisters | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
 | Carbon dioxide (C) | Bulk supplies, a V4 calcining leached residue or burning carbon black, an L2 decanting canisters | a K2 (set the store as its CO2 source), an A2 dosing a grow room, an L2, the RCS |
 | Ammonia (Q) | a V4 baking salt crust (set the store under Send ammonia to) | an AX-2 (set it as the cracker's ammonia source), an LC-3 making struvite or crop nutrients, the RCS through a P1 |
+| Carbon monoxide (Z) | a CR-4 | a K2 (set the store as its carbon source); the RCS through a P1, as cold gas worth what nitrogen is |
 
 Each store's panel shows the kilograms held and every machine linked to it.
 Right-clicking a store shows the kilograms held on its card too.
@@ -920,7 +1004,7 @@ to space.
 
 ## After a reload
 
-The V4, LC-3, SA-3, EC-4, fermenter-still, X2, K2, AX-2, L2 and bottler keep their
+The V4, LC-3, SA-3, EC-4, CR-4, fermenter-still, X2, K2, AX-2, L2 and bottler keep their
 bound charge, holds, links and progress. A machine that was running when you
 saved carries on by itself (since Manufacturing 0.47.0): a charge picks up from
 its saved progress, and a started machine that was waiting for feed goes back to
@@ -972,6 +1056,13 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
   plant section.
 - **The acid plant heats its room hard.** See the acid plant section: about 21 kW
   over an hour, beyond the plant's own draw.
+- **Carbon monoxide poisons, and it burns.** A damaged carbon monoxide store
+  leaks about 2, 3 or 4 kg an hour by size of the game's own carbon monoxide into
+  its room until repaired, and a destroyed one releases everything it held. There
+  is no smell to warn the crew: the game's own carbon monoxide poisoning applies,
+  so watch the alarms, get people clear and ventilate. With oxygen and a fire, a
+  working V4, EC-4 or CR-4, or a sparking device, the contents burn instead,
+  leaving carbon dioxide. A damaged K2 lets the little it holds into the room too.
 - **Ammonia poisons.** A damaged ammonia store leaks about 2, 3 or 4 kg an
   hour by size of the game's own ammonia into its room until repaired, and a
   destroyed one releases everything it held. The game's ammonia poisoning
@@ -1150,12 +1241,23 @@ hydrogen store and a water silo, load three ferrosilicon and confirm 0.339 kg of
 hydrogen and three spent ferrosilicon. Save and reload with the cell working and
 confirm it carries on.
 
+Carbothermal route (0.53.0): install a CR-4 with methane, carbon monoxide and
+hydrogen stores and a water silo linked, and some methane in the store. Load one
+loose regolith and Start: after an hour confirm 3.91 kg less methane, 6.83 kg of
+carbon monoxide, 0.98 kg more hydrogen, three ferrosilicon and nine slag. On a K2
+choose the carbon monoxide store under CO2 or carbon monoxide from and confirm a
+cycle takes 0.579 kg of it and gives 0.332 kg of methane and 0.372 kg of water;
+switch back to a CO2 canister between cycles and confirm it runs as before.
+Damage a carbon monoxide store in an aired room and confirm the leak notice and
+the room's carbon monoxide rising. Save and reload with each machine working.
+
 ## Sources
 
 The chemistry, energies, hazard rules and their primary sources (NIST, NASA,
 the Dawn, OSIRIS-REx and Hayabusa science teams, iron-meteorite mineralogy,
 olivine leaching, Hoagland's nutrient solution, NASA Kennedy Space Center's molten
-regolith electrolysis work and the 1920 NACA report on the ferrosilicon process) are in
+regolith electrolysis work, NASA Johnson Space Center's Carbothermal Reduction
+Demonstration and the 1920 NACA report on the ferrosilicon process) are in
 [the refinery record](development/manufacturing-refinery-and-chemistry.md).
 Yields are rounded to item units and labelled as authored; the sources inform
 the design and do not endorse it.

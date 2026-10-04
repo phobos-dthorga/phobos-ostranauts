@@ -18230,7 +18230,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.52.0",
+      "version": "0.53.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -26609,6 +26609,1584 @@
           "aliases": []
         },
         {
+          "id": "PhobosCarbonMonoxideStoreInstalled",
+          "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 20000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLoose",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreInstalledDmg",
+          "name": "Phobos' Fennmark Z2 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 5000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreInstalled",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLooseDmg",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLargeInstalled",
+          "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 450.0,
+          "baseValue": 45950.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 320,
+                  "baseValue": 1151.9999694824219
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 87,
+                  "baseValue": 95.70000207424164
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 35,
+                  "baseValue": 1.750000026077032
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeLoose",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLargeInstalledDmg",
+          "name": "Phobos' Fennmark Z4 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 450.0,
+          "baseValue": 11487.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 113,
+                  "baseValue": 406.7999892234802
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 307,
+                  "baseValue": 15.350000228732824
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeInstalled",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeLooseDmg",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 11487.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLargeLoose",
+          "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 450.0,
+          "baseValue": 45950.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 320,
+                  "baseValue": 1151.9999694824219
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 87,
+                  "baseValue": 95.70000207424164
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 35,
+                  "baseValue": 1.750000026077032
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreLargeLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeInstalled",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLargeLooseDmg",
+          "name": "Phobos' Fennmark Z4 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 450.0,
+          "baseValue": 11487.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 113,
+                  "baseValue": 406.7999892234802
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 307,
+                  "baseValue": 15.350000228732824
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreLargeLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeInstalledDmg",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 11487.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLargeLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreLargeLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLargeLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x10",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x10",
+                "TIsPartsElecSmall=1x4",
+                "TIsMobo=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLargeLoose",
+                  "name": "Phobos' Fennmark Z4 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 45950.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLoose",
+          "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 20000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreInstalled",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreLooseDmg",
+          "name": "Phobos' Fennmark Z2 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 5000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreInstalledDmg",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreLoose",
+                  "name": "Phobos' Fennmark Z2 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 20000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreMediumInstalled",
+          "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 305.0,
+          "baseValue": 32530.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 215,
+                  "baseValue": 773.9999794960022
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 59,
+                  "baseValue": 64.90000140666962
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumLoose",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreMediumInstalledDmg",
+          "name": "Phobos' Fennmark Z3 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 305.0,
+          "baseValue": 8132.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 77,
+                  "baseValue": 277.19999265670776
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 207,
+                  "baseValue": 10.350000154227018
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumInstalled",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1300.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumLooseDmg",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 8132.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreMediumLoose",
+          "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 305.0,
+          "baseValue": 32530.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 215,
+                  "baseValue": 773.9999794960022
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 59,
+                  "baseValue": 64.90000140666962
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreMediumLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumInstalled",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonMonoxideStoreMediumLooseDmg",
+          "name": "Phobos' Fennmark Z3 Carbon Monoxide Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 305.0,
+          "baseValue": 8132.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 77,
+                  "baseValue": 277.19999265670776
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 207,
+                  "baseValue": 10.350000154227018
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbonMonoxideStoreMediumLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumInstalledDmg",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 8132.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbonMonoxideStoreMediumLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbonMonoxideStoreMediumLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbonMonoxideStoreMediumLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x8",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x8",
+                "TIsPartsElecSmall=1x3",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3900.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbonMonoxideStoreMediumLoose",
+                  "name": "Phobos' Fennmark Z3 Carbon Monoxide Store",
+                  "count": 1,
+                  "baseValue": 32530.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosCarbonStock",
           "name": "Phobos' Fennmark Carbon Stock",
           "stackLimit": 10,
@@ -26639,6 +28217,651 @@
           "operatingModes": [],
           "installTab": null,
           "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbothermalReactorInputBin",
+          "name": "Phobos' Oxsmith CR-4 Carbothermal reactor charge",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosCarbothermalReactorTFeed",
+            "width": 2,
+            "height": 1,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [
+            "PhobosCarbothermalReactorInput"
+          ],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbothermalReactorInstalled",
+          "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosCarbothermalReactorInput"
+            ],
+            "loot": "PhobosCarbothermalReactorCompartments"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 380.0,
+          "baseValue": 72000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbothermalReactorInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbothermalReactorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 230,
+                  "baseValue": 827.9999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 55,
+                  "baseValue": 60.500001311302185
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 28,
+                  "baseValue": 140.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 18,
+                  "baseValue": 261.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 3,
+                  "baseValue": 112.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 5,
+                  "baseValue": 137.5
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 50,
+                  "baseValue": 2.500000037252903
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbothermalReactorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosCarbothermalReactorInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbothermalReactorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorLoose",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+                  "count": 1,
+                  "baseValue": 72000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbothermalReactorInstalledDmg",
+          "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosCarbothermalReactorInput"
+            ],
+            "loot": "PhobosCarbothermalReactorCompartments"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 380.0,
+          "baseValue": 18000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosCarbothermalReactorInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbothermalReactorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 205,
+                  "baseValue": 737.9999804496765
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 45,
+                  "baseValue": 49.500001072883606
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 6,
+                  "baseValue": 87.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 113,
+                  "baseValue": 5.650000084191561
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbothermalReactorInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x5",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x7",
+                "TIsPartsElecSmall=1x9",
+                "TIsMotor=1x3",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x3",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 7000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorInstalled",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+                  "count": 1,
+                  "baseValue": 72000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCarbothermalReactorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorLooseDmg",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor (Damaged)",
+                  "count": 1,
+                  "baseValue": 18000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbothermalReactorLoose",
+          "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosCarbothermalReactorInput"
+            ],
+            "loot": "PhobosCarbothermalReactorCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 380.0,
+          "baseValue": 72000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbothermalReactorLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbothermalReactorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 230,
+                  "baseValue": 827.9999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 55,
+                  "baseValue": 60.500001311302185
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 28,
+                  "baseValue": 140.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 18,
+                  "baseValue": 261.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 3,
+                  "baseValue": 112.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 5,
+                  "baseValue": 137.5
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 50,
+                  "baseValue": 2.500000037252903
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbothermalReactorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbothermalReactorLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorInstalled",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+                  "count": 1,
+                  "baseValue": 72000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCarbothermalReactorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbothermalReactorLooseDmg",
+          "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 4,
+            "height": 3,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosCarbothermalReactorInput"
+            ],
+            "loot": "PhobosCarbothermalReactorCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 380.0,
+          "baseValue": 18000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCarbothermalReactorLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCarbothermalReactorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 205,
+                  "baseValue": 737.9999804496765
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 45,
+                  "baseValue": 49.500001072883606
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 6,
+                  "baseValue": 87.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 113,
+                  "baseValue": 5.650000084191561
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosCarbothermalReactorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCarbothermalReactorLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorInstalledDmg",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor (Damaged)",
+                  "count": 1,
+                  "baseValue": 18000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCarbothermalReactorLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCarbothermalReactorLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCarbothermalReactorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x5",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x7",
+                "TIsPartsElecSmall=1x9",
+                "TIsMotor=1x3",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x3",
+                "TIsScreen=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 7000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCarbothermalReactorLoose",
+                  "name": "Phobos' Oxsmith CR-4 Carbothermal Reactor",
+                  "count": 1,
+                  "baseValue": 72000.0
+                }
+              ]
+            }
+          ],
           "aliases": []
         },
         {
@@ -40754,6 +42977,13 @@
         },
         {
           "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
           "item": "PhobosAcidTankLoose",
           "condition": "Pristine, Friendly standing",
           "chance": 1.0,
@@ -40977,6 +43207,27 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine, Trusted standing",
@@ -41021,6 +43272,13 @@
         {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbothermalReactorLoose",
           "condition": "Pristine, Trusted standing",
           "chance": 1.0,
           "count": 8
@@ -41250,6 +43508,27 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
           "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine, Trusted standing",
@@ -41294,6 +43573,13 @@
         {
           "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosElectrolysisCellLoose",
+          "condition": "Pristine, Trusted standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbothermalReactorLoose",
           "condition": "Pristine, Trusted standing",
           "chance": 1.0,
           "count": 8
@@ -41523,6 +43809,27 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
+          "condition": "Pristine, Friendly standing",
+          "chance": 1.0,
+          "count": 8
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Refurbished",
@@ -41609,6 +43916,13 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosElectrolysisCellLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosCarbothermalReactorLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -41735,6 +44049,27 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -41785,294 +44120,322 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidPlantLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAcidTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaCrackerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAmmoniaStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosBottlingUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Loot",
+          "chance": 0.0005434782608695652,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCarbonMonoxideStoreLooseDmg",
+          "condition": "Loot",
+          "chance": 0.001630434782608696,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Loot",
+          "chance": 0.0005434782608695652,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCarbothermalReactorLooseDmg",
+          "condition": "Loot",
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosElectrolysisCellLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosElectrolysisCellLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosEthanolTankLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFermenterStillLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosLeachUnitLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosReactionMassFeederLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosReactionMassFeederLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0005952380952380953,
+          "chance": 0.0005434782608695652,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0017857142857142859,
+          "chance": 0.001630434782608696,
           "count": 1
         },
         {
@@ -42162,6 +44525,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosElectrolysisCellLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosCarbothermalReactorLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -42288,6 +44658,27 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -42435,6 +44826,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosElectrolysisCellLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbothermalReactorLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -42561,6 +44959,27 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosAmmoniaStoreLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -42714,6 +45133,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -42834,6 +45260,27 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -42973,6 +45420,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43093,6 +45547,27 @@
         {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -43232,6 +45707,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43352,6 +45834,27 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -43491,6 +45994,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43611,6 +46121,27 @@
         {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -43750,6 +46281,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -43870,6 +46408,27 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44009,6 +46568,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44129,6 +46695,27 @@
         {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44268,6 +46855,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44388,6 +46982,27 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44527,6 +47142,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44647,6 +47269,27 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -44786,6 +47429,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -44906,6 +47556,27 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45045,6 +47716,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -45165,6 +47843,27 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45304,6 +48003,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -45424,6 +48130,27 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45563,6 +48290,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -45683,6 +48417,27 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -45822,6 +48577,13 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -45942,6 +48704,27 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46081,6 +48864,13 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -46201,6 +48991,27 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46340,6 +49151,13 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -46460,6 +49278,27 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46599,6 +49438,13 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -46719,6 +49565,27 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -46872,6 +49739,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbothermalReactorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -46992,6 +49866,27 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAmmoniaStoreLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -47131,6 +50026,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbothermalReactorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -47251,6 +50153,27 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAmmoniaStoreLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCarbonMonoxideStoreLargeLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -61638,15 +64561,15 @@
     "mods/PhobosFramework/mod_info.json": "c0cd0a08830da22261399a0d4ac329f7cea547c5580e6a23f404e6598fb455ff",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/economy.json": "780e6e7267c9bd91b33fde808210bb2fe86bf853d2871b885e02b34216c36daa",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "3faaae3c72a4c7738cb3748fa6a710f646ce61fa66d1e0e871c8a32a58a781c8",
-    "mods/PhobosManufacturing/framework/equipment.json": "f1dfd16244e0925652dca5b8643ce768267be29db2774f54fe559190fb20b9e3",
-    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "56b206992ef93188113d35b658ce8a2b1cbbd52ed47cf4521914adbe34b49353",
+    "mods/PhobosManufacturing/framework/economy.json": "83fa147afc250148ce96baaa9d30b8129d142e9b10fca55282b96054c0a725fc",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "c72a88b8c7e4082a0fac141c02c332e528f0fbebd448aa1b931ca3cfb4c76776",
+    "mods/PhobosManufacturing/framework/equipment.json": "39301c72a6b2bfe68b0e644386c631669a3a9ff49fc2ae1aeb64359f2eda7dad",
+    "mods/PhobosManufacturing/framework/frozen-process-recipes.json": "1ff7f79b28c4ee9e8c2f51edc6bd70b163a4b39f2b9d37269b423c4ed90557c3",
     "mods/PhobosManufacturing/framework/materials.json": "d87c30918d877c366dcbb01295e58de46a9b5f3ee14c9e8c21cd9eeda8c88371",
     "mods/PhobosManufacturing/framework/outcomes.json": "93496fdcf637872c55b59747b12fbbb8a6f6f294558dee69caeeae407d71192e",
-    "mods/PhobosManufacturing/framework/process-recipes.json": "ba30071a869b73da3642b3eaaea50f5426be12bc9edcb5e43624e4192df3d2e8",
-    "mods/PhobosManufacturing/framework/vessels.json": "01bf790e00bdf430e8eab8d029c9d1c25235b6c89d964130cf3ab56f50b15cbd",
-    "mods/PhobosManufacturing/mod_info.json": "5b2d2bddacfd64a67dc7b32ccc5fc490bb6a70a99c4a54b359b2d6e7d2e8001e",
+    "mods/PhobosManufacturing/framework/process-recipes.json": "344eeaffbaa6e7589791a101273c8624017577a02a9af8bb2ec45e5ebde71b69",
+    "mods/PhobosManufacturing/framework/vessels.json": "fcfebcbf4f522dacb2c0cc124d43645b4ac739b80e66529b74d89e60fa4580cf",
+    "mods/PhobosManufacturing/mod_info.json": "f49b0d1158a2761dcb44f4b070febd8d9ea9656d2122bab6c50961f6c2f91517",
     "mods/PhobosMedical/data/conditions/phobos_medical.json": "d0ba8eb226d8747bb8788462899804b48d1cff74462fc31d8af4d861e15c1f03",
     "mods/PhobosMedical/framework/care.json": "90ee93bf6f073137282da3dbbd54b343c0f2ac8325a1e82366eeb2afb9b8775a",
     "mods/PhobosMedical/framework/economy.json": "8e95f9579601722de619bde463568c243ec971e1ab2d5f653d5128473929b3c9",
@@ -61994,41 +64917,42 @@
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/BottlerService.cs": "24b596d36ba2614c740d0324200a4bdd80af13b8869b12d3cd4bf4f85896be68",
     "src/PhobosManufacturing/ChargeMachine.cs": "99063919a03802a58883c504acc074e7c2ca208361423f40ad8e6ed14c2e73c1",
-    "src/PhobosManufacturing/ChargeMachines.cs": "ec7376756960329d49764b426d57344a52e775b5718c36ed48ff6fa65c2a56e4",
+    "src/PhobosManufacturing/ChargeMachines.cs": "1b6f65d660ba5e746ad787ab6e484d677b25ec272fc4e608f45bca8936bc28cf",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "16f54a97cfaeb9ed157cb68f0058745b98e5bce375af71428d57691c8c90d3f8",
     "src/PhobosManufacturing/Content.cs": "2ce20e3857d628f33c4d1037cfa9ec0d82e396b8887abbdc13073b963275c449",
     "src/PhobosManufacturing/Core/AcidLineRules.cs": "acd58624c130617c9a7e8109763bbb40ee5403552cc5fffbc7772be055de48b4",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/BottlerRules.cs": "e0bd4d5733a6939ea666fc69125d0cc342bd6f19d5591dc789347b0b350c35b1",
-    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "258b0c5db6ed859dba1ec18f8104b02a055338c38d1e028cae03160a02532cd9",
+    "src/PhobosManufacturing/Core/CarbothermalRules.cs": "d04d1145ec39f92d60838d6d87ecdd21efd08bb73bd9c8c8d50cffe71530611f",
+    "src/PhobosManufacturing/Core/ChargeCatalog.cs": "f1da598c35b3d506c2c0a674ef294f5f2ba190376bd9dc88021c9ba434c631ce",
     "src/PhobosManufacturing/Core/ChargeOutcomes.cs": "baf6ecbc0190a63f6fddf8a816ed01fc51ffe237001ee1e7698f2fe27bf71da3",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "b784f2eac6eb184f20bfa4e523100ed7423a9346b0ccaa494445ba814b3bdc20",
     "src/PhobosManufacturing/Core/ChargeState.cs": "9fc3b4cf88f202d84611a7da85cacfe1b8abbbf257769acb2d741d8b90056508",
     "src/PhobosManufacturing/Core/CrackerRules.cs": "4a3a0dc5042e64c567ac8f4fed584df3128ce66a50482f99f001c1cf15550b1a",
     "src/PhobosManufacturing/Core/CrackerState.cs": "3b60fca0e8759efaf1455537274cbda7ab49bfb8d9ffbe9726db8f51cc7021b8",
-    "src/PhobosManufacturing/Core/Economy.cs": "ec0ea907cdf9d7f3959719058aa09c90e6d3ee067dd0ade82d7fb7fb01c7808c",
+    "src/PhobosManufacturing/Core/Economy.cs": "61dbbad0f12bcbd152b8c30b2aaee75c95764f6fa79674de053c9e4ecc249a86",
     "src/PhobosManufacturing/Core/ElectrolysisRules.cs": "fd124d944cf14960b33d79092dafb2b0314ab5ac7a90ab2044848d38485d9602",
     "src/PhobosManufacturing/Core/Equipment.cs": "6d5232178b830e3df6e87007821e2603918836a03d308a999cf253357ae0043a",
     "src/PhobosManufacturing/Core/FeederRules.cs": "8563d92a118a1ffba2bfb200fa3941307bf5501b95dbfd3ec687b365158ceaf0",
     "src/PhobosManufacturing/Core/FermenterRules.cs": "9331577a9aa896c6a18f10f1b41023a21e57b2979b02345efe9fc21e49dd2061",
     "src/PhobosManufacturing/Core/FillerRules.cs": "9bcdec2b2ed1f7f304ba7fd7a65c33f89c8156c3814700afb216a0d442d6bbaf",
-    "src/PhobosManufacturing/Core/GasStoreRules.cs": "e592d7c62deb05ccbdb08f4c5bc139c7ab0b2fab87c376fbf9d8f03e27aacd4e",
+    "src/PhobosManufacturing/Core/GasStoreRules.cs": "74d834c1bdba5a9832c7b56c828e01b5819d1fbd364007ea3c713824a6432de2",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "a5ea5e856cf9803e858eae68f65cb9b64289e88bbf7c438f18b1ae14b1410c84",
     "src/PhobosManufacturing/Core/LeachRules.cs": "5570cf53437f2496fcf57fd890f0c428fafabc77e278ff1477f346b62e8cf883",
     "src/PhobosManufacturing/Core/LiquidStoreRules.cs": "85e2b7ed6d74564b183d74cd858a04ebca6b74557386985da8c91297b5603c93",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "f0cca7d26239d2fc881180d461dd93a168b513dc4265abeb8b0d19775b3a4c23",
-    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "3548f751a2d69d8e7c6adcee4b6ee0b0cbd3c40c5657defb5c2bd53a3216ac01",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "8cc12937d45ce99a6ada40630c7208ab10beef02a0bea86242be765c6dc84640",
     "src/PhobosManufacturing/Core/Materials.cs": "9d6013803d4cc00141de04632038d7314def53ba3a9608e89fa3ce394e974a84",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "31b3433e1ccfe19fc3569f25aedbbd2a778acad9bd3e65f7bdcb41f6b3ed40dd",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
     "src/PhobosManufacturing/Core/RefineryRules.cs": "75f1c8508ac13a90379cd179a09d09ae48bb7f68b1aed1059e426898a97ebd8e",
     "src/PhobosManufacturing/Core/RegolithFloor.cs": "d803382a826defd9ea3deae942383f6f7fd6c3688ceb66e1fe7faa907e521c1f",
     "src/PhobosManufacturing/Core/RegulatorRules.cs": "854f6270f7b4c73be35c4eb43bdc367d84491fee4327b1fc0fe5e23b74b55008",
-    "src/PhobosManufacturing/Core/SabatierRules.cs": "59203809e3ad9ba2790935144eca458c6a5ffbb988befe7def9e91ac630ddf63",
-    "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
+    "src/PhobosManufacturing/Core/SabatierRules.cs": "222d9db98e9ea02e33b5e1ef56a0915d30f1b3cc974f32ceb76be4e648cd3668",
+    "src/PhobosManufacturing/Core/SabatierState.cs": "b6378f7e7bf0b09893b01972c7972f1483616a879be507907556d7b900418bf5",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "d1fc0bff65332273772ad877a79d0580b7441e0395cc54c5af43a5b1feb059de",
-    "src/PhobosManufacturing/Definitions.cs": "91db25419909e9f2ac82b8cf3c68ea029d9edbadae64b12c756565905c9c0e7f",
+    "src/PhobosManufacturing/Definitions.cs": "bb877746b5cce458d22ab5a7e76976dd0089e1d078d8d87a417bc55f7cc4ae91",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "e7c9a1b80d7b923389d3a2a835245ccaa1e094646d782a1e771f54d491fcf097",
     "src/PhobosManufacturing/FeederService.cs": "deb79e0c5af89eacd085aa3505038439dd2d2de90d64a03a345802146d525ddc",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
@@ -62040,12 +64964,12 @@
     "src/PhobosManufacturing/ManifoldService.cs": "98f8d4f084440c131399634e6bf94b11d00da3b933f90dc9d720ae40ac07cd73",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "606bfc6884cd7c3455b8f3d678fdffbdf658b43c4ae4cd7c05d1ff27ed02fcf0",
-    "src/PhobosManufacturing/Plugin.cs": "e15d9ce771d0a5eb9ca3b2abc3bbd168a87f4639f9550253e933dc33309be05a",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "30e6510bc4a779dbbb763a81797d11ab203ba49d35a9a37d74b22df6daf02ea9",
+    "src/PhobosManufacturing/Plugin.cs": "62b7b49e37d712d91e73b1349d6a8ca5c5e211e7bb02a4f38b3a87131c0443c4",
     "src/PhobosManufacturing/ProcessorService.cs": "b23ec23c7368a7d523a33f05c6e3761a253ca4976185093342353ad7dd215405",
-    "src/PhobosManufacturing/Provider.cs": "07bc126c21a3dc7ad0d434c0c228ce4d0eedd6cebcdad99130293d4a5f644b63",
+    "src/PhobosManufacturing/Provider.cs": "0200872c04915614f20de61d1ecee39896c218a1f887cfcd74fbd2fbe46b10ba",
     "src/PhobosManufacturing/RegulatorService.cs": "d6254fa6d5b46ba81dba03841679fe694bb78ac7553359819c2ab0d585527d10",
-    "src/PhobosManufacturing/SabatierService.cs": "40005f359506b45df05814a12961b298f73d1a7a30550342dce94e95f35ea782",
+    "src/PhobosManufacturing/SabatierService.cs": "5471da4e367b092c34e6cbb52d999cebeb2c00fb3066785d7b148605ec35fc52",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "f52d5839851ce359dba6c96eddf3df70269eff64020f97e27beab08e8c9848d6",
     "src/PhobosManufacturing/StoreService.cs": "e3f4dd6e6c9ff8779a2a105dd04072ef84f14521a2eaf4aa28eda0ee9cf81696",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
@@ -62194,7 +65118,7 @@
     "translations/PhobosAgriculture/en.json": "9b5580224156241e5c53f0b593f85fa293100e689c6ec0f1b1fcda3c803cc35b",
     "translations/PhobosAutoNav/en.json": "5fdaca9352a47ecea20bbab20cbf1607fd95a214b178d88d3caffff97883cb72",
     "translations/PhobosFramework/en.json": "99f33f3806054895a51ccea46ca462572d7b3bcfc1f99e1d1f58d56f0ea42680",
-    "translations/PhobosManufacturing/en.json": "ceec175d00b4d2891da5a4583c035a98c0595f1528365c2691ea47ff4ffdadb4",
+    "translations/PhobosManufacturing/en.json": "00a47ee601f87f78e3926a0d202a05ea77631dbe86c43b59e91c942984e8533d",
     "translations/PhobosMedical/en.json": "c35f6c03ef2112b700ab0b9555cb9d087a330b39484cfb771e1d9f0eea5032ac",
     "translations/PhobosShipbreaker/en.json": "9d41ba09d772dd760cff6bdaa6e6f9ba6dbfbb6b1bda7063deac74d90b4fa9b2",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"

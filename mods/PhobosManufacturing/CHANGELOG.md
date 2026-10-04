@@ -15,6 +15,31 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Stores, silos and support equipment are unchanged; production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.53.0] - 2026-10-05 - Draft
+
+### Added
+
+- Phobos' Oxsmith CR-4 Carbothermal Reactor: oxygen out of plain rock by way of methane. A 4 x 4 machine under INSTALL, APPS, 72,000 cr, drawing 30 kW while it works, half the EC-4. Load loose regolith or Silicates ore. A 20 kg regolith lump takes 3.91 kg of methane from a linked store and gives 6.83 kg of carbon monoxide, 0.98 kg of hydrogen and 0.4 kg of water to linked stores, with three ferrosilicon and nine slag, in an hour. A Silicates chunk takes 2.61 kg and gives 4.55 kg of carbon monoxide, 0.65 kg of hydrogen, two ferrosilicon and three slag in 40 minutes.
+- Phobos' Fennmark Z2, Z3 and Z4 Carbon Monoxide Stores: 300, 745 and 1,440 kg, from 20,000 cr, red domes. They join the gas line, show their contents on the right-click card and sell back at a refuelling kiosk like the other gas stores.
+- The K2 takes carbon monoxide. Its carbon source field, now CO2 or carbon monoxide from, also lists carbon monoxide stores. With one chosen, each cycle takes 0.125 kg of hydrogen and 0.579 kg of carbon monoxide and makes 0.332 kg of methane and 0.372 kg of water. With an X2 splitting that water, a lump's carbon monoxide becomes about 3.9 kg of oxygen and the methane comes back.
+
+### Changed
+
+- The K2's carbon source field is renamed from CO2 canister to CO2 or carbon monoxide from. Reactors already set up keep their source and work as before.
+
+### Save compatibility
+
+- Automatic. A K2 saved before this version reads unchanged; its record gains two fields only once it has held carbon monoxide. Everything else is new.
+
+### Compatibility and limits
+
+- Carbon monoxide is poison with no smell, and it burns. A damaged store leaks it into the room, where the game's own carbon monoxide poisoning applies; with oxygen and something to light it, the contents burn into carbon dioxide. A damaged K2 lets out the little it holds.
+- The CR-4 is not cheaper to run than the EC-4: about 68 kWh a lump across the reactor, the K2 and the X2, against 60. It is cheaper to buy, draws half the power at once and uses machines a water-recycling ship already has. One K2 needs about twelve hours for a lump's gas.
+- A P1 manifold can burn stored carbon monoxide as cold gas, worth what nitrogen is. The L2 does not bottle it. Stations do not sell it.
+- NASA's Carbothermal Reduction Demonstration at Johnson Space Center takes oxygen out of lunar regolith simulant as carbon monoxide. Our reactor is about eight times as efficient as that test rig by its own measure; the yield, the hour and the 30 kW are our figures.
+- Source: A. Paz and others, Carbothermal Reduction Demonstration (CaRD), NASA NTRS 20230003977, 2023.
+- Checked offline; not yet seen in the game.
+
 ## [0.52.0] - 2026-10-05 - Draft
 
 ### Added

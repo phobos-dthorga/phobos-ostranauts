@@ -3,7 +3,7 @@
 Prepared and **produced 5 October 2026**, ahead of any machine code. Both machines
 belong to the regolith programme the owner approved the same day: oxygen from rock
 by two routes. **The EC-4 is implemented and bound to its master since Manufacturing
-0.52.0; the CR-4 is not implemented yet**. The owner asked this session
+0.52.0 and the CR-4 since 0.53.0**. The owner asked this session
 to generate the art using its own artistic judgement, while keeping a resemblance
 to Blue Bottle Games' Ostranauts equipment style. The original owner-run requests
 below are retained as planning history; no further owner generation is needed.

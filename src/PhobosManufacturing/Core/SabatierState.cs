@@ -9,16 +9,24 @@ namespace PhobosManufacturing.Core;
 /// products made and not yet delivered (water and methane), the energy credited to the cycle, totals, and the
 /// linked native CO2 canister (a one-sided saved id: nothing is written into a vanilla object). A completed
 /// cycle turns its reactant hold into its product hold in one saved step, so a reload can never deliver twice.
-/// Running permission is not saved; a reload waits for Start.</summary>
+/// Running permission is not saved; a reload waits for Start. Since Manufacturing 0.53.0 the reactor may hold carbon
+/// monoxide instead of carbon dioxide (never both): two optional fields, written only when they are not zero, so a
+/// record saved before, or by a reactor that never saw carbon monoxide, reads and writes exactly as it did.</summary>
 public sealed class SabatierState
 {
     public double HydrogenKg, CarbonDioxideKg, WaterKg, MethaneKg, CycleKWh, ProducedWaterKg, ProducedMethaneKg, ConsumedCarbonDioxideKg;
+    /// <summary>The carbon monoxide mode's reactant hold and running total (Manufacturing 0.53.0).</summary>
+    public double CarbonMonoxideKg, ConsumedCarbonMonoxideKg;
     public long Cycles;
     public string Canister = "";
-    public double HeldKg => HydrogenKg + CarbonDioxideKg + WaterKg + MethaneKg;
+    public double HeldKg => HydrogenKg + CarbonDioxideKg + CarbonMonoxideKg + WaterKg + MethaneKg;
     public bool HoldsProducts => WaterKg > 1e-9 || MethaneKg > 1e-9;
-    public bool Charged => HydrogenKg + 1e-9 >= SabatierRules.HydrogenKgPerCycle && CarbonDioxideKg + 1e-9 >= SabatierRules.CarbonDioxideKgPerCycle;
-    private static readonly string[] Keys = { "h2", "co2", "water", "ch4", "cycle", "made_water", "made_ch4", "used_co2", "cycles", "canister" };
+    /// <summary>Whether the reactant hold is carbon monoxide: the cycle it is charging or running is the second mode.</summary>
+    public bool HoldsMonoxide => CarbonMonoxideKg > 1e-9;
+    public bool HoldsDioxide => CarbonDioxideKg > 1e-9;
+    public bool Charged => HydrogenKg + 1e-9 >= SabatierRules.HydrogenKgPerCycle &&
+        (HoldsMonoxide ? CarbonMonoxideKg + 1e-9 >= SabatierRules.MonoxideKgPerCycle : CarbonDioxideKg + 1e-9 >= SabatierRules.CarbonDioxideKgPerCycle);
+    private static readonly string[] Keys = { "h2", "co2", "water", "ch4", "cycle", "made_water", "made_ch4", "used_co2", "cycles", "canister", "co", "used_co" };
     public static SabatierState Read(IReadOnlyDictionary<string, string> fields)
     {
         if (fields.Keys.Any(k => Array.IndexOf(Keys, k) < 0)) throw new FormatException("Unknown reactor record field.");
@@ -27,27 +35,40 @@ public sealed class SabatierState
             HydrogenKg = Number(fields, "h2"), CarbonDioxideKg = Number(fields, "co2"), WaterKg = Number(fields, "water"), MethaneKg = Number(fields, "ch4"),
             CycleKWh = Number(fields, "cycle"), ProducedWaterKg = Number(fields, "made_water"), ProducedMethaneKg = Number(fields, "made_ch4"),
             ConsumedCarbonDioxideKg = Number(fields, "used_co2"), Cycles = Int(fields, "cycles"),
-            Canister = fields.TryGetValue("canister", out var c) && c != "-" ? c : ""
+            Canister = fields.TryGetValue("canister", out var c) && c != "-" ? c : "",
+            CarbonMonoxideKg = Number(fields, "co"), ConsumedCarbonMonoxideKg = Number(fields, "used_co")
         };
+        // A product hold is one cycle's products of either mode: the first makes more water, the second more methane.
+        double maxWater = Math.Max(SabatierRules.WaterKgPerCycle, SabatierRules.MonoxideWaterKgPerCycle), maxMethane = Math.Max(SabatierRules.MethaneKgPerCycle, SabatierRules.MonoxideMethaneKgPerCycle);
         if (s.HydrogenKg < 0 || s.HydrogenKg > SabatierRules.HydrogenKgPerCycle + 1e-9 || s.CarbonDioxideKg < 0 || s.CarbonDioxideKg > SabatierRules.CarbonDioxideKgPerCycle + 1e-9 ||
-            s.WaterKg < 0 || s.WaterKg > SabatierRules.WaterKgPerCycle + 1e-9 || s.MethaneKg < 0 || s.MethaneKg > SabatierRules.MethaneKgPerCycle + 1e-9 ||
+            s.CarbonMonoxideKg < 0 || s.CarbonMonoxideKg > SabatierRules.MonoxideKgPerCycle + 1e-9 || (s.HoldsMonoxide && s.HoldsDioxide) || s.ConsumedCarbonMonoxideKg < 0 ||
+            s.WaterKg < 0 || s.WaterKg > maxWater + 1e-9 || s.MethaneKg < 0 || s.MethaneKg > maxMethane + 1e-9 ||
             s.CycleKWh < 0 || s.CycleKWh >= SabatierRules.CycleKWh || s.ProducedWaterKg < 0 || s.ProducedMethaneKg < 0 || s.ConsumedCarbonDioxideKg < 0 || s.Cycles < 0 ||
             (s.CycleKWh > 0 && s.HoldsProducts)) throw new FormatException("Invalid reactor record.");
         return s;
     }
-    public IReadOnlyDictionary<string, string> Save() => new Dictionary<string, string>(StringComparer.Ordinal)
+    public IReadOnlyDictionary<string, string> Save()
     {
-        ["h2"] = N(HydrogenKg), ["co2"] = N(CarbonDioxideKg), ["water"] = N(WaterKg), ["ch4"] = N(MethaneKg), ["cycle"] = N(CycleKWh),
-        ["made_water"] = N(ProducedWaterKg), ["made_ch4"] = N(ProducedMethaneKg), ["used_co2"] = N(ConsumedCarbonDioxideKg),
-        ["cycles"] = Cycles.ToString(CultureInfo.InvariantCulture), ["canister"] = Canister.Length == 0 ? "-" : Canister
-    };
-    /// <summary>A completed cycle: the reactant hold becomes the product hold, mass for mass, and the cycle closes.</summary>
+        var fields = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["h2"] = N(HydrogenKg), ["co2"] = N(CarbonDioxideKg), ["water"] = N(WaterKg), ["ch4"] = N(MethaneKg), ["cycle"] = N(CycleKWh),
+            ["made_water"] = N(ProducedWaterKg), ["made_ch4"] = N(ProducedMethaneKg), ["used_co2"] = N(ConsumedCarbonDioxideKg),
+            ["cycles"] = Cycles.ToString(CultureInfo.InvariantCulture), ["canister"] = Canister.Length == 0 ? "-" : Canister
+        };
+        if (CarbonMonoxideKg != 0) fields["co"] = N(CarbonMonoxideKg);
+        if (ConsumedCarbonMonoxideKg != 0) fields["used_co"] = N(ConsumedCarbonMonoxideKg);
+        return fields;
+    }
+    /// <summary>A completed cycle: the reactant hold becomes the product hold, mass for mass, and the cycle closes. The
+    /// gas in the hold decides which reaction it was.</summary>
     public void Convert()
     {
         if (!Charged || HoldsProducts) throw new InvalidOperationException("The reactor has no complete charge to convert.");
-        HydrogenKg = 0; CarbonDioxideKg = 0; CycleKWh = 0;
-        WaterKg = SabatierRules.WaterKgPerCycle; MethaneKg = SabatierRules.MethaneKgPerCycle;
-        ConsumedCarbonDioxideKg += SabatierRules.CarbonDioxideKgPerCycle; Cycles++;
+        bool monoxide = HoldsMonoxide;
+        HydrogenKg = 0; CarbonDioxideKg = 0; CarbonMonoxideKg = 0; CycleKWh = 0;
+        WaterKg = SabatierRules.WaterKg(monoxide); MethaneKg = SabatierRules.MethaneKg(monoxide);
+        if (monoxide) ConsumedCarbonMonoxideKg += SabatierRules.MonoxideKgPerCycle; else ConsumedCarbonDioxideKg += SabatierRules.CarbonDioxideKgPerCycle;
+        Cycles++;
     }
     private static string N(double v) => v.ToString("R", CultureInfo.InvariantCulture);
     private static double Number(IReadOnlyDictionary<string, string> f, string key) =>

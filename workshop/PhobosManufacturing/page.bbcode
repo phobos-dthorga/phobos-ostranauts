@@ -1,24 +1,24 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.52.0
+[b]Version:[/b] 0.53.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines or grows into water, metal stock, oxygen, fertiliser and spirit. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
 
 [h2]What it does[/h2]
 [list]
-[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): water from hydrates and clay hydrates, ammonia from salt crust, carbon stock from carbon ore (run a scrubber for its CO2, CO and smoke), nickel-iron ingots from meteoric iron and nickel steel from those, and CO2 from the LC-3's leached residue. It also cracks methane, burns carbon or straw into CO2 for crops, chars straw and reactivates spent CO2 cartridges.
+[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): water from hydrates and clay hydrates, ammonia from salt crust, carbon stock from carbon ore (run a scrubber for its CO2, CO and smoke), nickel-iron ingots from meteoric iron and nickel steel from those, and CO2 from the LC-3's leached residue. It also cracks methane, burns carbon or straw into CO2, chars straw and reactivates spent CO2 cartridges.
 [*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): splits 1.125 kg of water an hour into 1 kg of oxygen (a canister or the cabin air) and 0.125 kg of hydrogen.
-[*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 and hydrogen into water and methane. With the X2 it wins back about half the water, as NASA's Sabatier system on the ISS does.
+[*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 or carbon monoxide and hydrogen into water and methane. With the X2 it wins back about half the water, as NASA's Sabatier system on the ISS does.
 [*][b]Phobos' Tolvane AX-2 Ammonia Cracker[/b] (2 x 2, 2 kW): stored ammonia into nitrogen for your cabin air and hydrogen, each to its own store.
-[*][b]Phobos' Lixivar LC-3 Leach and Crystallise Unit[/b] (3 x 3, 12 kW): choose a recipe. It leaches evaporite crust and olivine into fertiliser salts, makes struvite, washes gangue or regolith for scrap by chance and turns ferrosilicon and water into hydrogen. With Agriculture it blends makeup salts or crop nutrients.
+[*][b]Phobos' Lixivar LC-3 Leach and Crystallise Unit[/b] (3 x 3, 12 kW): choose a recipe. It leaches evaporite crust and olivine into fertiliser salts, makes struvite, washes gangue or regolith for scrap by chance and makes hydrogen from ferrosilicon. With Agriculture it blends makeup salts or crop nutrients.
 [*][b]Phobos' Lixivar SA-3 Sulfuric Acid Plant[/b] (3 x 3, 4 kW): roasts a sulfide nodule in stored oxygen into sulfuric acid for an [b]AT-2, AT-3 or AT-4 acid tank[/b] and a flask of phosphoric acid. It heats the room hard.
-[*][b]Phobos' Oxsmith EC-4 Electrolysis Cell[/b] (4 x 4, 60 kW): melts loose regolith or Silicates ore into oxygen for a store, ferrosilicon and slag.
-[*][b]Gas stores in three sizes[/b] for hydrogen, methane, oxygen, nitrogen, CO2 and ammonia. Stations sell oxygen, nitrogen and CO2 under Bulk supplies and buy stored gas back at 45%.
+[*][b]Phobos' Oxsmith EC-4 Electrolysis Cell[/b] (4 x 4, 60 kW): melts regolith or Silicates ore into oxygen, ferrosilicon and slag. The [b]CR-4 Carbothermal Reactor[/b] (30 kW) uses methane instead; a K2 and X2 finish the job.
+[*][b]Gas stores in three sizes[/b] for hydrogen, methane, oxygen, nitrogen, CO2, ammonia and carbon monoxide. Stations sell oxygen, nitrogen and CO2 and buy stored gas back at 45%.
 [*][b]Phobos' Alembrine Copperhead-3 Fermenter-Still[/b] (3 x 3, 3 kW): Agriculture beets or sugar into ethanol for Cask tanks (3 sizes, own line). A [b]Corker-2 Bottling Unit[/b] bottles it as spirit.
 [*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (INSTALL > HVAC): feeds your thrusters from up to four gas stores, each gas at its real worth. The [b]Slingwright RM-1[/b] grinds slag, cakes and rejects into reaction mass.
 [*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (INSTALL > HVAC): fills suit bottles and canisters to a safe 99% from your stores, or empties them back. Crew can keep suit bottles topped up.
 [*][b]Phobos' Fennmark A2 Cabin Air Regulator[/b] (INSTALL > HVAC): holds its room's oxygen and pressure from O2 and N2 stores. It only adds gas, caps oxygen at 30% and can give crops CO2.
-[*]Clay hydrates and both crusts turn up in C-class finds, sulfide nodules in M- and S-class iron. Ores are mined; refined, they sell for double.
+[*]Clay hydrates and both crusts turn up in C-class finds, sulfide nodules in M- and S-class iron. Refined ore sells for double.
 [/list]
 
 [h2]Getting started[/h2]
@@ -47,17 +47,16 @@ Refining and chemistry aboard your ship: turn what the crew mines or grows into 
 [h2]Saves and limits[/h2]
 [list]
 [*]Ordinary saves are supported. Keep required mods installed while a save uses them.
-[*]Working machines carry on after a reload, keeping progress.
+[*]Working machines carry on after a reload.
 [*]Right-click a store to see what it holds. Empty it before removing it.
-[*]A damaged hydrogen store leaks to space and, with oxygen and a spark, fire or working refinery, burns through the game's own explosion; so does a share of a damaged ethanol tank or line. A damaged methane store leaks into the room and burns to CO2; a damaged ammonia store leaks poison; a damaged K2 or AX-2 dumps its gas; a damaged acid tank or acid line mists a little acid into the room. More cabin oxygen, more fire risk.
-[*]A metal melt left waiting for a cool room too long freezes into slag. No crew loading orders yet.
+[*]A damaged hydrogen store leaks to space and, with oxygen and a spark, fire or working refinery, burns through the game's own explosion; so does a share of a damaged ethanol tank or line. A damaged methane store leaks into the room and burns to CO2; a damaged ammonia or carbon monoxide store leaks poison; a damaged K2 or AX-2 dumps its gas; a damaged acid tank or acid line mists a little acid into the room. More cabin oxygen, more fire risk.
+[*]A metal melt left waiting for a cool room too long freezes into slag.
 [*]Automated checks pass; in-game checks pending.
 [/list]
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; equipment sizes and operating limits are gameplay choices.
-Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA (Kennedy's regolith electrolysis included), the Dawn, OSIRIS-REx and Hayabusa science teams and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
-The Oxsmith CR-4 remains planned.
+Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA (Kennedy and Johnson regolith work included), the Dawn, OSIRIS-REx and Hayabusa science teams and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
 
 [h2]Guides and support[/h2]
 [list]

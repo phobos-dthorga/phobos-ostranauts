@@ -41,6 +41,26 @@ public static class SabatierRules
     public static double ReactionKW => ReactionKWhPerCycle / CycleHours;
     /// <summary>Everything the working reactor puts into its room: its electricity and the reaction heat.</summary>
     public static double RoomHeatKW(bool working) => working ? WorkingKW + ReactionKW : IdleKW;
+    /// <summary>The second mode (Manufacturing 0.53.0; owner decision, 5 October 2026): methanation of carbon monoxide,
+    /// CO + 3 H2 -> CH4 + H2O, on the same catalyst bed and the same one-cycle hydrogen charge. The reactor works in this
+    /// mode whenever its carbon source is a carbon monoxide store. Formation enthalpy of CO(g): -110.53 kJ/mol (NIST);
+    /// with the water condensed the reaction releases -110.53 - (-74.87 + -285.83) = 250.17 kJ per mole of CO.</summary>
+    public const string CarbonMonoxide = "CO";
+    public const double FormationCO = -110.53;
+    public const double MonoxideReactionKJPerMol = FormationCO - (FormationCH4 + FormationWaterLiquid);
+    public static double MonoxideMolesPerCycle => HydrogenMolesPerCycle / 3;
+    public static double MonoxideKgPerCycle => MonoxideMolesPerCycle * KgPerMol(CarbonMonoxide);
+    public static double MonoxideMethaneKgPerCycle => MonoxideMolesPerCycle * KgPerMol(MethaneSpecies);
+    /// <summary>The remainder, so reactants and products balance exactly.</summary>
+    public static double MonoxideWaterKgPerCycle => HydrogenKgPerCycle + MonoxideKgPerCycle - MonoxideMethaneKgPerCycle;
+    public static double MonoxideReactionKWhPerCycle => MonoxideMolesPerCycle * MonoxideReactionKJPerMol / 3600;
+    /// <summary>One cycle's figures in either mode: the carbon gas taken, the methane and water made, the heat released.</summary>
+    public static double CarbonKg(bool monoxide) => monoxide ? MonoxideKgPerCycle : CarbonDioxideKgPerCycle;
+    public static double MethaneKg(bool monoxide) => monoxide ? MonoxideMethaneKgPerCycle : MethaneKgPerCycle;
+    public static double WaterKg(bool monoxide) => monoxide ? MonoxideWaterKgPerCycle : WaterKgPerCycle;
+    public static double ReactionKWh(bool monoxide) => monoxide ? MonoxideReactionKWhPerCycle : ReactionKWhPerCycle;
+    public static double RoomHeatKW(bool working, bool monoxide) => working ? WorkingKW + ReactionKWh(monoxide) / CycleHours : IdleKW;
+    public static bool MonoxideBalanced() => Math.Abs(MonoxideWaterKgPerCycle - MonoxideMolesPerCycle * KgPerMol("H2O")) / MonoxideWaterKgPerCycle < 1e-4;
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     public static bool Balanced() => Math.Abs(HydrogenKgPerCycle + CarbonDioxideKgPerCycle - MethaneKgPerCycle - WaterKgPerCycle) < Phobos.Ostranauts.Framework.Units.MassToleranceKg &&
         Math.Abs(WaterKgPerCycle - StoichiometricWaterKg) / StoichiometricWaterKg < 1e-4;

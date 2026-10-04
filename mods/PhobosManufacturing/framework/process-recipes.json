@@ -332,6 +332,25 @@
       "products": [ { "id": "hydrogen", "count": 1, "kg": 0.339 }, { "id": "PhobosSpentFerrosilicon", "count": 3, "kg": 3.095 } ],
       "seconds": 1200,
       "reactionKWh": 7.9
+    },
+    "regolith-carbothermal": {
+      "notes": "Carbothermal reduction of regolith with methane on the Oxsmith CR-4 (owner request, 5 October 2026; set 5 of the regolith programme). NASA's Carbothermal Reduction Demonstration (CaRD; project manager A. Paz, NASA Johnson Space Center, with a reactor by Sierra Space and gas analysis by NASA Kennedy Space Center; NASA NTRS 20230003977) heats lunar regolith simulant in methane and takes its oxygen out as carbon monoxide, which downstream methanation and water electrolysis turn into oxygen gas and returned methane. One 20 kg lump, of the composition authored for the EC-4 (0.4 kg of bound water, 0.1 kg of carbon dioxide, 5.457 kg of FeO and 5.045 kg of silica reduced, 9 kg of oxides left): FeO + CH4 -> Fe + CO + 2 H2 on 75.96 mol and SiO2 + 2 CH4 -> Si + 2 CO + 4 H2 on 83.96 mol. 243.88 mol of methane, 3.912 kg, drawn from a linked methane store; 6.831 kg of carbon monoxide, stated as 6.830 kg, to a linked carbon monoxide store; 0.983 kg of hydrogen, stated as 0.982 kg, to a linked hydrogen store; the same three 2.2 kg units of ferrosilicon and nine slag as the EC-4 (the slag carries the two grams). The oxygen removed, 3.9 kg, is 19.5 percent of the lump; NASA's lunar work reports more than 20 percent by mass for carbothermal reduction (G. Sanders, Progress Review: NASA Lunar ISRU, NTRS 20250003730, read in summary only), so this is in the reported range for a rock whose composition is ours. The reductions absorb 236.4 and 839.5 kJ per mole (NIST formation enthalpies: FeO -272.04, quartz -910.86, CH4 -74.87, CO -110.53), 24.6 kWh of the charge's 30 kWh. Complete conversion of the methane fed, with none cracked to carbon, is an authored simplification. One hour at 30 kW is authored. A supply charge.",
+      "machine": "carbothermal-reactor",
+      "revision": 1,
+      "inputs": [ { "id": "ItmMineralStone01", "count": 1, "kg": 20 }, { "id": "methane", "count": 1, "kg": 3.912 } ],
+      "products": [ { "id": "carbon monoxide", "count": 1, "kg": 6.83 }, { "id": "hydrogen", "count": 1, "kg": 0.982 }, { "id": "water", "count": 1, "kg": 0.4 }, { "id": "PhobosFerrosilicon", "count": 3, "kg": 2.2 }, { "id": "PhobosRefinerySlag", "count": 9, "kg": 1 } ],
+      "offGas": { "CO2": 0.1 },
+      "seconds": 3600,
+      "reactionKWh": -24.6
+    },
+    "silicates-carbothermal": {
+      "notes": "Carbothermal reduction of the game's Silicates ore on the Oxsmith CR-4 (see regolith-carbothermal for the process and its NASA source). One 10 kg chunk, authored as dry iron-bearing silicate as for the EC-4: 50.64 mol of FeO and 55.97 mol of silica reduced by 162.58 mol of methane, 2.608 kg, into 4.554 kg of carbon monoxide and 0.6555 kg of hydrogen, stated as 0.654 kg, with two 2.2 kg units of ferrosilicon and 3 kg of slag (which carries the gram and a half). The reductions absorb 16.4 kWh of the charge's 20 kWh. Forty minutes at 30 kW is authored. A supply charge: the ore sells for far more raw.",
+      "machine": "carbothermal-reactor",
+      "revision": 2,
+      "inputs": [ { "id": "ItmMineral04", "count": 1, "kg": 10 }, { "id": "methane", "count": 1, "kg": 2.608 } ],
+      "products": [ { "id": "carbon monoxide", "count": 1, "kg": 4.554 }, { "id": "hydrogen", "count": 1, "kg": 0.654 }, { "id": "PhobosFerrosilicon", "count": 2, "kg": 2.2 }, { "id": "PhobosRefinerySlag", "count": 3, "kg": 1 } ],
+      "seconds": 2400,
+      "reactionKWh": -16.4
     }
   }
 }

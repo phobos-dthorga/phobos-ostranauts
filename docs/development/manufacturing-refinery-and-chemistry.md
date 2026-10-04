@@ -1024,3 +1024,56 @@ That fixes ferrosilicon at 2 cr. The hydrogen charge has no finished product.
 
 **Hazards.** The cell is an ignition source while working, like the V4. A waiting cell does
 not spoil. Its heat goes through the shared room-heat rule, so it does not work in vacuum.
+
+## The carbothermal route: the CR-4, the K2's second mode and carbon monoxide stores (0.53.0)
+
+Set 5 of the [regolith programme](regolith-programme.md); sources, choices and the loop are in
+the [design record](regolith-oxygen-design.md). Molar masses for the stores and the K2 are the
+game's own (carbon monoxide 28.01 g/mol); formation enthalpies are NIST values at 298 K.
+
+**The process.** NASA's Carbothermal Reduction Demonstration (CaRD; project manager A. Paz,
+NASA Johnson Space Center, with a reactor by Sierra Space and gas analysis by NASA Kennedy
+Space Center; [NASA NTRS 20230003977](https://ntrs.nasa.gov/citations/20230003977)) heats
+lunar regolith simulant and extracts its oxygen "in the form of carbon monoxide", with
+methanation and water electrolysis downstream. The poster gives oxygen per kWh, not per
+kilogram of regolith, and no equations; the reactions below are ours.
+
+**Regolith (carbothermal-reactor revision 1).** 1 lump (20 kg) + 3.912 kg methane from a
+linked store -> 6.830 kg carbon monoxide + 0.982 kg hydrogen + 0.4 kg water to linked stores
++ 0.1 kg CO2 into the room + 3 ferrosilicon + 9 slag.
+
+| Step | Moles | Methane | Carbon monoxide | Hydrogen |
+| --- | ---: | ---: | ---: | ---: |
+| FeO + CH4 -> Fe + CO + 2 H2 | 75.96 | 1.219 kg | 2.128 kg | 0.306 kg |
+| SiO2 + 2 CH4 -> Si + 2 CO + 4 H2 | 83.96 | 2.694 kg | 4.703 kg | 0.677 kg |
+
+243.88 mol of methane, 6.831 kg of carbon monoxide and 0.983 kg of hydrogen, stated to the
+gram below those; the slag carries the two grams. The rock, the metal and the slag are the
+EC-4's exactly. Energy: 75.96 x 236.38 + 83.96 x 839.54 kJ = 88,440 kJ = 24.6 kWh absorbed, of
+the 30 kWh an hour at 30 kW draws; the other 18 percent warms the room. Complete use of the
+methane fed is an authored simplification, and so are the hour and the 30 kW: by CaRD's own
+measure (at most 15.79 g of oxygen per kWh) this reactor is about eight times as efficient.
+
+**Silicates (revision 2).** 1 Silicates ore (10 kg) + 2.608 kg methane -> 4.554 kg carbon
+monoxide + 0.654 kg hydrogen + 2 ferrosilicon + 3 slag; 16.4 kWh absorbed of 20 kWh in forty
+minutes. Two-thirds of the table above.
+
+**The K2's second mode.** CO + 3 H2 -> CH4 + H2O on the same 0.125 kg of hydrogen (62.007
+mol): 20.669 mol of carbon monoxide, 0.5789 kg; 0.3316 kg of methane; water the remainder,
+0.3723 kg, within 0.01 percent of stoichiometric. It releases -110.53 - (-74.87 - 285.83) =
+250.17 kJ per mole of carbon monoxide with the water condensed, 1.436 kWh a cycle, on top of
+the reactor's 1.2 kWh. The carbon source decides the mode; the gas in the hold decides the
+cycle being finished. Complete conversion is the same authored simplification as the first mode.
+
+**The loop.** One lump's 6.830 kg of carbon monoxide is 11.8 K2 cycles: 1.475 kg of hydrogen
+in, 3.911 kg of methane and 4.392 kg of water out. The reactor supplied 0.982 kg of that
+hydrogen; an X2 makes the other 0.493 kg from 4.43 kg of water in 3.94 cycles, leaving 3.94 kg
+of oxygen. Methane and hydrogen net to nothing. A unit check holds each of these.
+
+**Carbon monoxide stores.** 80 percent of the shared vessel's 13,400 ideal moles is 300 kg.
+A fuel: CO + 1/2 O2 -> CO2, 282.98 kJ/mol, so 0.571 kg of oxygen and 1.571 kg of carbon
+dioxide per kilogram, 10.1 MJ/kg. A room species, so leaks and the K2's dump go into the room
+through `RoomGas`, and the game's own poisoning applies.
+
+**Value.** Both charges are supply and are judged as loops: a lump and its methane, 43.61 cr,
+against 13.45 cr back. Carbon monoxide is bought back at the game's 1.1 cr/kg and never sold.

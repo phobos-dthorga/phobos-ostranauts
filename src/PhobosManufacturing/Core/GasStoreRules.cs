@@ -52,7 +52,7 @@ public sealed class Combustion
 /// <summary>One gas store family: the small size's identities and ratings, the gas, and whether it burns. The
 /// medium and large sizes follow Framework's shared size ladder (one tile wider per step, capacity with floor area
 /// plus 10% per step). Text keys specific to the gas live under <see cref="TextPrefix"/>; shared ones under
-/// "Store". Model letters: H hydrogen, M methane, O oxygen, N nitrogen, C carbon dioxide, Q ammonia; digit = footprint.</summary>
+/// "Store". Model letters: H hydrogen, M methane, O oxygen, N nitrogen, C carbon dioxide, Q ammonia, Z carbon monoxide; digit = footprint.</summary>
 public sealed class GasFamily
 {
     public string SmallPrefix { get; }
@@ -173,7 +173,16 @@ public static class GasStores
     /// every brand). Ammonia is a game gas species (it poisons the crew in bands), so a damaged store leaks into the room.</summary>
     public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q",
         "ManufacturingAmmonia", "ManufacturingAmmoniaWork", "ManufacturingAmmoniaTransfer", null);
-    public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily, AmmoniaFamily };
+    /// <summary>Carbon monoxide (Manufacturing 0.53.0; owner decision, 5 October 2026): what a carbothermal reactor takes
+    /// out of rock, kept for the K2. The same vessel at 80% of its ideal moles holds 300 kg (its molar mass is
+    /// nitrogen's). It is a game gas that poisons the crew, so a damaged store leaks into the room; and it burns,
+    /// CO + 1/2 O2 -> CO2, 282.98 kJ/mol (NIST formation enthalpies of CO and CO2). Model letter Z (unused by every brand).</summary>
+    public const double CarbonMonoxideHHVKJPerMol = 282.98;
+    public static readonly GasFamily CarbonMonoxideFamily = new("PhobosCarbonMonoxideStore", ManufacturingRules.CarbonMonoxide, "CO", "CarbonMonoxide", "Z",
+        "ManufacturingCarbonMonoxide", "ManufacturingCarbonMonoxideWork", "ManufacturingCarbonMonoxideTransfer",
+        new Combustion(CarbonMonoxideHHVKJPerMol / MethaneRules.KgPerMol("CO"), MethaneRules.KgPerMol("O2") / 2 / MethaneRules.KgPerMol("CO"),
+            new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = MethaneRules.KgPerMol("CO2") / MethaneRules.KgPerMol("CO") }));
+    public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily, AmmoniaFamily, CarbonMonoxideFamily };
     public static readonly IReadOnlyList<GasStore> All = Families.SelectMany(f => f.Sizes).ToArray();
     // One dictionary probe per definition on the hot paths (every powered object, every destroyed object, the
     // two-second world scan), instead of a query over fifteen sizes with string comparisons.

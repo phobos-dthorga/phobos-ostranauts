@@ -423,7 +423,8 @@
   exception to "add a bulk commodity only with a concrete consumer"; do not treat
   it as permission for other consumer-less commodities. Methane is a native gas:
   the store leaks it into the room and a burn leaves CO2. Keep the reactor's saved
-  reactant/product holds and its one-step conversion; follow the refinery record.
+  reactant/product holds and its one-step conversion (amended 5 October 2026 for the
+  carbon monoxide mode: see the regolith programme entry); follow the refinery record.
 - Owner request (2026-09-29), Framework 0.42.0 / Manufacturing 0.3.0: RCS thrusters
   burn bulk gases at their real cold-gas worth, and native O2/CO2 canisters are
   corrected too. Framework `Propulsion.RcsPropellant` serves the engine's RCS gas
@@ -1609,8 +1610,22 @@
   choice, stated wherever the recipe is described): do not present it as the real
   silicol balance. Both EC-4 charges are **supply**, judged by the native check as loops
   (bulk at the kiosk's buy-back share, ferrosilicon at 1.2 x, never repaying the rock),
-  which is why ferrosilicon is 2 cr. Set 5 (carbon monoxide stores, the K2's second
-  mode, the CR-4) is next. Follow `docs/development/regolith-programme.md` for decisions, order, agent
+  which is why ferrosilicon is 2 cr. Manufacturing 0.53.0 is set 5, which completes the
+  programme: the Fennmark **Z2 to Z4 carbon monoxide stores** (a seventh `GasFamily`; a
+  game gas, so leaks go into the room, and a fuel through the shared `Combustion`), the
+  **K2's second mode** (CO + 3 H2 -> CH4 + H2O, chosen by linking a carbon monoxide
+  store as the carbon source), and the **Oxsmith CR-4 Carbothermal Reactor**
+  (`PhobosCarbothermalReactor`, machine `carbothermal-reactor`, 30 kW, 72,000 cr as an
+  agent default), which reduces the same rock as the EC-4 with methane drawn from a
+  linked store. Owner decision (5 October 2026) amending the 29 September K2 rule: the
+  saved holds and the one-step conversion stay, and the record gains two optional
+  fields (`co`, `used_co`) written only when not zero, so an old record reads and
+  writes unchanged; the gas in the hold decides the cycle being finished. Never add a
+  required K2 field. The CaRD source gives oxygen per kWh, not per kilogram: the yield
+  is authored and the reactor is stated to be about eight times as efficient as NASA's
+  rig. A P1 may burn carbon monoxide (agent choice under the player-flexibility rule, a
+  change from the plan, recorded in the design record). Still open: the paver's own
+  picture and the owner's checks in play. Follow `docs/development/regolith-programme.md` for decisions, order, agent
   defaults and the list of figures still unverified; never cite those until checked.
   The Oxsmith art handoff (`docs/development/oxsmith-art-handoff.md`) was written first
   because the owner's ChatGPT plan is time-limited.

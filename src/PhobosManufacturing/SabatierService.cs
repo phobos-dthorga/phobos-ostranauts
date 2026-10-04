@@ -19,7 +19,9 @@ namespace PhobosManufacturing;
 /// store and CO2 from an installed native CO2 canister into its reactant hold, credits measured electricity to
 /// the cycle, and on completion turns the reactant hold into a product hold of water and methane in one saved
 /// step. Products then go to the linked water vessel and methane store under both transfer guards. A new cycle
-/// begins only once the products are delivered. Running permission is not saved: a reload waits for Start.</summary>
+/// begins only once the products are delivered. Running permission is not saved: a reload waits for Start.
+/// Since Manufacturing 0.53.0 the carbon source may be a carbon monoxide store, and the reactor then runs
+/// CO + 3 H2 -> CH4 + H2O on the same hydrogen charge; the gas in its hold decides which cycle it is finishing.</summary>
 internal static class SabatierService
 {
     private sealed class Session
@@ -86,7 +88,9 @@ internal static class SabatierService
         if (co.ship == null) return Enumerable.Empty<CondOwner>();
         var canisters = trigger == null ? Enumerable.Empty<CondOwner>() :
             co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && ProcessorService.Adjacent(co, c));
-        var stores = BulkVessels.Aboard(co.ship, ManufacturingRules.CarbonDioxide).Where(v => v != co && ProcessorService.StoreReach(co, v));
+        // Carbon monoxide stores too (Manufacturing 0.53.0): with one as its carbon source the reactor runs CO + 3 H2.
+        var stores = BulkVessels.Aboard(co.ship, ManufacturingRules.CarbonDioxide).Concat(BulkVessels.Aboard(co.ship, ManufacturingRules.CarbonMonoxide))
+            .Where(v => v != co && ProcessorService.StoreReach(co, v));
         return canisters.Concat(stores).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
 
@@ -110,7 +114,7 @@ internal static class SabatierService
     private static bool IsCanisterCandidate(CondOwner co, CondOwner c)
     {
         if (c == null || c.bDestroyed || c == co || c.ship != co.ship) return false;
-        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.CarbonDioxide) return c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c) && ProcessorService.StoreReach(co, c);
+        if (BulkVessels.Of(c)?.Commodity is ManufacturingRules.CarbonDioxide or ManufacturingRules.CarbonMonoxide) return c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c) && ProcessorService.StoreReach(co, c);
         var trigger = NativeDefinitions.Trigger(SabatierRules.CanisterTrigger);
         return trigger != null && ProcessorService.Adjacent(co, c) && trigger.Triggered(c);
     }
@@ -129,7 +133,16 @@ internal static class SabatierService
         if (s.HeadroomKg + 1e-9 < kg) { reason = Text.Get(water ? "Sabatier.water_full" : "Sabatier.methane_full", s.HeadroomKg, kg); return null; }
         return vessel;
     }
-    private static CondOwner? Canister(CondOwner co, Session s, double needMoles, out string reason)
+    /// <summary>Whether the reactor's next or current cycle is the carbon monoxide one: the gas it already holds decides;
+    /// with an empty hold, its chosen carbon source does.</summary>
+    private static bool Monoxide(Session s)
+    {
+        if (s.State.HoldsMonoxide) return true;
+        if (s.State.HoldsDioxide || s.State.Canister.Length == 0) return false;
+        var source = CrewWork.Resolve(s.State.Canister);
+        return source != null && BulkVessels.Of(source)?.Commodity == ManufacturingRules.CarbonMonoxide;
+    }
+    private static CondOwner? Canister(CondOwner co, Session s, double needMoles, bool monoxide, out string reason)
     {
         reason = Text.Get("Sabatier.canister_none");
         if (s.State.Canister.Length == 0) return null;
@@ -138,13 +151,17 @@ internal static class SabatierService
         if (canister == null || !IsCanisterCandidate(co, canister)) return null;
         reason = Text.Get("Sabatier.canister_damaged");
         if (canister.HasCond("IsDamaged")) return null;
+        // A part-filled hold of one gas is finished from a source of the same gas, never topped up with the other.
+        bool sourceMonoxide = BulkVessels.Of(canister)?.Commodity == ManufacturingRules.CarbonMonoxide;
+        reason = Text.Get(monoxide ? "Sabatier.source_not_monoxide" : "Sabatier.source_not_dioxide");
+        if (sourceMonoxide != monoxide) return null;
         if (BulkVessels.IsVessel(canister))
         {
             reason = Text.Get("Sabatier.vessel_protected");
             if (!NativeFluidRoute.EndpointReady(canister) || BulkVessel.Protected(canister) || CommodityReservations.Held(canister.strID)) return null;
             var snapshot = BulkVessel.Snapshot(canister);
-            double needKg = NativeGasCanister.Kilograms(SabatierRules.CarbonDioxide, needMoles);
-            reason = Text.Get("Sabatier.canister_short", snapshot.AvailableKg, needKg);
+            double needKg = NativeGasCanister.Kilograms(monoxide ? SabatierRules.CarbonMonoxide : SabatierRules.CarbonDioxide, needMoles);
+            reason = Text.Get(monoxide ? "Sabatier.monoxide_short" : "Sabatier.canister_short", snapshot.AvailableKg, needKg);
             if (snapshot.CatchKg > 1e-8 || snapshot.AvailableKg + 1e-9 < needKg) return null;
             reason = ""; return canister;
         }
@@ -225,8 +242,9 @@ internal static class SabatierService
         {
             if (s.State.HoldsProducts && !Deliver(co, s)) return;
             if (!Charge(co, s)) return;
-            if (Destination(co, true, SabatierRules.WaterKgPerCycle, out string waterWhy) == null) { Wait(co, s, Text.Get("Sabatier.waiting_output", waterWhy)); return; }
-            if (Destination(co, false, SabatierRules.MethaneKgPerCycle, out string methaneWhy) == null) { Wait(co, s, Text.Get("Sabatier.waiting_output", methaneWhy)); return; }
+            bool monoxide = s.State.HoldsMonoxide;
+            if (Destination(co, true, SabatierRules.WaterKg(monoxide), out string waterWhy) == null) { Wait(co, s, Text.Get("Sabatier.waiting_output", waterWhy)); return; }
+            if (Destination(co, false, SabatierRules.MethaneKg(monoxide), out string methaneWhy) == null) { Wait(co, s, Text.Get("Sabatier.waiting_output", methaneWhy)); return; }
         }
         catch (Exception ex) { Fault(co, ex); return; }
         SetWorking(co, true);
@@ -242,14 +260,15 @@ internal static class SabatierService
             LiquidTransferGuard.Commit(new BulkVessel.Endpoint(store), new Hold(co, s, ManufacturingRules.Hydrogen), needH2, BulkVessel.Guard(store), Guard(co));
             if (s.Protected) { Stop(co, s, Text.Get("Sabatier.protected")); return false; }
         }
-        double needCO2 = SabatierRules.CarbonDioxideKgPerCycle - s.State.CarbonDioxideKg;
+        bool monoxide = Monoxide(s);
+        double needCO2 = monoxide ? SabatierRules.MonoxideKgPerCycle - s.State.CarbonMonoxideKg : SabatierRules.CarbonDioxideKgPerCycle - s.State.CarbonDioxideKg;
         if (needCO2 > 1e-9)
         {
-            double moles = NativeGasCanister.Moles(SabatierRules.CarbonDioxide, needCO2);
-            var canister = Canister(co, s, moles, out string why);
-            if (canister == null) { Wait(co, s, Text.Get("Sabatier.waiting_co2", why)); return false; }
+            double moles = NativeGasCanister.Moles(monoxide ? SabatierRules.CarbonMonoxide : SabatierRules.CarbonDioxide, needCO2);
+            var canister = Canister(co, s, moles, monoxide, out string why);
+            if (canister == null) { Wait(co, s, Text.Get(monoxide ? "Sabatier.waiting_monoxide" : "Sabatier.waiting_co2", why)); return false; }
             if (BulkVessels.IsVessel(canister))
-                LiquidTransferGuard.Commit(new BulkVessel.Endpoint(canister), new Hold(co, s, ManufacturingRules.CarbonDioxide), needCO2, BulkVessel.Guard(canister), Guard(co));
+                LiquidTransferGuard.Commit(new BulkVessel.Endpoint(canister), new Hold(co, s, monoxide ? ManufacturingRules.CarbonMonoxide : ManufacturingRules.CarbonDioxide), needCO2, BulkVessel.Guard(canister), Guard(co));
             else
             {
                 double taken = NativeGasCanister.TryTake(canister, SabatierRules.CarbonDioxide, moles);
@@ -257,13 +276,14 @@ internal static class SabatierService
                 Save(co, s);
             }
             if (s.Protected) { Stop(co, s, Text.Get("Sabatier.protected")); return false; }
-            if (!s.State.Charged) { Wait(co, s, Text.Get("Sabatier.waiting_co2", Text.Get("Sabatier.canister_short", 0.0, needCO2))); return false; }
+            if (!s.State.Charged) { Wait(co, s, Text.Get(monoxide ? "Sabatier.waiting_monoxide" : "Sabatier.waiting_co2", Text.Get(monoxide ? "Sabatier.monoxide_short" : "Sabatier.canister_short", 0.0, needCO2))); return false; }
         }
         return true;
     }
     /// <summary>Sends made products to their vessels; returns true when nothing is left waiting.</summary>
     private static bool Deliver(CondOwner co, Session s)
     {
+        double madeWater = s.State.WaterKg, madeMethane = s.State.MethaneKg;
         foreach (bool water in new[] { true, false })
         {
             double kg = water ? s.State.WaterKg : s.State.MethaneKg;
@@ -276,7 +296,7 @@ internal static class SabatierService
             Save(co, s);
         }
         if (s.State.HoldsProducts) return false;
-        Plugin.Log(Text.Get("Sabatier.cycle_log", co.strID, SabatierRules.WaterKgPerCycle, SabatierRules.MethaneKgPerCycle));
+        Plugin.Log(Text.Get("Sabatier.cycle_log", co.strID, madeWater, madeMethane));
         return true;
     }
 
@@ -288,7 +308,8 @@ internal static class SabatierService
         double demand = working ? SabatierRules.WorkingKW : SabatierRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand;
         var air = RoomHeat.Read(co);
-        var heat = RoomHeat.Check(air, SabatierRules.RoomHeatKW(working), seconds);
+        bool monoxide = sessions.TryGetValue(co, out var held) && held.State.HoldsMonoxide;
+        var heat = RoomHeat.Check(air, SabatierRules.RoomHeatKW(working, monoxide), seconds);
         if (!heat.Admitted)
         {
             if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }
@@ -312,7 +333,7 @@ internal static class SabatierService
         double before = s.State.CycleKWh;
         var (credited, complete) = SabatierRules.Advance(before, supplied);
         // The reaction releases its heat in step with the cycle's progress.
-        double reactionKWh = (credited - before) / SabatierRules.CycleKWh * SabatierRules.ReactionKWhPerCycle;
+        double reactionKWh = (credited - before) / SabatierRules.CycleKWh * SabatierRules.ReactionKWh(s.State.HoldsMonoxide);
         if (reactionKWh > 0) RoomHeat.Deposit(transfer.Air, reactionKWh);
         s.State.CycleKWh = credited;
         s.Status = co.HasCond("IsPowered") ? Text.Get("Sabatier.working", ManufacturingRules.MinutesLeft(s.State.CycleKWh, SabatierRules.CycleKWh, SabatierRules.WorkingKW)) : Text.Get("Sabatier.waiting_power");
@@ -333,13 +354,17 @@ internal static class SabatierService
         public string ShipId => co.ship.strRegID;
         public string Commodity => commodity;
         public double QuantityKg => commodity == ManufacturingRules.Hydrogen ? s.State.HydrogenKg : commodity == ManufacturingRules.Water ? s.State.WaterKg :
-            commodity == ManufacturingRules.CarbonDioxide ? s.State.CarbonDioxideKg : s.State.MethaneKg;
-        public double CapacityKg => commodity == ManufacturingRules.Hydrogen ? SabatierRules.HydrogenKgPerCycle : commodity == ManufacturingRules.Water ? SabatierRules.WaterKgPerCycle :
-            commodity == ManufacturingRules.CarbonDioxide ? SabatierRules.CarbonDioxideKgPerCycle : SabatierRules.MethaneKgPerCycle;
+            commodity == ManufacturingRules.CarbonDioxide ? s.State.CarbonDioxideKg : commodity == ManufacturingRules.CarbonMonoxide ? s.State.CarbonMonoxideKg : s.State.MethaneKg;
+        // A product hold is as large as the larger mode's product, so a hold made in either mode can leave.
+        public double CapacityKg => commodity == ManufacturingRules.Hydrogen ? SabatierRules.HydrogenKgPerCycle :
+            commodity == ManufacturingRules.Water ? Math.Max(SabatierRules.WaterKgPerCycle, SabatierRules.MonoxideWaterKgPerCycle) :
+            commodity == ManufacturingRules.CarbonDioxide ? SabatierRules.CarbonDioxideKgPerCycle : commodity == ManufacturingRules.CarbonMonoxide ? SabatierRules.MonoxideKgPerCycle :
+            Math.Max(SabatierRules.MethaneKgPerCycle, SabatierRules.MonoxideMethaneKgPerCycle);
         public void SetQuantity(double kg)
         {
             if (commodity == ManufacturingRules.Hydrogen) s.State.HydrogenKg = kg; else if (commodity == ManufacturingRules.Water) s.State.WaterKg = kg;
-            else if (commodity == ManufacturingRules.CarbonDioxide) s.State.CarbonDioxideKg = kg; else s.State.MethaneKg = kg;
+            else if (commodity == ManufacturingRules.CarbonDioxide) s.State.CarbonDioxideKg = kg; else if (commodity == ManufacturingRules.CarbonMonoxide) s.State.CarbonMonoxideKg = kg;
+            else s.State.MethaneKg = kg;
             Save(co, s);
         }
     }
@@ -361,19 +386,22 @@ internal static class SabatierService
     {
         var s = Get(co);
         if (s.Protected) return;
-        double h2 = s.State.HydrogenKg, co2 = s.State.CarbonDioxideKg, ch4 = s.State.MethaneKg;
-        if (h2 + co2 + ch4 <= 1e-9) return;
+        double h2 = s.State.HydrogenKg, co2 = s.State.CarbonDioxideKg, ch4 = s.State.MethaneKg, monoxide = s.State.CarbonMonoxideKg;
+        if (h2 + co2 + ch4 + monoxide <= 1e-9) return;
         Stop(co, s, Text.Get("Sabatier.repair_first"), needsAttention: false);
-        s.State.HydrogenKg = 0; s.State.CarbonDioxideKg = 0; s.State.MethaneKg = 0; s.State.CycleKWh = 0;
+        s.State.HydrogenKg = 0; s.State.CarbonDioxideKg = 0; s.State.CarbonMonoxideKg = 0; s.State.MethaneKg = 0; s.State.CycleKWh = 0;
         Save(co, s);
         var air = RoomHeat.Read(co);
         if (air != null)
         {
             if (co2 > 0) RoomGas.Emit(air, SabatierRules.CarbonDioxide, co2);
             if (ch4 > 0) RoomGas.Emit(air, SabatierRules.MethaneSpecies, ch4);
+            // Carbon monoxide is the game's own gas and poisons the crew: under a kilogram, into the room like the rest.
+            if (monoxide > 0) RoomGas.Emit(air, SabatierRules.CarbonMonoxide, monoxide);
         }
         bool burned = h2 > 0 && StoreService.Ignite(co, GasStores.Hydrogen, h2, "Sabatier.burn_log");
-        string log = Text.Get(logKey, co.strNameFriendly, co2, ch4, h2, burned ? Text.Get("Sabatier.hydrogen_burned") : Text.Get("Sabatier.hydrogen_escaped"));
+        string log = Text.Get(logKey, co.strNameFriendly, co2, ch4, h2, burned ? Text.Get("Sabatier.hydrogen_burned") : Text.Get("Sabatier.hydrogen_escaped")) +
+            (monoxide > 0 ? " " + Text.Get("Sabatier.monoxide_dumped", monoxide) : "");
         Plugin.Log(log);
         PlayerNotices.Post(co.ship, "PhobosManufacturing.reactor", NoticeLevel.Caution, log, Text.Get("Sabatier.dump_banner"));
     }
@@ -393,7 +421,8 @@ internal static class SabatierService
                 st.ProducedWaterKg, st.ProducedMethaneKg, st.ConsumedCarbonDioxideKg,
                 co.HasCond("IsPowered") ? Text.Get("Content.powered") : Text.Get("Content.no_power"),
                 ObjectPresentation.Name(HydrogenPeer(co)), CanisterName(co), ObjectPresentation.Name(WaterPeer(co)), ObjectPresentation.Name(MethanePeer(co))) +
-            "\n" + Text.Get("Sabatier.demand", SabatierRules.WorkingKW, RoomHeat.Machine(SabatierRules.RoomHeatKW(true))) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
+            (st.HoldsMonoxide || st.ConsumedCarbonMonoxideKg > 0 || Monoxide(s) ? "\n" + Text.Get("Sabatier.status_monoxide", st.CarbonMonoxideKg, st.ConsumedCarbonMonoxideKg) : "") +
+            "\n" + Text.Get("Sabatier.demand", SabatierRules.WorkingKW, RoomHeat.Machine(SabatierRules.RoomHeatKW(true, Monoxide(s)))) + (s.LastStop == null ? "" : "\n" + Text.Get("Content.last_stop", s.LastStop));
     }
     internal static string CanisterId(CondOwner co) => Get(co).State.Canister;
     internal static string CanisterName(CondOwner co) { var s = Get(co); return s.State.Canister.Length == 0 ? ConsoleText.Get("not_selected") : ObjectPresentation.Name(s.State.Canister); }

@@ -1077,3 +1077,7 @@ L49 — Manufacturing 0.51.0: the charge engine's feed table is kept per machine
 ## 5 October: the Oxsmith EC-4 and ferrosilicon (L50)
 
 L50 — Manufacturing 0.52.0: a fifth charge machine on the shared engine. The per-admission bin test (`ChargeMachines.ForBin`) compares one more string, five in all, with no allocation; the definition memo and the power hooks are unchanged. Three recipes, two materials, one machine family and one more LC-3 link are built at content load. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: the carbothermal route (L51)
+
+L51 — Manufacturing 0.53.0: a sixth charge machine (one more string comparison in `ChargeMachines.ForBin`, six in all, no allocation), a seventh gas store family (three more entries in the store definition index, still one dictionary probe per definition; `GasStores.FamilyOf` walks seven families instead of six), and the K2's second mode. The K2 resolves its carbon source once when it charges an empty hold and when its panel is described, never per frame while a cycle runs: the gas already in its hold answers the mode on the power step. Two recipes, three store sizes and one machine family are built at content load. Nothing is added to a frame. No capture accompanies this change.

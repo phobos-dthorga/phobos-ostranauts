@@ -1548,6 +1548,32 @@
     "fullFootprint": true
   },
   {
+    "key": "oxsmith-cr4",
+    "sourceSHA256": "d4531c71ad4565d85fe5e4c834e5714a60a66bc40374d39951c20e4028342cab",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      256,
+      256
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbothermalReactor.png": "fc0e4fd9cbfc70855b2bc15bc3712163d65679a0ccfe30a1636cbdff83eb5010",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbothermalReactorNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
     "key": "x2-processor",
     "sourceSHA256": "0f51b997f23b882a37566d0c9d495a1dce5bff4cee50507041fff1671bd5395f",
     "nativeSize": [
@@ -2597,6 +2623,84 @@
     "exports": {
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreLarge.png": "85f294c5e1315a08dbd911732b67fb66ea558c68cea625c8a358807f65bd838c",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAmmoniaStoreLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "z2-carbon-monoxide-store",
+    "sourceSHA256": "6c4c51d5441492e3bf477f5bf47548ccf7956235cd7058ff26c2088782673d78",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStore.png": "b18547b8db0f8627fff47709b8ffde8376f002ad103d78ac5734754e342157d5",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStoreNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "z3-carbon-monoxide-store",
+    "sourceSHA256": "5113ba45fbe95f6a2e87751ddd179ac0984bbe7c8a6757c5a69542357cdbee19",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      192,
+      192
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStoreMedium.png": "180ecbf24d083a9b9970d0715fedb20340c059fc2624067bc1213f642ff8d841",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStoreMediumNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "z4-carbon-monoxide-store",
+    "sourceSHA256": "4855f15b17ca6b851cefc2e7e118145457c0ea825772810a23b073294716c232",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      256,
+      256
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStoreLarge.png": "85dc9a310c65b32713f7b4c32c6cf371f617842c4ccf8e7bfb735a4d9c58800d",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCarbonMonoxideStoreLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,

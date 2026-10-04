@@ -51,7 +51,7 @@ regolith alone unless told to bake or sinter it; machine prices about 96,000 cr 
 | 2 | Volatile bake on the V4; baked regolith as a declared remainder | Done: Manufacturing 0.51.0, with set 3 |
 | 3 | Sintered pavers, the V4's regolith choice, the regolith floor twin | Done: Manufacturing 0.51.0. Paver priced 13 cr, not the tile's 21 (bought-stock rule). Paver art still to make: it shows the game's loose floor plate until then |
 | 4 | Oxsmith EC-4, ferrosilicon and its silicol use | Done: Manufacturing 0.52.0 ([design record](regolith-oxygen-design.md)). Ferrosilicon is 2 cr; the hydrogen recipe keeps its caustic in the machine (agent choice, stated in the record) |
-| 5 | Carbon monoxide stores, the K2's second mode, Oxsmith CR-4 | Not started; opens with a design record |
+| 5 | Carbon monoxide stores, the K2's second mode, Oxsmith CR-4 | Done: Manufacturing 0.53.0 ([design record](regolith-oxygen-design.md), part 2). The CR-4 reduces what the EC-4 does (about 3.9 kg of oxygen a lump, not the 2.1 kg first sketched), at 30 kW; a P1 may burn carbon monoxide, a change from the plan stated in the record |
 
 ## Unverified, and not to be cited until checked
 
@@ -64,8 +64,10 @@ checked against a primary source, or labelled authored, before any player text c
   read in summary only.
 - The lump's composition for the leach (olivine share, metal grains, sulfide) is still ours
   and unsourced.
-- The carbothermal extraction share and its loop figures (NASA Carbothermal Reduction
-  Demonstration reports are linked in the feedstock gaps record but were not re-read).
+- Settled in the design record, 5 October 2026: the NASA Carbothermal Reduction
+  Demonstration poster was read; it gives oxygen per kWh, not per kilogram of rock, so the
+  carbothermal yield is authored too, and the game's reactor is stated to be about eight
+  times as efficient as the test rig.
 - Sintering temperature, the share of metal grains an acid leach frees, and the heat
   capacity used for the bake's energy budget.
 
@@ -75,5 +77,10 @@ checked against a primary source, or labelled authored, before any player text c
   19.5 kg of RM-1 reaction mass.
 - The Silicates ore sells for more raw than its electrolysis products are worth; both oxygen
   routes are supply chains at the game's gas price, with no profit claim.
+- The carbothermal route is not cheaper to run than the EC-4 (about 68 kWh a lump against
+  60), and one K2 takes about twelve hours to work through a lump's carbon monoxide. Its
+  case is a cheaper machine, a lower peak draw and equipment already aboard.
+- **The programme's five sets are all delivered.** Still open: the paver's own picture, and
+  the owner's checks in play for every set.
 - A save with the regolith floor laid needs Manufacturing kept installed; removing the mod
   would leave holes where it lay.
