@@ -139,7 +139,19 @@ public static class CrewWork
     public static bool IsStore(CondOwner? c) => c != null && !c.bDestroyed && c.objCOParent == null &&
         c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") && Provider(c) == null;
     public static bool LocalAccess(CondOwner actor, CondOwner target, double range) => actor != null && target != null && actor.ship == target.ship &&
-        (TileUtils.TileRange(actor.GetPos(), target.GetPos("use")) <= range || executing?.Skipping == true && executing.Actor == actor && executing.Equipment == target);
+        (Reach(actor, target) <= range || executing?.Skipping == true && executing.Actor == actor && executing.Equipment == target);
+    /// <summary>How far a crew member stands from a machine's use point, tile to tile, exactly as the game measures an
+    /// interaction's range (Framework 0.96.0; owner report, 5 October 2026). Measuring from the crew member's exact
+    /// position instead could come out a tile further than the game's own figure, so a crew member the game had already
+    /// judged within reach of Control Panel was refused, silently, and the panel never opened.</summary>
+    public static int Reach(CondOwner actor, CondOwner target)
+    {
+        var from = actor.GetPos(); var to = target.GetPos("use");
+        var ship = actor.ship;
+        var standing = ship?.GetTileAtWorldCoords1(from.x, from.y, bAllowDocked: true);
+        var use = ship?.GetTileAtWorldCoords1(to.x, to.y, bAllowDocked: true);
+        return standing != null && use != null ? TileUtils.TileRange(standing, use) : TileUtils.TileRange(from, to);
+    }
     public static bool Eligible(CondOwner actor, CrewWorkOffer offer, out string reason, bool checkRole = true, int? hour = null)
     {
         reason = Message("crew_unavailable");

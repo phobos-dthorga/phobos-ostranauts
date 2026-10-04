@@ -31,6 +31,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.78.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Control Panel on Shipbreaker equipment no longer does nothing when the crew member is within the game's reach of the machine. When a panel cannot open, the crew member's log now says why.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.96.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.77.0] - 2026-10-05 - Draft
 
 ### Changed

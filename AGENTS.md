@@ -867,6 +867,12 @@
   Persistence/ResumeAfterLoad; Auto Nav keeps its own setting. New machines use this
   from their first version; older "pauses on reload" wording elsewhere in this file is
   history where it names one of the machines above.
+- Owner report (2026-10-05), Framework 0.96.0: **measure reach as the game does, and never
+  refuse silently.** The game judges an interaction's range tile to tile; `CrewWork.LocalAccess`
+  measured from the crew member's exact position, could come out a tile further, and the panel
+  then returned false without a word. Use `CrewWork.Reach` (tile to tile) for any crew-to-machine
+  distance, keep our access range no tighter than the action's `fTargetPointRange`, and tell the
+  crew member why a panel did not open (`ProviderPanel.Refused`).
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.

@@ -27,7 +27,10 @@ public sealed class Panel : GUIData
     private readonly PresentationRefresh refresh = new(.5);
     internal static bool Show(CondOwner co)
     {
-        if (!(Definitions.Machine(co) || BulkDefinitions.IsTank(co) || HopperDefinitions.IsHopper(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
+        bool ours = Definitions.Machine(co) || BulkDefinitions.IsTank(co) || HopperDefinitions.IsHopper(co) || RecyclerCapture.IsRecycler(co);
+        // A refusal is said, never silent (Agriculture 0.51.0).
+        if (ours && Service.Access(co) is string refused) { Phobos.Ostranauts.Framework.Controls.ProviderPanel.Refused(refused); return false; }
+        if (!ours || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
             CrewSim.objInstance.coConnectMode != null || GUIInventory.instance?.Selected != null ||
             CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
         CrewSim.LowerUI(); if (CrewSim.goUI != null) return false;

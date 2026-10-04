@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.51.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Control Panel on Agriculture equipment no longer does nothing when the crew member is within the game's reach of the machine. When a panel cannot open, the crew member's log now says why.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.96.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.50.0] - 2026-10-05 - Draft
 
 ### Changed

@@ -1053,3 +1053,7 @@ L43 — Framework 0.94.0 with Shipbreaker 0.76.0, Manufacturing 0.46.0 and Agric
 ## 5 October: work carries on after a reload (L44)
 
 L44 — Framework 0.95.0 with Shipbreaker 0.77.0, Manufacturing 0.47.0, Agriculture 0.50.0 and Auto Nav 0.33.0: each machine's existing power step asks once whether it carries the saved resume mark (one condition probe for an unmarked machine) and keeps the mark equal to its running state (a write only when it changes). One offer per machine per load; no new hook on the game's power path and no world scan. No capture accompanies this change.
+
+## 5 October: panel reach measured tile to tile (L45)
+
+L45 — Framework 0.96.0: the crew access check looks up two tiles (the crew member's and the machine's use point) instead of comparing two positions. It runs when a panel opens, on each panel refresh (twice a second while one is open) and on a command, never on a frame or power step. No capture accompanies this change.

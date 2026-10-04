@@ -56,7 +56,9 @@ public sealed class ProviderPanel : GUIData
     public static bool Show(string key, CondOwner co)
     {
         if (!specs.TryGetValue(key, out var spec)) return false;
-        if (!spec.Handles(co) || spec.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
+        // A refusal is said, never silent (0.96.0): the crew member's log gets the reason the panel did not open.
+        if (spec.Handles(co) && spec.Access(co) is string refused) { Refused(refused); return false; }
+        if (!spec.Handles(co) || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
             CrewSim.objInstance.coConnectMode != null || GUIInventory.instance?.Selected != null ||
             CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
         CrewSim.LowerUI(); if (CrewSim.goUI != null) return false;
@@ -70,6 +72,12 @@ public sealed class ProviderPanel : GUIData
         if (EventSystem.current != null) EventSystem.current.sendNavigationEvents = false;
         CanvasManager.instance.ShipGUI(); CrewSim.SetUIArrows();
         try { panel.Build(co); return true; } catch (Exception e) { spec.Log(e.ToString()); CrewSim.LowerUI(); return false; }
+    }
+    /// <summary>Tells the selected crew member why a control panel did not open.</summary>
+    public static void Refused(string? reason)
+    {
+        var actor = CrewSim.GetSelectedCrew();
+        if (!string.IsNullOrEmpty(reason) && actor != null && !actor.bDestroyed) actor.LogMessage(reason, "Bad", "Game");
     }
     private void Build(CondOwner co)
     {

@@ -26,6 +26,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.96.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Choosing Control Panel on a Phobos machine sometimes did nothing: the crew member stayed where they stood and no panel opened. The game counted them as close enough, measuring tile to tile, while Framework measured from their exact position and could find them a tile too far, then refused without a word. Framework now measures as the game does, so a crew member the game accepts is accepted. The same applies to panels in Manufacturing and Medical.
+- When a panel does refuse to open, the crew member's log now says why.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- If a crew member still does not walk to a machine, the game's own log line says it cannot get there; that part is the game's pathfinding, not ours.
+- Checked offline; not yet seen in the game.
+
 ## [0.95.0] - 2026-10-05 - Draft
 
 ### Changed

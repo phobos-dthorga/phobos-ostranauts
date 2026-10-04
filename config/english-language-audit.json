@@ -77117,8 +77117,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a8e3d1445ac0bf156f2c69e27eeec739de25aad2a82b777ff6d0eb82d0ffa06d",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "f8ce83293e44db35c51cca9f74431c33a49449007af2541dd5850c3354e5e7c3",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "SUPPORT.md",
@@ -77278,8 +77278,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "478086bf4a138e0b085baf68346ee04d4999fcf3a43783af489920ce60f5e16e",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "1b872a457588d786ed94f394d9be4d447678d3456cf08ef4b88a8f36d7956775",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "docs/crew-automation.md",
@@ -77879,8 +77879,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "9010ef90d32f0323bd39493654792edca376ab250792b01c20f182de3d4da8fb",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "30a8c7a7e34c38069ec032727d75a00ca16bf8871d75659df1e5996616d86e89",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -78175,15 +78175,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8a476d67fd28a65fda246d3a459f477f3f89454aa87e6a3162210b1e69898931",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "3073fef5791fe885856362f80a87dd0a9188f79097e5dd8d8a7888b1bca59d59",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "faeb18b636032ca7a141ae5df9a4627e4a4d8c06a25d9a4e19eab1d76a7f0b31",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "1489ea00c5abed963058e812d28124778ad60452c44f28accf7147d04eca67bc",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "docs/item-references.md",
@@ -78245,8 +78245,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "19f0f54c208bdbefa956202347a08a075646624b4307ebdc0c558c286ced0e24",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "e3f116b761f709f6a824e54df49a9ea42266106dc4a2a3517236fd75c0aad4cb",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -78350,8 +78350,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b624288b58ccdb1cfd8275ce5766f8f04b8e755c8b7fea5f18784028cc98f59d",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "b68e5ad7ab2c5b95fd382beb23c07d7408e31b39847c284f188741316b09920c",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -78364,8 +78364,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fb6582f8162996f3763b754756d042b3e1026dd177e516a1bbd0f66181b11cf1",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "037c78fd5356cbdd7cb316328ff13f2976c43f66e9dddc7494f1db86f6eabf5c",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -78385,8 +78385,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3237c24c7b2f3d4fd03a61487dfffe045a6c6e862f36d75396d07cf3a9c7ff8e",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "0b6ac2b8c8f931fd7f6b8d4282ef6d41436a4e4a809f74a943522fd83eb84453",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -78431,8 +78431,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1a7fbaa3ebe7efbd1890387840eec6f7fe780b7438ebb9d2f7641ac208374ddc",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "91178f94266aedaed4c95a8ba5a24b07a693c13a8dbe03930257161ae763e7d1",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -78466,8 +78466,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "52987eaf6a85beea955013034d103a95a760f1d0047c1137d29d794fed75b606",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "c4cbbeb843419c5163cbadc3bc82ad3dbda3abbdc586410dd64386c25d319028",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -78490,8 +78490,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f51bf59a6d9596271073f0cd4a3dae58af629e5280b0f402e4be47756638e461",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "96f7251c24e29affeb7c88ead6a9346ba8545ea6633c65fb5fa68357cabdb91a",
+      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

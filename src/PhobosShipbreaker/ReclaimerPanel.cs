@@ -10,7 +10,13 @@ namespace PhobosShipbreaker;
 internal sealed class ReclaimerPanel
 {
     internal void Reset() { }
-    internal bool Show(CondOwner machine)=>ReclaimerRules.IsFamily(machine.strCODef)&&ProcessingService.AccessProblem(machine)==null&&IndustrialPanel.Open(machine);
+    internal bool Show(CondOwner machine)
+    {
+        if(!ReclaimerRules.IsFamily(machine.strCODef)) return false;
+        // A refusal is said, never silent (Shipbreaker 0.78.0).
+        if(ProcessingService.AccessProblem(machine) is string refused) { Phobos.Ostranauts.Framework.Controls.ProviderPanel.Refused(refused);return false; }
+        return IndustrialPanel.Open(machine);
+    }
     internal static bool Command(string input, out bool result, out string response)
     {
         result = false; response = "";

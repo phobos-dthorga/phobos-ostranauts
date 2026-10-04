@@ -51,12 +51,13 @@ public sealed class IndustrialPanel : GUIData
         ConsoleBinding? context = null;
         string? problem;
         if (IndustrialRules.Console(target.strCODef))
-        { if (!ControlAuthority.TryBind(target, out context, out string error)) { Plugin.Log(error); return false; } }
+        { if (!ControlAuthority.TryBind(target, out context, out string error)) { Plugin.Log(error); Phobos.Ostranauts.Framework.Controls.ProviderPanel.Refused(error); return false; } }
         else
         {
             if (!IndustrialRules.Equipment(target.strCODef)) return false;
             problem = CollectorService.EndpointAccess(target);
-            if (problem != null) { Plugin.Log(problem); return false; }
+            // A refusal is said, never silent (Shipbreaker 0.78.0): the crew member's log gets the reason.
+            if (problem != null) { Plugin.Log(problem); Phobos.Ostranauts.Framework.Controls.ProviderPanel.Refused(problem); return false; }
         }
         CrewSim.LowerUI();
         if (CrewSim.goUI != null) return false;
