@@ -5,9 +5,12 @@ game, whether the Phobos mods have already crossed the point of no return for ga
 code and save data, and where the mods would benefit, starting with water vapour from
 Agriculture's crops.
 
-**Status: research.** Nothing here is implemented. The standing rule "no custom gas species"
-(AGENTS.md; owner direction of 29 September 2026) stays in force until the owner decides
-otherwise. The [decision](#decision-for-the-owner) section lists the options.
+**Status: closed. Owner decision, 6 October 2026: option A, keep the rule.** No gas beyond the
+game's eight is to be added, the dormant three included. The owner's reasons: removing another
+author's mods from a save was clean and deliberate, and gas data in the game's own rooms would
+step over a further, dangerous threshold that the gains do not justify. Nothing here is
+implemented and the experiment below was not run. The record is kept as evidence for the
+decision; do not act on its options without a new owner request.
 
 **Evidence.** The game's `Assembly-CSharp.dll` (Ostranauts 1.0.1.5) was inspected read-only by
 reflection: the fields and methods of its gas classes, and the calls, fields and string constants
@@ -168,6 +171,8 @@ known amount of H2O to the room the selected crew member stands in. On a **copy*
 Report the log and the six readings. They go into this record before any design starts.
 
 ## Decision for the owner
+
+Decided 6 October 2026: **option A**. The table is kept for the record.
 
 | Option | What it means | What it would touch first |
 | --- | --- | --- |

@@ -271,7 +271,11 @@ delivery in the changelog and design record, and add or amend only the rule here
   recipes or loops that create value while consuming nothing.
 - **No custom gas species.** Only native species (CH4, CO, CO2, H2SO4, N2, NH3, O2, Smoke) ever
   enter a room or canister, always through Framework `RoomGas`/`NativeGasCanister`; hydrogen and
-  every other missing chemical are kilogram records.
+  every other missing chemical are kilogram records. The owner reviewed this on 2026-10-06 and
+  kept it: the game's dormant H2O, H2 and He2 stay off too, because gas data would live in the
+  game's own rooms and spread beyond our equipment, a risk to saves and clean removal not worth
+  the gain (`docs/development/custom-gas-research.md`). Do not define their conditions or reopen
+  this without the owner asking.
 - **Bulk storage** is a Framework bulk vessel (`docs/development/framework-bulk-storage.md`,
   `docs/shipbreaker-bulk-silos.md`): a saved kilogram record, native mass kept equal to dry plus contents, journals around
   transfers, vanilla destructibility. Bulk families offer small, medium and large sizes

@@ -82286,8 +82286,8 @@
       "path": "docs/development/custom-gas-research.md",
       "scope": "contributor research record; decisions for the owner",
       "decision": "new",
-      "sha256": "203e62bce9cd63247b97bcb0992816dffc5a1b18c374e09398de935ccef85e55",
-      "review": "Custom gas research study added"
+      "sha256": "f2adc8be2bc183825bdec11ffd8a7945c8a64aeb134b1e2d1f8e426e56925269",
+      "review": "Custom gas study closed: owner keeps the rule"
     }
   ],
   "surfaces": [
