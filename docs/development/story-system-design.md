@@ -2,7 +2,8 @@
 
 Phase 1: Framework 0.107.0, Agriculture 0.60.0. Phase 2 (small talk, loading tips and
 encyclopedia articles): Framework 0.108.0, Agriculture 0.61.0. Round 3 (more tests, story time, branches,
-credit rewards): Framework 0.109.0. Owner request, 6 October 2026: Framework code
+credit rewards): Framework 0.109.0. Round 4 (data files and encyclopedia pictures): Framework 0.110.0,
+Agriculture 0.62.0. Owner request, 6 October 2026: Framework code
 and a schema so story and worldview content can enter the game through TV broadcasts,
 people talking about topics, and goals the player picks up; written easily by ChatGPT
 (the creative work) while Claude writes the code. The player guide is
@@ -208,6 +209,51 @@ input to be held for the morning. Everything below is an agent choice unless sta
 the faction kiosks' tiers; which factions an arc may move, and by how much, is a
 balance decision.
 
+## Round 4: data files and encyclopedia pictures (Framework 0.110.0)
+
+Authorised with round 3; agent choices unless stated.
+
+**What the game offers (observed).** Data is a `DataFile` object (`IsDataItem`, item
+definition `DataItem`). The game's own files are overlays on it (`cooverlays_datafiles`)
+saved by overlay name. Files live in a `DataStore` (container trigger
+`TIsFitContainerDAT`, accepting `IsDataItem`), which the Renbao R014 Data Card
+(`ItmDataCard01`) carries through its own loot (`ItmCardDataStorageEmpty`). A computer or
+PDA lists them, and `GUIComputer2.RunFile` opens one: it shows the object's
+`FriendlyName` and `strDesc` through the generic `TEMPDataGeneric` interaction, and
+stamps `Datafile_<definition name>` with the time in the computer's property map. An
+object's save keeps its own name (`strFriendlyName`) but not its description.
+
+**How it works.**
+
+- Framework publishes one definition, `PhobosStoryDataFile`, a copy of `DataFile` under
+  our name. Each object carries its story file id in a Phobos record (`PhobosStoryFile`).
+- An outcome's `files` makes one ordinary data card, puts a story file object for each
+  id into the card's data store, sets each file's name, and gives the card like any
+  reward item (inventory, else at the player's feet).
+- A prefix on `GUIComputer2.RunFile` fills in the opened file's text (and its name, so
+  a translation applies) from the loaded packs, records the file as read for
+  `filesRead`, and starts its `startsArc` arc when that has not started and its
+  requirements hold. An unknown id reads as a corrupted file.
+- `image` on a section or article becomes the encyclopedia node's `strImage`. The game
+  loads it as a PNG path and draws it at its own size.
+
+**Saves.** Our objects are saved by definition name, as every Framework item is. If
+Framework is removed, the game no longer knows `PhobosStoryDataFile`: the same as for
+any Framework item. If only a story pack is removed, the file stays and reads as
+corrupted. Each computer that opened one keeps a `Datafile_PhobosStoryDataFile` time
+stamp, a plain string. The story record gains `read.<file>`.
+
+**Not in the item reference** (agent choice): the story file is data on a card, never
+loose cargo, and the card is the game's own item. The guide describes it.
+
+**Held for the owner:**
+
+- Story files found as world loot: where they appear, how often, and on what (the
+  game's own cards, or a Phobos card), with loot shares under the AdditiveLoot rules.
+- Pictures: the seed has none, because the only Agriculture art is 16 to 64 pixel
+  sprites, which the encyclopedia shows at their own small size. Suitable pictures
+  need new art, so a PixelLab or Imagegen cost check comes first.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
@@ -228,14 +274,14 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | --- | --- | --- | --- |
 | **A Framework talk opener** | Topics as their own kind of conversation | Phase 2 borrows the game's own small talk. A new opener only if that proves too limited. The crew pick openers by learned weights (`ai_training`), so a new opener may rarely fire. | One Framework-owned name in conversation history (acceptable, like Framework items) |
 | **Characters approaching the player** | A contact walks up and hands over a goal | The game does this with pledges, saved by name on characters. A Framework version needs its own approach behaviour. | Pledges refused; a Framework version needs its own design |
-| **Found data files** | Goals and lore found in the world | The game's data files are items saved by definition name. A safe version is one Framework-owned data file item whose text comes from a story pack by an id property; an unknown id reads as a corrupted file. | One Framework item definition (acceptable) |
+| **Data files as world loot** | Story files found in the world | Round 4 delivers files as arc rewards on the game's own data cards. Loot placement and odds are held for the owner. | None beyond round 4 |
 | **Reputation rewards** | Changing faction standing | Credits were delivered in round 3. Faction standing is the game's own saved state and gates the faction kiosks; held for the owner's decision on which factions and how much. | The game's own faction scores |
 | **More tests** | Goals beyond the six kinds | Credits and conditions (including skills) were added in round 3. Candidates: visit a kind of ship, own a machine family, talk to a kind of person. Each is code in the fixed vocabulary, added as content needs it. | None (code only) |
 | **Choices from a menu** | The player picks the next step from offered options | Round 3 branches are decided by tests. A menu needs a choice screen. | None beyond our record |
 | **Encounter scenes** | Full-screen story scenes with pictures and choices | The game's encounters are interactions saved in history; ours would need Framework-owned ones and original art. | Names in history; needs design |
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |
-| **Encyclopedia pictures** | A picture beside an article | The encyclopedia loads `strImage` as a PNG path; articles have none for now, and a picture would need original art and a field. | None |
+| **Encyclopedia pictures (art)** | Pictures for the shipped articles | The `image` field exists since round 4; suitable art is held for a cost check. | None |
 
 ## Verification
 

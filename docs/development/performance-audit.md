@@ -1156,3 +1156,7 @@ L68 — Framework 0.108.0, Agriculture 0.61.0. (1) Postfixes on both `GrammarUti
 
 L69 — Framework 0.109.0. The 30-second story check now tries each active step's branches after its own tests (at most four branches of at most four tests, all reads the existing facts object makes once per check, plus one condition read for credits). Finishing a step adds at most two condition writes and one ledger line. No new per-frame path. No capture accompanies this change.
 
+## 6 October: story data files and pictures (L70)
+
+L70 — Framework 0.110.0, Agriculture 0.62.0. A prefix on `GUIComputer2.RunFile` runs once each time the player opens a file on a computer: one `mapCOs` lookup and a definition-name comparison, and for a story file one record read and two string assignments. Making a data card happens only when an arc gives one. Encyclopedia pictures add one field per node. No per-frame path; no capture accompanies this change.
+

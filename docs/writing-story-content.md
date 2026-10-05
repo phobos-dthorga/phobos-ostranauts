@@ -11,7 +11,10 @@ Phobos Framework lets anyone add to the world's story with a data file:
 - **Small talk** (since Framework 0.108.0): lines people say in the game's own chatter,
   so crews and station folk talk about your news and topics.
 - **Loading tips**: lore shown on loading screens among the game's own.
-- **Encyclopedia articles**: pages in the game's encyclopedia, under shared sections.
+- **Encyclopedia articles**: pages in the game's encyclopedia, under shared sections,
+  with an optional picture.
+- **Data files** (since Framework 0.110.0): files on a data card, read on any computer
+  or PDA like the game's own; opening one can start an arc.
 
 You need no programming. One JSON file holds the lot, and the game checks it as it
 loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
@@ -19,7 +22,8 @@ that writes one for you.
 
 **Not available yet:** new kinds of conversation (lines ride on the game's existing
 small talk), characters approaching the player, faction reputation rewards, choices
-picked from a menu (branches are decided by tests) and full-screen encounters. Do not write content that needs
+picked from a menu (branches are decided by tests), data files found as loot in the
+world (for now they come as arc rewards) and full-screen encounters. Do not write content that needs
 them. The [design record](development/story-system-design.md#later-work) says where
 each stands.
 
@@ -200,9 +204,28 @@ two shared sections, and any pack can add more:
 
 An article has `section` (a section id from any loaded pack), `label` (its name in the
 list, up to 40 characters), `title` (up to 60), `body` (up to 4,000; separate
-paragraphs with a blank line, `\n\n` in JSON) and `requires`, which may list only
-`mods`. A new section has `label`, `title` and an optional `body`. A section shows
+paragraphs with a blank line, `\n\n` in JSON), an optional `image` and `requires`,
+which may list only `mods`. A new section has `label`, `title`, and an optional `body`
+and `image`. `image` is the path of a picture under a mod's `images` folder, without
+`.png`, such as `phobos/agriculture/Counter`; the encyclopedia shows it at its own size,
+so a small item sprite stays small. A section shows
 only while at least one of its articles does. Articles cannot use placeholders.
+
+### Data files (`files`)
+
+A data file sits on a data card (the game's own Renbao R014 Data Card) and is opened on
+any computer or PDA, as the game's own files are. An arc gives one by listing its id in
+an outcome's `files`; the player receives a data card holding those files.
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `name` | yes | The file name the computer lists, such as `TRIAL_NOTES.TXT`: letters, digits, dots, hyphens and underscores, up to 32 characters. |
+| `text` | yes | What the file says when opened, up to 3,000 characters. Placeholders work here. |
+| `startsArc` | no | An arc that starts the first time the file is opened, if it has not started and its requirements hold. |
+| `notes` | no | For you. |
+
+An arc can wait for a file with the requirement `filesRead`. If a file's story pack is
+removed, the file stays on its card and reads as corrupted.
 
 ### Arcs (`arcs`)
 
@@ -222,7 +245,7 @@ Each step:
 | `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log) and/or a `bulletin`, the id of a news item the next TV news shows. |
 | `objective` | no | A goal in the GOALS list: `title` (up to 60 characters) and `description` (up to 300). A step without one waits unseen. |
 | `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
-| `onComplete` | no | A `message`; `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; and `credits` (up to 50,000) paid to the player with a line in the game's ledger. |
+| `onComplete` | no | A `message`; `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; `credits` (up to 50,000) paid to the player with a line in the game's ledger; and `files` (up to five data file ids) on one data card. |
 | `next` | no | The step that follows: another step's `id`, or `end`. By default the next step in order, or the end after the last. |
 | `branches` | no | Up to four other ways the step can finish; see [branches](#branches). |
 
@@ -281,6 +304,7 @@ take only `mods`.
 | `dockedAt` | The player is docked at any one of these stations (`any` for any). |
 | `arcsDone` | Each arc listed has been finished. |
 | `arcsNotStarted` | No arc listed has ever been started. |
+| `filesRead` | Each story data file listed has been opened. |
 | `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
 
 ### Text
@@ -292,7 +316,7 @@ take only `mods`.
 - Text is English in the file. A translation can replace it by the key
   `Story.<id>.<field>` in the owning mod's translation file: for news `text`, `region`
   and `mention`; for small talk `line`; for tips `text`; for sections and articles
-  `label`, `title` and `body`; for arc steps `<arc>.<step>.title`, `.description`,
+  `label`, `title` and `body`; for data files `name` and `text`; for arc steps `<arc>.<step>.title`, `.description`,
   `.from`, `.message`, `.doneFrom` and `.done`; for a branch's message
   `<arc>.<step>.b<n>.doneFrom` and `.done`, counting branches from 0.
 
@@ -331,12 +355,15 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   - `phobosframework story check` runs the story check at once.
   - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
   - `phobosframework story items <words>` lists the item ids whose names contain the words.
+  - `phobosframework story file <id>` gives you a data card with that story file.
 
 ## What stays in a save
 
 - The player carries one Phobos record: where each arc is, which once-only news has
   been shown, news waiting for a TV, and when story time began.
 - Credits paid or taken by an arc are ordinary credits, with a line in the game's ledger.
+- A data file is a Framework data object on an ordinary data card; it keeps its file
+  name and the id of its story file, and the record remembers which files were opened.
 - Each goal keeps its title, description and the name `PhobosStory.<arc>.<step>`.
 - Nothing else. TV news, small talk, tips and articles leave nothing in the save.
 - **Removing a story file is safe.** Its goals finish and disappear on the next load,
@@ -403,13 +430,14 @@ Format:
   "chatter":    { "<id>": { "moment": "...", "line": "...", "speakers": "anyone" } },
   "tips":       { "<id>": { "text": "..." } },
   "articles":   { "<id>": { "section": "phobos-makers", "label": "...", "title": "...", "body": "..." } },
+  "files":      { "<id>": { "name": "FILE_NAME.TXT", "text": "...", "startsArc": "<arc id, optional>" } },
   "arcs":       { "<id>": { "title": "...", "chance": 0.05, "requires": { ... },
                   "steps": [ { "id": "...",
                     "delivery": { "message": { "from": "...", "text": "..." }, "bulletin": "<broadcast id>" },
                     "objective": { "title": "...", "description": "..." },
                     "tests": [ { "kind": "...", ... } ],
                     "onComplete": { "message": { "from": "...", "text": "..." },
-                                    "items": [ { "item": "...", "count": 1 } ], "credits": 0 },
+                                    "items": [ { "item": "...", "count": 1 } ], "credits": 0, "files": [ "<file id>" ] },
                     "next": "<step id or end>",
                     "branches": [ { "tests": [ ... ], "next": "<step id or end>", "onComplete": { ... } } ] } ] } } }
 
@@ -428,6 +456,9 @@ Rules:
   or phobos-spacer-life (how crews live), label at most 40, title at most 60, body at
   most 4000 with paragraphs separated by \n\n. Tips and articles may require only mods
   and use no placeholders.
+- Data files: a file name of letters, digits, dots, hyphens and underscores (at most 32,
+  such as LOG_0412.TXT) and text of at most 3000 characters, written as the document
+  itself (a log, a memo, a letter). An arc outcome gives them with "files".
 - Plain text only: no angle brackets, no square brackets except [player],
   [player-first] and [ship]. Use \n for a line break.
 - Tests, all of which must pass to finish a step:
@@ -441,7 +472,8 @@ Rules:
   branches, each with its own tests, onComplete and next; the first branch whose
   tests pass decides when the step's own tests do not.
 - Requirements (all optional): mods, playerConditions, forbidConditions, owns,
-  dockedAt, arcsDone, arcsNotStarted, afterDays, beforeDays (game days of story time).
+  dockedAt, arcsDone, arcsNotStarted, filesRead, afterDays, beforeDays (game days of
+  story time).
 - Use only item ids I list below. Rewards: at most five kinds of item, at most 20 of
   each, and at most 50000 credits, modest in value.
 - Nothing else is available: no reputation rewards, no menus of choices, no new kinds

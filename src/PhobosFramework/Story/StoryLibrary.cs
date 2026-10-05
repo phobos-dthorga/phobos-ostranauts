@@ -43,6 +43,7 @@ public sealed class StoryLibrary
     public IReadOnlyDictionary<string, StoryEntry<StoryTip>> Tips => tips;
     public IReadOnlyDictionary<string, StoryEntry<StorySection>> Sections => sections;
     public IReadOnlyDictionary<string, StoryEntry<StoryArticle>> Articles => articles;
+    public IReadOnlyDictionary<string, StoryEntry<StoryFile>> Files => files;
     /// <summary>Every small-talk line: the chatter entries, then the broadcasts' mentions.</summary>
     public IReadOnlyList<StoryLine> Lines { get; private set; } = Array.Empty<StoryLine>();
     public IReadOnlyList<string> Problems => problems;
@@ -55,6 +56,7 @@ public sealed class StoryLibrary
     private readonly Dictionary<string, StoryEntry<StoryTip>> tips = new(StringComparer.Ordinal);
     private readonly Dictionary<string, StoryEntry<StorySection>> sections = new(StringComparer.Ordinal);
     private readonly Dictionary<string, StoryEntry<StoryArticle>> articles = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryFile>> files = new(StringComparer.Ordinal);
     private readonly List<string> problems = new();
 
     /// <param name="packs">In load order: Framework's pack first, then each mod's in registration order.</param>
@@ -107,12 +109,14 @@ public sealed class StoryLibrary
             foreach (var pair in pack.tips) Add(library.tips, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.sections) Add(library.sections, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.articles) Add(library.articles, pair.Key, owner, pair.Value, pair.Value.requires);
+            foreach (var pair in pack.files) Add(library.files, pair.Key, owner, pair.Value, null);
         }
         // References between entries, repeated until nothing more is refused: an arc may need another arc that was itself refused.
         string? Reference(StoryRequires? r)
         {
             if (r == null) return null;
             foreach (var id in r.arcsDone.Concat(r.arcsNotStarted)) if (!library.arcs.ContainsKey(id)) return Text.Get("Story.unknown_arc", id);
+            foreach (var id in r.filesRead) if (!library.files.ContainsKey(id)) return Text.Get("Story.unknown_file", id);
             return null;
         }
         bool Refuse<T>(Dictionary<string, StoryEntry<T>> table, Func<StoryEntry<T>, string?> problem)
@@ -129,7 +133,10 @@ public sealed class StoryLibrary
             changed |= Refuse(library.adverts, e => Reference(e.Value.requires));
             changed |= Refuse(library.chatter, e => Reference(e.Value.requires));
             changed |= Refuse(library.arcs, e => Reference(e.Value.requires) ??
-                e.Value.steps.Select(s => s.delivery?.bulletin).Where(b => b != null && !library.broadcasts.ContainsKey(b)).Select(b => Text.Get("Story.unknown_bulletin", b!)).FirstOrDefault());
+                e.Value.steps.Select(s => s.delivery?.bulletin).Where(b => b != null && !library.broadcasts.ContainsKey(b)).Select(b => Text.Get("Story.unknown_bulletin", b!)).FirstOrDefault() ??
+                e.Value.steps.SelectMany(s => new[] { s.onComplete }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)))
+                    .SelectMany(o => o?.files ?? new List<string>()).Where(f => !library.files.ContainsKey(f)).Select(f => Text.Get("Story.unknown_file", f)).FirstOrDefault());
+            changed |= Refuse(library.files, e => e.Value.startsArc != null && !library.arcs.ContainsKey(e.Value.startsArc) ? Text.Get("Story.unknown_arc", e.Value.startsArc) : null);
         }
         Refuse(library.articles, e => library.sections.ContainsKey(e.Value.section) ? null : Text.Get("Story.unknown_section", e.Value.section));
         library.Lines = library.chatter.Values.Select(c => new StoryLine(c.Id, c.Owner, c.Value.moment, c.Value.line, c.Id + ".line", c.Value.speakers, c.Value.weight, c.Value.requires))
@@ -140,5 +147,5 @@ public sealed class StoryLibrary
     }
 
     /// <summary>Total entries, for status lines.</summary>
-    public int Count => broadcasts.Count + adverts.Count + arcs.Count + chatter.Count + tips.Count + sections.Count + articles.Count;
+    public int Count => broadcasts.Count + adverts.Count + arcs.Count + chatter.Count + tips.Count + sections.Count + articles.Count + files.Count;
 }

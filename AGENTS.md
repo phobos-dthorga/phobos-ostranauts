@@ -197,9 +197,9 @@ delivery in the changelog and design record, and add or amend only the rule here
   a validator, offline checker, JSON Schema and guide section. Chance outcomes are data: one
   frozen recipe per outcome in an `outcomes` pack, picked by a stable hash at bind
   (`Outcomes.Pick`), never rolled at runtime or rerolled.
-- **Story content.** News, adverts, goal chains, small talk, loading tips and encyclopedia
-  articles go in `story` packs (Framework 0.107.0 and 0.108.0; `StoryContent.Register`, one pack
-  per mod, guide `docs/writing-story-content.md`). Never use the game's plots, pledges, new
+- **Story content.** News, adverts, goal chains, small talk, loading tips, encyclopedia
+  articles and data files go in `story` packs (Framework 0.107.0 to 0.110.0;
+  `StoryContent.Register`, one pack per mod, guide `docs/writing-story-content.md`). Never use the game's plots, pledges, new
   social interactions or player conditions for added content: a removed plot breaks the GOALS
   panel. Goals are ordinary objectives whose `PhobosStory.` test reads as the game's Blank when
   its pack is gone; small talk changes only the text of the game's own social lines, through

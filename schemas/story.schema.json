@@ -184,6 +184,15 @@
                   "minimum": 0,
                   "maximum": 3650,
                   "description": "Only until this many game days have passed since the player's story record began."
+                },
+                "filesRead": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Story data files the player must have opened."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -315,6 +324,15 @@
                   "minimum": 0,
                   "maximum": 3650,
                   "description": "Only until this many game days have passed since the player's story record began."
+                },
+                "filesRead": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Story data files the player must have opened."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -424,6 +442,15 @@
                   "minimum": 0,
                   "maximum": 3650,
                   "description": "Only until this many game days have passed since the player's story record began."
+                },
+                "filesRead": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Story data files the player must have opened."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -624,6 +651,16 @@
                         "minimum": 0,
                         "maximum": 50000,
                         "description": "Credits paid to the player, entered in the game's ledger."
+                      },
+                      "files": {
+                        "type": "array",
+                        "maxItems": 5,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                        },
+                        "description": "Story data files given to the player on one data card."
                       }
                     },
                     "description": "What happens when the step finishes."
@@ -761,6 +798,16 @@
                               "minimum": 0,
                               "maximum": 50000,
                               "description": "Credits paid to the player, entered in the game's ledger."
+                            },
+                            "files": {
+                              "type": "array",
+                              "maxItems": 5,
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                              },
+                              "description": "Story data files given to the player on one data card."
                             }
                           },
                           "description": "What happens when the step finishes."
@@ -930,6 +977,15 @@
                   "minimum": 0,
                   "maximum": 3650,
                   "description": "Only until this many game days have passed since the player's story record began."
+                },
+                "filesRead": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Story data files the player must have opened."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -1026,6 +1082,12 @@
               "maxLength": 4000,
               "description": "Its page text. Shown with no player at hand: plain text without placeholders."
             },
+            "image": {
+              "type": "string",
+              "maxLength": 100,
+              "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$",
+              "description": "A picture beside the page: a path under a mod's images folder, without .png."
+            },
             "requires": {
               "type": "object",
               "additionalProperties": false,
@@ -1086,6 +1148,12 @@
               "maxLength": 4000,
               "description": "The article; line breaks separate paragraphs. Shown with no player at hand: plain text without placeholders."
             },
+            "image": {
+              "type": "string",
+              "maxLength": 100,
+              "pattern": "^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$",
+              "description": "A picture beside the page: a path under a mod's images folder, without .png."
+            },
             "requires": {
               "type": "object",
               "additionalProperties": false,
@@ -1112,6 +1180,44 @@
         }
       },
       "description": "Encyclopedia articles, by id."
+    },
+    "files": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 32,
+              "pattern": "^[A-Za-z0-9_.-]+$",
+              "description": "The file name a computer lists, such as TRIAL_NOTES.TXT."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 3000,
+              "description": "What the file says when opened on a computer or PDA. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+            },
+            "startsArc": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "An arc that starts when the file is first opened, if it has not started and its requirements hold."
+            }
+          },
+          "required": [
+            "name",
+            "text"
+          ]
+        }
+      },
+      "description": "Data files, by id: given on a data card and read on any computer or PDA."
     }
   },
   "required": [

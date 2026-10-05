@@ -291,7 +291,8 @@ def story():
         'arcsDone': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must have finished.'),
         'arcsNotStarted': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must never have started.'),
         'afterDays': num(0, 3650, description="Only once this many game days have passed since the player's story record began."),
-        'beforeDays': num(0, 3650, description="Only until this many game days have passed since the player's story record began.")},
+        'beforeDays': num(0, 3650, description="Only until this many game days have passed since the player's story record began."),
+        'filesRead': names({'type': 'string', 'pattern': story_id}, 'Story data files the player must have opened.')},
         description='When the entry may appear. Every part is optional and every part given must hold.')
     message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log.'},
                    'text': text(400, 'The message, shown in the crew log.')}, ['from', 'text'])
@@ -306,7 +307,9 @@ def story():
     outcome = obj({'message': message,
                    'items': {'type': 'array', 'maxItems': 5, 'items': obj({'item': game, 'count': num(1, 20, integer=True)}, ['item']),
                              'description': 'Items given to the player, or put at their feet when they cannot carry them.'},
-                   'credits': num(0, 50000, integer=True, description="Credits paid to the player, entered in the game's ledger.")},
+                   'credits': num(0, 50000, integer=True, description="Credits paid to the player, entered in the game's ledger."),
+                   'files': {'type': 'array', 'maxItems': 5, 'uniqueItems': True, 'items': {'type': 'string', 'pattern': story_id},
+                             'description': 'Story data files given to the player on one data card.'}},
                   description='What happens when the step finishes.')
     tests = {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'}
     next_step = {'type': 'string', 'pattern': '^(end|[a-z0-9]+(-[a-z0-9]+)*)$', 'description': 'A step id of the same arc, or end.'}
@@ -342,11 +345,16 @@ def story():
                    'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships) or others (anyone else).', ['anyone', 'crew', 'others']),
                    'weight': weight, 'requires': requires}, ['moment', 'line'])
     tip = obj({**author, 'text': lore(450, 'The lore tip shown while the game loads.'), 'weight': weight, 'requires': mods_only}, ['text'])
+    image = {'type': 'string', 'maxLength': 100, 'pattern': '^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$', 'description': "A picture beside the page: a path under a mod's images folder, without .png."}
     section = obj({'notes': NOTES, 'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
-                   'body': {**lore(4000, 'Its page text.'), 'minLength': 0}, 'requires': mods_only}, ['label', 'title'])
+                   'body': {**lore(4000, 'Its page text.'), 'minLength': 0}, 'image': image, 'requires': mods_only}, ['label', 'title'])
     article = obj({'notes': NOTES, 'section': {'type': 'string', 'pattern': story_id, 'description': 'A section id from any loaded pack, such as phobos-makers.'},
                    'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
-                   'body': lore(4000, 'The article; line breaks separate paragraphs.'), 'requires': mods_only}, ['section', 'label', 'title', 'body'])
+                   'body': lore(4000, 'The article; line breaks separate paragraphs.'), 'image': image, 'requires': mods_only}, ['section', 'label', 'title', 'body'])
+    data_file = obj({'notes': NOTES, 'name': {'type': 'string', 'maxLength': 32, 'pattern': '^[A-Za-z0-9_.-]+$', 'description': 'The file name a computer lists, such as TRIAL_NOTES.TXT.'},
+                     'text': text(3000, 'What the file says when opened on a computer or PDA.'),
+                     'startsArc': {'type': 'string', 'pattern': story_id, 'description': 'An arc that starts when the file is first opened, if it has not started and its requirements hold.'}},
+                    ['name', 'text'])
     settings = obj({'broadcastShare': num(0, 1, description='Share of TV news picks given to story broadcasts.'),
                     'advertShare': num(0, 1, description='Share of TV advert picks given to story adverts.'),
                     'checkSeconds': num(5, 600, description='Real seconds between story checks.'),
@@ -360,7 +368,8 @@ def story():
                 'chatter': named(chatter, 'Lines people may say in the game\'s own small talk, by id.', story_id),
                 'tips': named(tip, 'Lore tips for loading screens, by id.', story_id),
                 'sections': named(section, 'Top-level encyclopedia entries, by id; shown while one of their articles is.', story_id),
-                'articles': named(article, 'Encyclopedia articles, by id.', story_id)},
+                'articles': named(article, 'Encyclopedia articles, by id.', story_id),
+                'files': named(data_file, 'Data files, by id: given on a data card and read on any computer or PDA.', story_id)},
                ['schemaVersion', 'schema'],
                'Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips and encyclopedia articles. See docs/writing-story-content.md.')
 

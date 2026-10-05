@@ -69,5 +69,18 @@ internal static class StoryNativeChecks
             "Both shared sections show with Agriculture's articles; every parent is ours and no name is the game's");
         check(typeof(DataHandler).GetMethod("GetTip")?.ReturnType == typeof(JsonTip) && typeof(Info).GetMethod("BuildHierarchyFromJSON") != null,
             "Loading tips come one at a time, and the encyclopedia builds its tree in the method we prepare for");
+
+        // Framework 0.110.0: story data files on the game's own data cards.
+        check(library.Files.ContainsKey("trial-notes") && library.Arcs["verdemorrow-grain-sample"].Value.steps[1].onComplete!.files.SequenceEqual(new[] { "trial-notes" }),
+            "Agriculture's grain-sample reward carries its data file");
+        check(DataHandler.dictCOs.TryGetValue(StoryFiles.Card, out var card) && card.strLoot == "ItmCardDataStorageEmpty" && DataHandler.dictLoot.ContainsKey(card.strLoot) &&
+              Newtonsoft.Json.JsonConvert.SerializeObject(DataHandler.dictLoot[card.strLoot]).Contains(StoryFiles.Store),
+            "The game's data card comes with its data store, from its own loot");
+        check(d.Objects.TryGetValue(StoryFiles.Definition, out var file) && file.strItemDef == DataHandler.dictCOs[StoryFiles.VanillaFile].strItemDef &&
+              file.aStartingConds.Any(c => c.StartsWith("IsDataItem", StringComparison.Ordinal)), "Framework's story file is the game's data file under our name");
+        var storeCt = DataHandler.dictCOs[StoryFiles.Store].strContainerCT;
+        check(storeCt != null && DataHandler.dictCTs[storeCt].TriggeredDataCO(new DataCO(file), false), "A data store accepts the story file");
+        check(typeof(GUIComputer2).GetField("strStorageRun", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public)?.FieldType == typeof(string),
+            "The computer names the file it opens in the field the story postfix reads");
     }
 }

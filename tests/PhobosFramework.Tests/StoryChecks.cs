@@ -150,6 +150,44 @@ internal static class StoryChecks
 
         Phase2(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
         Round3(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+        Round4(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+    }
+
+    private const string Files = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""files"": { ""old-log"": { ""name"": ""OLD_LOG.TXT"", ""text"": ""Found aboard the [ship]."", ""startsArc"": ""follow-up"" },
+                   ""orphan"": { ""name"": ""ORPHAN.TXT"", ""text"": ""Starts nothing real."", ""startsArc"": ""no-such-arc"" } },
+      ""arcs"": {
+        ""giver"": { ""title"": ""Giver"", ""steps"": [ { ""id"": ""give"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ], ""onComplete"": { ""files"": [ ""old-log"" ] } } ] },
+        ""follow-up"": { ""title"": ""Follow-up"", ""requires"": { ""filesRead"": [ ""old-log"" ] }, ""steps"": [ { ""id"": ""go"", ""tests"": [ { ""kind"": ""dock-at"", ""station"": ""any"" } ] } ] },
+        ""bad-gift"": { ""title"": ""Bad gift"", ""steps"": [ { ""id"": ""give"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ], ""onComplete"": { ""files"": [ ""missing-file"" ] } } ] }
+      },
+      ""sections"": { ""lore"": { ""label"": ""Lore"", ""title"": ""Lore"", ""image"": ""phobos/agriculture/Counter"" } },
+      ""articles"": { ""page"": { ""section"": ""lore"", ""label"": ""Page"", ""title"": ""Page"", ""body"": ""Words."", ""image"": ""phobos/agriculture/Cooker"" } }
+    }";
+
+    /// <summary>Framework 0.110.0: data files, files given by outcomes, filesRead and encyclopedia pictures.</summary>
+    private static void Round4(Action<bool, string> check, Action<string, string> refused, Func<string, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Files.Contains(find), "Fixture has " + find); return Files.Replace(find, replace); }
+        var pack = load(Files);
+        check(pack.files.Count == 2 && pack.arcs["giver"].steps[0].onComplete!.files.SequenceEqual(new[] { "old-log" }) && pack.articles["page"].image == "phobos/agriculture/Cooker", "Files, file rewards and pictures load");
+        refused(With("\"OLD_LOG.TXT\"", "\"OLD LOG.TXT\""), "A file name has no spaces");
+        refused(With("\"image\": \"phobos/agriculture/Cooker\"", "\"image\": \"phobos/agriculture/Cooker.png\""), "A picture path leaves out .png");
+        refused(With("\"files\": [ \"old-log\" ]", "\"files\": [ \"old-log\", \"old-log\" ]"), "A reward names each file once");
+        refused(With("\"label\": \"Lore\"", "\"label\": \"Lore\", \"requires\": { \"filesRead\": [ \"old-log\" ] }"), "The encyclopedia cannot require a file read: there is no player when it is built");
+
+        var library = StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, null, null);
+        check(library.Files.ContainsKey("old-log") && !library.Files.ContainsKey("orphan") && !library.Arcs.ContainsKey("bad-gift") && library.Arcs.ContainsKey("giver"),
+            "A file that starts an unknown arc, and an arc that gives an unknown file, are left out: " + string.Join("; ", library.Problems));
+        var facts = new Facts();
+        var record = new StoryRecord();
+        check(StoryRules.Blocked(library.Arcs["follow-up"].Value.requires, facts, record) != null, "filesRead waits for the file to be opened");
+        record.Read.Add("old-log");
+        check(StoryRules.Blocked(library.Arcs["follow-up"].Value.requires, facts, record) == null, "and holds once it has been");
+        check(StoryRecord.Decode(record.Encode()).Read.SetEquals(new[] { "old-log" }), "Opened files round-trip in the record");
+        var nodes = StoryLore.Nodes(library, _ => true, (o, k, inline) => inline);
+        check(nodes.Single(n => n.Name == "PhobosStory.page").Image == "phobos/agriculture/Cooker" && nodes.Single(n => n.Name == "PhobosStory.lore").Image == "phobos/agriculture/Counter", "Pictures reach the encyclopedia nodes");
     }
 
     private const string Branching = @"{

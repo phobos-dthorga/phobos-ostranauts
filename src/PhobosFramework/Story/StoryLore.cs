@@ -21,8 +21,9 @@ internal static class StoryLore
     internal readonly struct Node
     {
         public readonly string Name, Label, Title, Body;
-        public readonly string? Parent;
-        public Node(string name, string label, string? parent, string title, string body) { Name = name; Label = label; Parent = parent; Title = title; Body = body; }
+        public readonly string? Parent, Image;
+        public Node(string name, string label, string? parent, string title, string body, string? image = null)
+        { Name = name; Label = label; Parent = parent; Title = title; Body = body; Image = image; }
     }
 
     /// <summary>The sections and articles to show: every article whose mods (and its section's) are installed, under its
@@ -34,10 +35,10 @@ internal static class StoryLore
         var result = new List<Node>();
         foreach (var section in library.Sections.Values.Where(s => articles.Any(a => a.Value.section == s.Id)))
             result.Add(new Node(NodePrefix + section.Id, words(section.Owner, section.Id + ".label", section.Value.label), null,
-                words(section.Owner, section.Id + ".title", section.Value.title), section.Value.body == null ? "" : words(section.Owner, section.Id + ".body", section.Value.body)));
+                words(section.Owner, section.Id + ".title", section.Value.title), section.Value.body == null ? "" : words(section.Owner, section.Id + ".body", section.Value.body), section.Value.image));
         foreach (var article in articles)
             result.Add(new Node(NodePrefix + article.Id, words(article.Owner, article.Id + ".label", article.Value.label), NodePrefix + article.Value.section,
-                words(article.Owner, article.Id + ".title", article.Value.title), words(article.Owner, article.Id + ".body", article.Value.body)));
+                words(article.Owner, article.Id + ".title", article.Value.title), words(article.Owner, article.Id + ".body", article.Value.body), article.Value.image));
         return result;
     }
 
@@ -47,7 +48,7 @@ internal static class StoryLore
         nodes.Clear();
         var prepared = Nodes(library, StoryContent.ModInstalled, StoryContent.Words);
         ShownArticles = prepared.Count(n => n.Parent != null);
-        nodes.AddRange(prepared.Select(n => new JsonInfoNode { strName = n.Name, strNodeLabel = n.Label, strNodeParent = n.Parent, strArticleTitle = n.Title, strArticleBody = n.Body }));
+        nodes.AddRange(prepared.Select(n => new JsonInfoNode { strName = n.Name, strNodeLabel = n.Label, strNodeParent = n.Parent, strArticleTitle = n.Title, strArticleBody = n.Body, strImage = n.Image }));
         Apply();
     }
 

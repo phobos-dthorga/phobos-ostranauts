@@ -110,6 +110,7 @@ public static class StoryContent
             case "check" when words.Length == 3: StoryArcs.Check(); return Text.Get("Story.checked");
             case "items" when words.Length >= 4: return Items(string.Join(" ", words.Skip(3)));
             case "chatter" when words.Length == 3: return StoryChatter.Describe();
+            case "file" when id != null && words.Length == 4: return StoryArcs.FileCommand(id);
             case "chatter" when id != null && words.Length == 4: return StoryChatter.Force(id);
             default: return Text.Get("Story.help");
         }

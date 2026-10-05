@@ -127,7 +127,7 @@ as needing attention, until the file is back.
 | Phobos Manufacturing 0.44.0 | `outcomes` | Charges with more than one possible result (the gangue wash), and the odds of each |
 | Phobos Framework 0.100.0 | `lines` | Where a pipe or conduit segment counts as laid: floor, inside a wall, and the tiles that carry nothing |
 | Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
-| Phobos Framework 0.107.0 | `story` | TV news, adverts and story arcs, and how much of the TV they take; since 0.108.0 also small talk, loading tips and encyclopedia articles. Agriculture ships Verdemorrow's. See [writing story content](writing-story-content.md) |
+| Phobos Framework 0.107.0 | `story` | TV news, adverts and story arcs, and how much of the TV they take; since 0.108.0 also small talk, loading tips and encyclopedia articles; since 0.109.0 branches and credits; since 0.110.0 data files and pictures. Agriculture ships Verdemorrow's. See [writing story content](writing-story-content.md) |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per

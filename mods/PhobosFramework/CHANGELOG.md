@@ -28,6 +28,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.110.0] - 2026-10-06 - Draft
+
+### Added
+
+- Story data files: an arc reward can give a data card (the game's own Renbao R014) holding story files, read on any computer or PDA like the game's own files. The first opening of a file can start an arc, and arcs can require files opened (filesRead).
+- Encyclopedia sections and articles can carry a picture (image), a path under a mod's images folder.
+- F3: phobosframework story file followed by a file id gives you a data card with that file. Optional, for authors.
+
+### Save compatibility
+
+- Story files are Framework data objects on ordinary data cards, keeping their name and story file id. A file whose story pack is removed reads as corrupted; removing Framework removes the definition, as for every Framework item. The story record remembers which files were opened.
+
+### Compatibility and limits
+
+- Story files come only as arc rewards for now; where they could be found as world loot is held for an owner decision. Checked offline; not yet seen in the game.
+
 ## [0.109.0] - 2026-10-06 - Draft
 
 ### Added

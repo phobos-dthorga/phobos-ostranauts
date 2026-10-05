@@ -15,7 +15,7 @@
     },
     "Agriculture.Framework": {
       "since": "0.15.2",
-      "value": "0.108.0"
+      "value": "0.110.0"
     },
     "Manufacturing.Framework": {
       "since": "0.1.0",

@@ -27,7 +27,9 @@ public sealed class StoryRecord
 {
     public const string Name = "PhobosStory";
     public const int Version = 1, MaxQueue = 8;
-    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began";
+    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began", ReadPrefix = "read.";
+    /// <summary>Story data files the player has opened (Framework 0.110.0).</summary>
+    public HashSet<string> Read { get; } = new(StringComparer.Ordinal);
     /// <summary>Game time (the game's epoch, in seconds) when this record began (Framework 0.109.0): the start of the
     /// player's story time for <c>afterDays</c> and <c>beforeDays</c>. A record from an earlier version gains it when the
     /// game is next loaded.</summary>
@@ -44,6 +46,7 @@ public sealed class StoryRecord
         {
             if (pair.Key.StartsWith(ArcPrefix, StringComparison.Ordinal) && TryArc(pair.Value, out var arc)) record.Arcs[pair.Key.Substring(ArcPrefix.Length)] = arc;
             else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Seen.Add(pair.Key.Substring(SeenPrefix.Length));
+            else if (pair.Key.StartsWith(ReadPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Read.Add(pair.Key.Substring(ReadPrefix.Length));
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
             else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
             else record.kept[pair.Key] = pair.Value;
@@ -58,6 +61,7 @@ public sealed class StoryRecord
             fields[ArcPrefix + pair.Key] = string.Join("|", State(pair.Value.State), pair.Value.Step.ToString(CultureInfo.InvariantCulture), pair.Value.StepId,
                 pair.Value.StepStart.ToString("R", CultureInfo.InvariantCulture), pair.Value.Completions.ToString(CultureInfo.InvariantCulture));
         foreach (var id in Seen) fields[SeenPrefix + id] = "1";
+        foreach (var id in Read) fields[ReadPrefix + id] = "1";
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
         if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
@@ -121,6 +125,7 @@ public static class StoryRules
         if (r.dockedAt.Count > 0 && !r.dockedAt.Any(facts.DockedAt)) return Text.Get("Story.needs_docked", string.Join(", ", r.dockedAt));
         foreach (var arc in r.arcsDone) if (!record.Finished(arc)) return Text.Get("Story.needs_arc_done", arc);
         foreach (var arc in r.arcsNotStarted) if (record.Started(arc)) return Text.Get("Story.needs_arc_unstarted", arc);
+        foreach (var file in r.filesRead) if (!record.Read.Contains(file)) return Text.Get("Story.needs_file_read", file);
         double days = Days(record, facts);
         if (r.afterDays is double after && days < after) return Text.Get("Story.needs_after_days", after.ToString("0.#", CultureInfo.InvariantCulture), days.ToString("0.#", CultureInfo.InvariantCulture));
         if (r.beforeDays is double before && days >= before) return Text.Get("Story.needs_before_days", before.ToString("0.#", CultureInfo.InvariantCulture));

@@ -733,7 +733,7 @@
   "Story.yes": "yes",
   "Story.no": "no",
   "Story.title": "Story content: {0} broadcasts, {1} adverts, {2} arcs. Packs:",
-  "Story.help": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
+  "Story.help": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; file gives you a data card with that story file; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
   "Story.items_found": "{0} items match {1} (id, then name):",
   "Story.items_more": "  ...and {0} more; add a word to narrow it.",
   "Story.not_in_game": "Load a game first: story commands work on the player in play.",
@@ -811,5 +811,18 @@
   "StorySchema.branches": "{0} has from 1 to {1} branches.",
   "StorySchema.next": "{0}: next must be a step of the same arc or end, not {1}.",
   "StorySchema.days": "{0}: afterDays must be less than beforeDays.",
-  "Story.branch_line": "or branch {0}, to {1}: {2}"
+  "Story.branch_line": "or branch {0}, to {1}: {2}",
+  "Story.file_default_name": "DATA.TXT",
+  "Story.file_corrupted": "The file is corrupted. Nothing readable is left.",
+  "Story.file_given": "You received {0}. Open its files on any computer or PDA.",
+  "Story.file_no_card": "Story data file could not be made: no {0} definition.",
+  "Story.file_no_store": "Story data file could not be made: a {0} came without its data store.",
+  "Story.file_full": "A story data file did not fit on its data card and was left out.",
+  "Story.unknown_file": "no data file named {0}",
+  "Story.unknown_file_command": "No story data file named {0} is loaded.",
+  "Story.file_command": "A data card with {0} is in your inventory, or at your feet. Open it on any computer or PDA.",
+  "Story.needs_file_read": "needs the data file {0} opened",
+  "StorySchema.file_name": "{0} needs a file name of letters, digits, dots, hyphens and underscores, at most {1} characters.",
+  "StorySchema.files": "{0} lists at most {1} different data files, by id.",
+  "StorySchema.image": "{0}: image is a path under a mod's images folder without .png, at most {1} characters."
 }

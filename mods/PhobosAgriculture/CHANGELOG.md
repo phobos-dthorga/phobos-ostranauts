@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.62.0] - 2026-10-06 - Draft
+
+### Added
+
+- The grain-sample reward now includes a data card with Verdemorrow's trial notes, read on any computer or PDA.
+
+### Dependencies
+
+- Requires Phobos Framework 0.110.0 or newer.
+
+### Save compatibility
+
+- Nothing saved changes. An arc already under way gives the card when its last step finishes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.61.0] - 2026-10-06 - Draft
 
 ### Added

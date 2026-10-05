@@ -196,6 +196,21 @@ class DataPackTests(unittest.TestCase):
         with self.assertRaises(validate.Problem):
             validate.story(broken(lambda p: p['tips']['first-lettuce'].update(requires={'afterDays': 3})), 'test', framework=False)
 
+        # Framework 0.110.0: data files, files given by outcomes, filesRead, encyclopedia pictures.
+        self.assertEqual(shipped['files']['trial-notes']['name'], 'TRIAL_NOTES.TXT')
+        self.assertEqual(arc['steps'][1]['onComplete']['files'], ['trial-notes'])
+        validate.story(broken(lambda p: p['articles']['growing-food-aboard'].update(image='phobos/agriculture/Counter')), 'test', framework=False)
+        for bad in (broken(lambda p: p['files']['trial-notes'].update(name='TRIAL NOTES.TXT')),
+                    broken(lambda p: p['files']['trial-notes'].update(name='X' * 33)),
+                    broken(lambda p: p['files']['trial-notes'].update(text='x' * 3001)),
+                    broken(lambda p: p['files']['trial-notes'].update(startsArc='Not An Id')),
+                    broken(lambda p: p['files']['trial-notes'].update(colour='green')),
+                    broken(lambda p: p['arcs']['verdemorrow-grain-sample']['steps'][1]['onComplete'].update(files=['trial-notes', 'trial-notes'])),
+                    broken(lambda p: p['articles']['growing-food-aboard'].update(image='phobos/agriculture/Counter.png')),
+                    broken(lambda p: p['tips']['first-lettuce'].update(requires={'filesRead': ['trial-notes']}))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.
         import shutil, tempfile

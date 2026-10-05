@@ -33,6 +33,8 @@ public static class StoryArcs
     internal static void AddDefinitions(NativeDefinitions d, StoryLibrary library)
     {
         d.Conditions[Never] = new JsonCond { strName = Never, strNameFriendly = Never, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+        // Framework's story data file (0.110.0), the game's own data file under our name.
+        StoryFiles.AddDefinition(d);
         foreach (var arc in library.Arcs.Values)
             foreach (var step in arc.Value.steps.Where(s => s.objective != null))
             {
@@ -175,6 +177,7 @@ public static class StoryArcs
             Log(StoryContent.Words(arc.Owner, key + ".doneFrom", message.from), StoryContent.Words(arc.Owner, key + ".done", message.text));
         foreach (var reward in result?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
         if (result != null && result.credits > 0) Pay(result.credits, from, arc.Id);
+        if (result != null && result.files.Count > 0) GiveFiles(result.files);
         int next = StoryRules.NextStep(arc.Value, index, branch?.next ?? step.next);
         if (next >= 0) Enter(arc, progress, next, facts);
         else { progress.State = ArcState.Done; progress.Completions++; }
@@ -255,6 +258,41 @@ public static class StoryArcs
             var rest = player!.AddCO(co, bEquip: false, bOverflow: false, bIgnoreLocks: false);
             if (rest != null && player.ship != null) LegacyItemConversions.Drop(player.ship, rest, player.tf.position);
         }
+    }
+
+    /// <summary>A data card holding these story files, given like any reward item (Framework 0.110.0).</summary>
+    private static void GiveFiles(IReadOnlyList<string> ids)
+    {
+        if (player == null) return;
+        var card = StoryFiles.MakeCard(ids, out var problem);
+        if (problem != null) FrameworkLifecycle.Log(problem);
+        if (card == null) return;
+        var rest = player.AddCO(card, bEquip: false, bOverflow: false, bIgnoreLocks: false);
+        if (rest != null && player.ship != null) LegacyItemConversions.Drop(player.ship, rest, player.tf.position);
+        Log(null, Text.Get("Story.file_given", card.FriendlyName));
+    }
+
+    /// <summary>A story file was opened on a computer: remembered for <c>filesRead</c>, and its arc may start.</summary>
+    internal static void FileOpened(string id, string? startsArc)
+    {
+        if (!Ready) return;
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        bool changed = record.Read.Add(id);
+        if (startsArc != null && StoryContent.Library.Arcs.TryGetValue(startsArc, out var arc) && !record.Started(startsArc))
+        {
+            var facts = new GameFacts(player!);
+            if (StoryRules.Blocked(arc.Value.requires, facts, record) == null) { Begin(arc, facts); changed = true; }
+        }
+        if (changed) Save();
+    }
+
+    internal static string FileCommand(string id)
+    {
+        if (!Ready) return Text.Get("Story.not_in_game");
+        if (!ReferenceEquals(player, CrewSim.coPlayer)) Attach(CrewSim.coPlayer);
+        if (!StoryContent.Library.Files.ContainsKey(id)) return Text.Get("Story.unknown_file_command", id);
+        GiveFiles(new[] { id });
+        return Text.Get("Story.file_command", id);
     }
 
     /// <summary>The news and adverts the TVs may pick from until the next check.</summary>

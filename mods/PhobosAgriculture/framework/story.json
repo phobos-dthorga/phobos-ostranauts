@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play; since 0.61.0 also small talk, loading tips and two encyclopedia articles. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod).",
+  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play; since 0.61.0 also small talk, loading tips and two encyclopedia articles, and since 0.62.0 a data file. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod).",
   "broadcasts": {
     "verdemorrow-seed-trials": {
       "title": "Continuance trials",
@@ -75,7 +75,8 @@
             "items": [
               { "item": "PhobosVerdemorrowContinuanceWheat", "count": 3 },
               { "item": "PhobosVerdemorrowGroundworkNutrients", "count": 5 }
-            ]
+            ],
+            "files": [ "trial-notes" ]
           }
         }
       ]
@@ -121,6 +122,13 @@
     },
     "first-lettuce": {
       "text": "Spacers on long hauls swear that the first fresh lettuce after a month of ration bars tastes better than anything a station galley serves."
+    }
+  },
+  "files": {
+    "trial-notes": {
+      "notes": "Given on a data card with the grain-sample reward (Agriculture 0.62.0); read on any computer or PDA.",
+      "name": "TRIAL_NOTES.TXT",
+      "text": "VERDEMORROW AGRONOMICS - CONTINUANCE TRIALS\nShipboard sample log, dwarf wheat\n\nSample received in good order from the [ship]. Grain dry, clean, no mould. Germination test: strong.\n\nField note: crews keep asking whether wheat is worth the rack space. One portion of grain is not much. A flatbread on a cold shift is another matter.\n\nNext trials: soybeans aboard ore haulers, and whether lettuce minds the noise of a refinery next door. Volunteers welcome. Send samples to any station."
     }
   },
   "articles": {

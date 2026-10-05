@@ -702,7 +702,9 @@ STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 
                 'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
                 'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
                 'line': 200, 'tip': 450, 'label': 40, 'article': 4000, 'branches': 4, 'credit_reward': 50000,
-                'credit_test': 1000000, 'days': 3650}
+                'credit_test': 1000000, 'days': 3650, 'file_name': 32, 'file_text': 3000, 'files': 5, 'image': 100}
+STORY_FILE_NAME = re.compile(r'^[A-Za-z0-9_.-]+$')
+STORY_IMAGE = re.compile(r'^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$')
 
 
 def story_id(value, where, limit=STORY_LIMITS['id']):
@@ -746,8 +748,13 @@ def story_mods_only(r, where):
     if r is None:
         return
     story_requires(r, where)
-    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted')) or 'afterDays' in r or 'beforeDays' in r:
+    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'filesRead')) or 'afterDays' in r or 'beforeDays' in r:
         raise Problem(f'{where}: shown with no player at hand, so it may require only mods')
+
+
+def story_image(image, where):
+    if image is not None and (not isinstance(image, str) or len(image) > STORY_LIMITS['image'] or not STORY_IMAGE.match(image)):
+        raise Problem(f'{where}/image: a path under a mod\'s images folder without .png, at most {STORY_LIMITS["image"]} characters')
 
 
 def story_station(value):
@@ -757,7 +764,7 @@ def story_station(value):
 def story_requires(r, where):
     if r is None:
         return
-    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays'}, where)
+    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays', 'filesRead'}, where)
     for name in ('afterDays', 'beforeDays'):
         if name in r:
             number(r[name], f'{where}/{name}', 0, STORY_LIMITS['days'])
@@ -765,7 +772,7 @@ def story_requires(r, where):
         raise Problem(f'{where}: afterDays must be less than beforeDays')
     checks = {'mods': lambda m: STORY_PHOBOS_MOD.match(m) or STORY_PLUGIN_ID.match(m), 'playerConditions': STORY_GAME_NAME.match,
               'forbidConditions': STORY_GAME_NAME.match, 'owns': STORY_GAME_NAME.match, 'dockedAt': story_station,
-              'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match}
+              'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match, 'filesRead': STORY_ID.match}
     for name, valid in checks.items():
         values = r.get(name, [])
         if not isinstance(values, list) or len(values) > STORY_LIMITS['list']:
@@ -840,7 +847,11 @@ def story_tests(tests, where):
 def story_outcome(outcome, where):
     if outcome is None:
         return
-    fields(outcome, {'message', 'items', 'credits'}, f'{where}/onComplete')
+    fields(outcome, {'message', 'items', 'credits', 'files'}, f'{where}/onComplete')
+    files = outcome.get('files', [])
+    if (not isinstance(files, list) or len(files) > STORY_LIMITS['files'] or len(set(files)) != len(files)
+            or any(not isinstance(f, str) or not STORY_ID.match(f) for f in files)):
+        raise Problem(f'{where}/onComplete/files: at most {STORY_LIMITS["files"]} different data file ids')
     story_message(outcome.get('message'), f'{where}/onComplete/message')
     rewards = outcome.get('items', [])
     if not isinstance(rewards, list) or len(rewards) > STORY_LIMITS['rewards']:
@@ -855,7 +866,7 @@ def story_outcome(outcome, where):
 
 def story(pack, where, framework=None):
     """The story schema (Framework 0.107.0). Only Framework's own pack may hold settings (framework=None skips that check)."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files'}, where)
     settings = pack.get('settings')
     if settings is not None:
         if framework is False:
@@ -867,7 +878,7 @@ def story(pack, where, framework=None):
         number(settings.get('advertShare', 0.3), f'{where}/settings/advertShare', 0, 1)
         number(settings.get('checkSeconds', 30), f'{where}/settings/checkSeconds', 5, 600)
         number(settings.get('maxActiveArcs', 2), f'{where}/settings/maxActiveArcs', 0, STORY_LIMITS['arcs'], integer=True)
-    for table in ('broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles'):
+    for table in ('broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles', 'files'):
         if not isinstance(pack.get(table, {}), dict):
             raise Problem(f'{where}/{table}: expected entries by id')
     for key, b in pack.get('broadcasts', {}).items():
@@ -974,7 +985,8 @@ def story(pack, where, framework=None):
     for key, s in pack.get('sections', {}).items():
         w = f'{where}/sections/{key}'
         story_id(key, w)
-        fields(s, {'notes', 'label', 'title', 'body', 'requires'}, w)
+        fields(s, {'notes', 'label', 'title', 'body', 'requires', 'image'}, w)
+        story_image(s.get('image'), w)
         story_author({'notes': s.get('notes')}, w)
         story_lore(s.get('label'), STORY_LIMITS['label'], f'{w}/label')
         story_lore(s.get('title'), STORY_LIMITS['objective'], f'{w}/title')
@@ -984,13 +996,25 @@ def story(pack, where, framework=None):
     for key, a in pack.get('articles', {}).items():
         w = f'{where}/articles/{key}'
         story_id(key, w)
-        fields(a, {'notes', 'section', 'label', 'title', 'body', 'requires'}, w)
+        fields(a, {'notes', 'section', 'label', 'title', 'body', 'requires', 'image'}, w)
+        story_image(a.get('image'), w)
         story_author({'notes': a.get('notes')}, w)
         story_id(a.get('section'), f'{w}/section')
         story_lore(a.get('label'), STORY_LIMITS['label'], f'{w}/label')
         story_lore(a.get('title'), STORY_LIMITS['objective'], f'{w}/title')
         story_lore(a.get('body'), STORY_LIMITS['article'], f'{w}/body')
         story_mods_only(a.get('requires'), f'{w}/requires')
+    for key, f in pack.get('files', {}).items():
+        w = f'{where}/files/{key}'
+        story_id(key, w)
+        fields(f, {'notes', 'name', 'text', 'startsArc'}, w)
+        story_author({'notes': f.get('notes')}, w)
+        name = f.get('name')
+        if not isinstance(name, str) or not name or len(name) > STORY_LIMITS['file_name'] or not STORY_FILE_NAME.match(name):
+            raise Problem(f'{w}/name: letters, digits, dots, hyphens and underscores, at most {STORY_LIMITS["file_name"]} characters')
+        story_words(f.get('text'), STORY_LIMITS['file_text'], f'{w}/text')
+        if f.get('startsArc') is not None:
+            story_id(f['startsArc'], f'{w}/startsArc')
     return broadcasts
 
 

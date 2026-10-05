@@ -29,6 +29,8 @@ public sealed class StoryPack : DataPack
     public Dictionary<string, StorySection> sections = new(StringComparer.Ordinal);
     /// <summary>Encyclopedia articles, by id, each under a section (Framework 0.108.0).</summary>
     public Dictionary<string, StoryArticle> articles = new(StringComparer.Ordinal);
+    /// <summary>Data files, by id (Framework 0.110.0): read on any computer or PDA from the data card that carries them.</summary>
+    public Dictionary<string, StoryFile> files = new(StringComparer.Ordinal);
 }
 
 public sealed class StorySettings
@@ -64,6 +66,8 @@ public sealed class StoryRequires
     public List<string> arcsDone = new();
     /// <summary>Arcs the player must never have started.</summary>
     public List<string> arcsNotStarted = new();
+    /// <summary>Story data files the player must have opened (Framework 0.110.0).</summary>
+    public List<string> filesRead = new();
     /// <summary>Only once this many game days have passed since the player's story record began (Framework 0.109.0).</summary>
     public double? afterDays;
     /// <summary>Only until this many game days have passed since the player's story record began.</summary>
@@ -129,6 +133,8 @@ public sealed class StorySection
     public string label = "";
     public string title = "";
     public string? body;
+    /// <summary>A picture beside the page (Framework 0.110.0): a path under a mod's images folder, without .png.</summary>
+    public string? image;
     public StoryRequires? requires;
 }
 
@@ -141,6 +147,8 @@ public sealed class StoryArticle
     public string label = "";
     public string title = "";
     public string body = "";
+    /// <summary>A picture beside the page (Framework 0.110.0): a path under a mod's images folder, without .png.</summary>
+    public string? image;
     public StoryRequires? requires;
 }
 
@@ -255,6 +263,19 @@ public sealed class StoryOutcome
     public List<StoryReward> items = new();
     /// <summary>Credits paid to the player, entered in the game's ledger (Framework 0.109.0).</summary>
     public int credits;
+    /// <summary>Story data files given on one data card (Framework 0.110.0).</summary>
+    public List<string> files = new();
+}
+
+/// <summary>A data file (Framework 0.110.0), carried on a data card and read on a computer or PDA like the game's own.</summary>
+public sealed class StoryFile
+{
+    public string? notes;
+    /// <summary>The file name a computer lists, such as TRIAL_NOTES.TXT.</summary>
+    public string name = "";
+    public string text = "";
+    /// <summary>An arc that starts when the file is first opened, if it has not started yet.</summary>
+    public string? startsArc;
 }
 
 public sealed class StoryReward
@@ -274,7 +295,9 @@ public static class StorySchema
     public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait", Credits = "credits", Condition = "condition";
     public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait, Credits, Condition };
     public const string End = "end";
-    public const int MaxBranches = 4, MaxCreditReward = 50000;
+    public const int MaxBranches = 4, MaxCreditReward = 50000, MaxFileName = 32, MaxFileText = 3000, MaxFiles = 5, MaxImage = 100;
+    private static readonly Regex FileName = new("^[A-Za-z0-9_.-]+$", RegexOptions.CultureInvariant);
+    private static readonly Regex ImagePath = new("^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$", RegexOptions.CultureInvariant);
     public const double MaxCreditTest = 1000000, MaxDays = 3650;
     public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]" };
     public const int MaxIdLength = 48, MaxStepIdLength = 32, MaxRegion = 40, MaxBroadcast = 700, MaxAdvert = 400,
@@ -342,6 +365,7 @@ public static class StorySchema
             EntryId(pair.Key, where); Author(null, s.notes, where);
             Lore(s.label, MaxLabel, where + ".label"); Lore(s.title, MaxObjectiveTitle, where + ".title");
             if (s.body != null) Lore(s.body, MaxArticle, where + ".body");
+            Image(s.image, where);
             ModsOnly(s.requires, where);
         }
         foreach (var pair in pack.articles)
@@ -350,8 +374,22 @@ public static class StorySchema
             EntryId(pair.Key, where); Author(null, a.notes, where);
             if (!IsId(a.section)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".section", MaxIdLength));
             Lore(a.label, MaxLabel, where + ".label"); Lore(a.title, MaxObjectiveTitle, where + ".title"); Lore(a.body, MaxArticle, where + ".body");
+            Image(a.image, where);
             ModsOnly(a.requires, where);
         }
+        foreach (var pair in pack.files)
+        {
+            string where = "files." + pair.Key; var f = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, f.notes, where);
+            if (string.IsNullOrEmpty(f.name) || f.name.Length > MaxFileName || !FileName.IsMatch(f.name)) throw new ArgumentException(Text.Get("StorySchema.file_name", where, MaxFileName));
+            Words(f.text, MaxFileText, where + ".text");
+            if (f.startsArc != null && !IsId(f.startsArc)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".startsArc", MaxIdLength));
+        }
+    }
+
+    private static void Image(string? image, string where)
+    {
+        if (image != null && (image.Length > MaxImage || !ImagePath.IsMatch(image))) throw new ArgumentException(Text.Get("StorySchema.image", where, MaxImage));
     }
 
     /// <summary>Text shown with no player at hand (tips, the encyclopedia): plain, and no placeholders.</summary>
@@ -366,7 +404,7 @@ public static class StorySchema
     {
         if (r == null) return;
         Requires(r, where);
-        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count > 0 ||
+        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count + r.filesRead.Count > 0 ||
             r.afterDays != null || r.beforeDays != null)
             throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
@@ -441,6 +479,8 @@ public static class StorySchema
             if (reward.count < 1 || reward.count > MaxRewardCount) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.items." + reward.item, 1, MaxRewardCount));
         }
         if (outcome.credits < 0 || outcome.credits > MaxCreditReward) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.credits", 0, MaxCreditReward));
+        if (outcome.files == null || outcome.files.Count > MaxFiles || outcome.files.Any(f => !IsId(f)) || outcome.files.Distinct().Count() != outcome.files.Count)
+            throw new ArgumentException(Text.Get("StorySchema.files", at + ".onComplete.files", MaxFiles));
     }
 
     private static void Test(StoryTest? test, string where)
@@ -494,6 +534,7 @@ public static class StorySchema
         List(r.dockedAt, where + ".dockedAt", StationId);
         List(r.arcsDone, where + ".arcsDone", s => IsId(s));
         List(r.arcsNotStarted, where + ".arcsNotStarted", s => IsId(s));
+        List(r.filesRead, where + ".filesRead", s => IsId(s));
         if (r.afterDays is double after) Range(after, 0, MaxDays, where + ".afterDays");
         if (r.beforeDays is double before) Range(before, 0, MaxDays, where + ".beforeDays");
         if (r.afterDays is double a && r.beforeDays is double b && !(a < b)) throw new ArgumentException(Text.Get("StorySchema.days", where));

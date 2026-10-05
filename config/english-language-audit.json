@@ -81376,13 +81376,13 @@
       "key": "Story.help",
       "category": "console help",
       "decision": "rewrite",
-      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story file <file> | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; file gives you a data card with that story file; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
     },
     {
       "mod": "PhobosFramework",
@@ -82397,6 +82397,175 @@
       ],
       "before": "or branch {0}, to {1}: {2}",
       "after": "or branch {0}, to {1}: {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_default_name",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "DATA.TXT",
+      "after": "DATA.TXT"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_corrupted",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "The file is corrupted. Nothing readable is left.",
+      "after": "The file is corrupted. Nothing readable is left."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_given",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "You received {0}. Open its files on any computer or PDA.",
+      "after": "You received {0}. Open its files on any computer or PDA."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_no_card",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story data file could not be made: no {0} definition.",
+      "after": "Story data file could not be made: no {0} definition."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_no_store",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story data file could not be made: a {0} came without its data store.",
+      "after": "Story data file could not be made: a {0} came without its data store."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_full",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "A story data file did not fit on its data card and was left out.",
+      "after": "A story data file did not fit on its data card and was left out."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_file",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no data file named {0}",
+      "after": "no data file named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_file_command",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "No story data file named {0} is loaded.",
+      "after": "No story data file named {0} is loaded."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.file_command",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "A data card with {0} is in your inventory, or at your feet. Open it on any computer or PDA.",
+      "after": "A data card with {0} is in your inventory, or at your feet. Open it on any computer or PDA."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_file_read",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs the data file {0} opened",
+      "after": "needs the data file {0} opened"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.file_name",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs a file name of letters, digits, dots, hyphens and underscores, at most {1} characters.",
+      "after": "{0} needs a file name of letters, digits, dots, hyphens and underscores, at most {1} characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.files",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} lists at most {1} different data files, by id.",
+      "after": "{0} lists at most {1} different data files, by id."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.image",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 4 (Framework 0.110.0): data file names and texts a player reads, F3 file command and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: image is a path under a mod's images folder without .png, at most {1} characters.",
+      "after": "{0}: image is a path under a mod's images folder without .png, at most {1} characters."
     }
   ],
   "documents": [
@@ -82404,8 +82573,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0e36fb2c2188600994dd38ef82b98acb5c5a8238e38269db234b2bcbb53b9e83",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "f76b2fe5320a66d0aa54256bd16f0f056f85e23dc89dd81f4be41c1d1b05c553",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -82432,8 +82601,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1ccb1202965c1648bf7c8d4d72af6fd823475251ec6dc3a21050ed28ff9df60e",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "1f860f8463a8f26a9c492f3140ce91872ea4d23a51957d01c971cf6bf174e4d3",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -82565,8 +82734,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "eb2fa2e1e4b212ccf15a9877f60647b533fb990cb57deb6517597e6d3d9a1414",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "0ed9d759cdd36828bff9e0b8d128a77246afd14a3aaa7008cf3a398a743e11c5",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/crew-automation.md",
@@ -83194,8 +83363,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a2fbb37a9fe2cd7e9d224b2826cc4c5e582e948b18c809fdf50833c5886ed71c",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "fcd570ad229ddc5e0bb82b7d1dfe4dcac106bd9c4c04f8a9cfd87c74555c7b56",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -83434,8 +83603,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "39a80dff0b33dfb3b7b0ff5b8bc8ca2fe04759dbc6b87d09163305d485e040b8",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "5fa1be51f56a45c6055abaed4bc45cb440bf4242dcd098b026ff8b84966f7bcc",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/equipment-economy.md",
@@ -83455,8 +83624,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "88beddca97f50275e4fca5e20305f7601be8af06a3eddcae33fa1bde2303acd2",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "0110e6526ccffb2556be6da51178e4cb2f74ea96baa59860e61715872405f08a",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -83518,8 +83687,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "811bad85b7bb8d26f6c1681c12e9cb6ca4addbe6bdd8bfca60133af7dcf84fed",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "95aecd076a76798feed698c15d329c49f1683a41ac17a84e1f8f4a3b9e6eafab",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/item-references.md",
@@ -83581,8 +83750,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea07e226d6fc318eea72689baa47baacf1c2df340e9949dc6a865159505ebf1a",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "8619b632f75f24035ee2b63b514ea9ccbd1b92a6a36b60bb33138116c82cb404",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -83693,8 +83862,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1718f5bc0b129f10baab25ec8cc5a250cce6d5ae129384020ca4fa551f41134a",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "c4e7e240458415404d970e9ffafe1e8ef9814e00e8d7b76144a1e1fbd0a94d12",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -83707,8 +83876,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dff3cb9d16fcd061e1dce8b60d2296ecbc730ea7051e59cf2a7c583b84d5c6e4",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "8486ee96d95c07124828c7af9b5b66e6ef7f5311e508fa8b26bba60e5526678a",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -83749,15 +83918,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "69cc8234d8a3c1b3661f5b8a31a615bc32af29b7058e9de7b5934f3d1d69aaa7",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "a97541f8c6b637e9dde8e342272085140830291b980344dcc5d4b0ddc4529966",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "0969702d8e363067bea064274d10eddfcfcf2762b19396d68d7f3b1e5a0a3343",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "47e4c62c2db064a4b28b843bec1a4df6f1b5fc18201e9c4dc2e7e6f74efff059",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     }
   ],
   "surfaces": [
@@ -83781,8 +83950,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "21c4f53155eaaeaf7240177682af402a1b1c150603a7c14e4050e9f2dcf7b724",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "bd7b8f566ce6f7060cee3027e2b625206de3f171f157aeeef705d2cf92fd10dc",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -83816,8 +83985,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "978ece6c99287ee0dfaebba51675b8a453220c0b00dcd2665601e128b38369e5",
-      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
+      "sha256": "393c3b082a07b15de120dca52bd2d14ad7c1156394ecb70b36b02a216af66cc4",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -83889,8 +84058,8 @@
     {
       "path": "mods/PhobosAgriculture/framework/story.json",
       "scope": "shipped story content: TV news, adverts and goal text",
-      "sha256": "e04b10a78a164491f455d49452b953dc74c3b11ac394339bfb7e7db86c8f5489",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "5c886e369688f9fa55e40de7ae2c085169f03158a84266a758df30c995285603",
+      "review": "Framework 0.110.0 story data files review, 6 October 2026"
     },
     {
       "path": "mods/PhobosFramework/framework/story.json",
