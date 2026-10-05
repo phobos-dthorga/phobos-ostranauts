@@ -18,13 +18,30 @@ encounters. Do not write content that needs them. The
 
 ## How it fits together
 
+Story content needs nothing from you once the file is in place. Every story file is
+read each time the game loads its content: the mods' own packs, add-ons and your
+files. Change a file during a session and the change applies from the next load.
+From then on:
+
+- news and adverts appear on the TVs among the game's own, whenever the player meets
+  their requirements;
+- an arc starts by itself: every 30 seconds, each arc whose requirements hold has its
+  `chance` of starting (an arc with no chance starts only from the console);
+- a goal finishes by itself within 30 seconds of its tests passing.
+
+The F3 console commands in [Checking and testing](#checking-and-testing) are an
+optional shortcut for writers who want to see their content at once instead of
+waiting for it.
+
 ```mermaid
 flowchart LR
     Write["Write or ask ChatGPT for a story file"] --> Check["Check it: game log, or validate-data-packs.py"]
     Check --> Place["Put it in a story folder"]
     Place --> Load["Load a game"]
-    Load --> Try["F3: phobosframework story, then start or news"]
-    Try --> Read["Watch the TV and the GOALS list"]
+    Load --> Play["Play: news, adverts and arcs turn up by themselves"]
+    Load -.->|"optional"| Try["F3: phobosframework story, then start or news"]
+    Try -.-> Play
+    Play --> Read["Watch the TV and the GOALS list"]
     Read --> Write
 ```
 
@@ -183,7 +200,8 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 - **In the game:** a file with a mistake is skipped and the reason goes to
   `BepInEx/LogOutput.log`. An entry naming an item or condition the game does not have
   is left out on its own, with a message.
-- **F3 console:**
+- **F3 console (optional):** nothing here is needed for story content to work. These
+  commands only save waiting while you write and test:
   - `phobosframework story` lists the packs, anything left out and why, where you are
     docked, and each arc: under way (with each test's progress), finished, set aside,
     or why it cannot start yet.

@@ -83294,8 +83294,8 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "6ca10892e73096d39d039359c2945cbf07788ac9ae143a46667e62a75354000a",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "1641f3f93400a5909326c98c1d5da76184e6e7232448fe871a0af4cd12087adb",
+      "review": "Framework 0.107.0 story content review, 6 October 2026: F3 commands marked optional"
     },
     {
       "path": "docs/development/story-system-design.md",

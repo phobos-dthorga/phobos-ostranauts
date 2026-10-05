@@ -37,7 +37,7 @@ Dates on Draft entries record preparation, not Steam publication.
 - Arc steps send a message to the crew log, show a goal, and finish when their tests pass: docked at a station, carrying items (which can be taken), items on the player's ships, or game hours waited. A finished step can give items.
 - Entries can require mods, player conditions, items aboard, a station and other arcs, and text can name the player and their ship.
 - Dismissing a story goal sets that arc aside for good in that game.
-- F3: phobosframework story lists the packs, anything left out and why, where you are docked and each arc's progress; story start, reset, news, check and items help authors test their content.
+- Story content needs no commands: every story file loads with the game, and news, adverts and arcs turn up by themselves. Optional F3 commands help authors test: phobosframework story lists the packs, anything left out and why, where you are docked and each arc's progress; story start, reset, news, check and items save waiting.
 - The settings (share of the TV, seconds between checks, arcs at once) are in Framework's story pack.
 - A guide for writing story content, with a ready prompt for ChatGPT, and a JSON Schema for editors.
 
