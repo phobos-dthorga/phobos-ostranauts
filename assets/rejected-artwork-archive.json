@@ -1061,7 +1061,7 @@
     {
       "commit": "6110645617acfb16a53fe37647ecd24296f57ec7",
       "date": "2026-10-04",
-      "note": "Initial one-tile Medical monitor master, native colour/normal and preview, never selected or committed to main. Source retained for the revised Vigil-2; exact initial prompt and registration are in assets/phobos-medical/requests.json. Local archive; not pushed."
+      "note": "Initial one-tile Medical monitor master, native colour/normal and preview, never selected or committed to main. Source retained for the revised Vigil-2; exact initial prompt and registration are in assets/phobos-medical/requests.json. Pushed to codex/rejected-artwork on 5 October 2026."
     },
     {
       "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
