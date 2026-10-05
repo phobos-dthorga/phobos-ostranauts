@@ -35,12 +35,22 @@ At a rack, Unpair removes that rack's link; at the W2 it removes all links after
 the receiving lines are drained and all endpoints are paused. Invalid/future
 port records occupy their slots instead of being silently overwritten.
 
+A W2 and a rack join when irrigation pipe runs from under or right beside one to
+under or right beside the other, or when they sit within one tile of each other
+(Agriculture 0.53.0, owner request: the same rule as the process-water line). The
+rack's link list says why a W2 aboard is not offered. Touching machines do not chain
+separate pipe runs together.
+
 Each connected, receiving branch gets an equal share of the one measured pump
 budget. A full/blocked branch cannot consume or delete another branch's cargo;
-unused budget remains available for W2 mixing/provider intake. There is still
-only one W2 per connected pipe circuit. Use separate circuits for different feeds.
+unused budget remains available for W2 mixing/provider intake. Several W2s may
+share one pipe while they mix the same feed (before 0.53.0 only one W2 could use a
+connected pipe). A W2 that would pump a different feed into a pipe another running
+W2 also pumps into waits, and its panel says why: two feeds in one pipe would only
+flush each other back. A W2 within one tile of its rack feeds it directly and uses
+no pipe, so it never conflicts.
 
-Routes have a 64-tile limit. The authored model uses a 100 kPa rated head and
+Routes have a 64-tile limit, counted along the pipe. The authored model uses a 100 kPa rated head and
 quadratic resistance: relative flow is `1 / sqrt(1 + tiles / 16)`; modeled
 outlet pressure is `100 / (1 + tiles / 16)` kPa. These are **design calculations**,
 not measured sensor readings or real pump specifications. Received electricity

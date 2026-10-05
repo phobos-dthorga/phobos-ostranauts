@@ -82,6 +82,14 @@ internal static class ProcessorService
     internal static bool StoreReach(CondOwner co, CondOwner store) => LineReach.Of(co, store, LineFamilies.Gas) != LineReachKind.None;
     /// <summary>Where the oxygen can go: installed native oxygen canisters touching the cell (the game's own trigger)
     /// and bulk oxygen stores of any size touching it or on its gas line.</summary>
+    /// <summary>The game's canisters a trigger accepts anywhere aboard, in any position (Manufacturing 0.54.0): what a
+    /// canister field's note explains when one is not offered. The game's canisters have no line fitting.</summary>
+    internal static IEnumerable<CondOwner> CanistersAboard(CondOwner co, string triggerName)
+    {
+        var trigger = NativeDefinitions.Trigger(triggerName);
+        return trigger == null || co.ship == null ? Enumerable.Empty<CondOwner>() :
+            co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c)).ToArray();
+    }
     internal static IEnumerable<CondOwner> CanisterCandidates(CondOwner co)
     {
         var trigger = NativeDefinitions.Trigger(ProcessorRules.CanisterTrigger);

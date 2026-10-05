@@ -94,6 +94,12 @@ public static class LineReach
             Ready = NativeFluidRoute.EndpointReady(store)
         };
         var ship = machine.ship;
+        if (family != null && family.IsNetwork)
+        {
+            facts.LineExists = true;
+            facts.StoreFitting = family.Ports!(store) is { Count: > 0 };
+            facts.MachineFitting = family.Ports(machine) is { Count: > 0 };
+        }
         if (family != null && family.IsNetwork && ship.nCols > 0 && ship.nRows > 0 && facts.MachineReady && facts.Ready &&
             family.Ports!(machine) is { Count: > 0 } && family.Ports(store) is { Count: > 0 })
         {

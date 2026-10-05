@@ -11,8 +11,8 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 
 /// <summary>A line family whose segments hold contents (Framework 0.63.0): its segment family, its definition prefix
 /// (the shared four forms) and the commodities it holds. A liquid family holds one liquid; the gas family holds any mix
-/// of its gases. A network family is topped up from its stores by Framework; a family without ports (a pumped circuit
-/// such as irrigation or furnace coolant, Framework 0.64.0) is filled by its content mod through
+/// of its gases. A network family is topped up from its stores by Framework; a pumped family (furnace coolant, Framework
+/// 0.64.0, and irrigation, a network since Framework 0.103.0) is filled by its content mod through
 /// <see cref="LineContents.Top"/>.</summary>
 public sealed class LineHoldUpFamily
 {
@@ -21,12 +21,16 @@ public sealed class LineHoldUpFamily
     private readonly Dictionary<string, LineCommodity> commodities = new(StringComparer.Ordinal);
     public IReadOnlyCollection<LineCommodity> Commodities => commodities.Values;
     public bool Gas => commodities.Values.All(c => c.Gas);
-    /// <summary>Whether Framework tops this family up from its stores (a network family) or its content mod fills it.</summary>
-    public bool StoreFilled => Family.IsNetwork;
-    public LineHoldUpFamily(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> held)
+    /// <summary>Whether its content mod's pump fills it (Framework 0.103.0), so Framework never tops it up from stores
+    /// even when it is a network: the irrigation pipe joins like the water line but is filled by the W2 alone.</summary>
+    public bool Pumped { get; }
+    /// <summary>Whether Framework tops this family up from its stores (a network family that is not pumped) or its content mod fills it.</summary>
+    public bool StoreFilled => Family.IsNetwork && !Pumped;
+    public LineHoldUpFamily(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> held) : this(family, prefix, held, false) { }
+    public LineHoldUpFamily(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> held, bool pumped)
     {
         if (family == null || string.IsNullOrEmpty(prefix)) throw new ArgumentException("A holding line family needs a segment family and a prefix.");
-        Family = family; Prefix = prefix;
+        Family = family; Prefix = prefix; Pumped = pumped;
         foreach (var c in held) Add(c);
         if (commodities.Count == 0) throw new ArgumentException("A holding line family holds at least one commodity.");
     }
@@ -60,10 +64,13 @@ public static class LineContents
     /// <summary>Declares (or replaces) a holding family. Content declares its own lines when it prepares definitions.
     /// The family also joins the ship scan from the start (Framework 0.81.0), so a link picker can name it when it
     /// touches a machine before anything has routed through it.</summary>
-    public static LineHoldUpFamily Declare(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> commodities)
+    public static LineHoldUpFamily Declare(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> commodities) =>
+        Declare(family, prefix, commodities, false);
+    /// <summary>Declares a holding family; <paramref name="pumped"/> marks one its content mod fills (Framework 0.103.0).</summary>
+    public static LineHoldUpFamily Declare(FluidSegmentFamily family, string prefix, IEnumerable<LineCommodity> commodities, bool pumped)
     {
         if (!FluidRouteCache.Families.Any(f => f.Id == family.Id)) FluidRouteCache.Register(family);
-        var declared = new LineHoldUpFamily(family, prefix, commodities);
+        var declared = new LineHoldUpFamily(family, prefix, commodities, pumped);
         families.RemoveAll(f => f.Family.Id == family.Id);
         families.Add(declared);
         return declared;
@@ -238,6 +245,20 @@ public static class LineContents
         foreach (int cell in cells) { int id = topology.ComponentOf(cell); if (id >= 0) components.Add(id); }
         if (components.Count == 0) return Array.Empty<CondOwner>();
         return FluidRouteCache.Segments(ship, family.Family).Where(p => components.Contains(topology.ComponentOf(p.Key))).OrderBy(p => p.Key).Select(p => p.Value).ToArray();
+    }
+    /// <summary>The open, intact segments on a participant's network of a network family (Framework 0.103.0): every
+    /// segment joined to it through pipe under or beside it, or through touching participants, in cell order. The
+    /// circuit a pump on a network fills, where <see cref="Circuit(Ship, LineHoldUpFamily, IEnumerable{int})"/> is
+    /// the one through a route's cells. None when the object is not a ready participant or the layout overflows.</summary>
+    public static IReadOnlyList<CondOwner> Circuit(CondOwner? participant, LineHoldUpFamily family)
+    {
+        var ship = participant?.ship;
+        if (ship == null || family == null || !family.Family.IsNetwork || ship.nCols < 1 || ship.nRows < 1) return Array.Empty<CondOwner>();
+        int k = FluidRouteCache.ParticipantOf(ship, family.Family, participant!);
+        var topology = FluidRouteCache.Topology(ship, family.Family);
+        if (k < 0 || topology.Overflow) return Array.Empty<CondOwner>();
+        int id = topology.ParticipantComponentOf(k);
+        return FluidRouteCache.Segments(ship, family.Family).Where(p => topology.ComponentOf(p.Key) == id).OrderBy(p => p.Key).Select(p => p.Value).ToArray();
     }
     /// <summary>The kilograms of a commodity the segments still have room for (unreadable or closed segments count as full).</summary>
     public static double Room(IEnumerable<CondOwner> segments, LineHoldUpFamily family, string commodity)

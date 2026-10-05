@@ -1101,3 +1101,7 @@ L55 — scripts/audit-economy.py is an offline, read-only report over the item e
 ## 5 October: economy audit decisions (L56)
 
 L56 — Framework 0.102.0, Shipbreaker 0.79.0, Auto Nav 0.34.0 and Agriculture 0.52.0: the new bills, salvage odds and prices are data read once per game load. A retired recipe skips one append to a station's actions at registration. The overlay mass test reads one condition table per overlay ingredient at registration. Saved items that follow their price cost one dictionary probe per object loaded, already paid for every object, and a part-used charge one more mass read when it loads. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: irrigation as a network, and link notes (L57)
+
+L57 — Framework 0.103.0, Agriculture 0.53.0, Manufacturing 0.54.0: the irrigation pipe joins the shared per-ship topology snapshot as a network family, so W2s and racks are read as participants in the same scan that already read the pipe; the snapshot is still rebuilt at most every two real seconds and only after a relevant change. A W2's route asks the snapshot for reach and steps instead of a tile path, and the feed check walks the W2's network members once per power step through the existing step memo. The pumped flag keeps the two-second store top-up from scanning irrigation runs. The new link notes are read only when a link picker opens. Nothing is added to a frame. No capture accompanies this change.

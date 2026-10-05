@@ -101,6 +101,12 @@ internal static class NetworkChecks
         check(Why(f => { f.Damaged = true; f.Ready = false; f.Reached = true; return f; }) == ReachProblem.Damaged && Why(f => { f.Locked = true; f.Ready = false; return f; }) == ReachProblem.Locked &&
             Why(f => { f.Ready = false; return f; }) == ReachProblem.NotReady, "A damaged or locked store is named even when it touches the machine");
         check(Why(f => { f.Network = false; return f; }) == ReachProblem.TouchOnly && Why(f => { f.Overflow = true; return f; }) == ReachProblem.LayoutTooLarge, "Cargo no line carries must touch; an overflowing layout says so");
+        // Framework 0.103.0: when a line does carry the cargo, the end without a fitting for it is named (a game canister on
+        // the gas line, say), not "no line carries this cargo"; the store's end before the machine's.
+        check(Why(f => { f.Network = false; f.LineExists = true; f.MachineFitting = true; return f; }) == ReachProblem.StoreNoFitting &&
+              Why(f => { f.Network = false; f.LineExists = true; f.StoreFitting = true; return f; }) == ReachProblem.MachineNoFitting &&
+              Why(f => { f.Network = false; f.LineExists = true; return f; }) == ReachProblem.StoreNoFitting,
+            "A line carries the cargo but one end has no fitting for it: that end is named");
         check(Why(f => { f.StoreOpenPipe = false; return f; }) == ReachProblem.NoPipeAtStore && Why(f => { f.StoreOpenPipe = false; f.StoreClosedPipe = true; return f; }) == ReachProblem.DrainedAtStore,
             "No pipe at the store, or only a drained one");
         check(Why(f => { f.MachineOpenPipe = false; return f; }) == ReachProblem.NoPipeAtMachine && Why(f => { f.MachineOpenPipe = false; f.MachineClosedPipe = true; return f; }) == ReachProblem.DrainedAtMachine &&

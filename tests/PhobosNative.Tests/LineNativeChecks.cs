@@ -50,7 +50,8 @@ internal static class LineNativeChecks
             "Water rides the water line, the gases the gas line, and the hoppers' nutrients link by touching only");
         foreach (var (family, presence) in new[] { (Phobos.Ostranauts.Framework.Liquids.LineFamilies.ProcessWaterId, "PhobosProcessWaterLinePresent"),
                      (Phobos.Ostranauts.Framework.Liquids.LineFamilies.GasId, "PhobosPropellantLinePresent"),
-                     (PhobosManufacturing.Core.AcidLineRules.FamilyId, PhobosManufacturing.Core.AcidLineRules.Present) })
+                     (PhobosManufacturing.Core.AcidLineRules.FamilyId, PhobosManufacturing.Core.AcidLineRules.Present),
+                     (PhobosAgriculture.Service.WaterPipesId, PhobosAgriculture.IrrigationDefinitions.Segment) })
         {
             var ported = Phobos.Ostranauts.Framework.Liquids.LinePorts.Definitions(family).ToArray();
             check(ported.Length >= 8, "Equipment carries ports of " + family + " (" + ported.Length + " forms)");

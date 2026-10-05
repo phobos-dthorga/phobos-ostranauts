@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Controls;
 using Phobos.Ostranauts.Framework.Inventory;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Persistence;
@@ -41,17 +42,35 @@ internal static partial class Service
         ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water" }.Concat(Definitions.MixActions).Concat(new[] { "cancel-recovery", "dose-inventory", "dose-off" }).ToArray()
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
         : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
-    /// <summary>The racks a W2 can feed, or the W2s that can feed a rack: only those joined by an irrigation conduit
-    /// from the W2's outlet to the rack's inlet (Agriculture 0.30.0, the owner's rule: no link across open floor).</summary>
+    /// <summary>The racks a W2 can feed, or the W2s that can feed a rack. Since Agriculture 0.53.0 (owner request,
+    /// 5 October 2026: the treatment the water line had) the irrigation pipe joins a W2 or rack it runs under or right
+    /// beside, on any side, and a W2 and a rack within one tile of each other join without pipe, as the water, gas and
+    /// acid lines do. It used to have to reach one inlet tile and one outlet tile exactly. Never across open floor.</summary>
     internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) =>
-        co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && Definitions.Machine(c) &&
-            !WorkupDefinitions.IsBench(c) && !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c) && Piped(co, c));
-    /// <summary>Whether an irrigation conduit joins a W2's outlet to a rack's inlet, either way round, within the route limit.</summary>
-    internal static bool Piped(CondOwner a, CondOwner b)
+        co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && WaterPeerKind(co, c) && NativeFluidRoute.EndpointReady(c) && Piped(co, c));
+    private static bool WaterPeerKind(CondOwner co, CondOwner c) => Definitions.Machine(c) && !WorkupDefinitions.IsBench(c) && !Definitions.IsCooker(c) &&
+        IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co);
+    /// <summary>Why a W2 or rack aboard is not offered in the water link picker, by the shared link note.</summary>
+    internal static string WaterNote(CondOwner co) => co?.ship == null || WorkupDefinitions.IsBench(co) || Definitions.IsCooker(co) ? "" :
+        LinkChoices.Note(co, WaterPipes, co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && WaterPeerKind(co, c)), WaterCandidates(co));
+    /// <summary>Whether a W2 and a rack are joined, either way round: touching, or on one irrigation network within the route limit.</summary>
+    internal static bool Piped(CondOwner a, CondOwner b) => Reach(a, b) != null;
+    /// <summary>How a W2 reaches a rack: through the pipe (the network's segments are filled before feed arrives), or
+    /// directly when they are within one tile of each other. Tiles is the pipe length the flow is estimated over (at
+    /// least one).</summary>
+    private sealed class Branch
     {
-        var (source, rack) = IrrigationDefinitions.IsSupply(a) ? (a, b) : (b, a);
-        var path = FluidRouteCache.Find(source, IrrigationDefinitions.Outlet, rack, IrrigationDefinitions.Inlet, WaterPipes);
-        return path != null && path.Length <= RouteTileLimit;
+        internal readonly int Tiles; internal readonly bool ThroughPipe;
+        internal Branch(int tiles, bool throughPipe) { Tiles = tiles; ThroughPipe = throughPipe; }
+    }
+    private static Branch? Reach(CondOwner a, CondOwner b)
+    {
+        var kind = LineReach.Of(a, b, WaterPipes);
+        if (kind == LineReachKind.None) return null;
+        if (kind == LineReachKind.Adjacent) return new Branch(1, false);
+        // Network steps count every pipe tile passed and, last, the rack itself.
+        int tiles = Math.Max(1, LineReach.Hops(a, b, WaterPipes) - 1);
+        return tiles > RouteTileLimit ? null : new Branch(tiles, true);
     }
 
     private static bool? WaterCommand(Session s, string action, out string message)
@@ -115,32 +134,45 @@ internal static partial class Service
             if(!target.Protected&&!WaterGuard(peer).Protected&&!LineGuard(peer).Protected&&target.Routed&&CompatibleSolution(source,target)&&(!requireReceiving||target.State.Receiving)) yield return target;
         }
     }
-    internal static readonly FluidSegmentFamily WaterPipes = new("PhobosAgriculture.Water", c => c.strCODef == IrrigationDefinitions.Pipe + "Installed");
+    internal const string WaterPipesId = "PhobosAgriculture.Water";
+    /// <summary>The irrigation pipe, a network family since Agriculture 0.53.0: W2s and racks carry its port, so any
+    /// pipe under or beside one joins it. A W2 and a rack within one tile of each other join directly (the shared touching
+    /// rule), but touching machines do not chain separate pipe runs into one: two W2s side by side, each on its own run
+    /// with its own feed, keep their runs apart, as they did before. The id is the saved one, so pipe contents and links
+    /// in a save keep their meaning.</summary>
+    internal static readonly FluidSegmentFamily WaterPipes = new(WaterPipesId, c => c.strCODef == IrrigationDefinitions.Pipe + "Installed",
+        c => LinePorts.Points(WaterPipesId, c.strCODef), adjacencyJoins: false) { Label = () => Text.Get("water_pipe_label") };
     // A power step asks for the same routes from the demand check and the pump; one answer per step per pair.
-    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<(CondOwner, CondOwner), int[]?> routes = new();
-    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<Ship, CondOwner[]> supplies = new();
-    private static CondOwner[] SuppliesAboard(Ship ship) => supplies.GetOrAdd(Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame, ship,
-        s => s.GetCOs(null, false, false, true).Where(o => o != null && o.ship == s && Definitions.Machine(o) && IrrigationDefinitions.IsSupply(o)).ToArray());
-    private static int[]? Route(Session source, Session target)
+    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<(CondOwner, CondOwner), Branch?> routes = new();
+    private static Branch? Route(Session source, Session target)
     {
         long step = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
         if (routes.TryGet(step, (source.Object, target.Object), out var known)) return known;
-        var path = RouteNow(source, target);
-        routes.Set(step, (source.Object, target.Object), path);
-        return path;
+        var branch = RouteNow(source, target);
+        routes.Set(step, (source.Object, target.Object), branch);
+        return branch;
     }
-    private static int[]? RouteNow(Session source, Session target)
+    private static Branch? RouteNow(Session source, Session target)
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Route);
-        var path = FluidRouteCache.Find(source.Object, IrrigationDefinitions.Outlet, target.Object, IrrigationDefinitions.Inlet, WaterPipes);
-        if (path == null || path.Length > RouteTileLimit) return null;
-        // First slice has one pump authority per connected component. Additional independent
-        // circuits are fine; joining two live source outlets blocks delivery instead of multiplying flow.
-        var outlet = source.Object.GetPos(IrrigationDefinitions.Outlet);
-        foreach (var other in SuppliesAboard(source.Object.ship))
-            if (other != source.Object && NativeFluidRoute.EndpointReady(other) &&
-                FluidRouteCache.SharesCircuit(source.Object, outlet, other, other.GetPos(IrrigationDefinitions.Outlet), WaterPipes)) return null;
-        return path;
+        var branch = Reach(source.Object, target.Object);
+        // Several W2s may share one pipe while they mix the same feed (Agriculture 0.53.0; until then one W2 per pipe
+        // run). Two feeds in one pipe would only flush each other back, so a W2 that would pump a different feed into a
+        // pipe another running W2 also pumps into waits, and says why. Feeding a touching rack uses no pipe.
+        return branch != null && branch.ThroughPipe && FeedConflict(source) ? null : branch;
+    }
+    /// <summary>Whether another running W2 on this W2's irrigation network pumps a different feed through the pipe.</summary>
+    private static bool FeedConflict(Session source)
+    {
+        string feed = FeedCommodity(source.Solution.Profile);
+        foreach (var other in LineReach.Members(source.Object, WaterPipes))
+        {
+            if (other == source.Object || !Definitions.Machine(other) || !IrrigationDefinitions.IsSupply(other) || !NativeFluidRoute.EndpointReady(other)) continue;
+            var o = Get(other);
+            if (o.Protected || !o.State.Running || FeedCommodity(o.Solution.Profile) == feed) continue;
+            if (Destinations(o, false).Any(t => Reach(other, t.Object) is { ThroughPipe: true })) return true;
+        }
+        return false;
     }
     private static double SupplyDemand(Session s)
     {
@@ -161,14 +193,14 @@ internal static partial class Service
         // Outgoing feed, mixing and provider filling share ONE measured pump budget.
         if (s.State.Running)
         {
-            var targets=Destinations(s,true).Select(t => (Target:t, Path:Route(s,t))).Where(x=>x.Path!=null).ToArray();
+            var targets=Destinations(s,true).Select(t => (Target:t, Branch:Route(s,t))).Where(x=>x.Branch!=null).ToArray();
             double share=targets.Length==0?0:HydraulicRoute.Share(budget,targets.Length);
             foreach(var branch in targets)
             {
-                try { budget-=PumpLine(s,branch.Target,branch.Path!,elapsed,share); }
+                try { budget-=PumpLine(s,branch.Target,branch.Branch!.Tiles,branch.Branch.ThroughPipe,elapsed,share); }
                 catch(Exception error) { Fault(branch.Target.Object,error); throw; }
             }
-            if(targets.Length==0) s.Notice=Text.Get("water_no_route");
+            if(targets.Length==0) s.Notice=Text.Get(FeedConflict(s)?"water_feed_conflict":"water_no_route");
             if (budget > NutrientSolution.Tolerance && s.Solution.Enabled)
             {
                 Dose(s,budget);
@@ -202,7 +234,8 @@ internal static partial class Service
         var targets = Destinations(s, false).ToArray(); var target=targets.FirstOrDefault(); var route = target == null ? null : Route(s, target);
         return Text.Get("water_supply_status", s.State.Water, IrrigationDefinitions.CapacityKg, Text.Get(s.State.Running ? "running" : "paused"),
             Text.Get(s.State.Receiving ? "receiving" : "manual"), targets.Length==0 ? Text.Get("water_unlinked") : string.Join(", ",targets.Select(t=>t.Object.strID)),
-            route == null ? Text.Get("water_no_route") : Text.Get("water_route_length", route.Length),
+            route == null ? Text.Get(target != null && FeedConflict(s) ? "water_feed_conflict" : "water_no_route") :
+                route.ThroughPipe ? Text.Get("water_route_length", route.Tiles) : Text.Get("water_route_touching"),
             s.Protected || WaterGuard(s.Object).Protected ? Text.Get("protected") : s.Notice) + "\n" +
             (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + DescribeBulkIntake(s) + "\n" + DescribeDose(s) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
     }

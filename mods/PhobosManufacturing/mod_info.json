@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.53.0",
+    "strModVersion": "0.54.0",
     "strNotes": "The Fennmark V4 Volatiles Refinery (hydrates, clay hydrates, carbon and meteoric iron into water, carbon stock and nickel-iron ingots), the X2 Chemical Processor (water electrolysis: oxygen into a native O2 canister or the cabin, hydrogen into the H2 Hydrogen Store) and the H2 store. Requires Phobos Framework 0.41.0 or newer and the normal game/BepInEx prerequisites. Water comes from a Shipbreaker S3 or Agriculture R3 vessel within one tile. Shipbreaker 0.38.0 or newer (optional) enables the carburised steel charge. Not gameplay-validated."
   }
 ]

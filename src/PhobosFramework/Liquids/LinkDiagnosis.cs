@@ -8,7 +8,10 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 public enum ReachProblem
 {
     None, MachineNotReady, NotInstalled, Damaged, Locked, NotReady, TouchOnly, LayoutTooLarge,
-    NoPipeAtStore, DrainedAtStore, NoPipeAtMachine, DrainedAtMachine, SeparateRuns
+    NoPipeAtStore, DrainedAtStore, NoPipeAtMachine, DrainedAtMachine, SeparateRuns,
+    /// <summary>A line carries the cargo, but the store (a game canister, say) or the machine has no fitting for it, so
+    /// only touching reaches (Framework 0.103.0; it used to read as if no line carried the cargo at all).</summary>
+    StoreNoFitting, MachineNoFitting
 }
 
 /// <summary>What <see cref="LinkDiagnosis.Classify"/> needs to know, with no game types so offline checks can build it.</summary>
@@ -22,6 +25,8 @@ public struct ReachFacts
     public bool Ready;
     /// <summary>A line family carries this cargo and both ends take part in it; false means touching is the only way.</summary>
     public bool Network;
+    /// <summary>A line family carries this cargo (Framework 0.103.0), and whether each end has a fitting for it.</summary>
+    public bool LineExists, StoreFitting, MachineFitting;
     public bool Overflow;
     /// <summary>An open, working segment lies under or beside the store or the machine.</summary>
     public bool StoreOpenPipe, MachineOpenPipe;
@@ -41,7 +46,9 @@ public static class LinkDiagnosis
         if (f.Locked) return ReachProblem.Locked;
         if (!f.Ready) return ReachProblem.NotReady;
         if (f.Reached) return ReachProblem.None;
-        if (!f.Network) return ReachProblem.TouchOnly;
+        if (!f.Network)
+            return !f.LineExists ? ReachProblem.TouchOnly : !f.StoreFitting ? ReachProblem.StoreNoFitting :
+                !f.MachineFitting ? ReachProblem.MachineNoFitting : ReachProblem.TouchOnly;
         if (f.Overflow) return ReachProblem.LayoutTooLarge;
         if (!f.StoreOpenPipe) return f.StoreClosedPipe ? ReachProblem.DrainedAtStore : ReachProblem.NoPipeAtStore;
         if (!f.MachineOpenPipe) return f.MachineClosedPipe ? ReachProblem.DrainedAtMachine : ReachProblem.NoPipeAtMachine;

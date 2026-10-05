@@ -1,8 +1,11 @@
 # Agriculture water conduits
 
 For the current multi-rack setup, use [fluid-network operations](fluid-network-operations.md):
-one W2 can serve up to eight linked racks. The placement instructions below still
-apply; the one-rack restriction belongs to the historical water-only baseline.
+one W2 can serve up to eight linked racks. Since Agriculture 0.53.0 the irrigation
+conduit joins a W2 or rack it runs **under or right beside, on any side**, the way
+the process-water line does, and a W2 within one tile of a rack feeds it with no pipe
+at all. The fixed outlet and inlet tiles and the one-rack restriction below belong to
+the historical water-only baseline.
 
 ## Historical water-only baseline
 
@@ -39,17 +42,17 @@ and construction output value against purchased inputs; merchant quotes vary.
 1. Install the W2 on interior structural floor and connect its **electrical**
    power points. Load native 0.25 kg water rations or Groundwork 5 kg irrigation
    charges into Inventory; use the corresponding crew loading action.
-2. Install fluid conduits between the W2's **right upper outlet** and the
-   Firstlight-4 rack's **left upper inlet**. The first/last pipe tile sits directly
-   outside that fitting. At zero rotation their named points are respectively
-   (+1.5, +0.5) and (-2.5, +0.5) tiles from equipment centre. Points rotate with
-   the equipment. The rack retains its 4 × 4 footprint and gains a small inlet
-   fitting on every crop image.
+2. Lay irrigation conduit from any tile under or right beside the W2 to any tile
+   under or right beside the rack (Agriculture 0.53.0), or set the W2 within one
+   tile of the rack and lay none. Until 0.53.0 the pipe had to cover one outlet tile
+   beside the W2's upper right and one inlet tile beside the rack's upper left, at
+   (+1.5, +0.5) and (-2.5, +0.5) tiles from each centre; those fittings are still
+   drawn and an old layout still joins. The rack keeps its 4 × 4 footprint.
 3. Pause operation **and receiving at both ends**. Open either local Control
-   Panel and choose the named/full-ID peer from the pairing list. Since
-   Agriculture 0.30.0 the list offers only racks (or W2s) joined by conduit from
-   the W2's outlet to the rack's inlet; a pairing across open floor is refused
-   with the reason. Pairing selects **pipe-fed water** at the rack and disables
+   Panel and choose the named/full-ID peer from the pairing list. The list offers
+   only racks (or W2s) joined by conduit or within one tile; a pairing across open
+   floor is refused with the reason, and the picker says why each W2 or rack aboard
+   is not offered. Pairing selects **pipe-fed water** at the rack and disables
    its direct provider bypass.
    Reopen the panel to refresh the candidate list after installing equipment.
 4. Enable the rack's selected water supply and start the W2. Start cultivation
@@ -57,9 +60,9 @@ and construction output value against purchased inputs; merchant quotes vary.
    ownership change or invalid pair stops replenishment; the rack retains its
    existing water and normal crop/environment rules.
 
-One W2 binds one rack. Use separate pipe circuits for additional pairs. Joining
-two intact source outlets into one circuit blocks pumping: branching supply and
-shared allocation are deliberately outside this first slice. Cardinal corners,
+In this baseline one W2 bound one rack, and two W2 outlets on one circuit blocked
+pumping. Since Agriculture 0.53.0 several W2s may share one pipe while they mix the
+same feed; see [fluid-network operations](fluid-network-operations.md). Cardinal corners,
 T-junctions and crosses connect; crosses never represent isolated crossing pipes.
 Normal installation is supported, including the native INSTALL > MISC entry
 (see [catalogue](development/install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy
@@ -67,8 +70,9 @@ electrical-conduit tiles through independent sockets, and since Agriculture 0.29
 also share tiles with other kinds of Phobos line: each kind draws in its own lane and depth,
 so none hides another. The PDA's Conduits filter selects these pipes; painting jobs on
 Equipment leaves them alone. Visual layering and native placement still need owner
-evaluation. Walls, flex floors and EVA tiles do not
-form valid water paths; there is no hull penetration or atmosphere opening.
+evaluation. Flex floors and EVA tiles do not form valid water paths; since
+Framework 0.100.0 a pipe laid inside a wall counts, by the lines data pack's rule.
+There is no hull penetration or atmosphere opening.
 Off-grid endpoints fail closed. The bounded implementation permits at most 4,096
 eligible pipe cells on a ship; it does not guess connectivity beyond that limit.
 

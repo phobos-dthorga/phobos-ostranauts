@@ -10,6 +10,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.53.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Irrigation pipe now joins a W2 or a rack it runs under or right beside, on any side, the same rule as the process-water line. It used to join only at one outlet tile beside the W2 and one inlet tile beside the rack, so racks or W2s set side by side could not link.
+- A W2 within one tile of a rack feeds it directly, with no pipe.
+- Several W2s can share one irrigation pipe while they mix the same feed. A W2 that would pump a different feed into a pipe another running W2 uses waits, and its panel says why. Before, any two W2s on one pipe stopped pumping.
+- The link lists for racks, W2s, water tanks and nutrient hoppers now say why something aboard is not offered.
+
+### Save compatibility
+
+- Automatic. Every layout that linked before still links; saved links and the water or feed in the pipes are kept.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.103.0 or newer.
+- Touching machines do not join separate irrigation runs into one, so two W2s side by side keep their own runs and feeds.
+- Checked offline; not yet seen in the game.
+
 ## [0.52.0] - 2026-10-05 - Draft
 
 ### Changed

@@ -695,5 +695,8 @@
   "LineSchema.forbidden": "Line placement rule {0}: forbiddenTiles takes up to {1} condition names, each once.",
   "LineSchema.supports": "Line placement rule {0} needs between 1 and {1} supports.",
   "LineSchema.support": "Line placement rule {0}: each support needs a tile condition and an object (the word floor, or a condition name).",
-  "LineSchema.contradiction": "Line placement rule {0} forbids {1} tiles and also names them as a support."
+  "LineSchema.contradiction": "Line placement rule {0} forbids {1} tiles and also names them as a support.",
+  "LinkChoices.reason_no_fitting_store": "too far away. It has no fitting for the {0}, so it has to stand within one tile of this machine.",
+  "LinkChoices.reason_no_fitting_machine": "too far away. This machine has no fitting for the {0}, so the two have to stand within one tile of each other.",
+  "ShipsWaterPorts.refused": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}"
 }

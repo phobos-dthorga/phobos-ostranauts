@@ -1512,8 +1512,12 @@
   0.28.0 and Agriculture 0.35.0 implement it, with no saved change. Every link
   picker must say why something aboard is not offered (`LinkChoices.Note`,
   `LineReach.Problem`): show the field whenever a vessel of its cargo is aboard, and
-  never leave a player with an empty list and no reason. The irrigation conduit and
-  the F6-C coolant conduit keep their exact points until the owner decides otherwise.
+  never leave a player with an empty list and no reason. Owner request (2026-10-05):
+  the irrigation conduit has the same rule since Agriculture 0.53.0 (a pumped network,
+  `LineContents.Declare(..., pumped: true)`; a W2 within one tile of a rack feeds it
+  directly; touching never chains runs; W2s share a pipe only while they mix one feed).
+  The F6-C coolant conduit keeps its exact points until the owner decides on
+  `docs/development/pipe-audit-2026-10-05.md` recommendation 1.
 - Owner decision (2026-10-01): the T2 thaw unit and the ML-2 mining laser open
   Framework's shared `ProviderPanel` (Shipbreaker 0.63.0), like the water silos and
   Manufacturing's machines. The D4, R4, F6, G4, C2 and cooling assemblies keep the

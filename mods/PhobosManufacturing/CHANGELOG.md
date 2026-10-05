@@ -19,6 +19,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.54.0] - 2026-10-05 - Draft
+
+### Changed
+
+- The X2 oxygen and K2 carbon-source link lists now say why a canister or store aboard is not offered, including the game's own canisters and carbon monoxide stores. The L2's canister list does the same. The game's canisters have no line fitting, so they have to stand within one tile.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.53.0] - 2026-10-05 - Draft
 
 ### Added

@@ -28,6 +28,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.103.0] - 2026-10-05 - Draft
+
+### Added
+
+- A pipe its own machine fills can now join equipment the way the water line does without being topped up from stores. Agriculture's irrigation pipe uses this.
+
+### Changed
+
+- When a line does carry the cargo but a store or machine has no fitting for it, such as one of the game's own canisters on the gas line, the link list now says so and asks for it to stand within one tile. It used to say no line carries that cargo.
+- Ship's Water tanks whose fittings another mod changed, so they cannot take a water-line fitting, are now named in the log. They join Phobos lines only by touching.
+
+### Save compatibility
+
+- Automatic. Nothing saved changes.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.102.0] - 2026-10-05 - Draft
 
 ### Added

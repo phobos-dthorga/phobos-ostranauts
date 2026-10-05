@@ -73,6 +73,8 @@ public static class LinkChoices
             ReachProblem.NoPipeAtMachine => Text.Get("LinkChoices.reason_no_pipe_machine", line),
             ReachProblem.DrainedAtMachine => Text.Get("LinkChoices.reason_drained_machine", line),
             ReachProblem.SeparateRuns => Text.Get("LinkChoices.reason_separate", line),
+            ReachProblem.StoreNoFitting => Text.Get("LinkChoices.reason_no_fitting_store", line),
+            ReachProblem.MachineNoFitting => Text.Get("LinkChoices.reason_no_fitting_machine", line),
             _ => ""
         };
     }

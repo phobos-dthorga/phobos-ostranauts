@@ -40,9 +40,12 @@ internal static partial class Service
         }
         if(!s.Line.Empty && (IrrigationDefinitions.IsSupply(s.Object)||Definitions.IsCooker(s.Object)||s.Line.Profile!=s.Solution.Profile)) s.Protected=true;
     }
-    private static double PumpLine(Session source,Session target,int[] path,double elapsed,double share)
+    /// <summary>One branch's pump step: <paramref name="tiles"/> of pipe for the flow estimate; through the pipe, the
+    /// W2's whole irrigation network is filled before feed reaches the rack (Agriculture 0.53.0: the network, where it was
+    /// the run through one route), and a touching rack is fed directly.</summary>
+    private static double PumpLine(Session source,Session target,int tiles,bool throughPipe,double elapsed,double share)
     {
-        double flow=HydraulicRoute.FlowFraction(path.Length,ResistanceTiles);
+        double flow=HydraulicRoute.FlowFraction(tiles,ResistanceTiles);
         double budget=Math.Min(share,elapsed*IrrigationDefinitions.RateKgPerSecond*flow), used=0;
         // A parcel saved by an earlier version was on its way to this rack: it arrives first, whatever the route now is.
         if(!target.Line.Empty)
@@ -53,7 +56,7 @@ internal static partial class Service
         }
         if(budget<=1e-9) return used;
         string commodity=FeedCommodity(source.Solution.Profile);
-        var circuit=IrrigationHolding==null?Array.Empty<CondOwner>():LineContents.Circuit(source.Object.ship,IrrigationHolding,path);
+        var circuit=IrrigationHolding==null||!throughPipe?Array.Empty<CondOwner>():LineContents.Circuit(source.Object,IrrigationHolding);
         // After a formulation change the pipes still hold the old feed: the pump flushes it back to the W2 first
         // (owner decision, 1 October 2026), as plain water into its reservoir or as recorded process solution for treatment.
         if(IrrigationHolding!=null&&circuit.Any(c=>(LineContents.Read(c)?.Kilograms.Keys??Enumerable.Empty<string>()).Any(k=>k!=commodity)))
@@ -68,13 +71,13 @@ internal static partial class Service
             // Priming: the pump fills the branch's conduit from the W2's feed before anything reaches the rack.
             used+=Prime(source,circuit,commodity,Math.Min(budget,room));
             double held=LineContents.Holding(circuit,commodity);
-            target.Notice=Text.Get("line_priming",held,held+LineContents.Room(circuit,IrrigationHolding!,commodity),path.Length);
+            target.Notice=Text.Get("line_priming",held,held+LineContents.Room(circuit,IrrigationHolding!,commodity),circuit.Count);
             return used;
         }
         // A full conduit passes feed straight through: what the W2 pushes in, the rack receives.
         var delivered=LiquidTransferGuard.Commit(new FeedReservoir(source),new FeedReservoir(target),budget,WaterGuard(source.Object),WaterGuard(target.Object));
         used+=delivered.Received.TotalKg;
-        target.Notice=Text.Get("line_flow",flow*100,path.Length,100*flow*flow); return used;
+        target.Notice=Text.Get("line_flow",flow*100,tiles,100*flow*flow); return used;
     }
     /// <summary>Fills the conduit from the W2's reservoir: the kilograms the segments take leave the reservoir in its own
     /// proportions (water, or feed at its profile's ratio).</summary>

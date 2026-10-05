@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.102.0",
+      "value": "0.103.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.52.0",
+      "value": "0.53.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.53.0",
+      "value": "0.54.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -681,7 +681,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.102.0",
+      "value": "0.103.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {

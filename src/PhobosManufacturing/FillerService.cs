@@ -70,6 +70,11 @@ internal static class FillerService
     internal static IEnumerable<CondOwner> Rack(CondOwner co) => co.objContainer?.ContainedCOs.Where(NativeGasVessel.IsBottle).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray()
         ?? Enumerable.Empty<CondOwner>();
     /// <summary>The game's own O2, N2 and CO2 canisters installed within one tile.</summary>
+    /// <summary>The game's canisters of a gas the station handles anywhere aboard, in any position: what the canister
+    /// field's note explains when one is not offered (Manufacturing 0.54.0). Suit bottles are never filled here.</summary>
+    internal static IEnumerable<CondOwner> CanistersAboard(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
+        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && !NativeGasVessel.IsBottle(c) &&
+            NativeGasVessel.TryRead(c, out var r) && FillerRules.Species.Contains(r.Species)).ToArray();
     internal static IEnumerable<CondOwner> CanisterCandidates(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
         .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && c.HasCond("IsInstalled") && !NativeGasVessel.IsBottle(c) &&
             NativeGasVessel.TryRead(c, out var r) && FillerRules.Species.Contains(r.Species) && ProcessorService.Adjacent(co, c))

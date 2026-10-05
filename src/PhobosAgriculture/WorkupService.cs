@@ -231,6 +231,10 @@ internal static partial class Service
     internal static bool DoseReady(Session s)=>DosingCharge(s)!=null;
     /// <summary>Every dose source a crew member or the panel may choose: charges in the W2's inventory, then hoppers
     /// within one tile. The hopper part scans the ship; it runs at choice time, never per power step.</summary>
+    /// <summary>Why a nutrient hopper aboard is not offered as the W2's dosing source (Agriculture 0.53.0): crop nutrients
+    /// travel on no line, so a hopper has to stand within one tile of the W2.</summary>
+    internal static string DoseNote(CondOwner co)=>co?.ship==null||!IrrigationDefinitions.IsSupply(co)?"":
+        Phobos.Ostranauts.Framework.Controls.LinkChoices.Note(co,null,co.ship.GetCOs(null,false,false,true).Where(c=>c!=co&&c.ship==co.ship&&HopperDefinitions.IsHopper(c)),DoseCandidates(Get(co)));
     internal static IEnumerable<CondOwner> DoseCandidates(Session s)
     {
         foreach(var co in ItemDoseCandidates(s))yield return co;

@@ -35,6 +35,13 @@ internal static class IrrigationDefinitions
         EquipmentInventory.Apply(d, Supply, SupplyInventory);
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Definitions.Rack, StringComparison.Ordinal)))
             co.mapPoints = co.mapPoints.Concat(new[] { Inlet + "," + LinePorts.Water(RackFootprint).X + "," + LinePorts.Water(RackFootprint).Y }).ToArray();
+        // The irrigation pipe's ports (Agriculture 0.53.0): every W2 and rack form takes part in the irrigation network,
+        // so any pipe under or beside it joins it. The outlet and inlet points stay, and mark where the joint is drawn.
+        foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            LinePorts.Register(Service.WaterPipesId, Supply + form, Outlet);
+            if (d.Objects.ContainsKey(Definitions.Rack + form)) LinePorts.Register(Service.WaterPipesId, Definitions.Rack + form, Inlet);
+        }
 
         var pipe = AgricultureEconomy.Supply(Pipe);
         // Ordinary native install/repair workflow on Framework's shared segment pattern (Framework 0.56.0), with entirely
@@ -47,7 +54,8 @@ internal static class IrrigationDefinitions
         });
         // The conduit holds its water or feed until drained (Agriculture 0.33.0; owner decision, 1 October 2026): about
         // 0.20 kg a tile, filled by the W2's pump, drained into Framework's drain canister, which pours back into a W2.
-        Service.IrrigationHolding = LineContents.Declare(Service.WaterPipes, Pipe, Service.ConduitCommodities());
+        // Pumped: only the W2 fills it (Agriculture 0.53.0 keeps that now the pipe joins as a network).
+        Service.IrrigationHolding = LineContents.Declare(Service.WaterPipes, Pipe, Service.ConduitCommodities(), pumped: true);
         LineContents.OfferActions(d, Pipe, gas: false);
         DrainCanisters.RegisterReceiver(new W2CanisterReceiver());
         foreach (string form in new[] { "Installed", "InstalledDmg" })

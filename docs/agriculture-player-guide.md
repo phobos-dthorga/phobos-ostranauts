@@ -11,7 +11,8 @@ the complete loop and Unity layout still need in-game evaluation.
 Start with the rack and cooker below. Add [W2 irrigation](agriculture-water-conduits.md),
 [nutrient mixing](agriculture-nutrient-solutions.md), [B2 recovery](agriculture-nutrient-production.md)
 or a [water silo and nutrient hopper](agriculture-bulk-storage.md) when needed. A W2 can serve
-up to eight linked racks. For replacement lettuce seed, choose the separate
+up to eight linked racks. Irrigation conduit joins a W2 or rack it runs under or right
+beside, and a W2 within one tile of a rack needs no pipe at all. For replacement lettuce seed, choose the separate
 [seed crop](agriculture-seed-production.md).
 
 See [controls](control-panel-guide.md) for Apply/Discard and choosing stores,

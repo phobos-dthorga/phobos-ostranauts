@@ -1847,13 +1847,13 @@
       "key": "water_pipe_desc",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationDefinitions.cs:59"
       ],
       "before": "One tile, 1 kg structural mass. Independent cardinal irrigation route; crosses join. Each selected route reserves 0.01 kg per tile in a retained line parcel, accounted at its receiving rack. Authored resistance and transit delay; no density/CFD claim. Drain lines before rerouting.",
-      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. The W2 fills it first, about 0.2 kg of water or feed a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play.",
+      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. It joins any W2 or rack it runs under or right beside. The W2 fills it first, about 0.2 kg of water or feed a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -2011,15 +2011,15 @@
       "mod": "PhobosAgriculture",
       "key": "water_no_route",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:147",
         "src/PhobosAgriculture/IrrigationService.cs:179"
       ],
       "before": "No usable pipe route: check pairing, installed pipes, damage, supporting floors and inlet/outlet alignment. Keep one supply unit per connected pipe circuit.",
-      "after": "No working pipe connection. Check the links, pipes, supporting floors and inlet/outlet positions. Use one supply unit per pipe circuit.",
+      "after": "No working pipe connection. Check the links, the irrigation pipe and the floor or wall under it.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
@@ -2118,14 +2118,14 @@
       "mod": "PhobosAgriculture",
       "key": "water_route_length",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:179"
       ],
       "before": "Connected through {0} pipe tiles",
-      "after": "Connected through {0} pipe tiles",
+      "after": "Connected through about {0} tiles of irrigation pipe",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -64420,14 +64420,14 @@
       "mod": "PhobosAgriculture",
       "key": "water_no_conduit",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Says why a rack pairing across open floor is refused and what to lay.",
+      "decision": "rewrite",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:94"
       ],
       "before": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor.",
-      "after": "No water conduit joins the W2's outlet to this rack's inlet. Lay conduit between them first; racks link only along a conduit, never across open floor.",
+      "after": "This W2 and rack are not joined. Lay irrigation pipe from under or right beside the W2 to under or right beside the rack, or put them within one tile of each other. Racks never link across open floor.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -67668,6 +67668,45 @@
       ],
       "before": "Carried on after loading the game.",
       "after": "Carried on after loading the game."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_pipe_label",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "irrigation pipe",
+      "after": "irrigation pipe"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_route_touching",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Connected directly: the W2 and rack are within one tile of each other",
+      "after": "Connected directly: the W2 and rack are within one tile of each other"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "water_feed_conflict",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Another running W2 on this irrigation pipe is mixing a different feed. W2s can share a pipe only while they mix the same feed: pause one, change its feed, or give each its own pipe. A W2 within one tile of its rack feeds it without the pipe.",
+      "after": "Another running W2 on this irrigation pipe is mixing a different feed. W2s can share a pipe only while they mix the same feed: pause one, change its feed, or give each its own pipe. A W2 within one tile of its rack feeds it without the pipe."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -80387,6 +80426,45 @@
       ],
       "before": "Line placement rule {0} forbids {1} tiles and also names them as a support.",
       "after": "Line placement rule {0} forbids {1} tiles and also names them as a support."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_no_fitting_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "too far away. It has no fitting for the {0}, so it has to stand within one tile of this machine.",
+      "after": "too far away. It has no fitting for the {0}, so it has to stand within one tile of this machine."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LinkChoices.reason_no_fitting_machine",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "too far away. This machine has no fitting for the {0}, so the two have to stand within one tile of each other.",
+      "after": "too far away. This machine has no fitting for the {0}, so the two have to stand within one tile of each other."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ShipsWaterPorts.refused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}",
+      "after": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}"
     }
   ],
   "documents": [
@@ -80394,8 +80472,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "224d7b406c61fd71b5ef1f719e5a47f47d7fd0597f2437cabbb250936d9496b3",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "fd51b43728b3b9537c1a762319c11622ea61de6d078c29a1ffcd1e4ad46312a3",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "SUPPORT.md",
@@ -80422,8 +80500,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e38d276cacafa34784e57228bfe9889ac2adff714965fb426a8789f62d50f0f2",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "306c7463890c41470ca9dec7ca04a7ccee10b16364c4ebac705e2cb35530edfb",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80436,15 +80514,15 @@
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "013681752967b3f812ecb181185e944999ded529b8da5891e83d899cbbc63c97",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "45feb1872c1e9a53335d5b18a786eb5c53ada200e96966e38615b91d0b750031",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "777d067111c7e2d0c06729d900fec91f9aa6ad473ee698062cf9fd7b9cad54e2",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "d9f51ca1f4e52b625e7c9c5064eee5fd1c8bbe971757af160cf9d5e5a43c117b",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -80457,8 +80535,8 @@
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "79e3d9cf1c605572b4ddeba84cefada85423f039a1c611a6e8faa5aeedf608b9",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "372471d123979af271df1cc85794ce82b516cef8f352268f6caa403c435fe154",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -80555,8 +80633,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea6d77d1bdfae496a7465123ba693bbbe3c6b94f612c62a73aa4aa2475075525",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "7d6e2c3e193195949b27cf3bba0b7141a7d40a6049d43803ee53e7a227b012fe",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/crew-automation.md",
@@ -80569,8 +80647,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "15631eb21a09efed8edea595de0e69128633467c84bf991255516ab987865f6c",
-      "review": "Reviewed 5 October 2026 for the economy audit: documentation only."
+      "sha256": "ab719773fc3cb43d436c397a775e461555a9f1153cd3ab4fec7c391f43474bf6",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -80583,8 +80661,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "2d519b1d5c41a3d07fb34719ee7804905bf3931c34bac62bc221225f4f003af0",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "4bcd972ae834cfd0ff1b43e6f1c4829059ff156c449af4ece341940ade452c4b",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -80838,6 +80916,20 @@
       "decision": "review audience separation and evidence limits",
       "sha256": "a02d99f4cb2a6d12b4f22caf18f8568159f055e4937d0e8a3424f1fad82189f3",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/economy-audit-2026-10-05.md",
+      "scope": "contributor audit record; decisions for the owner",
+      "decision": "new",
+      "sha256": "529ce0ca90aa0ded7f198b79f3b08149d52cf3166a04bc1d8ccb298ccb8a6fa2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+    },
+    {
+      "path": "docs/development/economy-audit-tables.md",
+      "scope": "generated audit tables (scripts/audit-economy.py)",
+      "decision": "new",
+      "sha256": "eb84498d6f55fd3dbfa62d906f27255f78af0c6dd66a6f6b511e0dbdbce5e970",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/economy-coverage-audit.md",
@@ -81147,6 +81239,20 @@
       "sha256": "3f29e4129d86c3ed665e105bfea08759f6c66bd81bc5645201d6f5af90b56a61"
     },
     {
+      "path": "docs/development/native-electric-supply.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "new",
+      "sha256": "3eae21bd7a405f203d78a2846522f27bc3d6eb15754ed8f19bb8823984d5591a",
+      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
+    },
+    {
+      "path": "docs/development/oxsmith-art-handoff.md",
+      "scope": "contributor artwork handoff; placeholders are not reviewed art",
+      "decision": "new",
+      "sha256": "bdb7522c13ccf8eb11cfdaabf621031dd2f79251071fdc3d1e65b2dd5e3108b5",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+    },
+    {
       "path": "docs/development/pda-cartridge-ideas.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
@@ -81156,8 +81262,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "25d157fa012a99e69209237835803a7d08af2380c573e5b24a8d72aa7efd93a3",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "dd74bde1fdf121b65362644f4a44d62b1fd0faf08ec823ca5cafebee8fb796a5",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81165,6 +81271,13 @@
       "decision": "rewrite",
       "sha256": "b9d0641fa54e9546df802040145edcdee56905e27146a56ff92a3552dd7215f8",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/pipe-audit-2026-10-05.md",
+      "scope": "contributor audit record; decisions for the owner",
+      "decision": "new",
+      "sha256": "c4b5108b948a067027f729705855fca8d20d3c09f597d955aa3b3e4d857d43ad",
+      "review": "Pipe and link audit: irrigation joins like the water line; every pipe family and link checked"
     },
     {
       "path": "docs/development/polaris-interface-refresh.md",
@@ -81212,6 +81325,20 @@
       "decision": "Development design record; not player-facing.",
       "sha256": "7139f5c453bd88da7d770c2ab69f8b738d857244c472dae2037f3b0969a92a52",
       "review": "Reviewed 4 October 2026 for Agriculture 0.43.0: enriched air grows crops faster; spare condensate to a tank."
+    },
+    {
+      "path": "docs/development/regolith-oxygen-design.md",
+      "scope": "contributor design record; player steps live in the player guide",
+      "decision": "new",
+      "sha256": "5f45ca396ffa178fcaa3bee4307bc55ffbf61f41f002b9a577d110773fabbe7a",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+    },
+    {
+      "path": "docs/development/regolith-programme.md",
+      "scope": "contributor decision record; player steps live in the player guide",
+      "decision": "new",
+      "sha256": "07c1744e9c16447aa3ed530e4cb167031b28e3f53bd4e3ecd19ea88b41e237ff",
+      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
     },
     {
       "path": "docs/development/residue-material-contract.md",
@@ -81389,15 +81516,15 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5b0c81ff7fdc5c031bde70aea02e374aab05fd9fa24d4df9ed527105664f8514",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "81e4ee6e22eb47d9b17d073ee45dd8a69d36902f24b2daf2dec29c476287fefd",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "92fb564d27f33952c6629be389b830cadf5689a0d8888fdf2f335ae7e076e718",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "4fa63463774999e76e52416ade5bca909b3935692a87f15e024dbd790788e148",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81459,8 +81586,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8437e6c702e413ec2a65410d4dd99ced4a83ab9a38ec5966b3c71dde75bf4ccb",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "f90f6b263c2f55040914530b18dcc7d05f33e8edb09888263f6123c9f3d8499e",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/item-references.md",
@@ -81480,8 +81607,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "2a01c90f95ae7e9ea7f419d1f58e7893916d8cdf3e1baa9a38977dfff39fc095",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "32a105656aeded940d8813f238efefc047ecab847fd18af78dbdebfb0dc2279e",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -81522,8 +81649,15 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8a03658f1a79ac6c51d0a5ef9e8815106fca6b0854d734f67f3109c808321fd9",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "d9d180a6694cdbc2eeae019018815db84a79eb1d02382727328ca7c037fa044e",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+    },
+    {
+      "path": "docs/publishing-an-add-on.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
+      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
     },
     {
       "path": "docs/residue-collector.md",
@@ -81627,8 +81761,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ca5d167e67cb94bfd806452af3b8b4ddcf3c7207f304b6a4a2f07f32868c2559",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "f37f44ae443604b8936bc8c321badcedac01ac99c96586cd55ef5f95c5b0b7b9",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -81641,15 +81775,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bd90c4122ba6cec991d488924c99edd07b645e0882a79048755694186b2100a1",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "aab04a49a3a6c0b727a6964e489f7d330098e0452f533aa92bf2bd7c7afb10e5",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "be3aa03688822c351e900dc6313ba456e4aa38180ec1ebda145997dfa44b2429",
-      "review": "5 October 2026: reviewed current Manufacturing 0.53.0 scope and updated the artwork sentence for acid and ethanol tanks. Other silos/small sprites remain unchanged; controls, requirements, storage, hazards and sources retain their current meaning. Draft stays under 7500 UTF-8 bytes."
+      "sha256": "a6f9d2a985351370efda63e0d2e5343e0c38dda593ef5157736fffe884eb3ad0",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -81671,63 +81805,14 @@
       "decision": "new",
       "sha256": "0795874add6f70c3485d2a846fc1ef8eb62a797cfc25ebdf8334b5b564d4e330",
       "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
-    },
-    {
-      "path": "docs/publishing-an-add-on.md",
-      "scope": "current player operating guide",
-      "decision": "new",
-      "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
-    },
-    {
-      "path": "docs/development/native-electric-supply.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "new",
-      "sha256": "3eae21bd7a405f203d78a2846522f27bc3d6eb15754ed8f19bb8823984d5591a",
-      "review": "5 October 2026: power draw and MHD supply sections added to the player guide; new electric supply research record reviewed against the player-language rules."
-    },
-    {
-      "path": "docs/development/oxsmith-art-handoff.md",
-      "scope": "contributor artwork handoff; placeholders are not reviewed art",
-      "decision": "new",
-      "sha256": "bdb7522c13ccf8eb11cfdaabf621031dd2f79251071fdc3d1e65b2dd5e3108b5",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
-    },
-    {
-      "path": "docs/development/regolith-programme.md",
-      "scope": "contributor decision record; player steps live in the player guide",
-      "decision": "new",
-      "sha256": "07c1744e9c16447aa3ed530e4cb167031b28e3f53bd4e3ecd19ea88b41e237ff",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
-    },
-    {
-      "path": "docs/development/regolith-oxygen-design.md",
-      "scope": "contributor design record; player steps live in the player guide",
-      "decision": "new",
-      "sha256": "5f45ca396ffa178fcaa3bee4307bc55ffbf61f41f002b9a577d110773fabbe7a",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
-    },
-    {
-      "path": "docs/development/economy-audit-2026-10-05.md",
-      "scope": "contributor audit record; decisions for the owner",
-      "decision": "new",
-      "sha256": "529ce0ca90aa0ded7f198b79f3b08149d52cf3166a04bc1d8ccb298ccb8a6fa2",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
-    },
-    {
-      "path": "docs/development/economy-audit-tables.md",
-      "scope": "generated audit tables (scripts/audit-economy.py)",
-      "decision": "new",
-      "sha256": "eb84498d6f55fd3dbfa62d906f27255f78af0c6dd66a6f6b511e0dbdbce5e970",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5d3a3ad13741e97fa9c2f5dad15e98e34cf592cb9d8b95173a006fdeb871c9b4",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "934526838479048407c56a70456553260950bc39abdbe15d9583d6083a6adfbe",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -81743,8 +81828,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "dc337d14146bdc4ca73b1a2017db6fa06c9ea530d3686d3b4ce348efb77e6fe4",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "70ccea0dea80aa132f80fc29ca0a147682c273882ad2b20ac3f3c975f859218f",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -81778,14 +81863,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "75889864d1204bcf33b807b47dd9c389189ca409ddf319903f97c69c32c61ca9",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "605956f7efd93c0239b3821de1e0fa2a25dd2b1221c9acb1a359cb030f7b838d",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f49b0d1158a2761dcb44f4b070febd8d9ea9656d2122bab6c50961f6c2f91517",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "91c88d8fd3e2ba629fbfdf78c240bf4a1d6b86d716646782ae346529eb9268f3",
+      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

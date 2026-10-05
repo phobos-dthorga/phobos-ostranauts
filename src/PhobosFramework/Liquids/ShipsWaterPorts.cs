@@ -25,10 +25,21 @@ public static class ShipsWaterPorts
     };
 
     /// <summary>Adds the ports when the pinned Ship's Water is loaded; returns how many definitions carry one.</summary>
-    public static int Apply() => ShipsWaterSupply.Available ? Amend(DataHandler.dictCOs, DataHandler.dictItemDefs) : 0;
+    public static int Apply()
+    {
+        if (!ShipsWaterSupply.Available) return 0;
+        var refused = new List<string>();
+        int amended = Amend(DataHandler.dictCOs, DataHandler.dictItemDefs, refused);
+        // A tank whose footprint or socket another mod changed keeps its own fittings and joins Phobos lines only by
+        // touching (Framework 0.103.0: said in the log, where it used to pass silently).
+        if (refused.Count > 0) FrameworkLifecycle.Log(Text.Get("ShipsWaterPorts.refused", string.Join(", ", refused)));
+        return amended;
+    }
 
     /// <summary>The amendment itself, on any definition tables (the game's, or a test's). Idempotent.</summary>
-    public static int Amend(IDictionary<string, JsonCondOwner>? objects, IDictionary<string, JsonItemDef>? items)
+    public static int Amend(IDictionary<string, JsonCondOwner>? objects, IDictionary<string, JsonItemDef>? items) => Amend(objects, items, null);
+    /// <summary>The amendment, listing the tank definitions present whose fittings refused the port.</summary>
+    public static int Amend(IDictionary<string, JsonCondOwner>? objects, IDictionary<string, JsonItemDef>? items, ICollection<string>? refused)
     {
         if (objects == null || items == null) return 0;
         var line = SharedLines.ProcessWaterSpec();
@@ -38,6 +49,7 @@ public static class ShipsWaterPorts
             if (!objects.TryGetValue(id, out var co) || co.strItemDef == null || !items.TryGetValue(co.strItemDef, out var item)) continue;
             var port = LinePorts.Water(footprint);
             if (LineDefinitions.AmendPort(co, item, id, footprint, line, LinePorts.WaterPoint, port.X, port.Y, port.Socket)) amended++;
+            else refused?.Add(id);
         }
         return amended;
     }

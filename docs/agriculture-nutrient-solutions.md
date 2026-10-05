@@ -11,7 +11,8 @@ feed. Prepared packages are not installed or gameplay-validated.
 The existing **Phobos' Verdemorrow Groundwork W2 Water Supply Unit** now mixes
 feed as well as pumping water. Its dimensions, construction, stock acquisition,
 saved identity and artwork are unchanged. The same irrigation conduits connect
-one W2 to one Firstlight-4 rack. Keep one supply unit per connected circuit.
+a W2 to its Firstlight-4 racks. W2s that share one pipe must mix the same feed
+(Agriculture 0.53.0; before, one supply unit per connected circuit).
 
 1. Pause operation and receiving at both endpoints; unpair the W2 if necessary.
    Drain any previous solution before selecting a different formulation. Drainage

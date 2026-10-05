@@ -139,7 +139,8 @@ public sealed class Panel : GUIData
         ConfigurationSheet.Objects(shell,C.Text(kind),current,PanelConfiguration.Stamp(co),
             ()=>kind=="collector"?RecyclerCapture.Candidates(co):kind=="charge"?Service.DoseCandidates(Service.Get(co)):Service.WaterCandidates(co),
             (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value=="none"?(kind=="collector"?"capture-unlink":kind=="charge"?"dose-off":"unlink-water"):
-                (kind=="collector"?"capture-link:":kind=="charge"?"dose:":"link-water:")+value,out reason));
+                (kind=="collector"?"capture-link:":kind=="charge"?"dose:":"link-water:")+value,out reason),
+            true,kind=="collector"?null:kind=="charge"?()=>Service.DoseNote(co):()=>Service.WaterNote(co));
     }
     private void Setting(CondOwner co,string action)=>ConfigurationSheet.Choices(shell,Text.Action(action),"",PanelConfiguration.Stamp(co),new[]{(action,Text.Action(action))},
         (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason));
