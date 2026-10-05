@@ -696,9 +696,12 @@ STORY_PHOBOS_MOD = re.compile(r'^Phobos[A-Za-z]+$')
 STORY_PLUGIN_ID = re.compile(r'^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$')
 STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]')
 STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait')
+STORY_MOMENTS = ('headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk')
+STORY_SPEAKERS = ('anyone', 'crew', 'others')
 STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 400, 'message': 400, 'from': 40,
                 'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
-                'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720}
+                'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
+                'line': 200, 'tip': 450, 'label': 40, 'article': 4000}
 
 
 def story_id(value, where, limit=STORY_LIMITS['id']):
@@ -729,6 +732,21 @@ def story_words(text, limit, where):
     bad = story_plain(text)
     if bad is not None:
         raise Problem(f'{where}: contains {bad!r}; text may use only the placeholders {" ".join(STORY_PLACEHOLDERS)}')
+
+
+def story_lore(text, limit, where):
+    """Text shown with no player at hand (tips, the encyclopedia): plain, and no placeholders."""
+    story_words(text, limit, where)
+    if any(p in text for p in STORY_PLACEHOLDERS):
+        raise Problem(f'{where}: shown with no player at hand, so it cannot use placeholders')
+
+
+def story_mods_only(r, where):
+    if r is None:
+        return
+    story_requires(r, where)
+    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted')):
+        raise Problem(f'{where}: shown with no player at hand, so it may require only mods')
 
 
 def story_station(value):
@@ -799,23 +817,27 @@ def story_test(test, where):
 
 def story(pack, where, framework=None):
     """The story schema (Framework 0.107.0). Only Framework's own pack may hold settings (framework=None skips that check)."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles'}, where)
     settings = pack.get('settings')
     if settings is not None:
         if framework is False:
             raise Problem(f'{where}/settings: only Framework\'s own story pack may hold settings')
-        fields(settings, {'broadcastShare', 'advertShare', 'checkSeconds', 'maxActiveArcs'}, f'{where}/settings')
+        fields(settings, {'broadcastShare', 'advertShare', 'checkSeconds', 'maxActiveArcs', 'chatterShare', 'tipShare'}, f'{where}/settings')
+        number(settings.get('chatterShare', 0.4), f'{where}/settings/chatterShare', 0, 1)
+        number(settings.get('tipShare', 0.3), f'{where}/settings/tipShare', 0, 1)
         number(settings.get('broadcastShare', 0.3), f'{where}/settings/broadcastShare', 0, 1)
         number(settings.get('advertShare', 0.3), f'{where}/settings/advertShare', 0, 1)
         number(settings.get('checkSeconds', 30), f'{where}/settings/checkSeconds', 5, 600)
         number(settings.get('maxActiveArcs', 2), f'{where}/settings/maxActiveArcs', 0, STORY_LIMITS['arcs'], integer=True)
-    for table in ('broadcasts', 'adverts', 'arcs'):
+    for table in ('broadcasts', 'adverts', 'arcs', 'chatter', 'tips', 'sections', 'articles'):
         if not isinstance(pack.get(table, {}), dict):
             raise Problem(f'{where}/{table}: expected entries by id')
     for key, b in pack.get('broadcasts', {}).items():
         w = f'{where}/broadcasts/{key}'
         story_id(key, w)
-        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires'}, w)
+        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires', 'mention'}, w)
+        if b.get('mention') is not None:
+            story_words(b['mention'], STORY_LIMITS['line'], f'{w}/mention')
         story_author(b, w)
         region = b.get('region')
         if not isinstance(region, str) or not region.strip() or len(region) > STORY_LIMITS['region'] or story_plain(region) is not None:
@@ -890,6 +912,46 @@ def story(pack, where, framework=None):
                     if not isinstance(reward.get('item'), str) or not STORY_GAME_NAME.match(reward['item']):
                         raise Problem(f'{sw}/onComplete/items/{r}/item: not a valid item name')
                     number(reward.get('count', 1), f'{sw}/onComplete/items/{r}/count', 1, STORY_LIMITS['reward'], integer=True)
+    for key, c in pack.get('chatter', {}).items():
+        w = f'{where}/chatter/{key}'
+        story_id(key, w)
+        fields(c, {'title', 'notes', 'moment', 'line', 'speakers', 'weight', 'requires'}, w)
+        story_author(c, w)
+        if c.get('moment') not in STORY_MOMENTS:
+            raise Problem(f'{w}/moment: one of {", ".join(STORY_MOMENTS)}')
+        story_words(c.get('line'), STORY_LIMITS['line'], f'{w}/line')
+        if c.get('speakers', 'anyone') not in STORY_SPEAKERS:
+            raise Problem(f'{w}/speakers: one of {", ".join(STORY_SPEAKERS)}')
+        number(c.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
+        story_requires(c.get('requires'), f'{w}/requires')
+    for key, t in pack.get('tips', {}).items():
+        w = f'{where}/tips/{key}'
+        story_id(key, w)
+        fields(t, {'title', 'notes', 'text', 'weight', 'requires'}, w)
+        story_author(t, w)
+        story_lore(t.get('text'), STORY_LIMITS['tip'], f'{w}/text')
+        number(t.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
+        story_mods_only(t.get('requires'), f'{w}/requires')
+    for key, s in pack.get('sections', {}).items():
+        w = f'{where}/sections/{key}'
+        story_id(key, w)
+        fields(s, {'notes', 'label', 'title', 'body', 'requires'}, w)
+        story_author({'notes': s.get('notes')}, w)
+        story_lore(s.get('label'), STORY_LIMITS['label'], f'{w}/label')
+        story_lore(s.get('title'), STORY_LIMITS['objective'], f'{w}/title')
+        if s.get('body') is not None:
+            story_lore(s['body'], STORY_LIMITS['article'], f'{w}/body')
+        story_mods_only(s.get('requires'), f'{w}/requires')
+    for key, a in pack.get('articles', {}).items():
+        w = f'{where}/articles/{key}'
+        story_id(key, w)
+        fields(a, {'notes', 'section', 'label', 'title', 'body', 'requires'}, w)
+        story_author({'notes': a.get('notes')}, w)
+        story_id(a.get('section'), f'{w}/section')
+        story_lore(a.get('label'), STORY_LIMITS['label'], f'{w}/label')
+        story_lore(a.get('title'), STORY_LIMITS['objective'], f'{w}/title')
+        story_lore(a.get('body'), STORY_LIMITS['article'], f'{w}/body')
+        story_mods_only(a.get('requires'), f'{w}/requires')
     return broadcasts
 
 

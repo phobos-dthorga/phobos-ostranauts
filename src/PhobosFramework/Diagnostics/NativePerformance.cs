@@ -40,6 +40,7 @@ internal static class NativePerformance
             Performance.WorldSweepObjects = Performance.RegisterIncrement("framework.world.sweep_objects", "discovery", "items");
             Performance.LineContentsMaintain = Performance.RegisterOperation("framework.line_contents.maintain", "processing");
             Performance.StoryCheck = Performance.RegisterOperation("framework.story.check", "story");
+            Performance.StoryChatter = Performance.RegisterOperation("framework.story.chatter", "story");
             CaptureProbes.Initialize(log);
             frames = new FrameMeasurements();
             MemoryMeasurements.Register();

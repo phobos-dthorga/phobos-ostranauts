@@ -64,6 +64,9 @@ public static class StoryContent
             Library = StoryLibrary.Empty;
         }
         StoryArcs.LibraryChanged();
+        // Encyclopedia sections and articles (0.108.0), published once the library is known.
+        try { StoryLore.Prepare(Library); }
+        catch (Exception ex) { FrameworkLifecycle.Log(Text.Get("Story.definitions_failed", ex.Message)); }
     }
 
     /// <summary>A mod named in <c>requires.mods</c>: a Phobos mod by folder name, or any BepInEx plugin id.</summary>
@@ -106,6 +109,8 @@ public static class StoryContent
             case "news" when id != null && words.Length == 4: return StoryArcs.NewsCommand(id);
             case "check" when words.Length == 3: StoryArcs.Check(); return Text.Get("Story.checked");
             case "items" when words.Length >= 4: return Items(string.Join(" ", words.Skip(3)));
+            case "chatter" when words.Length == 3: return StoryChatter.Describe();
+            case "chatter" when id != null && words.Length == 4: return StoryChatter.Force(id);
             default: return Text.Get("Story.help");
         }
     }

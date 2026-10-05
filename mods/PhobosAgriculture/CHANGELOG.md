@@ -10,6 +10,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.61.0] - 2026-10-06 - Draft
+
+### Added
+
+- Verdemorrow in conversation: crews with a Firstlight-4 or Hearth-2 grumble about the rack's hum, joke about flatbread and worry about the crop in a hot cabin; station folk gossip about crews selling their own potatoes and how Verdemorrow began; anyone may warn against naming a crop before harvest. The three Verdemorrow news items now come up in small talk too.
+- Two Verdemorrow loading tips, and two encyclopedia articles: Verdemorrow Agronomics under Makers and brands, and Growing food aboard under Life between stations.
+
+### Dependencies
+
+- Requires Phobos Framework 0.108.0 or newer.
+
+### Save compatibility
+
+- Nothing saved changes.
+
+### Compatibility and limits
+
+- Seed content for writers to expand. Checked offline; not yet seen in the game.
+
 ## [0.60.0] - 2026-10-06 - Draft
 
 ### Added

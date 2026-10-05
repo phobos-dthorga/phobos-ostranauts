@@ -50,6 +50,18 @@
           "minimum": 0,
           "maximum": 10,
           "description": "How many arcs may start by themselves at once."
+        },
+        "chatterShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Share of matching small talk that uses a story line when one fits."
+        },
+        "tipShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Share of loading-screen tips taken from story tips."
         }
       },
       "description": "Framework's own story pack only."
@@ -163,6 +175,12 @@
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
+            },
+            "mention": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "What people say when they bring this news up in small talk, while it is eligible. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
             }
           },
           "required": [
@@ -572,11 +590,314 @@
         }
       },
       "description": "Story arcs by id."
+    },
+    "chatter": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "For authors; the game does not show it."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "moment": {
+              "type": "string",
+              "description": "Which kind of the game's own small talk carries the line.",
+              "enum": [
+                "headline",
+                "joke",
+                "complaint",
+                "story",
+                "jargon",
+                "superstition",
+                "worry",
+                "question",
+                "small-talk"
+              ]
+            },
+            "line": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "What the speaker says, after the moment's lead-in. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+            },
+            "speakers": {
+              "type": "string",
+              "description": "Who may say it: anyone (default), crew (someone aboard one of the player's ships) or others (anyone else).",
+              "enum": [
+                "anyone",
+                "crew",
+                "others"
+              ]
+            },
+            "weight": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "How often it is picked against other story entries (default 1)."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                },
+                "playerConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must have."
+                },
+                "forbidConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must not have."
+                },
+                "owns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."
+                },
+                "dockedAt": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                    "description": "A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                  },
+                  "maxItems": 16,
+                  "description": "Docked at or aboard any one of these stations."
+                },
+                "arcsDone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must have finished."
+                },
+                "arcsNotStarted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must never have started."
+                }
+              },
+              "description": "When the entry may appear. Every part is optional and every part given must hold."
+            }
+          },
+          "required": [
+            "moment",
+            "line"
+          ]
+        }
+      },
+      "description": "Lines people may say in the game's own small talk, by id."
+    },
+    "tips": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "For authors; the game does not show it."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 450,
+              "description": "The lore tip shown while the game loads. Shown with no player at hand: plain text without placeholders."
+            },
+            "weight": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "How often it is picked against other story entries (default 1)."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                }
+              },
+              "description": "Only installed mods can be required: no player exists when this is shown."
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      },
+      "description": "Lore tips for loading screens, by id."
+    },
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "The name in the encyclopedia's list. Shown with no player at hand: plain text without placeholders."
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60,
+              "description": "The heading of its page. Shown with no player at hand: plain text without placeholders."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 4000,
+              "description": "Its page text. Shown with no player at hand: plain text without placeholders."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                }
+              },
+              "description": "Only installed mods can be required: no player exists when this is shown."
+            }
+          },
+          "required": [
+            "label",
+            "title"
+          ]
+        }
+      },
+      "description": "Top-level encyclopedia entries, by id; shown while one of their articles is."
+    },
+    "articles": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "section": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "A section id from any loaded pack, such as phobos-makers."
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "The name in the encyclopedia's list. Shown with no player at hand: plain text without placeholders."
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60,
+              "description": "The heading of its page. Shown with no player at hand: plain text without placeholders."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000,
+              "description": "The article; line breaks separate paragraphs. Shown with no player at hand: plain text without placeholders."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                }
+              },
+              "description": "Only installed mods can be required: no player exists when this is shown."
+            }
+          },
+          "required": [
+            "section",
+            "label",
+            "title",
+            "body"
+          ]
+        }
+      },
+      "description": "Encyclopedia articles, by id."
     }
   },
   "required": [
     "schemaVersion",
     "schema"
   ],
-  "description": "Story content: TV news, adverts and arcs whose goals appear in the GOALS list. See docs/writing-story-content.md."
+  "description": "Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips and encyclopedia articles. See docs/writing-story-content.md."
 }

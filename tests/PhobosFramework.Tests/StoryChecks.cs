@@ -146,5 +146,72 @@ internal static class StoryChecks
         check(StoryRules.TryGoal("PhobosStory.first-harvest.call", out var a, out var s) && a == "first-harvest" && s == "call", "and read back");
         check(!StoryRules.TryGoal("PhobosStory.first.harvest.call", out _, out _) && !StoryRules.TryGoal("TIsSleeping", out _, out _), "Other names are not story goals");
         check(StoryContent.PluginId("PhobosAutoNav") == "phobosgekko.ostranauts.autonav" && StoryContent.PluginId("other.mod.id") == "other.mod.id", "Mods name their plugin id");
+
+        Phase2(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
+    }
+
+    private const string Talk = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""broadcasts"": { ""wheat-news"": { ""region"": ""Tharsis"", ""text"": ""Wheat is short."", ""weight"": 3, ""mention"": ""Wheat's short, [player-first]."" },
+                        ""quiet-news"": { ""region"": ""Tharsis"", ""text"": ""Nothing to say."" } },
+      ""chatter"": {
+        ""rack-hum"": { ""moment"": ""complaint"", ""speakers"": ""crew"", ""line"": ""The rack hums all night."", ""requires"": { ""owns"": [ ""Rack"" ] } },
+        ""kiosk-gossip"": { ""moment"": ""small-talk"", ""speakers"": ""others"", ""line"": ""Potatoes at the kiosk."" },
+        ""crop-name"": { ""moment"": ""superstition"", ""line"": ""Never name a crop."", ""weight"": 2 }
+      },
+      ""tips"": { ""first-lettuce"": { ""text"": ""Fresh lettuce tastes better."", ""requires"": { ""mods"": [ ""PhobosAgriculture"" ] } } },
+      ""sections"": { ""makers"": { ""label"": ""Makers"", ""title"": ""Makers and brands"" }, ""empty-section"": { ""label"": ""Empty"", ""title"": ""Nothing here"" } },
+      ""articles"": {
+        ""verdemorrow"": { ""section"": ""makers"", ""label"": ""Verdemorrow"", ""title"": ""Verdemorrow Agronomics"", ""body"": ""Grow racks.\n\nAnd cookers."" },
+        ""manufacturing-only"": { ""section"": ""makers"", ""label"": ""Fennmark"", ""title"": ""Fennmark"", ""body"": ""Refineries."", ""requires"": { ""mods"": [ ""PhobosManufacturing"" ] } },
+        ""lost-article"": { ""section"": ""no-such-section"", ""label"": ""Lost"", ""title"": ""Lost"", ""body"": ""Nowhere."" }
+      }
+    }";
+
+    /// <summary>Framework 0.108.0: small talk, loading tips and encyclopedia articles.</summary>
+    private static void Phase2(Action<bool, string> check, Action<string, string, bool> refused, Func<string, bool, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Talk.Contains(find), "Fixture has " + find); return Talk.Replace(find, replace); }
+        var pack = load(Talk, false);
+        check(pack.chatter.Count == 3 && pack.tips.Count == 1 && pack.sections.Count == 2 && pack.articles.Count == 3 && pack.broadcasts["wheat-news"].mention != null, "Small talk, tips and articles load");
+        refused(With("\"moment\": \"complaint\"", "\"moment\": \"gossip\""), "An unknown moment is refused", false);
+        refused(With("\"speakers\": \"crew\"", "\"speakers\": \"everyone\""), "Speakers are anyone, crew or others", false);
+        refused(With("The rack hums all night.", new string('x', StorySchema.MaxLine + 1)), "A line has a length limit", false);
+        refused(With("Fresh lettuce tastes better.", "Fresh lettuce, [player]."), "A tip cannot use placeholders: there is no player at a loading screen", false);
+        refused(With("\"mods\": [ \"PhobosAgriculture\" ] } } },", "\"owns\": [ \"Rack\" ] } } },"), "A tip may require only mods", false);
+        refused(With("Grow racks.", "Grow racks for [ship]."), "An article cannot use placeholders", false);
+        refused(With("\"label\": \"Verdemorrow\"", "\"label\": \"" + new string('x', StorySchema.MaxLabel + 1) + "\""), "A list label has a length limit", false);
+        refused(Talk.Replace("\"schema\": \"story\",", "\"schema\": \"story\", \"settings\": { \"chatterShare\": 1.5 },"), "The chatter share is from 0 to 1", true);
+
+        var library = StoryLibrary.Build(new[] { ("agriculture", pack) }, null, m => m == "PhobosAgriculture", i => i == "Rack", _ => true);
+        check(!library.Articles.ContainsKey("lost-article") && library.Problems.Count == 1, "An article in an unknown section is left out with a problem: " + string.Join("; ", library.Problems));
+        var lines = library.Lines.ToDictionary(l => l.Id);
+        check(lines.Count == 4 && lines["wheat-news"].Moment == StoryMoments.Headline && lines["wheat-news"].Key == "wheat-news.mention" && lines["wheat-news"].Weight == 3,
+            "A broadcast's mention is a headline line with the broadcast's weight; a broadcast without one adds none");
+        check(lines["rack-hum"].Key == "rack-hum.line" && lines["crop-name"].Speakers == StorySchema.Anyone, "Chatter lines keep their translation key and default to anyone");
+
+        // Moments are the game's own small talk.
+        check(StoryMoments.Of("SOCMentionHeadline") == "headline" && StoryMoments.Of("SOCDarkJoke") == "joke" && StoryMoments.Of("SOCShareAnotherStory") == "story", "Game interactions map to moments");
+        check(StoryMoments.Of("SOCInsult") == null && StoryMoments.Of(null) == null, "Other interactions carry no story line");
+        check(StoryMoments.Interactions.Values.SelectMany(v => v).Distinct().Count() == StoryMoments.Interactions.Values.Sum(v => v.Length), "Each game interaction belongs to one moment only");
+
+        // Pools by moment, then speakers.
+        var noRack = StoryRules.ChatterPools(library.Lines, r => r == null || r.owns.Count == 0);
+        check(!noRack.ContainsKey("complaint") && noRack["headline"].Count == 1 && noRack["small-talk"].Count == 1, "Pools hold the lines eligible now, by moment");
+        var all = StoryRules.ChatterPools(library.Lines, _ => true);
+        check(StoryRules.PickLine(all["complaint"], speakerIsCrew: true, 0.5)?.Id == "rack-hum" && StoryRules.PickLine(all["complaint"], speakerIsCrew: false, 0.5) == null, "A crew line is said only aboard the player's ships");
+        check(StoryRules.PickLine(all["small-talk"], true, 0.5) == null && StoryRules.PickLine(all["small-talk"], false, 0.5)?.Id == "kiosk-gossip", "An others line is said only away from them");
+        check(StoryRules.PickLine(all["superstition"], true, 0.5) != null && StoryRules.PickLine(all["superstition"], false, 0.5) != null, "An anyone line is said by anyone");
+        check(StoryRules.PickLine(null, true, 0.5) == null, "No pool, no line");
+        check(StoryRules.Voices(StorySchema.Crew, true) && !StoryRules.Voices(StorySchema.Others, true) && StoryRules.Voices(StorySchema.Anyone, false), "Speakers match as written");
+
+        // The encyclopedia: sections only with an article to show, articles under their section, mods respected.
+        string Words(string owner, string key, string inline) => inline;
+        var nodes = StoryLore.Nodes(library, m => m == "PhobosAgriculture", Words);
+        check(nodes.Select(n => n.Name).SequenceEqual(new[] { "PhobosStory.makers", "PhobosStory.verdemorrow" }), "One section with its one shown article: " + string.Join(", ", nodes.Select(n => n.Name)));
+        check(nodes[0].Parent == null && nodes[1].Parent == "PhobosStory.makers" && nodes[1].Body.Contains("\n\n"), "Sections hang under the index and articles under their section, paragraphs kept");
+        var withManufacturing = StoryLore.Nodes(library, _ => true, Words);
+        check(withManufacturing.Count == 3 && withManufacturing.All(n => n.Parent == null || withManufacturing.Any(p => p.Name == n.Parent)), "With its mod installed the other article shows too, and every parent is shown");
+        check(StoryLore.Nodes(StoryLibrary.Empty, _ => true, Words).Count == 0, "No articles, no sections");
     }
 }

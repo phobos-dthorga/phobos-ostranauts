@@ -28,6 +28,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.108.0] - 2026-10-06 - Draft
+
+### Added
+
+- Story small talk: lines from story files are said in the game's own chatter. When a character mentions a headline, cracks a joke, complains, tells a story, recites jargon, warns of a superstition, admits a worry, asks a deep question or shoots the breeze, about 40% of the time a fitting story line is said instead, after a short lead-in. Heard in the social log and in conversations the player takes part in.
+- Each line can be for anyone, only for people aboard the player's ships, or only for people elsewhere, and can require what news and arcs can. A news item can carry a mention, so people talk about the news while it is current.
+- Story loading tips: about 30% of loading-screen lore tips can come from story files.
+- Story encyclopedia articles, under two shared sections, Makers and brands and Life between stations, or a pack's own. A section shows only while one of its articles does.
+- The settings gain chatterShare and tipShare. F3: phobosframework story chatter lists the lines each moment can use now; story chatter followed by a line id makes the next matching small talk say it. Both are optional.
+
+### Save compatibility
+
+- Nothing new is saved. Only the text of the game's own small talk changes; tips and encyclopedia pages are not saved by the game. Removing a story file just stops its lines, tips and articles appearing.
+
+### Compatibility and limits
+
+- Tips and articles exist before any player does, so they can require only installed mods and use no placeholders. An article added mid-session may need a game restart to show. Checked offline; not yet seen in the game.
+
 ## [0.107.0] - 2026-10-06 - Draft
 
 ### Added

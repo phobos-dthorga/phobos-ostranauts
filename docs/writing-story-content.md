@@ -1,20 +1,25 @@
 # Writing story content
 
-Phobos Framework 0.107.0 lets anyone add to the world's story with a data file:
+Phobos Framework lets anyone add to the world's story with a data file:
 
 - **News** that plays on the game's TVs, among the game's own headlines.
 - **Adverts** that play in the TVs' commercial breaks.
 - **Arcs**: a short chain of goals in the GOALS list, with messages from someone in
   the world, items to bring or install, places to dock, and rewards.
+- **Small talk** (since Framework 0.108.0): lines people say in the game's own chatter,
+  so crews and station folk talk about your news and topics.
+- **Loading tips**: lore shown on loading screens among the game's own.
+- **Encyclopedia articles**: pages in the game's encyclopedia, under shared sections.
 
 You need no programming. One JSON file holds the lot, and the game checks it as it
 loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
 that writes one for you.
 
-**Not available yet:** crew talking about your topics, encyclopedia entries, loading
-tips, found data files, money or reputation rewards, branching choices and full-screen
-encounters. Do not write content that needs them. The
-[design record](development/story-system-design.md#later-work) says where each stands.
+**Not available yet:** new kinds of conversation (lines ride on the game's existing
+small talk), characters approaching the player, found data files, money or reputation
+rewards, branching choices and full-screen encounters. Do not write content that needs
+them. The [design record](development/story-system-design.md#later-work) says where
+each stands.
 
 ## How it fits together
 
@@ -25,6 +30,9 @@ From then on:
 
 - news and adverts appear on the TVs among the game's own, whenever the player meets
   their requirements;
+- people use your small-talk lines in some of the game's own chatter, whenever the
+  player meets the line's requirements;
+- loading screens sometimes show your tips, and the encyclopedia lists your articles;
 - an arc starts by itself: every 30 seconds, each arc whose requirements hold has its
   `chance` of starting (an arc with no chance starts only from the console);
 - a goal finishes by itself within 30 seconds of its tests passing.
@@ -38,10 +46,10 @@ flowchart LR
     Write["Write or ask ChatGPT for a story file"] --> Check["Check it: game log, or validate-data-packs.py"]
     Check --> Place["Put it in a story folder"]
     Place --> Load["Load a game"]
-    Load --> Play["Play: news, adverts and arcs turn up by themselves"]
-    Load -.->|"optional"| Try["F3: phobosframework story, then start or news"]
+    Load --> Play["Play: news, talk, tips, articles and arcs turn up by themselves"]
+    Load -.->|"optional"| Try["F3: phobosframework story, then start, news or chatter"]
     Try -.-> Play
-    Play --> Read["Watch the TV and the GOALS list"]
+    Play --> Read["Watch the TV, the social log, the encyclopedia and the GOALS list"]
     Read --> Write
 ```
 
@@ -58,9 +66,9 @@ work too, and can change that mod's shipped entries. An add-on may add only entr
 whose ids start with its id prefix, written in lower case (prefix `Kestrel` gives
 `kestrel-first-news`).
 
-Every id is shared by all packs: if two files use the same id, the first one loaded
-keeps it and the other is left out with a message in the log. Pick ids that say who
-wrote them.
+Every id is shared by all packs and all tables: if two files use the same id, the
+first one loaded keeps it and the other is left out with a message in the log. Pick ids
+that say who wrote them.
 
 ## The file
 
@@ -72,12 +80,32 @@ wrote them.
     "kestrel-ice-prices": {
       "region": "Outer System",
       "text": "Water ice prices fell again at the outer stations, where haulers report the best season in years.",
-      "weight": 2
+      "weight": 2,
+      "mention": "Ice is cheap at the outer stations again. Best season in years, they reckon."
     }
   },
   "adverts": {
     "kestrel-tug-advert": {
       "text": "Kestrel Towing\nStuck? We have been, too. Call Kestrel."
+    }
+  },
+  "chatter": {
+    "kestrel-tow-joke": {
+      "moment": "joke",
+      "line": "How many Kestrel tugs does it take to move a station? Just the one, if you're patient."
+    }
+  },
+  "tips": {
+    "kestrel-founding": {
+      "text": "Kestrel Towing began with one tug and a debt the size of a moon."
+    }
+  },
+  "articles": {
+    "kestrel-towing": {
+      "section": "phobos-makers",
+      "label": "Kestrel Towing",
+      "title": "Kestrel Towing",
+      "body": "A towing outfit working the outer stations.\n\nIts tugs are old, slow and very hard to break."
     }
   },
   "arcs": {
@@ -108,6 +136,7 @@ Keep `schemaVersion` and `schema` as shown. Any table may be left out.
 | `text` | yes | The news item, up to 700 characters. The game's own run to about 650. |
 | `weight` | no | 1 to 100 (default 1): how often it is picked against other story news. |
 | `once` | no | `true` shows it once in a save, then never again. |
+| `mention` | no | What people say when they bring the news up in small talk (up to 200 characters), while the news item's requirements hold. |
 | `requires` | no | When it may show; see [requirements](#requirements). |
 | `title`, `notes` | no | For you; the game never shows them. |
 
@@ -118,6 +147,60 @@ stay the game's own (this share is a setting, below).
 
 `text` (up to 400 characters; a line break can separate a heading), and `weight`,
 `once`, `requires`, `title` and `notes` as for news.
+
+### Small talk (`chatter`)
+
+The game's characters already chat: they mention headlines, crack jokes, complain
+about the authorities. A chatter line rides on one of those moments. When a moment
+comes up and one of your lines fits, the game sometimes (40% of the time by default)
+says your line instead, after a short lead-in:
+
+| `moment` | The game's own small talk | How your line is introduced |
+| --- | --- | --- |
+| `headline` | Mention a headline | Sam mentions a headline to Ada: "…" |
+| `joke` | A mild or dark joke | Sam tells a joke to Ada: "…" |
+| `complaint` | Complain about the authorities | Sam complains to Ada: "…" |
+| `story` | Reminisce, share a story | Sam tells Ada a story: "…" |
+| `jargon` | Recite technical jargon | Sam recites some jargon to Ada: "…" |
+| `superstition` | Warn about a spacer superstition | Sam cautions Ada about a spacer superstition: "…" |
+| `worry` | Admit worries | Sam opens up to Ada: "…" |
+| `question` | A metaphysics question | Sam asks Ada: "…" |
+| `small-talk` | Shoot the breeze | Sam shoots the breeze with Ada: "…" |
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `moment` | yes | One of the moments above. |
+| `line` | yes | What the speaker says, up to 200 characters. Write it as speech. |
+| `speakers` | no | `anyone` (default); `crew`, only someone aboard one of the player's ships (the player too); or `others`, only someone who is not, such as station folk. |
+| `weight` | no | 1 to 100 (default 1): how often it is picked against other lines for the same moment. |
+| `requires` | no | When it may be said; checked against the player, as for news. |
+| `title`, `notes` | no | For you. |
+
+A news item's `mention` is a `headline` line for anyone, with the news item's weight
+and requirements. Lines are heard in the social log when the player is near the
+people talking, and in conversations the player takes part in.
+
+### Loading tips (`tips`)
+
+`text` (up to 450 characters), `weight`, and `requires`, which may list only `mods`:
+no player exists while the game loads. About a third of tips come from story tips when
+any is available (a setting, below). Tips cannot use placeholders.
+
+### Encyclopedia (`sections` and `articles`)
+
+Articles appear in the game's encyclopedia, each under a section. Framework provides
+two shared sections, and any pack can add more:
+
+| Section id | Shown as |
+| --- | --- |
+| `phobos-makers` | Makers and brands |
+| `phobos-spacer-life` | Life between stations |
+
+An article has `section` (a section id from any loaded pack), `label` (its name in the
+list, up to 40 characters), `title` (up to 60), `body` (up to 4,000; separate
+paragraphs with a blank line, `\n\n` in JSON) and `requires`, which may list only
+`mods`. A new section has `label`, `title` and an optional `body`. A section shows
+only while at least one of its articles does. Articles cannot use placeholders.
 
 ### Arcs (`arcs`)
 
@@ -153,12 +236,14 @@ titled like one it showed in the last ten seconds (the story check offers it aga
 
 `item` is an item definition id, such as `PhobosVerdemorrowWheatGrain`. To find one,
 type `phobosframework story items wheat` in the F3 console: it lists every id whose
-name contains the words. Installed machines usually end in `Installed`. A station id is the one the game uses, such as `OKLG`; type
-`phobosframework story` in the F3 console while docked to see the ids where you are.
+name contains the words. Installed machines usually end in `Installed`. A station id is
+the one the game uses, such as `OKLG`; type `phobosframework story` in the F3 console
+while docked to see the ids where you are.
 
 ### Requirements
 
-Every part is optional, and every part given must hold.
+Every part is optional, and every part given must hold. Tips and the encyclopedia
+take only `mods`.
 
 | Field | Holds when |
 | --- | --- |
@@ -175,10 +260,12 @@ Every part is optional, and every part given must hold.
 - Plain text only. A line break (`\n` in JSON) is fine; angle brackets are not.
 - Square brackets are kept for placeholders: `[player]` (full name), `[player-first]`
   and `[ship]` (the ship the player is aboard). Any other bracketed word is refused.
+  Tips and encyclopedia text cannot use them.
 - Text is English in the file. A translation can replace it by the key
-  `Story.<id>.<field>` in the owning mod's translation file: for news `text` and
-  `region`, for arc steps `<arc>.<step>.title`, `.description`, `.from`, `.message`,
-  `.doneFrom` and `.done`.
+  `Story.<id>.<field>` in the owning mod's translation file: for news `text`, `region`
+  and `mention`; for small talk `line`; for tips `text`; for sections and articles
+  `label`, `title` and `body`; for arc steps `<arc>.<step>.title`, `.description`,
+  `.from`, `.message`, `.doneFrom` and `.done`.
 
 ### Settings
 
@@ -189,6 +276,8 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 | --- | ---: | --- |
 | `broadcastShare` | 0.3 | Share of TV news picks given to story news. |
 | `advertShare` | 0.3 | Share of advert picks given to story adverts. |
+| `chatterShare` | 0.4 | Share of matching small talk that uses a story line when one fits. |
+| `tipShare` | 0.3 | Share of loading-screen tips taken from story tips. |
 | `checkSeconds` | 30 | Real seconds between story checks. |
 | `maxActiveArcs` | 2 | How many arcs may start by themselves at once. |
 
@@ -198,14 +287,17 @@ override them in `BepInEx/config/PhobosFramework/story/`:
   checks a file that carries the `schema` header. Editors that read JSON Schema can use
   `schemas/story.schema.json` for completion and inline errors.
 - **In the game:** a file with a mistake is skipped and the reason goes to
-  `BepInEx/LogOutput.log`. An entry naming an item or condition the game does not have
-  is left out on its own, with a message.
+  `BepInEx/LogOutput.log`. An entry naming an item, condition, arc or section the game
+  does not have is left out on its own, with a message.
 - **F3 console (optional):** nothing here is needed for story content to work. These
   commands only save waiting while you write and test:
   - `phobosframework story` lists the packs, anything left out and why, where you are
-    docked, and each arc: under way (with each test's progress), finished, set aside,
-    or why it cannot start yet.
+    docked, each arc (under way with each test's progress, finished, set aside, or why
+    it cannot start yet), and how much small talk, tips and articles are in play.
   - `phobosframework story news <id>` shows a news item on the next TV news.
+  - `phobosframework story chatter` lists the small-talk lines each moment can use now;
+    `phobosframework story chatter <id>` makes the next small talk of that line's moment
+    say it.
   - `phobosframework story start <arc>` starts an arc now, whatever its chance and requirements.
   - `phobosframework story check` runs the story check at once.
   - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
@@ -216,22 +308,25 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 - The player carries one Phobos record: where each arc is, which once-only news has
   been shown, and news waiting for a TV.
 - Each goal keeps its title, description and the name `PhobosStory.<arc>.<step>`.
-- Nothing else. TV news is never saved by the game.
+- Nothing else. TV news, small talk, tips and articles leave nothing in the save.
 - **Removing a story file is safe.** Its goals finish and disappear on the next load,
-  and its record entries are ignored; put the file back and they are picked up again.
+  its talk, tips and articles simply stop appearing, and its record entries are
+  ignored; put the file back and they are picked up again.
 - **Dismissing a story goal** in the GOALS list sets that arc aside for good in that game.
 
 ## Writing well
 
-**The setting, in our own words.** Ostranauts is set in a future Solar System. People live and work on stations and ships from the inner system
-to the outer moons, and most crews scrape a living from salvage, hauling and odd jobs,
-with fuel, air, food and debt never far from mind. Companies and governments own the
-stations and the rules. The tone is blue-collar and lived-in: worn ships, small
-victories, dry humour. Read the game's own news and information pages before naming
-its places, factions or history, and do not contradict them.
+**The setting, in our own words.** Ostranauts is set in the Solar System of the
+near future; the game's own loading tips give its year. People live and work on
+stations and ships from the inner system to the outer moons, and most crews scrape a
+living from salvage, hauling and odd jobs, with fuel, air, food and debt never far from
+mind. Companies and governments own the stations and the rules. The tone is
+blue-collar and lived-in: worn ships, small victories, dry humour. Read the game's own
+news, tips and encyclopedia before naming its places, factions or history, and do not
+contradict them.
 
-**Our companies** are invented for these mods and can appear in news and adverts.
-Use them as companies in the world, never as claims about real firms:
+**Our companies** are invented for these mods and can appear in news, adverts, talk
+and articles. Use them as companies in the world, never as claims about real firms:
 
 | Company | Makes |
 | --- | --- |
@@ -247,15 +342,15 @@ Use them as companies in the world, never as claims about real firms:
 
 **Voice.** Practical, worn-in and occasionally dry, as in the
 [player language guide](development/player-language.md). Goals say plainly what to do;
-messages may have character. No forced slang, no gratuitous swearing.
+messages and small talk may have character. No forced slang, no gratuitous swearing.
 
 **Do not:**
 
 - name or imitate real people, real companies or real-world politics;
 - copy the game's own text, or anyone else's;
 - promise something the game does not do (a goal must be possible with the tests above,
-  and a news item should not describe a mechanic that does not exist, such as a crop
-  disease);
+  and a news item or line should not describe a mechanic that does not exist, such as
+  a crop disease);
 - ask for items players cannot get. Check the item reference for where each is bought
   or found;
 - shorten a full equipment name: it always starts with `Phobos'` (for example
@@ -273,8 +368,11 @@ file only, no commentary, following these rules exactly.
 
 Format:
 { "schemaVersion": 1, "schema": "story",
-  "broadcasts": { "<id>": { "region": "...", "text": "...", "weight": 1, "once": false } },
+  "broadcasts": { "<id>": { "region": "...", "text": "...", "weight": 1, "once": false, "mention": "..." } },
   "adverts":    { "<id>": { "text": "..." } },
+  "chatter":    { "<id>": { "moment": "...", "line": "...", "speakers": "anyone" } },
+  "tips":       { "<id>": { "text": "..." } },
+  "articles":   { "<id>": { "section": "phobos-makers", "label": "...", "title": "...", "body": "..." } },
   "arcs":       { "<id>": { "title": "...", "chance": 0.05, "requires": { ... },
                   "steps": [ { "id": "...",
                     "delivery": { "message": { "from": "...", "text": "..." }, "bulletin": "<broadcast id>" },
@@ -287,9 +385,17 @@ Rules:
 - Ids: lower-case letters and digits joined by single hyphens, starting with MYPREFIX-.
   Step ids likewise, unique within their arc.
 - Broadcast region: one of Shipping & Inner System, Tharsis, Outer System (or a short
-  topic such as Economics). Broadcast text at most 700 characters; advert text at most
-  400; message text at most 400 and "from" at most 40; goal title at most 60 and
-  description at most 300.
+  topic such as Economics). Broadcast text at most 700 characters; mention at most
+  200; advert text at most 400; message text at most 400 and "from" at most 40; goal
+  title at most 60 and description at most 300.
+- Small talk: moment is one of headline, joke, complaint, story, jargon, superstition,
+  worry, question, small-talk. The line is what the speaker says, at most 200
+  characters, written as speech. speakers is anyone, crew (aboard the player's ships)
+  or others (anyone else).
+- Tips: at most 450 characters of lore. Articles: section phobos-makers (companies)
+  or phobos-spacer-life (how crews live), label at most 40, title at most 60, body at
+  most 4000 with paragraphs separated by \n\n. Tips and articles may require only mods
+  and use no placeholders.
 - Plain text only: no angle brackets, no square brackets except [player],
   [player-first] and [ship]. Use \n for a line break.
 - Tests, all of which must pass to finish a step:
@@ -301,12 +407,12 @@ Rules:
   dockedAt, arcsDone, arcsNotStarted.
 - Use only item ids I list below. Rewards: at most five kinds, at most 20 of each,
   and modest in value.
-- Nothing else is available: no money or reputation rewards, no choices, no crew
-  conversations, no new items or places.
-- Setting: Ostranauts, a future Solar System; blue-collar
-  spacers living by salvage, hauling and odd jobs. Practical, worn-in voice with
-  occasional dry humour. No real people, companies or politics; do not copy the
-  game's text; never describe a game mechanic that does not exist.
+- Nothing else is available: no money or reputation rewards, no choices, no new kinds
+  of conversation, no new items or places.
+- Setting: Ostranauts, the Solar System of the near future; blue-collar spacers living
+  by salvage, hauling and odd jobs. Practical, worn-in voice with occasional dry
+  humour. No real people, companies or politics; do not copy the game's text; never
+  describe a game mechanic that does not exist.
 - Companies you may use: Verdemorrow Agronomics (grow racks, cookers, seed,
   nutrients; "Where we go, life grows."), Rivetline (salvage machinery), Asterel
   (navigation electronics), Fennmark (refineries and gas stores), Halewright
@@ -314,7 +420,7 @@ Rules:
   Phobos' Verdemorrow Firstlight-4 Cultivation Rack.
 
 Item ids you may use: <paste ids from the item reference>
-What I want: <describe the news, adverts or arc>
+What I want: <describe the news, small talk, tips, articles or arc>
 ```
 
 Replace `MYPREFIX` with your add-on's prefix (or a word of your own for a personal

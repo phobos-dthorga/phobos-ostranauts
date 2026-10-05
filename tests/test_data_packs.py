@@ -141,9 +141,32 @@ class DataPackTests(unittest.TestCase):
                 validate.story(bad, 'test', framework=False)
         framework = json.loads((ROOT / 'mods/PhobosFramework/framework/story.json').read_text(encoding='utf-8'))
         validate.story(framework, 'test', framework=True)
-        self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2})
+        self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2,
+                                                 'chatterShare': 0.4, 'tipShare': 0.3})
+        self.assertEqual(sorted(framework['sections']), ['phobos-makers', 'phobos-spacer-life'])
         with self.assertRaises(validate.Problem):
             validate.story(broken(lambda p: p.update(settings={'broadcastShare': 0.3})), 'test', framework=False)
+
+        # Framework 0.108.0: small talk, loading tips and encyclopedia articles.
+        self.assertEqual({c['moment'] for c in shipped['chatter'].values()} - set(validate.STORY_MOMENTS), set())
+        self.assertTrue(all(a['section'] in framework['sections'] for a in shipped['articles'].values()))
+        self.assertTrue(all('mention' in b for b in shipped['broadcasts'].values()))
+        chat = lambda p: p['chatter']['rack-hum']
+        for bad in (broken(lambda p: chat(p).update(moment='gossip')),
+                    broken(lambda p: chat(p).update(speakers='everyone')),
+                    broken(lambda p: chat(p).update(line='x' * 201)),
+                    broken(lambda p: chat(p).update(line='Look at [captain].')),
+                    broken(lambda p: p['broadcasts']['galley-survey'].update(mention='<i>Hot</i> meals.')),
+                    broken(lambda p: p['tips']['first-lettuce'].update(text='Hello [player].')),
+                    broken(lambda p: p['tips']['first-lettuce'].update(requires={'owns': ['PhobosVerdemorrowFirstlight4Installed']})),
+                    broken(lambda p: p['tips']['first-lettuce'].update(text='x' * 451)),
+                    broken(lambda p: p['articles']['growing-food-aboard'].update(section='Not An Id')),
+                    broken(lambda p: p['articles']['growing-food-aboard'].pop('body')),
+                    broken(lambda p: p['articles']['growing-food-aboard'].update(label='x' * 41)),
+                    broken(lambda p: p['articles']['growing-food-aboard'].update(requires={'arcsDone': ['verdemorrow-grain-sample']}))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+        validate.story(broken(lambda p: p['tips']['first-lettuce'].update(requires={'mods': ['PhobosAgriculture']})), 'test', framework=False)
 
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.

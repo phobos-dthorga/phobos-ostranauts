@@ -314,22 +314,43 @@ def story():
     once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}
     broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System.'},
-                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'requires': requires}, ['region', 'text'])
+                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'requires': requires,
+                     'mention': text(200, 'What people say when they bring this news up in small talk, while it is eligible.')}, ['region', 'text'])
     advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'requires': requires}, ['text'])
     arc = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80, 'description': 'For authors and the F3 list.'}, 'notes': NOTES, 'requires': requires,
                'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself; 0 starts it only from F3.'),
                'repeatable': {'type': 'boolean', 'description': 'May start again after it is finished.'},
                'steps': {'type': 'array', 'items': step, 'minItems': 1, 'maxItems': 12}}, ['title', 'steps'])
+    lore_note = ' Shown with no player at hand: plain text without placeholders.'
+    lore = lambda limit, description: {'type': 'string', 'minLength': 1, 'maxLength': limit, 'description': description + lore_note}
+    mods_only = obj({'mods': requires['properties']['mods']}, description='Only installed mods can be required: no player exists when this is shown.')
+    chatter = obj({**author,
+                   'moment': string('Which kind of the game\'s own small talk carries the line.', ['headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk']),
+                   'line': text(200, 'What the speaker says, after the moment\'s lead-in.'),
+                   'speakers': string('Who may say it: anyone (default), crew (someone aboard one of the player\'s ships) or others (anyone else).', ['anyone', 'crew', 'others']),
+                   'weight': weight, 'requires': requires}, ['moment', 'line'])
+    tip = obj({**author, 'text': lore(450, 'The lore tip shown while the game loads.'), 'weight': weight, 'requires': mods_only}, ['text'])
+    section = obj({'notes': NOTES, 'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
+                   'body': {**lore(4000, 'Its page text.'), 'minLength': 0}, 'requires': mods_only}, ['label', 'title'])
+    article = obj({'notes': NOTES, 'section': {'type': 'string', 'pattern': story_id, 'description': 'A section id from any loaded pack, such as phobos-makers.'},
+                   'label': lore(40, 'The name in the encyclopedia\'s list.'), 'title': lore(60, 'The heading of its page.'),
+                   'body': lore(4000, 'The article; line breaks separate paragraphs.'), 'requires': mods_only}, ['section', 'label', 'title', 'body'])
     settings = obj({'broadcastShare': num(0, 1, description='Share of TV news picks given to story broadcasts.'),
                     'advertShare': num(0, 1, description='Share of TV advert picks given to story adverts.'),
                     'checkSeconds': num(5, 600, description='Real seconds between story checks.'),
-                    'maxActiveArcs': num(0, 10, integer=True, description='How many arcs may start by themselves at once.')},
+                    'maxActiveArcs': num(0, 10, integer=True, description='How many arcs may start by themselves at once.'),
+                    'chatterShare': num(0, 1, description='Share of matching small talk that uses a story line when one fits.'),
+                    'tipShare': num(0, 1, description='Share of loading-screen tips taken from story tips.')},
                    description="Framework's own story pack only.")
     return obj({**header('story'), 'settings': settings,
                 'broadcasts': named(broadcast, 'TV news items by id.', story_id), 'adverts': named(advert, 'TV adverts by id.', story_id),
-                'arcs': named(arc, 'Story arcs by id.', story_id)},
+                'arcs': named(arc, 'Story arcs by id.', story_id),
+                'chatter': named(chatter, 'Lines people may say in the game\'s own small talk, by id.', story_id),
+                'tips': named(tip, 'Lore tips for loading screens, by id.', story_id),
+                'sections': named(section, 'Top-level encyclopedia entries, by id; shown while one of their articles is.', story_id),
+                'articles': named(article, 'Encyclopedia articles, by id.', story_id)},
                ['schemaVersion', 'schema'],
-               'Story content: TV news, adverts and arcs whose goals appear in the GOALS list. See docs/writing-story-content.md.')
+               'Story content: TV news, adverts, arcs whose goals appear in the GOALS list, small talk, loading tips and encyclopedia articles. See docs/writing-story-content.md.')
 
 
 def addon():

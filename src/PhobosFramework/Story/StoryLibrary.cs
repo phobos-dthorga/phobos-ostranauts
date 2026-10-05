@@ -13,22 +13,49 @@ public sealed class StoryEntry<T>
     public StoryEntry(string id, string owner, T value) { Id = id; Owner = owner; Value = value; }
 }
 
-/// <summary>Every loaded story pack merged into one library, with no game types. Ids are shared by broadcasts, adverts
-/// and arcs across all packs: a second use of an id is refused with a problem, the first kept. An entry is also
-/// refused when it names a game item or condition that does not exist (unless it needs a mod that is not installed,
-/// when it simply never appears), or a broadcast or arc that no pack provides.</summary>
+/// <summary>A line people may say in small talk (Framework 0.108.0): a chatter entry, or a broadcast's mention, which
+/// is said in the headline moment while its news is eligible. <see cref="Key"/> is its translation key.</summary>
+public sealed class StoryLine
+{
+    public string Id { get; }
+    public string Owner { get; }
+    public string Moment { get; }
+    public string Text { get; }
+    public string Key { get; }
+    public string Speakers { get; }
+    public int Weight { get; }
+    public StoryRequires? Requires { get; }
+    public StoryLine(string id, string owner, string moment, string text, string key, string speakers, int weight, StoryRequires? requires)
+    { Id = id; Owner = owner; Moment = moment; Text = text; Key = key; Speakers = speakers; Weight = weight; Requires = requires; }
+}
+
+/// <summary>Every loaded story pack merged into one library, with no game types. Ids are shared by every table across
+/// all packs: a second use of an id is refused with a problem, the first kept. An entry is also refused when it names
+/// a game item or condition that does not exist (unless it needs a mod that is not installed, when it simply never
+/// appears), or a broadcast, arc or section that no pack provides.</summary>
 public sealed class StoryLibrary
 {
-    public StorySettings Settings { get; }
-    public IReadOnlyDictionary<string, StoryEntry<StoryBroadcast>> Broadcasts { get; }
-    public IReadOnlyDictionary<string, StoryEntry<StoryAdvert>> Adverts { get; }
-    public IReadOnlyDictionary<string, StoryEntry<StoryArc>> Arcs { get; }
-    public IReadOnlyList<string> Problems { get; }
-    public static StoryLibrary Empty { get; } = new(new StorySettings(), new(), new(), new(), new());
+    public StorySettings Settings { get; private set; } = new();
+    public IReadOnlyDictionary<string, StoryEntry<StoryBroadcast>> Broadcasts => broadcasts;
+    public IReadOnlyDictionary<string, StoryEntry<StoryAdvert>> Adverts => adverts;
+    public IReadOnlyDictionary<string, StoryEntry<StoryArc>> Arcs => arcs;
+    public IReadOnlyDictionary<string, StoryEntry<StoryChatterLine>> Chatter => chatter;
+    public IReadOnlyDictionary<string, StoryEntry<StoryTip>> Tips => tips;
+    public IReadOnlyDictionary<string, StoryEntry<StorySection>> Sections => sections;
+    public IReadOnlyDictionary<string, StoryEntry<StoryArticle>> Articles => articles;
+    /// <summary>Every small-talk line: the chatter entries, then the broadcasts' mentions.</summary>
+    public IReadOnlyList<StoryLine> Lines { get; private set; } = Array.Empty<StoryLine>();
+    public IReadOnlyList<string> Problems => problems;
+    public static StoryLibrary Empty { get; } = new();
 
-    private StoryLibrary(StorySettings settings, Dictionary<string, StoryEntry<StoryBroadcast>> broadcasts, Dictionary<string, StoryEntry<StoryAdvert>> adverts,
-        Dictionary<string, StoryEntry<StoryArc>> arcs, List<string> problems)
-    { Settings = settings; Broadcasts = broadcasts; Adverts = adverts; Arcs = arcs; Problems = problems; }
+    private readonly Dictionary<string, StoryEntry<StoryBroadcast>> broadcasts = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryAdvert>> adverts = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryArc>> arcs = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryChatterLine>> chatter = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryTip>> tips = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StorySection>> sections = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, StoryEntry<StoryArticle>> articles = new(StringComparer.Ordinal);
+    private readonly List<string> problems = new();
 
     /// <param name="packs">In load order: Framework's pack first, then each mod's in registration order.</param>
     /// <param name="modInstalled">Whether a mod named in <c>requires.mods</c> is installed.</param>
@@ -37,10 +64,8 @@ public sealed class StoryLibrary
     public static StoryLibrary Build(IEnumerable<(string Owner, StoryPack Pack)> packs, StorySettings? settings, Func<string, bool> modInstalled,
         Func<string, bool>? itemExists, Func<string, bool>? conditionExists)
     {
-        var problems = new List<string>();
-        var broadcasts = new Dictionary<string, StoryEntry<StoryBroadcast>>(StringComparer.Ordinal);
-        var adverts = new Dictionary<string, StoryEntry<StoryAdvert>>(StringComparer.Ordinal);
-        var arcs = new Dictionary<string, StoryEntry<StoryArc>>(StringComparer.Ordinal);
+        var library = new StoryLibrary { Settings = settings ?? new StorySettings() };
+        var problems = library.problems;
         var owners = new Dictionary<string, string>(StringComparer.Ordinal);
         bool Claim(string id, string owner)
         {
@@ -57,60 +82,57 @@ public sealed class StoryLibrary
         }
         IEnumerable<string> Owned(StoryRequires? r) => r?.owns ?? Enumerable.Empty<string>();
         IEnumerable<string> Conditions(StoryRequires? r) => r == null ? Enumerable.Empty<string>() : r.playerConditions.Concat(r.forbidConditions);
+        void Add<T>(Dictionary<string, StoryEntry<T>> table, string id, string owner, T value, StoryRequires? requires, IEnumerable<string>? extraItems = null)
+        {
+            if (!Claim(id, owner)) return;
+            var problem = Names(requires, Owned(requires).Concat(extraItems ?? Enumerable.Empty<string>()), Conditions(requires));
+            if (problem != null) problems.Add(Text.Get("Story.refused", id, owner, problem));
+            else table[id] = new(id, owner, value);
+        }
         foreach (var (owner, pack) in packs)
         {
-            foreach (var pair in pack.broadcasts)
-            {
-                if (!Claim(pair.Key, owner)) continue;
-                var problem = Names(pair.Value.requires, Owned(pair.Value.requires), Conditions(pair.Value.requires));
-                if (problem != null) problems.Add(Text.Get("Story.refused", pair.Key, owner, problem));
-                else broadcasts[pair.Key] = new(pair.Key, owner, pair.Value);
-            }
-            foreach (var pair in pack.adverts)
-            {
-                if (!Claim(pair.Key, owner)) continue;
-                var problem = Names(pair.Value.requires, Owned(pair.Value.requires), Conditions(pair.Value.requires));
-                if (problem != null) problems.Add(Text.Get("Story.refused", pair.Key, owner, problem));
-                else adverts[pair.Key] = new(pair.Key, owner, pair.Value);
-            }
+            foreach (var pair in pack.broadcasts) Add(library.broadcasts, pair.Key, owner, pair.Value, pair.Value.requires);
+            foreach (var pair in pack.adverts) Add(library.adverts, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.arcs)
-            {
-                if (!Claim(pair.Key, owner)) continue;
-                var arc = pair.Value;
-                var items = Owned(arc.requires).Concat(arc.steps.SelectMany(s => s.tests).Where(t => t.item != null).Select(t => t.item!))
-                    .Concat(arc.steps.SelectMany(s => s.onComplete?.items ?? new List<StoryReward>()).Select(r => r.item));
-                var problem = Names(arc.requires, items, Conditions(arc.requires));
-                if (problem != null) problems.Add(Text.Get("Story.refused", pair.Key, owner, problem));
-                else arcs[pair.Key] = new(pair.Key, owner, arc);
-            }
+                Add(library.arcs, pair.Key, owner, pair.Value, pair.Value.requires,
+                    pair.Value.steps.SelectMany(s => s.tests).Where(t => t.item != null).Select(t => t.item!)
+                        .Concat(pair.Value.steps.SelectMany(s => s.onComplete?.items ?? new List<StoryReward>()).Select(r => r.item)));
+            foreach (var pair in pack.chatter) Add(library.chatter, pair.Key, owner, pair.Value, pair.Value.requires);
+            foreach (var pair in pack.tips) Add(library.tips, pair.Key, owner, pair.Value, pair.Value.requires);
+            foreach (var pair in pack.sections) Add(library.sections, pair.Key, owner, pair.Value, pair.Value.requires);
+            foreach (var pair in pack.articles) Add(library.articles, pair.Key, owner, pair.Value, pair.Value.requires);
         }
         // References between entries, repeated until nothing more is refused: an arc may need another arc that was itself refused.
         string? Reference(StoryRequires? r)
         {
             if (r == null) return null;
-            foreach (var id in r.arcsDone.Concat(r.arcsNotStarted)) if (!arcs.ContainsKey(id)) return Text.Get("Story.unknown_arc", id);
+            foreach (var id in r.arcsDone.Concat(r.arcsNotStarted)) if (!library.arcs.ContainsKey(id)) return Text.Get("Story.unknown_arc", id);
             return null;
+        }
+        bool Refuse<T>(Dictionary<string, StoryEntry<T>> table, Func<StoryEntry<T>, string?> problem)
+        {
+            bool any = false;
+            foreach (var entry in table.Values.ToArray())
+                if (problem(entry) is string p) { problems.Add(Text.Get("Story.refused", entry.Id, entry.Owner, p)); table.Remove(entry.Id); any = true; }
+            return any;
         }
         bool changed = true;
         while (changed)
         {
-            changed = false;
-            foreach (var entry in broadcasts.Values.ToArray())
-                if (Reference(entry.Value.requires) is string p) { problems.Add(Text.Get("Story.refused", entry.Id, entry.Owner, p)); broadcasts.Remove(entry.Id); changed = true; }
-            foreach (var entry in adverts.Values.ToArray())
-                if (Reference(entry.Value.requires) is string p) { problems.Add(Text.Get("Story.refused", entry.Id, entry.Owner, p)); adverts.Remove(entry.Id); changed = true; }
-            foreach (var entry in arcs.Values.ToArray())
-            {
-                string? p = Reference(entry.Value.requires);
-                if (p == null)
-                    foreach (var step in entry.Value.steps)
-                        if (step.delivery?.bulletin is string b && !broadcasts.ContainsKey(b)) { p = Text.Get("Story.unknown_bulletin", b); break; }
-                if (p != null) { problems.Add(Text.Get("Story.refused", entry.Id, entry.Owner, p)); arcs.Remove(entry.Id); changed = true; }
-            }
+            changed = Refuse(library.broadcasts, e => Reference(e.Value.requires));
+            changed |= Refuse(library.adverts, e => Reference(e.Value.requires));
+            changed |= Refuse(library.chatter, e => Reference(e.Value.requires));
+            changed |= Refuse(library.arcs, e => Reference(e.Value.requires) ??
+                e.Value.steps.Select(s => s.delivery?.bulletin).Where(b => b != null && !library.broadcasts.ContainsKey(b)).Select(b => Text.Get("Story.unknown_bulletin", b!)).FirstOrDefault());
         }
-        return new StoryLibrary(settings ?? new StorySettings(), broadcasts, adverts, arcs, problems);
+        Refuse(library.articles, e => library.sections.ContainsKey(e.Value.section) ? null : Text.Get("Story.unknown_section", e.Value.section));
+        library.Lines = library.chatter.Values.Select(c => new StoryLine(c.Id, c.Owner, c.Value.moment, c.Value.line, c.Id + ".line", c.Value.speakers, c.Value.weight, c.Value.requires))
+            .Concat(library.broadcasts.Values.Where(b => b.Value.mention != null)
+                .Select(b => new StoryLine(b.Id, b.Owner, StoryMoments.Headline, b.Value.mention!, b.Id + ".mention", StorySchema.Anyone, b.Value.weight, b.Value.requires)))
+            .ToList();
+        return library;
     }
 
     /// <summary>Total entries, for status lines.</summary>
-    public int Count => Broadcasts.Count + Adverts.Count + Arcs.Count;
+    public int Count => broadcasts.Count + adverts.Count + arcs.Count + chatter.Count + tips.Count + sections.Count + articles.Count;
 }

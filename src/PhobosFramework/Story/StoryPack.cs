@@ -21,6 +21,14 @@ public sealed class StoryPack : DataPack
     public Dictionary<string, StoryAdvert> adverts = new(StringComparer.Ordinal);
     /// <summary>Story arcs by id: ordered steps the player is given, each with goals that Framework checks.</summary>
     public Dictionary<string, StoryArc> arcs = new(StringComparer.Ordinal);
+    /// <summary>Lines people may say in the game's own small talk, by id (Framework 0.108.0).</summary>
+    public Dictionary<string, StoryChatterLine> chatter = new(StringComparer.Ordinal);
+    /// <summary>Lore tips for loading screens, by id (Framework 0.108.0).</summary>
+    public Dictionary<string, StoryTip> tips = new(StringComparer.Ordinal);
+    /// <summary>Top-level encyclopedia entries, by id (Framework 0.108.0); shown only while one of their articles is.</summary>
+    public Dictionary<string, StorySection> sections = new(StringComparer.Ordinal);
+    /// <summary>Encyclopedia articles, by id, each under a section (Framework 0.108.0).</summary>
+    public Dictionary<string, StoryArticle> articles = new(StringComparer.Ordinal);
 }
 
 public sealed class StorySettings
@@ -33,6 +41,10 @@ public sealed class StorySettings
     public double checkSeconds = 30;
     /// <summary>How many arcs may start by themselves at once; F3 starts are not limited.</summary>
     public int maxActiveArcs = 2;
+    /// <summary>Share of matching small talk that uses a story line when one is eligible (0 to 1).</summary>
+    public double chatterShare = 0.4;
+    /// <summary>Share of loading-screen tips taken from story tips (0 to 1).</summary>
+    public double tipShare = 0.3;
 }
 
 /// <summary>When an entry may appear. Every part is optional and every part given must hold.</summary>
@@ -67,6 +79,8 @@ public sealed class StoryBroadcast
     /// <summary>Shown once in a save, then never again.</summary>
     public bool once;
     public StoryRequires? requires;
+    /// <summary>What people say when they bring the news up in small talk (the headline moment), while it is eligible.</summary>
+    public string? mention;
 }
 
 public sealed class StoryAdvert
@@ -77,6 +91,77 @@ public sealed class StoryAdvert
     public int weight = 1;
     public bool once;
     public StoryRequires? requires;
+}
+
+/// <summary>A line someone says in one of the game's own small-talk moments.</summary>
+public sealed class StoryChatterLine
+{
+    public string? title;
+    public string? notes;
+    /// <summary>One of <see cref="StoryMoments"/>: which kind of small talk carries the line.</summary>
+    public string moment = "";
+    public string line = "";
+    /// <summary><c>anyone</c>, <c>crew</c> (the speaker is aboard one of the player's ships) or <c>others</c>.</summary>
+    public string speakers = StorySchema.Anyone;
+    public int weight = 1;
+    public StoryRequires? requires;
+}
+
+/// <summary>A lore tip shown while the game loads. No player exists then, so only mods may be required.</summary>
+public sealed class StoryTip
+{
+    public string? title;
+    public string? notes;
+    public string text = "";
+    public int weight = 1;
+    public StoryRequires? requires;
+}
+
+/// <summary>A top-level entry in the game's encyclopedia.</summary>
+public sealed class StorySection
+{
+    public string? notes;
+    /// <summary>The name in the encyclopedia's list.</summary>
+    public string label = "";
+    public string title = "";
+    public string? body;
+    public StoryRequires? requires;
+}
+
+/// <summary>An encyclopedia article under a section.</summary>
+public sealed class StoryArticle
+{
+    public string? notes;
+    /// <summary>A section id from any loaded pack.</summary>
+    public string section = "";
+    public string label = "";
+    public string title = "";
+    public string body = "";
+    public StoryRequires? requires;
+}
+
+/// <summary>The small-talk moments story lines may use (Framework 0.108.0): each is a set of the game's own social
+/// interactions, whose text is swapped for one use, and a lead-in in Framework's catalogue
+/// (<c>Story.moment.&lt;moment&gt;</c>) that uses only grammar tokens the game's own lines use.</summary>
+public static class StoryMoments
+{
+    public static readonly IReadOnlyDictionary<string, string[]> Interactions = new Dictionary<string, string[]>(StringComparer.Ordinal)
+    {
+        ["headline"] = new[] { "SOCMentionHeadline" },
+        ["joke"] = new[] { "SOCMildFunny", "SOCDarkJoke", "SOCCraftDarkJoke" },
+        ["complaint"] = new[] { "SOCComplainAboutLAs" },
+        ["story"] = new[] { "SOCReminisce", "SOCShareAnotherStory" },
+        ["jargon"] = new[] { "SOCTechJargon" },
+        ["superstition"] = new[] { "SOCWarnSuperstition" },
+        ["worry"] = new[] { "SOCAdmitWorries" },
+        ["question"] = new[] { "SOCMetaphysicalQuandary" },
+        ["small-talk"] = new[] { "SOCShootBreeze" },
+    };
+    public const string Headline = "headline";
+    private static readonly Dictionary<string, string> byInteraction =
+        Interactions.SelectMany(m => m.Value.Select(i => (Interaction: i, Moment: m.Key))).ToDictionary(p => p.Interaction, p => p.Moment, StringComparer.Ordinal);
+    /// <summary>The moment a game interaction belongs to, or null.</summary>
+    public static string? Of(string? interaction) => interaction != null && byInteraction.TryGetValue(interaction, out var moment) ? moment : null;
 }
 
 public sealed class StoryArc
@@ -160,13 +245,15 @@ public static class StorySchema
 {
     public const string Name = "story";
     public const string DockedAnywhere = "any";
+    public const string Anyone = "anyone", Crew = "crew", Others = "others";
+    public static readonly IReadOnlyList<string> Speakers = new[] { Anyone, Crew, Others };
     public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait";
     public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait };
     public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]" };
     public const int MaxIdLength = 48, MaxStepIdLength = 32, MaxRegion = 40, MaxBroadcast = 700, MaxAdvert = 400,
         MaxMessage = 400, MaxFrom = 40, MaxObjectiveTitle = 60, MaxObjectiveDescription = 300, MaxTitle = 80,
         MaxSteps = 12, MaxTests = 4, MaxRewards = 5, MaxRewardCount = 20, MaxItemCount = 100, MaxWeight = 100,
-        MaxListEntries = 16, MaxActiveArcs = 10;
+        MaxListEntries = 16, MaxActiveArcs = 10, MaxLine = 200, MaxTip = 450, MaxLabel = 40, MaxArticle = 4000;
     public const double MaxWaitHours = 720, MinCheckSeconds = 5, MaxCheckSeconds = 600;
     private static readonly Regex Id = new("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.CultureInvariant);
     private static readonly Regex GameName = new("^[A-Za-z0-9_]+$", RegexOptions.CultureInvariant);
@@ -186,6 +273,7 @@ public static class StorySchema
             var s = pack.settings;
             Range(s.broadcastShare, 0, 1, "settings.broadcastShare"); Range(s.advertShare, 0, 1, "settings.advertShare");
             Range(s.checkSeconds, MinCheckSeconds, MaxCheckSeconds, "settings.checkSeconds");
+            Range(s.chatterShare, 0, 1, "settings.chatterShare"); Range(s.tipShare, 0, 1, "settings.tipShare");
             if (s.maxActiveArcs < 0 || s.maxActiveArcs > MaxActiveArcs) throw new ArgumentException(Text.Get("StorySchema.range", "settings.maxActiveArcs", 0, MaxActiveArcs));
         }
         foreach (var pair in pack.broadcasts)
@@ -194,6 +282,7 @@ public static class StorySchema
             EntryId(pair.Key, where); Author(b.title, b.notes, where);
             if (string.IsNullOrWhiteSpace(b.region) || b.region.Length > MaxRegion || Plain(b.region) != null) throw new ArgumentException(Text.Get("StorySchema.region", where, MaxRegion));
             Words(b.text, MaxBroadcast, where + ".text");
+            if (b.mention != null) Words(b.mention, MaxLine, where + ".mention");
             Weight(b.weight, where); Requires(b.requires, where);
         }
         foreach (var pair in pack.adverts)
@@ -204,6 +293,54 @@ public static class StorySchema
             Weight(a.weight, where); Requires(a.requires, where);
         }
         foreach (var pair in pack.arcs) Arc(pair.Key, pair.Value);
+        foreach (var pair in pack.chatter)
+        {
+            string where = "chatter." + pair.Key; var c = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(c.title, c.notes, where);
+            if (!StoryMoments.Interactions.ContainsKey(c.moment ?? "")) throw new ArgumentException(Text.Get("StorySchema.moment", where, string.Join(", ", StoryMoments.Interactions.Keys)));
+            Words(c.line, MaxLine, where + ".line");
+            if (!Speakers.Contains(c.speakers ?? "")) throw new ArgumentException(Text.Get("StorySchema.speakers", where, string.Join(", ", Speakers)));
+            Weight(c.weight, where); Requires(c.requires, where);
+        }
+        foreach (var pair in pack.tips)
+        {
+            string where = "tips." + pair.Key; var t = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(t.title, t.notes, where);
+            Lore(t.text, MaxTip, where + ".text");
+            Weight(t.weight, where); ModsOnly(t.requires, where);
+        }
+        foreach (var pair in pack.sections)
+        {
+            string where = "sections." + pair.Key; var s = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, s.notes, where);
+            Lore(s.label, MaxLabel, where + ".label"); Lore(s.title, MaxObjectiveTitle, where + ".title");
+            if (s.body != null) Lore(s.body, MaxArticle, where + ".body");
+            ModsOnly(s.requires, where);
+        }
+        foreach (var pair in pack.articles)
+        {
+            string where = "articles." + pair.Key; var a = pair.Value ?? throw new ArgumentException(Text.Get("StorySchema.empty", where));
+            EntryId(pair.Key, where); Author(null, a.notes, where);
+            if (!IsId(a.section)) throw new ArgumentException(Text.Get("StorySchema.id", where + ".section", MaxIdLength));
+            Lore(a.label, MaxLabel, where + ".label"); Lore(a.title, MaxObjectiveTitle, where + ".title"); Lore(a.body, MaxArticle, where + ".body");
+            ModsOnly(a.requires, where);
+        }
+    }
+
+    /// <summary>Text shown with no player at hand (tips, the encyclopedia): plain, and no placeholders.</summary>
+    private static void Lore(string? text, int max, string where)
+    {
+        Words(text, max, where);
+        if (Placeholders.Any(p => text!.Contains(p))) throw new ArgumentException(Text.Get("StorySchema.no_placeholders", where));
+    }
+
+    /// <summary>Tips and the encyclopedia exist before any player does, so only installed mods can be required.</summary>
+    private static void ModsOnly(StoryRequires? r, string where)
+    {
+        if (r == null) return;
+        Requires(r, where);
+        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count > 0)
+            throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
 
     private static void Arc(string id, StoryArc? arc)

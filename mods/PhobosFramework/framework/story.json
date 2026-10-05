@@ -1,14 +1,30 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Framework's story pack (Framework 0.107.0): the settings for story content from every mod, and no stories of its own. Each mod ships its own story pack in its framework folder. Your own news, adverts and arcs go in BepInEx/config/PhobosFramework/story/*.json, or in an add-on under phobos/PhobosFramework/story. See docs/writing-story-content.md.",
+  "notes": "Framework's story pack (Framework 0.107.0): the settings for story content from every mod, and, since 0.108.0, two shared encyclopedia sections that mods put their articles under. A section shows only while one of its articles does. Each mod ships its own story pack in its framework folder. Your own news, adverts, arcs, small talk, tips and articles go in BepInEx/config/PhobosFramework/story/*.json, or in an add-on under phobos/PhobosFramework/story. See docs/writing-story-content.md.",
   "settings": {
     "broadcastShare": 0.3,
     "advertShare": 0.3,
     "checkSeconds": 30,
-    "maxActiveArcs": 2
+    "maxActiveArcs": 2,
+    "chatterShare": 0.4,
+    "tipShare": 0.3
   },
   "broadcasts": {},
   "adverts": {},
-  "arcs": {}
+  "arcs": {},
+  "sections": {
+    "phobos-makers": {
+      "notes": "Shared section for the companies behind Phobos equipment.",
+      "label": "Makers and brands",
+      "title": "Makers and brands",
+      "body": "The outfits behind the kit found aboard working ships, from grow racks to salvage machinery. Every crew has an opinion about each of them."
+    },
+    "phobos-spacer-life": {
+      "notes": "Shared section for how crews live and work between stations.",
+      "label": "Life between stations",
+      "title": "Life between stations",
+      "body": "Notes on keeping a crew fed, healthy and working far from the nearest dock."
+    }
+  }
 }

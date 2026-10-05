@@ -24,6 +24,7 @@ public static class StoryArcs
     private static StoryRecord record = new();
     private static bool removing;
     private static readonly List<(string Id, int Weight)> broadcastPool = new(), advertPool = new();
+    private static Dictionary<string, List<StoryLine>> chatterPools = new(StringComparer.Ordinal);
     internal static Func<double> Roll = () => UnityEngine.Random.value;
 
     internal static StoryRecord Record => record;
@@ -44,7 +45,8 @@ public static class StoryArcs
     internal static void LibraryChanged()
     {
         cadence = new Cadence(StoryContent.Library.Settings.checkSeconds);
-        player = null; broadcastPool.Clear(); advertPool.Clear();
+        player = null; broadcastPool.Clear(); advertPool.Clear(); chatterPools = new(StringComparer.Ordinal);
+        StoryChatter.Reset();
     }
 
     private static bool Ready => CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && CrewSim.coPlayer != null && !CrewSim.coPlayer.bDestroyed &&
@@ -234,7 +236,14 @@ public static class StoryArcs
             if (!(b.Value.once && record.Seen.Contains(b.Id)) && StoryRules.Blocked(b.Value.requires, facts, record) == null) broadcastPool.Add((b.Id, b.Value.weight));
         foreach (var a in library.Adverts.Values)
             if (!(a.Value.once && record.Seen.Contains(a.Id)) && StoryRules.Blocked(a.Value.requires, facts, record) == null) advertPool.Add((a.Id, a.Value.weight));
+        chatterPools = StoryRules.ChatterPools(library.Lines, r => StoryRules.Blocked(r, facts, record) == null);
     }
+
+    /// <summary>The small-talk lines eligible at the last check, by moment (Framework 0.108.0).</summary>
+    internal static IReadOnlyDictionary<string, List<StoryLine>> ChatterPools => chatterPools;
+    /// <summary>Whether someone is aboard one of the player's ships (the player counts).</summary>
+    internal static bool Crew(CondOwner? speaker) =>
+        speaker != null && CrewSim.coPlayer != null && speaker.ship != null && CrewSim.system?.GetShipOwner(speaker.ship.strRegID) == CrewSim.coPlayer.strID;
 
     /// <summary>A pick from a pool was shown: a once-only entry leaves the pool and is remembered.</summary>
     internal static void Shown(string id, bool once, List<(string Id, int Weight)>? pool)
@@ -311,6 +320,8 @@ public static class StoryArcs
             lines.Add(Text.Get("Story.arc_line", arc.Id, arc.Value.title, state, blocked ?? (arc.Value.chance > 0 ? Text.Get("Story.may_start", arc.Value.chance) : Text.Get("Story.f3_only"))));
         }
         lines.Add(Text.Get("Story.pools", broadcastPool.Count, StoryContent.Library.Broadcasts.Count, advertPool.Count, StoryContent.Library.Adverts.Count, record.Queue.Count));
+        lines.Add(Text.Get("Story.chatter_pools", chatterPools.Values.Sum(p => p.Count), StoryContent.Library.Lines.Count, StoryContent.Library.Tips.Count,
+            StoryLore.ShownArticles, StoryContent.Library.Articles.Count));
         return string.Join("\n", lines);
     }
 

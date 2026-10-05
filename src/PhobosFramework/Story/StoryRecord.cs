@@ -154,6 +154,33 @@ public static class StoryRules
         return pool.Last(e => e.Weight > 0).Id;
     }
 
+    /// <summary>Whether a line may be voiced by this speaker (Framework 0.108.0): <c>crew</c> lines only by someone aboard
+    /// one of the player's ships, <c>others</c> lines only by someone who is not.</summary>
+    public static bool Voices(string speakers, bool speakerIsCrew) =>
+        speakers == StorySchema.Anyone || speakers == StorySchema.Crew && speakerIsCrew || speakers == StorySchema.Others && !speakerIsCrew;
+
+    /// <summary>The eligible small-talk lines, by moment.</summary>
+    public static Dictionary<string, List<StoryLine>> ChatterPools(IEnumerable<StoryLine> lines, Func<StoryRequires?, bool> eligible)
+    {
+        var pools = new Dictionary<string, List<StoryLine>>(StringComparer.Ordinal);
+        foreach (var line in lines)
+        {
+            if (!eligible(line.Requires)) continue;
+            if (!pools.TryGetValue(line.Moment, out var pool)) pools[line.Moment] = pool = new List<StoryLine>();
+            pool.Add(line);
+        }
+        return pools;
+    }
+
+    /// <summary>A weighted pick among the lines this speaker may voice, or null when there are none.</summary>
+    public static StoryLine? PickLine(IReadOnlyList<StoryLine>? pool, bool speakerIsCrew, double roll)
+    {
+        if (pool == null) return null;
+        var voiced = pool.Where(l => Voices(l.Speakers, speakerIsCrew)).ToList();
+        string? id = Pick(voiced.Select(l => (l.Id, l.Weight)).ToList(), roll);
+        return id == null ? null : voiced.First(l => l.Id == id);
+    }
+
     /// <summary>The step a saved arc is at: by id, else by position, else none (the pack changed too much).</summary>
     public static int Resolve(StoryArc arc, ArcProgress progress)
     {

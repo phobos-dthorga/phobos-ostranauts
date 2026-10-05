@@ -1,6 +1,7 @@
 # Story and worldview content: design record
 
-Framework 0.107.0, Agriculture 0.60.0. Owner request, 6 October 2026: Framework code
+Phase 1: Framework 0.107.0, Agriculture 0.60.0. Phase 2 (small talk, loading tips and
+encyclopedia articles): Framework 0.108.0, Agriculture 0.61.0. Owner request, 6 October 2026: Framework code
 and a schema so story and worldview content can enter the game through TV broadcasts,
 people talking about topics, and goals the player picks up; written easily by ChatGPT
 (the creative work) while Claude writes the code. The player guide is
@@ -112,7 +113,70 @@ the pack gone, the game logs "No such CT: PhobosStory..." once per goal on load,
 goal completes the next time the game checks the player's goals (`CheckObjective` runs
 on many events, such as pausing). The player sees an ordinary "complete" line.
 
-## Limits of this release
+## Phase 2: small talk, loading tips and encyclopedia (Framework 0.108.0)
+
+Owner request, 6 October 2026: proceed with the next set. Owner choices:
+
+| Question | Decision |
+| --- | --- |
+| Scope | Small talk, loading-screen lore tips and encyclopedia articles, in one release |
+| Who may voice a line | Anyone the game has chatting; each line may narrow it to the player's crew or to people elsewhere |
+
+Agent choices, open to revision: the shares (40% of matching small talk, 30% of tips),
+the nine moments and their lead-ins, and Framework's two shared encyclopedia sections
+(Makers and brands; Life between stations).
+
+**What the game offers (observed, same inspection method as above).**
+
+- **Small talk.** Every social interaction becomes text through
+  `GrammarUtils.GenerateDescription(Interaction)` or `(Interaction, bool)`, which return
+  `GetInflectedString(strDesc, interaction)`; the tokens such as `[us]` and `[mentions]`
+  are inflected there. Callers include the social log (`Interaction.ApplyLogging`, which
+  logs to people in the room or aboard), the conversation screen
+  (`GUISocialCombat2.SetData`), ship comms and tooltips. Character history stores the
+  interaction's name, never its text. The social openers suited to carrying a topic
+  are SOCMentionHeadline ("mentions a headline ... that [us-subj] recently read"),
+  the jokes, complaints, stories, jargon, superstition, worries, a metaphysics
+  question and shooting the breeze.
+- **Tips.** `DataHandler.GetTip()` picks uniformly from `dictTips` (23 lore tips, up to
+  444 characters, each starting with a line break) during the loading-screen fade.
+  Nothing about it is saved, and no player exists then.
+- **Encyclopedia.** `Info.Init` runs on `DataHandler.LoadComplete` and builds its tree
+  from `dictInfoNodes` (`BuildHierarchyFromJSON`). A node with an empty parent hangs
+  under the index; any other parent is looked up with the dictionary indexer, which
+  throws for an unknown name. An empty `strImage` is drawn with the encyclopedia's logo
+  and a blank image colour (`DrawMainWindow`). The game ships 68 nodes in one section.
+- **Saves.** The save's `aCustomInfos` holds PDA notes, overlays, timers, presets,
+  filters and the quick bar (`CrewSim.CustomInfosString`); nothing records which
+  articles were read.
+
+**How it works.**
+
+| Channel | Mechanism | Saved |
+| --- | --- | --- |
+| Small talk | Postfixes on both `GenerateDescription` overloads (`StoryChatter`). For an interaction in a moment, a share of uses picks an eligible line the speaker may voice and returns `GetInflectedString(lead-in + line, interaction)`. The choice is remembered per interaction instance, checked against its name and speakers, so the log and the conversation screen agree. Lines are eligible by the player's facts at the last 30-second check; the speaker test (aboard one of the player's ships or not) is made at the moment of speech. | Nothing: only text changes |
+| News mentions | A broadcast's `mention` is a `headline` line with the broadcast's weight and requirements | Nothing |
+| Tips | `GetTip` postfix (`StoryLore.Tip`); entries may require only mods, which are checked against loaded plugins | Nothing |
+| Encyclopedia | On each content load our `PhobosStory.` nodes in `dictInfoNodes` are replaced by the current sections and articles; a prefix on `BuildHierarchyFromJSON` applies them again in case the tree is built first. A section is published only with an article to show, and an article's parent is always its section's node | Nothing |
+
+**Lead-ins** (`Story.moment.<moment>` in Framework's catalogue) use only grammar tokens
+found in the game's own social lines, so the game inflects them as it does its own: the
+native checks compare every token against the loaded interactions.
+
+**Limits.**
+
+- Story lines take the place of the game's line for that use; the game's own topics
+  still come up the rest of the time.
+- The speaker test reads ship ownership only: a guest aboard the player's ship counts
+  as crew, and the player's crew visiting a station count as crew while aboard the
+  player's ship.
+- A line chosen for an interaction stays with that interaction object; if the game
+  reuses one between the same two people with the same opener, the line repeats.
+- The encyclopedia tree is built once a session; an article added by a file changed
+  mid-session appears after the next game start (unobserved: whether the game rebuilds
+  the tree on a later content load).
+
+## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
   character starts with that character's record.
@@ -125,16 +189,13 @@ on many events, such as pausing). The player sees an ordinary "complete" line.
 
 ## Later work
 
-What the owner's request covered but this release does not. The save-risk column uses
+What the owner's request covered but phase 2 does not (small talk, tips and encyclopedia entries were delivered in phase 2). The save-risk column uses
 the same test as above: does a name of ours enter saves, and what happens if it goes?
 
 | Item | What it would add | What we know / what it still needs | Save risk |
 | --- | --- | --- | --- |
-| **Crew chatter** (next phase) | People talking about story topics | No topic system exists. The safe route is to change the *text* of small-talk lines the crew already use (for example `SOCMentionHeadline`), so a character voices an eligible story line. Needs a spike to find where an interaction's text is rendered, so it can be swapped per use. | None if only text changes; new social interactions would put names in history (refused) |
-| **A Framework talk opener** | Topics as their own line | Only if borrowing the game's lines proves too limited. The crew pick openers by learned weights (`ai_training`), so a new opener may rarely fire. | One Framework-owned name in conversation history (acceptable, like Framework items) |
+| **A Framework talk opener** | Topics as their own kind of conversation | Phase 2 borrows the game's own small talk. A new opener only if that proves too limited. The crew pick openers by learned weights (`ai_training`), so a new opener may rarely fire. | One Framework-owned name in conversation history (acceptable, like Framework items) |
 | **Characters approaching the player** | A contact walks up and hands over a goal | The game does this with pledges, saved by name on characters. A Framework version needs its own approach behaviour. | Pledges refused; a Framework version needs its own design |
-| **Encyclopedia entries** (`dictInfoNodes`) | Lore articles in the game's information pages | They load like headlines. Still to check: whether opened articles are remembered in saves. | Probably none; to confirm |
-| **Loading and lore tips** (`dictTips`) | Lore tips | A random pick like headlines; nothing saved found. | None found |
 | **Found data files** | Goals and lore found in the world | The game's data files are items saved by definition name. A safe version is one Framework-owned data file item whose text comes from a story pack by an id property; an unknown id reads as a corrupted file. | One Framework item definition (acceptable) |
 | **Money and reputation rewards** | Paying out or changing faction standing | Money goes through the game's ledger, and faction scores are saved state of the game's own kinds. Needs a check that an entry left by a removed pack is harmless. | To assess; items only for now |
 | **More tests** | Goals beyond the four kinds | Candidates: visit a ship type, reach a skill level, hold credits, own a machine family, talk to a kind of person. Each is code in the fixed vocabulary, added when content needs it. | None (code only) |
@@ -143,6 +204,7 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **Encounter scenes** | Full-screen story scenes with pictures and choices | The game's encounters are interactions saved in history; ours would need Framework-owned ones and original art. | Names in history; needs design |
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |
+| **Encyclopedia pictures** | A picture beside an article | The encyclopedia loads `strImage` as a PNG path; articles have none for now, and a picture would need original art and a field. | None |
 
 ## Verification
 
@@ -154,7 +216,16 @@ the same test as above: does a name of ours enter saves, and what happens if it 
   members the code relies on. `PatchResolutionChecks` covers the three postfixes.
 - `tests/test_data_packs.py`: the Python mirror and the JSON Schema on the shipped
   packs and on broken copies.
-- **In play (owner, pending):** the TV shows the seed news among the game's own;
+- Phase 2: `StoryChecks.Phase2` (refusals, mention lines, moments, pools, speakers,
+  encyclopedia nodes) and `StoryNativeChecks` (every mapped interaction exists, every
+  lead-in token appears in the game's own lines, the seed's nodes have known parents,
+  the tip and encyclopedia methods are where expected).
+- **In play (owner, pending), phase 2:** story lines turn up in the social log among
+  small talk, aboard and on stations; `phobosframework story chatter <id>` forces one;
+  loading screens sometimes show a Verdemorrow tip; the encyclopedia lists Makers and
+  brands and Life between stations with Agriculture's articles, and without
+  Agriculture neither section shows.
+- **In play (owner, pending), phase 1:** the TV shows the seed news among the game's own;
   `phobosframework story start verdemorrow-grain-sample` puts a goal in the GOALS list;
   carrying a portion of wheat grain finishes the first step, docking with it the second,
   with the reward; dismissing a goal sets the arc aside; with Agriculture's pack removed

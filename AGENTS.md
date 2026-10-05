@@ -197,12 +197,14 @@ delivery in the changelog and design record, and add or amend only the rule here
   a validator, offline checker, JSON Schema and guide section. Chance outcomes are data: one
   frozen recipe per outcome in an `outcomes` pack, picked by a stable hash at bind
   (`Outcomes.Pick`), never rolled at runtime or rerolled.
-- **Story content.** News, adverts and goal chains go in `story` packs (Framework 0.107.0;
-  `StoryContent.Register`, one pack per mod, guide `docs/writing-story-content.md`). Never use
-  the game's plots, pledges, new social interactions or player conditions for added content: a
-  removed plot breaks the GOALS panel. Goals are ordinary objectives whose `PhobosStory.` test
-  reads as the game's Blank when its pack is gone. New test kinds and channels are code in the
-  fixed vocabulary; the later work list is in `docs/development/story-system-design.md`.
+- **Story content.** News, adverts, goal chains, small talk, loading tips and encyclopedia
+  articles go in `story` packs (Framework 0.107.0 and 0.108.0; `StoryContent.Register`, one pack
+  per mod, guide `docs/writing-story-content.md`). Never use the game's plots, pledges, new
+  social interactions or player conditions for added content: a removed plot breaks the GOALS
+  panel. Goals are ordinary objectives whose `PhobosStory.` test reads as the game's Blank when
+  its pack is gone; small talk changes only the text of the game's own social lines, through
+  lead-ins that use the game's own grammar tokens. New test kinds, moments and channels are code
+  in the fixed vocabulary; the later work list is in `docs/development/story-system-design.md`.
 - **Links.** Every machine-to-store or machine-to-machine link runs through touching equipment
   (within one tile) or a pipe or conveyor-belt network, never open floor; the refuelling kiosk is
   the only exception. Any pipe or belt on or beside equipment joins it; joins chain across the

@@ -81375,14 +81375,14 @@
       "mod": "PhobosFramework",
       "key": "Story.help",
       "category": "console help",
-      "decision": "add",
-      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "decision": "rewrite",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework/Story"
       ],
       "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
-      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story chatter [line] | story check | story items <words>. None is needed: story content loads and appears by itself. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; chatter lists the small-talk lines that can be said now, or makes the next matching small talk say the line named; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
     },
     {
       "mod": "PhobosFramework",
@@ -81942,6 +81942,279 @@
       ],
       "before": "{0} contains {1}; text may use only the placeholders {2}, with no angle brackets or other bracketed words.",
       "after": "{0} contains {1}; text may use only the placeholders {2}, with no angle brackets or other bracketed words."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.headline",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [mentions] a headline to [them]: \"{0}\"",
+      "after": "[us] [mentions] a headline to [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.joke",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [tells] a joke to [them]: \"{0}\"",
+      "after": "[us] [tells] a joke to [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.complaint",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [complains] to [them]: \"{0}\"",
+      "after": "[us] [complains] to [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.story",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [tells] [them] a story: \"{0}\"",
+      "after": "[us] [tells] [them] a story: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.jargon",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [recites] some jargon to [them]: \"{0}\"",
+      "after": "[us] [recites] some jargon to [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.superstition",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [cautions] [them] about a spacer superstition: \"{0}\"",
+      "after": "[us] [cautions] [them] about a spacer superstition: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.worry",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [opens] up to [them]: \"{0}\"",
+      "after": "[us] [opens] up to [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.question",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [asks] [them]: \"{0}\"",
+      "after": "[us] [asks] [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment.small-talk",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "[us] [shoots] the breeze with [them]: \"{0}\"",
+      "after": "[us] [shoots] the breeze with [them]: \"{0}\""
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_section",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no section named {0}",
+      "after": "no section named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_line",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "No chatter line or news mention named {0} is loaded. phobosframework story chatter lists them.",
+      "after": "No chatter line or news mention named {0} is loaded. phobosframework story chatter lists them."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.line_forced",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "The next {1} small talk says {0} ({2}).",
+      "after": "The next {1} small talk says {0} ({2})."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.moment_line",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "  {0}: {1}",
+      "after": "  {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.none",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "nothing now",
+      "after": "nothing now"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.chatter_title",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Small talk that may carry a story line now ({0} of uses when one fits), by moment:",
+      "after": "Small talk that may carry a story line now ({0} of uses when one fits), by moment:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.forced_waiting",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Waiting to be said next: {0}.",
+      "after": "Waiting to be said next: {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.chatter_pools",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Small talk: {0} of {1} lines can be said now. Tips: {2}. Encyclopedia: {3} of {4} articles shown.",
+      "after": "Small talk: {0} of {1} lines can be said now. Tips: {2}. Encyclopedia: {3} of {4} articles shown."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.moment",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: the moment must be one of {1}.",
+      "after": "{0}: the moment must be one of {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.speakers",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: speakers must be one of {1}.",
+      "after": "{0}: speakers must be one of {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.no_placeholders",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} is shown with no player at hand, so it cannot use placeholders.",
+      "after": "{0} is shown with no player at hand, so it cannot use placeholders."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.mods_only",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story small talk, tips and encyclopedia (Framework 0.108.0): moment lead-ins a player hears in small talk, F3 chatter commands and pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} is shown with no player at hand, so its requires may list only mods.",
+      "after": "{0} is shown with no player at hand, so its requires may list only mods."
     }
   ],
   "documents": [
@@ -81949,8 +82222,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c2b1cc5af19d364499d4d4eaea0df5d436d9d47fdebcc9bf0d84f028013f58f7",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "f2951d1f15396b81212fb8b5f66afda4b9cda481afe173229dcaadd5969de5c8",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -81977,8 +82250,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7fd2afaf665179625d3e54f5a5a58fcc602569b5757f5de4d6ec41ff2ed4795e",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "1ccb1202965c1648bf7c8d4d72af6fd823475251ec6dc3a21050ed28ff9df60e",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -82110,8 +82383,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7c8943d5623d93f81e913a1cdd423674460fcc69912ab90286a471a0f148845e",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "04a1a05375ee3bf8ddeb665a16717234490a0709a126a8fb42fbfb81e63868c9",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/crew-automation.md",
@@ -82739,8 +83012,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "b3b7c5bf9bda09da364e16fbcb73c56378fefb813f49f49051e8c1a9c8966eed",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "9d6bf10e3253661bfcc55a0813d543dcbc1fcb7684a062b18db9719cbda1f0db",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -82979,8 +83252,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "cb6f323bac6aff3064f2d4732a6785937168982590612d59b310622b3737a648",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "39a80dff0b33dfb3b7b0ff5b8bc8ca2fe04759dbc6b87d09163305d485e040b8",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/equipment-economy.md",
@@ -83000,8 +83273,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8622391276f5d5fbd894ef5ccd2079ce1b106096a2bc8b7310215c98ea319c58",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "4dcae9fd52c4a4e86e43bd3ebc2f6564a6a593ae52c0b15f4e9d8b4bdd90e21d",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -83063,8 +83336,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b2fd2020ff01493a4a1b578690f00a3b8facf36245320b8abeb16d2dd7aba105",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "811bad85b7bb8d26f6c1681c12e9cb6ca4addbe6bdd8bfca60133af7dcf84fed",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/item-references.md",
@@ -83126,8 +83399,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bb41fbb6c781e29c625bb1e431770609a1fdec32bb0865f1ac8eed3ac9736852",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "6f1c972d0ff10a8f46bf4b67f194ea2c9b45504e6784ff81d0d6ee70cf645680",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -83238,8 +83511,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1949b2e07c7b176d7b9704c9e5fc355ad4237ff1bb0c0c21cbe75a5c9c69fd98",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "1718f5bc0b129f10baab25ec8cc5a250cce6d5ae129384020ca4fa551f41134a",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -83252,8 +83525,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5d45ec43cf1ffd2cee3e2622736e23e5fda8122bcad41263de5294b1671288fe",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "7cf872ffd35513f39f07a5bf565ecf484ca35cb406aef3a27cfc68edcb1a768e",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -83294,15 +83567,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "1641f3f93400a5909326c98c1d5da76184e6e7232448fe871a0af4cd12087adb",
-      "review": "Framework 0.107.0 story content review, 6 October 2026: F3 commands marked optional"
+      "sha256": "e629f270e92c8a96334d93ec6a4b402d46a0e962f6ebe9dcb52571b11934219c",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "13fc39aed696be16f49ec5a45b4b3981a0cc89d2fbbc26bb294ff305c15e6278",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "233e95b41cb0b3581951eac4c88a72570694b372041370f32b49f5d7419fec4c",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     }
   ],
   "surfaces": [
@@ -83326,8 +83599,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5db73a58c2d096f3186933e3aa3e1f0a999a68e641736dfee1710982495045ba",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "21c4f53155eaaeaf7240177682af402a1b1c150603a7c14e4050e9f2dcf7b724",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -83361,8 +83634,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c25f6c406458e0548210d7779039656a61d6efb1e25f9bdf77be3e01365e7afb",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "2d1e190bc80f303b3e0412dfccb55127325a0c89bf0799ad06a31afbdaa6ac4f",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -83434,14 +83707,14 @@
     {
       "path": "mods/PhobosAgriculture/framework/story.json",
       "scope": "shipped story content: TV news, adverts and goal text",
-      "sha256": "5b8c38a15dae92c6136821c468bffe0d9ed29ab528d5df6da577a2f529940135",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "e04b10a78a164491f455d49452b953dc74c3b11ac394339bfb7e7db86c8f5489",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
       "path": "mods/PhobosFramework/framework/story.json",
       "scope": "shipped story settings; no player text beyond its notes",
-      "sha256": "98ce0e4d0dce155302b641628154bbcec3a8c9e0a44d3f709e64391ed7463ebc",
-      "review": "Framework 0.107.0 story content review, 6 October 2026"
+      "sha256": "fc52a44631b34b206fc5bff3856b9916f83ef19a8719dbcc95793407034cae7d",
+      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     }
   ],
   "hardcodedReview": {

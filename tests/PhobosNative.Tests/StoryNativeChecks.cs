@@ -46,5 +46,28 @@ internal static class StoryNativeChecks
             "RemoveObjective's parameters are named as the dismissal postfix expects");
         check(typeof(DataHandler).GetMethod("GetHeadline")?.ReturnType == typeof(JsonHeadline) && typeof(DataHandler).GetMethod("GetAd")?.ReturnType == typeof(JsonAd),
             "The TV asks the game for one headline and one advert at a time");
+
+        // Framework 0.108.0: small talk, loading tips and encyclopedia articles.
+        check(library.Chatter.Count == 6 && library.Tips.Count == 2 && library.Sections.Count == 2 && library.Articles.Count == 2 && library.Lines.Count == 9,
+            "The seed's small talk (six lines and three news mentions), tips and articles load");
+        foreach (var pair in StoryMoments.Interactions)
+            foreach (var name in pair.Value)
+                check(DataHandler.dictInteractions.TryGetValue(name, out var interaction) && !string.IsNullOrEmpty(interaction.strDesc), "A moment's small talk is the game's own: " + name);
+        // Every grammar token a lead-in uses already appears in the game's own social lines, so the game inflects it.
+        var tokens = new System.Text.RegularExpressions.Regex(@"\[[^\]]+\]");
+        var vanilla = new System.Collections.Generic.HashSet<string>(DataHandler.dictInteractions.Values.SelectMany(i => tokens.Matches(i.strDesc ?? "").Cast<System.Text.RegularExpressions.Match>().Select(m => m.Value)));
+        var catalog = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(repo, "translations", "PhobosFramework", "en.json")));
+        foreach (var moment in StoryMoments.Interactions.Keys)
+        {
+            string? leadIn = (string?)catalog["Story.moment." + moment];
+            check(leadIn != null && leadIn.Contains("{0}"), "Each moment has a lead-in with a place for the line: " + moment);
+            foreach (System.Text.RegularExpressions.Match token in tokens.Matches(leadIn ?? ""))
+                check(vanilla.Contains(token.Value), "A lead-in uses only grammar tokens the game's own lines use: " + moment + " " + token.Value);
+        }
+        var nodes = StoryLore.Nodes(library, _ => true, (owner, key, inline) => inline);
+        check(nodes.Count == 4 && nodes.All(n => n.Parent == null || nodes.Any(p => p.Name == n.Parent)) && nodes.All(n => n.Name.StartsWith(StoryLore.NodePrefix, StringComparison.Ordinal)),
+            "Both shared sections show with Agriculture's articles; every parent is ours and no name is the game's");
+        check(typeof(DataHandler).GetMethod("GetTip")?.ReturnType == typeof(JsonTip) && typeof(Info).GetMethod("BuildHierarchyFromJSON") != null,
+            "Loading tips come one at a time, and the encyclopedia builds its tree in the method we prepare for");
     }
 }

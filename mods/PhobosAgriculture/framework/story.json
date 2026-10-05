@@ -1,25 +1,28 @@
 {
   "schemaVersion": 1,
   "schema": "story",
-  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod).",
+  "notes": "Agriculture's story pack (Agriculture 0.60.0): TV news, adverts and one short arc about Verdemorrow Agronomics, so story content can be tried in play; since 0.61.0 also small talk, loading tips and two encyclopedia articles. A seed for writers to expand; see docs/writing-story-content.md. Your own entries go in BepInEx/config/PhobosAgriculture/story/*.json (or in BepInEx/config/PhobosFramework/story for content that belongs to no mod).",
   "broadcasts": {
     "verdemorrow-seed-trials": {
       "title": "Continuance trials",
       "region": "Outer System",
       "text": "Verdemorrow Agronomics says its Continuance seed lines have now come through forty growing cycles aboard working ships, from ore haulers to salvage tugs. Crews on long runs report fresh lettuce at the galley table and fewer arguments over the last tin of beans. The company is keen to add that a grow rack is not a farm: keep the air warm, the water clean and the nutrients coming, or the rack will let you know.",
-      "weight": 2
+      "weight": 2,
+      "mention": "Verdemorrow reckon their seed has done forty cycles on working ships. Fresh lettuce every time, they say."
     },
     "dwarf-wheat-shortage": {
       "title": "Seed wheat short",
       "region": "Shipping & Inner System",
       "text": "Dwarf wheat is in short supply along the inner routes this quarter. Brokers blame a poor season in the Tharsis greenhouses and a rush of ship crews who have discovered fresh bread. Verdemorrow Agronomics is asking spacers who grow their own to hold back some grain for the trials rather than eat the lot.",
-      "notes": "Also the bulletin that opens the arc verdemorrow-grain-sample."
+      "notes": "Also the bulletin that opens the arc verdemorrow-grain-sample.",
+      "mention": "Dwarf wheat is short all along the inner routes. Seems everyone has discovered bread at once."
     },
     "galley-survey": {
       "title": "Galley survey",
       "region": "Outer System",
       "text": "A survey of long-haul crews puts a hot meal from their own galley ahead of shore leave, a working shower and, in one case, the captain. Hearth-2 owners were the most cheerful respondents, though researchers note they were also the only ones who had eaten that day.",
-      "requires": { "owns": [ "PhobosVerdemorrowHearth2Installed" ] }
+      "requires": { "owns": [ "PhobosVerdemorrowHearth2Installed" ] },
+      "mention": "Some survey reckons crews rate a hot meal from their own galley above shore leave. Can't say I disagree."
     }
   },
   "adverts": {
@@ -76,6 +79,62 @@
           }
         }
       ]
+    }
+  },
+  "chatter": {
+    "rack-hum": {
+      "moment": "complaint",
+      "speakers": "crew",
+      "line": "That grow rack hums all night. I can hear it through the bulkhead.",
+      "requires": { "owns": [ "PhobosVerdemorrowFirstlight4Installed" ] }
+    },
+    "flatbread-joke": {
+      "moment": "joke",
+      "speakers": "crew",
+      "line": "What's the difference between Hearth flatbread and a ration bar? Eighty-four hours of wheat and somebody who cares.",
+      "requires": { "owns": [ "PhobosVerdemorrowHearth2Installed" ] }
+    },
+    "crop-worry": {
+      "moment": "worry",
+      "speakers": "crew",
+      "line": "Every time the cabin warms up I think the crop's going to cook. Then I go and check the panel again.",
+      "requires": { "owns": [ "PhobosVerdemorrowFirstlight4Installed" ] }
+    },
+    "kiosk-potatoes": {
+      "moment": "small-talk",
+      "speakers": "others",
+      "line": "Saw a hauler crew trading their own potatoes at the kiosk. Potatoes. Out here."
+    },
+    "verdemorrow-beginnings": {
+      "moment": "story",
+      "speakers": "others",
+      "line": "Old hand told me Verdemorrow started with one rack bolted into an ore hauler's galley. Probably true, the way they tell it."
+    },
+    "unnamed-crop": {
+      "moment": "superstition",
+      "line": "Never name a crop before it's harvested. Everybody knows that."
+    }
+  },
+  "tips": {
+    "verdemorrow-idea": {
+      "text": "Verdemorrow Agronomics was founded on a simple idea: a crew that grows some of its own food goes further between stations. Its line, Where we go, life grows, is printed on every seed packet it sells."
+    },
+    "first-lettuce": {
+      "text": "Spacers on long hauls swear that the first fresh lettuce after a month of ration bars tastes better than anything a station galley serves."
+    }
+  },
+  "articles": {
+    "verdemorrow-agronomics": {
+      "section": "phobos-makers",
+      "label": "Verdemorrow Agronomics",
+      "title": "Verdemorrow Agronomics",
+      "body": "Verdemorrow Agronomics makes equipment for growing and cooking food aboard working ships. Its name is meant to suggest green growth and tomorrow, and its line, Where we go, life grows, is printed on every seed packet.\n\nThe company sells four lines. Firstlight cultivation racks grow a crop in four trays under their own lights. Hearth galley cookers turn produce into meals. Continuance is planting stock: seed potatoes and seed packets. Groundwork covers nutrients, water supply units and the benches that recover nutrients from crop waste.\n\nVerdemorrow's pitch is modest by station standards. A rack will not feed a crew on its own, but fresh food, a little less to buy at each dock and something growing aboard make a long run easier."
+    },
+    "growing-food-aboard": {
+      "section": "phobos-spacer-life",
+      "label": "Growing food aboard",
+      "title": "Growing food aboard",
+      "body": "A grow rack needs what a crew needs, only more steadily: power, water, warm air at a comfortable pressure, and a little carbon dioxide, which people breathe out anyway. Add nutrients, plant the seed and keep the cabin steady until harvest.\n\nMost of what goes wrong is the room, not the plant. A cabin that gets too hot or too cold stops a crop growing, and one left that way long enough loses it. The rack's panel says what it is waiting for.\n\nNothing grown aboard is free. Every kilogram of food comes from water, nutrients, carbon from the air and the electricity that lights the trays, and what the crop does not use ends up as residue to deal with."
     }
   }
 }

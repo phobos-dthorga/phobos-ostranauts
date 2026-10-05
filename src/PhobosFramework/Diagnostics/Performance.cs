@@ -43,6 +43,8 @@ public static class Performance
     internal static PerformanceMetric? FluidRouteRecheck = null;
     // Framework 0.107.0: the story check (goals, arc starts and the TV pools), every 30 real seconds by default.
     internal static PerformanceMetric? StoryCheck = null;
+    // Framework 0.108.0: choosing a story line for one use of the game's small talk.
+    internal static PerformanceMetric? StoryChatter = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {
