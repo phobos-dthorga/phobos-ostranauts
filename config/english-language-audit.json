@@ -67834,6 +67834,58 @@
       "after": "No nutrients. Put Groundwork nutrients in its W2's Inventory, or set a nutrient hopper within one tile of the W2."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "advice_order_working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.56.0: the rack's Next line names its crop crew order's state instead of asking for an order already running",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} is on the crew order {1}: {2}.",
+      "after": "{0} is on the crew order {1}: {2}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_order_waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.56.0: the rack's Next line names its crop crew order's state instead of asking for an order already running",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Crew order {0} is waiting: {1}",
+      "after": "Crew order {0} is waiting: {1}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_order_pending",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.56.0: the rack's Next line names its crop crew order's state instead of asking for an order already running",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Crew order {0} will see to this when a crew member is free.",
+      "after": "Crew order {0} will see to this when a crew member is free."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_order_stopped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.56.0: the rack's Next line names its crop crew order's state instead of asking for an order already running",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand.",
+      "after": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -80714,8 +80766,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e05e1ad6bb6f0aaf1d42c22cb22186b1fa4ee7913e06e229e2b8fd80cf84d379",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "74c98acfc2311327f1fbcfeb18fa38f4010a903465b916eea993b3ffd4641ae3",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "SUPPORT.md",
@@ -80742,8 +80794,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "12311e42e4746fa33e7970904a8202247c33d749b532bbf87f68b52bebdbbe40",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "6383158e80a381314e9b495286aa561abb9653191d11b3f19e90997a0fdb8764",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80763,8 +80815,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "cd8b9f2e5f2a37351a1422d3b002da3c6122698b988b77df39a965431353f484",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "5054eff2c48fde97634800b5a282a901f9f8ecc7b4aee54a0558a3139b7d6dea",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -80875,8 +80927,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "87983174a8c3c8237d3c0b49c0f19cbdd1db26ebac9ce6d020974a6d7df4a33b",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "1ecfbdbeb3b5e067ac5fddd83ca606cbb519d4603ec3117e35bdefc7284126d8",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81504,8 +81556,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "7d673de0d7aafb2a88989959672dbf4578b5d61a0579fd77db973e54ad932a91",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "fd5fe1ee31e112323fa83adf64bff22261ccf772aa917f8680b850b5fe2a4024",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -82003,8 +82055,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a03f074683b8daff2e166782c89af8602520ee921c93d220a27f02d03ec5850f",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "9fe3f1a11631f481566cec365ef15fde3dc1f35dbcd0a78b6d22016b104c2461",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82070,8 +82122,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "560b8a99f2106150fcd263e3c6241d2adc2fab42b2cd6a1eb4eebee2d3e04f9c",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "e4b955d571bc81ae3da2a27f7c68773de0906770b12d31273ec07bf8ffb0b75c",
+      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

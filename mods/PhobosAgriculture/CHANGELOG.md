@@ -10,6 +10,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.56.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- A rack with a crop crew order switched on no longer tells you to enable a crew order. When the rack is empty or its crop is ripe, its Next line now shows where the order stands: the crew member working on it and the step, the reason it is waiting, or why it stopped. It reads the same status as the Crew operations screen.
+
+### Save compatibility
+
+- Nothing saved changes.
+
+### Compatibility and limits
+
+- Problems the crew cannot fix, such as the room, power, water or nutrients, are still named first.
+- Checked offline; not yet seen in the game.
+
 ## [0.55.0] - 2026-10-05 - Draft
 
 ### Changed

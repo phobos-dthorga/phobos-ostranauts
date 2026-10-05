@@ -53,7 +53,9 @@ universal plant tolerances, and since Agriculture 0.55.0 they are data: see
 them or give one crop its own room.
 
 Every page of a rack's or W2's Control Panel ends with a **Next:** line naming the
-one thing it is waiting for: air, power, water, nutrients, seed or Start. For a
+one thing it is waiting for: air, power, water, nutrients, seed or Start. When a
+crop crew order is switched on, a rack that is empty or ripe shows where that order
+stands instead: who is working on it, what it is waiting for, or why it stopped. For a
 pipe-fed rack the quickest route is to link it to a W2 on the Supplies page. Linking
 switches the rack's water intake on and starts the W2's pump; both can still be
 switched off at their own panels. A rack also needs nutrients: 40 g packets loaded

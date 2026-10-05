@@ -23,7 +23,9 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
     public bool RoutineResume(CondOwner equipment) => true;
     public IReadOnlyList<string> Recipes(CondOwner co) => BulkDefinitions.IsWaterTank(co)?new[]{"bulk-fill"}:Definitions.IsCooker(co)?new[]{"cook"}:WorkupDefinitions.IsBench(co)?new[]{"recover-crop","formulate-nutrients"}.Concat(BenchConversions.All.Select(c=>c.Action)).ToArray():
         IrrigationDefinitions.IsSupply(co)?new[]{"supply","supply-charges","recover-solution"}:Crops.All.Select(c=>c.Id).ToArray();
-    public string RecipeLabel(string recipe) => Text.Has("crew_recipe_"+recipe)?Text.Get("crew_recipe_"+recipe):Crops.Find(recipe) is Crop grown?Text.Get("crew_recipe_other",grown.Name):Text.Get("crew_recipe_"+recipe);
+    public string RecipeLabel(string recipe) => Label(recipe);
+    /// <summary>An order's work as players read it ("Grow wheat"); shared with the rack's Next line.</summary>
+    internal static string Label(string recipe) => Text.Has("crew_recipe_"+recipe)?Text.Get("crew_recipe_"+recipe):Crops.Find(recipe) is Crop grown?Text.Get("crew_recipe_other",grown.Name):Text.Get("crew_recipe_"+recipe);
     public CrewWorkOffer? Next(CondOwner co,StandingOrder order,out string reason)
     {
         reason=CrewWork.Message("waiting");

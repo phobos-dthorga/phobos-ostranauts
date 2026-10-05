@@ -1,4 +1,5 @@
 using Phobos.Ostranauts.Framework.Controls;
+using Phobos.Ostranauts.Framework.Crew;
 using Phobos.Ostranauts.Framework.Liquids;
 using PhobosAgriculture.Core;
 
@@ -26,8 +27,28 @@ internal static partial class Service
     internal static string? RackNeed(Session s)
     {
         var b = s.State;
-        return RoomNeed(s, b.CropId) ?? (b.Ready ? Text.Get("advice_harvest") : b.CropId.Length > 0 && b.Health <= 0 ? Text.Get("advice_dead") :
-            SuppliesNeed(s) ?? (b.CropId.Length == 0 ? Text.Get("advice_plant") : b.Running ? null : Text.Get("advice_start")));
+        return RoomNeed(s, b.CropId) ?? (b.Ready ? OrderNeed(s) ?? Text.Get("advice_harvest") : b.CropId.Length > 0 && b.Health <= 0 ? Text.Get("advice_dead") :
+            SuppliesNeed(s) ?? (b.CropId.Length == 0 ? OrderNeed(s) ?? Text.Get("advice_plant") : b.Running ? null : Text.Get("advice_start")));
+    }
+    /// <summary>Where the rack's crew order stands, for the steps the order does itself (planting an empty rack,
+    /// harvesting or picking a ripe one), or null when it has no crop order switched on (Agriculture 0.56.0; owner
+    /// report, 5 October 2026: a rack with Grow wheat running still said "enable a crew order"). It reads the status the
+    /// Crew operations screen shows, so the two cannot disagree. Presentation only: nothing here changes the order.</summary>
+    private static string? OrderNeed(Session s)
+    {
+        var order = CrewWork.Order(s.Object);
+        if (order.Protected || order.Permission == WorkPermission.Disabled || Crops.Find(order.Recipe) == null) return null;
+        var status = CrewWork.ReadStatus(s.Object);
+        string name = AgricultureCrewProvider.Label(order.Recipe), detail = status.Detail.Replace('\n', ' ').Trim();
+        if (status.State == OrderState.NeedsSetup || status.State == OrderState.Disabled) return null;
+        if (status.State == OrderState.Stopped)
+            return Text.Get("advice_order_stopped", name, detail);
+        // A job held by a crew member: the status names them and the step (its own label) in place of the order's.
+        // The worker reads as Framework's "unassigned" text, from the same catalogue, while nobody holds the job.
+        if (status.Worker != CrewWork.Message("unassigned"))
+            return Text.Get("advice_order_working", status.Worker, name, status.Work);
+        // The order's own reason when it gave one; its plain "waiting for useful work" says nothing the pending line does not.
+        return detail.Length > 0 && detail != CrewWork.Message("waiting") ? Text.Get("advice_order_waiting", name, detail) : Text.Get("advice_order_pending", name);
     }
     /// <summary>Why nothing should be planted in a rack yet, or null: its room, its power, its water, its nutrients.</summary>
     /// <paramref name="cropId"/> is the crop about to be planted, whose own room limits apply.</summary>

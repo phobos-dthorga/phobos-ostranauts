@@ -370,6 +370,9 @@
   into a rack without water and nutrients; a stopped order leaves intake and a growing crop
   alone. Crops grow at 18 to 30 C (`GrowthRoom`; agent choice, 26 C before). New machines
   must say what each command did and what they wait for; never ship a silent success.
+  Agriculture 0.56.0 (owner go): where a crop crew order does the next step (planting an
+  empty rack, harvesting a ripe one), the Next line shows that order's status from
+  `CrewWork.ReadStatus` (`OrderNeed`), so the panel and Crew operations never disagree.
 
 - Owner direction (2026-10-05), Agriculture 0.55.0: **one nutrient for every crop**
   ("It's not like we're Farmer Simulator 25"). This supersedes the per-crop feeds,

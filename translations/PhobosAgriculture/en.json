@@ -387,5 +387,9 @@
   "crops_room_crop": "The growing room names the crop {0}, which is not in this file.",
   "crops_stress": "The stress rules are not valid. Hours and rates cannot be negative; a rate is at most 1 per hour.",
   "crops_feed_rule": "The W2 feeding figures are not valid. The nutrient target is above 0 and at most {0} kg; the feed strength is above 0 and at most 1.",
-  "advice_nutrients_piped": "No nutrients. Put Groundwork nutrients in its W2's Inventory, or set a nutrient hopper within one tile of the W2."
+  "advice_nutrients_piped": "No nutrients. Put Groundwork nutrients in its W2's Inventory, or set a nutrient hopper within one tile of the W2.",
+  "advice_order_working": "{0} is on the crew order {1}: {2}.",
+  "advice_order_waiting": "Crew order {0} is waiting: {1}",
+  "advice_order_pending": "Crew order {0} will see to this when a crew member is free.",
+  "advice_order_stopped": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand."
 }
