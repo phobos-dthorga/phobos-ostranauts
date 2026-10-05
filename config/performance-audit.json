@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "f23558551d3fdaabd15898f89d789ec9886231fe",
+  "baselineCommit": "2eedf2ce42fbfbd77fa23eb2a5d900af940c2a0f",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -4059,20 +4059,21 @@
     },
     {
       "path": "src/PhobosFramework/Diagnostics/PerformanceSession.cs",
-      "sha256": "8bfad447fc2e0263b4bcf27095d0041c6ccedde9f502cfa730685f4911ed218a",
+      "sha256": "56413266f0505e72212f3a8cf1ab04f7550b3628e580690f305d4bc8e58896ab",
       "role": "bounded opt-in recording",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "P7",
         "L22",
-        "L62"
+        "L62",
+        "L63"
       ],
       "indicators": {
         "runtime_hook": [
-          72,
-          80,
-          202
+          77,
+          85,
+          212
         ]
       },
       "reviewed": "2026-10-05"
@@ -5976,7 +5977,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "28bed0068c3e7fcddfadb16aa0373d69eae07a7f143675d8112243a99fed4c93",
+      "sha256": "91a429f9611d5a21d048607ee863977334d42b5b17ad40858fe5431cad4159b9",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -6035,7 +6036,8 @@
         "L54",
         "L56",
         "L57",
-        "L62"
+        "L62",
+        "L63"
       ],
       "indicators": {
         "collection": [

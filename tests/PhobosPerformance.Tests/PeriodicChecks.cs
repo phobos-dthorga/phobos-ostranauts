@@ -46,5 +46,27 @@ internal static class PeriodicChecks
         check(Command("export") && Command("start summary 30 100") && heapReads == 5, "A new window reads again at once");
         session.Stop(StopReason.Manual);
         check(Total(Capture(), 2).GetProperty("samples").GetInt64() == 0 && logs == 1, "A switched-off reading stays off for the session");
+        // Framework 0.105.0: windows of one recording share its id and are numbered from 1; a new start begins a new one.
+        // Windows here end at world changes, which the session follows without a real-time wait.
+        var folder = Path.Combine(directory, "series"); Directory.CreateDirectory(folder);
+        bool ready = true;
+        var rolling = new PerformanceSession(folder, () => ready, () => new Dictionary<string, string> { ["game"] = "test" }, _ => { });
+        Performance.Session = rolling;
+        bool Run(string text) => rolling.Command(("phobosframework perf " + text).Split(' '), out _);
+        (string Id, int Window)[] Files() => Directory.GetFiles(folder, "*.json").Select(f =>
+        {
+            using var json = JsonDocument.Parse(File.ReadAllText(f));
+            var meta = json.RootElement.GetProperty("metadata").EnumerateArray().ToDictionary(m => m.GetProperty("key").GetString()!, m => m.GetProperty("value").GetString()!);
+            return (meta["recording_id"], int.Parse(meta["window"]));
+        }).ToArray();
+        check(Run("start summary 30 100"), "A recording starts");
+        for (int i = 0; i < 2; i++) { ready = false; rolling.Poll(); rolling.Poll(); ready = true; rolling.Poll(); }
+        check(Run("stop"), "The recording stops and exports its last window");
+        var first = Files();
+        check(first.Length == 3 && first.Select(f => f.Id).Distinct().Count() == 1 && first.Select(f => f.Window).OrderBy(n => n).SequenceEqual(new[] { 1, 2, 3 }) && first[0].Id.Length == 32,
+            "Windows of one recording share its id and are numbered 1, 2, 3");
+        check(Run("start summary 30 100") && Run("stop"), "A second recording starts and stops");
+        var next = Files().Where(f => f.Id != first[0].Id).ToArray();
+        check(next.Length == 1 && next[0].Window == 1, "A new start is a new recording, numbered from 1 again");
     }
 }

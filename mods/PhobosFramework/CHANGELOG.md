@@ -28,6 +28,27 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.105.0] - 2026-10-05 - Draft
+
+### Added
+
+- Performance captures record each measured section's self time: the time it spent outside its own measured sections. Totals overlap; self times do not, so they show where the time actually went.
+- Every window of a recording carries the recording's id and its window number, so the Scope analyser's new series command can join an hour of windows into one timeline of memory, footprints, frame times and section cost, with the trend of each memory floor per recorded hour.
+
+### Changed
+
+- Ships Phobos Scope recorder 0.3.0 (capture format 3). The installer requires recorder 0.3.0 or later.
+- The comparison script reads format 3 and reports self time per second.
+
+### Save compatibility
+
+- Nothing saved changes. Recording stays off until you start it.
+
+### Compatibility and limits
+
+- Self time is elapsed time on the main thread, not CPU use, and includes game work a section waited on. The series time axis is recorded time: gaps between windows, such as world loads, are not on it.
+- Checked offline with synthetic captures; not yet recorded in the game.
+
 ## [0.104.0] - 2026-10-05 - Draft
 
 ### Added

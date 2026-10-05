@@ -75,3 +75,13 @@ class ComparisonTests(unittest.TestCase):
         report = perf.compare([row] * 3, [perf.analyse(capture())] * 3)
         self.assertTrue(any('bucket upper bounds' in w for w in report['warnings']))
         self.assertEqual(perf.compare([row] * 3, [row] * 3)['level_max_changes']['memory.managed_heap']['change_percent'], 0)
+
+    def test_format_three_self_time(self):
+        raw = dict(capture(), format_version=3, counter_aggregates=[])
+        raw['definitions'].append(dict(id=6, name='autonav.panel.refresh', kind='operation'))
+        raw['aggregates'] = [dict(metric=6, calls=10, total_ticks=3000, max_ticks=600, self_ticks=1500, incomplete=0)]
+        row = perf.analyse(raw)
+        self.assertEqual(row['operations']['autonav.panel.refresh']['self_ms_per_second'], 50)
+        self.assertEqual(perf.compare([row] * 3, [row] * 3)['operation_self_ms_per_second']['autonav.panel.refresh']['change_percent'], 0)
+        self.assertIsNone(perf.analyse(capture())['operations'].get('autonav.panel.refresh'))
+

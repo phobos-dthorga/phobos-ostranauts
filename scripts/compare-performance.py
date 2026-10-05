@@ -64,7 +64,7 @@ def frames_from_totals(totals):
 
 def analyse(data):
     version = data.get('format_version')
-    if version not in (1, 2):
+    if version not in (1, 2, 3):
         raise ValueError('Unsupported Scope capture format')
     definitions = {d['id']: d for d in data['definitions']}
     frequency = data['clock_frequency_hz']
@@ -80,7 +80,7 @@ def analyse(data):
     # Format 2 (recorder 0.2.0) keeps one complete total per counter; summary captures keep no samples at all.
     kinds = {d['name']: d['kind'] for d in definitions.values()}
     totals = {definitions[a['metric']]['name']: a for a in data.get('counter_aggregates', [])}
-    if version == 2:
+    if version >= 2:
         frame_samples, frame_report = frames_from_totals(totals)
     else:
         frame_samples, frame_report = len(frames), frames_from_samples(frames)
@@ -91,9 +91,11 @@ def analyse(data):
         operations[name] = {
             'calls': row['calls'], 'calls_per_second': row['calls'] / seconds,
             'inclusive_ms_per_second': row['total_ticks'] / frequency * 1000 / seconds,
-            'max_ms': row['max_ticks'] / frequency * 1000, 'incomplete': row['incomplete']}
+            'max_ms': row['max_ticks'] / frequency * 1000, 'incomplete': row['incomplete'],
+            # Format 3 (recorder 0.3.0): time outside the operation's own measured children; these do not overlap.
+            'self_ms_per_second': row['self_ticks'] / frequency * 1000 / seconds if 'self_ticks' in row else None}
     increments = {}
-    if version == 2:
+    if version >= 2:
         increments = {name: t['sum'] for name, t in totals.items() if kinds[name] == 'increment'}
     else:
         for sample in data['counters']:
@@ -151,6 +153,10 @@ def compare(before, after):
     names = set.intersection(*(set(r['operations']) for r in runs)) if before and after else set()
     operation_changes = {name: change([r['operations'][name]['inclusive_ms_per_second'] for r in before],
                                       [r['operations'][name]['inclusive_ms_per_second'] for r in after]) for name in sorted(names)}
+    self_changes = {name: change([r['operations'][name]['self_ms_per_second'] for r in before],
+                                 [r['operations'][name]['self_ms_per_second'] for r in after])
+                    for name in sorted(names)
+                    if all(r['operations'][name]['self_ms_per_second'] is not None for r in runs)}
     panel = operation_changes.get('autonav.panel.refresh', {}).get('change_percent')
     level_names = set.intersection(*(set(r['levels']) for r in runs)) if before and after else set()
     level_changes = {name: change([r['levels'][name]['max'] for r in before], [r['levels'][name]['max'] for r in after])
@@ -158,6 +164,7 @@ def compare(before, after):
     return {'warnings': warnings, 'before': before, 'after': after, 'frame_changes': frame_changes,
             'level_max_changes': level_changes,
             'operation_inclusive_ms_per_second': operation_changes,
+            'operation_self_ms_per_second': self_changes,
             'incomplete_operations': incomplete_operations,
             'panel_50_percent_target': None if warnings or panel is None or 'autonav.panel.refresh' in incomplete_operations else panel <= -50,
             'interpretation': 'Timings are inclusive wall time. Matching saves, workloads, graphics and recorder overhead require owner notes; this report does not establish exclusive CPU cost or gameplay correctness.'}

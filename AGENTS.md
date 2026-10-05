@@ -1315,6 +1315,11 @@
   with `Performance.RegisterFootprint`; weak tables need none. Memory per operation is unavailable
   (the game's Mono has no per-thread allocation counter); say so rather than estimate it. Follow
   `docs/performance-captures.md` and the Scope repository's own AGENTS.md for contract changes.
+  Steps 5 and 6 followed the same day (owner go): Framework 0.105.0 ships recorder 0.3.0 (format 3,
+  `self_ticks` per operation; self times never overlap, so they add up); each window carries
+  `recording_id` and `window` metadata, and analyser 0.4.0 adds counters to `compare` and a `series`
+  command that joins one recording's windows. Keep those two metadata keys whenever the adapter's
+  metadata changes; the series order depends on them.
 
 ## Industrial control direction (2026-09-24)
 

@@ -1,0 +1,29 @@
+[h1]Phobos Framework 0.105.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Performance captures record each measured section's self time: the time it spent outside its own measured sections. Totals overlap; self times do not, so they show where the time actually went.
+[*]Every window of a recording carries the recording's id and its window number, so the Scope analyser's new series command can join an hour of windows into one timeline of memory, footprints, frame times and section cost, with the trend of each memory floor per recorded hour.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Ships Phobos Scope recorder 0.3.0 (capture format 3). The installer requires recorder 0.3.0 or later.
+[*]The comparison script reads format 3 and reports self time per second.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Nothing saved changes. Recording stays off until you start it.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Self time is elapsed time on the main thread, not CPU use, and includes game work a section waited on. The series time axis is recorded time: gaps between windows, such as world loads, are not on it.
+[*]Checked offline with synthetic captures; not yet recorded in the game.
+[/list]

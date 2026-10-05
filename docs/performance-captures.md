@@ -17,7 +17,7 @@ receipts and refuses to modify a running game. Its `-WhatIf` option previews and
 `-VerifyOnly` checks files after installation. Game execution remains owner-run.
 
 Framework's plugin directory contains both `PhobosFramework.dll` and one
-`Phobos.Scope.Recording.dll` (0.2.0 since Framework 0.104.0). Consumer packages do not duplicate the recorder.
+`Phobos.Scope.Recording.dll` (0.3.0 since Framework 0.105.0). Consumer packages do not duplicate the recorder.
 The installer checks recorder identity/version and refuses missing, duplicate or
 newer conflicting shared copies. Check the BepInEx startup log for the versions you installed; the current
 prepared versions are listed in the player guide.
@@ -127,6 +127,35 @@ What none of this gives: memory per operation. That needs the per-thread allocat
 counter, which the game's runtime does not support (`allocation_measurement` reads
 `unavailable`). To see how much the mods use in all, compare captures of the same save
 with and without them, or with only Framework installed.
+
+## Self time and the recording series (Framework 0.105.0)
+
+Framework 0.105.0 ships recorder 0.3.0 (capture format 3). Each operation now also
+records its **self time**: the time spent outside its own measured children. A
+section's total includes everything nested inside it, so totals overlap; self times
+do not, so they show where the time actually went, and the report adds them up into
+the share of real time spent inside measured sections. Both are still elapsed time
+on the main thread, not CPU use, and self time includes any unmeasured game work the
+section waited on.
+
+Every window of one recording now carries `recording_id` (one per `perf start`) and
+`window` (1, 2, 3...) in its metadata. To see an hour as one timeline, point the
+Scope analyser at all of a recording's files:
+
+```text
+phobos-scope series NEW_REPORT_DIRECTORY BepInEx/captures/PhobosScope/*.json
+```
+
+`series.html` charts each window's lowest and highest memory and footprint readings,
+the mean and worst frame, and the ten costliest operations by self time. For each
+reading it gives the trend of the lowest value per recorded hour, from three windows
+up; a rising heap-after-collection floor is the leak sign to look for. The time axis
+is recorded time, so a world load between windows is not on it. Files from more than
+one recording, or windows missing in between, are reported.
+
+`phobos-scope compare BEFORE.json AFTER.json` now compares counters too: memory and
+footprint levels (mean, maximum, last), rates per second, and self ms per second.
+`scripts/compare-performance.py` reads format 3 and reports self ms per second.
 
 ## What is measured
 

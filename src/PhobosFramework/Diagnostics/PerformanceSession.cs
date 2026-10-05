@@ -35,6 +35,11 @@ internal sealed class PerformanceSession
     // The options of the running cycle, or null when recording is off.
     private CaptureOptions? rolling;
     private string? lastExport;
+    // Framework 0.105.0: every window of one recording carries the same recording id and its number within it, so the
+    // Scope series command can put an hour of windows back in order.
+    internal const string RecordingIdKey = "recording_id", WindowKey = "window";
+    private string recordingId = "";
+    private int window;
     internal bool IsRecording => !faulted && recorder.IsRecording;
     internal bool IsRolling => rolling != null;
     internal int AutoExports { get; private set; }
@@ -134,7 +139,12 @@ internal sealed class PerformanceSession
     }
     private void Begin(CaptureOptions options)
     {
-        options.Metadata = metadata();
+        window++;
+        var values = new Dictionary<string, string>();
+        foreach (var pair in metadata()) values[pair.Key] = pair.Value;
+        values[RecordingIdKey] = recordingId;
+        values[WindowKey] = window.ToString(CultureInfo.InvariantCulture);
+        options.Metadata = values;
         foreach (var context in contexts) context.Last = null;
         recorder.Start(options); CaptureSequence++;
         // A failing context provider is a diagnostic fault: recording stops, gameplay goes on.
@@ -196,7 +206,7 @@ internal sealed class PerformanceSession
                     if (Snapshot != null && exportedCapture != Snapshot.CaptureId)
                     { response = Text.Get("Performance.export_previous"); return false; }
                     if (!worldReady()) { response = Text.Get("Performance.world_required"); return false; }
-                    AutoExports = 0; lastExport = null;
+                    AutoExports = 0; lastExport = null; recordingId = Guid.NewGuid().ToString("N"); window = 0;
                     Begin(options); if (IsRecording) rolling = options;
                     response = Describe(); return IsRecording;
                 case "status": Poll(); response = Describe(); return true;
