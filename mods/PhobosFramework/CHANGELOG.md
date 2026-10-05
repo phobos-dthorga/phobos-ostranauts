@@ -28,6 +28,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.101.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Loading a save, or returning to the menu, no longer reports stores as destroyed. Each time a ship was unloaded the log said every tank, silo and store aboard was destroyed and its contents gone, and a K2 or AX-2 claimed to have dumped its gas into the room. Nothing was lost: the save kept it all. Unloading is now recognised as unloading, so stores, reactors and pipe contents say nothing while a ship is unloaded.
+
+### Compatibility and limits
+
+- A store destroyed in play is still reported, and its hazards still apply.
+- Automatic. Nothing saved changes.
+- Checked offline; not yet seen in the game.
+
 ## [0.100.0] - 2026-10-05 - Draft
 
 ### Fixed

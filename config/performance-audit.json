@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "8778d34062decc084ea75dd6ed807a3a4f6d3677",
+  "baselineCommit": "db2dd58dbf4f972343524e48d24b94784a6a5c6f",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -4092,10 +4092,10 @@
     },
     {
       "path": "src/PhobosFramework/FrameworkLifecycle.cs",
-      "sha256": "14079e75fa2559f6a2e0864d074391215a719f48ee67416d4ff22df5981251a8",
+      "sha256": "902bf1d89de0811256e7957b8af160d11a091800f348c3720abd275764823a4a",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R4",
         "H1",
@@ -4112,18 +4112,20 @@
         "L18",
         "L20",
         "L21",
-        "L24"
+        "L24",
+        "L54"
       ],
       "indicators": {
         "persistence_or_io": [
-          27,
-          65
+          34,
+          72
         ],
         "runtime_hook": [
-          77
+          84,
+          93
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Hazards/NativeDamage.cs",
@@ -5853,7 +5855,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "b989c490af2a1a8ba7840c847388034539955b6b8a1bda20b93fc2394230eeb3",
+      "sha256": "be50cbce19c6d37b48a9361a561f167e980bbb14e8edc45d3f8d18606571318d",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -5908,7 +5910,8 @@
         "L45",
         "L47",
         "L52",
-        "L53"
+        "L53",
+        "L54"
       ],
       "indicators": {
         "collection": [

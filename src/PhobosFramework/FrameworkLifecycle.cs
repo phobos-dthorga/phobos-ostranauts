@@ -13,10 +13,17 @@ public static class FrameworkLifecycle
     /// <summary>Routine bookkeeping lines (settled draws) at BepInEx's Debug level, which its disk log leaves out by default.</summary>
     internal static Action<string> LogDebug = _ => { };
     /// <summary>Whether an object is going because its whole ship is being unloaded (a reload, a return to the menu, a
-    /// despawn) rather than destroyed in play (Framework 0.73.0). The game marks the ship destroyed before its objects
-    /// go, and the game still reports itself loaded meanwhile. The save keeps what such objects held, so a destroy hook
-    /// must not release, vent or announce it as lost.</summary>
-    public static bool Unloading(CondOwner? co) => co?.ship != null && co.ship.bDestroyed;
+    /// despawn) rather than destroyed in play (Framework 0.73.0). The save keeps what such objects held, so a destroy hook
+    /// must not release, vent or announce it as lost. The game's <c>Ship.Destroy</c> marks the ship destroyed, then
+    /// takes each object off the ship before destroying it, so by then the object has no ship to ask (owner report,
+    /// Framework 0.101.0: every reload announced the stores' contents as lost). The ship's unload is therefore tracked
+    /// itself, while <c>Ship.Destroy</c> runs.</summary>
+    public static bool Unloading(CondOwner? co) => co != null && IsUnloading(co.ship != null && co.ship.bDestroyed, shipUnloads);
+    /// <summary>The rule, pure: the object's own ship is marked destroyed, or a ship's unload is under way.</summary>
+    public static bool IsUnloading(bool shipDestroyed, int shipsUnloading) => shipDestroyed || shipsUnloading > 0;
+    private static int shipUnloads;
+    internal static void ShipUnloadStarted() => shipUnloads++;
+    internal static void ShipUnloadFinished() { if (shipUnloads > 0) shipUnloads--; }
 
     private static void Notify(Action? handlers)
     {
@@ -79,4 +86,13 @@ internal static class FrameworkContentPatch
 {
     private static void Prefix() => FrameworkLifecycle.Begin();
     private static void Postfix() => FrameworkLifecycle.Complete();
+}
+
+/// <summary>Marks a ship's unload for <see cref="FrameworkLifecycle.Unloading"/> while the game's own Ship.Destroy runs,
+/// and always clears the mark afterwards, whatever happens inside.</summary>
+[HarmonyPatch(typeof(Ship), nameof(Ship.Destroy))]
+internal static class ShipUnloadPatch
+{
+    private static void Prefix() => FrameworkLifecycle.ShipUnloadStarted();
+    private static void Finalizer() => FrameworkLifecycle.ShipUnloadFinished();
 }

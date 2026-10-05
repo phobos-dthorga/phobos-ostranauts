@@ -1089,3 +1089,7 @@ L52 — Framework 0.99.0: a time-skip with a running machine and no crew order i
 ## 5 October: lines laid in walls (L53)
 
 L53 — Framework 0.100.0: the support test for a line segment now follows the lines data pack's rule: a dictionary probe for the family's rule, one tile condition per forbidden or support entry (four in the shipped rule) and, for each installed intact object on the tile, a floor test and at most one condition per support. The pack is read once per game load. It runs when a ship's line snapshot is rebuilt (at most every two real seconds, and only after a relevant part changed), never per frame. No capture accompanies this change.
+
+## 5 October: objects destroyed while a ship unloads (L54)
+
+L54 — Framework 0.101.0: one Harmony prefix and finalizer on the game's Ship.Destroy, each an integer step, once per ship unloaded. The destroy hooks' guard reads one more integer. Nothing is added to a frame. No capture accompanies this change.

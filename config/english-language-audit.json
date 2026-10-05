@@ -80277,8 +80277,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "926264a604277a0698a202e0e80b798fcfaf46f464bc8e4fe5f3adedcd38d824",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "321327c88dcfb37c83dfb8f717e3c241616081540d811ed2a9a4009800daafec",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "SUPPORT.md",
@@ -80438,8 +80438,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "26361e1c37b0c420964d5f6ea3c635d7421d201b9c843be550257296f036a6ae",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "1ddec9354631838f7afc9c232d50f87ff3f3023d1ab752b87a5b51c0dfe32fa6",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "docs/crew-automation.md",
@@ -81039,8 +81039,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3f05804410f4579863402a1e71f6355dcf5c9c687ce83e0f8d8150760f354050",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "1ca7b634e054ffe3c3204398befed84ff99569b48f27f52f42ca84e408e5efe7",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81230,8 +81230,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "de69879a2295e1d6df1adb00eac9740b15d9405da1e4abf0cf1d0e4089e0c614",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "8f9f8363fa9165b5c374a4c45d2b75961d7aa983197a268ec9c5d2fd5b3731db",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -81279,8 +81279,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "13856ab580b99abf840926f8e89769a7ad8e41449a2568a478df9132a14ebb47",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "683cb39dab040c383662d482901182afad4446417accb9405cd3222f05055885",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81405,8 +81405,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b70264b5fe78cfa446c8ffacaf629331854d70e944f7fe750dff89c4e933e61c",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "5fe0b13e11b08b25fd9559b46eebe182b729949a7d6eaf80b87872fd51739e1e",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "docs/residue-collector.md",
@@ -81524,8 +81524,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7ddee530e187a32f8052d0dca4f65620b81974d24e57e9487fcc077bae7a11f8",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "9389ecbcd1b6d0c562928a24377f24c209026ad1c4d44ee39a8557787f7e76bd",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -81647,8 +81647,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f8a4fadb3bcae87f0f4037c9f267e54d260f8ba66f92ec20d2bd521e4f045164",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "0d7a7bc85ed0b1eaa3d1aeea39d990c7f20539810b266e385b87d34c8c8dbe7a",
+      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

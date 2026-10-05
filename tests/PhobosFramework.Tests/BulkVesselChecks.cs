@@ -25,6 +25,11 @@ internal static class BulkVesselChecks
         Reject(() => BulkVesselSpec.CapacityFromVolume(1, 0), "A zero density cannot give a capacity");
         Reject(() => BulkVesselSpec.CapacityFromVolume(-1, 1000), "A negative volume cannot give a capacity");
 
+        // Framework 0.101.0 (owner report, 5 October 2026): an object destroyed while the game unloads a ship has already
+        // been taken off that ship, so a ship's unload under way counts as unloading too. Nothing held is announced as lost.
+        check(Phobos.Ostranauts.Framework.FrameworkLifecycle.IsUnloading(true, 0) && Phobos.Ostranauts.Framework.FrameworkLifecycle.IsUnloading(false, 1) &&
+              Phobos.Ostranauts.Framework.FrameworkLifecycle.IsUnloading(false, 2) && !Phobos.Ostranauts.Framework.FrameworkLifecycle.IsUnloading(false, 0),
+            "A store goes with its ship's unload when its ship is marked destroyed or any ship's unload is under way, and only then");
         BulkVessels.Unregister("test.owner"); BulkVessels.Unregister("other.owner");
         BulkVessels.Register(silo);
         check(BulkVessels.SpecFor("PhobosTestSiloInstalled") == silo && BulkVessels.SpecFor("PhobosTestSiloLooseDmg") == silo, "The four native forms of a family resolve to its declaration");

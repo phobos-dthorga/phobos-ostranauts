@@ -1239,6 +1239,11 @@
   fast-forward interactions when they pose a specific integration risk. Record
   the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.
+- Owner report (2026-10-05), Framework 0.101.0: **a ship's unload is not a loss.** The game's
+  `Ship.Destroy` takes each object off its ship before destroying it, so a destroy hook cannot
+  tell an unload from its own ship. Guard every `CondOwner.Destroy` hook that releases, vents
+  or announces contents with `FrameworkLifecycle.Unloading(co)`, which now also counts a ship's
+  unload under way (a `Ship.Destroy` prefix and finalizer); never test `co.ship.bDestroyed` alone.
 - Owner report (2026-10-05), Framework 0.100.0: **a line segment counts wherever the game
   lets it be laid.** Segments on wall tiles were refused by `NativeFluidRoute.SoundFloor`,
   which cut every line run inside a wall, where a ship's own conduit runs. A segment is now

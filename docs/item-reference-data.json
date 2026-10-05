@@ -13708,7 +13708,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.100.0",
+      "version": "0.101.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -64559,7 +64559,7 @@
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/lines.json": "ac424693585a396f89ebe21f1112306c6b9917c4c1a9321cc2d2aa91209ba85a",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "f8a4fadb3bcae87f0f4037c9f267e54d260f8ba66f92ec20d2bd521e4f045164",
+    "mods/PhobosFramework/mod_info.json": "0d7a7bc85ed0b1eaa3d1aeea39d990c7f20539810b266e385b87d34c8c8dbe7a",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "83fa147afc250148ce96baaa9d30b8129d142e9b10fca55282b96054c0a725fc",
@@ -64787,7 +64787,7 @@
     "src/PhobosFramework/Effects/SpriteAnimation.cs": "173b6721df76ce0883d5e7d18f6a32e06110c8c46ca81a52a23476d86163c475",
     "src/PhobosFramework/Effects/WorldBeam.cs": "bc3c08d033cbb81a50fd533a70f6e308685ad72516edfeba6f49a27f6dc2b331",
     "src/PhobosFramework/FrameworkConsole.cs": "f0580ce07d1005e83cc5fd6b83179981fe02dcc5562a55a6b4e8613ffd22959c",
-    "src/PhobosFramework/FrameworkLifecycle.cs": "14079e75fa2559f6a2e0864d074391215a719f48ee67416d4ff22df5981251a8",
+    "src/PhobosFramework/FrameworkLifecycle.cs": "902bf1d89de0811256e7957b8af160d11a091800f348c3720abd275764823a4a",
     "src/PhobosFramework/Hazards/NativeDamage.cs": "76c1920884e44c84a4c9d7354a63d409b75f72c6f28761cbbeed1e887a3c656f",
     "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
     "src/PhobosFramework/Health/PatientFacts.cs": "379da22987d34a687f6e6257ce5d36324293d5fcd9c469dd838688fd21e21663",
@@ -64872,8 +64872,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "c1f980f992f39a84c9484ab3e003ecaf1051c17751ec23c5f0bac9d9e83f7913",
-    "src/PhobosFramework/Plugin.cs": "b989c490af2a1a8ba7840c847388034539955b6b8a1bda20b93fc2394230eeb3",
+    "src/PhobosFramework/PhobosFramework.csproj": "fb22bcd66d58910fef8b123ad05134fb54585726a3593e2cd7c9c117731313c7",
+    "src/PhobosFramework/Plugin.cs": "be50cbce19c6d37b48a9361a561f167e980bbb14e8edc45d3f8d18606571318d",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "d9ddefe2a5076da7ff78e3cbe5cb8cc1365734e1e7a91e183d181039e31bd978",

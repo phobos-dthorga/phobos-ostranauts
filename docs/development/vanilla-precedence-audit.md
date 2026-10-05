@@ -363,7 +363,9 @@ nitrogen or carbon dioxide store by pipe (1 and 3 October 2026; save `pg8`, ship
   a reload, while still reporting itself loaded. Destroy hooks that release, vent or log
   contents (bulk vessels, line contents, Manufacturing stores and reactors) now skip an
   object whose ship is being unloaded (`FrameworkLifecycle.Unloading`); the save keeps
-  what it held. Native destruction itself is never blocked.
+  what it held. Native destruction itself is never blocked. (Correction, Framework 0.101.0:
+  the test missed objects already taken off the ship; see the section on objects destroyed
+  while a ship unloads.)
 
 ## Repair and Restore results (Framework 0.74.0, 3 October 2026)
 
@@ -503,3 +505,17 @@ Owner report: four W2s would not offer the process water silo, with an unbroken 
   `lines` data pack (`framework/lines.json`, `LineSchema`, `LinePlacement`), with player and add-on overrides and
   an optional rule per line family; the code only evaluates it. A native check holds the shipped rule to the
   game's own wall definitions and condition names.
+
+## Objects destroyed while a ship unloads (Framework 0.101.0, 5 October 2026)
+
+Owner report: every reload logged the stores aboard as destroyed with their contents lost.
+
+- **Native evidence.** `Ship.Destroy` sets the ship's `bDestroyed`, then for each object calls `RemoveCO`, which
+  clears the object's `ship`, and only then `CondOwner.Destroy`. The previous log showed the false lines straight
+  after "Destroying ship H-5YJG" in the unload that precedes a load.
+- **Ours.** `FrameworkLifecycle.Unloading` (Framework 0.73.0) asked whether the object's ship was destroyed. By the
+  time the object's destroy hook runs it has no ship, so the guard was false and the bulk-vessel, line-contents,
+  gas store, acid tank, K2 and AX-2 destroy hooks all fired during the unload.
+- **Verdict.** Keep the guard and track the unload itself: a Harmony prefix on `Ship.Destroy` counts an unload
+  under way and a finalizer always clears it. Nothing native is blocked or changed. A store destroyed in play,
+  outside a ship's unload, is still reported and still releases its contents.
