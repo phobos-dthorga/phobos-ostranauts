@@ -37,8 +37,9 @@ internal static partial class FurnaceService
             if (!Content.Ready || !Intact(co)) { message = Text.Get("Furnace.install"); return false; }
             if (co.HasCond("IsLocked")) { message = Text.Get("Furnace.locked"); return false; }
             if (action == "repeat") return StartRepeat(s, binding, out message);
-            if (action == "cooling-direct" || action == "cooling-left" || action == "cooling-right")
-                return SetCoolingMode(co, action.Substring("cooling-".Length), out message);
+            // One piped mode since 0.80.0; the old left and right fitting commands still work and mean piped.
+            if (action == "cooling-direct" || action == "cooling-piped" || action == "cooling-left" || action == "cooling-right")
+                return SetCoolingMode(co, action == "cooling-direct" ? FurnaceCooling.Direct : FurnaceCooling.Piped, out message);
             if (action == "pair")
             {
                 if (CrewSim.coPlayer == null || CrewSim.system?.GetShipOwner(co.ship.strRegID) != CrewSim.coPlayer.strID)
@@ -296,21 +297,35 @@ internal static partial class FurnaceService
         var furnace = SelectedCooling(endpoint);
         return furnace != null && FurnaceRules.Machine(furnace.strCODef) && CoolingEndpoint(furnace) == endpoint ? SocketAt(furnace, endpoint) : FurnaceCooling.Socket.None;
     }
-    internal static string? ConnectionProblem(CondOwner furnace, CondOwner endpoint)
+    internal static string? ConnectionProblem(CondOwner furnace, CondOwner endpoint) => PlacementProblem(furnace, endpoint, false) ??
+        (PortPairing.Matches(Port(furnace), Port(endpoint)) ? null : Text.Get("Furnace.connection_unpaired"));
+    /// <summary>Why a cooling assembly cannot serve a furnace where the two stand, whatever is paired; null when it can.
+    /// <paramref name="brief"/> gives the short reasons a link picker's note uses.</summary>
+    private static string? PlacementProblem(CondOwner furnace, CondOwner endpoint, bool brief)
     {
         if (!FurnaceRules.Machine(furnace.strCODef) || furnace.ship == null || furnace.ship != endpoint.ship) return Text.Get("Furnace.connection_ship");
         if (!Mounted(furnace) || !Mounted(endpoint)) return Text.Get("Furnace.install");
         if (Routed(furnace))
-        {
-            if (!CoolantRoute(furnace, endpoint, out _)) return Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit);
-            return PortPairing.Matches(Port(furnace), Port(endpoint)) ? null : Text.Get("Furnace.connection_unpaired");
-        }
+            return CoolantRoute(furnace, endpoint, out _) ? null : !brief ? Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit) :
+                FurnaceRules.Underside(endpoint.strCODef) ? Text.Get("Links.port_piped") : !CoolingMounted(endpoint) ? Text.Get("Furnace.radiator_mount_fault") : Text.Get("Links.no_pipe");
         if (SocketAt(furnace, endpoint) == FurnaceCooling.Socket.None) return Text.Get("Furnace.connection_socket");
         if (!IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z)) return Text.Get("Furnace.connection_rotation");
         if (!CoolingMounted(endpoint)) return Text.Get(FurnaceRules.Underside(endpoint.strCODef) ? "Furnace.port_support" : "Furnace.radiator_mount_fault");
-        if (!PortPairing.Matches(Port(furnace), Port(endpoint))) return Text.Get("Furnace.connection_unpaired");
         return null;
     }
+    private static IEnumerable<CondOwner> CoolingAboard(CondOwner furnace) => IndustryService.Discover(furnace.ship).Where(c => c != furnace && FurnaceRules.Cooling(c.strCODef));
+    // A cooling assembly already paired with other equipment (another furnace, or a mining laser) is not free.
+    private static bool PairedElsewhere(CondOwner furnace, CondOwner endpoint)
+    {
+        var link = PortPairing.Read(Port(endpoint));
+        return link.State != PortLinkState.Unlinked && !PortPairing.Matches(Port(furnace), Port(endpoint));
+    }
+    private static string? CoolingProblem(CondOwner furnace, CondOwner endpoint) => Get(endpoint).Protected ? Text.Get("Furnace.protected") :
+        PlacementProblem(furnace, endpoint, true) ?? (PairedElsewhere(furnace, endpoint) ? Text.Get("Links.paired_elsewhere") : null);
+    /// <summary>The cooling assemblies a furnace can pair with where they stand (Shipbreaker 0.80.0; the list used to
+    /// offer every one aboard and refuse on Apply), and why the others aboard are not offered.</summary>
+    internal static IEnumerable<CondOwner> CoolingCandidates(CondOwner furnace) => CoolingAboard(furnace).Where(c => CoolingProblem(furnace, c) == null);
+    internal static string CoolingNote(CondOwner furnace) => LinkNotes.For(CoolingAboard(furnace), c => CoolingProblem(furnace, c));
     internal static string Describe(CondOwner co) => DescribeCore(co) + "\n" + ChargeStatus(Get(co)) +
         (FurnaceRules.Machine(co.strCODef) && !Get(co).Protected ? "\n" + RepeatStatus(co) : "");
     private static string DescribeCore(CondOwner co)

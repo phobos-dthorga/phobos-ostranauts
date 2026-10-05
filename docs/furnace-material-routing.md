@@ -87,10 +87,11 @@ Full native object IDs and reciprocal pair tokens identify each endpoint. There
 is no nearest-machine fallback, split, fan-out or automatic replacement binding.
 Damage and uninstallation preserve logical addresses for explicit unlinking.
 
-The furnace input is at local **(-2.5, -2.5)** and output at **(+2.5, -2.5)**,
-rotated with its heading. The live installation key marks both front corners.
-These are the belt approaches inside the 6 x 6 footprint: a conveyor belt tile on
-or beside the marker joins it. They do not route through pipes or electrical conduit. The middle front
+Since Shipbreaker 0.80.0 a conveyor belt on or beside any edge of the furnace joins
+it, for feed and for products alike, as it joins every other machine. Before, feed
+joined only at the front corner at local **(-2.5, -2.5)** and products at
+**(+2.5, -2.5)**; the installation key still marks both, and belts laid to them
+still join. Belts do not route through pipes or electrical conduit. The middle front
 operator aisle and cooling connections keep their existing roles.
 
 Routing requires an intact conveyor belt run between the two (or the two within one

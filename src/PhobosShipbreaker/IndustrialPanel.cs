@@ -320,9 +320,9 @@ public sealed class IndustrialPanel : GUIData
             FurnaceInstallationView.Build(actions,target);
             string cooling=FurnaceService.CoolingSelection(target);
             C.Field(actions,C.Text("cooling"),ObjectPresentation.Name(cooling),
-                ()=>Connection(target,"pair",C.Text("cooling"),cooling,()=>IndustryService.Discover(target.ship).Where(c=>FurnaceRules.Cooling(c.strCODef)),"unpair"),
+                ()=>Connection(target,"pair",C.Text("cooling"),cooling,()=>FurnaceService.CoolingCandidates(target),"unpair",()=>FurnaceService.CoolingNote(target)),
                 ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(cooling)),()=>Setting(target,"unpair"),CollectorService.Resolve(cooling)!=null,cooling!="none"&&!string.IsNullOrEmpty(cooling));
-            foreach(var mode in new[]{"direct","left","right"})PolarisWidgets.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
+            foreach(var mode in new[]{"direct","piped"})PolarisWidgets.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
             if(!Central)foreach(var service in new[]{"managed","sealed","fill","drain"})
             {var action="coolant-"+service;if(service=="fill"||service=="drain")Add(actions,action,label:Text.Get("Furnace.coolant_"+service));else PolarisWidgets.Button(actions,Text.Get("Furnace.coolant_"+service),()=>Setting(target,action));}
         }
@@ -335,10 +335,11 @@ public sealed class IndustrialPanel : GUIData
         ConfigurationSheet.Choices(shell,title,"",PanelConfiguration.Stamp(target),new[]{(value??action,title)},
             (string expected,string chosen,out string reason)=>PanelConfiguration.Apply(binding,target,expected,action,value==null?null:chosen,out reason));
     }
-    private void Connection(CondOwner target,string action,string label,string current,Func<IEnumerable<CondOwner>> candidates,string? unlink=null)
+    // The pickers offer what the machine reaches and say why the rest aboard is not offered (0.80.0).
+    private void Connection(CondOwner target,string action,string label,string current,Func<IEnumerable<CondOwner>> candidates,string? unlink=null,Func<string>? note=null)
     {
         ConfigurationSheet.Objects(shell,label,current,PanelConfiguration.Stamp(target),candidates,
-            (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,value=="none"?unlink??action:action,value=="none"?null:value,out reason),allowClear:unlink!=null);
+            (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,value=="none"?unlink??action:action,value=="none"?null:value,out reason),unlink!=null,note);
     }
     private void ShowRouting(CondOwner target)
     {
@@ -346,8 +347,9 @@ public sealed class IndustrialPanel : GUIData
         if(RoutingRules.IsReceiver(target.strCODef))
         {
             string peer=PanelConfiguration.Peer(target,false);
+            Func<IEnumerable<CondOwner>> sources=()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(c.strCODef,target.strCODef));
             C.Field(actions,C.Text("source"),ObjectPresentation.Name(peer),()=>Connection(target,"link-input",C.Text("source"),peer,
-                ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(c.strCODef,target.strCODef)),"unlink-input"),
+                ()=>sources().Where(c=>CollectorRoute.Find(target,c)!=null),"unlink-input",()=>LinkNotes.For(sources(),c=>CollectorRoute.ReachProblem(target,c))),
                 ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,"unlink-input",label:C.Text("clear")),CollectorService.Resolve(peer)!=null,peer!="none"&&!string.IsNullOrEmpty(peer));
             C.Field(actions,C.Text("filter"),CollectorService.FilterLabel(target),()=>ConfigurationSheet.Choices(shell,C.Text("filter"),"",PanelConfiguration.Stamp(target),RoutingRules.Choices(target.strCODef).Select(f=>(f,Text.Get("Industry.filter_"+f))),
                 (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,"filter",value,out reason)));
@@ -358,14 +360,15 @@ public sealed class IndustrialPanel : GUIData
         {
             // One chosen native store per machine; locating/clearing remains possible if it no longer resolves.
             string store=StorageService.Selection(target),label=Text.Get("Storage.destination");
-            C.Field(actions,label,ObjectPresentation.Name(store),()=>Connection(target,"link-store",label,store,()=>StorageService.Candidates(target),"unlink-store"),
+            C.Field(actions,label,ObjectPresentation.Name(store),()=>Connection(target,"link-store",label,store,()=>StorageService.Candidates(target),"unlink-store",()=>StorageService.Note(target)),
                 ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(store)),()=>Setting(target,"unlink-store",label:C.Text("clear")),CollectorService.Resolve(store)!=null,store!="none");
         }
         void Output(bool metals)
         {
             string peer=PanelConfiguration.Peer(target,true,metals),label=metals?Text.Get("Routing.metals_port"):C.Text("destination"),unlink=metals?"unlink-metals":"unlink-output";
+            Func<IEnumerable<CondOwner>> ports=()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(target.strCODef,RoutingRules.OutputPort(target.strCODef,metals),c.strCODef));
             C.Field(actions,label,ObjectPresentation.Name(peer),()=>Connection(target,"link-output",label,peer,
-                ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(target.strCODef,RoutingRules.OutputPort(target.strCODef,metals),c.strCODef)),unlink),
+                ()=>ports().Where(c=>CollectorRoute.Find(c,target)!=null),unlink,()=>LinkNotes.For(ports(),c=>CollectorRoute.ReachProblem(c,target))),
                 ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,unlink,label:C.Text("clear")),CollectorService.Resolve(peer)!=null,peer!="none"&&!string.IsNullOrEmpty(peer));
         }
         detailPage=true;Layout();

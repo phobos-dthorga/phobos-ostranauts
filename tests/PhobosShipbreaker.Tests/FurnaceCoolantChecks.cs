@@ -33,10 +33,19 @@ internal static class FurnaceCoolantChecks
         double request = heating.RequestedKJ(1, true, FurnaceCooling.PumpKW);
         double total = heating.TotalKJ; heating.Receive(request, 1); heating.Circulate(1, FurnaceCooling.PumpKW);
         Near(heating.TotalKJ, total + request + FurnaceCooling.PumpKW, "Heater and additional pump have a single complete energy budget");
-        foreach (string mode in new[] { "direct", "left", "right" })
-        {
-            check(FurnaceCooling.TryReadMode(new Dictionary<string,string> { ["mode"] = mode }, out var restored) && restored == mode, "Explicit mode survives reload");
-        }
+        // Shipbreaker 0.80.0: one piped mode. A record saved as the left or right fitting reads as piped.
+        foreach (var (mode, expected) in new[] { ("direct", "direct"), ("piped", "piped"), ("left", "piped"), ("right", "piped") })
+            check(FurnaceCooling.TryReadMode(new Dictionary<string,string> { ["mode"] = mode }, out var restored) && restored == expected, "A saved cooling mode survives reload: " + mode);
+        // Every layout that joined under the old fittings still joins: the furnace's side fittings lie right beside it,
+        // and the radiator's old service point is one of its join tiles. Corners and tiles further off do not join.
+        foreach (string side in new[] { "left", "right" })
+        { var old = FurnaceCooling.CoolantOffset(true, side); check(FurnaceCooling.OnOrBesideFurnace(old.X, old.Y), "The old furnace fitting lies in the join ring: " + side); }
+        check(FurnaceCooling.OnOrBesideFurnace(0.5, 0.5) && FurnaceCooling.OnOrBesideFurnace(-2.5, 3.5) && !FurnaceCooling.OnOrBesideFurnace(3.5, 3.5) && !FurnaceCooling.OnOrBesideFurnace(4.5, 0.5),
+            "Conduit joins under the furnace or right beside any side; not at a corner or a tile away");
+        var radiatorJoin = System.Linq.Enumerable.ToArray(FurnaceCooling.RadiatorJoinOffsets());
+        check(radiatorJoin.Length == 12 && System.Linq.Enumerable.Contains(radiatorJoin, FurnaceCooling.CoolantOffset(false, "")) && System.Linq.Enumerable.Contains(radiatorJoin, (-2.5, -2.5)) &&
+              System.Linq.Enumerable.All(radiatorJoin, o => o.Y == -2.5 || o.Y == -3.5),
+            "Conduit joins a radiator along its mounting wall or the row inside it, the old service point among them");
         check(!FurnaceCooling.TryReadMode(new Dictionary<string,string> { ["mode"] = "future" }, out _), "Unknown route mode is protected, never treated as direct");
         foreach (double angle in new[] { 0d, 90, 180, 270 })
         foreach (string mode in new[] { "left", "right" })

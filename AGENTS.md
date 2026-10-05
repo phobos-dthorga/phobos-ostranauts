@@ -263,8 +263,9 @@
 - Shipbreaker 0.16.0 / Framework 0.19.0 add optional F6-C sealed coolant conduits
   to a remote F6-R, using shared `NativeFluidRoute` and measured electricity.
   Follow `docs/furnace-coolant-conduits.md`: keep existing direct F6-R/F6-P pairs
-  and thermal saves; mode changes require cool/empty machinery. One circuit has
-  one furnace and one radiator, with distinct coolant/irrigation identities.
+  and thermal saves; mode changes require cool/empty machinery. One circuit had
+  one furnace and one radiator until Shipbreaker 0.80.0 (runs may now be shared;
+  pairing stays one to one), with distinct coolant/irrigation identities.
   The lumped loop retains heat in existing nodes, neglects pipe hold-up and
   requires incremental pump power. It is not a transferable water inventory or
   a fill/drain/leak model. Do not impose water on D4/R4 without a real process need.
@@ -1329,7 +1330,8 @@
   filters and cargo, with zero transport credit; since Shipbreaker 0.56.0 receiving
   that was running resumes by itself.
 - Front input/output approaches are (-2.5,-2.5)/(+2.5,-2.5) in furnace-local tile
-  coordinates, rotated with the 6 x 6 machine. Structural floor routes remain
+  coordinates, rotated with the 6 x 6 machine (since Shipbreaker 0.80.0 a belt on or
+  beside any edge joins the furnace; the corners are only the marked approaches). Structural floor routes remain
   distinct from coolant and electrical conduit. Reuse existing artwork; no new
   generated assets are needed. Gameplay validation remains with the owner.
 
@@ -1516,8 +1518,13 @@
   the irrigation conduit has the same rule since Agriculture 0.53.0 (a pumped network,
   `LineContents.Declare(..., pumped: true)`; a W2 within one tile of a rack feeds it
   directly; touching never chains runs; W2s share a pipe only while they mix one feed).
-  The F6-C coolant conduit keeps its exact points until the owner decides on
-  `docs/development/pipe-audit-2026-10-05.md` recommendation 1.
+  Owner go the same day, Shipbreaker 0.80.0: the F6-C conduit joins a furnace from under
+  or beside and a radiator along its mounting wall or the row inside it
+  (`FurnaceCooling.RadiatorJoinOffsets`), one `piped` mode replaces left/right (saved
+  ones read as piped), furnaces and radiators may share a run (pairing stays one to
+  one), and damaged or locked ends still join. A belt on or beside any edge joins the
+  F6 and the collector. Shipbreaker's pickers offer only what is in reach and explain
+  the rest (`LinkNotes`); keep new pickers to that.
 - Owner decision (2026-10-01): the T2 thaw unit and the ML-2 mining laser open
   Framework's shared `ProviderPanel` (Shipbreaker 0.63.0), like the water silos and
   Manufacturing's machines. The D4, R4, F6, G4, C2 and cooling assemblies keep the

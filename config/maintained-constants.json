@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.79.0",
+      "value": "0.80.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {

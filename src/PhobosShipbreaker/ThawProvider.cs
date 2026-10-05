@@ -27,7 +27,7 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Laser.cooling_field"), cooling.Length == 0 ? Text.Get("Laser.cooling_room") : ObjectPresentation.Name(cooling),
                 LaserService.RadiatorCandidates(co).Select(r => ("cooling:" + r.strID, r.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(r.strID) + "]"))
                     .Concat(new[] { ("cooling:none", Text.Get("Laser.cooling_room")) }),
-                "cooling:" + (cooling.Length == 0 ? "none" : cooling));
+                "cooling:" + (cooling.Length == 0 ? "none" : cooling), () => LaserService.CoolingNote(co));
             bool high = LaserService.HighPower(co);
             yield return new(Text.Get("Laser.power_field"), LaserService.PowerLabel(high),
                 new[] { false, true }.Select(h => ("power:" + (h ? LaserRules.PowerHigh : LaserRules.PowerStandard), LaserService.PowerLabel(h))),

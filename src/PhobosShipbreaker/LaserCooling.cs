@@ -65,6 +65,15 @@ internal static partial class LaserService
             .OrderBy(c => c.strID, StringComparer.Ordinal);
     }
 
+    /// <summary>Why each cooling assembly aboard is not offered to this head (Shipbreaker 0.80.0): loose, not touching,
+    /// or paired with something else.</summary>
+    internal static string CoolingNote(CondOwner laser)
+    {
+        string mine = CoolingPeer(laser);
+        return LinkNotes.For(ShipEquipment.Read(laser.ship, c => FurnaceService.IsSink(c)), c =>
+            !c.HasCond("IsInstalled") ? Text.Get("Furnace.install") : !Touching(laser, c) ? Text.Get("Links.not_touching") :
+            c.strID != mine && PortPairing.Read(FurnaceService.SinkPort(c)).State != PortLinkState.Unlinked ? Text.Get("Links.paired_elsewhere") : null);
+    }
     /// <summary>Pairs the head with a cooling assembly, or clears the pairing. Both need a paused laser and an
     /// assembly at 50 C or below, the furnace's own rule for changing what an assembly serves.</summary>
     internal static bool SetCooling(CondOwner co, ConsoleBinding? binding, string id, out string message)

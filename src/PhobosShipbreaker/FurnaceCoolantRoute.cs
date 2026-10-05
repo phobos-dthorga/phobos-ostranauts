@@ -20,15 +20,25 @@ internal static partial class FurnaceService
         if (status != SavedStateStatus.Ready || !FurnaceCooling.TryReadMode(fields, out var mode)) { s.Protected = true; return; }
         s.CoolingMode = mode;
     }
-    private static bool Routed(CondOwner furnace) => Get(furnace).CoolingMode != "direct";
-    // Use authored local points for both new and old saved objects; no map rewrite.
-    internal static Vector2 CoolantPoint(CondOwner co, string mode)
+    private static bool Routed(CondOwner furnace) => Get(furnace).CoolingMode != FurnaceCooling.Direct;
+    // Shipbreaker 0.80.0 (owner go, 5 October 2026: the rule the irrigation pipe took): conduit joins a furnace it runs
+    // under or right beside, on any side, and a radiator anywhere along its mounting wall or the row inside it. It used
+    // to join at one side fitting and one service point. A damaged or locked furnace or radiator still joins, so a hot
+    // loop keeps its path; the conduit itself must be intact.
+    private static int[] FurnaceJoin(CondOwner furnace) =>
+        FluidTopology.OnOrBeside(furnace.ship.nCols, furnace.ship.nRows, Phobos.Ostranauts.Framework.Inventory.BeltNetwork.FootprintCells(furnace));
+    private static int[] RadiatorJoin(CondOwner radiator)
     {
-        var p = co.GetPos();
-        var offset = FurnaceCooling.CoolantOffset(FurnaceRules.Machine(co.strCODef), mode);
-        var rotated = IntakeRules.Rotate(offset.X, offset.Y, co.tf.eulerAngles.z);
-        return new Vector2((float)(p.x + rotated.X), (float)(p.y + rotated.Y));
+        var ship = radiator.ship; var p = radiator.GetPos(); var cells = new List<int>();
+        foreach (var offset in FurnaceCooling.RadiatorJoinOffsets())
+        {
+            var r = IntakeRules.Rotate(offset.X, offset.Y, radiator.tf.eulerAngles.z);
+            int cell = ship.GetTileIndexAtWorldCoords1(new Vector2((float)(p.x + r.X), (float)(p.y + r.Y)));
+            if (cell >= 0 && cell < ship.nCols * ship.nRows && !cells.Contains(cell)) cells.Add(cell);
+        }
+        return cells.ToArray();
     }
+    private static bool Square(CondOwner co) => co.Item != null && IntakeRules.SameAngle(co.tf.eulerAngles.z, 0, 90);
     internal static readonly FluidSegmentFamily CoolantConduits = new("PhobosShipbreaker.Coolant", c => c.strCODef == FurnaceCooling.Conduit + "Installed");
     /// <summary>The conduit as a holding line (Shipbreaker 0.58.0), declared with the definitions; the pump fills it.</summary>
     internal static LineHoldUpFamily? CoolantHolding;
@@ -41,7 +51,7 @@ internal static partial class FurnaceService
         long step = NativeSteps.Frame;
         if (circuits.TryGet(step, furnace, out var circuit)) return circuit;
         var peer = SelectedCooling(furnace);
-        var path = peer != null && CoolantRoute(furnace, peer, out _) ? PipePath(furnace, s.CoolingMode, peer) : null;
+        var path = peer != null && CoolantRoute(furnace, peer, out _) ? PipePath(furnace, peer) : null;
         circuit = path == null ? Array.Empty<CondOwner>() : LineContents.Circuit(furnace.ship, CoolantHolding, path);
         circuits.Set(step, furnace, circuit);
         return circuit;
@@ -59,9 +69,31 @@ internal static partial class FurnaceService
         double used = LineContents.Top(circuit, CoolantHolding, CoolantCharge.Commodity, kg);
         s.Coolant.CleanKg = Math.Max(0, s.Coolant.CleanKg - used);
     }
-    private static int[]? PipePath(CondOwner furnace, string side, CondOwner endpoint, string endpointSide = "") =>
-        FluidRouteCache.Find(furnace, CoolantPoint(furnace, side), endpoint, CoolantPoint(endpoint, endpointSide), CoolantConduits,
-            allowLockedEndpoints: true, allowDamagedEndpoints: true);
+    /// <summary>The shortest run of conduit from a tile under or beside the furnace to one of the radiator's join tiles,
+    /// or null. Read from the ship's cached conduit layout; a route is remembered for the life of that layout.</summary>
+    private static int[]? PipePath(CondOwner furnace, CondOwner endpoint)
+    {
+        if (furnace == endpoint || furnace.ship == null || furnace.ship != endpoint.ship || !NativeFluidRoute.EndpointReady(furnace, true, true) ||
+            !NativeFluidRoute.EndpointReady(endpoint, true, true) || !Square(furnace) || !Square(endpoint)) return null;
+        var ship = furnace.ship;
+        if (ship.nCols < 1 || ship.nRows < 1) return null;
+        var topology = FluidRouteCache.Topology(ship, CoolantConduits);
+        if (topology.Overflow) return null;
+        var goals = RadiatorJoin(endpoint).Where(topology.Allowed).ToArray();
+        if (goals.Length == 0) return null;
+        int[]? best = null;
+        foreach (int start in FurnaceJoin(furnace))
+        {
+            if (!topology.Allowed(start)) continue;
+            foreach (int goal in goals)
+            {
+                if (topology.ComponentOf(start) != topology.ComponentOf(goal)) continue;
+                var path = topology.Path(start, goal);
+                if (path != null && (best == null || path.Length < best.Length)) best = path;
+            }
+        }
+        return best;
+    }
     // Advance, admission, settlement and the collector checks ask for the same route several times in one power
     // step; one answer per furnace and endpoint per step.
     private static readonly StepMemo<(CondOwner, CondOwner), int> routes = new();
@@ -71,32 +103,16 @@ internal static partial class FurnaceService
         if (!routes.TryGet(step, (furnace, endpoint), out cells)) { cells = CoolantRouteNow(furnace, endpoint); routes.Set(step, (furnace, endpoint), cells); }
         return cells > 0;
     }
-    private static readonly List<CondOwner> circuitOthers = new();
     private static int CoolantRouteNow(CondOwner furnace, CondOwner endpoint)
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.FurnaceRoute);
         if (FurnaceRules.Underside(endpoint.strCODef) || !CoolingMounted(endpoint)) return 0;
-        string side = Get(furnace).CoolingMode;
-        var path = PipePath(furnace, side, endpoint);
-        if (path == null || path.Length > FurnaceCooling.RouteLimit) return 0;
-        // A shared circuit cannot multiply pumping or radiator capacity. Include even
-        // damaged/idle endpoints; no unpaired machine may silently share this loop.
-        var outlet = CoolantPoint(furnace, side);
-        // The other furnace-family parts come from the shared world sweep (a mode switch offers a replacement at once),
-        // not from a walk over every object of the ship four times a second and on every power-step frame.
-        family.Members(circuitOthers);
-        foreach (var other in circuitOthers)
-        {
-            if (other == furnace || other == endpoint || !IsEquipmentDefinition(other.strCODef) || FurnaceRules.Underside(other.strCODef) ||
-                other.ship != furnace.ship || !NativeFluidRoute.EndpointReady(other, true, true)) continue;
-            if (FurnaceRules.Machine(other.strCODef))
-            {
-                if (FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, "left"), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true) ||
-                    FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, "right"), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true)) return 0;
-            }
-            else if (FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, ""), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true)) return 0;
-        }
-        return path.Length;
+        var path = PipePath(furnace, endpoint);
+        // Furnaces and radiators may share one run of conduit (Shipbreaker 0.80.0; until then a second furnace or
+        // radiator on the run stopped every loop on it, which ruled out furnaces set side by side). Nothing is
+        // multiplied by sharing: each furnace still pays for its own pump and rejects heat only into the one radiator
+        // it is paired with, and pairing stays one furnace to one radiator.
+        return path == null || path.Length > FurnaceCooling.RouteLimit ? 0 : path.Length;
     }
     private static bool SetCoolingMode(CondOwner furnace, string mode, out string message)
     {
@@ -106,7 +122,7 @@ internal static partial class FurnaceService
         if(s.Coolant.Enabled && mode=="direct") {message=Text.Get("Furnace.charge_service");return false;}
         if (!CoolingMode(furnace).TryWrite(new Dictionary<string, string> { ["mode"] = mode }))
         { s.Protected = true; message = Text.Get("Furnace.protected"); return false; }
-        s.CoolingMode = mode; s.State.Batch.Armed = false;
+        s.CoolingMode = mode; s.State.Batch.Armed = false; circuits.Invalidate(); routes.Invalidate();
         message = Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + mode)); return true;
     }
 }

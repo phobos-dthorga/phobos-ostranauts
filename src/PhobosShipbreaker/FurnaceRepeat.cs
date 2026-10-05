@@ -13,7 +13,7 @@ internal static partial class FurnaceService
 {
     internal const double RepeatRetrySeconds = 5;
     private static readonly string[] ManualActions = { "stop", "pause", "isolate", "seal", "resume", "start", "next", "auto-run", "step-run", "recipe",
-        "automatic", "step-mode", "equalize", "release", "cooling-direct", "cooling-left", "cooling-right", "pair", "unpair" };
+        "automatic", "step-mode", "equalize", "release", "cooling-direct", "cooling-piped", "cooling-left", "cooling-right", "pair", "unpair" };
     private static ObjectStateStore RepeatStore(CondOwner co) => new(co.mapGUIPropMaps, FurnaceRepeatRecord.StoreName, Text.Owner, FurnaceRepeatRecord.Schema);
     private static void ReadRepeat(Session s)
     {

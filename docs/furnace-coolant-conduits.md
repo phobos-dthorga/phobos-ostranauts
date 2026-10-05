@@ -9,7 +9,10 @@ or gameplay-validated. This extends the shared routing begun in
 [Agriculture](agriculture-water-conduits.md). Agriculture is not a dependency.
 
 The optional **Phobos' Rivetline F6-C Sealed Coolant Conduit** connects a furnace
-side fitting to an F6-R radiator elsewhere along the same ship's exterior.
+to an F6-R radiator elsewhere along the same ship's exterior. Since Shipbreaker
+0.80.0 the conduit joins a furnace it runs **under or right beside, on any side**,
+and a radiator anywhere along its mounting wall or the row of tiles just inside
+it; furnaces and radiators may share a run.
 Existing direct F6-R and adjacent F6-P installations retain their geometry,
 thermal records and saved pairings. A missing mode record means direct cooling.
 Piped F6-P connections are not supported: that fitting keeps its beside-furnace role.
@@ -17,23 +20,28 @@ Piped F6-P connections are not supported: that fitting keeps its beside-furnace 
 ## Installation
 
 1. Mount the F6-R outside over its six intact supporting hull walls, as before.
-2. Lay F6-C conduits on intact interior structural floor from a furnace side
-   fitting to the radiator's interior service point. There must be a pipe on
-   each endpoint tile and continuous cardinal adjacency between them.
+2. Lay F6-C conduit from any tile under or right beside the furnace to any tile
+   of the radiator's mounting wall, or of the row just inside it, with continuous
+   cardinal adjacency between them. Conduit may run on floor or inside walls.
 3. While the furnace is cool and empty and its existing cooling assembly is cool,
-   select **Piped cooling — left fitting** or **right fitting** in the local/C1
-   panel. Choose the radiator with the existing Pair control. F3 uses the same service:
+   select **Piped cooling** in the local/C1 panel. Choose the radiator with the
+   existing Pair control; the list offers the radiators the conduit reaches and
+   says why any other aboard is not offered. F3 uses the same service:
 
 ```text
-phobosfurnace cooling-left <full furnace ID>
+phobosfurnace cooling-piped <full furnace ID>
 phobosfurnace pair <full furnace ID> <full radiator ID>
 phobosfurnace status <full furnace ID>
 ```
 
-Use `cooling-right` for the other side or `cooling-direct` to return to the
-original mounting arrangement. Changing mode never moves equipment or discards
+Use `cooling-direct` to return to the original mounting arrangement. The older
+`cooling-left` and `cooling-right` commands still work and mean piped; a furnace
+saved with a left or right fitting loads as piped. Changing mode never moves equipment or discards
 stored heat. Unpair an old cool assembly before pairing a different one; existing
 reciprocal one-to-one pairing prevents duplicate radiator ownership.
+
+Until Shipbreaker 0.80.0 the conduit joined only at these fittings, which are
+still drawn and still join:
 
 | Connection | Local tile coordinate, rotated with its own equipment |
 | --- | --- |
@@ -41,13 +49,14 @@ reciprocal one-to-one pairing prevents duplicate radiator ownership.
 | Furnace right fitting | (+3.5, +0.5) |
 | F6-R interior pipe termination | (+0.5, -3.5) |
 
-The radiator mounting wall is at local y=-2.5; its service point is one tile
+The radiator mounting wall is at local y=-2.5; the inside row is one tile
 further inward. The existing sealed mounting assembly represents the penetration.
 Do not remove the wall or cut an atmospheric opening. The two machines may face
-different cardinal directions if their respective fitting tiles connect.
+different cardinal directions.
 
 Only intact installed F6-C conduits carry this route. Damaged, missing, unsupported
-or off-grid pipes block it. Walls, flex floors and EVA tiles are not pipe routes.
+or off-grid pipes block it. Flex floors and EVA tiles are not pipe routes; conduit
+inside a wall counts since Framework 0.100.0.
 Electrical cables retain their separate sockets and native power behaviour.
 Irrigation conduits do not carry coolant. Since Shipbreaker 0.52.0 the coolant line
 draws in its own green lane and depth, so it can share a tile with other kinds of
@@ -55,10 +64,13 @@ Phobos line and is told apart at a glance; the PDA's Conduits filter selects it,
 painting jobs on Equipment leaves it alone. Supply and return are two channels inside one jacket; corners,
 T-junctions and crosses connect both channels. Crosses are not isolated crossings.
 
-One circuit may touch only one furnace and one F6-R, including unused fitting
-connections to other installed equipment. Sharing a circuit blocks service.
-The selected shortest route is limited to **64 pipe tiles**; Framework's existing
-4,096-cell scan bound also applies. Extra capacity is never gained by branching.
+Several furnaces and radiators may share one run of conduit (Shipbreaker 0.80.0;
+before, a second furnace or radiator on a run stopped every loop on it). Pairing
+stays one furnace to one radiator: each furnace pays for its own pump and rejects
+heat only into the radiator it is paired with, so sharing a run adds no capacity.
+A shared run is one body of coolant, which every serviced furnace on it helps fill.
+The shortest route is limited to **64 pipe tiles**; Framework's existing
+4,096-cell scan bound also applies.
 
 ## Thermal model and interruptions
 

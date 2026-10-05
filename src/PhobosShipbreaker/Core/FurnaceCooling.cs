@@ -13,14 +13,36 @@ public static class FurnaceCooling
     public const double PumpKW = 1;
     public const int RouteLimit = 64;
     public const string Conduit = "PhobosFurnaceCoolantConduit";
+    /// <summary>The fittings of the first conduit rule (until Shipbreaker 0.80.0): the furnace's side fittings and the
+    /// radiator's one service point. Kept for the joints drawn there and for checks that old layouts still join.</summary>
     public static (double X, double Y) CoolantOffset(bool furnace, string mode) => furnace
         ? mode == "left" ? (-SideX, SideY) : mode == "right" ? (SideX, SideY) : throw new ArgumentException("Unknown coolant fitting.")
         : (.5, -3.5);
+    public const string Direct = "direct", Piped = "piped";
+    /// <summary>Reads a saved cooling mode. Since Shipbreaker 0.80.0 there is one piped mode: conduit under or right
+    /// beside the furnace joins it on any side, so a record saved as the left or right fitting reads as piped.</summary>
     public static bool TryReadMode(IReadOnlyDictionary<string, string> fields, out string mode)
     {
-        mode = "direct";
-        if (fields.Count != 1 || !fields.TryGetValue("mode", out var value) || (value != "direct" && value != "left" && value != "right")) return false;
-        mode = value; return true;
+        mode = Direct;
+        if (fields.Count != 1 || !fields.TryGetValue("mode", out var value) || (value != Direct && value != Piped && value != "left" && value != "right")) return false;
+        mode = value == Direct ? Direct : Piped; return true;
+    }
+    /// <summary>Where conduit joins an exterior radiator (Shipbreaker 0.80.0), in its own tile coordinates: any tile of
+    /// its mounting wall row, where conduit may run inside the wall, or of the row one tile further inside the ship. The
+    /// old single service point is one of them.</summary>
+    public static IEnumerable<(double X, double Y)> RadiatorJoinOffsets()
+    {
+        for (int x = 0; x < FurnaceRules.Footprint; x++)
+        {
+            yield return (x - (FurnaceRules.Footprint - 1) / 2.0, -2.5);
+            yield return (x - (FurnaceRules.Footprint - 1) / 2.0, -3.5);
+        }
+    }
+    /// <summary>Whether a point in the furnace's own tile coordinates lies under it or right beside it (corners excluded).</summary>
+    public static bool OnOrBesideFurnace(double x, double y)
+    {
+        double half = FurnaceRules.Footprint / 2.0, ax = Math.Abs(x), ay = Math.Abs(y);
+        return ax < half && ay < half || ax < half && ay < half + 1 || ay < half && ax < half + 1;
     }
     public static (double X, double Y) Offset(Socket socket) => socket switch
     {

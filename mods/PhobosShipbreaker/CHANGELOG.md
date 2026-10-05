@@ -31,6 +31,25 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.80.0] - 2026-10-05 - Draft
+
+### Changed
+
+- F6-C coolant conduit now joins a furnace it runs under or right beside, on any side, and a radiator anywhere along its mounting wall or the row of tiles just inside it. It used to join only at one side fitting and one service point.
+- One Piped cooling choice replaces the left and right fitting choices.
+- Several furnaces and radiators can share one run of conduit, so furnaces can stand side by side. Each furnace still cools only through the radiator it is paired with. Before, a second furnace or radiator on a run stopped every loop on it.
+- A conveyor belt on or beside any edge now joins the F6 and the C2 collector. The F6 used to take feed at one front corner and give products at the other, and the collector joined only along its service row.
+- The link lists for routes, storage, furnace cooling and the mining laser's cooling now offer only what is in reach, and say why anything else aboard is not offered. They used to list everything and refuse on Apply.
+
+### Save compatibility
+
+- Automatic. Conduit and belts laid to the old fittings still join. A furnace saved with a left or right fitting loads as piped, and saved pairs and routes are kept.
+
+### Compatibility and limits
+
+- A damaged or locked furnace or radiator still holds its coolant route, as before; the conduit itself must be intact.
+- Checked offline; not yet seen in the game.
+
 ## [0.79.0] - 2026-10-05 - Draft
 
 ### Changed

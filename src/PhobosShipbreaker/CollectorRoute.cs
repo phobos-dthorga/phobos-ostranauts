@@ -90,6 +90,9 @@ internal sealed class CollectorRoute
         }
         return null;
     }
+    /// <summary>Why no route joins a sender to a receiver, for a link picker's note; null when one does (0.80.0).</summary>
+    internal static string? ReachProblem(CondOwner port, CondOwner source) => Find(port, source) != null ? null :
+        CollectorRules.IsFamily(source.strCODef) && MountProblem(source) is string mount ? mount : Text.Get("Links.no_belt");
     internal static CollectorRoute? Find(CondOwner port, CondOwner source)
     {
         var ship = port.ship;
@@ -101,13 +104,16 @@ internal sealed class CollectorRoute
     private static int[] Cells(CondOwner co, bool input)
     {
         var cells = new List<int>(); var ship = co.ship;
+        // Shipbreaker 0.80.0 (owner go, 5 October 2026): a belt on or beside any edge joins the F6 and the collector, as
+        // it joins every other machine. The F6 used to join at one front corner tile for feed and the other for products,
+        // and the collector only along its service row, so machines set side by side could cover each other's tiles.
         if (FurnaceRules.Machine(co.strCODef))
-        {
-            var p = FurnaceMaterialRules.Point(input, 0);
-            cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, p.X, p.Y)));
-        }
+            cells.AddRange(BeltNetwork.FootprintCells(co));
         else if (CollectorRules.IsFamily(co.strCODef))
+        {
+            cells.AddRange(BeltNetwork.FootprintCells(co));
             for (int x = 0; x < CollectorRules.Width; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 0.5, -1)));
+        }
         else if (input && !RoutingRules.IsSender(co.strCODef))
         {
             // A passive native store: any tile of its footprint (a belt on or beside any edge joins it, Shipbreaker

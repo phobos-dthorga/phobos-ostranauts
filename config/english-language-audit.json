@@ -36970,14 +36970,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.coolant_pipe_desc",
       "category": "description",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs:21"
       ],
       "before": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. The sealed loop uses the equipment thermal stores; pipe hold-up and pressure are not simulated.",
-      "after": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. With serviced coolant the pump fills it, about 0.33 kg a tile, and it keeps its coolant: drain it into a canister before taking it up. The sealed assembly keeps it empty.",
+      "after": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Run it from under or right beside an F6 to an F6-R radiator's mounting wall or the row of tiles just inside it. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles. Furnaces and radiators may share a run; each furnace still cools only through the radiator it is paired with. With serviced coolant the pump fills it, about 0.33 kg a tile, and it keeps its coolant: drain it into a canister before taking it up. The sealed assembly keeps it empty.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -37378,15 +37378,15 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.coolant_fault",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/FurnaceOperations.cs:266",
         "src/PhobosShipbreaker/FurnaceService.cs:239"
       ],
       "before": "Coolant route unavailable. Use an exterior F6-R radiator, intact F6-C pipes on structural floor, at most {0} route tiles, and one furnace/radiator per circuit. Check rotations, supporting floor and both service points. Heat remains stored.",
-      "after": "Coolant route unavailable. Use an exterior F6-R radiator, intact F6-C pipes on structural floor, at most {0} route tiles, and one furnace/radiator per circuit. Check rotations, supporting floor and both service points. Heat remains stored.",
+      "after": "Coolant route unavailable. Use an exterior F6-R radiator and intact F6-C pipe, at most {0} tiles long, from under or right beside the furnace to the radiator's mounting wall or the row of tiles just inside it. Check for a gap, a damaged or drained section, or pipe with no sound floor or wall under it. Heat remains stored.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -69653,6 +69653,123 @@
       "after": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier."
     },
     {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.coolant_piped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Piped cooling",
+      "after": "Piped cooling"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.not_offered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Aboard, but not offered:",
+      "after": "Aboard, but not offered:"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "{0}: {1}",
+      "after": "{0}: {1}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Nothing suitable is aboard.",
+      "after": "Nothing suitable is aboard."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.no_belt",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "it does not touch this machine and no conveyor belt joins them. Lay belt from one to the other, or set them within one tile.",
+      "after": "it does not touch this machine and no conveyor belt joins them. Lay belt from one to the other, or set them within one tile."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.no_pipe",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "no F6-C pipe joins it to this furnace. Run pipe from under or right beside the furnace to the radiator's mounting wall or the tiles just inside it.",
+      "after": "no F6-C pipe joins it to this furnace. Run pipe from under or right beside the furnace to the radiator's mounting wall or the tiles just inside it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.port_piped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "a thermal port mounts beside the furnace. Choose Direct cooling attachment to use it.",
+      "after": "a thermal port mounts beside the furnace. Choose Direct cooling attachment to use it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.paired_elsewhere",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "it is paired with other equipment. Unpair it there first.",
+      "after": "it is paired with other equipment. Unpair it there first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Links.not_touching",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner go of 5 October 2026 on the pipe audit's recommendations",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "it does not touch the laser. Set it against the laser or one tile from it.",
+      "after": "it does not touch the laser. Set it against the laser or one tile from it."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "Bulk.sell_heading",
       "category": "control label",
@@ -80472,8 +80589,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fd51b43728b3b9537c1a762319c11622ea61de6d078c29a1ffcd1e4ad46312a3",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "1bc6ca6ced2289dcd4320edd8faf0b4276fdd0e5afe82b2ccf58699888889f8d",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "SUPPORT.md",
@@ -80633,8 +80750,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7d6e2c3e193195949b27cf3bba0b7141a7d40a6049d43803ee53e7a227b012fe",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "269d252a95247c808784a26c1ca5133ec58eeae533a825419a435dbba92afd46",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81262,8 +81379,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "dd74bde1fdf121b65362644f4a44d62b1fd0faf08ec823ca5cafebee8fb796a5",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "d043b0fb3a4c7cd97885bc229f87300f8e2d87f3afb2005aea89b89097894997",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81276,8 +81393,8 @@
       "path": "docs/development/pipe-audit-2026-10-05.md",
       "scope": "contributor audit record; decisions for the owner",
       "decision": "new",
-      "sha256": "c4b5108b948a067027f729705855fca8d20d3c09f597d955aa3b3e4d857d43ad",
-      "review": "Pipe and link audit: irrigation joins like the water line; every pipe family and link checked"
+      "sha256": "cb9f707cb2200b2179cd96c1c40a50269c140a5c73db0c72abcb11509230a3e4",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/development/polaris-interface-refresh.md",
@@ -81530,15 +81647,15 @@
       "path": "docs/furnace-coolant-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "e00472ff51182032f270ddece1b2987ca3a62f9c33200ae1691bf6c0616d286d",
-      "review": "Reviewed 1 October 2026 for Framework 0.64.0 and Shipbreaker 0.58.0: the coolant conduit holds its coolant; pumped circuits and canister receivers."
+      "sha256": "57783773ae2b84a27a186065211b4e3aeb118601d63284dac2337da19587ab28",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9e1bcee138b27957f726880ab86cd282cad98984624174b716520760edc00a84",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "8d539d32261228b5c5a04367d8d647cd62e96bab725343f80ccc809ae568aace",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/furnace-player-guide.md",
@@ -81579,8 +81696,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5b7abdef612479a9d1b0ec6eb7961dd804a937915ecfa07121b6e0acdf1c87fc",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "c38162283b2ec239c1ce29995b11ed848154ceba426cbd91479eb00fa9e62bb7",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/installing-mods.md",
@@ -81649,8 +81766,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d9d180a6694cdbc2eeae019018815db84a79eb1d02382727328ca7c037fa044e",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "ea8c9049dc696c306a07f07e55f23b83d6da664d46d86b26a74bac10b5670347",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -81705,8 +81822,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c41ac92dfa6b98790fdcb87661f75b1c14e344b0a2fc4c630f9b4447fb090e91",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "8dd6fcb7f7a939b4a06f2aea8ea962612775ff66c12ed184f2a00cef059b1fbe",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -81796,8 +81913,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "facc32abeeb3d9eacdd7a5ae42109f16e9a48900adbb85c24eb0494bf002ff81",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "d6a83a627073e3f9f5e0ea7b82c133c4674d81ec3c37feeaf266bc9035ff86b0",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -81811,8 +81928,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "934526838479048407c56a70456553260950bc39abdbe15d9583d6083a6adfbe",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "ddd3a8478ad82bfec595941ff1020b60138c6b9b3f52c7fd1084a94231aa83b3",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -81887,8 +82004,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1e709e833c42a2c5e125ac621b0643fbccaaf5a43cf6b80185c021454570508a",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "768e2b5e1bec15809ee46c6f53d5c1a8de32d1321bb4558c3e689e180c7634f8",
+      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

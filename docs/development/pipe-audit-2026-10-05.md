@@ -86,7 +86,22 @@ recycler capture). Medical, War Declared and Auto Nav have no material links. Th
 acid and ethanol links all follow the network rule and explain refusals. The exceptions are in the
 recommendations below.
 
-## Recommendations for the owner
+## Follow-up: Shipbreaker 0.80.0
+
+The owner approved recommendations 1 to 3 the same day ("you may apply those changes").
+- **F6-C conduit.** Conduit joins a furnace it runs under or right beside and a radiator along its
+  mounting wall or the row inside it; the old fittings lie among those tiles, so old layouts join.
+  One Piped cooling mode replaces the left and right fittings (saved ones read as piped; the old
+  commands still work). Furnaces and radiators may share a run: pairing stays one to one and each
+  furnace rejects heat only into its own radiator. A damaged or locked furnace or radiator still
+  joins, as before.
+- **Belts.** A belt on or beside any edge joins the F6, for feed and products alike, and the
+  collector (agent choice: the F6's separate feed and product corners were not kept, because the
+  routes are explicit pairings and no other machine separates them).
+- **Pickers.** Route sources and destinations, the storage destination, F6 cooling and the ML-2's
+  cooling field offer only what is in reach and say why the rest aboard is not offered.
+
+## Recommendations for the owner (as first written)
 
 1. **F6-C coolant conduit: give it the network rule, with care.** It still joins only at the
    furnace's chosen side fitting and at the radiator's service point, one tile inside its mounting

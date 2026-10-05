@@ -52,8 +52,13 @@ internal sealed class StorageService
     /// checks prove it), so they are not offered here rather than chosen and then stalling as full.</summary>
     internal static bool Eligible(CondOwner machine, CondOwner? store) => store != null && store != machine && machine.ship != null &&
         store.ship == machine.ship && store.Item != null && CrewWork.IsStore(store) && !BinRules.IsFamily(store.strCODef);
-    internal static IEnumerable<CondOwner> Candidates(CondOwner machine) =>
+    /// <summary>Every suitable store aboard, in reach or not.</summary>
+    internal static IEnumerable<CondOwner> Aboard(CondOwner machine) =>
         machine.ship == null ? Array.Empty<CondOwner>() : CrewWork.Stores(machine.ship).Where(c => Eligible(machine, c));
+    /// <summary>The stores offered: those the machine touches or a conveyor belt joins it to (Shipbreaker 0.80.0; the
+    /// list used to offer every store aboard and refuse the unreachable ones on Apply).</summary>
+    internal static IEnumerable<CondOwner> Candidates(CondOwner machine) => Aboard(machine).Where(c => CollectorRoute.Find(c, machine) != null);
+    internal static string Note(CondOwner machine) => LinkNotes.For(Aboard(machine), c => CollectorRoute.Find(c, machine) != null ? null : Text.Get("Links.no_belt"));
     private static bool Owned(CondOwner co) => CrewSim.coPlayer != null && co.ship != null && CrewSim.system?.GetShipOwner(co.ship.strRegID) == CrewSim.coPlayer.strID;
     private static string? MachineProblem(CondOwner machine) => !Supported(machine) ? Text.Get("Storage.unsupported") :
         ProcessingService.MachineProblem(machine) ?? (Owned(machine) ? null : Text.Get("Storage.owned_ship"));
