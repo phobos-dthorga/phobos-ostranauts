@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "schema": "lines",
+  "notes": "Where a pipe or conduit segment counts as laid (Framework 0.100.0). A segment joins its line only on a tile that carries one of the conditions a support names and none of the forbidden ones, with a matching object standing there, installed and intact. The rule named default covers every line (process water, gas, acid, ethanol, irrigation and coolant); a rule named after a line family id, such as PhobosFramework.ProcessWater or PhobosFramework.GasLine, applies to that family instead. Condition names are the game's own. Player files in BepInEx/config/PhobosFramework/lines override entries by name; a list you set replaces the shipped list.",
+  "placement": {
+    "default": {
+      "notes": "Floor, as before, and since 0.100.0 inside a wall, where a ship's own conduit runs: the game lets a segment be installed there, so it counts there. Flex floor and outside (EVA) tiles carry nothing.",
+      "forbiddenTiles": [ "IsFloorFlex", "IsEVATile" ],
+      "supports": [
+        { "notes": "An intact installed floor of any of the game's kinds on a floor tile.", "tile": "IsFloor", "object": "floor" },
+        { "notes": "An intact installed wall on a wall tile.", "tile": "IsWall", "object": "IsWall" }
+      ]
+    }
+  }
+}

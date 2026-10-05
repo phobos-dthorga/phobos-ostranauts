@@ -80192,6 +80192,84 @@
       ],
       "before": "Product store: gone, locked or not a store any more. Choose another under Send products to.",
       "after": "Product store: gone, locked or not a store any more. Choose another under Send products to."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.default_missing",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The lines file needs a placement rule named default.",
+      "after": "The lines file needs a placement rule named default."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.rule_empty",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Line placement rule {0} is empty.",
+      "after": "Line placement rule {0} is empty."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.forbidden",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Line placement rule {0}: forbiddenTiles takes up to {1} condition names, each once.",
+      "after": "Line placement rule {0}: forbiddenTiles takes up to {1} condition names, each once."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.supports",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Line placement rule {0} needs between 1 and {1} supports.",
+      "after": "Line placement rule {0} needs between 1 and {1} supports."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.support",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Line placement rule {0}: each support needs a tile condition and an object (the word floor, or a condition name).",
+      "after": "Line placement rule {0}: each support needs a tile condition and an object (the word floor, or a condition name)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineSchema.contradiction",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Framework 0.100.0: pipes laid in walls and the lines data pack.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Line placement rule {0} forbids {1} tiles and also names them as a support.",
+      "after": "Line placement rule {0} forbids {1} tiles and also names them as a support."
     }
   ],
   "documents": [
@@ -80199,8 +80277,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "728d9ca2744917ef22c87ba5964d91ae64ae342b3a0b5179310142eec618986d",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "926264a604277a0698a202e0e80b798fcfaf46f464bc8e4fe5f3adedcd38d824",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "SUPPORT.md",
@@ -80360,8 +80438,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0946f32d6cd2de4eca2a8e2c6f37eaf7980656bdd8ae7d4aa24cf643609d319b",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "26361e1c37b0c420964d5f6ea3c635d7421d201b9c843be550257296f036a6ae",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/crew-automation.md",
@@ -80961,8 +81039,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "aef55dbbd8cba0ea1e511f77eb4a4bf625257176e636671727e43cb8fcb181ac",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "3f05804410f4579863402a1e71f6355dcf5c9c687ce83e0f8d8150760f354050",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81152,8 +81230,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "d2e2ddbae4a2aa2c4d45506617a094a2b76ba3643054fc5a7ba2674ce00a53b9",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "de69879a2295e1d6df1adb00eac9740b15d9405da1e4abf0cf1d0e4089e0c614",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -81180,8 +81258,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "8edcfc04e1472938b360b9c573db0d6ae9a4f6ce978906e53af2418c91765675",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "46b5034d43d5d4641672136d05b3536feb857aea7a7c1b1f84dee9133072fb4c",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -81201,8 +81279,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "09ddc2db4e6ab7a8f6125d46c9dee4abd32fd2667ba34bcaab719be6ed7f0a6e",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "13856ab580b99abf840926f8e89769a7ad8e41449a2568a478df9132a14ebb47",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81292,8 +81370,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "f125aa916e9fee4339d0863842625160e545be3714f64ae10aecddf4e959a951",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "8f98751ae12fa045e28f37eb645df61803ec00bb5f0e48b2c96b9c2d3dc85c2c",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -81327,8 +81405,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "060c4b600fbca78dd8e9d7c5b40c7569cb0e158dfa9b0267ff38304e5c7c680c",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "b70264b5fe78cfa446c8ffacaf629331854d70e944f7fe750dff89c4e933e61c",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "docs/residue-collector.md",
@@ -81446,8 +81524,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "38011b096a482796786ee66df7577b83428fef94a999bfd4b90aaddb5c206123",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "7ddee530e187a32f8052d0dca4f65620b81974d24e57e9487fcc077bae7a11f8",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -81569,8 +81647,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "29efb307868bc5020ca432ff57c06cbcdab10d5e30357be559be0aa7df33ac2e",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "f8a4fadb3bcae87f0f4037c9f267e54d260f8ba66f92ec20d2bd521e4f045164",
+      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

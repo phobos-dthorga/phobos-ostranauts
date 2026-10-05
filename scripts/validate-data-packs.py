@@ -593,7 +593,37 @@ def outcomes(pack, where, recipes=None):
             raise Problem(f'{w}: needs at least one outcome with a weight above 0')
 
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
+LINE_MAX_FORBIDDEN, LINE_MAX_SUPPORTS = 16, 8
+CONDITION_NAME = re.compile(r'^[A-Za-z][A-Za-z0-9]{0,63}$')
+
+
+def lines(pack, where):
+    """The lines schema (Framework 0.100.0): where a pipe or conduit segment counts as laid."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'placement'}, where)
+    rules = pack.get('placement')
+    if not isinstance(rules, dict) or 'default' not in rules:
+        raise Problem(f'{where}/placement: needs a rule named default')
+    for key, rule in rules.items():
+        w = f'{where}/placement/{key}'
+        fields(rule, {'notes', 'forbiddenTiles', 'supports'}, w)
+        forbidden = rule.get('forbiddenTiles', [])
+        if (not isinstance(forbidden, list) or len(forbidden) > LINE_MAX_FORBIDDEN or len(set(forbidden)) != len(forbidden)
+                or any(not isinstance(c, str) or not CONDITION_NAME.match(c) for c in forbidden)):
+            raise Problem(f'{w}/forbiddenTiles: up to {LINE_MAX_FORBIDDEN} condition names, each once')
+        supports = rule.get('supports')
+        if not isinstance(supports, list) or not 1 <= len(supports) <= LINE_MAX_SUPPORTS:
+            raise Problem(f'{w}/supports: between 1 and {LINE_MAX_SUPPORTS} supports')
+        for n, support in enumerate(supports):
+            sw = f'{w}/supports/{n}'
+            fields(support, {'notes', 'tile', 'object'}, sw)
+            for name in ('tile', 'object'):
+                if not isinstance(support.get(name), str) or not CONDITION_NAME.match(support[name]):
+                    raise Problem(f'{sw}/{name}: a condition name (object may also be the word floor)')
+            if support['tile'] in forbidden:
+                raise Problem(f'{w}: forbids {support["tile"]} tiles and also names them as a support')
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines}
 
 
 # ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----

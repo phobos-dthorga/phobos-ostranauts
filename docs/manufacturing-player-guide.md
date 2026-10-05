@@ -230,6 +230,10 @@ judged in play.
 
 ## Linking machines and stores
 
+Lines may run under the floor of a room or inside a wall, beside the ship's own
+conduit, and through doorways (Framework 0.100.0; before that a line cut out
+wherever it entered a wall).
+
 A machine links to a store (or tank or silo) only when the two
 **touch** or share a **line**. Nothing links across open floor. The only
 exception is the station refuelling kiosk's Bulk supplies view.

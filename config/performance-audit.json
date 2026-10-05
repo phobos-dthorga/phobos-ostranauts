@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "865c1711e7f04d80fc70ade83e98586d128492e9",
+  "baselineCommit": "8778d34062decc084ea75dd6ed807a3a4f6d3677",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -3768,6 +3768,18 @@
       "reviewed": "2026-09-30"
     },
     {
+      "path": "src/PhobosFramework/Data/LinePack.cs",
+      "sha256": "c05f144fecd93d282baad9aa192018e244cb1261ae1fd144e441263d35d8e5bd",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L53"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-05"
+    },
+    {
       "path": "src/PhobosFramework/Data/MaterialPack.cs",
       "sha256": "7154bbfdeeaac1cb347c984d46445bcd6321c1484847a41fc7da2ab1048976d8",
       "role": "shared accounting, inventory, crew or native boundary",
@@ -4567,7 +4579,7 @@
     },
     {
       "path": "src/PhobosFramework/Items/FrameworkItems.cs",
-      "sha256": "9d51d937b7194d2a11199fc10604d83f30b5c56a2c2af5c3c998b17b51ffd3dc",
+      "sha256": "196fe93073b7343b735cec76be90fbbe1e0f596ec4e6bc9cf9b82fea6882f56b",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -4579,7 +4591,8 @@
         "L21",
         "L24",
         "L39",
-        "L44"
+        "L44",
+        "L53"
       ],
       "indicators": {},
       "reviewed": "2026-10-05"
@@ -4871,10 +4884,10 @@
     },
     {
       "path": "src/PhobosFramework/Liquids/FluidRouteCache.cs",
-      "sha256": "2aa705672e0465218489b716429fa019bcccc8a2bee27846e985564cde7318cf",
+      "sha256": "0b619e04a20348bda3b568f758535af52d62643c908412448a4a6eff244e99b1",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "FF1",
         "FF2",
@@ -4893,7 +4906,8 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L53"
       ],
       "indicators": {
         "collection": [
@@ -4923,7 +4937,7 @@
           304
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Liquids/FluidTopology.cs",
@@ -5097,6 +5111,18 @@
       "reviewed": "2026-10-01"
     },
     {
+      "path": "src/PhobosFramework/Liquids/LinePlacement.cs",
+      "sha256": "27b1e13a83feeaa4cc575a7e8c6a6b636a3813cdbd696b30e5f7ebbbbeef04f5",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "L53"
+      ],
+      "indicators": {},
+      "reviewed": "2026-10-05"
+    },
+    {
       "path": "src/PhobosFramework/Liquids/LinePorts.cs",
       "sha256": "a28b9592bf41db8540bf8fd83f7f5fa92a0c3195fa4be9970c297cbb9d0750b3",
       "role": "shared accounting, inventory, crew or native boundary",
@@ -5216,16 +5242,17 @@
     },
     {
       "path": "src/PhobosFramework/Liquids/NativeFluidRoute.cs",
-      "sha256": "5e9225a28be1f16d5e5600821919896617a39fc700fd583450809c6e40a1a208",
+      "sha256": "c0d7dc1de530e6dbbf78f3281d5bd79898e8838743e999489bd219c8effe012d",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-03 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R3",
         "FF1",
         "FF2",
         "L16",
-        "L20"
+        "L20",
+        "L53"
       ],
       "indicators": {
         "collection": [
@@ -5233,15 +5260,15 @@
           50
         ],
         "discovery": [
-          60,
-          84
+          64,
+          90
         ],
         "profiling": [
-          82,
-          85
+          88,
+          91
         ]
       },
-      "reviewed": "2026-10-03"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Liquids/ShipsWaterPorts.cs",
@@ -5826,7 +5853,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "27ebd04f256de73035411342865f6afeeec7f2c38c5f9a806228a5227ff1570e",
+      "sha256": "b989c490af2a1a8ba7840c847388034539955b6b8a1bda20b93fc2394230eeb3",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -5880,7 +5907,8 @@
         "L44",
         "L45",
         "L47",
-        "L52"
+        "L52",
+        "L53"
       ],
       "indicators": {
         "collection": [

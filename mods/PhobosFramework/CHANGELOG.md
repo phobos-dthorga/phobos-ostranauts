@@ -28,6 +28,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.100.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- Pipes laid in walls now work. The game lets you lay a water, gas, acid, ethanol, irrigation or coolant line inside a wall, where a ship's own conduit runs, but every segment on a wall tile was quietly ignored, so a line that looked whole was cut wherever it entered a wall. Machines at the far end then never offered the silo or store. A segment now counts when it sits on an intact floor or in an intact wall.
+
+### Added
+
+- A lines data pack, framework/lines.json, holds the rule for where a segment counts: the tiles that carry nothing, and what must stand on a tile, installed and intact. It is no longer written in code. Players and add-ons can change it, or give one kind of line its own rule, with a file in BepInEx/config/PhobosFramework/lines. The editing guide has the details, and schemas/lines.schema.json gives editor completion.
+
+### Compatibility and limits
+
+- Automatic. Lines already laid through walls join up as soon as the ship loads; link the machine from its panel as usual. Nothing saved changes.
+- By the shipped rule a segment still does not count on flex floor, on an outside (EVA) tile, or where both the floor and the wall under it are gone or damaged.
+- Checked offline; not yet seen in the game.
+
 ## [0.99.0] - 2026-10-05 - Draft
 
 ### Fixed

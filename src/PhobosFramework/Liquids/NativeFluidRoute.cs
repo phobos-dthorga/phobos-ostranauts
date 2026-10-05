@@ -49,22 +49,28 @@ public static class NativeFluidRoute
             }
         return cells.ToArray();
     }
-    /// <summary>Sound structural floor under a segment cell: a floor tile that is not a wall, flex floor or EVA tile,
-    /// with an intact installed floor object on it. <paramref name="buffer"/> is reused between calls.</summary>
-    internal static bool SoundFloor(Ship ship, int cell, List<CondOwner> buffer)
+    /// <summary>Sound support under a segment cell, by the <c>lines</c> data pack's rule for the family (Framework
+    /// 0.100.0; the default rule when no family is named): the tile carries none of the rule's forbidden conditions,
+    /// and something a support names stands on it, installed and intact. The shipped rule is an intact floor on a
+    /// floor tile or an intact wall on a wall tile. A wall tile was refused in code before, which silently cut any
+    /// line laid inside a wall, the way a ship's own conduit is. <paramref name="buffer"/> is reused between calls.</summary>
+    internal static bool SoundFloor(Ship ship, int cell, List<CondOwner> buffer, string? familyId = null)
     {
         var tile = ship.GetTileByIndex(cell); var props = tile?.coProps;
-        if (props == null || props.ship != ship || !props.HasCond("IsFloor") || props.HasCond("IsWall") ||
-            props.HasCond("IsFloorFlex") || props.HasCond("IsEVATile")) return false;
+        if (props == null || props.ship != ship) return false;
+        var rule = LinePlacement.For(familyId);
+        if (!LinePlacement.TileCarries(rule, props.HasCond)) return false;
         buffer.Clear();
         ship.GetCOsAtWorldCoords1(tile!.tf.position, null, false, true, buffer);
-        // The floor object carries IsFloorGrate; IsFloor is only on the tile (Framework 0.73.0: the object test asked
-        // for IsFloor before, which no floor has, so no segment ever counted as laid on floor).
+        standing.Clear();
+        // A floor object carries IsFloorGrate, or is a floor by its definition; IsFloor is only on the tile.
         foreach (var c in buffer)
-            if (c.ship == ship && Construction.NativeFloors.IsSoundFloorObject(c)) return true;
-        return false;
+            if (c.ship == ship && !c.bDestroyed && c.HasCond("IsInstalled") && !c.HasCond("IsDamaged"))
+                standing.Add(new LinePlacement.Standing(Construction.NativeFloors.IsFloorObject(c), c.HasCond));
+        return LinePlacement.Supported(rule, props.HasCond, standing);
     }
     private static readonly List<CondOwner> cellObjects = new();
+    private static readonly List<LinePlacement.Standing> standing = new();
 
     // Explicit world points also support old saved equipment without newly authored mapPoints.
     // Thermal consumers may retain a physical route through locked/damaged endpoints;

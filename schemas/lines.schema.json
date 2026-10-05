@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/lines.schema.json",
+  "title": "Phobos lines data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "lines"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "forbiddenTiles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}$"
+              },
+              "maxItems": 16,
+              "uniqueItems": true,
+              "description": "Tile conditions on which a segment never counts."
+            },
+            "supports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "notes": {
+                    "type": "string",
+                    "description": "Free text for maintainers; ignored by the game."
+                  },
+                  "tile": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}$",
+                    "description": "The condition the tile must carry, such as IsFloor or IsWall."
+                  },
+                  "object": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9]{0,63}$",
+                    "description": "What must stand there, installed and intact: the word floor for any of the game's floors, or a condition the object carries, such as IsWall."
+                  }
+                },
+                "required": [
+                  "tile",
+                  "object"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 8,
+              "description": "What holds a segment up. One match is enough."
+            }
+          },
+          "required": [
+            "supports"
+          ]
+        }
+      },
+      "description": "Rules by name: default, or a line family id such as PhobosFramework.ProcessWater."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema",
+    "placement"
+  ],
+  "description": "Where a pipe or conduit segment counts as laid: the tiles that carry nothing, and what must stand on a tile for a segment there to join its line."
+}

@@ -91,6 +91,23 @@ class DataPackTests(unittest.TestCase):
         self.assertEqual(shipped['tables']['regolith-leach']['outcomes'],
                          {'regolith-leach': 72, 'regolith-leach-steel': 22, 'regolith-leach-silicates': 4, 'regolith-leach-nickel-iron': 2})
 
+    def test_line_placement(self):
+        # Framework 0.100.0: where a pipe segment counts is data. The shipped rule lets one count in a wall.
+        def pack(rule, key='default'):
+            return {'schemaVersion': 1, 'schema': 'lines', 'placement': {key: rule}}
+        good = {'forbiddenTiles': ['IsEVATile'], 'supports': [{'tile': 'IsFloor', 'object': 'floor'}]}
+        validate.lines(pack(good), 'test')
+        for bad in (pack(good, 'mine'), pack({'supports': []}), pack({'supports': [{'tile': 'Is Floor', 'object': 'floor'}]}),
+                    pack({'supports': [{'tile': 'IsFloor'}]}), pack({'forbiddenTiles': ['IsFloor'], 'supports': [{'tile': 'IsFloor', 'object': 'floor'}]}),
+                    pack({'forbiddenTiles': ['IsEVATile', 'IsEVATile'], 'supports': [{'tile': 'IsFloor', 'object': 'floor'}]}),
+                    pack({'supports': [{'tile': 'IsFloor', 'object': 'floor', 'extra': 1}]})):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.lines(bad, 'test')
+        shipped = json.loads((ROOT / 'mods/PhobosFramework/framework/lines.json').read_text(encoding='utf-8'))
+        rule = shipped['placement']['default']
+        self.assertEqual([(s['tile'], s['object']) for s in rule['supports']], [('IsFloor', 'floor'), ('IsWall', 'IsWall')])
+        self.assertEqual(rule['forbiddenTiles'], ['IsFloorFlex', 'IsEVATile'])
+
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.
         import shutil, tempfile

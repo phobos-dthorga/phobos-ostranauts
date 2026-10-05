@@ -1239,6 +1239,19 @@
   fast-forward interactions when they pose a specific integration risk. Record
   the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.
+- Owner report (2026-10-05), Framework 0.100.0: **a line segment counts wherever the game
+  lets it be laid.** Segments on wall tiles were refused by `NativeFluidRoute.SoundFloor`,
+  which cut every line run inside a wall, where a ship's own conduit runs. A segment is now
+  supported by an intact floor on a floor tile or an intact wall on a wall tile; flex floor
+  and EVA tiles still carry nothing. Owner direction the same day: **use a schema for rules
+  of this kind.** The rule is Framework's `lines` data pack (`framework/lines.json`, schema
+  `lines`: `forbiddenTiles` and `supports` per rule, `default` plus an optional rule per
+  line family id), evaluated by `LinePlacement`; players and add-ons override it. When a
+  rule about where something may sit, what it accepts or what counts is a list of the
+  game's condition names, put it in a data pack with a validator, the offline checker, a
+  JSON Schema and a section in `docs/editing-data-files.md`, not in code.
+  Do not add a placement rule of ours that is stricter than the item's own sockets, and
+  when a link picker offers nothing, read the owner's save before assuming the layout is wrong.
 - Owner report (2026-10-05), Framework 0.99.0: **a time-skip must never hand a machine hours
   in one step.** The game's skip jumps the clock once, and the next power step then asks for
   the whole interval; `RoomHeat.Decide` refuses a step over an hour, so every running machine

@@ -17,6 +17,8 @@ public static class FrameworkItems
         // The trigger behind hidden legacy receptacles (Framework 0.70.0), before any content mod names it.
         EquipmentInventory.AddTrigger(d);
         ItemVessels.Load();
+        // Where a line segment counts as laid (Framework 0.100.0), reread with the other packs on every game load.
+        Liquids.LinePlacement.Load();
         ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         // Lines hold their contents (Framework 0.63.0): the crew actions, the drain canister and the two pipes' hold-ups.
         SharedLines.DeclareHoldUps();

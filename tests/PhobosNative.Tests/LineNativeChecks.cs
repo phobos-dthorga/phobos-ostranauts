@@ -97,6 +97,22 @@ internal static class LineNativeChecks
         }
         finally { foreach (var t in added) DataHandler.dictCTs.Remove(t.strName); }
 
+        // Framework 0.100.0 (owner report, 5 October 2026): the lines data pack decides where a segment counts, and its
+        // shipped rule lets one count inside a wall. Judged on the game's own walls, the ones the owner's line ran through:
+        // each makes its tile IsWall and carries IsWall itself, so the rule's wall support matches it, and a wall is not
+        // one of the game's floors, so only that support does.
+        var lineRule = Phobos.Ostranauts.Framework.Liquids.LinePlacement.For(null);
+        foreach (string wallId in new[] { "ItmWall1x1", "ItmWallPlastic1x1" })
+        {
+            var wallCo = new DataCO(DataHandler.dictCOs[wallId]);
+            var wallTile = Phobos.Ostranauts.Framework.Construction.NativePlaceholders.TileConditions(wallId) ?? Array.Empty<string>();
+            var standing = new[] { new Phobos.Ostranauts.Framework.Liquids.LinePlacement.Standing(Phobos.Ostranauts.Framework.Construction.NativeFloors.IsFloorDefinition(wallId), wallCo.HasCond) };
+            check(wallTile.Contains("IsWall") && wallCo.HasCond("IsWall") && !Phobos.Ostranauts.Framework.Construction.NativeFloors.IsFloorDefinition(wallId) &&
+                  Phobos.Ostranauts.Framework.Liquids.LinePlacement.Supported(lineRule, c => wallTile.Contains(c), standing),
+                "A line segment laid in this wall counts, by the shipped lines rule: " + wallId);
+        }
+        foreach (string named in lineRule.forbiddenTiles.Concat(lineRule.supports.Select(x => x.tile)).Concat(lineRule.supports.Select(x => x.@object)).Where(x => x != Phobos.Ostranauts.Framework.Data.LineSchema.Floor))
+            check(DataHandler.dictConds.ContainsKey(named), "The shipped lines rule names a condition the game has: " + named);
         // Framework 0.73.0: a segment counts only over an installed floor object, and the lines, the cache and G4
         // reclamation all recognise that object through NativeFloors. Judged on the game's own data: until 0.72.0 the
         // object test asked for IsFloor, which only the tile carries, and no segment ever counted.

@@ -689,5 +689,11 @@
   "LineContents.failed": "Phobos Framework could not top up the lines on {0}; they keep what they hold: {1}",
   "DrainCanister.name": "Drain Canister",
   "DrainCanister.description": "A {0:0} litre lined can for draining pipe, {1:0} kg empty. Crew fill it with Drain line into canister. Haul a full one into a tank that holds the same liquid and it pours in, leaving the empty can there for next time. One liquid at a time.",
-  "DrainCanister.poured_log": "Drain canister {0} poured {1:R} kg of {2} into {3}."
+  "DrainCanister.poured_log": "Drain canister {0} poured {1:R} kg of {2} into {3}.",
+  "LineSchema.default_missing": "The lines file needs a placement rule named default.",
+  "LineSchema.rule_empty": "Line placement rule {0} is empty.",
+  "LineSchema.forbidden": "Line placement rule {0}: forbiddenTiles takes up to {1} condition names, each once.",
+  "LineSchema.supports": "Line placement rule {0} needs between 1 and {1} supports.",
+  "LineSchema.support": "Line placement rule {0}: each support needs a tile condition and an object (the word floor, or a condition name).",
+  "LineSchema.contradiction": "Line placement rule {0} forbids {1} tiles and also names them as a support."
 }

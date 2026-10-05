@@ -359,6 +359,8 @@ foreach ($mod in $Mods) {
                     "images/phobos/framework/$image.png"; "images/phobos/framework/${image}Normal.png"
                 }
             }
+            # 0.100.0 moves the rule for where a line segment counts into a data pack.
+            if ($version -ge [version]'0.100.0') { 'framework/lines.json' }
             # 0.58.0 takes the process-water silos from Shipbreaker and adds the S2.
             if ($version -ge [version]'0.58.0') {
                 'framework/vessels.json'

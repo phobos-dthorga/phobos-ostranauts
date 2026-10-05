@@ -14,6 +14,48 @@ internal static class NetworkChecks
         // A 6 x 3 grid: a pipe along row 1 from column 2 to 4 (cells 8, 9, 10).
         IReadOnlyList<IReadOnlyList<int>> ports = new IReadOnlyList<int>[] { new[] { 7 }, new[] { 8 }, new[] { 10 }, new[] { 16 } };
         var piped = FluidTopology.Build(6, 3, 3, new[] { 8, 9, 10 }, 4096, ports);
+        // Framework 0.100.0 (owner report and direction, 5 October 2026): where a segment counts is the lines data pack's
+        // rule, and the shipped rule lets one count inside a wall, where a ship's own conduit runs.
+        var rule = LinePlacement.For(null);
+        Func<string, bool> Tile(params string[] conds) => c => Array.IndexOf(conds, c) >= 0;
+        var floorObject = new LinePlacement.Standing(true, _ => false);
+        var wallObject = new LinePlacement.Standing(false, c => c == "IsWall");
+        var crate = new LinePlacement.Standing(false, c => c == "IsContainer");
+        check(LinePlacement.TileCarries(rule, Tile("IsFloor")) && LinePlacement.TileCarries(rule, Tile("IsWall")) && LinePlacement.TileCarries(rule, Tile("IsFloor", "IsWall")) &&
+              !LinePlacement.TileCarries(rule, Tile()) && !LinePlacement.TileCarries(rule, Tile("IsFloor", "IsFloorFlex")) && !LinePlacement.TileCarries(rule, Tile("IsWall", "IsEVATile")),
+            "A floor tile or a wall tile may carry a segment; bare space, flex floor and EVA tiles may not");
+        check(LinePlacement.Supported(rule, Tile("IsFloor"), new[] { floorObject }) && LinePlacement.Supported(rule, Tile("IsWall"), new[] { wallObject }) &&
+              LinePlacement.Supported(rule, Tile("IsFloor", "IsWall"), new[] { wallObject }) && LinePlacement.Supported(rule, Tile("IsFloor", "IsWall"), new[] { crate, floorObject }),
+            "A segment is held by an intact floor on a floor tile or an intact wall on a wall tile");
+        check(!LinePlacement.Supported(rule, Tile("IsFloor"), new[] { wallObject }) && !LinePlacement.Supported(rule, Tile("IsWall"), new[] { floorObject }) &&
+              !LinePlacement.Supported(rule, Tile("IsFloor", "IsWall"), new[] { crate }) && !LinePlacement.Supported(rule, Tile("IsFloor"), Array.Empty<LinePlacement.Standing>()) &&
+              !LinePlacement.Supported(rule, Tile("IsFloor", "IsEVATile"), new[] { floorObject }),
+            "Nothing holds a segment where the floor and the wall are both gone, or on a forbidden tile");
+        check(LinePlacement.For(LineFamilies.ProcessWaterId) == rule && LinePlacement.For("Nobody.Line") == rule, "A line family with no rule of its own uses the default");
+        // The schema: a default rule, at least one support, condition names as the game writes them, no contradiction.
+        Phobos.Ostranauts.Framework.Data.LinePack Lines()
+        {
+            var pack = new Phobos.Ostranauts.Framework.Data.LinePack { schemaVersion = 1, schema = "lines" };
+            var entry = new Phobos.Ostranauts.Framework.Data.LinePlacementEntry();
+            entry.forbiddenTiles.Add("IsEVATile");
+            entry.supports.Add(new Phobos.Ostranauts.Framework.Data.LineSupportEntry { tile = "IsFloor", @object = "floor" });
+            pack.placement["default"] = entry;
+            return pack;
+        }
+        Phobos.Ostranauts.Framework.Data.LineSchema.Validate(Lines());
+        Phobos.Ostranauts.Framework.Data.LineSchema.Validate(LinePlacement.Pack);
+        void BadLines(Action<Phobos.Ostranauts.Framework.Data.LinePack> mutate, string message)
+        {
+            var pack = Lines(); mutate(pack); bool failed = false;
+            try { Phobos.Ostranauts.Framework.Data.LineSchema.Validate(pack); } catch (ArgumentException) { failed = true; }
+            check(failed, message);
+        }
+        BadLines(p => { p.placement["mine"] = p.placement["default"]; p.placement.Remove("default"); }, "A lines pack needs a default rule");
+        BadLines(p => p.placement["default"].supports.Clear(), "A rule needs at least one support");
+        BadLines(p => p.placement["default"].supports[0].tile = "Is Floor", "A tile condition is a plain name");
+        BadLines(p => p.placement["default"].supports[0].@object = "", "A support names what stands on the tile");
+        BadLines(p => p.placement["default"].forbiddenTiles.Add("IsFloor"), "A rule cannot forbid the tile one of its supports needs");
+        BadLines(p => p.placement["default"].forbiddenTiles.Add("IsEVATile"), "A forbidden condition is listed once");
         check(piped.ParticipantCount == 4 && piped.ParticipantsConnected(1, 2), "Two participants with ports on one run of pipe share a network");
         check(piped.Hops(1, 2) == 4 && piped.Hops(2, 1) == 4, "Network steps count the pipe cells between the ports");
         check(!piped.ParticipantsConnected(0, 1) && !piped.ParticipantsConnected(3, 1), "A participant whose join cells miss the pipe joins nothing");

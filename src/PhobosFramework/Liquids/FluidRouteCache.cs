@@ -224,7 +224,7 @@ public static class FluidRouteCache
                     c.Segments++;
                     // A closed (drained) segment carries nothing and joins nothing until its run returns to service.
                     if (LineContents.IsClosed(co)) c.Closed.Add(cell);
-                    else if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) { c.Allowed.Add(cell); c.SegmentObjects[cell] = co; }
+                    else if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects, c.Family.Id)) { c.Allowed.Add(cell); c.SegmentObjects[cell] = co; }
                 }
                 // A port of the family makes the object a participant; where the pipe may meet it is its whole edge.
                 else if (c.Family.Ports?.Invoke(co) is { Count: > 0 } && Ready())

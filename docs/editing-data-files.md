@@ -125,6 +125,7 @@ as needing attention, until the file is back.
 | Phobos Agriculture 0.40.0 | `process-recipes` | What the Hearth-2 cooks: one portion in, one portion out, and the seconds it takes |
 | Phobos Medical 0.1.0 | `care` | The Ward-3 bed's idle and working power, who counts as injured, and when a resting patient gets up |
 | Phobos Manufacturing 0.44.0 | `outcomes` | Charges with more than one possible result (the gangue wash), and the odds of each |
+| Phobos Framework 0.100.0 | `lines` | Where a pipe or conduit segment counts as laid: floor, inside a wall, and the tiles that carry nothing |
 | Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
@@ -157,6 +158,49 @@ recipes to make and use. Because an item needs
 a picture in a mod folder, this is really for add-ons:
 [publishing an add-on](publishing-an-add-on.md#6-new-items-with-your-own-pictures)
 has the fields and rules. The shipped materials can still only be retuned.
+
+## Where a pipe counts as laid
+
+The `lines` pack (Framework 0.100.0) says where a segment of water, gas, acid,
+ethanol, irrigation or coolant line joins its line. The shipped rule:
+
+```json
+{
+  "placement": {
+    "default": {
+      "forbiddenTiles": [ "IsFloorFlex", "IsEVATile" ],
+      "supports": [
+        { "tile": "IsFloor", "object": "floor" },
+        { "tile": "IsWall", "object": "IsWall" }
+      ]
+    }
+  }
+}
+```
+
+A segment counts when its tile carries none of the forbidden conditions, and one
+support matches: the tile carries the support's `tile` condition, and something
+installed and undamaged stands on it that is the `object`. The word `floor` means
+any of the game's floors; anything else is a condition the object carries. So a
+pipe works on an intact floor, or inside an intact wall beside the ship's own
+conduit. The names are the game's own condition names.
+
+To change it, put a file in `BepInEx/config/PhobosFramework/lines/`. A list you
+set replaces the shipped list, so write the whole list:
+
+```json
+{ "placement": { "default": { "forbiddenTiles": [ "IsFloorFlex" ] } } }
+```
+
+- **A rule for one kind of line:** add an entry named after the line family id
+  beside `default`, such as `PhobosFramework.ProcessWater` or
+  `PhobosFramework.GasLine`. That line uses its own rule and the rest keep `default`.
+- **What is refused:** a file with no `default` rule, a rule with no supports,
+  names with spaces or symbols, a rule that forbids the tile one of its supports
+  needs, and unknown fields. The file is skipped with a message and the shipped
+  rule stands.
+- **Saved games:** nothing is saved. A changed rule applies to every line the
+  next time the game loads.
 
 ## Retuning the gangue wash
 

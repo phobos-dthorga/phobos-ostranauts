@@ -239,6 +239,20 @@ def outcomes():
                'Chance tables: the recipes a charge may turn out to be, and the odds. Every outcome is an ordinary recipe of the same mod with the same charge and duration as its base.')
 
 
+def lines():
+    name = {'type': 'string', 'pattern': '^[A-Za-z][A-Za-z0-9]{0,63}$'}
+    support = obj({'notes': NOTES, 'tile': {**name, 'description': 'The condition the tile must carry, such as IsFloor or IsWall.'},
+                   'object': {**name, 'description': 'What must stand there, installed and intact: the word floor for any of the game\'s floors, or a condition the object carries, such as IsWall.'}},
+                  ['tile', 'object'])
+    rule = obj({'notes': NOTES,
+                'forbiddenTiles': {'type': 'array', 'items': name, 'maxItems': 16, 'uniqueItems': True, 'description': 'Tile conditions on which a segment never counts.'},
+                'supports': {'type': 'array', 'items': support, 'minItems': 1, 'maxItems': 8, 'description': 'What holds a segment up. One match is enough.'}},
+               ['supports'])
+    return obj({**header('lines'), 'placement': named(rule, 'Rules by name: default, or a line family id such as PhobosFramework.ProcessWater.')},
+               ['schemaVersion', 'schema', 'placement'],
+               'Where a pipe or conduit segment counts as laid: the tiles that carry nothing, and what must stand on a tile for a segment there to join its line.')
+
+
 def addon():
     return obj({'schemaVersion': {'type': 'integer', 'const': 1},
                 'id': {'type': 'string', 'pattern': '^[a-z0-9-]{3,48}$', 'description': "The add-on's own short id."},
@@ -251,7 +265,7 @@ def addon():
                'The manifest of a Phobos add-on (phobos-addon.json), beside the mod_info.json the game itself reads.')
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes}
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines}
 
 
 def render(name):

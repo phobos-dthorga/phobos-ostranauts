@@ -485,3 +485,21 @@ Owner report: after the six-hour skip the chemical reactors had done nothing.
   game's crew effects, repairs, reactor catch-up and report are untouched. Real-time waits
   count skipped seconds (`Cadence.AdvanceSkip`), so a recheck is not put off until the skip ends.
 - **Not changed.** The heat rule itself: a machine is never given hours of heat in one step.
+
+## Lines laid in walls (Framework 0.100.0, 5 October 2026)
+
+Owner report: four W2s would not offer the process water silo, with an unbroken water line between them.
+
+- **Evidence, from the owner's save (read-only).** One run of 120 process-water segments touched the silo and
+  all four W2s; 70 of them shared a tile with a wall (`ItmWallPlastic1x1`, `ItmWallMSSLFWhite`, `ItmWall1x1`) or a
+  doorway, most alongside the ship's own `ItmConduit01`. The game's wall items put `IsWall` on their tiles.
+- **Ours.** `NativeFluidRoute.SoundFloor` refused any tile with `IsWall`, so those segments were left out of the
+  network and the line was cut where it entered a wall. The game's placement rules had allowed every one of them.
+- **Verdict.** Follow the game: where it lets a segment be installed, the segment counts. A tile carries a segment
+  if it is floor or wall (not flex floor, not an EVA tile), and the segment is supported by an intact floor on a
+  floor tile or an intact wall on a wall tile. This applies to every line family and to the irrigation and
+  coolant conduits, which use the same rule.
+- **As data.** Owner direction the same day: rules of this kind belong in a schema. The rule is Framework's
+  `lines` data pack (`framework/lines.json`, `LineSchema`, `LinePlacement`), with player and add-on overrides and
+  an optional rule per line family; the code only evaluates it. A native check holds the shipped rule to the
+  game's own wall definitions and condition names.

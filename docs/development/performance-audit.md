@@ -1085,3 +1085,7 @@ L51 — Manufacturing 0.53.0: a sixth charge machine (one more string comparison
 ## 5 October: machines in a time-skip (L52)
 
 L52 — Framework 0.99.0: a time-skip with a running machine and no crew order is now stepped every ten game seconds instead of jumping once. A six-hour skip is 2,160 steps, each running the game's own power step for every powered object on the skipping ships and the gas step for every gas container, a tenth of the work the crew-order path already did at one-second steps. It happens once per skip, inside the skip's own frame, and only when a machine carries the resume mark; with nothing running the cost is one scan of the object table for that mark. Nothing is added to an ordinary frame. No capture accompanies this change.
+
+## 5 October: lines laid in walls (L53)
+
+L53 — Framework 0.100.0: the support test for a line segment now follows the lines data pack's rule: a dictionary probe for the family's rule, one tile condition per forbidden or support entry (four in the shipped rule) and, for each installed intact object on the tile, a floor test and at most one condition per support. The pack is read once per game load. It runs when a ship's line snapshot is rebuilt (at most every two real seconds, and only after a relevant part changed), never per frame. No capture accompanies this change.
