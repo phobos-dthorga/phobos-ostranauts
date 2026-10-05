@@ -157,6 +157,15 @@ public sealed class CropState
     }
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
 }
+
+/// <summary>The room a crop grows in (authored): 18 to 30 C and 70 to 110 kPa. The upper bound was 26 C until Agriculture
+/// 0.54.0; a ship's rooms settle a little above that with machinery running (the owner's stood at 26.4 C), which
+/// stopped growth and killed every crop within half a day. An agent choice, open to the owner's revision.</summary>
+public static class GrowthRoom
+{
+    public const double MinK = 291.15, MaxK = 303.15, MinKPa = 70, MaxKPa = 110;
+    public static bool Suits(double tempK, double kPa) => tempK >= MinK && tempK <= MaxK && kPa >= MinKPa && kPa <= MaxKPa;
+}
 public sealed class Exchange { public double CO2Kg, OxygenKg, VapourKg, RoomHeatKWh; }
 public readonly struct HarvestBudget
 {

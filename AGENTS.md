@@ -361,6 +361,16 @@
   spirit clones the game's `LiquidVodka` (keeping `IsLiquor`, so the game's own drinking
   applies; dropping `IsBismertnaya`) at 8 cr a serving. Phase 5 is complete.
 
+- Owner report (2026-10-05), Agriculture 0.54.0: the racks "seemed completely broken" because
+  commands that worked said nothing and nothing named what was missing (the W2's pump was
+  paused). Every command now leaves a notice, and a rack's or W2's panel, status and crew
+  order end with one **Next** line (`Service.Advice`, `RackNeed`, `PlantBlock`). Linking a
+  rack, choosing pipe-fed water or enabling intake on a pipe-fed rack starts the W2's pump
+  (`StartPumpFor`). Crew orders never hand-carry water to a pipe-fed rack and never plant
+  into a rack without water and nutrients; a stopped order leaves intake and a growing crop
+  alone. Crops grow at 18 to 30 C (`GrowthRoom`; agent choice, 26 C before). New machines
+  must say what each command did and what they wait for; never ship a silent success.
+
 ## Manufacturing direction (2026-09-25)
 
 - The owner approved a separate **Phobos Manufacturing** content mod for dedicated

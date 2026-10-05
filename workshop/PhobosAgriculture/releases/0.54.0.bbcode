@@ -1,0 +1,29 @@
+[h1]Phobos Agriculture 0.54.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Rack and W2 buttons now say what they did. Start, Pause, the water supply buttons and the pipe-fed and direct refill choices used to work without a word, so they looked dead.
+[*]Every page of a rack's or W2's Control Panel now ends with a Next line naming the one thing it is waiting for: air, power, water, nutrients, seed or Start. A pipe-fed rack names what its W2 is missing, such as a paused pump.
+[*]Linking a rack to a W2, choosing pipe-fed water, or enabling water supply on a pipe-fed rack now switches the rack's intake on and starts the W2's pump. Before, a linked rack stayed dry until the pump was started separately at the W2, and nothing said so.
+[*]Crops now grow in rooms up to 30 C. The limit was 26 C, and a ship with machinery running sits just above it, which stopped growth and killed crops within half a day.
+[*]Crew orders on a pipe-fed rack no longer carry water to it by hand. They switch its intake on instead.
+[*]Crew orders no longer plant into a rack that has no water or nutrients. The order waits and its status says what for.
+[*]Stopping or changing a crew order no longer switches off water intake or pauses a growing crop.
+[*]An empty rack or W2 no longer shows lost health from standing in a room without air.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Saved links, crops and settings are kept. Empty racks and W2s that showed lost health read as sound again.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A rack still needs nutrients: 40 g packets by hand, or a W2 mixing that crop's feed from a nutrient charge. To change a linked W2's feed, unlink it first.
+[*]Crew fetching seed from a stockpile was reported not to work. It could not be reproduced offline; the order's status line now gives the reason when a haul fails.
+[*]Checked offline; not yet seen in the game.
+[/list]

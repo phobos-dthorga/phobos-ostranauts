@@ -86,7 +86,12 @@ internal static partial class Service
             if (peer != null && Definitions.Machine(peer) && !Paused(Get(peer))) { message = Text.Get("water_pause"); return false; }
             if (s.Solution.TotalKg > NutrientSolution.Tolerance || !s.Line.Empty) { message = Text.Get("solution_switch"); return false; }
             s.Solution.Profile = NutrientSolution.None; Save(s);
-            SetWaterMode(s, action == "water-routed"); message = Describe(co); return true;
+            SetWaterMode(s, action == "water-routed");
+            // Choosing pipe-fed water on a linked rack is asking for that water: intake on, and the W2's pump with it
+            // (0.54.0). Until then the choice switched intake off and said nothing.
+            if (s.Routed && WaterPeer(co) != null) { s.State.Receiving = true; s.Notice = Text.Get(StartPumpFor(co) ? "did_routed_pump" : "did_routed"); }
+            else s.Notice = Text.Get(s.Routed ? "did_routed_unlinked" : "did_legacy");
+            message = Describe(co); return true;
         }
         if (action == "unlink-water" && IrrigationDefinitions.IsSupply(co))
         {
@@ -107,7 +112,7 @@ internal static partial class Service
         {
             PortPairing.Unlink(WaterPort(co), other == null ? null : WaterBank(other).ForReceiver(WaterPort(co)));
             // Deliberately retain routed mode; unlink never re-enables a bypass.
-            message = Describe(co); return true;
+            s.Notice = Text.Get("did_unlink"); message = Describe(co); return true;
         }
         if (other == null) { message = Text.Get("water_missing"); return false; }
         if (!Piped(co, other)) { message = Text.Get("water_no_conduit"); return false; }
@@ -120,7 +125,12 @@ internal static partial class Service
         if (!rackState.Line.Empty) { message=Text.Get("line_drain"); return false; }
         if (!WaterBank(source).TryLink(WaterPort(rack), out message)) return false;
         rackState.Solution.Profile = sourceState.Solution.Profile; Save(rackState);
-        SetWaterMode(rackState, true); message = Describe(co); return true;
+        SetWaterMode(rackState, true);
+        // Linking a rack is asking for its water (0.54.0): the rack's intake goes on and the W2's pump starts. Both can
+        // still be switched off at their own panels.
+        rackState.State.Receiving = true; StartPumpFor(rack);
+        rackState.Notice = Text.Get("did_link", ObjectPresentation.Name(source)); sourceState.Notice = Text.Get("did_link_supply", ObjectPresentation.Name(rack));
+        message = Describe(co); return true;
     }
     private static IEnumerable<Session> Destinations(Session source, bool requireReceiving)
     {

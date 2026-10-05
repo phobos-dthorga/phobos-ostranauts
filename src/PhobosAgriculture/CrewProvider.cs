@@ -78,7 +78,11 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         if(b.Ready)return b.PickPortions()>0?Act("pick",900):Act("harvest",1800);
         if(!IrrigationDefinitions.IsSupply(co) && b.CropId.Length>0 && b.CropId!=order.Recipe && order.ClearCrops)return Act("clear",900);
         if(b.CropId.Length>0 && b.Health<=0) return order.ClearCrops?Act("clear",900):Blocked(out reason);
-        if(b.Water<Math.Min(4.7,s.Solution.PlainWaterCapacity)&&!(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co)))
+        // A pipe-fed rack takes its water from its W2 (0.54.0): the crew switch its intake on and never carry rations or
+        // charges to it. Until then they hauled water by hand to a rack that had a pipe.
+        bool piped=!IrrigationDefinitions.IsSupply(co)&&s.Routed&&PanelConfiguration.WaterPeers(co).Length>0;
+        if(piped&&!b.Receiving)return Act("receive");
+        if(!piped&&b.Water<Math.Min(4.7,s.Solution.PlainWaterCapacity)&&!(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co)))
         {
             if(Service.Input(co,Definitions.Irrigation,Definitions.IrrigationKg)!=null && b.Water<=s.Solution.PlainWaterCapacity-Definitions.IrrigationKg)return Act("load-irrigation");
             if(Service.Input(co,"LiquidWater",.25)!=null)return Act("load-water");
@@ -99,9 +103,14 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             var crop=Crop.Get(order.Recipe);
             string product=crop.Produce;
             if(Stock(co,order,product)>=order.Stock){reason=Text.Get("crew_stock_met");return null;}
+            // Nothing is planted into a rack that cannot water or feed it (0.54.0): the order waits and says what for,
+            // where it used to plant a crop that then starved.
+            if(!s.Solution.CanPlant(crop.Id)){reason=Text.Get("solution_incompatible");return null;}
+            if(Service.PlantBlock(s) is string need){reason=need;return null;}
             string seed=crop.Stock;
             double kg=crop.Seed;
-            if(Service.Input(co,seed,kg)==null)return Supply(seed,1)??Blocked(out reason);
+            // The last unit aboard may be planted too; the retained unit only ever applied to a crop that returns seed.
+            if(Service.Input(co,seed,kg)==null)return Supply(seed)??Blocked(out reason);
             return Act("plant-"+order.Recipe,900);
         }
         return b.Running?null:Act("start");
@@ -149,5 +158,14 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
 
 internal static partial class Service
 {
-    internal static void CrewSuspend(CondOwner co) { var s=Get(co);s.State.Running=s.State.Receiving=false;s.Watch.Cancel();Save(s); }
+    /// <summary>A stopped or changed crew order stops crew-run work, not the machine's own life (0.54.0): water intake
+    /// stays as the player set it, and a planted rack keeps growing, because pausing it starves the crop. Until then
+    /// applying any setting on a machine with an order switched its intake and growth off without a word.</summary>
+    internal static void CrewSuspend(CondOwner co)
+    {
+        var s=Get(co);
+        bool growing=!IrrigationDefinitions.IsSupply(co)&&!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co)&&s.State.CropId.Length>0;
+        if(!growing)s.State.Running=false;
+        s.Watch.Cancel();Save(s);
+    }
 }

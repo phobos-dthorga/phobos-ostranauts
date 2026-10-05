@@ -1109,3 +1109,7 @@ L57 — Framework 0.103.0, Agriculture 0.53.0, Manufacturing 0.54.0: the irrigat
 ## 5 October: coolant joins, belt joints and reach-filtered pickers (L58)
 
 L58 — Shipbreaker 0.80.0: the furnace's coolant route reads the ship's cached conduit layout and asks it for the shortest path from each conduit tile under or beside the furnace to each of the radiator's conduit-bearing join tiles (at most twelve), instead of one path between two fixed points; each path is remembered for the life of the layout and the answer for the power step, and the walk over the other furnace-family parts for circuit sharing is gone. Belt joins for the F6 and collector pass their footprint cells instead of one or two. The pickers' reach tests and notes run only when a picker opens. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: rack and W2 guidance (L59)
+
+L59 — Agriculture 0.54.0: the Next line reads the machine's own session, its room's gas figures and, for a pipe-fed rack, its W2's session and the cached reach answer. It is read when a panel refreshes (about twice a second while that panel is open), when the console asks for status and when a crew order looks for its next step, never per frame or per power step. Starting a W2's pump from a rack happens once per command. No capture accompanies this change.

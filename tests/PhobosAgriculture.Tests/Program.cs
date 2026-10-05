@@ -8,7 +8,10 @@ void Near(double actual, double expected, string message) => Check(Math.Abs(actu
 CropState New(Crop c) { var s = new CropState { Water = 20, Nutrients = .5 }; s.Plant(c, 1); return s; }
 ExampleAddOnChecks.Run(Check);
 // The nutrient hopper (0.27.0): price parity with the bulk charge, and a dose bounded by the step and the hopper.
-Check(HopperRules.PricePerKg(750, .5) == 1500 && HopperRules.Commodity == "crop nutrients", "The kiosk sells crop nutrients at the bulk charge's own price per kilogram");
+Check(HopperRules.PricePerKg(75, .5) == 150 && HopperRules.Commodity == "crop nutrients", "The kiosk sells crop nutrients at the bulk charge's own price per kilogram");
+// Agriculture 0.54.0: crops grow up to 30 C (26 C before, which a ship with machinery running sits just above).
+Check(GrowthRoom.Suits(299.6, 97.7) && GrowthRoom.Suits(291.15, 70) && GrowthRoom.Suits(303.15, 110) && !GrowthRoom.Suits(303.3, 100) && !GrowthRoom.Suits(290, 100) && !GrowthRoom.Suits(295, 60) && !GrowthRoom.Suits(295, 111),
+    "A crop's room: 18 to 30 C and 70 to 110 kPa, the owner's 26.4 C ship included");
 Check(HopperRules.DoseKg(.02, 5) == .02 && HopperRules.DoseKg(.02, .01) == .01 && HopperRules.DoseKg(-1, 5) == 0 && HopperRules.DoseKg(double.NaN, 5) == 0, "A dose is what the step needs, what the hopper holds, never negative");
 try { HopperRules.PricePerKg(0, .5); Check(false, "A zero price is refused"); } catch (ArgumentException) { Check(true, "A zero price is refused"); }
 foreach (double recyclerAngle in new[] { 0d, 90, 180, 270 })

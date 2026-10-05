@@ -45,8 +45,17 @@ Bar/Dining Table, with the required screwdriver and soldering tools:
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 150 cr |
 
 Install the **4 × 4 rack** and **2 × 2 cooker** on cabin floors and connect their
-power points. Keep room temperature at **18–26 °C** and pressure at **70–110 kPa**
-for growth. These are gameplay limits chosen for this mod, not universal plant tolerances.
+power points. Keep room temperature at **18–30 °C** and pressure at **70–110 kPa**
+for growth (the upper limit was 26 °C until Agriculture 0.54.0, which a ship with
+machinery running sits just above). These are gameplay limits chosen for this mod,
+not universal plant tolerances.
+
+Every page of a rack's or W2's Control Panel ends with a **Next:** line naming the
+one thing it is waiting for: air, power, water, nutrients, seed or Start. For a
+pipe-fed rack the quickest route is to link it to a W2 on the Supplies page. Linking
+switches the rack's water intake on and starts the W2's pump; both can still be
+switched off at their own panels. A rack also needs nutrients: 40 g packets loaded
+by hand, or a W2 mixing that crop's feed from a nutrient charge.
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
@@ -111,7 +120,7 @@ flowchart TD
     Stock["Seed potato or lettuce seed in rack Inventory"] --> Plant["Choose Plant, 15 min crew work"]
     Supplies["Irrigation charge and nutrients loaded"] --> Plant
     Plant --> Grow["Automatic growth"]
-    Needs["Water, nutrients, CO2, power, 18-26 C, 70-110 kPa"] --> Grow
+    Needs["Water, nutrients, CO2, power, 18-30 C, 70-110 kPa"] --> Grow
     Grow --> Harvest["Choose Harvest and retain stock, 30 min crew work"]
     Harvest --> Produce["Produce and residue, if the whole output fits"]
     Produce --> Cook["Hearth-2 cooks one potato portion per Start"]

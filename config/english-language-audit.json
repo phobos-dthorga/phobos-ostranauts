@@ -1286,14 +1286,14 @@
       "key": "missing_input",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/MaterialOperations.cs:53",
         "src/PhobosAgriculture/Service.cs:247"
       ],
       "before": "Place one unstacked matching supply in the machine Inventory first.",
-      "after": "Put one suitable supply item in the machine's Inventory. Split it from its stack first.",
+      "after": "Put a suitable supply item in the machine's Inventory first.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -67709,6 +67709,487 @@
       "after": "Another running W2 on this irrigation pipe is mixing a different feed. W2s can share a pipe only while they mix the same feed: pause one, change its feed, or give each its own pipe. A W2 within one tile of its rack feeds it without the pipe."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "advice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Next: {0}",
+      "after": "Next: {0}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_no_air",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The room has no air. A rack needs a pressurised room.",
+      "after": "The room has no air. A rack needs a pressurised room."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The room is {0:0.0} C at {1:0} kPa. Crops grow between {2:0} and {3:0} C and {4:0} to {5:0} kPa.",
+      "after": "The room is {0:0.0} C at {1:0} kPa. Crops grow between {2:0} and {3:0} C and {4:0} to {5:0} kPa."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No power. Connect conduit to a power point on its back edge.",
+      "after": "No power. Connect conduit to a power point on its back edge."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_harvest",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The crop is ready. Choose Harvest.",
+      "after": "The crop is ready. Choose Harvest."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_dead",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The crop is dead. Choose Clear, then plant again.",
+      "after": "The crop is dead. Choose Clear, then plant again."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_water_manual",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No water. Load irrigation charges or water rations, or link a W2 on the Supplies page.",
+      "after": "No water. Load irrigation charges or water rations, or link a W2 on the Supplies page."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_link",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No water. Link a W2 on the Supplies page.",
+      "after": "No water. Link a W2 on the Supplies page."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_intake",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water intake is off. Choose Enable selected water supply on the Supplies page.",
+      "after": "Water intake is off. Choose Enable selected water supply on the Supplies page."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} cannot pump: it is damaged, locked or has a saved-settings fault.",
+      "after": "{0} cannot pump: it is damaged, locked or has a saved-settings fault."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} is mixing a different feed from this rack's. Unlink and link again to match, or change the W2's mix.",
+      "after": "{0} is mixing a different feed from this rack's. Unlink and link again to match, or change the W2's mix."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} is out of water. Fill it, or link it to a water silo.",
+      "after": "{0} is out of water. Fill it, or link it to a water silo."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0}'s pump is paused. Choose Start at the W2.",
+      "after": "{0}'s pump is paused. Choose Start at the W2."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "{0} has no power.",
+      "after": "{0} has no power."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_w2_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water is on its way from {0}. The pump fills the pipe first.",
+      "after": "Water is on its way from {0}. The pump fills the pipe first."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_nutrients",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No nutrients. Load 40 g nutrient packets, or feed it from a W2: unlink the W2, choose this crop's feed and a nutrient charge there, then link again.",
+      "after": "No nutrients. Load 40 g nutrient packets, or feed it from a W2: unlink the W2, choose this crop's feed and a nutrient charge there, then link again."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_plant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Nothing is planted. Put seed in Inventory and choose a Plant action, or enable a crew order.",
+      "after": "Nothing is planted. Put seed in Inventory and choose a Plant action, or enable a crew order."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Growth is paused. Choose Start.",
+      "after": "Growth is paused. Choose Start."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_supply_link",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No rack is linked. Link one on the Supplies page.",
+      "after": "No rack is linked. Link one on the Supplies page."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_supply_intake",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No linked rack is taking water. Enable water supply at the rack.",
+      "after": "No linked rack is taking water. Enable water supply at the rack."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_supply_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Out of water. Load water or link a water silo.",
+      "after": "Out of water. Load water or link a water silo."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_supply_start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The pump is paused. Choose Start.",
+      "after": "The pump is paused. Choose Start."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "pump_started_for_rack",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Pump started to feed {0}.",
+      "after": "Pump started to feed {0}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_start",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Started.",
+      "after": "Started."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_pause",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_cancel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Cancelled.",
+      "after": "Cancelled."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_receive",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water intake is on.",
+      "after": "Water intake is on."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_receive_pump",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water intake is on, and the linked W2's pump is started.",
+      "after": "Water intake is on, and the linked W2's pump is started."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_pause_receive",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water intake is off.",
+      "after": "Water intake is off."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_routed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Pipe-fed water selected. Water intake is on.",
+      "after": "Pipe-fed water selected. Water intake is on."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_routed_pump",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Pipe-fed water selected. Water intake is on, and the linked W2's pump is started.",
+      "after": "Pipe-fed water selected. Water intake is on, and the linked W2's pump is started."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_routed_unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Pipe-fed water selected. Link a W2 to feed this rack.",
+      "after": "Pipe-fed water selected. Link a W2 to feed this rack."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_legacy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Direct refill selected. Load water by hand, or enable water supply to draw from Ship's Water tanks in reach.",
+      "after": "Direct refill selected. Load water by hand, or enable water supply to draw from Ship's Water tanks in reach."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_unlink",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_link",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Linked to {0}. Water intake is on and the pump is started.",
+      "after": "Linked to {0}. Water intake is on and the pump is started."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_link_supply",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Linked to {0}. The pump is started.",
+      "after": "Linked to {0}. The pump is started."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_supply_dose",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No nutrients to mix. Put a nutrient charge in Inventory and choose it as the charge on the Supplies page.",
+      "after": "No nutrients to mix. Put a nutrient charge in Inventory and choose it as the charge on the Supplies page."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -80589,8 +81070,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1bc6ca6ced2289dcd4320edd8faf0b4276fdd0e5afe82b2ccf58699888889f8d",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "de380b7fe85d6f6fd49b04bf97903da2a61cdaa1756c2e75c5fcdeb48ae0fd07",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "SUPPORT.md",
@@ -80617,8 +81098,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "306c7463890c41470ca9dec7ca04a7ccee10b16364c4ebac705e2cb35530edfb",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "73cdcba72d994f51aa5c19739b37ee485261db9b072a993bdfcb62c5dd68e322",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80638,8 +81119,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d9f51ca1f4e52b625e7c9c5064eee5fd1c8bbe971757af160cf9d5e5a43c117b",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "1866fee52e6a8c4063e7fda752e6d9db16ce6c573275d2823e1314ccb0d997b1",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -80750,8 +81231,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "269d252a95247c808784a26c1ca5133ec58eeae533a825419a435dbba92afd46",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "dc2bb365f08a60ca0536f0f4837805db3115ee85a7a1c9eb42b7696d733ae4a1",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "docs/crew-automation.md",
@@ -80778,8 +81259,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4bcd972ae834cfd0ff1b43e6f1c4829059ff156c449af4ece341940ade452c4b",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "201b47154a2eee8cf1fc501c6db2a4c6926d5406458d7b289d15a65b4a003f72",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -81379,8 +81860,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d043b0fb3a4c7cd97885bc229f87300f8e2d87f3afb2005aea89b89097894997",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "80b45ebe45f75db86a5dced1fbf09c74a71de68024d8cbaff175307735130cd4",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81878,8 +82359,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f37f44ae443604b8936bc8c321badcedac01ac99c96586cd55ef5f95c5b0b7b9",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "8db625872f98c86e0c8185a5c1ec02ea8ecab0702412ae72326b880bc9f7369c",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -81945,8 +82426,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "70ccea0dea80aa132f80fc29ca0a147682c273882ad2b20ac3f3c975f859218f",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "74e333fa773b7222e37724692040a7c2d4c9c62f4bcfd3326c8c46a0a9b94213",
+      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

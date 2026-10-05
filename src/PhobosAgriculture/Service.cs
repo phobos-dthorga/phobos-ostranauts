@@ -103,6 +103,9 @@ internal static partial class Service
         {
             if (status == SavedStateStatus.Ready) s.State = CropState.Read(fields);
             else if (status != SavedStateStatus.Missing) { s.Protected = true; records = false; }
+            // Health belongs to a crop. Until 0.54.0 an empty rack or W2 standing in a room without air lost it and
+            // showed "Health 0%" for ever after; a machine with nothing planted reads as sound.
+            if (s.State.CropId.Length == 0 && s.State.Health < 1) s.State.Health = 1;
             var solutionStatus = SolutionStore(co).Read(out var solutionFields);
             if (solutionStatus == SavedStateStatus.Ready) s.Solution = NutrientSolution.Read(solutionFields, s.State);
             else if (solutionStatus != SavedStateStatus.Missing) { s.Protected = true; records = false; }
@@ -213,7 +216,8 @@ internal static partial class Service
             {
                 // No imaginary vacuum sink. Power admission above prevents consumption here.
                 if (received > 0) throw new InvalidOperationException("Agriculture lost its heat recipient during a native power call.");
-                s.Watch.Cancel(); s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1); s.State.Running = false; Save(s); return;
+                s.Watch.Cancel(); if (s.State.CropId.Length > 0) s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1);
+                s.State.Running = false; s.Notice = Text.Get("advice_no_air"); Save(s); return;
             }
             // Settle measured electricity even if a later liquid adapter fails.
             // Machine heat share (Framework 0.94.0): both halves of the room's heat are scaled alike.
@@ -246,7 +250,7 @@ internal static partial class Service
             else
             {
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
-                bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && temp >= 291.15 && temp <= 299.15 && pressure >= 70 && pressure <= 110;
+                bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && GrowthRoom.Suits(temp, pressure);
                 // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
                 // air has no water vapour species, so an H2O emission was silently discarded.
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
@@ -338,6 +342,7 @@ internal static partial class Service
             if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") { message = Text.Get("local_work"); return false; }
             CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
         }
+        string did = "done";
         switch (action)
         {
             case "start": case "resume":
@@ -349,20 +354,28 @@ internal static partial class Service
                     s.State.CookerInput = raw.strID;
                 }
                 if (Definitions.IsCooker(co) && CookerInput(s) == null) { message = Text.Get("cancel_missing"); return false; }
-                s.State.Running = true; break;
-            case "pause": s.Watch.Cancel(); s.State.Running = false; break;
+                s.State.Running = true; did = "did_start"; break;
+            case "pause": s.Watch.Cancel(); s.State.Running = false; did = "did_pause"; break;
             case "cancel":
                 if (!Definitions.IsCooker(co)) { message = Text.Get("help"); return false; }
-                s.Watch.Cancel(); s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; break;
+                s.Watch.Cancel(); s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; did = "did_cancel"; break;
             case "receive":
                 if (Definitions.IsCooker(co) || !s.Routed && !ShipsWaterSupply.Available && !(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co))) { message = Text.Get("no_provider"); return false; }
-                s.State.Receiving = true; break;
-            case "pause-receive": s.State.Receiving = false; break;
+                s.State.Receiving = true;
+                // A pipe-fed rack switched to take water also starts its W2's pump (0.54.0): one action, one intent.
+                did = s.Routed && !IrrigationDefinitions.IsSupply(co) && StartPumpFor(co) ? "did_receive_pump" : "did_receive"; break;
+            case "pause-receive": s.State.Receiving = false; did = "did_pause_receive"; break;
             default: message = Text.Get("help"); return false;
         }
-        s.Notice = ""; Save(s); message = Describe(co); return true;
+        // The panel shows this line; until 0.54.0 a command that worked said nothing at all.
+        s.Notice = Text.Get(did); Save(s); message = Describe(co); return true;
     }
     internal static string Describe(CondOwner co)
+    {
+        string status = DescribeStatus(co), advice = Advice(co);
+        return advice.Length == 0 ? status : status + "\n" + advice;
+    }
+    private static string DescribeStatus(CondOwner co)
     {
         var s = Get(co); var b = s.State; var room = Room(co);
         if (WorkupDefinitions.IsBench(co)) return DescribeWorkup(s);

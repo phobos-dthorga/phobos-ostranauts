@@ -179,7 +179,9 @@ public sealed class Panel : GUIData
         if(RecyclerCapture.IsRecycler(co)){readout.text=RecyclerCapture.Describe(co);live.text=C.Text("collector");return;}
         var session=Service.Get(co);var b=session.State;
         string state=C.Text(session.Protected?"state_Blocked":b.Running?"state_Running":"state_Stopped");
-        live.text=state;readout.text=tab=="details"?Service.Describe(co):state+"\n"+(session.Protected?Text.Get("protected"):session.Notice);
+        // Every page ends with what the machine is waiting for (0.54.0); Describe carries it on the details page.
+        string advice=tab=="details"?"":Service.Advice(co);
+        live.text=state;readout.text=tab=="details"?Service.Describe(co):state+(b.Receiving&&!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co)?" · "+Text.Get("receiving"):"")+"\n"+(session.Protected?Text.Get("protected"):session.Notice)+(advice.Length==0?"":"\n"+advice);
         if(tab=="operation")readout.text+="\n"+(Definitions.IsCooker(co)?Text.Get("panel_cooker",b.CookerProgress/.05*100):
             WorkupDefinitions.IsBench(co)?Text.Get("panel_workup",session.Workup.Mode.Length==0?C.Text("not_selected"):Text.Get(WorkupDefinitions.ActionOf(session.Workup.Mode)),session.Workup.Energy)+"\n"+Text.Get("panel_press",session.Press.TotalKg,session.Press.Bales):
             IrrigationDefinitions.IsSupply(co)?Text.Get("panel_supply",b.Water,session.Solution.TotalKg):Text.Get("panel_live",b.Progress*100,b.Health*100,b.Water,b.Nutrients));
