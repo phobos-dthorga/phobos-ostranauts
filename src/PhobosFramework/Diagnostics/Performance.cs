@@ -47,6 +47,8 @@ public static class Performance
     internal static PerformanceMetric? StoryChatter = null;
     // Framework 0.111.0: the crew upkeep planner, every ten real seconds while a switch is on.
     internal static PerformanceMetric? UpkeepPlan = null;
+    // Framework 0.112.0: one whole time-skip step (world update, machines, crew), and its crew assignment and completion.
+    internal static PerformanceMetric? SkipStep = null, SkipCrew = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

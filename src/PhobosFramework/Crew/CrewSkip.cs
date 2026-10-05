@@ -19,6 +19,22 @@ public static class CrewSkip
     // Compiled accessors: a skip steps every consumer once per simulated second, so no boxing or Invoke per step.
     private static readonly AccessTools.FieldRef<Powered, double> PowerEpoch = AccessTools.FieldRefAccess<Powered, double>("fUpdateLast");
     private static readonly Action<Powered> RunPower = AccessTools.MethodDelegate<Action<Powered>>(AccessTools.Method(typeof(Powered), "Run"));
+    private static readonly AccessTools.FieldRef<Powered, CondTrigger> RechargeTrigger = AccessTools.FieldRefAccess<Powered, CondTrigger>("ctRecharge");
+    /// <summary>Game seconds per skip step, the player's <c>TimeSkip/StepSeconds</c> (Framework 0.112.0).</summary>
+    public static double StepSeconds { get; set; } = CrewBalance.DefaultSkipStepSeconds;
+    /// <summary>One powered or gas-holding object on a skipping ship, classified once per skip.</summary>
+    private sealed class Consumer
+    {
+        public CondOwner Co = null!;
+        public bool Equipment, Recharger, Room;
+        public double LastStepped;
+    }
+    private static readonly List<Consumer> stepped = new();
+    private static readonly List<CondOwner> arrivals = new();
+    private static readonly Dictionary<string,double> headStart = new(StringComparer.Ordinal);
+    // Crew-ordered equipment per ship, read once per skip instead of scanning every object for each crew decision.
+    private static readonly Dictionary<Ship,IReadOnlyList<CondOwner>> equipment = new();
+    private static Ship[] skipping = Array.Empty<Ship>();
     private static readonly Dictionary<string,double> busy = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,CrewWork.Job> assignments = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,int> completions = new(StringComparer.Ordinal);
@@ -30,8 +46,8 @@ public static class CrewSkip
     private static readonly HashSet<string> faulted = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,double> nextDecision = new(StringComparer.Ordinal);
     // Footprint count for performance captures (Framework 0.104.0).
-    internal static int Records => busy.Count + assignments.Count + completions.Count + unavailable.Count + nativeCare.Count + budgets.Count + faulted.Count + nextDecision.Count;
-    private static CondOwner[] consumers = Array.Empty<CondOwner>();
+    internal static int Records => busy.Count + assignments.Count + completions.Count + unavailable.Count + nativeCare.Count + budgets.Count + faulted.Count + nextDecision.Count +
+        stepped.Count + headStart.Count + equipment.Count;
     internal static string Preview(Ship ship)
     {
         var lines=new List<string>{CrewWork.Message("skip_preview")};
@@ -68,7 +84,7 @@ public static class CrewSkip
     }
     internal static void Begin(IEnumerable<GUIFFWDRow> rows)
     {
-        Managed=false; workedSeconds=availableSeconds=0; assignments.Clear(); busy.Clear(); completions.Clear(); unavailable.Clear(); budgets.Clear(); faulted.Clear();
+        Managed=false; workedSeconds=availableSeconds=0; assignments.Clear(); busy.Clear(); completions.Clear(); unavailable.Clear(); budgets.Clear(); faulted.Clear(); headStart.Clear();
         var participants=rows.ToArray(); nativeCare.Clear();
         var contexts=DataHandler.GetLoot("ACTFFWDContextPayloads").GetAllLootNames();
         foreach(var row in participants)
@@ -87,39 +103,46 @@ public static class CrewSkip
     internal static void Advance(StarSystem system,double seconds)
     {
         var ships=crew.Select(c=>c.ship).Distinct().ToArray();
-        Managed=ships.Any(s=>CrewWork.Equipment(s).Any(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled));
+        skipping=ships; equipment.Clear();
+        Managed=ships.Any(s=>SkipEquipment(s).Any(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled));
         var powered=DataHandler.mapCOs.Values.Where(c=>c!=null&&!c.bDestroyed&&ships.Contains(c.ship)&&(c.Pwr!=null||c.GasContainer!=null)).ToArray();
         // Owner report (5 October 2026), Framework 0.99.0: with no crew order enabled the game jumped the whole skip in
         // one step, and the next power step then asked every machine for six hours at once. No room takes six hours
         // of a machine's heat in one step and no conduit holds six hours of its power, so every running machine stood
         // still for the skip. A skip is stepped whenever a machine's Start stands (the resume mark it already keeps),
         // so its power, heat and deliveries are its ordinary steps; with nothing running the game's own jump stays.
-        double stepSeconds=CrewBalance.SkipStep(Managed,powered.Any(Persistence.ResumeAfterLoad.Marked));
-        if(stepSeconds<=0) { system.Update(seconds); return; }
-        consumers=powered;
+        // Owner report (6 October 2026), Framework 0.112.0: one-second steps with crew orders on froze the game for
+        // minutes; every stepped skip now takes the player's step, 30 seconds by default.
+        double stepSeconds=CrewBalance.SkipStep(Managed,powered.Any(Persistence.ResumeAfterLoad.Marked),StepSeconds);
+        if(stepSeconds<=0) { equipment.Clear(); skipping=Array.Empty<Ship>(); system.Update(seconds); return; }
+        Classify(powered);
         Active=true; double remaining=seconds, hourLeft=0; var initial=StarSystem.fEpoch; int previewHour=StarSystem.nUTCHour;
         try
         {
             while(remaining>1e-6)
             {
+                using var stepMeasurement=Diagnostics.Performance.Measure(Diagnostics.Performance.SkipStep);
                 if(!Managed)
                 {
                     // Machines only: no crew job is assigned, charged or completed, and the game's own crew effects,
                     // repairs and report are untouched.
                     double machineStep=Math.Min(stepSeconds,remaining);
                     system.Update(machineStep); Cadence.AdvanceSkip(machineStep);
-                    TickMachines(ships);
+                    TickMachines(ships,stepSeconds);
                     // Crew upkeep (0.111.0) uses on-shift time without changing how the skip steps.
                     Upkeep.SkipStep(crew,ships,machineStep,null);
                     remaining-=machineStep; continue;
                 }
                 if(hourLeft<=1e-6) { SnapshotHour(crew,previewHour++); hourLeft=Math.Min(3600,remaining); }
-                // Small shared steps retain power competition and native gas/thermal limits.
+                // Shared steps retain power competition and native gas/thermal limits. A job no longer ends its step
+                // early (0.112.0): it finishes with the step it ends in and its spare seconds start the next job.
                 double step=Math.Min(stepSeconds,Math.Min(CrewBalance.UntilHour(StarSystem.fEpoch),Math.Min(remaining,hourLeft)));
-                foreach(var id in assignments.Keys.ToArray())
-                    if(!CrewWork.Eligible(assignments[id].Worker!,assignments[id].Offer,out _) || unavailable.Contains(id)) Drop(id);
-                foreach(var actor in crew) TryAssign(actor,ships);
-                foreach(var value in busy.Values) if(value>1e-6) step=Math.Min(step,value);
+                using(Diagnostics.Performance.Measure(Diagnostics.Performance.SkipCrew))
+                {
+                    foreach(var id in assignments.Keys.ToArray())
+                        if(!CrewWork.Eligible(assignments[id].Worker!,assignments[id].Offer,out _) || unavailable.Contains(id)) Drop(id);
+                    foreach(var actor in crew) TryAssign(actor,ships);
+                }
                 int workHour=StarSystem.nUTCHour;
                 // Unassigned on-shift crew spend the step natively (rest, repairs, study); who repairs
                 // and how much is the game's own allowance, scaled afterwards by RepairShare.
@@ -129,15 +152,18 @@ public static class CrewSkip
                     if(!assignments.ContainsKey(actor.strID))budgets[actor.strID].TrySpend(step,false);
                 }
                 system.Update(step); Cadence.AdvanceSkip(step);
-                TickMachines(ships);
+                TickMachines(ships,stepSeconds);
                 foreach(var actor in crew)
                 {
                     if(!assignments.TryGetValue(actor.strID,out var job)) continue;
                     if(!CrewWork.Eligible(actor,job.Offer,out _,hour:workHour) || unavailable.Contains(actor.strID)) { Drop(actor.strID); continue; }
                     if(!budgets[actor.strID].TrySpend(step,true)) { Drop(actor.strID); continue; }
-                    workedSeconds+=step; busy[actor.strID]-=step;
-                    if(busy[actor.strID]>1e-6) continue;
-                    if(CrewWork.Complete(job,true,workHour)) completions[actor.strID]=completions.TryGetValue(actor.strID,out var n)?n+1:1;
+                    double left=busy[actor.strID];
+                    workedSeconds+=Math.Min(step,Math.Max(0,left)); busy[actor.strID]=left-step;
+                    if(left-step>1e-6) continue;
+                    headStart[actor.strID]=step-Math.Max(0,left);
+                    using(Diagnostics.Performance.Measure(Diagnostics.Performance.SkipCrew))
+                        if(CrewWork.Complete(job,true,workHour)) completions[actor.strID]=completions.TryGetValue(actor.strID,out var n)?n+1:1;
                     Drop(actor.strID);
                 }
                 Upkeep.SkipStep(crew,ships,step,id=>assignments.ContainsKey(id)||unavailable.Contains(id));
@@ -146,7 +172,7 @@ public static class CrewSkip
         }
         catch(Exception error)
         {
-            foreach(var ship in ships) foreach(var co in CrewWork.Equipment(ship)) CrewWork.Fault(co,error);
+            foreach(var ship in ships) foreach(var co in SkipEquipment(ship)) CrewWork.Fault(co,error);
         }
         finally
         {
@@ -155,9 +181,12 @@ public static class CrewSkip
             // Do not rewind or replay an elapsed world interval on any failure.
             if(StarSystem.fEpoch-initial<seconds-1e-6)
             {
-                foreach(var ship in ships) foreach(var co in CrewWork.Equipment(ship)) CrewWork.Provider(co)?.Suspend(co);
+                foreach(var ship in ships) foreach(var co in SkipEquipment(ship)) CrewWork.Provider(co)?.Suspend(co);
                 system.Update(seconds-(StarSystem.fEpoch-initial));
             }
+            // A fitting not stepped since its last turn is charged its remaining seconds by its next ordinary power step,
+            // as the game charges every object after its own single-jump skip; nothing is charged twice.
+            stepped.Clear(); arrivals.Clear(); equipment.Clear(); headStart.Clear(); skipping=Array.Empty<Ship>();
         }
     }
     private static void SnapshotHour(IEnumerable<CondOwner> crew,int previewHour)
@@ -177,8 +206,10 @@ public static class CrewSkip
         if(assignments.ContainsKey(actor.strID) || unavailable.Contains(actor.strID) || !CrewWork.Idle(actor) ||
             nextDecision.TryGetValue(actor.strID,out var next)&&StarSystem.fEpoch<next)return;
         nextDecision[actor.strID]=StarSystem.fEpoch+CrewBalance.DiscoverySeconds;
+        // Spare seconds from the step the last job ended in start this one; unused, they lapse.
+        double spare=headStart.TryGetValue(actor.strID,out var had)?had:0; headStart.Remove(actor.strID);
         var offers=new List<CrewWork.Job>();
-        foreach(var co in CrewWork.Equipment(actor.ship).Where(c=>!faulted.Contains(c.strID)))
+        foreach(var co in SkipEquipment(actor.ship).Where(c=>!faulted.Contains(c.strID)))
         {
             var order=CrewWork.Order(co); var provider=CrewWork.Provider(co)!;
             if(order.Protected || order.Permission!=WorkPermission.Enabled || CrewWork.RetryPending(co) || provider is not ICrewSkipProvider support || !support.CanAdvance(co,out _)) continue;
@@ -200,7 +231,7 @@ public static class CrewSkip
             // Return via the worker's abstract starting point; conservative and never a shortcut through a wall.
             if(offer.Cargo!=null) travel+=2*Travel(actor,offer.Cargo);
             if(!CrewBalance.Finite(travel)) { CrewWork.Reservations.Release(job.Lease); continue; }
-            assignments[actor.strID]=job; busy[actor.strID]=job.Seconds+travel; break;
+            assignments[actor.strID]=job; busy[actor.strID]=CrewBalance.JobSeconds(job.Seconds+travel,spare); break;
         }
     }
     private static void Drop(string id)
@@ -219,30 +250,72 @@ public static class CrewSkip
         }
         finally { pathfinder.coDest=saved; pathfinder.tilDest=savedTile; pathfinder.fRangeGoal=savedRange; }
     }
-    private static void TickMachines(Ship[] ships)
+    /// <summary>The game's room object (<c>Room</c> makes one from this definition); its gas takes machine heat and gas.</summary>
+    private const string RoomDefinition = "Compartment";
+    /// <summary>Sorts the skipping ships' powered and gas-holding objects once per skip (Framework 0.112.0).</summary>
+    private static void Classify(IEnumerable<CondOwner> powered)
     {
-        foreach(var ship in ships)
+        stepped.Clear(); arrivals.Clear();
+        double now=StarSystem.fEpoch, step=CrewBalance.ClampSkipStep(StepSeconds);
+        foreach(var co in powered) stepped.Add(Make(co,CrewBalance.FixtureStart(stepped.Count,now,step)));
+    }
+    private static Consumer Make(CondOwner co,double lastStepped) => new()
+    {
+        Co=co, LastStepped=lastStepped,
+        Equipment=CrewWork.Provider(co)!=null,
+        Recharger=co.Pwr!=null && (RechargeTrigger(co.Pwr)!=null || co.HasCond("IsRechargingContainer")),
+        Room=co.Pwr==null && co.GasContainer!=null && co.strCODef==RoomDefinition
+    };
+    /// <summary>Crew-ordered equipment on a skipping ship, read once per skip and again after a mode switch.</summary>
+    private static IEnumerable<CondOwner> SkipEquipment(Ship ship)
+    {
+        if(!equipment.TryGetValue(ship,out var list)) equipment[ship]=list=CrewWork.Equipment(ship).ToArray();
+        return list.Where(c=>c!=null && !c.bDestroyed && c.HasCond("IsInstalled"));
+    }
+    /// <summary>A mode switch (damage, repair, installation) made a new object during the skip: step it from the next
+    /// step and read the ship's equipment again.</summary>
+    internal static void Replaced(CondOwner? co)
+    {
+        if(!Active || co==null || co.bDestroyed || co.ship==null || Array.IndexOf(skipping,co.ship)<0) return;
+        equipment.Remove(co.ship);
+        if(co.Pwr!=null || co.GasContainer!=null) arrivals.Add(co);
+    }
+    /// <summary>One skip step's power and gas. Phobos machines (a standing Start), crew-ordered equipment, rooms and the
+    /// objects that charge batteries are stepped every step; the game's other powered fittings every fourth step, each
+    /// asked for the seconds since its last turn, so they still compete for the same power.</summary>
+    private static void TickMachines(Ship[] ships,double step)
+    {
+        foreach(var ship in ships) if(ship.Reactor!=null) ship.Reactor.GetComponent<FusionIC>()?.CatchUp();
+        double now=StarSystem.fEpoch;
+        if(arrivals.Count>0) { foreach(var co in arrivals) stepped.Add(Make(co,now-CrewBalance.FixtureStepMultiple*step)); arrivals.Clear(); }
+        foreach(var c in stepped)
         {
-            if(ship.Reactor!=null) ship.Reactor.GetComponent<FusionIC>()?.CatchUp();
-            foreach(var co in consumers.Where(c=>c!=null && !c.bDestroyed && c.ship==ship))
+            var co=c.Co;
+            if(co==null || co.bDestroyed) continue;
+            bool due=c.Equipment || c.Recharger || Persistence.ResumeAfterLoad.Marked(co) || CrewBalance.FixtureDue(c.LastStepped,now,step);
+            if(!due) { if(c.Room) co.GasContainer.Run(); continue; }
+            c.LastStepped=now;
+            using var measurement=Diagnostics.Performance.Measure(Diagnostics.Performance.SkipMachineStep);
+            var provider=CrewWork.Provider(co);
+            bool supported=provider==null || provider is ICrewSkipProvider p && p.CanAdvance(co,out _);
+            if(!supported || faulted.Contains(co.strID))
+            { if(co.Pwr!=null)PowerEpoch(co.Pwr)=now; continue; }
+            if(co.Pwr!=null)
             {
-                using var measurement=Diagnostics.Performance.Measure(Diagnostics.Performance.SkipMachineStep);
-                var provider=CrewWork.Provider(co);
-                bool supported=provider==null || provider is ICrewSkipProvider p && p.CanAdvance(co,out _);
-                if(!supported || faulted.Contains(co.strID))
-                { if(co.Pwr!=null)PowerEpoch(co.Pwr)=StarSystem.fEpoch; continue; }
-                if(co.Pwr!=null)
+                double elapsed=now-PowerEpoch(co.Pwr);
+                if(elapsed>=1)
                 {
-                    double last=PowerEpoch(co.Pwr);
-                    if(StarSystem.fEpoch-last>=1)
+                    try
                     {
-                        try { RunPower(co.Pwr); }
-                        catch(Exception error) { faulted.Add(co.strID); if(provider!=null)CrewWork.Fault(co,error); }
-                        finally { PowerEpoch(co.Pwr)=StarSystem.fEpoch; }
+                        // A charger takes the step in one-second slices so batteries charge as they would in play.
+                        int slices=c.Recharger?CrewBalance.RechargeSlices(elapsed):1;
+                        for(int i=0;i<slices;i++) { PowerEpoch(co.Pwr)=now-elapsed/slices; RunPower(co.Pwr); }
                     }
+                    catch(Exception error) { faulted.Add(co.strID); if(provider!=null)CrewWork.Fault(co,error); }
+                    finally { PowerEpoch(co.Pwr)=now; }
                 }
-                if(co.GasContainer!=null) co.GasContainer.Run();
             }
+            if(co.GasContainer!=null) co.GasContainer.Run();
         }
     }
     internal static string Report(CondOwner actor) => completions.TryGetValue(actor.strID,out var count)?CrewWork.Message("skip_report",count):CrewWork.Message("skip_no_work");

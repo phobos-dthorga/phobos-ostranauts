@@ -85,10 +85,30 @@ internal static class CrewWorkChecks
         check(CrewBalance.UntilHour(15*3600+43*60)==17*60,"Skip splits at real roster boundary");
         check(CrewBalance.UntilHour(16*3600)==3600,"Exact boundaries do not produce zero-length steps");
         // Framework 0.99.0: a skip is stepped for running machines too, so they are never asked for hours in one step.
-        check(CrewBalance.SkipStep(false,false)==0&&CrewBalance.SkipStep(false,true)==CrewBalance.MachineSkipStepSeconds&&CrewBalance.SkipStep(true,false)==CrewBalance.SkipStepSeconds&&
-            CrewBalance.SkipStep(true,true)==CrewBalance.SkipStepSeconds,"A skip keeps the game's jump with nothing running, steps for running machines, and keeps the crew step for crew orders");
-        check(CrewBalance.MachineSkipStepSeconds>=1&&CrewBalance.MachineSkipStepSeconds<=Phobos.Ostranauts.Framework.Processing.ProcessJob.MaxSeconds/60,
-            "A machine step is far inside the longest step a machine's heat check accepts");
+        // Framework 0.112.0: crew orders and running machines both take the player's step.
+        check(CrewBalance.SkipStep(false,false,30)==0&&CrewBalance.SkipStep(false,true,30)==30&&CrewBalance.SkipStep(true,false,30)==30&&CrewBalance.SkipStep(true,true,5)==5,
+            "A skip keeps the game's jump with nothing running and takes the player's step for running machines or crew orders");
+        check(CrewBalance.ClampSkipStep(0)==CrewBalance.MinSkipStepSeconds&&CrewBalance.ClampSkipStep(600)==CrewBalance.MaxSkipStepSeconds&&
+            CrewBalance.ClampSkipStep(double.NaN)==CrewBalance.DefaultSkipStepSeconds&&CrewBalance.SkipStep(true,false,double.PositiveInfinity)==CrewBalance.DefaultSkipStepSeconds,
+            "The step setting is held to its range and a non-number takes the default");
+        check(CrewBalance.MaxSkipStepSeconds<=Phobos.Ostranauts.Framework.Processing.ProcessJob.MaxSeconds/60&&
+            CrewBalance.DefaultSkipStepSeconds>=CrewBalance.MinSkipStepSeconds&&CrewBalance.DefaultSkipStepSeconds<=CrewBalance.MaxSkipStepSeconds,
+            "The longest step is far inside the longest step a machine's heat check accepts");
+        check(!CrewBalance.FixtureDue(100,130,30)&&!CrewBalance.FixtureDue(100,190,30)&&CrewBalance.FixtureDue(100,220,30)&&CrewBalance.FixtureDue(double.NaN,0,30),
+            "The game's own fittings are stepped every fourth step");
+        bool spread=true;
+        for(int i=0;i<8;i++)
+        {
+            double last=CrewBalance.FixtureStart(i,1000,30); int first=0;
+            for(int k=1;k<=CrewBalance.FixtureStepMultiple&&first==0;k++) if(CrewBalance.FixtureDue(last,1000+k*30,30)) first=k;
+            spread&=first==CrewBalance.FixtureStepMultiple-i%CrewBalance.FixtureStepMultiple;
+        }
+        check(spread,"Fittings are spread over the four steps, so no one step carries them all");
+        check(CrewBalance.RechargeSlices(30)==30&&CrewBalance.RechargeSlices(1.5)==1&&CrewBalance.RechargeSlices(30.7)==30&&
+            CrewBalance.RechargeSlices(10000)==CrewBalance.MaxRechargeSlices&&CrewBalance.RechargeSlices(double.NaN)==1,
+            "A battery charger takes a step in one-second slices, as the game charges per power step");
+        check(CrewBalance.JobSeconds(100,30)==70&&CrewBalance.JobSeconds(20,30)==0&&CrewBalance.JobSeconds(100,-5)==100&&CrewBalance.JobSeconds(100,double.NaN)==100,
+            "Spare seconds from the step a job ended in start the next job; nothing is borrowed");
         check(Phobos.Ostranauts.Framework.Cadence.Skipped(5,10)==15&&Phobos.Ostranauts.Framework.Cadence.Skipped(5,-1)==5&&Phobos.Ostranauts.Framework.Cadence.Skipped(5,double.NaN)==5&&
             Phobos.Ostranauts.Framework.Cadence.Skipped(5,double.PositiveInfinity)==5,"Skipped seconds only ever move the wait clock forward");
         var interrupted=new CrewTimeBudget(3600);interrupted.TrySpend(30,true);

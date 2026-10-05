@@ -16,6 +16,8 @@ internal static class CrewNativeChecks
             "Native time-skip has exactly one replaceable world-clock call");
         check(typeof(Powered).GetField("fUpdateLast",flags)?.FieldType==typeof(double)&&typeof(Powered).GetMethod("Run",flags)!=null,
             "Measured power adapter can advance and settle the native epoch");
+        check(typeof(Powered).GetField("ctRecharge",flags)?.FieldType==typeof(CondTrigger),
+            "Time-skip steps can tell the objects that charge batteries (Framework 0.112.0)");
         check(typeof(GUIFFWD).GetField("tfCrew",flags)!=null&&typeof(GUIFFWD).GetMethod("UndamageParts",flags)?.GetParameters().Single().ParameterType==typeof(double),
             "Native crew scope and repair allowance resolve");
         check(typeof(GUIFFWDRow).GetField("dictPayloads",flags)?.FieldType==typeof(System.Collections.Generic.Dictionary<string,int>),

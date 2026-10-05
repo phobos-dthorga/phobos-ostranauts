@@ -182,6 +182,7 @@ that sat in unscoped hooks before it:
 | `framework.rcs.collect` | RCS propellant input collection per ship per step |
 | `framework.state.write` / `framework.state.writes_skipped` | Saved-state writes and identical writes skipped |
 | `framework.water_supply.refill`, `framework.skip.machine_step` | Ship's Water refills; machine steps inside the managed time-skip |
+| `framework.skip.step`, `framework.skip.crew` | One whole time-skip step (the game's world update, machines and crew), and its crew assignment and job completion (Framework 0.112.0). A skip runs inside one frame and a window that reaches its time limit mid-skip stops there, so for a skip use a longer window, for example `phobosframework perf start summary 300 20000` |
 | `agriculture.irrigation.route`, `agriculture.saves` | Irrigation route lookups; crop and rack record writes |
 | `shipbreaker.power.hook`, `shipbreaker.furnace.route`, `shipbreaker.furnace.saves` | The power hooks for our machines; coolant route lookups; furnace record writes |
 | `manufacturing.scan`, `manufacturing.power.hook`, `manufacturing.machine.step`, `manufacturing.manifold.refresh`, `manufacturing.regulator.tick` | The two-second world scan, the power hooks, machine steps, manifold rechecks and regulator ticks |

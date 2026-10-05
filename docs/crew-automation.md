@@ -277,19 +277,55 @@ settles to a steady tune rather than a full one.
 ## Time-skip
 
 **Machines keep working through a skip** (Framework 0.99.0). Whenever a machine is
-running, the skip is taken in ten-second steps, so it draws power, warms its room and
-delivers its products as in ordinary play; you need no crew order for that. Before
-0.99.0 a running machine did nothing for the length of a skip. With nothing running,
-the skip is the game's own single jump.
+running or a crew order is on, the skip moves forward in steps, so machines draw
+power, warm their rooms and deliver their products much as in ordinary play, and
+crew carry out their orders. You need no crew order for machines to work. With
+nothing running and no order on, the skip is the game's own single jump.
+
+**The step is 30 game seconds by default** (Framework 0.112.0). The game freezes
+while a skip runs, and each step takes about the same real time whatever its
+length, so the step decides how long you wait. Before 0.112.0 a skip with crew
+orders on moved one second at a time: on the owner's PC that was about 14 ms per
+skipped second, roughly five minutes for a six-hour skip.
+
+To change the step, close the game and set `StepSeconds` under `[TimeSkip]` in
+`BepInEx/config/phobosgekko.ostranauts.framework.cfg`, from 1 to 60.
+
+| Step | Wait | What you give up |
+| --- | --- | --- |
+| 1 | Longest: the behaviour before 0.112.0 | Nothing; the most faithful |
+| 30 (default) | Short | A little crew and machine time, see below |
+| 60 | Shortest | More of the same; heavy machines may stall |
+
+What a longer step costs:
+
+- Crew take their next job only when a step ends. Seconds left over from a job
+  start the next one, so little crew time is lost.
+- A machine that finishes a batch partway through a step may wait for the next
+  step before starting another.
+- Each MHD generator is topped up once a step. On its own it can feed about
+  240 kW at 30 seconds and 120 kW at 60. Batteries wired to the load supply too, and
+  the reactor keeps charging them as in play.
+- A machine checks each step's heat against its room. A long step puts more heat
+  in at once, so a busy machine in a small room can wait for cooler air the whole
+  skip. If that happens, lower the step.
+
+The game's own powered fittings (lights, doors, life support) take their power
+every fourth step, from the same supply as the machines; Phobos machines,
+crew-ordered equipment and rooms every step.
 
 The native time-skip screen retains its collision warnings, roster display and
 Go control. Its Phobos summary and detail view show intended onboard work and
 current blockers. This is a read-only indication, not a guaranteed production
 forecast: later shortages, heat, damage, route changes or crew needs may stop work.
 
-During a managed skip, the native world clock advances in bounded steps, split
-at actual roster boundaries and work completions. Native power consumption
-and received-power callbacks advance existing machine services. Finite water,
+During a managed skip, the native world clock advances in steps of the chosen
+length, split at the hour so the roster's shifts apply. A crew job finishes with
+the step it ends in. Native power consumption and received-power callbacks
+advance existing machine services. The game charges a battery by a fixed share
+of what it lacks at each power step, not each second, so the reactor and battery
+chargers take every step in one-second slices; before 0.112.0 machine-only skips
+charged batteries at a tenth of the usual rate. Finite water,
 nutrients, coolant, gas/heat headroom and output space still limit production.
 Normal power update epochs are settled so the following ordinary frame cannot
 charge those same seconds again.

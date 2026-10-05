@@ -462,6 +462,6 @@ internal static class CrewTaskFinish
 [HarmonyLib.HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
 internal static class CrewModeSwitchPatch
 {
-    private static void Postfix(CondOwner coNew) { try { CrewWork.Replaced(coNew); } catch { } try { Upkeep.Replaced(coNew); } catch { } }
+    private static void Postfix(CondOwner coNew) { try { CrewWork.Replaced(coNew); } catch { } try { Upkeep.Replaced(coNew); } catch { } try { CrewSkip.Replaced(coNew); } catch { } }
 }
 

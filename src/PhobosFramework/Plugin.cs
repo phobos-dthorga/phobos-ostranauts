@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.111.0";
+    public const string Version = "0.112.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -68,6 +68,10 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         catch (Exception ex) { Logger.LogWarning("Optional completion audio unavailable: " + ex.Message); }
         // Work carries on after a reload (0.95.0; owner decision, 5 October 2026): on by default.
         Persistence.ResumeAfterLoad.Enabled = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("ResumeAfterLoad.setting")).Value;
+        // Time-skip step (0.112.0; owner report, 6 October 2026): the player trades the skip's freeze against its detail.
+        Crew.CrewSkip.StepSeconds = Crew.CrewBalance.ClampSkipStep(Config.Bind("TimeSkip", "StepSeconds", Crew.CrewBalance.DefaultSkipStepSeconds,
+            new BepInEx.Configuration.ConfigDescription(Text.Get("CrewSkip.setting_step"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Crew.CrewBalance.MinSkipStepSeconds, Crew.CrewBalance.MaxSkipStepSeconds))).Value);
         // Machine heat (0.94.0; owner decision, 5 October 2026): one share for every Phobos machine, a quarter by default.
         Processing.RoomHeat.MachineHeatScale = Config.Bind("Heat", "MachineHeatScale", Processing.RoomHeat.DefaultMachineHeatScale,
             new BepInEx.Configuration.ConfigDescription(Text.Get("RoomHeat.setting"),

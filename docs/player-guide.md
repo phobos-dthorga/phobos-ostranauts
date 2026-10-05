@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.111.0**, Shipbreaker **0.82.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.112.0**, Shipbreaker **0.82.0**, Auto Nav
 **0.34.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -145,6 +145,17 @@ To change it, close the game and set `MachineHeatScale` under `[Heat]` in
 `BepInEx/config/phobosgekko.ostranauts.framework.cfg`: from 0.05 to 1, where 1
 gives the full heat of earlier versions. Fires and explosions are not affected.
 Machines still need air: none of them works in vacuum.
+
+## Time-skips
+
+Running machines and crew orders keep working through the game's time-skip. The
+skip moves 30 game seconds at a time (since Framework 0.112.0; before that, a skip
+with crew orders on moved one second at a time and could freeze the game for
+minutes). If skips still take too long, or machines seem to do less than they
+should during one, close the game and change `StepSeconds` under `[TimeSkip]` in
+`BepInEx/config/phobosgekko.ostranauts.framework.cfg`: from 1 (slowest, most
+exact) to 60 (quickest). [Crew automation](crew-automation.md#time-skip) explains
+what a longer step gives up.
 
 ## What a tank holds
 
@@ -313,7 +324,7 @@ processor without deleting them. On reload, panel recipe, progress and duration 
 and the collector keeps its selected partner. Whatever was running when you saved
 [carries on by itself](#machines-carry-on-after-a-reload); whatever was paused
 waits for you to start it. Running machines also keep working through the game's
-time-skip (Framework 0.99.0). Short transfer timers reset; their physical cargo stays at the sender.
+[time-skip](#time-skips) (Framework 0.99.0). Short transfer timers reset; their physical cargo stays at the sender.
 Full output waits with cargo retained. Nothing processes while its ship is unloaded.
 
 Change settings with the game closed, then restart. Shipbreaker uses

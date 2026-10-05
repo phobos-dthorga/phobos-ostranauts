@@ -18,14 +18,37 @@ public static class CrewBalance
     public const double SkilledDurationFraction = 0.8;
     public const double HandlingSeconds = 10;
     public const double DiscoverySeconds = 2;
-    public const double SkipStepSeconds = 1;
-    /// <summary>The step of a time-skip that has running machines but no crew orders (Framework 0.99.0): coarser than
-    /// the crew step, because no job has to end on a second, and fine enough that each step's heat and power are a
-    /// machine's ordinary step at fast-forward.</summary>
-    public const double MachineSkipStepSeconds = 10;
-    /// <summary>How a time-skip advances the clock, pure: in crew steps while crew orders are enabled, in machine steps
-    /// while any machine's Start stands, and otherwise 0, the game's own single jump.</summary>
-    public static double SkipStep(bool crewOrders, bool runningMachines) => crewOrders ? SkipStepSeconds : runningMachines ? MachineSkipStepSeconds : 0;
+    // Before Framework 0.112.0 a skip with crew orders stepped one second at a time (SkipStepSeconds = 1) and one with
+    // only running machines ten seconds (MachineSkipStepSeconds, 0.99.0); both now use the player's step below.
+    /// <summary>The game seconds a stepped time-skip takes at a time, the player's <c>TimeSkip/StepSeconds</c>
+    /// (Framework 0.112.0; owner report, 6 October 2026). A six-hour skip with crew orders on used to take one-second
+    /// steps and froze the game for minutes; the owner put a playable skip ahead of its detail. Each step costs about
+    /// the same whatever its length, so the freeze shrinks with the step. The ceiling is the heat check: a machine
+    /// refuses a step whose heat would take its room past the limit, so a step much longer than a minute would stall
+    /// hot machines in small rooms for the whole skip, and that check is never relaxed.</summary>
+    public const double DefaultSkipStepSeconds = 30, MinSkipStepSeconds = 1, MaxSkipStepSeconds = 60;
+    /// <summary>The setting held to its range; a value that is not a number takes the default.</summary>
+    public static double ClampSkipStep(double seconds) => !Finite(seconds) ? DefaultSkipStepSeconds : Math.Min(MaxSkipStepSeconds, Math.Max(MinSkipStepSeconds, seconds));
+    /// <summary>How a time-skip advances the clock, pure: in the configured step while crew orders are enabled or any
+    /// machine's Start stands, and otherwise 0, the game's own single jump.</summary>
+    public static double SkipStep(bool crewOrders, bool runningMachines, double configured) => crewOrders || runningMachines ? ClampSkipStep(configured) : 0;
+    /// <summary>The game's own powered fittings (lights, doors, life support) are stepped every fourth skip step;
+    /// Phobos machines, crew-ordered equipment, rooms and the objects that charge batteries every step.</summary>
+    public const int FixtureStepMultiple = 4;
+    /// <summary>Whether a fitting last stepped at <paramref name="last"/> is due again, pure.</summary>
+    public static bool FixtureDue(double last, double now, double step) => !Finite(last) || now - last >= FixtureStepMultiple * step - 1e-6;
+    /// <summary>The turn a fitting is treated as last stepped at the start of a skip, pure: the fittings are spread over
+    /// the four steps by their order, so no one step carries them all.</summary>
+    public static double FixtureStart(int index, double now, double step) => now - (Math.Max(0, index) % FixtureStepMultiple) * step;
+    /// <summary>The game charges a battery by a fixed share of what it lacks at each power step, not per second
+    /// (<c>Powered.Recharge</c>, 0.1% per call), so the reactor and battery chargers take a long skip step in
+    /// one-second slices, as they would in play. At most this many slices per step.</summary>
+    public const int MaxRechargeSlices = 60;
+    /// <summary>How many slices a recharging object's step of <paramref name="elapsed"/> seconds takes, pure.</summary>
+    public static int RechargeSlices(double elapsed) => !Finite(elapsed) || elapsed < 2 ? 1 : (int)Math.Min(MaxRechargeSlices, Math.Floor(elapsed));
+    /// <summary>A crew job in a stepped skip ends with the step it finishes in; the seconds of that step left over are
+    /// a head start on the worker's next job, so longer steps do not cost crew time, pure.</summary>
+    public static double JobSeconds(double seconds, double headStart) => Math.Max(0, seconds - (Finite(headStart) && headStart > 0 ? headStart : 0));
     public const double WalkSecondsPerTile = 2;
     public static double UntilHour(double epoch) => 3600 - ((epoch % 3600 + 3600) % 3600);
     public static bool Finite(double n) => !double.IsNaN(n) && !double.IsInfinity(n);

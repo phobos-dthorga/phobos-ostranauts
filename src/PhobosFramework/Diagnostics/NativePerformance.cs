@@ -36,6 +36,8 @@ internal static class NativePerformance
             Performance.StateWritesSkipped = Performance.RegisterIncrement("framework.state.writes_skipped", "persistence", "writes");
             Performance.WaterRefill = Performance.RegisterOperation("framework.water_supply.refill", "processing");
             Performance.SkipMachineStep = Performance.RegisterOperation("framework.skip.machine_step", "processing");
+            Performance.SkipStep = Performance.RegisterOperation("framework.skip.step", "processing");
+            Performance.SkipCrew = Performance.RegisterOperation("framework.skip.crew", "discovery");
             Performance.WorldSweep = Performance.RegisterOperation("framework.world.sweep", "discovery");
             Performance.WorldSweepObjects = Performance.RegisterIncrement("framework.world.sweep_objects", "discovery", "items");
             Performance.LineContentsMaintain = Performance.RegisterOperation("framework.line_contents.maintain", "processing");

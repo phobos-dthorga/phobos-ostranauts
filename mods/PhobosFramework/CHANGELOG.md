@@ -28,6 +28,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.112.0] - 2026-10-06 - Draft
+
+### Fixed
+
+- Time-skips with crew orders on no longer freeze the game for minutes (owner report, with Phobos Scope captures). Such a skip moved one game second at a time, about 14 ms of work for each second skipped on a fast PC, so a six-hour skip took roughly five minutes. Every stepped skip now moves 30 game seconds at a time by default.
+- Crew jobs in a skip no longer cut the step short when they finish. A job ends with the step it finishes in, and the seconds left over start the worker's next job, so crew get through about as much work.
+- In a skip, the game's own powered fittings (lights, doors, life support) take their power every fourth step instead of every step, still from the same supply as the machines. Phobos machines, crew-ordered equipment and rooms are still stepped every step.
+- The reactor and battery chargers take each skip step in one-second slices. The game charges a battery by a fixed share of what it lacks at each power step, not each second, so a longer step would otherwise charge batteries more slowly than play does. This also corrects machine-only skips since 0.99.0, which charged batteries at a tenth of the usual rate.
+- A machine replaced partway through a skip (damage, repair, installation) takes power and works from then on; before, it sat out the rest of the skip.
+
+### Added
+
+- Setting TimeSkip StepSeconds in Framework's config file: game seconds a skip moves at a time, from 1 to 60, 30 by default. Higher means a shorter freeze. A long step costs some accuracy: crew take their next job only when a step ends; a machine that finishes a batch partway through a step may wait for the next step; each MHD generator is topped up once a step, so on its own it feeds about 240 kW at 30 seconds and 120 kW at 60 (batteries supply too); and a busy machine in a small room can wait for cooler air all skip. 1 is the old crew-order behaviour.
+- Phobos Scope captures now record each whole skip step (framework.skip.step) and its crew assignment (framework.skip.crew).
+
+### Save compatibility
+
+- None. Nothing is saved differently.
+
+### Compatibility and limits
+
+- The figure of about 14 ms per skipped second comes from the owner's capture of the start of one six-hour skip; the new skip length has not been measured. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.111.0] - 2026-10-06 - Draft
 
 ### Added
