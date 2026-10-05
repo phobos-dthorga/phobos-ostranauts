@@ -28,6 +28,7 @@ internal static class NativePerformance
             Performance.FluidRouteFind = Performance.RegisterOperation("framework.fluid_route.find", "routing");
             Performance.FluidRouteObjects = Performance.RegisterIncrement("framework.fluid_route.scan_objects", "routing", "items");
             Performance.FluidRouteInvalidations = Performance.RegisterIncrement("framework.fluid_route.invalidations", "routing", "items");
+            Performance.FluidRouteRecheck = Performance.RegisterOperation("framework.fluid_route.recheck", "routing");
             Performance.CrewTaskFilter = Performance.RegisterOperation("framework.crew.task_filter", "discovery");
             Performance.CrewPathChecks = Performance.RegisterIncrement("framework.crew.path_checks", "discovery", "searches");
             Performance.RcsCollect = Performance.RegisterOperation("framework.rcs.collect", "navigation");

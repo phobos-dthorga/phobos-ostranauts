@@ -28,6 +28,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.106.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Smoother play on ships with many objects. Two checks that rescanned every object aboard every two seconds now do so only when something changed, or every 30 seconds as a safety net. On the owner's ship each rescan covered about 4,800 objects and took up to 22 ms (pipe layouts) and 27 ms (crew orders), long enough to drop a frame on most PCs.
+- Pipe and line layouts: every two seconds only the pipes and machines on the lines are checked for a lock, an owner change or a ship that finished loading. Laying, damaging, repairing or removing pipe, floors or walls still updates the layout at once, as before.
+- Crew orders: every two seconds only machines with an order switched on, and machines just damaged, repaired or installed, are looked at. Equipment that comes aboard or into reach is found within 30 seconds instead of two.
+
+### Save compatibility
+
+- Nothing saved changes.
+
+### Compatibility and limits
+
+- A change the game reports in no way the mod can see, other than those above, can take up to 30 seconds to show in a pipe layout. Checked offline; not yet measured in the game.
+
 ## [0.105.0] - 2026-10-05 - Draft
 
 ### Added

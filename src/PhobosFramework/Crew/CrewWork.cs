@@ -271,7 +271,25 @@ public static class CrewWork
         var crew = CrewRoster.Members();
         Reconcile(crew);
         var ships = crew.Select(c => c.ship).Distinct().ToArray();
-        foreach (var ship in ships) foreach (var co in Equipment(ship)) Discover(co);
+        // Framework 0.106.0: the full ship scan loads saved orders, so it runs after a load and every
+        // DiscoveryPlan.FullSeconds; in between only switched-on orders and just-replaced machines are visited.
+        if (DiscoveryPlan.FullScanDue(Time.unscaledTime, nextFullScan))
+        {
+            nextFullScan = Time.unscaledTime + (float)DiscoveryPlan.FullSeconds; replaced.Clear();
+            foreach (var ship in ships) foreach (var co in Equipment(ship)) Discover(co);
+            return;
+        }
+        var ids = DiscoveryPlan.Quick(orders, replaced); replaced.Clear();
+        foreach (var id in ids)
+            if (Resolve(id) is CondOwner co && co.objCOParent == null && co.HasCond("IsInstalled") && ships.Contains(co.ship) && Provider(co) != null)
+                Discover(co);
+    }
+    private static float nextFullScan;
+    // Objects a mode switch produced that a provider supports, for the next quick pass (Framework 0.106.0).
+    private static readonly HashSet<string> replaced = new(StringComparer.Ordinal);
+    internal static void Replaced(CondOwner? co)
+    {
+        if (co != null && !co.bDestroyed && co.strID != null && providerList.Length > 0 && Provider(co) != null) replaced.Add(co.strID);
     }
     private static void Discover(CondOwner co)
     {
@@ -369,6 +387,7 @@ public static class CrewWork
     internal static void Reset()
     {
         Jobs.Clear(); Active.Clear(); orders.Clear(); notices.Clear(); Reservations.Clear(); executing = null; nextScan = 0;
+        nextFullScan = 0; replaced.Clear();
         announced.Clear(); failures.Clear(); nextAttempt.Clear(); retryReason.Clear(); worldReady = false; CrewSpecialities.Reset();
     }
 }
@@ -409,3 +428,12 @@ internal static class CrewTaskFinish
         finally { CrewWork.Release(j, false); }
     }
 }
+
+/// <summary>A machine replaced by a mode switch (damage, repair, installation) is visited on the next quick discovery
+/// pass rather than waiting for the full scan (Framework 0.106.0).</summary>
+[HarmonyLib.HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
+internal static class CrewModeSwitchPatch
+{
+    private static void Postfix(CondOwner coNew) { try { CrewWork.Replaced(coNew); } catch { } }
+}
+

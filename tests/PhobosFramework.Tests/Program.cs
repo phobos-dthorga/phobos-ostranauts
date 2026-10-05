@@ -15,6 +15,7 @@ CompletionCueChecks.Run(Check, (action, message) => { bool failed = false; try {
 SavedStateChecks.Run(Check);
 OutcomeChecks.Run(Check);
 AddOnChecks.Run(Check);
+SpikeChecks.Run(Check);
 SensorLeaseChecks.Run(Check);
 PerformanceHelperChecks.Run(Check);
 SavedGridBoundsChecks.Run(Check);

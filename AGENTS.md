@@ -1319,7 +1319,10 @@
   `self_ticks` per operation; self times never overlap, so they add up); each window carries
   `recording_id` and `window` metadata, and analyser 0.4.0 adds counters to `compare` and a `series`
   command that joins one recording's windows. Keep those two metadata keys whenever the adapter's
-  metadata changes; the series order depends on them.
+  metadata changes; the series order depends on them. The owner's first recording put the mods at
+  about 2% of real time; Framework 0.106.0 cut its two spikes (pipe layout rescan, crew discovery
+  scan) to a 30-second safety net behind change hooks and a cheap readiness check. The owner's PC
+  is high-end: treat captured costs as a best case for players.
 
 ## Industrial control direction (2026-09-24)
 

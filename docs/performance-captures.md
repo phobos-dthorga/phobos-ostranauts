@@ -176,7 +176,8 @@ that sat in unscoped hooks before it:
 
 | Stable operation key | Coverage |
 |---|---|
-| `framework.fluid_route.find` / `framework.fluid_route.scan_objects` | Shared pipe, gas-line and coolant topology walks and the objects they examine |
+| `framework.fluid_route.find` / `framework.fluid_route.scan_objects` | Shared pipe, gas-line and coolant topology walks and the objects they examine. Since Framework 0.106.0 a full rebuild runs only when a watched object changed readiness, or every 30 seconds |
+| `framework.fluid_route.recheck` | Framework 0.106.0: the two-second readiness check of the objects the last pipe layout used |
 | `framework.crew.task_filter` / `framework.crew.path_checks` | Crew task admission and the path searches it still runs |
 | `framework.rcs.collect` | RCS propellant input collection per ship per step |
 | `framework.state.write` / `framework.state.writes_skipped` | Saved-state writes and identical writes skipped |

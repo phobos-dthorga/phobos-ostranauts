@@ -39,6 +39,8 @@ public static class Performance
     internal static PerformanceMetric? LineContentsMaintain = null;
     // Framework 0.72.0: how often a ship's cached line layout is actually thrown away.
     internal static PerformanceMetric? FluidRouteInvalidations = null;
+    // Framework 0.106.0: the two-second readiness recheck that replaced the two-second full rescan.
+    internal static PerformanceMetric? FluidRouteRecheck = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

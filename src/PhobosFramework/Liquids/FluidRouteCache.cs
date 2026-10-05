@@ -63,6 +63,8 @@ public static class FluidRouteCache
     {
         internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds);
         internal bool Built; internal double BuiltAt;
+        // Framework 0.106.0: every object the last full build looked at for any family, with whether it was ready.
+        internal readonly List<(CondOwner Item, bool Ready)> Watched = new();
     }
     /// <summary>How long a layout that showed no working segment of a family is trusted without a fresh read (Framework
     /// 0.73.0). The hooks drop a layout when a segment is laid, repaired or removed; this bound catches what they cannot
@@ -166,7 +168,9 @@ public static class FluidRouteCache
         if (ship == null) throw new ArgumentNullException(nameof(ship));
         Register(family);
         if (!snapshots.TryGetValue(ship, out var s)) snapshots[ship] = s = new ShipSnapshot();
-        if (!s.Built || s.Cadence.Due())
+        // Every two seconds only the watched objects' readiness is read again; the full rescan runs when one changed,
+        // and as a safety net every RouteRecheck.FullSeconds (Framework 0.106.0).
+        if (!s.Built || s.Cadence.Due() && Recheck(ship, s))
         {
             BuildAll(ship, s);
             s.Built = true; s.BuiltAt = Cadence.RealTime; s.Cadence.Invalidate(); s.Cadence.Due(); // the recheck starts consumed: one build per change
@@ -183,14 +187,21 @@ public static class FluidRouteCache
         internal readonly List<CondOwner> Participants = new(); internal readonly List<IReadOnlyList<int>> Ports = new();
         internal Collector(FluidSegmentFamily family) { Family = family; }
     }
+    private static bool Recheck(Ship ship, ShipSnapshot s)
+    {
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteRecheck);
+        return RouteRecheck.RebuildDue(s.Built, Cadence.RealTime - s.BuiltAt, s.Watched,
+            co => co == null || co.bDestroyed || co.ship != ship ? null : ReadyEndpoint(co));
+    }
+    private static bool ReadyEndpoint(CondOwner co) => NativeFluidRoute.EndpointReady(co) && NativeFluidRoute.Aligned(co);
     private static void BuildAll(Ship ship, ShipSnapshot s)
     {
-        s.Families.Clear();
+        s.Families.Clear(); s.Watched.Clear();
         if (registered.Count == 0) return;
         // The scope covers the whole rebuild, scan and topology build together (it used to time the scan alone).
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteFind);
         var collectors = registered.Values.Select(f => new Collector(f)).ToArray();
-        Scan(ship, collectors);
+        Scan(ship, collectors, s.Watched);
         foreach (var c in collectors) s.Families[c.Family.Id] = Finish(ship, c, GridRoute.DefaultVisitLimit);
     }
     private static FamilySnapshot BuildOne(Ship ship, FluidSegmentFamily family, int visitLimit)
@@ -200,7 +211,7 @@ public static class FluidRouteCache
         Scan(ship, new[] { collector });
         return Finish(ship, collector, visitLimit);
     }
-    private static void Scan(Ship ship, Collector[] collectors)
+    private static void Scan(Ship ship, Collector[] collectors, List<(CondOwner Item, bool Ready)>? watched = null)
     {
         Rebuilds++;
         var objects = ship.GetCOs(null, false, false, true);
@@ -209,7 +220,7 @@ public static class FluidRouteCache
         {
             if (co == null || co.ship != ship) continue;
             int ready = 0; // 0 unknown, 1 ready and aligned, -1 not
-            bool Ready() { if (ready == 0) ready = NativeFluidRoute.EndpointReady(co) && NativeFluidRoute.Aligned(co) ? 1 : -1; return ready > 0; }
+            bool Ready() { if (ready == 0) ready = ReadyEndpoint(co) ? 1 : -1; return ready > 0; }
             // Any pipe under or beside the equipment joins it (owner decision, 1 October 2026): its own tiles and the
             // tiles north, south, east and west of them, read once and shared by every family it has a port for.
             int[]? join = null;
@@ -233,6 +244,8 @@ public static class FluidRouteCache
                     c.Participants.Add(co); c.Ports.Add(Join());
                 }
             }
+            // Readiness was read only for objects that take part in some family: those are what the recheck watches.
+            if (ready != 0) watched?.Add((co, ready > 0));
         }
     }
     private static FamilySnapshot Finish(Ship ship, Collector c, int visitLimit)

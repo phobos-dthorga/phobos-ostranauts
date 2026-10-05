@@ -80779,8 +80779,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8d633c55a635a50071b5fc043156bd651c51067d3cb2bec0c4cba9065b5380ee",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "da26399cbb4b02097630469b4f9682d2afc9fbceebcd3c7ecca28bcfea922e90",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "SUPPORT.md",
@@ -80940,8 +80940,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2563ddb0b826ef84521eb7d7e63a45f925bcc6b9060fe437054b973701f38491",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "166fd1b044fe3869c1fe88cd1bf51b0c636808222f7155d4b81cf087a8cbf93f",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81569,8 +81569,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "6ea544870417ff933fa3bef5dbee73334bc0618224a2dcf753279d9e10f6ff90",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "63e59e28930ef9efafd5a5ed82ce7c5b798342c0cf910bc8ab41e3367e1e69fb",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81830,8 +81830,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c58c3db19cb2b78211481c043e901781f8bff26fb5c4aab54d32bdeb9f41d00b",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "ea288cd0761c72470327c3e6e718e9dc3a55350b5dd39ccc807d98bf0742a749",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81949,15 +81949,15 @@
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5330796c5e9254ad1df832ea9c008eb5ba4c90a5a4aa90b0d8b61a18ec6c274a",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "23bea38273cdd03e5fe1422212e520cc646725f37e1656a6b2938d865253aa58",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3521837719e83e4a89e01f601f9ec1cb03df57870b79a014052471ed99148cc2",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "9bcd6c54839311e977b373448d3d407a0e6f32ff55beb94654b6482e354abca3",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -82082,8 +82082,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bb8518f519ecedeb0c640b34bd92ada056491d2a2506f76a46a2ec6ffc60156b",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "0465e62a6cb98789dfa999f3f4ab97e9eb78c4fc623655b5504ff48ca9423368",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -82170,8 +82170,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "25b54dbe13aa52ebce1fda962d2dacddbaad284a3d5a8cd3f29e2802934864e5",
-      "review": "Framework 0.105.0: self time and recording series"
+      "sha256": "1ab0c898058125a7bf5c5dd8070a47529b3d3e9d1f7722f33069a2719550d502",
+      "review": "Framework 0.106.0: two performance spikes cut"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
