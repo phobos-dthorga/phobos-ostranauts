@@ -36,6 +36,15 @@ is retained on the dedicated art branch, with its pinned commit, prompt, referen
 roles and export rules in `WORKSHOP-ARTWORK-COMPOSITION.json`. OpenAI's
 [terms](https://openai.com/policies/terms-of-use/) apply to the generated imagery.
 
+**Spacer Stories:** generated on 6 October 2026 with OpenAI's built-in Imagegen,
+using only the original Phobos Shipbreaker, Agriculture and Medical covers as
+style references. Two spacers share a story at a worn mess table with a terminal,
+correspondence and a data card. The complete 1254 x 1254 master is retained on the
+dedicated art branch; the native 512px preview is a nearest-neighbour reduction.
+The exact prompt, reference roles, result id and master hash are included in
+`WORKSHOP-ARTWORK-PROMPTS.json`. OpenAI's
+[terms](https://openai.com/policies/terms-of-use/) apply to the generated imagery.
+
 [Blue Bottle Games' Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/)
 informs the industrial pixel-art style and setting. No game textures, game
 screenshots, third-party mod sprites or official logos were generation inputs.

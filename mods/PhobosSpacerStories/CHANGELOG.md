@@ -4,6 +4,13 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-06 - Draft
+
+### Changed
+
+- Added a matching Phobos cover for the mod menu and Steam Workshop: two spacers sharing a story at a mess table, with correspondence, a terminal and an archive data card.
+- The cover is original promotional artwork. Story content is unchanged; the mod remains a held draft awaiting review in the game.
+
 ## [0.1.1] - 2026-10-06 - Draft
 
 ### Fixed

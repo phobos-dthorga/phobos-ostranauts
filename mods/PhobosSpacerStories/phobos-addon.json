@@ -3,7 +3,7 @@
   "id": "phobos-spacer-stories",
   "name": "Phobos Spacer Stories",
   "author": "Phobos A. D'thorga",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "idPrefix": "SpacerTales",
   "requires": {
     "PhobosFramework": "0.110.0"

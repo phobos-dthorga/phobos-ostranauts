@@ -23,6 +23,52 @@
       "id": "PhobosAgriculture",
       "prompt": "Use case: ads-marketing. Create ONE finished square Steam Workshop cover for an original Phobos mod for Ostranauts. Request a 2048 x 2048 square high-resolution master. Original illustration, not a screenshot.\nArt direction: closely match the utilitarian overhead pixel-art world of Blue Bottle Games' Ostranauts. Grounded hard science-fiction, cramped working ship, angular patchwork floor plates, cream cabinets, slate-grey casings, muted navy and teal, restrained mustard hazard accents, black recesses. Purposeful visible pixel clusters, stepped edges and limited tonal bands with a crisp nearest-neighbour appearance. Large readable silhouettes; no smooth 3D render, painterly brushwork, anime, glossy space fantasy, lens flares or dense decorative micro-detail.\nThis belongs to a coordinated cover series. Exact shared layout: square charcoal metal surround, thin muted ochre rules, one unobtrusive fastener in each corner. Upper 29% is a dark flat nameplate. At top-left a small muted teal square followed by widely letter-spaced warm ivory industrial pixel capitals \"PHOBOS\". Beneath that, the mod title occupies a very large single line nearly the whole nameplate width, bold condensed warm ivory industrial capitals. Beneath a thin ochre rule is the modest uppercase subline. Lower scene fills the remaining interior down to a narrow dark footer. Bottom footer exact small readable text \"FOR OSTRANAUTS\". Minimum 5% safe margins for all typography. Typography must stay readable when reduced to 256px. Render only the requested exact text, with no other labels, fake stats, official game logo, real company logo, NASA/ESA marks or endorsement badges.\nTitle text exactly \"AGRICULTURE\". Subline exactly \"GROW / TEND / HARVEST\".\nAdd one restrained ochre rectangular badge in the lower-right corner of the illustrated scene, above the footer, with exact clearly readable black capitals \"IN DEVELOPMENT\". This is a truthful concept cover for an unreleased crop mod.\nScene: an original overhead cutaway of a small habitable spacecraft cultivation bay. Two practical rectangular cream-and-slate cultivation racks occupy the centre, containing modest rows of green leafy crops in SEALED ROOT CASSETTES. One holds small potato plants, the other recognisable lettuce rosettes. These are compact serviceable machines, not lush wilderness or a glass dome. Thin lamp bars, modest ventilation grilles, finite small water reservoirs, capped tubing and replaceable nutrient cartridges communicate the work and consumables behind growth. Leaves use broad readable pixel clusters in muted natural greens against cream and charcoal housings. One small tray of several harvested potatoes and two lettuce heads sits by an accessible aisle, with restrained tending tools. A tiny empty stool or galley corner supplies a human habitation cue without any character. Warm ivory grow-light accent, practical metal deck under the racks, small black void visible outside a cutaway hull corner. Calm, resource-conscious and hopeful within a harsh industrial world. No wheat, fruit trees, flowers, giant jungle, unlimited water, open flooding troughs, outdoor soil field, panoramic greenhouse or claim to feed a whole crew indefinitely. This illustrates authored gameplay equipment and crops, not a scientific demonstration. Keep the machine silhouettes and foliage large enough to recognise at thumbnail size.",
       "resultId": "exec-9f5a1828-607c-426b-84a2-9f527e5dedff"
+    },
+    {
+      "id": "PhobosSpacerStories",
+      "date": "2026-10-06",
+      "provider": "OpenAI built-in image_gen",
+      "operation": "image_gen.imagegen",
+      "prompt": "Use case: ads-marketing\nAsset type: ONE finished square Steam Workshop cover for the original Phobos Spacer Stories mod for Ostranauts. Request a 1536 x 1536 or larger square master, at least 1024 x 1024. Opaque background.\nPrimary request: a new sibling in the coordinated Phobos Workshop cover series, matching the supplied original Phobos covers' frame, typography and chunky pixel illustration. This mod adds company histories, news, adverts, crew conversation and correspondence preserved on archive data cards. Its cover should show the human side of a working spacecraft.\n\nInput images:\nImage 1, Phobos Shipbreaker cover: STYLE AND SERIES LAYOUT reference only. Match the square charcoal metal surround, thin muted ochre rules, four discreet corner fasteners, small teal square next to PHOBOS, dark upper nameplate, warm ivory bold pixel capitals, narrow dark footer, worn grey deck, off-white furniture and confident coarse pixel clusters. Do not draw its processing equipment or reuse its title.\nImage 2, Phobos Agriculture cover: STYLE reference only for a cramped inhabited spacecraft, shallow overhead oblique room illustration, utilitarian furniture and quiet warm lighting. Do not draw growing racks, plants or the IN DEVELOPMENT badge.\nImage 3, Phobos Medical cover: STYLE reference only for readable ordinary spacer figures, restrained palette and the same coordinated frame. Do not draw a medical bed or reuse its title.\n\nComposition: square cover. Upper approximately 27 percent is the flat charcoal nameplate. Top left: a small muted teal square followed by the small widely spaced ivory word PHOBOS. Beneath it, one very large condensed bold ivory pixel-capital line SPACER STORIES, centred, almost the full inner width, with comfortable safe margins. Fit the full title on ONE line without clipping. A thin ochre horizontal rule beneath it. Under the rule, small spaced pixel capitals READ / REMEMBER / RETELL. Bottom narrow charcoal footer with fine ochre rules and the small ivory text FOR OSTRANAUTS. Keep ALL lettering as crisp pixel glyphs in the visual family of the references and readable when reduced to 256px. Render only the specified text.\n\nMain scene: a modest battered spacecraft mess corner seen nearly from overhead with the slight oblique room view of the Agriculture cover, no perspective horizon. A broad scratched off-white rectangular mess table is the hero, placed centrally in the lower scene. Two ordinary working spacers sit at opposite corners, one in faded rust-orange work clothes, one in slate-blue work clothes, faces small and understated. One has a hand resting near a few old cream paperwork sheets and a small dark rectangular data card on the table; the other is listening with a plain chipped enamel mug. Their poses suggest exchanging a remembered story during a break, calm and conversational. Put a squat charcoal-and-cream desktop CRT terminal on the far end of the table, its muted teal screen showing only a few simple pale horizontal marks, NO readable words or letters. Nearby is a closed battered thin folder and a second plain mug. The tabletop papers, terminal and data card should be visible clear simple shapes, not a clutter of tiny detail.\nBackground supporting furniture: a low off-white galley cabinet with dark vents along the left wall, a modest inset notice board on the rear slate-grey wall with a few plain pinned paper rectangles and a tiny sepia crew-photo rectangle, a pair of practical stools, exposed short runs of utilitarian piping at the wall. Grey worn square steel deck plates, dark recesses, restrained amber wall light. Keep the whole scene an enclosed ship interior; no exterior star field or giant window. Show ordinary life that continues between shifts. Neither a luxurious lounge nor a futuristic command centre.\n\nStyle/medium: original chunky industrial PIXEL ART. Confident readable silhouettes, regular coarse pixel clusters, visibly stepped edges, crisp dark outlines, small finite tonal bands, restrained local shading. Match the references' level of detail and pixel density. Navy-charcoal, slate grey, warm off-white enamel, muted teal, a few ochre fittings and rust-orange clothes. Worn practical hard science-fiction atmosphere inspired by Blue Bottle Games' Ostranauts, not an actual gameplay screenshot.\nConstraints: no official game logo, third-party logos, real institutional marks, badges, watermarks, extra lettering, visible readable documents, fantasy books or quills, floating holograms, glossy rendering, smooth gradients, painterly brushwork, lens flares, deep isometric perspective, active surgery, farming or processing machinery. No claim of a new playable social interaction. Only the original illustration and exact series text requested.\nText (verbatim): PHOBOS; SPACER STORIES; READ / REMEMBER / RETELL; FOR OSTRANAUTS.",
+      "resultId": "exec-f98672f7-1249-4414-bc4c-ffd3965d2763",
+      "references": [
+        {
+          "path": "mods/PhobosShipbreaker/preview.png",
+          "role": "Series layout and style only"
+        },
+        {
+          "path": "mods/PhobosAgriculture/preview.png",
+          "role": "Style only"
+        },
+        {
+          "path": "mods/PhobosMedical/preview.png",
+          "role": "Style only"
+        }
+      ],
+      "inputProvenance": "Only original Phobos promotional covers supplied. No game textures, game screenshots, third-party mod sprites or official logos.",
+      "calls": 1,
+      "model": "Not disclosed by the built-in tool",
+      "seed": "Not disclosed",
+      "cost": "Not disclosed; no credit purchase or provider switch.",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "intendedExportSizes": [
+        512,
+        256
+      ],
+      "minimumMasterSize": [
+        1024,
+        1024
+      ],
+      "master": {
+        "branch": "codex/workshop-art-masters",
+        "commit": "b1ed95992f5d28f767244b7dfb8fc3c0eea24ac1",
+        "path": "assets/workshop/masters/PhobosSpacerStories.png",
+        "sha256": "A6A657B56E60C672F2FB9D91C13D07E75C9E74B4DE878BFBA8C6477A2CE4AF96"
+      },
+      "review": "First generation selected by the agent: exact title and subtitle, matching Phobos frame and palette, two spacers sharing a story beside a terminal, correspondence and data card. Promotional scene, not a gameplay screenshot or a new social interaction."
     }
   ],
   "requestedDimensions": [

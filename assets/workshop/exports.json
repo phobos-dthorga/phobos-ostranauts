@@ -44,6 +44,17 @@
       "sha256": "D1DFB827A7A4B81EDCB6D3C8C883EF8BA5ED1C15CF110BE09F75BA15FA528FA6",
       "bytes": 2010272,
       "resultId": "exec-9f5a1828-607c-426b-84a2-9f527e5dedff"
+    },
+    {
+      "id": "PhobosSpacerStories",
+      "masterCommit": "b1ed95992f5d28f767244b7dfb8fc3c0eea24ac1",
+      "masterPath": "assets/workshop/masters/PhobosSpacerStories.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "A6A657B56E60C672F2FB9D91C13D07E75C9E74B4DE878BFBA8C6477A2CE4AF96",
+      "bytes": 1905510,
+      "resultId": "exec-f98672f7-1249-4414-bc4c-ffd3965d2763",
+      "reviewSheet": false
     }
   ]
 }

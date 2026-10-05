@@ -86,7 +86,8 @@ function Save-OrVerify([Drawing.Image]$Image, [string]$Name, [long]$MaxBytes, [s
 $sources = @{}
 foreach ($entry in $manifest.assets) {
     if ($entry.id -notmatch '^Phobos[A-Za-z]+$') { throw 'Invalid Workshop asset ID.' }
-    $bytes = Read-GitBytes "$($manifest.masterCommit):$($entry.masterPath)"
+    $commit = if ($entry.PSObject.Properties['masterCommit']) { $entry.masterCommit } else { $manifest.masterCommit }
+    $bytes = Read-GitBytes "${commit}:$($entry.masterPath)"
     if ((Get-Sha256 $bytes) -ne $entry.sha256) { throw "Master hash changed: $($entry.id)" }
     $sources[$entry.id] = $bytes
 }
@@ -102,6 +103,7 @@ try {
     $sheetGraphics.Clear([Drawing.Color]::FromArgb(20, 24, 26))
     $index = 0
     foreach ($entry in $manifest.assets) {
+        $inSheet = -not $entry.PSObject.Properties['reviewSheet'] -or $entry.reviewSheet
         $stream = [IO.MemoryStream]::new([byte[]]$sources[$entry.id], $false)
         $master = $null
         try {
@@ -116,14 +118,16 @@ try {
                     if ($size -eq $tile) {
                         # Native mod-menu and Workshop uploader both look here.
                         Save-OrVerify $resized 'preview.png' $manifest.maxPreviewBytes (Join-Path $root "mods/$($entry.id)")
-                        $x = $gap + ($index % 2) * ($tile + $gap)
-                        $y = $gap + [Math]::Floor($index / 2) * ($tile + $gap)
-                        $sheetGraphics.DrawImageUnscaled($resized, [int]$x, [int]$y)
+                        if ($inSheet) {
+                            $x = $gap + ($index % 2) * ($tile + $gap)
+                            $y = $gap + [Math]::Floor($index / 2) * ($tile + $gap)
+                            $sheetGraphics.DrawImageUnscaled($resized, [int]$x, [int]$y)
+                        }
                     }
                 } finally { $resized.Dispose() }
             }
         } finally { if ($null -ne $master) { $master.Dispose() }; $stream.Dispose() }
-        $index++
+        if ($inSheet) { $index++ }
     }
     Save-OrVerify $sheet 'collection.png' 5000000
 } finally { $sheetGraphics.Dispose(); $sheet.Dispose() }

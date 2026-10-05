@@ -82573,8 +82573,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fde7410a43cf760acfa82c77d0ab00a487b3eefbafd36f6641396f2f4d42ece1",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "1d8ad96a7507d699a6d8d5d66020cc208ca1ab93c60cbf3ef8aa616f7abdcc34",
+      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "SUPPORT.md",
@@ -83932,22 +83932,22 @@
       "path": "docs/development/spacer-stories-authoring.md",
       "scope": "contributor index and source-backed story authoring record",
       "decision": "new",
-      "sha256": "3a84514fd56538c487c81cbcc4fddcf9ba532672e132f0eec26abb515e5e8dfc",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "be572df9c29bd0fcd35b3425fa49bfc16985b0457e5f4d3818141d7ce402bcc7",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "workshop/PhobosSpacerStories/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "90fe63a8577da045ae1454e396d24727f21e5c5eca143ae14754b2d0d8a7a895",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "06d5f78ecc687c9334565876f91c24a994a66dafe89a6001387aa596425c533e",
+      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "docs/spacer-stories-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "1634f4c8ca89b8742081e3180f4a37f32ce32c13c3a0d5e4a1eccdcedbeec8df",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "04ff9010d5fee85652f29ae93c31b824b32b791d293aea958e916bec2d43ac0d",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026; 6 October 2026: reviewed unchanged no-equipment reference, regenerated for cover-only patch 0.1.2."
     }
   ],
   "surfaces": [
@@ -84091,14 +84091,14 @@
     {
       "path": "mods/PhobosSpacerStories/mod_info.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "6705b58b1a8135d74e9583dd5c6f361587c57a29241f183f5528cb0e8bfa5560",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "dc76b3467d0596626351931f0225119cebae9b9e22982d49ca82da3daf839e99",
+      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos-addon.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "4175e0356a4a15000a08b302c62e9fd6f2cc591ca6a7fd115f65a9f4d66165e1",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "5318a389936568289459cbf7a29912a0b96af0a38e10f096283464931cbfc8e4",
+      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
@@ -84157,8 +84157,8 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "3203e457b8bb6a69914016b82913da8396bc6ac9fd4155b84947047e3270d837",
-      "review": "Add-on data folder fix, 6 October 2026"
+      "sha256": "40b6005b6f98028daf2b39ac4b4e8c601ae26a1bb01877efbdecd4f12e3cfb44",
+      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",

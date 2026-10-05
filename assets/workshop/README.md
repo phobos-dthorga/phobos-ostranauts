@@ -1,7 +1,7 @@
 # Workshop preview artwork
 
-Seven coordinated cover illustrations for Phobos Framework, Auto Nav,
-Shipbreaker, Agriculture, Manufacturing, War Has Been Declared and Medical. These are promotional illustrations,
+Eight coordinated cover illustrations for Phobos Framework, Auto Nav,
+Shipbreaker, Agriculture, Manufacturing, War Has Been Declared, Medical and Spacer Stories. These are promotional illustrations,
 not gameplay screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
 The owner approved the original four-cover set and requested native-menu integration on the same day.
@@ -21,6 +21,7 @@ and cultivation. It does not promise unlimited resources or perfect recycling.
 | Phobos Manufacturing | [512px](previews/PhobosManufacturing-512.png) | [256px](previews/PhobosManufacturing-256.png) | Volatiles refinery, water-splitting cell and hydrogen store; composed cover (see below). |
 | Phobos' War Has Been Declared | [512px](previews/PhobosWarDeclared-512.png) | [256px](previews/PhobosWarDeclared-256.png) | A torn hull with pale-blue build sites laid where parts were lost and two crew carrying a panel; composed cover (see below). An illustration of the idea, not a screenshot. |
 | Phobos Medical | [512px](previews/PhobosMedical-512.png) | [256px](previews/PhobosMedical-256.png) | A spacer resting in the Halewright Ward-3; REST / RECOVER / RETURN. Original promotional art, with no additional treatment claim. |
+| Phobos Spacer Stories | [512px](previews/PhobosSpacerStories-512.png) | [256px](previews/PhobosSpacerStories-256.png) | Two spacers sharing a story at a mess table, with correspondence, a terminal and a data card; READ / REMEMBER / RETELL. |
 
 ## Files and branches
 
@@ -37,9 +38,13 @@ commit first needs `git fetch origin codex/workshop-art-masters`.
 Use `-VerifyOnly` to compare committed exports against freshly resized pinned
 masters without writing files. [The manifest](exports.json) identifies the exact
 master commit; [the prompt record](prompts.json) contains the four complete prompts.
-All returned masters are **1254 x 1254**, preserved unchanged. The requested 2048
+The four original cover masters are **1254 x 1254**, preserved unchanged. The requested 2048
 dimensions were not honoured by the generator; the actual results still exceed
 2x the largest delivered per-mod preview on each axis.
+
+The manifest permits a later cover to pin its own master commit. Spacer Stories
+uses this path; it is excluded from the original four-cover review sheet, which
+is preserved unchanged.
 
 `previews/` contains square PNGs at 512 and 256 pixels. Use the 512-pixel file for
 each Workshop listing; the 256-pixel file is a compact alternative and thumbnail
@@ -151,6 +156,33 @@ derivative and covers when the pinned master commit is available. Ordinary build
 use committed exports. The cover is an illustration, not a gameplay screenshot,
 clinical finding or added nanomachine treatment. Medical remains held for owner
 gameplay checks; creating the cover does not publish it.
+
+## Spacer Stories: a complete cover
+
+On **6 October 2026**, OpenAI's built-in Imagegen generated one complete cover,
+with the original Phobos Shipbreaker, Agriculture and Medical covers as style
+references. The new scene shows two working spacers sharing a story at a mess
+table, beside correspondence, a terminal and an archive data card. The frame,
+ivory title and READ / REMEMBER / RETELL subtitle belong to the existing series.
+This is an agent-selected first generation for the owner's review, illustrating
+the story collection rather than promising a new social interaction.
+
+The unchanged **1254 x 1254** master is retained on
+`codex/workshop-art-masters`, commit
+`b1ed95992f5d28f767244b7dfb8fc3c0eea24ac1`, at
+`assets/workshop/masters/PhobosSpacerStories.png`. It exceeds twice the width and
+height of the largest delivered preview. The [prompt record](prompts.json) keeps
+the complete request, reference roles, result id and source hash; the
+[export manifest](exports.json) pins the master. One built-in image call was used.
+Its model, seed and monetary cost were not disclosed; no credit purchase or
+provider switch was made.
+
+The existing exporter makes only nearest-neighbour reductions to **512 x 512**
+and **256 x 256**, including `mods/PhobosSpacerStories/preview.png`. The title,
+scene and thumbnail were visually checked; the 512px export is **553,381 bytes**.
+The original four-cover exports and review sheet are unchanged. Ordinary builds
+include the committed preview and packaged provenance without needing the master
+branch. Creating this artwork does not install or publish the mod.
 
 ## Native-menu integration
 

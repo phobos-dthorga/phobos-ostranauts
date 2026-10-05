@@ -188,3 +188,29 @@ Publication and distribution remain owner decisions. The fictional names, drafts
 data files and source package do not establish a Workshop listing. Original Phobos
 writing falls under the repository's Phobos-authored license; no copied game prose
 or artwork is included.
+
+## Workshop preview (6 October 2026)
+
+**Owner request:** a Workshop preview in the Phobos series, with a visual style
+suited to the vanilla game. **Agent choice:** two working spacers sharing a story
+at a mess table, with a terminal, correspondence and an archive data card. The
+subtitle is READ / REMEMBER / RETELL. The owner can revise this selection.
+
+OpenAI's built-in Imagegen produced one complete square cover, using only the
+original Phobos Shipbreaker, Agriculture and Medical covers as style references.
+[Blue Bottle Games' Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/)
+informs the utilitarian ship interior and restrained industrial pixel-art style;
+no game screenshot, extracted texture or official logo was an input.
+
+The untouched master is 1254 x 1254. The existing exporter makes 512px and 256px
+nearest-neighbour previews, with the 512px copy in the native mod folder. The
+[artwork record](../../assets/workshop/README.md#spacer-stories-a-complete-cover),
+[exact prompt and provenance](../../assets/workshop/prompts.json) and
+[export manifest](../../assets/workshop/exports.json) preserve the source and
+reproduction details on the existing artwork branch. Model, seed and cost were
+not disclosed; no provider switch or credit purchase was made.
+
+The artwork-only update is classified as a **patch**, 0.1.2. Story data and saved
+structures are unchanged. The selected image and reduced thumbnail were visually
+reviewed. Offline export and package checks verify the files; they do not establish
+how the cover appears in the game's MODS screen or constitute Workshop publication.
