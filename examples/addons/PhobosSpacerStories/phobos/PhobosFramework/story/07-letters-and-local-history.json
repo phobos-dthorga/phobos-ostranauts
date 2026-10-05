@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "articles": {
+    "spacertales-second-shift-record": {
+      "section": "phobos-spacer-life",
+      "label": "The second-shift ledger",
+      "title": "The signatures left off the invoice",
+      "body": "The second-shift ledger is a name used by independent crews for a loose collection of letters, old invoices and accounts of repair work. It is not a registry or a union. Nobody agrees who began circulating it. Receiving clerk Neri Vale is one of the people still answering letters about it.\n\nThe best-known account concerns the Sable Margin, a working ship whose contractor credited a refit to replacement plant bought on company finance. Former crew say the useful equipment had arrived through a less tidy combination of repairs, borrowed fittings and money taken from their own wages. The contractor's inventory and the crew's inventory described the same machinery with different owners.\n\nThe dispute became a story about Rivetline storage, Asterel service letters and a Verdemorrow crop. Each maker had evidence of a different part of the job. None had a complete account of who paid for it. Several letters survived because workers kept copies of things the contractor called temporary.\n\nThe ledger's point is smaller than an official history of the System. It preserves the people behind a ship that still worked: the installer owed a meal, the watchkeeper whose repair survived three owners, the crew member who kept a place clear for a casualty. It does not restore their wages or decide their claims.\n\nCopies acquire corrections in the margins. Some are useful. Some are grievances that outlived the ship. Neri asks correspondents to say which parts they saw and which they only heard. That question does not always make the correspondence shorter."
+    },
+    "spacertales-sable-margin-history": {
+      "section": "phobos-spacer-life",
+      "label": "The Sable Margin dispute",
+      "title": "A working ship, twice on paper",
+      "body": "The Sable Margin appears in broker correspondence as a routine contractor refit and in crew correspondence as a quarrel over who owned the useful parts. The surviving letters do not agree on the ship's later name. They agree that it left dock with equipment repaired by its own crew.\n\nOne account describes a row of Rivetline stores recorded under two financing schedules. Another describes an Asterel board returned to service under a plate number the office had marked obsolete. Verdemorrow correspondence mentions a small crop whose meal appears in the crew's records and whose publicity photograph appears in the contractor's.\n\nReceiving clerk Neri Vale collected copies after two separate claimants requested confirmation of the same shipment. The letters supplied dates and signatures, but no convenient verdict. By then the workers were on different ships and the contractor was using a different office name.\n\nThe Sable Margin story travels because most independent crews recognise part of it. A repaired machine is valuable, somebody must have paid, and paperwork written after the work can be more confident than the people who did it.\n\nNo surviving letter proves that all of the crew's account is true. That uncertainty is part of the record, alongside the names omitted from the cleaner version."
+    },
+    "spacertales-short-return-history": {
+      "section": "phobos-spacer-life",
+      "label": "The Short Return letters",
+      "title": "A place kept clear",
+      "body": "The Short Return correspondence began with a proposed sickbay refit aboard a small working ship. Its owner planned a Halewright bed where freight had been stacked. The loading supervisor objected to surrendering useful floor. The crew member who wrote the reply listed the names of people who might need the bed.\n\nHalewright retained the exchange because it described the space around a patient more clearly than the original order. Later letters say the ship returned from a difficult job and that the bed was used. They do not give enough detail to establish the patient's injuries or credit particular equipment with their recovery.\n\nA second dispute concerned the watch. An account sent to the owner counted the bed and monitor as supplied care. Crew letters counted the people who stayed nearby, brought treatment supplies and kept access clear. The two accounts were describing different parts of the same night.\n\nThe ship's later sale dispersed the equipment. A former watchkeeper asked Halewright to keep the letters together, even if no one could keep the sickbay together. Copies reached the second-shift ledger.\n\nMost retellings give the incident a neat ending. The surviving reply only says that everyone expected to come back had reached dock.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  },
+  "broadcasts": {
+    "spacertales-double-freight-claim": {
+      "title": "One shipment, two owners",
+      "region": "Outer System",
+      "text": "Two former contractors have asked a receiving clerk to confirm ownership of the same old refit shipment. Neri Vale says the retained freight note establishes what arrived, not who finally paid for it. Former crew of the Sable Margin have supplied a third account listing repairs and purchases from their own wages. Both contractors say the crew's account complicates a straightforward claim.",
+      "mention": "That Sable Margin shipment has two official owners. The people who paid to repair it make three.",
+      "once": true
+    },
+    "spacertales-second-shift-correction": {
+      "title": "The names in the margin",
+      "region": "Outer System",
+      "text": "Receiving clerk Neri Vale has circulated a correction to the Sable Margin freight account after an independent crew supplied a present-day Rivetline can for comparison with the old item description. Vale says the example clarified the terminology, not ownership. The revised account distinguishes what the documents establish from what their claimants want them to establish. Former crew say it is a useful start.",
+      "mention": "Neri's corrected the Sable Margin freight account. A can can settle a name. Ownership takes more paper.",
+      "once": true,
+      "requires": {
+        "arcsDone": [
+          "spacertales-misfiled-can"
+        ]
+      }
+    },
+    "spacertales-yard-signatures-news": {
+      "title": "The sample was not the proof",
+      "region": "Outer System",
+      "text": "An addendum to the Sable Margin papers distinguishes a material sample from evidence of where it was made. Clerk Neri Vale says a recent Rivetline ingot example helped read the old catalogue, but proves nothing about a historical refit. Former workers have asked for their signed repair letters to be considered separately. A broker says separate evidence makes the file harder to summarise.",
+      "mention": "The Sable Margin sample showed what an ingot was. Didn't prove who made the old one. Workers still have their letters.",
+      "once": true,
+      "requires": {
+        "arcsDone": [
+          "spacertales-yard-signatures"
+        ],
+        "mods": [
+          "PhobosShipbreaker"
+        ]
+      }
+    },
+    "spacertales-verdemorrow-meal-record": {
+      "title": "The meal had names",
+      "region": "Outer System",
+      "text": "Verdemorrow's archive has appended a crew account to the often-reprinted Sable Margin galley photograph. The account names the people who tended the crop and prepared the meal. It makes no claim about yield, growing conditions or the ownership of equipment. A former contractor has objected that the additional caption distracts from its provision programme. The archivist says it explains who provided supper.",
+      "mention": "Verdemorrow's put the crew names under the old galley photo. Contractor preferred its own caption.",
+      "once": true,
+      "requires": {
+        "arcsDone": [
+          "spacertales-meal-in-the-margin"
+        ],
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-halewright-watch-record": {
+      "title": "The watch was people",
+      "region": "Outer System",
+      "text": "Halewright has added a watchkeeper's letter to the Short Return fitting correspondence. The letter distinguishes the supplied bed and monitor from the crew who kept the patient company and did the care work. The archive says no clinical conclusion can be drawn from the surviving account. A former watchkeeper says the point was to preserve the names, not sell another bed.",
+      "mention": "Halewright's kept the Short Return watch letter. The equipment got the invoice. The people finally got their names.",
+      "once": true,
+      "requires": {
+        "arcsDone": [
+          "spacertales-room-for-one-more"
+        ],
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-mixed-makers-spares": {
+      "title": "Common parts, separate promises",
+      "region": "Outer System",
+      "text": "Small plant owners are asking equipment brokers to provide one clear list of necessary stores and connections for installations carrying several makers' names. Fennmark, Tolvane, Lixivar and Oxsmith dealers say each can describe its own products. Operators say four accurate leaflets can still leave a gap in the same plant. No joint service agreement has been announced.",
+      "mention": "Four makers can write four correct leaflets and still leave you guessing what joins the machines.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-yard-worker-loss": {
+      "title": "The last repair note",
+      "region": "Outer System",
+      "text": "A small salvage contractor is disputing payment to a worker whose repair notes were used after she left its payroll. Crew say the notes kept a refit moving when replacement equipment was delayed. Management says the worker supplied knowledge, not a part with a listed value. Rivetline dealers have declined to price the notes. The worker says pricing them was not the original question.",
+      "mention": "A contractor used a worker's repair notes, then said knowledge wasn't a payable part. She says she asked for wages.",
+      "requires": {
+        "mods": [
+          "PhobosShipbreaker"
+        ]
+      }
+    },
+    "spacertales-warehouse-watch-rumour": {
+      "title": "A light on the closed shelf",
+      "region": "Outer System",
+      "text": "A freight clerk has dismissed reports of a signal light seen among boxed control equipment in a closed stores aisle. The stock was disconnected and the watch camera recorded only the aisle entrance. Asterel says it cannot diagnose a story without the actual hardware. Night staff have requested another lamp for the aisle. Management is reviewing whether poor lighting counts as an equipment fault.",
+      "mention": "Night crew saw a light in the boxed Asterel stock. Service wants the board. Management wants fewer lamps.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    }
+  },
+  "chatter": {
+    "spacertales-ledger-names": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "The second-shift ledger names the worker before the machine. First catalogue I've read that knew what kept a ship going."
+    },
+    "spacertales-ledger-not-verdict": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "Neri's letters don't decide who owns the Sable Margin's parts. They make it harder to forget who repaired them."
+    },
+    "spacertales-ledger-two-owners": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "Two owners claimed the same stores. I'd settle for both paying the same repair bill."
+    },
+    "spacertales-ledger-leave-copy": {
+      "moment": "superstition",
+      "speakers": "anyone",
+      "line": "Leave a copy of the repair note with somebody who leaves the ship. Records get lonely when there's only one."
+    },
+    "spacertales-ledger-old-wages": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "I keep invoices from before I bought this ship. Don't want somebody deciding later that I only borrowed the parts."
+    },
+    "spacertales-warehouse-light": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "Asterel store clerk saw a light in a disconnected crate. Might've been a reflection. She wants a second lamp before finding out.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-watch-people": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "I read the Short Return letter. Nobody thanked the monitor for staying awake. They thanked the people.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-ledger-proof-question": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "If the only record of a job belongs to the person who didn't do it, whose history is it?"
+    }
+  },
+  "tips": {
+    "spacertales-ledger-history": {
+      "text": "The second-shift ledger is a circulating collection of crew letters, not an official registry. Its corrections often begin with a person's name where the invoice listed only labour."
+    },
+    "spacertales-short-return-ending": {
+      "text": "Retellings of the Short Return give its sickbay dispute a neat ending. The surviving letter says only that everyone expected back had reached dock.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-sable-margin-history-tip": {
+      "text": "The Sable Margin dispute survives in two contractor accounts and one crew account. All describe equipment aboard one ship. They differ over the people who made it useful."
+    }
+  }
+}

@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "arcs": {
+    "spacertales-misfiled-can": {
+      "title": "A can in the wrong column",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.005,
+      "steps": [
+        {
+          "id": "letter",
+          "objective": {
+            "title": "Wait for Neri to find the freight note",
+            "description": "Let one game hour pass while Neri checks an old Rivetline freight description. This is correspondence; your can stays yours."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "[player-first], a Rivetline drain can aboard [ship] may settle a catalogue question. Two claimants call an old shipment office supplies. The crew call it process equipment. I'm checking the note. I need a present-day example, not a donation."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "The note says service records where it should name what the cans hold. A clerk copied a heading into the cargo column. I'd like to compare a real can before circulating the correction."
+            }
+          }
+        },
+        {
+          "id": "example",
+          "objective": {
+            "title": "Carry a Rivetline D20 at a station",
+            "description": "Be at any station while carrying one Rivetline D20 Drain Canister, including in a bag. Neri compares the description with your example. The can and its contents are kept."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            },
+            {
+              "kind": "have-item",
+              "item": "PhobosLineDrainCanister",
+              "count": 1,
+              "consume": false
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Bring a D20 where a station receipt can accompany the comparison. Any station will do, including this one if you're already there. Nobody is taking the can. It proves a product description, not who owned the old shipment."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Comparison noted. Process contents, not office records. I'll separate that correction from the ownership claims. The Sable Margin's crew have asked for their names to stay with the repair letters."
+            }
+          }
+        },
+        {
+          "id": "correction",
+          "objective": {
+            "title": "Wait for the corrected freight account",
+            "description": "Let two game hours pass for Neri to circulate the corrected account. Your can stays yours. The retained account comes on a data card."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "One contractor wants the corrected heading but not the crew's covering letter. The other wants its own name on both. I'm sending the correction with an explanation of what it does and doesn't prove."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Sent. The account can now describe a can without deciding whose it was. Small result, I know. The crew have had larger claims disappear into smaller mistakes than this. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-sable-freight-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosLineDrainCanister"
+        ],
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosFramework"
+        ]
+      }
+    },
+    "spacertales-yard-signatures": {
+      "title": "The material was not the proof",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside. Eligible after SABLE_FREIGHT.TXT is opened.",
+      "chance": 0.01,
+      "steps": [
+        {
+          "id": "sample",
+          "objective": {
+            "title": "Carry a Rivetline aluminium ingot at a station",
+            "description": "At any station, carry one Rivetline Aluminium Ingot. Bought, found or made stock is accepted; this checks the item, not where it was made. It stays yours."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            },
+            {
+              "kind": "have-item",
+              "item": "PhobosAluminiumIngot",
+              "count": 1,
+              "consume": false
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "The Sable Margin file calls a Rivetline ingot a spare assembly. A current aluminium ingot would help read that catalogue entry. Bought or found is fine. I won't call it evidence that you ran a furnace, and I won't take it."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Right description, wrong claim. The broker wants to use your example as proof of the old job. It can't prove that. The workers' signed repair letters are separate evidence."
+            }
+          }
+        },
+        {
+          "id": "letters",
+          "objective": {
+            "title": "Wait for the workers' letters to be attached",
+            "description": "Let three game hours pass while Neri attaches the old repair letters to the material description. Your ingot is retained."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 3
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "The letters name the people who kept the equipment working while the replacement shipment was late. One contractor wants the dates. Neither asked for the names. I'm keeping both."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Addendum sent. It says what your sample established, then reproduces the workers' account separately. No verdict, no recovered wages. At least nobody can claim the names weren't supplied. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-yard-signatures-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "arcsDone": [
+          "spacertales-misfiled-can"
+        ],
+        "mods": [
+          "PhobosShipbreaker"
+        ],
+        "filesRead": [
+          "spacertales-sable-freight-file"
+        ]
+      }
+    },
+    "spacertales-meal-in-the-margin": {
+      "title": "Who fed the Sable Margin?",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside. Eligible after SABLE_FREIGHT.TXT is opened.",
+      "chance": 0.01,
+      "steps": [
+        {
+          "id": "archive",
+          "objective": {
+            "title": "Wait for Verdemorrow's galley letter",
+            "description": "Let one game hour pass while the archivist checks the galley photograph. Owning a rack does not prove that you have grown a crop."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "Neri sent us the Sable Margin letters. We have its galley photograph under a contractor's provision programme. Your [ship] carries a Firstlight-4, so you might appreciate why the crew's version names the people rather than the purchase."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "The crew account names a grower, a cook and the installer still owed a meal. The photograph has the contractor's logo on a borrowed jacket. Both describe the same supper."
+            }
+          }
+        },
+        {
+          "id": "portion",
+          "objective": {
+            "title": "Carry Verdemorrow lettuce at a station",
+            "description": "At any station, carry one Verdemorrow Lettuce portion for the archive's present-day comparison. Any source is accepted. It is not consumed and this does not certify a harvest."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            },
+            {
+              "kind": "have-item",
+              "item": "PhobosVerdemorrowLettuce",
+              "count": 1,
+              "consume": false
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "We want a current product example alongside the old account. One lettuce portion, kept by you. It needn't be grown aboard. The archive mustn't mistake a modern example for evidence of a historical crop."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "Example recorded separately. No yield claims, no claim that your rack grew it. Now we can caption the old photograph with the names in the letter."
+            }
+          }
+        },
+        {
+          "id": "names",
+          "objective": {
+            "title": "Wait for the crew names to join the photograph",
+            "description": "Let two game hours pass while the archivist prepares the new caption. Your food stays yours; no payment is due."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "The contractor calls the new caption a distraction from its provision programme. The cook's letter calls supper a distraction from the contractor. We have enough room for the crew names."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Verdemorrow archive",
+              "text": "Names added. The meal's gone, the ship has another name, and someone still owes the installer supper. We'll keep the old invoice with the photograph. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-galley-account-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosVerdemorrowFirstlight4Installed"
+        ],
+        "arcsDone": [
+          "spacertales-misfiled-can"
+        ],
+        "mods": [
+          "PhobosAgriculture"
+        ],
+        "filesRead": [
+          "spacertales-sable-freight-file"
+        ]
+      }
+    },
+    "spacertales-asterel-old-number": {
+      "title": "The number that survived the refit",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside. Eligible after SABLE_FREIGHT.TXT is opened.",
+      "chance": 0.01,
+      "steps": [
+        {
+          "id": "service",
+          "objective": {
+            "title": "Wait for Asterel's old service letter",
+            "description": "Let two game hours pass while the service desk finds an old plate-number record. No flight or repair is tested."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Asterel service desk",
+              "text": "Neri's Sable Margin file mentions one of our old boards. The office marked it obsolete; a watchkeeper kept it working. A module aboard [ship] reminded the clerk to ask the service department instead of the sales desk."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Asterel service desk",
+              "text": "Found the letter under the plate number, not the ship name. The watchkeeper wrote down which repair got the board back into service. The contractor recorded replacement pending."
+            }
+          }
+        },
+        {
+          "id": "reply",
+          "objective": {
+            "title": "Take the Asterel reply to a station",
+            "description": "Be aboard or docked at any station so the correspondence can close with a station acknowledgement. A station you are already at counts. No module is surrendered."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Asterel service desk",
+              "text": "A station acknowledgement will do. You are not testing the board for us or taking on the old warranty. I only want the letter attached to the same file as the contractor's replacement note."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Asterel service desk",
+              "text": "Acknowledged. Useful repair, accurately described. Somebody called the board Tomorrow in the margin. I hope its next owner kept the name. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-asterel-repair-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosAutoNavBoard"
+        ],
+        "arcsDone": [
+          "spacertales-misfiled-can"
+        ],
+        "mods": [
+          "PhobosAutoNav"
+        ],
+        "filesRead": [
+          "spacertales-sable-freight-file"
+        ]
+      }
+    },
+    "spacertales-four-leaflets": {
+      "title": "Four leaflets and one plant",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.005,
+      "steps": [
+        {
+          "id": "list",
+          "objective": {
+            "title": "Wait for the brokers' plant description",
+            "description": "Let two game hours pass while a broker gathers the four makers' descriptions. This is a paperwork dispute; it does not start or assess your machines."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "[player-first], your V4 puts you among people who've paid for a real process job. I've four leaflets for one proposed mixed plant. Each maker says its own part is described correctly. I'm trying to find who described the joins."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "Nobody did. Each list ends where the next begins. Fennmark named stores, Tolvane named its outputs, Lixivar named feed, Oxsmith named heat. That's information, not yet a whole quotation."
+            }
+          }
+        },
+        {
+          "id": "counter",
+          "objective": {
+            "title": "Be at a station for the revised quotation",
+            "description": "Be at any station, including one you are already at, while the broker returns the quotation for revision. No purchases, money or new connections are made."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "I'll return it with a request for a single bill describing the supported job. Station acknowledgement only; don't buy another machine for this. Four correct makers' names aren't a connection."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "Returned. They offered matching enamel instead. I asked again for the equipment around the equipment. No agreement yet. That's the honest answer."
+            }
+          }
+        },
+        {
+          "id": "reply",
+          "objective": {
+            "title": "Wait for the broker's final note",
+            "description": "Let four game hours pass for the final note. The letter makes no promise of a future installation or service contract."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 4
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "The customer has paused the order. Suppliers want to know which of them lost the sale. The answer seems to be the space between them."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Orra Pell, equipment broker",
+              "text": "File closed with no order. We kept the useful descriptions and declined the incomplete bill. Sometimes a ship's best new equipment is the equipment it hasn't bought yet. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-four-leaflets-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosVolatilesRefineryInstalled"
+        ],
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-borrowed-pump": {
+      "title": "The bottle came back",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.005,
+      "steps": [
+        {
+          "id": "bottle",
+          "objective": {
+            "title": "Carry Alembrine spirit at a station",
+            "description": "At any station, carry one bottle of Alembrine Spirit. Bought or found bottles count as well as your own. The bottle is kept; no brewing is checked."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            },
+            {
+              "kind": "have-item",
+              "item": "PhobosAlembrineSpirit",
+              "count": 1,
+              "consume": false
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Alembrine correspondence",
+              "text": "There's a bottle in every version of the borrowed-pump story. We'd like to check the present product description against the old advert. Carry a bottle at a station if you have one. It stays yours. We're not asking you to brew."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Alembrine correspondence",
+              "text": "Description noted. The bottle in the story was ordinary stock, not some special commission. Now to find out whether it settled the quarrel or went to the wrong ship."
+            }
+          }
+        },
+        {
+          "id": "accounts",
+          "objective": {
+            "title": "Wait for the two pump accounts",
+            "description": "Let three game hours pass for the old customers' replies. There is no pump to find in the world and no recovery order."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 3
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Alembrine correspondence",
+              "text": "First reply says the bottle arrived at the intended ship and improved relations. Second says the intended ship had already changed owners. Both say the pump remained somebody else's problem."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Alembrine correspondence",
+              "text": "We can't reconcile the accounts. We'll retain both and label the uncertainty. If a dealer promises the bottle fixed the pump dispute, they're selling a better ending than we have. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-pump-accounts-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosFermenterStillInstalled"
+        ],
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-room-for-one-more": {
+      "title": "The people on the watch",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.005,
+      "steps": [
+        {
+          "id": "bed",
+          "objective": {
+            "title": "Wait for Halewright's fitting letter",
+            "description": "Let half a game hour pass for the fitting letter. Your Ward-3 made this correspondence available; no patient, treatment or sickbay inspection is required."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 0.5
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "The Short Return fitting letters started with a bed and a disputed patch of floor. Your [ship] carries a Ward-3. I'll send the letters as a fitting story, not as a test of your sickbay."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "The first letter lists cargo that would no longer fit. The reply lists people who might need the bed. Both lists were written by the same crew member."
+            }
+          }
+        },
+        {
+          "id": "watch",
+          "objective": {
+            "title": "Wait for the Short Return watch letter",
+            "description": "Let two game hours pass while Halewright finds the watchkeeper's letter. No patient is needed and no treatment or healing is performed."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "The equipment account says bed and monitor supplied. A watchkeeper asked us to keep another account with it. I'm looking for the copy. There's no clinical record here, and we won't invent one."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "Found it. Names, watch times and treatment supplies brought to the bed. It doesn't say which machine saved anyone. It says the people expected back reached dock."
+            }
+          }
+        },
+        {
+          "id": "acknowledge",
+          "objective": {
+            "title": "Acknowledge the watch letter at a station",
+            "description": "Be at any station to close the correspondence. An existing docking counts. Your bed and supplies are kept; no medical result is certified."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "We'll keep the watch letter beside the fitting notes. A station acknowledgement closes this copy of the correspondence. You don't owe us a case report, and you don't need to put anyone in the bed."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Halewright service archive",
+              "text": "Acknowledged. The equipment had its invoice. The watch now has its names. Leave room for another person. In the fitting notes that sentence is still literal. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-short-return-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosMedicalBedInstalled"
+        ],
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-drawing-after-damage": {
+      "title": "The ship the drawing forgot",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.003,
+      "steps": [
+        {
+          "id": "drawing",
+          "objective": {
+            "title": "Wait for the disputed drawing account",
+            "description": "Let one game hour pass for an account of an old refit dispute. Your own schematic and ship are not changed."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "A crew sent an old drawing to the second-shift ledger. It shows a ship as sold, before a galley moved and bunks changed. The contractor called it the authoritative repair plan. I'm finding the crew's reply."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "The reply says the drawing was accurate once. Someone crossed out once and wrote before we lived here. It's the clearest distinction in the file."
+            }
+          }
+        },
+        {
+          "id": "dock",
+          "objective": {
+            "title": "Close the drawing correspondence at a station",
+            "description": "Be at any station to acknowledge the letters. No schematic is loaded, no part is destroyed, and no build site is created by this goal."
+          },
+          "tests": [
+            {
+              "kind": "dock-at",
+              "station": "any"
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "The file has drawings and arguments, not a schematic for your ship. You don't need to suffer damage to finish reading it. A station acknowledgement is enough."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Neri Vale, receiving clerk",
+              "text": "Copy acknowledged. The old drawing stayed in the file with the newer one. A ship can keep its history without rebuilding itself to match it. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-two-drawings-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-last-vessel": {
+      "title": "The last place on the route",
+      "notes": "Original correspondence, not a native plot. One run per save. No money or existing goods are taken or granted; completion gives one native data card containing a story file. Waiting advances letters only and never certifies machine work. An existing station docking counts. Dismissing a goal sets this arc aside.",
+      "chance": 0.005,
+      "steps": [
+        {
+          "id": "photo",
+          "objective": {
+            "title": "Wait for Slingwright's photograph dispute",
+            "description": "Let one game hour pass for the worker's account. Owning an RM-1 starts this correspondence; operating it is not required."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 1
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Slingwright customer letters",
+              "text": "Your [ship] has an RM-1. You might appreciate an old publicity dispute. The photograph showed an empty plant, and the caption credited the feeder. The person who loaded it wanted a different caption. We're finding the signed letter."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Slingwright customer letters",
+              "text": "The letter says the feeder had a supported job, but the worker supplied the lifting. The fee bought a photograph, not a shift of loading. Sales had filed it under image corrections."
+            }
+          }
+        },
+        {
+          "id": "reply",
+          "objective": {
+            "title": "Wait for the caption and the fee to be separated",
+            "description": "Let two more game hours pass while Slingwright closes the correspondence. No feed is used, no thrust is granted and no payment changes hands."
+          },
+          "tests": [
+            {
+              "kind": "wait",
+              "hours": 2
+            }
+          ],
+          "delivery": {
+            "message": {
+              "from": "Slingwright customer letters",
+              "text": "We'll separate the accurate equipment claim from the worker's unpaid-work claim. One doesn't settle the other. You don't need to run a batch to help us read the letter."
+            }
+          },
+          "onComplete": {
+            "message": {
+              "from": "Slingwright customer letters",
+              "text": "File corrected. The machine did its job with supplied feed. A person supplied that feed. The fee dispute is still a fee dispute; the corrected photograph no longer makes the person disappear. A data card holds the retained account; open it on a computer or PDA."
+            },
+            "files": [
+              "spacertales-loading-fee-file"
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "owns": [
+          "PhobosReactionMassFeederInstalled"
+        ],
+        "dockedAt": [
+          "any"
+        ],
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "articles": {
+    "spacertales-fennmark-history": {
+      "section": "phobos-makers",
+      "label": "Fennmark",
+      "title": "Fennmark: keep it somewhere",
+      "body": "Fennmark's first documented orders were for process vessels supplied to small refining shops. Its early invoices treated the vessel, the connections and the work needed to use them as separate purchases. Customers soon demonstrated why a seller ought to describe the whole job before accepting a deposit.\n\nThe firm's refining and process-chemistry business grew around that lesson. The Phobos' Fennmark V4 Volatiles Refinery, X2 Chemical Processor and K2 Sabatier Reactor each have a specific feed and a supported operation. Stores hold the substances needed and recovered. Air equipment handles its own narrower job. Matching paint does not make the products interchangeable.\n\nFennmark expanded by supplying working equipment rather than a promise to close every cycle aboard a ship. Electricity, heat, replenishment, storage and maintenance remain the owner's concerns. Its salespeople have nevertheless used the phrase independent operation often enough that its service desk keeps a prepared reply explaining independent from what.\n\nThe graphite and orange equipment appears in mixed plants alongside Tolvane, Lixivar and Oxsmith machinery. Fennmark sells stores to those customers without pretending it made the other machines. Its catalogue's longest-running argument concerns whether that arrangement is cooperation or somebody else's missed sale.\n\nThe oldest vessel catalogue ends with a note to write down what is in each store. A later editor removed it as obvious. A still later editor put it back.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-history": {
+      "section": "phobos-makers",
+      "label": "Tolvane",
+      "title": "Tolvane: a narrow department",
+      "body": "Tolvane grew from a maintenance shop whose technicians were repeatedly sent to look at one troubled part of larger chemical plants. The shop's notebooks distinguished the equipment it could repair from the plant its customer hoped it could repair. Customers preferred the second description; the notebooks proved more useful.\n\nThe Phobos' Tolvane AX-2 Ammonia Cracker became the company's own product. Its job is breaking ammonia into nitrogen and hydrogen, with supplies, electricity, proper storage and the rest of the supported process still required. A teal frame and yellow corners distinguish it from Fennmark equipment. The ammonia stores beside it remain Fennmark stores.\n\nTolvane's early sales letters repeatedly said nitrogen is not air. Dealers complained that the sentence discouraged customers. The service department said it discouraged the wrong installation. It remained.\n\nOne larger contractor tried to buy the firm's name along with a production order. Tolvane's repair staff objected to being described as the contractor's complete atmosphere division. The resulting deal sold machines without the name. Both sides now describe that as their preferred outcome.\n\nCrews tend to know the brand from one machine and one fault somebody else once failed to understand. Tolvane regards that as sufficient recognition.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-history": {
+      "section": "phobos-makers",
+      "label": "Lixivar",
+      "title": "Lixivar: account for the liquid",
+      "body": "Lixivar's origin is usually traced to technicians paid to salvage useful salts from process liquids that customers had stopped wanting to describe. The technicians' first demand was a list of what had gone into the vessel. Their second was payment for finding out when no list existed.\n\nThe company took its name from lixiviation, an old word for leaching: separating material with a liquid that draws out part of it. Its Phobos' Lixivar LC-3 Leach and Crystallise Unit gives that work a shipboard footprint. The SA-3 Sulfuric Acid Plant and acid-storage line serve other supported parts of the chemical chain. None turns an unidentified wet load into a guaranteed useful product.\n\nLixivar's pale sage machinery is easy to recognise. Its trade reputation rests on less visible distinctions: the named feed, the chosen recipe, the products and the remainder. Owners pay for the separation and then sometimes object to having several things to store where they previously had one.\n\nAn early Lixivar advert offered to find the value in a troublesome batch. A dealer shortened it to every batch has value. The company ordered a correction after customers arrived with buckets of unrelated cleaning waste. Service staff still call the incident the bucket campaign.\n\nLixivar's liquid tanks have an outer catchment for a leak. That precaution is part of the equipment, not a reason to treat an acid tank as harmless furniture. Crews who know the brand best give it room.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-history": {
+      "section": "phobos-makers",
+      "label": "Oxsmith",
+      "title": "Oxsmith: the hot end of the argument",
+      "body": "Oxsmith was formed by plant technicians who believed independent crews should have access to equipment normally sold inside a much larger installation. Their customers liked the idea of recovering useful material from rock. Fewer liked the floor space, electricity and heat involved in doing it.\n\nThe Phobos' Oxsmith EC-4 Electrolysis Cell and CR-4 Carbothermal Reactor are different routes through supported feeds and products. The EC-4 uses electricity to recover oxygen and material from its rock feed. The CR-4 uses methane in its hot reaction and needs the appropriate handling for its different outputs. Selecting one route does not make its bills or products the same as the other.\n\nOxsmith's oxide-red frames and pale ceramic surfaces were chosen to stand apart from the older process makers. The company originally photographed only the machine. Customers asked to see the stores, connections and heat equipment that the machine would need around it. Current publicity photographs are harder to fit on a brochure.\n\nA distributor tried selling the line with the slogan air from anywhere. Oxsmith withdrew the copy. There is no useful promise in anywhere, its correction said, and oxygen alone is not a finished cabin atmosphere.\n\nThe company's engineers prefer questions about feed and equipment. Its customers prefer questions about return on the purchase. Working ships ask both before committing a corner of the machinery space.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-process-plant-history": {
+      "section": "phobos-spacer-life",
+      "label": "The unfinished plant",
+      "title": "What the brochure left outside the frame",
+      "body": "Independent processing aboard ships developed one job at a time. A crew had scrap it could recover, ore it could work or a supply it wanted to stretch before the next dock. The machine bought for that job usually needed vessels, electricity and a route for heat before it earned anything.\n\nThat history explains why working plants carry several makers' names. A Rivetline bin does not become an Oxsmith product because it holds an Oxsmith feed. Fennmark stores do not imply that Fennmark made the Tolvane equipment beside them. A good connection is more useful than matching enamel.\n\nOwners planning a new process ask what comes out. Owners who have run one also ask what comes out that they do not want. A remainder still has mass, a use or a disposal route, and a claim on limited storage. It does not leave the ship because its name sounds unprofitable.\n\nEvery recovery leaves bills of its own. The plant can make a long run more practical; it cannot abolish resupply, worn parts or the need for a cabin fit to work in.\n\nThe unofficial history of shipboard industry is written in refit drawings with a second sheet marked things we forgot to leave room for.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  },
+  "broadcasts": {
+    "spacertales-fennmark-vessel-list": {
+      "title": "The obvious instruction",
+      "region": "Outer System",
+      "text": "Fennmark has restored a store-identification paragraph removed from its latest catalogue. The editor responsible considered it too obvious to print. Service contractors say the paragraph was removed in the same quarter that customers began sending photographs of unlabelled stores and asking which was which. The revised catalogue calls identification an owner's responsibility. Contractors call it a start.",
+      "mention": "Fennmark's put the label-your-stores bit back in the catalogue. Obvious wasn't quite obvious enough.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-fennmark-package-price": {
+      "title": "Equipment around the equipment",
+      "region": "Outer System",
+      "text": "A Fennmark distributor has revised a processing quotation after a customer noticed it excluded all stores and connecting lines. The distributor says the price was for the active equipment only. The customer says a machine with nowhere to send output is a rather expensive shelf. Fennmark has asked that future quotations explain the supported job as well as the machine.",
+      "mention": "Fennmark dealer quoted a plant with no stores. Customer said they could buy a shelf cheaper.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-department": {
+      "title": "A division of one",
+      "region": "Outer System",
+      "text": "Tolvane has rejected a contractor's description of its service shop as a complete atmosphere division. The firm's current contract supplies ammonia-cracking equipment and related service, not every system aboard the customer's ships. The contractor says the phrase was intended as praise. Tolvane says praise should fit the invoice.",
+      "mention": "Tolvane won't let that contractor call it a whole atmosphere department. One machine isn't the whole cabin.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-air-word": {
+      "title": "A useful distinction",
+      "region": "Outer System",
+      "text": "Tolvane has issued a correction to dealer copy describing a nitrogen stream as breathable air. The company says the distinction is essential to understanding the AX-2's job and the equipment required around it. The dealer has agreed to replace the claim. Customers have asked why the correction needed to come from the maker rather than the person selling them the machine.",
+      "mention": "Tolvane had to explain that nitrogen isn't a cabin full of air. Dealer should've known before taking deposits.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-buckets": {
+      "title": "The bucket campaign",
+      "region": "Outer System",
+      "text": "Lixivar service staff have asked dealers to retire the phrase every batch has value. Customers responding to the campaign have submitted containers of cleaning waste, unidentified liquids and one dry bucket with a valuation request. The company says its equipment needs supported, identified feed. The dry bucket's owner says the bucket is identified and would like an answer.",
+      "mention": "Lixivar's bucket advert went wrong again. Somebody wanted them to recover the value in an empty bucket.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-handover": {
+      "title": "A liquid with a past",
+      "region": "Outer System",
+      "text": "A processing contractor's sale has stalled over missing feed records. The buyer says the vessels contain material the seller described only as useful later. Lixivar has declined to certify the load from photographs. The seller says its long history aboard the plant should establish value. The buyer says it establishes a long history aboard the plant.",
+      "mention": "Useful later was the whole record for that Lixivar load. Later has finally arrived.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-photograph": {
+      "title": "A wider photograph",
+      "region": "Outer System",
+      "text": "Oxsmith's latest brochure has gained a foldout after customers requested photographs showing the equipment around its hot-processing machines. The company says the wider view better represents a working installation. A printer says the original machine photograph was excellent until the stores, connections and heat equipment entered the frame. Buyers say that was when it became informative.",
+      "mention": "Oxsmith's brochure needs a foldout now. They finally photographed the rest of the plant.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-slogan": {
+      "title": "Not quite anywhere",
+      "region": "Outer System",
+      "text": "Oxsmith has withdrawn a distributor's air from anywhere campaign. The company says its machines accept supported feeds, recover specific products and need substantial electricity and heat handling. It also notes that recovered oxygen is not a complete cabin atmosphere. The distributor is considering a shorter slogan. Service technicians have asked to read it before it is printed.",
+      "mention": "Oxsmith's correcting air from anywhere. Plenty of small print survived, just not anywhere.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  },
+  "adverts": {
+    "spacertales-fennmark-v4-ad": {
+      "text": "Phobos' Fennmark V4 Volatiles Refinery\nUseful feed deserves a proper process. Plan the products, the stores and the heat before you plan the profit. Fennmark: know what goes in, know where it goes next.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-fennmark-stores-ad": {
+      "text": "Fennmark bulk stores\nThe right substance, in the right vessel, with the right connection. A row of matching stores is not a row of interchangeable contents. Leave a label your next shift can read.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-ax-ad": {
+      "text": "Phobos' Tolvane AX-2 Ammonia Cracker\nA specific job, in a specific space. Supported ammonia cracking for crews who have planned the feeds and stores. Nitrogen is not a complete cabin atmosphere. Tolvane prints that in the large type.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-lc-ad": {
+      "text": "Phobos' Lixivar LC-3 Leach and Crystallise Unit\nSeparate the useful from the load. Identified feeds, supported recipes, and products that still need somewhere to go. Lixivar: ask what is in the vessel before asking what it is worth.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-acid-ad": {
+      "text": "Lixivar acid equipment\nA dedicated plant, proper tanks and a line made for the job. Sulfuric acid belongs in its own supported route. The pale sage finish does not make it galley furniture.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-ec-ad": {
+      "text": "Phobos' Oxsmith EC-4 Electrolysis Cell\nThere is useful material in supported rock feed. Getting it out takes electricity, heat handling and a plant planned around the products. Oxsmith: buy the job with your eyes open.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-cr-ad": {
+      "text": "Phobos' Oxsmith CR-4 Carbothermal Reactor\nA different hot route for supported rock feed, using methane. Different feed bills, different outputs. Ask what your stores can handle before choosing which route your ship needs.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  },
+  "chatter": {
+    "spacertales-fennmark-label-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "The best plant foreman I knew wrote labels you could read from the doorway. Never needed to explain why.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-fennmark-store-joke": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "Matching Fennmark stores look professional. Labels make them useful.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-fennmark-unpaid-space": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Broker charged for the machine, the stores, the lines and delivery. Dock charged for all the space in between.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-fennmark-route-jargon": {
+      "moment": "jargon",
+      "speakers": "anyone",
+      "line": "A line needs a supported connection. Two machines staring at each other across the floor are only neighbours.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-narrow-job": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "Tolvane knows what its machine does. Wish the last person selling me one did.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-easy-air": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "Every time somebody says easy air, I want to see what they mean by air.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-teal-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "First Tolvane unit I saw was half hidden behind orange stores. Crew said the matching plant cost more than the useful one.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-bucket-joke": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "Lixivar found value in my unidentified bucket. They sold me the invoice for identifying it.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-no-list": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "There's a process vessel aboard with no feed list. I don't like inheriting somebody else's probably.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-keeper": {
+      "moment": "superstition",
+      "speakers": "anyone",
+      "line": "They say the last person to label a vessel owns the trouble in it. I'd rather own a legible label.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-seller-complaint": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Port wants a history for the process load. The seller's entire history was trust me.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-foldout": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "Oxsmith's new brochure unfolds. About time the stores fitted in the picture.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-heat-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "An owner showed me a lovely Oxsmith refit drawing. I asked where the heat went. We started a second drawing.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-rock-question": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "If your ship's air started as somebody's rock, at what point did it become home?",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-account-joke": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "There's oxygen in the rock. There's an electricity bill in the brochure.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-process-last-bucket": {
+      "moment": "jargon",
+      "speakers": "anyone",
+      "line": "The last vessel on a route matters as much as the first. Full output storage can stop good work.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-process-label-question": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "Is a thing yours when you buy it, when you understand it, or when nobody else will take it back?",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-process-profit-worry": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "I know what the batch should sell for. I'm still adding up everything it takes to make it.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  },
+  "tips": {
+    "spacertales-fennmark-label-history": {
+      "text": "A Fennmark catalogue editor once removed an instruction to identify every store because it was obvious. The next edition restored it. Service contractors still refer to the gap as the obvious year.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-tolvane-scope": {
+      "text": "Tolvane declined an offer to become a contractor's complete atmosphere division. Its staff preferred an accurate description of the one job they were supplying.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-lixivar-bucket-history": {
+      "text": "Lixivar calls a notorious dealer promotion the bucket campaign. The firm learned that every batch has value invites more unidentified buckets than identifiable business.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-oxsmith-wide-picture": {
+      "text": "Oxsmith's equipment brochures became wider after customers asked to see the rest of a working plant. The machinery was unchanged. The photograph was more honest.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    },
+    "spacertales-mixed-plant-paint": {
+      "text": "Offworld process plants often carry several makers' colours. Crews prefer the right stores and connections to a more expensive row of matching enamel.",
+      "requires": {
+        "mods": [
+          "PhobosManufacturing"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Spacer Stories",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/spacer-stories-authoring.md",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "0.1.0",
+    "strNotes": "Company histories, TV news and adverts, crew talk, loading lore and nine short correspondence chains with archive documents on data cards. Requires Phobos Framework 0.110.0 or newer. Stories about other Phobos equipment appear with the relevant mods. Original fiction; no money or existing goods are taken, and each chain gives one data card. Data-only development candidate; in-game evaluation pending."
+  }
+]

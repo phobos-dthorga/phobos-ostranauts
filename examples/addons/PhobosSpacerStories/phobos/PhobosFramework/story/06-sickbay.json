@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "articles": {
+    "spacertales-halewright-history": {
+      "section": "phobos-makers",
+      "label": "Halewright",
+      "title": "Halewright: room to come back",
+      "body": "Halewright began with refurbishing sickbay furniture and fitting it into ships whose owners had left no convenient room for a sickbay. Technicians repeatedly found a good bed in a bad position: blocked access, unreliable power, or a drawer that nobody could reach while treating the person above it.\n\nThe Phobos' Halewright Ward-3 Medical Bed grew from that work. It accommodates an injured patient resting awake or an unconscious casualty laid there, with supported medical rest while conditions hold. A bed still needs power and a room with air. Care still involves real treatment supplies and someone who can use them.\n\nThe Phobos' Halewright Vigil-2 Patient Monitor answers a different question. It observes a patient and reports what it can; it does not heal them. Halewright's service staff insist on that distinction whenever dealers photograph the cart as if it were the treatment.\n\nThe name joins hale and wright, a maker of health. Its off-white enamel and muted colours are intended to look like somewhere a crew can recover, rather than another piece of heavy plant. Owners like the appearance until they discover how much clear access it asks of a crowded ship.\n\nHalewright's oldest fitting notes end with the instruction to leave room for another person. The company uses it as a motto in some brochures. Sickbay workers use it as a literal requirement.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-empty-bed": {
+      "section": "phobos-spacer-life",
+      "label": "The empty bed",
+      "title": "A space that is already working",
+      "body": "An empty sickbay bed can look wasteful on a ship where every tile has a price. Crews use the spare space for a crate, then another, then something too inconvenient to shift before departure. The bed remains on the inventory. Getting a patient to it becomes another problem.\n\nThe Ward-3 needs access for its supported crew treatment work, and its drawer needs actual supplies. The Vigil-2 observes rather than treats. Buying both does not substitute for another person reaching the patient, nor does it remove the ordinary need for power and air.\n\nOlder crews judge a refit partly by whether the owner kept somewhere for a casualty to lie. Younger owners sometimes call that pessimism. The same owners tend to use a different word after their first difficult return to dock.\n\nThe most useful bed aboard is sometimes the one that has stayed empty, accessible and supplied. That is a hard result to photograph and an easy result to appreciate after somebody needs it.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-refit-letter": {
+      "section": "phobos-spacer-life",
+      "label": "The fitting letter",
+      "title": "Halewright and the missing doorway",
+      "body": "Halewright keeps a fitting letter in its service archive from a crew who bought a bed before measuring the path to its place aboard. The letter describes a doorway, a turn, two crates and several people with mutually incompatible suggestions. It ends before explaining how the bed reached the cabin.\n\nThe firm originally used the letter to advertise installation advice. A former crew member objected that the story was about measuring the ship before buying equipment. Halewright added that sentence to the next leaflet.\n\nThe letter is now quoted whenever customers ask why a medical bed takes space that might otherwise carry cargo. The answer is partly the bed, partly the patient and partly the person helping them. The width written after a model name cannot tell the whole story of a crowded cabin.\n\nA copy circulated among salvage crews substitutes a furnace for the bed. Halewright says that version is not in its archive. Rivetline says its fitting instructions already tell people to measure.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  },
+  "broadcasts": {
+    "spacertales-halewright-clear-space": {
+      "title": "The bed behind the freight",
+      "region": "Outer System",
+      "text": "Halewright has revised a sickbay publicity photograph after crew pointed out that the featured bed could not be reached past the surrounding cargo. The owner says the crates were placed only for departure. The photograph was taken on the ship's return. Halewright's new caption asks operators to leave access for the patient and the crew helping them.",
+      "mention": "Halewright's demonstration bed was boxed in by freight. Owner called it temporary. Whole voyage temporary.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-monitor-word": {
+      "title": "Observation, in full",
+      "region": "Outer System",
+      "text": "Halewright has asked dealers to stop describing the Vigil-2 patient monitor as treatment equipment. The cart observes its patient; care is a separate job. A dealer says its display photograph showed the monitor beside a bed and therefore implied a complete service. Halewright says being beside something does not mean doing its work.",
+      "mention": "Halewright's reminded dealers that the monitor watches. It doesn't do the treating.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-freight-claim": {
+      "title": "Room for a person",
+      "region": "Outer System",
+      "text": "A freight contractor has challenged a crew refit that reserved space around a Halewright bed. Management says the empty floor reduces carrying capacity. Crew say it lets somebody reach an injured person. Halewright has supplied a copy of its fitting notes. The contractor has asked whether the notes can be stored in the disputed space.",
+      "mention": "Contractor wanted cargo where the sickbay crew stand. Asked if the fitting notes needed all that floor.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-old-letter": {
+      "title": "The missing doorway",
+      "region": "Outer System",
+      "text": "Halewright's service archive has received a second ending to a well-known letter about a bed that did not fit its planned route aboard. The new account says the crew moved the cargo first. The original sender says this was obvious and not worth writing down. The archive editor says it would have saved several customers a very long afternoon.",
+      "mention": "Halewright finally got the end of the doorway story. They moved the crates. Wish the first letter had said so.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  },
+  "adverts": {
+    "spacertales-halewright-ward-ad": {
+      "text": "Phobos' Halewright Ward-3 Medical Bed\nLeave room for another person. Supported medical rest for a patient with power, air and a crew able to help. Keep the approach clear and the treatment supplies close.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-vigil-ad": {
+      "text": "Phobos' Halewright Vigil-2 Patient Monitor\nKnow what you can observe. A bedside monitor for the patient your crew are caring for. Watching is its job. Treating remains theirs.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-measure-ad": {
+      "text": "Halewright\nMeasure the place. Measure the way to it. Then leave room for the person who will help. Sickbay equipment for ships planning to bring their crew back.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  },
+  "chatter": {
+    "spacertales-halewright-empty-bed": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "An empty Ward-3 looks wasteful until it isn't empty. That's the whole argument.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-crate-joke": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "The bed's for one patient. Captain's tested it with three crates and a finance statement.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-drawer-worry": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "I keep looking in the sickbay drawer. Having a place for supplies isn't the same as having supplies.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-door-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "The Halewright doorway letter stops before the answer. The answer was move the crates. It's usually move the crates.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-monitor-jargon": {
+      "moment": "jargon",
+      "speakers": "anyone",
+      "line": "The Vigil observes. The bed and the treatment work do different jobs. A tidy display isn't a healed patient.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-one-place": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Contractor counted sickbay space as idle floor. I'd like to see that written where the crew can read it.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-first-sleep": {
+      "moment": "superstition",
+      "speakers": "anyone",
+      "line": "Nobody should sleep in a new sickbay just to try it, they say. I think they're afraid of volunteering to clean it.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-return": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "If keeping a crew alive costs a share of the profit, what was the profit meant to be for?",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-old-carer": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "A sickbay hand once made me carry an empty box along the patient route. Best fitting lesson I ever paid for.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-watching": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "I like a monitor that says what it sees. It's the people who promise more that worry me.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  },
+  "tips": {
+    "spacertales-halewright-space-lore": {
+      "text": "Halewright's oldest fitting notes end with leave room for another person. It became a company motto, but sickbay crews still mean the floor space.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-watch-lore": {
+      "text": "The Phobos' Halewright Vigil-2 Patient Monitor observes a patient. Dealers occasionally need reminding that observation and treatment are different jobs.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    },
+    "spacertales-halewright-empty-lore": {
+      "text": "A clear, supplied sickbay can look like unused cargo space. Crews who have needed one tend to disagree.",
+      "requires": {
+        "mods": [
+          "PhobosMedical"
+        ]
+      }
+    }
+  }
+}

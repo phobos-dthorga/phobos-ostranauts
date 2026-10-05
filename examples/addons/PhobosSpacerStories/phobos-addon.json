@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "phobos-spacer-stories",
+  "name": "Phobos Spacer Stories",
+  "author": "Phobos A. D'thorga",
+  "version": "0.1.0",
+  "idPrefix": "SpacerTales",
+  "requires": {
+    "PhobosFramework": "0.110.0"
+  },
+  "notes": "First-party data-only story collection commissioned by phobosgekko on 6 October 2026. Individual entries require their relevant content mods; no content mod is mandatory. Original company histories, crew correspondence and local incidents, open to owner revision. Source-ready candidate; no Workshop publication or in-game validation is claimed."
+}

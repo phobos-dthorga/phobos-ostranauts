@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "articles": {
+    "spacertales-asterel-history": {
+      "section": "phobos-makers",
+      "label": "Asterel",
+      "title": "Asterel: the pilot still signs",
+      "body": "Asterel's first business was repairing navigation and control electronics that their original sellers considered obsolete. Its technicians worked aboard ships whose owners could afford a replacement board or a replacement thruster, but rarely both. Asterel learned to explain what a control system could do with the hardware actually fitted.\n\nThe Polaris modules grew from that work. The Phobos' Asterel N1 Polaris Auto Nav Module and N2 Polaris Pursuit Module assist flight through the ship's existing equipment. A system that can calculate a manoeuvre cannot supply the missing fuel, make a worn thruster new or give a sensor information it has not observed. Asterel's less enthusiastic sales copy says so.\n\nIts C1 Industrial Control Console carries the same maker's name into the machinery space. Central controls appeal to owners who would rather look at one panel than walk the length of a refit to learn which machine is waiting. The machinery still has its own checks and work to do.\n\nAn early Asterel campaign used the phrase a rested hand at the controls. Captains complained that brokers shortened it to a replacement for the hand at the controls. The company now tells dealers to retain the word assistance. Dealers retain it in very small type.\n\nCrews are divided over whether a useful module deserves a name. Asterel officially prefers the model number. Its service desk has nevertheless received fault descriptions for devices called Auntie, Tomorrow and Please.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-route-waiting": {
+      "section": "phobos-spacer-life",
+      "label": "Waiting on a route",
+      "title": "The distance in the parts cupboard",
+      "body": "A station can have the part you need and still be a long way from supplying it. A supplier accepts the order, a broker gives it space on a shipment, and the shipment joins everything else waiting to travel. Sometimes the customer reaches the station before the crate does.\n\nThat gap gave small offworld makers a business. Rivetline sold ways to sort and recover material already aboard. Asterel kept older controls useful. Verdemorrow offered food that could grow between deliveries. None of those jobs made the next dock unnecessary. They changed what a crew had to buy there.\n\nIndependent owners tell the history as a march toward freedom. Their account books tell it as a series of deposits, used parts and unexpected purchases. Both versions contain the same ships.\n\nA spare in the cupboard is mass and money tied up. An empty cupboard is a wager on the next freight arrival. Crew arguments about storage usually end when somebody discovers whose bunk is going to lose the space."
+    },
+    "spacertales-rebuild-notes": {
+      "section": "phobos-spacer-life",
+      "label": "Keeping a ship's shape",
+      "title": "The drawing after the damage",
+      "body": "Crews used to keep a ship's original sales drawing in a drawer. After a few owners and a few more refits, the drawing became a record of what the ship had stopped being. The useful drawing was the one somebody made after the last repair.\n\nRebuild schematics describe which supported parts belong in particular places. When combat destroys those parts, the rebuild system can put the game's ordinary build sites back on the player's ship. A site is work waiting for real parts and crew, not a replacement already delivered.\n\nOwners buy machinery to recover, refine or carry material, then discover that the more important possession is an accurate list of what should be aboard. There is no maker's logo on good recordkeeping. That has never prevented a broker from charging for it.\n\nSome crews keep the old drawings as well. They show the doorways that used to lead somewhere, and the bunks of people who no longer sail with the ship. A repair can restore a wall without restoring that history.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    }
+  },
+  "broadcasts": {
+    "spacertales-asterel-assistance-word": {
+      "title": "Assistance, in full",
+      "region": "Outer System",
+      "text": "Asterel is challenging a dealer campaign that describes Polaris modules as a substitute for a pilot. The company says its controls use the ship's fitted propulsion and observations, and do not make fuel, remove wear or excuse a bad approach. The dealer has restored the word assistance to its copy. Captains report that the word is now printed below the finance terms.",
+      "mention": "Asterel made them put assistance back in the advert. It's underneath the loan details.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-asterel-clock-argument": {
+      "title": "Whose time was saved?",
+      "region": "Outer System",
+      "text": "An Asterel buyer has disputed a contractor's claim that a navigation module saved a full shift of labour. The buyer says the crew spent the recovered shift clearing freight paperwork at the destination. Asterel says the product reduced time at the controls, not time belonging to the employer. The contractor has asked whether that distinction is covered by the warranty.",
+      "mention": "That Asterel module saved a crew a shift. The dock found them a shift of forms instead.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-asterel-obsolete-letter": {
+      "title": "Still answering",
+      "region": "Outer System",
+      "text": "A ship owner has received an Asterel service reply addressed to the vessel's third previous name. The company says its records retained the oldest legible plate number. The owner says it is the first letter any supplier has answered without asking for a new purchase. Asterel has requested the current name. The owner is waiting until the next loan payment clears before choosing one.",
+      "mention": "Asterel found a ship by its old plate number. Better memory than its creditors.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-rebuild-drawing": {
+      "title": "The old drawing",
+      "region": "Outer System",
+      "text": "A salvage contractor has rejected a rebuilding estimate after discovering that its official ship drawing predates three extensions and a relocated galley. Crew submitted a current drawing on the back of the estimate. The contractor says it must be traced onto approved stationery before it can be recognised. The missing bulkhead has made no comment.",
+      "mention": "They won't accept the crew's ship drawing until it goes on the right paper. Wall's still missing.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-rebuild-sites": {
+      "title": "Spaces reserved",
+      "region": "Outer System",
+      "text": "Used-parts traders report owners arguing over the value of a damaged ship's proposed repairs. Brokers list marked rebuilding positions as restored equipment; crews point out that each position still needs the actual part and somebody to install it. A traders' circular now distinguishes a finished wall from an intention to have one.",
+      "mention": "A broker tried selling build sites as repaired equipment. Apparently intention has a resale price.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    }
+  },
+  "adverts": {
+    "spacertales-asterel-n1-ad": {
+      "text": "Phobos' Asterel N1 Polaris Auto Nav Module\nAn extra hand at the controls. Your thrusters, your fuel, your ship. Let the module help with the flight and keep your attention for the decisions that still belong to you.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-asterel-n2-ad": {
+      "text": "Phobos' Asterel N2 Polaris Pursuit Module\nFollowing something is a job. So is knowing when to stop. Fitted sensors and propulsion still set what your ship can do. Asterel: assistance in the small print and the large print.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-asterel-service-ad": {
+      "text": "Asterel\nBefore replacing the ship, read the controls. Navigation modules and industrial consoles for equipment with more history than shine. Your fuel bill remains your fuel bill.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    }
+  },
+  "chatter": {
+    "spacertales-flight-board-name": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "That Asterel board's called Please. It hasn't answered yet, but neither does the captain.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-paid-rest": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Boss says assisted flight leaves time for more work. I thought it left time to stop doing work.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-grandmother": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "My first captain called her Polaris board Auntie. Said it was useful, strict, and absolutely no help with rent.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-sensor-worry": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "A tidy display doesn't make me feel better if I don't know what the sensors can see.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-braking-jargon": {
+      "moment": "jargon",
+      "speakers": "anyone",
+      "line": "Closing speed is only the bit towards the target. The sideways bit can ruin your day just as well.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-board-prayer": {
+      "moment": "superstition",
+      "speakers": "anyone",
+      "line": "Don't thank the nav board before docking. Thank the person who kept fuel aboard.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-flight-autonomy-question": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "If the board flies the course I chose, which of us gets to say we went somewhere?",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-rebuild-door-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "Old drawing said there was a door there. Old crew said the door went away when the cook got a bigger galley.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-rebuild-empty-site": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "We've replaced the missing wall with a very accurate description of the missing wall.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-rebuild-bunk-worry": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "I kept the drawing from before the damage. I didn't keep a spare for everything on it.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-rebuild-signature": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Port says our repair drawing needs a signature. Every person who can draw this ship is busy repairing it.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-rebuild-same-ship": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "How much of a ship can you replace before the person who remembers the old one is the last original part?",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    }
+  },
+  "tips": {
+    "spacertales-asterel-old-records": {
+      "text": "Asterel's repair files often outlast a ship's name. Owners joke that the service desk remembers vessels by the part they could not afford to replace.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-asterel-small-print": {
+      "text": "Asterel insists its dealers use the word assistance. Crews insist the word should be large enough to read while tired.",
+      "requires": {
+        "mods": [
+          "PhobosAutoNav"
+        ]
+      }
+    },
+    "spacertales-rebuild-old-drawing": {
+      "text": "A ship's original drawing tells you what it was sold as. The latest repair drawing tells you what the crew are trying to keep.",
+      "requires": {
+        "mods": [
+          "PhobosWarDeclared"
+        ]
+      }
+    },
+    "spacertales-freight-time": {
+      "text": "Small offworld suppliers built their trade around the wait for replacement parts. A useful machine can shorten a purchase list; it cannot shorten the distance to the next dock."
+    }
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Original Phobos fiction commissioned by phobosgekko, 6 October 2026. Agent-authored histories and local incidents, open to owner revision; not vanilla canon. Setting and product evidence: docs/development/spacer-stories-authoring.md. All content uses the Framework 0.110.0 story vocabulary, including native data-card files. No operating, market, legal or faction rules are changed.",
+  "articles": {
+    "spacertales-verdemorrow-invoice": {
+      "section": "phobos-makers",
+      "label": "Verdemorrow's first invoice",
+      "title": "The rack and the unpaid meal",
+      "body": "Verdemorrow Agronomics tells its beginning as one grow rack in an ore hauler's galley. The story changes with the brochure: sometimes the first crop is lettuce, sometimes potatoes, sometimes a tray nobody remembers to harvest. The oldest invoice in the firm's archive is for lights, pump fittings and a meal owed to the person who helped install them.\n\nThe meal was the point. A crew working away from stations wanted something fresh enough to recognise, and the ship could spare only a little room. The first customer was also the first repair crew. That is the part of the founding story every version agrees on.\n\nFirstlight became the machinery line. Hearth followed when customers wanted the produce to become something warm at the end of a shift. Continuance named the planting stock held back for the next crop. Groundwork named what the plants needed and the equipment that helped keep it supplied.\n\nThe Phobos' Verdemorrow Firstlight-4 Cultivation Rack is a shipboard rack with a finite crop cycle. It still needs electricity, a suitable cabin, water, nutrients and planting stock. Recovering some material does not recover everything. The company's line, Where we go, life grows, fits on a packet; all the conditions do not.\n\nVerdemorrow has resisted a broker's request to replace the old invoice in its archive with a portrait of a founder. Its archivist says the invoice contains better evidence that somebody actually fed a crew.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-continuance-name": {
+      "section": "phobos-spacer-life",
+      "label": "Keeping the next crop",
+      "title": "Continuance: the portion you do not eat",
+      "body": "Continuance is Verdemorrow's planting-stock line. Its name is usually explained by a founding story in which a cook used the seed set aside for another crop. Every teller blames a different cook. Verdemorrow has never supplied the name.\n\nThe practical argument is older than the company: a harvest can feed the people aboard today, while suitable stock kept for planting helps provide a harvest later. Those are different jobs for the same cupboard. A crew that forgets the difference will meet the supply kiosk sooner.\n\nVerdemorrow sells seed and planting stock alongside Groundwork nutrients. Customers often treat the packets as insignificant until they cannot find one. A sack of finished produce does not automatically stand in for the right planting stock.\n\nCrews have made rituals of marking the reserve. Some tie string around the packet. Others write NOT SUPPER in the largest letters their label will hold. The company once tried a more dignified label. The customers' version sold better.\n\nNothing in the story promises a closed cycle. Stock is lost, nutrients need replenishing, equipment wears and the room can spoil a crop. Continuance means keeping the next attempt possible.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-hearth-shift-meal": {
+      "section": "phobos-spacer-life",
+      "label": "The meal after shift",
+      "title": "Hearth and the end of work",
+      "body": "The Hearth line began after Verdemorrow learned that selling a grow rack did not guarantee a hot supper. Crews could bring in produce and still eat the same hurried meal they had eaten before buying the rack. Preparing food takes supplies, equipment and someone willing to stop doing the other jobs.\n\nThe Phobos' Verdemorrow Hearth-2 Galley Cooker makes its supported meals from real ingredients. Its product tray is a useful place to start an argument about whose portion is missing. A cooker is not a pantry; a clean tray does not mean the next meal is supplied.\n\nVerdemorrow publicity once described a hot meal as the end of a shift. Yard workers objected that their shifts rarely had tidy ends. The replacement copy called it a reason to take a break. That phrase still appears on old brochures.\n\nAboard ships where the galley is also a passage, privacy and supper occupy the same few tiles. Crews learn one another's preferred meals without asking. Sometimes that knowledge survives longer than the crew itself.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    }
+  },
+  "broadcasts": {
+    "spacertales-verdemorrow-invoice-news": {
+      "title": "An archive you can eat",
+      "region": "Outer System",
+      "text": "Verdemorrow Agronomics has declined a dealer's offer to produce a founder portrait for its anniversary display. The firm will show its oldest surviving invoice instead: lights, pump fittings and one meal owed. Dealers say the document lacks a heroic face. The archivist says it establishes that somebody did the work and somebody else was supposed to feed them.",
+      "mention": "Verdemorrow's anniversary picture is an unpaid invoice. The meal on it sounds more useful than a portrait.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-continuance-supper-label": {
+      "title": "Not supper",
+      "region": "Outer System",
+      "text": "Verdemorrow has restored the words NOT SUPPER to a batch of Continuance planting-stock labels after crews complained about their replacement. The revised wording had called the contents a future cultivation allocation. Customers say it looked like an invitation to ignore the packet until a cook opened it. Verdemorrow says the old label tested better in galleys with tired people in them.",
+      "mention": "Continuance packets say NOT SUPPER again. Apparently future cultivation allocation wasn't much of a warning.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-hearth-borrowed-photo": {
+      "title": "One galley, two claims",
+      "region": "Outer System",
+      "text": "Two freight contractors have submitted the same photograph of a Hearth galley as evidence of improved crew provision. Verdemorrow says the photograph came from an independent ship whose owner lent a contractor a clean jacket for the picture. The owner is asking for the jacket back. The contractors are asking who owns the photograph of the jacket.",
+      "mention": "Two companies claimed the same Verdemorrow galley. Neither owned the cooker. Or the jacket.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-groundwork-salt-invoice": {
+      "title": "The missing line",
+      "region": "Outer System",
+      "text": "Verdemorrow has corrected a reseller's recovery leaflet that promised customers never to buy nutrients again. The firm says useful recovery still requires replenishment and leaves material that a crop cannot simply eat. The reseller blames a missing sentence at the page break. Crews say the missing sentence had previously appeared on the invoice.",
+      "mention": "Verdemorrow's reseller forgot the part where you still need supplies. Page break, they say.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-lettuce-not-luxury": {
+      "title": "Cargo classification",
+      "region": "Outer System",
+      "text": "A dock receiver has reclassified ship-grown lettuce after a broker entered it as decorative vegetation. The cargo owner says the leaves were intended for supper, not a reception area. Verdemorrow welcomed the correction and declined to say whether its advertising photographs had contributed to the confusion. The broker says both categories involve tasteful arrangement.",
+      "mention": "They filed a crew's lettuce as decoration. Bet they'd call my supper a temporary installation.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-verdemorrow-late-trial": {
+      "title": "The seed arrives first",
+      "region": "Outer System",
+      "text": "A delayed Verdemorrow display shipment has left a dealer with seed packets and no cultivation rack to demonstrate. An independent owner has offered to show the dealer a working Firstlight-4 in exchange for the return of a borrowed nutrient charge. The dealer calls the arrangement community outreach. The owner calls it settling up.",
+      "mention": "Verdemorrow's demonstration rack was late. A customer supplied one and finally got their nutrients back.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    }
+  },
+  "adverts": {
+    "spacertales-continuance-ad": {
+      "text": "Verdemorrow Continuance\nLeave something for the next crop. Planting stock for a ship that plans to leave again. Store it where the cook can read the label. Where we go, life grows.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-hearth-ad": {
+      "text": "Phobos' Verdemorrow Hearth-2 Galley Cooker\nGive the end of a shift a smell worth following. Supported recipes, real ingredients, a hot meal in the tray. Washing up remains a crew matter.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-groundwork-honest-ad": {
+      "text": "Verdemorrow Groundwork\nPlants need supplies. Recovery helps; replenishment still belongs on the shopping list. Nutrients and crop-support equipment for crews who read the second half of the brochure.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-firstlight-space-ad": {
+      "text": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack\nA little green on a working ship. Plan the space, supply the water and nutrients, and keep the room fit for a crop. The first leaf is yours. So is the work after it.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    }
+  },
+  "chatter": {
+    "spacertales-grow-invoice-story": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "Verdemorrow's first invoice includes a meal. I'd like to know if they ever paid that bit.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-not-supper": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "NOT SUPPER is the most important technical instruction Verdemorrow ever wrote.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-inspection-tax": {
+      "moment": "complaint",
+      "speakers": "anyone",
+      "line": "Dock clerk wanted to inspect the lettuce as decorative cargo. I told them it was lunch. Same fee, different form.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-reserve-worry": {
+      "moment": "worry",
+      "speakers": "anyone",
+      "line": "I can count the meals. It's the planting stock for the next crop I keep checking.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-home-question": {
+      "moment": "question",
+      "speakers": "anyone",
+      "line": "Does a ship become home when something grows in it, or when somebody notices it's stopped growing?",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-leaf-superstition": {
+      "moment": "superstition",
+      "speakers": "anyone",
+      "line": "They say the first leaf belongs to the ship. Cook says the ship can wait until after supper.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-tray-jargon": {
+      "moment": "jargon",
+      "speakers": "anyone",
+      "line": "Four trays, one crop. You can't persuade the left half to be potatoes by labelling it differently.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-borrowed-nutrients": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "Lent a nutrient charge to a hauler once. Saw their galley in a Verdemorrow advert before I saw the charge again.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-hearth-stop": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "A Hearth meal makes a good excuse to stop work. Somebody always finds the next job before dessert.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-packet-pocket": {
+      "moment": "small-talk",
+      "speakers": "anyone",
+      "line": "Continuance seed packets fit in a pocket. That doesn't mean a pocket is where you'll remember you left them.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-residue-joke": {
+      "moment": "joke",
+      "speakers": "anyone",
+      "line": "Captain asked whether the rack recycled everything. I offered to put the next invoice in it.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-grow-galley-smell": {
+      "moment": "story",
+      "speakers": "anyone",
+      "line": "I knew a ship by the smell from its Hearth cooker. New owner took it out. Couldn't find the ship for a week.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    }
+  },
+  "tips": {
+    "spacertales-verdemorrow-meal-invoice": {
+      "text": "Verdemorrow's oldest surviving invoice includes a meal owed to an installer. The company calls it a founding document. Crews call it an ordinary day in contracting.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-continuance-reserve": {
+      "text": "Continuance planting stock is for another crop. Crew-written labels often say NOT SUPPER. Verdemorrow tried improving the wording once, then put it back.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-hearth-break-history": {
+      "text": "Verdemorrow once advertised a Hearth meal as the end of a shift. Customers said their shifts did not end. The copy was changed to a reason to take a break.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    },
+    "spacertales-groundwork-second-half": {
+      "text": "Groundwork publicity talks about recovery. Experienced crews also read the part about replenishment, and leave space for it on the next shopping list.",
+      "requires": {
+        "mods": [
+          "PhobosAgriculture"
+        ]
+      }
+    }
+  }
+}
