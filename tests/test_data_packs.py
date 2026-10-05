@@ -168,6 +168,34 @@ class DataPackTests(unittest.TestCase):
                 validate.story(bad, 'test', framework=False)
         validate.story(broken(lambda p: p['tips']['first-lettuce'].update(requires={'mods': ['PhobosAgriculture']})), 'test', framework=False)
 
+        # Framework 0.109.0: credits and condition tests, branches, next steps, credit rewards and story time.
+        branching = {'schemaVersion': 1, 'schema': 'story', 'arcs': {'debt-run': {
+            'title': 'Debt', 'requires': {'afterDays': 2, 'beforeDays': 30},
+            'steps': [{'id': 'offer', 'tests': [{'kind': 'credits', 'amount': 500, 'consume': True}], 'onComplete': {'credits': 50}, 'next': 'thanks',
+                       'branches': [{'tests': [{'kind': 'condition', 'condition': 'SkillHacking'}], 'next': 'end', 'onComplete': {'credits': 900}}]},
+                      {'id': 'thanks', 'tests': [{'kind': 'wait', 'hours': 1}]}]}}}
+        validate.story(branching, 'test', framework=False)
+        self.assertEqual(schemas.problems(json.loads(writer.render('story')), branching), [])
+        step = lambda p: p['arcs']['debt-run']['steps'][0]
+
+        def bent(change):
+            pack = copy.deepcopy(branching)
+            change(pack)
+            return pack
+        for bad in (bent(lambda p: step(p).update(next='nowhere')),
+                    bent(lambda p: step(p)['branches'][0].update(next='elsewhere')),
+                    bent(lambda p: step(p)['branches'][0].pop('next')),
+                    bent(lambda p: step(p)['tests'][0].update(amount=0)),
+                    bent(lambda p: step(p)['tests'][0].update(item='Seed')),
+                    bent(lambda p: step(p)['branches'][0]['tests'][0].update(consume=True)),
+                    bent(lambda p: step(p)['onComplete'].update(credits=50001)),
+                    bent(lambda p: p['arcs']['debt-run']['requires'].update(beforeDays=1)),
+                    bent(lambda p: step(p).update(branches=[step(p)['branches'][0]] * 5))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+        with self.assertRaises(validate.Problem):
+            validate.story(broken(lambda p: p['tips']['first-lettuce'].update(requires={'afterDays': 3})), 'test', framework=False)
+
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.
         import shutil, tempfile

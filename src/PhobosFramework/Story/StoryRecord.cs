@@ -27,7 +27,11 @@ public sealed class StoryRecord
 {
     public const string Name = "PhobosStory";
     public const int Version = 1, MaxQueue = 8;
-    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue";
+    private const string ArcPrefix = "arc.", SeenPrefix = "seen.", QueueKey = "queue", BeganKey = "began";
+    /// <summary>Game time (the game's epoch, in seconds) when this record began (Framework 0.109.0): the start of the
+    /// player's story time for <c>afterDays</c> and <c>beforeDays</c>. A record from an earlier version gains it when the
+    /// game is next loaded.</summary>
+    public double? Began { get; set; }
     public Dictionary<string, ArcProgress> Arcs { get; } = new(StringComparer.Ordinal);
     public HashSet<string> Seen { get; } = new(StringComparer.Ordinal);
     public List<string> Queue { get; } = new();
@@ -41,6 +45,7 @@ public sealed class StoryRecord
             if (pair.Key.StartsWith(ArcPrefix, StringComparison.Ordinal) && TryArc(pair.Value, out var arc)) record.Arcs[pair.Key.Substring(ArcPrefix.Length)] = arc;
             else if (pair.Key.StartsWith(SeenPrefix, StringComparison.Ordinal) && pair.Value == "1") record.Seen.Add(pair.Key.Substring(SeenPrefix.Length));
             else if (pair.Key == QueueKey) record.Queue.AddRange(pair.Value.Split('|').Where(id => id.Length > 0).Take(MaxQueue));
+            else if (pair.Key == BeganKey && double.TryParse(pair.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double began) && !double.IsNaN(began) && !double.IsInfinity(began)) record.Began = began;
             else record.kept[pair.Key] = pair.Value;
         }
         return record;
@@ -54,6 +59,7 @@ public sealed class StoryRecord
                 pair.Value.StepStart.ToString("R", CultureInfo.InvariantCulture), pair.Value.Completions.ToString(CultureInfo.InvariantCulture));
         foreach (var id in Seen) fields[SeenPrefix + id] = "1";
         if (Queue.Count > 0) fields[QueueKey] = string.Join("|", Queue.Take(MaxQueue));
+        if (Began is double b) fields[BeganKey] = b.ToString("R", CultureInfo.InvariantCulture);
         return fields;
     }
 
@@ -95,6 +101,8 @@ public interface IStoryFacts
     bool DockedAt(string station);
     /// <summary>Game time in seconds.</summary>
     double Epoch { get; }
+    /// <summary>The credits the player holds (Framework 0.109.0).</summary>
+    double Credits { get; }
 }
 
 /// <summary>The story rules with no game types: eligibility, goal tests and weighted picks.</summary>
@@ -113,8 +121,14 @@ public static class StoryRules
         if (r.dockedAt.Count > 0 && !r.dockedAt.Any(facts.DockedAt)) return Text.Get("Story.needs_docked", string.Join(", ", r.dockedAt));
         foreach (var arc in r.arcsDone) if (!record.Finished(arc)) return Text.Get("Story.needs_arc_done", arc);
         foreach (var arc in r.arcsNotStarted) if (record.Started(arc)) return Text.Get("Story.needs_arc_unstarted", arc);
+        double days = Days(record, facts);
+        if (r.afterDays is double after && days < after) return Text.Get("Story.needs_after_days", after.ToString("0.#", CultureInfo.InvariantCulture), days.ToString("0.#", CultureInfo.InvariantCulture));
+        if (r.beforeDays is double before && days >= before) return Text.Get("Story.needs_before_days", before.ToString("0.#", CultureInfo.InvariantCulture));
         return null;
     }
+
+    /// <summary>Game days since the player's story record began; 0 before it has.</summary>
+    public static double Days(StoryRecord record, IStoryFacts facts) => record.Began is double began ? Math.Max(0, (facts.Epoch - began) / 86400) : 0;
 
     public static bool Passed(StoryTest test, IStoryFacts facts, double stepStart) => test.kind switch
     {
@@ -122,8 +136,30 @@ public static class StoryRules
         StorySchema.HaveItem => facts.Carried(test.item!) >= test.count,
         StorySchema.Install => facts.Installed(test.item!) >= test.count,
         StorySchema.Wait => facts.Epoch - stepStart >= test.hours * 3600,
+        StorySchema.Credits => facts.Credits >= test.amount,
+        StorySchema.Condition => facts.PlayerHas(test.condition!),
         _ => false
     };
+
+    /// <summary>What finishes a step now (Framework 0.109.0): -1 for its own tests, the index of the first branch whose
+    /// tests all pass, or null when nothing does yet.</summary>
+    public static int? Outcome(StoryStep step, IStoryFacts facts, double stepStart)
+    {
+        if (Passed(step, facts, stepStart)) return -1;
+        if (step.branches == null) return null;
+        for (int i = 0; i < step.branches.Count; i++)
+            if (step.branches[i].tests.All(t => Passed(t, facts, stepStart))) return i;
+        return null;
+    }
+
+    /// <summary>The step index an outcome leads to, or -1 for the end of the arc: the named step, the end, or by
+    /// default the next step in order.</summary>
+    public static int NextStep(StoryArc arc, int index, string? next)
+    {
+        if (next == StorySchema.End) return -1;
+        if (next != null) return arc.steps.FindIndex(s => s.id == next);
+        return index + 1 < arc.steps.Count ? index + 1 : -1;
+    }
 
     public static bool Passed(StoryStep step, IStoryFacts facts, double stepStart) => step.tests.All(t => Passed(t, facts, stepStart));
 
@@ -134,6 +170,8 @@ public static class StoryRules
         StorySchema.HaveItem => Text.Get("Story.test_have", test.item!, facts.Carried(test.item!), test.count, test.consume ? Text.Get("Story.test_taken") : ""),
         StorySchema.Install => Text.Get("Story.test_install", test.item!, facts.Installed(test.item!), test.count),
         StorySchema.Wait => Text.Get("Story.test_wait", Math.Max(0, (facts.Epoch - stepStart) / 3600).ToString("0.0", CultureInfo.InvariantCulture), test.hours.ToString("0.0", CultureInfo.InvariantCulture)),
+        StorySchema.Credits => Text.Get("Story.test_credits", Math.Floor(facts.Credits).ToString("0", CultureInfo.InvariantCulture), test.amount.ToString("0", CultureInfo.InvariantCulture), test.consume ? Text.Get("Story.test_paid") : ""),
+        StorySchema.Condition => Text.Get("Story.test_condition", test.condition!, Mark(facts.PlayerHas(test.condition!))),
         _ => test.kind
     };
     private static string Mark(bool done) => done ? Text.Get("Story.yes") : Text.Get("Story.no");

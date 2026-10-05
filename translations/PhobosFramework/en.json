@@ -797,5 +797,19 @@
   "StorySchema.moment": "{0}: the moment must be one of {1}.",
   "StorySchema.speakers": "{0}: speakers must be one of {1}.",
   "StorySchema.no_placeholders": "{0} is shown with no player at hand, so it cannot use placeholders.",
-  "StorySchema.mods_only": "{0} is shown with no player at hand, so its requires may list only mods."
+  "StorySchema.mods_only": "{0} is shown with no player at hand, so its requires may list only mods.",
+  "Story.ledger_paid": "Payment from {0}",
+  "Story.ledger_charged": "Paid to {0}",
+  "Story.ledger_contact": "a contact",
+  "Story.credits_paid": "{1} paid you {0} credits.",
+  "Story.credits_charged": "You paid {0} credits to {1}.",
+  "Story.needs_after_days": "only after {0} days of story time (now {1})",
+  "Story.needs_before_days": "only before {0} days of story time",
+  "Story.test_credits": "holding {0} of {1} credits{2}",
+  "Story.test_paid": " (paid when the step finishes)",
+  "Story.test_condition": "has {0}: {1}",
+  "StorySchema.branches": "{0} has from 1 to {1} branches.",
+  "StorySchema.next": "{0}: next must be a step of the same arc or end, not {1}.",
+  "StorySchema.days": "{0}: afterDays must be less than beforeDays.",
+  "Story.branch_line": "or branch {0}, to {1}: {2}"
 }

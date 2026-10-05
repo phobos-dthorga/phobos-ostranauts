@@ -1,7 +1,8 @@
 # Story and worldview content: design record
 
 Phase 1: Framework 0.107.0, Agriculture 0.60.0. Phase 2 (small talk, loading tips and
-encyclopedia articles): Framework 0.108.0, Agriculture 0.61.0. Owner request, 6 October 2026: Framework code
+encyclopedia articles): Framework 0.108.0, Agriculture 0.61.0. Round 3 (more tests, story time, branches,
+credit rewards): Framework 0.109.0. Owner request, 6 October 2026: Framework code
 and a schema so story and worldview content can enter the game through TV broadcasts,
 people talking about topics, and goals the player picks up; written easily by ChatGPT
 (the creative work) while Claude writes the code. The player guide is
@@ -176,6 +177,37 @@ native checks compare every token against the loaded interactions.
   mid-session appears after the next game start (unobserved: whether the game rebuilds
   the tree on a later content load).
 
+## Round 3: tests, story time, branches and credits (Framework 0.109.0)
+
+The owner authorised rounds 3 and 4 on 6 October 2026 and asked for decisions needing
+input to be held for the morning. Everything below is an agent choice unless stated.
+
+- **Tests.** `credits` (the player's `StatUSD` condition is at least `amount`; with
+  `consume` the amount is taken when the step finishes) and `condition` (the player
+  has a game condition; skills are conditions such as `SkillHacking`). Both read the
+  game's own state. A condition named by a test is checked against the game's
+  conditions at load, as requirements are.
+- **Story time.** The record gains `began`, the game epoch when it was first written.
+  `afterDays` and `beforeDays` compare game days since then. A record written by
+  Framework 0.107.0 or 0.108.0 gains `began` the first time it is loaded with 0.109.0,
+  so story time starts then, not at the start of that game.
+- **Branches and next steps.** A step may name `next` (a step id or `end`) and up to
+  four branches, each with tests, an outcome and a `next`. The step's own tests come
+  first, then the branches in order. The goal closes as completed either way. Steps
+  may jump back; an arc moves at most one step per check, so there is no busy loop.
+  Branch messages are translated by `<arc>.<step>.b<n>.doneFrom` and `.done`.
+- **Credits.** An outcome may pay up to 50,000 credits (agent ceiling), and a credits
+  test may take them. Both change `StatUSD` and add a `LedgerLI` line, as Framework's
+  bulk sales do (`Trading/BulkSupplies.cs`); the line names the message sender, or the
+  arc's first sender, or "a contact".
+- **Saves.** One more field in the story record (`began`). Ledger lines and credits are
+  the game's own records of money and stay valid whatever happens to a pack.
+
+**Held for the owner:** faction reputation rewards. The game offers
+`JsonFaction.ApplyFactionRep(strFactionDoing, fChange, bPrimary)`, and reputation gates
+the faction kiosks' tiers; which factions an arc may move, and by how much, is a
+balance decision.
+
 ## Limits of phase 1
 
 - Goals and news concern the player character. A player who switches to another
@@ -197,10 +229,9 @@ the same test as above: does a name of ours enter saves, and what happens if it 
 | **A Framework talk opener** | Topics as their own kind of conversation | Phase 2 borrows the game's own small talk. A new opener only if that proves too limited. The crew pick openers by learned weights (`ai_training`), so a new opener may rarely fire. | One Framework-owned name in conversation history (acceptable, like Framework items) |
 | **Characters approaching the player** | A contact walks up and hands over a goal | The game does this with pledges, saved by name on characters. A Framework version needs its own approach behaviour. | Pledges refused; a Framework version needs its own design |
 | **Found data files** | Goals and lore found in the world | The game's data files are items saved by definition name. A safe version is one Framework-owned data file item whose text comes from a story pack by an id property; an unknown id reads as a corrupted file. | One Framework item definition (acceptable) |
-| **Money and reputation rewards** | Paying out or changing faction standing | Money goes through the game's ledger, and faction scores are saved state of the game's own kinds. Needs a check that an entry left by a removed pack is harmless. | To assess; items only for now |
-| **More tests** | Goals beyond the four kinds | Candidates: visit a ship type, reach a skill level, hold credits, own a machine family, talk to a kind of person. Each is code in the fixed vocabulary, added when content needs it. | None (code only) |
-| **Time windows** | Content tied to dates or elapsed game time | The game's clock is `StarSystem.fEpoch`, and start dates vary by save; a "days since this game began" window needs the start date in our record. | None beyond our record |
-| **Branching arcs** | Choices that lead to different next steps | The runner is linear; branching needs a choice screen or tests that pick the branch. | None beyond our record |
+| **Reputation rewards** | Changing faction standing | Credits were delivered in round 3. Faction standing is the game's own saved state and gates the faction kiosks; held for the owner's decision on which factions and how much. | The game's own faction scores |
+| **More tests** | Goals beyond the six kinds | Credits and conditions (including skills) were added in round 3. Candidates: visit a kind of ship, own a machine family, talk to a kind of person. Each is code in the fixed vocabulary, added as content needs it. | None (code only) |
+| **Choices from a menu** | The player picks the next step from offered options | Round 3 branches are decided by tests. A menu needs a choice screen. | None beyond our record |
 | **Encounter scenes** | Full-screen story scenes with pictures and choices | The game's encounters are interactions saved in history; ours would need Framework-owned ones and original art. | Names in history; needs design |
 | **Translations of story text** | Other languages | The keys exist (`Story.<id>.<field>`); no translation work has started. | None |
 | **Other mods' story packs** | Manufacturing, Shipbreaker, Medical, Auto Nav and War Has Been Declared content | Each mod registers its own pack as Agriculture does; only Agriculture ships a seed. | None beyond this release's rules |

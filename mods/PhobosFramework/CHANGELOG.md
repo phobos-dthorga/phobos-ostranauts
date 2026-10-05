@@ -28,6 +28,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.109.0] - 2026-10-06 - Draft
+
+### Added
+
+- Story goals can test for credits held (and take them when the step finishes, with a line in the ledger) and for any game condition the player has, such as a skill.
+- Story steps can branch: up to four other ways out of a step, each with its own tests, rewards and next step. A step can also name the step that follows, or end the arc; the first set of tests to pass decides.
+- Story rewards can pay credits, up to 50,000, entered in the game's ledger.
+- Story entries can require game days of story time with afterDays and beforeDays. Story time starts with the player's story record; in a game started earlier, the first time it loads with this version.
+- The F3 story report shows each branch's tests.
+
+### Save compatibility
+
+- The player's story record gains the time story time began. Credits paid or taken are the game's own credits and ledger lines.
+
+### Compatibility and limits
+
+- Faction reputation rewards are held for an owner decision. Branches are chosen by tests, not from a menu. Checked offline; not yet seen in the game.
+
 ## [0.108.0] - 2026-10-06 - Draft
 
 ### Added

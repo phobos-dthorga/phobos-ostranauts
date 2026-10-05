@@ -82215,6 +82215,188 @@
       ],
       "before": "{0} is shown with no player at hand, so its requires may list only mods.",
       "after": "{0} is shown with no player at hand, so its requires may list only mods."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.ledger_paid",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Payment from {0}",
+      "after": "Payment from {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.ledger_charged",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Paid to {0}",
+      "after": "Paid to {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.ledger_contact",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "a contact",
+      "after": "a contact"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.credits_paid",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{1} paid you {0} credits.",
+      "after": "{1} paid you {0} credits."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.credits_charged",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "You paid {0} credits to {1}.",
+      "after": "You paid {0} credits to {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_after_days",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "only after {0} days of story time (now {1})",
+      "after": "only after {0} days of story time (now {1})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_before_days",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "only before {0} days of story time",
+      "after": "only before {0} days of story time"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_credits",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "holding {0} of {1} credits{2}",
+      "after": "holding {0} of {1} credits{2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_paid",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": " (paid when the step finishes)",
+      "after": " (paid when the step finishes)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_condition",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "has {0}: {1}",
+      "after": "has {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.branches",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} has from 1 to {1} branches.",
+      "after": "{0} has from 1 to {1} branches."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.next",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: next must be a step of the same arc or end, not {1}.",
+      "after": "{0}: next must be a step of the same arc or end, not {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.days",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: afterDays must be less than beforeDays.",
+      "after": "{0}: afterDays must be less than beforeDays."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.branch_line",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story round 3 (Framework 0.109.0): credit and ledger lines the player sees, F3 test and branch report lines, pack checks.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "or branch {0}, to {1}: {2}",
+      "after": "or branch {0}, to {1}: {2}"
     }
   ],
   "documents": [
@@ -82222,8 +82404,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f2951d1f15396b81212fb8b5f66afda4b9cda481afe173229dcaadd5969de5c8",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "0e36fb2c2188600994dd38ef82b98acb5c5a8238e38269db234b2bcbb53b9e83",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -82383,8 +82565,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "04a1a05375ee3bf8ddeb665a16717234490a0709a126a8fb42fbfb81e63868c9",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "eb2fa2e1e4b212ccf15a9877f60647b533fb990cb57deb6517597e6d3d9a1414",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "docs/crew-automation.md",
@@ -83012,8 +83194,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "9d6bf10e3253661bfcc55a0813d543dcbc1fcb7684a062b18db9719cbda1f0db",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "a2fbb37a9fe2cd7e9d224b2826cc4c5e582e948b18c809fdf50833c5886ed71c",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -83273,8 +83455,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4dcae9fd52c4a4e86e43bd3ebc2f6564a6a593ae52c0b15f4e9d8b4bdd90e21d",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "88beddca97f50275e4fca5e20305f7601be8af06a3eddcae33fa1bde2303acd2",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -83399,8 +83581,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6f1c972d0ff10a8f46bf4b67f194ea2c9b45504e6784ff81d0d6ee70cf645680",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "ea07e226d6fc318eea72689baa47baacf1c2df340e9949dc6a865159505ebf1a",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -83525,8 +83707,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7cf872ffd35513f39f07a5bf565ecf484ca35cb406aef3a27cfc68edcb1a768e",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "dff3cb9d16fcd061e1dce8b60d2296ecbc730ea7051e59cf2a7c583b84d5c6e4",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -83567,15 +83749,15 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "e629f270e92c8a96334d93ec6a4b402d46a0e962f6ebe9dcb52571b11934219c",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "69cc8234d8a3c1b3661f5b8a31a615bc32af29b7058e9de7b5934f3d1d69aaa7",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "docs/development/story-system-design.md",
       "scope": "contributor design record; player steps live in the player guide",
       "decision": "new",
-      "sha256": "233e95b41cb0b3581951eac4c88a72570694b372041370f32b49f5d7419fec4c",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "0969702d8e363067bea064274d10eddfcfcf2762b19396d68d7f3b1e5a0a3343",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     }
   ],
   "surfaces": [
@@ -83634,8 +83816,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2d1e190bc80f303b3e0412dfccb55127325a0c89bf0799ad06a31afbdaa6ac4f",
-      "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
+      "sha256": "978ece6c99287ee0dfaebba51675b8a453220c0b00dcd2665601e128b38369e5",
+      "review": "Framework 0.109.0 story branches, credits and story time review, 6 October 2026"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

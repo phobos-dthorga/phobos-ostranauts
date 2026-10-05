@@ -5,7 +5,9 @@ Phobos Framework lets anyone add to the world's story with a data file:
 - **News** that plays on the game's TVs, among the game's own headlines.
 - **Adverts** that play in the TVs' commercial breaks.
 - **Arcs**: a short chain of goals in the GOALS list, with messages from someone in
-  the world, items to bring or install, places to dock, and rewards.
+  the world, items to bring or install, places to dock, credits to pay or hold, and
+  rewards in items or credits. A step can branch: what the player does decides what
+  comes next.
 - **Small talk** (since Framework 0.108.0): lines people say in the game's own chatter,
   so crews and station folk talk about your news and topics.
 - **Loading tips**: lore shown on loading screens among the game's own.
@@ -16,8 +18,8 @@ loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-w
 that writes one for you.
 
 **Not available yet:** new kinds of conversation (lines ride on the game's existing
-small talk), characters approaching the player, found data files, money or reputation
-rewards, branching choices and full-screen encounters. Do not write content that needs
+small talk), characters approaching the player, faction reputation rewards, choices
+picked from a menu (branches are decided by tests) and full-screen encounters. Do not write content that needs
 them. The [design record](development/story-system-design.md#later-work) says where
 each stands.
 
@@ -220,10 +222,33 @@ Each step:
 | `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log) and/or a `bulletin`, the id of a news item the next TV news shows. |
 | `objective` | no | A goal in the GOALS list: `title` (up to 60 characters) and `description` (up to 300). A step without one waits unseen. |
 | `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
-| `onComplete` | no | A `message`, and `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them. |
+| `onComplete` | no | A `message`; `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them; and `credits` (up to 50,000) paid to the player with a line in the game's ledger. |
+| `next` | no | The step that follows: another step's `id`, or `end`. By default the next step in order, or the end after the last. |
+| `branches` | no | Up to four other ways the step can finish; see [branches](#branches). |
 
 Two steps in a row should not have the same goal title: the game does not show a goal
 titled like one it showed in the last ten seconds (the story check offers it again).
+
+### Branches
+
+A branch is another way out of a step: its own `tests` (1 to 4), its own `onComplete`
+and a `next` step (another step's `id`, or `end`), which every branch must name. At each
+story check the step's own tests are tried first; if they do not all pass, the first
+branch whose tests all pass decides. The goal closes as completed either way. For
+example, a step can pay off a debt with credits, finish early for a crew member with a
+skill, or give up after 48 hours:
+
+```json
+{ "id": "offer",
+  "objective": { "title": "Settle the dock fees" },
+  "tests": [ { "kind": "credits", "amount": 500, "consume": true } ],
+  "next": "thanks",
+  "branches": [
+    { "tests": [ { "kind": "condition", "condition": "SkillHacking" } ], "next": "hacked" },
+    { "tests": [ { "kind": "wait", "hours": 48 } ], "next": "end" } ] }
+```
+
+Steps may also jump back to an earlier step; each check moves an arc at most one step.
 
 ### Tests
 
@@ -233,6 +258,8 @@ titled like one it showed in the last ten seconds (the story check offers it aga
 | `have-item` | `item`, `count` (default 1), `consume` | The player carries that many, bags included. With `"consume": true` they are taken when the step finishes. |
 | `install` | `item`, `count` (default 1) | That many are on the player's ships nearby (installed, or lying aboard). |
 | `wait` | `hours` | That many game hours have passed since the step began (up to 720). |
+| `credits` | `amount`, `consume` | The player holds at least that many credits. With `"consume": true` they are paid when the step finishes, with a line in the game's ledger. |
+| `condition` | `condition` | The player has that game condition, such as a skill (`SkillHacking`, `SkillEngMechanical`). |
 
 `item` is an item definition id, such as `PhobosVerdemorrowWheatGrain`. To find one,
 type `phobosframework story items wheat` in the F3 console: it lists every id whose
@@ -254,6 +281,7 @@ take only `mods`.
 | `dockedAt` | The player is docked at any one of these stations (`any` for any). |
 | `arcsDone` | Each arc listed has been finished. |
 | `arcsNotStarted` | No arc listed has ever been started. |
+| `afterDays`, `beforeDays` | Story time is at least `afterDays`, and less than `beforeDays`, game days. Story time starts when the player's story record begins: at the start of a new game, or for a game started before Framework 0.109.0 the first time it is loaded with it. |
 
 ### Text
 
@@ -265,7 +293,8 @@ take only `mods`.
   `Story.<id>.<field>` in the owning mod's translation file: for news `text`, `region`
   and `mention`; for small talk `line`; for tips `text`; for sections and articles
   `label`, `title` and `body`; for arc steps `<arc>.<step>.title`, `.description`,
-  `.from`, `.message`, `.doneFrom` and `.done`.
+  `.from`, `.message`, `.doneFrom` and `.done`; for a branch's message
+  `<arc>.<step>.b<n>.doneFrom` and `.done`, counting branches from 0.
 
 ### Settings
 
@@ -306,7 +335,8 @@ override them in `BepInEx/config/PhobosFramework/story/`:
 ## What stays in a save
 
 - The player carries one Phobos record: where each arc is, which once-only news has
-  been shown, and news waiting for a TV.
+  been shown, news waiting for a TV, and when story time began.
+- Credits paid or taken by an arc are ordinary credits, with a line in the game's ledger.
 - Each goal keeps its title, description and the name `PhobosStory.<arc>.<step>`.
 - Nothing else. TV news, small talk, tips and articles leave nothing in the save.
 - **Removing a story file is safe.** Its goals finish and disappear on the next load,
@@ -379,7 +409,9 @@ Format:
                     "objective": { "title": "...", "description": "..." },
                     "tests": [ { "kind": "...", ... } ],
                     "onComplete": { "message": { "from": "...", "text": "..." },
-                                    "items": [ { "item": "...", "count": 1 } ] } } ] } } }
+                                    "items": [ { "item": "...", "count": 1 } ], "credits": 0 },
+                    "next": "<step id or end>",
+                    "branches": [ { "tests": [ ... ], "next": "<step id or end>", "onComplete": { ... } } ] } ] } } }
 
 Rules:
 - Ids: lower-case letters and digits joined by single hyphens, starting with MYPREFIX-.
@@ -402,12 +434,17 @@ Rules:
   {"kind":"dock-at","station":"any"} (or a station id I give you);
   {"kind":"have-item","item":"<item id>","count":N,"consume":true or false};
   {"kind":"install","item":"<item id>","count":N};
-  {"kind":"wait","hours":H}.
+  {"kind":"wait","hours":H};
+  {"kind":"credits","amount":N,"consume":true or false};
+  {"kind":"condition","condition":"<game condition, such as SkillHacking>"}.
+- A step may name its next step ("next": a step id or "end") and have up to four
+  branches, each with its own tests, onComplete and next; the first branch whose
+  tests pass decides when the step's own tests do not.
 - Requirements (all optional): mods, playerConditions, forbidConditions, owns,
-  dockedAt, arcsDone, arcsNotStarted.
-- Use only item ids I list below. Rewards: at most five kinds, at most 20 of each,
-  and modest in value.
-- Nothing else is available: no money or reputation rewards, no choices, no new kinds
+  dockedAt, arcsDone, arcsNotStarted, afterDays, beforeDays (game days of story time).
+- Use only item ids I list below. Rewards: at most five kinds of item, at most 20 of
+  each, and at most 50000 credits, modest in value.
+- Nothing else is available: no reputation rewards, no menus of choices, no new kinds
   of conversation, no new items or places.
 - Setting: Ostranauts, the Solar System of the near future; blue-collar spacers living
   by salvage, hauling and odd jobs. Practical, worn-in voice with occasional dry

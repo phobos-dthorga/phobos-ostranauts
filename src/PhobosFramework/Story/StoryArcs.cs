@@ -74,7 +74,7 @@ public static class StoryArcs
             int index = StoryRules.Resolve(arc.Value, pair.Value);
             if (index < 0) continue;
             var step = arc.Value.steps[index];
-            if (StoryRules.Passed(step, facts, pair.Value.StepStart) && Finish(arc, pair.Value, index, facts)) changed = true;
+            if (StoryRules.Outcome(step, facts, pair.Value.StepStart) is int outcome && Finish(arc, pair.Value, index, outcome, facts)) changed = true;
             // A goal the game did not take (it refuses one titled like a goal shown in the last ten seconds) is offered again.
             else if (pair.Value.State == ArcState.Active && step.objective != null && Open(StoryRules.GoalTest(arc.Id, step.id)).Count == 0) Show(arc, step);
         }
@@ -96,6 +96,8 @@ public static class StoryArcs
         record = store.Read(out var fields) == SavedStateStatus.Ready ? StoryRecord.Decode(fields) : new StoryRecord();
         var library = StoryContent.Library;
         bool changed = false;
+        // The player's story time starts with the record (Framework 0.109.0); an older record starts it now.
+        if (record.Began == null) { record.Began = StarSystem.fEpoch; changed = true; }
         foreach (var pair in record.Arcs.Where(a => a.Value.State == ArcState.Active).ToArray())
         {
             if (!library.Arcs.TryGetValue(pair.Key, out var arc)) continue;
@@ -148,20 +150,48 @@ public static class StoryArcs
         if (step.objective != null) Show(arc, step);
     }
 
-    /// <summary>Finishes a step whose tests passed: takes what it consumes, closes its goal through the game, gives the
-    /// rewards and moves on. Returns false and changes nothing when the consumed items could not all be taken.</summary>
-    private static bool Finish(StoryEntry<StoryArc> arc, ArcProgress progress, int index, IStoryFacts facts)
+    /// <summary>Finishes a step by its own tests (<paramref name="outcome"/> -1) or by a branch: takes what those tests
+    /// consume, closes the goal through the game, gives the rewards and moves to the next step, the named one or the end.
+    /// Returns false and changes nothing when what is consumed could not all be taken.</summary>
+    private static bool Finish(StoryEntry<StoryArc> arc, ArcProgress progress, int index, int outcome, IStoryFacts facts)
     {
         var step = arc.Value.steps[index];
-        foreach (var test in step.tests.Where(t => t.kind == StorySchema.HaveItem && t.consume))
+        var branch = outcome >= 0 ? step.branches![outcome] : null;
+        var tests = branch?.tests ?? step.tests;
+        var result = branch == null ? step.onComplete : branch.onComplete;
+        string key = arc.Id + "." + step.id + (branch == null ? "" : ".b" + outcome);
+        var pay = tests.Where(t => t.kind == StorySchema.Credits && t.consume).Sum(t => t.amount);
+        if (pay > 0 && facts.Credits < pay) return false;
+        foreach (var test in tests.Where(t => t.kind == StorySchema.HaveItem && t.consume))
             if (!Take(test.item!, test.count)) return false;
+        // Who pays or is paid: the sender of this outcome's message, else of the arc's first message, else a contact.
+        string from = Fill(result?.message is StoryMessage said ? StoryContent.Words(arc.Owner, key + ".doneFrom", said.from)
+            : arc.Value.steps.Select(s => s.delivery?.message).FirstOrDefault(m => m != null) is StoryMessage first
+                ? StoryContent.Words(arc.Owner, arc.Id + "." + arc.Value.steps.First(s => s.delivery?.message == first).id + ".from", first.from)
+                : Text.Get("Story.ledger_contact"));
+        if (pay > 0) Pay(-pay, from, arc.Id);
         foreach (var objective in Open(StoryRules.GoalTest(arc.Id, step.id))) Remove(objective, completed: true);
-        if (step.onComplete?.message is StoryMessage message)
-            Log(StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".doneFrom", message.from), StoryContent.Words(arc.Owner, arc.Id + "." + step.id + ".done", message.text));
-        foreach (var reward in step.onComplete?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
-        if (index + 1 < arc.Value.steps.Count) Enter(arc, progress, index + 1, facts);
+        if (result?.message is StoryMessage message)
+            Log(StoryContent.Words(arc.Owner, key + ".doneFrom", message.from), StoryContent.Words(arc.Owner, key + ".done", message.text));
+        foreach (var reward in result?.items ?? new List<StoryReward>()) Give(reward.item, reward.count);
+        if (result != null && result.credits > 0) Pay(result.credits, from, arc.Id);
+        int next = StoryRules.NextStep(arc.Value, index, branch?.next ?? step.next);
+        if (next >= 0) Enter(arc, progress, next, facts);
         else { progress.State = ArcState.Done; progress.Completions++; }
         return true;
+    }
+
+    /// <summary>Pays the player (a positive amount) or takes from them, with a line in the game's ledger, as the
+    /// station kiosk's bulk sales do.</summary>
+    private static void Pay(double amount, string sender, string arc)
+    {
+        if (player == null || amount == 0) return;
+        player.AddCondAmount("StatUSD", amount);
+        var line = amount > 0
+            ? new LedgerLI(player.strID, sender, (float)amount, Text.Get("Story.ledger_paid", sender), StoryRules.TestPrefix + arc) { fTimePaid = StarSystem.fEpoch }
+            : new LedgerLI(sender, player.strID, (float)-amount, Text.Get("Story.ledger_charged", sender), StoryRules.TestPrefix + arc) { fTimePaid = StarSystem.fEpoch };
+        if (line.Paid) Ledger.AddLI(line);
+        Log(null, Text.Get(amount > 0 ? "Story.credits_paid" : "Story.credits_charged", Math.Abs(amount).ToString("0", System.Globalization.CultureInfo.InvariantCulture), sender));
     }
 
     private static void Show(StoryEntry<StoryArc> arc, StoryStep step)
@@ -312,7 +342,13 @@ public static class StoryArcs
             {
                 int index = StoryRules.Resolve(arc.Value, p);
                 lines.Add(Text.Get("Story.arc_active", arc.Id, arc.Value.title, index < 0 ? p.StepId : arc.Value.steps[index].id));
-                if (index >= 0) foreach (var test in arc.Value.steps[index].tests) lines.Add("    " + StoryRules.Describe(test, facts, p.StepStart));
+                if (index >= 0)
+                {
+                    foreach (var test in arc.Value.steps[index].tests) lines.Add("    " + StoryRules.Describe(test, facts, p.StepStart));
+                    var branches = arc.Value.steps[index].branches ?? new List<StoryBranch>();
+                    for (int b = 0; b < branches.Count; b++)
+                        lines.Add("    " + Text.Get("Story.branch_line", b + 1, branches[b].next, string.Join("; ", branches[b].tests.Select(t => StoryRules.Describe(t, facts, p.StepStart)))));
+                }
                 continue;
             }
             string state = p == null ? Text.Get("Story.state_new") : p.State == ArcState.Done ? Text.Get("Story.state_done", p.Completions) : Text.Get("Story.state_abandoned");
@@ -332,6 +368,7 @@ public static class StoryArcs
         private Dictionary<string, int>? installed, carried;
         public GameFacts(CondOwner player) { this.player = player; }
         public double Epoch => StarSystem.fEpoch;
+        public double Credits => player.GetCondAmount("StatUSD");
         public bool ModInstalled(string mod) => StoryContent.ModInstalled(mod);
         public bool PlayerHas(string condition) => player.HasCond(condition);
         public int Installed(string item)

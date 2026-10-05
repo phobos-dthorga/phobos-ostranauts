@@ -695,13 +695,14 @@ STORY_STATION = re.compile(r'^[A-Za-z0-9_|-]+$')
 STORY_PHOBOS_MOD = re.compile(r'^Phobos[A-Za-z]+$')
 STORY_PLUGIN_ID = re.compile(r'^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$')
 STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]')
-STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait')
+STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait', 'credits', 'condition')
 STORY_MOMENTS = ('headline', 'joke', 'complaint', 'story', 'jargon', 'superstition', 'worry', 'question', 'small-talk')
 STORY_SPEAKERS = ('anyone', 'crew', 'others')
 STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 400, 'message': 400, 'from': 40,
                 'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
                 'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720,
-                'line': 200, 'tip': 450, 'label': 40, 'article': 4000}
+                'line': 200, 'tip': 450, 'label': 40, 'article': 4000, 'branches': 4, 'credit_reward': 50000,
+                'credit_test': 1000000, 'days': 3650}
 
 
 def story_id(value, where, limit=STORY_LIMITS['id']):
@@ -745,7 +746,7 @@ def story_mods_only(r, where):
     if r is None:
         return
     story_requires(r, where)
-    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted')):
+    if any(r.get(name) for name in ('playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted')) or 'afterDays' in r or 'beforeDays' in r:
         raise Problem(f'{where}: shown with no player at hand, so it may require only mods')
 
 
@@ -756,7 +757,12 @@ def story_station(value):
 def story_requires(r, where):
     if r is None:
         return
-    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted'}, where)
+    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted', 'afterDays', 'beforeDays'}, where)
+    for name in ('afterDays', 'beforeDays'):
+        if name in r:
+            number(r[name], f'{where}/{name}', 0, STORY_LIMITS['days'])
+    if 'afterDays' in r and 'beforeDays' in r and not r['afterDays'] < r['beforeDays']:
+        raise Problem(f'{where}: afterDays must be less than beforeDays')
     checks = {'mods': lambda m: STORY_PHOBOS_MOD.match(m) or STORY_PLUGIN_ID.match(m), 'playerConditions': STORY_GAME_NAME.match,
               'forbidConditions': STORY_GAME_NAME.match, 'owns': STORY_GAME_NAME.match, 'dockedAt': story_station,
               'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match}
@@ -789,14 +795,23 @@ def story_author(entry, where):
 
 
 def story_test(test, where):
-    fields(test, {'kind', 'station', 'item', 'count', 'consume', 'hours'}, where)
+    fields(test, {'kind', 'station', 'item', 'count', 'consume', 'hours', 'amount', 'condition'}, where)
     kind = test.get('kind')
     w = f'{where}/{kind}'
-    present = {k for k in ('station', 'item', 'hours') if k in test and test[k] not in (None, 0)}
+    present = {k for k in ('station', 'item', 'hours', 'amount', 'condition') if k in test and test[k] not in (None, 0)}
     consume, count = test.get('consume', False), test.get('count', 1)
     if not isinstance(consume, bool):
         raise Problem(f'{w}/consume: true or false')
-    if kind == 'dock-at':
+    if kind == 'credits':
+        if present != {'amount'} or count != 1:
+            raise Problem(f'{w}: this test takes only amount, consume')
+        number(test['amount'], f'{w}/amount', 0, STORY_LIMITS['credit_test'], exclusive_low=True)
+    elif kind == 'condition':
+        if present != {'condition'} or consume or count != 1:
+            raise Problem(f'{w}: this test takes only condition')
+        if not isinstance(test['condition'], str) or not STORY_GAME_NAME.match(test['condition']):
+            raise Problem(f'{w}/condition: not a valid condition name')
+    elif kind == 'dock-at':
         if present != {'station'} or consume or count != 1:
             raise Problem(f'{w}: this test takes only station')
         if not story_station(test['station']):
@@ -813,6 +828,29 @@ def story_test(test, where):
         number(test.get('hours', 0), f'{w}/hours', 0, STORY_LIMITS['hours'], exclusive_low=True)
     else:
         raise Problem(f'{where}: the test kind must be one of {", ".join(STORY_TESTS)}')
+
+
+def story_tests(tests, where):
+    if not isinstance(tests, list) or not 1 <= len(tests) <= STORY_LIMITS['tests']:
+        raise Problem(f'{where}/tests: from 1 to {STORY_LIMITS["tests"]} tests')
+    for t, test in enumerate(tests):
+        story_test(test, f'{where}/tests/{t}')
+
+
+def story_outcome(outcome, where):
+    if outcome is None:
+        return
+    fields(outcome, {'message', 'items', 'credits'}, f'{where}/onComplete')
+    story_message(outcome.get('message'), f'{where}/onComplete/message')
+    rewards = outcome.get('items', [])
+    if not isinstance(rewards, list) or len(rewards) > STORY_LIMITS['rewards']:
+        raise Problem(f'{where}/onComplete/items: at most {STORY_LIMITS["rewards"]} kinds of item')
+    for r, reward in enumerate(rewards):
+        fields(reward, {'item', 'count'}, f'{where}/onComplete/items/{r}')
+        if not isinstance(reward.get('item'), str) or not STORY_GAME_NAME.match(reward['item']):
+            raise Problem(f'{where}/onComplete/items/{r}/item: not a valid item name')
+        number(reward.get('count', 1), f'{where}/onComplete/items/{r}/count', 1, STORY_LIMITS['reward'], integer=True)
+    number(outcome.get('credits', 0), f'{where}/onComplete/credits', 0, STORY_LIMITS['credit_reward'], integer=True)
 
 
 def story(pack, where, framework=None):
@@ -876,7 +914,7 @@ def story(pack, where, framework=None):
         ids = set()
         for n, step in enumerate(steps):
             sw = f'{w}/steps/{n}'
-            fields(step, {'id', 'delivery', 'objective', 'tests', 'onComplete'}, sw)
+            fields(step, {'id', 'delivery', 'objective', 'tests', 'onComplete', 'next', 'branches'}, sw)
             story_id(step.get('id'), f'{sw}/id', STORY_LIMITS['step'])
             if step['id'] in ids:
                 raise Problem(f'{w}: uses the step id {step["id"]} twice')
@@ -895,23 +933,24 @@ def story(pack, where, framework=None):
                 story_words(objective.get('title'), STORY_LIMITS['objective'], f'{sw}/objective/title')
                 if objective.get('description', ''):
                     story_words(objective['description'], STORY_LIMITS['description'], f'{sw}/objective/description')
-            tests = step.get('tests')
-            if not isinstance(tests, list) or not 1 <= len(tests) <= STORY_LIMITS['tests']:
-                raise Problem(f'{sw}/tests: from 1 to {STORY_LIMITS["tests"]} tests')
-            for t, test in enumerate(tests):
-                story_test(test, f'{sw}/tests/{t}')
-            outcome = step.get('onComplete')
-            if outcome is not None:
-                fields(outcome, {'message', 'items'}, f'{sw}/onComplete')
-                story_message(outcome.get('message'), f'{sw}/onComplete/message')
-                rewards = outcome.get('items', [])
-                if not isinstance(rewards, list) or len(rewards) > STORY_LIMITS['rewards']:
-                    raise Problem(f'{sw}/onComplete/items: at most {STORY_LIMITS["rewards"]} kinds of item')
-                for r, reward in enumerate(rewards):
-                    fields(reward, {'item', 'count'}, f'{sw}/onComplete/items/{r}')
-                    if not isinstance(reward.get('item'), str) or not STORY_GAME_NAME.match(reward['item']):
-                        raise Problem(f'{sw}/onComplete/items/{r}/item: not a valid item name')
-                    number(reward.get('count', 1), f'{sw}/onComplete/items/{r}/count', 1, STORY_LIMITS['reward'], integer=True)
+            story_tests(step.get('tests'), sw)
+            story_outcome(step.get('onComplete'), sw)
+            branches = step.get('branches')
+            if branches is not None:
+                if not isinstance(branches, list) or not 1 <= len(branches) <= STORY_LIMITS['branches']:
+                    raise Problem(f'{sw}/branches: from 1 to {STORY_LIMITS["branches"]} branches')
+                for n_b, branch in enumerate(branches):
+                    bw = f'{sw}/branches/{n_b}'
+                    fields(branch, {'notes', 'tests', 'onComplete', 'next'}, bw)
+                    story_tests(branch.get('tests'), bw)
+                    story_outcome(branch.get('onComplete'), bw)
+                    if 'next' not in branch:
+                        raise Problem(f'{bw}/next: a branch names the step it leads to, or end')
+        for n, step in enumerate(steps):
+            targets = [step.get('next')] + [b.get('next') for b in step.get('branches') or []]
+            for target in targets:
+                if target is not None and target != 'end' and target not in ids:
+                    raise Problem(f'{w}/steps/{n}: next must be a step of the same arc or end, not {target!r}')
     for key, c in pack.get('chatter', {}).items():
         w = f'{where}/chatter/{key}'
         story_id(key, w)

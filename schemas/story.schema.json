@@ -172,6 +172,18 @@
                   },
                   "maxItems": 16,
                   "description": "Arcs the player must never have started."
+                },
+                "afterDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only once this many game days have passed since the player's story record began."
+                },
+                "beforeDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only until this many game days have passed since the player's story record began."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -291,6 +303,18 @@
                   },
                   "maxItems": 16,
                   "description": "Arcs the player must never have started."
+                },
+                "afterDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only once this many game days have passed since the player's story record began."
+                },
+                "beforeDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only until this many game days have passed since the player's story record began."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -388,6 +412,18 @@
                   },
                   "maxItems": 16,
                   "description": "Arcs the player must never have started."
+                },
+                "afterDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only once this many game days have passed since the player's story record began."
+                },
+                "beforeDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only until this many game days have passed since the player's story record began."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."
@@ -483,7 +519,9 @@
                             "dock-at",
                             "have-item",
                             "install",
-                            "wait"
+                            "wait",
+                            "credits",
+                            "condition"
                           ]
                         },
                         "station": {
@@ -511,6 +549,17 @@
                           "exclusiveMinimum": 0,
                           "maximum": 720,
                           "description": "wait only: game hours since the step began."
+                        },
+                        "amount": {
+                          "type": "number",
+                          "exclusiveMinimum": 0,
+                          "maximum": 1000000,
+                          "description": "credits only: how many credits the player holds (taken when the step finishes, with consume)."
+                        },
+                        "condition": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9_]+$",
+                          "description": "condition only: a game condition the player has, such as a skill (SkillHacking)."
                         }
                       },
                       "required": [
@@ -569,9 +618,167 @@
                           ]
                         },
                         "description": "Items given to the player, or put at their feet when they cannot carry them."
+                      },
+                      "credits": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 50000,
+                        "description": "Credits paid to the player, entered in the game's ledger."
                       }
                     },
                     "description": "What happens when the step finishes."
+                  },
+                  "next": {
+                    "type": "string",
+                    "pattern": "^(end|[a-z0-9]+(-[a-z0-9]+)*)$",
+                    "description": "The step that follows: a step id of the same arc, or end. By default the next in order."
+                  },
+                  "branches": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "notes": {
+                          "type": "string",
+                          "description": "Free text for maintainers; ignored by the game."
+                        },
+                        "tests": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "kind": {
+                                "type": "string",
+                                "description": "What the step waits for.",
+                                "enum": [
+                                  "dock-at",
+                                  "have-item",
+                                  "install",
+                                  "wait",
+                                  "credits",
+                                  "condition"
+                                ]
+                              },
+                              "station": {
+                                "type": "string",
+                                "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                                "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                              },
+                              "item": {
+                                "type": "string",
+                                "pattern": "^[A-Za-z0-9_]+$",
+                                "description": "have-item and install only: an item definition id."
+                              },
+                              "count": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 100,
+                                "description": "have-item and install only: how many (default 1)."
+                              },
+                              "consume": {
+                                "type": "boolean",
+                                "description": "have-item only: the items are taken from the player when the step finishes."
+                              },
+                              "hours": {
+                                "type": "number",
+                                "exclusiveMinimum": 0,
+                                "maximum": 720,
+                                "description": "wait only: game hours since the step began."
+                              },
+                              "amount": {
+                                "type": "number",
+                                "exclusiveMinimum": 0,
+                                "maximum": 1000000,
+                                "description": "credits only: how many credits the player holds (taken when the step finishes, with consume)."
+                              },
+                              "condition": {
+                                "type": "string",
+                                "pattern": "^[A-Za-z0-9_]+$",
+                                "description": "condition only: a game condition the player has, such as a skill (SkillHacking)."
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          },
+                          "minItems": 1,
+                          "maxItems": 4,
+                          "description": "All must pass for the step to finish."
+                        },
+                        "onComplete": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "message": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "from": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 40,
+                                  "description": "Who it is from, shown before the text in the crew log."
+                                },
+                                "text": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 400,
+                                  "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                                }
+                              },
+                              "required": [
+                                "from",
+                                "text"
+                              ]
+                            },
+                            "items": {
+                              "type": "array",
+                              "maxItems": 5,
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "item": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z0-9_]+$"
+                                  },
+                                  "count": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 20
+                                  }
+                                },
+                                "required": [
+                                  "item"
+                                ]
+                              },
+                              "description": "Items given to the player, or put at their feet when they cannot carry them."
+                            },
+                            "credits": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 50000,
+                              "description": "Credits paid to the player, entered in the game's ledger."
+                            }
+                          },
+                          "description": "What happens when the step finishes."
+                        },
+                        "next": {
+                          "type": "string",
+                          "pattern": "^(end|[a-z0-9]+(-[a-z0-9]+)*)$",
+                          "description": "A step id of the same arc, or end."
+                        }
+                      },
+                      "required": [
+                        "tests",
+                        "next"
+                      ],
+                      "description": "Another way the step can finish: the first branch whose tests all pass decides, after the step's own tests."
+                    },
+                    "minItems": 1,
+                    "maxItems": 4
                   }
                 },
                 "required": [
@@ -711,6 +918,18 @@
                   },
                   "maxItems": 16,
                   "description": "Arcs the player must never have started."
+                },
+                "afterDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only once this many game days have passed since the player's story record began."
+                },
+                "beforeDays": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 3650,
+                  "description": "Only until this many game days have passed since the player's story record began."
                 }
               },
               "description": "When the entry may appear. Every part is optional and every part given must hold."

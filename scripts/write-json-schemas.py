@@ -289,27 +289,39 @@ def story():
         'owns': names(game, "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."),
         'dockedAt': names(station, 'Docked at or aboard any one of these stations.'),
         'arcsDone': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must have finished.'),
-        'arcsNotStarted': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must never have started.')},
+        'arcsNotStarted': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must never have started.'),
+        'afterDays': num(0, 3650, description="Only once this many game days have passed since the player's story record began."),
+        'beforeDays': num(0, 3650, description="Only until this many game days have passed since the player's story record began.")},
         description='When the entry may appear. Every part is optional and every part given must hold.')
     message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log.'},
                    'text': text(400, 'The message, shown in the crew log.')}, ['from', 'text'])
-    test = obj({'kind': string('What the step waits for.', ['dock-at', 'have-item', 'install', 'wait']),
+    test = obj({'kind': string('What the step waits for.', ['dock-at', 'have-item', 'install', 'wait', 'credits', 'condition']),
                 'station': {**station, 'description': 'dock-at only. ' + station['description']},
                 'item': {**game, 'description': 'have-item and install only: an item definition id.'},
                 'count': num(1, 100, integer=True, description='have-item and install only: how many (default 1).'),
                 'consume': {'type': 'boolean', 'description': 'have-item only: the items are taken from the player when the step finishes.'},
-                'hours': num(exclusive_minimum=0, maximum=720, description='wait only: game hours since the step began.')}, ['kind'])
+                'hours': num(exclusive_minimum=0, maximum=720, description='wait only: game hours since the step began.'),
+                'amount': num(exclusive_minimum=0, maximum=1000000, description='credits only: how many credits the player holds (taken when the step finishes, with consume).'),
+                'condition': {**game, 'description': 'condition only: a game condition the player has, such as a skill (SkillHacking).'}}, ['kind'])
+    outcome = obj({'message': message,
+                   'items': {'type': 'array', 'maxItems': 5, 'items': obj({'item': game, 'count': num(1, 20, integer=True)}, ['item']),
+                             'description': 'Items given to the player, or put at their feet when they cannot carry them.'},
+                   'credits': num(0, 50000, integer=True, description="Credits paid to the player, entered in the game's ledger.")},
+                  description='What happens when the step finishes.')
+    tests = {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'}
+    next_step = {'type': 'string', 'pattern': '^(end|[a-z0-9]+(-[a-z0-9]+)*)$', 'description': 'A step id of the same arc, or end.'}
+    branch = obj({'notes': NOTES, 'tests': tests, 'onComplete': outcome, 'next': next_step}, ['tests', 'next'],
+                 'Another way the step can finish: the first branch whose tests all pass decides, after the step\'s own tests.')
     step = obj({
         'id': {'type': 'string', 'pattern': story_id, 'maxLength': 32, 'description': 'Unique within the arc; it names the goal in saves, so keep it once published.'},
         'delivery': obj({'message': message, 'bulletin': {'type': 'string', 'pattern': story_id, 'description': 'A broadcast id that the next TV news item shows.'}},
                         description='What the player is told when the step begins.'),
         'objective': obj({'title': text(60, 'The goal title in the GOALS list.'), 'description': {**text(300, 'The goal description.'), 'minLength': 0}}, ['title'],
                          'A goal in the GOALS list. A step without one waits on its tests unseen.'),
-        'tests': {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'},
-        'onComplete': obj({'message': message,
-                           'items': {'type': 'array', 'maxItems': 5, 'items': obj({'item': game, 'count': num(1, 20, integer=True)}, ['item']),
-                                     'description': 'Items given to the player, or put at their feet when they cannot carry them.'}},
-                          description='What happens when the step finishes.')}, ['id', 'tests'])
+        'tests': tests,
+        'onComplete': outcome,
+        'next': {**next_step, 'description': 'The step that follows: a step id of the same arc, or end. By default the next in order.'},
+        'branches': {'type': 'array', 'items': branch, 'minItems': 1, 'maxItems': 4}}, ['id', 'tests'])
     weight = num(1, 100, integer=True, description='How often it is picked against other story entries (default 1).')
     once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
     author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}

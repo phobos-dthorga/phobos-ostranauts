@@ -64,6 +64,10 @@ public sealed class StoryRequires
     public List<string> arcsDone = new();
     /// <summary>Arcs the player must never have started.</summary>
     public List<string> arcsNotStarted = new();
+    /// <summary>Only once this many game days have passed since the player's story record began (Framework 0.109.0).</summary>
+    public double? afterDays;
+    /// <summary>Only until this many game days have passed since the player's story record began.</summary>
+    public double? beforeDays;
 }
 
 public sealed class StoryBroadcast
@@ -187,6 +191,20 @@ public sealed class StoryStep
     /// <summary>All must pass for the step to finish.</summary>
     public List<StoryTest> tests = new();
     public StoryOutcome? onComplete;
+    /// <summary>The step that follows (Framework 0.109.0): a step id of the same arc, or <c>end</c>; by default the next in order.</summary>
+    public string? next;
+    /// <summary>Other ways the step can finish, each with its own tests, outcome and next step, checked after the step's own tests.</summary>
+    public List<StoryBranch>? branches;
+}
+
+/// <summary>Another way a step can finish (Framework 0.109.0): the first branch whose tests all pass decides what happens.</summary>
+public sealed class StoryBranch
+{
+    public string? notes;
+    public List<StoryTest> tests = new();
+    public StoryOutcome? onComplete;
+    /// <summary>A step id of the same arc, or <c>end</c>.</summary>
+    public string next = "";
 }
 
 public sealed class StoryDelivery
@@ -224,6 +242,10 @@ public sealed class StoryTest
     public bool consume;
     /// <summary>wait: game hours since the step began.</summary>
     public double hours;
+    /// <summary>credits: how many the player holds (taken when the step finishes, with consume).</summary>
+    public double amount;
+    /// <summary>condition: a game condition the player has, such as a skill.</summary>
+    public string? condition;
 }
 
 public sealed class StoryOutcome
@@ -231,6 +253,8 @@ public sealed class StoryOutcome
     public StoryMessage? message;
     /// <summary>Items given to the player, or put at their feet when their hands and bags are full.</summary>
     public List<StoryReward> items = new();
+    /// <summary>Credits paid to the player, entered in the game's ledger (Framework 0.109.0).</summary>
+    public int credits;
 }
 
 public sealed class StoryReward
@@ -247,8 +271,11 @@ public static class StorySchema
     public const string DockedAnywhere = "any";
     public const string Anyone = "anyone", Crew = "crew", Others = "others";
     public static readonly IReadOnlyList<string> Speakers = new[] { Anyone, Crew, Others };
-    public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait";
-    public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait };
+    public const string DockAt = "dock-at", HaveItem = "have-item", Install = "install", Wait = "wait", Credits = "credits", Condition = "condition";
+    public static readonly IReadOnlyList<string> TestKinds = new[] { DockAt, HaveItem, Install, Wait, Credits, Condition };
+    public const string End = "end";
+    public const int MaxBranches = 4, MaxCreditReward = 50000;
+    public const double MaxCreditTest = 1000000, MaxDays = 3650;
     public static readonly IReadOnlyList<string> Placeholders = new[] { "[player]", "[player-first]", "[ship]" };
     public const int MaxIdLength = 48, MaxStepIdLength = 32, MaxRegion = 40, MaxBroadcast = 700, MaxAdvert = 400,
         MaxMessage = 400, MaxFrom = 40, MaxObjectiveTitle = 60, MaxObjectiveDescription = 300, MaxTitle = 80,
@@ -339,7 +366,8 @@ public static class StorySchema
     {
         if (r == null) return;
         Requires(r, where);
-        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count > 0)
+        if (r.playerConditions.Count + r.forbidConditions.Count + r.owns.Count + r.dockedAt.Count + r.arcsDone.Count + r.arcsNotStarted.Count > 0 ||
+            r.afterDays != null || r.beforeDays != null)
             throw new ArgumentException(Text.Get("StorySchema.mods_only", where));
     }
 
@@ -371,28 +399,67 @@ public static class StorySchema
                 Words(step.objective.title, MaxObjectiveTitle, at + ".objective.title");
                 if (step.objective.description.Length > 0) Words(step.objective.description, MaxObjectiveDescription, at + ".objective.description");
             }
-            if (step.tests == null || step.tests.Count == 0 || step.tests.Count > MaxTests) throw new ArgumentException(Text.Get("StorySchema.tests", at, MaxTests));
-            foreach (var test in step.tests) Test(test, at + ".tests");
-            if (step.onComplete != null)
+            Tests(step.tests, at);
+            Outcome(step.onComplete, at);
+            if (step.branches != null)
             {
-                Message(step.onComplete.message, at + ".onComplete.message");
-                if (step.onComplete.items == null || step.onComplete.items.Count > MaxRewards) throw new ArgumentException(Text.Get("StorySchema.rewards", at, MaxRewards));
-                foreach (var reward in step.onComplete.items)
+                if (step.branches.Count == 0 || step.branches.Count > MaxBranches) throw new ArgumentException(Text.Get("StorySchema.branches", at, MaxBranches));
+                for (int b = 0; b < step.branches.Count; b++)
                 {
-                    if (reward == null || !GameName.IsMatch(reward.item ?? "")) throw new ArgumentException(Text.Get("StorySchema.game_name", at + ".onComplete.items", reward?.item ?? ""));
-                    if (reward.count < 1 || reward.count > MaxRewardCount) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.items." + reward.item, 1, MaxRewardCount));
+                    var branch = step.branches[b] ?? throw new ArgumentException(Text.Get("StorySchema.empty", at + ".branches." + b));
+                    string bat = at + ".branches." + b;
+                    Tests(branch.tests, bat);
+                    Outcome(branch.onComplete, bat);
+                    if (branch.notes != null && branch.notes.Length > 2000) throw new ArgumentException(Text.Get("StorySchema.notes", bat));
                 }
             }
         }
+        // Where each step goes next must be a step of the same arc, or the end.
+        foreach (var step in arc.steps)
+        {
+            string at = where + ".steps." + step.id;
+            if (step.next != null && step.next != End && !ids.Contains(step.next)) throw new ArgumentException(Text.Get("StorySchema.next", at, step.next));
+            foreach (var branch in step.branches ?? new List<StoryBranch>())
+                if (branch.next != End && !ids.Contains(branch.next ?? "")) throw new ArgumentException(Text.Get("StorySchema.next", at + ".branches", branch.next ?? ""));
+        }
+    }
+
+    private static void Tests(List<StoryTest>? tests, string at)
+    {
+        if (tests == null || tests.Count == 0 || tests.Count > MaxTests) throw new ArgumentException(Text.Get("StorySchema.tests", at, MaxTests));
+        foreach (var test in tests) Test(test, at + ".tests");
+    }
+
+    private static void Outcome(StoryOutcome? outcome, string at)
+    {
+        if (outcome == null) return;
+        Message(outcome.message, at + ".onComplete.message");
+        if (outcome.items == null || outcome.items.Count > MaxRewards) throw new ArgumentException(Text.Get("StorySchema.rewards", at, MaxRewards));
+        foreach (var reward in outcome.items)
+        {
+            if (reward == null || !GameName.IsMatch(reward.item ?? "")) throw new ArgumentException(Text.Get("StorySchema.game_name", at + ".onComplete.items", reward?.item ?? ""));
+            if (reward.count < 1 || reward.count > MaxRewardCount) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.items." + reward.item, 1, MaxRewardCount));
+        }
+        if (outcome.credits < 0 || outcome.credits > MaxCreditReward) throw new ArgumentException(Text.Get("StorySchema.range", at + ".onComplete.credits", 0, MaxCreditReward));
     }
 
     private static void Test(StoryTest? test, string where)
     {
         if (test == null) throw new ArgumentException(Text.Get("StorySchema.empty", where));
         where += "." + test.kind;
-        bool station = test.station != null, item = test.item != null, hours = test.hours != 0;
+        bool station = test.station != null, item = test.item != null, hours = test.hours != 0, amount = test.amount != 0, condition = test.condition != null;
+        if ((amount && test.kind != Credits) || (condition && test.kind != Condition))
+            throw new ArgumentException(Text.Get("StorySchema.test_fields", where, Fields(test.kind)));
         switch (test.kind)
         {
+            case Credits:
+                if (station || item || hours || test.count != 1) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, Fields(Credits)));
+                if (!(test.amount > 0) || test.amount > MaxCreditTest) throw new ArgumentException(Text.Get("StorySchema.range", where + ".amount", 1, MaxCreditTest));
+                break;
+            case Condition:
+                if (station || item || hours || test.consume || test.count != 1 || !condition) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, Fields(Condition)));
+                if (!GameName.IsMatch(test.condition!)) throw new ArgumentException(Text.Get("StorySchema.game_name", where, test.condition!));
+                break;
             case DockAt:
                 if (!station || item || hours || test.consume || test.count != 1) throw new ArgumentException(Text.Get("StorySchema.test_fields", where, "station"));
                 if (!StationId(test.station!)) throw new ArgumentException(Text.Get("StorySchema.station", where, test.station!));
@@ -410,6 +477,12 @@ public static class StorySchema
         }
     }
 
+    private static string Fields(string kind) => kind switch
+    {
+        DockAt => "station", HaveItem => "item, count, consume", Install => "item, count", Wait => "hours",
+        Credits => "amount, consume", Condition => "condition", _ => string.Join(", ", TestKinds)
+    };
+
     private static void Requires(StoryRequires? r, string where)
     {
         if (r == null) return;
@@ -421,6 +494,9 @@ public static class StorySchema
         List(r.dockedAt, where + ".dockedAt", StationId);
         List(r.arcsDone, where + ".arcsDone", s => IsId(s));
         List(r.arcsNotStarted, where + ".arcsNotStarted", s => IsId(s));
+        if (r.afterDays is double after) Range(after, 0, MaxDays, where + ".afterDays");
+        if (r.beforeDays is double before) Range(before, 0, MaxDays, where + ".beforeDays");
+        if (r.afterDays is double a && r.beforeDays is double b && !(a < b)) throw new ArgumentException(Text.Get("StorySchema.days", where));
     }
 
     private static void List(List<string>? values, string where, Func<string, bool> valid)

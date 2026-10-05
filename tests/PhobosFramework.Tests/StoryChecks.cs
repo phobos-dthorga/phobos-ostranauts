@@ -38,6 +38,7 @@ internal static class StoryChecks
         public HashSet<string> Mods = new(), Conditions = new(), Docked = new();
         public Dictionary<string, int> Ship = new(), Hands = new();
         public double Epoch { get; set; }
+        public double Credits { get; set; }
         public bool ModInstalled(string mod) => Mods.Contains(mod);
         public bool PlayerHas(string condition) => Conditions.Contains(condition);
         public int Installed(string item) => Ship.TryGetValue(item, out int n) ? n : 0;
@@ -148,6 +149,67 @@ internal static class StoryChecks
         check(StoryContent.PluginId("PhobosAutoNav") == "phobosgekko.ostranauts.autonav" && StoryContent.PluginId("other.mod.id") == "other.mod.id", "Mods name their plugin id");
 
         Phase2(check, (json, message, framework) => Refused(json, message, framework), (json, framework) => Load(json, framework));
+        Round3(check, (json, message) => Refused(json, message, false), json => Load(json, false));
+    }
+
+    private const string Branching = @"{
+      ""schemaVersion"": 1, ""schema"": ""story"",
+      ""arcs"": { ""debt-run"": { ""title"": ""A debt to clear"", ""requires"": { ""afterDays"": 2, ""beforeDays"": 30 },
+        ""steps"": [
+          { ""id"": ""offer"", ""tests"": [ { ""kind"": ""credits"", ""amount"": 500, ""consume"": true } ],
+            ""onComplete"": { ""credits"": 50 }, ""next"": ""thanks"",
+            ""branches"": [ { ""tests"": [ { ""kind"": ""condition"", ""condition"": ""SkillHacking"" } ], ""next"": ""hacked"", ""onComplete"": { ""credits"": 900 } },
+                            { ""tests"": [ { ""kind"": ""wait"", ""hours"": 48 } ], ""next"": ""end"" } ] },
+          { ""id"": ""hacked"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ], ""next"": ""end"" },
+          { ""id"": ""thanks"", ""tests"": [ { ""kind"": ""wait"", ""hours"": 1 } ] }
+        ] } }
+    }";
+
+    /// <summary>Framework 0.109.0: credits and condition tests, branches and next steps, credit rewards, story time.</summary>
+    private static void Round3(Action<bool, string> check, Action<string, string> refused, Func<string, StoryPack> load)
+    {
+        string With(string find, string replace) { check(Branching.Contains(find), "Fixture has " + find); return Branching.Replace(find, replace); }
+        var pack = load(Branching);
+        var arc = pack.arcs["debt-run"];
+        check(arc.steps[0].branches!.Count == 2 && arc.steps[0].onComplete!.credits == 50 && arc.requires!.afterDays == 2, "Branches, credit rewards and story time load");
+        refused(With("\"next\": \"thanks\"", "\"next\": \"nowhere\""), "next must name a step of the arc or end");
+        refused(With("\"next\": \"hacked\"", "\"next\": \"elsewhere\""), "A branch's next must name a step of the arc or end");
+        refused(With("\"amount\": 500", "\"amount\": 0"), "A credits test needs an amount");
+        refused(With("\"amount\": 500", "\"amount\": 500, \"item\": \"Seed\""), "A credits test takes only amount and consume");
+        refused(With("\"condition\": \"SkillHacking\"", "\"condition\": \"SkillHacking\", \"consume\": true"), "A condition test cannot consume");
+        refused(With("{ \"kind\": \"wait\", \"hours\": 48 }", "{ \"kind\": \"wait\", \"hours\": 48, \"amount\": 3 }"), "Only a credits test takes an amount");
+        refused(With("\"credits\": 50 }", "\"credits\": 50001 }"), "A credit reward has a ceiling");
+        refused(With("\"beforeDays\": 30", "\"beforeDays\": 1"), "afterDays must come before beforeDays");
+        refused(With("\"branches\": [", "\"branches\": [ { \"tests\": [ { \"kind\": \"wait\", \"hours\": 1 } ], \"next\": \"end\" }, { \"tests\": [ { \"kind\": \"wait\", \"hours\": 2 } ], \"next\": \"end\" }, { \"tests\": [ { \"kind\": \"wait\", \"hours\": 3 } ], \"next\": \"end\" },"), "At most four branches");
+        var library = StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, _ => true, c => c == "SkillHacking");
+        check(library.Arcs.ContainsKey("debt-run"), "Conditions named by tests are checked against the game: known ones pass");
+        check(!StoryLibrary.Build(new[] { ("x", pack) }, null, _ => true, _ => true, _ => false).Arcs.ContainsKey("debt-run"), "and an unknown condition in a branch test leaves the arc out");
+
+        var facts = new Facts { Epoch = 10 * 86400 };
+        var record = new StoryRecord { Began = 9 * 86400 };
+        check(StoryRules.Days(record, facts) == 1 && StoryRules.Blocked(arc.requires, facts, record) != null, "One day of story time is too early for afterDays 2");
+        facts.Epoch = 12 * 86400;
+        check(StoryRules.Blocked(arc.requires, facts, record) == null, "Three days is inside the window");
+        facts.Epoch = 40 * 86400;
+        check(StoryRules.Blocked(arc.requires, facts, record) != null, "Thirty-one days is past beforeDays");
+        check(StoryRules.Days(new StoryRecord(), facts) == 0, "A record that has not begun counts no days");
+        var round = StoryRecord.Decode(record.Encode());
+        check(round.Began == 9 * 86400 && StoryRecord.Decode(new StoryRecord().Encode()).Began == null, "Story time's start round-trips, and an older record has none");
+
+        var offer = arc.steps[0];
+        facts.Epoch = 0;
+        check(StoryRules.Outcome(offer, facts, 0) == null, "With nothing met, the step waits");
+        facts.Credits = 600;
+        check(StoryRules.Outcome(offer, facts, 0) == -1, "Its own test (500 credits) finishes it");
+        facts.Credits = 0; facts.Conditions.Add("SkillHacking");
+        check(StoryRules.Outcome(offer, facts, 0) == 0, "The first branch whose tests pass decides");
+        facts.Conditions.Clear(); facts.Epoch = 48 * 3600;
+        check(StoryRules.Outcome(offer, facts, 0) == 1, "A later branch when only its tests pass");
+        facts.Credits = 600; facts.Conditions.Add("SkillHacking");
+        check(StoryRules.Outcome(offer, facts, 0) == -1, "The step's own tests come before its branches");
+        check(StoryRules.NextStep(arc, 0, "thanks") == 2 && StoryRules.NextStep(arc, 0, "end") == -1 && StoryRules.NextStep(arc, 1, null) == 2 && StoryRules.NextStep(arc, 2, null) == -1,
+            "Next steps: named, the end, or the next in order until the last");
+        check(StoryRules.Passed(new StoryTest { kind = StorySchema.Credits, amount = 600 }, facts, 0) && !StoryRules.Passed(new StoryTest { kind = StorySchema.Credits, amount = 601 }, facts, 0), "A credits test compares what the player holds");
     }
 
     private const string Talk = @"{

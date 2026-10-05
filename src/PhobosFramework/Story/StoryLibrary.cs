@@ -82,10 +82,11 @@ public sealed class StoryLibrary
         }
         IEnumerable<string> Owned(StoryRequires? r) => r?.owns ?? Enumerable.Empty<string>();
         IEnumerable<string> Conditions(StoryRequires? r) => r == null ? Enumerable.Empty<string>() : r.playerConditions.Concat(r.forbidConditions);
-        void Add<T>(Dictionary<string, StoryEntry<T>> table, string id, string owner, T value, StoryRequires? requires, IEnumerable<string>? extraItems = null)
+        void Add<T>(Dictionary<string, StoryEntry<T>> table, string id, string owner, T value, StoryRequires? requires, IEnumerable<string>? extraItems = null,
+            IEnumerable<string>? extraConditions = null)
         {
             if (!Claim(id, owner)) return;
-            var problem = Names(requires, Owned(requires).Concat(extraItems ?? Enumerable.Empty<string>()), Conditions(requires));
+            var problem = Names(requires, Owned(requires).Concat(extraItems ?? Enumerable.Empty<string>()), Conditions(requires).Concat(extraConditions ?? Enumerable.Empty<string>()));
             if (problem != null) problems.Add(Text.Get("Story.refused", id, owner, problem));
             else table[id] = new(id, owner, value);
         }
@@ -94,9 +95,14 @@ public sealed class StoryLibrary
             foreach (var pair in pack.broadcasts) Add(library.broadcasts, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.adverts) Add(library.adverts, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.arcs)
+            {
+                // Every test and outcome of the arc: each step's own and each branch's.
+                var tests = pair.Value.steps.SelectMany(s => s.tests.Concat((s.branches ?? new List<StoryBranch>()).SelectMany(b => b.tests))).ToList();
+                var outcomes = pair.Value.steps.SelectMany(s => new[] { s.onComplete }.Concat((s.branches ?? new List<StoryBranch>()).Select(b => b.onComplete)));
                 Add(library.arcs, pair.Key, owner, pair.Value, pair.Value.requires,
-                    pair.Value.steps.SelectMany(s => s.tests).Where(t => t.item != null).Select(t => t.item!)
-                        .Concat(pair.Value.steps.SelectMany(s => s.onComplete?.items ?? new List<StoryReward>()).Select(r => r.item)));
+                    tests.Where(t => t.item != null).Select(t => t.item!).Concat(outcomes.SelectMany(o => o?.items ?? new List<StoryReward>()).Select(r => r.item)),
+                    tests.Where(t => t.condition != null).Select(t => t.condition!));
+            }
             foreach (var pair in pack.chatter) Add(library.chatter, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.tips) Add(library.tips, pair.Key, owner, pair.Value, pair.Value.requires);
             foreach (var pair in pack.sections) Add(library.sections, pair.Key, owner, pair.Value, pair.Value.requires);
