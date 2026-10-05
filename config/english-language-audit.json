@@ -82573,8 +82573,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f76b2fe5320a66d0aa54256bd16f0f056f85e23dc89dd81f4be41c1d1b05c553",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "0c4f9074fd9c61e3230cebf6f98e1bc1542ad5cb940dd9aa8547a4579fde720c",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -83182,8 +83182,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "ea63c0117a545f6e032e64a425bf794d99622267e92897f83bfb66d1ecaa9cce",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "61d8f0415228efd16e59e39b899c81c62f8a763bf0bc4424face87da587a5a90",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -83687,15 +83687,15 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "95aecd076a76798feed698c15d329c49f1683a41ac17a84e1f8f4a3b9e6eafab",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "801e28ef3f93725fea439c0042b02968cf7b408c685c4c3ff49ba857d2ccd0b4",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "6c7988a363825adb4e0a576909a838cf496b34c355d46c180e002b19f527c67d",
-      "review": "4 October 2026, Phobos Medical 0.1.0 and Framework 0.82.0: reviewed with this change; wording, links and maintained values checked against the player-language rule."
+      "sha256": "d0431c4f76924b2e2ac3e6b53dd9cf70aaeca83fa7ebb2e2b21ba4fb2778b712",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "docs/lines-and-draining.md",
@@ -83918,8 +83918,8 @@
       "path": "docs/writing-story-content.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "a97541f8c6b637e9dde8e342272085140830291b980344dcc5d4b0ddc4529966",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "b105839a4d3d122c5c589f5b14bfc3616ec2694b2ed7a1e276e0c079671236bc",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "docs/development/story-system-design.md",
@@ -83932,16 +83932,30 @@
       "path": "docs/development/spacer-stories-authoring.md",
       "scope": "contributor index and source-backed story authoring record",
       "decision": "new",
-      "sha256": "f135bd6efb0da7aa93ec4b9fce8bf3c79cbd8c14889c0814d61533bc1e8c8440",
-      "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
+      "sha256": "3a84514fd56538c487c81cbcc4fddcf9ba532672e132f0eec26abb515e5e8dfc",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+    },
+    {
+      "path": "workshop/PhobosSpacerStories/page.bbcode",
+      "scope": "current Workshop page draft (held)",
+      "decision": "new",
+      "sha256": "6bec6756d139570ff937dd0d8bb3bcaab08e92d9449d7e350fcab6a90bfb91d7",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+    },
+    {
+      "path": "docs/spacer-stories-item-reference.md",
+      "scope": "generated player item reference",
+      "decision": "new",
+      "sha256": "1634f4c8ca89b8742081e3180f4a37f32ce32c13c3a0d5e4a1eccdcedbeec8df",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e7f8f6b3a5b30ed10220455614915320f829f9f7bcd34d04737f34608e878e87",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "8a28a75c9750f1bf01f0535820901b9df49170d6d2995b72eb48c7acf7baf94e",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -84075,82 +84089,82 @@
       "review": "Framework 0.108.0 story small talk, tips and encyclopedia review, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/mod_info.json",
+      "path": "mods/PhobosSpacerStories/mod_info.json",
       "scope": "story add-on metadata and draft delivery record",
       "sha256": "2a71760ec3fd5f12aeacd28fda9659f5cc35c3bece754fd622958a57b2d38eb3",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos-addon.json",
+      "path": "mods/PhobosSpacerStories/phobos-addon.json",
       "scope": "story add-on metadata and draft delivery record",
       "sha256": "dba8939a6f34c1b5bd73e54ccf480840ee8401c7cd368e7ef822e24b6faf7208",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "d76c0db4c67ce2c741dccdb6e5147c507f81dced796b54dbbcb132dc0adbe4b3",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "ed3d6883d96f2fd7d934e91fa8a67b1a1479ee1ba21573579d1c0a3fa0942a76",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/03-growing-and-galley.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/03-growing-and-galley.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "610d50d6c88c6241d4e3c5cc4b639a2f4b52e6c96c784faea9d9f3486b1c59ad",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/04-process-makers.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/04-process-makers.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "2c9c971ba81732406e566797f8aeb7989d6feeeeb187fc25083dcbf3450f89d0",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/05-still-and-remainders.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/05-still-and-remainders.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "e09be411453e8a1456a5a7d2247711da21e7f01195d0edeead718f8c745a762e",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/06-sickbay.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/06-sickbay.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "f74d2217c17761af8dba71a8e3146bf063b5ee42a53aa79e5bc2fb293a3a913b",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/07-letters-and-local-history.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/07-letters-and-local-history.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "7ad8f5e013102d9401f7fb62c714dc3ff89396edcc4a9c616b3e796258762d20",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/08-goal-chains.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/08-goal-chains.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "49358b0534151086a7245aa4293396c6387cd2f04115e2b1e450a67b0031ff45",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/09-data-card-files.json",
+      "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/09-data-card-files.json",
       "scope": "original inline English story text, goal contracts and card documents",
       "sha256": "2db34dcfe52bac1210fc21ad3c34d16b9a5f580168ccc9295acc72457c8a8a84",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/CHANGELOG.md",
+      "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
       "sha256": "5a620b38f091d27a332281e9cc536c97f0d7a93e1d4a09a51c62c5f719c61b0a",
       "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
     },
     {
-      "path": "examples/addons/PhobosSpacerStories/README.md",
+      "path": "mods/PhobosSpacerStories/README.md",
       "scope": "story add-on source overview and review limits",
-      "sha256": "27ede981ded421cdcf32ddce384f0c8540f487ab54f4ce334ee35d307ceeaf59",
-      "review": "Phobos Spacer Stories source package introduction reviewed, 6 October 2026"
+      "sha256": "43d55441a34e299cd36118f2b56d3613e5073f14931622bf17be9d28aecae756",
+      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
     }
   ],
   "hardcodedReview": {

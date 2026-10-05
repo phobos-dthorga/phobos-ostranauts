@@ -28,6 +28,10 @@
     "Medical.Framework": {
       "since": "0.1.0",
       "value": "0.89.0"
+    },
+    "SpacerStories.Framework": {
+      "since": "0.1.0",
+      "value": "0.110.0"
     }
   }
 }

@@ -2141,6 +2141,10 @@
           "labels": {}
         }
       ]
+    },
+    "PhobosSpacerStories": {
+      "intro": "Phobos Spacer Stories adds no items, equipment or recipes. It is a data-only story collection that Phobos Framework reads: TV news and adverts, crew talk, loading lore, encyclopedia articles and nine correspondence chains. Each finished chain gives one of the game's own Renbao R014 Data Cards holding a Framework story file, read on any computer or PDA. See [writing story content](writing-story-content.md).",
+      "groups": []
     }
   },
   "sources": {

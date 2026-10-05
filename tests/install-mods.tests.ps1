@@ -605,6 +605,23 @@ $medicalInstalled = InstalledFiles $medical
 & $installer @medical -Mods Medical | Out-Null
 Check ((InstalledFiles $medical) -eq $medicalInstalled) 'Medical repeat install changed files'
 
+# Phobos Spacer Stories is data only: Framework plus its native folder, and never a plugin folder of its own.
+$stories = Fixture 'spacer-stories-only' @('core')
+$storiesBefore = InstalledFiles $stories
+& $installer @stories -Mods SpacerStories -WhatIf | Out-Null
+Check ((InstalledFiles $stories) -eq $storiesBefore) 'Spacer Stories preview changed files'
+& $installer @stories -Mods SpacerStories | Out-Null
+Check (((ReadOrder $stories).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosSpacerStories') 'Spacer Stories must select Framework and nothing else'
+$storiesNative = Join-Path (Split-Path -Parent $stories.LoadOrderPath) 'PhobosSpacerStories'
+Check (Test-Path -LiteralPath (Join-Path $storiesNative 'phobos/PhobosFramework/story/08-goal-chains.json') -PathType Leaf) 'Spacer Stories story files must be installed'
+Check (-not (Test-Path -LiteralPath (Join-Path $stories.OstranautsPath 'BepInEx/plugins/PhobosSpacerStories'))) 'A data-only add-on must not get a plugin folder'
+& $installer @stories -Mods SpacerStories -VerifyOnly | Out-Null
+$storiesInstalled = InstalledFiles $stories
+& $installer @stories -Mods SpacerStories | Out-Null
+Check ((InstalledFiles $stories) -eq $storiesInstalled) 'Spacer Stories repeat install changed files'
+New-Item -ItemType Directory -Path (Join-Path $stories.OstranautsPath 'BepInEx/plugins/PhobosSpacerStories') -Force | Out-Null
+Fails { & $installer @stories -Mods SpacerStories | Out-Null } 'Unmanaged plugin folder for data-only PhobosSpacerStories'
+
 # Cover-only updates preserve gameplay files and intentionally disabled entries,
 # even when the prepared gameplay package is newer than the installed one.
 $covers = Fixture 'covers-only' @('core')

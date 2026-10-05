@@ -153,7 +153,9 @@ function New-PhobosPackage {
         [Parameter(Mandatory)][string]$RepoRoot,
         [Parameter(Mandatory)][ValidatePattern('^Phobos[A-Za-z]+$')][string]$Id,
         [Parameter(Mandatory)][string]$Readme,
-        [string[]]$ExtraDocs = @()
+        [string[]]$ExtraDocs = @(),
+        # A data-only mod (a story or data add-on) ships its native folder alone: no plugin or translations.
+        [switch]$DataOnly
     )
     $source = Join-Path $RepoRoot "mods/$Id"
     foreach ($file in Get-ChildItem -LiteralPath $source -Recurse -Filter '*.json' -File) {
@@ -179,9 +181,12 @@ function New-PhobosPackage {
     }
     $pluginTarget = Join-Path $package "BepInEx/plugins/$Id"
     $nativeTarget = Join-Path $package 'Mods'
-    New-Item -ItemType Directory -Force -Path $pluginTarget, $nativeTarget | Out-Null
-    Copy-Item -LiteralPath (Join-Path $RepoRoot "src/$Id/bin/Release/netstandard2.1/$Id.dll") -Destination $pluginTarget
-    Copy-Item -LiteralPath (Join-Path $RepoRoot "translations/$Id") -Destination (Join-Path $pluginTarget 'translations') -Recurse
+    New-Item -ItemType Directory -Force -Path $nativeTarget | Out-Null
+    if (-not $DataOnly) {
+        New-Item -ItemType Directory -Force -Path $pluginTarget | Out-Null
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "src/$Id/bin/Release/netstandard2.1/$Id.dll") -Destination $pluginTarget
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "translations/$Id") -Destination (Join-Path $pluginTarget 'translations') -Recurse
+    }
     Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
     if ($Id -eq 'PhobosFramework') {
         $recorder = Join-Path $RepoRoot 'src/PhobosFramework/bin/Release/netstandard2.1/Phobos.Scope.Recording.dll'

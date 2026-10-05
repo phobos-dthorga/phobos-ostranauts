@@ -82,5 +82,20 @@ internal static class StoryNativeChecks
         check(storeCt != null && DataHandler.dictCTs[storeCt].TriggeredDataCO(new DataCO(file), false), "A data store accepts the story file");
         check(typeof(GUIComputer2).GetField("strStorageRun", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public)?.FieldType == typeof(string),
             "The computer names the file it opens in the field the story postfix reads");
+
+        // Phobos Spacer Stories (data-only add-on): with every Phobos mod's items published, the whole collection loads
+        // beside the shipped packs with no entry left out, so every item and condition it names exists in the game.
+        var folder = Path.Combine(repo, "mods", "PhobosSpacerStories", "phobos", "PhobosFramework", "story");
+        var stories = Directory.GetFiles(folder, "*.json").OrderBy(f => f, StringComparer.Ordinal)
+            .Select(f => (Owner: "spacer-stories", Pack: DataPacks.LoadText<StoryPack>(File.ReadAllText(f), "", "spacer-stories", StorySchema.Name, p => StorySchema.Validate(p, false)))).ToList();
+        // Auto Nav's definitions are prepared but not published in this harness; the game publishes them in play.
+        var autoNav = PhobosAutoNav.EquipmentContent.Prepare();
+        var all = StoryLibrary.Build(new[] { ("framework", frameworkPack), ("agriculture", agriculture) }.Concat(stories), frameworkPack.settings, _ => true,
+            id => DataHandler.dictCOs.ContainsKey(id) || autoNav.Objects.ContainsKey(id), c => DataHandler.dictConds.ContainsKey(c));
+        check(stories.Count == 9 && all.Problems.Count == 0, "Phobos Spacer Stories loads whole against the game's data: " + string.Join("; ", all.Problems.Take(10)));
+        check(all.Arcs.Count == library.Arcs.Count + 9 && all.Files.Count == library.Files.Count + 9 && all.Articles.Values.All(a => all.Sections.ContainsKey(a.Value.section)),
+            "Its nine chains and nine files load, and every article sits in a known section");
+        check(stories.SelectMany(s => s.Pack.broadcasts.Keys.Concat(s.Pack.adverts.Keys).Concat(s.Pack.chatter.Keys).Concat(s.Pack.tips.Keys).Concat(s.Pack.articles.Keys)
+            .Concat(s.Pack.arcs.Keys).Concat(s.Pack.files.Keys)).All(id => id.StartsWith("spacertales-", StringComparison.Ordinal)), "Every id carries the add-on's own prefix");
     }
 }

@@ -34,6 +34,8 @@ internal static class ItemReferenceExport
         packs["PhobosWarDeclared"] = PhobosWarDeclared.Content.Prepare();
         // Phobos Medical (0.1.0): the Halewright Ward-3 bed.
         packs["PhobosMedical"] = PhobosMedical.Content.Prepare();
+        // Phobos Spacer Stories is data only: story files Framework reads, and no definitions of its own.
+        packs["PhobosSpacerStories"] = new NativeDefinitions();
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
         packs["PhobosFramework"] = framework;

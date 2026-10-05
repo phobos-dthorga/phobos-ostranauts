@@ -2806,6 +2806,96 @@
         "Run Framework RoomHeat checks and the native checks.",
         "Update the Machine heat section of docs/player-guide.md, the heat figures in player documents and the setting's translation."
       ]
+    },
+    "SpacerStories.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.0",
+      "description": "PhobosSpacerStories (data-only story add-on) published source/package version.",
+      "targets": [
+        {
+          "path": "mods/PhobosSpacerStories/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosSpacerStories/phobos-addon.json",
+          "pattern": "\"version\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Spacer\\ Stories\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosSpacerStories/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-spacer-stories.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
+      ]
+    },
+    "SpacerStories.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosSpacerStories native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosSpacerStories/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "SpacerStories.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.110.0",
+      "description": "Current Phobos Spacer Stories required Framework version, shared with the add-on manifest and local installer admission.",
+      "targets": [
+        {
+          "path": "mods/PhobosSpacerStories/phobos-addon.json",
+          "pattern": "\"PhobosFramework\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"SpacerStories\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Phobos Spacer Stories requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\| \\*\\*Phobos Spacer Stories\\*\\* \\| [0-9.]+ \\|[^|]*\\| Requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosSpacerStories/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosSpacerStories/mod_info.json",
+          "pattern": "Requires Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
     }
   }
 }

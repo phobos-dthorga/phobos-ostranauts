@@ -4,7 +4,7 @@ Reviewed 27 September 2026 and updated 28 September after implementing the appro
 
 ## Coverage and result
 
-All **447 implemented definitions** across 7 mods: PhobosAgriculture: 98; PhobosAutoNav: 8; PhobosFramework: 33; PhobosManufacturing: 216; PhobosMedical: 8; PhobosShipbreaker: 84; PhobosWarDeclared: 0. PhobosWarDeclared adds no items.
+All **447 implemented definitions** across 8 mods: PhobosAgriculture: 98; PhobosAutoNav: 8; PhobosFramework: 33; PhobosManufacturing: 216; PhobosMedical: 8; PhobosShipbreaker: 84; PhobosSpacerStories: 0; PhobosWarDeclared: 0. PhobosSpacerStories adds no items. PhobosWarDeclared adds no items.
 
 Handling inventory: 157 installed forms, 153 cumbersome loose forms/sections/housings, 124 portable boards/supplies/materials/foods, and 13 internal feed compartments. Intact and damaged forms are counted separately.
 

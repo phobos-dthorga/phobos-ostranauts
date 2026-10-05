@@ -140,12 +140,19 @@ def plan(root, name):
     for relative, data in source.items():
         if native.get(relative) != data:
             raise ValueError(f'Stale package: {name}/{relative}; rebuild first')
-    if not any(p.startswith('data/') for p in native):
+    # A data-only add-on (a story collection) has no plugin source: its manifest and phobos/ files are the mod.
+    data_only = not (root / 'src' / name).is_dir() and 'phobos-addon.json' in source
+    if data_only:
+        if not any(p.startswith('phobos/') for p in native):
+            raise ValueError('Add-on data directory is missing')
+    elif not any(p.startswith('data/') for p in native):
         raise ValueError('Native data directory is missing')
     if any(Path(p).suffix.lower() not in ('.json', '.png', '.md') for p in native):
         raise ValueError('Unexpected native package file')
-    plugins = files(package / 'BepInEx/plugins' / name)
-    allowed_dlls = {f'{name}.dll'} | ({'Phobos.Scope.Recording.dll'} if name == 'PhobosFramework' else set())
+    plugins = files(package / 'BepInEx/plugins' / name) if (package / 'BepInEx/plugins' / name).is_dir() else {}
+    allowed_dlls = set() if data_only else {f'{name}.dll'} | ({'Phobos.Scope.Recording.dll'} if name == 'PhobosFramework' else set())
+    if data_only and plugins:
+        raise ValueError('A data-only add-on carries no plugin payload')
     if not allowed_dlls <= plugins.keys():
         raise ValueError('Required plugin assembly missing')
     for relative in plugins:

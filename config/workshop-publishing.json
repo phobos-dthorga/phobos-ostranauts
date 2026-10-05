@@ -48,6 +48,13 @@
         "PhobosFramework"
       ],
       "hold": "Held draft: first release awaiting owner gameplay checks."
+    },
+    "PhobosSpacerStories": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Held draft: data-only story collection awaiting owner review of its appearance and pacing in the game."
     }
   },
   "externalRequiredItems": [

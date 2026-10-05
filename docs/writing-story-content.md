@@ -18,7 +18,9 @@ Phobos Framework lets anyone add to the world's story with a data file:
 
 You need no programming. One JSON file holds the lot, and the game checks it as it
 loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
-that writes one for you.
+that writes one for you. For a complete collection to learn from, see Phobos Spacer
+Stories in `mods/PhobosSpacerStories`: nine files covering every kind of entry, packaged
+as its own data-only add-on.
 
 **Not available yet:** new kinds of conversation (lines ride on the game's existing
 small talk), characters approaching the player, faction reputation rewards, choices

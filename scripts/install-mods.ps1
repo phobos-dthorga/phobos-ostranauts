@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -162,6 +162,20 @@ if ('Medical' -in $Mods) {
     if ($minimumPhobosFramework -lt [version]'0.82.0') { $minimumPhobosFramework = [version]'0.82.0' }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
+if ('SpacerStories' -in $Mods) {
+    # A data-only story add-on: no plugin of its own; Framework reads its files.
+    $needsPhobosFramework = $true
+    $storyPackage = if ($overrideMod -eq 'SpacerStories') { $PackagePath } else { Join-Path $PackageRoot 'PhobosSpacerStories-P0' }
+    $storyMetadata = Join-Path $storyPackage 'Mods/PhobosSpacerStories/mod_info.json'
+    if (Test-Path -LiteralPath $storyMetadata -PathType Leaf) {
+        $storyInfo = @(Get-Content -LiteralPath $storyMetadata -Raw | ConvertFrom-Json)
+        if ($storyInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosSpacerStories.' }
+        $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'SpacerStories.Framework' ([version]$storyInfo[0].strModVersion) $minimumPhobosFramework
+    }
+    # Story small talk and data-card files first shipped in Framework 0.110.0.
+    if ($minimumPhobosFramework -lt [version]'0.110.0') { $minimumPhobosFramework = [version]'0.110.0' }
+    $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -207,7 +221,9 @@ if ($HoldManufacturing) {
 }
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } 'Medical' { 'Medical' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } 'Medical' { 'Medical' } 'SpacerStories' { 'Spacer Stories' } }
+    # Data-only mods ship a native folder alone: no plugin assembly or translations.
+    $dataOnly = $mod -eq 'SpacerStories'
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
@@ -262,6 +278,12 @@ foreach ($mod in $Mods) {
         throw "Shipbreaker requires Phobos Auto Nav $minimumAutoNav or later."
     }
     $dllSource = Join-Path $pluginSource "$id.dll"
+    if ($dataOnly) {
+        if (Test-Path -LiteralPath $pluginSource) { throw "Unexpected plugin package files for $id; it is data only." }
+        if (Test-Path -LiteralPath $pluginTarget) { throw "Unmanaged plugin folder for data-only $id; inspect before updating: $pluginTarget" }
+        $addon = Get-Content -LiteralPath (Join-Path $nativeSource 'phobos-addon.json') -Raw | ConvertFrom-Json
+        if ([version]$addon.version -ne $version) { throw "Add-on manifest and native package versions differ for $id. Rebuild the package first." }
+    } else {
     $assembly = [System.Reflection.AssemblyName]::GetAssemblyName($dllSource)
     if ($assembly.Name -ne $id -or $assembly.Version.ToString(3) -ne $version.ToString(3)) {
         throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
@@ -278,11 +300,14 @@ foreach ($mod in $Mods) {
     if ($mod -eq 'Framework' -and $needsPhobosFramework -and $version -lt $minimumPhobosFramework) {
         throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later."
     }
+    }
     $needsScope = $mod -eq 'Framework' -and $version -ge [version]'0.15.0'
-    foreach ($pluginFile in Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force) {
-        $relativePluginFile = [IO.Path]::GetRelativePath($pluginSource, $pluginFile.FullName).Replace('\', '/')
-        if ($relativePluginFile -ne "$id.dll" -and -not ($needsScope -and $relativePluginFile -eq 'Phobos.Scope.Recording.dll') -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
-            throw "Unexpected plugin package files for $id."
+    if (-not $dataOnly) {
+        foreach ($pluginFile in Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force) {
+            $relativePluginFile = [IO.Path]::GetRelativePath($pluginSource, $pluginFile.FullName).Replace('\', '/')
+            if ($relativePluginFile -ne "$id.dll" -and -not ($needsScope -and $relativePluginFile -eq 'Phobos.Scope.Recording.dll') -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
+                throw "Unexpected plugin package files for $id."
+            }
         }
     }
     if ($mod -eq 'Framework') {
@@ -376,6 +401,12 @@ foreach ($mod in $Mods) {
             if ($version -ge [version]'0.1.1') { 'images/phobos/medical/PhobosMedicalBed.png'; 'images/phobos/medical/PhobosMedicalBedNormal.png' }
             # 0.3.0 adds the Vigil-2 patient monitor.
             if ($version -ge [version]'0.3.0') { 'images/phobos/medical/PhobosMedicalMonitor.png'; 'images/phobos/medical/PhobosMedicalMonitorNormal.png' }
+        }
+        'SpacerStories' {
+            # The add-on manifest and its story files are the whole mod; Framework reads them as add-on story files.
+            'phobos-addon.json'
+            foreach ($file in @('01-yard-and-lines', '02-flight-and-rebuild', '03-growing-and-galley', '04-process-makers', '05-still-and-remainders',
+                '06-sickbay', '07-letters-and-local-history', '08-goal-chains', '09-data-card-files')) { "phobos/PhobosFramework/story/$file.json" }
         }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
@@ -546,7 +577,7 @@ foreach ($mod in $Mods) {
             throw 'Independent Shipbreaker must retire its old Crafting Framework recipe pack.'
         }
     }
-    $modFiles = @([pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" })
+    $modFiles = @(if (-not $dataOnly) { [pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" } })
     if ($needsScope) {
         $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
     }

@@ -14,7 +14,7 @@ run install-mods.ps1 again. Keep the game closed.
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [Parameter(Mandatory)]
-    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical')]
+    [ValidateSet('Framework', 'AutoNav', 'Shipbreaker', 'Agriculture', 'Manufacturing', 'WarDeclared', 'Medical', 'SpacerStories')]
     [string[]]$Mods,
     [string]$OstranautsPath,
     [string]$LoadOrderPath,

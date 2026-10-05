@@ -7,24 +7,24 @@ vanilla Ostranauts. All new storytelling behaviour is data in the existing schem
 
 ## Read the collection
 
-The source-ready, data-only add-on is
-[Phobos Spacer Stories](../../examples/addons/PhobosSpacerStories). Its
-[manifest](../../examples/addons/PhobosSpacerStories/phobos-addon.json) requires
+The data-only add-on is [Phobos Spacer Stories](../../mods/PhobosSpacerStories), a
+first-party Phobos mod that players subscribe to separately. Its
+[manifest](../../mods/PhobosSpacerStories/phobos-addon.json) requires
 Framework 0.110.0 for native data-card files. It adds no plugin, equipment definition,
-native plot, world location, interaction or schematic. It is an authoring candidate,
-not an installed mod or a published Workshop item.
+native plot, world location, interaction or schematic. It is held from Workshop
+publication until the owner has checked it in the game.
 
 | Source file | Contents |
 | --- | --- |
-| [Yard and lines](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json) | Rivetline and Ablatine; recovery yards, stores, drain cans and mining tools |
-| [Flight and rebuilding](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json) | Asterel, repair records, navigation assistance and the drawings crews keep |
-| [Growing and the galley](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/03-growing-and-galley.json) | Verdemorrow, the first invoice, planting-stock reserves and meals after shift |
-| [Process makers](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/04-process-makers.json) | Fennmark, Tolvane, Lixivar and Oxsmith; different jobs in a mixed plant |
-| [The still and remainders](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/05-still-and-remainders.json) | Alembrine, Slingwright, a borrowed pump, disputed grain and the work of loading |
-| [Sickbay](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/06-sickbay.json) | Halewright, fitting letters, access, observation and people doing care work |
-| [Letters and local history](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/07-letters-and-local-history.json) | The second-shift ledger, Sable Margin and Short Return accounts, and outcome news |
-| [Goal chains](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/08-goal-chains.json) | Nine correspondence chains, 22 steps, through existing checked story actions |
-| [Data-card files](../../examples/addons/PhobosSpacerStories/phobos/PhobosFramework/story/09-data-card-files.json) | Nine fuller archive documents, given on native data cards at chain completion |
+| [Yard and lines](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json) | Rivetline and Ablatine; recovery yards, stores, drain cans and mining tools |
+| [Flight and rebuilding](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/02-flight-and-rebuild.json) | Asterel, repair records, navigation assistance and the drawings crews keep |
+| [Growing and the galley](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/03-growing-and-galley.json) | Verdemorrow, the first invoice, planting-stock reserves and meals after shift |
+| [Process makers](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/04-process-makers.json) | Fennmark, Tolvane, Lixivar and Oxsmith; different jobs in a mixed plant |
+| [The still and remainders](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/05-still-and-remainders.json) | Alembrine, Slingwright, a borrowed pump, disputed grain and the work of loading |
+| [Sickbay](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/06-sickbay.json) | Halewright, fitting letters, access, observation and people doing care work |
+| [Letters and local history](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/07-letters-and-local-history.json) | The second-shift ledger, Sable Margin and Short Return accounts, and outcome news |
+| [Goal chains](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/08-goal-chains.json) | Nine correspondence chains, 22 steps, through existing checked story actions |
+| [Data-card files](../../mods/PhobosSpacerStories/phobos/PhobosFramework/story/09-data-card-files.json) | Nine fuller archive documents, given on native data cards at chain completion |
 
 | Channel | Entries |
 | --- | ---: |
@@ -74,14 +74,14 @@ quest location promised. No company receives control over a vanilla faction,
 station, historical catastrophe or major timeline event. Founding stories often
 remain contested crew accounts rather than an omniscient explanation.
 
-**Agent delivery choice.** The collection uses the already supported data-only
-add-on route under `examples/addons/`, so every maker can be covered without adding
-story registrations to content-mod code. Framework reads the nine files as its
-story overlays. Existing shipped seeds remain intact. This is a complete creative
-collection in the examples tree, not nine tiny demonstration packs. Integrating it
-into a future first-party distribution is a separate packaging decision for the
-owner. It has its own draft changelog; existing mods and their Workshop releases
-are not changed by this authoring round.
+**Delivery.** The collection uses the data-only add-on route, so every maker can be
+covered without adding story registrations to content-mod code. Framework reads the
+nine files as its story overlays. Existing shipped seeds remain intact. It was
+written under `examples/addons/` and moved to `mods/PhobosSpacerStories` on
+6 October 2026 (owner choice: its own add-on mod, rather than splitting it into each
+content mod's pack, which keeps the cross-file chains together and lets players opt
+in). It has its own changelog and Workshop page draft; existing mods and their
+Workshop releases are not changed by it.
 
 ## The linked stories
 
@@ -180,8 +180,9 @@ review commands from the [story guide](../writing-story-content.md) are:
    a Medical or Manufacturing letter chain with its matching equipment present.
 
 Use a test session: starting an arc writes progress and completing it gives a card.
-The commands do not install the collection. The scripts that install first-party
-binary mods do not yet provide a target for this examples-tree story add-on.
+Build the package with `scripts/build-spacer-stories.ps1` and install it with the game
+closed through `scripts/install-mods.ps1 -Mods SpacerStories`, which also installs or
+checks Framework.
 
 Publication and distribution remain owner decisions. The fictional names, drafts,
 data files and source package do not establish a Workshop listing. Original Phobos
