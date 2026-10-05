@@ -48,9 +48,7 @@ internal static class CropPackChecks
         // Feeds: the saved names and conduit names, and each feed as its crop's own water and nutrient.
         check(Crops.All.Take(3).Select(c => c.Feed).SequenceEqual(new[] { "potato-v1", "lettuce-v1", "lettuce-seed-v1" }) &&
               Crops.All.Take(3).Select(c => c.FeedCommodity).SequenceEqual(new[] { "potato feed", "lettuce feed", "lettuce seed feed" }), "Feed and conduit names are the saved ones");
-        check(NutrientSolution.CropId("water") == "" && NutrientSolution.CropId("potato-v1") == "potato" && NutrientSolution.Ratio("potato-v1").CarrierKg == 4.624 && NutrientSolution.Ratio("potato-v1").SoluteKg == .04 &&
-              NutrientSolution.Ratio("lettuce-v1").CarrierKg == 1.2658 && NutrientSolution.Ratio("lettuce-v1").SoluteKg == .005, "A feed is its crop's water and nutrient budget");
-        Reject(() => NutrientSolution.CropId("rye-v1"), "An unknown feed is refused, as before");
+        check(Crops.ByFeed("potato-v1")?.Id == "potato" && Crops.ByFeedCommodity("lettuce feed")?.Id == "lettuce" && Crops.ByFeed("rye-v1") == null && Crops.ByFeed("") == null, "Old feed names still find their crop; an unknown or blank one finds none");
         check(CropAppearance.PlantKey(new CropState { CropId = "lettuce-seed", Cohort = new string('a', 32), Biomass = .005, Carbon = .0045 }) == "LettuceSeed-sprout", "Artwork keys come from the pack");
 
         // Records saved before 0.40.0 load unchanged: the three cohorts, and a potato half cooked.
@@ -148,7 +146,7 @@ internal static class CropPackChecks
         (double Hours, double KWh, CropState State) GrowAt(string id, double factor)
         {
             var c = Crop.Get(id); var st = new CropState { Water = 20, Nutrients = .5 }; st.Plant(c, 1); double hours = 0, kwh = 0;
-            for (int i = 0; i < 400 && !st.Ready; i++) { double h = Math.Min(1, (1 - st.Progress) * c.Hours / factor); st.Step(h, h * c.KW, 10, 10, true, null, factor); hours += h; kwh += h * c.KW; }
+            for (int i = 0; i < 400 && !st.Ready; i++) { double h = Math.Min(1, (1 - st.Progress) * c.Hours / factor); st.Step(h, h * c.KW, 10, 10, true, factor); hours += h; kwh += h * c.KW; }
             return (hours, kwh, st);
         }
         var plain = GrowAt("wheat", 1); var rich = GrowAt("wheat", 1.25);
@@ -156,7 +154,7 @@ internal static class CropPackChecks
             "At 0.15 kPa wheat ripens in 1/1.25 of the time on 1/1.25 of the energy");
         check(Math.Abs(rich.State.Biomass - plain.State.Biomass) < 1e-9 && Math.Abs(rich.State.Carbon - plain.State.Carbon) < 1e-9 && Math.Abs(rich.State.Water - plain.State.Water) < 1e-9 &&
               Math.Abs(rich.State.Nutrients - plain.State.Nutrients) < 1e-9, "Enrichment changes the time, not what the crop takes or gives");
-        Reject(() => new CropState().Step(1, 1, 1, 1, true, null, 3), "A growth factor outside 0.5 to 2 is refused");
+        Reject(() => new CropState().Step(1, 1, 1, 1, true, 3), "A growth factor outside 0.5 to 2 is refused");
 
         // The rules every crops file is held to.
         string shipped = DataPacks.ShippedText(Crops.Source);
@@ -180,6 +178,14 @@ internal static class CropPackChecks
         check(added.Name == "Quick lettuce" && Crop.Get("potato").Name == "Potatoes", "An added crop reads by its plain name; a shipped crop by the catalogue");
         Reject(() => Try(r => { var c = Fast(); c["waterKg"] = 2; r["crops"]!["fast-lettuce"] = c; }), "A crop that does not conserve mass is refused");
         Reject(() => Try(r => { var c = Fast(); c["feed"] = "lettuce-v1"; r["crops"]!["fast-lettuce"] = c; }), "Two crops cannot share a feed name");
+        // Since 0.55.0 a new crop needs no feed names, and the growth section may give it its own room.
+        check(Try(r => { var c = Fast(); c.Remove("feed"); c.Remove("feedCommodity"); r["crops"]!["fast-lettuce"] = c; }).crops["fast-lettuce"].feed == "", "A new crop can leave the old feed names out");
+        check(Growth.Room(Try(r => { r["crops"]!["fast-lettuce"] = Fast(); r["growth"]!["crops"]!["fast-lettuce"] = new JObject { ["room"] = new JObject { ["maxC"] = 35 } }; }).growth, "fast-lettuce").MaxC == 35, "An added crop can have its own room");
+        check(Growth.Room(Try(r => r["growth"]!["room"]!["maxC"] = 33).growth, "potato").MaxC == 33, "A file can move the shared room");
+        check(Growth.Room(Try(r => ((JObject)r).Remove("growth")).growth, "potato").MaxC == 31, "A file with no growth section takes the defaults");
+        Reject(() => Try(r => r["growth"]!["room"]!["maxC"] = 10), "A growing room without a range is refused");
+        Reject(() => Try(r => r["growth"]!["crops"]!["rye"] = new JObject()), "A room for a crop that is not in the file is refused");
+        Reject(() => Try(r => r["growth"]!["speed"] = 2), "An unknown growth field is refused");
         Reject(() => Try(r => { var c = Fast(); c["produce"] = "ItmScrapSteel"; r["crops"]!["fast-lettuce"] = c; }), "A crop cannot name an item the mod does not have");
         Reject(() => Try(r => { var c = Fast(); c["portionKg"] = .3; r["crops"]!["fast-lettuce"] = c; }), "A portion must weigh what its item weighs");
         Reject(() => Try(r => { var c = Fast(); c["edibleKg"] = 2; r["crops"]!["fast-lettuce"] = c; }), "A harvest cannot give more than it grows");

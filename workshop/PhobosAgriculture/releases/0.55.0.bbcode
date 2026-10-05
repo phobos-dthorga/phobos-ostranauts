@@ -1,0 +1,34 @@
+[h1]Phobos Agriculture 0.55.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]One nutrient now suits every crop. The 40 g packet, the 500 g bulk charge and bulk in a hopper are the same nutrient in three sizes. The separate feed a W2 mixed for each crop is gone, with its Select feed buttons and its charge picker.
+[*]A W2 takes nutrients by itself from any Groundwork nutrients in its Inventory, or from a nutrient hopper within one tile, while it runs and with its racks linked. Nothing has to be paused, unlinked or drained to add or change nutrients.
+[*]A W2 feeds nutrients with the water: up to 10 g with every kilogram the pump moves, until each linked rack holds 0.1 kg. A W2 with no nutrients sends plain water, and the rack's Next line asks for them.
+[*]When a rack is already full of water but short of nutrients, the W2 recirculates that rack's water to carry them in. The rack's water stays the same, the pump uses its ordinary power, and the W2's panel says which rack it is feeding. A fed rack is not recirculated.
+[*]Crops now grow in rooms up to 31 C (30 C before), on the view that crops of the game's day are engineered ones and a ship's rooms sit at about 25 C or a little above.
+[*]The growing room, the stress rules and the W2's feeding figures are now in the crops data file, in a new growth section. Player files and Workshop add-ons can change them or give any crop, their own included, its own room. See Growing room and stress in the data files guide.
+[*]Several W2s may share one irrigation pipe without matching anything, because the pipe holds only water.
+[*]A new crop in a player file or add-on no longer needs feed names. The W2's Supplies page shows its nutrients and where they come from.
+[*]Crew orders leave a pipe-fed rack's nutrients to its W2 when that W2 has nutrients or a source for them. The W2's supply order keeps it stocked.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic, with no mass changed. Feed held in a rack or W2 becomes water and nutrients when the save loads.
+[*]Feed left in irrigation pipe is flushed out by its W2 the next time it runs a rack: into the W2's water and nutrient stores while there is room, the rest as Recorded Process Solution in its Inventory. It can also be drained into a canister as before.
+[*]A drain canister of old feed put in a W2 pours in as water and nutrients.
+[*]Links, crops, charges, hoppers, crew orders and settings are kept. A saved choice of nutrient charge is still used while that charge lasts.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Nutrients travel with the water; the small amount that would sit in the pipe is left out of the model.
+[*]A W2 tops every linked rack up to the same 0.1 kg, whatever it grows. Nothing is lost, and the figure is in the data file.
+[*]The room limits and stress rates are authored for play, not measured plant tolerances.
+[*]Checked offline; not yet seen in the game.
+[/list]

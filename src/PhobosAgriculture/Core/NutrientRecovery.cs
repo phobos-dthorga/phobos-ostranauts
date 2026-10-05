@@ -51,14 +51,6 @@ public static class NutrientRecovery
 
 public sealed class NutrientCharge
 {
-    public static double DoseAllowance(CropState state,NutrientSolution solution,double poweredBlendBudget)
-    {
-        if(!state.Running || !solution.Enabled || !CropState.Finite(poweredBlendBudget) || poweredBlendBudget<=0)return 0;
-        var supplied=state.Copy();supplied.Nutrients=solution.DryCapacity;
-        double blend=solution.BlendAllowance(supplied,poweredBlendBudget);
-        var ratio=NutrientSolution.Ratio(solution.Profile);
-        return Math.Max(0,blend*ratio.SoluteKg/ratio.TotalKg-state.Nutrients);
-    }
     public readonly double Initial, Remaining;
     public NutrientCharge(double initial, double remaining)
     {

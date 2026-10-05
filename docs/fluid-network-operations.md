@@ -10,6 +10,33 @@ prepared/delivered; no new Steam publication is implied.
 Water and nutrients reach the racks through one W2. Drained solution can come
 back to the W2 for treatment; nothing returns as drinking water.
 
+### One nutrient, fed with the water
+
+Since Agriculture 0.55.0 there is **one nutrient for every crop** and nothing to
+choose. A W2 holds 20 kg of water and 0.5 kg of nutrients.
+
+1. Put any Groundwork nutrients in the W2's Inventory (a 40 g packet or a 500 g bulk
+   charge), or set a nutrient hopper within one tile of it.
+2. Start the W2. It takes the nutrients aboard by itself, with the racks linked and
+   the pump running. Nothing is paused, unlinked or drained.
+3. Each kilogram of water the pump moves carries up to 10 g of nutrients to the rack,
+   until the rack holds 0.1 kg. A W2 with no nutrients sends plain water, and the
+   rack's **Next:** line asks for them.
+
+**Recirculation.** Plain water alone grows nothing. When a rack is already full of
+water but short of nutrients, the pump draws the rack's water round the loop and
+returns it dosed. The rack's water stays the same; only nutrients move, and the pump
+uses its ordinary power for the water it turns over. Topping one rack up from empty
+turns over about 10 kg, about three minutes of pumping. The W2's panel reads
+*Recirculating to feed* and names the rack. A fed rack is not recirculated.
+
+The pipes hold water only. Nutrients travel with the stream and the small amount
+that would sit in the pipe is left out of the model. The 0.1 kg target and the 10 g
+per kilogram are in the crops data file, where
+[players and add-ons can change them](editing-data-files.md#growing-room-and-stress).
+The earlier per-crop feeds (Agriculture 0.5.0 to 0.54.0) are
+[converted automatically](#feeds-from-earlier-versions).
+
 ```mermaid
 flowchart LR
     Hand["Charges, rations and nutrient packets, by hand"] --> W2["W2 supply unit"]
@@ -24,13 +51,13 @@ flowchart LR
 
 **Two different pipes.** Water comes *into* a W2 from a water silo or a Ship's Water
 tank through **Process Water Line** (INSTALL), or by the tank touching the W2. Water
-and feed go *out* of the W2 to the racks through **Irrigation Conduit**. The two
+and nutrients go *out* of the W2 to the racks through **Irrigation Conduit**. The two
 never join each other: a conduit run from a silo to a W2 does nothing, and the W2's
 **Water silo connection** names any conduit lying where the line is needed.
 
 One W2 can explicitly pair with **eight racks** using the existing Pair controls.
 An existing saved pair occupies slot zero unchanged. Each rack still accepts one
-supplier, chooses its own receiving permission and must match the W2 formulation.
+supplier and chooses its own receiving permission.
 At a rack, Unpair removes that rack's link; at the W2 it removes all links after
 the receiving lines are drained and all endpoints are paused. Invalid/future
 port records occupy their slots instead of being silently overwritten.
@@ -43,12 +70,10 @@ separate pipe runs together.
 
 Each connected, receiving branch gets an equal share of the one measured pump
 budget. A full/blocked branch cannot consume or delete another branch's cargo;
-unused budget remains available for W2 mixing/provider intake. Several W2s may
-share one pipe while they mix the same feed (before 0.53.0 only one W2 could use a
-connected pipe). A W2 that would pump a different feed into a pipe another running
-W2 also pumps into waits, and its panel says why: two feeds in one pipe would only
-flush each other back. A W2 within one tile of its rack feeds it directly and uses
-no pipe, so it never conflicts.
+unused budget remains available for recirculation and provider intake. Several W2s
+may share one pipe: there is only water in it (before 0.53.0 only one W2 could use a
+connected pipe, and until 0.55.0 they had to mix the same feed). A W2 within one tile
+of its rack feeds it directly and uses no pipe.
 
 Routes have a 64-tile limit, counted along the pipe. The authored model uses a 100 kPa rated head and
 quadratic resistance: relative flow is `1 / sqrt(1 + tiles / 16)`; modeled
@@ -57,12 +82,11 @@ not measured sensor readings or real pump specifications. Received electricity
 and the shared branch budget additionally limit actual work.
 
 Since Agriculture 0.33.0 the conduit **holds what it carries**, about **0.2 kg a
-tile** (an authored 16 mm bore of dilute feed at water's density), in each tile's own
-record and mass. The W2's pump first fills the pipes of each receiving branch from
-its own reservoir, taking water or feed in its own proportions; once the connected
-run is full, what the pump pushes in reaches the rack straight away. Filling and
-delivery share the same work budget, so filling cannot also fund W2 blending or
-refill. A 64-tile run holds about 12.8 kg and takes a few minutes to fill the first
+tile** (an authored 16 mm bore at water's density), in each tile's own
+record and mass. The W2's pump first fills the pipes of each receiving branch with
+water from its own reservoir; once the connected
+run is full, what the pump pushes in reaches the rack straight away. Filling,
+delivery and recirculation share the same work budget. A 64-tile run holds about 12.8 kg and takes a few minutes to fill the first
 time. Branches that share a trunk share its contents; the trunk fills once.
 
 The pipes keep their contents through damage, route changes and reload; pumping and
@@ -70,20 +94,25 @@ receiving that were running when you saved carry on after a reload (paused ends 
 paused), and unloaded time grants no movement. To take
 pipe up, right-click it and choose **Drain line into canister** with a Framework drain
 canister carried or within two tiles; the run stays closed until **Return line to
-service**. A canister of water, or of the W2's own feed, put in the W2's inventory
-pours into its reservoir; a canister of any other feed becomes Recorded Process
-Solution in the W2's inventory for drainage treatment (Agriculture 0.34.0). After you
-change the W2's formulation, the pump flushes the old contents out first when it next
-runs a rack: old water back into the W2's reservoir while there is room, old feed (and
-water that does not fit) as Recorded Process Solution in its inventory, up to 20 kg an
-item; the flush waits if the inventory is full. See
-[draining and venting](lines-and-draining.md).
+service**. A canister of water put in the W2's inventory pours into its reservoir.
+See [draining and venting](lines-and-draining.md).
+
+### Feeds from earlier versions
+
+Until Agriculture 0.54.0 a W2 mixed a separate feed for each crop. Saves that hold
+one are converted by themselves, with no mass changed and nothing for you to do:
+
+| Where the old feed is | What happens |
+| --- | --- |
+| In a rack or a W2 | On loading, its water joins the water store and its nutrients the nutrient store. |
+| In the pipes | A running W2 flushes it out first when it next runs a rack: into its own water and nutrient stores while there is room, the rest as Recorded Process Solution in its inventory, up to 20 kg an item. The flush waits if the inventory is full. Old feed can also be drained into a canister, as before. |
+| In a drain canister | Put the canister in a W2's inventory. It pours in as water and nutrients; what does not fit becomes Recorded Process Solution for drainage treatment. |
 
 Racks saved by earlier versions may still hold a line parcel from the old model
 (0.01 kg a tile, at the rack's service cassette). The W2 delivers it into its rack on
 the next powered run, whatever the route now is; until then it counts in the rack's
 mass and blocks relinking, as before. Drain at a rack still includes any such
-parcel, plus plain water, dry nutrient stock and mixed feed. Clear a living crop
+parcel, plus water and nutrients. Clear a living crop
 separately when changing crop types. Longer old routes need shortening to the
 64-tile limit.
 

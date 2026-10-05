@@ -37,7 +37,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         CrewWorkOffer? Supply(string id,int retain=0)=>CrewLogistics.Supply(co,order,co,c=>c.strCODef==id,role,retain);
         var output=CrewLogistics.Output(co,order,co,c=>IsOutput(co,c,order),role);
         if(output!=null)return output;
-        if(order.Drain && b.CropId.Length==0 && !b.Running && b.Water+b.Nutrients+s.Solution.TotalKg>0)return Act("drain",900);
+        if(order.Drain && b.CropId.Length==0 && !b.Running && b.Water+b.Nutrients>0)return Act("drain",900);
         if(Definitions.IsCooker(co))
         {
             if(b.Running)return null;
@@ -69,7 +69,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             if(!CrewLogistics.Contents(co).Any(c=>c.strCODef==Service.RecoveryCartridge))return Supply(Service.RecoveryCartridge)??Blocked(out reason);
             return Act("recover-solution",900);
         }
-        if(IrrigationDefinitions.IsSupply(co)&&order.Recipe=="supply-charges"&&s.Solution.Enabled&&!Service.DoseReady(s))
+        if(IrrigationDefinitions.IsSupply(co)&&order.Recipe=="supply-charges"&&b.Nutrients<CropState.NutrientCapacityKg/2&&!Service.DoseReady(s))
         {
             if(Service.DoseCandidates(s).Any())return Act("bulk-dose");
             return Supply(BulkDefinitions.Nutrients)??Supply(Definitions.Nutrient)??Supply(WorkupDefinitions.Mixture)??Blocked(out reason);
@@ -82,16 +82,17 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         // charges to it. Until then they hauled water by hand to a rack that had a pipe.
         bool piped=!IrrigationDefinitions.IsSupply(co)&&s.Routed&&PanelConfiguration.WaterPeers(co).Length>0;
         if(piped&&!b.Receiving)return Act("receive");
-        if(!piped&&b.Water<Math.Min(4.7,s.Solution.PlainWaterCapacity)&&!(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co)))
+        if(!piped&&b.Water<Math.Min(4.7,CropState.ReservoirKg)&&!(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co)))
         {
-            if(Service.Input(co,Definitions.Irrigation,Definitions.IrrigationKg)!=null && b.Water<=s.Solution.PlainWaterCapacity-Definitions.IrrigationKg)return Act("load-irrigation");
+            if(Service.Input(co,Definitions.Irrigation,Definitions.IrrigationKg)!=null && b.Water<=CropState.ReservoirKg-Definitions.IrrigationKg)return Act("load-irrigation");
             if(Service.Input(co,"LiquidWater",.25)!=null)return Act("load-water");
-            var refill=b.Water<=s.Solution.PlainWaterCapacity-Definitions.IrrigationKg?Supply(Definitions.Irrigation):null;if(refill!=null)return refill;
+            var refill=b.Water<=CropState.ReservoirKg-Definitions.IrrigationKg?Supply(Definitions.Irrigation):null;if(refill!=null)return refill;
             // Only explicitly designated stores are eligible; retain the same crew-water reserve as the provider adapter.
             int reserve=(int)Math.Ceiling(Plugin.ReserveLitres.Value/.25);
             refill=Supply("LiquidWater",reserve); if(refill!=null)return refill;
         }
-        if(b.Nutrients<.04 && !s.Solution.Enabled)
+        // A pipe-fed rack whose W2 holds nutrients, or has a source for them, is fed by the W2 (0.55.0).
+        if(b.Nutrients<.04 && !(piped&&Service.SupplierFeeds(co)))
         {
             if(Service.Input(co,Definitions.Nutrient,.04)!=null)return Act("load-nutrients");
             var nutrients=Supply(Definitions.Nutrient);if(nutrients!=null)return nutrients;
@@ -105,8 +106,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
             if(Stock(co,order,product)>=order.Stock){reason=Text.Get("crew_stock_met");return null;}
             // Nothing is planted into a rack that cannot water or feed it (0.54.0): the order waits and says what for,
             // where it used to plant a crop that then starved.
-            if(!s.Solution.CanPlant(crop.Id)){reason=Text.Get("solution_incompatible");return null;}
-            if(Service.PlantBlock(s) is string need){reason=need;return null;}
+            if(Service.PlantBlock(s,crop.Id) is string need){reason=need;return null;}
             string seed=crop.Stock;
             double kg=crop.Seed;
             // The last unit aboard may be planted too; the retained unit only ever applied to a crop that returns seed.

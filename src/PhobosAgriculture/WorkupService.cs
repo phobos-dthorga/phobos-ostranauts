@@ -12,7 +12,7 @@ internal static partial class Service
     internal static bool CrewReplaceDose(CondOwner co,CondOwner actor)
     {
         if(Access(co,null,actor)!=null||!IrrigationDefinitions.IsSupply(co))return false;
-        var s=Get(co);if(s.Protected||!s.Solution.Enabled||DoseReady(s))return false;
+        var s=Get(co);if(s.Protected||DoseReady(s))return false;
         var selected=DoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault();if(selected==null)return false;
         // Explicit standing-order permission authorizes this replacement only.
         s.State.Running=s.State.Receiving=false;s.DoseId=selected.strID;Save(s);return true;
@@ -223,11 +223,24 @@ internal static partial class Service
         Text.Get(s.State.Running?"running":"paused"),s.Protected?Text.Get("protected"):s.Notice);
     /// <summary>The selected dose source, if it can dose now. A selected hopper is resolved directly (one lookup, no
     /// ship scan), because the W2 asks for its source on every power step.</summary>
+    /// <para>Since 0.55.0 the source is automatic: a saved choice is still used while it can dose, then the first
+    /// charge in the W2's Inventory, then a hopper within one tile. The hopper search walks the ship, so its answer is
+    /// kept for two real seconds.</para>
     private static CondOwner? DosingCharge(Session s)
     {
-        if(Resolve(s.DoseId) is CondOwner hopper&&HopperDefinitions.IsHopper(hopper))return HopperService.CanDose(hopper,s.Object)?hopper:null;
-        return ItemDoseCandidates(s).FirstOrDefault(c=>c.strID==s.DoseId);
+        if(Resolve(s.DoseId) is CondOwner chosen)
+        {
+            if(HopperDefinitions.IsHopper(chosen)){ if(HopperService.CanDose(chosen,s.Object))return chosen; }
+            else if(ItemDoseCandidates(s).Any(c=>c==chosen))return chosen;
+        }
+        var item=ItemDoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault();
+        if(item!=null)return item;
+        double now=Phobos.Ostranauts.Framework.Cadence.RealTime;
+        if(now>=s.HopperCheck){s.HopperCheck=now+2;s.AutoHopper=HopperService.Near(s.Object).Where(h=>HopperService.Available(h)>1e-10).OrderBy(h=>h.strID,StringComparer.Ordinal).FirstOrDefault()?.strID??"";}
+        return Resolve(s.AutoHopper) is CondOwner near&&HopperDefinitions.IsHopper(near)&&HopperService.CanDose(near,s.Object)?near:null;
     }
+    /// <summary>Whether the W2's own nutrient store has room worth stocking.</summary>
+    private static bool WantsDose(Session s)=>s.State.Nutrients<CropState.NutrientCapacityKg-1e-6;
     internal static bool DoseReady(Session s)=>DosingCharge(s)!=null;
     /// <summary>Every dose source a crew member or the panel may choose: charges in the W2's inventory, then hoppers
     /// within one tile. The hopper part scans the ship; it runs at choice time, never per power step.</summary>
@@ -250,11 +263,12 @@ internal static partial class Service
             if(valid)yield return co;
         }
     }
-    // Deplete only what this powered blend will use. No offline timer and no repairable durability.
+    // The running W2 stocks its own nutrient store from its source, as fast as the pump's step allows. No offline
+    // timer and no repairable durability.
     private static void Dose(Session s,double budget)
     {
-        if(!s.State.Running || !s.Solution.Enabled || budget<=0)return;
-        double amount=NutrientCharge.DoseAllowance(s.State,s.Solution,budget);
+        if(!s.State.Running || budget<=0 || !WantsDose(s))return;
+        double amount=NutrientFeed.Dose(s.State.Nutrients,double.MaxValue,budget);
         var co=amount>1e-10?DosingCharge(s):null;if(co==null)return;
         if(HopperDefinitions.IsHopper(co)){HopperService.Dose(co,s.Object,new DryNutrients(s),amount,WaterGuard(s.Object));return;}
         var charge=ReadCharge(co);amount=Math.Min(amount,charge.Remaining);

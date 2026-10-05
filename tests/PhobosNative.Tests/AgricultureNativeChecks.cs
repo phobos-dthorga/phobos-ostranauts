@@ -117,14 +117,15 @@ internal static class AgricultureNativeChecks
         }
         check(pipe.aSocketReqs[4] == "TILFloor" && pipe.aSocketForbids[4] == PhobosAgriculture.IrrigationDefinitions.Pipe + "Off", "Pipe requires floor and rejects duplicate pipe, independent of power sockets");
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"].jsonPI == null, "A pipe cannot draw or distribute electricity");
-        // Agriculture 0.33.0: the conduit holds its water or feed, filled by the W2's pump, drained into a canister.
+        // Agriculture 0.33.0: the conduit holds what it carries, filled by the W2's pump, drained into a canister.
+        // Since 0.55.0 it is filled with water only; the old per-crop feed names stay declared so old pipes drain and flush.
         var irrigationHolding = Phobos.Ostranauts.Framework.Liquids.LineContents.Families.FirstOrDefault(f => f.Prefix == PhobosAgriculture.IrrigationDefinitions.Pipe);
         check(irrigationHolding != null && !irrigationHolding.StoreFilled && !irrigationHolding.Gas && irrigationHolding.Commodities.Count == 1 + PhobosAgriculture.Core.Crops.All.Count && irrigationHolding.Of("wheat feed") != null &&
             irrigationHolding.Commodities.All(c => Math.Abs(c.KgPerTile - .2007) < .001) && irrigationHolding.Of("potato feed") != null && irrigationHolding.Of("water") != null,
-            "The irrigation conduit holds water or any crop's feed, about 0.2 kg a tile, filled by the W2's pump");
+            "The irrigation conduit holds water, and still knows each old feed name, about 0.2 kg a tile, filled by the W2's pump");
         // Agriculture 0.53.0 (owner request, 5 October 2026): the irrigation pipe joins a W2 or rack it runs under or beside,
         // as the water line does; a W2 and rack within one tile join directly, but touching machines never chain two runs
-        // (two W2s side by side keep their own runs and feeds); it stays pumped by the W2 alone.
+        // (two W2s side by side keep their own runs); it stays pumped by the W2 alone.
         var irrigationPipes = PhobosAgriculture.Service.WaterPipes;
         check(irrigationPipes.IsNetwork && !irrigationPipes.AdjacencyJoins && irrigationHolding!.Pumped && irrigationPipes.Label?.Invoke() is { Length: > 0 },
             "The irrigation pipe is a network a W2 or rack joins from under or beside, never chained by touching, filled only by the W2's pump");
@@ -132,7 +133,8 @@ internal static class AgricultureNativeChecks
             check(Phobos.Ostranauts.Framework.Liquids.LinePorts.Points(PhobosAgriculture.Service.WaterPipesId, PhobosAgriculture.IrrigationDefinitions.Supply + form).SequenceEqual(new[] { PhobosAgriculture.IrrigationDefinitions.Outlet }) &&
                   Phobos.Ostranauts.Framework.Liquids.LinePorts.Points(PhobosAgriculture.Service.WaterPipesId, PhobosAgriculture.Definitions.Rack + form).SequenceEqual(new[] { PhobosAgriculture.IrrigationDefinitions.Inlet }),
                 "Every W2 and rack form takes part in the irrigation network: " + form);
-        check(PhobosAgriculture.Service.FeedProfiles.Select(PhobosAgriculture.Service.FeedCommodity).Distinct().Count() == 1 + PhobosAgriculture.Core.Crops.All.Count, "Every feed profile has its own stable conduit commodity");
+        check(PhobosAgriculture.Service.ConduitCommodities().Select(c => c.Name).Distinct().Count() == 1 + PhobosAgriculture.Core.Crops.All.Count && PhobosAgriculture.Service.ConduitCommodities().First().Name == PhobosAgriculture.Service.WaterCommodity,
+            "The conduit's names are water first, then each old feed name once");
         foreach (string form in new[] { "Installed", "InstalledDmg" })
             check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + form].aInteractions.Contains(Phobos.Ostranauts.Framework.Liquids.LineContents.DrainAction), "An installed conduit offers Drain line into canister: " + form);
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Outlet + ",24,8"), "Supply outlet has a rotating native named point");

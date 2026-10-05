@@ -11,7 +11,7 @@ namespace PhobosAgriculture;
 internal static partial class Service
 {
     /// <summary>The least water a rack needs before a crew order plants in it: one ration's worth.</summary>
-    internal const double PlantWaterKg = .25;
+    internal static double PlantWaterKg => Growth.Stress.PlantWaterKg;
     /// <summary>"Next: ..." for a rack or W2, or empty when it has what it needs (or is another kind of machine).</summary>
     internal static string Advice(CondOwner co)
     {
@@ -26,22 +26,38 @@ internal static partial class Service
     internal static string? RackNeed(Session s)
     {
         var b = s.State;
-        return RoomNeed(s) ?? (b.Ready ? Text.Get("advice_harvest") : b.CropId.Length > 0 && b.Health <= 0 ? Text.Get("advice_dead") :
+        return RoomNeed(s, b.CropId) ?? (b.Ready ? Text.Get("advice_harvest") : b.CropId.Length > 0 && b.Health <= 0 ? Text.Get("advice_dead") :
             SuppliesNeed(s) ?? (b.CropId.Length == 0 ? Text.Get("advice_plant") : b.Running ? null : Text.Get("advice_start")));
     }
     /// <summary>Why nothing should be planted in a rack yet, or null: its room, its power, its water, its nutrients.</summary>
-    internal static string? PlantBlock(Session s) => RoomNeed(s) ?? SuppliesNeed(s);
-    private static string? RoomNeed(Session s)
+    /// <paramref name="cropId"/> is the crop about to be planted, whose own room limits apply.</summary>
+    internal static string? PlantBlock(Session s, string? cropId = null) => RoomNeed(s, cropId) ?? SuppliesNeed(s);
+    private static string? RoomNeed(Session s, string? cropId)
     {
         var co = s.Object; var room = Room(co); var gas = room?.GasContainer;
         if (gas == null || Moles(gas, "StatGasMolTotal") < 1) return Text.Get("advice_no_air");
         double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, kPa = room.GetCondAmount("StatGasPressure");
-        if (!GrowthRoom.Suits(temp, kPa))
-            return Text.Get("advice_room", temp - 273.15, kPa, GrowthRoom.MinK - 273.15, GrowthRoom.MaxK - 273.15, GrowthRoom.MinKPa, GrowthRoom.MaxKPa);
+        var limits = GrowthRoom.For(string.IsNullOrEmpty(cropId) ? null : cropId);
+        if (!limits.Suits(temp, kPa))
+            return Text.Get("advice_room", temp - Growth.ZeroC, kPa, limits.MinC, limits.MaxC, limits.MinKPa, limits.MaxKPa);
         return co.HasCond("IsPowered") ? null : Text.Get("advice_power");
     }
-    private static string? SuppliesNeed(Session s) => s.State.Water + s.Solution.Quantity.CarrierKg < PlantWaterKg ? WaterNeed(s) :
-        !s.Solution.Enabled && s.State.Nutrients < .001 ? Text.Get("advice_nutrients") : null;
+    private static string? SuppliesNeed(Session s) => s.State.Water < PlantWaterKg ? WaterNeed(s) :
+        s.State.Nutrients < .001 ? Text.Get(s.Routed && WaterPeer(s.Object) != null ? "advice_nutrients_piped" : "advice_nutrients") : null;
+    /// <summary>Whether a pipe-fed rack's W2 holds nutrients or has a source for them, so the rack need not be fed by hand.</summary>
+    internal static bool SupplierFeeds(CondOwner rack)
+    {
+        var peer = WaterPeer(rack);
+        if (peer == null || !Definitions.Machine(peer) || !IrrigationDefinitions.IsSupply(peer)) return false;
+        var w2 = Get(peer);
+        return !w2.Protected && (w2.State.Nutrients > LegacyFeed.Tolerance || DoseReady(w2));
+    }
+    /// <summary>The W2's nutrients and where they come from, for its Supplies page.</summary>
+    internal static string NutrientSourceLine(CondOwner co)
+    {
+        var s = Get(co); var source = s.Protected ? null : DosingCharge(s);
+        return Text.Get("nutrient_source", s.State.Nutrients, CropState.NutrientCapacityKg, source == null ? Text.Get("nutrient_source_none") : ObjectPresentation.Name(source));
+    }
     /// <summary>Why a rack has no water yet: its own switch first, then each thing its W2 needs.</summary>
     private static string WaterNeed(Session s)
     {
@@ -52,11 +68,10 @@ internal static partial class Service
         string name = ObjectPresentation.Name(peer); var w2 = Get(peer);
         if (w2.Protected || !NativeFluidRoute.EndpointReady(peer)) return Text.Get("advice_w2_fault", name);
         if (!Piped(peer, s.Object)) return Text.Get("water_no_conduit");
-        if (!CompatibleSolution(w2, s)) return Text.Get("advice_w2_feed", name);
-        if (w2.State.Water + w2.Solution.TotalKg < .01) return Text.Get("advice_w2_empty", name);
+        if (w2.State.Water < .01) return Text.Get("advice_w2_empty", name);
         if (!w2.State.Running) return Text.Get("advice_w2_start", name);
         if (!peer.HasCond("IsPowered")) return Text.Get("advice_w2_power", name);
-        return FeedConflict(w2) ? Text.Get("water_feed_conflict") : Text.Get("advice_w2_wait", name);
+        return Text.Get("advice_w2_wait", name);
     }
     /// <summary>What a W2 needs first to feed its racks, or null.</summary>
     internal static string? SupplyNeed(Session s)
@@ -65,8 +80,8 @@ internal static partial class Service
         if (!co.HasCond("IsPowered")) return Text.Get("advice_power");
         if (!System.Linq.Enumerable.Any(PanelConfiguration.WaterPeers(co))) return Text.Get("advice_supply_link");
         if (!System.Linq.Enumerable.Any(Destinations(s, true))) return Text.Get("advice_supply_intake");
-        if (s.State.Water + s.Solution.TotalKg < .01) return Text.Get("advice_supply_empty");
-        if (s.Solution.Enabled && s.Solution.Quantity.SoluteKg < .001 && s.State.Nutrients < .001 && !DoseReady(s)) return Text.Get("advice_supply_dose");
+        if (s.State.Water < .01) return Text.Get("advice_supply_empty");
+        if (s.State.Nutrients < .001 && !DoseReady(s)) return Text.Get("advice_supply_dose");
         return s.State.Running ? null : Text.Get("advice_supply_start");
     }
     /// <summary>Starts a paused W2's pump because a rack it feeds was just switched to take its water. The player's

@@ -121,7 +121,7 @@ as needing attention, until the file is back.
 | Phobos Framework 0.57.0 | `economy` | The shared gas and process-water lines, and since 0.58.0 the Rivetline S2 to S5 water silos: price, work, bills, salvage, offers, lots, world finds |
 | Phobos Framework 0.58.0 | `vessels` | The S3 water silo's capacity and weight |
 | Phobos Manufacturing 0.17.0 | `equipment` | The V4 refinery's size, weight, power, heat into the room, feed cells and connection points (read only for now) |
-| Phobos Agriculture 0.40.0 | `crops` | What a Firstlight rack grows: each crop's growth time, power, water, nutrient and carbon budgets, harvest, items, feed and artwork |
+| Phobos Agriculture 0.40.0 | `crops` | What a Firstlight rack grows: each crop's growth time, power, water, nutrient and carbon budgets, harvest, items and artwork; since 0.55.0 the room crops grow in, how stress wears them down and how a W2 feeds them |
 | Phobos Agriculture 0.40.0 | `process-recipes` | What the Hearth-2 cooks: one portion in, one portion out, and the seconds it takes |
 | Phobos Medical 0.1.0 | `care` | The Ward-3 bed's idle and working power, who counts as injured, and when a resting patient gets up |
 | Phobos Manufacturing 0.44.0 | `outcomes` | Charges with more than one possible result (the gangue wash), and the odds of each |
@@ -248,8 +248,8 @@ are 50, 30, 15 and 5 in a hundred. To change the odds, put a file in
 
 Put a file in `BepInEx/config/PhobosAgriculture/crops/` (Agriculture 0.40.0). The
 shipped `crops.json` in the mod's `framework` folder is the reference. A new crop
-gets its own planting job on the rack, its own feed on the W2 and its own crew
-order, with no code.
+gets its own planting job on the rack and its own crew order, with no code. Every
+crop uses the same nutrient, so there is nothing to add on the W2.
 
 ```json
 {
@@ -263,7 +263,6 @@ order, with no code.
       "edibleKg": 1, "keptStockKg": 0, "portionKg": 0.25,
       "stock": "PhobosVerdemorrowContinuanceLettuce",
       "produce": "PhobosVerdemorrowLettuce",
-      "feed": "quick-lettuce-v1", "feedCommodity": "quick lettuce feed",
       "art": "Lettuce"
     }
   }
@@ -280,9 +279,10 @@ The rules a crop is held to:
   stock and `portionKg` one unit of the produce. A file cannot add an item.
 - **It borrows artwork.** `art` names a shipped crop's growth stages: `Potato`,
   `Lettuce`, `LettuceSeed`, `Wheat`, `Tomato` or `Soybean`.
-- **It needs its own names.** The crop's name, `feed` and `feedCommodity` must not
-  be used by another crop. They are saved with your racks and pipes, so do not
-  rename them later. `name` is the plain name shown in the game.
+- **It needs its own name.** The crop's name is saved with your racks, so do not
+  rename it later. `name` is the plain name shown in the game. The shipped crops
+  also carry `feed` and `feedCommodity`: old names from Agriculture 0.54.0 and
+  earlier, kept only so old saves can be read. Leave both out of a new crop.
 - **A rack's limits apply.** At most 1.5 kW, 20 kg of water and 0.5 kg of nutrient.
 - **Picking is optional.** `picks` (up to 10) and `pickKg` let a ripe plant be picked
   that many times before its harvest, taking up to `pickKg` of whole portions each
@@ -293,6 +293,53 @@ The rules a crop is held to:
   what they take or give, so it is not frozen.
 - **Shipped crops cannot be edited.** A file that changes `potato`, `lettuce` or
   `lettuce-seed` is skipped. Copy one under a new name instead.
+
+## Growing room and stress
+
+The `growth` section of the crops file (Agriculture 0.55.0) holds where crops grow,
+how stress wears them down and how a W2 feeds them. It sits beside the crops, not
+inside them, so it is not frozen: change any figure in a file of your own in
+`BepInEx/config/PhobosAgriculture/crops/`, or in an add-on. Every figure may be left
+out and then keeps the shipped value. These are authored gameplay limits, not plant
+physiology.
+
+```json
+{
+  "growth": {
+    "room": { "maxC": 33 },
+    "stress": { "graceHours": 4 },
+    "crops": {
+      "potato": { "room": { "minC": 12, "maxC": 26 } },
+      "quick-lettuce": { "room": { "maxKPa": 120 } }
+    }
+  }
+}
+```
+
+| Field | Shipped | What it does |
+| --- | ---: | --- |
+| `room.minC`, `room.maxC` | 18, 31 | The room temperature every crop grows in, in degrees C. |
+| `room.minKPa`, `room.maxKPa` | 70, 110 | The room pressure every crop grows in. |
+| `crops.<crop>.room` | none | One crop's own room. Only the limits you give replace the shared ones. |
+| `stress.graceHours` | 2 | Hours without light or water, or in a room outside its limits, that a crop shrugs off. |
+| `stress.healthLossPerHour` | 0.01 | Health lost per further hour short of light or water in a room that suits it. Health runs from 1 to 0. |
+| `stress.healthLossPerHourOutside` | 0.1 | The same in a room outside its limits. |
+| `stress.healthLossPerHourNoAir` | 0.1 | Health lost per hour in a room with no air. |
+| `stress.plantWaterKg` | 0.25 | Water a rack needs before a crew order plants in it. |
+| `nutrientTargetKg` | 0.1 | Nutrient a W2 keeps in each rack it feeds. A rack holds at most 0.5 kg. |
+| `feedStrengthKgPerKg` | 0.01 | Nutrient each kilogram of water the pump moves can carry, fresh or recirculated. |
+
+The rules:
+
+- A lower limit stays below its upper one, between -50 and 100 C and up to 500 kPa.
+  This is checked for the shared room and for each crop's room after your changes.
+- An entry under `crops` must name a crop in the file, shipped or added. An add-on
+  may tune any crop's room and add entries for its own crops.
+- Rates are from 0 to 1 an hour; the grace is at most 1,000 hours.
+- The nutrient target is above 0 and at most 0.5 kg; the feed strength above 0 and at
+  most 1.
+- A crop already growing follows the new figures from the next load. Nothing saved
+  changes.
 
 The Hearth-2's recipes work the same way in
 `BepInEx/config/PhobosAgriculture/process-recipes/`: one item in, one item of the

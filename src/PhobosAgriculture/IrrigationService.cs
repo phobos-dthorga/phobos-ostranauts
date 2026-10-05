@@ -39,7 +39,7 @@ internal static partial class Service
     }
     private static bool Paused(Session s) => !s.State.Running && !s.State.Receiving;
     internal static string[] Actions(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.Actions : IrrigationDefinitions.IsSupply(co)
-        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water" }.Concat(Definitions.MixActions).Concat(new[] { "cancel-recovery", "dose-inventory", "dose-off" }).ToArray()
+        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "cancel-recovery" }
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
         : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
     /// <summary>The racks a W2 can feed, or the W2s that can feed a rack. Since Agriculture 0.53.0 (owner request,
@@ -84,8 +84,7 @@ internal static partial class Service
             if (IrrigationDefinitions.IsSupply(co)) { message = Text.Get("help"); return false; }
             var peer = WaterPeer(co);
             if (peer != null && Definitions.Machine(peer) && !Paused(Get(peer))) { message = Text.Get("water_pause"); return false; }
-            if (s.Solution.TotalKg > NutrientSolution.Tolerance || !s.Line.Empty) { message = Text.Get("solution_switch"); return false; }
-            s.Solution.Profile = NutrientSolution.None; Save(s);
+            if (!s.Line.Empty) { message = Text.Get("line_drain"); return false; }
             SetWaterMode(s, action == "water-routed");
             // Choosing pipe-fed water on a linked rack is asking for that water: intake on, and the W2's pump with it
             // (0.54.0). Until then the choice switched intake off and said nothing.
@@ -119,12 +118,8 @@ internal static partial class Service
         var source = IrrigationDefinitions.IsSupply(co) ? co : other;
         var rack = source == co ? other : co;
         var sourceState = Get(source); var rackState = Get(rack);
-        if (rackState.Solution.TotalKg > NutrientSolution.Tolerance && rackState.Solution.Profile != sourceState.Solution.Profile ||
-            sourceState.Solution.Enabled && rackState.State.CropId.Length > 0 && NutrientSolution.CropId(sourceState.Solution.Profile) != rackState.State.CropId)
-        { message = Text.Get("solution_incompatible"); return false; }
         if (!rackState.Line.Empty) { message=Text.Get("line_drain"); return false; }
         if (!WaterBank(source).TryLink(WaterPort(rack), out message)) return false;
-        rackState.Solution.Profile = sourceState.Solution.Profile; Save(rackState);
         SetWaterMode(rackState, true);
         // Linking a rack is asking for its water (0.54.0): the rack's intake goes on and the W2's pump starts. Both can
         // still be switched off at their own panels.
@@ -141,15 +136,15 @@ internal static partial class Service
             var link=PortPairing.Read(port); var peer=link.State==PortLinkState.Linked?Resolve(link.PeerObjectId):null;
             if(peer==null||!Definitions.Machine(peer)||Definitions.IsCooker(peer)||IrrigationDefinitions.IsSupply(peer)||peer.ship!=co.ship||!NativeFluidRoute.EndpointReady(peer)||!PortPairing.Matches(port,WaterPort(peer))) continue;
             var target=Get(peer);
-            if(!target.Protected&&!WaterGuard(peer).Protected&&!LineGuard(peer).Protected&&target.Routed&&CompatibleSolution(source,target)&&(!requireReceiving||target.State.Receiving)) yield return target;
+            if(!target.Protected&&!WaterGuard(peer).Protected&&!LineGuard(peer).Protected&&target.Routed&&(!requireReceiving||target.State.Receiving)) yield return target;
         }
     }
     internal const string WaterPipesId = "PhobosAgriculture.Water";
     /// <summary>The irrigation pipe, a network family since Agriculture 0.53.0: W2s and racks carry its port, so any
     /// pipe under or beside one joins it. A W2 and a rack within one tile of each other join directly (the shared touching
-    /// rule), but touching machines do not chain separate pipe runs into one: two W2s side by side, each on its own run
-    /// with its own feed, keep their runs apart, as they did before. The id is the saved one, so pipe contents and links
-    /// in a save keep their meaning.</summary>
+    /// rule), but touching machines do not chain separate pipe runs into one: two W2s side by side, each on its own run,
+    /// keep their runs apart, as they did before. The id is the saved one, so pipe contents and links in a save keep
+    /// their meaning.</summary>
     internal static readonly FluidSegmentFamily WaterPipes = new(WaterPipesId, c => c.strCODef == IrrigationDefinitions.Pipe + "Installed",
         c => LinePorts.Points(WaterPipesId, c.strCODef), adjacencyJoins: false) { Label = () => Text.Get("water_pipe_label") };
     // A power step asks for the same routes from the demand check and the pump; one answer per step per pair.
@@ -165,34 +160,19 @@ internal static partial class Service
     private static Branch? RouteNow(Session source, Session target)
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Route);
-        var branch = Reach(source.Object, target.Object);
-        // Several W2s may share one pipe while they mix the same feed (Agriculture 0.53.0; until then one W2 per pipe
-        // run). Two feeds in one pipe would only flush each other back, so a W2 that would pump a different feed into a
-        // pipe another running W2 also pumps into waits, and says why. Feeding a touching rack uses no pipe.
-        return branch != null && branch.ThroughPipe && FeedConflict(source) ? null : branch;
-    }
-    /// <summary>Whether another running W2 on this W2's irrigation network pumps a different feed through the pipe.</summary>
-    private static bool FeedConflict(Session source)
-    {
-        string feed = FeedCommodity(source.Solution.Profile);
-        foreach (var other in LineReach.Members(source.Object, WaterPipes))
-        {
-            if (other == source.Object || !Definitions.Machine(other) || !IrrigationDefinitions.IsSupply(other) || !NativeFluidRoute.EndpointReady(other)) continue;
-            var o = Get(other);
-            if (o.Protected || !o.State.Running || FeedCommodity(o.Solution.Profile) == feed) continue;
-            if (Destinations(o, false).Any(t => Reach(other, t.Object) is { ThroughPipe: true })) return true;
-        }
-        return false;
+        // Any number of W2s may share a pipe (Agriculture 0.55.0): the pipe holds only water, so there is nothing to
+        // keep apart. Until 0.52.0 one W2 per run; in 0.53.0 and 0.54.0 W2s on one run had to mix the same feed.
+        return Reach(source.Object, target.Object);
     }
     private static double SupplyDemand(Session s)
     {
         if (!NativeFluidRoute.EndpointReady(s.Object) || s.Protected || WaterGuard(s.Object).Protected) return 0;
         if(s.RecoveryInput.Length>0) return s.State.Running?DrainageRecovery.PowerKW:0;
-        if (s.State.Receiving && (BulkService.HasSelection(s.Object)?BulkService.Intake(s.Object,new Reservoir(s),1,false)>NutrientSolution.Tolerance:ShipsWaterSupply.Available && ProviderHeadroom(s) > NutrientSolution.Tolerance)) return IrrigationDefinitions.PumpKW;
+        if (s.State.Receiving && (BulkService.HasSelection(s.Object)?BulkService.Intake(s.Object,new Reservoir(s),1,false)>LegacyFeed.Tolerance:ShipsWaterSupply.Available && ProviderHeadroom(s) > LegacyFeed.Tolerance)) return IrrigationDefinitions.PumpKW;
         if (!s.State.Running) return 0;
-        if (NutrientCharge.DoseAllowance(s.State,s.Solution,1) > NutrientSolution.Tolerance && DosingCharge(s) != null) return IrrigationDefinitions.PumpKW;
-        if (s.Solution.BlendAllowance(s.State, 1) > NutrientSolution.Tolerance) return IrrigationDefinitions.PumpKW;
-        return Destinations(s,true).Any(t => Route(s,t)!=null && (CanDeliver(s,t)||!t.Line.Empty)) ? IrrigationDefinitions.PumpKW : 0;
+        // The pump works while it has its own nutrient store to stock, water to send, or nutrients a rack still wants.
+        if (WantsDose(s) && DosingCharge(s) != null) return IrrigationDefinitions.PumpKW;
+        return Destinations(s,true).Any(t => Route(s,t)!=null && (CanDeliver(s,t)||NutrientNeed(s,t)>LegacyFeed.Tolerance||!t.Line.Empty)) ? IrrigationDefinitions.PumpKW : 0;
     }
     private static void Pump(Session s, double elapsed, double energy)
     {
@@ -200,9 +180,11 @@ internal static partial class Service
         if(s.RecoveryInput.Length>0) { RecoveryTick(s,energy); return; }
         double budget = LiquidDeliveryBudget.Kilograms(elapsed, energy, IrrigationDefinitions.RateKgPerSecond, IrrigationDefinitions.EnergyKWhPerKg);
         if (budget <= 0) return;
-        // Outgoing feed, mixing and provider filling share ONE measured pump budget.
+        // Outgoing water, recirculation and provider filling share ONE measured pump budget.
         if (s.State.Running)
         {
+            // The W2 stocks its own nutrient store first, from a charge in its Inventory or a hopper within one tile.
+            Dose(s,budget);
             var targets=Destinations(s,true).Select(t => (Target:t, Branch:Route(s,t))).Where(x=>x.Branch!=null).ToArray();
             double share=targets.Length==0?0:HydraulicRoute.Share(budget,targets.Length);
             foreach(var branch in targets)
@@ -210,15 +192,9 @@ internal static partial class Service
                 try { budget-=PumpLine(s,branch.Target,branch.Branch!.Tiles,branch.Branch.ThroughPipe,elapsed,share); }
                 catch(Exception error) { Fault(branch.Target.Object,error); throw; }
             }
-            if(targets.Length==0) s.Notice=Text.Get(FeedConflict(s)?"water_feed_conflict":"water_no_route");
-            if (budget > NutrientSolution.Tolerance && s.Solution.Enabled)
-            {
-                Dose(s,budget);
-                double mixed = s.Solution.Blend(s.State, budget); budget -= mixed;
-                if (mixed > 0) { Save(s); s.Notice = Text.Get("solution_mixed", mixed); }
-            }
+            if(targets.Length==0) s.Notice=Text.Get("water_no_route");
         }
-        if (s.State.Receiving && budget > NutrientSolution.Tolerance)
+        if (s.State.Receiving && budget > LegacyFeed.Tolerance)
         {
             if(BulkService.HasSelection(s.Object))BulkService.Intake(s.Object,new Reservoir(s),budget,true);
             // Only tanks touching the W2 or on its water line (Agriculture 0.32.0, the owner's link rule).
@@ -244,7 +220,7 @@ internal static partial class Service
         var targets = Destinations(s, false).ToArray(); var target=targets.FirstOrDefault(); var route = target == null ? null : Route(s, target);
         return Text.Get("water_supply_status", s.State.Water, IrrigationDefinitions.CapacityKg, Text.Get(s.State.Running ? "running" : "paused"),
             Text.Get(s.State.Receiving ? "receiving" : "manual"), targets.Length==0 ? Text.Get("water_unlinked") : string.Join(", ",targets.Select(t=>t.Object.strID)),
-            route == null ? Text.Get(target != null && FeedConflict(s) ? "water_feed_conflict" : "water_no_route") :
+            route == null ? Text.Get("water_no_route") :
                 route.ThroughPipe ? Text.Get("water_route_length", route.Tiles) : Text.Get("water_route_touching"),
             s.Protected || WaterGuard(s.Object).Protected ? Text.Get("protected") : s.Notice) + "\n" +
             (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + DescribeBulkIntake(s) + "\n" + DescribeDose(s) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");

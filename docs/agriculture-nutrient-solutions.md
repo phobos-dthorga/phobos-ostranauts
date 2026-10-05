@@ -1,5 +1,12 @@
 # Agriculture nutrient-solution piping
 
+> **History.** This page describes the per-crop feeds of Agriculture 0.5.0 to 0.54.0.
+> Since Agriculture 0.55.0 there is one nutrient for every crop, fed with the water,
+> and no formulation to select. For current operation see
+> [one nutrient, fed with the water](fluid-network-operations.md#one-nutrient-fed-with-the-water).
+> Saves holding an old feed are [converted automatically](fluid-network-operations.md#feeds-from-earlier-versions).
+> The research credits and limits below still stand.
+
 Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
 
 25 September 2026. Agriculture **0.5.0**, requiring Framework **0.19.0**,

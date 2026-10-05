@@ -170,6 +170,29 @@
     "notes": "How the rack's room carbon dioxide speeds growth (Agriculture 0.43.0): points of (CO2 partial pressure in kPa, growth factor). The factor multiplies growth per hour and per kWh; budgets per kilogram are unchanged, so an enriched room shortens the cycle and its energy. At a normal cabin pressure 0.1 kPa is about 1,000 ppm. Source findings: NASA Kennedy Space Center ran its Biomass Production Chamber at 1,000 or 1,200 ppm and found C3 crop photosynthesis saturating between about 1,000 and 1,500 ppm (NASA/TM-2003-211184); Utah State University found wheat seed yield 13 to 40% higher at 1,000 to 1,200 ppm than at ambient, falling 15 to 22% at 2,500 ppm and 37% by 10,000 ppm (Grotenhuis and Bugbee 1997; Reuveni and Bugbee 1997; Bugbee and colleagues 1994). Authored: +20% at 0.1 kPa and +25% at 0.15 kPa, back to the historic rate by 0.5 kPa and slower above; no penalty below 0.04 kPa (a room with no CO2 still stops growth, as before). Every shipped crop is a C3 plant and shares the curve.",
     "points": [ [0.04, 1], [0.1, 1.2], [0.15, 1.25], [0.25, 1.05], [0.5, 1], [1, 0.85] ]
   },
+  "growth": {
+    "notes": "Where and how crops grow, and how a W2 feeds them (Agriculture 0.55.0). Authored gameplay limits, not plant physiology. Every figure may be left out and then takes the mod's default. Player files and add-ons may change any of them; an entry under crops gives one crop its own room. nutrientTargetKg is the nutrient a W2 keeps in each rack it feeds (a rack holds at most 0.5 kg). feedStrengthKgPerKg is the nutrient each kilogram of water the pump moves can carry, fresh or recirculated: at 0.01, topping a rack up by 0.1 kg moves 10 kg of water.",
+    "room": {
+      "notes": "The room every crop grows in: temperature in C, pressure in kPa. The ceiling is 31 C (owner decision, 5 October 2026; 26 C until Agriculture 0.54.0, then 30 C): crops of the game's day are presumed engineered ones, and a ship's rooms sit at about 25 C or a little above.",
+      "minC": 18, "maxC": 31, "minKPa": 70, "maxKPa": 110
+    },
+    "stress": {
+      "notes": "A crop shrugs off graceHours of stress (no light, no water, a room outside its limits), then loses health per further hour: healthLossPerHour in a room that suits it, healthLossPerHourOutside in one that does not, healthLossPerHourNoAir in one with no air. Health runs from 1 to 0. plantWaterKg is the water a rack needs before a crew order plants in it.",
+      "graceHours": 2, "healthLossPerHour": 0.01, "healthLossPerHourOutside": 0.1, "healthLossPerHourNoAir": 0.1, "plantWaterKg": 0.25
+    },
+    "nutrientTargetKg": 0.1,
+    "feedStrengthKgPerKg": 0.01,
+    "crops": {
+      "potato": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "lettuce": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "lettuce-seed": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "wheat": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "tomato": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "soybean": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "flax": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
+      "sugar-beet": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." }
+    }
+  },
   "items": {
     "PhobosVerdemorrowContinuancePotato": { "text": "potato_seed" },
     "PhobosVerdemorrowContinuanceLettuce": { "text": "lettuce_seed" },

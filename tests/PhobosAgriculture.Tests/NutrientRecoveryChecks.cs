@@ -57,12 +57,6 @@ internal static class NutrientRecoveryChecks
             check(WorkupJob.Read(new WorkupJob{Mode="sugar",Input="beet1"}.Save()).Mode=="sugar","A sugar extraction job survives reload");
             Reject(()=>new WorkupJob{Mode="ferment",Input="beet1"}.Save(),"An unknown bench job is refused");
         }
-        var reservoir=new CropState{Water=20,Running=true};var solution=new NutrientSolution{Profile="potato-v1"};
-        Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Full liquid capacity does not consume a physical charge");
-        reservoir.Water=10;check(NutrientCharge.DoseAllowance(reservoir,solution,1)>0,"Available water and measured blending work admit dosing");
-        Near(NutrientCharge.DoseAllowance(reservoir,solution,0),0,"No electricity budget consumes nothing");
-        reservoir.Running=false;Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Paused W2 consumes nothing");
-        reservoir.Running=true;reservoir.Water=0;Near(NutrientCharge.DoseAllowance(reservoir,solution,1),0,"Dry W2 consumes nothing");
         var charge=new NutrientCharge(.04,.04);double spent=0;
         for(int n=0;n<100;n++){charge=charge.Spend(.0001);spent+=.0001;charge=NutrientCharge.Read(charge.Save(),charge.Remaining);}
         Near(charge.Remaining+spent,.04,"Many small doses and reloads preserve the original charge");

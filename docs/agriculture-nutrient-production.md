@@ -24,7 +24,7 @@ flowchart LR
     Salts["Groundwork Makeup Salts, bought"] -->|equal mass| Form
     Form --> Mix["Recovered Crop Nutrient Mixture"]
     Form --> Spare["Any unused makeup packet"]
-    Mix -->|select the charge| W2["W2 supply unit"]
+    Mix -->|put it in the Inventory| W2["W2 supply unit"]
     W2 --> Racks["Linked racks"]
 ```
 
@@ -111,15 +111,17 @@ removed while the press holds anything.
 
 ## Gradual W2 mixture use
 
-Put a finished B2 mixture or an ordinary 40 g formulated-nutrient packet into
-W2's existing Inventory. Pause both operation and receiving, select the desired
-charge in the panel, and select a crop formulation under the existing empty,
-unpaired-circuit rules. Start blending and distribution normally.
+Put a finished B2 mixture, a bulk charge or an ordinary 40 g nutrient packet into the
+W2's Inventory, or set a nutrient hopper within one tile. Since Agriculture 0.55.0
+that is all: the W2 takes nutrients from it by itself while running, into its own
+0.5 kg store, and feeds its racks with the water. Nothing is selected, paused or
+unlinked, and every crop uses the same nutrient.
 
-Selection stores the full item identity. W2 never silently selects another
-packet after removal or exhaustion. The panel reports grams and percentage
-remaining; choose another charge explicitly. Dosing needs power, water and room for the mixed solution. Pausing stops consumption; after a reload, a W2 that was running when you saved carries on.
-Existing numeric nutrients and manual whole-packet loading remain supported.
+The Supplies page shows the nutrients aboard and the source in use, with the grams
+left in a charge. When a charge runs out the W2 moves to the next one in its
+Inventory, then to a hopper. Taking nutrients aboard needs power and room in the
+store. Pausing stops it; after a reload, a W2 that was running when you saved carries
+on. Loading whole packets into a rack by hand remains supported.
 
 Depletion reduces physical mass and base value. Charge records are separate
 from machine wear: **Repair and Restore cannot replenish any mixture or makeup

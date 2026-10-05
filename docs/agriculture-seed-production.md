@@ -9,10 +9,9 @@ seed packet. Ordinary food lettuce remains unchanged and does not return seed.
 Planting takes 15 minutes of native crew work. At the default pace, maintain
 water, nutrients, atmosphere and received power for 96 game hours at 0.4 kW
 (38.4 kWh). GrowthDurationMultiplier is captured at planting; slower growth does
-not reduce total required energy. Use manual supplies or select the W2's
-**lettuce seed-production solution** before pairing/receiving. Empty incompatible
-solution and line contents before switching. Food-lettuce feed is a different
-profile and cannot be used for a seed cohort.
+not reduce total required energy. Use manual supplies or a linked W2 with nutrients
+aboard. Since Agriculture 0.55.0 every crop uses the same nutrient, so a seed cohort
+needs no feed of its own and nothing is emptied when you switch.
 
 | Ideal complete seed cycle | Amount |
 | --- | ---: |
@@ -56,7 +55,7 @@ are authored gameplay, not university measurements or institutional endorsement.
 ## Saves, artwork and owner checks
 
 Existing potato and food-lettuce profile IDs and budgets are unchanged. The new
-`lettuce-seed` cohort and `lettuce-seed-v1` feed use the existing checked saved
+`lettuce-seed` cohort (and, until Agriculture 0.54.0, its `lettuce-seed-v1` feed) use the existing checked saved
 state; reload preserves quantities/progress, and operation and receiving that
 were running when you saved carry on (stopped ones stay stopped).
 Do not downgrade a save containing the new profiles to an older Agriculture.

@@ -13,8 +13,9 @@ the historical water-only baseline.
 implementation candidate, not installed or gameplay-validated. This implements
 the first stage of the [shared-fluid research](development/fluid-conduits-and-irrigation-research.md).
 This page records the water-only baseline. [Agriculture 0.5.0 nutrient-solution
-piping](agriculture-nutrient-solutions.md) extends the same W2 and pipes with
-finite mixed feed and shared liquid capacity. Multiple racks per pump and returns
+piping](agriculture-nutrient-solutions.md) extended the same W2 and pipes with
+per-crop mixed feed, which Agriculture 0.55.0 replaced with one nutrient fed with the
+water. Multiple racks per pump and returns
 remain later stages; [F6 coolant conduits](furnace-coolant-conduits.md) use a
 separate content-owned thermal circuit.
 
@@ -61,8 +62,8 @@ and construction output value against purchased inputs; merchant quotes vary.
    existing water and normal crop/environment rules.
 
 In this baseline one W2 bound one rack, and two W2 outlets on one circuit blocked
-pumping. Since Agriculture 0.53.0 several W2s may share one pipe while they mix the
-same feed; see [fluid-network operations](fluid-network-operations.md). Cardinal corners,
+pumping. Since Agriculture 0.53.0 several W2s may share one pipe; see
+[fluid-network operations](fluid-network-operations.md). Cardinal corners,
 T-junctions and crosses connect; crosses never represent isolated crossing pipes.
 Normal installation is supported, including the native INSTALL > MISC entry
 (see [catalogue](development/install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy

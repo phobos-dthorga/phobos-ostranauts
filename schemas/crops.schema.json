@@ -62,6 +62,162 @@
       ],
       "description": "How room carbon dioxide speeds growth per hour and per kWh; budgets per kilogram are unchanged."
     },
+    "growth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Free text for maintainers; ignored by the game."
+        },
+        "room": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "minC": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 100,
+              "description": "Coldest room the crop grows in, C."
+            },
+            "maxC": {
+              "type": "number",
+              "minimum": -50,
+              "maximum": 100,
+              "description": "Warmest room the crop grows in, C."
+            },
+            "minKPa": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 500,
+              "description": "Lowest pressure, kPa."
+            },
+            "maxKPa": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 500,
+              "description": "Highest pressure, kPa."
+            }
+          },
+          "description": "A growing room. Each limit may be left out; a lower limit must stay below its upper one."
+        },
+        "stress": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "graceHours": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000,
+              "description": "Hours of stress a crop shrugs off."
+            },
+            "healthLossPerHour": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Health lost per further stressed hour in a room that suits the crop."
+            },
+            "healthLossPerHourOutside": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Health lost per further hour in a room outside its limits."
+            },
+            "healthLossPerHourNoAir": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Health lost per hour in a room with no air."
+            },
+            "plantWaterKg": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20,
+              "description": "Water a rack needs before a crew order plants in it, kg."
+            }
+          }
+        },
+        "nutrientTargetKg": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "description": "Nutrient a W2 keeps in each rack it feeds, kg."
+        },
+        "feedStrengthKgPerKg": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "description": "Nutrient each kilogram of water the pump moves can carry, kg."
+        },
+        "crops": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-z0-9-]+$": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "notes": {
+                  "type": "string",
+                  "description": "Free text for maintainers; ignored by the game."
+                },
+                "room": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "notes": {
+                      "type": "string",
+                      "description": "Free text for maintainers; ignored by the game."
+                    },
+                    "minC": {
+                      "type": "number",
+                      "minimum": -50,
+                      "maximum": 100,
+                      "description": "Coldest room the crop grows in, C."
+                    },
+                    "maxC": {
+                      "type": "number",
+                      "minimum": -50,
+                      "maximum": 100,
+                      "description": "Warmest room the crop grows in, C."
+                    },
+                    "minKPa": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMinimum": 0,
+                      "maximum": 500,
+                      "description": "Lowest pressure, kPa."
+                    },
+                    "maxKPa": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMinimum": 0,
+                      "maximum": 500,
+                      "description": "Highest pressure, kPa."
+                    }
+                  },
+                  "description": "A growing room. Each limit may be left out; a lower limit must stay below its upper one."
+                }
+              }
+            }
+          },
+          "description": "One crop's own room, by crop name; only what is given replaces the shared room."
+        }
+      },
+      "description": "Where and how crops grow, and how a W2 feeds them. Every figure is optional."
+    },
     "crops": {
       "type": "object",
       "additionalProperties": false,
@@ -168,11 +324,11 @@
             },
             "feed": {
               "type": "string",
-              "description": "The saved name of the feed a W2 mixes for this crop."
+              "description": "Old name, kept to read old saves: the feed a W2 mixed for this crop until Agriculture 0.54.0. Leave out for a new crop."
             },
             "feedCommodity": {
               "type": "string",
-              "description": "The saved name that feed is held under in conduit."
+              "description": "Old name, kept to read old saves: what that feed was held under in conduit. Leave out for a new crop."
             },
             "art": {
               "type": "string",
@@ -195,8 +351,6 @@
             "portionKg",
             "stock",
             "produce",
-            "feed",
-            "feedCommodity",
             "art"
           ],
           "description": "Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg."
@@ -242,5 +396,5 @@
     "crops",
     "items"
   ],
-  "description": "What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop."
+  "description": "What a Firstlight rack grows: budgets, harvest, items and artwork of each crop, and the room they grow in."
 }

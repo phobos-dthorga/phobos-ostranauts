@@ -1113,3 +1113,7 @@ L58 — Shipbreaker 0.80.0: the furnace's coolant route reads the ship's cached 
 ## 5 October: rack and W2 guidance (L59)
 
 L59 — Agriculture 0.54.0: the Next line reads the machine's own session, its room's gas figures and, for a pipe-fed rack, its W2's session and the cached reach answer. It is read when a panel refreshes (about twice a second while that panel is open), when the console asks for status and when a crew order looks for its next step, never per frame or per power step. Starting a W2's pump from a rack happens once per command. No capture accompanies this change.
+
+## 5 October: one nutrient and recirculation (L60)
+
+L60 — Agriculture 0.55.0: feeding nutrients adds one comparison per linked, receiving rack to each W2 pump step (the rack's nutrients against the target), and one guarded transfer only while a rack is below it. Recirculation is arithmetic on the step's existing pump budget; no water record moves, no pipe record is written and nothing runs for a fed rack. The W2 looks for a nutrient hopper within one tile at most once every few real seconds and remembers the answer. The per-crop feed blending step and its per-step compatibility checks across linked racks and shared pipes are removed. The growing room and stress rules are resolved from the loaded pack (the stress rules once per pack, a crop's room by one dictionary lookup per rack step). The old feed in a save is folded once at load. Nothing is added to a frame. No capture accompanies this change.

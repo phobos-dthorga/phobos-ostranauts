@@ -58,7 +58,7 @@ internal static class ExampleAddOnChecks
         var grown = Shipped();
         grown.items["MyaddonBeans"] = new CropItemEntry { hunger = 1, satiety = 1 };
         var bean = DataPacks.Parse(DataPacks.ShippedText(Crops.Source), CropSchema.Name, true).ToObject<CropPack>()!.crops["soybean"];
-        bean.produce = "MyaddonBeans"; bean.feed = "myaddon-bean-feed"; bean.feedCommodity = "myaddon bean feed"; bean.name = "Runner bean";
+        bean.produce = "MyaddonBeans"; bean.feed = bean.feedCommodity = ""; bean.name = "Runner bean";
         grown.crops["myaddon-bean"] = bean;
         CropSchema.Validate(grown, context);
         check(new Crop("myaddon-bean", grown.crops["myaddon-bean"]).Produce == "MyaddonBeans", "A crop a file adds may grow an item the same file adds");

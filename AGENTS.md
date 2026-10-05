@@ -371,6 +371,22 @@
   alone. Crops grow at 18 to 30 C (`GrowthRoom`; agent choice, 26 C before). New machines
   must say what each command did and what they wait for; never ship a silent success.
 
+- Owner direction (2026-10-05), Agriculture 0.55.0: **one nutrient for every crop**
+  ("It's not like we're Farmer Simulator 25"). This supersedes the per-crop feeds,
+  formulation labels and matching rules of the nutrient-solution entries below; never
+  bring back a feed to choose or a reason to unlink a W2. A rack and a W2 hold plain water
+  and nutrients. A W2 stocks itself from any Groundwork nutrients in its Inventory or a
+  hopper within one tile, and every kilogram its pump moves, fresh or **recirculated**
+  through a full rack (owner question, yes), carries up to `feedStrengthKgPerKg` until the
+  rack holds `nutrientTargetKg` (`Core/Growth.cs` `NutrientFeed`). Pipes hold water only.
+  Old feed converts automatically (`LegacyFeed`: fold on load, flush from pipes, canisters);
+  the frozen `feed`/`feedCommodity` names stay only to read old saves and are optional for
+  new crops. Owner direction the same day: **all crop data is data.** The crops pack's
+  `growth` section (outside the frozen entries) holds the room (18 to 31 C, owner figure:
+  crops are presumed engineered and ships sit near 25 C), stress rules, the two feeding
+  figures and an optional room per crop; rack capacities stay in code (owner choice). Put
+  new crop tunables there, with the validator, JSON Schema and guide section.
+
 ## Manufacturing direction (2026-09-25)
 
 - The owner approved a separate **Phobos Manufacturing** content mod for dedicated

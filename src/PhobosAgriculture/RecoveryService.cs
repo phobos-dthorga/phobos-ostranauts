@@ -95,7 +95,7 @@ internal static partial class Service
         double required=measured.TotalKg*DrainageRecovery.KWhPerKg;
         s.RecoveryEnergy=Math.Min(required,s.RecoveryEnergy+energy);Save(s);
         if(s.RecoveryEnergy+1e-9<required) {s.Notice=Text.Get("recovery_progress",100*s.RecoveryEnergy/required);return;}
-        if(s.State.Water+recovered.CarrierKg>s.Solution.PlainWaterCapacity||s.State.Nutrients+recovered.SoluteKg>s.Solution.DryCapacity)
+        if(s.State.Water+recovered.CarrierKg>CropState.ReservoirKg||s.State.Nutrients+recovered.SoluteKg>CropState.NutrientCapacityKg)
         {s.State.Running=false;s.Notice=Text.Get("recovery_capacity");return;}
         var next=s.State.Copy();next.Water+=recovered.CarrierKg;next.Nutrients+=recovered.SoluteKg;next.Running=next.Receiving=false;
         if(!RecoveryJournal(s.Object).TryWrite(new Dictionary<string,string>{["state"]="pending",["input"]=input.strID,["filter"]=filter.strID})) throw new InvalidOperationException("Protected recovery commit.");

@@ -85,25 +85,25 @@ public sealed class CropState
     /// <param name="co2Factor">How much faster the crop grows per hour and per kWh in its room's carbon dioxide
     /// (Agriculture 0.43.0, <see cref="Co2Response"/>); 1 is the historic rate. Budgets per unit of growth are
     /// unchanged, so enrichment shortens the cycle and its energy without changing what the crop takes or gives.</param>
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, NutrientSolution? solution = null, double co2Factor = 1)
+    /// <param name="stress">The stress rules (Agriculture 0.55.0); the crops pack's own when left out.</param>
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null)
     {
+        var rules = stress ?? Growth.Stress;
         foreach (double x in new[] { hours, electricKWh, co2Kg, oxygenKg }) if (!Finite(x) || x < 0) throw new ArgumentException("Invalid crop step.");
         if (!Finite(co2Factor) || co2Factor < Co2Response.MinFactor || co2Factor > Co2Response.MaxFactor) throw new ArgumentException("Invalid carbon dioxide response.");
         if (hours > 1) throw new ArgumentException("Settle cultivation in at most one-hour steps.");
         var exchange = new Exchange { RoomHeatKWh = electricKWh };
-        solution?.Validate(this);
         if (CropId.Length == 0 || hours == 0) return exchange;
         var c = Crop.Get(CropId);
         double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours * co2Factor / (c.Hours * Pace), electricKWh * co2Factor / (c.Hours * c.KW))) : 0;
-        double solutionGrowth = solution == null ? 0 : Math.Min(solution.Quantity.CarrierKg / c.Water, solution.Quantity.SoluteKg / c.Nutrient);
-        grow = Math.Max(0, Math.Min(grow, Math.Min(solutionGrowth + Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
-        double mixedGrowth = Math.Min(grow, solutionGrowth);
-        if (solution != null) solution.Quantity = new(Math.Max(0, solution.Quantity.CarrierKg - mixedGrowth * c.Water), Math.Max(0, solution.Quantity.SoluteKg - mixedGrowth * c.Nutrient));
-        Water -= (grow - mixedGrowth) * c.Water; Nutrients -= (grow - mixedGrowth) * c.Nutrient; Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
+        // One water store and one nutrient store since Agriculture 0.55.0 (the per-crop feed is gone): each crop draws
+        // its own amounts of both.
+        grow = Math.Max(0, Math.Min(grow, Math.Min(Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
+        Water = Math.Max(0, Water - grow * c.Water); Nutrients = Math.Max(0, Nutrients - grow * c.Nutrient); Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
         // Transpired water condenses inside the closed rack and returns to the plain-water reservoir while it
         // has room: the game's atmosphere has no water vapour to receive it, and the latent heat of what
         // condenses nets to zero. Only an overfull reservoir leaves any vapour.
-        double transpired = grow * c.Vapour, condensed = Math.Min(transpired, Math.Max(0, ReservoirKg - Water - (solution?.TotalKg ?? 0)));
+        double transpired = grow * c.Vapour, condensed = Math.Min(transpired, Math.Max(0, ReservoirKg - Water));
         Water += condensed;
         exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = transpired - condensed;
         exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * 2.45 / 3.6;
@@ -111,18 +111,18 @@ public sealed class CropState
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;
         double returnedWater = respired * 18 / 30;
-        double retained = Math.Min(returnedWater, Math.Max(0, ReservoirKg - Water - (solution?.TotalKg ?? 0))); Water += retained;
+        double retained = Math.Min(returnedWater, Math.Max(0, ReservoirKg - Water)); Water += retained;
         exchange.VapourKg += returnedWater - retained;
         exchange.CO2Kg += respired * 44 / 30; exchange.OxygenKg -= respired * 32 / 30;
         exchange.RoomHeatKWh += respired * HeatPerCarbonKWh - (returnedWater - retained) * 2.45 / 3.6;
         // Harvest-ready crops still respire, but ordinary retention does not count as an irrigation failure.
-        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water + (solution?.Quantity.CarrierKg ?? 0) < .01;
+        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water < .01;
         double previousStress = DarkHours;
         DarkHours = stressed ? DarkHours + hours : Math.Max(0, DarkHours - hours);
-        double damagingHours = Math.Max(0, Math.Max(0, DarkHours - 2) - Math.Max(0, previousStress - 2));
-        Health = Math.Max(0, Health - damagingHours * (habitable ? .01 : .1));
+        double damagingHours = Math.Max(0, Math.Max(0, DarkHours - rules.GraceHours) - Math.Max(0, previousStress - rules.GraceHours));
+        Health = Math.Max(0, Health - damagingHours * (habitable ? rules.HealthLossPerHour : rules.HealthLossPerHourOutside));
         if (Health == 0) Running = false;
-        Validate(); solution?.Validate(this); return exchange;
+        Validate(); return exchange;
     }
     public void Validate()
     {
@@ -158,14 +158,6 @@ public sealed class CropState
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
 }
 
-/// <summary>The room a crop grows in (authored): 18 to 30 C and 70 to 110 kPa. The upper bound was 26 C until Agriculture
-/// 0.54.0; a ship's rooms settle a little above that with machinery running (the owner's stood at 26.4 C), which
-/// stopped growth and killed every crop within half a day. An agent choice, open to the owner's revision.</summary>
-public static class GrowthRoom
-{
-    public const double MinK = 291.15, MaxK = 303.15, MinKPa = 70, MaxKPa = 110;
-    public static bool Suits(double tempK, double kPa) => tempK >= MinK && tempK <= MaxK && kPa >= MinKPa && kPa <= MaxKPa;
-}
 public sealed class Exchange { public double CO2Kg, OxygenKg, VapourKg, RoomHeatKWh; }
 public readonly struct HarvestBudget
 {

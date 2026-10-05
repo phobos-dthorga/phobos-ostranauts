@@ -15,10 +15,6 @@ internal static class Text
     {
         if (Has(action)) return Get(action);
         if (Definitions.PlantCrop(action) is Core.Crop planted) return Get("plant_other", planted.Name);
-        if (action.StartsWith(Definitions.MixPrefix, System.StringComparison.Ordinal) && Core.Crops.Find(action.Substring(Definitions.MixPrefix.Length)) is Core.Crop mixed) return Get("mix_other", mixed.Name);
         return Get(action);
     }
-    /// <summary>A feed as players read it: plain water, a shipped feed, or an added crop's feed by its plain name.</summary>
-    internal static string Feed(string profile) => Has("solution_" + profile) ? Get("solution_" + profile) :
-        Core.Crops.ByFeed(profile) is Core.Crop c ? Get("solution_other", c.Name) : Get("solution_" + profile);
 }

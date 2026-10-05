@@ -656,10 +656,10 @@
             "PhobosVerdemorrowGroundworkW2Installed",
             "PhobosVerdemorrowGroundworkW2InstalledDmg"
           ],
-          "function": "Stores and supplies irrigation water or formulated nutrient solution; also treats recorded process solution.",
-          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements. A drain canister of water, or of its own feed, put in its inventory pours into its reservoir; a canister of any other feed becomes Recorded Process Solution there for drainage treatment. After a formulation change the pump flushes the old feed out of the pipes first.",
+          "function": "Stores water and nutrients and feeds both to its linked racks; also treats recorded process solution.",
+          "use": "Install and power W2, load water locally, link its racks and Start. Put any Groundwork nutrients in its Inventory, or set a nutrient hopper within one tile: it takes them by itself and feeds them with the water, recirculating a full rack's water when needed. Nothing is chosen, paused or unlinked. Use treatment controls for recorded drainage and a cartridge. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements. A drain canister of water put in its inventory pours into its reservoir.",
           "find": "Buy supply/fixer/Halvorson stock or build at a supported table. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
-          "notes": "W2s that share one irrigation pipe must mix the same feed; a W2 within one tile of its rack feeds it without the pipe. Receiving and pumping that were running carry on after a reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
+          "notes": "One nutrient for every crop since Agriculture 0.55.0: it keeps each rack at 0.1 kg, up to 10 g with each kilogram of water moved. Feeds mixed by earlier versions convert by themselves into water and nutrients. Several W2s may share one irrigation pipe; a W2 within one tile of its rack feeds it without the pipe. Receiving and pumping that were running carry on after a reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
           "guide": "fluid-network-operations.md",
           "internal": false,
           "labels": {}
@@ -673,10 +673,10 @@
             "PhobosVerdemorrowWaterConduitInstalled",
             "PhobosVerdemorrowWaterConduitInstalledDmg"
           ],
-          "function": "Carries irrigation water or crop nutrient solution between W2 and paired racks.",
-          "use": "Place contiguous segments in MISC from under or right beside the W2 to under or right beside each rack (any side), then use Pair/Receive controls; a W2 within one tile of a rack needs no pipe. A running W2 fills it first, about 0.2 kg of water or feed a tile; to take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles.",
+          "function": "Carries irrigation water, and the nutrients fed with it, between W2 and paired racks.",
+          "use": "Place contiguous segments in MISC from under or right beside the W2 to under or right beside each rack (any side), then use Pair/Receive controls; a W2 within one tile of a rack needs no pipe. A running W2 fills it first, about 0.2 kg of water a tile; to take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles.",
           "find": "Buy stock, build at a supported table, or find a loose segment in eligible locked-crate contents. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "Separate from electricity and F6 coolant. Since Agriculture 0.33.0 each tile holds its own water or feed and cannot be taken up until drained; a line parcel saved by an earlier version is delivered into its rack on the next powered run. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
+          "notes": "Separate from electricity and F6 coolant. Since Agriculture 0.33.0 each tile holds its own water and cannot be taken up until drained; feed left in it by a version before 0.55.0 is flushed into the W2 when it next runs, or drains as before; a line parcel saved by an earlier version is delivered into its rack on the next powered run. Loose intact and damaged sections support storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
           "guide": "agriculture-water-conduits.md",
           "internal": false,
           "labels": {}
@@ -758,7 +758,7 @@
             "PhobosVerdemorrowGroundworkNutrients"
           ],
           "function": "Dry finite nutrient input.",
-          "use": "Put packets in the rack or W2 and choose Load nutrients; W2 can blend the selected formulation. Alternatively select the exact physical packet in W2 while paused for gradual dosing; no Repair or Restore.",
+          "use": "Put packets in the rack and choose Load nutrients, or put them in a W2's Inventory: the W2 takes them by itself and feeds its racks. One nutrient suits every crop. No Repair or Restore.",
           "find": "Buy supplies or find eligible locked-crate loot. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "Not fertilizer produced from arbitrary trash; unused loaded nutrients remain finite stored stock. Storage stacks retain individual packets and charge records. Split off one packet before manual loading, W2 dosing or B2 formulation; an intact stack is not a processing input. Crew source hauling can deliver individual units from stacks. Stacking does not replenish partially used packets.",
           "guide": "agriculture-player-guide.md",
@@ -1153,7 +1153,7 @@
             "PhobosVerdemorrowGroundworkMixture"
           ],
           "function": "Finished finite nutrient charge for W2 blending.",
-          "use": "Place in W2, pause operation and receiving, select this exact charge and desired formulation, then Start.",
+          "use": "Put it in a W2's Inventory. The W2 takes nutrients from it by itself while running and feeds its racks with the water.",
           "find": "B2 formulation from recorded concentrate plus makeup salts.",
           "notes": "No automatic packet substitution. Mass and value decrease with actual blending; cannot Repair or Restore. Template value is not a usable unrecorded charge.",
           "guide": "agriculture-nutrient-production.md",
@@ -1244,8 +1244,8 @@
             "PhobosVerdemorrowGroundworkE2LargeInstalled",
             "PhobosVerdemorrowGroundworkE2LargeInstalledDmg"
           ],
-          "function": "Passive stores of formulated dry crop nutrients, kept as a kilogram record: 10 kg in the 2 x 2 E2, 25 kg in the 3 x 3 E3 and 48 kg in the 4 x 4 E4. A W2 within one tile doses its dry-nutrient reservoir from one while mixing.",
-          "use": "Install through APPS within one tile of a W2. Fill it at a station refuelling kiosk under Bulk supplies (crop nutrients by the kilogram at 1,500 cr/kg). Pause the W2, pick the hopper as its nutrient source on the Supplies page, and Resume. Crew work recovers trapped nutrients after repair and bags up to 500 g at a time into a bulk nutrient charge to empty it. See [the bulk storage guide](agriculture-bulk-storage.md).",
+          "function": "Passive stores of formulated dry crop nutrients, kept as a kilogram record: 10 kg in the 2 x 2 E2, 25 kg in the 3 x 3 E3 and 48 kg in the 4 x 4 E4. A W2 within one tile stocks its nutrient store from one while running.",
+          "use": "Install through APPS within one tile of a W2. Fill it at a station refuelling kiosk under Bulk supplies (crop nutrients by the kilogram at 1,500 cr/kg). A W2 with no charge in its Inventory uses the hopper by itself; its Supplies page names the source. Crew work recovers trapped nutrients after repair and bags up to 500 g at a time into a bulk nutrient charge to empty it. See [the bulk storage guide](agriculture-bulk-storage.md).",
           "find": "Empty loose hardware on the reservoir routes (Agriculture supply, fixer, Halvorson and supported regional merchants), finite lots of four. No fabrication recipe. The E2 may also appear in eligible engineering-equipment loot; the E3 and E4 never do. See the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
           "notes": "Damage isolates the nutrients in a finite catch until repaired and recovered; nothing leaks. A hopper holding nutrients refuses to be moved or dismantled. Kiosk nutrients cost the same per kilogram as bulk charges and packets, and nothing sells back. The contents are the crop model's single aggregate nutrient figure.",
           "guide": "agriculture-bulk-storage.md",
@@ -1259,7 +1259,7 @@
             "PhobosVerdemorrowGroundworkBulkNutrients"
           ],
           "function": "One physical 500 g dry formulated nutrient charge for gradual selected W2 dosing.",
-          "use": "Put in the W2 inventory; pause, select its exact charge in Supplies, Apply and Resume. Explicitly choose the distribute-and-replace standing order to authorize crew replacement from the approved input store.",
+          "use": "Put in the W2 inventory; the W2 takes nutrients from it by itself while running. Explicitly choose the distribute-and-replace standing order to authorize crew replacement from the approved input store.",
           "find": "Agriculture merchants in finite lots of eight, or one charge per independent station Bulk supplies purchase into a selected W2 inventory. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "Same aggregate formulation value per kg as existing nutrients. Dedicated bulk nutrient packet artwork, localized name and measured mass distinguish it. No water carrier or new chemical assay. Remaining mass/value decrease; empty charges vanish. No Repair/Restore. Bulk charges support storage stacks of three individual objects. Split off one before dosing; partially depleted charges retain their own contents.",
           "guide": "agriculture-bulk-storage.md",

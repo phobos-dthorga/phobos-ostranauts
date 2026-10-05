@@ -16,14 +16,14 @@ common failures and useful reports.
 - [Publishing a Phobos add-on](publishing-an-add-on.md): pack your changes as a mod others can subscribe to on Steam Workshop.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Lines hold what they carry](lines-and-draining.md): draining water and acid lines into canisters, venting gas lines, and pouring canisters back.
-- [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
+- [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): history. The per-crop feeds of Agriculture 0.5.0 to 0.54.0, replaced by one nutrient.
 
 ## More player references
 
 - [Water silos for the W2, nutrient hoppers and bulk station supplies](agriculture-bulk-storage.md)
 - [Phobos Agriculture: equipment and item reference](agriculture-item-reference.md)
 - [Nutrient production and retained waste](agriculture-nutrient-production.md)
-- [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md)
+- [Agriculture nutrient-solution piping (history)](agriculture-nutrient-solutions.md)
 - [Phobos Agriculture](agriculture-player-guide.md)
 - [Lettuce seed production — Agriculture 0.7.0](agriculture-seed-production.md)
 - [Agriculture water conduits](agriculture-water-conduits.md)

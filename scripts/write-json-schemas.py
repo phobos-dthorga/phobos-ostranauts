@@ -188,10 +188,11 @@ def crops():
                 'portionKg': kg('One portion; one unit of the produce item.'),
                 'picks': num(0, 10, integer=True, description='Picks a ripe plant allows before its final harvest; absent for a crop harvested once.'),
                 'pickKg': num(0, description='Most fruit one pick takes, in whole portions.'), 'stock': string('The item planted.'), 'produce': string('The item each portion becomes.'),
-                'feed': string('The saved name of the feed a W2 mixes for this crop.'), 'feedCommodity': string('The saved name that feed is held under in conduit.'),
+                'feed': string('Old name, kept to read old saves: the feed a W2 mixed for this crop until Agriculture 0.54.0. Leave out for a new crop.'),
+                'feedCommodity': string('Old name, kept to read old saves: what that feed was held under in conduit. Leave out for a new crop.'),
                 'art': string('Artwork family of the growth stages; a crop that ships with the mod.', pattern='^[A-Za-z0-9]+$')},
                ['hours', 'kw', 'seedKg', 'finalKg', 'carbonKg', 'nutrientKg', 'waterKg', 'vapourKg', 'seedCarbonKg', 'edibleKg', 'keptStockKg', 'portionKg',
-                'stock', 'produce', 'feed', 'feedCommodity', 'art'],
+                'stock', 'produce', 'art'],
                'Mass must close: waterKg + nutrientKg + 0.4 x carbonKg - vapourKg = finalKg - seedKg.')
     item = obj({'notes': NOTES, 'text': string('Translation key of the item name; its description is the key plus _desc. Left out for an item a file adds to the materials pack, which is named there.'),
                 'hunger': num(1, 20, integer=True), 'satiety': num(1, 20, integer=True)}, [])
@@ -199,9 +200,22 @@ def crops():
                     'prefixItems': [num(0, 10, description='CO2 partial pressure, kPa'), num(0.5, 2, description='Growth factor')]},
                     'description': 'Points of [kPa, factor] in rising pressure; interpolated, ends held.'}}, ['points'],
                    'How room carbon dioxide speeds growth per hour and per kWh; budgets per kilogram are unchanged.')
-    return obj({**header('crops'), 'co2Response': response, 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
+    room = obj({'notes': NOTES, 'minC': num(-50, 100, description='Coldest room the crop grows in, C.'), 'maxC': num(-50, 100, description='Warmest room the crop grows in, C.'),
+                'minKPa': num(0, 500, exclusive_minimum=0, description='Lowest pressure, kPa.'), 'maxKPa': num(0, 500, exclusive_minimum=0, description='Highest pressure, kPa.')}, [],
+               'A growing room. Each limit may be left out; a lower limit must stay below its upper one.')
+    stress = obj({'notes': NOTES, 'graceHours': num(0, 1000, description='Hours of stress a crop shrugs off.'),
+                  'healthLossPerHour': num(0, 1, description='Health lost per further stressed hour in a room that suits the crop.'),
+                  'healthLossPerHourOutside': num(0, 1, description='Health lost per further hour in a room outside its limits.'),
+                  'healthLossPerHourNoAir': num(0, 1, description='Health lost per hour in a room with no air.'),
+                  'plantWaterKg': num(0, 20, description='Water a rack needs before a crew order plants in it, kg.')}, [])
+    growth = obj({'notes': NOTES, 'room': room, 'stress': stress,
+                  'nutrientTargetKg': num(0, 0.5, exclusive_minimum=0, description='Nutrient a W2 keeps in each rack it feeds, kg.'),
+                  'feedStrengthKgPerKg': num(0, 1, exclusive_minimum=0, description='Nutrient each kilogram of water the pump moves can carry, kg.'),
+                  'crops': named(obj({'notes': NOTES, 'room': room}, []), 'One crop\'s own room, by crop name; only what is given replaces the shared room.', '^[a-z0-9-]+$')}, [],
+                 'Where and how crops grow, and how a W2 feeds them. Every figure is optional.')
+    return obj({**header('crops'), 'co2Response': response, 'growth': growth, 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
                 'items': named(item, 'The crop items the mod builds, by definition id.')}, ['schemaVersion', 'schema', 'crops', 'items'],
-               'What a Firstlight rack grows: budgets, harvest, items, feed and artwork of each crop.')
+               'What a Firstlight rack grows: budgets, harvest, items and artwork of each crop, and the room they grow in.')
 
 
 def care():

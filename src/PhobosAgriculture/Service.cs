@@ -24,7 +24,6 @@ internal static partial class Service
         /// <summary>The B2's straw press (Agriculture 0.44.0); empty on every other machine.</summary>
         internal StrawPress Press = new();
         internal string DoseId = "";
-        internal NutrientSolution Solution = new();
         internal FluidLine Line = new();
         internal string RecoveryInput="", RecoveryFilter="";
         internal double RecoveryEnergy;
@@ -32,6 +31,9 @@ internal static partial class Service
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         /// <summary>The water tank a full rack sends spare condensate to, and when to look for one again (Agriculture 0.43.0).</summary>
+        /// <summary>The hopper the W2 doses from when nothing is chosen and no charge is aboard, and when to look again.</summary>
+        internal string AutoHopper = "";
+        internal double HopperCheck;
         internal string VapourTank = "";
         internal double VapourCheck;
         internal string Notice = "";
@@ -48,7 +50,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            DoseId = previous.DoseId, Workup = previous.Workup.Copy(), Press = previous.Press.Copy(), State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            DoseId = previous.DoseId, Workup = previous.Workup.Copy(), Press = previous.Press.Copy(), State = previous.State.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -106,8 +108,10 @@ internal static partial class Service
             // Health belongs to a crop. Until 0.54.0 an empty rack or W2 standing in a room without air lost it and
             // showed "Health 0%" for ever after; a machine with nothing planted reads as sound.
             if (s.State.CropId.Length == 0 && s.State.Health < 1) s.State.Health = 1;
+            // An old per-crop feed (until 0.54.0) folds into the plain water and nutrient stores: the same water and
+            // nutrients, no mass changed. The emptied record is written at the next save; nothing is written here.
             var solutionStatus = SolutionStore(co).Read(out var solutionFields);
-            if (solutionStatus == SavedStateStatus.Ready) s.Solution = NutrientSolution.Read(solutionFields, s.State);
+            if (solutionStatus == SavedStateStatus.Ready) { if (!LegacyFeed.Fold(s.State, LegacyFeed.ReadSolution(solutionFields))) { s.Protected = true; records = false; } }
             else if (solutionStatus != SavedStateStatus.Missing) { s.Protected = true; records = false; }
             ReadWaterMode(s);
             ReadLine(s);
@@ -116,14 +120,13 @@ internal static partial class Service
             if (s.Protected) records = false;
             if (WaterGuard(co).Protected) { s.Protected = true; evidence = true; }
             if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) { s.Protected = true; records = false; }
-            if (Definitions.IsCooker(co) && s.Solution.Enabled) { s.Protected = true; records = false; }
             if (Math.Abs(co.GetCondAmount("StatMass") - ExpectedMass(co, s)) > 1e-5) { s.Protected = true; evidence = true; }
         }
         catch { s.Protected = true; records = false; }
         acceptable = records && evidence;
         return s;
     }
-    private static double ExpectedMass(CondOwner co, Session s) => Definitions.DryMass(co) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(co);
+    private static double ExpectedMass(CondOwner co, Session s) => Definitions.DryMass(co) + s.State.ContentsMass + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(co);
     /// <summary>Owner-confirmed recovery of a protected machine: the readable records are trusted, an interrupted
     /// transfer journal is closed and the item's mass is set back to what the records say. Unreadable or
     /// inconsistent records cannot be accepted.</summary>
@@ -140,7 +143,7 @@ internal static partial class Service
     internal static void Save(Session s)
     {
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
-        var solutionFields = s.Solution.Save(s.State);
+        var solutionFields = LegacyFeed.EmptySolution();
         SaveRecovery(s);
         // Every record is validated on each save; a record that already holds these values is left as it is.
         Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Saves);
@@ -152,7 +155,7 @@ internal static partial class Service
         if (!SolutionStore(s.Object).TryWriteIfChanged(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         // Native containers already include child cargo in StatMass. Keep it and propagate
         // only the numerical reservoir/biomass difference to any native parent.
-        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
+        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Line.TotalKg + s.Press.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
     }
     private static double PhysicalMass(CondOwner co) => co.objContainer?.ContainedCOs.Sum(c => c.GetTotalMass()) ?? 0;
     internal static void Fault(CondOwner co, Exception error)
@@ -216,7 +219,7 @@ internal static partial class Service
             {
                 // No imaginary vacuum sink. Power admission above prevents consumption here.
                 if (received > 0) throw new InvalidOperationException("Agriculture lost its heat recipient during a native power call.");
-                s.Watch.Cancel(); if (s.State.CropId.Length > 0) s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1);
+                s.Watch.Cancel(); if (s.State.CropId.Length > 0) s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * Growth.Stress.HealthLossPerHourNoAir);
                 s.State.Running = false; s.Notice = Text.Get("advice_no_air"); Save(s); return;
             }
             // Settle measured electricity even if a later liquid adapter fails.
@@ -226,7 +229,7 @@ internal static partial class Service
             {
                 // Only tanks touching the rack or on its water line (Agriculture 0.32.0, the owner's link rule).
                 if (ShipsWaterSupply.Available && ShipsWaterSupply.ReachableTanks(co).Count == 0) s.Notice = Text.Get("shipswater_unreached");
-                else ShipsWaterSupply.Refill(co, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, s.Solution.PlainWaterCapacity - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
+                else ShipsWaterSupply.Refill(co, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, CropState.ReservoirKg - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
             }
             Exchange exchange;
             if (IrrigationDefinitions.IsSupply(co))
@@ -250,13 +253,13 @@ internal static partial class Service
             else
             {
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
-                bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && GrowthRoom.Suits(temp, pressure);
+                bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && GrowthRoom.For(s.State.CropId).Suits(temp, pressure);
                 // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
                 // air has no water vapour species, so an H2O emission was silently discarded.
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
                 // Agriculture 0.43.0: an enriched room grows the crop faster for the same light (Co2Response).
                 double co2Factor = Co2Response.Factor(Co2KPa(room, gas));
-                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution, co2Factor);
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor);
                 exchange.RoomHeatKWh += standby;
                 // Condensate a full reservoir cannot hold goes to a linked water tank instead of vanishing (Agriculture 0.43.0).
                 exchange.VapourKg -= VapourReturn.Deposit(s, exchange.VapourKg);
@@ -335,7 +338,6 @@ internal static partial class Service
         }
         else if (WorkupDefinitions.IsWork(action) || action == "cancel-workup" || action == "empty-press") { message = Text.Get("help"); return false; }
         if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
-        if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))
         {
@@ -389,8 +391,8 @@ internal static partial class Service
             var warnings = new List<string>();
             if (b.Health <= 0) warnings.Add(Text.Get("crop_dead"));
             if (b.DarkHours > 0) warnings.Add(Text.Get("crop_stress", b.DarkHours));
-            if (b.Water + s.Solution.Quantity.CarrierKg < .25) warnings.Add(Text.Get("water_low"));
-            if (b.Nutrients + s.Solution.Quantity.SoluteKg < .001) warnings.Add(Text.Get("nutrient_low"));
+            if (b.Water < .25) warnings.Add(Text.Get("water_low"));
+            if (b.Nutrients < .001) warnings.Add(Text.Get("nutrient_low"));
             if (room?.GasContainer != null && Moles(room.GasContainer, "StatGasMolCO2") <= 1e-6) warnings.Add(Text.Get("carbon_low"));
             if (b.Running && !b.Ready && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW < b.DemandKW * .95) warnings.Add(Text.Get("power_low"));
             environment += "\n" + string.Join("\n", warnings);
@@ -405,7 +407,7 @@ internal static partial class Service
     {
         private readonly Session s; internal Reservoir(Session s) { this.s = s; }
         public string Identity => s.Object.strID; public string ShipId => s.Object.ship.strRegID; public string Commodity => "water";
-        public double QuantityKg => s.State.Water; public double CapacityKg => s.Solution.PlainWaterCapacity;
+        public double QuantityKg => s.State.Water; public double CapacityKg => CropState.ReservoirKg;
         public void SetQuantity(double kg) { s.State.Water = kg; Save(s); }
     }
 }

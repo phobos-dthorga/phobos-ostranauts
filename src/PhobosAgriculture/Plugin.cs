@@ -19,7 +19,7 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.54.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.55.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -130,7 +130,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),BulkDefinitions.ReserveChoices(BulkDefinitions.CapacityOf(co)).Select(n=>("bulk-reserve:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
         if(IrrigationDefinitions.IsSupply(co))yield return new(Text.Get("bulk_target"),BulkService.TryTarget(co,out double target)?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
     }
-    public bool IsConfiguration(string action)=>action.StartsWith("mix-",StringComparison.Ordinal)||action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-only"||action=="water-routed"||action=="water-legacy"||action=="unlink-water"||action.StartsWith("bulk-link:",StringComparison.Ordinal)||action.StartsWith("bulk-reserve:",StringComparison.Ordinal)||action.StartsWith("bulk-target:",StringComparison.Ordinal);
+    public bool IsConfiguration(string action)=>action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-routed"||action=="water-legacy"||action=="unlink-water"||action.StartsWith("bulk-link:",StringComparison.Ordinal)||action.StartsWith("bulk-reserve:",StringComparison.Ordinal)||action.StartsWith("bulk-target:",StringComparison.Ordinal);
     public string ConfigurationStamp(CondOwner co)=>PanelConfiguration.Stamp(co);
     public bool ApplyConfiguration(CondOwner co,ConsoleBinding? binding,string expected,string action,out string reason)
     {
@@ -201,7 +201,7 @@ internal static class ContentsEligibilityPatch
         if (!Definitions.Machine(co)) return null;
         var s = Service.Get(co!);
         if (s.Protected || Service.WaterGuard(co!).Protected) return Text.Get("Maintenance.protected");
-        if (s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + s.Press.TotalKg > 1e-8) return Text.Get("Maintenance.contents");
+        if (s.State.ContentsMass + s.Line.TotalKg + s.Press.TotalKg > 1e-8) return Text.Get("Maintenance.contents");
         if (s.State.CookerProgress > 0 || s.Workup.Mode.Length > 0) return Text.Get("Maintenance.job");
         return null;
     }

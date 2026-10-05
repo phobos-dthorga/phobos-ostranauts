@@ -401,7 +401,7 @@ publication is implied by this prepared redesign.
 
 [Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.80.0 requires Framework 0.102.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
-Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
+Agriculture feeds every crop [one nutrient with the water](fluid-network-operations.md#one-nutrient-fed-with-the-water) through its W2 supply and irrigation conduits.
 
 ## Crew standing orders
 

@@ -16,6 +16,8 @@ public sealed class CropPack : DataPack
     public Dictionary<string, CropItemEntry> items = new(StringComparer.Ordinal);
     /// <summary>How the room's carbon dioxide speeds growth (Agriculture 0.43.0); absent means no response.</summary>
     public Co2ResponseEntry? co2Response;
+    /// <summary>The growing room, stress rules and W2 feeding figures (Agriculture 0.55.0); absent means the defaults.</summary>
+    public GrowthEntry? growth;
 }
 
 public sealed class Co2ResponseEntry
@@ -82,8 +84,9 @@ public sealed class CropEntry
     public double pickKg;
     /// <summary>The item planted, and the item each portion becomes.</summary>
     public string stock = "", produce = "";
-    /// <summary>The feed formulation a W2 mixes for this crop (a saved name), and the name that feed is held under in
-    /// irrigation conduit and drain canisters (also saved).</summary>
+    /// <summary>Old names, kept to read old saves (Agriculture 0.55.0): the feed a W2 mixed for this crop until 0.54.0,
+    /// and the name that feed was held under in irrigation conduit and drain canisters. Nothing mixes a feed any more;
+    /// a new crop leaves both out.</summary>
     public string feed = "", feedCommodity = "";
     /// <summary>The artwork family of its growth stages (<c>Rack-&lt;art&gt;-&lt;stage&gt;</c>).</summary>
     public string art = "";
@@ -125,6 +128,7 @@ public static class CropSchema
         if (context == null) throw new ArgumentNullException(nameof(context));
         if (pack.crops.Count == 0) throw new ArgumentException(Text.Get("crops_empty"));
         Co2Response.Validate(pack.co2Response);
+        Growth.Validate(pack.growth, pack.crops.Keys);
         var feeds = new HashSet<string>(StringComparer.Ordinal); var commodities = new HashSet<string>(StringComparer.Ordinal);
         foreach (var pair in pack.crops)
         {
@@ -155,8 +159,9 @@ public static class CropSchema
             if (c.picks < 0 || c.picks > MaxPicks || (c.picks == 0) != (c.pickKg == 0) ||
                 c.picks > 0 && (!CropState.Finite(c.pickKg) || c.pickKg < c.portionKg || c.pickKg > c.edibleKg || c.pickKg >= c.finalKg - c.seedKg))
                 throw new ArgumentException(Text.Get("crops_picks", id, MaxPicks));
-            if (string.IsNullOrWhiteSpace(c.feed) || c.feed == NutrientSolution.None || !feeds.Add(c.feed)) throw new ArgumentException(Text.Get("crops_feed", id, c.feed));
-            if (string.IsNullOrWhiteSpace(c.feedCommodity) || c.feedCommodity == "water" || !commodities.Add(c.feedCommodity)) throw new ArgumentException(Text.Get("crops_feed", id, c.feedCommodity));
+            // The old feed names are optional since 0.55.0; one that is given must still be its crop's alone.
+            if (c.feed == null || c.feed.Length > 0 && (string.IsNullOrWhiteSpace(c.feed) || c.feed == LegacyFeed.Water || !feeds.Add(c.feed))) throw new ArgumentException(Text.Get("crops_feed", id, c.feed ?? ""));
+            if (c.feedCommodity == null || c.feedCommodity.Length > 0 && (string.IsNullOrWhiteSpace(c.feedCommodity) || c.feedCommodity == LegacyFeed.Water || !commodities.Add(c.feedCommodity))) throw new ArgumentException(Text.Get("crops_feed", id, c.feedCommodity ?? ""));
             if (string.IsNullOrWhiteSpace(c.art) || c.art.Any(ch => !char.IsLetterOrDigit(ch)) || context.KnownArt?.Invoke(c.art) == false) throw new ArgumentException(Text.Get("crops_art", id));
         }
         foreach (var pair in pack.items)
@@ -199,7 +204,7 @@ public static class Crops
 {
     public const string ModFolder = "PhobosAgriculture", Resource = "PhobosAgriculture.crops.json", FrozenResource = "PhobosAgriculture.frozen-crops.json";
     private static CropPack? pack;
-    private static Dictionary<string, Crop> byId = new(StringComparer.Ordinal), byFeed = new(StringComparer.Ordinal);
+    private static Dictionary<string, Crop> byId = new(StringComparer.Ordinal), byFeed = new(StringComparer.Ordinal), byFeedCommodity = new(StringComparer.Ordinal);
     private static Crop[] all = Array.Empty<Crop>();
     public static CropPack Pack => pack ??= Load();
     public static DataPackSource Source => new(Text.Owner, ModFolder, CropSchema.Name, typeof(Crops).Assembly, Resource);
@@ -234,10 +239,12 @@ public static class Crops
         var crops = loaded.crops.Select(p => new Crop(p.Key, p.Value)).ToArray();
         pack = loaded; all = crops;
         byId = crops.ToDictionary(c => c.Id, StringComparer.Ordinal);
-        byFeed = crops.ToDictionary(c => c.Feed, StringComparer.Ordinal);
+        byFeed = crops.Where(c => c.Feed.Length > 0).ToDictionary(c => c.Feed, StringComparer.Ordinal);
+        byFeedCommodity = crops.Where(c => c.FeedCommodity.Length > 0).ToDictionary(c => c.FeedCommodity, StringComparer.Ordinal);
     }
     public static Crop? Find(string? id) { _ = Pack; return id != null && byId.TryGetValue(id, out var c) ? c : null; }
     public static Crop? ByFeed(string? feed) { _ = Pack; return feed != null && byFeed.TryGetValue(feed, out var c) ? c : null; }
+    public static Crop? ByFeedCommodity(string? name) { _ = Pack; return name != null && byFeedCommodity.TryGetValue(name, out var c) ? c : null; }
     /// <summary>The crop items in the pack's order, with their text and food values.</summary>
     public static IEnumerable<KeyValuePair<string, CropItemEntry>> Items => Pack.items;
     public static bool IsStock(string? id) => id != null && All.Any(c => c.Stock == id);

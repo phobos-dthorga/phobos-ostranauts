@@ -23,7 +23,7 @@ internal static class Definitions
     internal const string Nutrient = "PhobosVerdemorrowGroundworkNutrients", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal static bool Ready;
-    internal const string PlantPrefix = "plant-", MixPrefix = "mix-";
+    internal const string PlantPrefix = "plant-";
     /// <summary>The crew work actions: one planting action per crop in the crops pack, between the fixed ones.</summary>
     internal static string[] Work = BuildWork();
     private static string[] BuildWork() => WorkupDefinitions.Work.Concat(Crops.All.Select(c => PlantPrefix + c.Id))
@@ -35,7 +35,6 @@ internal static class Definitions
     /// <summary>The crop a planting action names, or null.</summary>
     internal static Crop? PlantCrop(string action) => action.StartsWith(PlantPrefix, StringComparison.Ordinal) ? Crops.Find(action.Substring(PlantPrefix.Length)) : null;
     /// <summary>The W2's feed actions: one per crop, then plain water.</summary>
-    internal static string[] MixActions => Crops.All.Select(c => MixPrefix + c.Id).Concat(new[] { "water-only" }).ToArray();
     internal static readonly System.Collections.Generic.HashSet<string> Supplies = new(new[] { Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }, StringComparer.Ordinal);
     /// <summary>The vanilla direct-eating reply our food replies are cloned from, and the native openers that list it.</summary>
     internal const string EatTemplate = "SeekFoodAllowDirect";

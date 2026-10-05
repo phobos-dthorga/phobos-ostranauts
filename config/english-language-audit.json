@@ -215,13 +215,13 @@
       "key": "rack_desc",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Definitions.cs:55"
       ],
       "before": "Firstlight-4: 4 x 4 cultivation rack; 20 kg combined liquid and 0.5 kg total dry/dissolved nutrients. Manual stock or matching W2 nutrient solution. Potato/lettuce cycles and formulations are authored gameplay balance. Load supplies through Inventory.",
-      "after": "Firstlight-4: fresh food starts here. A 4 x 4 growing rack holding 20 kg of liquid and 0.5 kg of nutrients, dry or dissolved. Load supplies through Inventory, or connect a W2 with the right feed for your crop. Growth times and feed mixes are simplified for play.",
+      "after": "Firstlight-4: fresh food starts here. A 4 x 4 growing rack holding 20 kg of water and 0.5 kg of nutrients. Load supplies through Inventory, or link a W2 to water and feed it. Growth times and budgets are simplified for play.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -1830,13 +1830,13 @@
       "key": "water_supply_desc",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationDefinitions.cs:20"
       ],
       "before": "Groundwork W2: 2 x 2 mixing/supply unit, 20 kg dry mass, 20 kg liquid and 0.5 kg nutrients. Up to eight explicitly paired racks share one 0.18 kW pump budget. Routes retain finite contents and have authored resistance/delay. Optional 0.5 kW cartridge treatment reclaims recorded drainage. Manual supply and optional Ship's Water inlet remain supported. Put formulated nutrient packets or B2 mixtures in Inventory for gradual dosing during blending; the panel shows remaining charge.",
-      "after": "Groundwork W2: mix feed and water up to eight linked racks. This 2 x 2 unit weighs 20 kg empty and holds 20 kg of liquid plus 0.5 kg of nutrients. The racks share one 0.18 kW pump. Load nutrient packets or B2 mixtures in Inventory for gradual mixing. A cartridge adds 0.5 kW drainage treatment. Load water by hand or use compatible Ship's Water tanks. Pipe flow and travel time are simplified for play.",
+      "after": "Groundwork W2: water and feed up to eight linked racks. This 2 x 2 unit weighs 20 kg empty and holds 20 kg of water and 0.5 kg of nutrients. The racks share one 0.18 kW pump. Put any Groundwork nutrients in its Inventory, or set a nutrient hopper within one tile, and it feeds them with the water. A cartridge adds 0.5 kW drainage treatment. Load water by hand or use compatible Ship's Water tanks. Pipe flow is simplified for play.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -1847,13 +1847,13 @@
       "key": "water_pipe_desc",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationDefinitions.cs:59"
       ],
       "before": "One tile, 1 kg structural mass. Independent cardinal irrigation route; crosses join. Each selected route reserves 0.01 kg per tile in a retained line parcel, accounted at its receiving rack. Authored resistance and transit delay; no density/CFD claim. Drain lines before rerouting.",
-      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. It joins any W2 or rack it runs under or right beside. The W2 fills it first, about 0.2 kg of water or feed a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play.",
+      "after": "A 1 kg irrigation pipe covering one tile. Connects north, south, east and west; crossings join. It joins any W2 or rack it runs under or right beside. The W2 fills it first, about 0.2 kg of water a tile, and it keeps what it holds: drain it into a canister before taking it up. Flow is simplified for play.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -2150,253 +2150,10 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "mix-potato",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:41",
-        "src/PhobosAgriculture/Panel.cs:85",
-        "src/PhobosAgriculture/SolutionService.cs:21",
-        "src/PhobosAgriculture/SolutionService.cs:25"
-      ],
-      "before": "Select potato nutrient solution (paused, unpaired)",
-      "after": "Select potato feed (pause and unlink first)",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Select potato nutrient solution (paused, unpaired)"
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "mix-lettuce",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:41",
-        "src/PhobosAgriculture/Panel.cs:85",
-        "src/PhobosAgriculture/SolutionService.cs:21",
-        "src/PhobosAgriculture/SolutionService.cs:25"
-      ],
-      "before": "Select lettuce nutrient solution (paused, unpaired)",
-      "after": "Select lettuce feed (pause and unlink first)",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Select lettuce nutrient solution (paused, unpaired)"
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "water-only",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:41",
-        "src/PhobosAgriculture/Panel.cs:85",
-        "src/PhobosAgriculture/Panel.cs:95",
-        "src/PhobosAgriculture/Plugin.cs:126",
-        "src/PhobosAgriculture/SolutionService.cs:21"
-      ],
-      "before": "Select water only (paused, unpaired)",
-      "after": "Select water only (pause and unlink first)",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Select water only (paused, unpaired)"
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_water",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:59",
-        "src/PhobosAgriculture/IrrigationService.cs:90",
-        "src/PhobosAgriculture/IrrigationService.cs:152",
-        "src/PhobosAgriculture/MaterialOperations.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:24",
-        "src/PhobosAgriculture/SolutionService.cs:27",
-        "src/PhobosAgriculture/SolutionService.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:48"
-      ],
-      "before": "water only",
-      "after": "water only",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_potato-v1",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:59",
-        "src/PhobosAgriculture/IrrigationService.cs:90",
-        "src/PhobosAgriculture/IrrigationService.cs:152",
-        "src/PhobosAgriculture/MaterialOperations.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:24",
-        "src/PhobosAgriculture/SolutionService.cs:27",
-        "src/PhobosAgriculture/SolutionService.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:48"
-      ],
-      "before": "potato feed v1",
-      "after": "potato feed v1",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_lettuce-v1",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:59",
-        "src/PhobosAgriculture/IrrigationService.cs:90",
-        "src/PhobosAgriculture/IrrigationService.cs:152",
-        "src/PhobosAgriculture/MaterialOperations.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:24",
-        "src/PhobosAgriculture/SolutionService.cs:27",
-        "src/PhobosAgriculture/SolutionService.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:48"
-      ],
-      "before": "lettuce feed v1",
-      "after": "lettuce feed v1",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_switch",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:59",
-        "src/PhobosAgriculture/SolutionService.cs:24"
-      ],
-      "before": "Pause operation and receiving, unpair the supply and drain remaining solution before switching formulation. Drain rack solution before selecting direct or plain-water mode.",
-      "after": "Pause work and water intake, unlink the supply and drain the remaining feed before changing the mix. Drain the rack's feed before switching to direct refill or plain water.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Pause operation and receiving, unpair the supply and drain remaining solution before switching formulation. Drain rack solution before selecting direct or plain-water mode."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_headroom",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/SolutionService.cs:27"
-      ],
-      "before": "Leave at least 0.5 kg free liquid capacity before selecting nutrient feed. Drain the tank if needed, then load smaller water charges.",
-      "after": "Leave at least 0.5 kg of room for liquid before selecting plant feed. Drain the tank if needed, then load smaller water charges.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Leave at least 0.5 kg free liquid capacity before selecting nutrient feed. Drain the tank if needed, then load smaller water charges."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_incompatible",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:90",
-        "src/PhobosAgriculture/MaterialOperations.cs:42"
-      ],
-      "before": "The crop and nutrient formulation do not match. Drain incompatible solution before planting or pairing a different feed.",
-      "after": "This feed is wrong for the crop. Drain it before planting or linking a different feed supply.",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "The crop and nutrient formulation do not match. Drain incompatible solution before planting or pairing a different feed."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_receipt",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/SolutionService.cs:42"
-      ],
-      "before": "Last solution receipt: {0:0.000000} kg water + {1:0.000000} kg nutrients.",
-      "after": "Last feed delivered: {0:0.000000} kg water + {1:0.000000} kg nutrients.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_mixed",
-      "category": "control/name/value",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:152"
-      ],
-      "before": "Prepared {0:0.000000} kg finite nutrient solution.",
-      "after": "Mixed {0:0.000000} kg of plant feed.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_status",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/SolutionService.cs:48"
-      ],
-      "before": "Feed: {0}\nPrepared solution: {1:0.000000} kg water + {2:0.000000} kg nutrients\nDry nutrient stock: {3:0.000000} kg\nCombined liquid: {4:0.000000} / {5} kg\nAuthored crop feed; no pH or conductivity simulation.",
-      "after": "Feed: {0}\nMixed feed: {1:0.000000} kg water + {2:0.000000} kg nutrients\nDry nutrients: {3:0.000000} kg\nTotal liquid: {4:0.000000} / {5} kg\nFeed chemistry is simplified for play; pH and conductivity are not simulated.",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "line_drain",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/IrrigationService.cs:72",
@@ -2404,7 +2161,7 @@
         "src/PhobosAgriculture/LineService.cs:33"
       ],
       "before": "Drain retained line contents before changing this route or pairing.",
-      "after": "This rack still holds feed that was in its pipes before the update. Start the W2 so it arrives, or drain the rack, before changing this route or connection.",
+      "after": "This rack still holds water that was in its pipes before an update. Start the W2 so it arrives, or drain the rack, before changing this.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -2710,52 +2467,6 @@
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "mix-lettuce-seed",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:41",
-        "src/PhobosAgriculture/Panel.cs:85",
-        "src/PhobosAgriculture/SolutionService.cs:21",
-        "src/PhobosAgriculture/SolutionService.cs:25"
-      ],
-      "before": "Select lettuce seed-production solution (paused)",
-      "after": "Select feed for lettuce seeds (pause first)",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Select lettuce seed-production solution (paused)"
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_lettuce-seed-v1",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosAgriculture/IrrigationService.cs:59",
-        "src/PhobosAgriculture/IrrigationService.cs:90",
-        "src/PhobosAgriculture/IrrigationService.cs:152",
-        "src/PhobosAgriculture/MaterialOperations.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:24",
-        "src/PhobosAgriculture/SolutionService.cs:27",
-        "src/PhobosAgriculture/SolutionService.cs:42",
-        "src/PhobosAgriculture/SolutionService.cs:48"
-      ],
-      "before": "Lettuce seed-production feed",
-      "after": "Feed for lettuce grown for seed",
-      "review20261004": {
-        "decision": "rewrite",
-        "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
-        "before": "Lettuce seed-production feed"
       }
     },
     {
@@ -3188,14 +2899,14 @@
       "key": "dose_empty",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Service.cs:217",
         "src/PhobosAgriculture/WorkupService.cs:147"
       ],
       "before": "No selected usable nutrient charge. While paused, select a charge from Inventory. Loaded dry nutrients remain usable.",
-      "after": "No usable nutrient charge selected. Pause and select one from Inventory. Dry nutrients already loaded can still be used.",
+      "after": "No nutrient source. Put Groundwork nutrients in Inventory, or set a nutrient hopper within one tile. Nutrients already aboard can still be fed.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -3206,13 +2917,13 @@
       "key": "dose_status",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/WorkupService.cs:148"
       ],
       "before": "Dosing {0}: {1:0.000} g remaining ({2:0.0}%). Consumed during blending only; cannot Repair or Restore.",
-      "after": "Feeding from {0}: {1:0.000} g left ({2:0.0}%). Used only during mixing. Repair and Restore cannot refill it.",
+      "after": "Stocking from {0}: {1:0.000} g left ({2:0.0}%). Repair and Restore cannot refill it.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -3489,24 +3200,6 @@
         "decision": "rewrite",
         "reason": "Use crop, feed, water and crew actions; distinguish pause, mixing and saved-contents faults.",
         "before": "Disable inventory dosing"
-      }
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "dose_select",
-      "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "catalogue compatibility fallback; no direct lexical caller found",
-      "references": [
-        "src/PhobosAgriculture/Text.cs",
-        "translations/PhobosAgriculture/en.json#dose_select"
-      ],
-      "before": "Select {0} [{1}]",
-      "after": "Select {0} [{1}]",
-      "review20261004": {
-        "decision": "retain",
-        "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
       }
     },
     {
@@ -3809,14 +3502,14 @@
       "mod": "PhobosAgriculture",
       "key": "panel_supply",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "add",
+      "reason": "Agriculture 0.55.0: the line now shows water and nutrients (the mixed-solution figure is gone), so its second number changed with its call site in Panel.cs",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Panel.cs:162"
       ],
-      "before": "Plain water {0:0.00} kg · Nutrient solution {1:0.00} kg",
-      "after": "Plain water {0:0.00} kg · Nutrient solution {1:0.00} kg",
+      "before": "Water {0:0.00} kg · Nutrients {1:0.000} kg",
+      "after": "Water {0:0.00} kg · Nutrients {1:0.000} kg",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -4170,14 +3863,14 @@
       "mod": "PhobosAgriculture",
       "key": "crew_recipe_supply-charges",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAgriculture/CrewProvider.cs:26"
       ],
       "before": "Distribute feed and replace selected charges",
-      "after": "Distribute feed and replace selected charges",
+      "after": "Keep the racks supplied and the W2 stocked with nutrients",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -61112,14 +60805,14 @@
       "mod": "PhobosAgriculture",
       "key": "dose_hopper_status",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/WorkupService.cs:152"
       ],
       "before": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing.",
-      "after": "Feeding from {0}: {1:F2} kg of nutrients ready. Used only during mixing.",
+      "after": "Stocking from {0}: {1:F2} kg of nutrients ready.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66096,15 +65789,15 @@
       "mod": "PhobosAgriculture",
       "key": "line_legacy",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Rack or W2 status while feed saved by an earlier version is still on its way into the rack.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/LineService.cs:52",
         "src/PhobosAgriculture/LineService.cs:82"
       ],
       "before": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run.",
-      "after": "Feed from before the update still on its way into this rack: {0:0.000} kg. The W2 delivers it on its next powered run.",
+      "after": "Water and nutrients from before an update still on their way into this rack: {0:0.000} kg. The W2 delivers them on its next powered run.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66114,14 +65807,14 @@
       "mod": "PhobosAgriculture",
       "key": "line_priming",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Rack notice while the W2 fills the pipes before feed reaches it.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/LineService.cs:63"
       ],
       "before": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
-      "after": "Filling the pipes before feed reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
+      "after": "Filling the pipes before water reaches the rack: {0:0.00} of {1:0.00} kg over {2} pipe tiles.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66131,14 +65824,14 @@
       "mod": "PhobosAgriculture",
       "key": "line_flushing",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Rack notice while the W2 flushes old feed back before the new feed fills the pipes.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/LineService.cs:62"
       ],
       "before": "Flushing the old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water in its reservoir or as process solution in its inventory for treatment.",
-      "after": "Flushing the old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water in its reservoir or as process solution in its inventory for treatment.",
+      "after": "Flushing old feed out of the pipes first: {0:0.00} kg back to the W2 this step, as water and nutrients or as process solution in its inventory.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66148,14 +65841,14 @@
       "mod": "PhobosAgriculture",
       "key": "line_flush_full",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Why the flush waits: no room in the W2 inventory for the flushed process solution, and what to do.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/LineService.cs:62"
       ],
       "before": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish.",
-      "after": "The pipes still hold the old feed, and the W2 has no room in its inventory for the flushed process solution. Clear a space so the flush can finish.",
+      "after": "The pipes still hold old feed, and the W2 has no room for it. Clear a space in its Inventory for the flushed process solution, or drain the pipes into a canister.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -66358,15 +66051,15 @@
       "mod": "PhobosAgriculture",
       "key": "crops_feed",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Data file refusal: feed and conduit names must be unique.",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture/Core/CropPack.cs:101",
         "src/PhobosAgriculture/Core/CropPack.cs:102"
       ],
       "before": "Crop {0} needs its own feed name and its own conduit name: {1} is missing or already used.",
-      "after": "Crop {0} needs its own feed name and its own conduit name: {1} is missing or already used."
+      "after": "Crop {0}: the old feed name {1} is blank, reserved or already used. A new crop can leave both old feed names out."
     },
     {
       "mod": "PhobosAgriculture",
@@ -66487,19 +66180,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "mix_other",
-      "category": "control label",
-      "decision": "add",
-      "reason": "Feed choice for a crop a player file added, worded like the shipped ones.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosAgriculture/Text.cs:18"
-      ],
-      "before": "Select {0} feed (pause and unlink first)",
-      "after": "Select {0} feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "crew_recipe_other",
       "category": "control label",
       "decision": "add",
@@ -66510,19 +66190,6 @@
       ],
       "before": "Grow {0}",
       "after": "Grow {0}"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_other",
-      "category": "control label",
-      "decision": "add",
-      "reason": "Feed name for a crop a player file added.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosAgriculture/Text.cs:23"
-      ],
-      "before": "{0} feed",
-      "after": "{0} feed"
     },
     {
       "mod": "PhobosAgriculture",
@@ -66635,34 +66302,6 @@
       ],
       "before": "Dwarf wheat",
       "after": "Dwarf wheat"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "mix-wheat",
-      "category": "control label",
-      "decision": "add",
-      "reason": "W2 feed choice for wheat, worded like the other feeds.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "Select wheat feed (pause and unlink first)",
-      "after": "Select wheat feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_wheat-v1",
-      "category": "control label",
-      "decision": "add",
-      "reason": "Feed name for wheat.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "wheat feed v1",
-      "after": "wheat feed v1"
     },
     {
       "mod": "PhobosAgriculture",
@@ -66886,62 +66525,6 @@
       ],
       "before": "Soybean",
       "after": "Soybean"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "mix-tomato",
-      "category": "control label",
-      "decision": "add",
-      "reason": "W2 feed choice, worded like the other feeds.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "Select tomato feed (pause and unlink first)",
-      "after": "Select tomato feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "mix-soybean",
-      "category": "control label",
-      "decision": "add",
-      "reason": "W2 feed choice, worded like the other feeds.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "Select soybean feed (pause and unlink first)",
-      "after": "Select soybean feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_tomato-v1",
-      "category": "control label",
-      "decision": "add",
-      "reason": "Feed name.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "tomato feed v1",
-      "after": "tomato feed v1"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_soybean-v1",
-      "category": "control label",
-      "decision": "add",
-      "reason": "Feed name.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "soybean feed v1",
-      "after": "soybean feed v1"
     },
     {
       "mod": "PhobosAgriculture",
@@ -67377,34 +66960,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "mix-flax",
-      "category": "control",
-      "decision": "add",
-      "reason": "W2 feed selection for flax.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "Select flax feed (pause and unlink first)",
-      "after": "Select flax feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_flax-v1",
-      "category": "name",
-      "decision": "add",
-      "reason": "Feed formulation name.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "flax feed v1",
-      "after": "flax feed v1"
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "crew_recipe_flax",
       "category": "control",
       "decision": "add",
@@ -67577,34 +67132,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "mix-sugar-beet",
-      "category": "control",
-      "decision": "add",
-      "reason": "W2 feed selection for sugar beet.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "Select beet feed (pause and unlink first)",
-      "after": "Select beet feed (pause and unlink first)"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "solution_sugar-beet-v1",
-      "category": "name",
-      "decision": "add",
-      "reason": "Feed formulation name.",
-      "trace": "composed key",
-      "references": [
-        "src/PhobosAgriculture/Core/CropPack.cs (crops pack: crop names, plant-, mix-, solution_, crew_recipe_ keys built from crop ids)",
-        "mods/PhobosAgriculture/framework/crops.json"
-      ],
-      "before": "beet feed v1",
-      "after": "beet feed v1"
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "crew_recipe_sugar-beet",
       "category": "control",
       "decision": "add",
@@ -67694,19 +67221,6 @@
       ],
       "before": "Connected directly: the W2 and rack are within one tile of each other",
       "after": "Connected directly: the W2 and rack are within one tile of each other"
-    },
-    {
-      "mod": "PhobosAgriculture",
-      "key": "water_feed_conflict",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Owner request of 5 October 2026: racks get the W2's treatment, and an audit of every pipe",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosAgriculture"
-      ],
-      "before": "Another running W2 on this irrigation pipe is mixing a different feed. W2s can share a pipe only while they mix the same feed: pause one, change its feed, or give each its own pipe. A W2 within one tile of its rack feeds it without the pipe.",
-      "after": "Another running W2 on this irrigation pipe is mixing a different feed. W2s can share a pipe only while they mix the same feed: pause one, change its feed, or give each its own pipe. A W2 within one tile of its rack feeds it without the pipe."
     },
     {
       "mod": "PhobosAgriculture",
@@ -67840,19 +67354,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "advice_w2_feed",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosAgriculture"
-      ],
-      "before": "{0} is mixing a different feed from this rack's. Unlink and link again to match, or change the W2's mix.",
-      "after": "{0} is mixing a different feed from this rack's. Unlink and link again to match, or change the W2's mix."
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "advice_w2_empty",
       "category": "status/warning",
       "decision": "add",
@@ -67907,14 +67408,14 @@
       "mod": "PhobosAgriculture",
       "key": "advice_nutrients",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture"
       ],
       "before": "No nutrients. Load 40 g nutrient packets, or feed it from a W2: unlink the W2, choose this crop's feed and a nutrient charge there, then link again.",
-      "after": "No nutrients. Load 40 g nutrient packets, or feed it from a W2: unlink the W2, choose this crop's feed and a nutrient charge there, then link again."
+      "after": "No nutrients. Load 40 g nutrient packets, or link a W2 that has nutrients aboard."
     },
     {
       "mod": "PhobosAgriculture",
@@ -68180,14 +67681,157 @@
       "mod": "PhobosAgriculture",
       "key": "advice_supply_dose",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Owner report of 5 October 2026: the racks seemed completely broken",
+      "decision": "rewrite",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
       "trace": "literal reference",
       "references": [
         "src/PhobosAgriculture"
       ],
       "before": "No nutrients to mix. Put a nutrient charge in Inventory and choose it as the charge on the Supplies page.",
-      "after": "No nutrients to mix. Put a nutrient charge in Inventory and choose it as the charge on the Supplies page."
+      "after": "No nutrients, so the racks get plain water. Put Groundwork nutrients in Inventory, or set a nutrient hopper within one tile."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "stores_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Water: {0:0.000} / {1:0} kg\nNutrients: {2:0.000} / {3:0.0} kg",
+      "after": "Water: {0:0.000} / {1:0} kg\nNutrients: {2:0.000} / {3:0.0} kg"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "nutrient_source",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Nutrients aboard: {0:0.000} / {1:0.0} kg. Source: {2}",
+      "after": "Nutrients aboard: {0:0.000} / {1:0.0} kg. Source: {2}"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "nutrient_source_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "none. Put Groundwork nutrients in Inventory, or set a nutrient hopper within one tile.",
+      "after": "none. Put Groundwork nutrients in Inventory, or set a nutrient hopper within one tile."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "feed_receipt",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Fed {0:0.0} g of nutrients from {1}.",
+      "after": "Fed {0:0.0} g of nutrients from {1}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "feed_recirculating",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Fed {0:0.0} g of nutrients: {1} is recirculating this rack's water to carry them.",
+      "after": "Fed {0:0.0} g of nutrients: {1} is recirculating this rack's water to carry them."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "feed_recirculating_supply",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Recirculating to feed {0}.",
+      "after": "Recirculating to feed {0}."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The growing room at {0} is not valid. Give a lower limit below its upper limit, between -50 and 100 C and up to 500 kPa.",
+      "after": "The growing room at {0} is not valid. Give a lower limit below its upper limit, between -50 and 100 C and up to 500 kPa."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_room_crop",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The growing room names the crop {0}, which is not in this file.",
+      "after": "The growing room names the crop {0}, which is not in this file."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_stress",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The stress rules are not valid. Hours and rates cannot be negative; a rate is at most 1 per hour.",
+      "after": "The stress rules are not valid. Hours and rates cannot be negative; a rate is at most 1 per hour."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_feed_rule",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The W2 feeding figures are not valid. The nutrient target is above 0 and at most {0} kg; the feed strength is above 0 and at most 1.",
+      "after": "The W2 feeding figures are not valid. The nutrient target is above 0 and at most {0} kg; the feed strength is above 0 and at most 1."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_nutrients_piped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per-crop feed wording removed; one-nutrient, recirculation and growing-room wording reviewed against the player-language guide",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "No nutrients. Put Groundwork nutrients in its W2's Inventory, or set a nutrient hopper within one tile of the W2.",
+      "after": "No nutrients. Put Groundwork nutrients in its W2's Inventory, or set a nutrient hopper within one tile of the W2."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -81070,8 +80714,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "de380b7fe85d6f6fd49b04bf97903da2a61cdaa1756c2e75c5fcdeb48ae0fd07",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "e05e1ad6bb6f0aaf1d42c22cb22186b1fa4ee7913e06e229e2b8fd80cf84d379",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "SUPPORT.md",
@@ -81084,8 +80728,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f0b2a96925052f29162b06f3ef69a40d15ad54bdd223f6ab8adc810f53e7866b",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "a182ce6115748c186eb8b689342c16110f38e64fb1070bebf16c65d91997ec9b",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -81098,43 +80742,43 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "73cdcba72d994f51aa5c19739b37ee485261db9b072a993bdfcb62c5dd68e322",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "12311e42e4746fa33e7970904a8202247c33d749b532bbf87f68b52bebdbbe40",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c6ba610a45f28db9dde4c502e3db1b937d9cdf26a1638864248d5575aea4a295",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "b9364d1c177db9332d114eddf75e112c2642aa729701f9b8ea0c6486ca0befaa",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "45feb1872c1e9a53335d5b18a786eb5c53ada200e96966e38615b91d0b750031",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "dd754d3025dce4a9be23c827489ea91a0bb0a42d8002724555939dee539b0202",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1866fee52e6a8c4063e7fda752e6d9db16ce6c573275d2823e1314ccb0d997b1",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "cd8b9f2e5f2a37351a1422d3b002da3c6122698b988b77df39a965431353f484",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-seed-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "bbfb7cf8db29834768ca709a7778aebab34da29e62b13ece9f2f3975a2c29a72",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "f15835668588c77ebe63033a2b29195994b8efaf04c7c96d2526c513ce7a11ad",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "372471d123979af271df1cc85794ce82b516cef8f352268f6caa403c435fe154",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "6740245ed8c9c8405c75cf5ca5ff5eb7a38002847f520bb24e4539b0e8843864",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -81231,8 +80875,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dc2bb365f08a60ca0536f0f4837805db3115ee85a7a1c9eb42b7696d733ae4a1",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "87983174a8c3c8237d3c0b49c0f19cbdd1db26ebac9ce6d020974a6d7df4a33b",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81259,8 +80903,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "201b47154a2eee8cf1fc501c6db2a4c6926d5406458d7b289d15a65b4a003f72",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "c5788106307515a1ee15df738a76b819dafba76a1a12e4cdc02ced3491d99e86",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -81860,8 +81504,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "80b45ebe45f75db86a5dced1fbf09c74a71de68024d8cbaff175307735130cd4",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "7d673de0d7aafb2a88989959672dbf4578b5d61a0579fd77db973e54ad932a91",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -82100,8 +81744,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "46b5034d43d5d4641672136d05b3536feb857aea7a7c1b1f84dee9133072fb4c",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "034ff80c9fdf28f7833c3b9205d1d7e093ca986f9922ccc099e8df5be269c06e",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/equipment-economy.md",
@@ -82114,8 +81758,8 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "81e4ee6e22eb47d9b17d073ee45dd8a69d36902f24b2daf2dec29c476287fefd",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "6c5461b4962e53e05a44f8bcb58d165460b81a2611f3e12362c15a0fc331b413",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/framework-item-reference.md",
@@ -82247,8 +81891,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea8c9049dc696c306a07f07e55f23b83d6da664d46d86b26a74bac10b5670347",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "6438fcda693d7734cc76726917e531fa159d633ab1020856dec92b096276f62b",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -82359,8 +82003,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8db625872f98c86e0c8185a5c1ec02ea8ecab0702412ae72326b880bc9f7369c",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "a03f074683b8daff2e166782c89af8602520ee921c93d220a27f02d03ec5850f",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82409,8 +82053,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ddd3a8478ad82bfec595941ff1020b60138c6b9b3f52c7fd1084a94231aa83b3",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "cbafc01bb71c140d79017ccb2ee3a4811f84cd0fd78330abb12028a85ac91a1c",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -82426,8 +82070,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "74e333fa773b7222e37724692040a7c2d4c9c62f4bcfd3326c8c46a0a9b94213",
-      "review": "Rack and W2 guidance: command notices, Next line, pump starts with intake, 18 to 30 C"
+      "sha256": "560b8a99f2106150fcd263e3c6241d2adc2fab42b2cd6a1eb4eebee2d3e04f9c",
+      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

@@ -9,7 +9,7 @@ namespace PhobosAgriculture;
 internal static class PanelConfiguration
 {
     internal static string Stamp(CondOwner co)=>ConfigurationStamp.For(co,"PhobosMaterialPort.","PhobosState.AgricultureWaterMode","PhobosState.crew-order","PhobosState.AgricultureBulk")+
-        (Definitions.Machine(co)?Service.Get(co).DoseId+"|"+Service.Get(co).Solution.Profile+"|"+Service.Get(co).Routed:"");
+        (Definitions.Machine(co)?Service.Get(co).DoseId+"|"+Service.Get(co).Routed:"");
     internal static bool Apply(CondOwner co,string expected,string action,out string reason)
     {
         reason=ConsoleText.Get("stale");if(co.bDestroyed||Stamp(co)!=expected)return false;

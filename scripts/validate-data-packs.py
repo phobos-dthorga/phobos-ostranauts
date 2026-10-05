@@ -392,11 +392,58 @@ CROP_TOLERANCE = 1e-9
 NET_GAS_PER_CARBON = 12 / 30
 
 
+GROWTH_DEFAULT_ROOM = {'minC': 18, 'maxC': 31, 'minKPa': 70, 'maxKPa': 110}
+
+
+def growth(section, crop_entries, where):
+    """The crops pack's growth section (Agriculture 0.55.0): the growing room, stress rules and W2 feeding figures.
+    Every figure is optional; a crop's own room replaces only what it gives."""
+    if section is None:
+        return
+    fields(section, {'notes', 'room', 'stress', 'nutrientTargetKg', 'feedStrengthKgPerKg', 'crops'}, where)
+
+    def room(entry, w, base):
+        resolved = dict(base)
+        if entry is not None:
+            fields(entry, {'notes', 'minC', 'maxC', 'minKPa', 'maxKPa'}, w)
+            for name in ('minC', 'maxC', 'minKPa', 'maxKPa'):
+                if name in entry:
+                    number(entry[name], f'{w}/{name}', None, None)
+                    resolved[name] = entry[name]
+        if not (-50 <= resolved['minC'] < resolved['maxC'] <= 100 and 0 < resolved['minKPa'] < resolved['maxKPa'] <= 500):
+            raise Problem(f'{w}: the lower limit must be below the upper one, between -50 and 100 C and up to 500 kPa')
+        return resolved
+
+    shared = room(section.get('room'), f'{where}/room', GROWTH_DEFAULT_ROOM)
+    stress = section.get('stress')
+    if stress is not None:
+        fields(stress, {'notes', 'graceHours', 'healthLossPerHour', 'healthLossPerHourOutside', 'healthLossPerHourNoAir', 'plantWaterKg'}, f'{where}/stress')
+        if 'graceHours' in stress:
+            number(stress['graceHours'], f'{where}/stress/graceHours', 0, 1000)
+        for name in ('healthLossPerHour', 'healthLossPerHourOutside', 'healthLossPerHourNoAir'):
+            if name in stress:
+                number(stress[name], f'{where}/stress/{name}', 0, 1)
+        if 'plantWaterKg' in stress:
+            number(stress['plantWaterKg'], f'{where}/stress/plantWaterKg', 0, 20)
+    if 'nutrientTargetKg' in section:
+        number(section['nutrientTargetKg'], f'{where}/nutrientTargetKg', 0, 0.5, exclusive_low=True)
+    if 'feedStrengthKgPerKg' in section:
+        number(section['feedStrengthKgPerKg'], f'{where}/feedStrengthKgPerKg', 0, 1, exclusive_low=True)
+    per_crop = section.get('crops', {})
+    if not isinstance(per_crop, dict):
+        raise Problem(f'{where}/crops: expected crop name to entry')
+    for key, entry in per_crop.items():
+        if key not in crop_entries:
+            raise Problem(f'{where}/crops/{key}: names a crop that is not in this file')
+        fields(entry, {'notes', 'room'}, f'{where}/crops/{key}')
+        room(entry.get('room'), f'{where}/crops/{key}/room', shared)
+
+
 def crops(pack, where, added=()):
     """The crops schema (Agriculture 0.40.0): structure and mass balance. Item masses, text and the freeze are
     checked by the game-side loader and scripts/freeze-recipes.py. added: the ids of materials an add-on adds
     (Agriculture 0.48.0), whose item entries carry no text key."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items', 'co2Response'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'crops', 'items', 'co2Response', 'growth'}, where)
     response = pack.get('co2Response')
     if response is not None:
         fields(response, {'notes', 'points'}, f'{where}/co2Response')
@@ -417,6 +464,7 @@ def crops(pack, where, added=()):
     items = pack.get('items', {})
     if not isinstance(items, dict):
         raise Problem(f'{where}/items: expected item id to entry')
+    growth(pack.get('growth'), entries, f'{where}/growth')
     feeds, commodities = set(), set()
     for key, c in entries.items():
         w = f'{where}/crops/{key}'
@@ -451,12 +499,13 @@ def crops(pack, where, added=()):
         for name in ('stock', 'produce'):
             if not c.get(name) or c[name] not in items:
                 raise Problem(f'{w}/{name}: must name an entry of the items section')
-        if not c.get('feed') or c['feed'] == 'water' or c['feed'] in feeds:
-            raise Problem(f'{w}/feed: needs its own feed name')
-        if not c.get('feedCommodity') or c['feedCommodity'] == 'water' or c['feedCommodity'] in commodities:
-            raise Problem(f'{w}/feedCommodity: needs its own conduit name')
-        feeds.add(c['feed'])
-        commodities.add(c['feedCommodity'])
+        # The old feed names (until Agriculture 0.54.0) are optional since 0.55.0; one that is given stays its crop's alone.
+        for name, seen in (('feed', feeds), ('feedCommodity', commodities)):
+            if name in c:
+                if not isinstance(c[name], str) or c[name] and (not c[name].strip() or c[name] == 'water' or c[name] in seen):
+                    raise Problem(f'{w}/{name}: an old feed name must be its crop\'s own; a new crop can leave it out')
+                if c[name]:
+                    seen.add(c[name])
         if not c.get('art') or not c['art'].isalnum():
             raise Problem(f'{w}/art: needs an artwork name made of letters and digits')
     for key, item in items.items():

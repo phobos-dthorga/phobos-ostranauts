@@ -86,9 +86,8 @@ public sealed class Panel : GUIData
                 {
                     BulkField(co);
                     C.Button(shell.Detail,Text.Get("bulk_target"),()=>ConfigurationSheet.Choices(shell,Text.Get("bulk_target"),"",PanelConfiguration.Stamp(co),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason)));
-                    C.Field(shell.Detail,C.Text("charge"),ObjectPresentation.Name(Service.Get(co).DoseId),()=>Connection(co,"charge"),
-                        ()=>ObjectPicker.Locate(shell,Service.Resolve(Service.Get(co).DoseId)),()=>Setting(co,"dose-off"),Service.Resolve(Service.Get(co).DoseId)!=null,Service.Get(co).DoseId!="none");
-                    foreach(var action in Definitions.MixActions)AddButton(shell.Detail,co,action,true);
+                    // One nutrient, nothing to choose (0.55.0): the W2 uses a charge in its Inventory, or a hopper within one tile.
+                    C.Label(shell.Detail,Service.NutrientSourceLine(co));
                 }
                 else foreach(var action in new[]{"water-routed","water-legacy"})AddButton(shell.Detail,co,action,true);
                 var row=C.Row(shell.Detail);AddButton(row,co,"receive");AddButton(row,co,"pause-receive");
@@ -98,7 +97,7 @@ public sealed class Panel : GUIData
         else
         {
             C.Heading(shell.Detail,C.Text("actions"));
-            var actions=recycler?new[]{"capture-start","capture-pause"}:Service.Actions(co).Where(a=>!a.StartsWith("mix-")&&a!="water-only"&&a!="water-routed"&&a!="water-legacy"&&a!="unlink-water"&&!a.StartsWith("dose-")).ToArray();
+            var actions=recycler?new[]{"capture-start","capture-pause"}:Service.Actions(co).Where(a=>a!="water-routed"&&a!="water-legacy"&&a!="unlink-water").ToArray();
             for(int i=0;i<actions.Length;i+=2){var row=C.Row(shell.Detail);foreach(var action in actions.Skip(i).Take(2))AddButton(row,co,action);}
             if(!recycler&&!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co))
             {
@@ -135,12 +134,12 @@ public sealed class Panel : GUIData
     private void ConfigurationSheetButton(CondOwner co)=>C.Button(shell.Detail,Text.Get("bulk_reserve"),()=>ConfigurationSheet.Choices(shell,Text.Get("bulk_reserve"),"bulk-reserve:"+BulkService.Read(co).ReserveKg.ToString(System.Globalization.CultureInfo.InvariantCulture),PanelConfiguration.Stamp(co),new[]{0,5,10,20,40,80,120}.Select(n=>("bulk-reserve:"+n,Text.Get("bulk_kg",n))),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason)));
     private void Connection(CondOwner co,string kind)
     {
-        string current=kind=="collector"?PanelConfiguration.Collector(co):kind=="charge"?Service.Get(co).DoseId:PanelConfiguration.WaterPeers(co).FirstOrDefault()??"none";
+        string current=kind=="collector"?PanelConfiguration.Collector(co):PanelConfiguration.WaterPeers(co).FirstOrDefault()??"none";
         ConfigurationSheet.Objects(shell,C.Text(kind),current,PanelConfiguration.Stamp(co),
-            ()=>kind=="collector"?RecyclerCapture.Candidates(co):kind=="charge"?Service.DoseCandidates(Service.Get(co)):Service.WaterCandidates(co),
-            (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value=="none"?(kind=="collector"?"capture-unlink":kind=="charge"?"dose-off":"unlink-water"):
-                (kind=="collector"?"capture-link:":kind=="charge"?"dose:":"link-water:")+value,out reason),
-            true,kind=="collector"?null:kind=="charge"?()=>Service.DoseNote(co):()=>Service.WaterNote(co));
+            ()=>kind=="collector"?RecyclerCapture.Candidates(co):Service.WaterCandidates(co),
+            (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value=="none"?(kind=="collector"?"capture-unlink":"unlink-water"):
+                (kind=="collector"?"capture-link:":"link-water:")+value,out reason),
+            true,kind=="collector"?null:()=>Service.WaterNote(co));
     }
     private void Setting(CondOwner co,string action)=>ConfigurationSheet.Choices(shell,Text.Action(action),"",PanelConfiguration.Stamp(co),new[]{(action,Text.Action(action))},
         (string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason));
@@ -184,7 +183,7 @@ public sealed class Panel : GUIData
         live.text=state;readout.text=tab=="details"?Service.Describe(co):state+(b.Receiving&&!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co)?" · "+Text.Get("receiving"):"")+"\n"+(session.Protected?Text.Get("protected"):session.Notice)+(advice.Length==0?"":"\n"+advice);
         if(tab=="operation")readout.text+="\n"+(Definitions.IsCooker(co)?Text.Get("panel_cooker",b.CookerProgress/.05*100):
             WorkupDefinitions.IsBench(co)?Text.Get("panel_workup",session.Workup.Mode.Length==0?C.Text("not_selected"):Text.Get(WorkupDefinitions.ActionOf(session.Workup.Mode)),session.Workup.Energy)+"\n"+Text.Get("panel_press",session.Press.TotalKg,session.Press.Bales):
-            IrrigationDefinitions.IsSupply(co)?Text.Get("panel_supply",b.Water,session.Solution.TotalKg):Text.Get("panel_live",b.Progress*100,b.Health*100,b.Water,b.Nutrients));
+            IrrigationDefinitions.IsSupply(co)?Text.Get("panel_supply",b.Water,b.Nutrients):Text.Get("panel_live",b.Progress*100,b.Health*100,b.Water,b.Nutrients));
         string key=Artwork.Key(co,b,session.Protected);
         if(portrait==null||key==portraitKey)return;portraitKey=key;portrait.texture=Artwork.Texture(key);portrait.color=portrait.texture!=null&&portrait.texture.name!="missing.png"?Color.white:Color.clear;
     }

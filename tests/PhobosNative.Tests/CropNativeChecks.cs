@@ -22,8 +22,8 @@ internal static class CropNativeChecks
             string plant = Definitions.WorkId(Definitions.PlantPrefix + crop.Id);
             check(agriculture.Interactions.ContainsKey(plant) && rack.aInteractions.Contains(plant) && Definitions.WorkIds[plant] == Definitions.PlantPrefix + crop.Id,
                 "The installed rack offers the crop's planting job: " + crop.Id);
-            check(Text.Has(Definitions.PlantPrefix + crop.Id) && Text.Has(Definitions.MixPrefix + crop.Id) && Text.Has("crew_recipe_" + crop.Id) && Text.Has("solution_" + crop.Feed),
-                "The crop's planting, feed and crew order wording exists: " + crop.Id);
+            check(Text.Has(Definitions.PlantPrefix + crop.Id) && Text.Has("crew_recipe_" + crop.Id),
+                "The crop's planting and crew order wording exists: " + crop.Id);
             foreach (string stage in Stages)
                 foreach (string suffix in new[] { "", "Normal", "Damaged", "DamagedNormal" })
                     check(File.Exists(Path.Combine(images, "Rack-" + crop.Art + "-" + stage + suffix + ".png")), "Growth artwork ships: " + crop.Art + "-" + stage + suffix);
@@ -44,6 +44,8 @@ internal static class CropNativeChecks
         }
         // The cooker's tray holds a recipe's portion, its supply and its product at once.
         check(HearthRecipes.All.All(r => 1 + (r.Extra == null ? 0 : 1) + r.Products.Select(p => p.Id).Distinct().Count() <= 4), "Each recipe fits the Hearth-2's four cells");
-        check(Definitions.MixActions.Length == Crops.All.Count + 1 && Definitions.MixActions.Last() == "water-only", "The W2 offers one feed per crop, then plain water");
+        // Agriculture 0.55.0: one nutrient for every crop, so the W2 offers no feed to choose and no wording for one remains.
+        check(!Text.Has("water-only") && Crops.All.All(c => !Text.Has("mix-" + c.Id) && !Text.Has("solution_" + c.Feed)) && Text.Has("nutrient_source") && Text.Has("feed_recirculating_supply"),
+            "No per-crop feed is worded any more; the W2 says where its nutrients come from");
     }
 }

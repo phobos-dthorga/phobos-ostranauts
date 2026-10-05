@@ -227,6 +227,38 @@ class DataPackTests(unittest.TestCase):
             validate.crops(bad, 'test')
         self.assertTrue(schemas.problems(json.loads(writer.render('crops')), bad))
 
+    def test_crop_growth_section_is_optional_and_bounded(self):
+        # Agriculture 0.55.0: the growing room, stress rules and W2 feeding figures are data, with a room per crop.
+        path = ROOT / 'mods/PhobosAgriculture/framework/crops.json'
+        pack = json.loads(path.read_text(encoding='utf-8'))
+        schema = json.loads(writer.render('crops'))
+        self.assertEqual(pack['growth']['room'], {**pack['growth']['room'], 'minC': 18, 'maxC': 31, 'minKPa': 70, 'maxKPa': 110})
+        self.assertEqual(sorted(pack['growth']['crops']), sorted(pack['crops']))
+        self.assertEqual(schemas.problems(schema, pack), [])
+
+        def changed(change):
+            copy = json.loads(json.dumps(pack))
+            change(copy)
+            return copy
+
+        fine = [lambda p: p.pop('growth'), lambda p: p['growth'].pop('room'), lambda p: p['growth']['crops']['potato'].update(room={'minC': 10, 'maxKPa': 120}),
+                lambda p: p['growth']['room'].update(maxC=35), lambda p: p['growth'].update(nutrientTargetKg=0.5)]
+        for index, change in enumerate(fine):
+            with self.subTest(fine=index):
+                validate.crops(changed(change), 'test')
+        # A new crop needs no old feed names.
+        added = changed(lambda p: p['crops'].update({'fast-lettuce': {k: v for k, v in p['crops']['lettuce'].items() if k not in ('feed', 'feedCommodity')}}))
+        validate.crops(added, 'test')
+        self.assertEqual(schemas.problems(schema, added), [])
+        bad = [lambda p: p['growth']['room'].update(maxC=10), lambda p: p['growth']['room'].update(maxC=140), lambda p: p['growth']['room'].update(minKPa=0),
+               lambda p: p['growth']['crops']['potato'].update(room={'maxC': 12}), lambda p: p['growth']['crops'].update(rye={}),
+               lambda p: p['growth']['stress'].update(healthLossPerHour=2), lambda p: p['growth']['stress'].update(graceHours=-1),
+               lambda p: p['growth'].update(nutrientTargetKg=0), lambda p: p['growth'].update(nutrientTargetKg=0.6), lambda p: p['growth'].update(feedStrengthKgPerKg=0),
+               lambda p: p['growth'].update(speed=2), lambda p: p['growth']['room'].update(maxF=90)]
+        for index, change in enumerate(bad):
+            with self.subTest(bad=index), self.assertRaises(validate.Problem):
+                validate.crops(changed(change), 'test')
+
     def test_care_pack_keeps_thresholds_below_the_game_limits(self):
         # Phobos Medical 0.1.0: the care pack holds station power and admission thresholds; the healing stays the game's.
         path = ROOT / 'mods/PhobosMedical/framework/care.json'

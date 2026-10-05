@@ -9,7 +9,7 @@ Use the [current package versions](player-guide.md) and [dependency requirements
 the complete loop and Unity layout still need in-game evaluation.
 
 Start with the rack and cooker below. Add [W2 irrigation](agriculture-water-conduits.md),
-[nutrient mixing](agriculture-nutrient-solutions.md), [B2 recovery](agriculture-nutrient-production.md)
+[W2 feeding](fluid-network-operations.md#one-nutrient-fed-with-the-water), [B2 recovery](agriculture-nutrient-production.md)
 or a [water silo and nutrient hopper](agriculture-bulk-storage.md) when needed. A W2 can serve
 up to eight linked racks. Irrigation conduit joins a W2 or rack it runs under or right
 beside, and a W2 within one tile of a rack needs no pipe at all. For replacement lettuce seed, choose the separate
@@ -45,17 +45,27 @@ Bar/Dining Table, with the required screwdriver and soldering tools:
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 150 cr |
 
 Install the **4 × 4 rack** and **2 × 2 cooker** on cabin floors and connect their
-power points. Keep room temperature at **18–30 °C** and pressure at **70–110 kPa**
-for growth (the upper limit was 26 °C until Agriculture 0.54.0, which a ship with
-machinery running sits just above). These are gameplay limits chosen for this mod,
-not universal plant tolerances.
+power points. Keep room temperature at **18–31 °C** and pressure at **70–110 kPa**
+for growth. The crops are taken to be engineered ones, at home in a ship's rooms at
+about 25 °C or a little above. These are gameplay limits chosen for this mod, not
+universal plant tolerances, and since Agriculture 0.55.0 they are data: see
+[growing room and stress](editing-data-files.md#growing-room-and-stress) to change
+them or give one crop its own room.
 
 Every page of a rack's or W2's Control Panel ends with a **Next:** line naming the
 one thing it is waiting for: air, power, water, nutrients, seed or Start. For a
 pipe-fed rack the quickest route is to link it to a W2 on the Supplies page. Linking
 switches the rack's water intake on and starts the W2's pump; both can still be
 switched off at their own panels. A rack also needs nutrients: 40 g packets loaded
-by hand, or a W2 mixing that crop's feed from a nutrient charge.
+by hand, or a W2 with nutrients aboard, which feeds them with the water.
+
+**There is one nutrient for every crop** (Agriculture 0.55.0). The 40 g packet, the
+500 g bulk charge and bulk in a nutrient hopper are the same stuff in three sizes, and
+nothing is chosen or matched. To feed piped racks, put any Groundwork nutrients in
+the W2's Inventory, or set a nutrient hopper within one tile of it. The W2 takes
+them by itself, running or linked, and keeps each rack topped up. If the racks are
+already full of plain water, the pump recirculates their water to carry the nutrients
+in, and the panel says so.
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
@@ -120,7 +130,7 @@ flowchart TD
     Stock["Seed potato or lettuce seed in rack Inventory"] --> Plant["Choose Plant, 15 min crew work"]
     Supplies["Irrigation charge and nutrients loaded"] --> Plant
     Plant --> Grow["Automatic growth"]
-    Needs["Water, nutrients, CO2, power, 18-30 C, 70-110 kPa"] --> Grow
+    Needs["Water, nutrients, CO2, power, 18-31 C, 70-110 kPa"] --> Grow
     Grow --> Harvest["Choose Harvest and retain stock, 30 min crew work"]
     Harvest --> Produce["Produce and residue, if the whole output fits"]
     Produce --> Cook["Hearth-2 cooks one potato portion per Start"]
@@ -177,8 +187,7 @@ one. These values, yields and accelerated growth are gameplay choices.
 ## Dwarf wheat and flatbread
 
 Wheat (Agriculture 0.41.0) is the slow, light-hungry crop that keeps. Plant one
-**Continuance 50 g seed wheat** packet with **Plant seed wheat**; the W2's
-**Select wheat feed** mixes its feed. A healthy harvest gives one 0.4 kg portion of
+**Continuance 50 g seed wheat** packet with **Plant seed wheat**. A healthy harvest gives one 0.4 kg portion of
 **wheat grain**, gives your seed packet back, and leaves about 0.95 kg of straw as
 recorded residue for the B2 bench. Grain keeps indefinitely.
 
@@ -200,7 +209,7 @@ With **Valtora's [Ship's Water](https://steamcommunity.com/sharedfiles/filedetai
 0.16.1** loaded, Enable optional ship-water supply draws finite potable water from
 installed tanks that touch the rack or W2 (within one tile) or share its
 process-water line (the INSTALL menu's **Process Water Line**, not the Irrigation
-Conduit, which only carries water and feed out of a W2 to its racks). The line joins a tank, a rack or a W2 when it runs under it or
+Conduit, which only carries water and nutrients out of a W2 to its racks). The line joins a tank, a rack or a W2 when it runs under it or
 right beside it, on any side (since Framework 0.69.0). A tank elsewhere aboard does
 not count (since Agriculture 0.32.0): lay process-water line so it touches both, or
 move the tank, and the machine
