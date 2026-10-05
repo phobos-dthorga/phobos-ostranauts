@@ -1,5 +1,7 @@
 # Phobos Spacer Stories
 
+![Phobos Spacer Stories cover: two crew talking over coffee at a galley table](../../assets/workshop/previews/PhobosSpacerStories-512.png)
+
 A complete, original story collection for the existing Phobos equipment makers:
 company histories, crew life, TV news and adverts, small talk, loading lore, nine
 correspondence chains and nine archive documents on data cards.

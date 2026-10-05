@@ -84163,8 +84163,8 @@
     {
       "path": "mods/PhobosSpacerStories/README.md",
       "scope": "story add-on source overview and review limits",
-      "sha256": "43d55441a34e299cd36118f2b56d3613e5073f14931622bf17be9d28aecae756",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "e086e5996b726f411df4916a355195c14105a1457217cc08eaa1dceb5c0d8b05",
+      "review": "Spacer Stories README shows its cover, 6 October 2026"
     }
   ],
   "hardcodedReview": {

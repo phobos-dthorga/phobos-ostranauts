@@ -58,6 +58,7 @@ def package_documents(package, readme='', root=ROOT):
     # Guide illustrations are copied so the flattened guides show them offline.
     for source, output in {
         'assets/workshop/previews/PhobosWarDeclared-512.png': 'images/war-declared-cover.png',
+        'assets/workshop/previews/PhobosSpacerStories-512.png': 'images/spacer-stories-cover.png',
     }.items():
         if (root / source).is_file():
             (package / output).parent.mkdir(parents=True, exist_ok=True)
