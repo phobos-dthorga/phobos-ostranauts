@@ -7,8 +7,10 @@ tables, missing information and whether a player can make a profit.
 This record holds the findings, the evidence behind each and the decisions they need. The
 numbers are in [the generated tables](economy-audit-tables.md), which
 `python scripts/audit-economy.py` rebuilds from the current item evidence, the mods' data
-packs and the game's own definitions. Nothing in this audit changes gameplay; the only
-edit it makes is filling five missing rows in [equipment economy](../equipment-economy.md).
+packs and the game's own definitions; since the decisions below were applied they show
+the current figures, and the findings keep the figures measured before them. The audit
+itself changed no gameplay; the only edit it made was filling five missing rows in
+[equipment economy](../equipment-economy.md).
 
 ## Method
 
@@ -152,19 +154,50 @@ late-game prices. No change is recommended.
 nitrogen stores, the Cask ethanol tanks, the Copperhead-3 fermenter-still, the Corker-2
 bottler or the RM-1 feeder. This change adds them.
 
-## Decisions needed
+## Decisions taken
 
-1. Construction recipes: raise the bills, lower the prices, or make the dear ones
-   purchase-only.
-2. Engineering salvage: cut Shipbreaker's rolls as recommended, or set other figures.
-3. Crop nutrients: a lower price, a cap on the bulk charge, or keep $1,500.
-4. Meals: reprice the flatbread and stew, or add water-from-silo recipe revisions.
+The owner chose the recommended option for each finding on 5 October 2026.
+Framework 0.102.0, Shipbreaker 0.79.0, Auto Nav 0.34.0 and Agriculture 0.52.0
+carry them; the current figures are in
+[equipment economy](../equipment-economy.md#economy-audit-decisions-5-october-2026).
+A rerun of the audit after the change gives:
 
-A new price reaches items already in a save only where the item follows its price on
-load (`EquipmentSaveUpgrade.FollowPrice`). Today that covers Manufacturing's materials
-and methane ice. Repricing anything else (Agriculture's nutrients and meals, the boards,
-Shipbreaker's equipment) should add that hook in the same change, so no save needs a
-manual step.
+1. **Construction recipes: bills raised.** Each table build takes the game's own
+   components (cryo distribution pumps, a laser torch charging station, a computer
+   terminal and ship battery, an air vent and rack, a bulkhead bin, and Polaris
+   course plot or map controls modules), so its parts come to 43% to 58% of the
+   product. Build-and-sell now loses between $270 and $1,290 a build. A changed bill
+   is a new recipe id: the old ids carry Framework 0.102.0's `retired` flag, which
+   keeps them registered so a saved queued job finishes under its own bill, but no
+   table offers them. The eight retired whole-machine and section recipes, which
+   Shipbreaker listed in code, use the same flag. Framework's construction mass
+   check now accepts a game overlay whose condition loot only sets its price, which
+   is how the Polaris modules are defined.
+2. **Engineering salvage: Shipbreaker cut.** Machinery 1 in 20 with three in four
+   broken; service items and ingots halved; Framework's S3 keeps parity with each
+   Shipbreaker family. The mods together add about $1,115 a find at base value
+   (Shipbreaker $177), down from $2,870. Manufacturing's $732 is now the largest share.
+3. **Crop nutrients: 150 cr/kg.** The 40 g packet is 6 cr, the 500 g bulk charge
+   75 cr and the hopper price follows the charge; makeup salts are 3 cr a packet.
+   The LC-3 formulation into crop nutrients now returns 1.18 x its salts (11.8 x
+   before). The makeup formulation returns 0.27 x: it is supply for the B2, and the
+   salts are worth more sold raw. Every food crop now gains a little over its water
+   and nutrients; flax and sugar beet, industrial feeds, still cost more than their
+   raw produce sells for.
+4. **Meals: repriced.** Flatbread 200 cr and soybean stew 190 cr, each a little
+   above its inputs.
+
+Saved items follow the new prices on load through
+`EquipmentSaveUpgrade.FollowPrice`. Agriculture registers its meals and produce,
+and registers its nutrient charges by mass: Framework 0.102.0's `byMass` gives a
+part-used charge the new price in proportion to what is left in it. No save needs
+a manual step. The boards, machines and other Shipbreaker items kept their prices,
+so they need no hook.
+
+**Owner note, same day:** dedicated equipment for assembling finished machines is
+planned and will replace table assembly. The bills above describe what a machine
+is made from rather than anything specific to a table, so they are written to
+carry over to that equipment.
 
 ## Rerunning
 

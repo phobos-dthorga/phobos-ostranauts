@@ -574,5 +574,8 @@
   "Departure.releasing": "Docking clamps releasing.",
   "Plugin.physics_held": "The game's ship update failed this step. Auto Nav held its thrust for the step and carries on.",
   "Plugin.physics_repeated": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles.",
-  "EquipmentContent.salvage_entry": "The economy file needs exactly one worldLoot rule with tables for the derelict salvage."
+  "EquipmentContent.salvage_entry": "The economy file needs exactly one worldLoot rule with tables for the derelict salvage.",
+  "Recipe.PhobosBuildAutoNav2.description": "Rebuild two Polaris course plot modules and four small electronic parts into a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station, leaving four 0.6 kg board offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts.",
+  "Recipe.PhobosBuildPursuit2.description": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg pursuit module, leaving three 0.6 kg board offcuts. Rendezvous and Follow; weapons require the separate N3 Fire Control System.",
+  "Recipe.PhobosBuildFireControl2.description": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg fire control system, leaving three 0.6 kg board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply."
 }

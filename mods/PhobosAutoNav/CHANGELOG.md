@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.34.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Economy audit, 5 October 2026: building a board and selling it no longer pays. The N1 is now rebuilt from two of the game's Polaris course plot modules and four small electronic parts, leaving four offcuts. The N2 and N3 each take three course plot modules and two small electronic parts, leaving three offcuts. Most supply kiosks sell course plot modules. The parts come to about half the board's value. Work times are unchanged.
+
+### Save compatibility
+
+- Automatic. A board already queued at a table finishes with the parts it was given; tables offer only the new bills.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.102.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.33.0] - 2026-10-05 - Draft
 
 ### Changed

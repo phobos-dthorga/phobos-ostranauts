@@ -171,11 +171,11 @@
   },
   "worldLoot": [
     {
-      "notes": "The S3's own share of the engineering roll it had among Shipbreaker's twelve families (0.4 / 12), half of it broken; Shipbreaker's roll dropped to 0.36667 when the S3 moved, so no family's odds changed. The S2, S4 and S5 are not found.",
+      "notes": "The S3 keeps the same odds as each of Shipbreaker's eleven families (0.05 / 11), three in four broken, after the economy audit of 5 October 2026 cut that roll. The S2, S4 and S5 are not found.",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosFrameworkEquipmentSalvage",
-      "chance": 0.03333,
-      "brokenShare": 0.5
+      "chance": 0.00455,
+      "brokenShare": 0.75
     }
   ],
   "factionKiosks": {

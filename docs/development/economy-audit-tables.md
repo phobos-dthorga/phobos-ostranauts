@@ -72,7 +72,7 @@ Every loot table that can yield a Phobos identity, with the chance the evidence 
 | Loot table | Identities | Entries |
 |---|---|---|
 | ItmFridge01Contents | 13 | PhobosVerdemorrowContinuanceLettuce 0.02; PhobosVerdemorrowContinuancePotato 0.01; PhobosVerdemorrowContinuanceSoybean 0.01; PhobosVerdemorrowContinuanceTomato 0.02; PhobosVerdemorrowContinuanceWheat 0.01; PhobosVerdemorrowHearthFlatbread 0.01; PhobosVerdemorrowHearthPotatoes 0.02; PhobosVerdemorrowHearthSoybeans 0.01; PhobosVerdemorrowLettuce 0.02; PhobosVerdemorrowRawPotatoes 0.03; PhobosVerdemorrowSoybeans 0.02; PhobosVerdemorrowTomatoes 0.02; PhobosVerdemorrowWheatGrain 0.02 |
-| ItmLootSpawnEngineering | 90 | PhobosAcidPlantLoose 0.000543; PhobosAcidPlantLooseDmg 0.00163; PhobosAcidTankLoose 0.000543; PhobosAcidTankLooseDmg 0.00163; PhobosAluminiumIngot 0.06; PhobosAmmoniaCrackerLoose 0.000543; PhobosAmmoniaCrackerLooseDmg 0.00163; PhobosAmmoniaStoreLoose 0.000543; PhobosAmmoniaStoreLooseDmg 0.00163; PhobosBottlingUnitLoose 0.000543; PhobosBottlingUnitLooseDmg 0.00163; PhobosCabinAirRegulatorLoose 0.000543; PhobosCabinAirRegulatorLooseDmg 0.00163; PhobosCanisterFillerLoose 0.000543; PhobosCanisterFillerLooseDmg 0.00163; PhobosCarbonDioxideStoreLoose 0.000543; PhobosCarbonDioxideStoreLooseDmg 0.00163; PhobosCarbonMonoxideStoreLoose 0.000543; PhobosCarbonMonoxideStoreLooseDmg 0.00163; PhobosCarbothermalReactorLoose 0.000543; PhobosCarbothermalReactorLooseDmg 0.00163; PhobosChemicalProcessorLoose 0.000543; PhobosChemicalProcessorLooseDmg 0.00163; PhobosElectrolysisCellLoose 0.000543; PhobosElectrolysisCellLooseDmg 0.00163; PhobosEthanolTankLoose 0.000543; PhobosEthanolTankLooseDmg 0.00163; PhobosExteriorGrabberLoose 0.0153; PhobosExteriorGrabberLooseDmg 0.0153; PhobosFermenterStillLoose 0.000543; PhobosFermenterStillLooseDmg 0.00163; PhobosFurnaceCoolantConduitLoose 0.1; PhobosFurnaceLoose 0.0153; PhobosFurnaceLooseDmg 0.0153; PhobosFurnaceRadiatorLoose 0.0153; PhobosFurnaceRadiatorLooseDmg 0.0153; PhobosFurnaceThermalPortLoose 0.0153; PhobosFurnaceThermalPortLooseDmg 0.0153; PhobosHullChuteLoose 0.0153; PhobosHullChuteLooseDmg 0.0153; PhobosHydrogenStoreLoose 0.000543; PhobosHydrogenStoreLooseDmg 0.00163; PhobosIceThawLoose 0.0153; PhobosIceThawLooseDmg 0.0153; PhobosIndustrialConsoleLoose 0.0153; PhobosIndustrialConsoleLooseDmg 0.0153; PhobosLeachUnitLoose 0.000543; PhobosLeachUnitLooseDmg 0.00163; PhobosMaterialBinLoose 0.0153; PhobosMaterialBinLooseDmg 0.0153; PhobosMedicalBedLoose 0.0025; PhobosMedicalBedLooseDmg 0.0075; PhobosMedicalMonitorLoose 0.0025; PhobosMedicalMonitorLooseDmg 0.0075; PhobosMethaneStoreLoose 0.000543; PhobosMethaneStoreLooseDmg 0.00163; PhobosMiningLaserLoose 0.0153; PhobosMiningLaserLooseDmg 0.0153; PhobosNitrogenStoreLoose 0.000543; PhobosNitrogenStoreLooseDmg 0.00163; PhobosOxygenStoreLoose 0.000543; PhobosOxygenStoreLooseDmg 0.00163; PhobosProcessSiloLoose 0.0167; PhobosProcessSiloLooseDmg 0.0167; PhobosPropellantManifoldLoose 0.000543; PhobosPropellantManifoldLooseDmg 0.00163; PhobosReactionMassFeederLoose 0.000543; PhobosReactionMassFeederLooseDmg 0.00163; PhobosResidueCollectorLoose 0.0153; PhobosResidueCollectorLooseDmg 0.0153; PhobosRivetlineCoolantCharge 0.1; PhobosSabatierReactorLoose 0.000543; PhobosSabatierReactorLooseDmg 0.00163; PhobosScrapReclaimerLoose 0.0153; PhobosScrapReclaimerLooseDmg 0.0153; PhobosShipbreakerLoose 0.0153; PhobosShipbreakerLooseDmg 0.0153; PhobosSteelIngot 0.04; PhobosVerdemorrowFirstlight4Loose 0.025; PhobosVerdemorrowFirstlight4LooseDmg 0.025; PhobosVerdemorrowGroundworkB2Loose 0.025; PhobosVerdemorrowGroundworkB2LooseDmg 0.025; PhobosVerdemorrowGroundworkE2Loose 0.025; PhobosVerdemorrowGroundworkE2LooseDmg 0.025; PhobosVerdemorrowGroundworkW2Loose 0.025; PhobosVerdemorrowGroundworkW2LooseDmg 0.025; PhobosVerdemorrowHearth2Loose 0.025; PhobosVerdemorrowHearth2LooseDmg 0.025; PhobosVolatilesRefineryLoose 0.000543; PhobosVolatilesRefineryLooseDmg 0.00163 |
+| ItmLootSpawnEngineering | 90 | PhobosAcidPlantLoose 0.000543; PhobosAcidPlantLooseDmg 0.00163; PhobosAcidTankLoose 0.000543; PhobosAcidTankLooseDmg 0.00163; PhobosAluminiumIngot 0.03; PhobosAmmoniaCrackerLoose 0.000543; PhobosAmmoniaCrackerLooseDmg 0.00163; PhobosAmmoniaStoreLoose 0.000543; PhobosAmmoniaStoreLooseDmg 0.00163; PhobosBottlingUnitLoose 0.000543; PhobosBottlingUnitLooseDmg 0.00163; PhobosCabinAirRegulatorLoose 0.000543; PhobosCabinAirRegulatorLooseDmg 0.00163; PhobosCanisterFillerLoose 0.000543; PhobosCanisterFillerLooseDmg 0.00163; PhobosCarbonDioxideStoreLoose 0.000543; PhobosCarbonDioxideStoreLooseDmg 0.00163; PhobosCarbonMonoxideStoreLoose 0.000543; PhobosCarbonMonoxideStoreLooseDmg 0.00163; PhobosCarbothermalReactorLoose 0.000543; PhobosCarbothermalReactorLooseDmg 0.00163; PhobosChemicalProcessorLoose 0.000543; PhobosChemicalProcessorLooseDmg 0.00163; PhobosElectrolysisCellLoose 0.000543; PhobosElectrolysisCellLooseDmg 0.00163; PhobosEthanolTankLoose 0.000543; PhobosEthanolTankLooseDmg 0.00163; PhobosExteriorGrabberLoose 0.00104; PhobosExteriorGrabberLooseDmg 0.00313; PhobosFermenterStillLoose 0.000543; PhobosFermenterStillLooseDmg 0.00163; PhobosFurnaceCoolantConduitLoose 0.05; PhobosFurnaceLoose 0.00104; PhobosFurnaceLooseDmg 0.00313; PhobosFurnaceRadiatorLoose 0.00104; PhobosFurnaceRadiatorLooseDmg 0.00313; PhobosFurnaceThermalPortLoose 0.00104; PhobosFurnaceThermalPortLooseDmg 0.00313; PhobosHullChuteLoose 0.00104; PhobosHullChuteLooseDmg 0.00313; PhobosHydrogenStoreLoose 0.000543; PhobosHydrogenStoreLooseDmg 0.00163; PhobosIceThawLoose 0.00104; PhobosIceThawLooseDmg 0.00313; PhobosIndustrialConsoleLoose 0.00104; PhobosIndustrialConsoleLooseDmg 0.00313; PhobosLeachUnitLoose 0.000543; PhobosLeachUnitLooseDmg 0.00163; PhobosMaterialBinLoose 0.00104; PhobosMaterialBinLooseDmg 0.00313; PhobosMedicalBedLoose 0.0025; PhobosMedicalBedLooseDmg 0.0075; PhobosMedicalMonitorLoose 0.0025; PhobosMedicalMonitorLooseDmg 0.0075; PhobosMethaneStoreLoose 0.000543; PhobosMethaneStoreLooseDmg 0.00163; PhobosMiningLaserLoose 0.00104; PhobosMiningLaserLooseDmg 0.00313; PhobosNitrogenStoreLoose 0.000543; PhobosNitrogenStoreLooseDmg 0.00163; PhobosOxygenStoreLoose 0.000543; PhobosOxygenStoreLooseDmg 0.00163; PhobosProcessSiloLoose 0.00114; PhobosProcessSiloLooseDmg 0.00341; PhobosPropellantManifoldLoose 0.000543; PhobosPropellantManifoldLooseDmg 0.00163; PhobosReactionMassFeederLoose 0.000543; PhobosReactionMassFeederLooseDmg 0.00163; PhobosResidueCollectorLoose 0.00104; PhobosResidueCollectorLooseDmg 0.00313; PhobosRivetlineCoolantCharge 0.05; PhobosSabatierReactorLoose 0.000543; PhobosSabatierReactorLooseDmg 0.00163; PhobosScrapReclaimerLoose 0.00104; PhobosScrapReclaimerLooseDmg 0.00313; PhobosShipbreakerLoose 0.00104; PhobosShipbreakerLooseDmg 0.00313; PhobosSteelIngot 0.02; PhobosVerdemorrowFirstlight4Loose 0.025; PhobosVerdemorrowFirstlight4LooseDmg 0.025; PhobosVerdemorrowGroundworkB2Loose 0.025; PhobosVerdemorrowGroundworkB2LooseDmg 0.025; PhobosVerdemorrowGroundworkE2Loose 0.025; PhobosVerdemorrowGroundworkE2LooseDmg 0.025; PhobosVerdemorrowGroundworkW2Loose 0.025; PhobosVerdemorrowGroundworkW2LooseDmg 0.025; PhobosVerdemorrowHearth2Loose 0.025; PhobosVerdemorrowHearth2LooseDmg 0.025; PhobosVolatilesRefineryLoose 0.000543; PhobosVolatilesRefineryLooseDmg 0.00163 |
 | ItmNavStationModsAll | 6 | PhobosAutoNavBoard 0.0333; PhobosAutoNavBoardDmg 0.0667; PhobosFireControlBoard 0.0333; PhobosFireControlBoardDmg 0.0667; PhobosPursuitBoard 0.0333; PhobosPursuitBoardDmg 0.0667 |
 | ItmNavStationModsAllDmg | 3 | PhobosAutoNavBoardDmg 0.1; PhobosFireControlBoardDmg 0.1; PhobosPursuitBoardDmg 0.1 |
 | ItmNavStationModsAtmo | 6 | PhobosAutoNavBoard 0.0333; PhobosAutoNavBoardDmg 0.0667; PhobosFireControlBoard 0.0333; PhobosFireControlBoardDmg 0.0667; PhobosPursuitBoard 0.0333; PhobosPursuitBoardDmg 0.0667 |
@@ -98,11 +98,11 @@ What each engineering-salvage roll adds, per mod. Each mod's branch is an extra 
 | Mod | Chance of a Phobos item | Expected base value added |
 |---|---|---|
 | Agriculture | 0.25 | 49.50 |
-| Framework | 0.03 | 99.99 |
+| Framework | 0.00 | 9.55 |
 | Manufacturing | 0.05 | 732.34 |
 | Medical | 0.02 | 146.56 |
-| Shipbreaker | 0.67 | 1,841.19 |
-| All mods | 0.78 | 2,869.58 |
+| Shipbreaker | 0.20 | 177.37 |
+| All mods | 0.44 | 1,115.33 |
 
 ## 4. Dismantling
 
@@ -213,15 +213,6 @@ Table and bench builds still offered (retired section recipes are left out). "Bu
 
 | Mod | Recipe | Parts | Product | Ratio | Build and sell | Minutes |
 |---|---|---|---|---|---|---|
-| Shipbreaker | PhobosBuildFurnaceRadiator | 210.00 | 7,200.00 | 34.29 | 3,327.00 | 60.00 |
-| Shipbreaker | PhobosBuildFurnaceThermalPort | 210.00 | 7,200.00 | 34.29 | 3,327.00 | 60.00 |
-| Shipbreaker | PhobosBuildExteriorGrabber | 340.00 | 6,400.00 | 18.82 | 2,758.00 | 60.00 |
-| AutoNav | PhobosBuildPursuit | 29.00 | 5,400.01 | 186.21 | 2,662.30 | 30.00 |
-| AutoNav | PhobosBuildFireControl | 29.00 | 5,400.01 | 186.21 | 2,662.30 | 30.00 |
-| Shipbreaker | PhobosBuildIndustrialConsole | 241.20 | 5,200.00 | 21.56 | 2,286.44 | 45.00 |
-| AutoNav | PhobosBuildAutoNav | 29.00 | 3,600.01 | 124.14 | 1,762.30 | 30.00 |
-| Shipbreaker | PhobosBuildResidueCollector | 106.60 | 2,400.00 | 22.51 | 1,061.42 | 40.00 |
-| Shipbreaker | PhobosBuildHullChute | 176.40 | 1,800.00 | 10.20 | 670.68 | 30.00 |
 | Shipbreaker | PhobosBuildFurnaceCoolantConduit | 1.10 | 3.00 | 2.73 | 0.07 | 2.00 |
 | Agriculture | PhobosVerdemorrowWaterConduitBuild | 1.10 | 2.00 | 1.82 | -0.43 | 2.00 |
 | Agriculture | PhobosVerdemorrowHearth2Build | 65.00 | 150.00 | 2.31 | -9.50 | 20.00 |
@@ -233,6 +224,15 @@ Table and bench builds still offered (retired section recipes are left out). "Bu
 | Agriculture | PhobosVerdemorrowGroundworkB2Build | 143.40 | 250.00 | 1.74 | -61.42 | 30.00 |
 | Agriculture | PhobosVerdemorrowFirstlight4Build | 317.20 | 700.00 | 2.21 | -62.36 | 60.00 |
 | Shipbreaker | PhobosRecoverFurnaceHousing | 60.00 | 19.80 | 0.33 | -68.10 | 10.00 |
+| Shipbreaker | PhobosBuildResidueCollector2 | 1,130.90 | 2,400.00 | 2.12 | -270.17 | 40.00 |
+| Shipbreaker | PhobosBuildExteriorGrabber2 | 2,740.20 | 6,400.00 | 2.34 | -362.26 | 60.00 |
+| Shipbreaker | PhobosBuildHullChute2 | 1,005.20 | 1,800.00 | 1.79 | -406.76 | 30.00 |
+| AutoNav | PhobosBuildAutoNav2 | 2,032.00 | 3,600.04 | 1.77 | -841.58 | 30.00 |
+| Shipbreaker | PhobosBuildFurnaceRadiator2 | 3,462.40 | 7,200.00 | 2.08 | -901.12 | 60.00 |
+| Shipbreaker | PhobosBuildFurnaceThermalPort2 | 3,462.40 | 7,200.00 | 2.08 | -901.12 | 60.00 |
+| AutoNav | PhobosBuildPursuit2 | 2,990.00 | 5,400.03 | 1.81 | -1,186.99 | 30.00 |
+| AutoNav | PhobosBuildFireControl2 | 2,990.00 | 5,400.03 | 1.81 | -1,186.99 | 30.00 |
+| Shipbreaker | PhobosBuildIndustrialConsole2 | 2,994.30 | 5,200.00 | 1.74 | -1,292.59 | 45.00 |
 
 ## 7. Process recipes
 
@@ -241,8 +241,8 @@ At base value. Bulk is valued at the station price per kilogram. "Bought loop" b
 | Mod | Machine | Recipe | In | Out | Out/in | All item inputs bought | Bought loop | Hours |
 |---|---|---|---|---|---|---|---|---|
 | Agriculture | hearth | hearth-potatoes | 12.00 | 35.00 | 2.92 | yes | 3.10 | 0.03 |
-| Agriculture | hearth | hearth-flatbread | 180.00 | 90.00 | 0.50 | yes | -171.00 | 0.17 |
-| Agriculture | hearth | hearth-soybeans | 175.00 | 70.00 | 0.40 | yes | -175.00 | 0.25 |
+| Agriculture | hearth | hearth-flatbread | 180.00 | 200.00 | 1.11 | yes | -116.00 | 0.17 |
+| Agriculture | hearth | hearth-soybeans | 175.00 | 190.00 | 1.09 | yes | -115.00 | 0.25 |
 | Manufacturing | refinery | hydrates | 150.00 | 16.00 | 0.11 |  |  | 0.17 |
 | Manufacturing | refinery | clay | 180.00 | 20.01 | 0.11 |  |  | 0.25 |
 | Manufacturing | refinery | carbon | 99.00 | 202.00 | 2.04 |  |  | 0.50 |
@@ -263,11 +263,11 @@ At base value. Bulk is valued at the station price per kilogram. "Bought loop" b
 | Manufacturing | fermenter | sugar-wash | 64.87 | 4.43 | 0.07 |  |  | 1.00 |
 | Manufacturing | leach | evaporite-leach | 150.00 | 300.02 | 2.00 |  |  | 1.00 |
 | Manufacturing | leach | struvite | 112.30 | 125.01 | 1.11 |  |  | 0.08 |
-| Manufacturing | leach | makeup-formulation | 440.00 | 1,170.00 | 2.66 |  |  | 0.04 |
+| Manufacturing | leach | makeup-formulation | 440.00 | 117.00 | 0.27 |  |  | 0.04 |
 | Manufacturing | acid-plant | sulfide-roast | 248.70 | 324.22 | 1.30 |  |  | 1.00 |
 | Manufacturing | leach | olivine-epsom | 301.95 | 416.01 | 1.38 |  |  | 1.00 |
 | Manufacturing | leach | struvite-acid | 339.91 | 435.94 | 1.28 |  |  | 0.17 |
-| Manufacturing | leach | crop-nutrients | 351.10 | 4,156.50 | 11.84 |  |  | 0.08 |
+| Manufacturing | leach | crop-nutrients | 351.10 | 415.65 | 1.18 |  |  | 0.08 |
 | Manufacturing | leach | gangue-wash | 11.10 | 0.13 | 0.01 |  |  | 0.33 |
 | Manufacturing | leach | gangue-wash-steel | 11.10 | 7.31 | 0.66 |  |  | 0.33 |
 | Manufacturing | leach | gangue-wash-aluminium | 11.10 | 2.31 | 0.21 |  |  | 0.33 |
@@ -294,14 +294,14 @@ One harvest, at base value: produce against the water and crop nutrients it took
 
 | Crop | Produce | Units | Harvest | Water | Nutrients | Net | Hours | Net per hour |
 |---|---|---|---|---|---|---|---|---|
-| potato | PhobosVerdemorrowRawPotatoes | 10.50 | 126.00 | 46.24 | 60.00 | 19.76 | 96 | 0.21 |
-| lettuce | PhobosVerdemorrowLettuce | 4.00 | 32.00 | 12.66 | 7.50 | 11.84 | 48 | 0.25 |
-| lettuce-seed | PhobosVerdemorrowContinuanceLettuce | 4.00 | 20.00 | 13.56 | 15.00 | -8.56 | 96 | -0.09 |
-| wheat | PhobosVerdemorrowWheatGrain | 1.15 | 34.50 | 11.65 | 67.50 | -44.65 | 84 | -0.53 |
-| tomato | PhobosVerdemorrowTomatoes | 14.40 | 115.20 | 49.62 | 37.50 | 28.08 | 64 | 0.44 |
-| soybean | PhobosVerdemorrowSoybeans | 1.16 | 29.00 | 7.74 | 36.00 | -14.74 | 90 | -0.16 |
-| flax | PhobosVerdemorrowFlaxStraw | 4.20 | 8.40 | 13.75 | 52.50 | -57.85 | 90 | -0.64 |
-| sugar-beet | PhobosVerdemorrowSugarBeets | 9.20 | 36.80 | 58.62 | 75.00 | -96.82 | 140 | -0.69 |
+| potato | PhobosVerdemorrowRawPotatoes | 10.50 | 126.00 | 46.24 | 6.00 | 73.76 | 96 | 0.77 |
+| lettuce | PhobosVerdemorrowLettuce | 4.00 | 32.00 | 12.66 | 0.75 | 18.59 | 48 | 0.39 |
+| lettuce-seed | PhobosVerdemorrowContinuanceLettuce | 4.00 | 20.00 | 13.56 | 1.50 | 4.94 | 96 | 0.05 |
+| wheat | PhobosVerdemorrowWheatGrain | 1.15 | 34.50 | 11.65 | 6.75 | 16.10 | 84 | 0.19 |
+| tomato | PhobosVerdemorrowTomatoes | 14.40 | 115.20 | 49.62 | 3.75 | 61.83 | 64 | 0.97 |
+| soybean | PhobosVerdemorrowSoybeans | 1.16 | 29.00 | 7.74 | 3.60 | 17.66 | 90 | 0.20 |
+| flax | PhobosVerdemorrowFlaxStraw | 4.20 | 8.40 | 13.75 | 5.25 | -10.60 | 90 | -0.12 |
+| sugar-beet | PhobosVerdemorrowSugarBeets | 9.20 | 36.80 | 58.62 | 7.50 | -29.32 | 140 | -0.21 |
 
 ## 9. Machine payback
 
@@ -314,7 +314,7 @@ Each machine's best recipe by base gain per working hour, and what processing ad
 | Manufacturing | carbothermal-reactor | regolith-carbothermal | -23.62 | -12.07 |
 | Manufacturing | electrolysis-cell | regolith-electrolysis | 26.57 | 10.51 |
 | Manufacturing | fermenter | beet-mash | 1.44 | -0.55 |
-| Manufacturing | leach | crop-nutrients | 45,664.75 | 20,340.34 |
+| Manufacturing | leach | crop-nutrients | 774.55 | 139.75 |
 | Manufacturing | refinery | nickel-iron | 648.01 | 324.01 |
 | Shipbreaker | thaw-methane | thaw-methane | 126.47 | 50.91 |
 | Shipbreaker | thaw-water | thaw-water | -1,459.50 | -746.78 |

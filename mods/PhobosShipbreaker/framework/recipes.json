@@ -56,7 +56,8 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildShipbreakerSection.name",
-      "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description"
+      "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildShipbreaker",
@@ -96,7 +97,8 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildShipbreaker.name",
-      "descriptionKey": "Recipe.PhobosBuildShipbreaker.description"
+      "descriptionKey": "Recipe.PhobosBuildShipbreaker.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildHullChute",
@@ -150,7 +152,70 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildHullChute.name",
-      "descriptionKey": "Recipe.PhobosBuildHullChute.description"
+      "descriptionKey": "Recipe.PhobosBuildHullChute.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildHullChute2",
+      "name": "Phobos' Rivetline H4 Sealed Hull Chute",
+      "description": "Build a 40 kg, 4 wide x 1 deep transfer chute around a 2x bulkhead bin. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsStorageBin2x101Uninstalled",
+          "item": "ItmStorageBin2x101Loose",
+          "count": 1,
+          "unitMassKg": 14,
+          "requireEmpty": true
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 16,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 6,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 6,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 2,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosHullChuteLoose",
+          "count": 1,
+          "unitMassKg": 40
+        }
+      ],
+      "workSeconds": 1800,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildHullChute.name",
+      "descriptionKey": "Recipe.PhobosBuildHullChute2.description",
+      "legacyActionIds": []
     },
     {
       "id": "PhobosBuildExteriorGrabber",
@@ -204,7 +269,76 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
-      "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description"
+      "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildExteriorGrabber2",
+      "name": "Phobos' Rivetline G4 Exterior Grabber",
+      "description": "Build an 80 kg, 4 wide x 3 deep exterior grabber. A cryo distribution pump drives its clamps and a laser torch charging station powers its cutting head. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsFusionCryoPump01Uninstalled",
+          "item": "ItmFusionCryoPump01Loose",
+          "count": 1,
+          "unitMassKg": 28
+        },
+        {
+          "trigger": "TIsChargerBattery04Uninstalled",
+          "item": "ItmChargerBattery04OffLoose",
+          "count": 1,
+          "unitMassKg": 25,
+          "requireEmpty": true
+        },
+        {
+          "trigger": "TIsMotor",
+          "item": "ItmComponentMotor01",
+          "count": 4,
+          "unitMassKg": 2.5
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 8,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 2,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 12,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosExteriorGrabberLoose",
+          "count": 1,
+          "unitMassKg": 80
+        }
+      ],
+      "workSeconds": 3600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
+      "descriptionKey": "Recipe.PhobosBuildExteriorGrabber2.description",
+      "legacyActionIds": []
     },
     {
       "id": "PhobosBuildResidueCollector",
@@ -258,7 +392,70 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildResidueCollector.name",
-      "descriptionKey": "Recipe.PhobosBuildResidueCollector.description"
+      "descriptionKey": "Recipe.PhobosBuildResidueCollector.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildResidueCollector2",
+      "name": "Phobos' Rivetline C2 Residue Collector",
+      "description": "Build a 20 kg, 2 wide x 1 deep collector. An air vent becomes its gate and a 1 x 1 rack holds the packets. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsVent01Uninstalled",
+          "item": "ItmVent01Loose",
+          "count": 1,
+          "unitMassKg": 8
+        },
+        {
+          "trigger": "TIsRack1x101Uninstalled",
+          "item": "ItmRack1x101Loose",
+          "count": 1,
+          "unitMassKg": 7,
+          "requireEmpty": true
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 3,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 1,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 2,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosResidueCollectorLoose",
+          "count": 1,
+          "unitMassKg": 20
+        }
+      ],
+      "workSeconds": 2400,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildResidueCollector.name",
+      "descriptionKey": "Recipe.PhobosBuildResidueCollector2.description",
+      "legacyActionIds": []
     },
     {
       "id": "PhobosBuildReclaimerSection",
@@ -313,7 +510,8 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildReclaimerSection.name",
-      "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description"
+      "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildReclaimer",
@@ -351,7 +549,8 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildReclaimer.name",
-      "descriptionKey": "Recipe.PhobosBuildReclaimer.description"
+      "descriptionKey": "Recipe.PhobosBuildReclaimer.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildIndustrialConsole",
@@ -406,7 +605,69 @@
         "TIsToolSoldering"
       ],
       "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
-      "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description"
+      "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildIndustrialConsole2",
+      "name": "Phobos' Asterel C1 Industrial Control Console",
+      "description": "Build a 40 kg, 3 x 3 seated workstation from a computer terminal, a small ship battery that steadies its supply and two Polaris map controls modules for its command boards. It controls installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsTerminal01Uninstalled",
+          "item": "ItmTerminal01Loose",
+          "count": 1,
+          "unitMassKg": 20
+        },
+        {
+          "trigger": "TIsBattery02cUninstalled",
+          "item": "ItmBattery02cLoose",
+          "count": 1,
+          "unitMassKg": 16.2
+        },
+        {
+          "trigger": "TIsFitContainerNavMod",
+          "item": "ItmNavModDisplayControls",
+          "count": 2,
+          "unitMassKg": 0.4
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 2,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 1,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosIndustrialConsoleLoose",
+          "count": 1,
+          "unitMassKg": 40
+        }
+      ],
+      "workSeconds": 2700,
+      "range": 2,
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "legacyActionIds": [],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
+      "descriptionKey": "Recipe.PhobosBuildIndustrialConsole2.description"
     },
     {
       "id": "PhobosFinishFurnaceHousing",
@@ -509,7 +770,8 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildShipbreakerSectionCast.name",
-      "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description"
+      "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildReclaimerSectionCast",
@@ -570,7 +832,8 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildReclaimerSectionCast.name",
-      "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description"
+      "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildFurnaceSection",
@@ -624,7 +887,8 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildFurnaceSection.name",
-      "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description"
+      "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildFurnace",
@@ -661,7 +925,8 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildFurnace.name",
-      "descriptionKey": "Recipe.PhobosBuildFurnace.description"
+      "descriptionKey": "Recipe.PhobosBuildFurnace.description",
+      "retired": true
     },
     {
       "id": "PhobosBuildFurnaceRadiator",
@@ -703,7 +968,57 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
-      "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description"
+      "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildFurnaceRadiator2",
+      "name": "Phobos' Rivetline F6-R Exterior Radiator",
+      "description": "Build the 100 kg, 6 x 4 exterior F6 radiator around two cryo distribution pumps, which drive its coolant. Mount outside on six intact hull walls.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsFusionCryoPump01Uninstalled",
+          "item": "ItmFusionCryoPump01Loose",
+          "count": 2,
+          "unitMassKg": 28
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 12,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 32,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceRadiatorLoose",
+          "count": 1,
+          "unitMassKg": 100
+        }
+      ],
+      "workSeconds": 3600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator2.description",
+      "legacyActionIds": []
     },
     {
       "id": "PhobosBuildFurnaceThermalPort",
@@ -745,7 +1060,57 @@
         "TIsToolWelding"
       ],
       "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
-      "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description"
+      "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description",
+      "retired": true
+    },
+    {
+      "id": "PhobosBuildFurnaceThermalPort2",
+      "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
+      "description": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsFusionCryoPump01Uninstalled",
+          "item": "ItmFusionCryoPump01Loose",
+          "count": 2,
+          "unitMassKg": 28
+        },
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 12,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 32,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceThermalPortLoose",
+          "count": 1,
+          "unitMassKg": 100
+        }
+      ],
+      "workSeconds": 3600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort2.description",
+      "legacyActionIds": []
     },
     {
       "id": "PhobosRecoverFurnaceHousingBlank",

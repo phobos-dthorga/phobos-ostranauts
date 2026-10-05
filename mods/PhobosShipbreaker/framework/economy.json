@@ -633,28 +633,28 @@
   },
   "worldLoot": [
     {
-      "notes": "About one engineering roll in 2.7 yields a loose Rivetline machine, half of them broken, spread evenly over the small sizes: 1 in 30 per family, as before the S3 moved to Framework (Shipbreaker 0.54.0) with its own share.",
+      "notes": "About one engineering roll in 20 yields a loose Rivetline machine, three in four of them broken, spread evenly over the small sizes (economy audit, 5 October 2026: Manufacturing's figure; it was one in 2.7, half broken).",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosShipbreakerMachinerySalvage",
-      "chance": 0.36667,
-      "brokenShare": 0.5
+      "chance": 0.05,
+      "brokenShare": 0.75
     },
     {
-      "notes": "Service items: a loose conduit or a coolant charge.",
+      "notes": "Service items: a loose conduit or a coolant charge (halved by the economy audit, 5 October 2026).",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosShipbreakerServiceSalvage",
       "items": {
-        "PhobosFurnaceCoolantConduitLoose": 0.1,
-        "PhobosRivetlineCoolantCharge": 0.1
+        "PhobosFurnaceCoolantConduitLoose": 0.05,
+        "PhobosRivetlineCoolantCharge": 0.05
       }
     },
     {
-      "notes": "One ingot at most per roll, never a merchant lot; the game's engineering loot already carries loose metal.",
+      "notes": "One ingot at most per roll, never a merchant lot; the game's engineering loot already carries loose metal. Halved by the economy audit, 5 October 2026.",
       "table": "ItmLootSpawnEngineering",
       "branch": "PhobosShipbreakerIngotSalvage",
       "items": {
-        "PhobosAluminiumIngot": 0.06,
-        "PhobosSteelIngot": 0.04
+        "PhobosAluminiumIngot": 0.03,
+        "PhobosSteelIngot": 0.02
       }
     }
   ],

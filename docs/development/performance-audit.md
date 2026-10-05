@@ -1097,3 +1097,7 @@ L54 — Framework 0.101.0: one Harmony prefix and finalizer on the game's Ship.D
 ## 5 October: the economy audit tool (L55)
 
 L55 — scripts/audit-economy.py is an offline, read-only report over the item evidence, the data packs and the game's definitions. It never runs in the game. No capture accompanies this change.
+
+## 5 October: economy audit decisions (L56)
+
+L56 — Framework 0.102.0, Shipbreaker 0.79.0, Auto Nav 0.34.0 and Agriculture 0.52.0: the new bills, salvage odds and prices are data read once per game load. A retired recipe skips one append to a station's actions at registration. The overlay mass test reads one condition table per overlay ingredient at registration. Saved items that follow their price cost one dictionary probe per object loaded, already paid for every object, and a part-used charge one more mass read when it loads. Nothing is added to a frame. No capture accompanies this change.

@@ -16,6 +16,16 @@ internal static class ConstructionChecks
             check(threw, why);
         }
         RecipeRules.Validate(Recipe());
+        // Framework 0.102.0: a retired bill still validates (saved queues finish under it); only its table offer goes.
+        var retired = Recipe(); retired.retired = true; RecipeRules.Validate(retired);
+        check(ConstructionRegistry.MassNeutral(new[] { "-StatBasePrice=1.0x649" }, Array.Empty<string>()) &&
+              !ConstructionRegistry.MassNeutral(new[] { "StatMass=1.0x2" }, null) && !ConstructionRegistry.MassNeutral(new[] { "-StatMass=1.0x2" }, null) &&
+              !ConstructionRegistry.MassNeutral(Array.Empty<string>(), new[] { "SomeTable" }),
+            "An overlay whose condition loot only sets its price keeps its base mass; one naming StatMass, or nesting tables, is refused");
+        check(Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.ScaledPrice(75, .5, .25) == 37.5 &&
+              Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.ScaledPrice(75, .5, .6) == 75 &&
+              Phobos.Ostranauts.Framework.Registration.EquipmentSaveUpgrade.ScaledPrice(75, .5, 0) == 75,
+            "A part-used charge follows the current price in proportion to what is left, never above a full one");
         Invalid(r => r.outputs[0].unitMassKg = 1.5, "Lost mass must be accounted for as output");
         Invalid(r => r.outputs[0].unitMassKg = 3, "No mass created");
         foreach (double value in new[] { double.NaN, double.PositiveInfinity, double.NegativeInfinity, 0, -1 })

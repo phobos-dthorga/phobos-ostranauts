@@ -28,6 +28,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.102.0] - 2026-10-05 - Draft
+
+### Added
+
+- Recipes can be retired. A retired recipe stays known to the game, so a table job a save already queued finishes or cancels with the parts it was given, but no table offers it again. A changed construction bill now gets a new recipe id and retires the old one.
+- Construction recipes can use the game's own Polaris navigation modules as parts.
+- A part-used nutrient charge can follow a new price when the game loads, in proportion to what is left in it.
+
+### Changed
+
+- Economy audit, 5 October 2026: the S3 process water silo turns up in engineering salvage as often as each Shipbreaker machine, now about 1 roll in 220, three in four broken (it was 1 in 30, half broken).
+
+### Save compatibility
+
+- Automatic. Queued table jobs finish with their old parts; saved items keep everything else.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.101.0] - 2026-10-05 - Draft
 
 ### Fixed

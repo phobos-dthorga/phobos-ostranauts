@@ -521,7 +521,12 @@ No random outputs, substitutions, stock injections or blueprint unlocks exist.
 Active action IDs are `PhobosCraft_` plus recipe ID. The provider creates its own
 selectors and input/output loot. Do not register arbitrary actions under that
 prefix. Legacy aliases are explicit saved-action migrations for your own recipes;
-they must not conflict with any live provider. Do not put this pack in OCF's
+they must not conflict with any live provider. Never change a published bill in
+place: a job a save already queued is checked against the recipe when it finishes.
+Add the new bill under a new recipe ID and set `"retired": true` on the old one
+(Framework 0.102.0); it stays registered so saved jobs finish, but no station offers
+it. An ingredient may be a game overlay (such as a Polaris navigation module) when
+its condition loot never names `StatMass`. Do not put this pack in OCF's
 `crafting/recipes.json` or register it twice. Shipbreaker's active pack and empty
 legacy migration stub demonstrate the transition.
 

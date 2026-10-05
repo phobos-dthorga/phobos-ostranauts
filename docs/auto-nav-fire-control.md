@@ -34,7 +34,8 @@ Intact/damaged overlays are `PhobosNavModFireControl` and
 `PhobosNavModFireControlDmg`; underlying definitions are `PhobosFireControlBoard`
 and `PhobosFireControlBoardDmg`. Construction is `PhobosBuildFireControl`.
 The authored balance matches N2: 0.4 kg, $5,400 intact/$1,350 damaged base value,
-two 0.5 kg electronics parts, 30 minutes and the existing 0.6 kg assembly offcuts.
+three Polaris course plot modules and two small electronic parts (Auto Nav 0.34.0),
+30 minutes and three 0.6 kg assembly offcuts.
 Native repair/Restore and mass-balanced 0.4 kg board residue are retained. Current merchant chance and lot size are listed in the [maintained item reference](auto-nav-item-reference.md#n3); the [merchant policy](development/merchant-stock.md) supersedes the old 60% offer. These are gameplay choices,
 not real equipment performance or guaranteed merchant quotes. See the
 [economy guide](auto-nav-economy.md).

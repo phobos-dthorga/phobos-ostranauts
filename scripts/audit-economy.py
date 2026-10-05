@@ -28,7 +28,8 @@ FIXER_BUY = (0.5, 0.9)      # the K-Leg fixer buying intact high-salvage equipme
 SCRAP_SELL = (1.2, 1.5)     # scrap kiosks selling to the player (broken machines are offered there)
 BUYBACK = 0.45              # Framework BulkSupplies.BuybackShare: bulk sold back from installed stores
 # Bulk commodities priced per kilogram, as the code prices them.
-FIXED = {'water': 10.0, 'ethanol': 20.0, 'crop nutrients': 1500.0}
+# Crop nutrients follow Agriculture's bulk charge (price per kilogram), read in Audit.__init__.
+FIXED = {'water': 10.0, 'ethanol': 20.0, 'crop nutrients': None}
 GAS = {'hydrogen': 'H2', 'methane': 'CH4', 'oxygen': 'O2', 'nitrogen': 'N2', 'carbon dioxide': 'CO2',
        'ammonia': 'NH3', 'carbon monoxide': 'CO', 'sulfuric acid': 'H2SO4'}
 # Game items whose price a Phobos mod amends at load (the evidence holds only Phobos items).
@@ -63,6 +64,7 @@ class Audit:
     def __init__(self, game):
         data = game / 'Ostranauts_Data/StreamingAssets/data'
         self.native = read_all(data / 'condowners')
+        self.overlays = read_all(data / 'cooverlays')
         self.loot = read_all(data / 'loot')
         self.installables = read_all(data / 'installables')
         self.gas = {e.split('=')[0]: float(e.split('x')[1]) for e in self.loot['GasPrices']['aCOs']}
@@ -89,6 +91,8 @@ class Audit:
             if name == 'materials':
                 for k, v in d.get('materials', {}).items():
                     self.materials[k] = v
+        bulk = self.materials['PhobosVerdemorrowGroundworkBulkNutrients']
+        FIXED['crop nutrients'] = bulk['price'] / bulk['kg']
         self.native_sold = self._merchant_stock()
         self.retired = self._retired_recipes()
         self.lines = []
@@ -101,6 +105,14 @@ class Audit:
         for c in (o or {}).get('aStartingConds', []) or []:
             if c.startswith('StatBasePrice='):
                 return float(c.split('x')[-1])
+        overlay = self.overlays.get(item)
+        if overlay and overlay.get('strCOBase') in self.native:
+            # The game adds an overlay's condition-loot price terms to its base ("-" takes them off).
+            base = self.native_price(overlay['strCOBase']) or 0.0
+            for c in (self.loot.get(overlay.get('strCondLoot') or '') or {}).get('aCOs', []) or []:
+                if c.lstrip('-').startswith('StatBasePrice='):
+                    base += (-1 if c.startswith('-') else 1) * float(c.split('x')[-1])
+            return base
         return None
 
     def price(self, item):
@@ -153,12 +165,9 @@ class Audit:
         return item in self.native_sold
 
     def _retired_recipes(self):
-        text = (ROOT / 'src/PhobosShipbreaker/AssemblyDefinitions.cs').read_text(encoding='utf-8')
         found = set()
-        for name in ('Legacy', 'RetiredSectionRecipes'):
-            block = re.search(name + r'\s*=\s*\{([^}]*)\}', text)
-            if block:
-                found |= set(re.findall(r'"([A-Za-z0-9]+)"', block.group(1)))
+        for path in ROOT.glob('mods/*/framework/recipes.json'):
+            found |= {r['id'] for r in json.loads(path.read_text(encoding='utf-8'))['recipes'] if r.get('retired')}
         return found
 
     # ---- output

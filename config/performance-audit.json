@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "bb80c9caa27c6c509175586d49018ab5f98269f1",
+  "baselineCommit": "44ebcc0dcf75a4088fd6fb3118863a744dbb0bd9",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -284,10 +284,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Core/NutrientRecovery.cs",
-      "sha256": "b1a4f92561783634bd6ae4b50fb5919ee0ba62307c7c2a6f90b71b5272fd3f8c",
+      "sha256": "7048cd715bdd27bc6c16f6be36dd8dc0ed9ee01cc9d9680753117162811cf956",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "L29",
@@ -299,10 +299,11 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L56"
       ],
       "indicators": {},
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosAgriculture/Core/NutrientSolution.cs",
@@ -432,7 +433,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "594a73f0cb8ca9d987d3bfbc043a6677140c9013286e47af467e8038eb52d910",
+      "sha256": "cbb4fff3b977a387dfbcafbc6142b4d2c588dabe6ddb348112bb583695de2afa",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -460,7 +461,8 @@
         "L36",
         "L37",
         "L38",
-        "L41"
+        "L41",
+        "L56"
       ],
       "indicators": {
         "collection": [
@@ -474,7 +476,7 @@
           101,
           118,
           127,
-          172
+          174
         ]
       },
       "reviewed": "2026-10-05"
@@ -826,7 +828,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "1e7b083a37e332aeb35ba405f1ca0762f24cc0c210125ffdce0587de552efc22",
+      "sha256": "ad1e591ee09a27bd553d25b772622f4aae39bead05cd3a3f5a739435a8e532d1",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -868,7 +870,8 @@
         "L41",
         "L43",
         "L44",
-        "L45"
+        "L45",
+        "L56"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -1166,10 +1169,10 @@
     },
     {
       "path": "src/PhobosAgriculture/WorkupService.cs",
-      "sha256": "ceff9da61d21f1f7ada2560ebab47e70dcedf2dcca5121af5294eca530e96165",
+      "sha256": "04670aefb9f025789b1541646ab819c714f8b002919b56e2d7d94e5601e4057a",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-04 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R1",
         "R4",
@@ -1184,7 +1187,8 @@
         "L35",
         "L36",
         "L37",
-        "L38"
+        "L38",
+        "L56"
       ],
       "indicators": {
         "collection": [
@@ -1194,7 +1198,7 @@
           91,
           123,
           134,
-          207
+          208
         ],
         "persistence_or_io": [
           20,
@@ -1212,13 +1216,13 @@
           61,
           141,
           149,
-          191,
-          256,
-          260,
-          291
+          192,
+          257,
+          261,
+          292
         ]
       },
-      "reviewed": "2026-10-04"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosAutoNav/Adapted/AutoNavCore.cs",
@@ -2302,7 +2306,7 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "8c9187f2bbcdf60a19a1cec75aea4aae52db67ea2696105a4fbae76bc73b2014",
+      "sha256": "9814877e1857023a0783cd68a1b7c352e594f85f4df13cccdf5fec51bc0ac841",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -2321,7 +2325,8 @@
         "U1",
         "L19",
         "L21",
-        "L44"
+        "L44",
+        "L56"
       ],
       "indicators": {
         "runtime_hook": [
@@ -2559,16 +2564,17 @@
     },
     {
       "path": "src/PhobosFramework/Construction/ConstructionRegistry.cs",
-      "sha256": "b465303caf618adb8b6e36c5e8e87cb49888f5dbafd06aaebba607df13cd7c0c",
+      "sha256": "52d27d41454cba4f82ab31d9ee56fada79bff2d9a9c92e437635e278eff8420a",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R4",
         "FF0",
         "FF1",
         "FF2",
-        "L13"
+        "L13",
+        "L56"
       ],
       "indicators": {
         "collection": [
@@ -2589,7 +2595,7 @@
           163,
           164,
           169,
-          213
+          219
         ],
         "persistence_or_io": [
           69,
@@ -2597,7 +2603,7 @@
           189
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Construction/NativeFloors.cs",
@@ -2636,19 +2642,23 @@
     },
     {
       "path": "src/PhobosFramework/Construction/Recipe.cs",
-      "sha256": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
+      "sha256": "c4a5fe7afa7d653fd159575a8f3a570c17cf34c63cc55bdc438d379fdb199964",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "R4"
+        "R4",
+        "L56"
       ],
       "indicators": {
         "collection": [
-          80,
-          120
+          83,
+          103,
+          104,
+          123
         ]
-      }
+      },
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Construction/SectionAssembly.cs",
@@ -5855,7 +5865,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "be50cbce19c6d37b48a9361a561f167e980bbb14e8edc45d3f8d18606571318d",
+      "sha256": "952b2aff981d053a20f26080bc1f1d94d9093942928c9448291a10be0465fa26",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -5911,7 +5921,8 @@
         "L47",
         "L52",
         "L53",
-        "L54"
+        "L54",
+        "L56"
       ],
       "indicators": {
         "collection": [
@@ -6241,26 +6252,27 @@
     },
     {
       "path": "src/PhobosFramework/Registration/EquipmentSaveUpgrade.cs",
-      "sha256": "0b71a8fab25b089eb4426fd86b7913f6cc226a84030547974091a4f8c7b6edf1",
+      "sha256": "90e708a8741d396fd451c93e97daeab49efec61f265f422f608cb9a0bde2cbac",
       "role": "definition/state validation and load compatibility",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R4",
-        "L14"
+        "L14",
+        "L56"
       ],
       "indicators": {
         "collection": [
-          54,
-          56,
+          63,
           65,
-          80
+          74,
+          89
         ],
         "runtime_hook": [
-          97
+          106
         ]
       },
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosFramework/Registration/InstallMenu.cs",
@@ -8749,19 +8761,19 @@
       "role": "native construction, local information or recovery boundary",
       "indicators": {
         "collection": [
-          62,
-          69
+          65
         ]
       },
-      "sha256": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
+      "sha256": "7c483c0788fe1312e5e93428068eda7f14280f5d6f76eb4b3a5dc769df736181",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-10-01 performance pass; see the linked findings for the disposition.",
+      "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
       "findings": [
         "R10",
         "FF0",
-        "L13"
+        "L13",
+        "L56"
       ],
-      "reviewed": "2026-10-01"
+      "reviewed": "2026-10-05"
     },
     {
       "path": "src/PhobosShipbreaker/AssemblyInfo.cs",
@@ -9200,7 +9212,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "8b74bd35491ce908253c457532de74d1771c0258f1120efd0db2b36a9671c1c7",
+      "sha256": "c123049a6267f521b73542711fd1b14ca41b90bb07e4675c5f068d45a4fb1742",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -9245,14 +9257,15 @@
         "L41",
         "L43",
         "L44",
-        "L45"
+        "L45",
+        "L56"
       ],
       "indicators": {
         "collection": [
           14,
           33,
           34,
-          39
+          42
         ]
       },
       "reviewed": "2026-10-05"
@@ -10459,7 +10472,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "8d86124f094dfb85ef977a3a7cc72be6b3283e452039b17f7ed779b28dc26c11",
+      "sha256": "00dbf0e8e306076e500936925ff2af75f0034c43a2938e5ce5b9282915e53ab7",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -10506,7 +10519,8 @@
         "L41",
         "L43",
         "L44",
-        "L45"
+        "L45",
+        "L56"
       ],
       "indicators": {
         "persistence_or_io": [

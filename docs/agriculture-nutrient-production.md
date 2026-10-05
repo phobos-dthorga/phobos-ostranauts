@@ -190,8 +190,9 @@ authored mixture; the model does not simulate individual N/P/K deficiencies.
 | Seed lettuce | 5.90 g | 5.90 g | 11.80 g | 13.275 cr |
 
 These are authored ideal-cycle values before work, electricity, capital,
-losses and merchant adjustments. Makeup costs 30 cr per 40 g; finished mixture
-uses the same 1,500 cr/kg base value as ordinary nutrients. See the regenerated
+losses and merchant adjustments. Makeup costs 3 cr per 40 g; finished mixture
+uses the same 150 cr/kg base value as ordinary nutrients (both since the economy
+audit of 5 October 2026). See the regenerated
 [economic evidence](development/agriculture-economy-evidence.md), including construction,
 service, salvage and crop-cost comparisons.
 

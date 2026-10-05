@@ -977,5 +977,11 @@
   "Laser.panel_connections": "Settings",
   "Laser.panel_details": "Details",
   "Laser.panel_help": "Moor a target first: tether an asteroid, or capture a hull with the G4. Then Start. Pause keeps work so far; Stop cancels the current cut but keeps the sweep and totals. Settings choose what to cut, cooling and power. Pause before changing what it cuts or its cooling.",
-  "Laser.panel_no_connections": "This laser has no settings to change."
+  "Laser.panel_no_connections": "This laser has no settings to change.",
+  "Recipe.PhobosBuildHullChute2.description": "Build a 40 kg, 4 wide x 1 deep transfer chute around a 2x bulkhead bin. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them.",
+  "Recipe.PhobosBuildExteriorGrabber2.description": "Build an 80 kg, 4 wide x 3 deep exterior grabber. A cryo distribution pump drives its clamps and a laser torch charging station powers its cutting head. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
+  "Recipe.PhobosBuildResidueCollector2.description": "Build a 20 kg, 2 wide x 1 deep collector. An air vent becomes its gate and a 1 x 1 rack holds the packets. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+  "Recipe.PhobosBuildIndustrialConsole2.description": "Build a 40 kg, 3 x 3 seated workstation from a computer terminal, a small ship battery that steadies its supply and two Polaris map controls modules for its command boards. It controls installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
+  "Recipe.PhobosBuildFurnaceRadiator2.description": "Build the 100 kg, 6 x 4 exterior F6 radiator around two cryo distribution pumps, which drive its coolant. Mount outside on six intact hull walls.",
+  "Recipe.PhobosBuildFurnaceThermalPort2.description": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier."
 }

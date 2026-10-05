@@ -16,7 +16,8 @@ public static class EquipmentSaveUpgrade
         internal double LegacyMount, LegacyRepair;
     }
     private static readonly Dictionary<string, Rule> Rules = new Dictionary<string, Rule>(StringComparer.Ordinal);
-    private static readonly HashSet<string> Prices = new HashSet<string>(StringComparer.Ordinal);
+    // Definition id -> whether the price follows the saved item's remaining mass.
+    private static readonly Dictionary<string, bool> Prices = new Dictionary<string, bool>(StringComparer.Ordinal);
     internal static void BeginLoad() { Rules.Clear(); Prices.Clear(); }
     public static void Register(NativeDefinitions d, string savedId, string definitionId, double legacyMount = 100, double legacyRepair = 100)
     {
@@ -29,27 +30,35 @@ public static class EquipmentSaveUpgrade
     /// <summary>Saved items of this definition take its current price on every load (Framework 0.68.0, for the owner's
     /// retroactive refining prices of 1 October 2026): materials whose price is a balance decision, not a property of
     /// the item. Idempotent and markerless, so a later price change reaches saved items too. Works for a native
-    /// definition amended in place, because the live definition is read at load.</summary>
-    public static void FollowPrice(string definitionId)
+    /// definition amended in place, because the live definition is read at load. With <paramref name="byMass"/>
+    /// (Framework 0.102.0) a part-used charge, whose own code prices what is left in it, takes the current price in
+    /// proportion to its remaining mass, never more than a full one.</summary>
+    public static void FollowPrice(string definitionId, bool byMass = false)
     {
         if (string.IsNullOrWhiteSpace(definitionId)) throw new ArgumentException("A definition id is required.");
-        Prices.Add(definitionId);
+        Prices[definitionId] = byMass;
     }
+    /// <summary>The definition's price for what is left of a charge: full price at full mass or more.</summary>
+    internal static double ScaledPrice(double price, double fullKg, double savedKg) =>
+        fullKg > 0 && savedKg > 0 ? price * Math.Min(savedKg, fullKg) / fullKg : price;
 
     internal static JsonCondOwnerSave Upgrade(JsonCondOwnerSave saved)
     {
         if (saved?.strCODef == null) return saved!;
         if (Rules.TryGetValue(saved.strCODef, out var rule)) saved = Economy(saved, rule);
-        return Prices.Contains(saved.strCODef) ? CurrentPrice(saved) : saved;
+        return Prices.TryGetValue(saved.strCODef, out bool byMass) ? CurrentPrice(saved, byMass) : saved;
     }
-    private static JsonCondOwnerSave CurrentPrice(JsonCondOwnerSave saved)
+    private static JsonCondOwnerSave CurrentPrice(JsonCondOwnerSave saved, bool byMass)
     {
         if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(saved.strCODef, out var definition)) return saved;
-        double price = Amount(definition.aStartingConds ?? Array.Empty<string>(), "StatBasePrice");
+        var starting = definition.aStartingConds ?? Array.Empty<string>();
+        double full = Amount(starting, "StatBasePrice"), price = full;
         var old = saved.aConds ?? Array.Empty<string>();
+        if (byMass && old.Any(s => s.StartsWith("StatMass=", StringComparison.Ordinal)))
+            price = ScaledPrice(full, Amount(starting, "StatMass"), Amount(old, "StatMass"));
         bool written = old.Any(s => s.StartsWith("StatBasePrice=", StringComparison.Ordinal));
-        // A DEFAULT-compressed save without its own price term already reads the definition's.
-        if (price <= 0 || !written && old.Contains("DEFAULT") || written && Math.Abs(Amount(old, "StatBasePrice") - price) < 1e-9) return saved;
+        // A DEFAULT-compressed save without its own price term already reads the definition's full price.
+        if (price <= 0 || !written && old.Contains("DEFAULT") && Math.Abs(price - full) < 1e-9 || written && Math.Abs(Amount(old, "StatBasePrice") - price) < 1e-9) return saved;
         var copy = NativeDefinitions.Clone(saved);
         var values = old.ToList();
         Replace(values, "StatBasePrice", price);

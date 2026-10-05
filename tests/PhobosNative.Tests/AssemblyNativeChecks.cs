@@ -122,10 +122,16 @@ internal static class AssemblyNativeChecks
                     Math.Abs(rule.Materials.Sum(m => m.Count * m.UnitKg) - spec.SectionKg) < 1e-9,
                     "A leftover returns its exact standard bill of native materials: " + spec.Section);
             }
-            foreach (string recipe in AssemblyDefinitions.RetiredSectionRecipes.Concat(AssemblyDefinitions.Legacy))
-                check(!DataHandler.dictCOs.Values.Any(c => c.aInteractions?.Contains(RecipeRules.ActionId(recipe)) == true) &&
-                    DataHandler.dictInteractions.ContainsKey(RecipeRules.ActionId(recipe)), "Retired recipe leaves every table but keeps its saved-queue action: " + recipe);
-            check(DataHandler.dictCOs.Values.Any(c => c.aInteractions?.Contains(RecipeRules.ActionId("PhobosBuildHullChute")) == true), "Other Shipbreaker recipes stay on the tables");
+            int retired = 0;
+            foreach (string action in PhobosShipbreaker.Core.DependencyContract.Recipes)
+            {
+                var recipe = ConstructionRegistry.Find(action.Substring(RecipeRules.ActionPrefix.Length));
+                bool offered = DataHandler.dictCOs.Values.Any(c => c.aInteractions?.Contains(action) == true);
+                if (recipe?.retired == true) retired++;
+                check(recipe != null && DataHandler.dictInteractions.ContainsKey(action) && offered != recipe.retired,
+                    "A retired recipe leaves every table but keeps its saved-queue action; every other recipe stays offered: " + action);
+            }
+            check(retired == 14, "The pack retires the whole-machine, section and superseded-bill recipes: " + retired);
         }
         finally
         {

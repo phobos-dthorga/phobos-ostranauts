@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.51.0",
+      "version": "0.52.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -1518,7 +1518,7 @@
             "heldR"
           ],
           "massKg": 0.5,
-          "baseValue": 750.0,
+          "baseValue": 75.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -3154,7 +3154,7 @@
             "heldR"
           ],
           "massKg": 0.04,
-          "baseValue": 30.0,
+          "baseValue": 3.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -3222,7 +3222,7 @@
             "heldR"
           ],
           "massKg": 0.04,
-          "baseValue": 60.0,
+          "baseValue": 6.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -5925,7 +5925,7 @@
             "heldR"
           ],
           "massKg": 0.65,
-          "baseValue": 90.0,
+          "baseValue": 200.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -6001,7 +6001,7 @@
             "heldR"
           ],
           "massKg": 0.5,
-          "baseValue": 70.0,
+          "baseValue": 190.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -11901,7 +11901,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.33.0",
+      "version": "0.34.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -13610,6 +13610,56 @@
           ],
           "nameKey": "Recipe.PhobosBuildAutoNav.name",
           "descriptionKey": "Recipe.PhobosBuildAutoNav.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildAutoNav2",
+          "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
+          "description": "Rebuild two Polaris course plot modules and four small electronic parts into a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station, leaving four 0.6 kg board offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFitContainerNavMod",
+              "item": "ItmNavModCoursePlot",
+              "count": 2,
+              "unitMassKg": 0.4
+            },
+            {
+              "trigger": "TIsPartsElecSmall",
+              "item": "ItmPartsElecSmall01",
+              "count": 4,
+              "unitMassKg": 0.5
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosNavModAutoNav",
+              "count": 1,
+              "unitMassKg": 0.4
+            },
+            {
+              "item": "PhobosAutoNavBoardOffcut",
+              "count": 4,
+              "unitMassKg": 0.6
+            }
+          ],
+          "workSeconds": 1800,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildAutoNav.name",
+          "descriptionKey": "Recipe.PhobosBuildAutoNav2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -13652,6 +13702,56 @@
           ],
           "nameKey": "Recipe.PhobosBuildPursuit.name",
           "descriptionKey": "Recipe.PhobosBuildPursuit.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildPursuit2",
+          "name": "Phobos' Asterel N2 Polaris Pursuit Module",
+          "description": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg pursuit module, leaving three 0.6 kg board offcuts. Rendezvous and Follow; weapons require the separate N3 Fire Control System.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFitContainerNavMod",
+              "item": "ItmNavModCoursePlot",
+              "count": 3,
+              "unitMassKg": 0.4
+            },
+            {
+              "trigger": "TIsPartsElecSmall",
+              "item": "ItmPartsElecSmall01",
+              "count": 2,
+              "unitMassKg": 0.5
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosNavModPursuit",
+              "count": 1,
+              "unitMassKg": 0.4
+            },
+            {
+              "item": "PhobosAutoNavBoardOffcut",
+              "count": 3,
+              "unitMassKg": 0.6
+            }
+          ],
+          "workSeconds": 1800,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildPursuit.name",
+          "descriptionKey": "Recipe.PhobosBuildPursuit2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -13694,6 +13794,56 @@
           ],
           "nameKey": "Recipe.PhobosBuildFireControl.name",
           "descriptionKey": "Recipe.PhobosBuildFireControl.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildFireControl2",
+          "name": "Phobos' Asterel N3 Polaris Fire Control System",
+          "description": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg fire control system, leaving three 0.6 kg board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFitContainerNavMod",
+              "item": "ItmNavModCoursePlot",
+              "count": 3,
+              "unitMassKg": 0.4
+            },
+            {
+              "trigger": "TIsPartsElecSmall",
+              "item": "ItmPartsElecSmall01",
+              "count": 2,
+              "unitMassKg": 0.5
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosNavModFireControl",
+              "count": 1,
+              "unitMassKg": 0.4
+            },
+            {
+              "item": "PhobosAutoNavBoardOffcut",
+              "count": 3,
+              "unitMassKg": 0.6
+            }
+          ],
+          "workSeconds": 1800,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildFireControl.name",
+          "descriptionKey": "Recipe.PhobosBuildFireControl2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         }
       ],
@@ -13701,6 +13851,7 @@
         "ItmPartsElecSmall01": "Small Electronic Parts",
         "PhobosNavModAutoNav": "Phobos' Asterel N1 Polaris Auto Nav Module",
         "PhobosAutoNavBoardOffcut": "Phobos' Asterel N1 Auto Nav Assembly Offcuts (0.6 kg)",
+        "ItmNavModCoursePlot": "Nav Module",
         "PhobosNavModPursuit": "Phobos' Asterel N2 Polaris Pursuit Module",
         "PhobosNavModFireControl": "Phobos' Asterel N3 Polaris Fire Control System"
       }
@@ -13708,7 +13859,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.101.0",
+      "version": "0.102.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -17443,14 +17594,14 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosProcessSiloLoose",
           "condition": "Loot",
-          "chance": 0.016665,
+          "chance": 0.0011375,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosProcessSiloLooseDmg",
           "condition": "Loot",
-          "chance": 0.016665,
+          "chance": 0.0034125,
           "count": 1
         },
         {
@@ -51737,7 +51888,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.78.0",
+      "version": "0.79.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -60872,196 +61023,196 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosExteriorGrabberLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosExteriorGrabberLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceRadiatorLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceRadiatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceThermalPortLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceThermalPortLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHullChuteLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHullChuteLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIceThawLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIceThawLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIndustrialConsoleLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIndustrialConsoleLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMaterialBinLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMaterialBinLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMiningLaserLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMiningLaserLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosResidueCollectorLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosResidueCollectorLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosScrapReclaimerLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosScrapReclaimerLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosShipbreakerLoose",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0010416666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosShipbreakerLooseDmg",
           "condition": "Loot",
-          "chance": 0.015277916666666667,
+          "chance": 0.0031250000000000006,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceCoolantConduitLoose",
           "condition": "Loot",
-          "chance": 0.1,
+          "chance": 0.05,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosRivetlineCoolantCharge",
           "condition": "Loot",
-          "chance": 0.1,
+          "chance": 0.05,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosAluminiumIngot",
           "condition": "Loot",
-          "chance": 0.06,
+          "chance": 0.03,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSteelIngot",
           "condition": "Loot",
-          "chance": 0.04,
+          "chance": 0.02,
           "count": 1
         },
         {
@@ -63607,6 +63758,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSection.name",
           "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -63648,6 +63800,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildShipbreaker.name",
           "descriptionKey": "Recipe.PhobosBuildShipbreaker.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -63703,6 +63856,70 @@
           ],
           "nameKey": "Recipe.PhobosBuildHullChute.name",
           "descriptionKey": "Recipe.PhobosBuildHullChute.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildHullChute2",
+          "name": "Phobos' Rivetline H4 Sealed Hull Chute",
+          "description": "Build a 40 kg, 4 wide x 1 deep transfer chute around a 2x bulkhead bin. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsStorageBin2x101Uninstalled",
+              "item": "ItmStorageBin2x101Loose",
+              "count": 1,
+              "unitMassKg": 14,
+              "requireEmpty": true
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 16,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsScrapAluminum",
+              "item": "ItmScrapAluminum",
+              "count": 6,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsPartsMechSmall",
+              "item": "ItmPartsMechSmall01",
+              "count": 6,
+              "unitMassKg": 0.5
+            },
+            {
+              "trigger": "TIsPartsElecSmall",
+              "item": "ItmPartsElecSmall01",
+              "count": 2,
+              "unitMassKg": 0.5
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosHullChuteLoose",
+              "count": 1,
+              "unitMassKg": 40
+            }
+          ],
+          "workSeconds": 1800,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildHullChute.name",
+          "descriptionKey": "Recipe.PhobosBuildHullChute2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -63758,6 +63975,76 @@
           ],
           "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
           "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildExteriorGrabber2",
+          "name": "Phobos' Rivetline G4 Exterior Grabber",
+          "description": "Build an 80 kg, 4 wide x 3 deep exterior grabber. A cryo distribution pump drives its clamps and a laser torch charging station powers its cutting head. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFusionCryoPump01Uninstalled",
+              "item": "ItmFusionCryoPump01Loose",
+              "count": 1,
+              "unitMassKg": 28
+            },
+            {
+              "trigger": "TIsChargerBattery04Uninstalled",
+              "item": "ItmChargerBattery04OffLoose",
+              "count": 1,
+              "unitMassKg": 25,
+              "requireEmpty": true
+            },
+            {
+              "trigger": "TIsMotor",
+              "item": "ItmComponentMotor01",
+              "count": 4,
+              "unitMassKg": 2.5
+            },
+            {
+              "trigger": "TIsPartsMechSmall",
+              "item": "ItmPartsMechSmall01",
+              "count": 8,
+              "unitMassKg": 0.5
+            },
+            {
+              "trigger": "TIsPartsElecSmall",
+              "item": "ItmPartsElecSmall01",
+              "count": 2,
+              "unitMassKg": 0.5
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 12,
+              "unitMassKg": 1
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosExteriorGrabberLoose",
+              "count": 1,
+              "unitMassKg": 80
+            }
+          ],
+          "workSeconds": 3600,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
+          "descriptionKey": "Recipe.PhobosBuildExteriorGrabber2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -63813,6 +64100,70 @@
           ],
           "nameKey": "Recipe.PhobosBuildResidueCollector.name",
           "descriptionKey": "Recipe.PhobosBuildResidueCollector.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildResidueCollector2",
+          "name": "Phobos' Rivetline C2 Residue Collector",
+          "description": "Build a 20 kg, 2 wide x 1 deep collector. An air vent becomes its gate and a 1 x 1 rack holds the packets. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsVent01Uninstalled",
+              "item": "ItmVent01Loose",
+              "count": 1,
+              "unitMassKg": 8
+            },
+            {
+              "trigger": "TIsRack1x101Uninstalled",
+              "item": "ItmRack1x101Loose",
+              "count": 1,
+              "unitMassKg": 7,
+              "requireEmpty": true
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 3,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsScrapAluminum",
+              "item": "ItmScrapAluminum",
+              "count": 1,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsPartsMechSmall",
+              "item": "ItmPartsMechSmall01",
+              "count": 2,
+              "unitMassKg": 0.5
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosResidueCollectorLoose",
+              "count": 1,
+              "unitMassKg": 20
+            }
+          ],
+          "workSeconds": 2400,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildResidueCollector.name",
+          "descriptionKey": "Recipe.PhobosBuildResidueCollector2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -63869,6 +64220,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSection.name",
           "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -63908,6 +64260,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildReclaimer.name",
           "descriptionKey": "Recipe.PhobosBuildReclaimer.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -63964,6 +64317,69 @@
           ],
           "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
           "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildIndustrialConsole2",
+          "name": "Phobos' Asterel C1 Industrial Control Console",
+          "description": "Build a 40 kg, 3 x 3 seated workstation from a computer terminal, a small ship battery that steadies its supply and two Polaris map controls modules for its command boards. It controls installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsTerminal01Uninstalled",
+              "item": "ItmTerminal01Loose",
+              "count": 1,
+              "unitMassKg": 20
+            },
+            {
+              "trigger": "TIsBattery02cUninstalled",
+              "item": "ItmBattery02cLoose",
+              "count": 1,
+              "unitMassKg": 16.2
+            },
+            {
+              "trigger": "TIsFitContainerNavMod",
+              "item": "ItmNavModDisplayControls",
+              "count": 2,
+              "unitMassKg": 0.4
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 2,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsScrapAluminum",
+              "item": "ItmScrapAluminum",
+              "count": 1,
+              "unitMassKg": 1
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosIndustrialConsoleLoose",
+              "count": 1,
+              "unitMassKg": 40
+            }
+          ],
+          "workSeconds": 2700,
+          "range": 2,
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "legacyActionIds": [],
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
+          "descriptionKey": "Recipe.PhobosBuildIndustrialConsole2.description",
           "retiredFromMenus": false
         },
         {
@@ -64069,6 +64485,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSectionCast.name",
           "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -64131,6 +64548,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSectionCast.name",
           "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -64186,6 +64604,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceSection.name",
           "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -64224,6 +64643,7 @@
           ],
           "nameKey": "Recipe.PhobosBuildFurnace.name",
           "descriptionKey": "Recipe.PhobosBuildFurnace.description",
+          "retired": true,
           "retiredFromMenus": true
         },
         {
@@ -64267,6 +64687,57 @@
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
           "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildFurnaceRadiator2",
+          "name": "Phobos' Rivetline F6-R Exterior Radiator",
+          "description": "Build the 100 kg, 6 x 4 exterior F6 radiator around two cryo distribution pumps, which drive its coolant. Mount outside on six intact hull walls.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFusionCryoPump01Uninstalled",
+              "item": "ItmFusionCryoPump01Loose",
+              "count": 2,
+              "unitMassKg": 28
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 12,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsScrapAluminum",
+              "item": "ItmScrapAluminum",
+              "count": 32,
+              "unitMassKg": 1
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosFurnaceRadiatorLoose",
+              "count": 1,
+              "unitMassKg": 100
+            }
+          ],
+          "workSeconds": 3600,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolWelding"
+          ],
+          "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
+          "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -64310,6 +64781,57 @@
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
           "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description",
+          "retired": true,
+          "retiredFromMenus": true
+        },
+        {
+          "id": "PhobosBuildFurnaceThermalPort2",
+          "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
+          "description": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier.",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "ItmWorkbench01",
+            "SWB_WorkbenchInstalled"
+          ],
+          "ingredients": [
+            {
+              "trigger": "TIsFusionCryoPump01Uninstalled",
+              "item": "ItmFusionCryoPump01Loose",
+              "count": 2,
+              "unitMassKg": 28
+            },
+            {
+              "trigger": "TIsScrapSteel",
+              "item": "ItmScrapSteel",
+              "count": 12,
+              "unitMassKg": 1
+            },
+            {
+              "trigger": "TIsScrapAluminum",
+              "item": "ItmScrapAluminum",
+              "count": 32,
+              "unitMassKg": 1
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosFurnaceThermalPortLoose",
+              "count": 1,
+              "unitMassKg": 100
+            }
+          ],
+          "workSeconds": 3600,
+          "range": 2,
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolWelding"
+          ],
+          "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
+          "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort2.description",
+          "legacyActionIds": [],
           "retiredFromMenus": false
         },
         {
@@ -64510,11 +65032,20 @@
         "PhobosShipbreakerSection": "Phobos' Rivetline D4-S Dismantling Fixture Assembly Section",
         "PhobosShipbreakerLoose": "Phobos' Rivetline D4 Dismantling Fixture",
         "PhobosHullChuteLoose": "Phobos' Rivetline H4 Sealed Hull Chute",
+        "ItmStorageBin2x101Loose": "Bulkhead Bin 2x (Loose)",
         "PhobosExteriorGrabberLoose": "Phobos' Rivetline G4 Exterior Grabber",
+        "ItmFusionCryoPump01Loose": "Cryo Distribution Pump (Loose)",
+        "ItmChargerBattery04OffLoose": "Battery Charging Station: Weber Laser (Loose)",
+        "ItmComponentMotor01": "Component: Motor",
         "PhobosResidueCollectorLoose": "Phobos' Rivetline C2 Residue Collector",
+        "ItmVent01Loose": "Air Vent (Loose)",
+        "ItmRack1x101Loose": "Rack 1x1 (Loose)",
         "PhobosScrapReclaimerSection": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
         "PhobosScrapReclaimerLoose": "Phobos' Rivetline R4 Scrap Reclaimer",
         "PhobosIndustrialConsoleLoose": "Phobos' Asterel C1 Industrial Control Console",
+        "ItmTerminal01Loose": "Computer Terminal (Loose)",
+        "ItmBattery02cLoose": "Mini XS Ship Battery (Loose)",
+        "ItmNavModDisplayControls": "Nav Module",
         "PhobosFurnaceHousingBlank": "Phobos' Rivetline Rough aluminium machinery housing",
         "PhobosFurnaceHousing": "Phobos' Rivetline Finished aluminium machinery housing",
         "PhobosFurnaceSection": "Phobos' Rivetline F6-S Furnace Assembly Section",
@@ -64543,23 +65074,23 @@
     "mods/PhobosAgriculture/framework/equipment-names.json": "a0a603d8de969541557b351e8e250e8b625cd9cd9c208be03fed757dab3a740b",
     "mods/PhobosAgriculture/framework/frozen-crops.json": "ec2dbd73ab9f979ff422cd6b80120f86d7a66a875c19212ccb4f67c2e51be74a",
     "mods/PhobosAgriculture/framework/frozen-process-recipes.json": "76aacd814981d5dce1597fd9d2c46c540f89b57fa01a4ddbc6b045dc7d0b7af5",
-    "mods/PhobosAgriculture/framework/materials.json": "2db0822aba34fcf65465fe689f15e1ba21a94d1373ad6b54d1774f52227ad6c0",
+    "mods/PhobosAgriculture/framework/materials.json": "c5c5d783f69bb07d377b750dc83ee8e0e6d4efdc12590e8f1d4dc8c726cfd845",
     "mods/PhobosAgriculture/framework/process-recipes.json": "cf6ac4baf5aab571a51808c69bf93bc3b980f15fced9675ea6c752948bbf9565",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
-    "mods/PhobosAgriculture/mod_info.json": "91178f94266aedaed4c95a8ba5a24b07a693c13a8dbe03930257161ae763e7d1",
+    "mods/PhobosAgriculture/mod_info.json": "dc337d14146bdc4ca73b1a2017db6fa06c9ea530d3686d3b4ce348efb77e6fe4",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
-    "mods/PhobosAutoNav/framework/recipes.json": "65f464725c735eec47eab278b01780e952b8c3ca4d1440c8281c2525e1635752",
-    "mods/PhobosAutoNav/mod_info.json": "ac678c2759fb0466a8367a499b7dbd5a17cb9d97a2013a698a733ef4e0c90442",
+    "mods/PhobosAutoNav/framework/recipes.json": "73ac4fb09d7c72ea816cf5c1b5a3f4221f25a6a5c457704216e45e8bcac7876e",
+    "mods/PhobosAutoNav/mod_info.json": "d79e241a3754d8a550674353d2ca2fc1009910eae7707dcba6dbf05677baea14",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "aeb56508f8195fb5849bb820c5bc20beec3cfb62f196e8eb7cfd9745e7d03b7f",
-    "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
+    "mods/PhobosFramework/framework/economy.json": "df481857100cb2ff278c86ace8fa12ad94ced38c78acac192442dd4779d13bc1",
     "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/lines.json": "ac424693585a396f89ebe21f1112306c6b9917c4c1a9321cc2d2aa91209ba85a",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "0d7a7bc85ed0b1eaa3d1aeea39d990c7f20539810b266e385b87d34c8c8dbe7a",
+    "mods/PhobosFramework/mod_info.json": "75889864d1204bcf33b807b47dd9c389189ca409ddf319903f97c69c32c61ca9",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "83fa147afc250148ce96baaa9d30b8129d142e9b10fca55282b96054c0a725fc",
@@ -64579,14 +65110,14 @@
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
-    "mods/PhobosShipbreaker/framework/economy.json": "62a77af1034e37bbf93376fefa506b830849f44deaf14866e6bd2a3d31c225f0",
+    "mods/PhobosShipbreaker/framework/economy.json": "ab5ebb2e39eead1d57b80d9cb28b9e1a52848619da1d705379fc175bf152c1f6",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "944f4c90c1e233420e8c79f7e3074f88b76ad45da1eff6a79f4d8eaff06e9934",
     "mods/PhobosShipbreaker/framework/frozen-process-recipes.json": "deb68a430643e3c245aadf49fa27c694763f1a289fa75d84faa141c9113aef72",
     "mods/PhobosShipbreaker/framework/materials.json": "72f5d442b5adc8cfb75aae94d390723a189e3e51f151ca8191bebd9473ba8eb1",
     "mods/PhobosShipbreaker/framework/process-recipes.json": "4c3fd90b6b07d78251f94bcc2c9a435d50703eebfd195eae0d1a6c880ec553c5",
-    "mods/PhobosShipbreaker/framework/recipes.json": "3f9869e304a8681d85272346d91e25e8ce30d6f7173576ff13b454571baa49b9",
+    "mods/PhobosShipbreaker/framework/recipes.json": "d3dba0b11d4d078440489b5ef407ee96e9888946fb99bf10aebad60d3483ac75",
     "mods/PhobosShipbreaker/framework/vessels.json": "b5fda950529de8fccbcbf1697f7b4970b3b7f50d4f3253faf68e9c4147f16be6",
-    "mods/PhobosShipbreaker/mod_info.json": "96f7251c24e29affeb7c88ead6a9346ba8545ea6633c65fb5fa68357cabdb91a",
+    "mods/PhobosShipbreaker/mod_info.json": "1e709e833c42a2c5e125ac621b0643fbccaaf5a43cf6b80185c021454570508a",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "9c85b2ad11dce84cf34ae8935bbc253eb3d0c6cbe6c1b0605ba969bc75399b2c",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -64608,7 +65139,7 @@
     "src/PhobosAgriculture/Core/FlaxScutching.cs": "5dd81e7e4d6d4c30297f293a12d427201d9ce9d06b47ef96814d030a44764a3e",
     "src/PhobosAgriculture/Core/HearthRecipes.cs": "18c40b6832cdcd9fff0a62a3e0ddf78768ffb6e67b3c0005f949e07d2b51a548",
     "src/PhobosAgriculture/Core/HopperRules.cs": "81d763c802527c1519f29bad8bc92995a9510a5e2c4736e8c404bdaa5decc0a9",
-    "src/PhobosAgriculture/Core/NutrientRecovery.cs": "b1a4f92561783634bd6ae4b50fb5919ee0ba62307c7c2a6f90b71b5272fd3f8c",
+    "src/PhobosAgriculture/Core/NutrientRecovery.cs": "7048cd715bdd27bc6c16f6be36dd8dc0ed9ee01cc9d9680753117162811cf956",
     "src/PhobosAgriculture/Core/NutrientSolution.cs": "960761c2a2d70bf167e70cccd367e9420210194cd904e43c3272b39b918604a7",
     "src/PhobosAgriculture/Core/RecoveryWork.cs": "3f4408e560add255d1f8f0320a8b0ea3814e52892e8d14487bad3b618f484efa",
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
@@ -64616,7 +65147,7 @@
     "src/PhobosAgriculture/Core/SugarExtraction.cs": "1cbc8121dbef1106e99a845982b517a3f63a67e67f9e061941490fed9584469a",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "4ff762ad3ae97eaf4454c3418d1a32efd1c5ccfbc7e411e3c9a3c89caa930585",
-    "src/PhobosAgriculture/Definitions.cs": "594a73f0cb8ca9d987d3bfbc043a6677140c9013286e47af467e8038eb52d910",
+    "src/PhobosAgriculture/Definitions.cs": "cbb4fff3b977a387dfbcafbc6142b4d2c588dabe6ddb348112bb583695de2afa",
     "src/PhobosAgriculture/EconomyData.cs": "3b15b43e59342e5285fb73f7b7b6c0332ce2581445c2fa12615c540c9d9cbb9a",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "cd003b2bb973afae140f4e26251741a183fb232659a68752d49c5d2f04fc0cd5",
     "src/PhobosAgriculture/HopperDefinitions.cs": "c5e7058fe6a313971be48212b1682c449ebad3d6e7e2b04ff09b311fd20a49ce",
@@ -64630,8 +65161,8 @@
     "src/PhobosAgriculture/Panel.cs": "237a0445eab54488aadf1879d9e52861a9b082268be8185f39f6f99b848e3c6f",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "a9d9480b48275f4ed6cd935caefb00eccb06d3fa4bf94c58ae03121d42006cce",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "62ee33a08aa0142bf7c171927ab6025c047689518904685589265b9aeb38cb5e",
-    "src/PhobosAgriculture/Plugin.cs": "1e7b083a37e332aeb35ba405f1ca0762f24cc0c210125ffdce0587de552efc22",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "8c0663677e452f31c8514d4ff26f9756659cb17a6c7485c81379941e96e9b6fb",
+    "src/PhobosAgriculture/Plugin.cs": "ad1e591ee09a27bd553d25b772622f4aae39bead05cd3a3f5a739435a8e532d1",
     "src/PhobosAgriculture/RecoveryService.cs": "f66ae610f32c446d77ac90c6eb72c78006f088de90874adfc5f3eaac14df56db",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
@@ -64643,7 +65174,7 @@
     "src/PhobosAgriculture/VapourReturn.cs": "284bb248bfafb0acc317fd243d86aac9433a67a1ed805985a11bee0898994f7f",
     "src/PhobosAgriculture/VesselData.cs": "d4ef57b56e12a92d25aab52dc5ef328329bee8ffe7f22d30e6d84b3edea3dc60",
     "src/PhobosAgriculture/WorkupDefinitions.cs": "9f5a159904fb122d8fd692c46a071ff108340c9aa28b6cc4ab817b5978a0cce1",
-    "src/PhobosAgriculture/WorkupService.cs": "ceff9da61d21f1f7ada2560ebab47e70dcedf2dcca5121af5294eca530e96165",
+    "src/PhobosAgriculture/WorkupService.cs": "04670aefb9f025789b1541646ab819c714f8b002919b56e2d7d94e5601e4057a",
     "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "70a7a25a2b9047253fc90f92a38093841b5258e510c1364942c582bbf995c67a",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "d0009485d1bd2a44510a692333e1c975ccfede09cb2d737bf45db76cbeee2a48",
     "src/PhobosAutoNav/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -64701,8 +65232,8 @@
     "src/PhobosAutoNav/NavigationWeaponGroups.cs": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "f376199224f4058d229bc0bbeb6ff4fcfc477e4e305ca341357d496805e9edda",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "d6eb12c74306153b45284acf9537a35cc34fd314b43963a3707d8b47f5bbd169",
-    "src/PhobosAutoNav/Plugin.cs": "8c9187f2bbcdf60a19a1cec75aea4aae52db67ea2696105a4fbae76bc73b2014",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "21989306015de17840bd86ec8cf703a41ced92971c15e98cc17c7f85d47dfa0c",
+    "src/PhobosAutoNav/Plugin.cs": "9814877e1857023a0783cd68a1b7c352e594f85f4df13cccdf5fec51bc0ac841",
     "src/PhobosAutoNav/RegionalEconomy.cs": "6d88800bbdf4af8e7f11728a3bd683350cd99349910f05558e623cf29260e035",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "07d1a17b28f1a26bfa7bd427b28983658a686bd3c7df949f224bcc43df24aa37",
@@ -64717,10 +65248,10 @@
     "src/PhobosFramework/Audio/CompletionWatch.cs": "460deb0d5e2e284c0c18a54ba768072eadb8c8a1c8354c1b8986288653fa854c",
     "src/PhobosFramework/Cadence.cs": "f42d0fd63a8438ce5c56ef39fa8d37e79e900a279c7ab6ba2ce4b5f26f1a832a",
     "src/PhobosFramework/Construction/ConstructionHooks.cs": "ec55cf0c6326b06db20ab9981a80df4f9f27525a83df73e91aa2fe86695e9117",
-    "src/PhobosFramework/Construction/ConstructionRegistry.cs": "b465303caf618adb8b6e36c5e8e87cb49888f5dbafd06aaebba607df13cd7c0c",
+    "src/PhobosFramework/Construction/ConstructionRegistry.cs": "52d27d41454cba4f82ab31d9ee56fada79bff2d9a9c92e437635e278eff8420a",
     "src/PhobosFramework/Construction/NativeFloors.cs": "e5a010ebbcb3ef53ba3515544d0b230d209c7dd4e308e83eaa8874fa4d1ec898",
     "src/PhobosFramework/Construction/NativePlaceholders.cs": "931edae95205549a657aec39c6c4b430b28dc48aae6d00415cc83a24a1c8b2a5",
-    "src/PhobosFramework/Construction/Recipe.cs": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
+    "src/PhobosFramework/Construction/Recipe.cs": "c4a5fe7afa7d653fd159575a8f3a570c17cf34c63cc55bdc438d379fdb199964",
     "src/PhobosFramework/Construction/SectionAssembly.cs": "d6cbadc295dface9d7a1f96f6382d79c9f51bcb01a6b2a3451034b8cbc7c635a",
     "src/PhobosFramework/Construction/SectionAssemblyAppearance.cs": "1c409615db913c1479655fe62b0ca0a2c003e008dda5d9a9d6f951e3179dbc2c",
     "src/PhobosFramework/Construction/TriggerRefinements.cs": "5b3237817323d9ec9bc9bcb4e1a586369761ec49653deda00ee0a8422cefd29c",
@@ -64872,8 +65403,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "fb22bcd66d58910fef8b123ad05134fb54585726a3593e2cd7c9c117731313c7",
-    "src/PhobosFramework/Plugin.cs": "be50cbce19c6d37b48a9361a561f167e980bbb14e8edc45d3f8d18606571318d",
+    "src/PhobosFramework/PhobosFramework.csproj": "dbf5af8a90ceec558e3712adf4f14bf73f6b6fa9250223131e8226cd68761004",
+    "src/PhobosFramework/Plugin.cs": "952b2aff981d053a20f26080bc1f1d94d9093942928c9448291a10be0465fa26",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "d9ddefe2a5076da7ff78e3cbe5cb8cc1365734e1e7a91e183d181039e31bd978",
@@ -64893,7 +65424,7 @@
     "src/PhobosFramework/Registration/DefinitionIndex.cs": "1654859fa3a94745d13e76b963b8db16a1de3b20b764623d5527371f699c1091",
     "src/PhobosFramework/Registration/DefinitionTransaction.cs": "32b8094092aa4645e4b0a19c0f7a59263c76dfe7f7fe26819232eff46d6cead9",
     "src/PhobosFramework/Registration/EquipmentIdentity.cs": "1522b1f841bd754679665e35b1222e926c903913c07e0230094d1133bc96cabf",
-    "src/PhobosFramework/Registration/EquipmentSaveUpgrade.cs": "0b71a8fab25b089eb4426fd86b7913f6cc226a84030547974091a4f8c7b6edf1",
+    "src/PhobosFramework/Registration/EquipmentSaveUpgrade.cs": "90e708a8741d396fd451c93e97daeab49efec61f265f422f608cb9a0bde2cbac",
     "src/PhobosFramework/Registration/InstallMenu.cs": "1876a1222a5e766afe46380ccd0530e99246912d6b47bdb55399c87feaa1cdf2",
     "src/PhobosFramework/Registration/InventorySpec.cs": "4eb4590dc12c26d0ef5915f6a9050bf316ad8d268a956a9a5f610abb6510535f",
     "src/PhobosFramework/Registration/ItemHandling.cs": "2183fb3143003f9b2cc5e2069c4801286a9931c3ad0ddcecbb3b40de1167bd24",
@@ -64995,7 +65526,7 @@
     "src/PhobosMedical/Plugin.cs": "efb04847086f0cddb7e3fbc003639364298e12c671c3f2598b9f594bccf5821c",
     "src/PhobosMedical/Provider.cs": "b1090f900b3c65f40d39fa916a309bde1d06652a68584ad8e4807eefeef4bf2b",
     "src/PhobosMedical/Text.cs": "6c77a11b4b3765a6ec861115f8c74948cf9fd1db0c33225b7062bb1cf62c3400",
-    "src/PhobosShipbreaker/AssemblyDefinitions.cs": "cdb34fd9ada9cd9b36ba7f85fe95a314b8260a25e136536be76bee10e7413a56",
+    "src/PhobosShipbreaker/AssemblyDefinitions.cs": "7c483c0788fe1312e5e93428068eda7f14280f5d6f76eb4b3a5dc769df736181",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/BinDefinitions.cs": "75d6e4e094154a49548c7313dbcb60331f82519b03c3eefd6ca4440d50784fa0",
     "src/PhobosShipbreaker/CaptureGeometry.cs": "dde8164349c59f7edf803a3ea04f3cc4440e1bbcae8779011d1dc24ca41fd862",
@@ -65019,7 +65550,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "06b7106fc9d42c080b5f9fefddc3d35ad1f43bacb74a60649ba456a12b5178b2",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "8b74bd35491ce908253c457532de74d1771c0258f1120efd0db2b36a9671c1c7",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "c123049a6267f521b73542711fd1b14ca41b90bb07e4675c5f068d45a4fb1742",
     "src/PhobosShipbreaker/Core/EconomyData.cs": "22b79c5498c069b0448657a3ba0f66d62b6e175a461697182604c33619c48ea2",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
@@ -65078,9 +65609,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "386f9dee56dd0491faf68f35ab01f94265bd8160c22b1300db93e19fb1ad81cc",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "3b2d326d8896d928237f8b5e6a49741cbf1198a3101d883940baf24bdcf8bb0d",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "a6d1c9865c5a23fc345feb30e6e726fe26f1868d51e381d3fb864e2f867501d1",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "8d86124f094dfb85ef977a3a7cc72be6b3283e452039b17f7ed779b28dc26c11",
+    "src/PhobosShipbreaker/Plugin.cs": "00dbf0e8e306076e500936925ff2af75f0034c43a2938e5ce5b9282915e53ab7",
     "src/PhobosShipbreaker/PowerKinds.cs": "c0409cb8e737a45dc9a61da9b00594d346fabff1b16454f17a910a68a0a436b8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "e679574ab5ddb1021f480679e0762b86094f53fa86a0efd49efd2895fe522dcc",
@@ -65115,15 +65646,15 @@
     "src/PhobosWarDeclared/Schematics.cs": "3fee8c7b7ce7da5d67505ce55aa35cff1a541f0f85a1118f38d7a00298743753",
     "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
-    "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "81897d819a5f9ce2c36b5da0acd49e90c240d59d3de1c90b58ea84e48a733ae8",
+    "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "7c5dfd6e03a588571acc93e21e924f58cf8e0d0fd0aa3a9016b6d28220efdc4a",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "26641cffe4eb105d356b8e3ea934e4b8dcfbdf4c84bf9b88e04372053926d718",
     "tests/PhobosNative.Tests/Program.cs": "260402e0d57f7e5b28ad197625b56f5e53e1a0cefb2743a1112e994633bd9e9e",
     "translations/PhobosAgriculture/en.json": "9b5580224156241e5c53f0b593f85fa293100e689c6ec0f1b1fcda3c803cc35b",
-    "translations/PhobosAutoNav/en.json": "5fdaca9352a47ecea20bbab20cbf1607fd95a214b178d88d3caffff97883cb72",
+    "translations/PhobosAutoNav/en.json": "92c9c39d56097bc0323786e61c0ff19b51a42e2bb18a0ef43d347d612bf35276",
     "translations/PhobosFramework/en.json": "ff7ce92d72ba270c69bccb7d76bfe0f923d57a4d4d84b0c50ee0a4d556705dad",
     "translations/PhobosManufacturing/en.json": "00a47ee601f87f78e3926a0d202a05ea77631dbe86c43b59e91c942984e8533d",
     "translations/PhobosMedical/en.json": "c35f6c03ef2112b700ab0b9555cb9d087a330b39484cfb771e1d9f0eea5032ac",
-    "translations/PhobosShipbreaker/en.json": "9d41ba09d772dd760cff6bdaa6e6f9ba6dbfbb6b1bda7063deac74d90b4fa9b2",
+    "translations/PhobosShipbreaker/en.json": "fc6869690fec179bdf27ad935ef1e76de73fb6cc0735e205c4fa83e22b0733ba",
     "translations/PhobosWarDeclared/en.json": "710434d64c1b6ef8248c2d47a94463853eda2d143dd27c1d4bda1d7ebdb1b43e"
   }
 }

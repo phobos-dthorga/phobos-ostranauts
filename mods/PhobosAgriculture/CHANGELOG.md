@@ -10,6 +10,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.52.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Economy audit, 5 October 2026: crop nutrients are 150 cr/kg (they were 1,500). A 40 g packet is 6 cr, a 500 g bulk charge 75 cr, and the refuelling kiosk fills hoppers at the same 150 cr/kg. Makeup salts are 3 cr a packet. Growing food now pays a little over its water and nutrients, and formulating nutrients for sale no longer prints money.
+- Hearth flatbread is 200 cr and soybean stew 190 cr (they were 90 and 70), so cooking with a water ration no longer costs more than the meal fetches.
+
+### Save compatibility
+
+- Automatic. Saved meals, produce and nutrient charges take the new prices when the game loads; a part-used charge is priced by what is left in it.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.102.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.51.0] - 2026-10-05 - Draft
 
 ### Fixed

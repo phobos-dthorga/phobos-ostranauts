@@ -120,7 +120,7 @@ public static class ConstructionRegistry
                 foreach (string id in available)
                 {
                     if (!HasInitialCondition(DataHandler.dictCOs[id], "IsInstalled")) throw new ArgumentException(Text.Get("ConstructionRegistry.station_is_not_installed", id));
-                    stationActions.Add((id, action));
+                    if (!recipe.retired) stationActions.Add((id, action));
                 }
                 foreach (var ingredient in recipe.ingredients)
                 {
@@ -199,14 +199,20 @@ public static class ConstructionRegistry
         (DataHandler.dictCOs.TryGetValue(id, out var co) ? co.strNameFriendly : id);
     internal static bool HasInitialCondition(JsonCondOwner co, string id) =>
         co.aStartingConds?.Any(c => c == id + "=1.0x1" || c == id + "=1.0x1.0" || c == id + "=1x1") == true;
+    /// <summary>True when an overlay's condition loot cannot change its base mass: none, the game's Blank, or one
+    /// flat condition table whose entries never name StatMass (Framework 0.102.0).</summary>
+    internal static bool MassNeutral(string? condLoot) => string.IsNullOrEmpty(condLoot) || condLoot == "Blank" ||
+        DataHandler.dictLoot.TryGetValue(condLoot, out var loot) && MassNeutral(loot.aCOs, loot.aLoots);
+    internal static bool MassNeutral(string[]? entries, string[]? nested) => (nested == null || nested.Length == 0) &&
+        (entries ?? Array.Empty<string>()).All(e => e != null && e.TrimStart('-').Split('=')[0].Trim() != "StatMass");
     private static void VerifyMass(string id, double expected)
     {
         if (!DataHandler.dictCOs.TryGetValue(id, out var definition))
         {
             DataHandler.dictCOOverlays.TryGetValue(id, out var overlay);
-            // Only base-mass-preserving overlays are supported. Do not silently
-            // ignore arbitrary condition loot that might change the actual mass.
-            if (overlay == null || !string.IsNullOrEmpty(overlay.strCondLoot) && overlay.strCondLoot != "Blank" ||
+            // Only base-mass-preserving overlays are supported: no condition loot, or one that never names
+            // StatMass (the game's Polaris modules only set their price). Arbitrary loot could change the mass.
+            if (overlay == null || !MassNeutral(overlay.strCondLoot) ||
                 !DataHandler.dictCOs.TryGetValue(overlay.strCOBase, out definition))
                 throw new ArgumentException(Text.Get("ConstructionRegistry.missing_material_or_unsupported_mass_overlay", id));
         }

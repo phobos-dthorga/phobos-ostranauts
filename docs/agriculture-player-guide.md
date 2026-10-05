@@ -264,7 +264,8 @@ Use `-VerifyOnly` afterwards. See [installation](installing-mods.md).
 Prices here are base prices chosen for the mod before native condition, merchant and market
 adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 cr
 (187.50 pristine, 30 broken). Construction bills and assembly times are unchanged.
-Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.
+Continuance lettuce seed is 5 cr per sowing. Nutrients are 6 cr per 40 g (150 cr/kg)
+since Agriculture 0.52.0; Hearth flatbread is 200 cr and soybean stew 190 cr.
 See the [native economic evidence](development/agriculture-economy-evidence.md) for comparisons.
 
 For every machine, including the W2 and B2 since 0.19.0, the fixer can

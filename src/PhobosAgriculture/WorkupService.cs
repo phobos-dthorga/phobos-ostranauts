@@ -148,7 +148,8 @@ internal static partial class Service
     {
         if(!ChargeStore(co).TryWrite(charge.Save())) throw new InvalidOperationException("Protected nutrient charge.");
         co.AddMass(charge.Remaining-co.GetTotalMass(),true);
-        co.SetCondAmount("StatBasePrice",charge.Remaining*(co.strCODef==WorkupDefinitions.Makeup?NutrientRecovery.MakeupPrice/NutrientRecovery.MakeupKg:NutrientRecovery.MixturePricePerKg));
+        // What is left, at the materials pack's own price per kilogram for this charge (Agriculture 0.52.0).
+        co.SetCondAmount("StatBasePrice",charge.Remaining*AgricultureMaterials.Price(co.strCODef)/AgricultureMaterials.Entry(co.strCODef).kg);
     }
     private static bool QueueWorkup(Session s,string mode)
     {

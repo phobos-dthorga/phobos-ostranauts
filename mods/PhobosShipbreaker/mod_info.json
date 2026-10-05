@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.78.0",
+    "strModVersion": "0.79.0",
     "strNotes": "Process ordinary walls, recover scrap and cast aluminium housings with Rivetline machinery. G4 can capture prepared owned, empty ships and cut supported ordinary walls through H4 into D4. F6 needs power and cooling; hot contents stay sealed until cooled. Link transfers and start processing separately. Loading pauses work; resume when ready. Requires Phobos Framework and Phobos Auto Nav; see the installation guide for current versions. Agriculture, Crafting Framework and Salvage Workshop are optional. Ordinary saves supported. Development candidate; in-game evaluation pending."
   }
 ]

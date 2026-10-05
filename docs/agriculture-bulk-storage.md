@@ -25,7 +25,7 @@ Merchants no longer sell reservoirs, and they have left the INSTALL menu.
 | Phobos' Rivetline S2 Process Water Silo | 2 x 2 tiles; 400 kg water; 125 kg empty | 2,950 cr; general markets; INSTALL → APPS |
 | Phobos' Rivetline S3 Process Water Silo | 3 x 3 tiles; 1,000 kg water; 240 kg empty | 4,800 cr; the same merchants; INSTALL → APPS |
 | Phobos' Rivetline S4 and S5 Process Water Silos | 4 x 4 and 5 x 5 tiles; 1,960 and 3,330 kg water; 365 and 465 kg empty | 6,780 and 8,860 cr; the same merchants; INSTALL → APPS |
-| Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 750 cr; eight per merchant offer, or one per station purchase |
+| Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 75 cr; eight per merchant offer, or one per station purchase |
 | Phobos' Verdemorrow Groundwork E2, E3 and E4 Nutrient Hoppers | 2 x 2, 3 x 3 and 4 x 4 tiles; 10, 25 and 48 kg of crop nutrients; 15, 29 and 42 kg empty | 300, 490 and 690 cr; Agriculture merchants, four per successful offer; INSTALL → APPS; only the E2 turns up in salvage |
 
 A silo holds clean process water only. It is not a drinking-water tank and not
@@ -73,7 +73,7 @@ W2 can mix for many cohorts without a crew member swapping charges.
 1. Install the hopper within one tile of the W2 (touching or one tile between
    them, diagonals included).
 2. Fill it at a station: the refuelling kiosk's **Bulk supplies** view offers
-   **Crop nutrients (Groundwork hoppers)** by the kilogram at 1,500 cr/kg, the same
+   **Crop nutrients (Groundwork hoppers)** by the kilogram at 150 cr/kg, the same
    as a bulk charge or a 40 g packet. Choose the hopper as the destination and
    review the quote. Nothing sells back. With Phobos Manufacturing 0.20.0 or newer,
    a Lixivar LC-3 within one tile can also fill it: link the hopper on the LC-3's
@@ -125,7 +125,7 @@ Open the native refuelling interface at a serviced dock, then **Bulk supplies**.
 Choose process water, crop nutrients or a nutrient charge, the exact destination
 and quantity. Review the quote and use its separate **Buy quoted quantity**
 button. Process water is 10 cr/kg in 10 kg steps into any Rivetline silo; one
-quote can fill the chosen silo. Nutrient charges are one 500 g charge at 750 cr
+quote can fill the chosen silo. Nutrient charges are one 500 g charge at 75 cr
 into an accessible W2 inventory per purchase. These are limits chosen for
 gameplay; station stock is not simulated as a finite supply.
 

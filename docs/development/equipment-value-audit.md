@@ -55,26 +55,35 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | $285.40 | $257.05 |
 | Phobos' Rivetline D4 Dismantling Fixture | $9,600.00 | $514.10 |
 | Phobos' Rivetline H4 Sealed Hull Chute | $176.40 | $150.15 |
+| Phobos' Rivetline H4 Sealed Hull Chute | $1,005.20 | $150.15 |
 | Phobos' Rivetline G4 Exterior Grabber | $340.00 | $258.55 |
+| Phobos' Rivetline G4 Exterior Grabber | $2,740.20 | $258.55 |
 | Phobos' Rivetline C2 Residue Collector | $106.60 | $88.50 |
+| Phobos' Rivetline C2 Residue Collector | $1,130.90 | $88.50 |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | $348.20 | $318.80 |
 | Phobos' Rivetline R4 Scrap Reclaimer | $12,000.00 | $637.60 |
 | Phobos' Asterel C1 Industrial Control Console | $241.20 | $164.90 |
+| Phobos' Asterel C1 Industrial Control Console | $2,994.30 | $164.90 |
 | Finish aluminium machinery housing | $55.00 | No dismantling route (material finishing) |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | $325.60 | $257.05 |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | $388.40 | $318.80 |
 | Phobos' Rivetline F6-S Furnace Assembly Section | $373.00 | $298.80 |
 | Phobos' Rivetline F6 Electric Furnace | $19,500.00 | $854.60 |
 | Phobos' Rivetline F6-R Exterior Radiator | $210.00 | $196.70 |
+| Phobos' Rivetline F6-R Exterior Radiator | $3,462.40 | $196.70 |
 | Phobos' Rivetline F6-P Thermal Exhaust Port | $210.00 | $196.70 |
+| Phobos' Rivetline F6-P Thermal Exhaust Port | $3,462.40 | $196.70 |
 | Recover aluminium from housing blank | $55.00 | $20.90 (explicit recovery) |
 | Recover aluminium from finished housing | $60.00 | $19.80 (explicit recovery) |
 | Phobos' Rivetline F6-C Sealed Coolant Conduit | $1.10 | $0.01 |
 | Recover aluminium from ingot | $12.00 | $4.40 (explicit recovery) |
 | Recover steel from ingot | $25.00 | $14.40 (explicit recovery) |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 | $0.01 |
+| Phobos' Asterel N1 Polaris Auto Nav Module | $2,032.00 | $0.01 |
 | Phobos' Asterel N2 Polaris Pursuit Module | $29.00 | $0.01 |
+| Phobos' Asterel N2 Polaris Pursuit Module | $2,990.00 | $0.01 |
 | Phobos' Asterel N3 Polaris Fire Control System | $29.00 | $0.01 |
+| Phobos' Asterel N3 Polaris Fire Control System | $2,990.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.
 

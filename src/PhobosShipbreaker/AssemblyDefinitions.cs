@@ -14,11 +14,8 @@ namespace PhobosShipbreaker;
 /// bill of their section recipe.</summary>
 internal static class AssemblyDefinitions
 {
-    // Keep the original table contracts for already-queued jobs. New work uses native sites.
-    internal static readonly string[] Legacy = { "PhobosBuildShipbreaker", "PhobosBuildReclaimer", "PhobosBuildFurnace" };
-    // Shipbreaker 0.60.0: sections are no longer made; saved queues keep their exact contracts.
-    internal static readonly string[] RetiredSectionRecipes = { "PhobosBuildShipbreakerSection", "PhobosBuildShipbreakerSectionCast",
-        "PhobosBuildReclaimerSection", "PhobosBuildReclaimerSectionCast", "PhobosBuildFurnaceSection" };
+    // The whole-machine and section table recipes carry "retired" in the recipe pack (Shipbreaker 0.79.0, Framework
+    // 0.102.0): saved queues keep their exact contracts, and no table offers them again.
     /// <summary>Each retired section, its count per machine and the standard recipe whose bill a leftover returns to.</summary>
     internal static readonly (string Prefix, string Section, int Count, double SectionKg, double MachineKg, int TableSeconds, string Recipe)[] Specs =
     {
@@ -59,7 +56,6 @@ internal static class AssemblyDefinitions
     internal static void FinishRegistration(Action<string> log)
     {
         SectionAssembly.RetireFromMenu();
-        SectionAssembly.RetireTableOffers(Legacy.Concat(RetiredSectionRecipes).ToArray());
         foreach (var spec in Specs)
         {
             try

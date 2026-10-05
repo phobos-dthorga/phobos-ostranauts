@@ -524,9 +524,10 @@ reason. A batch that needs no tank or store, such as mixing makeup salts, runs w
 Leaching pays: a crust's potassium sulfate and phosphate are worth 300 cr
 against 150 cr for the crust, and 32 Epsom salt 416 cr against 180 cr for the
 olivine and about 120 cr of acid and water. Makeup
-salts made aboard are worth Agriculture's own 30 cr a packet, and crop nutrients
-Agriculture's 1,500 cr/kg, well above any other product because fertiliser is
-rare out here; bag a hopper's nutrients into bulk charges to sell them. Sodium harms crops, so the
+salts made aboard are worth Agriculture's own 3 cr a packet, and crop nutrients
+Agriculture's 150 cr/kg (Agriculture 0.52.0), so formulating is for your own
+racks rather than for sale: a charge of nutrients is worth about 1.2 times its
+salts, and makeup less than its salts. Sodium harms crops, so the
 sodium salts leave as the brine salt cake, and nothing recovers it or the other
 remainders.
 

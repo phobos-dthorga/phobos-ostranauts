@@ -9,7 +9,8 @@ namespace PhobosAgriculture.Core;
 public static class NutrientRecovery
 {
     public const double Fraction = .6, PowerKW = .5, KWhPerKg = .02;
-    public const double MakeupKg = .04, MakeupPrice = 30, MixturePricePerKg = 1500;
+    // Economy audit (Agriculture 0.52.0): crop nutrients at 150 a kilogram, makeup salts at half that.
+    public const double MakeupKg = .04, MakeupPrice = 3;
     public static double Allocation(CropState state, double residue)
     {
         if (state.RecoveryRevision != 1 || state.CropId.Length == 0 || state.Biomass <= 0) return 0;

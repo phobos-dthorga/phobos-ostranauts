@@ -260,6 +260,47 @@ at the kiosk's next normal restock; kiosks already stocked are not refilled. The
 full table, vanilla comparisons and reasoning are in the
 [faction kiosk record](development/faction-kiosk-stock.md).
 
+## Economy audit decisions (5 October 2026)
+
+The owner's four decisions on the [economy audit](development/economy-audit-2026-10-05.md),
+in Framework 0.102.0, Shipbreaker 0.79.0, Auto Nav 0.34.0 and Agriculture 0.52.0.
+Each replaces figures given in older sections above.
+
+**Construction bills.** A table build now takes the game's own components, so
+the parts cost about half the product and building to sell loses money. The old
+bills stay registered under their old recipe ids, so a job a save had already
+queued finishes with the parts it was given; tables offer only the new ones.
+
+| Build | Parts | Parts value | Product |
+|---|---|---:|---:|
+| F6-R exterior radiator, F6-P thermal exhaust port | 2 cryo distribution pumps, 12 steel scrap, 32 aluminium scrap (100 kg) | $3,462 | $7,200 |
+| G4 exterior grabber | 1 cryo distribution pump, 1 laser torch charging station, 4 motors, 8 small mechanical and 2 small electronic parts, 12 steel scrap (80 kg) | $2,740 | $6,400 |
+| C1 industrial console | 1 computer terminal, 1 Mini XS ship battery, 2 Polaris map controls modules, 2 steel and 1 aluminium scrap (40 kg) | $2,994 | $5,200 |
+| C2 residue collector | 1 air vent, 1 rack 1x1, 3 steel and 1 aluminium scrap, 2 small mechanical parts (20 kg) | $1,131 | $2,400 |
+| H4 hull chute | 1 bulkhead bin 2x, 16 steel and 6 aluminium scrap, 6 small mechanical and 2 small electronic parts (40 kg) | $1,005 | $1,800 |
+| N1 Auto Nav board | 2 Polaris course plot modules, 4 small electronic parts; leaves 4 offcuts | $2,032 | $3,600 |
+| N2 pursuit, N3 fire control boards | 3 Polaris course plot modules, 2 small electronic parts; leaves 3 offcuts | $2,990 | $5,400 |
+
+Every bill conserves mass. The game's merchants sell every part: the pumps at
+scrap kiosks and K-Leg, the rest at furnishings and supply kiosks. A container
+part must be empty. Work times are unchanged.
+
+**Engineering salvage.** Shipbreaker's machinery share of an engineering roll is
+now 1 in 20 (it was 1 in 2.7), three in four of them broken, as Manufacturing's
+is. Its coolant conduit and coolant charge fall to 5% each, and its aluminium
+and steel ingots to 3% and 2%. Framework's S3 silo keeps the same odds as each
+Shipbreaker family (0.455%, three in four broken). All the mods together add
+about $1,115 to an engineering find at base value, down from $2,870.
+
+**Crop nutrients** are 150 cr/kg (1,500 before): 6 cr for a 40 g packet, 75 cr
+for a 500 g bulk charge, and 150 cr/kg into a hopper at the refuelling kiosk.
+Makeup salts are 3 cr a packet. Saved packets and charges take the new price
+when the game loads, a part-used one in proportion to what is left in it.
+
+**Meals.** Hearth flatbread is 200 cr and soybean stew 190 cr, among the game's
+own hot meals and a little above their grain or beans and water ration. Saved
+meals take the new price on load.
+
 ## Construction, repair and restoration
 
 Smaller equipment recipes use an installed native Bar/Dining Table or a supported optional workbench. Since Shipbreaker 0.60.0 the D4, R4 and F6 are not built at all: they are bought or found whole and installed directly (see [installing machines](section-assembly-and-maintenance.md)). A Mortorq tool and soldering tool are required through native
@@ -525,8 +566,8 @@ installation geometry, not capacity, construction mass or operating yield.
 
 The [N2 pursuit module](auto-nav-pursuit.md) has an authored $5,400 pristine base
 value, $1,350 damaged value and 0.4 kg mass. Its Polaris pristine merchant offer is
-60%. Construction uses two 0.5 kg small electronics parts over 30 minutes and retains
-0.6 kg existing board offcuts; repair consumes two electronics parts and dismantling
+60%. Construction used two 0.5 kg small electronics parts over 30 minutes and retained
+0.6 kg existing board offcuts (since Auto Nav 0.34.0 see the economy audit section below); repair consumes two electronics parts and dismantling
 retains 0.4 kg existing board residue. N1 stock, salvage and old saved IDs are unchanged.
 These are game balance choices, not actual electronics manufacturing yields.
 
@@ -797,8 +838,9 @@ crust is ore (mined, never sold; the government kiosks buy it at 150 cr). Leachi
 one earns 300 cr of salts, twice the crust; struvite gains a little on its
 concentrate. The makeup formulation is the owner's exception (30 September 2026,
 reaffirmed 1 October because fertiliser is rare in the game's world): its 39
-packets carry Agriculture's own 30 cr price, 1,170 cr from about 440 cr of salts,
-and no merchant sells the salts, so no trade loop pays.
+packets carry Agriculture's own price, and no merchant sells the salts, so no
+trade loop pays. Since the economy audit of 5 October 2026 that price is 3 cr a
+packet, so the formulation is supply for the B2, worth less than its salts.
 
 ## Agriculture 0.27.0: Groundwork nutrient hoppers
 
@@ -813,9 +855,10 @@ mechanical part, one small electronic part, one aluminium scrap, growing with th
 step), steel scrap salvage with the rest of the housing retained, four to a lot on
 the reservoirs' routes, only the E2 in salvage loot, and the faction kiosks at Warm
 standing. The E2 joins Agriculture's engineering-salvage share, which is split one
-more way: each machine falls from 3% to 2.5% of a roll, the same total. Station kiosks fill them with crop nutrients at 1,500 cr/kg under Bulk
-supplies, the same per kilogram as the 500 g bulk charge (750 cr) and the 40 g
-packet (60 cr), so no route is cheaper and nothing sells back.
+more way: each machine falls from 3% to 2.5% of a roll, the same total. Station kiosks fill them with crop nutrients at 150 cr/kg under Bulk
+supplies, the same per kilogram as the 500 g bulk charge (75 cr) and the 40 g
+packet (6 cr), so no route is cheaper and nothing sells back (prices since the
+economy audit of 5 October 2026; 1,500 cr/kg before).
 
 ## Manufacturing 0.19.0: the SA-3 acid plant and AT acid tanks
 
@@ -851,11 +894,11 @@ The olivine charge's 32 Epsom salt ($416) earn 2.3 times the $180 ore, with
 $26.80 of acid and $95.20 of water at station prices besides; the acid-route
 struvite's three struvite and three ammonium sulfate ($435) gain about 28% on the
 $300 flask and three Epsom salt ($339). Crop nutrients made aboard go straight
-into a hopper at Agriculture's own 1,500 cr/kg (the owner's formulation
-decision). Bagged into bulk charges they sell like any other; every salt in the
-blend is made aboard from mined feed, so bought stock alone never pays. At about
-4,150 cr of nutrients a charge from about 75 cr of salts, the formulation is a
-strong earner.
+into a hopper at Agriculture's own price (the owner's formulation decision).
+Bagged into bulk charges they sell like any other; every salt in the blend is
+made aboard from mined feed, so bought stock alone never pays. Since the economy
+audit of 5 October 2026 crop nutrients are 150 cr/kg, so a charge returns about
+1.2 times its salts: a supply route, no longer the earner it was at 1,500 cr/kg.
 
 ## Framework 0.58.0: one water silo ladder
 
@@ -875,7 +918,8 @@ with steel, aluminium and retained trash in the S3's proportions; intact salvage
 is worth about $480 against the silo's $2,950. Every size sells on the silos'
 routes in lots of eight, and only the S3 turns up in engineering salvage: its
 share moved with it (3.3% of a roll, half of it broken), and Shipbreaker's
-machinery roll fell by the same amount, so no family's odds changed.
+machinery roll fell by the same amount, so no family's odds changed. The economy
+audit of 5 October 2026 cut both; see its section below.
 
 Agriculture 0.31.0 retires the R3, R4 and R5 reservoirs. Saved ones convert to
 the S3, S4 and S5 on load; the heavier housing raises the converted item's mass

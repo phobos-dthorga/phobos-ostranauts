@@ -14,8 +14,15 @@ using Ostranauts.Trading;
 // An optional report is generated from the same definitions used by these checks.
 internal static class EquipmentValueAudit
 {
+    // A game overlay (the Polaris modules a board is rebuilt from) is its base plus its condition loot's price terms,
+    // which the game adds to the base: "-StatBasePrice=1.0x649" takes 649 off.
     private static double Price(string id, double wear = 0, bool pristine = false)
-        => Price(DataHandler.dictCOs[id], wear, pristine);
+        => DataHandler.dictCOs.TryGetValue(id, out var definition) ? Price(definition, wear, pristine)
+            : Price(DataHandler.dictCOs[DataHandler.dictCOOverlays[id].strCOBase], wear, pristine) + OverlayPriceDelta(DataHandler.dictCOOverlays[id].strCondLoot);
+    internal static double OverlayPriceDelta(string? condLoot) =>
+        string.IsNullOrEmpty(condLoot) || !DataHandler.dictLoot.TryGetValue(condLoot, out var loot) ? 0 : (loot.aCOs ?? Array.Empty<string>())
+            .Where(e => e.TrimStart('-').StartsWith("StatBasePrice=", StringComparison.Ordinal))
+            .Sum(e => (e.StartsWith("-", StringComparison.Ordinal) ? -1 : 1) * EquipmentSaveUpgrade.Amount(new[] { e.TrimStart('-') }, "StatBasePrice"));
 
     internal static double Price(JsonCondOwner definition, double wear = 0, bool pristine = false)
     {

@@ -41,7 +41,7 @@ internal static class BulkNativeChecks
             "The R3 keeps its saved record name; the R4 holds 235 kg and the R5 400 kg");
         check(BulkDefinitions.ReserveChoices(120).SequenceEqual(new double[]{0,5,10,20,40,80,120}),"The R3's reserve steps are unchanged");
         var charge=d.Objects[BulkDefinitions.Nutrients];
-        check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==750&&charge.nStackLimit==3,"Finite bulk charge has an individual physical identity and authored price");
+        check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==75&&charge.nStackLimit==3,"Finite bulk charge has an individual physical identity and authored price");
         check(charge.inventoryWidth==1&&charge.inventoryHeight==1&&charge.aUpdateCommands.Length==0,"Bulk nutrient charge fits one slot and cannot regenerate through a native damage mode");
         // The Groundwork E-series nutrient hopper (Agriculture 0.27.0): three ladder sizes of a passive crop-nutrient
         // vessel that isolates its contents when damaged, filled at the kiosk, dosed from by a W2.
@@ -69,8 +69,8 @@ internal static class BulkNativeChecks
             HopperDefinitions.Sizes.Select(s=>s.Price).SequenceEqual(new double[]{300,490,690}),"The E2 holds 10 kg (15 kg empty, 300 cr), the E3 25 kg (29 kg, 490 cr) and the E4 48 kg (42 kg, 690 cr)");
         check(HopperDefinitions.Sizes[0].Spec.Record=="AgricultureHopper"&&HopperDefinitions.Sizes.Select(s=>s.Spec.Record).Distinct().Count()==3,"Each hopper size keeps its own record");
         var packet=d.Objects[Definitions.Nutrient];
-        check(PhobosAgriculture.Core.HopperRules.PricePerKg(Stat(charge,"StatBasePrice"),Stat(charge,"StatMass"))==1500&&Stat(packet,"StatBasePrice")/Stat(packet,"StatMass")==1500,
-            "Crop nutrients cost 1,500 cr/kg in a hopper, a bulk charge or a 40 g packet: no cheaper route and nothing to sell back");
+        check(Math.Abs(PhobosAgriculture.Core.HopperRules.PricePerKg(Stat(charge,"StatBasePrice"),Stat(charge,"StatMass"))-150)<1e-9&&Math.Abs(Stat(packet,"StatBasePrice")/Stat(packet,"StatMass")-150)<1e-9,
+            "Crop nutrients cost 150 cr/kg in a hopper, a bulk charge or a 40 g packet (economy audit, 5 October 2026): no cheaper route and nothing to sell back");
         check(typeof(GUIStationRefuel).GetMethod("SetupFields",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!=null,"Audited station entry hook exists");
         check(typeof(CrewSim).GetMethod(nameof(CrewSim.ScheduleCODestruction))?.GetParameters()[0].Name=="coToDestroy","Destruction guard binds the inspected argument");
         check(typeof(CondOwner).GetMethod(nameof(CondOwner.ModeSwitch))?.GetParameters()[0].Name=="coNew","Containment mode-switch guard binds the inspected argument");

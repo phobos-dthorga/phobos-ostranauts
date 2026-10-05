@@ -158,6 +158,8 @@ internal static class Definitions
     }
     /// <summary>A loose item from the materials pack: mass, price, stack, market category and art come from its entry;
     /// the translation key, the donor (a ration for food, scrap for everything else) and the identity stay here.</summary>
+    /// <summary>Nutrient charges, whose price is what is left in them at the pack's price per kilogram.</summary>
+    internal static bool PricedByMass(string id) => id == Nutrient || id == BulkDefinitions.Nutrients || id == WorkupDefinitions.Makeup;
     internal static void Stock(NativeDefinitions d, string id, string key)
     {
         var entry = AgricultureMaterials.Entry(id); bool food = entry.kind == AgricultureMaterials.Food;
@@ -171,6 +173,10 @@ internal static class Definitions
         co.aStartingConds = food ? new[] { "IsSolid=1x1", "IsEdible=1x1", "IsFood=1x1", "IsCategoryFood=1x1", "IsPocketable=1x1" } : new[] { "IsSolid=1x1", "IsPocketable=1x1" };
         if (entry.category != null && !co.aStartingConds.Contains(entry.category + "=1x1")) co.aStartingConds = co.aStartingConds.Concat(new[] { entry.category + "=1x1" }).ToArray();
         MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", price);
+        // Economy audit (Agriculture 0.52.0): saved meals, produce and nutrient charges take the pack's current price on
+        // every load, a part-used charge in proportion to what is left in it, so a repricing needs no manual step.
+        if (PricedByMass(id)) EquipmentSaveUpgrade.FollowPrice(id, byMass: true);
+        else if (food) EquipmentSaveUpgrade.FollowPrice(id);
         // Keep the donor's native item behavior and socket geometry, but give each
         // commodity its own registered image. Saved commodity identities stay fixed.
         var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[co.strItemDef]);

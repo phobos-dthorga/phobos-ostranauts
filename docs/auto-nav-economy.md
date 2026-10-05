@@ -8,7 +8,7 @@ price factors and limits. The regional builds require Framework 0.23.0+.
 
 Current follow-up: [N2 pursuit](auto-nav-pursuit.md) retains navigation/docking
 and pursuit. [N3 Fire Control System](auto-nav-fire-control.md) now owns firing
-independently. N3's authored 0.4 kg, $5,400/$1,350 values, two-electronics bill,
+independently. N3's authored 0.4 kg, $5,400/$1,350 values, three-course-plot bill,
 30-minute construction, native maintenance and offcut/residue outputs match N2.
 Its own IDs preserve existing N1/N2 items and jobs. Fire permission is never saved;
 FCS ownership restores as Hold.
@@ -71,12 +71,17 @@ an item aboard every derelict. The salvage chance has its own configuration.
 
 | Action | Materials and result | Baseline work |
 |---|---|---:|
-| Construct | 2 small electronic parts (1 kg) → module (0.4 kg) + offcuts (0.6 kg) | 30 min |
+| Construct | 2 Polaris course plot modules + 4 small electronic parts (2.8 kg) → module (0.4 kg) + 4 offcuts (2.4 kg) | 30 min |
 | Repair broken module | 2 small electronic parts (1 kg) → functional module; the parts are used up | 10.8 min |
 | Restore functional module | Reduce wear in place; no replacement materials | Depends on wear; 5.76 min for the lightly worn shop offer |
 | Dismantle either form | 0.4 kg module → 0.4 kg retained board residue | 6 min |
 
 Construction uses a native Bar/Dining Table, or a detected supported workbench.
+Since Auto Nav 0.34.0 (the [economy audit](development/economy-audit-2026-10-05.md), 5 October 2026) a
+board is rebuilt from the game's own Polaris course plot modules, which most
+supply kiosks sell, so its parts come to about half the board's value: the N1
+takes two, the N2 and N3 three with two small electronic parts. A board already
+queued at a table before the update finishes with the parts it was given.
 Mortorq and soldering tools are required for construction and service; they are
 reusable tools, not ingredients. Times exclude hauling and assume unit work/tool
 multipliers; skills and tool condition can change them. Module fitting uses the

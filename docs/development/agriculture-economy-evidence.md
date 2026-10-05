@@ -62,7 +62,7 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Recorded Crop Residue | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Recovered Nutrient Concentrate | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Spent Crop Biomass | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
-| Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 30.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 3.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Straw Bale | 1.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 450.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -71,7 +71,7 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir (Damaged) | 127.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 830.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir (Damaged) | 166.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
-| Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | 750.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | 75.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork E2 Nutrient Hopper | 300.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork E2 Nutrient Hopper (Damaged) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork E3 Nutrient Hopper | 490.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -90,14 +90,14 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Tomatoes (0.25 kg) | 8.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Soybean Seeds (30 g) | 12.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Soybeans (0.25 kg) | 25.00 | IsCategoryFood | Yes | Yes | No | No |
-| Phobos' Verdemorrow Hearth Soybean Stew (0.5 kg) | 70.00 | IsCategoryFood | Yes | Yes | No | No |
+| Phobos' Verdemorrow Hearth Soybean Stew (0.5 kg) | 190.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Flax Seed (10 g) | 12.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Flax Straw (0.25 kg) | 2.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Sugar Beet Seed (20 g) | 12.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Sugar Beet (0.5 kg) | 4.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Beet Sugar (70 g) | 10.00 | IsCategoryFood | Yes | Yes | No | No |
-| Phobos' Verdemorrow Hearth Flatbread (0.65 kg) | 90.00 | IsCategoryFood | Yes | Yes | No | No |
-| Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Hearth Flatbread (0.65 kg) | 200.00 | IsCategoryFood | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 6.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Crop Residue | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Process Solution | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Recorded Process Solution | 0.01 |  | Yes | Yes | No | No |
@@ -131,9 +131,9 @@ Native LiquidWater: 150.00 per 0.25 kg = 600.00 per kg. Native acceptable algae 
 
 | Cycle | Consumed water value | Consumed nutrient value | Whole harvested output value | Propagation stock |
 |---|---:|---:|---:|---:|
-| potato | 2,774.40 | 60.00 | 350.00 | 40.00 retained seed potato |
-| lettuce | 759.48 | 7.50 | 32.00 | Consumes one 5.00 packet; no seed return |
-| lettuce-seed | 813.60 | 15.00 | 20.00 | Consumes one packet; harvests four seed packets, no edible leaves |
+| potato | 2,774.40 | 6.00 | 350.00 | 40.00 retained seed potato |
+| lettuce | 759.48 | 0.75 | 32.00 | Consumes one 5.00 packet; no seed return |
+| lettuce-seed | 813.60 | 1.50 | 20.00 | Consumes one packet; harvests four seed packets, no edible leaves |
 
 Groundwork irrigation charges: 50.00 per 5 kg. Consumed root-water cost: potato 46.24; lettuce 12.66. Purchase whole charges; remaining water stays available. No potable conversion.
 
@@ -152,11 +152,11 @@ The 0, 0.25 and 1 cr/kWh columns are hypothetical marginal electricity costs, no
 
 | Cycle | Water + nutrients + purchased seed | Cultivation kWh | At 0 cr/kWh | At 0.25 cr/kWh | At 1 cr/kWh |
 |---|---:|---:|---:|---:|---:|
-| potato | 106.24 | 72 | 106.24 | 124.24 | 178.24 |
-| lettuce | 25.158 | 19.2 | 25.158 | 29.958 | 44.358 |
-| lettuce-seed | 33.56 | 38.4 | 33.56 | 43.16 | 71.96 |
+| potato | 52.24 | 72 | 52.24 | 70.24 | 124.24 |
+| lettuce | 18.408 | 19.2 | 18.408 | 23.208 | 37.608 |
+| lettuce-seed | 20.06 | 38.4 | 20.06 | 29.66 | 58.46 |
 
-A repeating lettuce rotation reserves one returned seed packet, grows 3 food cohorts and yields 12 edible servings over 240 rack-growth hours. It consumes 89.034 cr of water/nutrients and 96 kWh. Per food cohort: 29.678 cr and 32 kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.
+A repeating lettuce rotation reserves one returned seed packet, grows 3 food cohorts and yields 12 edible servings over 240 rack-growth hours. It consumes 55.284 cr of water/nutrients and 96 kWh. Per food cohort: 18.428 cr and 32 kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.
 
 ## Proposed crop-residue recovery ceiling — not a recipe
 
@@ -164,8 +164,8 @@ Authored allocation: distribute only nutrients consumed by growth in proportion 
 
 | Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Recovered concentrate g | Makeup cost cr | Finished mixture g | Avoided fresh-stock cost less makeup cr |
 |---|---:|---:|---:|---:|---:|---:|
-| potato | 0.8 | 6.4 | 3.84 | 2.88 | 7.68 | 8.64 |
-| lettuce | 0.2 | 0.833 | 0.5 | 0.375 | 1 | 1.125 |
-| lettuce-seed | 1.18 | 9.833 | 5.9 | 4.425 | 11.8 | 13.275 |
+| potato | 0.8 | 6.4 | 3.84 | 0.288 | 7.68 | 0.864 |
+| lettuce | 0.2 | 0.833 | 0.5 | 0.037 | 1 | 0.113 |
+| lettuce-seed | 1.18 | 9.833 | 5.9 | 0.443 | 11.8 | 1.328 |
 
 Avoided cost is a resupply comparison, not a sale profit. Subtract B2 energy, two one-minute crew setups, hauling and capital. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum. Terminal rejects cannot be rerun. The executable audit reads content balance; it does not itself register recipes. See [nutrient production](../agriculture-nutrient-production.md).

@@ -65657,6 +65657,45 @@
       }
     },
     {
+      "mod": "PhobosAutoNav",
+      "key": "Recipe.PhobosBuildAutoNav2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Rebuild two Polaris course plot modules and four small electronic parts into a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station, leaving four 0.6 kg board offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts.",
+      "after": "Rebuild two Polaris course plot modules and four small electronic parts into a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station, leaving four 0.6 kg board offcuts. Docking requires a separate Dock action and docking clearance. Includes local avoidance of tracked contacts."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Recipe.PhobosBuildPursuit2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg pursuit module, leaving three 0.6 kg board offcuts. Rendezvous and Follow; weapons require the separate N3 Fire Control System.",
+      "after": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg pursuit module, leaving three 0.6 kg board offcuts. Rendezvous and Follow; weapons require the separate N3 Fire Control System."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Recipe.PhobosBuildFireControl2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav"
+      ],
+      "before": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg fire control system, leaving three 0.6 kg board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply.",
+      "after": "Rebuild three Polaris course plot modules and two small electronic parts into a 0.4 kg fire control system, leaving three 0.6 kg board offcuts. Choose a limited number of volleys and optional RCS aiming. Weapon firing permissions still apply."
+    },
+    {
       "mod": "PhobosFramework",
       "key": "LineContents.action_drain",
       "category": "control label",
@@ -69495,6 +69534,84 @@
       ],
       "before": "{0} was working when the game was saved but could not carry on: {1}",
       "after": "{0} was working when the game was saved but could not carry on: {1}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildHullChute2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build a 40 kg, 4 wide x 1 deep transfer chute around a 2x bulkhead bin. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them.",
+      "after": "Build a 40 kg, 4 wide x 1 deep transfer chute around a 2x bulkhead bin. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildExteriorGrabber2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build an 80 kg, 4 wide x 3 deep exterior grabber. A cryo distribution pump drives its clamps and a laser torch charging station powers its cutting head. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
+      "after": "Build an 80 kg, 4 wide x 3 deep exterior grabber. A cryo distribution pump drives its clamps and a laser torch charging station powers its cutting head. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildResidueCollector2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build a 20 kg, 2 wide x 1 deep collector. An air vent becomes its gate and a 1 x 1 rack holds the packets. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
+      "after": "Build a 20 kg, 2 wide x 1 deep collector. An air vent becomes its gate and a 1 x 1 rack holds the packets. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor that touches it or shares a conveyor belt with it. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildIndustrialConsole2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build a 40 kg, 3 x 3 seated workstation from a computer terminal, a small ship battery that steadies its supply and two Polaris map controls modules for its command boards. It controls installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine.",
+      "after": "Build a 40 kg, 3 x 3 seated workstation from a computer terminal, a small ship battery that steadies its supply and two Polaris map controls modules for its command boards. It controls installed equipment on your own ship. Needs a separate 80 W power connection. Crew still load cargo, collect products and do maintenance beside each machine."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildFurnaceRadiator2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build the 100 kg, 6 x 4 exterior F6 radiator around two cryo distribution pumps, which drive its coolant. Mount outside on six intact hull walls.",
+      "after": "Build the 100 kg, 6 x 4 exterior F6 radiator around two cryo distribution pumps, which drive its coolant. Mount outside on six intact hull walls."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosBuildFurnaceThermalPort2.description",
+      "category": "name",
+      "decision": "add",
+      "reason": "Owner economy decisions of 5 October 2026",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosShipbreaker"
+      ],
+      "before": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier.",
+      "after": "Build a complete 100 kg underside radiator assembly around two cryo distribution pumps, with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier."
     },
     {
       "mod": "PhobosFramework",
@@ -80277,8 +80394,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "321327c88dcfb37c83dfb8f717e3c241616081540d811ed2a9a4009800daafec",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "224d7b406c61fd71b5ef1f719e5a47f47d7fd0597f2437cabbb250936d9496b3",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "SUPPORT.md",
@@ -80298,22 +80415,22 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8e73a57ae589638b1aa36de07686343bea61470b48de46bd75f52c18d2e481ad",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "6b55d1d657b212ae537d671fe48ee7a2ac342a4a279097204b56d62f1c765484",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9d28c4e5c1cd6cfda465e9e357357a1f333b319d98f14691ab13b12b77ecceaa",
-      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
+      "sha256": "e38d276cacafa34784e57228bfe9889ac2adff714965fb426a8789f62d50f0f2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2b9fe2d49e1350abdd69381bf45cd816d9f0e082998e36a25d90cc6b06bbf7e5",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "c6ba610a45f28db9dde4c502e3db1b937d9cdf26a1638864248d5575aea4a295",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
@@ -80326,8 +80443,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "34cfac639b4eff6fcc1df96375f2fe34b511cd71882f3c62dce3ebf3b86772a6",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "777d067111c7e2d0c06729d900fec91f9aa6ad473ee698062cf9fd7b9cad54e2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -80368,15 +80485,15 @@
       "path": "docs/auto-nav-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e3305c154cfe7aebb126a4dc484edc0d61e4f1babf046b1ea4f5bd995225ba33",
-      "review": "Reviewed 3 October 2026 for Framework 0.74.0: repairs follow the game and leave nothing behind; saved spent service parts are removed on load."
+      "sha256": "442d1801280e517fb93dfda3a0eab1a8a1b973c2c845946315133b4d8a6cb2ef",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "492931beaf94165e84ec08b1f54b61d695bfda49bb981f01c4b8a95f8c9786ac",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "32d928fd6cc13db355589af6d3b34cc917349c85860890f90ae8674d83c2211c",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/auto-nav-flight-profiles.md",
@@ -80389,8 +80506,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cfeb0ac0e2510c7fd345787c36d4c4851bc94a093d38d2e589efbd1ac7ad0f71",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "cba2132ee2ce0c7eb36d97aac159da11ad28379d6faf8f07b8e0c1a35ca8a0c2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -80403,8 +80520,8 @@
       "path": "docs/auto-nav-pursuit.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3eb0a0f5811f7e447e3c99fb46d735b565a4a15ecc3df04d40d16883ad6f7523",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "fc8c6367c77b954cf4d54376e2fec70135ed639b6397ef31219dca608fde2e84",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/auto-nav-sensors.md",
@@ -80438,8 +80555,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1ddec9354631838f7afc9c232d50f87ff3f3023d1ab752b87a5b51c0dfe32fa6",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "ea6d77d1bdfae496a7465123ba693bbbe3c6b94f612c62a73aa4aa2475075525",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/crew-automation.md",
@@ -80466,8 +80583,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "baf31dc2c18df02539d5d9af7545479fa61099697fa203e479cc960536e7f160",
-      "review": "5 October 2026: Framework 0.93.0 changelog entry for the conduit power fix reviewed against the player-language rules."
+      "sha256": "2d519b1d5c41a3d07fb34719ee7804905bf3931c34bac62bc221225f4f003af0",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -80494,8 +80611,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b1b1b4293f8fa1099cef2a4a431bbeae765fcd3587bebd2d38fa051a2a5bd608",
-      "review": "Reviewed 4 October 2026 for Agriculture 0.46.0: sugar beet and B2 sugar."
+      "sha256": "746239591e62e7bd6675a72ed22986c1913e7dad699007a98faf76079db18eea",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -80740,8 +80857,8 @@
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ce7ee9655159f6510800de9cb29ffaee82524d8902791faf865b4d91600d8e1e",
-      "review": "Reviewed 1 October 2026 for Framework 0.66.0 and Shipbreaker 0.59.0: the Ablatine ML-2 mining laser."
+      "sha256": "0c9b501f4fa1dc9e5a142d7c28d0cee07bc62a70311f19ede902c4321aaed718",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/faction-kiosk-stock.md",
@@ -80781,8 +80898,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bb6587241f6ce1a727bedab4e599166004f57849266eb9ef973d1e1edbc832a6",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "916adeedd0d20e22981340db5fb74c2d48b6084cfb3f005684aca2d5a1915bc1",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -81039,8 +81156,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "1ca7b634e054ffe3c3204398befed84ff99569b48f27f52f42ca84e408e5efe7",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "25d157fa012a99e69209237835803a7d08af2380c573e5b24a8d72aa7efd93a3",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81265,8 +81382,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1009f50cf809acd9655a0a498763a6b19c2f8e1862c8ebcdcfa49f800c9ae237",
-      "review": "Reviewed 5 October 2026 for the economy audit: documentation only."
+      "sha256": "656f13b77c8634a665d28e466f36e6c314fe6f04fe54861ca0d11ab78a95a08c",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -81279,8 +81396,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "683cb39dab040c383662d482901182afad4446417accb9405cd3222f05055885",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "92fb564d27f33952c6629be389b830cadf5689a0d8888fdf2f335ae7e076e718",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81335,15 +81452,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3073fef5791fe885856362f80a87dd0a9188f79097e5dd8d8a7888b1bca59d59",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "5b7abdef612479a9d1b0ec6eb7961dd804a937915ecfa07121b6e0acdf1c87fc",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c761a06e771c61998a720a3b111531eccd50e8dd5d1dcdb83d7be20e8448868f",
-      "review": "5 October 2026: product stores (Framework 0.98.0, Manufacturing 0.49.0); new messages, two changelogs and the routing and Manufacturing guide sections reviewed against the player-language rules."
+      "sha256": "8437e6c702e413ec2a65410d4dd99ced4a83ab9a38ec5966b3c71dde75bf4ccb",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/item-references.md",
@@ -81370,8 +81487,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "8f98751ae12fa045e28f37eb645df61803ec00bb5f0e48b2c96b9c2d3dc85c2c",
-      "review": "Reviewed 5 October 2026 for Framework 0.100.0 (pipes laid in walls count; the lines data pack): what the player sees first, plain words, the data file explained by example."
+      "sha256": "a57c5462f219311c094393e05ac2d82598932309f2dc22976b40f161754ab849",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -81405,8 +81522,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5fe0b13e11b08b25fd9559b46eebe182b729949a7d6eaf80b87872fd51739e1e",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "8a03658f1a79ac6c51d0a5ef9e8815106fca6b0854d734f67f3109c808321fd9",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/residue-collector.md",
@@ -81454,8 +81571,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7b0f8b2d4a209614aeaeb6ee72f0d2c2539743d24aeb9ad1c64bdc071ee317ff",
-      "review": "5 October 2026: regenerated after the Framework 0.94.0 to 0.96.0 changes (heat figures, reload wording, versions); reviewed against the player-language rules."
+      "sha256": "c41ac92dfa6b98790fdcb87661f75b1c14e344b0a2fc4c630f9b4447fb090e91",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -81510,22 +81627,22 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b68e5ad7ab2c5b95fd382beb23c07d7408e31b39847c284f188741316b09920c",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "ca5d167e67cb94bfd806452af3b8b4ddcf3c7207f304b6a4a2f07f32868c2559",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4e8ba00d23fe59e56ee855c40824393238849b94dc7a65e1a4878dc0bb28dd10",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "ef15266947fa35432e1976a5a49aa9a1c4e108ae6917afc0fa52325fc646e5d2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9389ecbcd1b6d0c562928a24377f24c209026ad1c4d44ee39a8557787f7e76bd",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "bd90c4122ba6cec991d488924c99edd07b645e0882a79048755694186b2100a1",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -81545,8 +81662,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0b6ac2b8c8f931fd7f6b8d4282ef6d41436a4e4a809f74a943522fd83eb84453",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "facc32abeeb3d9eacdd7a5ae42109f16e9a48900adbb85c24eb0494bf002ff81",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -81594,15 +81711,15 @@
       "path": "docs/development/economy-audit-2026-10-05.md",
       "scope": "contributor audit record; decisions for the owner",
       "decision": "new",
-      "sha256": "fd8a867b201ec63b1e42021431f8c8e099528dc51819a0277905aa9998639413",
-      "review": "Reviewed 5 October 2026: findings first, figures stated with their assumptions, plain words, decisions left to the owner."
+      "sha256": "529ce0ca90aa0ded7f198b79f3b08149d52cf3166a04bc1d8ccb298ccb8a6fa2",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "docs/development/economy-audit-tables.md",
       "scope": "generated audit tables (scripts/audit-economy.py)",
       "decision": "new",
-      "sha256": "18a4c75c53ec14ffc1e4ff7affd84a0f9a983a5bfca144f4fcdc08b9becbd962",
-      "review": "Reviewed 5 October 2026: findings first, figures stated with their assumptions, plain words, decisions left to the owner."
+      "sha256": "eb84498d6f55fd3dbfa62d906f27255f78af0c6dd66a6f6b511e0dbdbce5e970",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     }
   ],
   "surfaces": [
@@ -81626,8 +81743,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "91178f94266aedaed4c95a8ba5a24b07a693c13a8dbe03930257161ae763e7d1",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "dc337d14146bdc4ca73b1a2017db6fa06c9ea530d3686d3b4ce348efb77e6fe4",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -81643,14 +81760,14 @@
     {
       "path": "mods/PhobosAutoNav/framework/recipes.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "65f464725c735eec47eab278b01780e952b8c3ca4d1440c8281c2525e1635752",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "73ac4fb09d7c72ea816cf5c1b5a3f4221f25a6a5c457704216e45e8bcac7876e",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ac678c2759fb0466a8367a499b7dbd5a17cb9d97a2013a698a733ef4e0c90442",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "d79e241a3754d8a550674353d2ca2fc1009910eae7707dcba6dbf05677baea14",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -81661,8 +81778,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0d7a7bc85ed0b1eaa3d1aeea39d990c7f20539810b266e385b87d34c8c8dbe7a",
-      "review": "Reviewed 5 October 2026 for Framework 0.101.0 (no false losses on reload): what the player saw and what changed, plain words."
+      "sha256": "75889864d1204bcf33b807b47dd9c389189ca409ddf319903f97c69c32c61ca9",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -81679,14 +81796,14 @@
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3f9869e304a8681d85272346d91e25e8ce30d6f7173576ff13b454571baa49b9",
-      "review": "4 October 2026 whole-catalogue language revision: checked changed control names, linked operating instructions and refreshed generated evidence. Historical and research sections retained."
+      "sha256": "d3dba0b11d4d078440489b5ef407ee96e9888946fb99bf10aebad60d3483ac75",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "96f7251c24e29affeb7c88ead6a9346ba8545ea6633c65fb5fa68357cabdb91a",
-      "review": "5 October 2026: Framework 0.96.0 Control Panel reach fix; three changelog entries reviewed against the player-language rules."
+      "sha256": "1e709e833c42a2c5e125ac621b0643fbccaaf5a43cf6b80185c021454570508a",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

@@ -84,10 +84,10 @@
       "art": "beet_seed"
     },
     "PhobosVerdemorrowGroundworkNutrients": {
-      "notes": "Groundwork 40 g nutrient charge for one rack cycle.",
+      "notes": "Groundwork 40 g nutrient charge for one rack cycle, at 150 a kilogram (economy audit, 5 October 2026).",
       "kind": "stock",
       "kg": 0.04,
-      "price": 60,
+      "price": 6,
       "stack": 25,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -132,10 +132,10 @@
       "art": "wheat_grain"
     },
     "PhobosVerdemorrowHearthFlatbread": {
-      "notes": "Hearth flatbread, 0.65 kg; eaten directly. Baking it with a bought water ration costs more than the loaf fetches: bread is supply, not trade.",
+      "notes": "Hearth flatbread, 0.65 kg; eaten directly. Priced among the game's own hot meals (economy audit, 5 October 2026), a little above its grain and water ration.",
       "kind": "food",
       "kg": 0.65,
-      "price": 90,
+      "price": 200,
       "stack": 10,
       "side": 1,
       "art": "flatbread"
@@ -190,10 +190,10 @@
       "art": "beet_sugar"
     },
     "PhobosVerdemorrowHearthSoybeans": {
-      "notes": "Hearth soybean stew, 0.5 kg; eaten directly. Like bread, cooking it with a bought water ration costs more than it fetches.",
+      "notes": "Hearth soybean stew, 0.5 kg; eaten directly. Priced among the game's own hot meals (economy audit, 5 October 2026), a little above its beans and water ration.",
       "kind": "food",
       "kg": 0.5,
-      "price": 70,
+      "price": 190,
       "stack": 10,
       "side": 1,
       "art": "soybean_stew"
@@ -299,7 +299,7 @@
       "notes": "Groundwork makeup salts, 40 g; bound to the workup model.",
       "kind": "stock",
       "kg": 0.04,
-      "price": 30,
+      "price": 3,
       "stack": 25,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",
@@ -318,7 +318,7 @@
       "notes": "Groundwork 500 g bulk nutrient charge, sold eight to a lot; bound to the bulk model.",
       "kind": "stock",
       "kg": 0.5,
-      "price": 750,
+      "price": 75,
       "stack": 3,
       "side": 1,
       "category": "IsCategoryIndustrialProducts",

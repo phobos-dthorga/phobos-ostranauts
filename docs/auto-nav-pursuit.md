@@ -47,9 +47,9 @@ Navigation braking and clearance take priority over N3's optional aiming request
 ## Acquisition, persistence and limits
 
 The N2 is an authored 0.4 kg, $5,400 module ($1,350 damaged base value). Build it
-on the existing electronics-table route from two 0.5 kg small electronics parts:
-30 minutes, native Mortorq and soldering tool requirements, with the existing
-0.6 kg electronics offcut output. Repair uses two electronics parts; Restore and
+at a table from three Polaris course plot modules and two small electronic parts
+(Auto Nav 0.34.0): 30 minutes, native Mortorq and soldering tool requirements,
+leaving three 0.6 kg electronics offcuts. Repair uses two electronics parts; Restore and
 dismantling follow the existing native maintenance route. Dismantling retains
 the existing 0.4 kg board-residue identity. The Polaris merchant has a 60% offer
 chance for the pristine N2. Existing N1 salvage probabilities and saved identities

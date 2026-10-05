@@ -44,6 +44,9 @@ public sealed class Recipe
     public Product[] outputs = Array.Empty<Product>();
     public double workSeconds;
     public float range;
+    /// <summary>Retired (Framework 0.102.0): still registered, so a table job a save already queued finishes or
+    /// cancels under this exact bill, but no station offers it again. A changed bill is a new recipe id.</summary>
+    public bool retired;
 }
 
 /// <summary>Strict, finite, mass-balanced construction; no probabilistic outputs.</summary>

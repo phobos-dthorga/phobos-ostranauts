@@ -1695,6 +1695,23 @@
   machinery registration scripts for reproducible masters and
   `scripts/archive-artwork.py` for future verified archive appends.
 
+## Economy audit decisions (2026-10-05)
+
+- Owner choices on `docs/development/economy-audit-2026-10-05.md`, applied in Framework
+  0.102.0, Shipbreaker 0.79.0, Auto Nav 0.34.0 and Agriculture 0.52.0: table build bills
+  use the game's own components so parts cost about half the product (building to sell
+  must lose); Shipbreaker machinery salvage 1 in 20, three in four broken, service items
+  and ingots halved, Framework's S3 at parity; crop nutrients 150 cr/kg (packet 6, bulk
+  charge 75, makeup 3); flatbread 200, stew 190. Rerun `scripts/audit-economy.py` after
+  any price, bill or loot change and keep build-and-sell negative.
+- A changed construction bill is a **new recipe id**; mark the old one `"retired": true`
+  in the recipe pack (Framework 0.102.0) so saved queued jobs finish under their own bill.
+  Never edit a published bill in place. Repricing an item that saves its own price needs
+  `EquipmentSaveUpgrade.FollowPrice` in the same change (`byMass` for part-used charges).
+- Owner note (same day): dedicated equipment for assembling finished machines is coming
+  and will replace table assembly. Keep bills describing what a machine is made of, so
+  they carry over; do not invest further in table-specific assembly behaviour.
+
 ## Mining laser direction (2026-10-01)
 
 - Owner request: a ship-mounted mining laser for Shipbreaker, animated like the

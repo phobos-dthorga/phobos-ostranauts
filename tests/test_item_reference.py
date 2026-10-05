@@ -110,8 +110,9 @@ class ItemReferenceTests(unittest.TestCase):
         text = reference.generate(ROOT, self.data, self.config)[Path('docs/shipbreaker-item-reference.md')]
         self.assertIn('| 60 | Mortorq tool, soldering tool |', text)
         self.assertIn('Retired section build sites', text)
-        # Shipbreaker 0.60.0: the three whole-machine and five section table recipes are retired saved-job contracts.
-        self.assertEqual(text.count('**Legacy saved-job contract:**'), 8)
+        # Shipbreaker 0.60.0: the three whole-machine and five section table recipes are retired saved-job contracts;
+        # Shipbreaker 0.79.0 retires the six bills the economy audit replaced.
+        self.assertEqual(text.count('**Legacy saved-job contract:**'), 14)
         self.assertEqual(text.count('**Placement:** Retired: a section no longer starts a build site'), 3)
         self.assertEqual(text.count('**Placement:** INSTALL → APPS installs the whole loose machine'), 3)
 

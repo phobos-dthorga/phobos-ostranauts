@@ -31,6 +31,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.79.0] - 2026-10-05 - Draft
+
+### Changed
+
+- Economy audit, 5 October 2026: building equipment at a table and selling it no longer pays. Each build now takes some of the game's own components, so its parts come to about half the product's value. The F6-R radiator and F6-P thermal port each take two cryo distribution pumps. The G4 grabber takes a cryo distribution pump and a laser torch charging station; the C1 console a computer terminal, a small ship battery and two Polaris map controls modules. The C2 collector takes an air vent and a 1x1 rack, and the H4 chute a 2x bulkhead bin. Merchants sell every part. Work times are unchanged.
+- Engineering salvage is rarer: a Rivetline machine turns up in about 1 roll in 20 (it was 1 in 2.7), and three in four of them are broken. Coolant conduits, coolant charges and ingots turn up half as often.
+
+### Save compatibility
+
+- Automatic. A table job already queued finishes with the parts it was given; tables offer only the new bills. Saved items keep their prices.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.102.0 or newer.
+- Checked offline; not yet seen in the game.
+
 ## [0.78.0] - 2026-10-05 - Draft
 
 ### Fixed
