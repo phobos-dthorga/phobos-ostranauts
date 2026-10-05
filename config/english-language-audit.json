@@ -83404,15 +83404,15 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5a79a4bc94a456353c7d106b1ffdb74a8897d40e6ac4556d27d2e1b077ed7572",
-      "review": "2026-09-29: weak contacts beyond 10 km and docked partners of the target no longer seize the approach; notice ranges; status count."
+      "sha256": "b31e81007f4338be0273e4d4d076e0d54ec483a73af14579325b79937096c760",
+      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
     },
     {
       "path": "docs/auto-nav-docking.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7f7bd621bba75c8461ae9d32fd803e7198568dd035e6f7e0ea5b53acc032e778",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "db962e8e69cc9cc93d1c39f04a43a72c2f8435e3971b52ee07efb2e0d27cbdee",
+      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
     },
     {
       "path": "docs/auto-nav-economy.md",
@@ -83446,8 +83446,8 @@
       "path": "docs/auto-nav-persistence.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "6d190c4f620d3e5f71a66e4667147c4dbc7c5f9098c16679c3fc9757f736fcf7",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "a24bb9bd7b759e469bca99bd9453642d11b0552975f403a72aa2ed85f10a3afd",
+      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
     },
     {
       "path": "docs/auto-nav-pursuit.md",
@@ -83460,8 +83460,8 @@
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "3e9f345485913d21b23c453e453148b97f2923139a7dd07dc26ce9f22c54787d",
-      "review": "5 October 2026: work carries on after a reload (Framework 0.95.0); new and changed messages, five changelogs, four Workshop page lines, the item reference notes and the reload wording in 24 player guides were reviewed against the player-language rules."
+      "sha256": "a9b187a791dc89829c4f4fb01a078520dcf866344cc4bf112b809e13c664959f",
+      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
     },
     {
       "path": "docs/auto-nav-torch.md",
@@ -84504,8 +84504,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "80266b23d552a33050656aefd9b6e4505c7848d6fb10098fa9c92db2eaa28367",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "dffa215b1d171f10cc3c7952508ee4e5b42a140d012edde454f1c6c411c8ff91",
+      "review": "Reviewed 6 October 2026: Auto Nav flow charts."
     },
     {
       "path": "docs/publishing-an-add-on.md",

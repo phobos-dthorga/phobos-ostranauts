@@ -12,6 +12,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Flow charts for the Auto Nav player guide section and for docking, departure, saved flights after loading and automatic sensor engagement. Documentation only; gameplay and saves are unchanged.
+
 - Correct stale dependency and merchant advice and distinguish the old unscrolled hub from current compact controls, Combat and towing. Documentation only; gameplay and saves are unchanged.
 
 - Include all board forms, aliases and residues in the complete item-action audit. Native maintenance actions resolve and attach in offline checks; floor INSTALL is intentionally absent for slot-mounted boards. Live menu approval remains separate.

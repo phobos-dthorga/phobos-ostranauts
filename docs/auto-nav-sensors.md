@@ -22,6 +22,26 @@ track, Auto Nav switches on the fewest fitted sensors that fix it:
 It predicts each sensor's contribution with the game's own signal formula and uses
 the same switch as the native Sensors page.
 
+```mermaid
+flowchart TD
+    Faint["Target or a hazard near the route too faint to track"] --> Off{"AutoEngage = Off?"}
+    Off -->|yes| None["Nothing switched on; guidance suspends if the track fails"]
+    Off -->|no| Help{"Would any fitted sensor fix it?"}
+    Help -->|no| None
+    Help -->|yes| Passive{"Optical, infrared or EM enough?"}
+    Passive -->|yes| OnPassive["Switch on the fewest of those"]
+    Passive -->|no| Setting{"AutoEngage = All, the default?"}
+    Setting -->|yes| OnActive["Also switch on radar or LiDAR: they emit"]
+    Setting -->|"no: Passive"| None
+    OnPassive --> Tell["Crew log line, nav-map banner, hub line"]
+    OnActive --> Tell
+    Tell --> Ends["Work ends: arrival, Stop, docked, departed"]
+    Ends --> Wait["About five game seconds"]
+    Wait --> Off["Switch off only the sensors Auto Nav switched on"]
+```
+
+Sensors already on stay as they are, and your own switch always wins.
+
 **How you are told.**
 
 - A line in the crew message log names the sensors, the reason (the target or

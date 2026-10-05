@@ -35,6 +35,25 @@ package; the [handover](development/shipbreaker-autopilot-handover.md) defines t
    heading alignment and approach/hold/capture progress. Terminal RCS matches
    motion and holds/retreats when target manoeuvres exceed safe capture authority.
 
+```mermaid
+flowchart TD
+    Clear["DOCK clearance from native Comms; destination selected"] --> Cmd{"Command"}
+    Cmd -->|Approach & Dock| Stage["Fly to 1 km beyond hull clearance and match motion"]
+    Cmd -->|"Dock, within 10 km"| Check
+    Stage --> Check["Recheck clearance and the exact assigned ports"]
+    Check -->|ports and clearance unchanged| Terminal["RCS-only terminal approach: align and slow to 0.2 m/s or less"]
+    Check -->|"changed, occupied or console unavailable"| Suspended["Suspended with its reason"]
+    Terminal --> Hold["Hold until the docking console's own alignment check admits the clamp"]
+    Hold --> Clamp["Auto Nav presses the game's clamp button"]
+    Clamp -->|connected| Docked["Docked: the flight ends"]
+    Clamp -->|"no connection within a few seconds"| Failed["Attempt ends as failed"]
+    Terminal -->|"target manoeuvres too hard"| Back["Hold or back off, then try again"]
+    Back --> Terminal
+    Terminal -->|"contact lost"| Suspended
+    Suspended -->|"you fix the reason and press Resume"| Check
+    Terminal -->|"you manoeuvre by hand"| Cancelled["Cancelled: control is yours"]
+```
+
 Changed/revoked clearance, occupied ports or failed handoff suspend combined intent.
 Explicit Resume rechecks it; no port substitution or repeated approach restart is
 allowed. After loading, both phases carry on by themselves once their checks

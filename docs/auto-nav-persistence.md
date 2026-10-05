@@ -53,6 +53,22 @@ alignment and legality are recomputed after loading. Reactor save DTOs contain
 idle flight controls and controlled-ship physics omits vAccIn; live state is
 untouched. See [torch persistence and operation](auto-nav-torch.md).
 
+```mermaid
+flowchart TD
+    Load["Game loaded with a saved Auto Nav flight"] --> Kind{"What was it doing?"}
+    Kind -->|"Rendezvous or Follow"| Suspended
+    Kind -->|"Fly, Approach, Dock, Approach & Dock"| Setting{"ResumeAfterLoad on? (default)"}
+    Setting -->|no| Suspended["Suspended with its reason"]
+    Setting -->|yes| Checks{"Same hardware, ship, target; power, fuel, throttle and time budget OK?"}
+    Checks -->|yes| Flies["Carries on: guidance recomputed from where the ship is now"]
+    Checks -->|no| Suspended
+    Suspended -->|"fix the reason, then Resume"| Checks
+    Suspended -->|Disengage| Stopped["Stopped"]
+    Suspended -->|"phobosnav forget"| Gone["Saved flight discarded"]
+```
+
+No old thrust is ever replayed, and a failed check never retries on its own.
+
 Set `Persistence.ResumeAfterLoad = false` to restore active flights and docking suspended.
 A blocked flight also becomes suspended, with a reason in the panel/status.
 Resolve the reason and choose **Resume** or use `phobosnav resume`. Failed checks

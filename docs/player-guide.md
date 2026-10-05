@@ -375,6 +375,23 @@ other instruments. Keep the native map, sensors, warnings and Comms available.
   propulsion actions relinquish automation and retain native restrictions.
 - **Details:** diagnostics/help only. Routine controls never require scrolling.
 
+```mermaid
+flowchart LR
+    N1["N1 Polaris Auto Nav Module"] --> Nav
+    N2["N2 Polaris Pursuit Module"] --> Nav
+    N2 --> Pursuit
+    N3["N3 Polaris Fire Control System"] --> Fire
+    N3 --> Systems
+    Nav["Navigation page"] --> NavCmds["Approach, Dock, Approach & Dock"]
+    Nav --> Depart["Departure page: Undock & Depart, Undock & Continue"]
+    Pursuit["Pursuit page"] --> PursuitCmds["Rendezvous, Follow"]
+    Fire["Fire page"] --> FireCmds["Volleys, Auto Aim, Engage, Cease Fire"]
+    Systems["Systems page"] --> SysCmds["Propulsion readings, torch controls"]
+```
+
+Any one module installs the shared hub; each adds only its own pages. Either N1
+or N2 gives Navigation and Departure.
+
 Resume, Disengage and Cease Fire remain on every page. **Disengage clears thrust
 and allows coasting; it is not emergency braking.** Native clearance and compatible
 assigned ports are required for docking. Approach & Dock stages 1 km beyond

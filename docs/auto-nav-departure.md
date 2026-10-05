@@ -17,6 +17,21 @@ Polaris console. Ordinary **Fly** never disconnects the ship.
 | Resume departure | Check the saved departure against the current connection before continuing. Loading never restores departure thrust. |
 | Stop departure | Stop further movement; keep the record of any unfinished disconnect. |
 
+```mermaid
+flowchart TD
+    Ready{"Crew aboard, airlocks sealed, nav powered, RCS reserve, one connection, clearance?"}
+    Ready -->|no| Refused["Refused: the hub names what is missing"]
+    Ready -->|yes| Release["Release the connection: the console's clamp button, or the native undock"]
+    Release --> Retreat["RCS retreat to at least a 1 km hull gap, match velocity"]
+    Retreat --> Which{"Which action?"}
+    Which -->|Undock & Depart| Done["Finished: the ship coasts free"]
+    Which -->|Undock & Continue| Admit["Check admission again"]
+    Admit --> Continue["Fly, Rendezvous, Follow, Dock or Approach & Dock to the captured destination"]
+    Release -->|interrupted| Resume["Resume departure reads the actual connection"]
+    Resume -->|"disconnect confirmed"| Retreat
+    Resume -->|"disconnect unconfirmed"| Stop["Stops for inspection; no second attempt"]
+```
+
 F3 equivalents are `phobosnav depart`, `phobosnav depart-continue`,
 `phobosnav depart-mode`, `phobosnav depart-resume` and `phobosnav depart-stop`.
 They use the same services and preparation checks as the hub.
