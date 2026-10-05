@@ -255,6 +255,19 @@ A machine's panel shows its tune on the last line, such as
   that takes it. Anything else (mined ore and ice, for example) goes only into a
   Y bin that takes it. The crew never sort the game's own clutter into your
   lockers.
+
+```mermaid
+flowchart TD
+    Item["Something lying on the deck"] --> Supply{"A supply that stacks, loose on the deck?"}
+    Supply -->|"no: equipment, a person, held or stored"| Stay["Left where it lies"]
+    Supply -->|yes| Phobos{"A Phobos supply?"}
+    Phobos -->|yes| Same{"A store aboard already holds the same kind, with room?"}
+    Same -->|yes| Nearest["Into the nearest such store"]
+    Same -->|no| Bin
+    Phobos -->|"no: ore, ice, other game items"| Bin{"A Y bin aboard takes it, with room?"}
+    Bin -->|yes| IntoBin["Into the nearest such bin"]
+    Bin -->|no| Stay
+```
 - **What is left alone:** anything in someone's hands, in a container, a
   machine's tray or a bed's drawer; equipment waiting to be installed (only
   supplies that stack are moved); items another job is carrying; and anything
@@ -325,6 +338,21 @@ while a skip runs, and each step takes about the same real time whatever its
 length, so the step decides how long you wait. Before 0.112.0 a skip with crew
 orders on moved one second at a time: on the owner's PC that was about 14 ms per
 skipped second, roughly five minutes for a six-hour skip.
+
+```mermaid
+flowchart TD
+    Go["You press Go on the time-skip screen"] --> Any{"A machine running or a crew order on?"}
+    Any -->|no| Jump["The game's own single jump"]
+    Any -->|yes| Step["Move forward one step: 30 game seconds by default"]
+    Step --> Crew["Crew: finish jobs, take the next, upkeep with spare on-shift time"]
+    Step --> Machines["Phobos machines and rooms: power, heat, deliveries"]
+    Step --> Fittings["The game's own fittings: every fourth step"]
+    Crew --> More{"Skip time left?"}
+    Machines --> More
+    Fittings --> More
+    More -->|yes| Step
+    More -->|no| Done["Skip ends; exterior work and flight wait for Resume"]
+```
 
 To change the step, close the game and set `StepSeconds` under `[TimeSkip]` in
 `BepInEx/config/phobosgekko.ostranauts.framework.cfg`, from 1 to 60.

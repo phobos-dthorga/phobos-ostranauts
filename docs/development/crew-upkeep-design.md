@@ -62,13 +62,19 @@ the machine is waiting for or that it is more than half worn.
 
 ```mermaid
 flowchart LR
-    Switch["Player record PhobosUpkeep: tune, inspect"] --> Plan["Upkeep.Plan, every 10 s, from CrewWork.Poll"]
-    Plan --> Job["CrewWork.Job with Upkeep kind: a native task"]
-    Job --> Complete["Upkeep.Complete: raise the level or stamp the inspection"]
-    Complete --> Record["Machine record upkeep: level, inspected"]
+    Switch["Player record PhobosUpkeep: tune, inspect, practice, tidy"] --> Plan["Upkeep.Plan, every 10 s, from CrewWork.Poll"]
+    Skip["Time-skip: Upkeep.SkipStep, banked crew time"] --> Finish
+    Plan -->|"tune, inspect, then tidy, then practice"| Job["CrewWork.Job with Upkeep kind: a native task"]
+    Job --> Finish["Upkeep.Finish"]
+    Finish -->|tune or inspect| Record["Machine record upkeep: level, inspected"]
+    Finish -->|practice| Skill["Speciality record: study-rate credit"]
+    Finish -->|housekeeping| Deliver["CrewLogistics.Deliver: one unit to the store"]
     Record --> Draw["Upkeep.Draw at the machine's power request"]
     Draw --> Fade["Level fades by the seconds worked"]
 ```
+
+Set A (0.111.0) had only the tune and inspect path; Set B (0.113.0) added
+`Upkeep.Finish` with the practice and housekeeping branches.
 
 - **One ship-wide order.** A machine has one crew order and one provider, so a
   tune order per machine would clash with existing orders. Upkeep jobs are

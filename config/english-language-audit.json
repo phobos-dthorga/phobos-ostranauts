@@ -83495,8 +83495,8 @@
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "fc516d681aa144dec72889489afdf0f60a36a3a5cd34eb8804f3ee1a803259db",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "f0fcc8975f3538dac7e0873a0bca71d0621a582abe58bd8149f82a14266b9a6b",
+      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips."
     },
     {
       "path": "docs/development/README.md",
@@ -84707,8 +84707,8 @@
       "path": "docs/development/crew-upkeep-design.md",
       "scope": "development",
       "decision": "new",
-      "sha256": "aafc7973a65b4e410f2945c0b1eca1bd06cfe18ef8ed2d62e9594763d1757eb0",
-      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
+      "sha256": "09d4d37121f7d613e5c469c151375ff3c9586bbf741de331c0da7a21a445e791",
+      "review": "Reviewed 6 October 2026: Mermaid charts for housekeeping and time-skips."
     }
   ],
   "surfaces": [
