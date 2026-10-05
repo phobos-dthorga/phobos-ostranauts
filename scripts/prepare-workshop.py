@@ -142,10 +142,9 @@ def plan(root, name):
             raise ValueError(f'Stale package: {name}/{relative}; rebuild first')
     # A data-only add-on (a story collection) has no plugin source: its manifest and phobos/ files are the mod.
     data_only = not (root / 'src' / name).is_dir() and 'phobos-addon.json' in source
-    if data_only:
-        if not any(p.startswith('phobos/') for p in native):
-            raise ValueError('Add-on data directory is missing')
-    elif not any(p.startswith('data/') for p in native):
+    if data_only and not any(p.startswith('phobos/') for p in native):
+        raise ValueError('Add-on data directory is missing')
+    if not any(p.startswith('data/') for p in native):
         raise ValueError('Native data directory is missing')
     if any(Path(p).suffix.lower() not in ('.json', '.png', '.md') for p in native):
         raise ValueError('Unexpected native package file')

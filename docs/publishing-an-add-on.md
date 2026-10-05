@@ -35,6 +35,7 @@ MyAddon/
   mod_info.json          the game's own file: name, author, version, notes
   phobos-addon.json      the Phobos manifest (below)
   preview.png            optional: the picture Steam shows
+  data/README.md         the game needs a data folder in every mod; keep any small file in it
   phobos/
     PhobosManufacturing/
       outcomes/my-odds.json

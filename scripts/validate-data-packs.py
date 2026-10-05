@@ -1106,6 +1106,8 @@ def check_addon(folder):
     prefix = manifest['idPrefix'].lower()
     if not (folder / 'mod_info.json').exists():
         raise Problem('mod_info.json is missing: the game needs it to list the add-on')
+    if not (folder / 'data').is_dir() or not any((folder / 'data').iterdir()):
+        raise Problem('data/ is missing or empty: the game looks for a data folder in every mod (keep a small README.md in it)')
     checked = []
     root = folder / 'phobos'
     for mod_dir in sorted(p for p in root.iterdir() if p.is_dir()) if root.exists() else []:

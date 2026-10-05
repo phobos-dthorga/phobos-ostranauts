@@ -4,6 +4,16 @@ Draft dates record preparation, not Workshop publication.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-06 - Draft
+
+### Fixed
+
+- The game no longer logs Mod folder not found for this mod: the folder now carries the data folder Ostranauts looks for in every mod.
+
+### Compatibility and limits
+
+- Moved from the repository's examples to its own mod folder, with its own build, installer and Workshop records. The story files are unchanged.
+
 ## [0.1.0] - 2026-10-06 - Draft
 
 ### Added

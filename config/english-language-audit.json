@@ -82573,8 +82573,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0c4f9074fd9c61e3230cebf6f98e1bc1542ad5cb940dd9aa8547a4579fde720c",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "fde7410a43cf760acfa82c77d0ab00a487b3eefbafd36f6641396f2f4d42ece1",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -83757,8 +83757,8 @@
       "path": "docs/publishing-an-add-on.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "d9e5d33190bd13d0dfeee134ca2837689150f6074caff3cbfe6a057d294afb33",
-      "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+      "sha256": "e2bcd47c11763ba6e0cec4e89558515a7afc27c1e8b7493343eb73158fbb08bc",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "docs/residue-collector.md",
@@ -83939,8 +83939,8 @@
       "path": "workshop/PhobosSpacerStories/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "6bec6756d139570ff937dd0d8bb3bcaab08e92d9449d7e350fcab6a90bfb91d7",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "90fe63a8577da045ae1454e396d24727f21e5c5eca143ae14754b2d0d8a7a895",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "docs/spacer-stories-item-reference.md",
@@ -84091,14 +84091,14 @@
     {
       "path": "mods/PhobosSpacerStories/mod_info.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "2a71760ec3fd5f12aeacd28fda9659f5cc35c3bece754fd622958a57b2d38eb3",
-      "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
+      "sha256": "6705b58b1a8135d74e9583dd5c6f361587c57a29241f183f5528cb0e8bfa5560",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "mods/PhobosSpacerStories/phobos-addon.json",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "dba8939a6f34c1b5bd73e54ccf480840ee8401c7cd368e7ef822e24b6faf7208",
-      "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
+      "sha256": "4175e0356a4a15000a08b302c62e9fd6f2cc591ca6a7fd115f65a9f4d66165e1",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "mods/PhobosSpacerStories/phobos/PhobosFramework/story/01-yard-and-lines.json",
@@ -84157,8 +84157,8 @@
     {
       "path": "mods/PhobosSpacerStories/CHANGELOG.md",
       "scope": "story add-on metadata and draft delivery record",
-      "sha256": "5a620b38f091d27a332281e9cc536c97f0d7a93e1d4a09a51c62c5f719c61b0a",
-      "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
+      "sha256": "3203e457b8bb6a69914016b82913da8396bc6ac9fd4155b84947047e3270d837",
+      "review": "Add-on data folder fix, 6 October 2026"
     },
     {
       "path": "mods/PhobosSpacerStories/README.md",

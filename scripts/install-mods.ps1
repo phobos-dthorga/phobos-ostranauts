@@ -404,7 +404,8 @@ foreach ($mod in $Mods) {
         }
         'SpacerStories' {
             # The add-on manifest and its story files are the whole mod; Framework reads them as add-on story files.
-            'phobos-addon.json'
+            # The game needs a data folder in every mod, so the package keeps a README there.
+            'phobos-addon.json'; 'data/README.md'
             foreach ($file in @('01-yard-and-lines', '02-flight-and-rebuild', '03-growing-and-galley', '04-process-makers', '05-still-and-remainders',
                 '06-sickbay', '07-letters-and-local-history', '08-goal-chains', '09-data-card-files')) { "phobos/PhobosFramework/story/$file.json" }
         }
