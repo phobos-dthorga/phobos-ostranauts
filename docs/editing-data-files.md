@@ -173,6 +173,7 @@ settings. The shipped file:
   "tuneStepSkilled": 0.3,
   "inspectionValidHours": 24,
   "inspectedFadeShare": 0.5,
+  "practiceMinutes": 10,
   "families": {}
 }
 ```
@@ -183,6 +184,9 @@ settings. The shipped file:
 - **`inspectionValidHours`:** game hours an inspection stays good for.
 - **`inspectedFadeShare`:** how fast an inspected machine's tune fades, as a share
   of the ordinary rate. 0.5 means it lasts twice as long.
+- **`practiceMinutes`:** game minutes of one practice session (Framework
+  0.113.0), from 2 to 60. A session teaches as much as the same time studying at
+  a terminal.
 - **`families`:** a machine family's own share of the gain, by its key. The F3
   command `phobosframework upkeep` lists the families aboard.
 
@@ -196,7 +200,8 @@ To change one, put a file in `BepInEx/config/PhobosFramework/upkeep/`:
   are settings in Framework's config file, section `Upkeep`
   (`InspectionMinutes`, `TuningMinutes`, `MaxTuningGain`, `TuneFadeHours`).
 - **What is refused:** a step of nothing, a skilled step smaller than the
-  unskilled one, a share outside 0 to 1, and unknown fields. The file is skipped
+  unskilled one, a share outside 0 to 1, a practice session outside 2 to 60
+  minutes, and unknown fields. The file is skipped
   with a message and the shipped figures stand.
 - **Saved games:** a machine saves how tuned it is as a share of a full tune, so
   changed figures apply at once and nothing needs converting.

@@ -180,30 +180,37 @@ maintained with the [constants updater](development/updating-constants.md).
 ## Upkeep on long hauls
 
 Standing orders run out on a long flight: the racks are planted, the charges are
-loaded and the crew stand about. Upkeep (Framework 0.111.0) gives idle crew two
-things to do. Both are switches for the whole crew, off until you choose them.
+loaded and the crew stand about. Upkeep gives idle crew four things to do:
+**Tune machinery** and **Inspection rounds** (Framework 0.111.0), and
+**Housekeeping** and **Practice at machines** (Framework 0.113.0). Each is a
+switch for the whole crew, off until you choose it.
 
 1. Open **Crew standing orders and training** (from the roster, an equipment
    panel, the C1 console or the Auto Nav hub) and choose the **Upkeep** tab.
-2. Switch on **Tune machinery**, **Inspection rounds**, or both.
+2. Switch on the kinds of work you want.
 3. Leave the crew on shift with AutoTask on, as for standing orders.
+   Housekeeping also needs the Haul duty.
 
-The F3 commands do the same: `phobosframework upkeep tune on` (or `off`),
-`phobosframework upkeep inspect on` (or `off`), and `phobosframework upkeep` to
-list the switches, the settings and every machine's tune. They are optional;
-the panel does everything.
+The F3 commands do the same: `phobosframework upkeep tune on` (or `off`), and
+likewise `inspect`, `practice` and `tidy`; `phobosframework upkeep` lists the
+switches, the settings and every machine's tune. They are optional; the panel
+does everything.
 
 Upkeep is the last thing crew do. A crew member takes an upkeep task only when
-they are on shift and idle and no standing order has a step waiting.
+they are on shift and idle and no standing order has a step waiting. Among
+upkeep, tuning and inspection come first, then housekeeping, then practice.
 
 ```mermaid
 flowchart LR
     Switch["Crew panel: Upkeep switches"] --> Idle{"Someone on shift idle, no order step waiting?"}
     Idle -->|yes| Tune["Tune the least tuned machine: 10 game minutes"]
-    Idle -->|yes, nothing to tune| Inspect["Inspect a machine not checked today: 5 game minutes"]
+    Idle -->|nothing to tune| Inspect["Inspect a machine not checked today: 5 game minutes"]
+    Idle -->|nothing to tune or inspect| Tidy["Put away a supply lying on the deck"]
+    Idle -->|nothing else| Practice["Practise at a machine: 10 game minutes"]
     Tune --> Faster["Machine works up to 10% faster and draws that much more power"]
     Faster -->|"fades as the machine works"| Tune
     Inspect --> Holds["Tune fades at half the rate for a day"]
+    Practice --> Learns["Learns the speciality as fast as terminal study"]
 ```
 
 ### Tune machinery
@@ -239,6 +246,36 @@ A machine's panel shows its tune on the last line, such as
 - Phobos machines take no wear from running, so an inspection does not slow
   wear: damage still comes only from the game's own fire, combat and accidents.
 
+### Housekeeping
+
+- **What crew do:** carry supplies lying loose on the deck to a store, one
+  item at a time, as a standing order hauls.
+- **Where things go:** a Phobos supply goes to the nearest store that already
+  holds the same kind of item. If there is none, it goes to a Rivetline Y bin
+  that takes it. Anything else (mined ore and ice, for example) goes only into a
+  Y bin that takes it. The crew never sort the game's own clutter into your
+  lockers.
+- **What is left alone:** anything in someone's hands, in a container, a
+  machine's tray or a bed's drawer; equipment waiting to be installed (only
+  supplies that stack are moved); items another job is carrying; and anything
+  with no store it fits. Nothing is ever put into a machine.
+- **Who does it:** crew on shift with the Haul duty who are allowed industrial
+  work in their crew settings. Hauling does not train a speciality.
+
+### Practice at machines
+
+- **What crew do:** a crew member not yet skilled at a machine practises at it
+  for 10 game minutes.
+- **What you get:** they learn the machine's speciality as fast as studying at
+  a terminal: about 60 sessions, or 10 hours, from nothing to skilled. The
+  machine is not changed.
+- **Which machines:** those whose speciality is a Phobos one: Industrial
+  Processing (Shipbreaker's machines), Agriculture and Cooking. Manufacturing and
+  Medical equipment is worked with the game's own skills, which are learned the
+  game's own way.
+- **Who does it:** only crew who are not yet skilled and are allowed that kind
+  of work. In play, one crew member practises a speciality on a ship at a time.
+
 ### Which machines
 
 | Mod | Tuned and inspected | Inspected only |
@@ -262,15 +299,16 @@ In Framework's config file (`BepInEx/config`), section `Upkeep`:
 | `MaxTuningGain` | 0.10 | 0 to 0.25 | How much faster a fully tuned machine works; 0 turns the benefit off |
 | `TuneFadeHours` | 36 | 6 to 240 | Hours of work for a full tune to fade to none |
 
-The other figures are in the `upkeep` data file; see
+The practice session's length and the other figures are in the `upkeep` data
+file; see
 [Tuning crew upkeep](editing-data-files.md#tuning-crew-upkeep). All of them are
 authored game balance.
 
 ### During a time-skip
 
 Upkeep does not slow a skip and does not take crew from the game's own repairs.
-Each skipped step, the on-shift time of crew with AutoTask on is spent on tuning
-and inspection sessions directly, with walking counted by distance. Running
+Each skipped step, the on-shift time of crew with AutoTask on is spent on upkeep
+directly, in the same order as in play, with walking counted by distance. Running
 machines fade their tune through their ordinary stepped work, so a long haul
 settles to a steady tune rather than a full one.
 

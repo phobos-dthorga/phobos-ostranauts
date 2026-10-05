@@ -694,13 +694,14 @@ UPKEEP_FAMILY_KEY_MAX = 64
 
 def upkeep(pack, where):
     """The upkeep schema: what a tuning session adds, how long an inspection is good and each family's share."""
-    fields(pack, {'schemaVersion', 'schema', 'notes', 'tuneStep', 'tuneStepSkilled', 'inspectionValidHours', 'inspectedFadeShare', 'families'}, where)
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'tuneStep', 'tuneStepSkilled', 'inspectionValidHours', 'inspectedFadeShare', 'practiceMinutes', 'families'}, where)
     step = number(pack.get('tuneStep', 0.2), f'{where}/tuneStep', 0.01, 1)
     skilled = number(pack.get('tuneStepSkilled', 0.3), f'{where}/tuneStepSkilled', 0.01, 1)
     if skilled < step:
         raise Problem(f'{where}/tuneStepSkilled: a skilled session never adds less than an unskilled one')
     number(pack.get('inspectionValidHours', 24), f'{where}/inspectionValidHours', 1, 240)
     number(pack.get('inspectedFadeShare', 0.5), f'{where}/inspectedFadeShare', 0, 1)
+    number(pack.get('practiceMinutes', 10), f'{where}/practiceMinutes', 2, 60)
     families = pack.get('families', {})
     if not isinstance(families, dict):
         raise Problem(f'{where}/families: expected an object')

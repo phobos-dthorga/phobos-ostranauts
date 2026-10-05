@@ -393,6 +393,7 @@ def upkeep():
                 'tuneStepSkilled': num(0.01, 1, description='The same for a crew member skilled at the machine (default 0.3); never less than tuneStep.'),
                 'inspectionValidHours': num(1, 240, description='Game hours an inspection stays good for (default 24).'),
                 'inspectedFadeShare': num(0, 1, description='Share of the ordinary fade an inspected machine\'s tune takes (default 0.5).'),
+                'practiceMinutes': num(2, 60, description='Game minutes of one practice session at a machine (default 10).'),
                 'families': named(family, 'Machine families by key, such as manufacturing.charge; phobosframework upkeep lists them.', '^.{1,64}$')},
                ['schemaVersion', 'schema'],
                'Crew upkeep: what a tuning session adds, how long an inspection is good, and each machine family\'s share of the gain.')

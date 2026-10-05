@@ -82909,14 +82909,14 @@
       "mod": "PhobosFramework",
       "key": "Upkeep.help",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "decision": "rewrite",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework"
       ],
       "before": "Upkeep commands: phobosframework upkeep | upkeep tune on|off | upkeep inspect on|off. upkeep lists the switches, the settings and every machine's tune and last inspection.",
-      "after": "Upkeep commands: phobosframework upkeep | upkeep tune on|off | upkeep inspect on|off. upkeep lists the switches, the settings and every machine's tune and last inspection."
+      "after": "Upkeep commands: phobosframework upkeep | upkeep tune on|off | upkeep inspect on|off | upkeep practice on|off | upkeep tidy on|off. upkeep lists the switches, the settings and every machine's tune and last inspection."
     },
     {
       "mod": "PhobosFramework",
@@ -83026,14 +83026,14 @@
       "mod": "PhobosFramework",
       "key": "Console.upkeep_intro",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "decision": "rewrite",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
       "trace": "literal reference",
       "references": [
         "src/PhobosFramework"
       ],
       "before": "Work for idle crew on long hauls. It applies to every ship of yours and comes after standing orders. Crew need to be on shift, with AutoTask on.",
-      "after": "Work for idle crew on long hauls. It applies to every ship of yours and comes after standing orders. Crew need to be on shift, with AutoTask on."
+      "after": "Work for idle crew on long hauls. It applies to every ship of yours and comes after standing orders: tuning and inspection first, then housekeeping, then practice. Crew need to be on shift, with AutoTask on."
     },
     {
       "mod": "PhobosFramework",
@@ -83164,6 +83164,162 @@
       ],
       "before": "Game seconds a time-skip moves at a time while a machine runs or a crew order is on, from 1 to 60. Each step takes about the same real time whatever its length, so a longer step means a shorter freeze. 30 is the default. What a long step costs: crew take their next job only when a step ends; a machine that finishes a batch partway through a step may wait for the next step to start another; each MHD generator is topped up once a step, so on its own it feeds about 240 kW at 30 seconds and 120 kW at 60 (batteries supply too); and a busy machine in a small room can wait for cooler air all skip. 1 is the most faithful and the slowest: it is how skips with crew orders ran before Framework 0.112.0, when a six-hour skip could freeze the game for minutes.",
       "after": "Game seconds a time-skip moves at a time while a machine runs or a crew order is on, from 1 to 60. Each step takes about the same real time whatever its length, so a longer step means a shorter freeze. 30 is the default. What a long step costs: crew take their next job only when a step ends; a machine that finishes a batch partway through a step may wait for the next step to start another; each MHD generator is topped up once a step, so on its own it feeds about 240 kW at 30 seconds and 120 kW at 60 (batteries supply too); and a busy machine in a small room can wait for cooler air all skip. 1 is the most faithful and the slowest: it is how skips with crew orders ran before Framework 0.112.0, when a six-hour skip could freeze the game for minutes."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.practice_label",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Practise at {0}",
+      "after": "Practise at {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tidy_label",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Put {0} away in {1}",
+      "after": "Put {0} away in {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.practice_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Practice at machines is on. Idle crew on shift who are not yet skilled at a machine will practise at it and learn as they would studying at a terminal.",
+      "after": "Practice at machines is on. Idle crew on shift who are not yet skilled at a machine will practise at it and learn as they would studying at a terminal."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.practice_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Practice at machines is off. What crew have learned so far stays.",
+      "after": "Practice at machines is off. What crew have learned so far stays."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tidy_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Housekeeping is on. Idle crew on shift with the Haul duty will put supplies lying on the deck away in a store that already holds the same kind, or in a material bin that takes them.",
+      "after": "Housekeeping is on. Idle crew on shift with the Haul duty will put supplies lying on the deck away in a store that already holds the same kind, or in a material bin that takes them."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tidy_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Housekeeping is off. Anything on the deck stays where it lies.",
+      "after": "Housekeeping is off. Anything on the deck stays where it lies."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_practice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "A practice session takes {0} game minutes and teaches as much as the same time studying at a terminal.",
+      "after": "A practice session takes {0} game minutes and teaches as much as the same time studying at a terminal."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_practice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Practice at machines",
+      "after": "Practice at machines"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_tidy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Housekeeping",
+      "after": "Housekeeping"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_practice_help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew not yet skilled at a machine practise at it, learning its speciality as fast as studying at a terminal. It comes after tuning, inspection and housekeeping.",
+      "after": "Crew not yet skilled at a machine practise at it, learning its speciality as fast as studying at a terminal. It comes after tuning, inspection and housekeeping."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_tidy_help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew put supplies lying on the deck away: into a store already holding the same kind, or a material bin that takes them. Nothing is taken from hands, machines or locked stores, and nothing is moved with nowhere to go.",
+      "after": "Crew put supplies lying on the deck away: into a store already holding the same kind, or a material bin that takes them. Nothing is taken from hands, machines or locked stores, and nothing is moved with nowhere to go."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_switches_more",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep housekeeping and practice (Framework 0.113.0): switches, job labels, help and reports in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Practice at machines: {0}. Housekeeping: {1}.",
+      "after": "Practice at machines: {0}. Housekeeping: {1}."
     }
   ],
   "documents": [
@@ -83171,8 +83327,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "781d7d62673b4c5ce0629365fb852f9d978c213f858e2a6b98615d2335ab451c",
-      "review": "Reviewed 6 October 2026: Framework version 0.112.0 (time-skip step); no other wording changed."
+      "sha256": "e90a095cc0ef19d2369d4f38892cb5881a6fbccba90f4ca233636e3c5470ab21",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "SUPPORT.md",
@@ -83332,15 +83488,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4f9c784d77ae46e0f54c110240571ff4485b4dd4a89e5124107bd50fdc5b269e",
-      "review": "Reviewed 6 October 2026: Framework version 0.112.0 (time-skip step); no other wording changed."
+      "sha256": "8fe8a44077a5185b835ab1335214c731884c7a647972f1a79f24cd31927a9672",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c98e1fc21f2e66c12d745f7980e988480687858f57391958ba1036c18eede19c",
-      "review": "Reviewed 6 October 2026 for the time-skip step (Framework 0.112.0): the TimeSkip StepSeconds setting, what a longer step gives up and the faster skip."
+      "sha256": "fc516d681aa144dec72889489afdf0f60a36a3a5cd34eb8804f3ee1a803259db",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/development/README.md",
@@ -83961,8 +84117,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "63a7f65d238f05d334c72d52232900e2def64fc80bfe6453648b25e5e41279e9",
-      "review": "Reviewed 6 October 2026: finding L72, time-skips with crew orders (Framework 0.112.0)."
+      "sha256": "385c1c2574ca3e27d71409c101d14b4585129cef8dff58424c3ad555bfbbd1f5",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -84201,8 +84357,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "9a762dbdcf069054f0f665f0279d5e8b24c39de0f0d9aae58fccf646463bf40b",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "916b83270cc2453b04536e5e5cebebc2f2827b57dbe4b40e7fbff4ae0dbc8213",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -84222,8 +84378,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "aecdc29d80659219526104452074a51c3a0634f18c985fdcc48bb850f375108d",
-      "review": "Regenerated 6 October 2026 for Framework 0.112.0; generated wording unchanged."
+      "sha256": "7d1263fd0c452c6f337c3b27c66d6a8b15358ec917187610d0634e12d5e4d295",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -84278,15 +84434,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cb6048da7342a46be8727ec3be1b2802bbf5e9f96ddbf3016ed41868da4d9f34",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "1ead733ca841c14a084194c834c2c8f235a870c48072837554fb9c585a3473f2",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe69d11c55ee9a97adde50f9c54ff87836834397b694eae8b6706abb6dd1500a",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "b1a92d4f44910ea4e7215cff1ccc558ec44b4e321d98fdaf908f7564866b9e32",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/item-references.md",
@@ -84348,8 +84504,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d7d91b4035d9758ce17de00b711ee49695d85844850238fde43da91ee05168e5",
-      "review": "Reviewed 6 October 2026 for the time-skip step (Framework 0.112.0): the TimeSkip StepSeconds setting, what a longer step gives up and the faster skip."
+      "sha256": "80266b23d552a33050656aefd9b6e4505c7848d6fb10098fa9c92db2eaa28367",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -84404,8 +84560,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a0a7e49bd546cfea9572c06ec2326f3f829c9894905b4b1cf2affad86d06e6a7",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "2809699f99f522e804b2525a8064d725ed1dcb88439edd7fe0606e949654fc14",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -84474,8 +84630,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "11fb55a2418e851d1e44a4865f6d8be2587d850d0a605c5b3bd5278b3867c442",
-      "review": "Reviewed 6 October 2026 for Framework 0.112.0: version, the time-skip setting named in the feature list and a shorter opening line to stay within the page limit."
+      "sha256": "3957a06422044e4796c214b928ef06180ee180882906595e2599e308cd6a7764",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -84495,8 +84651,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f582cdfee82c4348b94db6c296158c2e1d4cb9933038169d08a43e45c346cde1",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "3bacb546fde09a3179d59d394776c24f6d4ea24becf564fb16d9cc61652f8214",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -84551,8 +84707,8 @@
       "path": "docs/development/crew-upkeep-design.md",
       "scope": "development",
       "decision": "new",
-      "sha256": "fdcddb3b8775d91f028fcd6f1159acb8b5b6a22f7463c508bc8a99cba812e9de",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "aafc7973a65b4e410f2945c0b1eca1bd06cfe18ef8ed2d62e9594763d1757eb0",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     }
   ],
   "surfaces": [
@@ -84611,8 +84767,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c91df9c32ebed65ce5f715030b9b23fe13ba7682a9afc4bac8d602ea115516cd",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "c3eaffb7f68b17889efd93aa12c21332959f38b8e18bee26d8aee41113b0d1ce",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -84635,8 +84791,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2f19bae0fa2332276d5c51efdf999c3358d93d019f01a60b2434e9bb2e0e651d",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
+      "sha256": "c3ffd2f9f7d61ee4405add6dc53e564da35c0c3d2a6b3deeee33c8e9817a1f46",
+      "review": "Reviewed 6 October 2026 for crew upkeep housekeeping and practice (Framework 0.113.0)."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

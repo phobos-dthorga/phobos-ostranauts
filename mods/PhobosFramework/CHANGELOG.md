@@ -28,6 +28,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.113.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep gains two switches on the Upkeep tab, both off until chosen. Upkeep now runs tuning and inspection first, then housekeeping, then practice, always after standing orders.
+- Housekeeping: idle crew on shift with the Haul duty put supplies lying on the deck away, one item at a time. A Phobos supply goes to the nearest store already holding the same kind, else to a store a content mod names for it (Shipbreaker's Y bins). Anything else goes only to such a store, so the game's own clutter is never sorted into lockers. Nothing is taken from hands, containers, trays or drawers; equipment waiting to be installed, items another job is carrying and items with nowhere to fit stay put; nothing is put into a machine.
+- Practice at machines: a crew member not yet skilled at a machine with a Phobos speciality (Industrial Processing, Agriculture, Cooking) practises there for 10 game minutes a session, learning as fast as studying at a terminal. In play, one crew member per speciality and ship practises at a time; the machine is not changed.
+- The upkeep data file gains practiceMinutes (2 to 60, default 10). F3: phobosframework upkeep practice on or off, and upkeep tidy on or off.
+- Time-skips spend banked crew time on housekeeping and practice too, in the same order as in play.
+- For mod authors: Upkeep.RegisterTidyStore names stores housekeeping may fill; Upkeep.RegisterUnavailable keeps chosen crew, such as a resting patient, out of upkeep work.
+
+### Save compatibility
+
+- Automatic. The switch record gains two fields; a record from 0.111.0 or 0.112.0 reads with both new switches off. Practice progress goes into the existing speciality record.
+
+### Compatibility and limits
+
+- A stack on the deck is carried one item per trip, as standing orders haul. Housekeeping figures and the practice rate are authored balance. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.112.0] - 2026-10-06 - Draft
 
 ### Fixed

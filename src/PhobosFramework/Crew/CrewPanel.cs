@@ -194,10 +194,10 @@ public sealed class CrewPanel : GUIData
     {
         W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);
         C.Heading(shell.List,C.Text("upkeep"));C.Label(shell.List,C.Text("upkeep_intro"));
-        foreach(var kind in new[]{UpkeepKind.Tune,UpkeepKind.Inspect})
+        foreach(var kind in Upkeep.Kinds)
         {
-            var k=kind;bool on=Upkeep.Enabled(k);string name=C.Text(k==UpkeepKind.Tune?"upkeep_tune":"upkeep_inspect");
-            C.Label(shell.List,name+": "+C.Text(on?"upkeep_on":"upkeep_off")+"\n"+C.Text(k==UpkeepKind.Tune?"upkeep_tune_help":"upkeep_inspect_help"));
+            var k=kind;bool on=Upkeep.Enabled(k);string word=Upkeep.Word(k),name=C.Text("upkeep_"+word);
+            C.Label(shell.List,name+": "+C.Text(on?"upkeep_on":"upkeep_off")+"\n"+C.Text("upkeep_"+word+"_help"));
             C.Button(shell.List,C.Text(on?"upkeep_switch_off":"upkeep_switch_on",name),()=>BuildUpkeep(Upkeep.Set(k,!on)));
         }
         if(said.Length>0)C.Label(shell.List,said);

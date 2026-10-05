@@ -16,6 +16,8 @@ public sealed class UpkeepPack : DataPack
     public double inspectionValidHours = 24;
     /// <summary>Share of the ordinary fade an inspected machine's tune takes.</summary>
     public double inspectedFadeShare = 0.5;
+    /// <summary>Game minutes of one practice session (Framework 0.113.0).</summary>
+    public double practiceMinutes = 10;
     /// <summary>A machine family's own share of the maximum gain, by family key; 1 when absent.</summary>
     public Dictionary<string, UpkeepFamilyEntry> families = new(StringComparer.Ordinal);
 }
@@ -37,6 +39,7 @@ public static class UpkeepSchema
         if (pack.tuneStepSkilled < pack.tuneStep) throw new ArgumentException(Text.Get("UpkeepSchema.skilled_less"));
         Range(pack.inspectionValidHours, 1, 240, "inspectionValidHours");
         Range(pack.inspectedFadeShare, 0, 1, "inspectedFadeShare");
+        Range(pack.practiceMinutes, 2, 60, "practiceMinutes");
         foreach (var pair in pack.families)
         {
             if (string.IsNullOrEmpty(pair.Key) || pair.Key.Length > 64 || pair.Value == null) throw new ArgumentException(Text.Get("UpkeepSchema.family", pair.Key ?? ""));
@@ -84,7 +87,40 @@ public sealed class UpkeepState
     public bool Protected;
 }
 
-public enum UpkeepKind { Tune, Inspect }
+/// <summary>What an upkeep job does. Practice and Housekeeping since Framework 0.113.0; append only.</summary>
+public enum UpkeepKind { Tune, Inspect, Practice, Housekeeping }
+
+/// <summary>The four ship-wide upkeep switches as saved on the player. A record from 0.111.0 or 0.112.0 holds only
+/// tune and inspect, and reads with practice and housekeeping off.</summary>
+public sealed class UpkeepSwitches
+{
+    public bool Tune, Inspect, Practice, Housekeeping;
+    public bool Any => Tune || Inspect || Practice || Housekeeping;
+    public bool this[UpkeepKind kind] => kind switch
+    {
+        UpkeepKind.Tune => Tune, UpkeepKind.Inspect => Inspect, UpkeepKind.Practice => Practice, UpkeepKind.Housekeeping => Housekeeping, _ => false
+    };
+    public UpkeepSwitches With(UpkeepKind kind, bool on) => new()
+    {
+        Tune = kind == UpkeepKind.Tune ? on : Tune, Inspect = kind == UpkeepKind.Inspect ? on : Inspect,
+        Practice = kind == UpkeepKind.Practice ? on : Practice, Housekeeping = kind == UpkeepKind.Housekeeping ? on : Housekeeping
+    };
+    public Dictionary<string, string> Encode() => new(StringComparer.Ordinal)
+    { ["tune"] = Tune ? "1" : "0", ["inspect"] = Inspect ? "1" : "0", ["practice"] = Practice ? "1" : "0", ["tidy"] = Housekeeping ? "1" : "0" };
+    public static UpkeepSwitches Decode(IReadOnlyDictionary<string, string> fields)
+    {
+        bool On(string key) => fields.TryGetValue(key, out var value) && value == "1";
+        return new UpkeepSwitches { Tune = On("tune"), Inspect = On("inspect"), Practice = On("practice"), Housekeeping = On("tidy") };
+    }
+}
+
+/// <summary>A store housekeeping could put an item in, as the planner sees it: how far it is from the item, whether it
+/// already holds the same kind of item, whether a content mod named it a tidy store, and whether the item fits now.</summary>
+public readonly struct TidyStoreChoice
+{
+    public readonly string Id; public readonly double Distance; public readonly bool HoldsSame, Tidy, Fits;
+    public TidyStoreChoice(string id, double distance, bool holdsSame, bool tidy, bool fits) { Id = id; Distance = distance; HoldsSame = holdsSame; Tidy = tidy; Fits = fits; }
+}
 
 /// <summary>The upkeep rules with no game types (Framework 0.111.0). A tuned machine's work counts for more; nothing
 /// else about its job changes, so yields, masses and energy per job stay exactly as authored.</summary>
@@ -150,6 +186,19 @@ public static class UpkeepRules
         state.SavedLevel = state.Level; state.SavedInspected = state.Inspected;
         return state;
     }
+
+    /// <summary>Where housekeeping puts an item, or null to leave it where it lies (Framework 0.113.0). A Phobos supply
+    /// goes to the nearest store that already holds the same kind of item, else the nearest tidy store (a Rivetline Y bin)
+    /// that takes it. Any other item goes only to a tidy store, the one already holding its kind first, so the crew never
+    /// sort the game's own clutter into lockers. Only a store the item fits counts; ties by id, so the choice is stable.</summary>
+    public static string? TidyDestination(bool phobosSupply, IEnumerable<TidyStoreChoice> stores) =>
+        stores.Where(s => s.Fits && (s.Tidy || phobosSupply && s.HoldsSame))
+            .OrderByDescending(s => s.HoldsSame).ThenBy(s => s.Distance).ThenBy(s => s.Id, StringComparer.Ordinal)
+            .Select(s => s.Id).FirstOrDefault();
+
+    /// <summary>What the next upkeep job is, in order: tuning and inspection, then housekeeping, then practice. A kind
+    /// is reached only when every kind before it has nothing to offer.</summary>
+    public static readonly UpkeepKind[] Priority = { UpkeepKind.Tune, UpkeepKind.Inspect, UpkeepKind.Housekeeping, UpkeepKind.Practice };
 
     /// <summary>The crew time banked during a time-skip buys whole sessions: how many, and what is left.</summary>
     public static int Sessions(ref double bankedSeconds, double sessionSeconds, double travelSeconds)

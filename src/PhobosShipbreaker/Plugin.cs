@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.82.0";
+    public const string Version = "0.83.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -58,6 +58,8 @@ public sealed class Plugin : BaseUnityPlugin
             Phobos.Ostranauts.Framework.Crew.Upkeep.Register("shipbreaker." + key, id => PowerKinds.Classify(id) == k, "IndustrialProcessing",
                 Phobos.Ostranauts.Framework.Crew.CrewRole.Industry, tunable);
         }
+        // Housekeeping (0.83.0): crew may put away what a Rivetline Y bin takes (mined ore, regolith, gangue, ice) in one.
+        Phobos.Ostranauts.Framework.Crew.Upkeep.RegisterTidyStore(Core.BinRules.IsFamily);
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); LaserService.Update(); }

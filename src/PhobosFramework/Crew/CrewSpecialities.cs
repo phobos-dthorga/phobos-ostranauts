@@ -38,6 +38,8 @@ public static class CrewSpecialities
     public static void Register(CrewSpeciality skill)
     { if (skills.ContainsKey(skill.Id)) throw new ArgumentException("Duplicate speciality."); skills.Add(skill.Id, skill); }
     public static string Condition(string id) => "PhobosSkill_" + id;
+    /// <summary>Whether an id names a registered Phobos speciality rather than one of the game's own skills.</summary>
+    public static bool IsSpeciality(string id) => id != null && skills.ContainsKey(id);
     public static bool Skilled(CondOwner actor, string id) => id.Length > 0 && (skills.ContainsKey(id) ? actor.HasCond(Condition(id)) || Progress(actor,id) >= 100 : actor.HasCond(id));
     public static double Progress(CondOwner actor, string id)
     {

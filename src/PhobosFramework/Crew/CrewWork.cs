@@ -206,6 +206,9 @@ public static class CrewWork
         long step = Processing.NativeSteps.Frame;
         if (j.KeysNow != null && j.KeysStep == step) return j.KeysNow;
         // An upkeep session holds only its own key: the machine's order, feed and trays stay free for standing orders.
+        // Housekeeping (0.113.0) holds the item it carries and room in its store, as any haul does, and nothing else.
+        if (j.Upkeep == UpkeepKind.Housekeeping)
+        { j.KeysNow = new[] { "item:" + j.Offer.Cargo?.strID, "capacity:" + j.Offer.Destination?.strID }; j.KeysStep = step; return j.KeysNow; }
         if (j.Upkeep != null) { j.KeysNow = new[] { "upkeep:" + j.Equipment.strID }; j.KeysStep = step; return j.KeysNow; }
         var keys = new List<string> { "equipment:" + j.Equipment.strID };
         if (j.Offer.Cargo != null) keys.Add("item:" + j.Offer.Cargo.strID);
@@ -272,7 +275,8 @@ public static class CrewWork
     /// search instead of ending it and hiding lower-priority vanilla work. Cheap facts first, the path
     /// searches last, each reused within the step.</summary>
     internal static bool Admissible(CondOwner actor, Job j) => Reservations.Available(j.Lease, Keys(j)) && Eligible(actor, j.Offer, out _) &&
-        PathThisStep(actor, j.Offer.Target) && PreparedThisStep(actor, j.Offer) && !PreferredAvailable(actor, j.Offer);
+        Upkeep.Suits(j.Upkeep, j.Offer, actor) && PathThisStep(actor, j.Offer.Target) && PreparedThisStep(actor, j.Offer) &&
+        !(Upkeep.SkilledFirst(j.Upkeep) && PreferredAvailable(actor, j.Offer));
     internal static void Fault(CondOwner co, Exception error)
     { Notice(co, Message("fault", error.Message)); SetPermission(co, WorkPermission.Suspended,"fault"); }
     public static void Poll()
@@ -329,10 +333,12 @@ public static class CrewWork
     }
     internal static bool Admit(Job j, CondOwner actor, Interaction ia)
     {
-        if (!Allowed(j) || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason)) return false;
-        if (!Path(actor, j.Offer.Target) || !CrewLogistics.Prepare(actor, j.Offer) || PreferredAvailable(actor, j.Offer) || !Reservations.Acquire(j.Lease, Keys(j))) return false;
+        if (!Allowed(j) || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason) || !Upkeep.Suits(j.Upkeep, j.Offer, actor)) return false;
+        if (!Path(actor, j.Offer.Target) || !CrewLogistics.Prepare(actor, j.Offer) || Upkeep.SkilledFirst(j.Upkeep) && PreferredAvailable(actor, j.Offer) ||
+            !Reservations.Acquire(j.Lease, Keys(j))) return false;
         j.Worker = actor; j.Interaction = ia;
-        j.Seconds = CrewBalance.Duration(j.Offer.Seconds, CrewSpecialities.Skilled(actor, j.Offer.Skill));
+        // Practice is for the unskilled and takes its full length (0.113.0).
+        j.Seconds = CrewBalance.Duration(j.Offer.Seconds, j.Upkeep != UpkeepKind.Practice && CrewSpecialities.Skilled(actor, j.Offer.Skill));
         ia.bManual=false;
         ia.fDuration = ia.fDurationOrig = j.Seconds / 3600; ia.strTitle = j.Offer.Label;
         Active[ia] = j; return true;
@@ -350,12 +356,7 @@ public static class CrewWork
         if (j.Worker == null || !Allowed(j) || !Eligible(j.Worker, j.Offer, out var reason,hour:workHour)) return false;
         if (j.Upkeep != null)
         {
-            try
-            {
-                bool tended = Upkeep.Complete(j.Worker, j.Equipment, j.Upkeep.Value, out _);
-                if (tended) CrewSpecialities.Credit(j.Worker, j.Offer.Skill, j.Seconds, false);
-                return tended;
-            }
+            try { return Upkeep.Finish(j.Worker, j.Equipment, j.Offer, j.Upkeep.Value, j.Seconds, skipping, out _); }
             catch (Exception e) { FrameworkLifecycle.Log(Message("fault", e.Message)); return false; }
         }
         // The provider checks the equipment's actual contents when it completes; a snapshot of the

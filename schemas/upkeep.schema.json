@@ -47,6 +47,12 @@
       "maximum": 1,
       "description": "Share of the ordinary fade an inspected machine's tune takes (default 0.5)."
     },
+    "practiceMinutes": {
+      "type": "number",
+      "minimum": 2,
+      "maximum": 60,
+      "description": "Game minutes of one practice session at a machine (default 10)."
+    },
     "families": {
       "type": "object",
       "additionalProperties": false,

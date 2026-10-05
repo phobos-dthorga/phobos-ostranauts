@@ -253,8 +253,10 @@ delivery in the changelog and design record, and add or amend only the rule here
   locked containers, the equipment itself or anyone's hands, and need AutoTask and the Haul
   duty. Phobos crew orders stay same-ship; work on another ship goes through the game's own jobs
   (`Crew.NativeJobs`).
-- **Crew upkeep** (`docs/development/crew-upkeep-design.md`): idle crew tune and inspect machines
-  through Framework `Upkeep`, switched ship-wide and always after standing orders. A tune only
+- **Crew upkeep** (`docs/development/crew-upkeep-design.md`): idle crew tune, inspect, tidy and
+  practise through Framework `Upkeep`, switched ship-wide and always after standing orders.
+  Housekeeping moves only loose deck supplies, into stores already holding their kind or stores
+  registered with `Upkeep.RegisterTidyStore`; never into or out of machines. A tune only
   makes a machine work faster: call `Upkeep.Draw` where the machine asks for power, so it draws
   that much more and each job costs the same electricity; never change a yield, a recipe or a
   mass with it. New machines register a family (`Upkeep.Register`) from their first version;

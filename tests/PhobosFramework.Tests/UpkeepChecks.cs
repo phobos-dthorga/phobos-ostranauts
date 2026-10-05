@@ -11,7 +11,7 @@ internal static class UpkeepChecks
     {
         void Near(double a, double b, string m) => check(Math.Abs(a - b) < 1e-9, m + $": {a} vs {b}");
         var pack = new UpkeepPack();
-        check(pack.tuneStep == 0.2 && pack.tuneStepSkilled == 0.3 && pack.inspectionValidHours == 24 && pack.inspectedFadeShare == 0.5, "Shipped upkeep figures");
+        check(pack.tuneStep == 0.2 && pack.tuneStepSkilled == 0.3 && pack.inspectionValidHours == 24 && pack.inspectedFadeShare == 0.5 && pack.practiceMinutes == 10, "Shipped upkeep figures");
 
         // The rate: exactly 1 untuned, the full gain fully tuned, the family's share respected.
         check(UpkeepRules.Rate(0, 0.10, 1) == 1, "An untuned machine works exactly as before");
@@ -68,6 +68,34 @@ internal static class UpkeepChecks
         check(UpkeepRules.Sessions(ref bank, 600, 40) == 1 && Math.Abs(bank - 60) < 1e-9, "A banked session and its walk are spent together");
         check(UpkeepRules.Sessions(ref bank, 600, 40) == 0 && Math.Abs(bank - 60) < 1e-9, "Less than a session buys nothing and is kept");
 
+        // Framework 0.113.0: four switches; a record from 0.111.0 reads with practice and housekeeping off.
+        var old = UpkeepSwitches.Decode(new Dictionary<string, string> { ["tune"] = "1", ["inspect"] = "0" });
+        check(old.Tune && !old.Inspect && !old.Practice && !old.Housekeeping && old.Any, "An upkeep switch record from 0.111.0 keeps its switches and reads the new ones as off");
+        check(!UpkeepSwitches.Decode(new Dictionary<string, string>()).Any, "A player without a switch record has every switch off");
+        var all = new UpkeepSwitches().With(UpkeepKind.Practice, true).With(UpkeepKind.Housekeeping, true);
+        var round = UpkeepSwitches.Decode(all.Encode());
+        check(round.Practice && round.Housekeeping && !round.Tune && !round.Inspect && round[UpkeepKind.Housekeeping], "The four switches round-trip");
+        check(all.Encode().All(f => Phobos.Ostranauts.Framework.Persistence.ObjectStateStore.SafeValue(f.Value)), "The switch record fits a Phobos record");
+        check(UpkeepRules.Priority.SequenceEqual(new[] { UpkeepKind.Tune, UpkeepKind.Inspect, UpkeepKind.Housekeeping, UpkeepKind.Practice }), "Tuning and inspection come first, then housekeeping, then practice");
+        check((int)UpkeepKind.Tune == 0 && (int)UpkeepKind.Inspect == 1, "Existing upkeep kinds keep their numbers");
+
+        // Housekeeping: where an item goes.
+        var stores = new[]
+        {
+            new TidyStoreChoice("locker-near", 2, false, false, true),
+            new TidyStoreChoice("locker-same", 9, true, false, true),
+            new TidyStoreChoice("bin-far", 12, false, true, true),
+            new TidyStoreChoice("bin-same", 20, true, true, true),
+            new TidyStoreChoice("locker-full", 1, true, false, false),
+        };
+        check(UpkeepRules.TidyDestination(true, stores) == "locker-same" || UpkeepRules.TidyDestination(true, stores) == "bin-same", "A Phobos supply goes to a store already holding its kind");
+        check(UpkeepRules.TidyDestination(true, stores) == "locker-same", "The nearer of two stores holding its kind wins: " + UpkeepRules.TidyDestination(true, stores));
+        check(UpkeepRules.TidyDestination(true, stores.Where(s => !s.HoldsSame)) == "bin-far", "With no store holding its kind, a Phobos supply goes to a tidy store, never an empty locker");
+        check(UpkeepRules.TidyDestination(false, stores) == "bin-same", "Any other item goes only to a tidy store, the one holding its kind first");
+        check(UpkeepRules.TidyDestination(false, stores.Where(s => !s.Tidy)) == null, "The game's own clutter is never sorted into lockers");
+        check(UpkeepRules.TidyDestination(true, new[] { new TidyStoreChoice("full", 1, true, true, false) }) == null, "An item with nowhere it fits stays where it lies");
+        check(UpkeepRules.TidyDestination(true, new[] { new TidyStoreChoice("b", 3, true, false, true), new TidyStoreChoice("a", 3, true, false, true) }) == "a", "Ties go by id, so the choice is stable");
+
         // Settings and the data pack.
         var clamped = new UpkeepSettings { InspectionMinutes = 500, TuningMinutes = 0, MaxTuningGain = double.NaN, TuneFadeHours = 1 }.Clamped();
         check(clamped.InspectionMinutes == 30 && clamped.TuningMinutes == 2 && clamped.MaxTuningGain == 0.10 && clamped.TuneFadeHours == 6, "Settings are held to their ranges");
@@ -82,6 +110,7 @@ internal static class UpkeepChecks
             ("\"inspectedFadeShare\": 0.5", "\"inspectedFadeShare\": 1.5", "The inspected share is at most the whole fade"),
             ("\"gainShare\": 0.5", "\"gainShare\": 2", "A family's share is at most the whole gain"),
             ("\"inspectionValidHours\": 24", "\"inspectionValidHours\": 24, \"colour\": 1", "Unknown fields are refused"),
+            ("\"inspectionValidHours\": 24", "\"inspectionValidHours\": 24, \"practiceMinutes\": 1", "A practice session lasts at least two minutes"),
         })
         {
             bool refused = false;

@@ -1,7 +1,8 @@
 # Crew upkeep on long hauls
 
 Design record for Framework 0.111.0 and the matching Shipbreaker 0.82.0,
-Manufacturing 0.55.0, Agriculture 0.63.0 and Medical 0.5.0 releases. The player
+Manufacturing 0.55.0, Agriculture 0.63.0 and Medical 0.5.0 releases (Set A), and
+Framework 0.113.0 with Shipbreaker 0.83.0 (Set B: housekeeping and practice). The player
 guide is [Upkeep on long hauls](../crew-automation.md#upkeep-on-long-hauls).
 
 Status on 6 October 2026: built and checked offline. Nothing here has been seen
@@ -127,7 +128,73 @@ flowchart LR
 4. Inspection lines appear only for machines that need attention.
 5. Switching both off stops new upkeep tasks at once.
 
-## Still to do (Set B)
+## Set B: housekeeping and practice (Framework 0.113.0)
 
-Practice at machines and housekeeping, as approved, after this set has been seen
-in play. Performance at 16x with upkeep on is the case to capture (finding L71).
+Built on 6 October 2026 at the owner's go-ahead, after the time-skip
+performance fix (Framework 0.112.0) changed skips to 30-second steps. Checked
+offline only.
+
+### Decisions
+
+| Decision | Whose | Value |
+| --- | --- | --- |
+| Housekeeping and practice, each its own switch, off by default | Owner choice (plan) | Upkeep tab, F3 |
+| Order among upkeep | Agent choice | Tune and inspect, then housekeeping, then practice. The plan put practice after tuning and inspection; housekeeping goes before practice because practice never runs out while anyone is unskilled, and would starve housekeeping |
+| What housekeeping moves | Agent choice | Stack heads lying loose on the deck that stack (nStackLimit above 1), so equipment waiting to be installed stays put |
+| Where it goes | Plan, widened by agent choice | A Phobos supply: the nearest store already holding its kind, else a registered tidy store. The plan named only Phobos supplies; any other item (native mined ore and ice) may go only into a registered tidy store, which is what the Y bins are for |
+| Which stores | Agent choice | The game's own unlocked containers, and Phobos stores only when registered as tidy stores, so nothing goes into a machine tray, a Ward-3 drawer or a tank rack |
+| Who hauls | Agent choice | The Haul duty and the Industry role, as Shipbreaker's hauls; hauling trains no speciality (existing rule) |
+| Practice rate | Agent default | The terminal study rate: 10 minutes a session, about 60 sessions to qualify |
+| Practice scope | Engine limit | Only Phobos specialities (Industrial Processing, Agriculture, Cooking); Manufacturing and Medical use the game's own skills, which Phobos cannot credit |
+| One practice job per ship and speciality at a time | Agent default | Keeps practice from crowding the task list |
+
+### How it works
+
+- **Kinds.** `UpkeepKind` gains Practice and Housekeeping (appended, so saved
+  meaning is unchanged). The switch record gains `practice` and `tidy` fields.
+- **Practice** is an ordinary upkeep job at a machine. `Upkeep.Suits` admits
+  only crew not yet skilled, and practice skips the "skilled crew first" rule.
+  The session takes its full length and credits the speciality with
+  `study: true`.
+- **Housekeeping** is an upkeep job built like a standing order's haul: the
+  task targets the store, the game's PickupItem runs first, and
+  `CrewLogistics.Deliver` makes the move. Its reservations are the item and
+  room in the store only, like any haul.
+- **Planning.** The planner reads only the ships' top-level objects for loose
+  items (`Ship.GetCOs` without nested objects), at most 16 a pass. A deck with
+  nothing to tidy is read again after a minute.
+- **Skips.** `SkipJob` follows the same order. Housekeeping reads each ship's
+  deck once and uses the moves up; an empty deck is read again after a game
+  hour, and a stack is read again after each move. An item that fails to move
+  is skipped for the rest of the skip.
+- **Hooks for other mods.** `Upkeep.RegisterTidyStore` (Shipbreaker names its Y
+  bins) and `Upkeep.RegisterUnavailable` (offered to Medical for a resting
+  patient; Medical does not use it yet).
+
+### Saved structures
+
+| Structure | Change | Migration |
+| --- | --- | --- |
+| Upkeep switches on the player | Two new fields, `practice` and `tidy` | None: a missing field reads as off |
+| Crew speciality progress | Practice adds to it as study does | None |
+
+### Checks
+
+- Framework rule checks: old switch records, the four switches round-tripping,
+  the priority order, the store choice (same kind first, nearest, tidy stores
+  only for other items, nothing that does not fit, stable ties) and the
+  practiceMinutes refusals.
+- Not covered by a test: the planner against a live crew and deck, the haul in
+  play, and practice admission. These need play.
+
+### For the owner to try
+
+1. Drop a few Phobos supplies (ingots, seed) on the deck near a locker already
+   holding some, switch on Housekeeping, and watch a crew member put them away.
+2. Leave mined ore on the deck beside a Y bin; it should go into the bin.
+3. Switch on Practice with an unskilled crew member and a Shipbreaker or
+   Agriculture machine aboard; their progress should rise in the crew overview.
+4. Time-skip with both on and check the deck and the progress afterwards.
+
+Performance at 16x with upkeep on is still the case to capture (findings L71 and
+L73).

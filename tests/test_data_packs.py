@@ -112,11 +112,11 @@ class DataPackTests(unittest.TestCase):
         # Framework 0.111.0: crew upkeep figures. The shipped pack is valid; each broken copy is refused.
         shipped = json.loads((ROOT / 'mods/PhobosFramework/framework/upkeep.json').read_text(encoding='utf-8'))
         validate.upkeep(shipped, 'test')
-        self.assertEqual((shipped['tuneStep'], shipped['tuneStepSkilled'], shipped['inspectionValidHours'], shipped['inspectedFadeShare']), (0.2, 0.3, 24, 0.5))
+        self.assertEqual((shipped['tuneStep'], shipped['tuneStepSkilled'], shipped['inspectionValidHours'], shipped['inspectedFadeShare'], shipped['practiceMinutes']), (0.2, 0.3, 24, 0.5, 10))
         validate.upkeep({**shipped, 'families': {'manufacturing.charge': {'gainShare': 0.5}}}, 'test')
         for bad in ({**shipped, 'tuneStep': 0}, {**shipped, 'tuneStepSkilled': 0.1}, {**shipped, 'inspectionValidHours': 0}, {**shipped, 'inspectedFadeShare': 1.5},
                     {**shipped, 'families': {'manufacturing.charge': {'gainShare': 2}}}, {**shipped, 'families': {'': {}}},
-                    {**shipped, 'families': {'x': {'colour': 1}}}, {**shipped, 'colour': 1}, {**shipped, 'tuneStep': True}):
+                    {**shipped, 'families': {'x': {'colour': 1}}}, {**shipped, 'colour': 1}, {**shipped, 'tuneStep': True}, {**shipped, 'practiceMinutes': 1}, {**shipped, 'practiceMinutes': 61}):
             with self.subTest(bad=bad), self.assertRaises(validate.Problem):
                 validate.upkeep(bad, 'test')
 
