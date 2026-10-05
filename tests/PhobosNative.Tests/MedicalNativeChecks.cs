@@ -90,6 +90,10 @@ internal static class MedicalNativeChecks
         check(DataHandler.dictConds.ContainsKey(Phobos.Ostranauts.Framework.Health.WoundGravity.FactorStat), "Framework's weightless-healing stat is a registered condition");
         WoundGravityChecks(check);
 
+        // Crew upkeep (Framework 0.111.0): the game skills that make an upkeep session count for more are real conditions.
+        foreach (string skill in new[] { PhobosMedical.Plugin.UpkeepSkill, PhobosManufacturing.Plugin.UpkeepSkill })
+            check(DataHandler.dictConds.ContainsKey(skill), "Upkeep skill is a game condition: " + skill);
+
         // Medical 0.4.0: Keep patient treated, and every shipped treatment against the game's own definitions.
         check(installed.aInteractions.Contains(MedicalRules.TreatOrder) && DataHandler.dictInteractions.ContainsKey(MedicalRules.TreatOrder), "The installed Ward-3 offers Keep patient treated");
         foreach (var t in Care.Treatments)

@@ -162,6 +162,11 @@ The healing itself is the game's own and is not in that file.
 - Damage: repair with a Mortorq and a soldering tool, a motor, a mainboard, six
   clean scrap cloth, small parts and scrap, as the vanilla medical bed.
 - Uninstalling or dismantling is refused while someone is in the bed.
+- Inspection rounds (Framework 0.111.0, Medical 0.5.0): with the crew's Inspection
+  rounds switch on, idle crew check the bed and the Vigil-2 once a day and say in
+  the crew log if either is more than half worn. Neither is tuned, and a patient
+  never inspects the bed they lie in. See
+  [Upkeep on long hauls](crew-automation.md#upkeep-on-long-hauls).
 - F3 console: `phobosmedical list` names the beds on your ship; `phobosmedical
   status <id>` shows one; `phobosmedical use <id> anyone` or `injured` sets the
   Use choice; `phobosmedical send <id> on` or `off` sets Send injured crew here;

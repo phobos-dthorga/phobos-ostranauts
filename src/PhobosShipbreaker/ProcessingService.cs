@@ -270,7 +270,7 @@ internal sealed partial class ProcessingService
         if (!StartNext(machine, state)) state.AwaitingFeed = false;
     }
 
-    internal void AfterPower(CondOwner machine, bool workingRequest, double? poweredSeconds = null)
+    internal void AfterPower(CondOwner machine, bool workingRequest, double? poweredSeconds = null, double tune = 1)
     {
         if (!IsProcessor(machine.strCODef) || !sessions.TryGetValue(machine, out var state) || state.Job?.Running != true) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessAdvance);
@@ -282,7 +282,8 @@ internal sealed partial class ProcessingService
             var input = state.Input!;
             bool powered = workingRequest && machine.HasCond("IsPowered");
             // A long interval (time-skip, reload gap) catches up like a native machine; the paid power interval bounds it.
-            state.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered, true);
+            // Crew upkeep (0.82.0): a tuned machine's seconds count for more; it drew that much more power for them.
+            state.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed * tune, poweredSeconds.Value) : elapsed * tune, powered, true);
             input.SetCondAmount(ProcessRules.Progress, state.Job.Progress);
             if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.input_changed_or_was_removed_queue_paused")); return; }
             if (!powered && state.HeatWait) return;

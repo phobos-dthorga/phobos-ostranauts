@@ -10,6 +10,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.63.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep (Framework 0.111.0): idle crew can tune and inspect Firstlight-4 racks, the Hearth-2, the B2 and the W2. A fully tuned rack grows its crop 10% faster and its lamps draw that much more power, so a crop costs the same electricity, water and nutrients and ripens sooner. Agriculture counts as skilled, Cooking at the Hearth-2. An inspection reports what a rack or W2 is waiting for.
+
+### Compatibility and limits
+
+- Requires Framework 0.111.0. Saved crops are unchanged. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.62.0] - 2026-10-06 - Draft
 
 ### Added

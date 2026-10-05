@@ -41,6 +41,7 @@ internal static class NativePerformance
             Performance.LineContentsMaintain = Performance.RegisterOperation("framework.line_contents.maintain", "processing");
             Performance.StoryCheck = Performance.RegisterOperation("framework.story.check", "story");
             Performance.StoryChatter = Performance.RegisterOperation("framework.story.chatter", "story");
+            Performance.UpkeepPlan = Performance.RegisterOperation("framework.upkeep.plan", "discovery");
             CaptureProbes.Initialize(log);
             frames = new FrameMeasurements();
             MemoryMeasurements.Register();
@@ -84,6 +85,7 @@ internal static class NativePerformance
         Performance.RegisterFootprint("framework.crew.jobs", "footprint", () => Crew.CrewWork.Jobs.Count);
         Performance.RegisterFootprint("framework.crew.retry_records", "footprint", () => Crew.CrewWork.RetryRecords);
         Performance.RegisterFootprint("framework.crew_skip.records", "footprint", () => Crew.CrewSkip.Records);
+        Performance.RegisterFootprint("framework.upkeep.states", "footprint", () => Crew.Upkeep.StateCount);
         Performance.RegisterFootprint("framework.fluid_route.ships", "footprint", () => Liquids.FluidRouteCache.ShipCount);
         Performance.RegisterFootprint("framework.buffered_drains.entries", "footprint", () => Liquids.BufferedDrains.EntryCount);
     }

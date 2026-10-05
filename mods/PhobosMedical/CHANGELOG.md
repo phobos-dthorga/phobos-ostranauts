@@ -5,6 +5,16 @@ not Steam publication.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep (Framework 0.111.0): with Inspection rounds on, idle crew inspect the Ward-3 bed and the Vigil-2 monitor once a day and report damage in the crew log. Neither is tuned: the healing stays the game's own. A patient never inspects the bed they lie in. The game's trauma skill counts as skilled.
+
+### Compatibility and limits
+
+- Requires Framework 0.111.0. Saves need nothing. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.4.1] - 2026-10-05 - Draft
 
 ### Fixed

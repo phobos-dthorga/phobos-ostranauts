@@ -19,6 +19,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 
+## [0.55.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep (Framework 0.111.0): idle crew can tune the charge machines, X2, K2, AX-2, Corker-2, RM-1 and L2, and inspect those and the A2. A fully tuned machine works 10% faster and draws that much more power while it works; recipes and yields are unchanged. The game's mechanical engineering skill counts as skilled.
+
+### Compatibility and limits
+
+- The A2 regulator is inspected but not tuned: it holds a set point and has no work rate to raise. Requires Framework 0.111.0. Saves need nothing. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.54.0] - 2026-10-05 - Draft
 
 ### Changed

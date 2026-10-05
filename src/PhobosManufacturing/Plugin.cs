@@ -18,11 +18,12 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.54.0";
-    public const string MinimumFrameworkVersion = "0.98.0";
+    public const string Version = "0.55.0";
+    public const string MinimumFrameworkVersion = "0.111.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
+    internal const string UpkeepSkill = "SkillEngMechanical";
     private void Awake()
     {
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
@@ -35,6 +36,15 @@ public sealed class Plugin : BaseUnityPlugin
         Panel.Register();
         foreach (string group in Provider.Groups) { string g = group; EquipmentProviders.RegisterGroup(g, () => Text.Get("Group." + g)); }
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
+        // Crew upkeep (0.55.0): every working machine can be tuned and inspected; the A2 regulator is inspected only,
+        // because it holds a set point and has no work rate to raise. The game's mechanical skill counts as skilled.
+        foreach (var kind in new[] { MachineKind.Charge, MachineKind.Processor, MachineKind.Sabatier, MachineKind.Filler, MachineKind.Cracker, MachineKind.Bottler, MachineKind.Feeder })
+        {
+            var k = kind;
+            Phobos.Ostranauts.Framework.Crew.Upkeep.Register("manufacturing." + k.ToString().ToLowerInvariant(), id => MachineKinds.Classify(id) == k,
+                UpkeepSkill, Phobos.Ostranauts.Framework.Crew.CrewRole.Industry, tunable: true);
+        }
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("manufacturing.regulator", id => id == RegulatorRules.Installed, UpkeepSkill, Phobos.Ostranauts.Framework.Crew.CrewRole.Industry, tunable: false);
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(FeederService.Instance);
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.Supplies);

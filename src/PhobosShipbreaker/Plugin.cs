@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.81.0";
+    public const string Version = "0.82.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -49,6 +49,15 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(vessels);
         VesselPanel.Register(vessels);
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("IndustrialProcessing",Text.Get("Crew.skill"),Id,Phobos.Ostranauts.Framework.Crew.CrewRole.Industry));
+        // Crew upkeep (0.82.0): the D4, R4, T2 and ML-2 can be tuned and inspected. The F6 is inspected only: its melt
+        // hold is a minute, so a tune would gain seconds, and its hot-batch physics stay as they are.
+        foreach (var (key, kind, tunable) in new[] { ("d4", PowerKind.Processor, true), ("r4", PowerKind.Reclaimer, true), ("t2", PowerKind.Thaw, true),
+            ("ml2", PowerKind.Laser, true), ("f6", PowerKind.Furnace, false) })
+        {
+            var k = kind;
+            Phobos.Ostranauts.Framework.Crew.Upkeep.Register("shipbreaker." + key, id => PowerKinds.Classify(id) == k, "IndustrialProcessing",
+                Phobos.Ostranauts.Framework.Crew.CrewRole.Industry, tunable);
+        }
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); LaserService.Update(); }
@@ -73,7 +82,7 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal PowerKind Kind; internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; internal LaserService.PowerTransfer? Laser; internal bool Lasing; }
+    internal sealed class PowerState { internal double Tune = 1; internal PowerKind Kind; internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; internal LaserService.PowerTransfer? Laser; internal bool Lasing; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
         __state = null;
@@ -107,6 +116,14 @@ internal static class PowerPatch
             double work = reclaimer ? Plugin.Options.ReclaimerKW : Plugin.Options.WorkingKW, idle = reclaimer ? Core.ReclaimerRules.IdleKW : Plugin.Options.IdleKW;
             __1 *= Core.RoutingRules.DemandKW(state.Working, state.Feeding, state.Unloading, work, idle, Plugin.Options.FeederKW) / (state.Working ? work : idle);
         }
+        // Crew upkeep (0.82.0): a tuned D4 or R4 asks for more power while it works and makes that much more progress.
+        if (state.Working && kind != PowerKind.Collector)
+        {
+            bool reclaiming = kind == PowerKind.Reclaimer;
+            double demandKW = Core.RoutingRules.DemandKW(true, state.Feeding, state.Unloading, reclaiming ? Plugin.Options.ReclaimerKW : Plugin.Options.WorkingKW,
+                reclaiming ? Core.ReclaimerRules.IdleKW : Plugin.Options.IdleKW, Plugin.Options.FeederKW);
+            if (demandKW > 0) state.Tune = Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(__0, ref __1, __1 * Phobos.Ostranauts.Framework.Units.SecondsPerHour / demandKW);
+        }
         return kind != PowerKind.Reclaimer || ReclaimerHeat.Begin(__instance, __0, __1, out state.Heat);
     }
     private static void Postfix(Powered __instance, CondOwner __0, PowerState? __state)
@@ -129,7 +146,7 @@ internal static class PowerPatch
         }
         if (__state.Kind == PowerKind.Thaw)
         {
-            try { ThawService.FinishPower(__instance, __0, __state.Thaw); ThawService.AfterPower(__0, __0.HasCond(Core.ProcessRules.Working), __state.Thaw?.WorkSeconds); }
+            try { ThawService.FinishPower(__instance, __0, __state.Thaw); ThawService.AfterPower(__0, __0.HasCond(Core.ProcessRules.Working), __state.Thaw?.WorkSeconds, __state.Thaw?.Tune ?? 1); }
             catch (Exception ex) { ThawService.Fault(__0, ex); }
             finally { __state.Finished = true; }
             return;
@@ -151,7 +168,7 @@ internal static class PowerPatch
         else if (__state.Kind == PowerKind.Grabber) Plugin.Service.AfterIntakePower(__0, __state.Working);
         else
         {
-            Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
+            Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds, __state.Tune);
             if (__state.Kind == PowerKind.Reclaimer) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
             if (ProcessingService.IsInstalledProcessor(__0)) Plugin.Storage.AfterPower(__0, __state.Unloading, __state.Heat?.WorkSeconds);
         }

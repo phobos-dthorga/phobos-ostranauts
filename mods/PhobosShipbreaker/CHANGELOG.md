@@ -31,6 +31,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.82.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep (Framework 0.111.0): idle crew can tune the D4, R4, T2 and ML-2, and inspect those and the F6. A fully tuned machine works 10% faster and draws that much more power while it works; yields are unchanged. Industrial Processing counts as skilled. Each machine's card ends with its tune.
+
+### Compatibility and limits
+
+- The F6 is inspected but not tuned: its melt hold is one minute, so a tune would gain seconds. Requires Framework 0.111.0. Saves need nothing. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.81.0] - 2026-10-05 - Draft
 
 ### Added

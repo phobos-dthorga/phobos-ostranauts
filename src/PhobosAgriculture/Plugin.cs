@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.110.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.111.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.62.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.63.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -45,6 +45,14 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new AgricultureCrewProvider());
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Agriculture", Text.Get("crew_skill_agriculture"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture));
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Cooking", Text.Get("crew_skill_cooking"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Cooking));
+        // Crew upkeep (0.63.0): racks, the Hearth-2, the B2 and the W2 can be tuned and inspected. An inspection reports
+        // what a rack or W2 is waiting for, in the words its panel uses.
+        bool Kind(string? id, string prefix) => Definitions.MachineDefinition(id) && id!.StartsWith(prefix, StringComparison.Ordinal);
+        bool Rack(string? id) => Definitions.MachineDefinition(id) && !Kind(id, Definitions.Cooker) && !Kind(id, IrrigationDefinitions.Supply) && !Kind(id, WorkupDefinitions.Bench);
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("agriculture.rack", Rack, "Agriculture", Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture, true, Service.Advice);
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("agriculture.cooker", id => Kind(id, Definitions.Cooker), "Cooking", Phobos.Ostranauts.Framework.Crew.CrewRole.Cooking, true);
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("agriculture.bench", id => Kind(id, WorkupDefinitions.Bench), "Agriculture", Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture, true);
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("agriculture.supply", id => Kind(id, IrrigationDefinitions.Supply), "Agriculture", Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture, true, Service.Advice);
     }
     private static void Load()
     {

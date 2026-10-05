@@ -188,7 +188,7 @@ One illustrative recorded-drainage batch: 19.5 kg water + 0.1 kg nutrients; cons
 
 Run `python scripts/calculate-agriculture-storage.py --check` to detect stale evidence; `--format json` includes all 54 scenarios and handling sensitivities. Use `--write` after reviewing source or proposal changes.
 
-- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `f3a7f16bcf308a15a7cad5ca51b85890657a42258d56637764eb3198ce9065bf`
+- `src/PhobosAgriculture/Core/Crop.cs` (UTF-8/LF, no BOM): `ef37943d4097b534e8f7cf9787e38825e9cd1750e3a7eed55111c9daa23e6c78`
 - `src/PhobosAgriculture/Definitions.cs` (UTF-8/LF, no BOM): `1f50edc3b403fba0770bfa6b79f7925c77334d0a7b86c663b22b55f70967e7c2`
 - `src/PhobosAgriculture/Core/NutrientRecovery.cs` (UTF-8/LF, no BOM): `50570f36c1e17681dc024b20aa4b2fe05744a7053f3d3a3313fd7ecbb2e0a2d8`
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`

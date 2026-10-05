@@ -78,6 +78,8 @@ public static class FrameworkLifecycle
         Notify(ContentLoaded);
         // Family predicates read content-owned definition tables; remembered answers start again with them.
         Discovery.WorldFamilies.Reset();
+        // Upkeep families are judged by definition too (Framework 0.111.0).
+        Crew.Upkeep.ForgetDefinitions();
     }
 }
 

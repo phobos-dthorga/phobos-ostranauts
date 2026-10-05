@@ -109,6 +109,8 @@ public static class CrewSkip
                     double machineStep=Math.Min(stepSeconds,remaining);
                     system.Update(machineStep); Cadence.AdvanceSkip(machineStep);
                     TickMachines(ships);
+                    // Crew upkeep (0.111.0) uses on-shift time without changing how the skip steps.
+                    Upkeep.SkipStep(crew,ships,machineStep,null);
                     remaining-=machineStep; continue;
                 }
                 if(hourLeft<=1e-6) { SnapshotHour(crew,previewHour++); hourLeft=Math.Min(3600,remaining); }
@@ -138,6 +140,7 @@ public static class CrewSkip
                     if(CrewWork.Complete(job,true,workHour)) completions[actor.strID]=completions.TryGetValue(actor.strID,out var n)?n+1:1;
                     Drop(actor.strID);
                 }
+                Upkeep.SkipStep(crew,ships,step,id=>assignments.ContainsKey(id)||unavailable.Contains(id));
                 remaining-=step; hourLeft-=step;
             }
         }

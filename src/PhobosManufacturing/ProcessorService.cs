@@ -242,8 +242,10 @@ internal static class ProcessorService
         bool working = co.HasCond(ManufacturingRules.Electrolysing);
         double demand = working ? ProcessorRules.WorkingKW : ProcessorRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand, heatKW = ProcessorRules.RoomHeatKW(working);
+        // Crew upkeep (0.55.0): a tuned machine asks for more power while it works and does that much more work.
+        double tune = working ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, seconds) : 1;
         var air = RoomHeat.Read(co);
-        var heat = RoomHeat.Check(air, heatKW, seconds);
+        var heat = RoomHeat.Check(air, (heatKW) * tune, seconds);
         if (!heat.Admitted)
         {
             if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }

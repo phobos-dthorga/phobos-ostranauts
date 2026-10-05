@@ -82566,6 +82566,591 @@
       ],
       "before": "{0}: image is a path under a mod's images folder without .png, at most {1} characters.",
       "after": "{0}: image is a path under a mod's images folder without .png, at most {1} characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tune_label",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune {0}",
+      "after": "Tune {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.inspect_label",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Inspect {0}",
+      "after": "Inspect {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tune_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune machinery is on. Idle crew on shift will tune Phobos machines, after any standing orders.",
+      "after": "Tune machinery is on. Idle crew on shift will tune Phobos machines, after any standing orders."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.tune_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune machinery is off. Machines keep the tune they have until it fades with work.",
+      "after": "Tune machinery is off. Machines keep the tune they have until it fades with work."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.inspect_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Inspection rounds are on. Idle crew on shift will check Phobos machines and report anything that needs you.",
+      "after": "Inspection rounds are on. Idle crew on shift will check Phobos machines and report anything that needs you."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.inspect_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Inspection rounds are off.",
+      "after": "Inspection rounds are off."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_tuned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: +{0}% work rate and power draw, fading as it works.",
+      "after": "Tune: +{0}% work rate and power draw, fading as it works."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_tuned_inspected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: +{0}% work rate and power draw, fading slowly as it works (inspected).",
+      "after": "Tune: +{0}% work rate and power draw, fading slowly as it works (inspected)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_none_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: none yet. Crew will tune it when someone on shift is free.",
+      "after": "Tune: none yet. Crew will tune it when someone on shift is free."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_none_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: none. Switch on Tune machinery in the Crew panel, under Upkeep.",
+      "after": "Tune: none. Switch on Tune machinery in the Crew panel, under Upkeep."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.status_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune: this machine's upkeep record could not be read, so it is left alone.",
+      "after": "Tune: this machine's upkeep record could not be read, so it is left alone."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.inspect_report",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} inspected {1}: {2}",
+      "after": "{0} inspected {1}: {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.inspect_damage",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "It is more than half worn; Restore or repair it soon.",
+      "after": "It is more than half worn; Restore or repair it soon."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.machine_gone",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The machine is no longer there.",
+      "after": "The machine is no longer there."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.not_in_game",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Load a game first: upkeep belongs to the crew in play.",
+      "after": "Load a game first: upkeep belongs to the crew in play."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.switch_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "The upkeep switches could not be saved, so nothing was changed.",
+      "after": "The upkeep switches could not be saved, so nothing was changed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "on",
+      "after": "on"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "off",
+      "after": "off"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_switches",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune machinery: {0}. Inspection rounds: {1}.",
+      "after": "Tune machinery: {0}. Inspection rounds: {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_settings",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "A tuning session takes {0} game minutes and an inspection {1}. A full tune is +{2}% work rate and power draw, and fades over {3} hours of work.",
+      "after": "A tuning session takes {0} game minutes and an inspection {1}. A full tune is +{2}% work rate and power draw, and fades over {3} hours of work."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "No machines aboard take upkeep.",
+      "after": "No machines aboard take upkeep."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0}: tune {1}; inspected {2}",
+      "after": "{0}: tune {1}; inspected {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_not_tuned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "not tuned (inspection only)",
+      "after": "not tuned (inspection only)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_never",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "never",
+      "after": "never"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_hours_ago",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} h ago",
+      "after": "{0} h ago"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.report_more",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "...and {0} more machines.",
+      "after": "...and {0} more machines."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Upkeep commands: phobosframework upkeep | upkeep tune on|off | upkeep inspect on|off. upkeep lists the switches, the settings and every machine's tune and last inspection.",
+      "after": "Upkeep commands: phobosframework upkeep | upkeep tune on|off | upkeep inspect on|off. upkeep lists the switches, the settings and every machine's tune and last inspection."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.setting_inspection_minutes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Game minutes a crew member spends inspecting one machine (1 to 30).",
+      "after": "Game minutes a crew member spends inspecting one machine (1 to 30)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.setting_tuning_minutes",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Game minutes one tuning session takes (2 to 60).",
+      "after": "Game minutes one tuning session takes (2 to 60)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.setting_max_gain",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "How much faster a fully tuned machine works: 0.10 is 10%. 0 turns the benefit off (0 to 0.25).",
+      "after": "How much faster a fully tuned machine works: 0.10 is 10%. 0 turns the benefit off (0 to 0.25)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Upkeep.setting_fade_hours",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Hours of work for a full tune to fade to none (6 to 240).",
+      "after": "Hours of work for a full tune to fade to none (6 to 240)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "UpkeepSchema.range",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "{0} must be from {1} to {2}.",
+      "after": "{0} must be from {1} to {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "UpkeepSchema.skilled_less",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "tuneStepSkilled cannot be less than tuneStep.",
+      "after": "tuneStepSkilled cannot be less than tuneStep."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "UpkeepSchema.family",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Upkeep family {0} needs a key of at most 64 characters and an entry.",
+      "after": "Upkeep family {0} needs a key of at most 64 characters and an entry."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Upkeep",
+      "after": "Upkeep"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_intro",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Work for idle crew on long hauls. It applies to every ship of yours and comes after standing orders. Crew need to be on shift, with AutoTask on.",
+      "after": "Work for idle crew on long hauls. It applies to every ship of yours and comes after standing orders. Crew need to be on shift, with AutoTask on."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_tune",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Tune machinery",
+      "after": "Tune machinery"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_inspect",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Inspection rounds",
+      "after": "Inspection rounds"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "on",
+      "after": "on"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "off",
+      "after": "off"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_tune_help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew tune Phobos machines so they work a little faster, drawing that much more power while they do. The tune fades as the machine works, so there is always more to do.",
+      "after": "Crew tune Phobos machines so they work a little faster, drawing that much more power while they do. The tune fades as the machine works, so there is always more to do."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_inspect_help",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Crew check each machine once a day. An inspected machine holds its tune longer, and anything it is waiting for goes in the crew log.",
+      "after": "Crew check each machine once a day. An inspected machine holds its tune longer, and anything it is waiting for goes in the crew log."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_switch_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Switch on: {0}",
+      "after": "Switch on: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_switch_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Switch off: {0}",
+      "after": "Switch off: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.upkeep_machines",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew upkeep (Framework 0.111.0): switches, panel lines, reports and settings help in the working-spacer voice; each says what happened and what the player can do.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Machines",
+      "after": "Machines"
     }
   ],
   "documents": [
@@ -82573,8 +83158,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1d8ad96a7507d699a6d8d5d66020cc208ca1ab93c60cbf3ef8aa616f7abdcc34",
-      "review": "Add-on data folder fix, 6 October 2026; 6 October 2026: reviewed original promotional cover notice, artwork-only patch and agent selection record."
+      "sha256": "fab024260c7ac69566c7a0c58310bc2eeec5ed377f3047114102ca06fb05ff1a",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "SUPPORT.md",
@@ -82601,8 +83186,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1f860f8463a8f26a9c492f3140ce91872ea4d23a51957d01c971cf6bf174e4d3",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "e722ab512ceb0eecf98a56e02f8fa991df3a0a25be5adf8f1f3859d533c068c4",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -82734,22 +83319,22 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0ed9d759cdd36828bff9e0b8d128a77246afd14a3aaa7008cf3a398a743e11c5",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "a431b59a47fde7ac5f32c15ecc05e38319db2b4ccfb5cad68fa6921a5362c4cd",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c0d9c12a8b29247fa234c87a10a9324445f576b2d1c9976e42864f49063c7055",
-      "review": "Reviewed 5 October 2026 for Framework 0.99.0 (machines keep working through a time-skip): the player's outcome first, plain words, no promise beyond what the stepped skip does."
+      "sha256": "52353e5c736fa3b4c3ea484290cda04db3674b6c9c56d81ebb759c0ce9e054a1",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "ebc34b8819314bfbd391d92e49c84b441d9badaf36971bd9be0cc18f5949f3ef",
-      "review": "Phobos Spacer Stories original fiction, goals, documents and data-card wording reviewed, 6 October 2026"
+      "sha256": "b80548cc0b97386b4708bb03ee313e7ffbb08e264a4bb4f0eebb92cf19dde432",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -82762,8 +83347,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "98896fc64130152d469645e8815b910cec6579ffd075013a1f79ce64550ff681",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "88b1bdcc8fd985317e7fe28909b35332ee9c133e6d90b4522221d1a2310a86f4",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -83363,8 +83948,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "fcd570ad229ddc5e0bb82b7d1dfe4dcac106bd9c4c04f8a9cfd87c74555c7b56",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "e3e54dbeb06edf9d56aca4adf9be8e5451dd8afc18f53fde744136977459eb51",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -83603,8 +84188,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "5fa1be51f56a45c6055abaed4bc45cb440bf4242dcd098b026ff8b84966f7bcc",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "9a762dbdcf069054f0f665f0279d5e8b24c39de0f0d9aae58fccf646463bf40b",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -83624,8 +84209,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0110e6526ccffb2556be6da51178e4cb2f74ea96baa59860e61715872405f08a",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "873b96da405ce5b07e74ed9682155e464d803d474b44245cd2aca66664414327",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -83680,15 +84265,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9af348ac9bdf629557c4a5a32f37e58fc6a8ed9fe23105dc1b5624f6e7abb4ca",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "cb6048da7342a46be8727ec3be1b2802bbf5e9f96ddbf3016ed41868da4d9f34",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "801e28ef3f93725fea439c0042b02968cf7b408c685c4c3ff49ba857d2ccd0b4",
-      "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026"
+      "sha256": "fe69d11c55ee9a97adde50f9c54ff87836834397b694eae8b6706abb6dd1500a",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/item-references.md",
@@ -83708,8 +84293,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "32a105656aeded940d8813f238efefc047ecab847fd18af78dbdebfb0dc2279e",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "863d93ea72a4533759aaac378f34eb86bc4cfe4a11852bf8ab3189829c9aba78",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -83729,15 +84314,15 @@
       "path": "docs/medical-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "fa12550ed2db63f342abccec6098875082a3965b8dcea2545c18d2cde4223bef",
-      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+      "sha256": "63d3047de83b1b13687c71c4b68558ebfba79b9bd298c511463178815fe4031c",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/medical-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "9a2665a2020f5fdfa3a53adcb01c2bbaecbfdf3f6ee0101dc468dcb9f744a9db",
-      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+      "sha256": "5ac704822d1d13645c2446a76a270824d844f8c837ec53ee03efee321c0452e4",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/performance-captures.md",
@@ -83750,8 +84335,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8619b632f75f24035ee2b63b514ea9ccbd1b92a6a36b60bb33138116c82cb404",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "0d47f580480c69d617f2057b8e479c82f45f8ab9934de4e40847c98187e15a66",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -83806,8 +84391,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "db407ddd277d23420b83519435a860f2462b6f695e7e731a5e8ab63a2c61080d",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "a0a7e49bd546cfea9572c06ec2326f3f829c9894905b4b1cf2affad86d06e6a7",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -83862,8 +84447,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c4e7e240458415404d970e9ffafe1e8ef9814e00e8d7b76144a1e1fbd0a94d12",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "0a384217c28b5ef6b621a1da2c14575f7a162ed1b9619947e65adf569f870538",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -83876,29 +84461,29 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8486ee96d95c07124828c7af9b5b66e6ef7f5311e508fa8b26bba60e5526678a",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "8dcaf37e5bdd008481643bc30fc20797dd9df8b939b569c67f6afaa38b6d807c",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a6f9d2a985351370efda63e0d2e5343e0c38dda593ef5157736fffe884eb3ad0",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "207997ae0178ef4062babe7239fbf5e1fa29f6f3c44961a6ee8d358fef36d195",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "b3c423e054b78520bd76f3b5ff5343763e378d5c2a33805111067ed030c12743",
-      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+      "sha256": "2f6830c59fef6c868ed38f9ed728fcfed362edf03d3678e2e83dce1c71deddf1",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0cb2df281b3ee85d76554b33a55a82247da8fd44e1e8e50aecfa17510bdc3067",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "f582cdfee82c4348b94db6c296158c2e1d4cb9933038169d08a43e45c346cde1",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
@@ -83948,6 +84533,13 @@
       "decision": "new",
       "sha256": "04ff9010d5fee85652f29ae93c31b824b32b791d293aea958e916bec2d43ac0d",
       "review": "Phobos Spacer Stories moved to its own data-only mod, 6 October 2026; 6 October 2026: reviewed unchanged no-equipment reference, regenerated for cover-only patch 0.1.2."
+    },
+    {
+      "path": "docs/development/crew-upkeep-design.md",
+      "scope": "development",
+      "decision": "new",
+      "sha256": "fdcddb3b8775d91f028fcd6f1159acb8b5b6a22f7463c508bc8a99cba812e9de",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     }
   ],
   "surfaces": [
@@ -83971,8 +84563,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bd7b8f566ce6f7060cee3027e2b625206de3f171f157aeeef705d2cf92fd10dc",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "377960955b3d7a27258b03b8d2367ce69054dcfdcaa58c28abc25ee0556b9f9e",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -84006,14 +84598,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "393c3b082a07b15de120dca52bd2d14ad7c1156394ecb70b36b02a216af66cc4",
-      "review": "Framework 0.110.0 story data files review, 6 October 2026"
+      "sha256": "c302cffb082c93e1ddeeae962b6fd0785a34384b17f3673c61d8f8dcb2e3aa5d",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "91c88d8fd3e2ba629fbfdf78c240bf4a1d6b86d716646782ae346529eb9268f3",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "4533ab0fad210a2a98f1f049718eb76a709107f0bff3e078a6feec3a1ea4c558",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -84030,8 +84622,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c62fa4de6238aa3647cc0be1b851708e58eb373ff2902d2af7e7e5f02241d1db",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "2f19bae0fa2332276d5c51efdf999c3358d93d019f01a60b2434e9bb2e0e651d",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
@@ -84066,8 +84658,8 @@
     {
       "path": "mods/PhobosMedical/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ea269a832093709c1cb726b73166376eaaf6280c2d42083bb0946ac6adafd157",
-      "review": "5 October 2026, Phobos Medical 0.4.1: reviewed with the use-point fix (drawer opens from the foot of the bed); wording, links and maintained values checked against the player-language rule."
+      "sha256": "094a67533654cd46ff2c01da92da20284ee2173d63e03019b914956873f62514",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file."
     },
     {
       "path": "examples/addons/PhobosExampleDocksideExtras/README.md",

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "schema": "upkeep",
+  "notes": "Crew upkeep figures (Framework 0.111.0). Idle on-shift crew tune registered machines and make inspection rounds while the switches in the Crew panel are on. A tuned machine works faster by up to the player setting MaxTuningGain; the tune fades as the machine works, over the setting TuneFadeHours, and at inspectedFadeShare of that rate while an inspection is good. Session lengths and the gain are player settings in the BepInEx config file, section Upkeep. All figures are authored balance. Player files in BepInEx/config/PhobosFramework/upkeep override entries; families lists a machine family's own share of the gain by its key (phobosframework upkeep lists machines).",
+  "tuneStep": 0.2,
+  "tuneStepSkilled": 0.3,
+  "inspectionValidHours": 24,
+  "inspectedFadeShare": 0.5,
+  "families": {}
+}

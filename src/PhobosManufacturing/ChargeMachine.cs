@@ -40,7 +40,7 @@ internal sealed class ChargeMachine
     internal sealed class Transfer
     {
         internal RoomHeat.Air Air = null!;
-        internal double RequestedKWh, WorkSeconds, HeatFraction;
+        internal double RequestedKWh, WorkSeconds, HeatFraction, Tune = 1;
         internal EnergyReceipt Receipt = null!;
     }
     internal ChargeMachineSpec Spec { get; }
@@ -438,7 +438,9 @@ internal sealed class ChargeMachine
         double demand = working ? shape.workingKW : shape.idleKW;
         double electricHeat = working ? shape.workingKW * shape.roomHeatFraction : shape.idleKW;
         double seconds = amount * Units.SecondsPerHour / demand;
-        double heatKW = electricHeat + (working && sessions.TryGetValue(co, out var bound) ? ReactionKW(Recipe(bound)) : 0);
+        // Crew upkeep (0.55.0): a tuned machine asks for more power while it works and makes that much more progress.
+        double tune = working ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, seconds) : 1;
+        double heatKW = (electricHeat + (working && sessions.TryGetValue(co, out var bound) ? ReactionKW(Recipe(bound)) : 0)) * tune;
         var air = RoomHeat.Read(co);
         var heat = RoomHeat.Check(air, heatKW, seconds);
         if (!heat.Admitted)
@@ -454,7 +456,7 @@ internal sealed class ChargeMachine
             return false;
         }
         if (sessions.TryGetValue(co, out var ready)) SettleWait(co, ready);
-        transfer = new Transfer { Air = air!, RequestedKWh = amount, WorkSeconds = seconds, HeatFraction = electricHeat / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        transfer = new Transfer { Air = air!, RequestedKWh = amount, WorkSeconds = seconds * tune, Tune = tune, HeatFraction = electricHeat / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         pending.Add(power, transfer);
         return true;
     }
@@ -480,7 +482,7 @@ internal sealed class ChargeMachine
             // Progress is powered seconds: a partial supply credits a partial step.
             double poweredSeconds = transfer.RequestedKWh > 0 ? transfer.WorkSeconds * Math.Min(1, supplied / transfer.RequestedKWh) : 0;
             double now = StarSystem.fEpoch, elapsed = Math.Max(0, now - s!.Last); s.Last = now;
-            s.State.ProgressSeconds = Math.Min(recipe.Seconds, s.State.ProgressSeconds + Math.Min(elapsed, poweredSeconds));
+            s.State.ProgressSeconds = Math.Min(recipe.Seconds, s.State.ProgressSeconds + Math.Min(elapsed * transfer.Tune, poweredSeconds));
         }
         // The electricity's room share, plus the reaction heat over the progress just made (an absorbing reaction
         // takes its share out of the electricity's heat, never below nothing).

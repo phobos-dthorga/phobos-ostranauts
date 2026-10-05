@@ -156,6 +156,25 @@ internal static class CropPackChecks
               Math.Abs(rich.State.Nutrients - plain.State.Nutrients) < 1e-9, "Enrichment changes the time, not what the crop takes or gives");
         Reject(() => new CropState().Step(1, 1, 1, 1, true, 3), "A growth factor outside 0.5 to 2 is refused");
 
+        // Agriculture 0.63.0, crew upkeep: a tuned rack draws more power and grows that much faster on the same energy.
+        (double Hours, double KWh, CropState State) GrowTuned(double tune)
+        {
+            var c = Crop.Get("wheat"); var st = new CropState { Water = 20, Nutrients = .5 }; st.Plant(c, 1); double hours = 0, kwh = 0;
+            for (int i = 0; i < 400 && !st.Ready; i++) { double h = Math.Min(1, (1 - st.Progress) * c.Hours / tune); st.Step(h, h * c.KW * tune, 10, 10, true, 1, null, 1, tune); hours += h; kwh += h * c.KW * tune; }
+            return (hours, kwh, st);
+        }
+        var untuned = GrowTuned(1); var tuned = GrowTuned(1.1);
+        check(untuned.State.Ready && Math.Abs(untuned.Hours - plain.Hours) < 1e-12 && Math.Abs(untuned.KWh - plain.KWh) < 1e-12 && untuned.State.Biomass == plain.State.Biomass,
+            "An untuned rack grows exactly as before");
+        check(tuned.State.Ready && Math.Abs(tuned.Hours - 84 / 1.1) < 1e-9 && Math.Abs(tuned.KWh - plain.KWh) < 1e-9, "A fully tuned rack ripens wheat in 1/1.1 of the time on the same energy");
+        check(Math.Abs(tuned.State.Biomass - plain.State.Biomass) < 1e-9 && Math.Abs(tuned.State.Carbon - plain.State.Carbon) < 1e-9 && Math.Abs(tuned.State.Water - plain.State.Water) < 1e-9 &&
+              Math.Abs(tuned.State.Nutrients - plain.State.Nutrients) < 1e-9, "A tune changes the time, not what the crop takes or gives");
+        var starved = new CropState { Water = 20, Nutrients = .5 }; starved.Plant(Crop.Get("wheat"), 1); starved.Step(1, Crop.Get("wheat").KW, 10, 10, true, 1, null, 1, 1.1);
+        var plainHour = new CropState { Water = 20, Nutrients = .5 }; plainHour.Plant(Crop.Get("wheat"), 1); plainHour.Step(1, Crop.Get("wheat").KW, 10, 10, true);
+        check(Math.Abs(starved.Progress - plainHour.Progress) < 1e-12, "A tune without the extra power grows nothing extra");
+        Reject(() => new CropState().Step(1, 1, 1, 1, true, 1, null, 1, .9), "A tune below 1 is refused");
+        Reject(() => new CropState().Step(1, 1, 1, 1, true, 1, null, 1, 1.3), "A tune above the setting's top is refused");
+
         // The rules every crops file is held to.
         string shipped = DataPacks.ShippedText(Crops.Source);
         var frozen = RecipeFreeze.Read(typeof(Crops).Assembly, Crops.FrozenResource);

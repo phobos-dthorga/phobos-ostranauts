@@ -50,7 +50,7 @@ public sealed class CrewPanel : GUIData
     private void Build()
     {
         shell=ConsoleShell.Create(transform,C.Text("crew_title"),C.Slate);shell.Dirty=Dirty;shell.Apply=Apply;shell.Discard=Discard;
-        foreach(var tab in new[]{"orders","crew","skip"}){var id=tab;tabs[id]=C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
+        foreach(var tab in new[]{"orders","crew","upkeep","skip"}){var id=tab;tabs[id]=C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
         C.Button(shell.Navigation,C.Text("back"),()=>shell.Navigate(()=>{equipmentId=crewId="";Discard();shell.Page(false);}));
         C.Button(shell.Navigation,C.Text("close"),shell.Close);BuildView();
     }
@@ -67,6 +67,7 @@ public sealed class CrewPanel : GUIData
         foreach(var tab in tabs)C.Accent(tab.Value,C.Slate,tab.Key==view);
         if(Ship==null)return;
         if(view=="skip"){BuildSkip();return;}
+        if(view=="upkeep"){BuildUpkeep();return;}
         C.Input(shell.List,C.Text("search"),query,s=>{query=s;Populate();});
         rows=W.Rect(shell.List,"Rows");var group=rows.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlWidth=group.childControlHeight=true;group.childForceExpandHeight=false;
         Populate();
@@ -188,6 +189,20 @@ public sealed class CrewPanel : GUIData
         shell.Notice.text=reason;return done;
     }
     private void Discard(){draft=null;roleDraft.Clear();roleOriginal.Clear();BuildView();}
+    // Crew upkeep (Framework 0.111.0): two ship-wide switches; each press goes to the checked service and says what it did.
+    private void BuildUpkeep(string said="")
+    {
+        W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);
+        C.Heading(shell.List,C.Text("upkeep"));C.Label(shell.List,C.Text("upkeep_intro"));
+        foreach(var kind in new[]{UpkeepKind.Tune,UpkeepKind.Inspect})
+        {
+            var k=kind;bool on=Upkeep.Enabled(k);string name=C.Text(k==UpkeepKind.Tune?"upkeep_tune":"upkeep_inspect");
+            C.Label(shell.List,name+": "+C.Text(on?"upkeep_on":"upkeep_off")+"\n"+C.Text(k==UpkeepKind.Tune?"upkeep_tune_help":"upkeep_inspect_help"));
+            C.Button(shell.List,C.Text(on?"upkeep_switch_off":"upkeep_switch_on",name),()=>BuildUpkeep(Upkeep.Set(k,!on)));
+        }
+        if(said.Length>0)C.Label(shell.List,said);
+        C.Heading(shell.Detail,C.Text("upkeep_machines"));C.Label(shell.Detail,Upkeep.Describe(Ship));
+    }
     private void BuildSkip()
     {
         shell.Page(true);C.Heading(shell.List,C.Text("skip"));C.Label(shell.List,C.Text("skip_estimate"));C.Label(shell.List,C.Text("skip_native"));

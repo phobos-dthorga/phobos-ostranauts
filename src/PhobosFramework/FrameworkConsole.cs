@@ -17,6 +17,8 @@ internal static class FrameworkConsole
     internal static Func<string?, string>? Loot { get; set; }
     /// <summary>The <c>story ...</c> commands (Framework 0.107.0), set by the plugin for the same reason.</summary>
     internal static Func<string[], string>? Story { get; set; }
+    /// <summary>The <c>upkeep ...</c> commands (Framework 0.111.0), set by the plugin for the same reason.</summary>
+    internal static Func<string[], string>? Upkeep { get; set; }
     private static bool Prefix(ref string strInput, ref bool __result)
     {
         var words = (strInput ?? "").Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -38,6 +40,12 @@ internal static class FrameworkConsole
         {
             __result = true;
             strInput += "\n" + Crew.CrewDiagnostics.Describe(words.Length == 3 ? words[2] : null);
+            return false;
+        }
+        if (command == "upkeep" && Upkeep != null)
+        {
+            __result = true;
+            strInput += "\n" + Upkeep(words);
             return false;
         }
         if (command == "story" && Story != null)

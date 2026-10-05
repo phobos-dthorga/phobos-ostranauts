@@ -45,6 +45,8 @@ public static class Performance
     internal static PerformanceMetric? StoryCheck = null;
     // Framework 0.108.0: choosing a story line for one use of the game's small talk.
     internal static PerformanceMetric? StoryChatter = null;
+    // Framework 0.111.0: the crew upkeep planner, every ten real seconds while a switch is on.
+    internal static PerformanceMetric? UpkeepPlan = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

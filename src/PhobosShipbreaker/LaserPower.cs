@@ -28,7 +28,10 @@ internal static partial class LaserService
         owned = sessions.TryGetValue(co.strID, out var s) && s.Authorized && s.Demand;
         if (!owned) return true;
         var r = s!.Record; double kw = r.Number("kw");
-        amount = Math.Min(amount * kw / LaserRules.WorkingKW, (r.Number("seconds") - r.Number("progress")) * kw / Units.SecondsPerHour);
+        double wanted = amount * kw / LaserRules.WorkingKW;
+        // Crew upkeep (0.82.0): a tuned laser asks for more power while it cuts; its work is counted by what arrives.
+        if (kw > 0) Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref wanted, wanted * Units.SecondsPerHour / kw);
+        amount = Math.Min(wanted, (r.Number("seconds") - r.Number("progress")) * kw / Units.SecondsPerHour);
         // The assembly takes the scaled heat, as a room would (Framework 0.94.0 machine heat setting).
         double stepHeatKJ = RoomHeat.Machine(amount * Units.SecondsPerHour * LaserRules.WasteHeatFraction);
         var radiator = s.Radiator != null && !s.Radiator.bDestroyed && !s.Radiator.HasCond("IsDamaged") ? s.Radiator : null;

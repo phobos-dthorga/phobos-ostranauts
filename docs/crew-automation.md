@@ -139,8 +139,11 @@ over a novice at the same native duty priority; higher-priority duties still win
 
 The initial authored balance is 20 completed practical hours, 10 study hours, or
 a proportional mixture. Qualification reduces relevant hands-on duration by 20%.
-It does not shorten crop growth or machine cycles, increase output, improve
-resource efficiency or award credit for idle machinery. Cancelled and failed
+Skill by itself does not shorten crop growth or machine cycles, and nothing here
+increases output, improves resource efficiency or awards credit for idle
+machinery. Since Framework 0.111.0 crew can tune a machine so it works faster for
+the same materials and electricity per job; see
+[Upkeep on long hauls](#upkeep-on-long-hauls). Cancelled and failed
 operations grant no training. Travel/hauling does not train a production speciality.
 Existing engineering/EVA/piloting skills retain their native roles.
 
@@ -173,6 +176,103 @@ member's AI history; and each order's retry wait. It changes nothing.
 
 These training thresholds and the duration factor are gameplay choices,
 maintained with the [constants updater](development/updating-constants.md).
+
+## Upkeep on long hauls
+
+Standing orders run out on a long flight: the racks are planted, the charges are
+loaded and the crew stand about. Upkeep (Framework 0.111.0) gives idle crew two
+things to do. Both are switches for the whole crew, off until you choose them.
+
+1. Open **Crew standing orders and training** (from the roster, an equipment
+   panel, the C1 console or the Auto Nav hub) and choose the **Upkeep** tab.
+2. Switch on **Tune machinery**, **Inspection rounds**, or both.
+3. Leave the crew on shift with AutoTask on, as for standing orders.
+
+The F3 commands do the same: `phobosframework upkeep tune on` (or `off`),
+`phobosframework upkeep inspect on` (or `off`), and `phobosframework upkeep` to
+list the switches, the settings and every machine's tune. They are optional;
+the panel does everything.
+
+Upkeep is the last thing crew do. A crew member takes an upkeep task only when
+they are on shift and idle and no standing order has a step waiting.
+
+```mermaid
+flowchart LR
+    Switch["Crew panel: Upkeep switches"] --> Idle{"Someone on shift idle, no order step waiting?"}
+    Idle -->|yes| Tune["Tune the least tuned machine: 10 game minutes"]
+    Idle -->|yes, nothing to tune| Inspect["Inspect a machine not checked today: 5 game minutes"]
+    Tune --> Faster["Machine works up to 10% faster and draws that much more power"]
+    Faster -->|"fades as the machine works"| Tune
+    Inspect --> Holds["Tune fades at half the rate for a day"]
+```
+
+### Tune machinery
+
+- **What crew do:** one session at a machine takes 10 game minutes and adds a
+  fifth of a full tune, or three tenths for a crew member skilled at that
+  machine. Skilled means the machine's own speciality (Industrial Processing,
+  Agriculture, Cooking) or, for Manufacturing's machines, the game's mechanical
+  engineering skill.
+- **What you get:** a fully tuned machine works 10% faster. Charges, batches,
+  thaws, cuts, cooking and crops finish sooner.
+- **What it costs:** while it works, a tuned machine draws that much more power
+  and gives off that much more heat. The electricity for each job is the same;
+  it is spent sooner. Check your reactor and cooling have the margin.
+- **What never changes:** what a job takes and what it gives. Recipes, yields and
+  masses are untouched.
+- **How it fades:** the tune wears off as the machine works, a full tune over 36
+  hours of work. A machine standing idle keeps its tune.
+- **How it is lost:** damage, or taking the machine off its mount, clears the
+  tune.
+
+A machine's panel shows its tune on the last line, such as
+"Tune: +6% work rate and power draw, fading as it works."
+
+### Inspection rounds
+
+- **What crew do:** a 5 game-minute visit to each machine not inspected in the
+  last 24 game hours.
+- **What you get:** an inspected machine's tune fades at half the rate while the
+  inspection is good. If the machine is waiting for something, or is more than
+  half worn, the crew member says so in the crew log. A machine in good order
+  gets no log line.
+- Phobos machines take no wear from running, so an inspection does not slow
+  wear: damage still comes only from the game's own fire, combat and accidents.
+
+### Which machines
+
+| Mod | Tuned and inspected | Inspected only |
+| --- | --- | --- |
+| Phobos Shipbreaker | D4, R4, T2, ML-2 | F6 furnace |
+| Phobos Manufacturing | Charge machines, X2, K2, AX-2, Corker-2, RM-1, L2 | A2 regulator |
+| Phobos Agriculture | Firstlight-4 racks, Hearth-2, B2, W2 | |
+| Phobos Medical | | Ward-3 bed, Vigil-2 monitor |
+
+Stores, silos, pipes and belts take no upkeep. A patient never inspects the bed
+they lie in.
+
+### Settings
+
+In Framework's config file (`BepInEx/config`), section `Upkeep`:
+
+| Setting | Default | Range | What it does |
+| --- | --- | --- | --- |
+| `InspectionMinutes` | 5 | 1 to 30 | Game minutes to inspect one machine |
+| `TuningMinutes` | 10 | 2 to 60 | Game minutes for one tuning session |
+| `MaxTuningGain` | 0.10 | 0 to 0.25 | How much faster a fully tuned machine works; 0 turns the benefit off |
+| `TuneFadeHours` | 36 | 6 to 240 | Hours of work for a full tune to fade to none |
+
+The other figures are in the `upkeep` data file; see
+[Tuning crew upkeep](editing-data-files.md#tuning-crew-upkeep). All of them are
+authored game balance.
+
+### During a time-skip
+
+Upkeep does not slow a skip and does not take crew from the game's own repairs.
+Each skipped step, the on-shift time of crew with AutoTask on is spent on tuning
+and inspection sessions directly, with walking counted by distance. Running
+machines fade their tune through their ordinary stepped work, so a long haul
+settles to a steady tune rather than a full one.
 
 ## Time-skip
 

@@ -386,7 +386,19 @@ def addon():
                'The manifest of a Phobos add-on (phobos-addon.json), beside the mod_info.json the game itself reads.')
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story}
+def upkeep():
+    family = obj({'notes': NOTES, 'gainShare': num(0, 1, description='This family\'s share of the player\'s MaxTuningGain setting (default 1); 0 leaves it untuned.')})
+    return obj({**header('upkeep'),
+                'tuneStep': num(0.01, 1, description='How much of a full tune one session adds (default 0.2).'),
+                'tuneStepSkilled': num(0.01, 1, description='The same for a crew member skilled at the machine (default 0.3); never less than tuneStep.'),
+                'inspectionValidHours': num(1, 240, description='Game hours an inspection stays good for (default 24).'),
+                'inspectedFadeShare': num(0, 1, description='Share of the ordinary fade an inspected machine\'s tune takes (default 0.5).'),
+                'families': named(family, 'Machine families by key, such as manufacturing.charge; phobosframework upkeep lists them.', '^.{1,64}$')},
+               ['schemaVersion', 'schema'],
+               'Crew upkeep: what a tuning session adds, how long an inspection is good, and each machine family\'s share of the gain.')
+
+
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story, 'upkeep': upkeep}
 
 
 def render(name):

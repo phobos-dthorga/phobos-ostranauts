@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/upkeep.schema.json",
+  "title": "Phobos upkeep data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "upkeep"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "tuneStep": {
+      "type": "number",
+      "minimum": 0.01,
+      "maximum": 1,
+      "description": "How much of a full tune one session adds (default 0.2)."
+    },
+    "tuneStepSkilled": {
+      "type": "number",
+      "minimum": 0.01,
+      "maximum": 1,
+      "description": "The same for a crew member skilled at the machine (default 0.3); never less than tuneStep."
+    },
+    "inspectionValidHours": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 240,
+      "description": "Game hours an inspection stays good for (default 24)."
+    },
+    "inspectedFadeShare": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Share of the ordinary fade an inspected machine's tune takes (default 0.5)."
+    },
+    "families": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^.{1,64}$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "gainShare": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "This family's share of the player's MaxTuningGain setting (default 1); 0 leaves it untuned."
+            }
+          }
+        }
+      },
+      "description": "Machine families by key, such as manufacturing.charge; phobosframework upkeep lists them."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema"
+  ],
+  "description": "Crew upkeep: what a tuning session adds, how long an inspection is good, and each machine family's share of the gain."
+}

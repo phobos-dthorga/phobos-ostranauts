@@ -29,6 +29,8 @@ internal static partial class Service
         internal double RecoveryEnergy;
         internal bool RecoveryMetered;
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
+        /// <summary>The crew-upkeep rate of this step's power request (Agriculture 0.63.0); 1 untuned.</summary>
+        internal double Tune = 1;
         internal bool Protected, Routed;
         /// <summary>The water tank a full rack sends spare condensate to, and when to look for one again (Agriculture 0.43.0).</summary>
         /// <summary>The hopper the W2 doses from when nothing is chosen and no charge is aboard, and when to look again.</summary>
@@ -192,7 +194,10 @@ internal static partial class Service
         double kw = s.Protected || WaterGuard(co).Protected || !RoomReady(co) ? 0 :
             WorkupDefinitions.IsBench(co) ? !s.State.Running ? 0 : s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : PressWork(s) ? StrawPress.PowerKW : 0 :
             IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? HearthRecipes.CookerKW : 0 : s.State.DemandKW;
-        return nativeAmount / StandbyKW * Math.Max(kw, StandbyKW);
+        double amount = nativeAmount / StandbyKW * Math.Max(kw, StandbyKW);
+        // Crew upkeep (0.63.0): a tuned machine asks for more power while it works and does that much more with it.
+        s.Tune = kw > StandbyKW && amount > 0 ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, amount * 3600 / kw) : 1;
+        return amount;
     }
     internal static void Tick(CondOwner co)
     {
@@ -274,7 +279,7 @@ internal static partial class Service
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
                 // Agriculture 0.43.0: an enriched room grows the crop faster for the same light (Co2Response).
                 double co2Factor = Co2Response.Factor(Co2KPa(room, gas));
-                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor, null, damageScale);
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor, null, damageScale, s.Tune);
                 exchange.RoomHeatKWh += standby;
                 // Misted water evaporates into the room: its air loses the latent heat, and the water goes where
                 // uncondensed transpiration goes, a linked water tank, or is lost (the game's air holds no humidity).

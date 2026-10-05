@@ -28,6 +28,28 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.111.0] - 2026-10-06 - Draft
+
+### Added
+
+- Crew upkeep, for long hauls with little to do (owner request). Two switches for the whole crew, off until chosen, on the new Upkeep tab of Crew standing orders and training: Tune machinery and Inspection rounds. Idle crew on shift with AutoTask on take them after every standing order.
+- Tune machinery: a session at a machine takes 10 game minutes and adds a fifth of a full tune, three tenths for a skilled crew member. A fully tuned machine works 10% faster and draws that much more power and gives off that much more heat while it works, so each job costs the same electricity and finishes sooner. What a job takes and gives never changes. The tune fades as the machine works, a full tune over 36 hours of work; an idle machine keeps it. Damage or taking the machine off its mount clears it.
+- Inspection rounds: a 5 game-minute visit to each machine not inspected in the last 24 game hours. An inspected machine's tune fades at half the rate, and the crew log says what the machine is waiting for, or that it is more than half worn. A machine in good order gets no line.
+- Each tunable machine's panel ends with its tune.
+- Settings in Framework's config file, section Upkeep: InspectionMinutes (5), TuningMinutes (10), MaxTuningGain (0.10; 0 turns the benefit off) and TuneFadeHours (36).
+- A new upkeep data file holds the session steps, how long an inspection is good and each machine family's share of the gain. Players and add-ons can change it; the data-files guide has a section, with a JSON Schema and the offline checker.
+- F3: phobosframework upkeep lists the switches, the settings and every machine's tune; upkeep tune on or off and upkeep inspect on or off set the switches. Optional; the panel does the same.
+- During a time-skip, on-shift crew time goes to upkeep sessions directly, without slowing the skip or taking from the game's own repairs.
+- For mod authors: Upkeep.Register declares a machine family, and Upkeep.Draw scales a working machine's power request by its tune.
+
+### Save compatibility
+
+- Automatic. The switches are a new record on the player and each machine's tune a new record on the machine; a save without them reads as switched off and untuned. Nothing existing changes.
+
+### Compatibility and limits
+
+- All figures are authored balance. Practice at machines and housekeeping are planned for a later version. Checked offline with the builds and their rule checks; not yet seen in the game.
+
 ## [0.110.0] - 2026-10-06 - Draft
 
 ### Added

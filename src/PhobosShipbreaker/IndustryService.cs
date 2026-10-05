@@ -42,7 +42,7 @@ internal static class IndustryService
             var receiving = FurnaceRules.Machine(co.strCODef) ? Plugin.Collectors.ActiveReceiving(co) : null;
             return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
                 Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : receiving?.State ?? EquipmentState.Paused,
-                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Summary = s.Notice, DetailSource = () => FurnaceService.Describe(co) };
+                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Summary = s.Notice, DetailSource = () => { string tune = Phobos.Ostranauts.Framework.Crew.Upkeep.StatusLine(co); return FurnaceService.Describe(co) + (tune.Length == 0 ? "" : "\n\n" + tune); } };
         }
         var group = IndustrialRules.Group(co.strCODef);
         var process = ProcessingService.IsProcessor(co.strCODef) ? Plugin.Service.Activity(co) :
@@ -68,7 +68,9 @@ internal static class IndustryService
             if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
             if (StorageService.Supported(co)) detail += "\n\n" + Plugin.Storage.Describe(co);
             if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
-            return detail + IndustryObservations.ExplainStop(co);
+            // Crew upkeep (0.82.0): a machine crew can tune ends its card with its tune.
+            string tune = Phobos.Ostranauts.Framework.Crew.Upkeep.StatusLine(co);
+            return detail + IndustryObservations.ExplainStop(co) + (tune.Length == 0 ? "" : "\n\n" + tune);
         }
         return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
             Group = group, State = process.State, Attention = attention, Summary = FirstLine(process.Detail), DetailSource = Detail };

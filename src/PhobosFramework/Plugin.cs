@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.110.0";
+    public const string Version = "0.111.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -48,6 +48,19 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe();
         FrameworkConsole.Loot = Registration.LootCarveRegistry.Describe;
         FrameworkConsole.Story = Story.StoryContent.Command;
+        FrameworkConsole.Upkeep = Crew.Upkeep.Command;
+        // Crew upkeep (0.111.0): four player settings; the rest of its figures are the upkeep data pack.
+        Crew.Upkeep.Settings = new Crew.UpkeepSettings
+        {
+            InspectionMinutes = Config.Bind("Upkeep", "InspectionMinutes", Crew.UpkeepSettings.DefaultInspectionMinutes, new BepInEx.Configuration.ConfigDescription(Text.Get("Upkeep.setting_inspection_minutes"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Crew.UpkeepSettings.MinInspectionMinutes, Crew.UpkeepSettings.MaxInspectionMinutes))).Value,
+            TuningMinutes = Config.Bind("Upkeep", "TuningMinutes", Crew.UpkeepSettings.DefaultTuningMinutes, new BepInEx.Configuration.ConfigDescription(Text.Get("Upkeep.setting_tuning_minutes"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Crew.UpkeepSettings.MinTuningMinutes, Crew.UpkeepSettings.MaxTuningMinutes))).Value,
+            MaxTuningGain = Config.Bind("Upkeep", "MaxTuningGain", Crew.UpkeepSettings.DefaultMaxTuningGain, new BepInEx.Configuration.ConfigDescription(Text.Get("Upkeep.setting_max_gain"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Crew.UpkeepSettings.MinMaxTuningGain, Crew.UpkeepSettings.MaxMaxTuningGain))).Value,
+            TuneFadeHours = Config.Bind("Upkeep", "TuneFadeHours", Crew.UpkeepSettings.DefaultTuneFadeHours, new BepInEx.Configuration.ConfigDescription(Text.Get("Upkeep.setting_fade_hours"),
+                new BepInEx.Configuration.AcceptableValueRange<double>(Crew.UpkeepSettings.MinTuneFadeHours, Crew.UpkeepSettings.MaxTuneFadeHours))).Value
+        }.Clamped();
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
         RefreshLanguage();

@@ -16,8 +16,8 @@ namespace PhobosMedical;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = MedicalRules.Owner;
-    public const string Version = "0.4.1";
-    public const string MinimumFrameworkVersion = "0.89.0";
+    public const string Version = "0.5.0";
+    public const string MinimumFrameworkVersion = "0.111.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -26,6 +26,8 @@ public sealed class Plugin : BaseUnityPlugin
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily beds =
         Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Id + ".beds", id => MedicalRules.IsBed(id) || MedicalRules.IsMonitor(id));
 
+    /// <summary>The game's own skill that makes an inspection here quicker.</summary>
+    internal const string UpkeepSkill = "SkillMedicalTrauma";
     private void Awake()
     {
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
@@ -34,6 +36,11 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new MedicCrewProvider());
+        // Crew upkeep (0.5.0): the Ward-3 and the Vigil-2 are inspected, never tuned: healing stays the game's own.
+        // A patient never inspects the bed they lie in.
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("medical.bed", id => id == MedicalRules.BedInstalled, UpkeepSkill, Phobos.Ostranauts.Framework.Crew.CrewRole.Medical, tunable: false,
+            excluded: bed => BedService.Patient(bed)?.strID);
+        Phobos.Ostranauts.Framework.Crew.Upkeep.Register("medical.monitor", id => id == MedicalRules.MonitorInstalled, UpkeepSkill, Phobos.Ostranauts.Framework.Crew.CrewRole.Medical, tunable: false);
         EquipmentProviders.RegisterGroup(Provider.Group, () => Text.Get("Group.bed"));
         EquipmentProviders.RegisterGroup(Provider.MonitorGroup, () => Text.Get("Group.monitor"));
         Panel.Register();

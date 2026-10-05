@@ -108,6 +108,18 @@ class DataPackTests(unittest.TestCase):
         self.assertEqual([(s['tile'], s['object']) for s in rule['supports']], [('IsFloor', 'floor'), ('IsWall', 'IsWall')])
         self.assertEqual(rule['forbiddenTiles'], ['IsFloorFlex', 'IsEVATile'])
 
+    def test_upkeep_pack(self):
+        # Framework 0.111.0: crew upkeep figures. The shipped pack is valid; each broken copy is refused.
+        shipped = json.loads((ROOT / 'mods/PhobosFramework/framework/upkeep.json').read_text(encoding='utf-8'))
+        validate.upkeep(shipped, 'test')
+        self.assertEqual((shipped['tuneStep'], shipped['tuneStepSkilled'], shipped['inspectionValidHours'], shipped['inspectedFadeShare']), (0.2, 0.3, 24, 0.5))
+        validate.upkeep({**shipped, 'families': {'manufacturing.charge': {'gainShare': 0.5}}}, 'test')
+        for bad in ({**shipped, 'tuneStep': 0}, {**shipped, 'tuneStepSkilled': 0.1}, {**shipped, 'inspectionValidHours': 0}, {**shipped, 'inspectedFadeShare': 1.5},
+                    {**shipped, 'families': {'manufacturing.charge': {'gainShare': 2}}}, {**shipped, 'families': {'': {}}},
+                    {**shipped, 'families': {'x': {'colour': 1}}}, {**shipped, 'colour': 1}, {**shipped, 'tuneStep': True}):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.upkeep(bad, 'test')
+
     def test_story_packs(self):
         # Framework 0.107.0: story packs. The shipped seed is valid; each broken copy is refused, as the game's loader does.
         import copy

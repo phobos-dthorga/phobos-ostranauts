@@ -88,8 +88,11 @@ public sealed class CropState
     /// <param name="stress">The stress rules (Agriculture 0.55.0); the crops pack's own when left out.</param>
     /// <param name="outsideDamageScale">The share of out-of-room damage that applies (Agriculture 0.59.0): misting a crop in a
     /// room too hot for it slows the loss. 1 is the full rate.</param>
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null, double outsideDamageScale = 1)
+    /// <param name="tune">Crew upkeep (Agriculture 0.63.0): how much faster a tuned rack grows per hour. Its lamps drew
+    /// that much more power for the step, so the energy and everything else a unit of growth takes are unchanged. 1 is untuned.</param>
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null, double outsideDamageScale = 1, double tune = 1)
     {
+        if (!Finite(tune) || tune < 1 || tune > MaxTune) throw new ArgumentException("Invalid tune.");
         var rules = stress ?? Growth.Stress;
         if (!Finite(outsideDamageScale) || outsideDamageScale < 0 || outsideDamageScale > 1) throw new ArgumentException("Invalid damage scale.");
         foreach (double x in new[] { hours, electricKWh, co2Kg, oxygenKg }) if (!Finite(x) || x < 0) throw new ArgumentException("Invalid crop step.");
@@ -98,7 +101,7 @@ public sealed class CropState
         var exchange = new Exchange { RoomHeatKWh = electricKWh };
         if (CropId.Length == 0 || hours == 0) return exchange;
         var c = Crop.Get(CropId);
-        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours * co2Factor / (c.Hours * Pace), electricKWh * co2Factor / (c.Hours * c.KW))) : 0;
+        double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours * co2Factor * tune / (c.Hours * Pace), electricKWh * co2Factor / (c.Hours * c.KW))) : 0;
         // One water store and one nutrient store since Agriculture 0.55.0 (the per-crop feed is gone): each crop draws
         // its own amounts of both.
         grow = Math.Max(0, Math.Min(grow, Math.Min(Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
@@ -110,7 +113,7 @@ public sealed class CropState
         Water += condensed;
         exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = transpired - condensed;
         exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * LatentKWhPerKg;
-        double dark = Math.Max(0, hours - grow * c.Hours * Pace / co2Factor);
+        double dark = Math.Max(0, hours - grow * c.Hours * Pace / (co2Factor * tune));
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;
         double returnedWater = respired * 18 / 30;
@@ -127,6 +130,8 @@ public sealed class CropState
         if (Health == 0) Running = false;
         Validate(); return exchange;
     }
+    /// <summary>The most a tune may raise the growth rate: the top of the player's setting.</summary>
+    public const double MaxTune = 1.25;
     public void Validate()
     {
         foreach (double x in new[] { Progress, Health, Water, Nutrients, Biomass, Carbon, Pace, DarkHours, CookerProgress })

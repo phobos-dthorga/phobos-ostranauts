@@ -31,7 +31,7 @@ internal static class ThawService
     internal sealed class Transfer
     {
         internal RoomHeat.Air Air = null!;
-        internal double WorkSeconds, HeatFraction;
+        internal double WorkSeconds, HeatFraction, Tune = 1;
         internal EnergyReceipt Receipt = null!;
     }
     private static ConditionalWeakTable<CondOwner, Session> sessions = new();
@@ -266,8 +266,10 @@ internal static class ThawService
         bool working = co.HasCond(ProcessRules.Working);
         double demand = working ? ThawRules.WorkingKW : ThawRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand, heatKW = ThawRules.RoomHeatKW(working);
+        // Crew upkeep (0.82.0): a tuned unit asks for more power while it thaws and makes that much more progress.
+        double tune = working ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, seconds) : 1;
         var air = RoomHeat.Read(co, "use");
-        var heat = RoomHeat.Check(air, heatKW, seconds);
+        var heat = RoomHeat.Check(air, heatKW * tune, seconds);
         if (!heat.Admitted)
         {
             // Not a stop: no power is drawn this step, the job keeps its permission and progress, and work
@@ -277,7 +279,7 @@ internal static class ThawService
             return false;
         }
         if (sessions.TryGetValue(co, out var ready)) ready.HeatWait = false;
-        transfer = new Transfer { Air = air!, WorkSeconds = seconds, HeatFraction = heatKW / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        transfer = new Transfer { Air = air!, WorkSeconds = seconds * tune, Tune = tune, HeatFraction = heatKW / demand, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         pending.Add(power, transfer);
         return true;
     }
@@ -291,7 +293,7 @@ internal static class ThawService
         RoomHeat.Deposit(transfer.Air, supplied, transfer.HeatFraction);
     }
     internal static void Forget(Powered power) { pending.Remove(power); NativeEnergyReceipts.Forget(power); }
-    internal static void AfterPower(CondOwner co, bool workingRequest, double? poweredSeconds)
+    internal static void AfterPower(CondOwner co, bool workingRequest, double? poweredSeconds, double tune = 1)
     {
         if (!sessions.TryGetValue(co, out var s) || s.Job?.Running != true) return;
         try
@@ -299,7 +301,7 @@ internal static class ThawService
             double now = StarSystem.fEpoch, elapsed = now - s.Last; s.Last = now;
             var input = s.Input!;
             bool powered = workingRequest && co.HasCond("IsPowered");
-            s.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered, true);
+            s.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed * tune, poweredSeconds.Value) : elapsed, powered, true);
             input.SetCondAmount(ProcessRules.Progress, s.Job.Progress);
             if (!s.Job.Running) { Stop(co, s, Text.Get("Thaw.input_changed")); return; }
             if (!powered && s.HeatWait) return;

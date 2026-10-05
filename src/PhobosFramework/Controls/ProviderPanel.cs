@@ -153,7 +153,9 @@ public sealed class ProviderPanel : GUIData
     {
         var snapshot = spec.Provider.Snapshot(co);
         live.text = C.Text("state_" + snapshot.Activity.State);
-        readout.text = snapshot.Activity.Detail;
+        // Crew upkeep (Framework 0.111.0): a tunable machine's panel ends with its tune.
+        string tune = Crew.Upkeep.StatusLine(co);
+        readout.text = tune.Length == 0 ? snapshot.Activity.Detail : snapshot.Activity.Detail + "\n" + tune;
     }
     public override void SaveAndClose() { if (bActive) base.SaveAndClose(); }
 }

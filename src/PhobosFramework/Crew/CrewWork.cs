@@ -51,7 +51,12 @@ public static class CrewWork
         internal double Seconds;
         // Reservation keys, rebuilt once per step: the filter asks for them for every crew member.
         internal string[]? KeysNow; internal long KeysStep = long.MinValue;
+        // Crew upkeep (Framework 0.111.0): a ship-wide job at this machine, allowed by the upkeep switches instead of
+        // the machine's own order, with no provider. Created is real time, so a task nobody takes can be withdrawn.
+        internal UpkeepKind? Upkeep; internal float Created;
     }
+    /// <summary>Whether a job may still run: its machine's order is enabled, or its upkeep switch is on.</summary>
+    internal static bool Allowed(Job j) => j.Upkeep != null ? Upkeep.Enabled(j.Upkeep.Value) : Order(j.Equipment).Permission == WorkPermission.Enabled;
     // Several orders may target one store (a rack feeding a tray, a tray feeding a reclaimer); the
     // native default of one task per target and action would silently drop the later ones.
     internal const int TasksPerTarget = 16;
@@ -111,7 +116,7 @@ public static class CrewWork
     {
         var order = Order(co);
         if (order.Protected) return Message("protected");
-        var active = Jobs.Values.FirstOrDefault(j => j.Equipment == co);
+        var active = Jobs.Values.FirstOrDefault(j => j.Equipment == co && j.Upkeep == null);
         var detail=notices.TryGetValue(co.strID,out var reason)?reason:Message("waiting");
         if(order.StopReason.Length>0 && order.Permission!=WorkPermission.Enabled)detail=Message("reason_"+order.StopReason)+"\n"+detail;
         return Message("order_status", Message(order.Permission.ToString()), active?.Worker?.FriendlyName ?? Message("unassigned"),
@@ -119,7 +124,7 @@ public static class CrewWork
     }
     public static OrderStatus ReadStatus(CondOwner co)
     {
-        var order=Order(co);var provider=Provider(co);var job=Jobs.Values.FirstOrDefault(j=>j.Equipment==co);
+        var order=Order(co);var provider=Provider(co);var job=Jobs.Values.FirstOrDefault(j=>j.Equipment==co&&j.Upkeep==null);
         string work=provider?.Recipes(co).Contains(order.Recipe)==true?provider.RecipeLabel(order.Recipe):Message("choose_work");
         string worker=job?.Worker?.FriendlyName??Message("unassigned");
         if(order.Protected)return new(OrderState.Blocked,work,worker,Message("protected"));
@@ -200,6 +205,8 @@ public static class CrewWork
     {
         long step = Processing.NativeSteps.Frame;
         if (j.KeysNow != null && j.KeysStep == step) return j.KeysNow;
+        // An upkeep session holds only its own key: the machine's order, feed and trays stay free for standing orders.
+        if (j.Upkeep != null) { j.KeysNow = new[] { "upkeep:" + j.Equipment.strID }; j.KeysStep = step; return j.KeysNow; }
         var keys = new List<string> { "equipment:" + j.Equipment.strID };
         if (j.Offer.Cargo != null) keys.Add("item:" + j.Offer.Cargo.strID);
         if (j.Offer.Destination != null) keys.Add("capacity:" + j.Offer.Destination.strID);
@@ -254,6 +261,13 @@ public static class CrewWork
         try { manager.nTotalTasks = Math.Max(manager.nTotalTasks, CrewDiagnostics.TaskCount(manager)); }
         catch (Exception e) { Notice(co, Message("fault", e.Message)); }
     }
+    /// <summary>The same once-per-Enable rule for a job that belongs to no single machine (crew upkeep).</summary>
+    internal static void AnnounceOnce(string key, WorkManager manager)
+    {
+        if (announced.Add(key)) return;
+        try { manager.nTotalTasks = Math.Max(manager.nTotalTasks, CrewDiagnostics.TaskCount(manager)); } catch { }
+    }
+    internal static void ForgetAnnouncement(string key) => announced.Remove(key);
     /// <summary>Everything a claim would check, so an unclaimable task is withheld from the native
     /// search instead of ending it and hiding lower-priority vanilla work. Cheap facts first, the path
     /// searches last, each reused within the step.</summary>
@@ -271,6 +285,8 @@ public static class CrewWork
         var crew = CrewRoster.Members();
         Reconcile(crew);
         var ships = crew.Select(c => c.ship).Distinct().ToArray();
+        // Crew upkeep (0.111.0) plans after the orders already waiting; it returns at once while its switches are off.
+        try { Upkeep.Plan(crew, ships); } catch (Exception e) { FrameworkLifecycle.Log(Message("fault", e.Message)); }
         // Framework 0.106.0: the full ship scan loads saved orders, so it runs after a load and every
         // DiscoveryPlan.FullSeconds; in between only switched-on orders and just-replaced machines are visited.
         if (DiscoveryPlan.FullScanDue(Time.unscaledTime, nextFullScan))
@@ -293,7 +309,7 @@ public static class CrewWork
     }
     private static void Discover(CondOwner co)
     {
-        if (!CanManage(co) || Jobs.Values.Any(j => j.Equipment == co)) return;
+        if (!CanManage(co) || Jobs.Values.Any(j => j.Equipment == co && j.Upkeep == null)) return;
         var o = Order(co); if (o.Protected || o.Permission != WorkPermission.Enabled) return;
         if (RetryPending(co)) return;
         var provider = Provider(co)!;
@@ -313,7 +329,7 @@ public static class CrewWork
     }
     internal static bool Admit(Job j, CondOwner actor, Interaction ia)
     {
-        if (Order(j.Equipment).Permission != WorkPermission.Enabled || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason)) return false;
+        if (!Allowed(j) || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason)) return false;
         if (!Path(actor, j.Offer.Target) || !CrewLogistics.Prepare(actor, j.Offer) || PreferredAvailable(actor, j.Offer) || !Reservations.Acquire(j.Lease, Keys(j))) return false;
         j.Worker = actor; j.Interaction = ia;
         j.Seconds = CrewBalance.Duration(j.Offer.Seconds, CrewSpecialities.Skilled(actor, j.Offer.Skill));
@@ -331,7 +347,17 @@ public static class CrewWork
     }
     internal static bool Complete(Job j, bool skipping = false, int? workHour = null)
     {
-        if (j.Worker == null || Order(j.Equipment).Permission != WorkPermission.Enabled || !Eligible(j.Worker, j.Offer, out var reason,hour:workHour)) return false;
+        if (j.Worker == null || !Allowed(j) || !Eligible(j.Worker, j.Offer, out var reason,hour:workHour)) return false;
+        if (j.Upkeep != null)
+        {
+            try
+            {
+                bool tended = Upkeep.Complete(j.Worker, j.Equipment, j.Upkeep.Value, out _);
+                if (tended) CrewSpecialities.Credit(j.Worker, j.Offer.Skill, j.Seconds, false);
+                return tended;
+            }
+            catch (Exception e) { FrameworkLifecycle.Log(Message("fault", e.Message)); return false; }
+        }
         // The provider checks the equipment's actual contents when it completes; a snapshot of the
         // contents at claim time would refuse work merely because a stack was tidied meanwhile.
         executing = new CrewWorkContext(j.Worker, j.Equipment, Order(j.Equipment), skipping);
@@ -359,9 +385,9 @@ public static class CrewWork
         var all = CrewSim.objInstance.workManager.GetAllTasks();
         foreach (var j in Jobs.Values.ToArray())
         {
-            if (j.Equipment == null || j.Equipment.bDestroyed || Order(j.Equipment).Permission != WorkPermission.Enabled ||
+            if (j.Equipment == null || j.Equipment.bDestroyed || !Allowed(j) ||
                 !all.Contains(j.Task) || j.Interaction != null && (j.Interaction.bCancel || j.Worker == null || !Eligible(j.Worker, j.Offer, out _))) Release(j, true);
-            else if(j.Worker==null)
+            else if(j.Worker==null && j.Upkeep==null)
             {
                 var eligible=crew.Where(c=>Eligible(c,j.Offer,out _)).ToArray();
                 Notice(j.Equipment,eligible.Length==0?Message("crew_unavailable"):
@@ -371,12 +397,13 @@ public static class CrewWork
         // Generated jobs are transient. A native saved task without its live reservation is rebuilt from intent.
         foreach (var task in all.Where(t => t.strInteraction == WorkId && !Jobs.ContainsKey(t)).ToArray()) CrewSim.objInstance.workManager.RemoveTask(task);
     }
-    private static void Cancel(CondOwner co) { foreach (var j in Jobs.Values.Where(j => j.Equipment == co).ToArray()) Release(j, true); }
+    private static void Cancel(CondOwner co) { foreach (var j in Jobs.Values.Where(j => j.Equipment == co && j.Upkeep == null).ToArray()) Release(j, true); }
     /// <summary>Before a time-skip: release transient jobs and suspend only the orders on the skipping
     /// crew's ships that the managed skip cannot advance. Orders elsewhere are not touched.</summary>
     internal static void StartSkip(IEnumerable<Ship> ships)
     {
         foreach (var j in Jobs.Values.ToArray()) Release(j, true);
+        Upkeep.SkipStarting();
         SkipStarting?.Invoke();
         foreach (var p in providers.Values.OfType<ICrewSkipProvider>()) p.BeforeSkip();
         foreach(var ship in ships.Where(s=>s!=null).Distinct().ToArray()) foreach(var co in Equipment(ship).ToArray())
@@ -389,6 +416,7 @@ public static class CrewWork
         Jobs.Clear(); Active.Clear(); orders.Clear(); notices.Clear(); Reservations.Clear(); executing = null; nextScan = 0;
         nextFullScan = 0; replaced.Clear();
         announced.Clear(); failures.Clear(); nextAttempt.Clear(); retryReason.Clear(); worldReady = false; CrewSpecialities.Reset();
+        Upkeep.Reset();
     }
 }
 
@@ -434,6 +462,6 @@ internal static class CrewTaskFinish
 [HarmonyLib.HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
 internal static class CrewModeSwitchPatch
 {
-    private static void Postfix(CondOwner coNew) { try { CrewWork.Replaced(coNew); } catch { } }
+    private static void Postfix(CondOwner coNew) { try { CrewWork.Replaced(coNew); } catch { } try { Upkeep.Replaced(coNew); } catch { } }
 }
 

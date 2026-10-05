@@ -122,8 +122,10 @@ internal sealed class FeederService : IRcsPropellantFeed
         bool working = co.HasCond(ManufacturingRules.Grinding);
         double demand = working ? FeederRules.WorkingKW : FeederRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand;
+        // Crew upkeep (0.55.0): a tuned machine asks for more power while it works and does that much more work.
+        double tune = working ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, seconds) : 1;
         var air = RoomHeat.Read(co);
-        var heat = RoomHeat.Check(air, demand * FeederRules.RoomHeatFraction, seconds);
+        var heat = RoomHeat.Check(air, (demand * FeederRules.RoomHeatFraction) * tune, seconds);
         var s = Get(co);
         if (!heat.Admitted)
         {

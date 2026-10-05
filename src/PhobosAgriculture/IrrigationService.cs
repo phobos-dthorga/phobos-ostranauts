@@ -178,7 +178,7 @@ internal static partial class Service
     {
         if (!NativeFluidRoute.EndpointReady(s.Object) || s.Protected || WaterGuard(s.Object).Protected) return;
         if(s.RecoveryInput.Length>0) { RecoveryTick(s,energy); return; }
-        double budget = LiquidDeliveryBudget.Kilograms(elapsed, energy, IrrigationDefinitions.RateKgPerSecond, IrrigationDefinitions.EnergyKWhPerKg);
+        double budget = LiquidDeliveryBudget.Kilograms(elapsed * s.Tune, energy, IrrigationDefinitions.RateKgPerSecond, IrrigationDefinitions.EnergyKWhPerKg);
         if (budget <= 0) return;
         // Outgoing water, recirculation and provider filling share ONE measured pump budget.
         if (s.State.Running)

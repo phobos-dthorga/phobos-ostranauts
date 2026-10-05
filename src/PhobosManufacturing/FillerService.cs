@@ -239,8 +239,10 @@ internal static class FillerService
         bool working = co.HasCond(ManufacturingRules.Filling);
         double demand = working ? FillerRules.WorkingKW : FillerRules.IdleKW;
         double seconds = amount * Units.SecondsPerHour / demand, heatKW = demand * FillerRules.RoomHeatFraction;
+        // Crew upkeep (0.55.0): a tuned machine asks for more power while it works and does that much more work.
+        double tune = working ? Phobos.Ostranauts.Framework.Crew.Upkeep.Draw(co, ref amount, seconds) : 1;
         var air = RoomHeat.Read(co);
-        var heat = RoomHeat.Check(air, heatKW, seconds);
+        var heat = RoomHeat.Check(air, (heatKW) * tune, seconds);
         if (!heat.Admitted)
         {
             if (sessions.TryGetValue(co, out var s) && s.Running) { s.HeatWait = true; s.Status = RoomHeat.Describe(heat); }

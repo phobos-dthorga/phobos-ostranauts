@@ -128,6 +128,7 @@ as needing attention, until the file is back.
 | Phobos Framework 0.100.0 | `lines` | Where a pipe or conduit segment counts as laid: floor, inside a wall, and the tiles that carry nothing |
 | Phobos Medical 0.1.0 | `economy` | The Ward-3 bed: price, work, repair bill, salvage, offers, regions, world finds and kiosk tier |
 | Phobos Framework 0.107.0 | `story` | TV news, adverts and story arcs, and how much of the TV they take; since 0.108.0 also small talk, loading tips and encyclopedia articles; since 0.109.0 branches and credits; since 0.110.0 data files and pictures. Agriculture ships Verdemorrow's. See [writing story content](writing-story-content.md) |
+| Phobos Framework 0.111.0 | `upkeep` | Crew upkeep: what a tuning session adds, how long an inspection is good, each machine family's share of the gain |
 
 Other sizes (S2, S4, S5, E3, E4, Y3, Y4 and the medium and large gas stores) follow
 from the listed entry: one tile wider per step (the S2 one tile narrower than the S3), more capacity and less weight per
@@ -159,6 +160,48 @@ recipes to make and use. Because an item needs
 a picture in a mod folder, this is really for add-ons:
 [publishing an add-on](publishing-an-add-on.md#6-new-items-with-your-own-pictures)
 has the fields and rules. The shipped materials can still only be retuned.
+
+## Tuning crew upkeep
+
+The `upkeep` pack (Framework 0.111.0) holds the figures behind
+[crew upkeep](crew-automation.md#upkeep-on-long-hauls) that are not ordinary
+settings. The shipped file:
+
+```json
+{
+  "tuneStep": 0.2,
+  "tuneStepSkilled": 0.3,
+  "inspectionValidHours": 24,
+  "inspectedFadeShare": 0.5,
+  "families": {}
+}
+```
+
+- **`tuneStep`, `tuneStepSkilled`:** how much of a full tune one session adds,
+  for an unskilled and a skilled crew member. Five unskilled sessions make a full
+  tune as shipped.
+- **`inspectionValidHours`:** game hours an inspection stays good for.
+- **`inspectedFadeShare`:** how fast an inspected machine's tune fades, as a share
+  of the ordinary rate. 0.5 means it lasts twice as long.
+- **`families`:** a machine family's own share of the gain, by its key. The F3
+  command `phobosframework upkeep` lists the families aboard.
+
+To change one, put a file in `BepInEx/config/PhobosFramework/upkeep/`:
+
+```json
+{ "families": { "manufacturing.charge": { "gainShare": 0.5 } } }
+```
+
+- **The session lengths, the largest gain and the fade time** are not here: they
+  are settings in Framework's config file, section `Upkeep`
+  (`InspectionMinutes`, `TuningMinutes`, `MaxTuningGain`, `TuneFadeHours`).
+- **What is refused:** a step of nothing, a skilled step smaller than the
+  unskilled one, a share outside 0 to 1, and unknown fields. The file is skipped
+  with a message and the shipped figures stand.
+- **Saved games:** a machine saves how tuned it is as a share of a full tune, so
+  changed figures apply at once and nothing needs converting.
+
+All of these are authored balance, not measurements.
 
 ## Where a pipe counts as laid
 
