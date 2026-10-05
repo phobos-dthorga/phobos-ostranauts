@@ -79,6 +79,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Phobos Manufacturing: refinery chemistry, hazards and sources](manufacturing-refinery-and-chemistry.md)
 - [Phobos Manufacturing: Fennmark artwork handoff](manufacturing-art-handoff.md)
 - [Oxsmith artwork handoff: EC-4 and CR-4](oxsmith-art-handoff.md)
+- [Economy audit, 5 October 2026](economy-audit-2026-10-05.md) and [its generated tables](economy-audit-tables.md)
 - [Uses for regolith: programme record](regolith-programme.md)
 - [Oxygen from rock: the Oxsmith EC-4 and CR-4 design record](regolith-oxygen-design.md)
 - [Phobos Manufacturing: first machining research](manufacturing-research.md)

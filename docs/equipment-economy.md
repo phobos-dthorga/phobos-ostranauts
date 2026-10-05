@@ -984,3 +984,21 @@ mechanical and 18 electronic parts, three motors, two mainboards, five heat sink
 faction-kiosk standing. The Z2 is billed exactly like the other gas stores; the Z3 and Z4
 follow the store size ladder (32,530 and 45,950 cr), purchase-only, at Friendly. Stations do
 not sell carbon monoxide; the kiosk buys it back at 45% of the game's own 1.1 cr/kg.
+
+## Rows added by the 5 October 2026 economy audit
+
+These families shipped without a price row here. Work is in native progress units
+(5 a 3.6-second tick for install, uninstall and repair; 1 for dismantling).
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore | Faction kiosk |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| Fennmark O2 oxygen store | 160 kg | $21,000 | $5,250 | 1200 / 1000 | 3000 | 900 | 60 min | Friendly |
+| Fennmark N2 nitrogen store | 160 kg | $20,000 | $5,000 | 1200 / 1000 | 3000 | 900 | 60 min | Friendly |
+| Alembrine Cask-2 ethanol tank | 240 kg | $15,000 | $3,750 | 1200 / 1000 | 3000 | 900 | 75 min | Friendly |
+| Alembrine Copperhead-3 fermenter-still | 320 kg | $28,000 | $7,000 | 1800 / 1400 | 4800 | 1400 | 120 min | Friendly |
+| Alembrine Corker-2 bottling unit | 90 kg | $18,000 | $4,500 | 1000 / 800 | 2400 | 600 | 45 min | Friendly |
+| Slingwright RM-1 reaction mass feeder | 40 kg | $16,000 | $4,000 | 700 / 600 | 2000 | 400 | 30 min | Friendly |
+
+The O3/O4, N3/N4 and Cask-3/Cask-4 follow the store size ladder (floor area to the power
+0.6), purchase-only. See [the economy audit](development/economy-audit-2026-10-05.md) for
+the open pricing questions found on 5 October 2026.

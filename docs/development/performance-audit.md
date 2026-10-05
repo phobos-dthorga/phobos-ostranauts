@@ -1093,3 +1093,7 @@ L53 — Framework 0.100.0: the support test for a line segment now follows the l
 ## 5 October: objects destroyed while a ship unloads (L54)
 
 L54 — Framework 0.101.0: one Harmony prefix and finalizer on the game's Ship.Destroy, each an integer step, once per ship unloaded. The destroy hooks' guard reads one more integer. Nothing is added to a frame. No capture accompanies this change.
+
+## 5 October: the economy audit tool (L55)
+
+L55 — scripts/audit-economy.py is an offline, read-only report over the item evidence, the data packs and the game's definitions. It never runs in the game. No capture accompanies this change.

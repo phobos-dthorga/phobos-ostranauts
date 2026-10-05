@@ -80452,8 +80452,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "80326ef951add6e03949e0b75213194b253699a8fc342393ea1a7268aaf24301",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.52.0 (Oxsmith EC-4 electrolysis cell, ferrosilicon and the LC-3 hydrogen recipe): player actions first, plain words, authored figures and the caustic simplification stated."
+      "sha256": "15631eb21a09efed8edea595de0e69128633467c84bf991255516ab987865f6c",
+      "review": "Reviewed 5 October 2026 for the economy audit: documentation only."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -81265,8 +81265,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "eec01dc7fd9b1b646397691396fd92eddb55c47112d14adb8f9a7f49e91e29fe",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "1009f50cf809acd9655a0a498763a6b19c2f8e1862c8ebcdcfa49f800c9ae237",
+      "review": "Reviewed 5 October 2026 for the economy audit: documentation only."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -81589,6 +81589,20 @@
       "decision": "new",
       "sha256": "5f45ca396ffa178fcaa3bee4307bc55ffbf61f41f002b9a577d110773fabbe7a",
       "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+    },
+    {
+      "path": "docs/development/economy-audit-2026-10-05.md",
+      "scope": "contributor audit record; decisions for the owner",
+      "decision": "new",
+      "sha256": "fd8a867b201ec63b1e42021431f8c8e099528dc51819a0277905aa9998639413",
+      "review": "Reviewed 5 October 2026: findings first, figures stated with their assumptions, plain words, decisions left to the owner."
+    },
+    {
+      "path": "docs/development/economy-audit-tables.md",
+      "scope": "generated audit tables (scripts/audit-economy.py)",
+      "decision": "new",
+      "sha256": "18a4c75c53ec14ffc1e4ff7affd84a0f9a983a5bfca144f4fcdc08b9becbd962",
+      "review": "Reviewed 5 October 2026: findings first, figures stated with their assumptions, plain words, decisions left to the owner."
     }
   ],
   "surfaces": [
