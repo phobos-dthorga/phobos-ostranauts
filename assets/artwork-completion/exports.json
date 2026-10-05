@@ -2319,7 +2319,7 @@
   },
   {
     "key": "l2-canister-filler",
-    "sourceSHA256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
+    "sourceSHA256": "9878ee7a765f9c6a4289a3b4f4452b8807e3e4f70913d806dbe1d6491eb2a6cf",
     "nativeSize": [
       32,
       32
@@ -2335,7 +2335,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCanisterFiller.png": "43da99c2fa053b567f03c74d2f4f9623b66193c8cb6594682dce0c35dcf105c7",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCanisterFiller.png": "93bab7dc0043035f004cbac776fa510f752642b3d6ef2d169b8db14119743f56",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCanisterFillerNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -2449,7 +2449,7 @@
   },
   {
     "key": "a2-cabin-air-regulator",
-    "sourceSHA256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+    "sourceSHA256": "8e7625e756fcc2cd67b3bc0831521de539153e18b99c628d5e3fdea9379be06d",
     "nativeSize": [
       32,
       32
@@ -2465,7 +2465,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulator.png": "30fc7b2f8106045d440ee4f54aeb50ccc5501eea4462697e0acc6416b6bee28f",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulator.png": "02a6ab82fb9e989ca6c3b661efc1884a58a06283ded34674ba5f83d6982459f7",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulatorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
@@ -3141,7 +3141,7 @@
   },
   {
     "key": "corker2-bottling-unit",
-    "sourceSHA256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+    "sourceSHA256": "6b77f07eff4abf8e066a05249362aa25cbf0fe312b9aff77742fd9550db58778",
     "nativeSize": [
       32,
       32
@@ -3157,7 +3157,7 @@
       128
     ],
     "exports": {
-      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnit.png": "4a5a50e94e9106416819fcd50a8fb35fb8f09d3215fe658d2679b28fba898d9f",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnit.png": "b69c471f8e43ecf957053f7926bf3b9e9e156013afd74bc673c5b7a5abecbc90",
       "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnitNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
     },
     "normal": "Neutral tangent normal with matching alpha; no authored relief",

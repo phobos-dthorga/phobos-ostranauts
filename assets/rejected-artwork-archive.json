@@ -467,6 +467,486 @@
       "archiveCommit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
       "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/4b2c15852cdd78e02b61abe328e1b9dd8d173825/assets/artwork-completion/source/copperhead3-fermenter-still.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/alembrine-spirit-restyle-pixellab.png",
+      "sha256": "e63b4a2d6664cee1b34e19e3e3e56b9882da55a617c87e7026c38f8bb206bb25",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/alembrine-spirit-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/ammonium-salt-crust-restyle-pixellab.png",
+      "sha256": "b8bb4d81de30d9560de99e224108d914a2308aa773d877e51ad3c7c674aebae4",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/ammonium-salt-crust-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/ammonium-sulfate-restyle-pixellab.png",
+      "sha256": "1b456593d50c12a928c7b0ac0bb73032312fd3afa64229e5920a0bc32a4b1757",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/ammonium-sulfate-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/baked-regolith-restyle-pixellab.png",
+      "sha256": "bb225ed1b97f403086fd14720ca4334b457e496496cd24e0c41734a657e02ffa",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/baked-regolith-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/carbon-black-restyle-pixellab.png",
+      "sha256": "495441676ff90147aa295b3fa3aada4ebba9d2a1eedec49a536e780460732188",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/carbon-black-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/carbon-stock-restyle-pixellab.png",
+      "sha256": "fc6503134e3546af81d1f93d5e1d5372028403302e5a3632d629b509f68110fd",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/carbon-stock-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/clay-hydrates-restyle-pixellab.png",
+      "sha256": "63c178ab6f3fa752d3d2f0b7b45e2ae415185010ac49febc699eb19197af7624",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/clay-hydrates-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/epsom-salt-restyle-pixellab.png",
+      "sha256": "b5957689e871394abef0db7ade486db45259868a3e17d9cf50b4033c6a9c12f9",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/epsom-salt-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/evaporite-crust-restyle-pixellab.png",
+      "sha256": "2b73f50fc5a9ff7d1684644c4f601cfc06bc1280d1829649a1e320ca72b0fa77",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/evaporite-crust-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/exhausted-sorbent-restyle-pixellab.png",
+      "sha256": "91e9fd4b48d2f01d1fea1d0e69969dbd0ba4fbf913c6ae38d8c04b211f27a053",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/exhausted-sorbent-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/ferrosilicon-restyle-pixellab.png",
+      "sha256": "13e22982fc823a5eadddfbd0fc1350b28cca867d9b3e1e53bb9dfc69c28bdf6b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/ferrosilicon-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab.png",
+      "sha256": "6cdb5a56e49d613969820c7fcde7b7b585f82b77d8150815fbf9fc638d3b5a2b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/nickel-steel-ingot-restyle-pixellab.png",
+      "sha256": "321bb53f62cf8ef9bc203f7342d040d1dd1056bcd04eaf5d5d6819e460e2a1ae",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/nickel-steel-ingot-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/p1-manifold-restyle-chatgpt.png",
+      "sha256": "34fb23909599016ade358ddb58d1bc11098be8fec9dd3e49ec5dd55ae5daeb56",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/p1-manifold-restyle-chatgpt.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/phosphate-concentrate-restyle-pixellab.png",
+      "sha256": "27eeb17ac7176c7298034b5d4057a528b3cb13e91f602c106309b0b426a84dfe",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/phosphate-concentrate-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/phosphoric-acid-flask-restyle-pixellab.png",
+      "sha256": "293189836a9a4bc1cb9c469041819793b77256007245f1b7855ba03c582805a7",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/phosphoric-acid-flask-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/plant-ash-restyle-pixellab.png",
+      "sha256": "4a30a73760ffd2ef3a653720f1fa92cbcb7d0570206107f532a9f61f7f5afb81",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/plant-ash-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/potassium-sulfate-restyle-pixellab.png",
+      "sha256": "ce3e2f76c69e1581c5ebf43cbb7c7debdab4fd76e05f80dee41bbfd6b58f0c7f",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/potassium-sulfate-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/refinery-slag-restyle-pixellab.png",
+      "sha256": "17e736ba4d889a8213e3ee91cfd41bf20046054a7b9f99a94366d16158d928f8",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/refinery-slag-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/regolith-floor-restyle-pixellab.png",
+      "sha256": "1685425b748d270d7c0e23507ad1cf3927e930d945f329a936a739f1f1ab585b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/regolith-floor-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/regolith-paver-restyle-pixellab.png",
+      "sha256": "163e6ea77f7895a4376d7a6b533b420372a70394b39b391d91f2db5c1bdab0a1",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/regolith-paver-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/rm1-reaction-mass-feeder-restyle-chatgpt.png",
+      "sha256": "494dc9f0efaa47aec5af196956115cb1894c569f48dc97b40a404c67f82ca826",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/rm1-reaction-mass-feeder-restyle-chatgpt.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/spent-ferrosilicon-restyle-pixellab.png",
+      "sha256": "b60cce2cf3cd3099cdfc11ca9ec77457ac9cd64c75ed17443ee6c441bb70a32b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/spent-ferrosilicon-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/struvite-restyle-pixellab.png",
+      "sha256": "aeca906244a05d40e7ad67f20c52ead03b3a9ed49629c695d97cc462812d5dab",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/struvite-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/sulfide-nodule-restyle-pixellab.png",
+      "sha256": "2d1131b1fb24a57ed09b18fb75a2f2aedcf05339ab4a544ca92ef6c82e0e4a5a",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/sulfide-nodule-restyle-pixellab.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab-first-pass.png",
+      "sha256": "322f09c178f45ce2895c6478a880046f4b32592ae5568ca3d816e0b07c52b24c",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab-first-pass.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/nickel-iron-ingot-before-restyle.png",
+      "sha256": "68129dd53a3969b1995bdf4f0b7f56073834ce779167b76708f05ac7f48c6c11",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/nickel-iron-ingot-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/nickel-steel-ingot-before-restyle.png",
+      "sha256": "d80c48363bb49f21b125208b2941a200afd69181e26e2d76336537739f362629",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/nickel-steel-ingot-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/carbon-black-before-restyle.png",
+      "sha256": "a059eb6142ca6ece114bcb381433c5659009133b9c1853987daf3c8b7fe9bd52",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/carbon-black-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/exhausted-sorbent-before-restyle.png",
+      "sha256": "a71d3e114938b18212c413e3e45bd8499489b04e5f96cabaa31aa4505d868dd3",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/exhausted-sorbent-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/spent-mash-before-restyle.png",
+      "sha256": "65d9b55fcfb83b0f0d443b87105b175966a5f85bfd26689b6283835fc1a81a3a",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/spent-mash-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/alembrine-spirit-before-restyle.png",
+      "sha256": "cef09a8e0ecb2f40a905fa0e4e46f3f59f6b22ff6e452680844f06fc252710e2",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/alembrine-spirit-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/plant-ash-before-restyle.png",
+      "sha256": "91340b9f6bdc168ae735ccdb72ba83df3bea0561c8689b614521e5e7a6aa6c6c",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/plant-ash-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/carbon-stock-before-restyle.png",
+      "sha256": "f6a9c28445c8694a80b156b3705c2f6b87b65674b29b22a8180b468b5559a8e9",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/carbon-stock-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/refinery-slag-before-restyle.png",
+      "sha256": "51c3b425d0c6ff339be97455473b6ae860718ff7bd236de23c0795ea68c1c4d5",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/refinery-slag-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/anhydrous-residue-before-restyle.png",
+      "sha256": "64246e3eda0c0a7ec80776b4350249ec5b72f4ad96d75d6be425619be4397c60",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/anhydrous-residue-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/p1-manifold-before-restyle.png",
+      "sha256": "c0258a2bc897e71e2d956a76f3017c8d9a37494777baf057e37ed5ab9bfe0c5a",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/p1-manifold-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/rm1-reaction-mass-feeder-before-restyle.png",
+      "sha256": "e3d3cae69bac766162d568922da98b2262e2d45a34540d6999f1e617e71264fa",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/rm1-reaction-mass-feeder-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/ammonium-salt-crust-before-restyle.png",
+      "sha256": "8c0be43baae1dc53d74756e52aa7a8579f01ad1c82f419cb877e0c3b62406e36",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/ammonium-salt-crust-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/spent-salt-cake-before-restyle.png",
+      "sha256": "81affebaa941923b80e15aa47cec9ac89aa23dc2f9cc748f73996de3510254d0",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/spent-salt-cake-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/evaporite-crust-before-restyle.png",
+      "sha256": "931669118031c81fdf331afb7829a69974b0de38e3a06699481d9fca0497c545",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/evaporite-crust-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/potassium-sulfate-before-restyle.png",
+      "sha256": "2c5cbbec9bde28aef5a69f493fdd5bf56fb5fe5e12bb9f034ed8dd1e17832ddb",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/potassium-sulfate-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/phosphate-concentrate-before-restyle.png",
+      "sha256": "f0aefd17ed12b33edaca4027f0bdb9be7eaa1a7e5e8b469033ebf3ca9bdd83b5",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/phosphate-concentrate-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/leached-residue-before-restyle.png",
+      "sha256": "ee3764638ae301abba5ec044e01a9ca9c18728093cf3a015fd6ff4c55baa2a18",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/leached-residue-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/struvite-before-restyle.png",
+      "sha256": "b7684bd4ca6961a3dc873a94f2f1a87cb7b2209a2bd5c64dcdfbf38fdadcb56a",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/struvite-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/brine-salt-cake-before-restyle.png",
+      "sha256": "5fb10b1d8ab1ec16a7cf372efafa2a183e88f18f955361663e7ef35692a05ef6",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/brine-salt-cake-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/caustic-remainder-before-restyle.png",
+      "sha256": "7c2e69bd89a4e1be3865f4b905a0735d7d8a8ff3fd3c7052609725fe3569f7a6",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/caustic-remainder-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/calcined-residue-before-restyle.png",
+      "sha256": "e54bbeb7d2c27af024a620d54e57648f1ed9ffb1f8ce10434ffdd8350d61ed5c",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/calcined-residue-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/sulfide-nodule-before-restyle.png",
+      "sha256": "9a5084c7a9381db4acf01b90444955d7133131ed0ad9fbd4578349ef557088a5",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/sulfide-nodule-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/phosphoric-acid-flask-before-restyle.png",
+      "sha256": "218aece4dbfa6efc40cf66fceb5a99ea25ade3cae57beaf87f402828f0da6ce5",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/phosphoric-acid-flask-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/roasted-calcine-before-restyle.png",
+      "sha256": "d749ced052423dc0e5641692796fc0ec43ba52332c3152639db48738d3ec3806",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/roasted-calcine-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/epsom-salt-before-restyle.png",
+      "sha256": "999957a892c42f9957e6b09f89ff3449f1ac7bb5d52dfad1aedf258056f3652b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/epsom-salt-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/ammonium-sulfate-before-restyle.png",
+      "sha256": "facdd6d78834afe0c9245460609760bcfdbbd874d7fd24eb0a893ba31f6a7ccd",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/ammonium-sulfate-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/olivine-leach-cake-before-restyle.png",
+      "sha256": "36a3fe66364bc133e8c9662e349347d7170a551245fea7a832729af8e672f0d5",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/olivine-leach-cake-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/washed-tailings-before-restyle.png",
+      "sha256": "ac2ef234665ad6ce8ff8250229c8ac9f9967b6ee840eb91640e546e85c22093f",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/washed-tailings-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/ferrosilicon-before-restyle.png",
+      "sha256": "538a7ad16fb667951d1288a1f5110380ff59a9f406a369a614b2cddd239c0b3b",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/ferrosilicon-before-restyle.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/references/spent-ferrosilicon-before-restyle.png",
+      "sha256": "c9734c5557f655e201fb0f5dc80c60ac7d1b3371654dd9808159389d1d186067",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/phobos-manufacturing/references/spent-ferrosilicon-before-restyle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/l2-canister-filler.png",
+      "sha256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/artwork-completion/source/l2-canister-filler.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/a2-cabin-air-regulator.png",
+      "sha256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/artwork-completion/source/a2-cabin-air-regulator.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/corker2-bottling-unit.png",
+      "sha256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+      "reason": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained",
+      "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/artwork-completion/source/corker2-bottling-unit.png"
     }
   ],
   "additions": [
@@ -531,6 +1011,11 @@
       "commit": "4b2c15852cdd78e02b61abe328e1b9dd8d173825",
       "date": "2026-10-05",
       "note": "Owner-requested chemical reactor restyle using the approved Oxsmith finish; seven superseded selected working masters. Original native references and all earlier provider records remain on main."
+    },
+    {
+      "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+      "date": "2026-10-05",
+      "note": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained"
     }
   ]
 }

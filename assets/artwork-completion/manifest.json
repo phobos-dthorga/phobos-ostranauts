@@ -2350,12 +2350,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosCanisterFiller",
       "status": "selected",
-      "source": "source/l2-canister-filler.png",
-      "sourceSHA256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/l2-canister-filler-restyled.png",
+      "sourceSHA256": "9878ee7a765f9c6a4289a3b4f4452b8807e3e4f70913d806dbe1d6491eb2a6cf",
+      "requestRecord": "../phobos-manufacturing/manufacturing-restyle-requests.json",
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "30d9270c-80b1-4e4e-9410-3a1a95374feb"
+      "productionSource": "../phobos-manufacturing/source/l2-canister-filler-restyle-chatgpt.png",
+      "productionSHA256": "f798ad3bfb94e99358639d16b89c52f11e76a4099052c5f10f1cae13841df2f8",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "provider": "OpenAI built-in Imagegen"
     },
     {
       "key": "s4-silo",
@@ -2477,12 +2483,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosCabinAirRegulator",
       "status": "selected",
-      "source": "source/a2-cabin-air-regulator.png",
-      "sourceSHA256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention (green oxygen, blue nitrogen) kept. Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/a2-cabin-air-regulator-restyled.png",
+      "sourceSHA256": "8e7625e756fcc2cd67b3bc0831521de539153e18b99c628d5e3fdea9379be06d",
+      "requestRecord": "../phobos-manufacturing/manufacturing-restyle-requests.json",
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "b2b3b07c-a146-40bf-b18a-d16372d00450"
+      "productionSource": "../phobos-manufacturing/source/a2-cabin-air-regulator-restyle-chatgpt.png",
+      "productionSHA256": "670595bf2fb2bb76bff0e491d33fd7918a97dd70ea41aa7bcc55c90fbe5a04a3",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "provider": "OpenAI built-in Imagegen"
     },
     {
       "key": "y2-material-bin",
@@ -3158,12 +3170,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosBottlingUnit",
       "status": "selected",
-      "source": "source/corker2-bottling-unit.png",
-      "sourceSHA256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Overhead and native-scale export inspected; Alembrine colour language beside the fermenter-still. A small orange label on the pump that could read as a lamp was recoloured to the housing slate (repair recorded in manufacturing-requests.json). Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/corker2-bottling-unit-restyled.png",
+      "sourceSHA256": "6b77f07eff4abf8e066a05249362aa25cbf0fe312b9aff77742fd9550db58778",
+      "requestRecord": "../phobos-manufacturing/manufacturing-restyle-requests.json",
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "a7455eb2-5b1b-4f24-817b-96ab5f4c2564"
+      "productionSource": "../phobos-manufacturing/source/corker2-bottling-unit-restyle-chatgpt.png",
+      "productionSHA256": "6975dd04ea1db7cbf52bf953ee2ee6fd027106a995036dc929ed6a5e780c0610",
+      "productionSize": [
+        1254,
+        1254
+      ],
+      "provider": "OpenAI built-in Imagegen"
     },
     {
       "key": "at2-acid-tank",
@@ -4441,6 +4459,7 @@
   "additionalProviderRecords": {
     "OpenAI built-in Imagegen": "mining-laser-v2-requests.json",
     "OpenAI chemical-reactor restyle": "../phobos-manufacturing/chemical-reactor-requests.json",
-    "OpenAI Oxsmith machines": "../phobos-manufacturing/oxsmith-requests.json"
+    "OpenAI Oxsmith machines": "../phobos-manufacturing/oxsmith-requests.json",
+    "OpenAI support-machinery restyle": "../phobos-manufacturing/manufacturing-restyle-requests.json"
   }
 }

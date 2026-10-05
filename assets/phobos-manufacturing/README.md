@@ -63,6 +63,39 @@ under `references/` because they were inputs to the selected revisions and to th
 initial Oxsmith review. Oxsmith's own sources, masters and review are unchanged;
 its initial comparison pictures now explicitly point to those historical snapshots.
 
+## Support machinery follow-up (5 October 2026)
+
+The owner expanded the Oxsmith finish to the remaining equipment on 5 October
+2026, then clarified that the really small sprites should stay with PixelLab.
+The selected follow-up is the **L2 filling station, A2 air regulator and Corker-2
+bottling unit**. Their 1254 x 1254 untouched originals, 128 x 128 working masters
+and 32 x 32 native exports retain the existing two-by-two footprints, game image
+names and maker palettes. Small materials, pipe tiles, one-tile P1/RM-1, the
+original floor and all bulk storage remain unchanged.
+
+[Exact requests and provenance](manufacturing-restyle-requests.json) include the
+scope clarification and every earlier trial. [register-support-machinery.py](register-support-machinery.py)
+uses the common registration module and supports `--check`; the Manufacturing
+build verifies it. The [native/four-times comparison](previews/manufacturing-support-restyle-review.png)
+shows the three selected replacements beside their earlier art. Only three
+colour PNGs changed; all 145 other Manufacturing PNGs were verified byte-identical.
+Function, prices, ports, saved state and image dimensions are unchanged. In-game
+lighting and rotation still await owner review.
+
+Five built-in Imagegen calls were made before the clarification; three outputs
+are selected and two one-tile designs are archived. Twenty-four included PixelLab
+generations also completed before the scope narrowed (allowance 1669 to 1645,
+credit balance unchanged at $0); none is selected. Ten further submissions hit
+the provider's eight-job queue limit, created no jobs and were not retried.
+No additional small-sprite generation was submitted after the clarification.
+Unselected originals, redundant snapshots and the three superseded selected
+masters were verified in archive commit
+`bccf43af5b5e215cfeca10e1d24d869bfc5e1c46` on `codex/rejected-artwork` before
+removal; the archive append was pushed on 5 October 2026. Required inputs for the selected
+three machines remain on main. [retain-pixellab-image.py](../../scripts/retain-pixellab-image.py)
+can recover a completed job's original PNG, refuses to overwrite a different
+retained file and limits destinations to the repository's asset tree.
+
 ## Rules for new Manufacturing artwork
 
 - Overhead-first PixelLab requests under `docs/development/asset-generation-policy.md`:
@@ -116,8 +149,8 @@ the shared completion exporter (`assets/artwork-completion/manifest.json`, key `
 and since 0.53.0 the CR-4 master is too (key `oxsmith-cr4`).
 
 The EC-4 pilot was inspected before the CR-4 generation, and both passed the
-native-size family review. These are prepared art, with no machine code or runtime
-bindings; owner in-game review is pending. No PixelLab call or credit purchase was
+native-size family review. Both now have runtime bindings in the releases named
+above; owner in-game review is pending. No PixelLab call or credit purchase was
 used. Built-in Imagegen monetary cost is not disclosed by the tool. Exact prompts
 and provenance are separate from code licensing and process research;
 [OpenAI Terms of Use](https://openai.com/policies/terms-of-use/) is the provider

@@ -16,6 +16,11 @@ Silos/tanks and support equipment are unchanged. See the
 [exact prompts](../../assets/phobos-manufacturing/chemical-reactor-requests.json)
 and [native-size review](../../assets/phobos-manufacturing/previews/chemical-reactor-restyle-review.png).
 The older generation details below retain their original dates and providers.
+The subsequent [support-machine update](../../assets/phobos-manufacturing/manufacturing-restyle-requests.json)
+selects new L2, A2 and Corker-2 artwork in the same finish. The owner excluded the
+really small sprites; materials, pipes, one-tile equipment, floor and all silos
+retain their previous artwork. The three support-machine exports keep their
+32 x 32 dimensions and two-by-two footprints.
 
 | Area | Dedicated additions |
 | --- | --- |

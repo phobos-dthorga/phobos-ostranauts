@@ -12,6 +12,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Changed
 
+- Redrew the L2 Canister Filling Station, A2 Cabin Air Regulator and Alembrine Corker-2 Bottling Unit with the same mechanical finish as the new reactor artwork. Each keeps its maker's colours, two-by-two footprint and existing image names on every form. The owner excluded the really small sprites, so materials, pipe tiles, one-tile equipment, floor and all silos remain unchanged. Production, prices, ports and saved state are unchanged.
+
 - Redrew the V4 refinery, X2 processor, K2 Sabatier reactor, AX-2 ammonia cracker, LC-3 leach unit, SA-3 acid plant and Copperhead-3 fermenter-still with the more detailed Oxsmith artwork finish. Each keeps its maker's colours, footprint and existing image names. All forms show the replacement artwork, with the game's damage tint where applicable. Stores, silos and support equipment are unchanged; production, prices, ports and saved state are unchanged.
 - Reviewed every English entry. Rewrote machinery descriptions and batch messages around supplies, work and products. Decant is now Empty into stores; Recover acid from the bund is Recover trapped acid. Recipes and saved batches stay the same.
 

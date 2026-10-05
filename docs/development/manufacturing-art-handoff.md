@@ -2,12 +2,20 @@
 
 ## Current chemical-machinery revision
 
+The same day's follow-up selected the L2 filling station, A2 air regulator and
+Corker-2 bottling unit in the new finish. The owner then excluded the really
+small sprites: materials, pipe tiles and one-tile machines retain their existing
+PixelLab or procedural artwork, as do the silos and tanks. See the
+[support-machine request record](../../assets/phobos-manufacturing/manufacturing-restyle-requests.json)
+and [native-size comparison](../../assets/phobos-manufacturing/previews/manufacturing-support-restyle-review.png).
+All three remain two-by-two fixtures with the same game image names and functions.
+
 On 5 October 2026, after approving the Oxsmith artwork, the owner requested that
 same finish for the other chemical reactors. V4, X2, K2, AX-2, LC-3, SA-3 and
 Copperhead-3 now have selected high-resolution original replacements, registered
 to their existing native sizes and game image names. Each retains its maker's
-colours and functional shape. Silos, stores and other support equipment are
-unchanged. [Requests and provenance](../../assets/phobos-manufacturing/chemical-reactor-requests.json),
+colours and functional shape. Silos, stores and other support equipment were
+unchanged during that seven-machine pass. [Requests and provenance](../../assets/phobos-manufacturing/chemical-reactor-requests.json),
 [native-size review](../../assets/phobos-manufacturing/previews/chemical-reactor-restyle-review.png)
 and [current production notes](../../assets/phobos-manufacturing/README.md) document
 the update. Game lighting and rotation remain for the owner to check.

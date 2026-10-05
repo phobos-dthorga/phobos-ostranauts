@@ -1,5 +1,18 @@
 # Rejected artwork archive
 
+## Support machinery follow-up, 5 October 2026
+
+Commit `bccf43af5b5e215cfeca10e1d24d869bfc5e1c46` preserves the three
+superseded L2/A2/Corker-2 working masters, 26 unselected generated originals and
+31 redundant reference copies. All 60 files were checked byte for byte before
+removal from main. It was pushed on 5 October 2026; existing archive commits
+remain intact. The owner narrowed the task to leave really small sprites with
+PixelLab, so the small-item, one-tile and floor trials were never exported.
+Requests, costs, provider jobs, the clarification and exact archive identities
+remain in [the support-machinery record](phobos-manufacturing/manufacturing-restyle-requests.json).
+The three selected sources, working masters, required references and runtime
+exports remain on main. Existing silos and small runtime sprites are unchanged.
+
 ## Chemical machinery revision, 5 October 2026
 
 Seven previously selected working masters (V4, X2, K2, AX-2, LC-3, SA-3 and

@@ -964,6 +964,15 @@
 
 ## Artwork
 
+- Owner follow-up (2026-10-05): extend the approved Oxsmith artwork finish to
+  remaining Manufacturing equipment, except silos; then clarified that really
+  small sprites should stay with PixelLab. Selected L2, A2 and Corker-2 replacements
+  retain two-by-two footprints and 32-pixel native exports from 128-pixel masters
+  and untouched 1254-pixel originals. All small materials, pipe tiles, one-tile
+  P1/RM-1, floor and bulk storage remain unchanged. Use
+  `assets/phobos-manufacturing/register-support-machinery.py` and its request record;
+  unselected earlier trials and prior masters are archived with verified hashes.
+
 - Owner direction (2026-09-27), Polaris interface refresh: existing interface
   artwork is a starting point, not an unconditional preservation constraint.
   Replacements are authorized where suitability is MEDIUM-HIGH or HIGH for

@@ -1,0 +1,1283 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "ownerDirection": "Now I want you to do everything else under PhobosManufacturing likewise except for the silos themselves :)",
+  "scope": "Selected L2 filling station, A2 air regulator and Corker-2 bottling unit. Owner clarification excludes small item, pipe and one-tile sprites; all bulk gas stores and liquid tanks also remain unchanged.",
+  "status": "Selected L2, A2 and Corker-2 native exports. Small-sprite trials were archived after owner clarification; no small sprite or floor binding changed. Owner in-game review pending.",
+  "inputProvenance": "Only original Phobos artwork or text descriptions were submitted. Proprietary game assets are referenced locally for dimensions and runtime donors; no game art is uploaded or copied into this package.",
+  "registration": {
+    "script": "register-support-machinery.py",
+    "paletteColours": 96,
+    "method": "Full opaque square BOX to 128 x 128 working master, 96-colour median cut without dithering, NEAREST to unchanged 32 x 32 native size; matching neutral normal maps.",
+    "familyPreview": "previews/manufacturing-support-restyle-review.png",
+    "hashes": "manufacturing-support-export-hashes.json"
+  },
+  "usage": {
+    "builtInCalls": 5,
+    "pixellabQuotedCost": "1 included generation per call",
+    "balanceBefore": {
+      "generations_remaining": 1669,
+      "creditUSD": 0
+    },
+    "creditPurchases": 0,
+    "selectedBuiltInOutputs": 3,
+    "pixellabCallsAccepted": 24,
+    "pixellabCallsSelected": 0,
+    "pixellabRejectedSubmissions": 10,
+    "balanceAfter": {
+      "generations_remaining": 1645,
+      "creditUSD": 0
+    },
+    "allowanceDelta": 24,
+    "builtInCost": "Not disclosed by built-in tool",
+    "pixellabUnselectedReason": "Requests completed before the owner narrowed scope; no further small-item generations or retries were submitted after that clarification."
+  },
+  "requests": [
+    {
+      "key": "l2-canister-filler",
+      "provider": "OpenAI built-in Imagegen",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL Phobos spacecraft equipment sprite for the Fennmark L2 Canister Filling Station, a 2 by 2 floor unit with native 32 x 32 pixels. Reference 1 is our newly approved Fennmark V4 refinery: follow its detailed but restrained industrial pixel finish, materials and maker palette. Reference 2 is our older L2: keep its functional role and full square deck, improve the mechanical design.\n\nHigh-resolution square canvas, at least 1024 x 1024. Fully opaque machinery deck reaches all four edges, fills every corner, no margin, background or transparent gaps. Back edge at TOP, crew access at BOTTOM. Graphite enamel perimeter, muted burnt-orange corner clamps and latches, pale sand-grey metal deck, blackened steel working blocks with dull copper connections. TOP LEFT: a broad strapped rectangular compressor/booster casing with two ribs, compact and visibly different from a chemical reactor lid. TOP RIGHT: recessed closed service hatch and a round black filter cap. Across the LOWER half: four stout capped canister coupling sockets in one readable row, empty of canisters, on a dark inset rail, one small blue oxygen fitting. Small grille along the bottom edge. No green lamps, painted monitor, gauges or level strip. Broad mechanical shapes clear at 32 x 32; durable spacecraft engineering, restrained enamel chips at bolts.\n\nDeliberate coarse pixel art with stepped contours, dark seams, strong recesses and flat two/three-step shading, matching the approved reference. Not a flat diagram and not a glossy product render. No lettering, numbers, logos, decals, screens, dials, lamps, live-state instruments, people, workpieces or consumables. No pipes or cables beyond the footprint. No ground shadow, floor, tilted square, diamond projection, perspective, front or side faces. Only top surfaces.",
+      "generatedFile": "C:/Users/phobo/.codex/generated_images/01a1063f-e68d-7351-972c-ba595a38658b/exec-f868296b-0972-49b5-ae6f-deeff2b1c97c.png",
+      "source": "source/l2-canister-filler-restyle-chatgpt.png",
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
+      "model": "Phobos' Fennmark L2 Canister Filling Station",
+      "sha256": "f798ad3bfb94e99358639d16b89c52f11e76a4099052c5f10f1cae13841df2f8",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "master": "registered/l2-canister-filler-restyled.png",
+      "native": "previews/l2-canister-filler-restyled-native.png",
+      "normal": "previews/l2-canister-filler-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "l2-canister-filler",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosCanisterFillerInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosCanisterFiller",
+        "status": "selected",
+        "source": "source/l2-canister-filler.png",
+        "sourceSHA256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "30d9270c-80b1-4e4e-9410-3a1a95374feb"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/l2-canister-filler-before-restyle.png",
+        "sha256": "43da99c2fa053b567f03c74d2f4f9623b66193c8cb6594682dce0c35dcf105c7"
+      },
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/v4-refinery-restyle-chatgpt.png",
+          "sha256": "46bcaab3f1232fb232fda49668b15f1fe6830bef8d233915a18cb9aa3a074c84"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/l2-canister-filler-before-restyle.png",
+          "sha256": "43da99c2fa053b567f03c74d2f4f9623b66193c8cb6594682dce0c35dcf105c7"
+        }
+      ],
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/artwork-completion/source/l2-canister-filler.png",
+        "sha256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "a2-cabin-air-regulator",
+      "provider": "OpenAI built-in Imagegen",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL redesigned Phobos' Fennmark A2 Cabin Air Regulator spacecraft equipment sprite, 2 by 2 tiles, native 32 x 32. First reference is our new Fennmark L2: match its mechanical artwork quality and material finish. Second is this object's own old Phobos image, used only to identify its function.\nGraphite perimeter with burnt-orange corner clamps and latch, pale sand-grey deck, dark steel and small blue gas fitting. This equipment regulates cabin air; it is not a canister filling station. TOP half: one wide rectangular dark replaceable filter cassette with coarse vertical slots and two orange retention straps. BOTTOM LEFT: two compact round flush gas valve caps, one muted blue and one grey. BOTTOM RIGHT: square closed sensor/service module lid with an orange latch, on a dark recessed base. A thick short Y-shaped manifold joins the valve caps to a narrow air outlet grille at bottom edge. Readable broad blocks, no four-socket loading rail, no large reactor lid.\nSquare high-resolution canvas, at least 1024 x 1024, continuous opaque machine deck reaches all four edges and every corner. Back edge TOP, crew access BOTTOM. No margin, background, transparent gap or external pipes/cables. Coarse deliberate pixel art, stepped contours, strong recessed assemblies, crisp metal/enamel separation, flat two/three-step shading and restrained wear at fasteners, like the approved reference. Closed hatches and empty loading recesses. No consumables or moving workpieces, no text, logos, numbers, decals, screens, gauges, lamps, indicators or painted live-state readings. No perspective, visible vertical faces, tilted footprint or floor shadow. TOP surfaces only. Do not repeat reactor lids when this equipment needs different functional working shapes.",
+      "generatedFile": "C:/Users/phobo/.codex/generated_images/01a1063f-e68d-7351-972c-ba595a38658b/exec-991b19d8-2604-4978-87dc-36abefa2dda3.png",
+      "source": "source/a2-cabin-air-regulator-restyle-chatgpt.png",
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
+      "model": "Phobos' Fennmark A2 Cabin Air Regulator",
+      "sha256": "670595bf2fb2bb76bff0e491d33fd7918a97dd70ea41aa7bcc55c90fbe5a04a3",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "master": "registered/a2-cabin-air-regulator-restyled.png",
+      "native": "previews/a2-cabin-air-regulator-restyled-native.png",
+      "normal": "previews/a2-cabin-air-regulator-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "a2-cabin-air-regulator",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosCabinAirRegulatorInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosCabinAirRegulator",
+        "status": "selected",
+        "source": "source/a2-cabin-air-regulator.png",
+        "sourceSHA256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention (green oxygen, blue nitrogen) kept. Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "b2b3b07c-a146-40bf-b18a-d16372d00450"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/a2-cabin-air-regulator-before-restyle.png",
+        "sha256": "30fc7b2f8106045d440ee4f54aeb50ccc5501eea4462697e0acc6416b6bee28f"
+      },
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/l2-canister-filler-restyle-chatgpt.png",
+          "sha256": "f798ad3bfb94e99358639d16b89c52f11e76a4099052c5f10f1cae13841df2f8"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/a2-cabin-air-regulator-before-restyle.png",
+          "sha256": "30fc7b2f8106045d440ee4f54aeb50ccc5501eea4462697e0acc6416b6bee28f"
+        }
+      ],
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/artwork-completion/source/a2-cabin-air-regulator.png",
+        "sha256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "corker2-bottling-unit",
+      "provider": "OpenAI built-in Imagegen",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL redesigned Phobos' Alembrine Corker-2 Bottling Unit spacecraft equipment sprite, 2 by 2 tiles, native 32 x 32. Reference 1 supplies our newly approved mechanical art quality; follow the maker palette specified below. Reference 2 is this object's own older original Phobos image, used for its function.\nAlembrine muted brass/copper, pale warm steel deck, dark charcoal mechanical modules, match our Copperhead-3 material finish. Bottles ethanol into spirit: TOP LEFT broad bronze circular cap on a flat enclosed dispensing reservoir; TOP RIGHT square dark pump/press module with brass locking clamps and two broad copper links; BOTTOM half an EMPTY recessed bottle-positioning rail with four circular socket recesses and one copper crossbar. Bottle-neck clamps and a blunt square capping-press head visible only as their tops. No actual bottles, liquid, glowing heat, brewing reactor assembly or live meters.\nSquare high-resolution canvas, at least 1024 x 1024, continuous opaque machine deck reaches all four edges and every corner. Back edge TOP, crew access BOTTOM. No margin, background, transparent gap or external pipes/cables. Coarse deliberate pixel art, stepped contours, strong recessed assemblies, crisp metal/enamel separation, flat two/three-step shading and restrained wear at fasteners, like the approved reference. Closed hatches and empty loading recesses. No consumables or moving workpieces, no text, logos, numbers, decals, screens, gauges, lamps, indicators or painted live-state readings. No perspective, visible vertical faces, tilted footprint or floor shadow. TOP surfaces only. Do not repeat reactor lids when this equipment needs different functional working shapes.",
+      "generatedFile": "C:/Users/phobo/.codex/generated_images/01a1063f-e68d-7351-972c-ba595a38658b/exec-41bb9695-e84a-4256-abaf-215acda4de55.png",
+      "source": "source/corker2-bottling-unit-restyle-chatgpt.png",
+      "model": "Phobos' Alembrine Corker-2 Bottling Unit",
+      "sha256": "6975dd04ea1db7cbf52bf953ee2ee6fd027106a995036dc929ed6a5e780c0610",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "master": "registered/corker2-bottling-unit-restyled.png",
+      "native": "previews/corker2-bottling-unit-restyled-native.png",
+      "normal": "previews/corker2-bottling-unit-restyled-nativeNormal.png",
+      "previousSelection": {
+        "key": "corker2-bottling-unit",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosBottlingUnitInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosBottlingUnit",
+        "status": "selected",
+        "source": "source/corker2-bottling-unit.png",
+        "sourceSHA256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Overhead and native-scale export inspected; Alembrine colour language beside the fermenter-still. A small orange label on the pump that could read as a lamp was recoloured to the housing slate (repair recorded in manufacturing-requests.json). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "a7455eb2-5b1b-4f24-817b-96ab5f4c2564"
+      },
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/corker2-bottling-unit-before-restyle.png",
+        "sha256": "4a5a50e94e9106416819fcd50a8fb35fb8f09d3215fe658d2679b28fba898d9f"
+      },
+      "references": [
+        {
+          "path": "assets/phobos-manufacturing/source/copperhead3-fermenter-still-restyle-chatgpt.png",
+          "sha256": "fb776d94054cb983e7824fbf4aa464c47209251b0f7e84143052d269f1a6b948"
+        },
+        {
+          "path": "assets/phobos-manufacturing/references/corker2-bottling-unit-before-restyle.png",
+          "sha256": "4a5a50e94e9106416819fcd50a8fb35fb8f09d3215fe658d2679b28fba898d9f"
+        }
+      ],
+      "review": "Inspected at native 32 x 32 and 4x: strict overhead full opaque footprint, distinct physical working assemblies and retained maker palette, no painted live-state instruments. No geometry or function changes. Owner game lighting/rotation review pending.",
+      "previousSelectionArchive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/artwork-completion/source/corker2-bottling-unit.png",
+        "sha256": "4f141086b966919f5e18dc7cb2db3f1f25f3720efb0890be067a586d619a31e0",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "key": "nickel-iron-ingot",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nOne original Phobos nickel-iron ingot sprite for a utilitarian spacecraft in 2075, matching the chunky pixel-art materials of Ostranauts and our detailed machinery. TOP surface only of a heavy wide rectangular cast-metal ingot, slightly uneven stepped rectangular outline, two broad shallow cast depressions, worn dull warm gunmetal iron with restrained brown-grey oxidation at corners, pale cold metallic edge highlights. Make the metal convincing with broad deliberate clusters, strong darker grooves and few chips, not a flat icon. Centre the complete object on a transparent 64 x 64 canvas with at least eight clear pixels around every edge. The native export is 16 x 16 so use large readable forms and two or three shade steps. Retain the useful broad rectangular silhouette of the original Phobos init image; improve its material texture and clarity. No ground or cast shadow, no scene, no front or side faces, no perspective, no text, numbers, logos, gauges or markings. No dithering or smooth gradients.",
+        "width": 64,
+        "height": 64,
+        "init_image_strength": 70,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "medium detail",
+        "shading": "medium shading",
+        "outline": "selective outline",
+        "seed": 20751005,
+        "text_guidance_scale": 9
+      },
+      "jobId": "b356b2ba-b969-4006-a90e-be64af344a59",
+      "assetId": "0244cd61-de7e-5438-855b-3174954f95ac",
+      "review": "Rejected: uncontrolled grain and tan stone-like appearance; missed the stated metal finish and margins. A single targeted correction removed grain and restored flat casting forms.",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab-first-pass.png",
+        "sha256": "322f09c178f45ce2895c6478a880046f4b32592ae5568ca3d816e0b07c52b24c",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    }
+  ],
+  "ownerClarification": "No need to worry about those really small sprites, PixelLab handles those best.",
+  "failedSubmissions": [
+    {
+      "key": "spent-mash",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Spent Mash: A damp compact pressed fibrous mash cake TOP, dull ochre-brown oval rough block with two broad dark folds and a few pale fibre strips, asymmetrical stepped outline. No bowl or container, no visible liquid, no organic flesh.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751036,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "washed-tailings",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Washed Tailings: A washed mineral filter residue cake TOP, broad irregular flat polygon of muted blue-grey and pale grey silt layers divided by two dark seams, near-square outline with a chipped corner, three broad planes, no grain.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751037,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "spent-salt-cake",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Spent Salt Cake: A dry salt residue cake TOP, broad flat off-white polygon with blue-grey crust patches and one dark crack; near-round stepped outline and two broken corners.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751038,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "brine-salt-cake",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Brine Salt Cake: A squat dry brine salt cake TOP, pale sand and muted yellow-cream flat planes with a dark diagonal crack and a slate grey chipped edge, rectangular but asymmetrical silhouette.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751039,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "caustic-remainder",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Caustic Remainder: A small dried caustic residue cake TOP, pale mint-grey chalky polygon with two broad light cream planes and a dark muted green fracture, near-round uneven silhouette. No liquid spill.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751040,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "anhydrous-residue",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Anhydrous Residue: A bulky 2 by 2 tile dry mineral residue block TOP, irregular broad tan/cream silhouette with three thick stratified plates, two dark cracks and dull ochre patches. Big dry fused chunks, no shiny crystals or dust.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 128 x 128 canvas within the middle 92 x 92 area, clear padding on all sides. Intended native export 32 x 32: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751041,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "leached-residue",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Leached Residue: A bulky 2 by 2 tile leached mineral-clay residue block TOP, irregular dark slate-brown square-ish cake with four broad grey layered planes and pale ash-grey streaks, two deep splits and a chipped corner. No exposed liquid.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 128 x 128 canvas within the middle 92 x 92 area, clear padding on all sides. Intended native export 32 x 32: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751042,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "calcined-residue",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Calcined Residue: A bulky 2 by 2 tile calcined mineral block TOP, flat irregular warm grey chalk rock with three broad pale planes, charcoal cracks and a muted brown scorched patch. Cold, no glow or flames.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 128 x 128 canvas within the middle 92 x 92 area, clear padding on all sides. Intended native export 32 x 32: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751043,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "roasted-calcine",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Roasted Calcine: A bulky 2 by 2 tile roasted mineral remainder TOP, irregular flattened rusty orange/terracotta mineral cake with dark burnt-brown fracture seams and two broad dull grey inclusions. Cold, dry, no flame or glow.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 128 x 128 canvas within the middle 92 x 92 area, clear padding on all sides. Intended native export 32 x 32: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751044,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    },
+    {
+      "key": "olivine-leach-cake",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Olivine Leach Cake: A bulky 2 by 2 tile olivine leach residue cake TOP, broad irregular sage-olive green and pale stone-grey compressed mineral block, three layered planes, two dark slate splits and a pale chipped corner. Dry cake, no pools.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 128 x 128 canvas within the middle 92 x 92 area, clear padding on all sides. Intended native export 32 x 32: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751045,
+        "text_guidance_scale": 12
+      },
+      "error": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry",
+      "jobCreated": false,
+      "retried": false
+    }
+  ],
+  "unselectedAttempts": [
+    {
+      "key": "alembrine-spirit",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Alembrine Spirit: TOP surface only of a small sealed Alembrine spirit bottle in a squat steel-blue protective sleeve: round blue-grey casing rim with a central pale grey cork cap and one muted copper retention band across its top. Broad simple rings distinguish it from amber acid flask; no bottle sidewall, writing, visible liquid or fill level.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751027,
+        "text_guidance_scale": 12
+      },
+      "jobId": "69e935fd-46c4-4596-b6b4-c5219c8e1e2d",
+      "assetId": "683c8a2a-447a-58e9-85b3-782aa263c0c3",
+      "sha256": "e63b4a2d6664cee1b34e19e3e3e56b9882da55a617c87e7026c38f8bb206bb25",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/alembrine-spirit-restyle-pixellab.png",
+        "sha256": "e63b4a2d6664cee1b34e19e3e3e56b9882da55a617c87e7026c38f8bb206bb25",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "ammonium-salt-crust",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Ammonium Salt Crust: An irregular asteroid crust chunk whose TOP has ivory-grey crystalline crust over two broad dusty tan seams; asymmetrical near-round contour, a few large pale crystal faces, dark warm-grey outer rim.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751012,
+        "text_guidance_scale": 12
+      },
+      "jobId": "f2d4ff4a-6a5d-4819-ade8-403f08011b01",
+      "assetId": "91706be6-4059-5132-9890-f15473dddf73",
+      "sha256": "b8bb4d81de30d9560de99e224108d914a2308aa773d877e51ad3c7c674aebae4",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/ammonium-salt-crust-restyle-pixellab.png",
+        "sha256": "b8bb4d81de30d9560de99e224108d914a2308aa773d877e51ad3c7c674aebae4",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "ammonium-sulfate",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Ammonium Sulfate: A sealed squat rectangular warm ivory foil sachet TOP with broad dull ochre/tan folded band at bottom and a central dark grey seam, two pale grey shade steps. No writing or exposed powder.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751025,
+        "text_guidance_scale": 12
+      },
+      "jobId": "4b4ff65c-7269-4ab4-8e78-690c178ecb11",
+      "assetId": "02e01e5e-f5d1-59b7-8ee2-9f2b316cc44c",
+      "sha256": "1b456593d50c12a928c7b0ac0bb73032312fd3afa64229e5920a0bc32a4b1757",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/ammonium-sulfate-restyle-pixellab.png",
+        "sha256": "1b456593d50c12a928c7b0ac0bb73032312fd3afa64229e5920a0bc32a4b1757",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "baked-regolith",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Baked Regolith: A dry baked asteroid-rock lump, squat irregular angular TOP with three broad buff-grey and ochre-brown planes, dark central fracture and one charcoal patch; no visible water, heat glow or dust cloud.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751031,
+        "text_guidance_scale": 12
+      },
+      "jobId": "07dca577-8da3-41de-b031-430487a07413",
+      "assetId": "e465c255-57a0-5a9e-b5dc-6834e5d148be",
+      "sha256": "bb225ed1b97f403086fd14720ca4334b457e496496cd24e0c41734a657e02ffa",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/baked-regolith-restyle-pixellab.png",
+        "sha256": "bb225ed1b97f403086fd14720ca4334b457e496496cd24e0c41734a657e02ffa",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "carbon-black",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Carbon Black: A sealed squat rectangular charcoal powder sachet TOP, dark graphite woven-paper wrapper with a broad pale grey folded seam and very muted ochre corner tab. Closed packet, no scattered soot. One big lighter fold and chunky dark outline.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751033,
+        "text_guidance_scale": 12
+      },
+      "jobId": "3fdd15a3-c9ae-4846-84a2-5c4933e91c5a",
+      "assetId": "c21aee12-1330-5c4b-a9de-396b81a8f156",
+      "sha256": "495441676ff90147aa295b3fa3aada4ebba9d2a1eedec49a536e780460732188",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/carbon-black-restyle-pixellab.png",
+        "sha256": "495441676ff90147aa295b3fa3aada4ebba9d2a1eedec49a536e780460732188",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "carbon-stock",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Carbon Stock: A squat roughly rectangular compressed carbon briquette seen as its flat dark graphite TOP with a broad centre groove and two pale grey chips at corners; thick black outline, charcoal grey three shade steps, dull and solid, not a coal heap.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751010,
+        "text_guidance_scale": 12
+      },
+      "jobId": "e8e8d59c-4d2b-4892-a156-a82ffabc0e36",
+      "assetId": "058a7633-0dd6-5f23-9d40-85edf8593099",
+      "sha256": "fc6503134e3546af81d1f93d5e1d5372028403302e5a3632d629b509f68110fd",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/carbon-stock-restyle-pixellab.png",
+        "sha256": "fc6503134e3546af81d1f93d5e1d5372028403302e5a3632d629b509f68110fd",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "clay-hydrates",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Clay Hydrates: An irregular lumpy carbonaceous asteroid clay chunk seen from above, dark muted slate-brown TOP with two broad pale clay veins and one flat cracked grey plate; dry-looking closed solid rock, no visible water or wet glow.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751029,
+        "text_guidance_scale": 12
+      },
+      "jobId": "f1f66603-c9c5-4bdd-a1e7-84a62ab28dd0",
+      "assetId": "78709b0c-38ab-5881-9e8f-99ed0e089a0b",
+      "sha256": "63c178ab6f3fa752d3d2f0b7b45e2ae415185010ac49febc699eb19197af7624",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/clay-hydrates-restyle-pixellab.png",
+        "sha256": "63c178ab6f3fa752d3d2f0b7b45e2ae415185010ac49febc699eb19197af7624",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "epsom-salt",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Epsom Salt: A sealed tall rectangular off-white foil sachet TOP with a broad steel-blue folded seam across the lower half and two pale grey folds across centre; chunky dark slate silhouette. No writing or exposed salt.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751024,
+        "text_guidance_scale": 12
+      },
+      "jobId": "145d521f-76ea-4782-ac72-06f5f18ca578",
+      "assetId": "dc4cd5d8-cc4a-55e9-8325-602eef35b778",
+      "sha256": "b5957689e871394abef0db7ade486db45259868a3e17d9cf50b4033c6a9c12f9",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/epsom-salt-restyle-pixellab.png",
+        "sha256": "b5957689e871394abef0db7ade486db45259868a3e17d9cf50b4033c6a9c12f9",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "evaporite-crust",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Evaporite Crust: A broad jagged mineral crust chunk, its TOP pale dusty rose/tan salt plates split by two deep warm grey fractures; large cream crystal planes and one dull olive-grey seam. No shiny crystal spikes.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751030,
+        "text_guidance_scale": 12
+      },
+      "jobId": "775947f8-9fc6-435b-b250-99c883bc580c",
+      "assetId": "92aa9244-6e1b-5b23-b85d-f4b971188b37",
+      "sha256": "2b73f50fc5a9ff7d1684644c4f601cfc06bc1280d1829649a1e320ca72b0fa77",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/evaporite-crust-restyle-pixellab.png",
+        "sha256": "2b73f50fc5a9ff7d1684644c4f601cfc06bc1280d1829649a1e320ca72b0fa77",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "exhausted-sorbent",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Exhausted Sorbent: A compact broken porous sorbent puck, TOP near-round in dusty pale ochre grey with three broad dark pores and a chipped slate rim, coarse flat material shapes and a large pale highlight band. Not shiny gold.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751034,
+        "text_guidance_scale": 12
+      },
+      "jobId": "93c917c7-0bc8-4b24-a3ec-3dac420e5498",
+      "assetId": "1eb58f07-7c08-58c8-a1f3-643c3797a44d",
+      "sha256": "91e9fd4b48d2f01d1fea1d0e69969dbd0ba4fbf913c6ae38d8c04b211f27a053",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/exhausted-sorbent-restyle-pixellab.png",
+        "sha256": "91e9fd4b48d2f01d1fea1d0e69969dbd0ba4fbf913c6ae38d8c04b211f27a053",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "ferrosilicon",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Ferrosilicon: A squat rough broken ferroalloy billet seen from above, broad rectangular irregular outline, blue-grey iron top and two big pale silver silicon-rich fractured patches, one dark central crack. Three metal shade steps, distinctly rougher than an ingot.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751021,
+        "text_guidance_scale": 12
+      },
+      "jobId": "8094f229-4182-4541-8dc2-542e7f52a693",
+      "assetId": "522fa0b0-ad57-544e-a4a4-63220d701a7c",
+      "sha256": "13e22982fc823a5eadddfbd0fc1350b28cca867d9b3e1e53bb9dfc69c28bdf6b",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/ferrosilicon-restyle-pixellab.png",
+        "sha256": "13e22982fc823a5eadddfbd0fc1350b28cca867d9b3e1e53bb9dfc69c28bdf6b",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "nickel-iron-ingot",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nORIGINAL spacecraft cast nickel-iron ingot, visible only as a flat wide rectangular TOP face with slightly stepped corners. Dull cool GREY METAL, NOT tan rock. One dark wide casting groove across its centre, two lighter rim bands along the long horizontal edges, two broad shallow squared depressions. Large clean square clusters, chunky restrained pixel art, utilitarian Ostranauts material finish. Smooth flat metal regions with one or two big scratches. NO SPECKLES, no dithering, no random grain, no pebble texture, no gradients. Object centred in middle 44 x 24 pixels of transparent 64 x 64 canvas, at least 10 transparent pixels on each side, complete silhouette unclipped. Native icon is 16 x 16. No side faces, perspective, angle, rotated/diamond footprint, floor, cast shadow, background, text or markings. Metallic nickel-iron stock, not an ore nugget.",
+        "width": 64,
+        "height": 64,
+        "init_image_strength": 130,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751006,
+        "text_guidance_scale": 12
+      },
+      "jobId": "4db6dbec-460d-4587-84f0-65dfd7ae72f7",
+      "assetId": "d43eb8a3-cb76-5f13-8190-ce61262107b1",
+      "sha256": "6cdb5a56e49d613969820c7fcde7b7b585f82b77d8150815fbf9fc638d3b5a2b",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/nickel-iron-ingot-restyle-pixellab.png",
+        "sha256": "6cdb5a56e49d613969820c7fcde7b7b585f82b77d8150815fbf9fc638d3b5a2b",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "nickel-steel-ingot",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Nickel Steel Ingot: A wide squared cast nickel-steel metal TOP with two shallow casting depressions and a strong dark central groove; cooler pale steel-grey with warm straw tint at its edge, thick rim highlights, only a couple of broad scratches.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751020,
+        "text_guidance_scale": 12
+      },
+      "jobId": "caf754e5-2ab8-47e2-b3d0-f9a1dc03f134",
+      "assetId": "54aac92e-d70b-5de0-a045-d4c342042e4b",
+      "sha256": "321bb53f62cf8ef9bc203f7342d040d1dd1056bcd04eaf5d5d6819e460e2a1ae",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/nickel-steel-ingot-restyle-pixellab.png",
+        "sha256": "321bb53f62cf8ef9bc203f7342d040d1dd1056bcd04eaf5d5d6819e460e2a1ae",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "p1-manifold",
+      "provider": "OpenAI built-in Imagegen",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL redesigned Phobos' Fennmark P1 RCS Propellant Manifold spacecraft equipment sprite, 1 by 1 tile, native 16 x 16. First reference is our new Fennmark L2: match its mechanical artwork quality and material finish. Second is this object's own old Phobos image, used only to identify its function.\nGraphite perimeter with burnt-orange corner clamps, pale sand deck and dark steel manifold. Simple dominant TOP anatomy that survives 16 x 16: four squat grey round coupling caps in a horizontal row across the top half, on a single heavy dark manifold block. One wide orange mechanical selector lever in a recessed rectangular slot across bottom half; one small silver outlet cap beside it. Only a few big shapes, coarse pixel density, two bolts rather than dozens of tiny details. Passive plumbing hardware, no compressor, tanks or electrodes.\nSquare high-resolution canvas, at least 1024 x 1024, continuous opaque machine deck reaches all four edges and every corner. Back edge TOP, crew access BOTTOM. No margin, background, transparent gap or external pipes/cables. Coarse deliberate pixel art, stepped contours, strong recessed assemblies, crisp metal/enamel separation, flat two/three-step shading and restrained wear at fasteners, like the approved reference. Closed hatches and empty loading recesses. No consumables or moving workpieces, no text, logos, numbers, decals, screens, gauges, lamps, indicators or painted live-state readings. No perspective, visible vertical faces, tilted footprint or floor shadow. TOP surfaces only. Do not repeat reactor lids when this equipment needs different functional working shapes.",
+      "generatedFile": "C:/Users/phobo/.codex/generated_images/01a1063f-e68d-7351-972c-ba595a38658b/exec-769efead-830e-4ca4-b97a-c14cbfa7a24b.png",
+      "review": "Inspected in native-size support pilot: overhead full opaque square, restrained maker palette and recognisable functional assemblies; no text or painted live instruments.",
+      "sha256": "34fb23909599016ade358ddb58d1bc11098be8fec9dd3e49ec5dd55ae5daeb56",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/p1-manifold-restyle-chatgpt.png",
+        "sha256": "34fb23909599016ade358ddb58d1bc11098be8fec9dd3e49ec5dd55ae5daeb56",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "phosphate-concentrate",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Phosphate Concentrate: A sealed broad rectangular pale mint-grey mineral concentrate sachet TOP, broad folded seams and two darker sage closure bands, a thick slate bottom edge. Clean foil wrapper, no exposed powder, no writing.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751022,
+        "text_guidance_scale": 12
+      },
+      "jobId": "cea6822a-9c51-4839-8c5d-321e7c74046a",
+      "assetId": "7ae4ffce-8773-578e-952e-9c0cb89e8b92",
+      "sha256": "27eeb17ac7176c7298034b5d4057a528b3cb13e91f602c106309b0b426a84dfe",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/phosphate-concentrate-restyle-pixellab.png",
+        "sha256": "27eeb17ac7176c7298034b5d4057a528b3cb13e91f602c106309b0b426a84dfe",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "phosphoric-acid-flask",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Phosphoric Acid Flask: TOP surface only of one sealed squat phosphoric acid flask: near-round amber-brown protective casing ring around a small circular dark brown stopper in the centre, two grey retaining lugs at left and right, thick dark rim, restrained warm cream top highlight. Flat overhead silhouette, no bottle sides, liquid level or glow.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751026,
+        "text_guidance_scale": 12
+      },
+      "jobId": "4ee00338-cdca-4786-b0f2-703af4f667e1",
+      "assetId": "dd955a74-d164-50d8-8196-69b31039e276",
+      "sha256": "293189836a9a4bc1cb9c469041819793b77256007245f1b7855ba03c582805a7",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/phosphoric-acid-flask-restyle-pixellab.png",
+        "sha256": "293189836a9a4bc1cb9c469041819793b77256007245f1b7855ba03c582805a7",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "plant-ash",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Plant Ash: A low irregular compressed ash clump TOP, pale bone-grey flat fused flakes over a few charcoal facets, irregular broad outline and two broad cracks. No smoke, flame or airborne dust, no tiny speckles.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751035,
+        "text_guidance_scale": 12
+      },
+      "jobId": "feae8b5f-98e3-43c7-a9da-e6dc24831edd",
+      "assetId": "d4773824-4c35-5b78-98ae-d488095a0e4c",
+      "sha256": "4a30a73760ffd2ef3a653720f1fa92cbcb7d0570206107f532a9f61f7f5afb81",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/plant-ash-restyle-pixellab.png",
+        "sha256": "4a30a73760ffd2ef3a653720f1fa92cbcb7d0570206107f532a9f61f7f5afb81",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "potassium-sulfate",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nOne ORIGINAL sealed spacecraft potassium sulfate supply packet, matching the muted practical material sprites of Ostranauts and our industrial machinery. Visible TOP surface only: an off-white rectangular foil sachet, slightly clipped stepped corners, a broad folded seam across the top and bottom, one restrained mustard-yellow band across the lower part, a shallow dark horizontal fold in the centre. Practical sealed powder pack, no exposed contents. Crisp coarse clusters, three flat ivory/grey shade steps and one dark grey outline, broad seams and minimal wear. No grain, speckles, dithering, gradients, shiny reflections or tiny marks. Centre the complete packet within 40 x 40 pixels on a TRANSPARENT 64 x 64 canvas, at least 10 transparent pixels at every edge. Native export 16 x 16; big readable shapes. No text, logos, letters, numbers, hazard symbols or painted readings. No floor, ground shadow, scene, perspective, visible front/side faces or tilted/diamond projection.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751007,
+        "text_guidance_scale": 12
+      },
+      "jobId": "3b897b3e-ce6a-49aa-826f-54ca5f5a0679",
+      "assetId": "456e57d9-0b4d-5763-b93e-aaf41eb23ad4",
+      "sha256": "ce3e2f76c69e1581c5ebf43cbb7c7debdab4fd76e05f80dee41bbfd6b58f0c7f",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/potassium-sulfate-restyle-pixellab.png",
+        "sha256": "ce3e2f76c69e1581c5ebf43cbb7c7debdab4fd76e05f80dee41bbfd6b58f0c7f",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "refinery-slag",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Refinery Slag: A small irregular cooled slag fragment, four or five broad cracked facets visible on its TOP; muted plum-violet grey, dark charcoal fracture seams, one rusty copper inclusion. Broad flat clusters, not shiny lava.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751011,
+        "text_guidance_scale": 12
+      },
+      "jobId": "1d38b3b2-148f-4ab7-9e0a-f1c02baec937",
+      "assetId": "df02eab5-2310-50d3-a1e5-1c0ed1a656d6",
+      "sha256": "17e736ba4d889a8213e3ee91cfd41bf20046054a7b9f99a94366d16158d928f8",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/refinery-slag-restyle-pixellab.png",
+        "sha256": "17e736ba4d889a8213e3ee91cfd41bf20046054a7b9f99a94366d16158d928f8",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "regolith-floor",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nORIGINAL sintered regolith spacecraft floor tile. This is a flat functional 2 x 2 floor patch, native 32 x 32 pixels, seen exactly from above. On a 128 x 128 canvas, draw an opaque uninterrupted charcoal-brown and muted warm grey ceramic/stone deck reaching every canvas edge and corner. Four broad square pressed-regolith panels meet at a thin central cross seam. Dark perimeter joining seam exactly at the boundary, sparse broad worn patches, four shallow darker bolt recesses, few coarse fused mineral inclusions. Restrained industrial pixel art for Ostranauts, chunky shapes, mostly flat two or three shade steps, no grain/speckles/dithering/gradients. No raised rim, perspective, visible sides, surrounding scene, cast shadow, text, numbers, logos, decals, grates or holes. Practical low-contrast ship flooring that leaves objects on top readable, not a machinery deck. No lamps, gauges or changing material contents.",
+        "width": 128,
+        "height": 128,
+        "no_background": false,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 20751008,
+        "text_guidance_scale": 12
+      },
+      "jobId": "eca18607-8a73-4a7f-9057-4ca683f46563",
+      "assetId": "88b73aa9-1f3a-5b3b-aa41-dd460d491991",
+      "sha256": "1685425b748d270d7c0e23507ad1cf3927e930d945f329a936a739f1f1ab585b",
+      "returnedSize": [
+        128,
+        128
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/regolith-floor-restyle-pixellab.png",
+        "sha256": "1685425b748d270d7c0e23507ad1cf3927e930d945f329a936a739f1f1ab585b",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "regolith-paver",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Regolith Paver: A flat square sintered-regolith slab TOP with softly stepped corners, dull warm grey fused stone/ceramic, dark perimeter bevel drawn flat, shallow central cross seam, four tiny recessed fixing notches. No grating, metal floorplate or handles. Broad worn patches but no small speckles.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751032,
+        "text_guidance_scale": 12
+      },
+      "jobId": "b0a1d819-4d13-42c6-a836-cb7b044baddc",
+      "assetId": "a3f57e08-d97e-5137-bb8e-215878274f86",
+      "sha256": "163e6ea77f7895a4376d7a6b533b420372a70394b39b391d91f2db5c1bdab0a1",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/regolith-paver-restyle-pixellab.png",
+        "sha256": "163e6ea77f7895a4376d7a6b533b420372a70394b39b391d91f2db5c1bdab0a1",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "rm1-reaction-mass-feeder",
+      "provider": "OpenAI built-in Imagegen",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL redesigned Phobos' Slingwright RM-1 Reaction Mass Feeder spacecraft equipment sprite, 1 by 1 tile, native 16 x 16. Reference 1 supplies our newly approved mechanical art quality; follow the maker palette specified below. Reference 2 is this object's own older original Phobos image, used for its function.\nSlingwright uses dark industrial gunmetal, muted ochre clamps, worn pale grey steel deck, deliberately apart from Fennmark's orange. A sealed powered grinder: dominant circular dark drive/rotor cover in the upper centre, bolted with four broad fixing lugs; a rectangular empty feed recess with heavy ochre latch at bottom; a short coarse vent grille to right, and one small physical outlet cap. Big sturdy working shapes readable at 16 x 16, few dominant grooves and two-step wear. No gas manifold row or exposed rock charge.\nSquare high-resolution canvas, at least 1024 x 1024, continuous opaque machine deck reaches all four edges and every corner. Back edge TOP, crew access BOTTOM. No margin, background, transparent gap or external pipes/cables. Coarse deliberate pixel art, stepped contours, strong recessed assemblies, crisp metal/enamel separation, flat two/three-step shading and restrained wear at fasteners, like the approved reference. Closed hatches and empty loading recesses. No consumables or moving workpieces, no text, logos, numbers, decals, screens, gauges, lamps, indicators or painted live-state readings. No perspective, visible vertical faces, tilted footprint or floor shadow. TOP surfaces only. Do not repeat reactor lids when this equipment needs different functional working shapes.",
+      "generatedFile": "C:/Users/phobo/.codex/generated_images/01a1063f-e68d-7351-972c-ba595a38658b/exec-5946608e-242c-4b60-b613-140cf2f9a44c.png",
+      "sha256": "494dc9f0efaa47aec5af196956115cb1894c569f48dc97b40a404c67f82ca826",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/rm1-reaction-mass-feeder-restyle-chatgpt.png",
+        "sha256": "494dc9f0efaa47aec5af196956115cb1894c569f48dc97b40a404c67f82ca826",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "spent-ferrosilicon",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Spent Ferrosilicon: An irregular low cluster of spent grey iron fines bonded with pale cream silica residue, viewed from directly above as broad four cracked panels, warm ivory crust and dark slate-grey inclusions; near-round outline.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751028,
+        "text_guidance_scale": 12
+      },
+      "jobId": "9809714c-3a02-45a4-ad7e-f108ae14e550",
+      "assetId": "6a5c98a1-2138-5b2a-8a1d-465ad4706240",
+      "sha256": "b60cce2cf3cd3099cdfc11ca9ec77457ac9cd64c75ed17443ee6c441bb70a32b",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/spent-ferrosilicon-restyle-pixellab.png",
+        "sha256": "b60cce2cf3cd3099cdfc11ca9ec77457ac9cd64c75ed17443ee6c441bb70a32b",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "struvite",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Struvite: A sealed compact square ivory-grey crystal supply pouch TOP, broad horizontal folds, one large muted lavender-grey closure band and pale cream centre. Closed packet without visible crystal needles or writing.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751023,
+        "text_guidance_scale": 12
+      },
+      "jobId": "8b058552-6d1a-4e98-9123-5da97bdb3bc4",
+      "assetId": "c563dda1-13dc-54fc-bda1-ac738120a0da",
+      "sha256": "aeca906244a05d40e7ad67f20c52ead03b3a9ed49629c695d97cc462812d5dab",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/struvite-restyle-pixellab.png",
+        "sha256": "aeca906244a05d40e7ad67f20c52ead03b3a9ed49629c695d97cc462812d5dab",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    },
+    {
+      "key": "sulfide-nodule",
+      "provider": "PixelLab Pixflux",
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\nDraw one ORIGINAL spacecraft loose-material sprite in Ostranauts' practical industrial pixel style. Sulfide Nodule: A compact irregular dark mineral nodule seen from directly above, coal-grey fractured TOP with two broad ochre-bronze metallic patches and one pale grey inclusion; uneven near-round outline. Large planes, no glitter.\nTOP only, coarse deliberate square pixel clusters, broad material regions and two or three flat shade steps. No fine grain, random speckles, dithering, smooth gradients, gloss, perspective or visible side/front faces. Centre a complete unclipped silhouette on TRANSPARENT 64 x 64 canvas within the middle 44 x 44 area, clear padding on all sides. Intended native export 16 x 16: silhouette, main seams and colour must read at that size. No text, numbers, logos, symbols, floor, scene or ground shadow. One item only.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 20751013,
+        "text_guidance_scale": 12
+      },
+      "jobId": "d558290b-cd8b-4f9f-85db-ac5dba26ad47",
+      "assetId": "ea4cfc74-671e-5063-a36b-d26213ccdd4e",
+      "sha256": "2d1131b1fb24a57ed09b18fb75a2f2aedcf05339ab4a544ca92ef6c82e0e4a5a",
+      "returnedSize": [
+        64,
+        64
+      ],
+      "status": "Unselected after owner clarification; archived, not exported",
+      "archive": {
+        "branch": "codex/rejected-artwork",
+        "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
+        "path": "assets/phobos-manufacturing/source/sulfide-nodule-restyle-pixellab.png",
+        "sha256": "2d1131b1fb24a57ed09b18fb75a2f2aedcf05339ab4a544ca92ef6c82e0e4a5a",
+        "status": "Pushed to codex/rejected-artwork on 5 October 2026"
+      }
+    }
+  ],
+  "unaffectedArtworkCheck": {
+    "baselinePNGCount": 148,
+    "changed": [
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosBottlingUnit.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulator.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCanisterFiller.png"
+    ],
+    "unchangedCount": 145,
+    "result": "Exactly three existing colour sprites changed. All silos, bulk tanks, small items, pipes, one-tile machines, original floor, neutral normal maps and already selected reactor artwork are byte-identical."
+  }
+}

@@ -80492,8 +80492,8 @@
       "path": "docs/development/artwork-completion.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "0edad415ea4edeccc26223a524c53ca15bc9a4d6e4fe6bf7682673f483d55199",
-      "review": "5 October 2026: reviewed the current seven-machine chemical artwork update and its links. Existing generation details remain dated history. Maker palettes, footprints and image identities are preserved; sources, exact prompts and native-size review are linked. No gameplay or in-game rendering validation is claimed."
+      "sha256": "a5d6853e813f011727d68083cb1d53a02f3c408015f97b4dedab2ec9ffe3df06",
+      "review": "5 October 2026: reviewed the chemical and subsequent support-machine update. Current L2/A2/Corker-2 artwork is distinguished from earlier generation history, with preserved 32-pixel native images and two-tile footprints. Owner-excluded materials, pipes, one-tile sprites, floor and silos remain unchanged."
     },
     {
       "path": "docs/development/artwork-resolution-policy.md",
@@ -80840,8 +80840,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "6eb633d17f929c0dc8c2844f4803f3477ac60916119dc1cdd97cf49a314338ae",
-      "review": "5 October 2026: reviewed the current chemical-machinery revision, seven named machines and its provenance links. Earlier PixelLab generation details remain history, with archived masters and original provider records preserved. Silos and support equipment are unchanged; game lighting and rotation await owner review."
+      "sha256": "f05a3ff825e6c5ab7fca4afdc028cc793c15d4103266880d1677cca219e1af56",
+      "review": "5 October 2026: reviewed the L2/A2/Corker-2 follow-up and owner exclusion of really small sprites. Earlier seven-reactor and PixelLab passes remain history. Current support-machine names, two-tile footprints, unchanged functions, provenance and native comparison are linked; game rendering review remains pending."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -81453,8 +81453,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d84d2b9374f3030ce862e0f4a6863022a2599f0de4f2d93fd5d672687aa23bce",
-      "review": "Reviewed 5 October 2026 for Manufacturing 0.53.0 (Oxsmith CR-4 carbothermal reactor, Fennmark carbon monoxide stores and the K2's carbon monoxide mode): player actions first, plain words, hazards direct, authored figures and the efficiency gap to NASA's test rig stated."
+      "sha256": "a1ea67bfeac45a4fa0fc1488e7f584703f2e70987ee5dcc9d4edc9f43a5fbc0b",
+      "review": "5 October 2026: reviewed current Manufacturing 0.53.0 actions, capabilities, hazards and sources; added the machinery art update with unchanged silos/small sprites and separate PixelLab/OpenAI provenance and licences. Intro and authorship credit remain clear, with no changed requirements or gameplay claims."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
