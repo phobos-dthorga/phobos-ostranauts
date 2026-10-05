@@ -273,6 +273,65 @@ def lines():
                'Where a pipe or conduit segment counts as laid: the tiles that carry nothing, and what must stand on a tile for a segment there to join its line.')
 
 
+def story():
+    story_id = '^[a-z0-9]+(-[a-z0-9]+)*$'
+    game = {'type': 'string', 'pattern': '^[A-Za-z0-9_]+$'}
+    station = {'type': 'string', 'pattern': '^(any|[A-Za-z0-9_|-]{1,32})$', 'description': 'A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station.'}
+    plain = 'Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship].'
+    def text(limit, description):
+        return {'type': 'string', 'minLength': 1, 'maxLength': limit, 'description': description + ' ' + plain}
+    def names(item, description):
+        return {'type': 'array', 'items': item, 'maxItems': 16, 'description': description}
+    requires = obj({
+        'mods': names({'type': 'string', 'pattern': '^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$'}, 'Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id.'),
+        'playerConditions': names(game, 'Game conditions the player must have.'),
+        'forbidConditions': names(game, 'Game conditions the player must not have.'),
+        'owns': names(game, "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."),
+        'dockedAt': names(station, 'Docked at or aboard any one of these stations.'),
+        'arcsDone': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must have finished.'),
+        'arcsNotStarted': names({'type': 'string', 'pattern': story_id}, 'Arcs the player must never have started.')},
+        description='When the entry may appear. Every part is optional and every part given must hold.')
+    message = obj({'from': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Who it is from, shown before the text in the crew log.'},
+                   'text': text(400, 'The message, shown in the crew log.')}, ['from', 'text'])
+    test = obj({'kind': string('What the step waits for.', ['dock-at', 'have-item', 'install', 'wait']),
+                'station': {**station, 'description': 'dock-at only. ' + station['description']},
+                'item': {**game, 'description': 'have-item and install only: an item definition id.'},
+                'count': num(1, 100, integer=True, description='have-item and install only: how many (default 1).'),
+                'consume': {'type': 'boolean', 'description': 'have-item only: the items are taken from the player when the step finishes.'},
+                'hours': num(exclusive_minimum=0, maximum=720, description='wait only: game hours since the step began.')}, ['kind'])
+    step = obj({
+        'id': {'type': 'string', 'pattern': story_id, 'maxLength': 32, 'description': 'Unique within the arc; it names the goal in saves, so keep it once published.'},
+        'delivery': obj({'message': message, 'bulletin': {'type': 'string', 'pattern': story_id, 'description': 'A broadcast id that the next TV news item shows.'}},
+                        description='What the player is told when the step begins.'),
+        'objective': obj({'title': text(60, 'The goal title in the GOALS list.'), 'description': {**text(300, 'The goal description.'), 'minLength': 0}}, ['title'],
+                         'A goal in the GOALS list. A step without one waits on its tests unseen.'),
+        'tests': {'type': 'array', 'items': test, 'minItems': 1, 'maxItems': 4, 'description': 'All must pass for the step to finish.'},
+        'onComplete': obj({'message': message,
+                           'items': {'type': 'array', 'maxItems': 5, 'items': obj({'item': game, 'count': num(1, 20, integer=True)}, ['item']),
+                                     'description': 'Items given to the player, or put at their feet when they cannot carry them.'}},
+                          description='What happens when the step finishes.')}, ['id', 'tests'])
+    weight = num(1, 100, integer=True, description='How often it is picked against other story entries (default 1).')
+    once = {'type': 'boolean', 'description': 'Shown once in a save, then never again.'}
+    author = {'title': {'type': 'string', 'maxLength': 80, 'description': 'For authors; the game does not show it.'}, 'notes': NOTES}
+    broadcast = obj({**author, 'region': {'type': 'string', 'minLength': 1, 'maxLength': 40, 'description': 'Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System.'},
+                     'text': text(700, 'The news item.'), 'weight': weight, 'once': once, 'requires': requires}, ['region', 'text'])
+    advert = obj({**author, 'text': text(400, 'The advert; a line break may separate a heading.'), 'weight': weight, 'once': once, 'requires': requires}, ['text'])
+    arc = obj({'title': {'type': 'string', 'minLength': 1, 'maxLength': 80, 'description': 'For authors and the F3 list.'}, 'notes': NOTES, 'requires': requires,
+               'chance': num(0, 1, description='Chance per story check (every 30 s) that the eligible arc starts by itself; 0 starts it only from F3.'),
+               'repeatable': {'type': 'boolean', 'description': 'May start again after it is finished.'},
+               'steps': {'type': 'array', 'items': step, 'minItems': 1, 'maxItems': 12}}, ['title', 'steps'])
+    settings = obj({'broadcastShare': num(0, 1, description='Share of TV news picks given to story broadcasts.'),
+                    'advertShare': num(0, 1, description='Share of TV advert picks given to story adverts.'),
+                    'checkSeconds': num(5, 600, description='Real seconds between story checks.'),
+                    'maxActiveArcs': num(0, 10, integer=True, description='How many arcs may start by themselves at once.')},
+                   description="Framework's own story pack only.")
+    return obj({**header('story'), 'settings': settings,
+                'broadcasts': named(broadcast, 'TV news items by id.', story_id), 'adverts': named(advert, 'TV adverts by id.', story_id),
+                'arcs': named(arc, 'Story arcs by id.', story_id)},
+               ['schemaVersion', 'schema'],
+               'Story content: TV news, adverts and arcs whose goals appear in the GOALS list. See docs/writing-story-content.md.')
+
+
 def addon():
     return obj({'schemaVersion': {'type': 'integer', 'const': 1},
                 'id': {'type': 'string', 'pattern': '^[a-z0-9-]{3,48}$', 'description': "The add-on's own short id."},
@@ -285,7 +344,7 @@ def addon():
                'The manifest of a Phobos add-on (phobos-addon.json), beside the mod_info.json the game itself reads.')
 
 
-SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines}
+SCHEMAS = {'addon': addon, 'economy': economy, 'process-recipes': recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story}
 
 
 def render(name):

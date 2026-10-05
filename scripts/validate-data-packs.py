@@ -688,8 +688,212 @@ def lines(pack, where):
             if support['tile'] in forbidden:
                 raise Problem(f'{w}: forbids {support["tile"]} tiles and also names them as a support')
 
+# ---- Story packs (Framework 0.107.0): news, adverts and arcs; mirrors PhobosFramework.Story.StorySchema ----
+STORY_ID = re.compile(r'^[a-z0-9]+(-[a-z0-9]+)*$')
+STORY_GAME_NAME = re.compile(r'^[A-Za-z0-9_]+$')
+STORY_STATION = re.compile(r'^[A-Za-z0-9_|-]+$')
+STORY_PHOBOS_MOD = re.compile(r'^Phobos[A-Za-z]+$')
+STORY_PLUGIN_ID = re.compile(r'^[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)+$')
+STORY_PLACEHOLDERS = ('[player]', '[player-first]', '[ship]')
+STORY_TESTS = ('dock-at', 'have-item', 'install', 'wait')
+STORY_LIMITS = {'id': 48, 'step': 32, 'region': 40, 'broadcast': 700, 'advert': 400, 'message': 400, 'from': 40,
+                'objective': 60, 'description': 300, 'title': 80, 'steps': 12, 'tests': 4, 'rewards': 5,
+                'reward': 20, 'count': 100, 'weight': 100, 'list': 16, 'arcs': 10, 'hours': 720}
 
-SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines}
+
+def story_id(value, where, limit=STORY_LIMITS['id']):
+    if not isinstance(value, str) or len(value) > limit or not STORY_ID.match(value):
+        raise Problem(f'{where}: ids are lower-case letters and digits joined by single hyphens, at most {limit} characters')
+
+
+def story_plain(text):
+    """The first thing a story text may not contain, or None (mirrors StorySchema.Plain)."""
+    for c in text:
+        if c in '<>' or (ord(c) < 32 and c != '\n') or ord(c) == 127:
+            return c
+    rest = text
+    for token in STORY_PLACEHOLDERS:
+        rest = rest.replace(token, '')
+    if '[' in rest:
+        start = rest.index('[')
+        end = rest.find(']', start)
+        return rest[start:end + 1] if end > start else '['
+    return ']' if ']' in rest else None
+
+
+def story_words(text, limit, where):
+    if not isinstance(text, str) or not text.strip():
+        raise Problem(f'{where}: blank')
+    if len(text) > limit:
+        raise Problem(f'{where}: limited to {limit} characters; it has {len(text)}')
+    bad = story_plain(text)
+    if bad is not None:
+        raise Problem(f'{where}: contains {bad!r}; text may use only the placeholders {" ".join(STORY_PLACEHOLDERS)}')
+
+
+def story_station(value):
+    return isinstance(value, str) and (value == 'any' or (len(value) <= 32 and STORY_STATION.match(value) is not None))
+
+
+def story_requires(r, where):
+    if r is None:
+        return
+    fields(r, {'mods', 'playerConditions', 'forbidConditions', 'owns', 'dockedAt', 'arcsDone', 'arcsNotStarted'}, where)
+    checks = {'mods': lambda m: STORY_PHOBOS_MOD.match(m) or STORY_PLUGIN_ID.match(m), 'playerConditions': STORY_GAME_NAME.match,
+              'forbidConditions': STORY_GAME_NAME.match, 'owns': STORY_GAME_NAME.match, 'dockedAt': story_station,
+              'arcsDone': STORY_ID.match, 'arcsNotStarted': STORY_ID.match}
+    for name, valid in checks.items():
+        values = r.get(name, [])
+        if not isinstance(values, list) or len(values) > STORY_LIMITS['list']:
+            raise Problem(f'{where}/{name}: a list of at most {STORY_LIMITS["list"]} names')
+        for value in values:
+            if not isinstance(value, str) or not valid(value):
+                raise Problem(f'{where}/{name}: {value!r} is not a valid name')
+
+
+def story_message(m, where):
+    if m is None:
+        return
+    fields(m, {'from', 'text'}, where)
+    sender = m.get('from')
+    if not isinstance(sender, str) or not sender.strip() or len(sender) > STORY_LIMITS['from'] or story_plain(sender) is not None:
+        raise Problem(f'{where}/from: a sender of at most {STORY_LIMITS["from"]} characters')
+    story_words(m.get('text'), STORY_LIMITS['message'], f'{where}/text')
+
+
+def story_author(entry, where):
+    title = entry.get('title')
+    if title is not None and (not isinstance(title, str) or len(title) > STORY_LIMITS['title'] or story_plain(title) is not None):
+        raise Problem(f'{where}/title: at most {STORY_LIMITS["title"]} characters')
+    notes = entry.get('notes')
+    if notes is not None and (not isinstance(notes, str) or len(notes) > 2000):
+        raise Problem(f'{where}/notes: at most 2000 characters')
+
+
+def story_test(test, where):
+    fields(test, {'kind', 'station', 'item', 'count', 'consume', 'hours'}, where)
+    kind = test.get('kind')
+    w = f'{where}/{kind}'
+    present = {k for k in ('station', 'item', 'hours') if k in test and test[k] not in (None, 0)}
+    consume, count = test.get('consume', False), test.get('count', 1)
+    if not isinstance(consume, bool):
+        raise Problem(f'{w}/consume: true or false')
+    if kind == 'dock-at':
+        if present != {'station'} or consume or count != 1:
+            raise Problem(f'{w}: this test takes only station')
+        if not story_station(test['station']):
+            raise Problem(f'{w}: {test["station"]!r} is not a station id (letters, digits, _ and |, or any)')
+    elif kind in ('have-item', 'install'):
+        if present != {'item'} or (consume and kind == 'install'):
+            raise Problem(f'{w}: this test takes only item, count' + (', consume' if kind == 'have-item' else ''))
+        if not isinstance(test['item'], str) or not STORY_GAME_NAME.match(test['item']):
+            raise Problem(f'{w}/item: not a valid item name')
+        number(count, f'{w}/count', 1, STORY_LIMITS['count'], integer=True)
+    elif kind == 'wait':
+        if present - {'hours'} or consume or count != 1:
+            raise Problem(f'{w}: this test takes only hours')
+        number(test.get('hours', 0), f'{w}/hours', 0, STORY_LIMITS['hours'], exclusive_low=True)
+    else:
+        raise Problem(f'{where}: the test kind must be one of {", ".join(STORY_TESTS)}')
+
+
+def story(pack, where, framework=None):
+    """The story schema (Framework 0.107.0). Only Framework's own pack may hold settings (framework=None skips that check)."""
+    fields(pack, {'schemaVersion', 'schema', 'notes', 'settings', 'broadcasts', 'adverts', 'arcs'}, where)
+    settings = pack.get('settings')
+    if settings is not None:
+        if framework is False:
+            raise Problem(f'{where}/settings: only Framework\'s own story pack may hold settings')
+        fields(settings, {'broadcastShare', 'advertShare', 'checkSeconds', 'maxActiveArcs'}, f'{where}/settings')
+        number(settings.get('broadcastShare', 0.3), f'{where}/settings/broadcastShare', 0, 1)
+        number(settings.get('advertShare', 0.3), f'{where}/settings/advertShare', 0, 1)
+        number(settings.get('checkSeconds', 30), f'{where}/settings/checkSeconds', 5, 600)
+        number(settings.get('maxActiveArcs', 2), f'{where}/settings/maxActiveArcs', 0, STORY_LIMITS['arcs'], integer=True)
+    for table in ('broadcasts', 'adverts', 'arcs'):
+        if not isinstance(pack.get(table, {}), dict):
+            raise Problem(f'{where}/{table}: expected entries by id')
+    for key, b in pack.get('broadcasts', {}).items():
+        w = f'{where}/broadcasts/{key}'
+        story_id(key, w)
+        fields(b, {'title', 'notes', 'region', 'text', 'weight', 'once', 'requires'}, w)
+        story_author(b, w)
+        region = b.get('region')
+        if not isinstance(region, str) or not region.strip() or len(region) > STORY_LIMITS['region'] or story_plain(region) is not None:
+            raise Problem(f'{w}/region: a region of at most {STORY_LIMITS["region"]} characters')
+        story_words(b.get('text'), STORY_LIMITS['broadcast'], f'{w}/text')
+        number(b.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
+        if not isinstance(b.get('once', False), bool):
+            raise Problem(f'{w}/once: true or false')
+        story_requires(b.get('requires'), f'{w}/requires')
+    for key, a in pack.get('adverts', {}).items():
+        w = f'{where}/adverts/{key}'
+        story_id(key, w)
+        fields(a, {'title', 'notes', 'text', 'weight', 'once', 'requires'}, w)
+        story_author(a, w)
+        story_words(a.get('text'), STORY_LIMITS['advert'], f'{w}/text')
+        number(a.get('weight', 1), f'{w}/weight', 1, STORY_LIMITS['weight'], integer=True)
+        if not isinstance(a.get('once', False), bool):
+            raise Problem(f'{w}/once: true or false')
+        story_requires(a.get('requires'), f'{w}/requires')
+    broadcasts = set(pack.get('broadcasts', {}))
+    for key, arc in pack.get('arcs', {}).items():
+        w = f'{where}/arcs/{key}'
+        story_id(key, w)
+        fields(arc, {'title', 'notes', 'requires', 'chance', 'repeatable', 'steps'}, w)
+        title = arc.get('title')
+        if not isinstance(title, str) or not title.strip() or len(title) > STORY_LIMITS['title']:
+            raise Problem(f'{w}/title: needs a title of at most {STORY_LIMITS["title"]} characters')
+        story_author({'notes': arc.get('notes')}, w)
+        number(arc.get('chance', 0), f'{w}/chance', 0, 1)
+        if not isinstance(arc.get('repeatable', False), bool):
+            raise Problem(f'{w}/repeatable: true or false')
+        story_requires(arc.get('requires'), f'{w}/requires')
+        steps = arc.get('steps')
+        if not isinstance(steps, list) or not 1 <= len(steps) <= STORY_LIMITS['steps']:
+            raise Problem(f'{w}/steps: from 1 to {STORY_LIMITS["steps"]} steps')
+        ids = set()
+        for n, step in enumerate(steps):
+            sw = f'{w}/steps/{n}'
+            fields(step, {'id', 'delivery', 'objective', 'tests', 'onComplete'}, sw)
+            story_id(step.get('id'), f'{sw}/id', STORY_LIMITS['step'])
+            if step['id'] in ids:
+                raise Problem(f'{w}: uses the step id {step["id"]} twice')
+            ids.add(step['id'])
+            delivery = step.get('delivery')
+            if delivery is not None:
+                fields(delivery, {'message', 'bulletin'}, f'{sw}/delivery')
+                if delivery.get('message') is None and delivery.get('bulletin') is None:
+                    raise Problem(f'{sw}/delivery: empty')
+                story_message(delivery.get('message'), f'{sw}/delivery/message')
+                if delivery.get('bulletin') is not None:
+                    story_id(delivery['bulletin'], f'{sw}/delivery/bulletin')
+            objective = step.get('objective')
+            if objective is not None:
+                fields(objective, {'title', 'description'}, f'{sw}/objective')
+                story_words(objective.get('title'), STORY_LIMITS['objective'], f'{sw}/objective/title')
+                if objective.get('description', ''):
+                    story_words(objective['description'], STORY_LIMITS['description'], f'{sw}/objective/description')
+            tests = step.get('tests')
+            if not isinstance(tests, list) or not 1 <= len(tests) <= STORY_LIMITS['tests']:
+                raise Problem(f'{sw}/tests: from 1 to {STORY_LIMITS["tests"]} tests')
+            for t, test in enumerate(tests):
+                story_test(test, f'{sw}/tests/{t}')
+            outcome = step.get('onComplete')
+            if outcome is not None:
+                fields(outcome, {'message', 'items'}, f'{sw}/onComplete')
+                story_message(outcome.get('message'), f'{sw}/onComplete/message')
+                rewards = outcome.get('items', [])
+                if not isinstance(rewards, list) or len(rewards) > STORY_LIMITS['rewards']:
+                    raise Problem(f'{sw}/onComplete/items: at most {STORY_LIMITS["rewards"]} kinds of item')
+                for r, reward in enumerate(rewards):
+                    fields(reward, {'item', 'count'}, f'{sw}/onComplete/items/{r}')
+                    if not isinstance(reward.get('item'), str) or not STORY_GAME_NAME.match(reward['item']):
+                        raise Problem(f'{sw}/onComplete/items/{r}/item: not a valid item name')
+                    number(reward.get('count', 1), f'{sw}/onComplete/items/{r}/count', 1, STORY_LIMITS['reward'], integer=True)
+    return broadcasts
+
+
+SCHEMAS = {'economy': economy, 'process-recipes': process_recipes, 'materials': materials, 'vessels': vessels, 'equipment': equipment, 'crops': crops, 'care': care, 'outcomes': outcomes, 'lines': lines, 'story': story}
 
 
 # ---- Add-ons (Framework 0.90.0): a mod folder with phobos-addon.json and phobos/<Mod>/<schema>/*.json ----
@@ -864,6 +1068,8 @@ def check_addon(folder):
                         outcomes(merged, rel, merged_recipes)
                     elif schema == 'crops':
                         crops(merged, rel, added_items)
+                    elif schema == 'story':
+                        story(merged, rel, framework=mod_dir.name == 'PhobosFramework')
                     else:
                         SCHEMAS[schema](merged, rel)
                 except Problem as error:
@@ -898,6 +1104,8 @@ def check_file(path):
         sibling = path.with_name('process-recipes.json')
         recipes = json.loads(sibling.read_text(encoding='utf-8-sig')).get('recipes') if sibling.exists() else None
         outcomes(pack, schema, recipes)
+    elif schema == 'story':
+        story(pack, schema, framework=path.resolve().parent.parent.name == 'PhobosFramework' or path.resolve().parent.name == 'PhobosFramework')
     else:
         SCHEMAS[schema](pack, schema)
     return schema

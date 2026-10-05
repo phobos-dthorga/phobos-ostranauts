@@ -268,6 +268,25 @@ engine (`ChargeMachine` per family, a `ChargeMachineSpec` for identity, texts, r
 selection, requirement gates, spoil policy and commodity links). Consumers require
 **0.54.0**.
 
+### Story packs (0.107.0)
+
+A mod adds TV news, adverts and story arcs with a `story` pack: ship
+`mods/<Mod>/framework/story.json`, embed it, and register it once in `Awake`:
+
+```csharp
+Phobos.Ostranauts.Framework.Story.StoryContent.Register(new DataPackSource(
+    Text.Owner, "<Mod>", StorySchema.Name, typeof(Plugin).Assembly, "<Mod>.story.json"));
+```
+
+Framework loads every registered pack on each game load, after all mods have published
+their items, and refuses a reused id or an unknown item, condition, arc or bulletin
+entry by entry. Translations of pack text use `Story.<id>.<field>` in the owning mod's
+catalogue. Never use the game's plots, pledges, new social interactions or player
+conditions for added story content. The file format is in
+[Writing story content](../writing-story-content.md); the design and save footprint
+in [the story system design record](story-system-design.md). Consumers require
+**0.107.0**. First consumer: Agriculture 0.60.0.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

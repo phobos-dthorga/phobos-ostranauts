@@ -80941,6 +80941,1007 @@
       ],
       "before": "Recording stopped reading {0} ({1}); the rest of the capture carries on.",
       "after": "Recording stopped reading {0} ({1}); the rest of the capture carries on."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.message",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: {1}",
+      "after": "{0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.dismissed",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "You set aside the goal {0}. That story will not come back by itself.",
+      "after": "You set aside the goal {0}. That story will not come back by itself."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.someone",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "spacer",
+      "after": "spacer"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.your_ship",
+      "category": "status",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "your ship",
+      "after": "your ship"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.wrong_schema",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "A story pack must use the story schema, not {0}.",
+      "after": "A story pack must use the story schema, not {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.pack_line",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: {1} broadcasts, {2} adverts, {3} arcs",
+      "after": "{0}: {1} broadcasts, {2} adverts, {3} arcs"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.pack_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: story pack not loaded: {1}",
+      "after": "{0}: story pack not loaded: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.definitions_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story goals could not be registered, so story content is off for this session: {0}",
+      "after": "Story goals could not be registered, so story content is off for this session: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.id_taken",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story id {0} from {1} is already used by {2}; the later entry is left out.",
+      "after": "Story id {0} from {1} is already used by {2}; the later entry is left out."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.refused",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story entry {0} from {1} is left out: {2}",
+      "after": "Story entry {0} from {1} is left out: {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_item",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no item definition named {0}",
+      "after": "no item definition named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_condition",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no condition named {0}",
+      "after": "no condition named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_arc",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no arc named {0}",
+      "after": "no arc named {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_bulletin",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no broadcast named {0} for a bulletin",
+      "after": "no broadcast named {0} for a bulletin"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.check_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story check failed and will try again: {0}",
+      "after": "Story check failed and will try again: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.record_refused",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "The player's story record could not be written; story progress may not be saved.",
+      "after": "The player's story record could not be written; story progress may not be saved."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.step_lost",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story arc {0} was at step {1}, which its pack no longer has; the arc is set aside (phobosframework story reset {0} starts it again).",
+      "after": "Story arc {0} was at step {1}, which its pack no longer has; the arc is set aside (phobosframework story reset {0} starts it again)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.reward_missing",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story reward {0} could not be made; the rest of that reward is skipped.",
+      "after": "Story reward {0} could not be made; the rest of that reward is skipped."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_mod",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs the mod {0}",
+      "after": "needs the mod {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_condition",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs the player to have {0}",
+      "after": "needs the player to have {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.forbids_condition",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "not while the player has {0}",
+      "after": "not while the player has {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_owned",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs a {0} on one of the player's ships",
+      "after": "needs a {0} on one of the player's ships"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_docked",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs the player docked at {0}",
+      "after": "needs the player docked at {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_arc_done",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "needs the arc {0} finished",
+      "after": "needs the arc {0} finished"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.needs_arc_unstarted",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "only before the arc {0} has started",
+      "after": "only before the arc {0} has started"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_dock",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "docked at {0}: {1}",
+      "after": "docked at {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_have",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "carrying {0}: {1} of {2}{3}",
+      "after": "carrying {0}: {1} of {2}{3}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_taken",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": " (taken when the step finishes)",
+      "after": " (taken when the step finishes)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_install",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} on the player's ships: {1} of {2}",
+      "after": "{0} on the player's ships: {1} of {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.test_wait",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "waited {0} of {1} hours",
+      "after": "waited {0} of {1} hours"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.yes",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "yes",
+      "after": "yes"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.no",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "no",
+      "after": "no"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.title",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story content: {0} broadcasts, {1} adverts, {2} arcs. Packs:",
+      "after": "Story content: {0} broadcasts, {1} adverts, {2} arcs. Packs:"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.help",
+      "category": "console help",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards.",
+      "after": "Story commands: phobosframework story | story start <arc> | story reset <arc> | story news <broadcast> | story check | story items <words>. story lists the packs, any entry left out and why, where you are docked and each arc's state; start begins an arc now, whatever its chance and requirements; reset forgets an arc so it can start again; news shows a broadcast on the next TV news item; check runs the story check at once; items lists the item ids whose names contain the words, for tests and rewards."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.items_found",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} items match {1} (id, then name):",
+      "after": "{0} items match {1} (id, then name):"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.items_more",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "  ...and {0} more; add a word to narrow it.",
+      "after": "  ...and {0} more; add a word to narrow it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.not_in_game",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Load a game first: story commands work on the player in play.",
+      "after": "Load a game first: story commands work on the player in play."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.docked_report",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Aboard and docked: {0}",
+      "after": "Aboard and docked: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.nowhere",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "nowhere",
+      "after": "nowhere"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.arc_active",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "  {0} ({1}): at step {2}",
+      "after": "  {0} ({1}): at step {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.arc_line",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "  {0} ({1}): {2}; {3}",
+      "after": "  {0} ({1}): {2}; {3}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.state_new",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "not started",
+      "after": "not started"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.state_done",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "finished {0} times",
+      "after": "finished {0} times"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.state_abandoned",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "set aside",
+      "after": "set aside"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.not_again",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "will not start again",
+      "after": "will not start again"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.may_start",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "may start ({0} per check)",
+      "after": "may start ({0} per check)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.f3_only",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "starts only from phobosframework story start",
+      "after": "starts only from phobosframework story start"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.pools",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "TV: {0} of {1} broadcasts and {2} of {3} adverts can show now; {4} bulletins queued.",
+      "after": "TV: {0} of {1} broadcasts and {2} of {3} adverts can show now; {4} bulletins queued."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_arc_command",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "No arc named {0} is loaded. phobosframework story lists them.",
+      "after": "No arc named {0} is loaded. phobosframework story lists them."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.unknown_broadcast",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "No broadcast named {0} is loaded.",
+      "after": "No broadcast named {0} is loaded."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.already_active",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Arc {0} is already under way.",
+      "after": "Arc {0} is already under way."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.started",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Arc {0} started.",
+      "after": "Arc {0} started."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.not_started",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Arc {0} has not been started in this game.",
+      "after": "Arc {0} has not been started in this game."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.reset",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Arc {0} forgotten; its goal is gone and it may start again.",
+      "after": "Arc {0} forgotten; its goal is gone and it may start again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.queued",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Broadcast {0} goes out on the next TV news item.",
+      "after": "Broadcast {0} goes out on the next TV news item."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Story.checked",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Story check done.",
+      "after": "Story check done."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.settings_elsewhere",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "Only Framework's own story pack may hold settings.",
+      "after": "Only Framework's own story pack may hold settings."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.range",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} must be from {1} to {2}.",
+      "after": "{0} must be from {1} to {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.empty",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} is empty.",
+      "after": "{0} is empty."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.id",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: ids are lower-case letters and digits joined by single hyphens, at most {1} characters.",
+      "after": "{0}: ids are lower-case letters and digits joined by single hyphens, at most {1} characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.region",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs a region of at most {1} characters, shown as Region News.",
+      "after": "{0} needs a region of at most {1} characters, shown as Region News."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.title",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs a title of at most {1} characters.",
+      "after": "{0} needs a title of at most {1} characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.notes",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: notes are limited to 2000 characters.",
+      "after": "{0}: notes are limited to 2000 characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.steps",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs from 1 to {1} steps.",
+      "after": "{0} needs from 1 to {1} steps."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.step_twice",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} uses the step id {1} twice.",
+      "after": "{0} uses the step id {1} twice."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.tests",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs from 1 to {1} tests.",
+      "after": "{0} needs from 1 to {1} tests."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.test_kind",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: the test kind must be one of {1}.",
+      "after": "{0}: the test kind must be one of {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.test_fields",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: this test takes only {1}.",
+      "after": "{0}: this test takes only {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.station",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: {1} is not a station id (letters, digits, _ and |, or any).",
+      "after": "{0}: {1} is not a station id (letters, digits, _ and |, or any)."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.game_name",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: {1} is not a valid name.",
+      "after": "{0}: {1} is not a valid name."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.list_long",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} lists more than {1} names.",
+      "after": "{0} lists more than {1} names."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.rewards",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} gives at most {1} kinds of item.",
+      "after": "{0} gives at most {1} kinds of item."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.wait_hours",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0}: hours must be more than 0 and at most {1}.",
+      "after": "{0}: hours must be more than 0 and at most {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.from",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} needs a sender (from) of at most {1} characters.",
+      "after": "{0} needs a sender (from) of at most {1} characters."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.text_blank",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} is blank.",
+      "after": "{0} is blank."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.text_long",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} is limited to {1} characters; it has {2}.",
+      "after": "{0} is limited to {1} characters; it has {2}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "StorySchema.text_token",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Story content (Framework 0.107.0): F3 story commands, pack checks and the few lines a player sees (a story message, a dismissed goal).",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Story"
+      ],
+      "before": "{0} contains {1}; text may use only the placeholders {2}, with no angle brackets or other bracketed words.",
+      "after": "{0} contains {1}; text may use only the placeholders {2}, with no angle brackets or other bracketed words."
     }
   ],
   "documents": [
@@ -80948,8 +81949,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bc92f984d5f093affaa02c22f47481449f752cfa087d6b070b53f53ccc9f8e15",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "c2b1cc5af19d364499d4d4eaea0df5d436d9d47fdebcc9bf0d84f028013f58f7",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "SUPPORT.md",
@@ -80962,8 +81963,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a182ce6115748c186eb8b689342c16110f38e64fb1070bebf16c65d91997ec9b",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "b1e778e9b7734bfdb1b4624ab4db484f2bcc32eb9c9ddca9e0aafa7b771b5609",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -80976,8 +81977,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a3528bbf4b472fbdc51126b6638c15ee597b1d246d99e9806559fda426174eeb",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "7fd2afaf665179625d3e54f5a5a58fcc602569b5757f5de4d6ec41ff2ed4795e",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -81109,8 +82110,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "37887cb6a39955e3874c3ba2a782c78ae235e9f79fec5b184a93341a3d38e833",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "7c8943d5623d93f81e913a1cdd423674460fcc69912ab90286a471a0f148845e",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81123,8 +82124,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "932cff2679e545e342af90dc8197ee78c309ca77fd408d5ce31ceee983b785e6",
-      "review": "Custom gas research study added"
+      "sha256": "dc3fa60194bea1ba8abf8488768b47621003421986a07fb789da2b079e3d1499",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -81466,8 +82467,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "916adeedd0d20e22981340db5fb74c2d48b6084cfb3f005684aca2d5a1915bc1",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes"
+      "sha256": "cb3c6f47cd462e1d6a5f9c1e6dcaec2e264ff91d141f5b23c032c86684bc65b6",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -81738,8 +82739,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "b430aa7266baab64542ccc399804b6e49861bfd9cdd300e1ec11bdeba65936f8",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "b3b7c5bf9bda09da364e16fbcb73c56378fefb813f49f49051e8c1a9c8966eed",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81978,8 +82979,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "d52dbbbafbf051a38aeffd88ac7193c921e1400bf5595dc2085804f8282a1923",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "cb6f323bac6aff3064f2d4732a6785937168982590612d59b310622b3737a648",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/equipment-economy.md",
@@ -81999,8 +83000,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ea288cd0761c72470327c3e6e718e9dc3a55350b5dd39ccc807d98bf0742a749",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "8622391276f5d5fbd894ef5ccd2079ce1b106096a2bc8b7310215c98ea319c58",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -82062,8 +83063,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "85228a84bc5e619684f94fc4f338342e813e47373e7423fdb4cfe639f10507af",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "b2fd2020ff01493a4a1b578690f00a3b8facf36245320b8abeb16d2dd7aba105",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/item-references.md",
@@ -82125,8 +83126,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9bcd6c54839311e977b373448d3d407a0e6f32ff55beb94654b6482e354abca3",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "bb41fbb6c781e29c625bb1e431770609a1fdec32bb0865f1ac8eed3ac9736852",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -82237,8 +83238,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f499e2bc0298827659a4dc3833f3f7297cf33963fbcca4f6533ea7e44d7336ce",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "1949b2e07c7b176d7b9704c9e5fc355ad4237ff1bb0c0c21cbe75a5c9c69fd98",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82251,8 +83252,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0465e62a6cb98789dfa999f3f4ab97e9eb78c4fc623655b5504ff48ca9423368",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "5d45ec43cf1ffd2cee3e2622736e23e5fda8122bcad41263de5294b1671288fe",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -82288,6 +83289,20 @@
       "decision": "new",
       "sha256": "f2adc8be2bc183825bdec11ffd8a7945c8a64aeb134b1e2d1f8e426e56925269",
       "review": "Custom gas study closed: owner keeps the rule"
+    },
+    {
+      "path": "docs/writing-story-content.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "6ca10892e73096d39d039359c2945cbf07788ac9ae143a46667e62a75354000a",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
+    },
+    {
+      "path": "docs/development/story-system-design.md",
+      "scope": "contributor design record; player steps live in the player guide",
+      "decision": "new",
+      "sha256": "13fc39aed696be16f49ec5a45b4b3981a0cc89d2fbbc26bb294ff305c15e6278",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     }
   ],
   "surfaces": [
@@ -82311,8 +83326,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3da6684c798343d3a2466d8f364724b64744d81560814c093485f0ebf6703d52",
-      "review": "Agriculture 0.59.0: crop misting"
+      "sha256": "5db73a58c2d096f3186933e3aa3e1f0a999a68e641736dfee1710982495045ba",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -82346,8 +83361,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1ab0c898058125a7bf5c5dd8070a47529b3d3e9d1f7722f33069a2719550d502",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "c25f6c406458e0548210d7779039656a61d6efb1e25f9bdf77be3e01365e7afb",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -82415,6 +83430,18 @@
       "decision": "new",
       "sha256": "f042ed55d64ca2e5ad3a1540dc5b1c0bb3057a301fceac25fd47ca7c8638bdf4",
       "review": "5 October 2026: Shipbreaker 0.75.0 and Agriculture 0.48.0 take added items; the add-on guide, both changelogs and pages, and the Dockside Extras example were reviewed against the player-language rules."
+    },
+    {
+      "path": "mods/PhobosAgriculture/framework/story.json",
+      "scope": "shipped story content: TV news, adverts and goal text",
+      "sha256": "5b8c38a15dae92c6136821c468bffe0d9ed29ab528d5df6da577a2f529940135",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
+    },
+    {
+      "path": "mods/PhobosFramework/framework/story.json",
+      "scope": "shipped story settings; no player text beyond its notes",
+      "sha256": "98ce0e4d0dce155302b641628154bbcec3a8c9e0a44d3f709e64391ed7463ebc",
+      "review": "Framework 0.107.0 story content review, 6 October 2026"
     }
   ],
   "hardcodedReview": {

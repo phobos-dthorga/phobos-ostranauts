@@ -1,0 +1,582 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/phobos-dthorga/phobos-ostranauts/schemas/story.schema.json",
+  "title": "Phobos story data pack",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "priority": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "Override files only: files apply lowest first (default 0), so a higher number has a later word. Leave it out unless you need it."
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "schema": {
+      "type": "string",
+      "const": "story"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text for maintainers; ignored by the game."
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "broadcastShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Share of TV news picks given to story broadcasts."
+        },
+        "advertShare": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Share of TV advert picks given to story adverts."
+        },
+        "checkSeconds": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 600,
+          "description": "Real seconds between story checks."
+        },
+        "maxActiveArcs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "How many arcs may start by themselves at once."
+        }
+      },
+      "description": "Framework's own story pack only."
+    },
+    "broadcasts": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "For authors; the game does not show it."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "region": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40,
+              "description": "Shown above the item as Region News, such as Outer System, Tharsis or Shipping & Inner System."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 700,
+              "description": "The news item. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+            },
+            "weight": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "How often it is picked against other story entries (default 1)."
+            },
+            "once": {
+              "type": "boolean",
+              "description": "Shown once in a save, then never again."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                },
+                "playerConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must have."
+                },
+                "forbidConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must not have."
+                },
+                "owns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."
+                },
+                "dockedAt": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                    "description": "A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                  },
+                  "maxItems": 16,
+                  "description": "Docked at or aboard any one of these stations."
+                },
+                "arcsDone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must have finished."
+                },
+                "arcsNotStarted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must never have started."
+                }
+              },
+              "description": "When the entry may appear. Every part is optional and every part given must hold."
+            }
+          },
+          "required": [
+            "region",
+            "text"
+          ]
+        }
+      },
+      "description": "TV news items by id."
+    },
+    "adverts": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "For authors; the game does not show it."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 400,
+              "description": "The advert; a line break may separate a heading. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+            },
+            "weight": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "description": "How often it is picked against other story entries (default 1)."
+            },
+            "once": {
+              "type": "boolean",
+              "description": "Shown once in a save, then never again."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                },
+                "playerConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must have."
+                },
+                "forbidConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must not have."
+                },
+                "owns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."
+                },
+                "dockedAt": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                    "description": "A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                  },
+                  "maxItems": 16,
+                  "description": "Docked at or aboard any one of these stations."
+                },
+                "arcsDone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must have finished."
+                },
+                "arcsNotStarted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must never have started."
+                }
+              },
+              "description": "When the entry may appear. Every part is optional and every part given must hold."
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      },
+      "description": "TV adverts by id."
+    },
+    "arcs": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "description": "For authors and the F3 list."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "requires": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mods": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(Phobos[A-Za-z]+|[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)+)$"
+                  },
+                  "maxItems": 16,
+                  "description": "Mods that must be installed: a Phobos mod folder name such as PhobosManufacturing, or a BepInEx plugin id."
+                },
+                "playerConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must have."
+                },
+                "forbidConditions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Game conditions the player must not have."
+                },
+                "owns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_]+$"
+                  },
+                  "maxItems": 16,
+                  "description": "Item definition ids that must be on one of the player's ships, such as PhobosVerdemorrowFirstlight4Installed."
+                },
+                "dockedAt": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                    "description": "A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                  },
+                  "maxItems": 16,
+                  "description": "Docked at or aboard any one of these stations."
+                },
+                "arcsDone": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must have finished."
+                },
+                "arcsNotStarted": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  },
+                  "maxItems": 16,
+                  "description": "Arcs the player must never have started."
+                }
+              },
+              "description": "When the entry may appear. Every part is optional and every part given must hold."
+            },
+            "chance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Chance per story check (every 30 s) that the eligible arc starts by itself; 0 starts it only from F3."
+            },
+            "repeatable": {
+              "type": "boolean",
+              "description": "May start again after it is finished."
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                    "maxLength": 32,
+                    "description": "Unique within the arc; it names the goal in saves, so keep it once published."
+                  },
+                  "delivery": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "message": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 40,
+                            "description": "Who it is from, shown before the text in the crew log."
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 400,
+                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                          }
+                        },
+                        "required": [
+                          "from",
+                          "text"
+                        ]
+                      },
+                      "bulletin": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                        "description": "A broadcast id that the next TV news item shows."
+                      }
+                    },
+                    "description": "What the player is told when the step begins."
+                  },
+                  "objective": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 60,
+                        "description": "The goal title in the GOALS list. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                      },
+                      "description": {
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 300,
+                        "description": "The goal description. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                      }
+                    },
+                    "required": [
+                      "title"
+                    ],
+                    "description": "A goal in the GOALS list. A step without one waits on its tests unseen."
+                  },
+                  "tests": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "kind": {
+                          "type": "string",
+                          "description": "What the step waits for.",
+                          "enum": [
+                            "dock-at",
+                            "have-item",
+                            "install",
+                            "wait"
+                          ]
+                        },
+                        "station": {
+                          "type": "string",
+                          "pattern": "^(any|[A-Za-z0-9_|-]{1,32})$",
+                          "description": "dock-at only. A station registration id such as OKLG (its parts, such as VORB_HAB, count too), or any for any station."
+                        },
+                        "item": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9_]+$",
+                          "description": "have-item and install only: an item definition id."
+                        },
+                        "count": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "description": "have-item and install only: how many (default 1)."
+                        },
+                        "consume": {
+                          "type": "boolean",
+                          "description": "have-item only: the items are taken from the player when the step finishes."
+                        },
+                        "hours": {
+                          "type": "number",
+                          "exclusiveMinimum": 0,
+                          "maximum": 720,
+                          "description": "wait only: game hours since the step began."
+                        }
+                      },
+                      "required": [
+                        "kind"
+                      ]
+                    },
+                    "minItems": 1,
+                    "maxItems": 4,
+                    "description": "All must pass for the step to finish."
+                  },
+                  "onComplete": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "message": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 40,
+                            "description": "Who it is from, shown before the text in the crew log."
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 400,
+                            "description": "The message, shown in the crew log. Plain text: no angle brackets, and no square brackets except the placeholders [player], [player-first] and [ship]."
+                          }
+                        },
+                        "required": [
+                          "from",
+                          "text"
+                        ]
+                      },
+                      "items": {
+                        "type": "array",
+                        "maxItems": 5,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "item": {
+                              "type": "string",
+                              "pattern": "^[A-Za-z0-9_]+$"
+                            },
+                            "count": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 20
+                            }
+                          },
+                          "required": [
+                            "item"
+                          ]
+                        },
+                        "description": "Items given to the player, or put at their feet when they cannot carry them."
+                      }
+                    },
+                    "description": "What happens when the step finishes."
+                  }
+                },
+                "required": [
+                  "id",
+                  "tests"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 12
+            }
+          },
+          "required": [
+            "title",
+            "steps"
+          ]
+        }
+      },
+      "description": "Story arcs by id."
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "schema"
+  ],
+  "description": "Story content: TV news, adverts and arcs whose goals appear in the GOALS list. See docs/writing-story-content.md."
+}

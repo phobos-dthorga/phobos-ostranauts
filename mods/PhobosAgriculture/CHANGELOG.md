@@ -10,6 +10,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.60.0] - 2026-10-06 - Draft
+
+### Added
+
+- Verdemorrow on the TV: three news items and two adverts in Agriculture's story pack, among the game's own.
+- A short arc, A grain sample for Verdemorrow: once you run a Firstlight-4, Verdemorrow may ask for a portion of dwarf wheat grain, delivered by docking at any station, and pays in three packets of seed wheat and five Groundwork nutrient charges.
+- The pack is a readable file in the mod's framework folder; add or change entries in BepInEx/config/PhobosAgriculture/story.
+
+### Dependencies
+
+- Requires Phobos Framework 0.107.0 or newer for story packs.
+
+### Save compatibility
+
+- Nothing saved changes beyond Framework's story record.
+
+### Compatibility and limits
+
+- A first seed for writers to expand. Checked offline; not yet seen in the game.
+
 ## [0.59.0] - 2026-10-06 - Draft
 
 ### Added

@@ -41,6 +41,8 @@ public static class Performance
     internal static PerformanceMetric? FluidRouteInvalidations = null;
     // Framework 0.106.0: the two-second readiness recheck that replaced the two-second full rescan.
     internal static PerformanceMetric? FluidRouteRecheck = null;
+    // Framework 0.107.0: the story check (goals, arc starts and the TV pools), every 30 real seconds by default.
+    internal static PerformanceMetric? StoryCheck = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

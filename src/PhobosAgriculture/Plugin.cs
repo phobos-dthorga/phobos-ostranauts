@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.104.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.107.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.59.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.60.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -38,6 +38,8 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Register(Id, RecyclerCapture.Cargo);
         RecyclerCapture.Available = BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("phobosgekko.ostranauts.shipbreaker", out var shipbreaker) && shipbreaker.Metadata.Version >= new Version(0,20,0) && Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Install(harmony, RecyclerCapture.Instance);
         FrameworkLifecycle.ContentLoading += Load; FrameworkLifecycle.ContentLoaded += Confirm;
+        // Verdemorrow news, adverts and the grain-sample arc (0.60.0), through Framework story packs.
+        Phobos.Ostranauts.Framework.Story.StoryContent.Register(new(Text.Owner, "PhobosAgriculture", Phobos.Ostranauts.Framework.Story.StorySchema.Name, typeof(Plugin).Assembly, "PhobosAgriculture.story.json"));
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(new AgricultureBulkSupplies());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new AgricultureCrewProvider());

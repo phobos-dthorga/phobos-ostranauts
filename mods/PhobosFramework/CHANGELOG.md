@@ -28,6 +28,27 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.107.0] - 2026-10-06 - Draft
+
+### Added
+
+- Story content: TV news, adverts and story arcs (short chains of goals in the GOALS list) written in data files. Each mod may ship a story pack; players add files in BepInEx/config/PhobosFramework/story and add-ons under phobos/PhobosFramework/story.
+- About a third of TV news and advert picks come from story entries the player qualifies for; the rest stay the game's own. A step of an arc can also put a news item on the next TV news.
+- Arc steps send a message to the crew log, show a goal, and finish when their tests pass: docked at a station, carrying items (which can be taken), items on the player's ships, or game hours waited. A finished step can give items.
+- Entries can require mods, player conditions, items aboard, a station and other arcs, and text can name the player and their ship.
+- Dismissing a story goal sets that arc aside for good in that game.
+- F3: phobosframework story lists the packs, anything left out and why, where you are docked and each arc's progress; story start, reset, news, check and items help authors test their content.
+- The settings (share of the TV, seconds between checks, arcs at once) are in Framework's story pack.
+- A guide for writing story content, with a ready prompt for ChatGPT, and a JSON Schema for editors.
+
+### Save compatibility
+
+- The player carries one Phobos record of story progress, and each story goal keeps its own name. Removing a story file, or Framework, lets its goals finish and disappear on the next load; the game logs No such CT once for each.
+
+### Compatibility and limits
+
+- No game plots, pledges or conversations are used, so crew do not yet talk about story topics; that is the next phase. Story steps advance at the 30 second check. Checked offline; not yet seen in the game.
+
 ## [0.106.0] - 2026-10-05 - Draft
 
 ### Changed

@@ -1,0 +1,305 @@
+# Writing story content
+
+Phobos Framework 0.107.0 lets anyone add to the world's story with a data file:
+
+- **News** that plays on the game's TVs, among the game's own headlines.
+- **Adverts** that play in the TVs' commercial breaks.
+- **Arcs**: a short chain of goals in the GOALS list, with messages from someone in
+  the world, items to bring or install, places to dock, and rewards.
+
+You need no programming. One JSON file holds the lot, and the game checks it as it
+loads. This page explains the file, then gives a [prompt for ChatGPT](#writing-with-chatgpt)
+that writes one for you.
+
+**Not available yet:** crew talking about your topics, encyclopedia entries, loading
+tips, found data files, money or reputation rewards, branching choices and full-screen
+encounters. Do not write content that needs them. The
+[design record](development/story-system-design.md#later-work) says where each stands.
+
+## How it fits together
+
+```mermaid
+flowchart LR
+    Write["Write or ask ChatGPT for a story file"] --> Check["Check it: game log, or validate-data-packs.py"]
+    Check --> Place["Put it in a story folder"]
+    Place --> Load["Load a game"]
+    Load --> Try["F3: phobosframework story, then start or news"]
+    Try --> Read["Watch the TV and the GOALS list"]
+    Read --> Write
+```
+
+## Where the file goes
+
+| Who you are | Folder |
+| --- | --- |
+| A player adding your own stories | `BepInEx/config/PhobosFramework/story/` (any name ending `.json`) |
+| An add-on author | `phobos/PhobosFramework/story/` inside your add-on; see [publishing an add-on](publishing-an-add-on.md) |
+| A Phobos mod | the mod's own `framework/story.json`, registered by the mod |
+
+Files in a mod's own folder (for example `BepInEx/config/PhobosAgriculture/story/`)
+work too, and can change that mod's shipped entries. An add-on may add only entries
+whose ids start with its id prefix, written in lower case (prefix `Kestrel` gives
+`kestrel-first-news`).
+
+Every id is shared by all packs: if two files use the same id, the first one loaded
+keeps it and the other is left out with a message in the log. Pick ids that say who
+wrote them.
+
+## The file
+
+```json
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "broadcasts": {
+    "kestrel-ice-prices": {
+      "region": "Outer System",
+      "text": "Water ice prices fell again at the outer stations, where haulers report the best season in years.",
+      "weight": 2
+    }
+  },
+  "adverts": {
+    "kestrel-tug-advert": {
+      "text": "Kestrel Towing\nStuck? We have been, too. Call Kestrel."
+    }
+  },
+  "arcs": {
+    "kestrel-first-job": {
+      "title": "Kestrel's first job",
+      "chance": 0.05,
+      "requires": { "dockedAt": [ "any" ] },
+      "steps": [
+        {
+          "id": "ask",
+          "delivery": { "message": { "from": "Kestrel Towing", "text": "Hello, [player-first]. Fancy some easy work?" } },
+          "objective": { "title": "Wait for a call from Kestrel", "description": "Kestrel will be in touch within a few hours." },
+          "tests": [ { "kind": "wait", "hours": 4 } ]
+        }
+      ]
+    }
+  }
+}
+```
+
+Keep `schemaVersion` and `schema` as shown. Any table may be left out.
+
+### News items (`broadcasts`)
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `region` | yes | Shown above the item as "Region News:". The game's own regions are Shipping & Inner System, Tharsis and Outer System. Up to 40 characters. |
+| `text` | yes | The news item, up to 700 characters. The game's own run to about 650. |
+| `weight` | no | 1 to 100 (default 1): how often it is picked against other story news. |
+| `once` | no | `true` shows it once in a save, then never again. |
+| `requires` | no | When it may show; see [requirements](#requirements). |
+| `title`, `notes` | no | For you; the game never shows them. |
+
+About a third of TV news picks come from story news when any is available; the rest
+stay the game's own (this share is a setting, below).
+
+### Adverts (`adverts`)
+
+`text` (up to 400 characters; a line break can separate a heading), and `weight`,
+`once`, `requires`, `title` and `notes` as for news.
+
+### Arcs (`arcs`)
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `title` | yes | For you and the F3 list; the player sees each step's goal title instead. |
+| `chance` | no | 0 to 1 (default 0): the chance, at each story check (every 30 seconds), that an available arc starts by itself. 0.05 starts it after about ten minutes of play. 0 means it starts only from F3. |
+| `requires` | no | When it may start. Once started, it carries on whatever happens. |
+| `repeatable` | no | `true` lets it start again after it is finished. |
+| `steps` | yes | 1 to 12 steps, done in order. |
+
+Each step:
+
+| Field | Needed | What it does |
+| --- | --- | --- |
+| `id` | yes | Lower case and hyphens, unique in the arc. It is saved with the player's goal, so do not rename it after people play it. |
+| `delivery` | no | What the player is told as the step begins: a `message` (`from` and `text`, shown in the crew log) and/or a `bulletin`, the id of a news item the next TV news shows. |
+| `objective` | no | A goal in the GOALS list: `title` (up to 60 characters) and `description` (up to 300). A step without one waits unseen. |
+| `tests` | yes | 1 to 4 tests; all must pass to finish the step. |
+| `onComplete` | no | A `message`, and `items` (up to five kinds, 1 to 20 of each) given to the player, or put at their feet when they cannot carry them. |
+
+Two steps in a row should not have the same goal title: the game does not show a goal
+titled like one it showed in the last ten seconds (the story check offers it again).
+
+### Tests
+
+| `kind` | Fields | Passes when |
+| --- | --- | --- |
+| `dock-at` | `station` | The player is aboard, or docked at, that station or one of its parts (`VORB` covers `VORB_HAB`). `any` means any station. |
+| `have-item` | `item`, `count` (default 1), `consume` | The player carries that many, bags included. With `"consume": true` they are taken when the step finishes. |
+| `install` | `item`, `count` (default 1) | That many are on the player's ships nearby (installed, or lying aboard). |
+| `wait` | `hours` | That many game hours have passed since the step began (up to 720). |
+
+`item` is an item definition id, such as `PhobosVerdemorrowWheatGrain`. To find one,
+type `phobosframework story items wheat` in the F3 console: it lists every id whose
+name contains the words. Installed machines usually end in `Installed`. A station id is the one the game uses, such as `OKLG`; type
+`phobosframework story` in the F3 console while docked to see the ids where you are.
+
+### Requirements
+
+Every part is optional, and every part given must hold.
+
+| Field | Holds when |
+| --- | --- |
+| `mods` | Every mod listed is installed: a Phobos mod by folder name (`PhobosManufacturing`) or any BepInEx plugin id. An entry for a mod that is not installed never shows. |
+| `playerConditions` | The player has every game condition listed. |
+| `forbidConditions` | The player has none of them. |
+| `owns` | Each item listed is on one of the player's ships. |
+| `dockedAt` | The player is docked at any one of these stations (`any` for any). |
+| `arcsDone` | Each arc listed has been finished. |
+| `arcsNotStarted` | No arc listed has ever been started. |
+
+### Text
+
+- Plain text only. A line break (`\n` in JSON) is fine; angle brackets are not.
+- Square brackets are kept for placeholders: `[player]` (full name), `[player-first]`
+  and `[ship]` (the ship the player is aboard). Any other bracketed word is refused.
+- Text is English in the file. A translation can replace it by the key
+  `Story.<id>.<field>` in the owning mod's translation file: for news `text` and
+  `region`, for arc steps `<arc>.<step>.title`, `.description`, `.from`, `.message`,
+  `.doneFrom` and `.done`.
+
+### Settings
+
+Framework's own file (`mods/PhobosFramework/framework/story.json`) holds the settings;
+override them in `BepInEx/config/PhobosFramework/story/`:
+
+| Setting | Shipped | What it does |
+| --- | ---: | --- |
+| `broadcastShare` | 0.3 | Share of TV news picks given to story news. |
+| `advertShare` | 0.3 | Share of advert picks given to story adverts. |
+| `checkSeconds` | 30 | Real seconds between story checks. |
+| `maxActiveArcs` | 2 | How many arcs may start by themselves at once. |
+
+## Checking and testing
+
+- **Before the game:** with the repository, `python scripts/validate-data-packs.py yourfile.json`
+  checks a file that carries the `schema` header. Editors that read JSON Schema can use
+  `schemas/story.schema.json` for completion and inline errors.
+- **In the game:** a file with a mistake is skipped and the reason goes to
+  `BepInEx/LogOutput.log`. An entry naming an item or condition the game does not have
+  is left out on its own, with a message.
+- **F3 console:**
+  - `phobosframework story` lists the packs, anything left out and why, where you are
+    docked, and each arc: under way (with each test's progress), finished, set aside,
+    or why it cannot start yet.
+  - `phobosframework story news <id>` shows a news item on the next TV news.
+  - `phobosframework story start <arc>` starts an arc now, whatever its chance and requirements.
+  - `phobosframework story check` runs the story check at once.
+  - `phobosframework story reset <arc>` forgets an arc in this game so it can start again.
+  - `phobosframework story items <words>` lists the item ids whose names contain the words.
+
+## What stays in a save
+
+- The player carries one Phobos record: where each arc is, which once-only news has
+  been shown, and news waiting for a TV.
+- Each goal keeps its title, description and the name `PhobosStory.<arc>.<step>`.
+- Nothing else. TV news is never saved by the game.
+- **Removing a story file is safe.** Its goals finish and disappear on the next load,
+  and its record entries are ignored; put the file back and they are picked up again.
+- **Dismissing a story goal** in the GOALS list sets that arc aside for good in that game.
+
+## Writing well
+
+**The setting, in our own words.** Ostranauts is set in a future Solar System. People live and work on stations and ships from the inner system
+to the outer moons, and most crews scrape a living from salvage, hauling and odd jobs,
+with fuel, air, food and debt never far from mind. Companies and governments own the
+stations and the rules. The tone is blue-collar and lived-in: worn ships, small
+victories, dry humour. Read the game's own news and information pages before naming
+its places, factions or history, and do not contradict them.
+
+**Our companies** are invented for these mods and can appear in news and adverts.
+Use them as companies in the world, never as claims about real firms:
+
+| Company | Makes |
+| --- | --- |
+| Verdemorrow Agronomics | Grow racks (Firstlight), galley cookers (Hearth), seed (Continuance), nutrients (Groundwork). Hopeful and practical; its line is "Where we go, life grows." |
+| Rivetline | Salvage machinery, furnaces, silos, bins and belts |
+| Asterel | Navigation and control electronics (the Polaris modules) |
+| Fennmark | Refineries, chemical processors and gas stores |
+| Tolvane, Lixivar, Oxsmith | Ammonia, leaching and acid, and oxygen from rock |
+| Ablatine | Mining lasers |
+| Alembrine | Ethanol tanks and spirits |
+| Slingwright | The reaction mass feeder |
+| Halewright | Medical beds and patient monitors |
+
+**Voice.** Practical, worn-in and occasionally dry, as in the
+[player language guide](development/player-language.md). Goals say plainly what to do;
+messages may have character. No forced slang, no gratuitous swearing.
+
+**Do not:**
+
+- name or imitate real people, real companies or real-world politics;
+- copy the game's own text, or anyone else's;
+- promise something the game does not do (a goal must be possible with the tests above,
+  and a news item should not describe a mechanic that does not exist, such as a crop
+  disease);
+- ask for items players cannot get. Check the item reference for where each is bought
+  or found;
+- shorten a full equipment name: it always starts with `Phobos'` (for example
+  Phobos' Verdemorrow Firstlight-4 Cultivation Rack); a short name such as
+  "the Firstlight-4" is fine in passing.
+
+## Writing with ChatGPT
+
+Paste the prompt below into ChatGPT, then describe what you want at the end. Check
+what comes back with the steps above before you use it.
+
+```text
+You write story content for the Ostranauts mod suite "Phobos". Reply with one JSON
+file only, no commentary, following these rules exactly.
+
+Format:
+{ "schemaVersion": 1, "schema": "story",
+  "broadcasts": { "<id>": { "region": "...", "text": "...", "weight": 1, "once": false } },
+  "adverts":    { "<id>": { "text": "..." } },
+  "arcs":       { "<id>": { "title": "...", "chance": 0.05, "requires": { ... },
+                  "steps": [ { "id": "...",
+                    "delivery": { "message": { "from": "...", "text": "..." }, "bulletin": "<broadcast id>" },
+                    "objective": { "title": "...", "description": "..." },
+                    "tests": [ { "kind": "...", ... } ],
+                    "onComplete": { "message": { "from": "...", "text": "..." },
+                                    "items": [ { "item": "...", "count": 1 } ] } } ] } } }
+
+Rules:
+- Ids: lower-case letters and digits joined by single hyphens, starting with MYPREFIX-.
+  Step ids likewise, unique within their arc.
+- Broadcast region: one of Shipping & Inner System, Tharsis, Outer System (or a short
+  topic such as Economics). Broadcast text at most 700 characters; advert text at most
+  400; message text at most 400 and "from" at most 40; goal title at most 60 and
+  description at most 300.
+- Plain text only: no angle brackets, no square brackets except [player],
+  [player-first] and [ship]. Use \n for a line break.
+- Tests, all of which must pass to finish a step:
+  {"kind":"dock-at","station":"any"} (or a station id I give you);
+  {"kind":"have-item","item":"<item id>","count":N,"consume":true or false};
+  {"kind":"install","item":"<item id>","count":N};
+  {"kind":"wait","hours":H}.
+- Requirements (all optional): mods, playerConditions, forbidConditions, owns,
+  dockedAt, arcsDone, arcsNotStarted.
+- Use only item ids I list below. Rewards: at most five kinds, at most 20 of each,
+  and modest in value.
+- Nothing else is available: no money or reputation rewards, no choices, no crew
+  conversations, no new items or places.
+- Setting: Ostranauts, a future Solar System; blue-collar
+  spacers living by salvage, hauling and odd jobs. Practical, worn-in voice with
+  occasional dry humour. No real people, companies or politics; do not copy the
+  game's text; never describe a game mechanic that does not exist.
+- Companies you may use: Verdemorrow Agronomics (grow racks, cookers, seed,
+  nutrients; "Where we go, life grows."), Rivetline (salvage machinery), Asterel
+  (navigation electronics), Fennmark (refineries and gas stores), Halewright
+  (medical equipment). Full equipment names start with Phobos', for example
+  Phobos' Verdemorrow Firstlight-4 Cultivation Rack.
+
+Item ids you may use: <paste ids from the item reference>
+What I want: <describe the news, adverts or arc>
+```
+
+Replace `MYPREFIX` with your add-on's prefix (or a word of your own for a personal
+file), and paste the item ids you want used, found with `phobosframework story items`
+in the F3 console. The [item references](item-references.md) say where each item is
+bought or found.

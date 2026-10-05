@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.106.0
+[b]Version:[/b] 0.107.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods that need it, and it keeps their controls, crew work and supplies behaving the same way from one machine to the next.
@@ -8,18 +8,18 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [list]
 [*]Shared control panels explain what needs attention and what the crew can do. Apply or Discard settings, choose stores and standing orders, arrange training and set the volume for ready alerts.
 [*]Crew standing orders: give crew a chosen job and approved supplies. Orders begin disabled; shifts, needs, access and the game's AutoTask and Haul duties still apply. Crew take supplies from anywhere aboard, nearest first, like the game's Reload job.
-[*]Crew study Phobos specialities at powered terminals through the game's own study actions, and AutoTask crew choose them on their own.
+[*]Crew study Phobos specialities at powered terminals through the game's own study actions.
 [*]Supported onboard work carries on through time-skip. Exterior work and flight pause and wait for Resume.
 [*]Construction, transfers and station purchases check materials, space and power. A full destination keeps cargo where it was.
 [*]Shared gas and process-water lines (INSTALL, HVAC) and a conveyor belt (MISC). A line joins each machine or store it runs under or beside; touching equipment chains like pipe; nothing links over open floor. Lines hold what flows through them: drain one into a D20 canister (vent a gas line) before taking it up, and haul the canister to a tank to pour it in.
 [*]Rivetline S2 to S5 process water silos for every mod, shared bulk storage in three sizes that shows its contents on right-click, canisters and suit bottles filled to 99%, honest mass, and station sales and 45% buy-back under the refuelling kiosk's Bulk supplies.
-[*]RCS thrusters push by each gas's real cold-gas worth. Nitrogen flies exactly as before; oxygen and CO2 canisters give slightly less per kilogram, and RCS fuel readings count in nitrogen-equivalent kilograms. Content mods can add their own propellant feeds.
+[*]RCS thrusters push by each gas's real cold-gas worth: nitrogen flies as before, oxygen and CO2 give slightly less per kilogram, and readings count in nitrogen-equivalent kilograms. Content mods can add propellant feeds.
 [*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and you are told every time in the crew log and on the nav map.
-[*]Content mods can lay the game's own build sites for destroyed parts, vanilla or modded; the crew still build them with real parts.
-[*]Shared merchant stock, faction-kiosk scrip offers gated by reputation, salvage finds, mining-find shares, repair, Restore and dismantling rules for the content mods.
-[*]Shared translations.
+[*]Content mods can lay the game's own build sites for destroyed parts; crew build them with real parts.
+[*]Shared merchant stock, faction-kiosk offers, salvage finds, repair, Restore and dismantling rules for the content mods.
 [*]Machines give off a quarter of their heat; MachineHeatScale under Heat changes it.
-[*]Data packs: a content mod's tables (prices, work, salvage, recipes, odds, store ratings) ship as readable files and take your own override files in BepInEx/config, checked before use. Every recipe must conserve mass. You can publish your files as an add-on of your own for others to subscribe to: see the editing and add-on guides.
+[*]Data packs: each content mod's tables (prices, work, salvage, recipes, odds) ship as readable files you can override in BepInEx/config, checked before use; recipes must conserve mass. Publish your files as an add-on for others: see the editing and add-on guides.
+[*]Story content: TV news, adverts and short goal chains from data files anyone can write (the guide has a prompt for ChatGPT). Removing a story file never breaks a save.
 [/list]
 
 [h2]Getting started[/h2]
@@ -47,7 +47,7 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [/list]
 
 [h2]Saves and limits[/h2]
-Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removing them is not a clean uninstall. Updating does not refill existing shops or old loot containers. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A pipe that just broke is noticed within two seconds. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
+Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removing them is not a clean uninstall. Updating does not refill existing shops or old loot containers. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or any research institution cited in the guides. Research informs the design; compact equipment, yields and operating limits remain gameplay choices.
@@ -60,6 +60,7 @@ Original artwork uses AI-assisted production; provenance and licensing are recor
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Control panels[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew orders, study and time-skips[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-item-reference.md]Item reference[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/writing-story-content.md]Writing story content[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]All player guides[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
 [*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/CHANGELOG.md]Changelog[/url]

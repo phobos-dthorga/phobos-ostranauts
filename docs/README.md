@@ -14,6 +14,7 @@ common failures and useful reports.
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Editing the Phobos data files](editing-data-files.md): prices, work and merchant odds in files you can override.
 - [Publishing a Phobos add-on](publishing-an-add-on.md): pack your changes as a mod others can subscribe to on Steam Workshop.
+- [Writing story content](writing-story-content.md): TV news, adverts and goal chains in a data file, with a prompt for ChatGPT.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Lines hold what they carry](lines-and-draining.md): draining water and acid lines into canisters, venting gas lines, and pouring canisters back.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): history. The per-crop feeds of Agriculture 0.5.0 to 0.54.0, replaced by one nutrient.

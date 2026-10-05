@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "schema": "story",
+  "notes": "Framework's story pack (Framework 0.107.0): the settings for story content from every mod, and no stories of its own. Each mod ships its own story pack in its framework folder. Your own news, adverts and arcs go in BepInEx/config/PhobosFramework/story/*.json, or in an add-on under phobos/PhobosFramework/story. See docs/writing-story-content.md.",
+  "settings": {
+    "broadcastShare": 0.3,
+    "advertShare": 0.3,
+    "checkSeconds": 30,
+    "maxActiveArcs": 2
+  },
+  "broadcasts": {},
+  "adverts": {},
+  "arcs": {}
+}

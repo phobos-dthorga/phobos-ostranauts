@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.106.0";
+    public const string Version = "0.107.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -47,6 +47,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         FrameworkConsole.AddOns = () => Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe() + "\n" + Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
         FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe() + "\n" + Text.Get("FrameworkConsole.addons") + "\n" + Data.AddOns.Describe();
         FrameworkConsole.Loot = Registration.LootCarveRegistry.Describe;
+        FrameworkConsole.Story = Story.StoryContent.Command;
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
         RefreshLanguage();
@@ -72,6 +73,8 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Health.WoundGravity.Apply(harmony, message => Logger.LogWarning(message));
         FrameworkLifecycle.ContentLoaded += Crew.CrewSpecialities.Definitions;
         FrameworkLifecycle.ContentLoaded += Trading.FactionKiosks.Definitions;
+        // Story packs (0.107.0), once every mod's items exist, so the names they use can be checked.
+        FrameworkLifecycle.ContentLoaded += Story.StoryContent.Load;
         // Framework's own water tanks (0.58.0): their panel, console group, station water and the crew reserve setting,
         // which carries over the value a player set under Shipbreaker's Silo section the first time it is read here.
         Items.WaterTankService.Log = message => Logger.LogWarning(message);
@@ -84,7 +87,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Trading.BulkSupplies.RegisterBuyback(Items.WaterTankService.Buyback);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
-    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); Data.DataFileNotice.Poll(); }
+    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Liquids.LineContents.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); Persistence.LegacyItemConversions.Poll(); Persistence.ContainerFit.Poll(); Liquids.VesselContentsDisplay.Poll(); Data.DataFileNotice.Poll(); Story.StoryArcs.Poll(); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
-    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; FrameworkLifecycle.ContentLoaded -= Story.StoryContent.Load; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

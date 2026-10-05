@@ -108,6 +108,43 @@ class DataPackTests(unittest.TestCase):
         self.assertEqual([(s['tile'], s['object']) for s in rule['supports']], [('IsFloor', 'floor'), ('IsWall', 'IsWall')])
         self.assertEqual(rule['forbiddenTiles'], ['IsFloorFlex', 'IsEVATile'])
 
+    def test_story_packs(self):
+        # Framework 0.107.0: story packs. The shipped seed is valid; each broken copy is refused, as the game's loader does.
+        import copy
+        shipped = json.loads((ROOT / 'mods/PhobosAgriculture/framework/story.json').read_text(encoding='utf-8'))
+        validate.story(shipped, 'test', framework=False)
+        self.assertEqual(schemas.problems(json.loads(writer.render('story')), shipped), [])
+        arc = shipped['arcs']['verdemorrow-grain-sample']
+        self.assertEqual([s['id'] for s in arc['steps']], ['grow', 'deliver'])
+        self.assertIn(arc['steps'][0]['delivery']['bulletin'], shipped['broadcasts'])
+
+        def broken(change):
+            pack = copy.deepcopy(shipped)
+            change(pack)
+            return pack
+        first = lambda p: p['arcs']['verdemorrow-grain-sample']['steps'][0]
+        for bad in (broken(lambda p: p.update(settings={'checkSeconds': 30})),
+                    broken(lambda p: p['broadcasts'].update({'Bad_Id': {'region': 'Tharsis', 'text': 'x'}})),
+                    broken(lambda p: p['broadcasts']['galley-survey'].update(text='Hello [captain].')),
+                    broken(lambda p: p['broadcasts']['galley-survey'].update(text='<b>Bold</b> news.')),
+                    broken(lambda p: p['broadcasts']['galley-survey'].update(text='x' * 701)),
+                    broken(lambda p: p['broadcasts']['galley-survey'].pop('region')),
+                    broken(lambda p: p['adverts']['firstlight-advert'].update(colour='green')),
+                    broken(lambda p: p['arcs']['verdemorrow-grain-sample'].update(chance=2)),
+                    broken(lambda p: first(p)['tests'].clear()),
+                    broken(lambda p: first(p)['tests'][0].update(kind='sleep')),
+                    broken(lambda p: first(p)['tests'][0].update(station='any')),
+                    broken(lambda p: first(p).update(id='deliver')),
+                    broken(lambda p: first(p)['objective'].update(title='x' * 61)),
+                    broken(lambda p: p['arcs']['verdemorrow-grain-sample']['requires'].update(mods=['Agri culture']))):
+            with self.subTest(bad=bad), self.assertRaises(validate.Problem):
+                validate.story(bad, 'test', framework=False)
+        framework = json.loads((ROOT / 'mods/PhobosFramework/framework/story.json').read_text(encoding='utf-8'))
+        validate.story(framework, 'test', framework=True)
+        self.assertEqual(framework['settings'], {'broadcastShare': 0.3, 'advertShare': 0.3, 'checkSeconds': 30, 'maxActiveArcs': 2})
+        with self.assertRaises(validate.Problem):
+            validate.story(broken(lambda p: p.update(settings={'broadcastShare': 0.3})), 'test', framework=False)
+
     def test_addon_checker(self):
         # Framework 0.90.0: the worked example is valid; broken copies are refused for the reason the game gives.
         import shutil, tempfile
