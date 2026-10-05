@@ -10,6 +10,25 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.59.0] - 2026-10-06 - Draft
+
+### Added
+
+- Mist to cool crop on the rack's panel (Stop misting turns it off; off until you choose it). While the room is hotter than the crop's ceiling, the rack mists the crop with reservoir water.
+- Up to 4 C over the ceiling the crop is held within its limits and keeps growing, for about 0.15 kg of water an hour per degree. Hotter than that, growth stops but the crop loses health at half the usual rate while it mists.
+- Misting keeps the last 2 kg of the reservoir for the crop and never helps with cold, pressure or a room without air.
+- The misted water evaporates: the room's air loses 2.45 MJ per kg, so a misting rack is a small evaporative cooler, and the water goes to a linked water tank or is lost, as the rack's spare vapour already is.
+- The rack's status shows what misting is doing, and its Next line suggests misting when the room is too hot.
+- The crops data file's growth section gains misting: the limit, water rate, damage share and reserve, with an optional limit per crop, for player files and add-ons.
+
+### Save compatibility
+
+- Nothing saved changes. Every rack starts with misting off.
+
+### Compatibility and limits
+
+- The limit, water rate, reserve and damage share are authored for play, not measured plant physiology. Checked offline; not yet seen in the game.
+
 ## [0.58.0] - 2026-10-05 - Draft
 
 ### Fixed

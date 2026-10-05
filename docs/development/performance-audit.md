@@ -1140,3 +1140,7 @@ The route cache now remembers the objects the last full build examined for any f
 
 L65 — Agriculture 0.58.0. A machine whose room has no air no longer throws on the standby draw: it takes the existing no-air branch (stop, crop stress, notice, save), one call per machine step, as it already did when nothing was received. Before, the throw built an exception and a stack trace and wrote a log line once per machine, and the faulted machine then skipped its steps until the next load. The cost of an airless step is unchanged apart from the exception it no longer raises. No capture accompanies this change.
 
+## 6 October: crop misting (L66)
+
+L66 — Agriculture 0.59.0. Each rack step now compares the room's temperature and pressure with the crop's limits separately (the same reads as before) and, only when misting is switched on and the room is above the ceiling, resolves the crop's misting figures from the loaded pack (one dictionary lookup) and runs the pure misting plan. A misting step adds one tank deposit through the existing `VapourReturn` path, which caches its tank for 30 seconds. With misting off nothing new runs beyond the split comparison. No capture accompanies this change.
+

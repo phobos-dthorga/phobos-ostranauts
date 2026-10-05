@@ -71,6 +71,36 @@ in, and the panel says so.
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
+### Misting in a hot room
+
+A room hotter than a crop's ceiling (31 °C by default) stops it growing, and after two
+hours it starts losing health. If cooling the room is not an option yet, choose **Mist to
+cool crop** on the rack's panel (**Stop misting** turns it off; it is off until you switch
+it on). While the room is too hot, the rack mists the crop with water from its own
+reservoir:
+
+- **Up to 4 °C above the ceiling,** the crop is held within its limits: it keeps growing
+  and takes no heat damage. This costs about **0.15 kg of water an hour for each degree**,
+  so holding off 4 °C uses about 0.6 kg an hour, or 14 kg a day. A pipe-fed rack is refilled
+  by its W2 as usual.
+- **Hotter than that,** misting runs at full rate and can't hold the crop in its limits:
+  growth stops, but the crop loses health at **half** the usual rate.
+- **The last 2 kg of the reservoir is kept** for the crop to grow on; misting stops at that
+  reserve, and the panel tells you to refill.
+- **It only helps with heat.** Misting does nothing for a cold room, the wrong pressure or a
+  room without air.
+
+The misted water evaporates, so it also cools the room a little: each kilogram takes
+2.45 MJ out of the air, the same as the rack's own spare vapour. A misting rack at full rate
+is a small evaporative cooler of about 0.4 kW, less the machine heat share you have set. The
+water then goes to a water tank the rack is linked to, or is lost if there is none, because
+the game's air holds no humidity. The panel's misting line shows what it is doing: off, not
+needed, holding the crop some degrees below the room, at full rate, or out of water.
+
+The 4 °C limit, the water rate, the reserve and the damage share are authored for play, not
+measured plant physiology. All four are in the crops data file and can be changed, per crop
+for the limit (see [growing room and stress](editing-data-files.md#growing-room-and-stress)).
+
 ### Carbon dioxide and spare water
 
 **Enriched air grows crops faster** (Agriculture 0.43.0). Every crop grows more per

@@ -328,6 +328,11 @@ physiology.
 | `stress.plantWaterKg` | 0.25 | Water a rack needs before a crew order plants in it. |
 | `nutrientTargetKg` | 0.1 | Nutrient a W2 keeps in each rack it feeds. A rack holds at most 0.5 kg. |
 | `feedStrengthKgPerKg` | 0.01 | Nutrient each kilogram of water the pump moves can carry, fresh or recirculated. |
+| `misting.maxCoolingC` | 4 | How far misting can hold a crop below a room that is too hot for it, in degrees C (Agriculture 0.59.0). |
+| `misting.waterKgPerHourPerC` | 0.15 | Water misting takes per hour for each degree it covers. |
+| `misting.damageShareBeyond` | 0.5 | Share of heat damage left while misting a room hotter than it can cover. |
+| `misting.reserveKg` | 2 | Reservoir water misting never uses. |
+| `crops.<crop>.misting.maxCoolingC` | none | One crop's own misting limit. |
 
 The rules:
 

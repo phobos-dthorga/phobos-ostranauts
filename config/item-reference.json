@@ -623,7 +623,7 @@
             "PhobosVerdemorrowFirstlight4InstalledDmg"
           ],
           "function": "Grows one potato, food-lettuce or lettuce-seed cohort across four visual trays.",
-          "use": "Install and power the rack, load irrigation and nutrients, then perform Plant. Keep cabin conditions suitable and Harvest when ready. Remove output cargo before replanting. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Install and power the rack, load irrigation and nutrients, then perform Plant. Keep cabin conditions suitable and Harvest when ready. In a room too hot for the crop, Mist to cool crop holds it up to 4 C below the room for about 0.15 kg of water an hour per degree, and halves the heat damage beyond that; it also cools the room a little. Remove output cargo before replanting. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy equipment or build at a supported table; used/refurbished/damaged offers are listed below. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Warm standing.",
           "notes": "Four trays are one crop batch. Food lettuce does not return seeds; choose the dedicated seed cycle. The local panel shows inventory, stress and progress.",
           "guide": "agriculture-player-guide.md",

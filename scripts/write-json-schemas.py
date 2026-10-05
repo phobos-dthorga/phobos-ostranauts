@@ -208,10 +208,16 @@ def crops():
                   'healthLossPerHourOutside': num(0, 1, description='Health lost per further hour in a room outside its limits.'),
                   'healthLossPerHourNoAir': num(0, 1, description='Health lost per hour in a room with no air.'),
                   'plantWaterKg': num(0, 20, description='Water a rack needs before a crew order plants in it, kg.')}, [])
-    growth = obj({'notes': NOTES, 'room': room, 'stress': stress,
+    misting = obj({'notes': NOTES, 'maxCoolingC': num(0, 15, description='How far misting can cool a crop below a room too hot for it, C.'),
+                   'waterKgPerHourPerC': num(0, 5, exclusive_minimum=0, description='Water misting takes per hour for each degree it covers, kg.'),
+                   'damageShareBeyond': num(0, 1, description='Share of heat damage left while misting a room hotter than it can cover.'),
+                   'reserveKg': num(0, 20, description='Reservoir water misting never uses, kg.')}, [],
+                  'Misting a crop in a room too hot for it, switched on per rack. Every figure is optional.')
+    crop_misting = obj({'notes': NOTES, 'maxCoolingC': num(0, 15, description='This crop\'s own misting limit, C.')}, [])
+    growth = obj({'notes': NOTES, 'room': room, 'stress': stress, 'misting': misting,
                   'nutrientTargetKg': num(0, 0.5, exclusive_minimum=0, description='Nutrient a W2 keeps in each rack it feeds, kg.'),
                   'feedStrengthKgPerKg': num(0, 1, exclusive_minimum=0, description='Nutrient each kilogram of water the pump moves can carry, kg.'),
-                  'crops': named(obj({'notes': NOTES, 'room': room}, []), 'One crop\'s own room, by crop name; only what is given replaces the shared room.', '^[a-z0-9-]+$')}, [],
+                  'crops': named(obj({'notes': NOTES, 'room': room, 'misting': crop_misting}, []), 'One crop\'s own room and misting limit, by crop name; only what is given replaces the shared figures.', '^[a-z0-9-]+$')}, [],
                  'Where and how crops grow, and how a W2 feeds them. Every figure is optional.')
     return obj({**header('crops'), 'co2Response': response, 'growth': growth, 'crops': named(crop, 'Crops by the name a saved planting stores. A published crop is frozen: add a crop beside it.', '^[a-z0-9-]+$'),
                 'items': named(item, 'The crop items the mod builds, by definition id.')}, ['schemaVersion', 'schema', 'crops', 'items'],

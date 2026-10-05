@@ -67886,6 +67886,175 @@
       "after": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand."
     },
     {
+      "mod": "PhobosAgriculture",
+      "key": "mist-on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Mist to cool crop",
+      "after": "Mist to cool crop"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist-off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Stop misting",
+      "after": "Stop misting"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_mist_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting is on. When the room is too hot for the crop, the rack mists it with reservoir water.",
+      "after": "Misting is on. When the room is too hot for the crop, the rack mists it with reservoir water."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "did_mist_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting is off.",
+      "after": "Misting is off."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting: off.",
+      "after": "Misting: off."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist_idle",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting: on, not needed. The room suits the crop.",
+      "after": "Misting: on, not needed. The room suits the crop."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist_holding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting: holding the crop {0:0.0} C below the room, {1:0.00} kg of water an hour.",
+      "after": "Misting: holding the crop {0:0.0} C below the room, {1:0.00} kg of water an hour."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist_beyond",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting: full rate, {0:0.00} kg of water an hour. The room is too hot to cover: damage is slowed, not stopped.",
+      "after": "Misting: full rate, {0:0.00} kg of water an hour. The room is too hot to cover: damage is slowed, not stopped."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "mist_dry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting: no water above the {0:0.#} kg reserve. Refill the rack.",
+      "after": "Misting: no water above the {0:0.#} kg reserve. Refill the rack."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_room_mist",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The room is {0:0.0} C, above this crop's {1:0} C. Cool the room, or choose Mist to cool crop to cover up to {2:0} C above it.",
+      "after": "The room is {0:0.0} C, above this crop's {1:0} C. Cool the room, or choose Mist to cool crop to cover up to {2:0} C above it."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_mist_water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "Misting needs water: the rack is down to its {0:0.#} kg reserve. Refill it or link a W2.",
+      "after": "Misting needs water: the rack is down to its {0:0.#} kg reserve. Refill it or link a W2."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "advice_mist_beyond",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The room is {0:0.0} C, more than misting can cover above this crop's {1:0} C (up to {2:0} C). Misting slows the damage; cool the room.",
+      "after": "The room is {0:0.0} C, more than misting can cover above this crop's {1:0} C (up to {2:0} C). Misting slows the damage; cool the room."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crops_misting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Agriculture 0.59.0: misting a crop in a hot room",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAgriculture"
+      ],
+      "before": "The misting figures are not valid. Cooling is 0 to 15 C, water above 0 and up to 5 kg an hour per degree, the damage share 0 to 1 and the reserve 0 to 20 kg.",
+      "after": "The misting figures are not valid. Cooling is 0 to 15 C, water above 0 and up to 5 kg an hour per degree, the damage share 0 to 1 and the reserve 0 to 20 kg."
+    },
+    {
       "mod": "PhobosShipbreaker",
       "key": "Industry.group_laser",
       "category": "label",
@@ -80779,8 +80948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d63d1cce0557aed089727a875caed80ba679a71a7c28314764ea7da12e3052e6",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "bc92f984d5f093affaa02c22f47481449f752cfa087d6b070b53f53ccc9f8e15",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "SUPPORT.md",
@@ -80807,8 +80976,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "87921c094e48d438dbbf500f83b95206a0f99608cce7adf1257cc1b3fd42998b",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "a3528bbf4b472fbdc51126b6638c15ee597b1d246d99e9806559fda426174eeb",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80828,8 +80997,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5054eff2c48fde97634800b5a282a901f9f8ecc7b4aee54a0558a3139b7d6dea",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "080e2b4a1278972bb7701eb1e77d71be7607738d81d0c4ef5dd6883bc9cdd664",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -80940,8 +81109,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "df1a96914692fe83929e89dde10ca258cf05fd99c5cc2b83c52e9ec604b1aefb",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "37887cb6a39955e3874c3ba2a782c78ae235e9f79fec5b184a93341a3d38e833",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/crew-automation.md",
@@ -80968,8 +81137,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c5788106307515a1ee15df738a76b819dafba76a1a12e4cdc02ced3491d99e86",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "98896fc64130152d469645e8815b910cec6579ffd075013a1f79ce64550ff681",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -81569,8 +81738,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "2671215c9b5f99eb803e96140ac0f69f393afd860647977128786649a8f6a0f4",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "b430aa7266baab64542ccc399804b6e49861bfd9cdd300e1ec11bdeba65936f8",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81809,8 +81978,8 @@
       "path": "docs/editing-data-files.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "034ff80c9fdf28f7833c3b9205d1d7e093ca986f9922ccc099e8df5be269c06e",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "d52dbbbafbf051a38aeffd88ac7193c921e1400bf5595dc2085804f8282a1923",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "docs/equipment-economy.md",
@@ -82068,8 +82237,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "64e2d8177bb0ada65578fa43e95074b972c0f27423fd0b724c7a8402433ea8b8",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "f499e2bc0298827659a4dc3833f3f7297cf33963fbcca4f6533ea7e44d7336ce",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82118,8 +82287,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cbafc01bb71c140d79017ccb2ee3a4811f84cd0fd78330abb12028a85ac91a1c",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "e7f8f6b3a5b30ed10220455614915320f829f9f7bcd34d04737f34608e878e87",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -82135,8 +82304,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "335c77c289886e73a2078671edd46d04d39a29b6807224ac5ad9865c443072b9",
-      "review": "Agriculture 0.58.0: no fault when a room loses its air"
+      "sha256": "3da6684c798343d3a2466d8f364724b64744d81560814c093485f0ebf6703d52",
+      "review": "Agriculture 0.59.0: crop misting"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

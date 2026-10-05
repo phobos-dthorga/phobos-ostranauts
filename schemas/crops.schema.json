@@ -147,6 +147,42 @@
             }
           }
         },
+        "misting": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notes": {
+              "type": "string",
+              "description": "Free text for maintainers; ignored by the game."
+            },
+            "maxCoolingC": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 15,
+              "description": "How far misting can cool a crop below a room too hot for it, C."
+            },
+            "waterKgPerHourPerC": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMinimum": 0,
+              "maximum": 5,
+              "description": "Water misting takes per hour for each degree it covers, kg."
+            },
+            "damageShareBeyond": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Share of heat damage left while misting a room hotter than it can cover."
+            },
+            "reserveKg": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20,
+              "description": "Reservoir water misting never uses, kg."
+            }
+          },
+          "description": "Misting a crop in a room too hot for it, switched on per rack. Every figure is optional."
+        },
         "nutrientTargetKg": {
           "type": "number",
           "minimum": 0,
@@ -209,11 +245,27 @@
                     }
                   },
                   "description": "A growing room. Each limit may be left out; a lower limit must stay below its upper one."
+                },
+                "misting": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "notes": {
+                      "type": "string",
+                      "description": "Free text for maintainers; ignored by the game."
+                    },
+                    "maxCoolingC": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 15,
+                      "description": "This crop's own misting limit, C."
+                    }
+                  }
                 }
               }
             }
           },
-          "description": "One crop's own room, by crop name; only what is given replaces the shared room."
+          "description": "One crop's own room and misting limit, by crop name; only what is given replaces the shared figures."
         }
       },
       "description": "Where and how crops grow, and how a W2 feeds them. Every figure is optional."

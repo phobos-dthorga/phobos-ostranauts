@@ -86,9 +86,12 @@ public sealed class CropState
     /// (Agriculture 0.43.0, <see cref="Co2Response"/>); 1 is the historic rate. Budgets per unit of growth are
     /// unchanged, so enrichment shortens the cycle and its energy without changing what the crop takes or gives.</param>
     /// <param name="stress">The stress rules (Agriculture 0.55.0); the crops pack's own when left out.</param>
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null)
+    /// <param name="outsideDamageScale">The share of out-of-room damage that applies (Agriculture 0.59.0): misting a crop in a
+    /// room too hot for it slows the loss. 1 is the full rate.</param>
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, double co2Factor = 1, StressRules? stress = null, double outsideDamageScale = 1)
     {
         var rules = stress ?? Growth.Stress;
+        if (!Finite(outsideDamageScale) || outsideDamageScale < 0 || outsideDamageScale > 1) throw new ArgumentException("Invalid damage scale.");
         foreach (double x in new[] { hours, electricKWh, co2Kg, oxygenKg }) if (!Finite(x) || x < 0) throw new ArgumentException("Invalid crop step.");
         if (!Finite(co2Factor) || co2Factor < Co2Response.MinFactor || co2Factor > Co2Response.MaxFactor) throw new ArgumentException("Invalid carbon dioxide response.");
         if (hours > 1) throw new ArgumentException("Settle cultivation in at most one-hour steps.");
@@ -106,7 +109,7 @@ public sealed class CropState
         double transpired = grow * c.Vapour, condensed = Math.Min(transpired, Math.Max(0, ReservoirKg - Water));
         Water += condensed;
         exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = transpired - condensed;
-        exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * 2.45 / 3.6;
+        exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * LatentKWhPerKg;
         double dark = Math.Max(0, hours - grow * c.Hours * Pace / co2Factor);
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;
@@ -114,13 +117,13 @@ public sealed class CropState
         double retained = Math.Min(returnedWater, Math.Max(0, ReservoirKg - Water)); Water += retained;
         exchange.VapourKg += returnedWater - retained;
         exchange.CO2Kg += respired * 44 / 30; exchange.OxygenKg -= respired * 32 / 30;
-        exchange.RoomHeatKWh += respired * HeatPerCarbonKWh - (returnedWater - retained) * 2.45 / 3.6;
+        exchange.RoomHeatKWh += respired * HeatPerCarbonKWh - (returnedWater - retained) * LatentKWhPerKg;
         // Harvest-ready crops still respire, but ordinary retention does not count as an irrigation failure.
         bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water < .01;
         double previousStress = DarkHours;
         DarkHours = stressed ? DarkHours + hours : Math.Max(0, DarkHours - hours);
         double damagingHours = Math.Max(0, Math.Max(0, DarkHours - rules.GraceHours) - Math.Max(0, previousStress - rules.GraceHours));
-        Health = Math.Max(0, Health - damagingHours * (habitable ? rules.HealthLossPerHour : rules.HealthLossPerHourOutside));
+        Health = Math.Max(0, Health - damagingHours * (habitable ? rules.HealthLossPerHour : rules.HealthLossPerHourOutside * outsideDamageScale));
         if (Health == 0) Running = false;
         Validate(); return exchange;
     }
@@ -156,6 +159,8 @@ public sealed class CropState
         s.Validate(); return s;
     }
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
+    /// <summary>Latent heat of evaporating water, 2.45 MJ per kg, in kWh per kg.</summary>
+    public const double LatentKWhPerKg = 2.45 / 3.6;
 }
 
 public sealed class Exchange { public double CO2Kg, OxygenKg, VapourKg, RoomHeatKWh; }

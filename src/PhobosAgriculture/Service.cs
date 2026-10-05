@@ -37,6 +37,10 @@ internal static partial class Service
         internal string VapourTank = "";
         internal double VapourCheck;
         internal string Notice = "";
+        /// <summary>The rack's misting switch (saved) and its last step (not saved), Agriculture 0.59.0.</summary>
+        internal bool Misting;
+        internal Core.MistPlan MistLast = Core.MistPlan.None;
+        internal double MistExcess, MistKgPerHour;
         // Per-session cache for the per-step paths: the water port bank (its ports read the maps live).
         internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
     }
@@ -115,6 +119,7 @@ internal static partial class Service
             if (solutionStatus == SavedStateStatus.Ready) { if (!LegacyFeed.Fold(s.State, LegacyFeed.ReadSolution(solutionFields))) { s.Protected = true; records = false; } }
             else if (solutionStatus != SavedStateStatus.Missing) { s.Protected = true; records = false; }
             ReadWaterMode(s);
+            ReadMisting(s);
             ReadLine(s);
             ReadRecovery(s);
             ReadWorkup(s);
@@ -257,14 +262,23 @@ internal static partial class Service
             else
             {
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
-                bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && GrowthRoom.For(s.State.CropId).Suits(temp, pressure);
+                var limits = GrowthRoom.For(s.State.CropId);
+                bool sound = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged");
+                bool pressureSuits = pressure >= limits.MinKPa && pressure <= limits.MaxKPa, tempSuits = temp >= limits.MinK && temp <= limits.MaxK;
+                // Agriculture 0.59.0: misting a crop in a room too hot for it, taken from the reservoir before it grows.
+                var mist = MistStep(s, temp - limits.MaxK, elapsed / 3600, received, sound && pressureSuits);
+                bool habitable = sound && pressureSuits && (tempSuits || mist.Covered);
+                double damageScale = sound && pressureSuits && !tempSuits ? mist.DamageScale : 1;
                 // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
                 // air has no water vapour species, so an H2O emission was silently discarded.
                 double standby = Math.Min(received, StandbyKW * elapsed / 3600);
                 // Agriculture 0.43.0: an enriched room grows the crop faster for the same light (Co2Response).
                 double co2Factor = Co2Response.Factor(Co2KPa(room, gas));
-                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor);
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, co2Factor, null, damageScale);
                 exchange.RoomHeatKWh += standby;
+                // Misted water evaporates into the room: its air loses the latent heat, and the water goes where
+                // uncondensed transpiration goes, a linked water tank, or is lost (the game's air holds no humidity).
+                if (mist.WaterKg > 0) { exchange.RoomHeatKWh -= mist.WaterKg * CropState.LatentKWhPerKg; VapourReturn.Deposit(s, mist.WaterKg); }
                 // Condensate a full reservoir cannot hold goes to a linked water tank instead of vanishing (Agriculture 0.43.0).
                 exchange.VapourKg -= VapourReturn.Deposit(s, exchange.VapourKg);
                 gas.AddGasMols("CO2", exchange.CO2Kg / .044, false); gas.AddGasMols("O2", exchange.OxygenKg / .032, false);
@@ -371,6 +385,9 @@ internal static partial class Service
                 // A pipe-fed rack switched to take water also starts its W2's pump (0.54.0): one action, one intent.
                 did = s.Routed && !IrrigationDefinitions.IsSupply(co) && StartPumpFor(co) ? "did_receive_pump" : "did_receive"; break;
             case "pause-receive": s.State.Receiving = false; did = "did_pause_receive"; break;
+            case "mist-on": case "mist-off":
+                if (!IsRack(co)) { message = Text.Get("help"); return false; }
+                SetMisting(s, action == "mist-on"); did = action == "mist-on" ? "did_mist_on" : "did_mist_off"; break;
             default: message = Text.Get("help"); return false;
         }
         // The panel shows this line; until 0.54.0 a command that worked said nothing at all.
@@ -390,6 +407,7 @@ internal static partial class Service
         environment += "\n" + Text.Get(s.Watch.Armed ? "cue_watching" : s.Watch.Completed ? "cue_completed" : "cue_off") + "\n" + CompletionCues.VolumeLabel;
         environment += "\n" + (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown"));
         if (Definitions.IsCooker(co)) return Text.Get("cooker_status", b.CookerProgress / CookerKWh(s) * 100, Text.Get(b.Running ? "cooking" : "stopped"), environment, s.Protected ? Text.Get("protected") : s.Notice);
+        environment += "\n" + MistLine(s);
         if (b.CropId.Length > 0)
         {
             var warnings = new List<string>();

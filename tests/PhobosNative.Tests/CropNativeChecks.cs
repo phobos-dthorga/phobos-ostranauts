@@ -47,5 +47,8 @@ internal static class CropNativeChecks
         // Agriculture 0.55.0: one nutrient for every crop, so the W2 offers no feed to choose and no wording for one remains.
         check(!Text.Has("water-only") && Crops.All.All(c => !Text.Has("mix-" + c.Id) && !Text.Has("solution_" + c.Feed)) && Text.Has("nutrient_source") && Text.Has("feed_recirculating_supply"),
             "No per-crop feed is worded any more; the W2 says where its nutrients come from");
+        // Agriculture 0.59.0: the rack's misting switch and everything it says.
+        check(new[] { "mist-on", "mist-off", "did_mist_on", "did_mist_off", "mist_off", "mist_idle", "mist_holding", "mist_beyond", "mist_dry",
+            "advice_room_mist", "advice_mist_water", "advice_mist_beyond", "crops_misting" }.All(Text.Has), "Misting is worded on the rack, its status and its Next line");
     }
 }

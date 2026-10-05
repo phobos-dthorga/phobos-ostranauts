@@ -242,7 +242,10 @@ class DataPackTests(unittest.TestCase):
             return copy
 
         fine = [lambda p: p.pop('growth'), lambda p: p['growth'].pop('room'), lambda p: p['growth']['crops']['potato'].update(room={'minC': 10, 'maxKPa': 120}),
-                lambda p: p['growth']['room'].update(maxC=35), lambda p: p['growth'].update(nutrientTargetKg=0.5)]
+                lambda p: p['growth']['room'].update(maxC=35), lambda p: p['growth'].update(nutrientTargetKg=0.5),
+                # Agriculture 0.59.0: misting, shared and per crop; all of it optional.
+                lambda p: p['growth'].pop('misting'), lambda p: p['growth']['misting'].update(maxCoolingC=0),
+                lambda p: p['growth']['crops']['lettuce'].update(misting={'maxCoolingC': 3})]
         for index, change in enumerate(fine):
             with self.subTest(fine=index):
                 validate.crops(changed(change), 'test')
@@ -254,7 +257,12 @@ class DataPackTests(unittest.TestCase):
                lambda p: p['growth']['crops']['potato'].update(room={'maxC': 12}), lambda p: p['growth']['crops'].update(rye={}),
                lambda p: p['growth']['stress'].update(healthLossPerHour=2), lambda p: p['growth']['stress'].update(graceHours=-1),
                lambda p: p['growth'].update(nutrientTargetKg=0), lambda p: p['growth'].update(nutrientTargetKg=0.6), lambda p: p['growth'].update(feedStrengthKgPerKg=0),
-               lambda p: p['growth'].update(speed=2), lambda p: p['growth']['room'].update(maxF=90)]
+               lambda p: p['growth'].update(speed=2), lambda p: p['growth']['room'].update(maxF=90),
+               lambda p: p['growth']['misting'].update(maxCoolingC=16), lambda p: p['growth']['misting'].update(waterKgPerHourPerC=0),
+               lambda p: p['growth']['misting'].update(damageShareBeyond=1.5), lambda p: p['growth']['misting'].update(reserveKg=21),
+               lambda p: p['growth']['misting'].update(sprayers=4),
+               lambda p: p['growth']['crops']['lettuce'].update(misting={'maxCoolingC': -1}),
+               lambda p: p['growth']['crops']['lettuce'].update(misting={'reserveKg': 1})]
         for index, change in enumerate(bad):
             with self.subTest(bad=index), self.assertRaises(validate.Problem):
                 validate.crops(changed(change), 'test')

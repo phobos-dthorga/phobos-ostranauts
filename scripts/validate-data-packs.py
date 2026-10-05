@@ -400,7 +400,7 @@ def growth(section, crop_entries, where):
     Every figure is optional; a crop's own room replaces only what it gives."""
     if section is None:
         return
-    fields(section, {'notes', 'room', 'stress', 'nutrientTargetKg', 'feedStrengthKgPerKg', 'crops'}, where)
+    fields(section, {'notes', 'room', 'stress', 'nutrientTargetKg', 'feedStrengthKgPerKg', 'misting', 'crops'}, where)
 
     def room(entry, w, base):
         resolved = dict(base)
@@ -429,14 +429,31 @@ def growth(section, crop_entries, where):
         number(section['nutrientTargetKg'], f'{where}/nutrientTargetKg', 0, 0.5, exclusive_low=True)
     if 'feedStrengthKgPerKg' in section:
         number(section['feedStrengthKgPerKg'], f'{where}/feedStrengthKgPerKg', 0, 1, exclusive_low=True)
+    misting = section.get('misting')
+    if misting is not None:
+        # Agriculture 0.59.0: misting a crop in a room too hot for it.
+        fields(misting, {'notes', 'maxCoolingC', 'waterKgPerHourPerC', 'damageShareBeyond', 'reserveKg'}, f'{where}/misting')
+        if 'maxCoolingC' in misting:
+            number(misting['maxCoolingC'], f'{where}/misting/maxCoolingC', 0, 15)
+        if 'waterKgPerHourPerC' in misting:
+            number(misting['waterKgPerHourPerC'], f'{where}/misting/waterKgPerHourPerC', 0, 5, exclusive_low=True)
+        if 'damageShareBeyond' in misting:
+            number(misting['damageShareBeyond'], f'{where}/misting/damageShareBeyond', 0, 1)
+        if 'reserveKg' in misting:
+            number(misting['reserveKg'], f'{where}/misting/reserveKg', 0, 20)
     per_crop = section.get('crops', {})
     if not isinstance(per_crop, dict):
         raise Problem(f'{where}/crops: expected crop name to entry')
     for key, entry in per_crop.items():
         if key not in crop_entries:
             raise Problem(f'{where}/crops/{key}: names a crop that is not in this file')
-        fields(entry, {'notes', 'room'}, f'{where}/crops/{key}')
+        fields(entry, {'notes', 'room', 'misting'}, f'{where}/crops/{key}')
         room(entry.get('room'), f'{where}/crops/{key}/room', shared)
+        own = entry.get('misting')
+        if own is not None:
+            fields(own, {'notes', 'maxCoolingC'}, f'{where}/crops/{key}/misting')
+            if 'maxCoolingC' in own:
+                number(own['maxCoolingC'], f'{where}/crops/{key}/misting/maxCoolingC', 0, 15)
 
 
 def crops(pack, where, added=()):

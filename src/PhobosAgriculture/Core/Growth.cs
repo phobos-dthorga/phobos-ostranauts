@@ -18,9 +18,16 @@ public sealed class GrowthEntry
     public double? nutrientTargetKg;
     /// <summary>The nutrient each kilogram of water the pump moves can carry, in kilograms.</summary>
     public double? feedStrengthKgPerKg;
+    /// <summary>Misting a crop in a room too hot for it (Agriculture 0.59.0).</summary>
+    public MistingEntry? misting;
     /// <summary>Limits for one crop, by crop name. Only what is given replaces the shared room.</summary>
     public Dictionary<string, CropGrowthEntry> crops = new(StringComparer.Ordinal);
 }
+/// <summary>How far misting can cool a crop below a room that is too hot for it, the water it takes for each degree,
+/// the share of heat damage it leaves once the room is hotter than it can cover, and the reservoir water it never uses.</summary>
+public sealed class MistingEntry { public string? notes; public double? maxCoolingC, waterKgPerHourPerC, damageShareBeyond, reserveKg; }
+/// <summary>A crop's own misting limit: only how far it can be cooled.</summary>
+public sealed class CropMistingEntry { public string? notes; public double? maxCoolingC; }
 public sealed class RoomEntry { public string? notes; public double? minC, maxC, minKPa, maxKPa; }
 public sealed class StressEntry
 {
@@ -29,7 +36,7 @@ public sealed class StressEntry
     /// in one that does not, and in one with no air; and the water a rack needs before a crew order plants in it.</summary>
     public double? graceHours, healthLossPerHour, healthLossPerHourOutside, healthLossPerHourNoAir, plantWaterKg;
 }
-public sealed class CropGrowthEntry { public string? notes; public RoomEntry? room; }
+public sealed class CropGrowthEntry { public string? notes; public RoomEntry? room; public CropMistingEntry? misting; }
 
 /// <summary>A growing room's limits, resolved for one crop.</summary>
 public readonly struct GrowthRoom
@@ -44,6 +51,45 @@ public readonly struct GrowthRoom
     public bool Suits(double tempK, double kPa) => tempK >= MinK && tempK <= MaxK && kPa >= MinKPa && kPa <= MaxKPa;
     /// <summary>The room for a planted or ordered crop; the shared room for none or an unknown name.</summary>
     public static GrowthRoom For(string? cropId) => Growth.Room(Crops.Pack.growth, cropId);
+}
+
+/// <summary>Misting resolved for one crop (see <see cref="MistingEntry"/>).</summary>
+public sealed class MistingRules
+{
+    public double MaxCoolingC = Growth.DefaultMaxCoolingC, WaterKgPerHourPerC = Growth.DefaultMistWaterKgPerHourPerC,
+        DamageShareBeyond = Growth.DefaultMistDamageShare, ReserveKg = Growth.DefaultMistReserveKg;
+}
+
+/// <summary>What misting does in one step: the water it takes, whether the crop counts as in a suitable room, and the
+/// share of heat damage that remains.</summary>
+public readonly struct MistPlan
+{
+    public double WaterKg { get; }
+    public bool Covered { get; }
+    public double DamageScale { get; }
+    /// <summary>The degrees misting holds the crop below the room this step (up to the limit, scaled by the water it got).</summary>
+    public double CoolingC { get; }
+    public MistPlan(double waterKg, bool covered, double damageScale, double coolingC) { WaterKg = waterKg; Covered = covered; DamageScale = damageScale; CoolingC = coolingC; }
+    public static MistPlan None => new(0, false, 1, 0);
+}
+
+/// <summary>Misting a crop in a room hotter than its ceiling (Agriculture 0.59.0; owner request, 6 October 2026). Evaporating
+/// water cools the canopy. Up to <see cref="MistingRules.MaxCoolingC"/> above the ceiling, with water enough, the crop
+/// counts as in a suitable room; hotter than that, or short of water, misting runs at its full rate and the heat damage
+/// is scaled down by the share of water it got. The water above the reserve is all it may use. Pure; the rate is an
+/// authored estimate of the evaporation that holds a rack's canopy that much below the air, not a measured figure.</summary>
+public static class Misting
+{
+    public static MistPlan Plan(double excessC, MistingRules rules, double hours, double availableKg)
+    {
+        if (!CropState.Finite(excessC) || excessC <= 0 || !CropState.Finite(hours) || hours <= 0 || rules.MaxCoolingC <= 0 || !CropState.Finite(availableKg)) return MistPlan.None;
+        double cooling = Math.Min(excessC, rules.MaxCoolingC);
+        double wanted = rules.WaterKgPerHourPerC * cooling * hours;
+        double water = Math.Max(0, Math.Min(wanted, availableKg - rules.ReserveKg));
+        double share = wanted > 0 ? water / wanted : 0;
+        bool covered = excessC <= rules.MaxCoolingC + 1e-9 && share >= 1 - 1e-9;
+        return new MistPlan(water, covered, covered ? 1 : 1 - (1 - rules.DamageShareBeyond) * share, cooling * share);
+    }
 }
 
 /// <summary>How stress wears a crop down (see <see cref="StressEntry"/>).</summary>
@@ -63,6 +109,8 @@ public static class Growth
     public const double DefaultMinC = 18, DefaultMaxC = 31, DefaultMinKPa = 70, DefaultMaxKPa = 110;
     public const double DefaultGraceHours = 2, DefaultLoss = .01, DefaultLossOutside = .1, DefaultLossNoAir = .1, DefaultPlantWaterKg = .25;
     public const double DefaultNutrientTargetKg = .1, DefaultFeedStrength = .01;
+    public const double DefaultMaxCoolingC = 4, DefaultMistWaterKgPerHourPerC = .15, DefaultMistDamageShare = .5, DefaultMistReserveKg = 2;
+    public const double MaxMistCoolingC = 15, MaxMistWaterKgPerHourPerC = 5;
     public const double LowestC = -50, HighestC = 100, HighestKPa = 500, MaxGraceHours = 1000;
 
     public static GrowthRoom Room(GrowthEntry? g, string? cropId)
@@ -87,6 +135,17 @@ public static class Growth
     {
         get { var pack = Crops.Pack; if (stress == null || !ReferenceEquals(stressOf, pack)) { stress = StressOf(pack.growth); stressOf = pack; } return stress; }
     }
+    public static MistingRules MistingOf(GrowthEntry? g, string? cropId)
+    {
+        var m = g?.misting; double? own = cropId != null && g != null && g.crops.TryGetValue(cropId, out var c) ? c?.misting?.maxCoolingC : null;
+        return new MistingRules
+        {
+            MaxCoolingC = own ?? m?.maxCoolingC ?? DefaultMaxCoolingC, WaterKgPerHourPerC = m?.waterKgPerHourPerC ?? DefaultMistWaterKgPerHourPerC,
+            DamageShareBeyond = m?.damageShareBeyond ?? DefaultMistDamageShare, ReserveKg = m?.reserveKg ?? DefaultMistReserveKg
+        };
+    }
+    /// <summary>The loaded pack's misting for a planted crop (the shared figures for none).</summary>
+    public static MistingRules Mist(string? cropId) => MistingOf(Crops.Pack.growth, string.IsNullOrEmpty(cropId) ? null : cropId);
     public static double NutrientTargetKg => Crops.Pack.growth?.nutrientTargetKg ?? DefaultNutrientTargetKg;
     public static double FeedStrength => Crops.Pack.growth?.feedStrengthKgPerKg ?? DefaultFeedStrength;
 
@@ -111,6 +170,15 @@ public static class Growth
             if (!CropState.Finite(v) || v < 0) throw new ArgumentException(Text.Get("crops_stress"));
         if (s.GraceHours > MaxGraceHours || s.HealthLossPerHour > 1 || s.HealthLossPerHourOutside > 1 || s.HealthLossPerHourNoAir > 1 || s.PlantWaterKg > CropState.ReservoirKg)
             throw new ArgumentException(Text.Get("crops_stress"));
+        void Mist(MistingRules r)
+        {
+            if (!CropState.Finite(r.MaxCoolingC) || r.MaxCoolingC < 0 || r.MaxCoolingC > MaxMistCoolingC || !CropState.Finite(r.WaterKgPerHourPerC) || r.WaterKgPerHourPerC <= 0 ||
+                r.WaterKgPerHourPerC > MaxMistWaterKgPerHourPerC || !CropState.Finite(r.DamageShareBeyond) || r.DamageShareBeyond < 0 || r.DamageShareBeyond > 1 ||
+                !CropState.Finite(r.ReserveKg) || r.ReserveKg < 0 || r.ReserveKg > CropState.ReservoirKg)
+                throw new ArgumentException(Text.Get("crops_misting"));
+        }
+        Mist(MistingOf(g, null));
+        foreach (var pair in g.crops) Mist(MistingOf(g, pair.Key));
         double target = g.nutrientTargetKg ?? DefaultNutrientTargetKg, strength = g.feedStrengthKgPerKg ?? DefaultFeedStrength;
         if (!CropState.Finite(target) || target <= 0 || target > CropState.NutrientCapacityKg || !CropState.Finite(strength) || strength <= 0 || strength > 1)
             throw new ArgumentException(Text.Get("crops_feed_rule", CropState.NutrientCapacityKg));

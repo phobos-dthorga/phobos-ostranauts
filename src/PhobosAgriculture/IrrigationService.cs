@@ -41,7 +41,7 @@ internal static partial class Service
     internal static string[] Actions(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.Actions : IrrigationDefinitions.IsSupply(co)
         ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "cancel-recovery" }
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
-        : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
+        : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "mist-on", "mist-off", "watch", "unwatch", "cue-volume" };
     /// <summary>The racks a W2 can feed, or the W2s that can feed a rack. Since Agriculture 0.53.0 (owner request,
     /// 5 October 2026: the treatment the water line had) the irrigation pipe joins a W2 or rack it runs under or right
     /// beside, on any side, and a W2 and a rack within one tile of each other join without pipe, as the water, gas and

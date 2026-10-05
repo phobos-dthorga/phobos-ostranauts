@@ -391,5 +391,18 @@
   "advice_order_working": "{0} is on the crew order {1}: {2}.",
   "advice_order_waiting": "Crew order {0} is waiting: {1}",
   "advice_order_pending": "Crew order {0} will see to this when a crew member is free.",
-  "advice_order_stopped": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand."
+  "advice_order_stopped": "Crew order {0} is stopped. {1} Choose Enable / Resume under Standing orders, or do it by hand.",
+  "mist-on": "Mist to cool crop",
+  "mist-off": "Stop misting",
+  "did_mist_on": "Misting is on. When the room is too hot for the crop, the rack mists it with reservoir water.",
+  "did_mist_off": "Misting is off.",
+  "mist_off": "Misting: off.",
+  "mist_idle": "Misting: on, not needed. The room suits the crop.",
+  "mist_holding": "Misting: holding the crop {0:0.0} C below the room, {1:0.00} kg of water an hour.",
+  "mist_beyond": "Misting: full rate, {0:0.00} kg of water an hour. The room is too hot to cover: damage is slowed, not stopped.",
+  "mist_dry": "Misting: no water above the {0:0.#} kg reserve. Refill the rack.",
+  "advice_room_mist": "The room is {0:0.0} C, above this crop's {1:0} C. Cool the room, or choose Mist to cool crop to cover up to {2:0} C above it.",
+  "advice_mist_water": "Misting needs water: the rack is down to its {0:0.#} kg reserve. Refill it or link a W2.",
+  "advice_mist_beyond": "The room is {0:0.0} C, more than misting can cover above this crop's {1:0} C (up to {2:0} C). Misting slows the damage; cool the room.",
+  "crops_misting": "The misting figures are not valid. Cooling is 0 to 15 C, water above 0 and up to 5 kg an hour per degree, the damage share 0 to 1 and the reserve 0 to 20 kg."
 }

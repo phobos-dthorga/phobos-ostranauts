@@ -60,7 +60,13 @@ internal static partial class Service
         double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, kPa = room.GetCondAmount("StatGasPressure");
         var limits = GrowthRoom.For(string.IsNullOrEmpty(cropId) ? null : cropId);
         if (!limits.Suits(temp, kPa))
-            return Text.Get("advice_room", temp - Growth.ZeroC, kPa, limits.MinC, limits.MaxC, limits.MinKPa, limits.MaxKPa);
+        {
+            // Only too hot, in a rack: misting may cover it (Agriculture 0.59.0). Cold and pressure it cannot help.
+            bool hotOnly = temp > limits.MaxK && kPa >= limits.MinKPa && kPa <= limits.MaxKPa;
+            var hot = hotOnly && IsRack(co) ? HotRoomNeed(s, cropId, temp - Growth.ZeroC, limits.MaxC) : null;
+            if (hot == null) return Text.Get("advice_room", temp - Growth.ZeroC, kPa, limits.MinC, limits.MaxC, limits.MinKPa, limits.MaxKPa);
+            if (hot.Length > 0) return hot;
+        }
         return co.HasCond("IsPowered") ? null : Text.Get("advice_power");
     }
     private static string? SuppliesNeed(Session s) => s.State.Water < PlantWaterKg ? WaterNeed(s) :

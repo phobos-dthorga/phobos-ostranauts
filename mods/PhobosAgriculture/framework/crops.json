@@ -182,6 +182,10 @@
     },
     "nutrientTargetKg": 0.1,
     "feedStrengthKgPerKg": 0.01,
+    "misting": {
+      "notes": "Misting a crop in a room too hot for it (Agriculture 0.59.0), switched on per rack. Up to maxCoolingC above the crop's ceiling, with water enough, the crop counts as in a suitable room; hotter, or short of water, heat damage is multiplied by damageShareBeyond while it mists. It takes waterKgPerHourPerC for each degree it covers and never draws the reservoir below reserveKg. The water evaporates: the room's air loses 2.45 MJ per kg and the water goes to a linked water tank, or is lost. The rate is an authored estimate of the evaporation that holds a rack's canopy that much below the air, not a measured figure. A crop's own entry under crops may set its own maxCoolingC.",
+      "maxCoolingC": 4, "waterKgPerHourPerC": 0.15, "damageShareBeyond": 0.5, "reserveKg": 2
+    },
     "crops": {
       "potato": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },
       "lettuce": { "notes": "Uses the shared room. Add a room here to give this crop its own limits." },

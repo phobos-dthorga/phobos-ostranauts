@@ -86,6 +86,7 @@ try { FiniteLiquidTransfer.Commit(source, dest, 1, 0); } catch { }
 Near(source.QuantityKg + dest.QuantityKg, total, "Failed destination returns unreceived debit");
 dest.Fail = false; dest.Kg = 20; receipt = FiniteLiquidTransfer.Commit(source, dest, 1, 0); Near(receipt.DebitedKg, 0, "Full storage consumes nothing");
 SolutionChecks.Run(Check);
+MistingChecks.Run(Check);
 RecoveryChecks.Run(Check);
 NutrientRecoveryChecks.Run(Check);
 CropPackChecks.Run(Check);
