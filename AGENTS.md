@@ -340,7 +340,8 @@ delivery in the changelog and design record, and add or amend only the rule here
 - **Medical.** The Halewright brand (models a word plus footprint width); the Ward-3 bed is the
   visual baseline (`docs/development/medical-art-handoff.md`). Treatments perform the game's own
   wound slotting on real items; the monitor never heals; a patient never treats themselves
-  (`CrewWorkOffer.ExcludedActor`). The vanilla Infirmaway stays untouched.
+  (`CrewWorkOffer.ExcludedActor`). A treatment is a `care` pack entry over the code's fixed tests
+  and effects; never branch on a treatment id in code. The vanilla Infirmaway stays untouched.
 
 ## Artwork
 
