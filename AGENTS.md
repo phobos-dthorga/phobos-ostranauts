@@ -117,7 +117,9 @@ delivery in the changelog and design record, and add or amend only the rule here
   than copying them. When a workflow changes, check every linked guide, reference input and
   generator wording. Preserve dated evidence and citations when moving documents.
 - `docs/player-guide.md` is the player starting point, `docs/equipment-economy.md` the current
-  prices and bills. Use Mermaid for charts in guides. Label older snapshots as historical.
+  prices and bills. Label older snapshots as historical.
+- Charts and diagrams are GitHub's native Mermaid, in the Markdown itself. Never use Figma (owner
+  rule): not for charts, diagrams or designs, and do not suggest or mention its connector.
 - One end-user reference per mod covering every equipment family, item, commodity, byproduct
   and damaged form: function, use, acquisition, placement, value, salvage, Repair and Restore;
   label internal compartments, legacy identities and unimplemented designs. Regenerate with
