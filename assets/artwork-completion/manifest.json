@@ -3201,12 +3201,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosAcidTank",
       "status": "selected",
-      "source": "source/at2-acid-tank.png",
-      "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
-      "requestRecord": "round-three-requests.json",
-      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/at2-acid-tank-restyled.png",
+      "sourceSHA256": "4919d134330f0dbb33837d7ada8aee2d991a598fcbcf44e9da661d344d15ed4e",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/lixivar-acid-tank-restyle-chatgpt.png",
+      "productionSHA256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "cask2-ethanol-tank",
@@ -3226,12 +3232,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosEthanolTank",
       "status": "selected",
-      "source": "source/cask2-ethanol-tank.png",
-      "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/cask2-ethanol-tank-restyled.png",
+      "sourceSHA256": "ab54aecb0f2baa4ef092d9814c01bcc3c5e1a6a405acf1a5fba7c6bbf342146d",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "derivedFrom": "source/at2-acid-tank.png"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "productionSHA256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "at3-acid-tank",
@@ -3242,8 +3254,8 @@
         48
       ],
       "masterSize": [
-        96,
-        96
+        192,
+        192
       ],
       "pivot": [
         24,
@@ -3251,12 +3263,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosAcidTankMedium",
       "status": "selected",
-      "source": "source/at3-acid-tank.png",
-      "sourceSHA256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
-      "requestRecord": "round-three-requests.json",
-      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/at3-acid-tank-restyled.png",
+      "sourceSHA256": "28e27b6c46793a868e775cb206d3daf51fc1b1c8b62fee2acc24a38518931d1e",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "b9c57547-88b4-4187-8b90-2be524b0ca59"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/lixivar-acid-tank-restyle-chatgpt.png",
+      "productionSHA256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "cask3-ethanol-tank",
@@ -3267,8 +3285,8 @@
         48
       ],
       "masterSize": [
-        96,
-        96
+        192,
+        192
       ],
       "pivot": [
         24,
@@ -3276,12 +3294,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosEthanolTankMedium",
       "status": "selected",
-      "source": "source/cask3-ethanol-tank.png",
-      "sourceSHA256": "42dfdde44bde11b1079490922742799ed69e63b41ade9d2e358a5d00e3445cfe",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/cask3-ethanol-tank-restyled.png",
+      "sourceSHA256": "428a48870db514142228b6c3b0fcf2e661e3f26ba440453ed759ad913c4ef0fb",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "derivedFrom": "source/at3-acid-tank.png"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "productionSHA256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "at4-acid-tank",
@@ -3292,8 +3316,8 @@
         64
       ],
       "masterSize": [
-        128,
-        128
+        256,
+        256
       ],
       "pivot": [
         32,
@@ -3301,12 +3325,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosAcidTankLarge",
       "status": "selected",
-      "source": "source/at2-acid-tank.png",
-      "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
-      "requestRecord": "round-three-requests.json",
-      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/at4-acid-tank-restyled.png",
+      "sourceSHA256": "1a7659e97d0f795559cf30e8f834f35abf856e0a5db50a8ee413efd0a0aea6d4",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/lixivar-acid-tank-restyle-chatgpt.png",
+      "productionSHA256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "cask4-ethanol-tank",
@@ -3317,8 +3347,8 @@
         64
       ],
       "masterSize": [
-        128,
-        128
+        256,
+        256
       ],
       "pivot": [
         32,
@@ -3326,12 +3356,18 @@
       ],
       "runtime": "phobos/manufacturing/PhobosEthanolTankLarge",
       "status": "selected",
-      "source": "source/cask2-ethanol-tank.png",
-      "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
-      "requestRecord": "manufacturing-requests.json",
-      "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+      "source": "../phobos-manufacturing/registered/cask4-ethanol-tank-restyled.png",
+      "sourceSHA256": "0c2a12ee481fe9efdcec333b89a1f0c302a6fea1aae47d7d3281bfb55e6beeda",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "review": "Native and four-times inspection passed. Plain sealed overhead tank; no painted readings, gauges or fill strips. Existing native footprint, pivot, image paths and all gameplay retained; owner in-game lighting/rotation review pending.",
       "fullFootprint": true,
-      "derivedFrom": "source/at2-acid-tank.png"
+      "provider": "OpenAI built-in Imagegen",
+      "productionSource": "../phobos-manufacturing/source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "productionSHA256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "productionSize": [
+        1254,
+        1254
+      ]
     },
     {
       "key": "sulfide-nodule",
@@ -4451,6 +4487,20 @@
       ],
       "costGenerations": 1,
       "review": "6ba20265 selected"
+    },
+    {
+      "date": "2026-10-05",
+      "provider": "OpenAI built-in Imagegen; four unselected PixelLab trials",
+      "requestRecord": "../phobos-manufacturing/liquid-tank-requests.json",
+      "keys": [
+        "at2-acid-tank",
+        "at3-acid-tank",
+        "at4-acid-tank",
+        "cask2-ethanol-tank",
+        "cask3-ethanol-tank",
+        "cask4-ethanol-tank"
+      ],
+      "reason": "Owner exception: replace acid and ethanol storage only with plain informative art and no painted instruments."
     }
   ],
   "allowanceAfter": 1738,

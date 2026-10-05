@@ -11,7 +11,7 @@ Current chemical-machinery update, 5 October 2026: after approving the Oxsmith
 designs, the owner requested the same finish for V4, X2, K2, AX-2, LC-3, SA-3 and
 Copperhead-3. Their selected OpenAI built-in Imagegen originals and larger working
 masters retain each maker's colours, existing footprints and game image identities.
-Silos/tanks and support equipment are unchanged. See the
+That reactor pass left silos/tanks and support equipment unchanged. See the
 [production record](../../assets/phobos-manufacturing/README.md),
 [exact prompts](../../assets/phobos-manufacturing/chemical-reactor-requests.json)
 and [native-size review](../../assets/phobos-manufacturing/previews/chemical-reactor-restyle-review.png).
@@ -21,6 +21,14 @@ selects new L2, A2 and Corker-2 artwork in the same finish. The owner excluded t
 really small sprites; materials, pipes, one-tile equipment, floor and all silos
 retain their previous artwork. The three support-machine exports keep their
 32 x 32 dimensions and two-by-two footprints.
+
+The owner's subsequent acid/ethanol exception replaces only **Lixivar AT-2/3/4**
+and **Alembrine Cask-2/3/4**. Plain sealed lids and bund rims distinguish the two
+families through sage/slate and steel/copper/brass; no readings, gauges, fill strips
+or instruments are painted onto them. Other bulk stores and small sprites keep
+their earlier artwork. The [tank request record](../../assets/phobos-manufacturing/liquid-tank-requests.json)
+and [native/four-times review](../../assets/phobos-manufacturing/previews/liquid-tank-restyle-review.png)
+retain the sources, trials and unchanged 32/48/64-pixel footprints.
 
 | Area | Dedicated additions |
 | --- | --- |

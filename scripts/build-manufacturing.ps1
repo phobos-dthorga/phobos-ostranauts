@@ -16,6 +16,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Chemical reactor master registration check failed.' }
 & python (Join-Path $repoRoot 'assets/phobos-manufacturing/register-support-machinery.py') --check
 if ($LASTEXITCODE -ne 0) { throw 'Support machinery master registration check failed.' }
+& python (Join-Path $repoRoot 'assets/phobos-manufacturing/register-liquid-tanks.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Liquid tank master registration check failed.' }
 & python (Join-Path $repoRoot 'assets/phobos-manufacturing/register-oxsmith.py') --check
 if ($LASTEXITCODE -ne 0) { throw 'Oxsmith master registration check failed.' }
 & python (Join-Path $PSScriptRoot 'export-completion-art.py') --check

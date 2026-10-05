@@ -96,6 +96,44 @@ three machines remain on main. [retain-pixellab-image.py](../../scripts/retain-p
 can recover a completed job's original PNG, refuses to overwrite a different
 retained file and limits destinations to the repository's asset tree.
 
+## Plain acid and ethanol tank follow-up (5 October 2026)
+
+The owner made an exception to the earlier silo exclusion for **Lixivar AT-2,
+AT-3 and AT-4 sulphuric acid tanks** and **Alembrine Cask-2, Cask-3 and Cask-4
+ethanol tanks**, explicitly ruling out readings. The selected designs have plain
+sealed lids: sage enamel and slate for acid, steel with copper and brass for
+ethanol. Their containment rims fill the entire square footprint. No text, logos,
+gauges, fill strips, screens or live-state instruments are painted into either.
+
+[Exact prompts and provenance](liquid-tank-requests.json) record two built-in
+Imagegen originals, each 1254 x 1254. The original Phobos AT-2 supplied only the
+overhead camera and full square footprint reference; it remains on main as a
+required input. No native game art was uploaded. Each 32-pixel family pilot was
+inspected at native size and four-times enlargement before deriving its larger
+sizes from the same source. No further family generation was needed.
+
+[register-liquid-tanks.py](register-liquid-tanks.py) reuses the existing common
+registration module: 96-colour working masters at 128, 192 and 256 pixels, then
+nearest-neighbour exports at the unchanged 32, 48 and 64 pixels. The completion
+manifest binds all six existing image paths and all forms. The
+[six-size comparison](previews/liquid-tank-restyle-review.png) and
+[derivative hashes](liquid-tank-export-hashes.json) retain the review. Exactly six
+game colour PNGs changed; all 142 other Manufacturing PNGs, including every normal
+map and other bulk store, were verified byte-identical. Footprints, pivots, IDs,
+ports, capacities, prices and saved state are unchanged. In-game lighting and
+rotation still await owner review.
+
+Four included PixelLab trials preceded the selected bases: two introduced floor
+and shadows, and two targeted corrections held onto the disliked earlier design.
+All are rejected. The allowance went from 1645 to 1641, with the credit balance
+at $0 and no purchase. The two built-in calls do not disclose monetary cost.
+The four rejected originals and three superseded masters were verified in
+[archive commit 5ab8f35](https://github.com/phobos-dthorga/phobos-ostranauts/tree/5ab8f35e868398ca877118932833004f7fd85e9f)
+on `codex/rejected-artwork` before removal; the append was pushed on 5 October
+2026. Existing
+archive contents, the selected originals and required generation inputs remain
+preserved; the request record pins the old selections and archive hashes.
+
 ## Rules for new Manufacturing artwork
 
 - Overhead-first PixelLab requests under `docs/development/asset-generation-policy.md`:

@@ -947,6 +947,62 @@
       "archiveCommit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
       "archiveStatus": "Pushed to codex/rejected-artwork on 5 October 2026",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/bccf43af5b5e215cfeca10e1d24d869bfc5e1c46/assets/artwork-completion/source/corker2-bottling-unit.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/at2-acid-tank-restyle-pilot.png",
+      "sha256": "6899b54968057a5e349b075aad1cad879adaff6bf0985c7cf1b176231974948b",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/at2-acid-tank-restyle-pilot.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-pilot.png",
+      "sha256": "5b7c375bb1159561fd732ca0a2e72550d005de8b67dda93f4707c8a2a8637644",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-pilot.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/at2-acid-tank-restyle-correction.png",
+      "sha256": "33fcbb97d6423cba1d1d1d7c61b18e6cdb4401d26861c4fb4433974312ba4218",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/at2-acid-tank-restyle-correction.png"
+    },
+    {
+      "path": "assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-correction.png",
+      "sha256": "b85183fdc2f147ec26bbb3b4df6968d7b6dfc565fc73dce7af63aad209c76d78",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-correction.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/at3-acid-tank.png",
+      "sha256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/at3-acid-tank.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/cask2-ethanol-tank.png",
+      "sha256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask2-ethanol-tank.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/cask3-ethanol-tank.png",
+      "sha256": "42dfdde44bde11b1079490922742799ed69e63b41ade9d2e358a5d00e3445cfe",
+      "reason": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input.",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask3-ethanol-tank.png"
     }
   ],
   "additions": [
@@ -1016,6 +1072,11 @@
       "commit": "bccf43af5b5e215cfeca10e1d24d869bfc5e1c46",
       "date": "2026-10-05",
       "note": "Support-machinery revision; small-sprite trials excluded by owner clarification, redundant references and superseded selected masters retained"
+    },
+    {
+      "commit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "date": "2026-10-05",
+      "note": "Acid and ethanol tank restyle: four unselected PixelLab trials and three superseded masters; original AT-2 retained as the selected generation input."
     }
   ]
 }

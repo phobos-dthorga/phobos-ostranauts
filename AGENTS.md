@@ -973,6 +973,14 @@
   `assets/phobos-manufacturing/register-support-machinery.py` and its request record;
   unselected earlier trials and prior masters are archived with verified hashes.
 
+- Owner exception (2026-10-05): recreate only the sulphuric acid AT-2/3/4 and
+  ethanol Cask-2/3/4 tanks; other silos remain approved. Keep storage plain and
+  informative through physical shape, material and fittings. The owner explicitly
+  reiterated that readings are outside the vanilla artwork style: no gauges,
+  fill strips, screens or painted instruments. Preserve footprints, identities
+  and gameplay; use `assets/phobos-manufacturing/liquid-tank-requests.json` and
+  `register-liquid-tanks.py` for selected masters and reproducible exports.
+
 - Owner direction (2026-09-27), Polaris interface refresh: existing interface
   artwork is a starting point, not an unconditional preservation constraint.
   Replacements are authorized where suitability is MEDIUM-HIGH or HIGH for

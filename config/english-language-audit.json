@@ -80492,8 +80492,8 @@
       "path": "docs/development/artwork-completion.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "a5d6853e813f011727d68083cb1d53a02f3c408015f97b4dedab2ec9ffe3df06",
-      "review": "5 October 2026: reviewed the chemical and subsequent support-machine update. Current L2/A2/Corker-2 artwork is distinguished from earlier generation history, with preserved 32-pixel native images and two-tile footprints. Owner-excluded materials, pipes, one-tile sprites, floor and silos remain unchanged."
+      "sha256": "31b27d7c02df8d90927772600d68e51a46e089ac1399c23a926a9ae5678b78a9",
+      "review": "5 October 2026: reviewed the acid/ethanol exception after the reactor and support-machine passes. Six plain tank replacements keep 32/48/64-pixel footprints; other stores and small sprites remain unchanged. Readings and painted instruments are explicitly excluded, with exact provenance and visual review linked."
     },
     {
       "path": "docs/development/artwork-resolution-policy.md",
@@ -81453,8 +81453,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a1ea67bfeac45a4fa0fc1488e7f584703f2e70987ee5dcc9d4edc9f43a5fbc0b",
-      "review": "5 October 2026: reviewed current Manufacturing 0.53.0 actions, capabilities, hazards and sources; added the machinery art update with unchanged silos/small sprites and separate PixelLab/OpenAI provenance and licences. Intro and authorship credit remain clear, with no changed requirements or gameplay claims."
+      "sha256": "be3aa03688822c351e900dc6313ba456e4aa38180ec1ebda145997dfa44b2429",
+      "review": "5 October 2026: reviewed current Manufacturing 0.53.0 scope and updated the artwork sentence for acid and ethanol tanks. Other silos/small sprites remain unchanged; controls, requirements, storage, hazards and sources retain their current meaning. Draft stays under 7500 UTF-8 bytes."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",

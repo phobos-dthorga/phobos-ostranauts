@@ -119,6 +119,19 @@ The Rivetline Y2/Y3/Y4 material bin pass rejected four PixelLab outputs and one 
 | [assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png) | Y3 at 96 px, second seed: the same indicator artefact despite an explicit exclusion. |
 | [assets/artwork-completion/references/y3-bin-start-96-rejected.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/references/y3-bin-start-96-rejected.png) | 96 px Y3 start drawing, input only of the two rejected Y3 passes; the selected pass used references/y3-bin-start.png at 144 px. |
 
+## Added 5 October 2026 (acid and ethanol tank restyle)
+
+[Archive append 5ab8f35](https://github.com/phobos-dthorga/phobos-ostranauts/tree/5ab8f35e868398ca877118932833004f7fd85e9f)
+preserves seven exact PNGs on `codex/rejected-artwork`, pushed 5 October 2026. The
+[tank request record](phobos-manufacturing/liquid-tank-requests.json) pins every
+prompt, seed, provider job, hash and review. Four PixelLab trials were rejected:
+the first pair added surrounding floor/shadows, and the correction pair preserved
+the disliked old design almost unchanged. Three superseded selected masters
+(AT-3, Cask-2 and Cask-3) are also retained there. All seven were verified byte for
+byte before removal from main. The older AT-2 master stays on main because both
+selected Imagegen bases used it as their camera/footprint reference. Selected
+sources, registered masters and the six native comparison inputs remain on main.
+
 ## Added 30 September 2026 (salt crust and salt cake)
 
 The Manufacturing 0.9.0 item pass rejected three PixelLab outputs; none were committed to main. Requests, seeds, job IDs and reasons are in [nitrogen-requests.json](artwork-completion/nitrogen-requests.json).

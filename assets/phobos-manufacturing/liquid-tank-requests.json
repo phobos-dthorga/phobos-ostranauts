@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "scope": "Replace Lixivar AT-2/3/4 sulphuric acid and Alembrine Cask-2/3/4 ethanol tanks only; plain informative overhead storage, no readings, gauges, fill strips or painted instruments.",
+  "ownerDirections": [
+    "Recreate only the sulphuric acid and ethanol tanks; other silos remain approved.",
+    "Keep designs plain and informative like the other tanks; PixelLab is permitted.",
+    "No readings needed; that is not part of the vanilla art style."
+  ],
+  "provider": "OpenAI built-in Imagegen selected bases; four unselected PixelLab trials",
+  "providerTerms": "https://pixellab.ai/termsofservice",
+  "cost": {
+    "balanceBefore": {
+      "includedRemaining": 1645,
+      "creditsUSD": 0,
+      "reset": "2026-10-11"
+    },
+    "quotedPerCall": "1 generation",
+    "purchasedCredits": false,
+    "balanceAfter": {
+      "includedRemaining": 1641,
+      "creditsUSD": 0
+    },
+    "pixelLabUsage": 4,
+    "builtInCalls": 2,
+    "builtInMonetaryCost": "Not disclosed by the built-in tool."
+  },
+  "registration": {
+    "familyPreview": "previews/liquid-tank-restyle-review.png",
+    "hashes": "liquid-tank-export-hashes.json",
+    "nativeExport": "BOX reduction to the declared 4x working grid, 96-colour median cut without dithering, then nearest-neighbour native export. Untouched high-resolution originals retained.",
+    "normal": "Neutral tangent normal (128,128,255), opaque across unchanged native footprint.",
+    "paletteColours": 96,
+    "sourceReference": {
+      "path": "assets/artwork-completion/source/at2-acid-tank.png",
+      "sha256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+      "reason": "Camera/full square footprint reference supplied to both selected built-in requests; retained on main as a required generation input."
+    }
+  },
+  "generationLog": [
+    {
+      "key": "at2-acid-tank",
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "mode": "generate",
+      "parameters": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One simple square deck-mounted spacecraft sulphuric acid storage tank, TOP SURFACE sprite only. Original coarse utilitarian pixel art suited to Ostranauts. The square tank's own flat slate-grey containment tray fills the ENTIRE square canvas opaque edge to edge; straight sage-grey rim along all four canvas edges, no surrounding floor. A single large rounded-rectangular sealed pale sage enamel tank lid nearly fills the tray. Plain broad unbroken enamel surface, a small flush circular filler cap near the upper left, one short copper-brown capped connection contained within the right edge. A few large dark slate fastening tabs, restrained scuffed paint at corners. Sparse and calm industrial storage design, unmistakably a sealed vessel rather than a processing machine. Limited desaturated palette, crisp pixel clusters and restrained even overhead shading. NO readings, NO gauges, NO fill strips, NO instruments, NO screens, NO lights, NO text, NO symbols, NO logos, NO people, NO visible contents, NO open holes, NO external pipes, NO floor, NO cast shadow, NO side walls, NO perspective.",
+        "width": 128,
+        "height": 128,
+        "isometric": false,
+        "no_background": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail",
+        "seed": 20751051,
+        "text_guidance_scale": 9
+      },
+      "jobId": "73f01871-8d7b-4fee-b0f9-21639dfa276d",
+      "assetId": "6e17ce0b-672a-5627-ad69-73c67c21be0a",
+      "quotedCost": "1 included generation",
+      "cost": 1,
+      "status": "rejected",
+      "rejection": "Padded assembly with visible surrounding floor and cast shadow; full-footprint rule failed.",
+      "source": "source/at2-acid-tank-restyle-pilot.png",
+      "sha256": "6899b54968057a5e349b075aad1cad879adaff6bf0985c7cf1b176231974948b",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/at2-acid-tank-restyle-pilot.png"
+    },
+    {
+      "key": "cask2-ethanol-tank",
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "mode": "generate",
+      "parameters": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One simple square deck-mounted spacecraft ethanol storage tank, TOP SURFACE sprite only. Original coarse utilitarian pixel art suited to Ostranauts. The square tank's own dark charcoal-grey containment tray fills the ENTIRE square canvas opaque edge to edge; straight dull steel rim along all four canvas edges, no surrounding floor. A single large round closed tank lid nearly fills the tray, flat muted silver-grey metal, with one broad dull copper sealing band around its circumference. Plain broad unbroken lid surface with a small flush brass filler cap near the upper right, one short copper capped connection contained within the left edge. Only four simple steel fastening tabs and restrained scuffing. Sparse and calm industrial storage design, unmistakably a sealed vessel rather than a processing machine. Limited desaturated palette, crisp pixel clusters and restrained even overhead shading. NO readings, NO gauges, NO fill strips, NO instruments, NO screens, NO lights, NO text, NO symbols, NO logos, NO people, NO visible contents, NO open holes, NO external pipes, NO floor, NO cast shadow, NO side walls, NO perspective.",
+        "width": 128,
+        "height": 128,
+        "isometric": false,
+        "no_background": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail",
+        "seed": 20751052,
+        "text_guidance_scale": 9
+      },
+      "jobId": "a9f56c94-481e-481f-a512-4d9c896cc9e7",
+      "assetId": "3f18fbe2-6d83-5607-a117-08ecb97ea0cb",
+      "quotedCost": "1 included generation",
+      "cost": 1,
+      "status": "rejected",
+      "rejection": "Padded assembly with visible surrounding floor and cast shadow; full-footprint rule failed.",
+      "source": "source/cask2-ethanol-tank-restyle-pilot.png",
+      "sha256": "5b7c375bb1159561fd732ca0a2e72550d005de8b67dda93f4707c8a2a8637644",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-pilot.png"
+    },
+    {
+      "key": "at2-acid-tank",
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "mode": "image-to-image correction",
+      "parameters": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One simple square deck-mounted spacecraft sulphuric acid storage tank, TOP SURFACE sprite only. Original coarse utilitarian pixel art suited to Ostranauts. The square tank's own flat slate-grey containment tray fills the ENTIRE square canvas opaque edge to edge; straight sage-grey rim along all four canvas edges, no surrounding floor. A single large rounded-rectangular sealed pale sage enamel tank lid nearly fills the tray. Plain broad unbroken enamel surface, a small flush circular filler cap near the upper left, one short copper-brown capped connection contained within the right edge. A few large dark slate fastening tabs, restrained scuffed paint at corners. Sparse and calm industrial storage design, unmistakably a sealed vessel rather than a processing machine. Limited desaturated palette, crisp pixel clusters and restrained even overhead shading. NO readings, NO gauges, NO fill strips, NO instruments, NO screens, NO lights, NO text, NO symbols, NO logos, NO people, NO visible contents, NO open holes, NO external pipes, NO floor, NO cast shadow, NO side walls, NO perspective. CORRECTION: The supplied original Phobos reference establishes the square overhead footprint. KEEP its outer square rim flush against ALL FOUR image boundaries. Enlarge the tank's own containment tray to the entire canvas. There must be ZERO surrounding floor and ZERO cast shadow. Every pixel belongs to the tank assembly itself. Read the main lid as a flat horizontal closed surface; outline the lid with a thin seam only, not a tall side wall. Broad clean material blocks, only two tiny flush fittings, no tiny dots or scratches scattered across the lid. No readings or instruments.",
+        "width": 128,
+        "height": 128,
+        "isometric": false,
+        "no_background": false,
+        "view": "high top-down",
+        "outline": "lineless",
+        "shading": "basic shading",
+        "detail": "low detail",
+        "seed": 20751151,
+        "text_guidance_scale": 9,
+        "init_image_strength": 220,
+        "reference": "assets/artwork-completion/source/at2-acid-tank.png"
+      },
+      "jobId": "5a99c913-0bed-4a97-a18b-3fd338ecd14d",
+      "assetId": "94017860-5bde-5572-920b-2fbeee8d620a",
+      "quotedCost": "1 included generation",
+      "cost": 1,
+      "status": "rejected",
+      "source": "source/at2-acid-tank-restyle-correction.png",
+      "rejection": "Correct overhead full footprint, but retained the disliked previous design almost unchanged and failed the requested new sage/steel/copper treatment.",
+      "sha256": "33fcbb97d6423cba1d1d1d7c61b18e6cdb4401d26861c4fb4433974312ba4218",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/at2-acid-tank-restyle-correction.png"
+    },
+    {
+      "key": "cask2-ethanol-tank",
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "mode": "image-to-image correction",
+      "parameters": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One simple square deck-mounted spacecraft ethanol storage tank, TOP SURFACE sprite only. Original coarse utilitarian pixel art suited to Ostranauts. The square tank's own dark charcoal-grey containment tray fills the ENTIRE square canvas opaque edge to edge; straight dull steel rim along all four canvas edges, no surrounding floor. A single large round closed tank lid nearly fills the tray, flat muted silver-grey metal, with one broad dull copper sealing band around its circumference. Plain broad unbroken lid surface with a small flush brass filler cap near the upper right, one short copper capped connection contained within the left edge. Only four simple steel fastening tabs and restrained scuffing. Sparse and calm industrial storage design, unmistakably a sealed vessel rather than a processing machine. Limited desaturated palette, crisp pixel clusters and restrained even overhead shading. NO readings, NO gauges, NO fill strips, NO instruments, NO screens, NO lights, NO text, NO symbols, NO logos, NO people, NO visible contents, NO open holes, NO external pipes, NO floor, NO cast shadow, NO side walls, NO perspective. CORRECTION: The supplied original Phobos reference establishes the square overhead footprint. KEEP its outer square rim flush against ALL FOUR image boundaries. Enlarge the tank's own containment tray to the entire canvas. There must be ZERO surrounding floor and ZERO cast shadow. Every pixel belongs to the tank assembly itself. Read the main lid as a flat horizontal closed surface; outline the lid with a thin seam only, not a tall side wall. Broad clean material blocks, only two tiny flush fittings, no tiny dots or scratches scattered across the lid. No readings or instruments.",
+        "width": 128,
+        "height": 128,
+        "isometric": false,
+        "no_background": false,
+        "view": "high top-down",
+        "outline": "lineless",
+        "shading": "basic shading",
+        "detail": "low detail",
+        "seed": 20751152,
+        "text_guidance_scale": 9,
+        "init_image_strength": 220,
+        "reference": "assets/artwork-completion/source/at2-acid-tank.png"
+      },
+      "jobId": "56b3d18b-8c59-47f3-b700-4b79b70776d7",
+      "assetId": "5c22786f-f888-579e-a70a-8670347ffc48",
+      "quotedCost": "1 included generation",
+      "cost": 1,
+      "status": "rejected",
+      "source": "source/cask2-ethanol-tank-restyle-correction.png",
+      "rejection": "Correct overhead full footprint, but retained the disliked previous design almost unchanged and failed the requested new sage/steel/copper treatment.",
+      "sha256": "b85183fdc2f147ec26bbb3b4df6968d7b6dfc565fc73dce7af63aad209c76d78",
+      "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+      "archiveStatus": "Pushed 5 October 2026",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/phobos-manufacturing/source/cask2-ethanol-tank-restyle-correction.png"
+    },
+    {
+      "key": "lixivar-acid-tank",
+      "provider": "OpenAI built-in Imagegen",
+      "operation": "image_gen.imagegen",
+      "mode": "generate from original Phobos reference",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Generate ONE new original spacecraft sulphuric acid STORAGE TANK sprite using the supplied original Phobos image as a camera and square-footprint reference ONLY. Redesign the equipment itself. The image is the full square horizontal top assembly of the tank, opaque edge to edge with the tank's own square rim exactly touching all four image boundaries. No image margin. No surrounding floor or background. It is simple hardware for a worn-in industrial space survival game with the coarse, restrained, hand-painted pixel appearance of Ostranauts equipment. A broad sealed tank top of pale sage-grey protective enamel sits inside a square dark slate secondary containment bund. Make the tank lid a large softly rounded rectangle, taking up almost the entire area; a wide quiet uninterrupted sage surface. One small circular closed filler cap near the upper left, one capped short copper-brown connection on the right, tucked inside the square footprint. A thin slate seam around the enamel lid and four very simple recessed fixing blocks. Slate chassis and sage outer rim occupy the remainder of the canvas; they are the object's own fitted square structure, never floor. Materials read through a few broad tonal regions, restrained scuffs on the rim, subtle enamel chipping, gentle flat overhead shading. Plain, legible and solid storage; no machinery clutter, valves scattered around the lid, pipes winding around it or decorative greebles. No central turbine, reactor lid, process chamber or hatchwheel. No text, words, numbers, labels, logos, symbols, gauges, readings, screens, status lights, fill strips, exposed liquid or changing contents. No visible front/side faces, no perspective, no cast shadow. All edges parallel to the image axes. The new acid family is sage and slate with only a tiny copper connector; retain this understated original maker identity. Deliver a square high-resolution master, at least 1024 by 1024, designed to remain very clear when reduced to 32 by 32 pixels.",
+      "referencedImagePaths": [
+        "assets/artwork-completion/source/at2-acid-tank.png"
+      ],
+      "referenceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+      "transparentBackground": false,
+      "status": "selected",
+      "source": "source/lixivar-acid-tank-restyle-chatgpt.png",
+      "sha256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "originalProviderPath": "C:\\Users\\phobo\\.codex\\generated_images\\01a1063f-e68d-7351-972c-ba595a38658b\\exec-63633233-b497-467b-bb4d-930bcaf27659.png",
+      "quotedCost": "Not disclosed by tool; no API or PixelLab credit purchase."
+    },
+    {
+      "key": "alembrine-ethanol-tank",
+      "provider": "OpenAI built-in Imagegen",
+      "operation": "image_gen.imagegen",
+      "mode": "generate from original Phobos reference",
+      "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Generate ONE new original spacecraft ETHANOL STORAGE TANK sprite using the supplied original Phobos image as a camera and square-footprint reference ONLY. Redesign the equipment itself. The image is the full square horizontal top assembly of the tank, opaque edge to edge with the tank's own square rim exactly touching all four image boundaries. No image margin. No surrounding floor or background. It is simple hardware for a worn-in industrial space survival game with the coarse, restrained, hand-painted pixel appearance of Ostranauts equipment. A single large CLOSED circular tank top nearly fills a fitted square charcoal steel secondary containment bund. A wide dull copper sealing band surrounds a broad plain silvery steel lid: restrained aged copper and brass form this tank family's identity, with substantial steel structure so it does not look orange all over. One small flush closed brass filler cap near the upper right and one capped copper connection on the left, tucked inside the square footprint. Four simple steel fixing blocks. The tank lid is a calm uninterrupted flat closed metal top, no central turbine, process chamber, agitator or hatchwheel. Straight square steel bund rim touches all four canvas boundaries; the dark corner areas are the tank's own fitted bund, never floor. Simple clear storage equipment, strong broad material blocks, lightly worn copper and steel, very sparse scuffing, even restrained overhead shading. No intricate pipework, scattered valves or decorative mechanical clutter. No text, words, numbers, labels, logos, symbols, gauges, readings, screens, status lights, fill strips, exposed liquid or changing contents. No visible front/side faces, no perspective, no cast shadow. All square edges parallel to the image axes. Deliver a square high-resolution master, at least 1024 by 1024, designed to remain very clear when reduced to 32 by 32 pixels.",
+      "referencedImagePaths": [
+        "assets/artwork-completion/source/at2-acid-tank.png"
+      ],
+      "referenceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+      "transparentBackground": false,
+      "status": "selected",
+      "source": "source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "sha256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "originalProviderPath": "C:\\Users\\phobo\\.codex\\generated_images\\01a1063f-e68d-7351-972c-ba595a38658b\\exec-4dfb9f90-1a95-4cc9-8018-4e4af9603a3c.png",
+      "quotedCost": "Not disclosed by tool; no API or PixelLab credit purchase."
+    }
+  ],
+  "requests": [
+    {
+      "key": "at2-acid-tank",
+      "model": "Phobos' Lixivar AT-2 Sulfuric Acid Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "lixivar-acid-tank",
+      "source": "source/lixivar-acid-tank-restyle-chatgpt.png",
+      "sha256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "master": "registered/at2-acid-tank-restyled.png",
+      "native": "previews/at2-acid-tank-native.png",
+      "normal": "previews/at2-acid-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/at2-acid-tank-before-restyle.png",
+        "sha256": "d237579bdc94057a0f1be09021e4ff9688ba73633d676bfde0e3b75ca12b2210",
+        "nativeSize": [
+          32,
+          32
+        ]
+      },
+      "previousSelection": {
+        "key": "at2-acid-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosAcidTankInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosAcidTank",
+        "status": "selected",
+        "source": "source/at2-acid-tank.png",
+        "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+        "requestRecord": "round-three-requests.json",
+        "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/at2-acid-tank-before-restyle.png",
+          "sha256": "d237579bdc94057a0f1be09021e4ff9688ba73633d676bfde0e3b75ca12b2210",
+          "nativeSize": [
+            32,
+            32
+          ]
+        },
+        "retention": "Superseded selection; original remains required as camera/footprint generation reference."
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    },
+    {
+      "key": "at3-acid-tank",
+      "model": "Phobos' Lixivar AT-3 Sulfuric Acid Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "lixivar-acid-tank",
+      "source": "source/lixivar-acid-tank-restyle-chatgpt.png",
+      "sha256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "footprintTiles": [
+        3,
+        3
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "master": "registered/at3-acid-tank-restyled.png",
+      "native": "previews/at3-acid-tank-native.png",
+      "normal": "previews/at3-acid-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/at3-acid-tank-before-restyle.png",
+        "sha256": "cfaae4f86391130bba44810fd6e24c73ffba740bdeec942741a94264f50950e8",
+        "nativeSize": [
+          48,
+          48
+        ]
+      },
+      "previousSelection": {
+        "key": "at3-acid-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosAcidTankMediumInstalled",
+        "nativeSize": [
+          48,
+          48
+        ],
+        "masterSize": [
+          96,
+          96
+        ],
+        "pivot": [
+          24,
+          24
+        ],
+        "runtime": "phobos/manufacturing/PhobosAcidTankMedium",
+        "status": "selected",
+        "source": "source/at3-acid-tank.png",
+        "sourceSHA256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
+        "requestRecord": "round-three-requests.json",
+        "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "b9c57547-88b4-4187-8b90-2be524b0ca59",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/at3-acid-tank-before-restyle.png",
+          "sha256": "cfaae4f86391130bba44810fd6e24c73ffba740bdeec942741a94264f50950e8",
+          "nativeSize": [
+            48,
+            48
+          ]
+        },
+        "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+        "archiveStatus": "Pushed 5 October 2026",
+        "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/at3-acid-tank.png"
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    },
+    {
+      "key": "at4-acid-tank",
+      "model": "Phobos' Lixivar AT-4 Sulfuric Acid Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "lixivar-acid-tank",
+      "source": "source/lixivar-acid-tank-restyle-chatgpt.png",
+      "sha256": "ec407d3fcbdc9f2421e17c3b8d43b68c05891a6ca543789ecb1e97710058923a",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "footprintTiles": [
+        4,
+        4
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "master": "registered/at4-acid-tank-restyled.png",
+      "native": "previews/at4-acid-tank-native.png",
+      "normal": "previews/at4-acid-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/at4-acid-tank-before-restyle.png",
+        "sha256": "b17049434c2828ea6155f339b589e63656b0a68675f3aca9e75729e9ed2424e0",
+        "nativeSize": [
+          64,
+          64
+        ]
+      },
+      "previousSelection": {
+        "key": "at4-acid-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosAcidTankLargeInstalled",
+        "nativeSize": [
+          64,
+          64
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          32,
+          32
+        ],
+        "runtime": "phobos/manufacturing/PhobosAcidTankLarge",
+        "status": "selected",
+        "source": "source/at2-acid-tank.png",
+        "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+        "requestRecord": "round-three-requests.json",
+        "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+        "fullFootprint": true,
+        "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/at4-acid-tank-before-restyle.png",
+          "sha256": "b17049434c2828ea6155f339b589e63656b0a68675f3aca9e75729e9ed2424e0",
+          "nativeSize": [
+            64,
+            64
+          ]
+        },
+        "retention": "Superseded selection; original remains required as camera/footprint generation reference."
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    },
+    {
+      "key": "cask2-ethanol-tank",
+      "model": "Phobos' Alembrine Cask-2 Ethanol Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "alembrine-ethanol-tank",
+      "source": "source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "sha256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "footprintTiles": [
+        2,
+        2
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "master": "registered/cask2-ethanol-tank-restyled.png",
+      "native": "previews/cask2-ethanol-tank-native.png",
+      "normal": "previews/cask2-ethanol-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/cask2-ethanol-tank-before-restyle.png",
+        "sha256": "afac0834eb80e0e344efb07c769b30fa8ea6c7cb153cddd5c80d8a0dbfc47d00",
+        "nativeSize": [
+          32,
+          32
+        ]
+      },
+      "previousSelection": {
+        "key": "cask2-ethanol-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosEthanolTankInstalled",
+        "nativeSize": [
+          32,
+          32
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          16,
+          16
+        ],
+        "runtime": "phobos/manufacturing/PhobosEthanolTank",
+        "status": "selected",
+        "source": "source/cask2-ethanol-tank.png",
+        "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+        "fullFootprint": true,
+        "derivedFrom": "source/at2-acid-tank.png",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/cask2-ethanol-tank-before-restyle.png",
+          "sha256": "afac0834eb80e0e344efb07c769b30fa8ea6c7cb153cddd5c80d8a0dbfc47d00",
+          "nativeSize": [
+            32,
+            32
+          ]
+        },
+        "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+        "archiveStatus": "Pushed 5 October 2026",
+        "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask2-ethanol-tank.png"
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    },
+    {
+      "key": "cask3-ethanol-tank",
+      "model": "Phobos' Alembrine Cask-3 Ethanol Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "alembrine-ethanol-tank",
+      "source": "source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "sha256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "footprintTiles": [
+        3,
+        3
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "master": "registered/cask3-ethanol-tank-restyled.png",
+      "native": "previews/cask3-ethanol-tank-native.png",
+      "normal": "previews/cask3-ethanol-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/cask3-ethanol-tank-before-restyle.png",
+        "sha256": "558d3e271bbdccaeba6cb1431c87c6e2dde36d109eb135085582a568e864ac0c",
+        "nativeSize": [
+          48,
+          48
+        ]
+      },
+      "previousSelection": {
+        "key": "cask3-ethanol-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosEthanolTankMediumInstalled",
+        "nativeSize": [
+          48,
+          48
+        ],
+        "masterSize": [
+          96,
+          96
+        ],
+        "pivot": [
+          24,
+          24
+        ],
+        "runtime": "phobos/manufacturing/PhobosEthanolTankMedium",
+        "status": "selected",
+        "source": "source/cask3-ethanol-tank.png",
+        "sourceSHA256": "42dfdde44bde11b1079490922742799ed69e63b41ade9d2e358a5d00e3445cfe",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+        "fullFootprint": true,
+        "derivedFrom": "source/at3-acid-tank.png",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/cask3-ethanol-tank-before-restyle.png",
+          "sha256": "558d3e271bbdccaeba6cb1431c87c6e2dde36d109eb135085582a568e864ac0c",
+          "nativeSize": [
+            48,
+            48
+          ]
+        },
+        "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+        "archiveStatus": "Pushed 5 October 2026",
+        "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask3-ethanol-tank.png"
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    },
+    {
+      "key": "cask4-ethanol-tank",
+      "model": "Phobos' Alembrine Cask-4 Ethanol Tank",
+      "provider": "OpenAI built-in Imagegen",
+      "mode": "generate from original Phobos reference; mechanically derive registered size",
+      "generationKey": "alembrine-ethanol-tank",
+      "source": "source/alembrine-ethanol-tank-restyle-chatgpt.png",
+      "sha256": "d6085a348496d6b57e6f38e37a000f0ae127e17df5beff437356a152d89957dd",
+      "returnedSize": [
+        1254,
+        1254
+      ],
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "footprintTiles": [
+        4,
+        4
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "master": "registered/cask4-ethanol-tank-restyled.png",
+      "native": "previews/cask4-ethanol-tank-native.png",
+      "normal": "previews/cask4-ethanol-tank-normal.png",
+      "previousReference": {
+        "path": "assets/phobos-manufacturing/references/cask4-ethanol-tank-before-restyle.png",
+        "sha256": "0562df7f24b498a003a6cc1fbe784248ed81988b8973ecd3743f18c75e3ee463",
+        "nativeSize": [
+          64,
+          64
+        ]
+      },
+      "previousSelection": {
+        "key": "cask4-ethanol-tank",
+        "mod": "PhobosManufacturing",
+        "definition": "PhobosEthanolTankLargeInstalled",
+        "nativeSize": [
+          64,
+          64
+        ],
+        "masterSize": [
+          128,
+          128
+        ],
+        "pivot": [
+          32,
+          32
+        ],
+        "runtime": "phobos/manufacturing/PhobosEthanolTankLarge",
+        "status": "selected",
+        "source": "source/cask2-ethanol-tank.png",
+        "sourceSHA256": "5f33fb3883086ae46883ff5e2c96aa098978ad5ebdd3f4e8debe764b0c9003ff",
+        "requestRecord": "manufacturing-requests.json",
+        "review": "Exact luminance-recolour derivative of the selected Lixivar acid tank onto an Alembrine copper-and-brass ramp (map in manufacturing-requests.json), mirrored left to right so the pipe stub sits on the ethanol port side, so the ethanol casks read apart from the acid tanks. Reviewed at native size by the agent; owner in-game review pending.",
+        "fullFootprint": true,
+        "derivedFrom": "source/at2-acid-tank.png",
+        "previousReference": {
+          "path": "assets/phobos-manufacturing/references/cask4-ethanol-tank-before-restyle.png",
+          "sha256": "0562df7f24b498a003a6cc1fbe784248ed81988b8973ecd3743f18c75e3ee463",
+          "nativeSize": [
+            64,
+            64
+          ]
+        },
+        "archiveCommit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+        "archiveStatus": "Pushed 5 October 2026",
+        "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/5ab8f35e868398ca877118932833004f7fd85e9f/assets/artwork-completion/source/cask2-ethanol-tank.png"
+      },
+      "review": "32-pixel family pilot inspected before deriving larger sizes. Axis-aligned full opaque overhead footprint; plain sealed lid, closed filler cap and contained connector; no floor, perspective, readings, gauges, fill strips or instruments. All 32/48/64-pixel native exports and four-times enlargements inspected and accepted; owner in-game lighting and rotation review pending."
+    }
+  ],
+  "review": "Pilots are inspected at native size and four-times enlargement before expansion of either family. Physical fittings and materials distinguish contents; readings stay out of artwork.",
+  "gameplay": "Footprints, IDs, pivots, ports, storage capacity, prices and saved state remain unchanged; owner in-game lighting and rotation review pending.",
+  "pilotReview": {
+    "date": "2026-10-05",
+    "inspectedBeforeExpansion": [
+      "at2-acid-tank",
+      "cask2-ethanol-tank"
+    ],
+    "scale": [
+      "32 x 32 native",
+      "4x nearest-neighbour"
+    ],
+    "decision": "Accepted plain sealed sage/slate and steel/copper/brass lids. Distinct silhouette and colour, no painted live-state instruments. Larger sizes are deterministic derivatives of these two originals; no additional generation."
+  },
+  "familyReview": {
+    "date": "2026-10-05",
+    "nativeSizes": [
+      32,
+      48,
+      64
+    ],
+    "enlargement": 4,
+    "decision": "Accepted all six exports: closed lids, distinct material blocks, unchanged square footprints and no painted instruments."
+  },
+  "verification": {
+    "changedColourPNGs": [
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTank.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankLarge.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankMedium.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTank.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankLarge.png",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosEthanolTankMedium.png"
+    ],
+    "unchangedOtherPNGs": 142,
+    "allNeutralNormalMapsUnchanged": true,
+    "otherBulkStoreArtworkUnchanged": true
+  },
+  "archive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "5ab8f35e868398ca877118932833004f7fd85e9f",
+    "status": "Pushed 5 October 2026",
+    "verifiedFiles": 7,
+    "reason": "Four rejected PixelLab trials and three superseded masters; exact bytes verified before removal. The prior AT-2 stays on main as the generation input of both selected originals.",
+    "url": "https://github.com/phobos-dthorga/phobos-ostranauts/tree/5ab8f35e868398ca877118932833004f7fd85e9f"
+  }
+}
