@@ -1,0 +1,20 @@
+[h1]Phobos Agriculture 0.58.0[/h1]
+[b]Draft - not published | 2026-10-05[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]A rack, W2, cooker or bench in a room that loses its air, through a hull breach or a collision, now stops and says the room has no air. It used to fault instead: it stopped, refused every command until the game was loaded again and wrote an error to the log, because the small standby draw every installed machine keeps counted as work done without air.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Nothing saved changes. A machine that faulted this way recovers when the game is loaded.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Checked offline; not yet seen in the game.
+[/list]

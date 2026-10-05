@@ -218,8 +218,11 @@ internal static partial class Service
             var room = Room(co); var gas = room?.GasContainer;
             if (gas == null || Moles(gas, "StatGasMolTotal") < 1)
             {
-                // No imaginary vacuum sink. Power admission above prevents consumption here.
-                if (received > 0) throw new InvalidOperationException("Agriculture lost its heat recipient during a native power call.");
+                // No imaginary vacuum sink, and no work without air. What was received here is the 0.02 kW standby draw,
+                // which every installed machine keeps so the game's power state stays true, or one step granted while
+                // the room still had air (a breach, a room rebuilt): it is lost with the air, and the machine stops and
+                // says why. Until Agriculture 0.58.0 this threw, faulting every machine in a room that lost its air
+                // (owner report, 5 October 2026: an asteroid collision breached the hull and six machines faulted).
                 s.Watch.Cancel(); if (s.State.CropId.Length > 0) s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * Growth.Stress.HealthLossPerHourNoAir);
                 s.State.Running = false; s.Notice = Text.Get("advice_no_air"); Save(s); return;
             }

@@ -80779,8 +80779,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "da26399cbb4b02097630469b4f9682d2afc9fbceebcd3c7ecca28bcfea922e90",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "d63d1cce0557aed089727a875caed80ba679a71a7c28314764ea7da12e3052e6",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "SUPPORT.md",
@@ -80807,8 +80807,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fc38050701607c113435157af14625ad7a4ce98bcb2c28c77e895074f3441c00",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "87921c094e48d438dbbf500f83b95206a0f99608cce7adf1257cc1b3fd42998b",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80940,8 +80940,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "166fd1b044fe3869c1fe88cd1bf51b0c636808222f7155d4b81cf087a8cbf93f",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "df1a96914692fe83929e89dde10ca258cf05fd99c5cc2b83c52e9ec604b1aefb",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81569,8 +81569,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "63e59e28930ef9efafd5a5ed82ce7c5b798342c0cf910bc8ab41e3367e1e69fb",
-      "review": "Framework 0.106.0: two performance spikes cut"
+      "sha256": "2671215c9b5f99eb803e96140ac0f69f393afd860647977128786649a8f6a0f4",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -82068,8 +82068,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0fc63b96bd13cd8bf1702168c35de3ca7f59be8afd1db890eda5174547b9972",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "64e2d8177bb0ada65578fa43e95074b972c0f27423fd0b724c7a8402433ea8b8",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82135,8 +82135,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "451d7976878274873484e4372c20e82567aad021c954a892fa854ad99f473a46",
-      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+      "sha256": "335c77c289886e73a2078671edd46d04d39a29b6807224ac5ad9865c443072b9",
+      "review": "Agriculture 0.58.0: no fault when a room loses its air"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

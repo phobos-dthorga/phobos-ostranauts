@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.57.0",
+      "version": "0.58.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -65078,7 +65078,7 @@
     "mods/PhobosAgriculture/framework/process-recipes.json": "cf6ac4baf5aab571a51808c69bf93bc3b980f15fced9675ea6c752948bbf9565",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
     "mods/PhobosAgriculture/framework/vessels.json": "d6942325965702159288fcd5db7a69f568e3fe5f1f67441d8b019cde21eb6607",
-    "mods/PhobosAgriculture/mod_info.json": "451d7976878274873484e4372c20e82567aad021c954a892fa854ad99f473a46",
+    "mods/PhobosAgriculture/mod_info.json": "335c77c289886e73a2078671edd46d04d39a29b6807224ac5ad9865c443072b9",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "db8da0a9b7c1d05178b9003881f705bdc7e7c046c1c55153906be0dc52914286",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/economy.json": "fa4533457e41d04d29921738f9016282ecee8fc70d4d3d44e12fcc91306539e6",
@@ -65163,12 +65163,12 @@
     "src/PhobosAgriculture/Panel.cs": "1cb1862da24835fde2b07c761c1686daaf310c92198f15dd5af5cb12070f2d2e",
     "src/PhobosAgriculture/PanelConfiguration.cs": "74696b4f9b11a633a623de26101a9aba85f596fe7a07cf7e69d7c4b7c380245e",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "e3d7a27ea1d515d7e7bc7744da887d184a1c81bb03b4c1f02dc0e648936e177e",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "026bdfbe4d257e33b156ff59353aabba6de4357cace4c07d163caf8243e5422b",
-    "src/PhobosAgriculture/Plugin.cs": "f8c4ce025fcad1042ec1cfcd19ee38d86db8b89823de1222c2d2c801bccbf9fd",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "b05d6991e3e686c4b02c1a24480f08bfea55b5aa44f497c6d406d177a9409263",
+    "src/PhobosAgriculture/Plugin.cs": "514c663b01cc9816679817f74280209b91466ca9b78c9ded951861d3dba0540a",
     "src/PhobosAgriculture/RecoveryService.cs": "6fb19aa3fc69ed82314959cb1c1f65d307728e8c0b71adbffd44e880d1c232ae",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
     "src/PhobosAgriculture/RegionalEconomy.cs": "d7c52e01d0412164fd84488ae2de0389905df0764b6d53e72f2f904138ee26d1",
-    "src/PhobosAgriculture/Service.cs": "3234f5f70317a93520f486b4092e6409a15dd2a9b1e5b9db1286b6b65677ca7a",
+    "src/PhobosAgriculture/Service.cs": "cec8f7410b0ab62b622a6b86fb3ef7ef4f3f3477d57b84d8a13c8302e877711d",
     "src/PhobosAgriculture/SolutionService.cs": "de36d5bc7cfb1e48d4fc5615d00ddcfcb7d4c7c541f8762c4be25ea28b5b0416",
     "src/PhobosAgriculture/StackLimits.cs": "39b7b65ca55474ccc6a90274064545e3cd6392a1c29699a669d20206573b6e47",
     "src/PhobosAgriculture/StockQuantities.cs": "e131d42cb4c79dbe7270c42bbd250df501657e5812c599364cf843c56bf9772c",

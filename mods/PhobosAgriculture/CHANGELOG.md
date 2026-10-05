@@ -10,6 +10,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.58.0] - 2026-10-05 - Draft
+
+### Fixed
+
+- A rack, W2, cooker or bench in a room that loses its air, through a hull breach or a collision, now stops and says the room has no air. It used to fault instead: it stopped, refused every command until the game was loaded again and wrote an error to the log, because the small standby draw every installed machine keeps counted as work done without air.
+
+### Save compatibility
+
+- Nothing saved changes. A machine that faulted this way recovers when the game is loaded.
+
+### Compatibility and limits
+
+- Checked offline; not yet seen in the game.
+
 ## [0.57.0] - 2026-10-05 - Draft
 
 ### Added

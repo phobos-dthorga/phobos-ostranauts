@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-05",
-  "baselineCommit": "792c791bef2e19801e4c3f38f0d028e272053bfa",
+  "baselineCommit": "1a5ac43d027e1120a64ae97a4bfb94d650dd8c32",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -885,7 +885,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "f8c4ce025fcad1042ec1cfcd19ee38d86db8b89823de1222c2d2c801bccbf9fd",
+      "sha256": "514c663b01cc9816679817f74280209b91466ca9b78c9ded951861d3dba0540a",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -933,7 +933,8 @@
         "L59",
         "L60",
         "L61",
-        "L62"
+        "L62",
+        "L65"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -1049,7 +1050,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Service.cs",
-      "sha256": "3234f5f70317a93520f486b4092e6409a15dd2a9b1e5b9db1286b6b65677ca7a",
+      "sha256": "cec8f7410b0ab62b622a6b86fb3ef7ef4f3f3477d57b84d8a13c8302e877711d",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-10-05 performance pass; see the linked findings for the disposition.",
@@ -1078,7 +1079,8 @@
         "L44",
         "L59",
         "L60",
-        "L62"
+        "L62",
+        "L65"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -1100,8 +1102,8 @@
         ],
         "collection": [
           72,
-          320,
-          392
+          323,
+          395
         ]
       },
       "reviewed": "2026-10-05"
