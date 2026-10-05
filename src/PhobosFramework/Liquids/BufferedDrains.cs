@@ -36,6 +36,7 @@ public static class BufferedDrains
     public const double SettleSeconds = 2;
     private sealed class Entry { internal CondOwner Vessel = null!; internal DrawLedger Ledger = null!; internal string Reason = ""; internal float Refreshed; }
     private static readonly Dictionary<CondOwner, Entry> entries = new();
+    internal static int EntryCount => entries.Count;
     private static readonly HashSet<CondOwner> protectedVessels = new();
     private static float nextSettle;
     static BufferedDrains() { SaveBoundary.BeforeShipSave += ship => { if (entries.Count > 0) SettleAll(ship); }; }

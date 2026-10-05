@@ -20,6 +20,7 @@ internal static class CaptureService
         internal string Notice = "";
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
+    internal static int SessionCount => sessions.Count;
     private static ObjectStateStore Store(CondOwner co) => new(co.mapGUIPropMaps, CaptureRecord.StoreName, co.strID, 1);
     private static bool Save(Session s) => s.Record.Valid && Store(s.Grabber).TryWrite(s.Record.Fields);
     internal static bool Read(CondOwner co, out CaptureRecord r)

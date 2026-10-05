@@ -40,6 +40,8 @@ internal static class NativePerformance
             Performance.LineContentsMaintain = Performance.RegisterOperation("framework.line_contents.maintain", "processing");
             CaptureProbes.Initialize(log);
             frames = new FrameMeasurements();
+            MemoryMeasurements.Register();
+            Footprints();
             Performance.RegisterContext("game.allocations.available", () => frames.AllocationSupported ? "true" : "false");
             Performance.RegisterContext("game.speed_multiplier", () => Time.timeScale.ToString("R", CultureInfo.InvariantCulture));
             Performance.RegisterContext("game.paused", () => CrewSim.Paused ? "true" : "false");
@@ -59,7 +61,8 @@ internal static class NativePerformance
             ["bepinex_version"] = typeof(BaseUnityPlugin).Assembly.GetName().Version.ToString()
         };
         foreach (var pair in new[] { ("phobosgekko.ostranauts.autonav", "autonav"), ("phobosgekko.ostranauts.shipbreaker", "shipbreaker"),
-            ("phobosgekko.ostranauts.agriculture", "agriculture"), ("phobosgekko.ostranauts.manufacturing", "manufacturing") })
+            ("phobosgekko.ostranauts.agriculture", "agriculture"), ("phobosgekko.ostranauts.manufacturing", "manufacturing"),
+            ("phobosgekko.ostranauts.medical", "medical"), ("phobosgekko.ostranauts.wardeclared", "wardeclared") })
             if (Chainloader.PluginInfos.TryGetValue(pair.Item1, out var plugin))
             {
                 values[pair.Item2 + "_version"] = plugin.Metadata.Version.ToString();
@@ -67,7 +70,19 @@ internal static class NativePerformance
             }
         values["framework_build"] = typeof(NativePerformance).Module.ModuleVersionId.ToString();
         values["allocation_measurement"] = frames?.AllocationSupported == true ? "main_thread_bytes" : "unavailable";
+        values["memory_sources"] = MemoryMeasurements.Available;
+        values["memory_sources_unavailable"] = MemoryMeasurements.Unavailable;
         return values;
+    }
+    /// <summary>What Framework keeps alive by key, the collections that would grow if a key were never let go.</summary>
+    private static void Footprints()
+    {
+        Performance.RegisterFootprint("framework.crew.orders", "footprint", () => Crew.CrewWork.OrderCount);
+        Performance.RegisterFootprint("framework.crew.jobs", "footprint", () => Crew.CrewWork.Jobs.Count);
+        Performance.RegisterFootprint("framework.crew.retry_records", "footprint", () => Crew.CrewWork.RetryRecords);
+        Performance.RegisterFootprint("framework.crew_skip.records", "footprint", () => Crew.CrewSkip.Records);
+        Performance.RegisterFootprint("framework.fluid_route.ships", "footprint", () => Liquids.FluidRouteCache.ShipCount);
+        Performance.RegisterFootprint("framework.buffered_drains.entries", "footprint", () => Liquids.BufferedDrains.EntryCount);
     }
     internal static void Poll()
     {

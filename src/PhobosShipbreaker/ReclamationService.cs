@@ -31,6 +31,7 @@ internal static partial class ReclamationService
         internal string Notice="";
     }
     private static readonly Dictionary<string,Session> sessions=new(StringComparer.Ordinal);
+    internal static int SessionCount=>sessions.Count;
     private static ObjectStateStore Store(CondOwner g)=>new(g.mapGUIPropMaps,ReclamationRecord.StoreName,g.strID,1);
     private static bool Save(Session s)=>s.Record.Valid&&Store(s.Grabber).TryWrite(s.Record.Fields);
     private static bool Read(CondOwner g,out ReclamationRecord r)

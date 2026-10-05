@@ -23,6 +23,11 @@ internal static class PerformanceMetrics
         FurnaceRoute = Performance.RegisterOperation("shipbreaker.furnace.route", "routing");
         FurnaceSaves = Performance.RegisterIncrement("shipbreaker.furnace.saves", "persistence", "saves");
         Laser = Performance.RegisterOperation("shipbreaker.laser.update", "processing");
+        // Framework 0.104.0: what the mod keeps alive by key, read once a second while recording.
+        Performance.RegisterFootprint("shipbreaker.furnace.sessions", "footprint", () => FurnaceService.SessionCount);
+        Performance.RegisterFootprint("shipbreaker.capture.sessions", "footprint", () => CaptureService.SessionCount);
+        Performance.RegisterFootprint("shipbreaker.laser.sessions", "footprint", () => LaserService.SessionCount);
+        Performance.RegisterFootprint("shipbreaker.reclamation.sessions", "footprint", () => ReclamationService.SessionCount);
         Performance.RegisterContext("shipbreaker.industrial_panel_visible", () =>
             CrewSim.goUI != null && CrewSim.goUI.GetComponent<IndustrialPanel>()?.bActive == true ? "true" : "false");
     }

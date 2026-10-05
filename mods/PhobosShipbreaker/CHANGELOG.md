@@ -31,6 +31,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.81.0] - 2026-10-05 - Draft
+
+### Added
+
+- Performance captures report how many furnaces, captures, lasers and reclamation missions hold a live session, once a second while recording, so growth that never comes back down shows up.
+
+### Dependencies
+
+- Needs Phobos Framework 0.104.0 or newer.
+
+### Save compatibility
+
+- Nothing saved changes. Recording stays off until you start it.
+
+### Compatibility and limits
+
+- Checked offline; not yet recorded in the game.
+
 ## [0.80.0] - 2026-10-05 - Draft
 
 ### Changed

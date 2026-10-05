@@ -50,6 +50,19 @@ public static class Performance
         try { return Session?.RegisterIncrement(name, category, unit); }
         catch (Exception ex) { Session?.Fault(ex); return null; }
     }
+    /// <summary>A count a mod keeps alive (sessions, records, cached entries), read once a real second while recording
+    /// (Framework 0.104.0). Counts show growth that never comes back down; they are not bytes. Register at start-up, like
+    /// every metric, and keep the read cheap: it runs on the main thread.</summary>
+    public static void RegisterFootprint(string name, string category, Func<int> count)
+    {
+        try { Session?.RegisterPeriodic(name, category, "entries", () => count()); }
+        catch (Exception ex) { Session?.Fault(ex); }
+    }
+    internal static void RegisterPeriodic(string name, string category, string unit, Func<double?> read)
+    {
+        try { Session?.RegisterPeriodic(name, category, unit, read); }
+        catch (Exception ex) { Session?.Fault(ex); }
+    }
     public static void RegisterContext(string name, Func<string> read)
     {
         try { Session?.RegisterContext(name, read); }

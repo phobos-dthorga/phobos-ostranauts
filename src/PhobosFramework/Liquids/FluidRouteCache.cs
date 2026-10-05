@@ -69,6 +69,7 @@ public static class FluidRouteCache
     /// see, such as segments that were not yet ready when the layout was first read during loading.</summary>
     public const double EmptyTrustSeconds = 30;
     private static readonly Dictionary<Ship, ShipSnapshot> snapshots = new();
+    internal static int ShipCount => snapshots.Count;
     private static readonly Dictionary<string, FluidSegmentFamily> registered = new(StringComparer.Ordinal);
     private static readonly List<CondOwner> cellObjects = new();
     internal static int Rebuilds;

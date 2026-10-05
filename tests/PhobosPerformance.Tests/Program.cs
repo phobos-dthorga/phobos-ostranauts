@@ -76,7 +76,10 @@ try
     ready = false; session.Poll();
     data = Capture();
     Check(!session.IsRecording && data.GetProperty("events").GetArrayLength() == 0 && data.GetProperty("aggregates")[1].GetProperty("calls").GetInt64() == 5, "Summary mode records complete counts and stops when world readiness is lost");
-    Check(data.GetProperty("dropped_records").GetInt64() == 1, "Shared record cap reports dropped counter sample");
+    // Recorder 0.2.0: summary mode keeps counter totals, so a counter can no longer be lost to the record cap.
+    var candidateTotal = data.GetProperty("counter_aggregates").EnumerateArray().Single(a => a.GetProperty("metric").GetInt32() == 2);
+    Check(data.GetProperty("dropped_records").GetInt64() == 0 && candidateTotal.GetProperty("samples").GetInt64() == 1 && candidateTotal.GetProperty("sum").GetDouble() == 3,
+        "Summary counters keep a complete total instead of losing samples to the record cap");
     SaveFixture("adapter-summary-world-change");
     ready = true;
     Check(Command("stop", out _) && Files() == 5, "Stop exports the summary window that the world change ended");
@@ -142,6 +145,7 @@ try
     Check(session.Snapshot!.StopReason == "application_exit" && !session.IsRolling && Directory.GetFiles(directory, "*.json").Length == beforeExit,
         "Orderly exit stops recording without implicit file writes"); 
     FrameChecks.Run(Check, directory);
+    PeriodicChecks.Run(Check, directory);
 }
 finally { Performance.Session = null; Directory.Delete(directory, recursive: true); }
 Console.WriteLine($"{checks} performance adapter checks passed.");

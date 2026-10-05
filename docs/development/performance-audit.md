@@ -1121,3 +1121,8 @@ L60 — Agriculture 0.55.0: feeding nutrients adds one comparison per linked, re
 ## 5 October: crew order on the rack's Next line (L61)
 
 L61 — Agriculture 0.56.0: when a rack is empty or ripe and its crop order is switched on, the Next line reads the order's cached record and Framework's order status, which looks through the active crew jobs once. It runs only where the Next line already runs (a panel refresh, a console status read), never per frame or per power step, and the crew order's own planting check does not use it. No capture accompanies this change.
+
+## 5 October: memory, footprints and complete counter totals (L62)
+
+L62 — Framework 0.104.0 with Phobos Scope recorder 0.2.0, Agriculture 0.57.0, Shipbreaker 0.81.0 and War Has Been Declared 0.3.0. The disabled path is unchanged: nothing below runs, reads a clock or allocates while recording is off. While recording, the session reads its periodic gauges once a real second (the memory sources and every footprint), each one call and no allocation except the process reading, which refreshes one cached process object. The frame poll adds one bucket search over twelve bounds and one counter update per frame, and one managed-heap read at the frame after a collection. A summary window now updates a counter's total in place instead of retaining a sample, so its memory no longer grows with counter traffic. The Framework 0.46.0 captures of 29 September each dropped about ten million counter samples in 30 seconds; Framework 0.47.0 batched the counter responsible, and format 2 removes the remaining way a counter could fill a summary window. No in-game capture accompanies this change.
+

@@ -28,6 +28,29 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.104.0] - 2026-10-05 - Draft
+
+### Added
+
+- Performance captures now measure memory. Once a second while recording they read the managed heap, Unity's own heap and native memory figures, and the game process as Task Manager shows it, plus the heap at the first frame after each collection. A reading the game cannot give is left out and named in the capture, never recorded as zero.
+- Footprint counts: Framework and each mod can report how many things they keep alive, such as crew orders, jobs, cached line layouts and machine sessions, read on the same once-a-second cadence. Mods add theirs with Performance.RegisterFootprint.
+- Frame times are also counted into fixed buckets, so a summary capture keeps long-frame counts and frame percentiles as bucket bounds.
+
+### Changed
+
+- Ships Phobos Scope recorder 0.2.0, which writes capture format 2. Every counter keeps one complete total, and summary captures keep those totals instead of every sample, so one busy counter can no longer fill a window and push out the rest. The installer requires recorder 0.2.0 or later.
+- The comparison script reads format 2 captures, reporting frame percentiles as bucket upper bounds and memory and footprint ranges, and warns when a comparison mixes formats.
+- Capture metadata names the Medical and War Has Been Declared versions too.
+
+### Save compatibility
+
+- Nothing saved changes. Recording stays off until you start it.
+
+### Compatibility and limits
+
+- Memory figures are whole-game figures; footprint counts are counts, not bytes. Memory per operation is not available, because the game's runtime does not support the per-thread allocation counter.
+- Checked offline with synthetic captures; not yet recorded in the game.
+
 ## [0.103.0] - 2026-10-05 - Draft
 
 ### Added

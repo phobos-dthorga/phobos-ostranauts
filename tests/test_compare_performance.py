@@ -47,3 +47,31 @@ class ComparisonTests(unittest.TestCase):
         raw['contexts'].append(dict(metric=4, value='true'))
         self.assertTrue(perf.compare([perf.analyse(raw)]*3, [new]*3)['warnings'])
         self.assertIsNone(perf.compare([old], [])['panel_50_percent_target'])
+
+    def test_format_two_totals_and_buckets(self):
+        names = [n for n, _ in perf.FRAME_BUCKETS]
+        definitions = [dict(id=1, name='game.frame.interval', kind='gauge'), dict(id=2, name='memory.managed_heap', kind='gauge'),
+                       dict(id=3, name='framework.crew.path_checks', kind='increment')]
+        definitions += [dict(id=10 + i, name=n, kind='increment') for i, n in enumerate(names)]
+        # 100 frames: 90 at 16 ms, 6 at 40 ms, 3 at 90 ms and one of 700 ms.
+        counts = {'game.frame.upto_16_7ms': 90, 'game.frame.upto_50ms': 6, 'game.frame.upto_100ms': 3, 'game.frame.over_500ms': 1}
+        totals = [dict(metric=1, samples=100, sum=90 * 16 + 6 * 40 + 3 * 90 + 700, min=16, max=700, last=16),
+                  dict(metric=2, samples=30, sum=3e9, min=9e7, max=1.1e8, last=1e8),
+                  dict(metric=3, samples=4, sum=12, min=1, max=5, last=2)]
+        totals += [dict(metric=10 + i, samples=1, sum=counts.get(n, 0), min=counts.get(n, 0), max=counts.get(n, 0), last=counts.get(n, 0))
+                   for i, n in enumerate(names)]
+        raw = dict(capture(), format_version=2, definitions=definitions, counters=[], counter_aggregates=totals)
+        row = perf.analyse(raw)
+        frames = row['frames']
+        self.assertEqual(frames['basis'], 'bucket_upper_bound')
+        self.assertAlmostEqual(frames['p50_ms'], 1000 / 60)
+        self.assertEqual((frames['p95_ms'], frames['p99_ms'], frames['max_ms']), (50, 100, 700))
+        self.assertEqual((frames['over_33_3_ms'], frames['over_50_ms'], frames['over_100_ms']), (10, 4, 1))
+        self.assertEqual(frames['mean_ms'], 26.5)
+        self.assertEqual(row['quality']['frame_samples'], 100)
+        self.assertEqual(row['increments']['framework.crew.path_checks'], 12)
+        self.assertEqual(row['levels']['memory.managed_heap']['max'], 1.1e8)
+        self.assertNotIn('game.frame.interval', row['levels'])
+        report = perf.compare([row] * 3, [perf.analyse(capture())] * 3)
+        self.assertTrue(any('bucket upper bounds' in w for w in report['warnings']))
+        self.assertEqual(perf.compare([row] * 3, [row] * 3)['level_max_changes']['memory.managed_heap']['change_percent'], 0)

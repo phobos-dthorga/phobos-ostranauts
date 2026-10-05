@@ -10,6 +10,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Reviewed every English entry. Simplified plant-feed choices, water and nutrient warnings, ready alerts and maintenance instructions; names, amounts and saved crops stay the same.
 
+## [0.57.0] - 2026-10-05 - Draft
+
+### Added
+
+- Performance captures report how many Agriculture machines hold a live session, once a second while recording, so growth that never comes back down shows up.
+
+### Dependencies
+
+- Needs Phobos Framework 0.104.0 or newer.
+
+### Save compatibility
+
+- Nothing saved changes. Recording stays off until you start it.
+
+### Compatibility and limits
+
+- Checked offline; not yet recorded in the game.
+
 ## [0.56.0] - 2026-10-05 - Draft
 
 ### Fixed

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using Phobos.Scope.Recording;
@@ -22,6 +23,13 @@ internal sealed class PerformanceSession
     private readonly Func<IReadOnlyDictionary<string, string>> metadata;
     private readonly Action<string> log;
     private readonly List<ContextProvider> contexts = new();
+    // Framework 0.104.0: levels read once a real second while recording (memory, and each mod's footprint counts).
+    internal const double PeriodicSeconds = 1;
+    private readonly List<PeriodicGauge> periodic = new();
+    private readonly Func<long> clock;
+    private readonly long periodTicks;
+    private int periodicSequence = -1;
+    private long nextPeriodic;
     private bool faulted;
     private string? exportedCapture;
     // The options of the running cycle, or null when recording is off.
@@ -34,13 +42,21 @@ internal sealed class PerformanceSession
     internal int CaptureSequence { get; private set; }
 
     internal PerformanceSession(string directory, Func<bool> worldReady,
-        Func<IReadOnlyDictionary<string, string>> metadata, Action<string> log)
-    { this.directory = Path.GetFullPath(directory); this.worldReady = worldReady; this.metadata = metadata; this.log = log; }
+        Func<IReadOnlyDictionary<string, string>> metadata, Action<string> log, Func<long>? clock = null, long frequency = 0)
+    {
+        this.directory = Path.GetFullPath(directory); this.worldReady = worldReady; this.metadata = metadata; this.log = log;
+        this.clock = clock ?? Stopwatch.GetTimestamp;
+        periodTicks = (long)(PeriodicSeconds * (frequency > 0 ? frequency : Stopwatch.Frequency));
+    }
 
     internal PerformanceMetric RegisterOperation(string name, string category) => new(this, recorder.RegisterOperation(name, category));
     internal PerformanceMetric RegisterIncrement(string name, string category, string unit) => new(this, recorder.RegisterCounter(name, category, unit, CounterKind.Increment));
     internal PerformanceMetric RegisterGauge(string name, string category, string unit) => new(this, recorder.RegisterCounter(name, category, unit, CounterKind.Gauge));
     internal void RegisterContext(string name, Func<string> read) => contexts.Add(new ContextProvider(recorder.RegisterContext(name, "context"), read));
+    /// <summary>A level read once a real second while recording, and at the start of each window. A read that returns
+    /// null is unavailable that second, never zero.</summary>
+    internal void RegisterPeriodic(string name, string category, string unit, Func<double?> read) =>
+        periodic.Add(new PeriodicGauge(name, recorder.RegisterCounter(name, category, unit, CounterKind.Gauge), read));
     internal PerformanceScope Measure(PerformanceMetric operation)
     {
         if (!IsRecording) return default;
@@ -62,7 +78,7 @@ internal sealed class PerformanceSession
             {
                 if (!worldReady()) { Stop(StopReason.WorldChange); return; }
                 recorder.Poll();
-                if (recorder.IsRecording) { ReadContexts(); return; }
+                if (recorder.IsRecording) { ReadContexts(); SamplePeriodic(); return; }
             }
             // The window ended (its time limit, usually; it can end inside any timing call) or the world went away.
             if (rolling != null) Continue();
@@ -76,6 +92,27 @@ internal sealed class PerformanceSession
             string value = context.Read();
             if (!string.Equals(value, context.Last, StringComparison.Ordinal))
             { recorder.Context(context.Metric, value); context.Last = value; }
+        }
+    }
+    private void SamplePeriodic()
+    {
+        if (periodic.Count == 0) return;
+        long now = clock();
+        if (periodicSequence == CaptureSequence && now < nextPeriodic) return;
+        periodicSequence = CaptureSequence; nextPeriodic = now + periodTicks;
+        foreach (var gauge in periodic)
+        {
+            if (gauge.Disabled) continue;
+            double? value;
+            try { value = gauge.Read(); }
+            catch (Exception ex)
+            {
+                // One broken reading (a mod's footprint, an unsupported memory call) leaves the rest of the capture alone.
+                gauge.Disabled = true;
+                try { log(Text.Get("Performance.gauge_failed", gauge.Name, ex.GetType().Name)); } catch { }
+                continue;
+            }
+            if (value is double v && !double.IsNaN(v) && !double.IsInfinity(v)) recorder.Sample(gauge.Metric, v);
         }
     }
     // Exports the window that ended, once, then begins the next while a world is ready. A window that ended for any
@@ -101,7 +138,7 @@ internal sealed class PerformanceSession
         foreach (var context in contexts) context.Last = null;
         recorder.Start(options); CaptureSequence++;
         // A failing context provider is a diagnostic fault: recording stops, gameplay goes on.
-        try { ReadContexts(); } catch (Exception ex) { Fault(ex); }
+        try { ReadContexts(); SamplePeriodic(); } catch (Exception ex) { Fault(ex); }
     }
     private bool AutoExport(CaptureSnapshot snapshot)
     {
@@ -219,6 +256,14 @@ internal sealed class PerformanceSession
             options.MaxRecords = records;
         }
         return true;
+    }
+    private sealed class PeriodicGauge
+    {
+        internal readonly string Name;
+        internal readonly Metric Metric;
+        internal readonly Func<double?> Read;
+        internal bool Disabled;
+        internal PeriodicGauge(string name, Metric metric, Func<double?> read) { Name = name; Metric = metric; Read = read; }
     }
     private sealed class ContextProvider
     {

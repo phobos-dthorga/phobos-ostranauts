@@ -26,6 +26,9 @@ public static class CrewWork
     private static readonly Dictionary<string,int> failures = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,double> nextAttempt = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,string> retryReason = new(StringComparer.Ordinal);
+    // Footprint counts for performance captures (Framework 0.104.0).
+    internal static int OrderCount => orders.Count;
+    internal static int RetryRecords => notices.Count + announced.Count + failures.Count + nextAttempt.Count + retryReason.Count;
     private static bool worldReady;
     public static CondOwner? Actor => executing?.Actor;
     public static bool IsExecuting => executing != null;

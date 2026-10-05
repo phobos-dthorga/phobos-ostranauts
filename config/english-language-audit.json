@@ -80759,6 +80759,19 @@
       ],
       "before": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}",
       "after": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.gauge_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Framework 0.104.0: a periodic capture reading that fails is switched off with one log line",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework"
+      ],
+      "before": "Recording stopped reading {0} ({1}); the rest of the capture carries on.",
+      "after": "Recording stopped reading {0} ({1}); the rest of the capture carries on."
     }
   ],
   "documents": [
@@ -80766,8 +80779,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "74c98acfc2311327f1fbcfeb18fa38f4010a903465b916eea993b3ffd4641ae3",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "3dd14c0ff38fb1c98d645ca899c241e284cacd7c56a08eb9930d0e39e88b943e",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "SUPPORT.md",
@@ -80794,8 +80807,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6383158e80a381314e9b495286aa561abb9653191d11b3f19e90997a0fdb8764",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "fc38050701607c113435157af14625ad7a4ce98bcb2c28c77e895074f3441c00",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -80927,8 +80940,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1ecfbdbeb3b5e067ac5fddd83ca606cbb519d4603ec3117e35bdefc7284126d8",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "4215e0d04e894dd37f73f33ebfd07006b49af948b3a8a43d91048a4f932abed7",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/crew-automation.md",
@@ -81556,8 +81569,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "fd5fe1ee31e112323fa83adf64bff22261ccf772aa917f8680b850b5fe2a4024",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "585a33b866e0ea052fecf764c34585603e1cbeea614adf601b4360351eebacfe",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -81817,8 +81830,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4fa63463774999e76e52416ade5bca909b3935692a87f15e024dbd790788e148",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "1eb93572abc7551acb06bb8fe632e2a4a072be59c4c009229f2678cd87562d02",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -81873,15 +81886,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c38162283b2ec239c1ce29995b11ed848154ceba426cbd91479eb00fa9e62bb7",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "9af348ac9bdf629557c4a5a32f37e58fc6a8ed9fe23105dc1b5624f6e7abb4ca",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f90f6b263c2f55040914530b18dcc7d05f33e8edb09888263f6123c9f3d8499e",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "85228a84bc5e619684f94fc4f338342e813e47373e7423fdb4cfe639f10507af",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/item-references.md",
@@ -81936,15 +81949,15 @@
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "698b5240a7d2b518730b80535a632c07c64511f9d128fa669e2ee223b7aaf7ea",
-      "review": "Reviewed 3 October 2026 for Framework 0.75.0: performance recording runs in windows exported as they end, until stop."
+      "sha256": "87709e5e1a4da0a681ff93060af9dc3a7974781586ddb938ff51940318080c5d",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6438fcda693d7734cc76726917e531fa159d633ab1020856dec92b096276f62b",
-      "review": "Agriculture 0.55.0: one nutrient for every crop, W2 recirculation, growth section"
+      "sha256": "a86b26a6919de501992086fcce75a1b823f9c89e06d11bcfdbff7e7806c7800e",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/publishing-an-add-on.md",
@@ -81999,8 +82012,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8dd6fcb7f7a939b4a06f2aea8ea962612775ff66c12ed184f2a00cef059b1fbe",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "db407ddd277d23420b83519435a860f2462b6f695e7e731a5e8ab63a2c61080d",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/shipbreaker-material-bins.md",
@@ -82041,8 +82054,8 @@
       "path": "docs/war-declared-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "48aaf02f36224652074405e2be6517130af8c5f00a4a57b6adc630684773ac97",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "d417840113bf62d09b81d9d24e33a37dec234d704c7f3b410b7c426355859826",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -82055,8 +82068,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9fe3f1a11631f481566cec365ef15fde3dc1f35dbcd0a78b6d22016b104c2461",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "d0fc63b96bd13cd8bf1702168c35de3ca7f59be8afd1db890eda5174547b9972",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -82069,8 +82082,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aab04a49a3a6c0b727a6964e489f7d330098e0452f533aa92bf2bd7c7afb10e5",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "33b4d8c9f32f1f4600d3c49b80747fe311573fcfa42fe905773fb99156296a34",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -82090,15 +82103,15 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d6a83a627073e3f9f5e0ea7b82c133c4674d81ec3c37feeaf266bc9035ff86b0",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "0cb2df281b3ee85d76554b33a55a82247da8fd44e1e8e50aecfa17510bdc3067",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "0795874add6f70c3485d2a846fc1ef8eb62a797cfc25ebdf8334b5b564d4e330",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "35f1ecab6127aab879b6d9815b14fda4600ce07aa84c70aedfb84b858eb81178",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     }
   ],
   "surfaces": [
@@ -82122,8 +82135,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e4b955d571bc81ae3da2a27f7c68773de0906770b12d31273ec07bf8ffb0b75c",
-      "review": "Agriculture 0.56.0: crop crew order status on the rack's Next line"
+      "sha256": "451d7976878274873484e4372c20e82567aad021c954a892fa854ad99f473a46",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -82157,8 +82170,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "605956f7efd93c0239b3821de1e0fa2a25dd2b1221c9acb1a359cb030f7b838d",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "4bd5d1fe13bca6d193e982a9fad259a525fe9a832b311c342cc1f8a9648db151",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -82181,14 +82194,14 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "768e2b5e1bec15809ee46c6f53d5c1a8de32d1321bb4558c3e689e180c7634f8",
-      "review": "Coolant conduit and belts join on or beside equipment; pickers offer what is in reach and explain the rest"
+      "sha256": "c62fa4de6238aa3647cc0be1b851708e58eb373ff2902d2af7e7e5f02241d1db",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9c85b2ad11dce84cf34ae8935bbc253eb3d0c6cbe6c1b0605ba969bc75399b2c",
-      "review": "Reviewed 4 October 2026 for Framework 0.90.0 and War Declared 0.2.0: add-ons players can publish."
+      "sha256": "67d150c1700a491735bb96aa26f016ba4eaa231c2789d9e82c315623a8576d81",
+      "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
     },
     {
       "path": "mods/PhobosWarDeclared/schematics/safe.json",

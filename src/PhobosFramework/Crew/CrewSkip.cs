@@ -29,6 +29,8 @@ public static class CrewSkip
     private static CondOwner[] crew = Array.Empty<CondOwner>();
     private static readonly HashSet<string> faulted = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,double> nextDecision = new(StringComparer.Ordinal);
+    // Footprint count for performance captures (Framework 0.104.0).
+    internal static int Records => busy.Count + assignments.Count + completions.Count + unavailable.Count + nativeCare.Count + budgets.Count + faulted.Count + nextDecision.Count;
     private static CondOwner[] consumers = Array.Empty<CondOwner>();
     internal static string Preview(Ship ship)
     {

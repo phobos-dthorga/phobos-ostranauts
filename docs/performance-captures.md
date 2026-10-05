@@ -17,7 +17,7 @@ receipts and refuses to modify a running game. Its `-WhatIf` option previews and
 `-VerifyOnly` checks files after installation. Game execution remains owner-run.
 
 Framework's plugin directory contains both `PhobosFramework.dll` and one
-`Phobos.Scope.Recording.dll` (0.1.1). Consumer packages do not duplicate the recorder.
+`Phobos.Scope.Recording.dll` (0.2.0 since Framework 0.104.0). Consumer packages do not duplicate the recorder.
 The installer checks recorder identity/version and refuses missing, duplicate or
 newer conflicting shared copies. Check the BepInEx startup log for the versions you installed; the current
 prepared versions are listed in the player guide.
@@ -72,6 +72,61 @@ emissions, control flight, run machines, transfer material or write saves.
 Diagnostics faults disable further recording for the process, attempt one warning,
 and preserve a stopped snapshot with a rejected-measurement quality marker. Status
 and export remain available; restart after investigating a recorder fault.
+
+## Memory, footprints and frame times (Framework 0.104.0)
+
+Framework 0.104.0 ships recorder 0.2.0, which writes **capture format 2**. Every
+counter now keeps one complete total (samples, sum, minimum, maximum, last value)
+whatever the mode or record limit. Summary captures keep those totals instead of
+every sample, so a busy counter can no longer fill the window and push out the
+rest, which is what happened to every Framework 0.46.0 capture on 29 September.
+Detailed captures still keep samples while room remains. Use summary mode for the
+review, as before.
+
+**Memory**, read once a real second while recording and at the start of each window:
+
+| Reading | What it is |
+| --- | --- |
+| `memory.managed_heap` | The game's managed heap in use, without forcing a collection |
+| `memory.unity.mono_used`, `memory.unity.mono_heap` | Unity's own figures for that heap: used, and reserved from the system |
+| `memory.unity.allocated`, `memory.unity.reserved` | Unity's native memory: allocated, and reserved |
+| `memory.process.working_set`, `memory.process.private` | The game process as Task Manager shows it |
+| `memory.managed_heap_after_collection` | The managed heap at the first frame after each collection |
+
+Each source is tried once when the game starts. One that fails or reads nothing is
+left out and named in the capture metadata (`memory_sources_unavailable`), never
+recorded as zero; `memory_sources` lists those that work. These are whole-game
+figures. The heap after each collection is the plainest sign of a leak: if its
+lowest value keeps rising over an hour of play, something is holding on to memory.
+
+**Footprints** are counts of what each mod keeps alive by key, read on the same
+once-a-second cadence. They are counts, not bytes, and show growth that never comes
+back down:
+
+| Footprint | Counts |
+| --- | --- |
+| `framework.crew.orders`, `framework.crew.jobs`, `framework.crew.retry_records` | Standing orders, crew jobs in progress, and their notices and retry records |
+| `framework.crew_skip.records` | What the managed time-skip keeps per crew member and machine |
+| `framework.fluid_route.ships`, `framework.buffered_drains.entries` | Ships with a cached line layout; stores with a buffered draw |
+| `agriculture.sessions` | Agriculture machines with a live session |
+| `shipbreaker.furnace.sessions`, `shipbreaker.capture.sessions`, `shipbreaker.laser.sessions`, `shipbreaker.reclamation.sessions` | Shipbreaker machines and missions with a live session |
+| `war.records`, `war.tallies`, `war.damaged`, `war.part_facts` | War Has Been Declared's battle ledger, damage queue and schematic facts |
+
+Manufacturing, Auto Nav and Medical hold their sessions in tables that let go of a
+machine when the game does, so they cannot grow this way and report no footprint.
+A mod adds its own with `Performance.RegisterFootprint` at start-up.
+
+**Frame times** are also counted into fixed buckets (`game.frame.upto_8_3ms` up to
+`game.frame.over_500ms`, with bounds at 33.3, 50 and 100 ms among them). A summary
+capture keeps these counts, so `scripts/compare-performance.py` reports long frames
+exactly, the mean and worst frame exactly, and each percentile as the upper bound of
+its bucket, never interpolated. Format 1 captures still report exact percentiles from
+their retained samples; the script warns when a comparison mixes the two.
+
+What none of this gives: memory per operation. That needs the per-thread allocation
+counter, which the game's runtime does not support (`allocation_measurement` reads
+`unavailable`). To see how much the mods use in all, compare captures of the same save
+with and without them, or with only Framework installed.
 
 ## What is measured
 
@@ -186,10 +241,13 @@ counter passes an allocation probe. Early baseline captures reported unsupported
 zero totals; do not interpret those as allocation measurements. Metadata now
 records calibration support and assembly build IDs without object/player IDs.
 Memory stays bounded by the existing record cap: only one window is held at a time.
+Since Framework 0.104.0 summary windows keep counter totals rather than samples; see
+[memory, footprints and frame times](#memory-footprints-and-frame-times-framework-01040).
 
 For a future comparison, `scripts/compare-performance.py --before <captures...>
 --after <captures...>` emits JSON with per-run percentiles, long frames, operation
-cost per second, collections and quality flags. Supply three matched 30-second
+cost per second, collections, memory and footprint ranges, and quality flags. It reads
+format 1 and format 2 captures. Supply three matched 30-second
 captures per side and compare open/closed scenarios separately. Incomplete scopes
 limit their own operation totals, not otherwise valid frame samples. Unsupported
 allocation totals are omitted. This tool does not verify identical saves, zoom,

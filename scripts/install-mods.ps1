@@ -289,8 +289,8 @@ foreach ($mod in $Mods) {
         if ($needsScope) {
             $scopeSource = Join-Path $pluginSource 'Phobos.Scope.Recording.dll'
             $scopeIdentity = [Reflection.AssemblyName]::GetAssemblyName($scopeSource)
-            if ($scopeIdentity.Name -ne 'Phobos.Scope.Recording' -or $scopeIdentity.Version -lt [version]'0.1.1') {
-                throw 'Framework requires the packaged Phobos Scope recorder 0.1.1 or later.'
+            if ($scopeIdentity.Name -ne 'Phobos.Scope.Recording' -or $scopeIdentity.Version -lt [version]'0.2.0') {
+                throw 'Framework requires the packaged Phobos Scope recorder 0.2.0 or later.'
             }
             $scopeTarget = Join-Path $pluginTarget 'Phobos.Scope.Recording.dll'
             $allPlugins = Join-Path $gameRoot 'BepInEx/plugins'

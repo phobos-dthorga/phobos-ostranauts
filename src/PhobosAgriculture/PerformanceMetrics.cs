@@ -13,5 +13,7 @@ internal static class PerformanceMetrics
         Candidates = Performance.RegisterIncrement("agriculture.scan_objects", "discovery", "items");
         Route = Performance.RegisterOperation("agriculture.irrigation.route", "routing");
         Saves = Performance.RegisterIncrement("agriculture.saves", "persistence", "saves");
+        // Framework 0.104.0: what the mod keeps alive, read once a second while recording.
+        Performance.RegisterFootprint("agriculture.sessions", "footprint", () => Service.SessionCount);
     }
 }

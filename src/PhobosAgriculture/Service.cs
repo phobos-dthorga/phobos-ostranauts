@@ -41,6 +41,7 @@ internal static partial class Service
         internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
+    internal static int SessionCount => sessions.Count;
     private static readonly List<CondOwner> scanned = new();
     // Stage 8: the machines come from Framework's shared world sweep instead of a pass over every world object here.
     private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =

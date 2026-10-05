@@ -40,6 +40,7 @@ internal static partial class FurnaceService
     { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds, MotorKJ; internal bool Routed, Finished; internal object? MaterialToken; }
     internal const double SettleSeconds = 2, DiscoverySeconds = 2;
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
+    internal static int SessionCount => sessions.Count;
     private static float nextScan;
     // Furnace-family objects anywhere in the loaded world, reread every couple of real seconds and on a mode switch;
     // passive physics still advances every quarter second for each of them (audit P3).

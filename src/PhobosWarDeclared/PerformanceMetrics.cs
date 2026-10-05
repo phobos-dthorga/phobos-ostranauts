@@ -10,5 +10,10 @@ internal static class PerformanceMetrics
     {
         Poll = Performance.RegisterOperation("war.poll", "processing");
         LayPending = Performance.RegisterOperation("war.lay_pending", "processing");
+        // Framework 0.104.0: the ledgers the mod keeps by key, read once a second while recording.
+        Performance.RegisterFootprint("war.records", "footprint", () => WarService.RecordCount);
+        Performance.RegisterFootprint("war.tallies", "footprint", () => WarService.TallyCount);
+        Performance.RegisterFootprint("war.damaged", "footprint", () => WarService.DamagedCount);
+        Performance.RegisterFootprint("war.part_facts", "footprint", () => WarService.PartFactCount);
     }
 }

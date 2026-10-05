@@ -18,8 +18,8 @@ namespace PhobosWarDeclared;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = WarRules.Owner;
-    public const string Version = "0.2.0";
-    public const string MinimumFrameworkVersion = "0.90.0";
+    public const string Version = "0.3.0";
+    public const string MinimumFrameworkVersion = "0.104.0";
     internal static Action<string> Log = _ => { };
     private static ConfigEntry<string>? schematic;
     private Harmony? harmony;

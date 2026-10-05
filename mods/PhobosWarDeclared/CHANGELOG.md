@@ -9,6 +9,24 @@ not Steam publication.
 
 - Reviewed every English entry. Lay held build sites is now Lay postponed build sites. Damage reports explain what is waiting and why. Schematics, commands and saved battle records stay the same.
 
+## [0.3.0] - 2026-10-05 - Draft
+
+### Added
+
+- Performance captures report the size of the battle ledger, damage queue and schematic facts, once a second while recording, so growth that never comes back down shows up.
+
+### Dependencies
+
+- Needs Phobos Framework 0.104.0 or newer.
+
+### Save compatibility
+
+- Nothing saved changes. Recording stays off until you start it.
+
+### Compatibility and limits
+
+- Checked offline; not yet recorded in the game.
+
 ## [0.2.0] - 2026-10-04 - Draft
 
 ### Added

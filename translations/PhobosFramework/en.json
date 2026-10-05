@@ -698,5 +698,6 @@
   "LineSchema.contradiction": "Line placement rule {0} forbids {1} tiles and also names them as a support.",
   "LinkChoices.reason_no_fitting_store": "too far away. It has no fitting for the {0}, so it has to stand within one tile of this machine.",
   "LinkChoices.reason_no_fitting_machine": "too far away. This machine has no fitting for the {0}, so the two have to stand within one tile of each other.",
-  "ShipsWaterPorts.refused": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}"
+  "ShipsWaterPorts.refused": "Ship's Water tanks that kept their own fittings (another mod changed them) and join Phobos lines only by touching: {0}",
+  "Performance.gauge_failed": "Recording stopped reading {0} ({1}); the rest of the capture carries on."
 }

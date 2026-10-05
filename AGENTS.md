@@ -1303,6 +1303,19 @@
   conduit power stood still. Capture such an argument in a prefix (`__state`); check the
   game's method for writes to its own parameters before reading one in a postfix.
 
+## Performance measurement (2026-10-05)
+
+- Owner request: improve Phobos Scope and **measure memory**. Owner approved steps 1 to 3 of the
+  proposal (memory gauges, footprint counts, complete counter totals); self time, a series view
+  across rolling windows and memory in the analyser's comparison remain proposals. Framework 0.104.0
+  ships recorder 0.2.0 (capture format 2: one complete total per counter; summary captures keep
+  totals, not samples). Memory sources are probed once and named when unavailable, never recorded
+  as zero; frame times are bucketed so summary captures keep long-frame counts, and percentiles are
+  bucket upper bounds, never interpolated. A mod that keeps a strong collection by key registers it
+  with `Performance.RegisterFootprint`; weak tables need none. Memory per operation is unavailable
+  (the game's Mono has no per-thread allocation counter); say so rather than estimate it. Follow
+  `docs/performance-captures.md` and the Scope repository's own AGENTS.md for contract changes.
+
 ## Industrial control direction (2026-09-24)
 
 - The owner approved implementation of screen overflow, strict per-console ship

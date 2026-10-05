@@ -36,6 +36,7 @@ internal static partial class LaserService
     }
     internal const string FilterStoreName = "Shipbreaker.LaserFilter";
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
+    internal static int SessionCount => sessions.Count;
     private static ObjectStateStore Store(CondOwner co) => new(co.mapGUIPropMaps, LaserRecord.StoreName, co.strID, 1);
     private static ObjectStateStore FilterStore(CondOwner co) => new(co.mapGUIPropMaps, FilterStoreName, co.strID, 1);
     private static bool Save(Session s) => s.Record.Valid && Store(s.Laser).TryWriteIfChanged(s.Record.Fields);

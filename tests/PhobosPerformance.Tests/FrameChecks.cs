@@ -43,6 +43,33 @@ internal static class FrameChecks
         frames = new FrameMeasurements(() => ++tick, 1000, _ => 0, () => throw new NotSupportedException());
         check(Command("start detailed 30 100"), "Unsupported allocation fixture starts");
         frames.Poll(); frames.Poll(); session.Stop(StopReason.Manual);
-        check(!frames.AllocationSupported && Capture().GetProperty("counters").GetArrayLength() == 1, "Unsupported allocation reading remains unavailable, without fabricated zero samples");
+        check(!frames.AllocationSupported && Capture().GetProperty("counters").EnumerateArray().Count(s => s.GetProperty("metric").GetInt32() <= 4) == 1,
+            "Unsupported allocation reading remains unavailable, without fabricated zero samples");
+
+        // Framework 0.104.0: the managed heap is read at the first frame after a collection, and only then.
+        session = new PerformanceSession(directory, () => true, () => new Dictionary<string, string>(), _ => { });
+        Performance.Session = session;
+        int collections = 0; long managed = 4000; int heapReads = 0;
+        frames = new FrameMeasurements(() => ++tick, 1000, _ => collections, null, () => { heapReads++; return managed; });
+        check(Command("start detailed 30 100"), "Heap-after-collection fixture starts");
+        frames.Poll(); frames.Poll(); collections++; managed = 3000; frames.Poll(); frames.Poll(); session.Stop(StopReason.Manual);
+        var after = Capture().GetProperty("counter_aggregates").EnumerateArray().Single(a => a.GetProperty("metric").GetInt32() == 5);
+        check(heapReads == 1 && after.GetProperty("samples").GetInt64() == 1 && after.GetProperty("last").GetDouble() == 3000,
+            "The heap is read once, at the frame after a collection");
+
+        // Frame-time buckets: each frame counts once, by its upper bound; a summary capture keeps the counts.
+        session = new PerformanceSession(directory, () => true, () => new Dictionary<string, string>(), _ => { });
+        Performance.Session = session;
+        long clock = 0;
+        frames = new FrameMeasurements(() => clock, 1000, _ => 0, null);
+        check(Command("start summary 30 100"), "Frame-bucket fixture starts");
+        frames.Poll();
+        foreach (long ms in new long[] { 16, 17, 17, 50, 51, 600 }) { clock += ms; frames.Poll(); }
+        session.Stop(StopReason.Manual);
+        var totals = Capture().GetProperty("counter_aggregates").EnumerateArray().ToDictionary(a => a.GetProperty("metric").GetInt32(), a => a.GetProperty("sum").GetDouble());
+        double Count(int bucket) => totals[5 + bucket];
+        check(Count(2) == 1 && Count(3) == 2 && Count(6) == 1 && Count(7) == 1 && Count(11) == 1 && Enumerable.Range(0, FrameMeasurements.Buckets.Length).Sum(Count) == 6,
+            "Each frame counts once in the bucket of its upper bound, with the open bucket above 500 ms");
+        check(totals[0] == 751, "The frame interval total keeps the whole time, so the mean frame is exact without samples");
     }
 }

@@ -43,6 +43,11 @@ internal static class WarService
     internal static Settings Options { get; set; } = new();
     private static readonly Dictionary<string, Record> records = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Tally> tallies = new(StringComparer.Ordinal);
+    // Footprint counts for performance captures (Framework 0.104.0).
+    internal static int RecordCount => records.Count;
+    internal static int TallyCount => tallies.Count;
+    internal static int DamagedCount => damaged.Count;
+    internal static int PartFactCount => partFacts.Count;
     /// <summary>Object IDs whose damage check queued a native switch, with the game time and whether it destroys.</summary>
     private static readonly Dictionary<string, (double At, bool Destroys)> damaged = new(StringComparer.Ordinal);
     // 29 September 2026 pass (FF7): schematic facts are built once per part until content reloads, and the poll's
