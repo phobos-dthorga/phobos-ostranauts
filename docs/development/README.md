@@ -47,6 +47,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Building from source](building.md)
 - [Bulk silo, thaw unit and ingot artwork handoff](bulk-silo-art-handoff.md)
 - [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
+- [Custom gases: research study](custom-gas-research.md): what adding water vapour, hydrogen or a new gas would take, and the risk to saves
 - [Dependency maintenance and fallback plan](dependency-contingencies.md)
 - [Documentation consistency audit — 28 September 2026](documentation-consistency-audit.md)
 - [Economy coverage audit — 29 September 2026](economy-coverage-audit.md)

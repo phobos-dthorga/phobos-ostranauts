@@ -81123,8 +81123,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "ab719773fc3cb43d436c397a775e461555a9f1153cd3ab4fec7c391f43474bf6",
-      "review": "Irrigation joins like the water line; link notes for canisters, hoppers and tanks; pipe audit"
+      "sha256": "932cff2679e545e342af90dc8197ee78c309ca77fd408d5ce31ceee983b785e6",
+      "review": "Custom gas research study added"
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -81349,8 +81349,8 @@
       "path": "docs/development/chemical-storage-and-process-fluids.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b9538b444aa85b3e6f0d1941a692fbf9fce5b714d9f488ba250a8fe2574ab2b5",
-      "review": "2026-09-29: dated bulk-silos paragraph; future work retained."
+      "sha256": "02b3a2073c3e5addfe68af4304e37101cb37dd97c704aa439ccd92d4192ccf64",
+      "review": "Custom gas research study added"
     },
     {
       "path": "docs/development/claude-code-handoff.md",
@@ -82281,6 +82281,13 @@
       "decision": "new",
       "sha256": "35f1ecab6127aab879b6d9815b14fda4600ce07aa84c70aedfb84b858eb81178",
       "review": "Framework 0.104.0: performance captures measure memory and footprints; recorder 0.2.0 format 2"
+    },
+    {
+      "path": "docs/development/custom-gas-research.md",
+      "scope": "contributor research record; decisions for the owner",
+      "decision": "new",
+      "sha256": "203e62bce9cd63247b97bcb0992816dffc5a1b18c374e09398de935ccef85e55",
+      "review": "Custom gas research study added"
     }
   ],
   "surfaces": [
