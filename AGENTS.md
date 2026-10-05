@@ -87,6 +87,11 @@
   release/version in that separate folder; do not edit generated notes by hand.
   Draft exports are allowed for preparation but must remain explicitly unpublished.
   Mark Released only after actual publication is confirmed, with its real date.
+- Owner rule (reminder, 2026-10-05) for every Phobos Ostranauts mod and Framework: a patch
+  or fix raises the last number (0.57.0 to 0.57.1), new functionality the middle number
+  (0.57.0 to 0.58.0), and a total conversion or API overhaul the first number. Bug fixes,
+  wording corrections and performance work that adds no player-facing capability are patches;
+  a release mixing a fix and a feature takes the middle bump. Classify before setting a version.
 - Use the constants updater for versions (including Workshop page version fields),
   then author the new changelog entry, review the page, regenerate release notes,
   and run `python scripts/workshop-release-notes.py --check --format json`.
