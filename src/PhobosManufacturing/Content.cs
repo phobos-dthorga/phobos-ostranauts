@@ -79,9 +79,9 @@ internal static class Content
     {
         if (co == null) return null;
         if (ChargeMachines.For(co.strCODef) is ChargeMachine charge) return charge.MaintenanceReason(co);
-        if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co);
-        if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co);
-        if (CrackerRules.IsFamily(co.strCODef)) return CrackerService.MaintenanceReason(co);
+        if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co, dismantle);
+        if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co, dismantle);
+        if (CrackerRules.IsFamily(co.strCODef)) return CrackerService.MaintenanceReason(co, dismantle);
         if (GasStores.IsFamily(co.strCODef)) return StoreService.MaintenanceReason(co, dismantle);
         if (LiquidStores.IsFamily(co.strCODef)) return LiquidStoreService.MaintenanceReason(co);
         if (ManifoldRules.IsFamily(co.strCODef)) return ManifoldService.MaintenanceReason(co);

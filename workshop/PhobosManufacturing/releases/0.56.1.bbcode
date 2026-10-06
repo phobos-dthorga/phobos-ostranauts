@@ -1,0 +1,21 @@
+[h1]Phobos Manufacturing 0.56.1[/h1]
+[b]Draft - not published | 2026-10-06[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Uninstall had vanished from the X2, K2 and AX-2 right-click menus (owner report, 6 October 2026). Removal was refused whenever the machine held any water or gas, and these machines refill their hold as soon as a cycle is drawn, so the refusal never lifted. Now a paused machine can be uninstalled whole and the loose machine carries what it holds, giving it back when reinstalled, as the water silos do. Only Dismantle still waits for an empty hold, since dismantling would delete it; a working machine is paused first. The Maintenance sheet says which applies.
+[*]The Corker-2 bottler's removal refusal spoke of a processor holding water; it now says it has an unfinished batch.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Nothing new is saved; the hold already lived in the machine's record, which the game copies across uninstall and reinstall. The mass of the loose or reinstalled machine is now set to match.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]A loose K2 or AX-2 destroyed outright no longer vents its gas into a room it is not in; an installed one still does. Checked offline; not yet seen in the game.
+[/list]

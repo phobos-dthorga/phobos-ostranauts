@@ -365,6 +365,13 @@ and 0.125 kg of hydrogen.
 cycle's energy; the held water stays for the next cycle. A damaged canister is
 refused: repair or replace it.
 
+**Moving it** (Manufacturing 0.56.1): pause it, then **Uninstall** as usual; the
+loose X2 carries the water it holds and gives it back when reinstalled. Because
+it refills its hold as soon as a cycle's water is gone, a linked X2 is almost
+never empty, so **Dismantle** is offered only after you unlink its water supply
+and let the last cycle finish. The right-click Maintenance sheet says which.
+The K2 and AX-2 work the same way with their gases.
+
 ## The Sabatier reactor
 
 The K2 closes the oxygen loop. Each one-hour cycle at 1.2 kW takes 0.125 kg
@@ -1116,6 +1123,7 @@ removed it is kept and reported, never overwritten, and Cancel releases it.
 - Crew loading orders bring solid feed only; gases and liquids still come from linked stores. The X2,
   K2, AX-2 and Corker-2 take no crew orders. Crew loading has not yet been seen in the game.
 - No construction recipes: buy the machines.
+- An X2, K2 or AX-2 that holds water or gas can be uninstalled whole, but not dismantled until it is empty: unlink its supply and let the last cycle finish. Carrying a hold through uninstall and reinstall has not yet been seen in the game.
 - Stored gases are kilogram records in their stores; a game gas becomes room
   gas only when it leaks, is released or burns.
 - The game has no canister for hydrogen or methane, so the L2 cannot bottle

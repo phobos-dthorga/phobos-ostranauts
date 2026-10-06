@@ -381,7 +381,9 @@ internal static class SabatierService
     }
     internal static void Destroying(CondOwner co)
     {
-        if (co == null || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || co.HasCond("IsModeSwitching", false)) return;
+        // A loose reactor (its record carried from an uninstall, 0.56.1) is destroyed by the install that puts it back,
+        // and has no room to vent into; only an installed one dumps its gas.
+        if (co == null || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || co.HasCond("IsModeSwitching", false) || !co.HasCond("IsInstalled")) return;
         try { Dump(co, "Sabatier.destroyed_log"); } catch (Exception e) { Plugin.Log(e.ToString()); }
     }
     private static void Dump(CondOwner co, string logKey)
@@ -454,13 +456,26 @@ internal static class SabatierService
         if (!link.Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Sabatier.linked"); return true;
     }
-    internal static string? MaintenanceReason(CondOwner co)
+    internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {
         if (!SabatierRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.HeldKg > 1e-8 || s.State.CycleKWh > 1e-8 ? Text.Get("Maintenance.reactor") : null;
+        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HeldKg, dismantle, "Maintenance.reactor");
+        return key == null ? null : Text.Get(key);
     }
+    /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the
+    /// loose item; Manufacturing 0.56.1): the record moves by itself, the mass does not, so the new form is set to housing
+    /// plus hold. A record that cannot be read is left for the owner's Accept.</summary>
+    internal static void Carried(CondOwner co)
+    {
+        if (co == null || co.bDestroyed) return;
+        sessions.Remove(co);
+        var status = Store(co).Read(out var fields);
+        if (status != SavedStateStatus.Ready) return;
+        try { var state = SabatierState.Read(fields); co.AddMass(SabatierRules.MachineKg + state.HeldKg - co.GetCondAmount("StatMass"), true); }
+        catch (Exception e) { Plugin.Log(e.ToString()); }
+    }
+
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
         message = Text.Get("Sabatier.fault");

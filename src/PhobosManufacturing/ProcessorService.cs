@@ -377,13 +377,26 @@ internal static class ProcessorService
     }
     internal static string CanisterId(CondOwner co) => Get(co).State.Canister;
     internal static string CanisterName(CondOwner co) { var s = Get(co); return s.State.Canister.Length == 0 ? Text.Get("Processor.cabin") : ObjectPresentation.Name(s.State.Canister); }
-    internal static string? MaintenanceReason(CondOwner co)
+    internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {
         if (!ProcessorRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.HoldKg > 1e-8 || s.State.CycleKWh > 1e-8 ? Text.Get("Maintenance.cycle") : null;
+        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HoldKg, dismantle, "Maintenance.cycle");
+        return key == null ? null : Text.Get(key);
     }
+    /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the
+    /// loose item; Manufacturing 0.56.1): the record moves by itself, the mass does not, so the new form is set to housing
+    /// plus hold. A record that cannot be read is left for the owner's Accept.</summary>
+    internal static void Carried(CondOwner co)
+    {
+        if (co == null || co.bDestroyed) return;
+        sessions.Remove(co);
+        var status = Store(co).Read(out var fields);
+        if (status != SavedStateStatus.Ready) return;
+        try { var state = ProcessorState.Read(fields); co.AddMass(ProcessorRules.MachineKg + state.HoldKg - co.GetCondAmount("StatMass"), true); }
+        catch (Exception e) { Plugin.Log(e.ToString()); }
+    }
+
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
         message = Text.Get("Processor.fault");

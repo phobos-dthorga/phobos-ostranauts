@@ -18,7 +18,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.56.0";
+    public const string Version = "0.56.1";
     public const string MinimumFrameworkVersion = "0.116.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -333,6 +333,20 @@ internal static class StoreDestroyPatch
         else if (LiquidStores.IsFamily(__instance.strCODef) && !__instance.HasCond("IsModeSwitching", false)) LiquidStoreService.Hazard(__instance, "destroyed_log");
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
         else if (CrackerRules.IsFamily(__instance.strCODef)) CrackerService.Destroying(__instance);
+    }
+}
+
+// Uninstall and reinstall of the X2, K2 and AX-2 (Manufacturing 0.56.1): the game copies the machine's record onto the
+// new form; the mass it holds follows here, as Framework does for bulk vessels.
+[HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
+internal static class HoldCarriedPatch
+{
+    private static void Postfix(CondOwner coNew)
+    {
+        if (coNew == null) return;
+        if (ProcessorRules.IsFamily(coNew.strCODef)) ProcessorService.Carried(coNew);
+        else if (SabatierRules.IsFamily(coNew.strCODef)) SabatierService.Carried(coNew);
+        else if (CrackerRules.IsFamily(coNew.strCODef)) CrackerService.Carried(coNew);
     }
 }
 

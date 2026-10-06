@@ -309,7 +309,7 @@ internal static class BottlerService
         if (!BottlerRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
         if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.BatchKWh > 1e-8 ? Text.Get("Maintenance.cycle") : null;
+        return s.State.BatchKWh > 1e-8 ? Text.Get("Maintenance.bottler_batch") : null;
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {

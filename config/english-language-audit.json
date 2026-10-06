@@ -47833,13 +47833,13 @@
       "key": "Maintenance.cycle",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept. 6 October 2026: reworded for Manufacturing 0.56.1; Uninstall carries a hold, Dismantle waits for an empty one.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/ProcessorService.cs:338"
       ],
       "before": "The cell holds water or a part-run cycle. Cancel it and let the hold empty first.",
-      "after": "The processor holds water or unfinished work. Cancel the cycle and let it empty first.",
+      "after": "The processor holds water. Uninstall it whole and the water goes with it; to dismantle it, unlink its water supply and let the cycle finish first.",
       "review20261004": {
         "decision": "rewrite",
         "reason": "Explain what machinery takes and makes, retained supplies and lost work; clarify controls and gas/acid hazards.",
@@ -49244,13 +49244,13 @@
       "key": "Maintenance.reactor",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly. 6 October 2026: reworded for Manufacturing 0.56.1; Uninstall carries a hold, Dismantle waits for an empty one.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/SabatierService.cs:396"
       ],
       "before": "The reactor holds gas, water or a part-run cycle. Cancel it and let its products go to their vessels first.",
-      "after": "The reactor holds gas, water or a part-run cycle. Cancel it and let its products go to their vessels first.",
+      "after": "The reactor holds gas or water. Uninstall it whole and they go with it; to dismantle it, unlink its supplies and let the cycle finish and deliver first.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -56333,13 +56333,13 @@
       "key": "Maintenance.cracker",
       "category": "status/warning",
       "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly. 6 October 2026: reworded for Manufacturing 0.56.1; Uninstall carries a hold, Dismantle waits for an empty one.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosManufacturing/CrackerService.cs:351"
       ],
       "before": "The cracker holds ammonia, nitrogen, hydrogen or a part-run cycle. Cancel it and let its products go to their stores first.",
-      "after": "The cracker holds ammonia, nitrogen, hydrogen or a part-run cycle. Cancel it and let its products go to their stores first.",
+      "after": "The cracker holds ammonia, nitrogen or hydrogen. Uninstall it whole and it goes with it; to dismantle it, unlink its supply and let the cycle finish and deliver first.",
       "review20261004": {
         "decision": "retain",
         "reason": "Read in full. Keep clear existing wording, established names/units/commands, or precise developer diagnostics in their intended role."
@@ -85042,6 +85042,32 @@
       ],
       "before": "{0} ({1})",
       "after": "{0} ({1})"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.running",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Removal refusals (Manufacturing 0.56.1): each names the one thing to do, pause or empty, and says that Uninstall carries a hold.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "It is working. Pause it on its Control Panel first.",
+      "after": "It is working. Pause it on its Control Panel first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.bottler_batch",
+      "category": "refusal",
+      "decision": "add",
+      "reason": "Removal refusals (Manufacturing 0.56.1): each names the one thing to do, pause or empty, and says that Uninstall carries a hold.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosManufacturing"
+      ],
+      "before": "The bottling unit has an unfinished batch. Finish or Cancel it first.",
+      "after": "The bottling unit has an unfinished batch. Finish or Cancel it first."
     }
   ],
   "documents": [
@@ -85049,8 +85075,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bc83064ec61b593967ebc5281679a3c1f9223dbdb9c00d33ac18f664b5711e4a",
-      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "39b8423bc8b3d779f745e556c51eefd00d57e256c46851384c479fccfed78034",
+      "review": "Reviewed 6 October 2026: Spacer Stories 0.2.0 rewrite (owner commit 0f49e77a). All 181 new or changed strings read against docs/development/player-language.md and the rewrite handoff; in voice, no claimed mechanic the code lacks, item names match the game's. 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "SUPPORT.md",
@@ -85839,8 +85865,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "d7dd657c13aea3dd8f3c4e3fafda28d4d39b617da85aea6702663ab3ff32de2e",
-      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0)."
+      "sha256": "4f01834972bec41c3c57b257dae9f865c2f6839cee15cf868983982dbca7c078",
+      "review": "Reviewed 6 October 2026 for story standing, crew and clock gates (Framework 0.115.0). 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the Crew panel and Maintenance sheet clarity (Framework 0.117.0). 6 October 2026: reviewed for colour as a signal (Framework 0.118.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -86184,15 +86210,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "0e78618d8ef58d66e8cf93cc8f36e054b688222408fc850ff41b8c8f6e20cfb0",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "b71d5f1a27656c4dd0aced31f14337be2e88c88a2e4c247a6a6518ba5c7302b3",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "b61f85df2272f0d3bba0ea5e7b31cab42c58169bae258127629445f37db7d63a",
-      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "6a50567f0ae64f7d696cbcc6886e8fce014d00795c1ac7f030ffa67167683433",
+      "review": "Economy audit decisions: new build bills, salvage odds, nutrient and meal prices, retired recipes 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -86359,8 +86385,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "30b09e071deb554fde07cd7567467629523ff987fb473007a86df049d311d3d7",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "77f353b7d249e5814019d4df21fd2170a10674fd535d038543cd95cda957bf88",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "workshop/PhobosMedical/page.bbcode",
@@ -86523,8 +86549,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "08ed3fc01acc9628b52dba312588e825aa91c52a5a47e23465b06a49a136ff79",
-      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0)."
+      "sha256": "9250d68a250943bc6572dd84cb9bd8f916627c93dfda84b05a9efdd0b81dd9f5",
+      "review": "Reviewed 6 October 2026 for crew upkeep (Framework 0.111.0): tuning, inspection rounds, settings and the upkeep data file. 6 October 2026: reviewed for the store filter, Manufacturing crew loading and the Maintenance sheet (Framework 0.116.0, Manufacturing 0.56.0). 6 October 2026: reviewed for the X2/K2/AX-2 Uninstall fix (Manufacturing 0.56.1)."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

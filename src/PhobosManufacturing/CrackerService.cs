@@ -299,7 +299,7 @@ internal static class CrackerService
     }
     internal static void Destroying(CondOwner co)
     {
-        if (co == null || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || co.HasCond("IsModeSwitching", false)) return;
+        if (co == null || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || co.HasCond("IsModeSwitching", false) || !co.HasCond("IsInstalled")) return;
         try { Dump(co, "Cracker.destroyed_log"); } catch (Exception e) { Plugin.Log(e.ToString()); }
     }
     private static void Dump(CondOwner co, string logKey)
@@ -354,13 +354,26 @@ internal static class CrackerService
         if (!LinkOf(link).Link(co, target, CrewWork.Resolve, out reason)) return false;
         reason = Text.Get("Cracker.linked"); return true;
     }
-    internal static string? MaintenanceReason(CondOwner co)
+    internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {
         if (!CrackerRules.IsFamily(co.strCODef)) return null;
         var s = Get(co);
-        if (s.Protected) return Text.Get("Maintenance.protected");
-        return s.State.HeldKg > 1e-8 || s.State.CycleKWh > 1e-8 ? Text.Get("Maintenance.cracker") : null;
+        string? key = RemovalRules.Reason(s.Protected, s.Running, s.State.HeldKg, dismantle, "Maintenance.cracker");
+        return key == null ? null : Text.Get(key);
     }
+    /// <summary>After the game copies this machine's record onto a new form (uninstall to loose, or install from the
+    /// loose item; Manufacturing 0.56.1): the record moves by itself, the mass does not, so the new form is set to housing
+    /// plus hold. A record that cannot be read is left for the owner's Accept.</summary>
+    internal static void Carried(CondOwner co)
+    {
+        if (co == null || co.bDestroyed) return;
+        sessions.Remove(co);
+        var status = Store(co).Read(out var fields);
+        if (status != SavedStateStatus.Ready) return;
+        try { var state = CrackerState.Read(fields); co.AddMass(CrackerRules.MachineKg + state.HeldKg - co.GetCondAmount("StatMass"), true); }
+        catch (Exception e) { Plugin.Log(e.ToString()); }
+    }
+
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
         message = Text.Get("Cracker.fault");
